@@ -4,6 +4,88 @@ The `slide` starter template creates 16:9 presentation slide decks with rich arc
 
 Drawlib compiles your slide deck into both an **interactive HTML web presentation** and a **1-slide-per-page vector PDF**, perfectly sized for conferences, client briefings, and team reviews.
 
+```drawlib fold-code center file:slide_presenter_view_layout.png caption:"Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=62)
+
+# Left Container: Presenter View Window (?presenter=1)
+rectangle((40, 31), width=72, height=54, style=Styles.Neutral.patch(shape_r=2.0))
+phosphor.presentation_chart((12.5, 54.0), width=4.4, style=Styles.PrimaryBold)
+text((43.0, 54.0), "Presenter View (?presenter=1)", style=Styles.DarkBold.patch(text_size=10.8))
+
+# Pane 1: Left Column (Slide Thumbnails Strip)
+rectangle((16.5, 28.0), width=19, height=44, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+text((16.5, 46.5), "1. Slides", style=Styles.DarkBold.patch(text_size=10.2))
+rectangle((16.5, 39.2), width=16, height=7.8, style=Styles.Neutral.patch(shape_r=1.0), text="Slide 1", text_style=Styles.Dark.patch(text_size=10.0))
+rectangle(
+    (16.5, 29.0),
+    width=16,
+    height=8.2,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.0),
+    text="Slide 2",
+    text_style=Styles.PrimaryBold.patch(text_size=10.2),
+)
+rectangle((16.5, 18.8), width=16, height=7.8, style=Styles.Neutral.patch(shape_r=1.0), text="Slide 3", text_style=Styles.Dark.patch(text_size=10.0))
+text((16.5, 10.5), "Jump", style=Styles.Muted.patch(text_size=10.0))
+
+# Pane 2: Top-Right (Live 16:9 Current Slide Preview)
+rectangle(
+    (51.0, 41.2),
+    width=45,
+    height=17.5,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="2. Live 16:9 Stage\n(Active Slide + Anim)",
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+
+# Pane 3: Middle-Right (Control & Timer Bar)
+rectangle((51.0, 27.0), width=45, height=7.5, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
+phosphor.timer((33.0, 27.0), width=4.2, style=Styles.PrimaryBold)
+text((54.0, 27.0), "3. Prev | Next | Play | 00:00", style=Styles.DarkBold.patch(text_size=10.0))
+
+# Pane 4: Bottom-Right (Speaker Notes Pane)
+rectangle((51.0, 13.8), width=45, height=15.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.note((33.0, 16.5), width=4.4, style=Styles.PrimaryBold)
+text((54.0, 16.5), "4. Speaker Notes", style=Styles.DarkBold.patch(text_size=10.2))
+text((51.0, 10.2), "::: note Markdown  [A- / A+]", style=Styles.Dark.patch(text_size=10.0))
+
+# Bidirectional BroadcastChannel Sync Connector
+phosphor.arrows_left_right((84.0, 40.5), width=4.6, style=Styles.PrimaryBold)
+line((76, 31), (92, 31), arrow_head="<->", style=Styles.PrimaryBold)
+text((84.0, 35.0), "Sync", style=Styles.PrimaryBold.patch(text_size=10.2))
+text((84.0, 24.5), "Broadcast\nChannel", style=Styles.Muted.patch(text_size=10.0))
+
+# Right Container: Audience Main Stage Window
+rectangle((108, 31), width=32, height=54, style=Styles.Neutral.patch(shape_r=2.0))
+text((108, 54.0), "Audience Stage", style=Styles.DarkBold.patch(text_size=10.8))
+text((108, 49.0), "1920x1080 Screen", style=Styles.Muted.patch(text_size=10.0))
+
+rectangle(
+    (108, 33.5),
+    width=28,
+    height=23,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="16:9 Stage\n\nSlide 2\nDiagrams",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+rectangle(
+    (108, 13.5),
+    width=28,
+    height=11.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="Notes Hidden\nZero Chrome",
+    text_style=Styles.Dark.patch(text_size=10.0),
+)
+
+save()
+```
+
 ---
 
 ## 1. Project Initialization
@@ -22,99 +104,99 @@ drawlib init slide my_deck -s google -l en
 
 ## 2. Directory Layout & Anatomy
 
-```drawlib fold-code 600px center file:project_slide_directory_tree.png caption:"Directory Structure of a 16:9 Presentation Slide Deck (slide) Project"
+```drawlib fold-code center file:project_slide_directory_tree.png caption:"Directory Structure of a 16:9 Presentation Slide Deck (slide) Project"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
 from drawlib.styles import Styles
 
-setup(width=100, height=68)
+setup(width=98, height=68)
 
 TreeNode.register_drawing_item(
     name="folder",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.folder,
     style=Styles.PrimaryFlat,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="folder_out",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.folder,
     style=Styles.Secondary,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="md",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.file_text,
     style=Styles.Dark,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="py",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.file_py,
     style=Styles.PrimaryBold,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="code",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.file_code,
     style=Styles.Dark,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 
 root = TreeNode(
     "my_deck/",
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=11.5),
     line_style=Styles.DarkThin,
-    line_horizontal_margin=3.2,
-    line_horizontal_length=3.2,
-    line_vertical_margin=5.4,
+    line_horizontal_margin=3.4,
+    line_horizontal_length=3.4,
+    line_vertical_margin=5.5,
 ).set_drawing_item("folder")
 
 src = root.add(
-    "slide_src/  — [SOURCE OF TRUTH] Author 16:9 Markdown slides here",
-    text_style=Styles.DarkBold.patch(text_size=9.0),
+    "slide_src/  — [SOURCE OF TRUTH] Author 16:9 Markdown slides",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
 ).set_drawing_item("folder")
 src.add(
-    "01_title.md, 02_agenda.md, 03_architecture.md  — Slide files",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "01_title.md, 02_agenda.md, 03_arch.md  — Slide files",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("md")
 src.add(
-    "styles.py & utils.py  — Slide styling, cards, badges & page counter",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "styles.py & utils.py  — Slide styling, cards & page counter",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("py")
 src.add(
-    "slide.js & README.md  — Keyboard navigation & Presenter View engine",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "slide.js & README.md  — Navigation & Presenter View engine",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("code")
 src.add(
-    "build.sh, build_html.sh, build_pdf.sh, build_image.sh, serve.sh",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "build.sh, build_html.sh, build_pdf.sh, build_image.sh",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("code")
 
 root.add(
-    "slide_html/  — [GENERATED] Interactive HTML presentation deck (index.html)",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    "slide_html/  — [GENERATED] Interactive HTML deck (index.html)",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("folder_out")
 root.add(
-    "slide.pdf  — [GENERATED] High-quality 16:9 vector presentation PDF",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    "slide.pdf  — [GENERATED] High-quality 16:9 vector PDF",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("md")
 root.add(
-    "slide_images/  — [GENERATED] Extracted standalone slide diagrams",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    "slide_images/  — [GENERATED] Extracted standalone diagrams",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("folder_out")
 
-root.draw(xy=(8, 60))
+root.draw(xy=(6, 60))
 save()
 ```
 
@@ -215,94 +297,6 @@ Pressing **`P`** or **`S`** (or clicking the `🗒` button in the bottom-right c
 - **Right Top**: Live 16:9 preview of the current slide.
 - **Right Middle (Control Bar)**: `◀ Prev` / `Next ▶` navigation, **`▶ Play Animation` button** (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (`00:00`).
 - **Right Bottom (Speaker Notes)**: Compiled speaker notes with `A-` / `A+` font-size controls.
-
-```drawlib fold-code 650px center file:slide_presenter_view_layout.png caption:"Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization"
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=156, height=64)
-
-# Left Container: Presenter View Window (?presenter=1)
-rectangle((47, 32), width=86, height=56, style=Styles.Neutral)
-text((47, 56.5), "Presenter View Window (index.html?presenter=1)", style=Styles.DarkBold.patch(text_size=8.2))
-
-# Pane 1: Left Column (Slide Thumbnails Strip)
-rectangle((17.5, 29.5), width=21, height=46, style=Styles.SecondaryNeutral)
-text((17.5, 49.2), "1. Thumbnails", style=Styles.DarkBold.patch(text_size=7.0))
-rectangle((17.5, 41.5), width=17.5, height=8.5, style=Styles.Neutral, text="Slide 1", text_style=Styles.Dark.patch(text_size=6.8))
-rectangle(
-    (17.5, 30.5),
-    width=17.5,
-    height=8.5,
-    style=Styles.PrimaryNeutral,
-    text="Slide 2 (Active)",
-    text_style=Styles.PrimaryBold.patch(text_size=6.5),
-)
-rectangle((17.5, 19.5), width=17.5, height=8.5, style=Styles.Neutral, text="Slide 3", text_style=Styles.Dark.patch(text_size=6.8))
-text((17.5, 11.0), "Instant Jump", style=Styles.Muted.patch(text_size=6.5))
-
-# Pane 2: Top-Right (Live 16:9 Current Slide Preview)
-rectangle(
-    (59, 42.5),
-    width=56,
-    height=20,
-    style=Styles.PrimaryFlat,
-    text="2. Live 16:9 Current Slide Preview\n(Synchronized Stage + Active Animation State)",
-    text_style=Styles.WhiteBold.patch(text_size=7.5),
-)
-
-# Pane 3: Middle-Right (Control & Timer Bar)
-rectangle(
-    (59, 27.0),
-    width=56,
-    height=7.5,
-    style=Styles.PrimaryNeutral,
-    text="3. Control & Timer Bar (◀ Prev | Next ▶ | ▶ Play Anim | 00:00)",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-
-# Pane 4: Bottom-Right (Speaker Notes Pane)
-rectangle(
-    (59, 13.5),
-    width=56,
-    height=15,
-    style=Styles.SecondaryNeutral,
-    text="4. Speaker Notes Pane (::: note Markdown)\n• Key talking points & cues      [ A- ] / [ A+ ] Font Controls",
-    text_style=Styles.Dark.patch(text_size=7.0),
-)
-
-# Bidirectional BroadcastChannel Sync Connector
-line((90, 32), (112, 32), arrow_head="<->", style=Styles.PrimaryBold)
-text((101, 40.0), "Real-Time\nBroadcastChannel\nSync", style=Styles.PrimaryBold.patch(text_size=7.4))
-text((101, 23.5), "Slide Index &\nAnim Playback", style=Styles.Muted.patch(text_size=6.6))
-
-# Right Container: Audience Main Stage Window
-rectangle((132, 32), width=40, height=56, style=Styles.Neutral)
-text((132, 56.5), "Audience Main Stage", style=Styles.DarkBold.patch(text_size=8.2))
-text((132, 51.8), "(1920x1080 Fullscreen)", style=Styles.Muted.patch(text_size=7.0))
-
-rectangle(
-    (132, 34.5),
-    width=34,
-    height=24,
-    style=Styles.PrimaryNeutral,
-    text="16:9 Main Stage\n\nSlide 2 Content\n& Diagrams",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (132, 14.0),
-    width=34,
-    height=11,
-    style=Styles.SecondaryNeutral,
-    text="Speaker Notes Hidden\nZero Presenter Chrome",
-    text_style=Styles.Dark.patch(text_size=6.8),
-)
-
-save()
-```
 
 ### Interactive Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`):
 When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams inside slides, you can attach playback control attributes to the ````drawlib```` code fence:

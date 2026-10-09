@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,6 +427,71 @@
                 <h1>RadialGraph: Concentric Orbits &amp; Hub-and-Spoke Topologies</h1>
 <p><code>RadialGraph</code> places a central hub node at the origin (<code>ring=0</code>) and arranges connected nodes on <strong>concentric orbital rings</strong> (<code>ring=1, 2, ...</code>). Angular sectors are allocated proportionally to subtree sizes so multi-hop spokes radiate outward without crossing lines.</p>
 <p>It is purpose-built for event-driven message meshes, Pub/Sub broker topologies, microservice hub-and-spoke networks, and concentric dependency radars.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radial_graph_images/graph_radial_hero.png" alt="radial_graph_1" />
+  <figcaption class="drawlib-caption">RadialGraph Overview: Concentric BFS Orbit Rings and Dashed Ring Guides</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">112</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span>
+    <span class="n">radius_step</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span>
+    <span class="n">start_angle</span><span class="o">=</span><span class="mf">35.0</span><span class="p">,</span>
+    <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Ring 0: Central Hub</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"core"</span><span class="p">,</span>
+    <span class="s2">"</span><span class="se">\n</span><span class="s2">Event Hub"</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Ring 1: Core Services</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Auth API"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Orders"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"billing"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Billing"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"audit"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Audit Log"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># Ring 2: Outer Adapters</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"idp"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">OAuth IdP"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Orders DB"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"billing"</span><span class="p">,</span> <span class="s2">"stripe"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Stripe GW"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"audit"</span><span class="p">,</span> <span class="s2">"siem"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">SIEM Sink"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">circles_three_plus</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"billing"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">credit_card</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"audit"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_line_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"idp"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"db"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"stripe"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"siem"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.7</span> <span class="k">if</span> <span class="n">nid</span> <span class="o">==</span> <span class="s2">"core"</span> <span class="k">else</span> <span class="mf">2.0</span><span class="p">)),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Constructor &amp; <code>.spoke()</code> Builder API</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
@@ -563,39 +632,41 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">84</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
     <span class="n">hub</span><span class="o">=</span><span class="s2">"broker"</span><span class="p">,</span>
+    <span class="n">radius_step</span><span class="o">=</span><span class="mf">29.0</span><span class="p">,</span>
     <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Central Hub (ring=0) in PrimaryFlat circle</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
     <span class="s2">"broker"</span><span class="p">,</span>
-    <span class="s2">"Event Broker"</span><span class="p">,</span>
+    <span class="s2">"Event</span><span class="se">\n</span><span class="s2">Broker"</span><span class="p">,</span>
     <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 6 Spoke Microservices on Ring 1 (calm Neutral &amp; Tinted-Neutral cards)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"Orders API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"billing"</span><span class="p">,</span> <span class="s2">"Billing Worker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"inventory"</span><span class="p">,</span> <span class="s2">"Inventory Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"billing"</span><span class="p">,</span> <span class="s2">"Billing Job"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"inventory"</span><span class="p">,</span> <span class="s2">"Inventory"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"notify"</span><span class="p">,</span> <span class="s2">"Email &amp; Push"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"audit"</span><span class="p">,</span> <span class="s2">"Audit Log"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radial_graph_images/graph_radial_single_ring.png" alt="radial_graph_1" style="width: 640px; max-width: 100%;" />
+  <img src="radial_graph_images/graph_radial_single_ring.png" alt="radial_graph_2" />
   <figcaption class="drawlib-caption">Single-Ring Hub-and-Spoke Microservice Mesh Around an Event Broker</figcaption>
 </figure>
 <hr />
@@ -605,13 +676,15 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">135</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">112</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
     <span class="n">hub</span><span class="o">=</span><span class="s2">"domain_core"</span><span class="p">,</span>
+    <span class="n">radius_step</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span>
     <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">19.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Ring 0: Central Domain Kernel</span>
@@ -619,10 +692,10 @@
     <span class="s2">"domain_core"</span><span class="p">,</span>
     <span class="s2">"Domain</span><span class="se">\n</span><span class="s2">Kernel"</span><span class="p">,</span>
     <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">17.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">17.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Ring 1: Application Services</span>
@@ -633,16 +706,16 @@
 <span class="c1"># Ring 2: External Infrastructure Adapters</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"checkout"</span><span class="p">,</span> <span class="s2">"stripe"</span><span class="p">,</span> <span class="s2">"Stripe API"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"checkout"</span><span class="p">,</span> <span class="s2">"orders_db"</span><span class="p">,</span> <span class="s2">"Orders SQL"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"elastic"</span><span class="p">,</span> <span class="s2">"Search Index"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"elastic"</span><span class="p">,</span> <span class="s2">"Search Idx"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"cdn"</span><span class="p">,</span> <span class="s2">"Media CDN"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"identity"</span><span class="p">,</span> <span class="s2">"oauth"</span><span class="p">,</span> <span class="s2">"OAuth IdP"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"identity"</span><span class="p">,</span> <span class="s2">"redis"</span><span class="p">,</span> <span class="s2">"Token Cache"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radial_graph_images/graph_radial_multi_ring.png" alt="radial_graph_2" style="width: 660px; max-width: 100%;" />
+  <img src="radial_graph_images/graph_radial_multi_ring.png" alt="radial_graph_3" />
   <figcaption class="drawlib-caption">Multi-Ring Concentric Dependency Radar (Ring 0 Core, Ring 1 Domain, Ring 2 Adapters)</figcaption>
 </figure>
 <hr />
@@ -652,17 +725,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">98</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
     <span class="n">hub</span><span class="o">=</span><span class="s2">"gateway"</span><span class="p">,</span>
-    <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
-    <span class="n">radius_step</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">radius_step</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
     <span class="n">start_angle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">angle_range</span><span class="o">=</span><span class="mf">180.0</span><span class="p">,</span>
     <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Hub anchored near the bottom center</span>
@@ -670,24 +744,24 @@
     <span class="s2">"gateway"</span><span class="p">,</span>
     <span class="s2">"API</span><span class="se">\n</span><span class="s2">Gateway"</span><span class="p">,</span>
     <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 5 downstream services fanned across the upper 0°..180° arc</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"cdn"</span><span class="p">,</span> <span class="s2">"Edge CDN"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"Catalog API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"Orders API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"audit"</span><span class="p">,</span> <span class="s2">"Audit Log"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radial_graph_images/graph_radial_semicircle_fan.png" alt="radial_graph_3" style="width: 600px; max-width: 100%;" />
+  <img src="radial_graph_images/graph_radial_semicircle_fan.png" alt="radial_graph_4" />
   <figcaption class="drawlib-caption">Semicircular Dependency Fan Using angle_range=180.0 and start_angle=0.0</figcaption>
 </figure>
 <hr />

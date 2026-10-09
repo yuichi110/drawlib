@@ -4,7 +4,7 @@
 
 ## コンポーネント構成
 
-```drawlib 600px center file:component_breakdown.png caption:"コンポーネント構成詳細"
+```drawlib center file:component_breakdown.png caption:"コンポーネント構成詳細"
 from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.utils import connect, service_card

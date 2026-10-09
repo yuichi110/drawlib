@@ -6,21 +6,21 @@
 
 ## 1. Overview & Key Concepts
 
-```drawlib fold-code 650px center file:sequence_overview_concepts.png caption:"SequenceDiagram Lifelines, Activation Bars, and Message Semantics"
+```drawlib fold-code center file:sequence_overview_concepts.png caption:"SequenceDiagram Lifelines, Activation Bars, and Message Semantics"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-setup(width=136, height=92)
+setup(width=126, height=88)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     node_card_style=Styles.Neutral,
-    col_width=44.0,
-    step_y=9.0,
+    col_width=40.0,
+    step_y=8.5,
 )
 
 client = d.add(Participant((22, 15), "Client", icon=PhosphorIcon.LAPTOP, icon_size=6.5))
@@ -43,7 +43,7 @@ api.deactivate()
 
 client.connect(api, "WebSocket Stream (<->)", arrow="<->")
 
-d.draw(xy=(6.0, 4.0))
+d.draw(xy=(4.0, 3.0))
 save()
 ```
 
@@ -172,40 +172,41 @@ client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
 
 The following complete example showcases participant groups, cloud icons, activations, asynchronous dispatches, and a retry loop frame:
 
-```drawlib show-code 650px center file:sequence_distributed_transaction.png caption:"Microservices Distributed Transaction Pipeline"
+```drawlib show-code center file:sequence_distributed_transaction.png caption:"Microservices Distributed Transaction Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-setup(width=165, height=140)
+setup(width=132, height=128)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.0),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.Neutral,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
-    col_width=38.0,
-    step_y=10.0,
+    col_width=30.5,
+    step_y=9.0,
 )
 
 # 1. Participants: Client on the left, Backend services in VPC group on the right
-client = d.add(Participant((24, 17), "Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
+client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER, icon_size=6.5))
 
 backend = d.add(
     ParticipantGroup(
         title="Google Cloud VPC",
-        padding=3.5,
+        padding=3.0,
         style=Styles.MutedDashed,
+        text_style=Styles.DarkBold.patch(text_size=10.5, halign="left", valign="top"),
     )
 )
 api = backend.add(
-    Participant((24, 17), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, card_style=Styles.PrimaryNeutral)
+    Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=6.5, card_style=Styles.PrimaryNeutral)
 )
-worker = backend.add(Participant((24, 17), "GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
-db = backend.add(Participant((24, 17), "Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
+worker = backend.add(Participant((22, 16), "GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5))
+db = backend.add(Participant((22, 16), "Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=6.5))
 
 # 2. Interactions
 client.request(api, "POST /api/v1/checkout")
@@ -224,7 +225,7 @@ with d.loop("Retry up to 3 times on DB lock"):
     worker.request(db, "Deduct Inventory Rows")
     db.reply(worker, "Rows Committed")
 
-d.draw(xy=(5.0, 3.0))
+d.draw(xy=(3.0, 2.5))
 save()
 ```
 
@@ -234,24 +235,27 @@ save()
 
 For real-time bidirectional streams, use `connect()` with `arrow="<->"`:
 
-```drawlib show-code 650px center file:sequence_websocket_telemetry.png caption:"WebSocket Full-Duplex Telemetry Stream"
+```drawlib show-code center file:sequence_websocket_telemetry.png caption:"WebSocket Full-Duplex Telemetry Stream"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-setup(width=85, height=80)
+setup(width=92, height=82)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     node_card_style=Styles.Neutral,
     title="WebSocket Real-Time Live Sync",
+    col_width=40.0,
 )
 
-app = d.add(Participant((22, 15), "Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
-gateway = d.add(Participant((22, 15), "WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, card_style=Styles.PrimaryNeutral))
+app = d.add(Participant((22, 15), "Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.0))
+gateway = d.add(
+    Participant((22, 15), "WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.0, card_style=Styles.PrimaryNeutral)
+)
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
 gateway.reply(app, "101 Switching Protocols")
@@ -263,7 +267,7 @@ with d.loop("Every 500ms Ping Interval"):
     gateway.request(app, "PING", is_async=True)
     app.reply(gateway, "PONG", is_async=True)
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(6.0, 4.0))
 save()
 ```
 
@@ -286,29 +290,29 @@ Frames automatically compute their enclosing bounding box around all enclosed me
 
 The following example demonstrates **self-calls** (`auth.request(auth, ...)`), **sticky notes** (`auth.note(...)` and `d.note(..., over=[...])`), and conditional **`alt` / `else_`** branches:
 
-```drawlib show-code 650px center file:sequence_auth_alt_notes.png caption:"Authentication Flow with Self-Calls, Sticky Notes, and alt/else_ Condition Frames"
+```drawlib show-code center file:sequence_auth_alt_notes.png caption:"Authentication Flow with Self-Calls, Sticky Notes, and alt/else_ Condition Frames"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-setup(width=138, height=140)
+setup(width=128, height=134)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.Neutral,
     title="JWT Authentication & Conditional Token Refresh",
-    col_width=40.0,
-    step_y=8.5,
+    col_width=37.0,
+    step_y=8.2,
 )
 
-client = d.add(Participant((24, 16), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=7.5))
+client = d.add(Participant((23, 16), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=7.0))
 auth = d.add(
-    Participant((24, 16), "Auth Service", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5, card_style=Styles.PrimaryNeutral)
+    Participant((23, 16), "Auth Service", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.0, card_style=Styles.PrimaryNeutral)
 )
-idp = d.add(Participant((24, 16), "OAuth IdP", icon=PhosphorIcon.KEY, icon_size=7.5))
+idp = d.add(Participant((23, 16), "OAuth IdP", icon=PhosphorIcon.KEY, icon_size=7.0))
 
 client.request(auth, "POST /verify (Bearer JWT)")
 auth.activate()
@@ -331,6 +335,6 @@ auth.deactivate()
 # Spanning note across multiple participants
 d.note("All token exchanges require TLS 1.3 mTLS", over=[client, auth])
 
-d.draw(xy=(6.0, 4.0))
+d.draw(xy=(4.0, 3.5))
 save()
 ```

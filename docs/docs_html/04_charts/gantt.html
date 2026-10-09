@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -425,7 +429,7 @@
 <hr />
 <h2>1. Overview &amp; Structural Hierarchy</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/gantt_chart_anatomy.png" alt="gantt_1" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_anatomy.png" alt="gantt_1" />
   <figcaption class="drawlib-caption">Structural Anatomy of a Drawlib GanttChart</figcaption>
 </figure>
 <details class="drawlib-code-details">
@@ -436,23 +440,23 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">GanttChart</span><span class="p">(</span>
     <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Sprint 1"</span><span class="p">,</span> <span class="s2">"Sprint 2"</span><span class="p">,</span> <span class="s2">"Sprint 3"</span><span class="p">,</span> <span class="s2">"Sprint 4"</span><span class="p">],</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
     <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">88.0</span><span class="p">,</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">82.0</span><span class="p">,</span>
     <span class="n">label_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
     <span class="n">header_height</span><span class="o">=</span><span class="mf">6.4</span><span class="p">,</span>
     <span class="n">row_height</span><span class="o">=</span><span class="mf">6.4</span><span class="p">,</span>
     <span class="n">bar_radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"Core Engine"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"Core Engine"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">t1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">"Database Migration"</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">t2</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span>
     <span class="s2">"API Gateway V2"</span><span class="p">,</span>
@@ -460,13 +464,13 @@
     <span class="n">end</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">progress</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_milestone</span><span class="p">(</span><span class="s2">"Beta Code Freeze"</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">2.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Today"</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">2.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Today"</span><span class="p">,</span> <span class="n">label_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
 
 <span class="c1"># Compute exact row Y coordinates from chart.get_size()</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">chart_h</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
@@ -475,27 +479,27 @@
 
 <span class="c1"># Structural Callout Annotations on the Right</span>
 <span class="n">callouts</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">42.5</span><span class="p">,</span> <span class="s2">"1. Vertical Time Marker (add_marker)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">34.5</span><span class="p">,</span> <span class="s2">"2. Section Divider (add_section)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">26.5</span><span class="p">,</span> <span class="s2">"3. Dependency Arrow (add_dependency)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"4. Task Bar &amp; Progress (add_task)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="s2">"5. Milestone Diamond (add_milestone)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">42.5</span><span class="p">,</span> <span class="s2">"1. Time Marker (add_marker)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">34.5</span><span class="p">,</span> <span class="s2">"2. Section (add_section)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">26.5</span><span class="p">,</span> <span class="s2">"3. Dependency (add_dependency)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"4. Task Bar (add_task)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="s2">"5. Milestone (add_milestone)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
 <span class="p">]</span>
 <span class="k">for</span> <span class="n">cy</span><span class="p">,</span> <span class="n">label_txt</span><span class="p">,</span> <span class="n">box_style</span> <span class="ow">in</span> <span class="n">callouts</span><span class="p">:</span>
     <span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="mf">114.0</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mf">35.0</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="p">(</span><span class="mf">110.0</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">box_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
         <span class="n">text</span><span class="o">=</span><span class="n">label_txt</span><span class="p">,</span>
-        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="p">)</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="n">rows_top</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerThin</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">86.0</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">56.5</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">75.2</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">83.0</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">61.4</span><span class="p">,</span> <span class="n">rows_top</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerThin</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">78.0</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">69.2</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">74.8</span><span class="p">,</span> <span class="n">row_cy</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -515,18 +519,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.gantt</span><span class="w"> </span><span class="kn">import</span> <span class="n">GanttChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">85</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">85</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">GanttChart</span><span class="p">(</span>
     <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Apr"</span><span class="p">,</span> <span class="s2">"May"</span><span class="p">,</span> <span class="s2">"Jun"</span><span class="p">,</span> <span class="s2">"Jul"</span><span class="p">,</span> <span class="s2">"Aug"</span><span class="p">,</span> <span class="s2">"Sep"</span><span class="p">],</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
     <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">zebra_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralFlat</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">95.0</span><span class="p">,</span>
-    <span class="n">label_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">106.0</span><span class="p">,</span>
+    <span class="n">label_width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Core Platform Engineering Roadmap (2026)"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
     <span class="n">header_height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
@@ -535,7 +539,7 @@
 <span class="p">)</span>
 
 <span class="c1"># 1. Core Services Section</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"1. Architecture &amp; Core Services"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"1. Architecture &amp; Core Services"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">t1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">"Spec &amp; Protocol Definition"</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">"Apr"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="n">t2</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">"Storage Engine Overhaul"</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
 <span class="n">t3</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span>
@@ -544,18 +548,18 @@
     <span class="n">end</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
     <span class="n">progress</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. APIs &amp; Observability Section</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"2. APIs &amp; Observability"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"2. APIs &amp; Observability"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">t4</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span>
     <span class="s2">"gRPC &amp; HTTP/3 Gateway"</span><span class="p">,</span>
     <span class="n">start</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
     <span class="n">end</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">progress</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">t5</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">"Distributed Tracing Exporter"</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
 
@@ -566,13 +570,13 @@
 <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">t4</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">t4</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Today (Mid-May)"</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Today (Mid-May)"</span><span class="p">,</span> <span class="n">label_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/gantt_chart_roadmap.png" alt="gantt_2" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_roadmap.png" alt="gantt_2" />
   <figcaption class="drawlib-caption">Engineering Release Roadmap with Dependencies</figcaption>
 </figure>
 <hr />
@@ -586,17 +590,17 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.gantt</span><span class="w"> </span><span class="kn">import</span> <span class="n">GanttChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">GanttChart</span><span class="p">(</span>
     <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Sprint 1"</span><span class="p">,</span> <span class="s2">"Sprint 2"</span><span class="p">,</span> <span class="s2">"Sprint 3"</span><span class="p">,</span> <span class="s2">"Sprint 4"</span><span class="p">],</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
     <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">88.0</span><span class="p">,</span>
-    <span class="n">label_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">103.0</span><span class="p">,</span>
+    <span class="n">label_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Q3 Core Feature Sprints"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
     <span class="n">bar_radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
@@ -609,7 +613,7 @@
     <span class="n">end</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">progress</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">s3</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span>
     <span class="s2">"Load Testing &amp; Tuning"</span><span class="p">,</span>
@@ -617,18 +621,18 @@
     <span class="n">end</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">progress</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_milestone</span><span class="p">(</span><span class="s2">"Feature Complete"</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
 
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/gantt_chart_sprint_schedule.png" alt="gantt_3" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_sprint_schedule.png" alt="gantt_3" />
   <figcaption class="drawlib-caption">Agile Sprint Schedule with Per-Task Progress Styling</figcaption>
 </figure>
 <hr />

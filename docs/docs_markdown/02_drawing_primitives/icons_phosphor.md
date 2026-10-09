@@ -9,7 +9,7 @@ Drawlib bundles the complete **Phosphor Icons** (<https://phosphoricons.com>) ve
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_phosphor_images/icons_phosphor_overview.png" alt="icons_phosphor_1" style="width: 650px; max-width: 100%;" />
+  <img src="icons_phosphor_images/icons_phosphor_overview.png" alt="icons_phosphor_1" />
   <figcaption class="drawlib-caption">Phosphor Vector Icons Paired with Calm Neutral Cards</figcaption>
 </figure>
 
@@ -23,21 +23,21 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=130, height=52)
+setup(width=126, height=48)
 
 items = [
     ("Browser", phosphor.browser, Styles.Neutral, Styles.DarkBold),
-    ("API Gateway", phosphor.cpu, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    ("Gateway", phosphor.cpu, Styles.PrimaryNeutral, Styles.PrimaryBold),
     ("Database", phosphor.database, Styles.Neutral, Styles.DarkBold),
     ("Security", phosphor.shield_check, Styles.SecondaryNeutral, Styles.SecondaryBold),
     ("Cloud Sync", phosphor.cloud_arrow_up, Styles.Neutral, Styles.DarkBold),
 ]
 
 for i, (label, icon_fn, card_st, icon_st) in enumerate(items):
-    cx = 17 + i * 24
-    rectangle((cx, 26), width=20, height=34, style=card_st.patch(shape_r=2.5))
-    icon_fn((cx, 31), width=9.5, style=icon_st)
-    text((cx, 16), label, style=Styles.DarkBold.patch(text_size=8.5))
+    cx = 16.2 + i * 23.4
+    rectangle((cx, 24), width=21, height=34, style=card_st.patch(shape_r=2.5))
+    icon_fn((cx, 29.5), width=9.5, style=icon_st)
+    text((cx, 14), label, style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
@@ -99,22 +99,22 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=130, height=50)
+setup(width=126, height=48)
 
 weights = ["thin", "light", "regular", "bold", "fill"]
 
 for i, w_name in enumerate(weights):
-    cx = 17 + i * 24
+    cx = 16.2 + i * 23.4
     card_st = Styles.PrimaryNeutral if w_name == "fill" else Styles.Neutral
-    rectangle((cx, 25), width=20, height=32, style=card_st.patch(shape_r=2))
+    rectangle((cx, 24), width=21, height=34, style=card_st.patch(shape_r=2))
     phosphor.bell((cx, 29), width=10, style=Styles.Primary.patch(icon_style=w_name))
-    text((cx, 15), f'"{w_name}"', style=Styles.DarkBold.patch(text_size=9))
+    text((cx, 14), f'"{w_name}"', style=Styles.DarkBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_phosphor_images/icons_phosphor_weights.png" alt="icons_phosphor_2" style="width: 640px; max-width: 100%;" />
+  <img src="icons_phosphor_images/icons_phosphor_weights.png" alt="icons_phosphor_2" />
   <figcaption class="drawlib-caption">The Five Phosphor Typographic Weights</figcaption>
 </figure>
 
@@ -135,33 +135,33 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=125, height=50)
+setup(width=126, height=48)
 
 # 1. Semantic PrimaryBold
-rectangle((20, 25), width=24, height=32, style=Styles.Neutral.patch(shape_r=2))
-phosphor.rocket_launch((20, 29), width=10, style=Styles.PrimaryBold)
-text((20, 15), "PrimaryBold", style=Styles.DarkBold.patch(text_size=8.5))
+rectangle((19.5, 24), width=27, height=34, style=Styles.Neutral.patch(shape_r=2))
+phosphor.rocket_launch((19.5, 29), width=10, style=Styles.PrimaryBold)
+text((19.5, 14), "PrimaryBold", style=Styles.DarkBold.patch(text_size=10.0))
 
 # 2. Filled Accent Silhouette
-rectangle((50, 25), width=24, height=32, style=Styles.Neutral.patch(shape_r=2))
-phosphor.lightning((50, 29), width=10, style=Styles.AccentFlat)
-text((50, 15), "AccentFlat (fill)", style=Styles.DarkBold.patch(text_size=8.5))
+rectangle((49.5, 24), width=27, height=34, style=Styles.Neutral.patch(shape_r=2))
+phosphor.lightning((49.5, 29), width=10, style=Styles.AccentFlat)
+text((49.5, 14), "AccentFlat", style=Styles.DarkBold.patch(text_size=10.0))
 
 # 3. Rotated Icon (angle=45)
-rectangle((80, 25), width=24, height=32, style=Styles.SecondaryNeutral.patch(shape_r=2))
-phosphor.airplane((80, 29), width=10, style=Styles.SecondaryBold.patch(angle=45))
-text((80, 15), "angle=45°", style=Styles.DarkBold.patch(text_size=8.5))
+rectangle((79.5, 24), width=27, height=34, style=Styles.SecondaryNeutral.patch(shape_r=2))
+phosphor.airplane((79.5, 29), width=10, style=Styles.SecondaryBold.patch(angle=45))
+text((79.5, 14), "angle=45°", style=Styles.DarkBold.patch(text_size=10.0))
 
 # 4. Semi-Transparent Icon (alpha=0.35)
-rectangle((108, 25), width=24, height=32, style=Styles.Neutral.patch(shape_r=2))
-phosphor.cloud((108, 29), width=10, style=Styles.DarkBold.patch(alpha=0.35))
-text((108, 15), "alpha=0.35", style=Styles.Muted.patch(text_size=8.5))
+rectangle((108.5, 24), width=26, height=34, style=Styles.Neutral.patch(shape_r=2))
+phosphor.cloud((108.5, 29), width=10, style=Styles.DarkBold.patch(alpha=0.35))
+text((108.5, 14), "alpha=0.35", style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_phosphor_images/icons_phosphor_styling.png" alt="icons_phosphor_3" style="width: 640px; max-width: 100%;" />
+  <img src="icons_phosphor_images/icons_phosphor_styling.png" alt="icons_phosphor_3" />
   <figcaption class="drawlib-caption">Semantic Coloring, Rotation (angle), and Opacity (alpha)</figcaption>
 </figure>
 
@@ -183,35 +183,35 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=52)
+setup(width=124, height=52)
 
 stages = [
-    (24, "Auth Gateway", "OAuth2 / JWT", phosphor.lock_key, Styles.Neutral),
+    (22, "Auth Gateway", "OAuth2 / JWT", phosphor.lock_key, Styles.Neutral),
     (62, "Worker Pool", "8 Active Pods", phosphor.hard_drives, Styles.PrimaryNeutral),
-    (100, "Audit Store", "Immutable Log", phosphor.database, Styles.SecondaryNeutral),
+    (102, "Audit Store", "Immutable Log", phosphor.database, Styles.SecondaryNeutral),
 ]
 
 for cx, title, subtitle, icon_fn, card_st in stages:
     # 1. Container card
-    rectangle((cx, 26), width=28, height=36, style=card_st.patch(shape_r=3))
+    rectangle((cx, 26), width=32, height=38, style=card_st.patch(shape_r=3))
     # 2. Main Phosphor icon
-    icon_fn((cx, 33), width=10, style=Styles.DarkBold)
+    icon_fn((cx, 34), width=10, style=Styles.DarkBold)
     # 3. Title & subtitle labels
-    text((cx, 20), title, style=Styles.DarkBold.patch(text_size=9))
-    text((cx, 14), subtitle, style=Styles.Muted.patch(text_size=7.5))
+    text((cx, 20), title, style=Styles.DarkBold.patch(text_size=10.5))
+    text((cx, 13.5), subtitle, style=Styles.Muted.patch(text_size=10.0))
     # 4. Corner check badge
-    bx, by = cx + 11, 41
-    circle((bx, by), radius=3.2, style=Styles.PrimaryFlat)
+    bx, by = cx + 13, 42
+    circle((bx, by), radius=3.3, style=Styles.PrimaryFlat)
     phosphor.check((bx, by), width=3.8, style=Styles.WhiteBold)
 
-line((38, 26), (48, 26), arrow_head="->", style=Styles.DarkBold)
-line((76, 26), (86, 26), arrow_head="->", style=Styles.DarkBold)
+line((38, 26), (46, 26), arrow_head="->", style=Styles.DarkBold)
+line((78, 26), (86, 26), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_phosphor_images/icons_phosphor_cards.png" alt="icons_phosphor_4" style="width: 620px; max-width: 100%;" />
+  <img src="icons_phosphor_images/icons_phosphor_cards.png" alt="icons_phosphor_4" />
   <figcaption class="drawlib-caption">Pairing Phosphor Icons with Service Cards and Corner Badges</figcaption>
 </figure>
 

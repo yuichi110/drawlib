@@ -9,7 +9,7 @@
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/gantt_chart_anatomy.png" alt="gantt_1" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_anatomy.png" alt="gantt_1" />
   <figcaption class="drawlib-caption">Structural Anatomy of a Drawlib GanttChart</figcaption>
 </figure>
 
@@ -23,23 +23,23 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=135, height=52)
+setup(width=132, height=52)
 
 chart = GanttChart(
     columns=["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Black.patch(text_size=8.5),
+    axis_text_style=Styles.Black.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
     header_style=Styles.Neutral,
-    progress_text_style=Styles.WhiteBold.patch(text_size=8.0),
-    width=88.0,
+    progress_text_style=Styles.WhiteBold.patch(text_size=10.0),
+    width=82.0,
     label_width=26.0,
     header_height=6.4,
     row_height=6.4,
     bar_radius=0.9,
 )
 
-chart.add_section("Core Engine", text_style=Styles.BlackBold.patch(text_size=8.5))
+chart.add_section("Core Engine", text_style=Styles.BlackBold.patch(text_size=10.5))
 t1 = chart.add_task("Database Migration", start=0.1, end=1.4, style=Styles.PrimaryFlat, progress=0.8)
 t2 = chart.add_task(
     "API Gateway V2",
@@ -47,13 +47,13 @@ t2 = chart.add_task(
     end=2.8,
     style=Styles.SecondaryNeutral,
     progress=0.5,
-    progress_text_style=Styles.DarkBold.patch(text_size=8.0),
+    progress_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 chart.add_milestone("Beta Code Freeze", at=3.2, style=Styles.PrimaryFlat)
 chart.add_dependency(t1, t2)
-chart.add_marker(at=2.1, style=Styles.DangerDashed, label="Today")
+chart.add_marker(at=2.1, style=Styles.DangerDashed, label="Today", label_style=Styles.WhiteBold.patch(text_size=10.0))
 
-chart.draw(xy=(6.0, 8.0))
+chart.draw(xy=(4.0, 8.0))
 
 # Compute exact row Y coordinates from chart.get_size()
 _, chart_h = chart.get_size()
@@ -62,27 +62,27 @@ row_cy = [rows_top - (i + 0.5) * chart.row_height for i in range(4)]
 
 # Structural Callout Annotations on the Right
 callouts = [
-    (42.5, "1. Vertical Time Marker (add_marker)", Styles.DangerNeutral),
-    (34.5, "2. Section Divider (add_section)", Styles.Neutral),
-    (26.5, "3. Dependency Arrow (add_dependency)", Styles.Neutral),
-    (18.5, "4. Task Bar & Progress (add_task)", Styles.SecondaryNeutral),
-    (10.5, "5. Milestone Diamond (add_milestone)", Styles.PrimaryNeutral),
+    (42.5, "1. Time Marker (add_marker)", Styles.DangerNeutral),
+    (34.5, "2. Section (add_section)", Styles.Neutral),
+    (26.5, "3. Dependency (add_dependency)", Styles.Neutral),
+    (18.5, "4. Task Bar (add_task)", Styles.SecondaryNeutral),
+    (10.5, "5. Milestone (add_milestone)", Styles.PrimaryNeutral),
 ]
 for cy, label_txt, box_style in callouts:
     rectangle(
-        (114.0, cy),
-        width=35.0,
-        height=5.2,
+        (110.0, cy),
+        width=38.0,
+        height=5.4,
         style=box_style.patch(shape_r=1.0),
         text=label_txt,
-        text_style=Styles.DarkBold.patch(text_size=7.2),
+        text_style=Styles.DarkBold.patch(text_size=10.0),
     )
 
-line((96.5, 42.5), (69.0, rows_top - 1.0), arrow_head="->", style=Styles.DangerThin)
-line((96.5, 34.5), (86.0, row_cy[0]), arrow_head="->", style=Styles.DarkThin)
-line((96.5, 26.5), (56.5, row_cy[1] - 1.5), arrow_head="->", style=Styles.DarkThin)
-line((96.5, 18.5), (75.2, row_cy[2]), arrow_head="->", style=Styles.DarkThin)
-line((96.5, 10.5), (83.0, row_cy[3]), arrow_head="->", style=Styles.DarkThin)
+line((91.0, 42.5), (61.4, rows_top - 1.0), arrow_head="->", style=Styles.DangerThin)
+line((91.0, 34.5), (78.0, row_cy[0]), arrow_head="->", style=Styles.DarkThin)
+line((91.0, 26.5), (50.0, row_cy[1] - 1.5), arrow_head="->", style=Styles.DarkThin)
+line((91.0, 18.5), (69.2, row_cy[2]), arrow_head="->", style=Styles.DarkThin)
+line((91.0, 10.5), (74.8, row_cy[3]), arrow_head="->", style=Styles.DarkThin)
 
 save()
 ```
@@ -111,18 +111,18 @@ from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles
 
-setup(width=110, height=85)
+setup(width=118, height=85)
 
 chart = GanttChart(
     columns=["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Black.patch(text_size=9.5),
+    axis_text_style=Styles.Black.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
     header_style=Styles.Neutral,
     zebra_style=Styles.NeutralFlat,
-    progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
-    width=95.0,
-    label_width=28.0,
+    progress_text_style=Styles.WhiteBold.patch(text_size=10.0),
+    width=106.0,
+    label_width=32.0,
     title="Core Platform Engineering Roadmap (2026)",
     title_style=Styles.BlackBold.patch(text_size=13.0),
     header_height=6.0,
@@ -131,7 +131,7 @@ chart = GanttChart(
 )
 
 # 1. Core Services Section
-chart.add_section("1. Architecture & Core Services", text_style=Styles.BlackBold.patch(text_size=9.5))
+chart.add_section("1. Architecture & Core Services", text_style=Styles.BlackBold.patch(text_size=10.5))
 t1 = chart.add_task("Spec & Protocol Definition", start="Apr", end=1.0, style=Styles.PrimaryFlat, progress=1.0)
 t2 = chart.add_task("Storage Engine Overhaul", start=1.0, end=2.5, style=Styles.PrimaryFlat, progress=0.85)
 t3 = chart.add_task(
@@ -140,18 +140,18 @@ t3 = chart.add_task(
     end=3.0,
     style=Styles.PrimaryNeutral,
     progress=0.45,
-    progress_text_style=Styles.DarkBold.patch(text_size=8.5),
+    progress_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # 2. APIs & Observability Section
-chart.add_section("2. APIs & Observability", text_style=Styles.BlackBold.patch(text_size=9.5))
+chart.add_section("2. APIs & Observability", text_style=Styles.BlackBold.patch(text_size=10.5))
 t4 = chart.add_task(
     "gRPC & HTTP/3 Gateway",
     start=3.0,
     end=4.5,
     style=Styles.SecondaryNeutral,
     progress=0.35,
-    progress_text_style=Styles.DarkBold.patch(text_size=8.5),
+    progress_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 t5 = chart.add_task("Distributed Tracing Exporter", start=3.5, end=5.2, style=Styles.Neutral, progress=0.0)
 
@@ -162,14 +162,14 @@ chart.add_milestone("Public Beta Launch", at=4.5, style=Styles.PrimaryFlat)
 chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t4)
 chart.add_dependency(t3, t4)
-chart.add_marker(at=1.7, style=Styles.DarkDashed, label="Today (Mid-May)")
+chart.add_marker(at=1.7, style=Styles.DarkDashed, label="Today (Mid-May)", label_style=Styles.WhiteBold.patch(text_size=10.0))
 
-chart.draw(xy=(8.0, 10.0))
+chart.draw(xy=(6.0, 10.0))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/gantt_chart_roadmap.png" alt="gantt_2" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_roadmap.png" alt="gantt_2" />
   <figcaption class="drawlib-caption">Engineering Release Roadmap with Dependencies</figcaption>
 </figure>
 
@@ -190,17 +190,17 @@ from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles
 
-setup(width=100, height=70)
+setup(width=115, height=66)
 
 chart = GanttChart(
     columns=["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Black.patch(text_size=9.5),
+    axis_text_style=Styles.Black.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
     header_style=Styles.Neutral,
-    progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
-    width=88.0,
-    label_width=24.0,
+    progress_text_style=Styles.WhiteBold.patch(text_size=10.0),
+    width=103.0,
+    label_width=28.0,
     title="Q3 Core Feature Sprints",
     title_style=Styles.BlackBold.patch(text_size=13.0),
     bar_radius=1.2,
@@ -213,7 +213,7 @@ s2 = chart.add_task(
     end=2.6,
     style=Styles.SecondaryNeutral,
     progress=0.6,
-    progress_text_style=Styles.DarkBold.patch(text_size=8.5),
+    progress_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 s3 = chart.add_task(
     "Load Testing & Tuning",
@@ -221,19 +221,19 @@ s3 = chart.add_task(
     end=3.8,
     style=Styles.Neutral,
     progress=0.25,
-    progress_text_style=Styles.DarkBold.patch(text_size=8.5),
+    progress_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 chart.add_dependency(s1, s2)
 chart.add_dependency(s2, s3)
 chart.add_milestone("Feature Complete", at=3.0, style=Styles.PrimaryFlat)
 
-chart.draw(xy=(6.0, 15.0))
+chart.draw(xy=(6.0, 12.0))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/gantt_chart_sprint_schedule.png" alt="gantt_3" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_sprint_schedule.png" alt="gantt_3" />
   <figcaption class="drawlib-caption">Agile Sprint Schedule with Per-Task Progress Styling</figcaption>
 </figure>
 

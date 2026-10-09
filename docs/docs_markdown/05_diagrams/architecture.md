@@ -9,7 +9,7 @@
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/architecture_overview_concepts.png" alt="architecture_1" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/architecture_overview_concepts.png" alt="architecture_1" />
   <figcaption class="drawlib-caption">Nested NodeGroups (VPC & Subnets) and Cross-Boundary Connections</figcaption>
 </figure>
 
@@ -21,43 +21,60 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 from drawlib.styles import Styles
 
-setup(width=106, height=84)
+setup(width=92, height=74)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     node_card_style=Styles.Neutral,
 )
 
-vpc = d.add(NodeGroup(title="VPC Network (NodeGroup)", padding=6.0), xy=(4.0, 4.0))
+vpc = d.add(
+    NodeGroup(
+        title="VPC Network (NodeGroup)",
+        padding=5.5,
+        text_style=Styles.DarkBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(3.0, 3.0),
+)
 
 pub_subnet = vpc.add(
-    NodeGroup(title="Public Subnet", padding=5.0, style=Styles.PrimaryNeutral),
-    xy=(6.0, 6.0),
+    NodeGroup(
+        title="Public Subnet",
+        padding=4.5,
+        style=Styles.PrimaryNeutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5, halign="left", valign="top"),
+    ),
+    xy=(5.5, 5.5),
 )
 lb = pub_subnet.add(
     Node((22, 16), "Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.0, card_style=Styles.White),
-    xy=(15.0, 26.0),
+    xy=(14.5, 24.0),
 )
 
 priv_subnet = vpc.add(
-    NodeGroup(title="Private Subnet", padding=5.0, style=Styles.SecondaryNeutral),
-    xy=(48.0, 6.0),
+    NodeGroup(
+        title="Private Subnet",
+        padding=4.5,
+        style=Styles.SecondaryNeutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5, halign="left", valign="top"),
+    ),
+    xy=(46.0, 5.5),
 )
 app1 = priv_subnet.add(
     Node((20, 15), "App 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5, card_style=Styles.White),
-    xy=(14.0, 38.0),
+    xy=(13.5, 35.0),
 )
 app2 = priv_subnet.add(
     Node((20, 15), "App 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5, card_style=Styles.White),
-    xy=(14.0, 14.0),
+    xy=(13.5, 13.0),
 )
 
-lb.fork([app1, app2], at_x=45.0, padding=1.2)
+lb.fork([app1, app2], at_x=43.0, padding=1.2)
 
-d.draw(xy=(4.0, 4.0))
+d.draw(xy=(3.0, 3.0))
 save()
 ```
 
@@ -184,46 +201,76 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
 
-setup(width=165, height=102)
+setup(width=132, height=88)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.0),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.Neutral,
     title="Production Multi-Tier Cloud VPC",
 )
 
 # 1. Outer VPC Network Boundary
-vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(35.0, 8.0))
+vpc = d.add(
+    NodeGroup(
+        title="VPC Network (10.0.0.0/16)",
+        padding=5.5,
+        text_style=Styles.DarkBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(28.0, 6.0),
+)
 
 # 2. Public Subnet with Load Balancer (local coordinates inside vpc)
-public_subnet = vpc.add(NodeGroup(title="Public Subnet (10.0.1.0/24)", padding=5.0), xy=(6.0, 6.0))
-lb = public_subnet.add(Node((26, 18), "Cloud Load\nBalancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(16.0, 30.0))
+public_subnet = vpc.add(
+    NodeGroup(
+        title="Public Subnet",
+        padding=4.0,
+        text_style=Styles.DarkBold.patch(text_size=10.0, halign="left", valign="top"),
+    ),
+    xy=(4.5, 4.5),
+)
+lb = public_subnet.add(
+    Node((20, 16), "Cloud Load\nBalancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5),
+    xy=(12.5, 25.0),
+)
 
 # 3. Private Subnet with Application Pods (local coordinates inside vpc)
-private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(48.0, 6.0))
-gke1 = private_subnet.add(Node((20, 16), "API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 44.0))
-gke2 = private_subnet.add(Node((20, 16), "API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 16.0))
+private_subnet = vpc.add(
+    NodeGroup(
+        title="Private Subnet",
+        padding=4.0,
+        text_style=Styles.DarkBold.patch(text_size=10.0, halign="left", valign="top"),
+    ),
+    xy=(36.5, 4.5),
+)
+gke1 = private_subnet.add(
+    Node((18, 15), "API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
+    xy=(11.5, 37.0),
+)
+gke2 = private_subnet.add(
+    Node((18, 15), "API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
+    xy=(11.5, 13.0),
+)
 
 # 4. External Actor and Managed Services (global diagram coordinates outside vpc)
-user = d.add(Node((22, 16), "Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(11.0, 44.0))
-db = d.add(Node((26, 18), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(143.0, 58.0))
-storage = d.add(Node((26, 18), "Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(143.0, 30.0))
+user = d.add(Node((18, 15), "Client User", icon=PhosphorIcon.USER, icon_size=6.5), xy=(9.0, 35.5))
+db = d.add(Node((22, 16), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(114.0, 47.5))
+storage = d.add(Node((22, 16), "Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=6.5), xy=(114.0, 23.5))
 
 # 5. Connections
-d.connect(user, lb, label="HTTPS (443)", padding=1.5)
-lb.fork([gke1, gke2], at_x=76.0, padding=1.5)
-d.connect(gke1, db, label="SQL Query", padding=1.5)
-d.connect(gke2, storage, label="Asset Sync", padding=1.5)
+d.connect(user, lb, label="HTTPS", padding=1.2)
+lb.fork([gke1, gke2], at_x=60.5, padding=1.2)
+d.connect(gke1, db, label="SQL", padding=1.2)
+d.connect(gke2, storage, label="Assets", padding=1.2)
 
-d.draw(xy=(4.0, 4.0))
+d.draw(xy=(3.0, 3.0))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/architecture_cloud_vpc_topology.png" alt="architecture_2" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/architecture_cloud_vpc_topology.png" alt="architecture_2" />
   <figcaption class="drawlib-caption">Production Multi-Tier Cloud VPC Topology</figcaption>
 </figure>
 
@@ -242,35 +289,48 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
 
-setup(width=136, height=84)
+setup(width=128, height=78)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.Neutral,
     title="Event-Driven Message Streaming Topology",
 )
 
-cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(32.0, 10.0))
-broker1 = cluster.add(Node((24, 16), "Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(18.0, 40.0))
-broker2 = cluster.add(Node((24, 16), "Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(18.0, 14.0))
+cluster = d.add(
+    NodeGroup(
+        title="Streaming Event Mesh",
+        padding=5.0,
+        text_style=Styles.DarkBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(29.0, 8.0),
+)
+broker1 = cluster.add(Node((22, 15), "Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=6.5), xy=(16.0, 36.0))
+broker2 = cluster.add(Node((22, 15), "Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=6.5), xy=(16.0, 12.5))
 
-pub = d.add(Node((22, 18), "Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(11.0, 37.0))
-analytics = d.add(Node((30, 18), "Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(108.0, 50.0))
-archiver = d.add(Node((30, 18), "Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(108.0, 24.0))
+pub = d.add(Node((20, 16), "Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.0), xy=(10.0, 32.2))
+analytics = d.add(
+    Node((28, 16), "Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.0),
+    xy=(104.0, 44.0),
+)
+archiver = d.add(
+    Node((28, 16), "Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.0),
+    xy=(104.0, 20.5),
+)
 
-pub.fork([broker1, broker2], at_x=27.0, padding=1.5)
-d.connect(broker1, analytics, label="Consumer Group A", padding=1.5)
-d.connect(broker2, archiver, label="Consumer Group B", padding=1.5)
+pub.fork([broker1, broker2], at_x=24.5, padding=1.2)
+d.connect(broker1, analytics, label="Group A", padding=1.2)
+d.connect(broker2, archiver, label="Group B", padding=1.2)
 
-d.draw(xy=(4.0, 4.0))
+d.draw(xy=(3.0, 3.0))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/architecture_event_message_streaming.png" alt="architecture_3" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/architecture_event_message_streaming.png" alt="architecture_3" />
   <figcaption class="drawlib-caption">Event-Driven Message Streaming Topology</figcaption>
 </figure>
 

@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="overview.html" >Documentation as Code Overview</a>
+                                <a href="overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -422,6 +426,104 @@
             <main class="main-content">
                 <h1>Images Project Guide (<code>drawlib init images</code>)</h1>
 <p>The <code>images</code> starter template (CLI alias: <code>image</code>) is designed for generating standalone illustration assets, presentation diagrams, article hero banners, and social preview cards directly from batch Python scripts.</p>
+<p>Each project separates editable Python source scripts (<code>images_src/</code>) from generated image artifacts (<code>images/</code>):</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_image_images/project_image_directory_tree.png" alt="project_image_1" />
+  <figcaption class="drawlib-caption">Directory Structure of a Standalone Batch Image (images) Project</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"folder"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"folder_out"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"py"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_py</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"code"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"img"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span>
+    <span class="s2">"my_assets/"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">,</span>
+    <span class="n">line_horizontal_margin</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span>
+    <span class="n">line_horizontal_length</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span>
+    <span class="n">line_vertical_margin</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
+
+<span class="n">src</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"images_src/  — [SOURCE OF TRUTH] Edit Python scripts here"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"_assets/  — Static assets (logos, background textures)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"sample1.py &amp; sample2.py  — Starter Python drawing scripts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"py"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"styles.py &amp; utils.py  — Shared styling themes &amp; helpers"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"py"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"build.sh, build_image.sh, README.md  — Batch build scripts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"code"</span><span class="p">)</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"images/  — [GENERATED] Rendered PNG/WebP output images"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
+<span class="n">out</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"sample1.png &amp; sample2.png  — Compiled image artifacts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"img"</span><span class="p">)</span>
+
+<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">54</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a new images project using <code>drawlib init</code>:</p>
@@ -433,103 +535,6 @@ drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"
 </code></pre>
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="project_image_images/project_image_directory_tree.png" alt="project_image_1" style="width: 600px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Directory Structure of a Standalone Batch Image (images) Project</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeNode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
-
-<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"folder"</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
-    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"folder_out"</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
-    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"py"</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
-    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_py</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"code"</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
-    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"img"</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
-    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
-<span class="p">)</span>
-
-<span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span>
-    <span class="s2">"my_assets/"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
-    <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">,</span>
-    <span class="n">line_horizontal_margin</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
-    <span class="n">line_horizontal_length</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
-    <span class="n">line_vertical_margin</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
-
-<span class="n">src</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"images_src/  — [SOURCE OF TRUTH] Edit Python drawing scripts here"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
-<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"_assets/  — Static assets (logos, background textures)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
-<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"sample1.py &amp; sample2.py  — Starter Python drawing scripts"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"py"</span><span class="p">)</span>
-<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"styles.py &amp; utils.py  — Shared styling themes &amp; reusable components"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"py"</span><span class="p">)</span>
-<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"build.sh, build_image.sh, README.md  — Batch build scripts"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"code"</span><span class="p">)</span>
-
-<span class="n">out</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"images/  — [GENERATED] Rendered PNG/WebP output images"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
-<span class="n">out</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"sample1.png &amp; sample2.png  — Compiled image artifacts"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"img"</span><span class="p">)</span>
-
-<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">54</span><span class="p">))</span>
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <h3>Key Rules:</h3>
 <ul>
 <li><strong>Source of Truth</strong>: Always author drawing scripts in <code>images_src/</code>. After scaffolding, replace or remove the starter <code>sample1.py</code> and <code>sample2.py</code> files so only your desired diagrams are built.</li>
@@ -540,29 +545,35 @@ drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"
 <p>In an <code>images</code> project, each <code>.py</code> file inside <code>images_src/</code> is an independent drawing script. Call <code>save()</code> at the end of the script to output the image:</p>
 <pre><code class="language-python"><span class="c1"># images_src/architecture_overview.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
 
 <span class="c1"># Draw components (50%+ neutral baseline + 1 primary focal point)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Server"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">44</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">56</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">desktop</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="s2">"Client UI"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">hard_drives</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="s2">"API Server"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="s2">"Database"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">73</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="c1"># Save image (defaults to &lt;script_stem&gt;.png or save("architecture_overview.png") in scripts)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="project_image_images/project_image_architecture_overview.png" alt="project_image_2" style="width: 600px; max-width: 100%;" />
+  <img src="project_image_images/project_image_architecture_overview.png" alt="project_image_2" />
   <figcaption class="drawlib-caption">Rendered Output of images_src/architecture_overview.py</figcaption>
 </figure>
 <h3>How <code>save()</code> Interacts with <code>drawlib build image -o images/</code>:</h3>

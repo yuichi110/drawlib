@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,38 +427,101 @@
                 <h1>ChevronProcess Component</h1>
 <p>The <code>ChevronProcess</code> component draws horizontal, sequential process pipelines consisting of interlocking arrowhead blocks (chevrons).
 It is the premier component for CI/CD delivery pipelines, phased development milestones, fulfillment lifecycles, and multi-step workflows.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="chevron_process_images/chevron_process_hero.png" alt="chevron_process_1" />
+  <figcaption class="drawlib-caption">Overview of ChevronProcess: Standard Flat-Start vs. Indented Multi-Line Pipelines</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># 1. Top Row: Flat-Start Chevron Pipeline (flat_left_end=True, corner_angle=60.0)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mf">50.5</span><span class="p">),</span> <span class="s2">"1. Flat-Start Pipeline (flat_left_end=True, corner_angle=60.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># Stage icons above each chevron</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">42.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">gear</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">42.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">75.5</span><span class="p">,</span> <span class="mf">42.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">105.0</span><span class="p">,</span> <span class="mf">42.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+
+<span class="n">flat_pipe</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">flat_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Plan"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"RFC &amp; Design"</span><span class="p">)</span>
+<span class="n">flat_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Build"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Compile &amp; Test"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">flat_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Verify"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Canary Gate"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">flat_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Release"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Global Rollout"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">flat_pipe</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">118.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">)</span>
+
+<span class="c1"># 2. Bottom Row: Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="s2">"2. Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">indented_pipe</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">indented_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Ingest"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Event Stream"</span><span class="p">)</span>
+<span class="n">indented_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Cleanse"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Schema Check"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">indented_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Enrich"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Feature Join"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">indented_pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Serve"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Data Mart"</span><span class="p">)</span>
+<span class="n">indented_pipe</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">118.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Quick Example: CI/CD Pipeline</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
 
 <span class="n">pipeline</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">corner_angle</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Commit"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Lint &amp; Tests"</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Commit"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Lint &amp; Test"</span><span class="p">)</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Build"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Docker Image"</span><span class="p">)</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"3. Security"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Vulnerability Scan"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Vuln Scan"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Staging"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"E2E Validation"</span><span class="p">)</span>
-<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"5. Production"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Canary Release"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Staging"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"E2E Checks"</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"5. Release"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Canary"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 
-<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">110.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">118.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">18.0</span><span class="p">)</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="chevron_process_images/chevron_process_cd_pipeline.png" alt="chevron_process_1" style="width: 650px; max-width: 100%;" />
+  <img src="chevron_process_images/chevron_process_cd_pipeline.png" alt="chevron_process_2" />
   <figcaption class="drawlib-caption">Continuous Delivery Pipeline with ChevronProcess</figcaption>
 </figure>
 <hr />
@@ -464,32 +531,32 @@ It is the premier component for CI/CD delivery pipelines, phased development mil
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
 
 <span class="n">etl</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">corner_angle</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">etl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Ingest"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Kafka Streams"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">transform_stage</span> <span class="o">=</span> <span class="n">etl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Normalize"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Schema Cleanse"</span><span class="p">)</span>
+<span class="n">etl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Ingest"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Kafka Stream"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">transform_stage</span> <span class="o">=</span> <span class="n">etl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Cleanse"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Schema Check"</span><span class="p">)</span>
 <span class="n">etl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Enrich"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Feature Join"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">etl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Serve"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Parquet Lake"</span><span class="p">)</span>
 
 <span class="c1"># Mutate a ChevronItem (or access via etl.items[1]) before calling draw()</span>
 <span class="n">transform_stage</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
-<span class="n">transform_stage</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">transform_stage</span><span class="o">.</span><span class="n">description_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">transform_stage</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">transform_stage</span><span class="o">.</span><span class="n">description_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
 
-<span class="n">etl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span> <span class="n">item_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">)</span>
+<span class="n">etl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="mf">18.0</span><span class="p">,</span> <span class="n">item_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="chevron_process_images/chevron_process_custom_angle_width.png" alt="chevron_process_2" style="width: 650px; max-width: 100%;" />
+  <img src="chevron_process_images/chevron_process_custom_angle_width.png" alt="chevron_process_3" />
   <figcaption class="drawlib-caption">Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0, explicit item_width)</figcaption>
 </figure>
 <hr />

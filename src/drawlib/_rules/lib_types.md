@@ -186,7 +186,7 @@ class AcmeTheme(BaseStyles):
 
 ### 5.1. Creating and Applying Custom `Style` Objects
 
-```drawlib fold-code 600px center caption:"Encapsulated Styling with the Style Model"
+```drawlib fold-code center caption:"Encapsulated Styling with the Style Model"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line

@@ -840,24 +840,28 @@ def build_image(
     if all_md_files:
         from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 
-        out_img_dir = output_dir or (
-            os.path.join(resolved_targets[0], "images")
-            if os.path.isdir(resolved_targets[0])
-            else os.path.join(os.path.dirname(resolved_targets[0]), "images")
+        out_img_dir = os.path.abspath(
+            output_dir
+            or (
+                os.path.join(resolved_targets[0], "images")
+                if os.path.isdir(resolved_targets[0])
+                else os.path.join(os.path.dirname(resolved_targets[0]), "images")
+            )
         )
         os.makedirs(out_img_dir, exist_ok=True)
-        processor = DrawlibBlockProcessor(
-            styles_path=styles_abs,
-            utils_path=utils_abs,
-            no_cache=no_cache,
-            require_file=False,
-        )
-        md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
         root_target_dir = (
             resolved_targets[0]
             if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0]))
             else None
         )
+        processor = DrawlibBlockProcessor(
+            styles_path=styles_abs,
+            utils_path=utils_abs,
+            no_cache=no_cache,
+            require_file=False,
+            project_root=root_target_dir,
+        )
+        md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
         orig_cwd = os.getcwd()
         try:
             if root_target_dir:
@@ -872,6 +876,7 @@ def build_image(
                 if not md_pattern.search(content):
                     continue
 
+                os.chdir(os.path.dirname(md_file))
                 if root_target_dir:
                     rel_md = os.path.relpath(md_file, root_target_dir)
                     stem = os.path.splitext(rel_md)[0].replace(os.sep, "/")

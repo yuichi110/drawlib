@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -422,11 +426,75 @@
             <main class="main-content">
                 <h1>ArchitectureGraph: Cloud Topologies &amp; Nested Containers</h1>
 <p><code>ArchitectureGraph</code> is a declarative <strong>two-level macro/micro layout solver</strong> purpose-built for cloud infrastructure, VPC topologies, and multi-zone microservice architectures.</p>
-<p>Unlike generic DAG solvers that flatten nested groups or scramble boundary boxes, <code>ArchitectureGraph</code> solves layouts in two hierarchical phases:</p>
-<ol>
-<li><strong>Micro Layout</strong>: Packs internal nodes inside each leaf cluster (<code>g.cluster(...)</code>), and recursively packs child clusters inside parent containers (<code>parent=&quot;vpc&quot;</code>, <code>order=1, 2, ...</code>).</li>
-<li><strong>Macro Layout</strong>: Arranges top-level containers across a <strong>5-zone compass</strong> (<code>pos=&quot;left&quot; | &quot;center&quot; | &quot;right&quot; | &quot;top&quot; | &quot;bottom&quot;</code>) or along the primary flow axis (<code>direction=&quot;LR&quot; | &quot;TB&quot;</code>), then routes orthogonal Manhattan highway edges with evenly distributed port offsets.</li>
-</ol>
+<p>Unlike generic DAG solvers that flatten nested groups or scramble boundary boxes, <code>ArchitectureGraph</code> solves layouts in two hierarchical phases: packing internal nodes and child clusters inside parent containers (<strong>Micro Layout</strong>), then arranging top-level containers across a <strong>5-zone compass</strong> (<code>pos=&quot;left&quot; | &quot;center&quot; | &quot;right&quot; | &quot;top&quot; | &quot;bottom&quot;</code>) with orthogonal highway routing (<strong>Macro Layout</strong>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_graph_images/graph_arch_compass_zones.png" alt="architecture_graph_1" />
+  <figcaption class="drawlib-caption">ArchitectureGraph 5-Zone Compass Layout (top, left, center, right, bottom) and Nested Sub-Clusters</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">86</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">container_sep</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 1. Top Zone (pos="top")</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"top_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"iam"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Control (top)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">2.6</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"iam"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">IAM Policy"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># 2. Left Zone (pos="left")</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"left_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"waf"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ingress (left)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">2.6</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"waf"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Edge WAF"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># 3. Center Zone (pos="center") with two nested sub-clusters (parent="core", order=1 &amp; 2)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"Core VPC (pos='center')"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"tier1"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"api"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"App (order=1)"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.8</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"tier2"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"worker"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Job (order=2)"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.8</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Task Worker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># 4. Right Zone (pos="right")</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"right_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"dr_replica"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"DR (right)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">2.6</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"dr_replica"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">DR Replica"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># 5. Bottom Zone (pos="bottom")</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"bottom_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"obs"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Logs (bottom)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">2.6</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Telemetry"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># Connect across all 5 compass zones</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"waf"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"dr_replica"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"iam"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"obs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+
+<span class="n">ox</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.5</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">126.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">86.0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"iam"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"waf"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"dr_replica"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_line_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">ox</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">oy</span> <span class="o">+</span> <span class="mf">1.9</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Constructor &amp; Container Methods</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
@@ -533,81 +601,33 @@ Encloses a list of <code>nodes</code> inside a labeled boundary rectangle.
 <li><strong>Inline Node Membership (<code>g.node(..., group=&quot;...&quot;, subgroup=&quot;...&quot;)</code>)</strong>:
 During <code>calc()</code>, <code>ArchitectureGraph</code> inspects each node's <code>group</code> and <code>subgroup</code> attributes. Any referenced cluster ID that has not been explicitly created via <code>g.group()</code> or <code>g.cluster()</code> is <strong>automatically registered</strong> (using its ID as the label and <code>default_container_style</code>), the node is appended to the innermost container, and if both <code>group</code> and <code>subgroup</code> are provided, <code>subgroup.parent</code> is automatically linked to <code>group</code> (<code>subgroup.parent = node.group</code>). You can still call <code>g.group()</code> or <code>g.cluster()</code> before or after <code>g.node()</code> to customize labels, <code>pos</code>, <code>order</code>, or <code>padding</code>.</li>
 </ul>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_graph_images/graph_arch_compass_zones.png" alt="architecture_graph_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">ArchitectureGraph 5-Zone Compass Layout (top, left, center, right, bottom) and Nested Sub-Clusters</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
+<hr />
+<h2>2. Multi-VPC / Multi-Tier Cloud Topology with Nested Clusters</h2>
+<p>The following example builds a complete cloud architecture featuring an external client zone (<code>pos=&quot;left&quot;</code>), a central production VPC (<code>pos=&quot;center&quot;</code>) with nested Compute and Data tiers (<code>parent=&quot;prod_vpc&quot;</code>, <code>order=1, 2</code>), and an observability zone (<code>pos=&quot;bottom&quot;</code>):</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">218</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
-    <span class="n">container_sep</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">container_sep</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 1. Top Zone (pos="top")</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"top_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"iam"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Control Plane (pos='top')"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"iam"</span><span class="p">,</span> <span class="s2">"IAM &amp; Config"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-
-<span class="c1"># 2. Left Zone (pos="left")</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"left_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"waf"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ingress Zone (pos='left')"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"waf"</span><span class="p">,</span> <span class="s2">"Edge WAF"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-
-<span class="c1"># 3. Center Zone (pos="center") with two nested sub-clusters (parent="core", order=1 &amp; 2)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"Core VPC (pos='center')"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"tier1"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"api"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"App Tier (order=1)"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"tier2"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"worker"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Worker Tier (order=2)"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Task Worker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-
-<span class="c1"># 4. Right Zone (pos="right")</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"right_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"dr_replica"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Egress / DR (pos='right')"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"dr_replica"</span><span class="p">,</span> <span class="s2">"DR Replica"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-
-<span class="c1"># 5. Bottom Zone (pos="bottom")</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"bottom_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"obs"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observability &amp; Storage (pos='bottom')"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="s2">"Metrics &amp; Logs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-
-<span class="c1"># Connect across all 5 compass zones</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"waf"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"dr_replica"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"iam"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"obs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
-
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
-<hr />
-<h2>2. Multi-VPC / Multi-Tier Cloud Topology with Nested Clusters</h2>
-<p>The following example builds a complete cloud architecture featuring an external client zone (<code>pos=&quot;left&quot;</code>), a central production VPC (<code>pos=&quot;center&quot;</code>) with nested Ingress, Compute, and Data tiers (<code>parent=&quot;vpc&quot;</code>, <code>order=1, 2, 3</code>), and an observability zone (<code>pos=&quot;bottom&quot;</code>):</p>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">118</span><span class="p">)</span>
-
-<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
-
-<span class="c1"># 1. External client zone pinned to the left</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ext_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"web_client"</span><span class="p">,</span> <span class="s2">"mobile_client"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"External Clients"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="c1"># 1. External client zone pinned to the left (vertically stacked)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ext_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"web_client"</span><span class="p">,</span> <span class="s2">"mobile_client"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Clients"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"web_client"</span><span class="p">,</span> <span class="s2">"Web App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"mobile_client"</span><span class="p">,</span> <span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
 <span class="c1"># 2. Central Production VPC with nested Compute and Data tiers</span>
-<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"prod_vpc"</span><span class="p">,</span> <span class="s2">"Production Cloud VPC (10.0.0.0/16)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"prod_vpc"</span><span class="p">,</span> <span class="s2">"Production VPC (10.0.0.0/16)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span>
     <span class="s2">"compute_subnet"</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"auth_svc"</span><span class="p">,</span> <span class="s2">"order_svc"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"order_svc"</span><span class="p">],</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">"Compute Subnet"</span><span class="p">,</span>
     <span class="n">parent</span><span class="o">=</span><span class="s2">"prod_vpc"</span><span class="p">,</span>
     <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -623,30 +643,27 @@ During <code>calc()</code>, <code>ArchitectureGraph</code> inspects each node's 
 <span class="p">)</span>
 
 <span class="c1"># 50%+ Neutral baseline; single PrimaryFlat hero node for the API Gateway</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"auth_svc"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"order_svc"</span><span class="p">,</span> <span class="s2">"Order Worker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"orders_db"</span><span class="p">,</span> <span class="s2">"Primary SQL"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"redis_cache"</span><span class="p">,</span> <span class="s2">"Redis Cache"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 
 <span class="c1"># 3. Shared observability platform pinned to the bottom</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"obs_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"prometheus"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observability VPC Peering"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"obs_zone"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"prometheus"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observability"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"prometheus"</span><span class="p">,</span> <span class="s2">"Metrics &amp; Logs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
 <span class="c1"># 4. Orthogonal highway edges</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web_client"</span><span class="p">,</span> <span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"HTTPS"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"mobile_client"</span><span class="p">,</span> <span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"gRPC"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"auth_svc"</span><span class="p">,</span> <span class="s2">"Verify"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"order_svc"</span><span class="p">,</span> <span class="s2">"Dispatch"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"auth_svc"</span><span class="p">,</span> <span class="s2">"redis_cache"</span><span class="p">,</span> <span class="s2">"Session"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"order_svc"</span><span class="p">,</span> <span class="s2">"orders_db"</span><span class="p">,</span> <span class="s2">"Write"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"mobile_client"</span><span class="p">,</span> <span class="s2">"order_svc"</span><span class="p">,</span> <span class="s2">"gRPC"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api_gw"</span><span class="p">,</span> <span class="s2">"redis_cache"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"order_svc"</span><span class="p">,</span> <span class="s2">"orders_db"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"order_svc"</span><span class="p">,</span> <span class="s2">"prometheus"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">124.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">90.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_graph_images/graph_arch_multi_tier_vpc.png" alt="architecture_graph_2" style="width: 740px; max-width: 100%;" />
+  <img src="architecture_graph_images/graph_arch_multi_tier_vpc.png" alt="architecture_graph_2" />
   <figcaption class="drawlib-caption">Multi-Tier Cloud VPC Topology with Nested Clusters and 5-Zone Compass Placement</figcaption>
 </figure>
 <hr />
@@ -657,41 +674,61 @@ During <code>calc()</code>, <code>ArchitectureGraph</code> inspects each node's 
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">95</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">container_sep</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="c1"># Declare node membership directly via group / subgroup parameters</span>
+<span class="c1"># Declare containers with subgroup padding and inline node membership</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"dmz"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"edge_lb"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"DMZ (left)"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="s2">"Production VPC"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"app"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"core_api"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"App Tier"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"storage"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"AnalyticsDB"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Worker &amp; Data"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"edge_lb"</span><span class="p">,</span> <span class="s2">"Edge Router"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"dmz"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"core_api"</span><span class="p">,</span> <span class="s2">"Core API"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">subgroup</span><span class="o">=</span><span class="s2">"app"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Async Worker"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">subgroup</span><span class="o">=</span><span class="s2">"app"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"core_api"</span><span class="p">,</span>
+    <span class="s2">"Core API"</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span>
+    <span class="n">subgroup</span><span class="o">=</span><span class="s2">"app"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Async Worker"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">subgroup</span><span class="o">=</span><span class="s2">"storage"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"AnalyticsDB"</span><span class="p">,</span> <span class="s2">"Analytics DB"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">subgroup</span><span class="o">=</span><span class="s2">"storage"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"edge_lb"</span><span class="p">,</span> <span class="s2">"core_api"</span><span class="p">,</span> <span class="s2">"TLS 1.3"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"core_api"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Events"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"AnalyticsDB"</span><span class="p">,</span> <span class="s2">"Batch"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"core_api"</span><span class="p">,</span> <span class="s2">"AnalyticsDB"</span><span class="p">,</span> <span class="s2">"Query"</span><span class="p">)</span>
 
 <span class="c1"># 1. Compute layout geometry without drawing</span>
-<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">calc</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">ox</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.5</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">calc</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">128.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">62.0</span><span class="p">)</span>
 
-<span class="c1"># 2. Nudge the Core API node slightly upward and re-align its incident edge ports</span>
-<span class="n">layout</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="s2">"core_api"</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
-<span class="n">layout</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="c1"># 2. Nudge the Core API node slightly downward so a badge fits cleanly inside the App Tier</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="s2">"core_api"</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mf">4.2</span><span class="p">)</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">))</span>
 
 <span class="c1"># 3. Overlay a SLA status badge right above the Core API node using computed coordinates</span>
 <span class="n">api_box</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"core_api"</span><span class="p">]</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">api_box</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">api_box</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="mf">4.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">api_box</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">ox</span><span class="p">,</span> <span class="n">api_box</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">oy</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"SLA: 99.99%"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_graph_images/graph_arch_calc_offset.png" alt="architecture_graph_3" style="width: 700px; max-width: 100%;" />
+  <img src="architecture_graph_images/graph_arch_calc_offset.png" alt="architecture_graph_3" />
   <figcaption class="drawlib-caption">Fine-Tuning ArchitectureGraph Coordinates with calc() and layout.offset()</figcaption>
 </figure>
 <hr />

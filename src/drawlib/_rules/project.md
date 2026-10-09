@@ -193,7 +193,7 @@ Multi-page documentation sites (`site` template) define sidebar navigation in `d
 Embed Python drawing code directly into Markdown files using the ````drawlib```` code fence:
 
 ````markdown
-```drawlib 600px center caption:"System Architecture"
+```drawlib center caption:"System Architecture"
 from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.lines import line

@@ -11,46 +11,80 @@ When every box in a diagram is painted with a different saturated fill, nothing 
 
 
 
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="style_guide_images/style_guide_comparison.png" alt="style_guide_1" />
+  <figcaption class="drawlib-caption">Anti-Pattern (Rainbow Diagram) vs. Best Practice (50%+ Neutral-Grounded Hierarchy)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=68)
+setup(width=128, height=62)
 
 # Left Panel: Anti-Pattern (Rainbow Chaos - every node competes for attention)
-rectangle((36, 34), width=62, height=56, style=Styles.MutedDashed.patch(shape_r=2))
-text((36, 56), "Anti-Pattern: Rainbow Chaos", style=Styles.DangerBold.patch(text_size=10))
+rectangle((33, 31), width=58, height=54, style=Styles.MutedDashed.patch(shape_r=2))
+phosphor.x_circle((9.5, 51.5), width=4.8, style=Styles.DangerFlat)
+text((13.5, 51.5), "Anti-Pattern: Rainbow Chaos", style=Styles.DangerBold.patch(text_size=11.0, halign="left"))
 
-rectangle((21, 40), width=22, height=13, style=Styles.AccentFlat.patch(shape_r=1.5), text="Client", text_style=Styles.WhiteBold.patch(text_size=9))
-rectangle((51, 40), width=22, height=13, style=Styles.WarningFlat.patch(shape_r=1.5), text="Gateway", text_style=Styles.WhiteBold.patch(text_size=9))
-rectangle((21, 20), width=22, height=13, style=Styles.SuccessFlat.patch(shape_r=1.5), text="Worker", text_style=Styles.WhiteBold.patch(text_size=9))
-rectangle((51, 20), width=22, height=13, style=Styles.DangerFlat.patch(shape_r=1.5), text="Database", text_style=Styles.WhiteBold.patch(text_size=9))
-line((32, 40), (40, 40), arrow_head="->", style=Styles.PrimaryBold)
-line((51, 33.5), (51, 26.5), arrow_head="->", style=Styles.DangerBold)
-line((40, 20), (32, 20), arrow_head="->", style=Styles.SuccessBold)
+left_nodes = [
+    (19, 36.5, "Client", phosphor.globe, Styles.AccentFlat, Styles.WhiteBold),
+    (47, 36.5, "Gateway", phosphor.cpu, Styles.WarningFlat, Styles.WhiteBold),
+    (19, 16.5, "Worker", phosphor.cpu, Styles.SuccessFlat, Styles.WhiteBold),
+    (47, 16.5, "Database", phosphor.database, Styles.DangerFlat, Styles.WhiteBold),
+]
+for cx, cy, lbl, icon_fn, card_st, txt_st in left_nodes:
+    rectangle(
+        (cx, cy),
+        width=24,
+        height=13.5,
+        style=card_st.patch(shape_r=1.5),
+        text=lbl,
+        text_style=txt_st.patch(text_size=10.5, xy_shift=(2.4, 0)),
+    )
+    icon_fn((cx - 7.5, cy), width=4.4, style=txt_st)
+
+line((31, 36.5), (35, 36.5), arrow_head="->", style=Styles.PrimaryBold)
+line((47, 29.7), (47, 23.3), arrow_head="->", style=Styles.DangerBold)
+line((35, 16.5), (31, 16.5), arrow_head="->", style=Styles.SuccessBold)
 
 # Right Panel: Best Practice (50%+ Neutral Baseline + 1 Hero Focal Point)
-rectangle((104, 34), width=62, height=56, style=Styles.MutedDashed.patch(shape_r=2))
-text((104, 56), "Best Practice: 50%+ Neutral", style=Styles.DarkBold.patch(text_size=10))
+rectangle((95, 31), width=58, height=54, style=Styles.MutedDashed.patch(shape_r=2))
+phosphor.check_circle((71.0, 51.5), width=4.8, style=Styles.SuccessFlat)
+text((75.0, 51.5), "Best Practice: 50%+ Neutral", style=Styles.DarkBold.patch(text_size=11.0, halign="left"))
 
-rectangle((89, 40), width=22, height=13, style=Styles.Neutral.patch(shape_r=1.5), text="Client", text_style=Styles.DarkBold.patch(text_size=9))
-rectangle((119, 40), width=22, height=13, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="Gateway", text_style=Styles.WhiteBold.patch(text_size=9))
-rectangle((89, 20), width=22, height=13, style=Styles.Neutral.patch(shape_r=1.5), text="Worker", text_style=Styles.DarkBold.patch(text_size=9))
-rectangle((119, 20), width=22, height=13, style=Styles.SecondaryNeutral.patch(shape_r=1.5), text="Database", text_style=Styles.DarkBold.patch(text_size=9))
-line((100, 40), (108, 40), arrow_head="->", style=Styles.DarkBold)
-line((119, 33.5), (119, 26.5), arrow_head="->", style=Styles.DarkBold)
-line((108, 20), (100, 20), arrow_head="->", style=Styles.DarkBold)
+right_nodes = [
+    (81, 36.5, "Client", phosphor.globe, Styles.Neutral, Styles.DarkBold),
+    (109, 36.5, "Gateway", phosphor.cpu, Styles.PrimaryFlat, Styles.WhiteBold),
+    (81, 16.5, "Worker", phosphor.cpu, Styles.Neutral, Styles.DarkBold),
+    (109, 16.5, "Database", phosphor.database, Styles.SecondaryNeutral, Styles.DarkBold),
+]
+for cx, cy, lbl, icon_fn, card_st, txt_st in right_nodes:
+    rectangle(
+        (cx, cy),
+        width=24,
+        height=13.5,
+        style=card_st.patch(shape_r=1.5),
+        text=lbl,
+        text_style=txt_st.patch(text_size=10.5, xy_shift=(2.4, 0)),
+    )
+    icon_fn((cx - 7.5, cy), width=4.4, style=txt_st)
+
+line((93, 36.5), (97, 36.5), arrow_head="->", style=Styles.DarkBold)
+line((109, 29.7), (109, 23.3), arrow_head="->", style=Styles.DarkBold)
+line((97, 16.5), (93, 16.5), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="style_guide_images/style_guide_comparison.png" alt="style_guide_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Anti-Pattern (Rainbow Diagram) vs. Best Practice (50%+ Neutral-Grounded Hierarchy)</figcaption>
-</figure>
+</details>
 
 
 
@@ -113,13 +147,13 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=130, height=44)
+setup(width=124, height=40)
 
-total_w = 130
-margin_x = 13
+total_w = 124
+margin_x = 8
 n = 4
-box_w, box_h = 20, 14
-y = 22
+box_w, box_h = 22, 15
+y = 20
 
 # Dynamically compute equal gap between N boxes
 gap = (total_w - (margin_x * 2) - (box_w * n)) / (n - 1)
@@ -129,9 +163,9 @@ labels = ["Ingest", "Validate", "Transform", "Publish"]
 
 for i, cx in enumerate(centers):
     if i == 1:
-        rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat.patch(shape_r=2), text=labels[i], text_style=Styles.WhiteBold.patch(text_size=10))
+        rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat.patch(shape_r=2), text=labels[i], text_style=Styles.WhiteBold.patch(text_size=11.0))
     else:
-        rectangle((cx, y), width=box_w, height=box_h, style=Styles.Neutral.patch(shape_r=2), text=labels[i], text_style=Styles.DarkBold.patch(text_size=10))
+        rectangle((cx, y), width=box_w, height=box_h, style=Styles.Neutral.patch(shape_r=2), text=labels[i], text_style=Styles.DarkBold.patch(text_size=11.0))
     if i > 0:
         prev_cx = centers[i - 1]
         line((prev_cx + box_w / 2, y), (cx - box_w / 2, y), arrow_head="->", style=Styles.DarkBold)
@@ -140,7 +174,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="style_guide_images/style_guide_equidistant.png" alt="style_guide_2" style="width: 620px; max-width: 100%;" />
+  <img src="style_guide_images/style_guide_equidistant.png" alt="style_guide_2" />
   <figcaption class="drawlib-caption">Symmetrical Node Distribution Using Equidistant Spacing Formulas</figcaption>
 </figure>
 

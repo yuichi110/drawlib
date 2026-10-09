@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -421,7 +425,75 @@
             </header>
             <main class="main-content">
                 <h1>GridLayout</h1>
-<p>The <code>GridLayout</code> component positions cards and rectangular blocks across a uniform or flexible column/row matrix. It supports multi-column and multi-row cell spanning, outer container borders, and proportional scaling—making it ideal for layered system architectures, service matrices, and executive dashboard layouts.</p>
+<p>The <code>GridLayout</code> component positions cards and rectangular blocks across a uniform or flexible column/row matrix.
+It supports multi-column and multi-row cell spanning, outer container borders, and proportional scaling—making it ideal for layered system architectures, service matrices, and executive dashboard layouts.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="grid_layout_images/smartarts_gridlayout_indexing_geometry.png" alt="grid_layout_1" />
+  <figcaption class="drawlib-caption">GridLayout Bottom-Up (col, row) Matrix Indexing and Multi-Cell Spanning</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span>
+    <span class="n">num_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">num_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Row 0 (Bottom Row)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(0, 0)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(1, 0)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(2, 0)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">)</span>
+
+<span class="c1"># Row 1 (Middle Row) &amp; Spanned Cell across Columns 1..2, Rows 1..2</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(0, 1)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Spanned Cell: pos=(1, 1), w=2, h=2</span><span class="se">\n</span><span class="s2">(Covers cols 1..2, rows 1..2)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Row 2 (Top Row, Column 0)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(0, 2)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+
+<span class="n">grid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">96.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">41.0</span><span class="p">,</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+    <span class="n">outer_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Icon inside the spanned hero cell</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">activity</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+
+<span class="c1"># Axis arrows and anchor dot at bottom-left xy=(24, 11)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">42.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">81.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">"Column Index (col = 0 → 2, +x Rightward)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="s2">"Row Index</span><span class="se">\n</span><span class="s2">(row = 0 → 2)</span><span class="se">\n</span><span class="s2">+y Upward"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">circle</span><span class="p">((</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span> <span class="s2">"xy=(24, 11)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">72.0</span><span class="p">,</span> <span class="mf">56.8</span><span class="p">),</span> <span class="s2">"3×3 GridLayout Matrix (Bottom-Up Indexing &amp; Spanning)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Multi-Span Architecture &amp; Dashboard Layout (<code>draw</code>)</h2>
 <p>In standard mode (<code>grid.draw(...)</code>), <code>GridLayout</code> divides the total <code>width</code> and <code>height</code> evenly across <code>num_column</code> columns and <code>num_row</code> rows with a uniform <code>margin</code> gutter between cells. If <code>outer_style</code> is provided, an outer container frame is drawn with an inner margin around the perimeter.</p>
@@ -429,13 +501,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span>
     <span class="n">num_column</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">num_row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Row 3 (Top): Edge Ingress spanning all 4 columns (Hero focal layer)</span>
@@ -445,7 +517,7 @@
     <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Edge Ingress: CDN &amp; WAF Gateway"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Row 2: Application Services Layer</span>
@@ -468,16 +540,16 @@
 <span class="p">)</span>
 
 <span class="n">grid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">95</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">106</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
     <span class="n">margin</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
     <span class="n">outer_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_layout_images/smartarts_gridlayout_architecture.png" alt="grid_layout_1" style="width: 650px; max-width: 100%;" />
+  <img src="grid_layout_images/smartarts_gridlayout_architecture.png" alt="grid_layout_2" />
   <figcaption class="drawlib-caption">Multi-Tier Cloud Architecture with GridLayout Cell Spanning</figcaption>
 </figure>
 <hr />
@@ -488,13 +560,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span>
     <span class="n">num_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">num_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Top Header (Row 2, spanning 3 columns)</span>
@@ -504,7 +576,7 @@
     <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Observability Control Plane"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Left Navigation Sidebar (Column 0, spanning Rows 0..1)</span>
@@ -512,7 +584,7 @@
     <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Routing</span><span class="se">\n</span><span class="s2">&amp;</span><span class="se">\n</span><span class="s2"> Policies"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Routing</span><span class="se">\n</span><span class="s2">&amp;</span><span class="se">\n</span><span class="s2">Policies"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
 <span class="p">)</span>
 
@@ -527,10 +599,10 @@
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Render with custom column widths [22, 33, 33] and row heights [16, 16, 11]</span>
+<span class="c1"># Render with custom column widths [24, 38, 38] and row heights [16, 16, 11]</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">],</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">],</span>
     <span class="n">column_margins</span><span class="o">=</span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
     <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">],</span>
     <span class="n">row_margins</span><span class="o">=</span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
@@ -538,17 +610,18 @@
 <span class="p">)</span>
 
 <span class="c1"># Overlay Phosphor icons inside the metric/trace/alert cells using deterministic coordinates</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">activity</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">bell_ringing</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">activity</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">bell_ringing</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_layout_images/smartarts_gridlayout_flexible_icons.png" alt="grid_layout_2" style="width: 650px; max-width: 100%;" />
+  <img src="grid_layout_images/smartarts_gridlayout_flexible_icons.png" alt="grid_layout_3" />
   <figcaption class="drawlib-caption">Flexible Dashboard Grid with Custom Column/Row Proportions and Icon Overlays</figcaption>
 </figure>
 <hr />
 <h2>3. Coordinate &amp; Indexing Rules</h2>
+<p>As illustrated in the opening diagram at the top of this page:</p>
 <ul>
 <li><strong>Bottom-Left Anchor <code>(x, y)</code></strong>: The <code>xy</code> coordinate passed to <code>draw()</code> or <code>draw_flexible()</code> specifies the <strong>bottom-left corner</strong> of the overall grid.</li>
 <li><strong>Zero-Indexed Bottom-Up Rows</strong>:
@@ -559,69 +632,6 @@
 </li>
 <li><strong>Cell Spanning</strong>: <code>grid.add(position=(col, row), width=w, height=h)</code> spans <code>w</code> columns rightward (<code>col</code> through <code>col + w - 1</code>) and <code>h</code> rows upward (<code>row</code> through <code>row + h - 1</code>).</li>
 </ul>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_layout_images/smartarts_gridlayout_indexing_geometry.png" alt="grid_layout_3" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">GridLayout Bottom-Up (col, row) Matrix Indexing and Multi-Cell Spanning</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
-
-<span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span>
-    <span class="n">num_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">num_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Row 0 (Bottom Row)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(0, 0)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(1, 0)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(2, 0)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">)</span>
-
-<span class="c1"># Row 1 (Middle Row) &amp; Spanned Cell across Columns 1..2, Rows 1..2</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(0, 1)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Spanned Cell: position=(1, 1), width=2, height=2</span><span class="se">\n</span><span class="s2">(Covers cols 1..2, rows 1..2)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Row 2 (Top Row, Column 0)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"pos=(0, 2)</span><span class="se">\n</span><span class="s2">w=1, h=1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-
-<span class="n">grid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span>
-    <span class="n">margin</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
-    <span class="n">outer_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Axis arrows and anchor dot at bottom-left xy=(22, 10)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">38.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">75.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">"Column Index (col = 0 → 2, +x Rightward)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
-
-<span class="n">line</span><span class="p">((</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="s2">"Row Index</span><span class="se">\n</span><span class="s2">(row = 0 → 2)</span><span class="se">\n</span><span class="s2">+y Upward"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
-
-<span class="n">circle</span><span class="p">((</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s2">"xy=(22, 10)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">67.0</span><span class="p">,</span> <span class="mf">53.5</span><span class="p">),</span> <span class="s2">"3×3 GridLayout Matrix (Bottom-Up Indexing &amp; Multi-Cell Spanning)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <hr />
 <h2>4. API Reference</h2>
 <h3>Constructor</h3>

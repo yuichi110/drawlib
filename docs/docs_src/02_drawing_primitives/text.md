@@ -7,36 +7,36 @@ Drawlib provides horizontal text, vertical East Asian (CJK) text, arbitrary rota
 
 ## 1. Overview of Text Rendering
 
-```drawlib fold-code 650px center file:text_overview.png caption:"Overview of Text Alignment, Rotation, Badges, and Vertical Typography"
+```drawlib fold-code center file:text_overview.png caption:"Overview of Text Alignment, Rotation, Badges, and Vertical Typography"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text, text_vertical
 
-setup(width=130, height=56)
+setup(width=124, height=54)
 
 # 1. Anchor alignment along x=28 guide line (left column)
-line((28, 6), (28, 50), style=Styles.MutedDashed)
-for y, align, label in [(44, "left", "halign='left'"), (28, "center", "halign='center'"), (12, "right", "halign='right'")]:
+line((28, 6), (28, 48), style=Styles.MutedDashed)
+for y, align, label in [(42, "left", "halign='left'"), (27, "center", "halign='center'"), (12, "right", "halign='right'")]:
     circle((28, y), radius=1.0, style=Styles.DangerFlat)
-    text((28, y + 2.2), label, style=Styles.DarkBold.patch(text_size=10, halign=align, valign="bottom"))
+    text((28, y + 2.2), label, style=Styles.DarkBold.patch(text_size=10.5, halign=align, valign="bottom"))
 
 # 2. Rotated text & background badge over a connector line (middle column)
-line((58, 12), (98, 44), arrow_head="->", style=Styles.DarkBold)
-text((68, 34), "Rotated 39°", style=Styles.DarkBold.patch(text_size=10.5, angle=39))
+line((56, 12), (94, 42), arrow_head="->", style=Styles.DarkBold)
+text((66, 33), "Rotated 39°", style=Styles.DarkBold.patch(text_size=10.5, angle=39))
 
 badge_style = Styles.DarkBold.patch(
-    text_size=9.5,
+    text_size=10.5,
     text_bg_fill_color=Colors.Primary1,
     text_bg_line_color=Colors.Primary4,
     text_bg_line_width=1.2,
 )
-text((80, 29.6), "gRPC :8443", style=badge_style)
+text((78, 28.5), "gRPC :8443", style=badge_style)
 
 # 3. Vertical CJK typography (right column)
-rectangle((116, 28), width=14, height=40, style=Styles.Neutral.patch(shape_r=2))
-text_vertical((116, 28), "縦書き日本語", style=Styles.DarkBold.patch(text_size=11.5))
+rectangle((111, 27), width=15, height=40, style=Styles.Neutral.patch(shape_r=2))
+text_vertical((111, 27), "縦書き日本語", style=Styles.DarkBold.patch(text_size=11.5))
 
 save()
 ```
@@ -70,7 +70,7 @@ text(
 
 Renders East Asian characters (Japanese, Chinese) in traditional top-to-bottom vertical layout by stacking glyphs along a vertical centerline (`halign="center"`):
 
-```drawlib show-code 500px center file:text_vertical.png caption:"Vertical Japanese Typography with text_vertical()"
+```drawlib show-code center file:text_vertical.png caption:"Vertical Japanese Typography with text_vertical()"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -123,35 +123,35 @@ By default, `text()` centers the text bounding box horizontally (`halign="center
 - **`valign="center"`** *(default)*: Text is vertically centered on `y`.
 - **`valign="bottom"`**: Bottom baseline of the text sits above `y`.
 
-```drawlib show-code 650px center file:text_alignment.png caption:"Horizontal and Vertical Anchor Alignment Combinations"
+```drawlib show-code center file:text_alignment.png caption:"Horizontal and Vertical Anchor Alignment Combinations"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=136, height=58)
+setup(width=128, height=56)
 
 # Crosshair guide lines
-for y in [44, 29, 14]:
-    line((10, y), (126, y), style=Styles.MutedDashed)
-for x in [24, 68, 112]:
-    line((x, 6), (x, 52), style=Styles.MutedDashed)
+for y in [42, 28, 14]:
+    line((8, y), (120, y), style=Styles.MutedDashed)
+for x in [20, 64, 108]:
+    line((x, 6), (x, 50), style=Styles.MutedDashed)
 
-# Left-aligned column (x = 24)
-for y, v_mode in [(44, "bottom"), (29, "center"), (14, "top")]:
-    circle((24, y), radius=0.9, style=Styles.DangerFlat)
-    text((24, y), f"left + {v_mode}", style=Styles.DarkBold.patch(text_size=9.5, halign="left", valign=v_mode))
+# Left-aligned column (x = 20)
+for y, v_mode in [(42, "bottom"), (28, "center"), (14, "top")]:
+    circle((20, y), radius=0.9, style=Styles.DangerFlat)
+    text((20, y), f"left + {v_mode}", style=Styles.DarkBold.patch(text_size=10.5, halign="left", valign=v_mode))
 
-# Center-aligned column (x = 68)
-for y, v_mode in [(44, "bottom"), (29, "center"), (14, "top")]:
-    circle((68, y), radius=0.9, style=Styles.PrimaryFlat)
-    text((68, y), f"center + {v_mode}", style=Styles.DarkBold.patch(text_size=9.5, halign="center", valign=v_mode))
+# Center-aligned column (x = 64)
+for y, v_mode in [(42, "bottom"), (28, "center"), (14, "top")]:
+    circle((64, y), radius=0.9, style=Styles.PrimaryFlat)
+    text((64, y), f"center + {v_mode}", style=Styles.DarkBold.patch(text_size=10.5, halign="center", valign=v_mode))
 
-# Right-aligned column (x = 112)
-for y, v_mode in [(44, "bottom"), (29, "center"), (14, "top")]:
-    circle((112, y), radius=0.9, style=Styles.DangerFlat)
-    text((112, y), f"right + {v_mode}", style=Styles.DarkBold.patch(text_size=9.5, halign="right", valign=v_mode))
+# Right-aligned column (x = 108)
+for y, v_mode in [(42, "bottom"), (28, "center"), (14, "top")]:
+    circle((108, y), radius=0.9, style=Styles.DangerFlat)
+    text((108, y), f"right + {v_mode}", style=Styles.DarkBold.patch(text_size=10.5, halign="right", valign=v_mode))
 
 save()
 ```
@@ -162,7 +162,7 @@ save()
 
 Insert `\n` to break strings into multiple lines. Use `text_line_spacing` on `Style` to control vertical rhythm (default multiplier is `1.2`):
 
-```drawlib show-code 600px center file:text_line_spacing.png caption:"Multi-Line Text Formatting and Line Spacing Control"
+```drawlib show-code center file:text_line_spacing.png caption:"Multi-Line Text Formatting and Line Spacing Control"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -201,33 +201,33 @@ save()
 - **Rotation (`angle`)**: Rotates the text counter-clockwise in degrees around `xy`.
 - **Background Badges (`text_bg_fill_color`, `text_bg_line_color`, `text_bg_line_width`, `text_bg_line_style`)**: Draws a padded rectangular pill behind the text—ideal for placing protocol or latency callouts directly over connector lines without the line cutting through glyphs.
 
-```drawlib show-code 620px center file:text_rotation_and_badges.png caption:"Rotated Axis Labels and Padded Background Badges"
+```drawlib show-code center file:text_rotation_and_badges.png caption:"Rotated Axis Labels and Padded Background Badges"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=130, height=52)
+setup(width=124, height=48)
 
 # Rotated vertical Y-axis title (angle=90)
-text((10, 26), "Throughput (req/s)", style=Styles.DarkBold.patch(text_size=11, angle=90))
+text((9, 24), "Throughput (req/s)", style=Styles.DarkBold.patch(text_size=11.0, angle=90))
 
 # Service nodes
-rectangle((36, 26), width=28, height=20, style=Styles.PrimaryFlat.patch(shape_r=2), text="Ingress", text_style=Styles.WhiteBold.patch(text_size=12))
-rectangle((104, 26), width=28, height=20, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Backend", text_style=Styles.DarkBold.patch(text_size=12))
+rectangle((34, 24), width=28, height=20, style=Styles.PrimaryFlat.patch(shape_r=2), text="Ingress", text_style=Styles.WhiteBold.patch(text_size=12.0))
+rectangle((100, 24), width=28, height=20, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Backend", text_style=Styles.DarkBold.patch(text_size=12.0))
 
 # Connector with overlaid background badge
-line((50, 26), (90, 26), arrow_head="->", style=Styles.DarkBold)
+line((48, 24), (86, 24), arrow_head="->", style=Styles.DarkBold)
 
 badge = Styles.DarkBold.patch(
-    text_size=10,
+    text_size=10.5,
     text_bg_fill_color=Colors.White,
     text_bg_line_color=Colors.Gray4,
     text_bg_line_width=1.2,
     text_bg_line_style="solid",
 )
-text((70, 26), "mTLS / HTTP2", style=badge)
+text((67, 24), "mTLS / HTTP2", style=badge)
 
 save()
 ```
@@ -242,41 +242,41 @@ Every shape primitive in `drawlib.shapes` (`rectangle`, `circle`, `cylinder`, `r
 - **Offsetting Embedded Labels (`xy_shift` / `xy_abs_shift`)**: Patch `xy_shift=(dx, dy)` on `text_style` to nudge the label relative to the shape's center (for example, pushing a title toward the top of a container card).
 - **Independent Label Angle (`angle` / `text_flip`)**: Embedded text rotates with the shape by default; set `angle` or `text_flip=True` on `text_style` to override the label orientation.
 
-```drawlib show-code 650px center file:text_embedded_shapes.png caption:"Embedded Shape Text with Automatic Contrast, xy_shift, and Angle Override"
+```drawlib show-code center file:text_embedded_shapes.png caption:"Embedded Shape Text with Automatic Contrast, xy_shift, and Angle Override"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=135, height=52)
+setup(width=126, height=48)
 
 # 1. Centered embedded text with explicit WhiteBold style
 rectangle(
-    (26, 26),
+    (23, 24),
     width=32,
     height=24,
     style=Styles.PrimaryFlat.patch(shape_r=2),
     text="Core Router\n10.0.0.1",
-    text_style=Styles.WhiteBold.patch(text_size=11),
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
 # 2. Shifted embedded header using xy_shift=(0, 8)
 rectangle(
-    (70, 26),
-    width=34,
+    (65, 24),
+    width=36,
     height=28,
     style=Styles.Neutral.patch(shape_r=2),
     text="Worker Pool (Top)",
-    text_style=Styles.DarkBold.patch(text_size=10, xy_shift=(0, 8)),
+    text_style=Styles.DarkBold.patch(text_size=10.5, xy_shift=(0, 8)),
 )
 
 # 3. Rotated shape with horizontal text override (angle=0 on text_style)
 rectangle(
-    (112, 26),
+    (106, 24),
     width=28,
-    height=16,
+    height=18,
     style=Styles.SecondaryNeutral.patch(shape_r=2, angle=25),
     text="Horizontal\nOverride",
-    text_style=Styles.DarkBold.patch(text_size=9, angle=0),
+    text_style=Styles.DarkBold.patch(text_size=10.5, angle=0),
 )
 
 save()

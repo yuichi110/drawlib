@@ -10,7 +10,7 @@ Instead, `drawlib.fonts` provides **14 curated font classes** backed by open-sou
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="fonts_images/fonts_overview.png" alt="fonts_1" style="width: 650px; max-width: 100%;" />
+  <img src="fonts_images/fonts_overview.png" alt="fonts_1" />
   <figcaption class="drawlib-caption">Cross-Platform Western, Monospace, and CJK Font Families in Drawlib</figcaption>
 </figure>
 
@@ -30,20 +30,20 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=135, height=58)
+setup(width=128, height=56)
 
 # Left card: Western & Monospace specimen
-rectangle((36, 29), width=60, height=46, style=Styles.Neutral.patch(shape_r=2))
-text((36, 44), "Roboto Bold (UI & Titles)", style=Styles.DarkBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=12))
-text((36, 34), "Montserrat Regular (Geometric)", style=Styles.Dark.patch(text_font=FontSansSerif.MONTSERRAT_REGULAR, text_size=11))
-text((36, 24), "Merriweather Serif (Editorial)", style=Styles.Dark.patch(text_font=FontSerif.MERRIWEATHER_REGULAR, text_size=11))
-text((36, 14), "SELECT * FROM nodes;", style=Styles.Dark.patch(text_font=FontMonoSpace.SOURCECODEPRO_BOLD, text_size=11))
+rectangle((34, 28), width=58, height=46, style=Styles.Neutral.patch(shape_r=2))
+text((34, 43), "Roboto Bold (UI & Titles)", style=Styles.DarkBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=12.0))
+text((34, 33), "Montserrat Regular (Geometric)", style=Styles.Dark.patch(text_font=FontSansSerif.MONTSERRAT_REGULAR, text_size=11.0))
+text((34, 23), "Merriweather Serif (Editorial)", style=Styles.Dark.patch(text_font=FontSerif.MERRIWEATHER_REGULAR, text_size=11.0))
+text((34, 13), "SELECT * FROM nodes;", style=Styles.Dark.patch(text_font=FontMonoSpace.SOURCECODEPRO_BOLD, text_size=11.0))
 
 # Right card: Multilingual CJK specimen
-rectangle((101, 29), width=56, height=46, style=Styles.PrimaryNeutral.patch(shape_r=2))
-text((101, 43), "Noto Sans JP (日本語標準)", style=Styles.DarkBold.patch(text_font=FontJapanese.SANSSERIF_BOLD, text_size=12))
-text((101, 31), "M PLUS Rounded (丸ゴシック)", style=Styles.Dark.patch(text_font=FontJapanese.MPLUSROUNDED1C_BOLD, text_size=12))
-text((101, 19), "Sawarabi Mincho (明朝体)", style=Styles.Dark.patch(text_font=FontJapanese.SAWARABI_MINCHO, text_size=12))
+rectangle((96, 28), width=56, height=46, style=Styles.PrimaryNeutral.patch(shape_r=2))
+text((96, 42), "Noto Sans JP (日本語標準)", style=Styles.DarkBold.patch(text_font=FontJapanese.SANSSERIF_BOLD, text_size=12.0))
+text((96, 30), "M PLUS Rounded (丸ゴシック)", style=Styles.Dark.patch(text_font=FontJapanese.MPLUSROUNDED1C_BOLD, text_size=12.0))
+text((96, 18), "Sawarabi Mincho (明朝体)", style=Styles.Dark.patch(text_font=FontJapanese.SAWARABI_MINCHO, text_size=12.0))
 
 save()
 ```
@@ -85,7 +85,7 @@ from drawlib.fonts import (
 | Class | Category | Members / Signature | Description |
 | :--- | :--- | :--- | :--- |
 | **`Font`** | Universal Default | `SANSSERIF_THIN`, `SANSSERIF_REGULAR`, `SANSSERIF_BOLD`, `SERIF_THIN`, `SERIF_REGULAR`, `SERIF_BOLD` | Default cross-platform font family (Noto Sans / Noto Serif CJK) supporting Latin and East Asian scripts out of the box. |
-| **`FontFile`** | Custom Font Loader | `FontFile(file="path/to/font.ttf")` | Loads any external `.ttf`, `.otf`, `.woff`, or `.woff2` corporate font file (resolved relative to the calling script). |
+| **`FontFile`** | Custom Font Loader | `FontFile(file="path/to/font.ttf")` | Loads any external `.ttf`, `.otf`, `.woff`, or `.woff2` corporate font file (resolved relative to the calling script). See [Custom Font Files (`FontFile`)](./font_file.md) for practical examples using `_assets/avenger/regular.ttf`. |
 | **`FontBase`** | Abstract Base Enum | `class FontBase(str, Enum)` | Base class inherited by all built-in font enumerations for type checking and style validation. |
 
 ### 2.2. Western & Code Typography Classes (5 Classes)
@@ -129,41 +129,41 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=74)
+setup(width=132, height=70)
 
 # Column 1: FontRoboto & FontSansSerif
-rectangle((36, 37), width=60, height=62, style=Styles.Neutral.patch(shape_r=2))
-text((36, 61), "Sans-Serif & Roboto", style=Styles.DarkBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=13))
+rectangle((34, 35), width=58, height=60, style=Styles.Neutral.patch(shape_r=2))
+text((34, 58), "Sans-Serif & Roboto", style=Styles.DarkBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=12.5))
 
 specimens_left = [
-    (50, FontRoboto.ROBOTO_THIN, "FontRoboto.ROBOTO_THIN"),
-    (41, FontRoboto.ROBOTO_REGULAR, "FontRoboto.ROBOTO_REGULAR"),
-    (32, FontRoboto.ROBOTO_BOLD, "FontRoboto.ROBOTO_BOLD"),
-    (22, FontSansSerif.POPPINS_REGULAR, "FontSansSerif.POPPINS_REGULAR"),
-    (12, FontSansSerif.OSWALD_BOLD, "FontSansSerif.OSWALD_BOLD"),
+    (47, FontRoboto.ROBOTO_THIN, "FontRoboto.ROBOTO_THIN"),
+    (38, FontRoboto.ROBOTO_REGULAR, "FontRoboto.ROBOTO_REGULAR"),
+    (29, FontRoboto.ROBOTO_BOLD, "FontRoboto.ROBOTO_BOLD"),
+    (20, FontSansSerif.POPPINS_REGULAR, "FontSansSerif.POPPINS_REGULAR"),
+    (11, FontSansSerif.OSWALD_BOLD, "FontSansSerif.OSWALD_BOLD"),
 ]
 for y, font_enum, label in specimens_left:
-    text((12, y), label, style=Styles.Dark.patch(text_font=font_enum, text_size=10, halign="left"))
+    text((9, y), label, style=Styles.Dark.patch(text_font=font_enum, text_size=10.5, halign="left"))
 
 # Column 2: FontSerif & FontMonoSpace
-rectangle((104, 37), width=60, height=62, style=Styles.SecondaryNeutral.patch(shape_r=2))
-text((104, 61), "Serif & Monospace", style=Styles.DarkBold.patch(text_font=FontSerif.MERRIWEATHER_BOLD, text_size=13))
+rectangle((98, 35), width=58, height=60, style=Styles.SecondaryNeutral.patch(shape_r=2))
+text((98, 58), "Serif & Monospace", style=Styles.DarkBold.patch(text_font=FontSerif.MERRIWEATHER_BOLD, text_size=12.5))
 
 specimens_right = [
-    (50, FontSerif.MERRIWEATHER_REGULAR, "FontSerif.MERRIWEATHER"),
-    (41, FontSerif.PLATYPI_BOLD, "FontSerif.PLATYPI_BOLD"),
-    (32, FontRoboto.SLAB_BOLD, "FontRoboto.SLAB_BOLD"),
-    (22, FontMonoSpace.ROBOTO_MONO_REGULAR, "ROBOTO_MONO: 10.0.0.1:443"),
-    (12, FontMonoSpace.SOURCECODEPRO_BOLD, "SOURCECODEPRO: git commit"),
+    (47, FontSerif.MERRIWEATHER_REGULAR, "FontSerif.MERRIWEATHER"),
+    (38, FontSerif.PLATYPI_BOLD, "FontSerif.PLATYPI_BOLD"),
+    (29, FontRoboto.SLAB_BOLD, "FontRoboto.SLAB_BOLD"),
+    (20, FontMonoSpace.ROBOTO_MONO_REGULAR, "ROBOTO_MONO: 10.0.0.1:443"),
+    (11, FontMonoSpace.SOURCECODEPRO_BOLD, "SOURCECODEPRO: git commit"),
 ]
 for y, font_enum, label in specimens_right:
-    text((80, y), label, style=Styles.Dark.patch(text_font=font_enum, text_size=10, halign="left"))
+    text((73, y), label, style=Styles.Dark.patch(text_font=font_enum, text_size=10.5, halign="left"))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="fonts_images/fonts_western_specimen.png" alt="fonts_2" style="width: 650px; max-width: 100%;" />
+  <img src="fonts_images/fonts_western_specimen.png" alt="fonts_2" />
   <figcaption class="drawlib-caption">Western Sans-Serif, Serif, and Monospace Font Specimen Catalog</figcaption>
 </figure>
 
@@ -184,34 +184,34 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=62)
+setup(width=130, height=58)
 
 # 1. Japanese Fonts (FontJapanese)
-rectangle((26, 31), width=40, height=48, style=Styles.PrimaryNeutral.patch(shape_r=2))
-text((26, 48), "FontJapanese", style=Styles.DarkBold.patch(text_size=11))
-text((26, 37), "標準ゴシック (Sans)", style=Styles.Dark.patch(text_font=FontJapanese.SANSSERIF_REGULAR, text_size=10))
-text((26, 26), "明朝体 (Serif)", style=Styles.Dark.patch(text_font=FontJapanese.SERIF_BOLD, text_size=10))
-text((26, 15), "丸ゴシック (Rounded)", style=Styles.Dark.patch(text_font=FontJapanese.MPLUSROUNDED1C_BOLD, text_size=10))
+rectangle((24, 29), width=38, height=46, style=Styles.PrimaryNeutral.patch(shape_r=2))
+text((24, 45), "FontJapanese", style=Styles.DarkBold.patch(text_size=11.5))
+text((24, 34), "標準ゴシック (Sans)", style=Styles.Dark.patch(text_font=FontJapanese.SANSSERIF_REGULAR, text_size=10.5))
+text((24, 24), "明朝体 (Serif)", style=Styles.Dark.patch(text_font=FontJapanese.SERIF_BOLD, text_size=10.5))
+text((24, 14), "丸ゴシック (Rounded)", style=Styles.Dark.patch(text_font=FontJapanese.MPLUSROUNDED1C_BOLD, text_size=10.5))
 
 # 2. Chinese Fonts (FontChinese)
-rectangle((70, 31), width=40, height=48, style=Styles.Neutral.patch(shape_r=2))
-text((70, 48), "FontChinese", style=Styles.DarkBold.patch(text_size=11))
-text((70, 37), "简体中文无衬线", style=Styles.Dark.patch(text_font=FontChinese.SIMPLIFIED_SANSSERIF_REGULAR, text_size=10))
-text((70, 26), "简体中文衬线体", style=Styles.Dark.patch(text_font=FontChinese.SIMPLIFIED_SERIF_BOLD, text_size=10))
-text((70, 15), "繁體中文設計規範", style=Styles.Dark.patch(text_font=FontChinese.TRADITIONAL_SANSSERIF_BOLD, text_size=10))
+rectangle((65, 29), width=38, height=46, style=Styles.Neutral.patch(shape_r=2))
+text((65, 45), "FontChinese", style=Styles.DarkBold.patch(text_size=11.5))
+text((65, 34), "简体中文无衬线", style=Styles.Dark.patch(text_font=FontChinese.SIMPLIFIED_SANSSERIF_REGULAR, text_size=10.5))
+text((65, 24), "简体中文衬线体", style=Styles.Dark.patch(text_font=FontChinese.SIMPLIFIED_SERIF_BOLD, text_size=10.5))
+text((65, 14), "繁體中文設計規範", style=Styles.Dark.patch(text_font=FontChinese.TRADITIONAL_SANSSERIF_BOLD, text_size=10.5))
 
 # 3. Korean Fonts (FontKorean)
-rectangle((114, 31), width=40, height=48, style=Styles.SecondaryNeutral.patch(shape_r=2))
-text((114, 48), "FontKorean", style=Styles.DarkBold.patch(text_size=11))
-text((114, 37), "클라우드 아키텍처", style=Styles.Dark.patch(text_font=FontKorean.SANSSERIF_REGULAR, text_size=10))
-text((114, 26), "시스템 설계 문서", style=Styles.Dark.patch(text_font=FontKorean.SANSSERIF_BOLD, text_size=10))
-text((114, 15), "명조체 타이포그래피", style=Styles.Dark.patch(text_font=FontKorean.SERIF_BOLD, text_size=10))
+rectangle((106, 29), width=38, height=46, style=Styles.SecondaryNeutral.patch(shape_r=2))
+text((106, 45), "FontKorean", style=Styles.DarkBold.patch(text_size=11.5))
+text((106, 34), "클라우드 아키텍처", style=Styles.Dark.patch(text_font=FontKorean.SANSSERIF_REGULAR, text_size=10.5))
+text((106, 24), "시스템 설계 문서", style=Styles.Dark.patch(text_font=FontKorean.SANSSERIF_BOLD, text_size=10.5))
+text((106, 14), "명조체 타이포그래피", style=Styles.Dark.patch(text_font=FontKorean.SERIF_BOLD, text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="fonts_images/fonts_cjk_specimen.png" alt="fonts_3" style="width: 650px; max-width: 100%;" />
+  <img src="fonts_images/fonts_cjk_specimen.png" alt="fonts_3" />
   <figcaption class="drawlib-caption">Multilingual CJK Typography Specimen (Japanese, Chinese, Korean)</figcaption>
 </figure>
 

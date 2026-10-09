@@ -9,7 +9,7 @@
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="state_diagram_images/state_overview_anatomy.png" alt="state_diagram_1" style="width: 650px; max-width: 100%;" />
+  <img src="state_diagram_images/state_overview_anatomy.png" alt="state_diagram_1" />
   <figcaption class="drawlib-caption">StateDiagram Anatomy: Initial State, Action Compartments, and Bidirectional Arcs</figcaption>
 </figure>
 
@@ -21,16 +21,16 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.state import InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
-setup(width=120, height=54)
+setup(width=108, height=34)
 
 sd = StateDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
 )
 
-init = sd.add(InitialState(style=Styles.Dark), xy=(10.0, 27.0))
-idle = sd.add(State("Idle", shape="box", width=22.0, height=13.0), xy=(35.0, 27.0))
+init = sd.add(InitialState(style=Styles.Dark), xy=(6.0, 17.0))
+idle = sd.add(State("Idle", shape="box", width=22.0, height=13.0), xy=(28.0, 17.0))
 proc = sd.add(
     State(
         "Processing",
@@ -41,7 +41,7 @@ proc = sd.add(
         width=32.0,
         style=Styles.PrimaryNeutral,
     ),
-    xy=(94.0, 27.0),
+    xy=(88.0, 17.0),
 )
 
 sd.connect(init, idle)
@@ -62,7 +62,7 @@ sd.connect(
     bend=-0.35,
     start_side="bottom_left",
     end_side="bottom_right",
-    text_style=Styles.Dark.patch(valign="top"),
+    text_style=Styles.Dark.patch(text_size=10.5, valign="top"),
 )
 
 sd.draw(xy=(0.0, 0.0))
@@ -201,22 +201,23 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
-setup(width=142, height=75)
+setup(width=128, height=58)
 
 sd = StateDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="User Session Lifecycle State Machine",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
 # 1. Pseudo-states and state nodes
-init = sd.add(InitialState(), xy=(12.0, 38.0))
+init = sd.add(InitialState(), xy=(8.0, 24.0))
 idle = sd.add(
     State("Idle", shape="box", entry="reset()", do="listen()", width=22.0),
-    xy=(38.0, 38.0),
+    xy=(32.0, 24.0),
 )
-valid_check = sd.add(ChoiceState(name="Valid?", style=Styles.SecondaryNeutral), xy=(72.0, 38.0))
+valid_check = sd.add(ChoiceState(name="Valid?", style=Styles.SecondaryNeutral), xy=(64.0, 24.0))
 active = sd.add(
     State(
         "Active",
@@ -227,9 +228,9 @@ active = sd.add(
         style=Styles.PrimaryNeutral,
         width=22.0,
     ),
-    xy=(105.0, 38.0),
+    xy=(95.0, 24.0),
 )
-final = sd.add(FinalState(), xy=(132.0, 38.0))
+final = sd.add(FinalState(), xy=(121.0, 24.0))
 
 # 2. Connect transitions
 sd.connect(init, idle)
@@ -244,11 +245,11 @@ sd.connect(
     bend=-0.35,
     start_side="bottom",
     end_side="bottom",
-    text_style=Styles.Dark.patch(valign="top"),
+    text_style=Styles.Dark.patch(text_size=10.5, valign="top"),
 )
 
 # Self-transition heartbeat loop
-sd.connect(active, active, side="top", event="ping", action="extend()")
+sd.connect(active, active, side="top", event="ping", action="extend()", loop_width=8.0, loop_height=7.0)
 
 # Termination
 sd.connect(active, final, event="logout")
@@ -258,7 +259,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="state_diagram_images/state_user_session_lifecycle.png" alt="state_diagram_2" style="width: 650px; max-width: 100%;" />
+  <img src="state_diagram_images/state_user_session_lifecycle.png" alt="state_diagram_2" />
   <figcaption class="drawlib-caption">User Session Lifecycle State Machine</figcaption>
 </figure>
 
@@ -277,21 +278,22 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.state import FinalState, ForkJoinState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
-setup(width=115, height=75)
+setup(width=106, height=56)
 
 sd = StateDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="Concurrent Task Fork and Join",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
-init = sd.add(InitialState(), xy=(10.0, 37.5))
-fork = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(25.0, 37.5))
-job_a = sd.add(State("Compute Analytics", shape="box", width=28.0, style=Styles.PrimaryNeutral), xy=(55.0, 50.0))
-job_b = sd.add(State("Index Search", shape="box", width=28.0, style=Styles.SecondaryNeutral), xy=(55.0, 25.0))
-join = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(85.0, 37.5))
-final = sd.add(FinalState(), xy=(105.0, 37.5))
+init = sd.add(InitialState(), xy=(7.0, 24.5))
+fork = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(21.0, 24.5))
+job_a = sd.add(State("Compute Analytics", shape="box", width=28.0, style=Styles.PrimaryNeutral), xy=(51.0, 36.0))
+job_b = sd.add(State("Index Search", shape="box", width=28.0, style=Styles.SecondaryNeutral), xy=(51.0, 13.0))
+join = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(81.0, 24.5))
+final = sd.add(FinalState(), xy=(99.0, 24.5))
 
 sd.connect(init, fork)
 sd.connect(fork, job_a)
@@ -305,7 +307,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="state_diagram_images/state_concurrent_task_sync.png" alt="state_diagram_3" style="width: 650px; max-width: 100%;" />
+  <img src="state_diagram_images/state_concurrent_task_sync.png" alt="state_diagram_3" />
   <figcaption class="drawlib-caption">Concurrent Task Synchronization with Fork and Join</figcaption>
 </figure>
 
@@ -324,25 +326,26 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.state import State, StateDiagram
 from drawlib.styles import Styles
 
-setup(width=145, height=72)
+setup(width=128, height=58)
 
 sd = StateDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="Lexical Token Automaton (All State Shapes)",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
 # 1. text_only start indicator, circle state, oval state, and double_circle accepting state
-start_lbl = sd.add(State("start", shape="text_only", width=12.0), xy=(14.0, 34.0))
-q0 = sd.add(State("q0", shape="circle", width=16.0, style=Styles.Neutral), xy=(42.0, 34.0))
+start_lbl = sd.add(State("start", shape="text_only", width=11.0), xy=(11.0, 26.0))
+q0 = sd.add(State("q0", shape="circle", width=15.0, style=Styles.Neutral), xy=(36.0, 26.0))
 q1 = sd.add(
-    State("Scan Ident", shape="oval", width=26.0, height=13.0, style=Styles.PrimaryNeutral),
-    xy=(82.0, 34.0),
+    State("Scan Ident", shape="oval", width=25.0, height=13.0, style=Styles.PrimaryNeutral),
+    xy=(73.0, 26.0),
 )
 q_accept = sd.add(
-    State("ACCEPT", shape="double_circle", width=20.0, style=Styles.SecondaryNeutral),
-    xy=(124.0, 34.0),
+    State("ACCEPT", shape="double_circle", width=19.0, style=Styles.SecondaryNeutral),
+    xy=(113.0, 26.0),
 )
 
 # 2. Transitions with self-loops and diagonal anchors
@@ -358,7 +361,7 @@ sd.connect(
     bend=-0.32,
     start_side="bottom_left",
     end_side="bottom_right",
-    text_style=Styles.Dark.patch(valign="top"),
+    text_style=Styles.Dark.patch(text_size=10.5, valign="top"),
 )
 
 sd.draw(xy=(0.0, 0.0))
@@ -366,7 +369,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="state_diagram_images/state_automaton_shapes.png" alt="state_diagram_4" style="width: 650px; max-width: 100%;" />
+  <img src="state_diagram_images/state_automaton_shapes.png" alt="state_diagram_4" />
   <figcaption class="drawlib-caption">Finite Automaton Showcasing text_only, circle, oval, and double_circle State Shapes</figcaption>
 </figure>
 

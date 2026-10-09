@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,6 +427,67 @@
                 <h1>LayerGraph: Sugiyama Hierarchical DAGs &amp; Pipelines</h1>
 <p><code>LayerGraph</code> implements a <strong>Sugiyama-style layered Directed Acyclic Graph (DAG) solver</strong>—combining DFS cycle breaking, longest-path topological rank assignment, barycenter edge-crossing minimization, and Manhattan orthogonal routing.</p>
 <p>It is the ideal solver for CI/CD pipelines, ETL / data lineage graphs (dbt, Airflow), build dependency graphs, and multi-stage workflows where nodes progress through sequential ranks from left-to-right (<code>direction=&quot;LR&quot;</code>) or top-to-bottom (<code>direction=&quot;TB&quot;</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="layer_graph_images/graph_layer_hero.png" alt="layer_graph_1" />
+  <figcaption class="drawlib-caption">LayerGraph Overview: Automatic Sugiyama Topological Ranking and Rank Pinning (layer=int)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+    <span class="n">node_sep</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Rank 0: Ingestion Cluster</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"events"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Click Events"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Order Stream"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ingest_box"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"events"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ingestion"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+
+<span class="c1"># Rank 1: Stream Processing Focal Node</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"joiner"</span><span class="p">,</span>
+    <span class="s2">"</span><span class="se">\n</span><span class="s2">Stream Join"</span><span class="p">,</span>
+    <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Rank 2: Analytics Cluster</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"mart"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Revenue Mart"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Feature Store"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"analytics_box"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"mart"</span><span class="p">,</span> <span class="s2">"features"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Analytics"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"events"</span><span class="p">,</span> <span class="s2">"joiner"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"joiner"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"joiner"</span><span class="p">,</span> <span class="s2">"mart"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"joiner"</span><span class="p">,</span> <span class="s2">"features"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"events"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"joiner"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">git_merge</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"mart"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_line_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Constructor &amp; Rank Pinning API</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
@@ -533,17 +598,19 @@ Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>la
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">190</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">95</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
     <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Source tables (automatically ranked at layer 0)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"raw_events"</span><span class="p">,</span> <span class="s2">"Clickstream Log"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"raw_events"</span><span class="p">,</span> <span class="s2">"Clickstream"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"raw_orders"</span><span class="p">,</span> <span class="s2">"Orders CDC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
 <span class="c1"># Intermediate transformations (automatically ranked at layers 1 and 2)</span>
@@ -553,21 +620,26 @@ Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>la
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"rev_rollup"</span><span class="p">,</span> <span class="s2">"Revenue Mart"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 
 <span class="c1"># Terminal consumer (automatically ranked at layer 3; highlighted as primary focal point)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"ml_ranker"</span><span class="p">,</span> <span class="s2">"Realtime Ranker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"ml_ranker"</span><span class="p">,</span>
+    <span class="s2">"Realtime Rank"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"raw_events"</span><span class="p">,</span> <span class="s2">"clean_events"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"raw_orders"</span><span class="p">,</span> <span class="s2">"clean_orders"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"clean_events"</span><span class="p">,</span> <span class="s2">"user_features"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"clean_orders"</span><span class="p">,</span> <span class="s2">"user_features"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"clean_orders"</span><span class="p">,</span> <span class="s2">"rev_rollup"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"user_features"</span><span class="p">,</span> <span class="s2">"ml_ranker"</span><span class="p">,</span> <span class="s2">"Features"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"rev_rollup"</span><span class="p">,</span> <span class="s2">"ml_ranker"</span><span class="p">,</span> <span class="s2">"Weights"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"user_features"</span><span class="p">,</span> <span class="s2">"ml_ranker"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"rev_rollup"</span><span class="p">,</span> <span class="s2">"ml_ranker"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="layer_graph_images/graph_layer_auto_dag.png" alt="layer_graph_1" style="width: 720px; max-width: 100%;" />
+  <img src="layer_graph_images/graph_layer_auto_dag.png" alt="layer_graph_2" />
   <figcaption class="drawlib-caption">Automatic Topological Ranking and Crossing Minimization in LayerGraph</figcaption>
 </figure>
 <hr />
@@ -577,13 +649,14 @@ Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>la
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">195</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">98</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
-    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Stage 0: Source Trigger</span>
@@ -593,29 +666,35 @@ Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>la
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"Ruff &amp; Ty"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"Unit Suite"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">tier</span><span class="p">(</span><span class="s2">"ci_stage"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ci_cluster"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"CI Verification"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ci_cluster"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"CI Stage"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
 
 <span class="c1"># Stage 2: Artifact Packaging &amp; Security Scan</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"Build Image"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"sbom"</span><span class="p">,</span> <span class="s2">"SBOM Scan"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"pkg_cluster"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"sbom"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Artifact Stage"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"pkg_cluster"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"sbom"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Artifact"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
 
 <span class="c1"># Stage 3: Production Rollout (Hero focal node)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Prod Canary"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"prod"</span><span class="p">,</span>
+    <span class="s2">"Prod Canary"</span><span class="p">,</span>
+    <span class="n">layer</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"lint"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"docker"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"docker"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"sbom"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Deploy"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"sbom"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Attest"</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"sbom"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="layer_graph_images/graph_layer_pinned_pipeline.png" alt="layer_graph_2" style="width: 720px; max-width: 100%;" />
+  <img src="layer_graph_images/graph_layer_pinned_pipeline.png" alt="layer_graph_3" />
   <figcaption class="drawlib-caption">CI/CD Release Pipeline with Explicit Layer Pinning and Stage Clusters</figcaption>
 </figure>
 <hr />
@@ -625,19 +704,20 @@ Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>la
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">110</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span>
-    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
     <span class="n">node_sep</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
     <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Rank 0: Top-level entry point</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
 
 <span class="c1"># Rank 1: Parallel middleware tier</span>
 <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Guard"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
@@ -657,11 +737,11 @@ Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>la
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"resolver"</span><span class="p">,</span> <span class="s2">"sql_db"</span><span class="p">,</span> <span class="s2">"Query"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"resolver"</span><span class="p">,</span> <span class="s2">"redis"</span><span class="p">,</span> <span class="s2">"Lookup"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="layer_graph_images/graph_layer_tb_hierarchy.png" alt="layer_graph_3" style="width: 600px; max-width: 100%;" />
+  <img src="layer_graph_images/graph_layer_tb_hierarchy.png" alt="layer_graph_4" />
   <figcaption class="drawlib-caption">Top-to-Bottom (direction='TB') Sugiyama Ranked DAG Layout</figcaption>
 </figure>
 <hr />

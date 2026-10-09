@@ -3,28 +3,150 @@
 The `Cycle` component draws circular, repeating process diagrams and continuous feedback loops. 
 It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, incident response loops, and token refresh mechanisms.
 
+```drawlib fold-code center file:cycle_hero.png caption:"Overview of Cycle: Circular Node Orbits and Rectangular Card Loops"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.smartarts import Cycle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=130, height=62)
+
+# Left Panel: Circular Node Orbit (node_shape="circle", description_placement="inside")
+text((31.5, 56.5), "1. Circular Nodes (node_shape='circle', inside)", style=Styles.DarkBold.patch(text_size=10.5))
+
+c_left = Cycle(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    arrow_style=Styles.DarkBold,
+    node_shape="circle",
+    node_radius=7.8,
+    description_placement="inside",
+    arrow_type="arc",
+    arrow_width=1.4,
+    arrow_head_width=3.2,
+    arrow_color_mode="monochrome",
+    arrow_gap=1.8,
+)
+c_left.add(
+    "1. Plan",
+    description="Scope",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    description_style=Styles.White.patch(text_size=10.0),
+)
+c_left.add(
+    "2. Do",
+    description="Build",
+    style=Styles.PrimaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
+c_left.add(
+    "3. Check",
+    description="Verify",
+    style=Styles.SecondaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
+c_left.add(
+    "4. Act",
+    description="Deploy",
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
+c_left.set_center(
+    "PDCA",
+    radius=6.2,
+    style=Styles.SecondaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+c_left.draw(xy=(31.5, 27.5), radius=16.5)
+
+# Center Divider
+line((63.5, 4), (63.5, 58), style=Styles.MutedDashed)
+
+# Right Panel: Rectangular Card Loop (node_shape="rectangle", description_placement="outside")
+text((96.5, 56.5), "2. Rectangular Cards (node_shape='rectangle', outside)", style=Styles.DarkBold.patch(text_size=10.5))
+
+c_right = Cycle(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    node_shape="rectangle",
+    node_size=(14.0, 6.2),
+    description_placement="outside",
+    arrow_type="line",
+    arrow_width=1.6,
+    arrow_color_mode="match_source",
+    arrow_gap=1.8,
+)
+c_right.add(
+    "1. Login",
+    description="OIDC",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
+c_right.add(
+    "2. Issue",
+    description="JWT",
+    style=Styles.PrimaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0, halign="left"),
+    arrow_style=Styles.PrimaryBold,
+)
+c_right.add(
+    "3. Verify",
+    description="mTLS",
+    style=Styles.SecondaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    arrow_style=Styles.SecondaryBold,
+)
+c_right.add(
+    "4. Rotate",
+    description="Refresh",
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=10.0, halign="right"),
+    arrow_style=Styles.DarkBold,
+)
+c_right.set_center(
+    "Auth",
+    radius=5.2,
+    style=Styles.PrimaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+c_right.draw(xy=(96.5, 27.5), radius=13.5)
+
+save()
+```
+
 ---
 
 ## 1. Quick Example: Agile Development Cycle
 
-```drawlib show-code 600px center file:cycle_agile_lifecycle.png caption:"Continuous Agile Lifecycle with Cycle"
+```drawlib show-code center file:cycle_agile_lifecycle.png caption:"Continuous Agile Lifecycle with Cycle"
 from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
 from drawlib.styles import Styles
 
-setup(width=100, height=90)
+setup(width=115, height=82)
 
 cycle = Cycle(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=9),
-    description_style=Styles.Dark.patch(text_size=7),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
     arrow_style=Styles.DarkBold,
     clockwise=True,
     start_angle=90.0,
     node_shape="circle",
-    node_radius=7.5,
+    node_radius=10.0,
     arrow_type="arc",
-    arrow_width=1.5,
+    arrow_width=1.6,
     arrow_head_width=4.0,
     arrow_color_mode="monochrome",
     description_placement="inside",
@@ -33,22 +155,39 @@ cycle.add(
     "1. Plan",
     description="Sprint Goal",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9),
-    description_style=Styles.White.patch(text_size=7),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.White.patch(text_size=10.0),
 )
-cycle.add("2. Do", description="Build Feature")
-cycle.add("3. Check", description="Code Review")
-cycle.add("4. Act", description="Retro & Deploy", style=Styles.SecondaryNeutral)
+cycle.add(
+    "2. Do",
+    description="Build Code",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
+cycle.add(
+    "3. Check",
+    description="QA Review",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
+cycle.add(
+    "4. Act",
+    description="Deploy",
+    style=Styles.SecondaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+)
 
 cycle.set_center(
     text="Agile",
     description="Loop",
     radius=10.0,
     style=Styles.MutedFlat,
-    text_style=Styles.DarkBold.patch(text_size=10),
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
 )
 
-cycle.draw(xy=(50, 45), radius=28.0)
+cycle.draw(xy=(57.5, 41.0), radius=24.5)
 ```
 
 ---
@@ -57,21 +196,21 @@ cycle.draw(xy=(50, 45), radius=28.0)
 
 By setting `node_shape="rectangle"` with `node_size=(width, height)`, `description_placement="outside"`, `arrow_type="line"`, and `arrow_color_mode="match_source"`, you can build architectural state loops where rounded rectangular cards are connected by thin arc lines colored after each source stage, with descriptions radiating outward around the perimeter.
 
-```drawlib show-code 650px center file:cycle_rectangular_outside.png caption:"Rectangular Cycle with Outside Descriptions (node_shape='rectangle', arrow_type='line', arrow_color_mode='match_source')"
+```drawlib show-code center file:cycle_rectangular_outside.png caption:"Rectangular Cycle with Outside Descriptions (node_shape='rectangle', arrow_type='line', arrow_color_mode='match_source')"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Cycle
 from drawlib.styles import Styles
 
-setup(width=130, height=96)
+setup(width=128, height=84)
 
 auth_cycle = Cycle(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=9.0),
-    description_style=Styles.Dark.patch(text_size=8.0),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
     clockwise=True,
     start_angle=90.0,
     node_shape="rectangle",
-    node_size=(22.0, 9.5),
+    node_size=(23.0, 9.5),
     description_placement="outside",
     arrow_type="line",
     arrow_width=2.0,
@@ -84,14 +223,16 @@ auth_cycle.add(
     "1. Authenticate",
     description="OIDC Login & MFA",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9.0),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
 )
 # Right (0 deg) - left-align outside description so it extends cleanly rightward
 auth_cycle.add(
     "2. Issue JWT",
-    description="Short-Lived Access Token",
+    description="Short-Lived Token",
     style=Styles.PrimaryNeutral,
-    description_style=Styles.Dark.patch(text_size=8.0, halign="left"),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0, halign="left"),
     arrow_style=Styles.PrimaryBold,
 )
 # Bottom (270 deg)
@@ -99,28 +240,31 @@ auth_cycle.add(
     "3. API Verify",
     description="mTLS & Claims Check",
     style=Styles.SecondaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
     arrow_style=Styles.SecondaryBold,
 )
 # Left (180 deg) - right-align outside description so it extends cleanly leftward
 rotate_step = auth_cycle.add(
     "4. Refresh",
-    description="Rotate Refresh Token",
+    description="Rotate Token",
     style=Styles.Neutral,
-    description_style=Styles.Dark.patch(text_size=8.0, halign="right"),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0, halign="right"),
 )
 # Customize outgoing arrow style on the neutral step via CycleItem mutation
 rotate_step.arrow_style = Styles.DarkBold
 
 auth_cycle.set_center(
     text="Zero Trust",
-    description="Session Loop",
+    description="Session",
     radius=11.0,
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=9.5),
-    description_style=Styles.Muted.patch(text_size=7.5),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Muted.patch(text_size=10.0),
 )
 
-auth_cycle.draw(xy=(65, 48), radius=26.0, align="center")
+auth_cycle.draw(xy=(64, 42), radius=23.0, align="center")
 save()
 ```
 

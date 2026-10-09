@@ -4,7 +4,7 @@
 
 This chapter describes the multi-tier component architecture using reusable drawing helpers defined in `utils.py` and local image assets stored in `_assets/`.
 
-```drawlib 600px center file:component_architecture.png caption:"Detailed Component Architecture"
+```drawlib center file:component_architecture.png caption:"Detailed Component Architecture"
 from drawlib.canvas import setup
 from drawlib.images import image
 from drawlib.styles import Styles

@@ -1,6 +1,40 @@
 # Pyramid
 
-The `Pyramid` component renders tiered hierarchical trapezoids crowned by an apex triangle. It supports standard upright pyramids, inverted funnels, horizontal orientations, and custom per-tier heights—making it ideal for software testing pyramids, DIKW knowledge hierarchies, defense-in-depth tiers, and conversion funnels.
+The `Pyramid` component renders tiered hierarchical trapezoids crowned by an apex triangle.
+It supports standard upright pyramids, inverted funnels, horizontal orientations, and custom per-tier heights—making it ideal for software testing pyramids, DIKW knowledge hierarchies, defense-in-depth tiers, and conversion funnels.
+
+```drawlib fold-code center file:smartarts_pyramid_orientations.png caption:"All Four Pyramid Alignments: bottom, top, left, and right"
+from drawlib.canvas import save, setup
+from drawlib.shapes import circle
+from drawlib.smartarts import Pyramid
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=130, height=48)
+
+p = Pyramid(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+p.add("1", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.0))
+p.add("2", style=Styles.PrimaryNeutral)
+p.add("3", style=Styles.SecondaryNeutral)
+
+panels = [
+    ("bottom", (4.0, 9.5), "align='bottom'\n(Upright)"),
+    ("top", (36.0, 9.5), "align='top'\n(Inverted)"),
+    ("left", (68.0, 9.5), "align='left'\n(Apex Right)"),
+    ("right", (100.0, 9.5), "align='right'\n(Apex Left)"),
+]
+
+for align_val, (px, py), label in panels:
+    text((px + 13.0, 41.5), label, style=Styles.BlackBold.patch(text_size=10.0))
+    p.draw(xy=(px, py), width=26.0, height=25.0, margin=1.0, align=align_val, order="vertex_to_base")
+    circle((px, py), radius=1.0, style=Styles.DangerFlat)
+    text((px + 13.0, 4.0), f"xy=({int(px)}, 9.5)", style=Styles.DangerBold.patch(text_size=10.0))
+
+save()
+```
 
 ---
 
@@ -8,26 +42,26 @@ The `Pyramid` component renders tiered hierarchical trapezoids crowned by an ape
 
 By default (`align="bottom", order="vertex_to_base"`), the first added item is placed at the top apex triangle, and subsequent items form progressively wider trapezoidal tiers toward the base.
 
-```drawlib show-code 600px center file:smartarts_pyramid_testing.png caption:"Software Testing Pyramid (Upright Hierarchy)"
+```drawlib show-code center file:smartarts_pyramid_testing.png caption:"Software Testing Pyramid (Upright Hierarchy)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Pyramid
 from drawlib.styles import Styles
 
-setup(width=110, height=65)
+setup(width=115, height=58)
 
 pyramid = Pyramid(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Added from apex (top) to base (bottom) when order="vertex_to_base"
 pyramid.add(
-    "Manual\n(5%)",
+    "E2E\n(5%)",
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=8.0),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 pyramid.add(
-    "End-to-End UI Tests (15%)",
+    "UI & Browser Tests (15%)",
     style=Styles.SecondaryNeutral,
 )
 pyramid.add(
@@ -37,13 +71,13 @@ pyramid.add(
 pyramid.add(
     "Fast Automated Unit Tests (50%)",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
 pyramid.draw(
-    xy=(15, 8),
-    width=80,
-    height=48,
+    xy=(8, 4),
+    width=99,
+    height=50,
     margin=1.5,
     align="bottom",
     order="vertex_to_base",
@@ -57,16 +91,16 @@ save()
 
 Setting `align="top"` and `order="base_to_vertex"` inverts the pyramid into a top-down funnel where the first item is the wide top intake and the last item is the bottom apex. Using `draw_flexible(...)` lets you assign custom `item_heights` and `margins` to each stage.
 
-```drawlib show-code 600px center file:smartarts_pyramid_funnel.png caption:"Telemetry Ingestion & Filtering Funnel (align='top' with draw_flexible)"
+```drawlib show-code center file:smartarts_pyramid_funnel.png caption:"Telemetry Ingestion & Filtering Funnel (align='top' with draw_flexible)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Pyramid
 from drawlib.styles import Styles
 
-setup(width=110, height=65)
+setup(width=115, height=58)
 
 funnel = Pyramid(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Added from wide top base to bottom apex when align="top", order="base_to_vertex"
@@ -76,13 +110,13 @@ funnel.add("3. Anomaly Correlation Window (2.5k/s)", style=Styles.SecondaryNeutr
 funnel.add(
     "4. Alerts",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=8.5),
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
 )
 
 funnel.draw_flexible(
-    xy=(15, 8),
-    width=80,
-    item_heights=[9.5, 10.5, 11.0, 14.0],
+    xy=(8, 4),
+    width=99,
+    item_heights=[10.0, 11.0, 11.5, 15.0],
     margins=[1.5, 1.5, 1.5],
     align="top",
     order="base_to_vertex",
@@ -94,6 +128,8 @@ save()
 
 ## 3. Geometry, Orientations & Ordering
 
+As illustrated in the opening diagram at the top of this page:
+
 - **Bottom-Left Anchor `(x, y)`**: The `xy` coordinate passed to `draw()` or `draw_flexible()` specifies the **bottom-left corner** of the pyramid's bounding box.
 - **Alignment (`align`)**:
   - `"bottom"` *(default)*: Upright pyramid—wide base at the bottom, apex pointing up.
@@ -103,39 +139,6 @@ save()
 - **Item Ordering (`order`)**:
   - `"vertex_to_base"` *(default)*: First added item is placed at the triangular apex; last added item is at the wide base.
   - `"base_to_vertex"`: First added item is placed at the wide base; last added item is at the triangular apex.
-
-```drawlib fold-code 650px center file:smartarts_pyramid_orientations.png caption:"All Four Pyramid Alignments: bottom, top, left, and right"
-from drawlib.canvas import save, setup
-from drawlib.shapes import circle
-from drawlib.smartarts import Pyramid
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=145, height=48)
-
-p = Pyramid(
-    style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-p.add("1", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=7.5))
-p.add("2", style=Styles.PrimaryNeutral)
-p.add("3", style=Styles.SecondaryNeutral)
-
-panels = [
-    ("bottom", (6.0, 9.0), "align='bottom'\n(Upright)"),
-    ("top", (41.0, 9.0), "align='top'\n(Inverted Funnel)"),
-    ("left", (76.0, 9.0), "align='left'\n(Apex Right)"),
-    ("right", (111.0, 9.0), "align='right'\n(Apex Left)"),
-]
-
-for align_val, (px, py), label in panels:
-    text((px + 14.0, 42.5), label, style=Styles.BlackBold.patch(text_size=8.2))
-    p.draw(xy=(px, py), width=28.0, height=26.0, margin=1.0, align=align_val, order="vertex_to_base")
-    circle((px, py), radius=1.0, style=Styles.DangerFlat)
-    text((px + 2.0, py - 3.5), f"xy=({int(px)}, {int(py)})", style=Styles.DangerBold.patch(text_size=7.0, halign="left"))
-
-save()
-```
 
 ---
 

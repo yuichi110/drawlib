@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -422,6 +426,99 @@
             <main class="main-content">
                 <h1>Animating Technical Diagrams</h1>
 <p>All 6 coordinate-controlled diagram engines in <a href="../05_diagrams/overview.html"><code>drawlib.diagrams</code></a> (<code>FlowDiagram</code>, <code>ArchitectureDiagram</code>, <code>SequenceDiagram</code>, <code>StateDiagram</code>, <code>ClassDiagram</code>, and <code>ERDiagram</code>) follow <strong>Pattern B (Pre-Build &amp; Mutate)</strong>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="diagrams_images/anim_diagrams_hero.png" alt="diagrams_1" />
+  <figcaption class="drawlib-caption">Technical Diagram Animation: Step-by-Step Node, Container, and Edge Walkthrough</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"Client App"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LAPTOP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production VPC"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+<span class="n">gw</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+        <span class="s2">"API Gateway"</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">svc</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+        <span class="s2">"Order Service"</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">54.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">e1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">gw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">)</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gw</span><span class="p">,</span> <span class="n">svc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"gRPC"</span><span class="p">)</span>
+
+<span class="c1"># Frame 1: Client entry point</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+
+<span class="c1"># Frame 2: Reveal VPC container and API Gateway (active focal node)</span>
+<span class="n">vpc</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">e1</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+
+<span class="c1"># Frame 3: Settle Gateway into PrimaryNeutral and highlight Order Service</span>
+<span class="n">e1</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+
+<span class="c1"># Frame 4: Completed topology settled with Gateway as primary focal point</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <ol>
 <li><strong>Construct Topology Once</strong>: Instantiate the diagram and register all nodes, containers, lanes, blocks, notes, and connections <strong>once</strong> outside the animation loop, keeping references to the returned objects.</li>
 <li><strong>Mutate &amp; Redraw Per Frame</strong>: Inside <code>with anim.frame():</code>, mutate <code>.show</code>, <code>.style</code>, <code>.text_style</code>, <code>.label</code> / <code>.set_label()</code>, or <code>.set_style()</code>, and call <code>d.draw(xy=..., scale=...)</code>.</li>
@@ -473,25 +570,32 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decision</span><span class="p">,</span> <span class="n">End</span><span class="p">,</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Start</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
 <span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="c1"># 1. Build topology once outside the loop</span>
-<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span><span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">)</span>
-<span class="n">n1</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Start</span><span class="p">(</span><span class="s2">"Request"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Start</span><span class="p">(</span><span class="s2">"Request"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="n">n2</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Process</span><span class="p">(</span><span class="s2">"Authorize"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">Process</span><span class="p">(</span><span class="s2">"Authorize"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">n3</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Decision</span><span class="p">(</span><span class="s2">"Valid?"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">Decision</span><span class="p">(</span><span class="s2">"Valid?"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">n4</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">End</span><span class="p">(</span><span class="s2">"200 OK"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">End</span><span class="p">(</span><span class="s2">"200 OK"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">e1</span> <span class="o">=</span> <span class="n">n1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n2</span><span class="p">)</span>
@@ -511,10 +615,10 @@
 <span class="c1"># 4. Frame 3: Settle Authorize into PrimaryNeutral, reveal Decision gate, highlight e2</span>
 <span class="n">e1</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
 <span class="n">n2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span>
-<span class="n">n2</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+<span class="n">n2</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 <span class="n">n3</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">n3</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
-<span class="n">n3</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span>
+<span class="n">n3</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 <span class="n">e2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
     <span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
@@ -522,7 +626,7 @@
 <span class="c1"># 5. Frame 4: Settle Decision gate, reveal 200 OK, highlight e3 (hold final frame)</span>
 <span class="n">e2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
 <span class="n">n3</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span>
-<span class="n">n3</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+<span class="n">n3</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 <span class="n">n4</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">e3</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
@@ -531,7 +635,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="diagrams_images/anim_diagrams_flow_ratio.png" alt="diagrams_1" style="width: 650px; max-width: 100%;" />
+  <img src="diagrams_images/anim_diagrams_flow_ratio.png" alt="diagrams_2" />
   <figcaption class="drawlib-caption">FlowDiagram Walkthrough with Automatic Edge/Junction Reveal and Active-Path Highlighting</figcaption>
 </figure>
 <hr />
@@ -547,15 +651,15 @@
 
 <span class="n">seq</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
-    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">autonumber</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"Client"</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">))</span>
-<span class="n">api</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"API Server"</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">))</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"Database"</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">))</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"Client"</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)))</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"API Server"</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)))</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"Database"</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)))</span>
 
 <span class="n">m1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="s2">"POST /orders"</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">seq</span><span class="o">.</span><span class="n">opt</span><span class="p">(</span><span class="s2">"Idempotent Write"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">blk</span><span class="p">:</span>
@@ -584,7 +688,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="diagrams_images/anim_diagrams_pan_zoom.png" alt="diagrams_2" style="width: 650px; max-width: 100%;" />
+  <img src="diagrams_images/anim_diagrams_pan_zoom.png" alt="diagrams_3" />
   <figcaption class="drawlib-caption">Sliding, Scaling, and Revealing a SequenceDiagram via draw(xy, scale) and .show / .set_style()</figcaption>
 </figure>
 <hr />
@@ -599,64 +703,64 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 <span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
-    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 1. External Load Balancer (Visible on Frame 1)</span>
 <span class="n">lb</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
         <span class="s2">"Load Balancer"</span><span class="p">,</span>
         <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">,</span>
-        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
         <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
-        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Private Subnet Group &amp; App Pods (Revealed progressively across frames)</span>
-<span class="n">group</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Compute Subnet (group.show)"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Compute Subnet (group.show)"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">52.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
 <span class="n">app1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"App Pod 1"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span>
+    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="s2">"App Pod 1"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">app2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"App Pod 2"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="s2">"App Pod 2"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Junction fan-out (automatically stays hidden while app1 &amp; app2 have show=False)</span>
-<span class="n">lb</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">app1</span><span class="p">,</span> <span class="n">app2</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">lb</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">app1</span><span class="p">,</span> <span class="n">app2</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="c1"># Frame 1: Only Load Balancer visible (Junction trunk is automatically hidden)</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
-    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 
 <span class="c1"># Frame 2: Reveal Subnet container + App Pod 1 (upper fork branch appears automatically)</span>
 <span class="n">group</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">app1</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
-    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 
 <span class="c1"># Frame 3: Reveal App Pod 2 (full 1-to-2 fan-out completed)</span>
 <span class="n">app2</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
-    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="diagrams_images/anim_diagrams_architecture_fork.png" alt="diagrams_3" style="width: 650px; max-width: 100%;" />
+  <img src="diagrams_images/anim_diagrams_architecture_fork.png" alt="diagrams_4" />
   <figcaption class="drawlib-caption">ArchitectureDiagram Tier-by-Tier Container Reveal and Automatic Junction Fan-Out Hiding</figcaption>
 </figure>
 

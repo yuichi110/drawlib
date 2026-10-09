@@ -2,6 +2,61 @@
 
 While the `drawlib` CLI provides terminal commands for common workflows, Drawlib exposes a comprehensive Python developer API under `drawlib.tools`. This API allows you to integrate document compilation, diagram export, image snapshot testing, and template automation directly into CI/CD pipelines, web servers, and custom build scripts.
 
+The `drawlib.tools` facade organizes programmatic automation into six core subsystems:
+
+```drawlib fold-code center file:programmatic_api_tools_overview.png caption:"Architecture of the drawlib.tools Programmatic Automation API"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=62)
+
+# Left Column: External Callers
+text((18, 55.5), "External Callers", style=Styles.DarkBold.patch(text_size=10.8))
+
+callers = [
+    (43.5, "CI/CD Scripts", Styles.Neutral, phosphor.code),
+    (29.5, "Pytest Suites", Styles.PrimaryNeutral, phosphor.check_circle),
+    (15.5, "Doc Pipelines", Styles.SecondaryNeutral, phosphor.cpu),
+]
+for cy, clabel, cst, cicon in callers:
+    rectangle((18, cy), width=26, height=11.5, style=cst.patch(shape_r=1.5))
+    cicon((9.5, cy), width=4.0, style=Styles.PrimaryBold)
+    text((21.0, cy), clabel, style=Styles.DarkBold.patch(text_size=10.0))
+
+# Right Container: drawlib.tools Facade + 3x2 Subsystem Grid
+rectangle((83, 31), width=80, height=52, style=Styles.MutedDashed.patch(shape_r=2.5))
+
+rectangle((83, 50.0), width=74, height=8.0, style=Styles.PrimaryFlat.patch(shape_r=1.8))
+phosphor.cpu((52.5, 50.0), width=4.6, style=Styles.WhiteBold)
+text((86.0, 50.0), "drawlib.tools — Python Automation API", style=Styles.WhiteBold.patch(text_size=10.8))
+
+# Row 1 of 3x2 Grid
+grid_items = [
+    (58.0, 35.5, "1. Compilers", "build_html / pdf", Styles.Neutral, phosphor.globe),
+    (83.0, 35.5, "2. Extraction", "export_code_block", Styles.PrimaryNeutral, phosphor.file_pdf),
+    (108.0, 35.5, "3. In-Memory", "get_dimage", Styles.SecondaryNeutral, phosphor.image),
+    (58.0, 16.0, "4. Scaffold", "init_project", Styles.SecondaryNeutral, phosphor.presentation_chart),
+    (83.0, 16.0, "5. Link Audit", "scan_broken_links", Styles.Neutral, phosphor.eye),
+    (108.0, 16.0, "6. Cache & CSS", "download / get_css", Styles.PrimaryNeutral, phosphor.database),
+]
+for gx, gy, gtitle, gsub, gst, gicon in grid_items:
+    rectangle((gx, gy), width=23.5, height=16.5, style=gst.patch(shape_r=1.5))
+    gicon((gx, gy + 4.5), width=4.2, style=Styles.PrimaryBold)
+    text((gx, gy - 0.8), gtitle, style=Styles.DarkBold.patch(text_size=10.2))
+    text((gx, gy - 5.2), gsub, style=Styles.Dark.patch(text_size=10.0))
+
+# Connectors from External Callers to drawlib.tools Container
+line((31, 43.5), (43, 43.5), arrow_head="->", style=Styles.DarkBold)
+line((31, 29.5), (43, 29.5), arrow_head="->", style=Styles.DarkBold)
+line((31, 15.5), (43, 15.5), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
 ---
 
 ## 1. Module Overview & Complete Exports (`drawlib.tools`)
@@ -37,115 +92,6 @@ from drawlib.tools import (
     get_css,
     export_css,
 )
-```
-
-```drawlib fold-code 650px center file:programmatic_api_tools_overview.png caption:"Architecture of the drawlib.tools Programmatic Automation API"
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=156, height=60)
-
-# Left Column: External Callers
-text((20, 53.5), "External Callers", style=Styles.DarkBold.patch(text_size=8.2))
-
-rectangle(
-    (20, 43),
-    width=28,
-    height=11,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="Python CI/CD\nScripts",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (20, 29),
-    width=28,
-    height=11,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="Pytest Suites\n(Visual & Link Tests)",
-    text_style=Styles.DarkBold.patch(text_size=7.3),
-)
-rectangle(
-    (20, 15),
-    width=28,
-    height=11,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="Custom Doc\nPipelines",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-
-# Right Container: drawlib.tools Facade + 3x2 Subsystem Grid
-rectangle((101, 30), width=98, height=50, style=Styles.MutedDashed.patch(shape_r=2.5))
-
-rectangle(
-    (101, 48.5),
-    width=90,
-    height=8.0,
-    style=Styles.PrimaryFlat.patch(shape_r=1.8),
-    text="drawlib.tools — Programmatic Python Automation Facade",
-    text_style=Styles.WhiteBold.patch(text_size=8.2),
-)
-
-# Row 1 of 3x2 Grid
-rectangle(
-    (70.25, 34.5),
-    width=28.5,
-    height=15,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="1. Document & Slide\nCompilers\nbuild_html, build_markdown,\nbuild_pdf, build_slide, build_image",
-    text_style=Styles.DarkBold.patch(text_size=6.5),
-)
-rectangle(
-    (101.0, 34.5),
-    width=28.5,
-    height=15,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="2. Block Inspection\n& Extraction\nlist_code_blocks, export_\ncode_block, extract_images",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (131.75, 34.5),
-    width=28.5,
-    height=15,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="3. In-Memory\nImage Engine\nget_dimage,\nget_dimage_from_code",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-
-# Row 2 of 3x2 Grid
-rectangle(
-    (70.25, 15.5),
-    width=28.5,
-    height=15,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="4. Project\nScaffolding\ninit_project,\nlist_project_types",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (101.0, 15.5),
-    width=28.5,
-    height=15,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="5. Preview Server\n& Link Audit\nserve_docs,\nscan_broken_links",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (131.75, 15.5),
-    width=28.5,
-    height=15,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="6. Cache & CSS\nTheme API\nlist_cache, download_\ncache, clear_cache, get_css",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-
-# Connectors from External Callers to drawlib.tools Container
-line((34, 43), (52, 43), arrow_head="->", style=Styles.DarkBold)
-line((34, 29), (52, 29), arrow_head="->", style=Styles.DarkBold)
-line((34, 15), (52, 15), arrow_head="->", style=Styles.DarkBold)
-
-save()
 ```
 
 | Category | Function | Description |
@@ -263,8 +209,9 @@ Drawlib can capture canvases directly into in-memory `Dimage` objects (`from dra
 - **`get_dimage()` (`from drawlib.canvas import get_dimage`)**: Captures the currently active canvas into a `Dimage` instance (`dimage.get_image_size()`, `dimage.get_pil_image()`, `dimage.trim()`, `dimage.sepia()`, `dimage.save(...)`).
 - **`get_dimage_from_code(code)` (`from drawlib.images import get_dimage_from_code`)**: Executes a self-contained Python drawing snippet in an isolated sandbox and returns the rendered `Dimage` in memory:
 
-```drawlib show-code 600px center file:programmatic_api_in_memory_dimage.png caption:"Generating an In-Memory Dimage via get_dimage_from_code() and Compositing onto Canvas"
+```drawlib show-code center file:programmatic_api_in_memory_dimage.png caption:"Generating an In-Memory Dimage via get_dimage_from_code() and Compositing onto Canvas"
 from drawlib.canvas import get_dimage, save, setup
+from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -276,9 +223,9 @@ sub_dimage = get_dimage_from_code("""
 from drawlib.canvas import setup
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
-setup(width=44, height=32)
-rectangle((22, 16), width=40, height=28, style=Styles.PrimaryNeutral)
-circle((22, 16), radius=10.5, style=Styles.PrimaryFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=16))
+setup(width=28, height=20)
+rectangle((14, 10), width=26, height=18, style=Styles.PrimaryNeutral)
+circle((14, 10), radius=6.8, style=Styles.PrimaryFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=18))
 """).trim()
 
 # 2. Apply non-destructive Dimage transformations in memory
@@ -286,18 +233,22 @@ sepia_dimage = sub_dimage.sepia()
 w_px, h_px = sub_dimage.get_image_size()
 
 # 3. Composite both in-memory Dimage objects onto the main canvas
-setup(width=120, height=52)
+setup(width=114, height=48)
 
-rectangle((32, 26), width=46, height=38, style=Styles.MutedDashed.patch(shape_r=2.5))
-image((32, 28), width=32, image=sub_dimage, style=Styles.Primary.patch(shape_line_width=1.2, shape_line_color=Colors.Primary))
-text((32, 12), f"Original Dimage ({w_px}x{h_px} px)", style=Styles.DarkBold.patch(text_size=8.0))
+rectangle((28, 24), width=46, height=40, style=Styles.MutedDashed.patch(shape_r=2.5))
+phosphor.code((10.5, 39.5), width=4.0, style=Styles.PrimaryBold)
+text((30.5, 39.5), "get_dimage_from_code()", style=Styles.DarkBold.patch(text_size=10.2))
+image((28, 23.5), width=28, image=sub_dimage, style=Styles.Primary.patch(shape_line_width=1.2, shape_line_color=Colors.Primary))
+text((28, 8.5), f"Original ({w_px}x{h_px} px)", style=Styles.DarkBold.patch(text_size=10.2))
 
-line((55, 26), (65, 26), arrow_head="->", style=Styles.DarkBold)
-text((60, 31), ".sepia()", style=Styles.DarkBold.patch(text_size=8.0))
+line((51, 24), (63, 24), arrow_head="->", style=Styles.DarkBold)
+text((57, 29.0), ".sepia()", style=Styles.DarkBold.patch(text_size=10.5))
 
-rectangle((88, 26), width=46, height=38, style=Styles.MutedDashed.patch(shape_r=2.5))
-image((88, 28), width=32, image=sepia_dimage, style=Styles.Secondary.patch(shape_line_width=1.2))
-text((88, 12), "Transformed Dimage (.sepia())", style=Styles.DarkBold.patch(text_size=8.0))
+rectangle((86, 24), width=46, height=40, style=Styles.MutedDashed.patch(shape_r=2.5))
+phosphor.image((68.5, 39.5), width=4.0, style=Styles.PrimaryBold)
+text((88.5, 39.5), "In-Memory Transform", style=Styles.DarkBold.patch(text_size=10.2))
+image((86, 23.5), width=28, image=sepia_dimage, style=Styles.Secondary.patch(shape_line_width=1.2))
+text((86, 8.5), "Transformed Dimage", style=Styles.DarkBold.patch(text_size=10.2))
 
 # Capture full composite canvas if needed via get_dimage()
 _composite_snapshot = get_dimage()

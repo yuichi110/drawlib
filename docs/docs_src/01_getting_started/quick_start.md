@@ -9,39 +9,54 @@ You can author diagrams either as **standalone Python scripts** (`.py`) or as **
 
 Every Drawlib illustration follows a clean, predictable lifecycle:
 
+```drawlib fold-code center file:quickstart_five_step_workflow.png caption:"The Standard 5-Step Drawlib Drawing Workflow"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.shapes import circle
+from drawlib.smartarts import ChevronProcess
+from drawlib.styles import Styles
+
+setup(width=126, height=34)
+
+workflow = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.8),
+    description_style=Styles.Muted.patch(text_size=10.0),
+    corner_angle=65.0,
+    spacing=1.8,
+    flat_left_end=True,
+)
+workflow.add("1. Import\nAPIs")
+workflow.add("2. Setup\nCanvas")
+workflow.add("3. Draw\nZones", style=Styles.SecondaryNeutral)
+workflow.add("4. Shapes\n& Lines")
+workflow.add(
+    "5. Save /\nExport",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.8),
+)
+workflow.draw(xy=(3.0, 3.0), width=120.0, height=17.0)
+
+# Icons above each stage
+stage_icons = [
+    (14.0, phosphor.palette, Styles.Neutral),
+    (38.0, phosphor.sliders_horizontal, Styles.Neutral),
+    (62.5, phosphor.grid_four, Styles.SecondaryNeutral),
+    (87.0, phosphor.shapes, Styles.Neutral),
+    (111.5, phosphor.floppy_disk, Styles.PrimaryNeutral),
+]
+for cx, icon_fn, badge_style in stage_icons:
+    circle((cx, 26.8), radius=3.8, style=badge_style)
+    icon_fn((cx, 26.8), width=4.6, style=Styles.Primary)
+
+save()
+```
+
 1. **Import APIs**: Import canvas management, drawing primitives, and styling presets.
 2. **Setup Canvas**: Initialize canvas dimensions (`width`, `height`) via `setup()`.
 3. **Draw Structural Containers**: Create boundary boxes, cloud regions, or background grids.
 4. **Draw Entities & Connectors**: Add shapes, icons, and lines with semantic styles and labels.
 5. **Save / Export**: Save the drawing to an image file via `save()`, or let the Document Builder render it inline automatically.
-
-```drawlib fold-code 650px center file:quickstart_five_step_workflow.png caption:"The Standard 5-Step Drawlib Drawing Workflow"
-from drawlib.canvas import save, setup
-from drawlib.smartarts import ChevronProcess
-from drawlib.styles import Styles
-
-setup(width=136, height=32)
-
-workflow = ChevronProcess(
-    style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=8.8),
-    description_style=Styles.Muted,
-    corner_angle=60.0,
-    spacing=2.0,
-    flat_left_end=True,
-)
-workflow.add("1. Import\nAPIs")
-workflow.add("2. Setup\nCanvas")
-workflow.add("3. Draw\nContainers")
-workflow.add("4. Entities &\nConnectors")
-workflow.add(
-    "5. Save /\nExport",
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=8.8),
-)
-workflow.draw(xy=(8, 8), width=120.0, height=16.0)
-save()
-```
 
 ---
 
@@ -64,19 +79,19 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-# Step 2: Setup canvas dimensions (Cartesian space: 100 wide x 50 high)
-setup(width=100, height=50)
+# Step 2: Setup canvas dimensions (Cartesian space: 100 wide x 44 high)
+setup(width=100, height=44)
 
 # Step 3: Draw background boundary container
-rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
+rectangle((50, 22), width=92, height=36, style=Styles.MutedDashed)
 
 # Step 4: Draw main entities and connectors (50%+ Neutral-Grounded)
-circle((25, 25), radius=12, style=Styles.Neutral, text="Client")
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
+circle((25, 22), radius=12, style=Styles.Neutral, text="Client", text_style=Styles.DarkBold.patch(text_size=11.5))
+rectangle((75, 22), width=26, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold.patch(text_size=11.5))
 
 # Connection line with arrowhead
-line((37, 25), (63, 25), arrow_head="->", style=Styles.DarkBold)
-text((50, 30), "REST API", style=Styles.DarkBold)
+line((37, 22), (62, 22), arrow_head="->", style=Styles.DarkBold)
+text((49.5, 27), "REST API", style=Styles.DarkBold.patch(text_size=11.0))
 
 # Step 5: Save image (defaults to client_server.png)
 save()
@@ -115,20 +130,20 @@ Inside any Markdown document (such as `doc.md` in a `doc` or `site` project), si
 
 Here is our primary service flow:
 
-```drawlib 600px center file:client_server_communication.png caption:"Client-Server REST Communication"
+```drawlib center file:client_server_communication.png caption:"Client-Server REST Communication"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.styles import Styles
 
-setup(width=100, height=50)
+setup(width=100, height=44)
 
-rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
-circle((25, 25), radius=12, style=Styles.Neutral, text="Client")
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
-line((37, 25), (63, 25), arrow_head="->", style=Styles.DarkBold)
-text((50, 30), "REST API", style=Styles.DarkBold)
+rectangle((50, 22), width=92, height=36, style=Styles.MutedDashed)
+circle((25, 22), radius=12, style=Styles.Neutral, text="Client", text_style=Styles.DarkBold.patch(text_size=11.5))
+rectangle((75, 22), width=26, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold.patch(text_size=11.5))
+line((37, 22), (62, 22), arrow_head="->", style=Styles.DarkBold)
+text((49.5, 27), "REST API", style=Styles.DarkBold.patch(text_size=11.0))
 save()
 ```
 ````
@@ -142,20 +157,20 @@ $ uv run drawlib show doc.md client_server_communication.png -g -o .drawlib/scra
 
 When compiled with `drawlib build html` or `drawlib build markdown`, the code fence is executed and replaced with the rendered image:
 
-```drawlib fold-code 600px center file:client_server_communication_styled.png caption:"Client-Server REST Communication"
+```drawlib fold-code center file:client_server_communication_styled.png caption:"Client-Server REST Communication"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.styles import Styles
 
-setup(width=100, height=50)
+setup(width=100, height=44)
 
-rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
-circle((25, 25), radius=12, style=Styles.Neutral, text="Client")
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
-line((37, 25), (63, 25), arrow_head="->", style=Styles.DarkBold)
-text((50, 30), "REST API", style=Styles.DarkBold)
+rectangle((50, 22), width=92, height=36, style=Styles.MutedDashed)
+circle((25, 22), radius=12, style=Styles.Neutral, text="Client", text_style=Styles.DarkBold.patch(text_size=11.5))
+rectangle((75, 22), width=26, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold.patch(text_size=11.5))
+line((37, 22), (62, 22), arrow_head="->", style=Styles.DarkBold)
+text((49.5, 27), "REST API", style=Styles.DarkBold.patch(text_size=11.0))
 save()
 ```
 

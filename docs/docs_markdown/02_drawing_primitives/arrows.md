@@ -3,18 +3,10 @@
 In addition to line connectors (`drawlib.lines`), Drawlib provides six **directed block arrow primitives** in `drawlib.shapes`. 
 Block arrows are closed 2D polygons with customizable tail widths, arrowhead dimensions, and corner rounding. They are widely used for data pipelines, architectural flows, and process stages.
 
----
-
-## 1. Overview of Block Arrow Functions
-
-The six block arrow functions in `drawlib.shapes` fall into two groups with respect to text labeling:
-- **Embedded Label Support (`text` & `text_style`)**: `arrow()` and `chevron()` accept `text` and `text_style` directly.
-- **Standalone Label Placement (`drawlib.text.text()`)**: `arrow_l()`, `arrow_u()`, `arrow_arc()`, and `arrow_polyline()` do **not** accept `text` or `text_style`; place a standalone `text(xy, ...)` call adjacent to the arrow path.
-
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_overview.png" alt="arrows_1" style="width: 650px; max-width: 100%;" />
+  <img src="arrows_images/arrow_overview.png" alt="arrows_1" />
   <figcaption class="drawlib-caption">Overview of Drawlib Block Arrow Primitives</figcaption>
 </figure>
 
@@ -27,36 +19,38 @@ from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, c
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=136, height=68)
+setup(width=124, height=62)
 
 # Subtle background cards for 3x2 grid
-for cx in (25, 68, 111):
-    for cy in (50, 18):
-        rectangle((cx, cy), width=38, height=26, style=Styles.Neutral.patch(shape_r=2))
+for cx in (22, 62, 102):
+    for cy in (45.5, 16.5):
+        rectangle((cx, cy), width=36, height=25, style=Styles.Neutral.patch(shape_r=2))
+
+lbl = Styles.DarkBold.patch(text_size=10.5)
 
 # 1. Straight Block Arrow (Hero)
-arrow((11, 53), (39, 53), tail_width=4.5, head_width=10, head_length=7.5, style=Styles.PrimaryFlat, text="arrow", text_style=Styles.WhiteBold.patch(text_size=8.5))
-text((25, 41), "1. arrow()", style=Styles.DarkBold.patch(text_size=8.5))
+arrow((9, 49.5), (35, 49.5), tail_width=5.0, head_width=10.5, head_length=7.5, style=Styles.PrimaryFlat, text="arrow", text_style=Styles.WhiteBold.patch(text_size=10.5))
+text((22, 37.5), "1. arrow()", style=lbl)
 
 # 2. Chevron
-chevron((68, 53), width=26, height=12, corner_angle=60, style=Styles.SecondaryNeutral.patch(shape_r=1), text="chevron", text_style=Styles.DarkBold.patch(text_size=8.5))
-text((68, 41), "2. chevron()", style=Styles.DarkBold.patch(text_size=8.5))
+chevron((62, 49.5), width=25, height=11.5, corner_angle=60, style=Styles.SecondaryNeutral.patch(shape_r=1), text="chevron", text_style=Styles.DarkBold.patch(text_size=10.5))
+text((62, 37.5), "2. chevron()", style=lbl)
 
 # 3. L-shaped Arrow
-arrow_l((111, 54), width=22, height=13, tail_width=3.2, head_width=8, head_length=6, style=Styles.DarkBold.patch(shape_r=2.5))
-text((111, 41), "3. arrow_l()", style=Styles.DarkBold.patch(text_size=8.5))
+arrow_l((102, 50.5), width=20, height=12, tail_width=3.2, head_width=8, head_length=6, style=Styles.DarkBold.patch(shape_r=2.5))
+text((102, 37.5), "3. arrow_l()", style=lbl)
 
 # 4. U-turn Arrow
-arrow_u((25, 22), width=22, height=13, tail_width=3.2, head_width=8, head_length=6, style=Styles.DarkBold.patch(shape_r=3))
-text((25, 9), "4. arrow_u()", style=Styles.DarkBold.patch(text_size=8.5))
+arrow_u((22, 20.5), width=20, height=12, tail_width=3.2, head_width=8, head_length=6, style=Styles.DarkBold.patch(shape_r=3))
+text((22, 8.5), "4. arrow_u()", style=lbl)
 
 # 5. Arrow Arc (Circular flow)
-arrow_arc((68, 25.5), width=22, height=15, angle_start=180, angle_end=0, tail_width=3.2, head_width=8, head_angle=14, style=Styles.SecondaryNeutral)
-text((68, 9), "5. arrow_arc()", style=Styles.DarkBold.patch(text_size=8.5))
+arrow_arc((62, 23.5), width=20, height=14, angle_start=180, angle_end=0, tail_width=3.2, head_width=8, head_angle=14, style=Styles.SecondaryNeutral)
+text((62, 8.5), "5. arrow_arc()", style=lbl)
 
 # 6. Multi-Point Polyline Arrow
-arrow_polyline([(98, 16), (110, 16), (110, 24.5), (124, 24.5)], tail_width=3.2, head_width=8, head_length=6, style=Styles.PrimaryNeutral.patch(shape_r=2))
-text((111, 9), "6. arrow_polyline()", style=Styles.DarkBold.patch(text_size=8.5))
+arrow_polyline([(90, 15.5), (101, 15.5), (101, 23.5), (114, 23.5)], tail_width=3.2, head_width=8, head_length=6, style=Styles.PrimaryNeutral.patch(shape_r=2))
+text((102, 8.5), "6. arrow_polyline()", style=lbl)
 
 save()
 ```
@@ -64,6 +58,14 @@ save()
 </details>
 
 
+
+---
+
+## 1. Overview of Block Arrow Functions
+
+The six block arrow functions in `drawlib.shapes` fall into two groups with respect to text labeling:
+- **Embedded Label Support (`text` & `text_style`)**: `arrow()` and `chevron()` accept `text` and `text_style` directly.
+- **Standalone Label Placement (`drawlib.text.text()`)**: `arrow_l()`, `arrow_u()`, `arrow_arc()`, and `arrow_polyline()` do **not** accept `text` or `text_style`; place a standalone `text(xy, ...)` call adjacent to the arrow path.
 
 ---
 
@@ -107,53 +109,53 @@ from drawlib.shapes import arrow, circle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=124, height=52)
+setup(width=120, height=50)
 
-# Primary straight block arrow from xy1=(26, 24) to xy2=(86, 24)
+# Primary straight block arrow from xy1=(28, 24) to xy2=(84, 24)
 arrow(
-    (26, 24),
-    (86, 24),
-    tail_width=8,
+    (28, 24),
+    (84, 24),
+    tail_width=8.5,
     head_width=18,
     head_length=14,
     head="->",  # "->", "<-", or "<->"
     style=Styles.PrimaryFlat,
     text="Data Ingestion",
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
 # Endpoint markers for xy1 and xy2
-circle((26, 24), radius=1.2, style=Styles.DangerFlat)
-line((26, 24), (26, 11), style=Styles.DangerDashed)
-text((26, 7.5), "xy1 (26, 24)", style=Styles.DangerBold.patch(text_size=8.5))
+circle((28, 24), radius=1.2, style=Styles.DangerFlat)
+line((28, 24), (28, 11), style=Styles.DangerDashed)
+text((28, 7.0), "xy1 (28, 24)", style=Styles.DangerBold.patch(text_size=10.5))
 
-circle((86, 24), radius=1.2, style=Styles.DangerFlat)
-line((86, 24), (86, 11), style=Styles.DangerDashed)
-text((86, 7.5), "xy2 (86, 24)", style=Styles.DangerBold.patch(text_size=8.5))
+circle((84, 24), radius=1.2, style=Styles.DangerFlat)
+line((84, 24), (84, 11), style=Styles.DangerDashed)
+text((84, 7.0), "xy2 (84, 24)", style=Styles.DangerBold.patch(text_size=10.5))
 
-# Dimension: tail_width (shaft y = 20..28)
-line((16, 20), (26, 20), style=Styles.MutedDashed)
-line((16, 28), (26, 28), style=Styles.MutedDashed)
-line((18, 20), (18, 28), arrow_head="<->", style=Styles.DarkBold)
-text((9, 24), "tail_width", style=Styles.DarkBold.patch(text_size=8.5))
+# Dimension: tail_width (shaft y = 19.75..28.25)
+line((18, 19.75), (28, 19.75), style=Styles.MutedDashed)
+line((18, 28.25), (28, 28.25), style=Styles.MutedDashed)
+line((20, 19.75), (20, 28.25), arrow_head="<->", style=Styles.DarkBold)
+text((10, 24), "tail_width", style=Styles.DarkBold.patch(text_size=10.5))
 
-# Dimension: head_length (x = 72..86)
-line((72, 33), (72, 41), style=Styles.MutedDashed)
-line((86, 24), (86, 41), style=Styles.MutedDashed)
-line((72, 39), (86, 39), arrow_head="<->", style=Styles.DarkBold)
-text((79, 43.5), "head_length", style=Styles.DarkBold.patch(text_size=8.5))
+# Dimension: head_length (x = 70..84)
+line((70, 33), (70, 41), style=Styles.MutedDashed)
+line((84, 24), (84, 41), style=Styles.MutedDashed)
+line((70, 39), (84, 39), arrow_head="<->", style=Styles.DarkBold)
+text((77, 43.5), "head_length", style=Styles.DarkBold.patch(text_size=10.5))
 
 # Dimension: head_width (arrowhead base y = 15..33)
-line((72, 15), (100, 15), style=Styles.MutedDashed)
-line((72, 33), (100, 33), style=Styles.MutedDashed)
-line((98, 15), (98, 33), arrow_head="<->", style=Styles.DarkBold)
-text((110, 24), "head_width", style=Styles.DarkBold.patch(text_size=8.5))
+line((70, 15), (96, 15), style=Styles.MutedDashed)
+line((70, 33), (96, 33), style=Styles.MutedDashed)
+line((94, 15), (94, 33), arrow_head="<->", style=Styles.DarkBold)
+text((107, 24), "head_width", style=Styles.DarkBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_straight.png" alt="arrows_2" style="width: 650px; max-width: 100%;" />
+  <img src="arrows_images/arrow_straight.png" alt="arrows_2" />
   <figcaption class="drawlib-caption">Straight Block Arrow with Dimensional Anatomy</figcaption>
 </figure>
 
@@ -195,21 +197,21 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.styles import Styles
 
-setup(width=100, height=40)
+setup(width=100, height=36)
 chevron(
-    (50, 20),
-    width=40,
+    (50, 18),
+    width=42,
     height=20,
     corner_angle=60,  # Tip acute angle
     style=Styles.PrimaryFlat,
     text="Stage 1",
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=12.0),
 )
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_chevron.png" alt="arrows_3" style="width: 600px; max-width: 100%;" />
+  <img src="arrows_images/arrow_chevron.png" alt="arrows_3" />
   <figcaption class="drawlib-caption">Sequential Process Chevron</figcaption>
 </figure>
 
@@ -226,22 +228,22 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, chevron
 from drawlib.styles import Styles
 
-setup(width=130, height=56)
+setup(width=124, height=52)
 
 # Top row: head="->", head="<-", head="<->"
-arrow((10, 42), (44, 42), tail_width=4.5, head_width=10, head_length=7, head="->", style=Styles.PrimaryFlat, text='head="->"', text_style=Styles.WhiteBold)
-arrow((48, 42), (82, 42), tail_width=4.5, head_width=10, head_length=7, head="<-", style=Styles.Neutral, text='head="<-"')
-arrow((86, 42), (120, 42), tail_width=4.5, head_width=10, head_length=7, head="<->", style=Styles.SecondaryNeutral, text='head="<->"')
+arrow((6, 39), (41, 39), tail_width=5.5, head_width=11, head_length=7, head="->", style=Styles.PrimaryFlat, text='head="->"', text_style=Styles.WhiteBold.patch(text_size=10.5))
+arrow((44.5, 39), (79.5, 39), tail_width=5.5, head_width=11, head_length=7, head="<-", style=Styles.Neutral, text='head="<-"', text_style=Styles.DarkBold.patch(text_size=10.5))
+arrow((83, 39), (118, 39), tail_width=5.5, head_width=11, head_length=7, head="<->", style=Styles.SecondaryNeutral, text='head="<->"', text_style=Styles.DarkBold.patch(text_size=10.5))
 
 # Bottom row: Standard chevron (mirror=False) vs Mirrored chevron (mirror=True)
-chevron((38, 16), width=36, height=16, corner_angle=60, mirror=False, style=Styles.Neutral.patch(shape_r=1.5), text="mirror=False")
-chevron((92, 16), width=36, height=16, corner_angle=60, mirror=True, style=Styles.PrimaryNeutral.patch(shape_r=1.5), text="mirror=True")
+chevron((35, 15), width=36, height=16, corner_angle=60, mirror=False, style=Styles.Neutral.patch(shape_r=1.5), text="mirror=False", text_style=Styles.DarkBold.patch(text_size=11.0))
+chevron((89, 15), width=36, height=16, corner_angle=60, mirror=True, style=Styles.PrimaryNeutral.patch(shape_r=1.5), text="mirror=True", text_style=Styles.DarkBold.patch(text_size=11.0))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_heads_and_mirror.png" alt="arrows_4" style="width: 640px; max-width: 100%;" />
+  <img src="arrows_images/arrow_heads_and_mirror.png" alt="arrows_4" />
   <figcaption class="drawlib-caption">Arrowhead Directions (head='->', '<-', '<->') and Mirrored Chevrons (mirror=True)</figcaption>
 </figure>
 
@@ -305,7 +307,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_l.png" alt="arrows_5" style="width: 600px; max-width: 100%;" />
+  <img src="arrows_images/arrow_l.png" alt="arrows_5" />
   <figcaption class="drawlib-caption">Right-Angled Corner Arrow</figcaption>
 </figure>
 
@@ -359,7 +361,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_u.png" alt="arrows_6" style="width: 600px; max-width: 100%;" />
+  <img src="arrows_images/arrow_u.png" alt="arrows_6" />
   <figcaption class="drawlib-caption">180-Degree U-Turn Arrow</figcaption>
 </figure>
 
@@ -425,7 +427,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_arc.png" alt="arrows_7" style="width: 600px; max-width: 100%;" />
+  <img src="arrows_images/arrow_arc.png" alt="arrows_7" />
   <figcaption class="drawlib-caption">Circular Arc Arrow</figcaption>
 </figure>
 
@@ -475,7 +477,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/arrow_polyline.png" alt="arrows_8" style="width: 600px; max-width: 100%;" />
+  <img src="arrows_images/arrow_polyline.png" alt="arrows_8" />
   <figcaption class="drawlib-caption">Multi-Point Polyline Arrow</figcaption>
 </figure>
 

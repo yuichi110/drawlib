@@ -1,6 +1,86 @@
 # BulletPoints
 
-The `BulletPoints` component renders multi-level nested bullet lists starting from a top-left anchor `(x, y)`. It supports customizable indentation widths, line spacing, per-level shape or icon markers, and layout-preserving visibility toggling.
+The `BulletPoints` component renders multi-level nested bullet lists starting from a top-left anchor `(x, y)`.
+It supports customizable indentation widths, line spacing, per-level shape or icon markers, and layout-preserving visibility toggling.
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bullet_points_images/bullet_points_hero.png" alt="bullet_points_1" />
+  <figcaption class="drawlib-caption">Overview of BulletPoints: Default Multi-Level Markers vs. Custom Icon Checklists</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.shapes import rectangle
+from drawlib.smartarts import BulletPoints
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=130, height=54)
+
+# 1. Left Card: Built-in Default Multi-Level Bullet Markers (indent=0, 1, 2)
+rectangle((33, 27), width=60, height=46, style=Styles.Neutral.patch(shape_r=1.5))
+
+bp_default = BulletPoints(
+    text_style=Styles.Dark.patch(text_size=10.0),
+    vertical_margin=5.8,
+    indent_width=5.0,
+)
+bp_default.set_indent(0)
+bp_default.add("1. Default Multi-Level Markers", text_style=Styles.DarkBold.patch(text_size=10.5))
+bp_default.set_indent(1)
+bp_default.add("Level 1: Filled circle (indent=1)", text_style=Styles.DarkBold.patch(text_size=10.0))
+bp_default.set_indent(2)
+bp_default.add("Level 2: Open circle (indent=2)")
+bp_default.add("Auto x-offset by indent_width")
+bp_default.set_indent(1)
+bp_default.add("Level 1: Second parent item", text_style=Styles.DarkBold.patch(text_size=10.0))
+bp_default.set_indent(2)
+bp_default.add("Nested detail under section 2")
+bp_default.draw(xy=(6, 43.5))
+
+# 2. Right Card: Custom Vector Icon Bullets (set_bullet_style with Phosphor Icons)
+rectangle((97, 27), width=60, height=46, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+text((70, 43.5), "2. Custom Vector Icon Bullets", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+
+bp_icons = BulletPoints(
+    text_style=Styles.Dark.patch(text_size=10.0),
+    vertical_margin=6.2,
+    indent_width=5.2,
+)
+bp_icons.set_bullet_style(
+    indent_level=1,
+    function=phosphor.check_circle,
+    style=Styles.PrimaryFlat,
+    args={"width": 2.8},
+)
+bp_icons.set_bullet_style(
+    indent_level=2,
+    function=phosphor.arrow_right,
+    style=Styles.DarkBold,
+    args={"width": 2.4},
+)
+bp_icons.set_indent(1)
+bp_icons.add("Schema & contract checks green", text_style=Styles.DarkBold.patch(text_size=10.0))
+bp_icons.set_indent(2)
+bp_icons.add("Zero breaking proto changes")
+bp_icons.set_indent(1)
+bp_icons.add("Canary bake & SLO gate verified", text_style=Styles.DarkBold.patch(text_size=10.0))
+bp_icons.set_indent(2)
+bp_icons.add("Error budget > 99.95% regional")
+bp_icons.draw(xy=(70, 36.5))
+
+save()
+```
+
+</details>
+
+
 
 ---
 
@@ -16,11 +96,11 @@ from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import BulletPoints
 from drawlib.styles import Colors, Styles
 
-setup(width=115, height=62)
+setup(width=115, height=56)
 
 bp = BulletPoints(
-    text_style=Styles.Dark.patch(text_size=10.0),
-    vertical_margin=5.0,
+    text_style=Styles.Dark.patch(text_size=10.5),
+    vertical_margin=5.2,
     indent_width=5.5,
 )
 
@@ -29,37 +109,37 @@ bp.set_bullet_style(
     indent_level=1,
     function=rectangle,
     style=Styles.PrimaryFlat.patch(shape_line_width=0),
-    args={"width": 1.3, "height": 1.3},
+    args={"width": 1.4, "height": 1.4},
 )
 bp.set_bullet_style(
     indent_level=2,
     function=circle,
     style=Styles.DarkThin.patch(shape_fill_color=Colors.White),
-    args={"radius": 0.55},
+    args={"radius": 0.6},
 )
 
 bp.set_indent(0)
 bp.add("RFC-104: Zero-Downtime Database Migration", text_style=Styles.DarkBold.patch(text_size=11.5))
 
 bp.set_indent(1)
-bp.add("1. Dual-Write Replication Phase", text_style=Styles.DarkBold.patch(text_size=10.0))
+bp.add("1. Dual-Write Replication Phase", text_style=Styles.DarkBold.patch(text_size=10.5))
 bp.set_indent(2)
 bp.add("Mirror all incoming transactional writes to the target cluster")
 bp.add("Verify checksum parity via asynchronous background workers")
 
 bp.set_indent(1)
-bp.add("2. Read Cutover & Canary Validation", text_style=Styles.DarkBold.patch(text_size=10.0))
+bp.add("2. Read Cutover & Canary Validation", text_style=Styles.DarkBold.patch(text_size=10.5))
 bp.set_indent(2)
 bp.add("Shift 10% of read-only queries to the new replica pool")
 bp.add("Monitor p99 latency and connection pool saturation")
 bp.add("Promote target cluster to primary once zero drift is confirmed")
 
-bp.draw(xy=(10, 53))
+bp.draw(xy=(6, 49))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="bullet_points_images/smartarts_bulletpoints_hierarchy.png" alt="bullet_points_1" style="width: 650px; max-width: 100%;" />
+  <img src="bullet_points_images/smartarts_bulletpoints_hierarchy.png" alt="bullet_points_2" />
   <figcaption class="drawlib-caption">Multi-Level Nested Architecture Requirements with BulletPoints</figcaption>
 </figure>
 
@@ -81,63 +161,63 @@ from drawlib.smartarts import BulletPoints
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=125, height=58)
+setup(width=126, height=54)
 
 # Left Card: Completed Pre-Flight Checks (Neutral card + Primary header)
-rectangle((33, 27), width=52, height=44, style=Styles.Neutral.patch(shape_r=1.5))
+rectangle((32, 27), width=56, height=46, style=Styles.Neutral.patch(shape_r=1.5))
 rectangle(
-    (33, 44.5),
-    width=52,
+    (32, 45.5),
+    width=56,
     height=9,
     style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text="Completed Checks",
-    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 done_list = BulletPoints(
-    text_style=Styles.Dark.patch(text_size=9.5),
-    vertical_margin=6.5,
-    indent_width=5.0,
+    text_style=Styles.Dark.patch(text_size=10.0),
+    vertical_margin=6.6,
+    indent_width=5.2,
 )
 done_list.set_bullet_style(
     indent_level=1,
     function=phosphor.check_circle,
     style=Styles.PrimaryFlat,
-    args={"width": 2.6},
+    args={"width": 2.8},
 )
 done_list.set_indent(1)
 done_list.add("Unit & integration test suite green")
 done_list.add("Container image signed & scanned")
 done_list.add("Database schema backward-compatible")
 done_list.add("Rollback playbook verified in staging")
-done_list.draw(xy=(10, 34))
+done_list.draw(xy=(7, 34.5))
 
 # Right Card: Rollout Execution Steps (SecondaryNeutral card)
-rectangle((92, 27), width=52, height=44, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
-text((92, 44.5), "Rollout Execution Agenda", style=Styles.DarkBold.patch(text_size=10.0))
+rectangle((94, 27), width=56, height=46, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+text((94, 45.5), "Rollout Execution Agenda", style=Styles.DarkBold.patch(text_size=10.5))
 
 agenda_list = BulletPoints(
-    text_style=Styles.Dark.patch(text_size=9.5),
-    vertical_margin=6.5,
-    indent_width=5.0,
+    text_style=Styles.Dark.patch(text_size=10.0),
+    vertical_margin=6.6,
+    indent_width=5.2,
 )
 agenda_list.set_bullet_style(
     indent_level=1,
     function=phosphor.arrow_circle_right,
     style=Styles.DarkBold,
-    args={"width": 2.6},
+    args={"width": 2.8},
 )
 agenda_list.set_indent(1)
 agenda_list.add("Deploy canary pod (5% traffic)")
 agenda_list.add("Bake for 30m and inspect error budget")
 agenda_list.add("Expand rollout to 50% -> 100% regions")
 agenda_list.add("Publish release notes to status page")
-agenda_list.draw(xy=(69, 34))
+agenda_list.draw(xy=(69, 34.5))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="bullet_points_images/smartarts_bulletpoints_checklist_cards.png" alt="bullet_points_2" style="width: 650px; max-width: 100%;" />
+  <img src="bullet_points_images/smartarts_bulletpoints_checklist_cards.png" alt="bullet_points_3" />
   <figcaption class="drawlib-caption">Release Readiness Checklist Cards Using BulletPoints and Phosphor Icons</figcaption>
 </figure>
 

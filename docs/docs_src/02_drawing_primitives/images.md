@@ -1,7 +1,36 @@
-# Images & Dimage
+# Images & Dimage Processing
 
 Drawlib allows embedding external bitmap and vector images directly into your illustrations.
-You can combine raster graphics (company logos, cloud service icons, application screenshots) with vector shapes and annotations, or manipulate graphics programmatically using the immutable in-memory **`Dimage`** model.
+You can combine raster graphics (company logos, cloud service icons, application screenshots) with vector shapes and annotations, or manipulate graphics programmatically using the immutable in-memory **`Dimage`** model:
+
+```drawlib fold-code center file:images_overview.png caption:"Embedding External Assets and In-Memory Dimages"
+from drawlib.canvas import save, setup
+from drawlib.images import Dimage, image
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=116, height=46)
+
+# Card 1: Local image file
+rectangle((33, 23), width=44, height=36, style=Styles.Neutral.patch(shape_r=3))
+image((33, 26.5), width=18, image="../_assets/linux.png")
+text((33, 10.5), "Linux Logo", style=Styles.DarkBold.patch(text_size=11.0))
+
+# Card 2: Memory Dimage
+rectangle((83, 23), width=44, height=36, style=Styles.SecondaryNeutral.patch(shape_r=3))
+dimg = Dimage("../_assets/python.png")
+image((83, 26.5), width=18, image=dimg)
+text((83, 10.5), "Python Dimage", style=Styles.DarkBold.patch(text_size=11.0))
+
+save()
+```
+
+---
+
+## 1. Overview & Imports
+
+Image placement and in-memory manipulation classes are imported from `drawlib.images`:
 
 ```python
 from drawlib.images import (
@@ -9,33 +38,6 @@ from drawlib.images import (
     get_dimage_from_code,  # Render a Drawlib Python snippet in an isolated subprocess to a Dimage
     image,                 # Draw a file path, PIL Image, or Dimage onto the canvas
 )
-```
-
----
-
-## 1. Overview of Image Placement
-
-```drawlib fold-code 650px center file:images_overview.png caption:"Embedding External Assets and In-Memory Dimages"
-from drawlib.canvas import save, setup
-from drawlib.images import Dimage, image
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=120, height=50)
-
-# Card 1: Local image file
-rectangle((35, 25), width=45, height=36, style=Styles.Neutral.patch(shape_r=3))
-image((35, 28), width=18, image="../_assets/linux.png")
-text((35, 12), "Linux Logo", style=Styles.DarkBold)
-
-# Card 2: Memory Dimage
-rectangle((85, 25), width=45, height=36, style=Styles.SecondaryNeutral.patch(shape_r=3))
-dimg = Dimage("../_assets/python.png")
-image((85, 28), width=18, image=dimg)
-text((85, 12), "Python Dimage", style=Styles.DarkBold)
-
-save()
 ```
 
 ---
@@ -84,37 +86,38 @@ When passing `style=` to `image()`, you can configure both image-specific `image
 ### 2.2. Anchor Alignment & Rotation Example
 By default, `(x, y)` anchors the geometric center of the image. You can shift the anchor to the bottom-left corner via `style.patch(halign="left", valign="bottom")`, or rotate a center-anchored image via `style.patch(angle=...)`:
 
-```drawlib show-code 650px center file:images_anchor_and_rotation.png caption:"Center Anchor vs. Bottom-Left Anchor and Image Rotation"
+```drawlib show-code center file:images_anchor_and_rotation.png caption:"Center Anchor vs. Bottom-Left Anchor and Image Rotation"
 from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=135, height=48, grid=True)
+setup(width=128, height=48, grid=True)
 
 img_path = "../_assets/python.png"
 framed = Styles.Neutral.patch(image_border_width=1.0, image_border_color=Colors.Gray4)
+lbl_st = Styles.DarkBold.patch(text_size=10.0)
 
-# 1. Default center anchor at xy=(25, 24)
-rectangle((25, 22), width=34, height=38, style=Styles.Neutral.patch(shape_r=2))
-image((25, 24), width=18, image=img_path, style=framed)
-circle((25, 24), radius=1.2, style=Styles.DangerFlat)
-text((25, 7.5), "1. Center (25, 24)", style=Styles.DarkBold.patch(text_size=8.0))
+# 1. Default center anchor at xy=(23, 25)
+rectangle((23, 23), width=35, height=38, style=Styles.Neutral.patch(shape_r=2))
+image((23, 25), width=17, image=img_path, style=framed)
+circle((23, 25), radius=1.2, style=Styles.DangerFlat)
+text((23, 8.0), "1. Center (23, 25)", style=lbl_st)
 
-# 2. Bottom-left anchor at xy=(62, 14)
-rectangle((71, 22), width=34, height=38, style=Styles.Neutral.patch(shape_r=2))
+# 2. Bottom-left anchor at xy=(55.5, 16.5)
+rectangle((64, 23), width=35, height=38, style=Styles.Neutral.patch(shape_r=2))
 bl_style = framed.patch(halign="left", valign="bottom")
-image((62, 14), width=18, image=img_path, style=bl_style)
-circle((62, 14), radius=1.2, style=Styles.DangerFlat)
-text((71, 7.5), "2. Bottom-Left (62, 14)", style=Styles.DarkBold.patch(text_size=8.0))
+image((55.5, 16.5), width=17, image=img_path, style=bl_style)
+circle((55.5, 16.5), radius=1.2, style=Styles.DangerFlat)
+text((64, 8.0), "2. Bottom-Left", style=lbl_st)
 
-# 3. Rotated center placement at xy=(110, 24)
-rectangle((110, 22), width=34, height=38, style=Styles.SecondaryNeutral.patch(shape_r=2))
+# 3. Rotated center placement at xy=(105, 25)
+rectangle((105, 23), width=35, height=38, style=Styles.SecondaryNeutral.patch(shape_r=2))
 rot_style = Styles.Neutral.patch(angle=20)
-image((110, 24), width=18, image=img_path, style=rot_style)
-circle((110, 24), radius=1.2, style=Styles.DangerFlat)
-text((110, 7.5), "3. Rotated (angle=20)", style=Styles.DarkBold.patch(text_size=8.0))
+image((105, 25), width=17, image=img_path, style=rot_style)
+circle((105, 25), radius=1.2, style=Styles.DangerFlat)
+text((105, 8.0), "3. Rotated (20°)", style=lbl_st)
 
 save()
 ```
@@ -189,14 +192,14 @@ processed = dimg.mirror().grayscale().brightness(1.1)
 
 ### 3.5. Visual Showcase: `Dimage` Geometry, Filters & Border Styling
 
-```drawlib show-code 650px center file:images_dimage_pipeline.png caption:"Dimage Geometry (crop, mirror, flip), Filter Pipelines, and Style.patch(image_border_*)"
+```drawlib show-code center file:images_dimage_pipeline.png caption:"Dimage Geometry (crop, mirror, flip), Filter Pipelines, and Style.patch(image_border_*)"
 from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=140, height=70)
+setup(width=132, height=66)
 
 base = Dimage("../_assets/python.png")
 w_px, h_px = base.get_image_size()
@@ -204,30 +207,30 @@ w_px, h_px = base.get_image_size()
 # Row 1: Geometry, Background Fill & Image Border Styling
 row1 = [
     ("Original + Border", base, Styles.Primary.patch(image_border_width=1.8, image_border_color=Colors.Primary)),
-    ("crop() (Top-Right)", base.crop(w_px // 4, h_px // 4, w_px * 3 // 4, h_px * 3 // 4), None),
+    ("crop()", base.crop(w_px // 4, h_px // 4, w_px * 3 // 4, h_px * 3 // 4), None),
     ("mirror() + flip()", base.mirror().flip(), None),
     ("fill(Primary1)", base.fill(Colors.Primary1), Styles.Primary.patch(image_border_width=1.2, image_border_style="dashed", image_border_color=Colors.Primary4)),
 ]
 
 for idx, (label, dimg_item, img_st) in enumerate(row1):
-    cx = 21 + idx * 32.5
-    rectangle((cx, 51), width=29, height=28, style=Styles.Neutral.patch(shape_r=2))
-    image((cx, 54), width=14, image=dimg_item, style=img_st)
-    text((cx, 41), label, style=Styles.DarkBold.patch(text_size=8))
+    cx = 19.5 + idx * 31
+    rectangle((cx, 48), width=28.5, height=27, style=Styles.Neutral.patch(shape_r=2))
+    image((cx, 51.5), width=13.5, image=dimg_item, style=img_st)
+    text((cx, 38.5), label, style=Styles.DarkBold.patch(text_size=10.0))
 
 # Row 2: Color & Artistic Filter Pipelines
 row2 = [
     ("grayscale()", base.grayscale()),
     ("sepia()", base.sepia()),
     ("colorize()", base.colorize(Colors.Primary6, Colors.Primary1, Colors.Primary3)),
-    ("mosaic(16) + blur()", base.mosaic(block_size=16).blur()),
+    ("mosaic() + blur()", base.mosaic(block_size=16).blur()),
 ]
 
 for idx, (label, dimg_item) in enumerate(row2):
-    cx = 21 + idx * 32.5
-    rectangle((cx, 19), width=29, height=28, style=Styles.SecondaryNeutral.patch(shape_r=2))
-    image((cx, 22), width=14, image=dimg_item)
-    text((cx, 9), label, style=Styles.DarkBold.patch(text_size=8))
+    cx = 19.5 + idx * 31
+    rectangle((cx, 18), width=28.5, height=27, style=Styles.SecondaryNeutral.patch(shape_r=2))
+    image((cx, 21.5), width=13.5, image=dimg_item)
+    text((cx, 8.5), label, style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
@@ -254,7 +257,7 @@ get_dimage_from_code(
 - **Clean Process Boundary**: `get_dimage_from_code()` runs `code` inside an isolated `multiprocessing.Process` worker so the parent script's active canvas dimensions, artists, `Styles`, and Matplotlib global state remain completely untouched.
 - **Automatic `save()` Interception**: Any `save()` calls inside `code` are automatically intercepted as no-ops in the worker process, preventing stray files from being written to disk before the rendered canvas is returned over an IPC pipe as a `Dimage`.
 
-```drawlib show-code 600px center file:image_get_dimage_from_code.png caption:"Dynamic Sub-Diagram Rendering via get_dimage_from_code"
+```drawlib show-code center file:image_get_dimage_from_code.png caption:"Dynamic Sub-Diagram Rendering via get_dimage_from_code"
 from drawlib.canvas import save, setup
 from drawlib.images import get_dimage_from_code, image
 from drawlib.shapes import rectangle
@@ -275,10 +278,10 @@ save()
 sub_diagram = get_dimage_from_code(sub_code, timeout=10.0)
 
 # 2. Embed the sub-diagram onto the primary canvas
-setup(width=100, height=50)
-rectangle((50, 25), width=70, height=36, style=Styles.MutedDashed)
-image((50, 26), width=28, image=sub_diagram)
-text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.DarkBold)
+setup(width=100, height=48)
+rectangle((50, 24), width=74, height=38, style=Styles.MutedDashed)
+image((50, 27), width=26, image=sub_diagram)
+text((50, 10), "Host Canvas with Embedded Sub-Diagram", style=Styles.DarkBold.patch(text_size=11.0))
 
 save()
 ```

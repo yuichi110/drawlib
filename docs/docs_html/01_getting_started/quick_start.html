@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -426,6 +430,54 @@ You can author diagrams either as <strong>standalone Python scripts</strong> (<c
 <hr />
 <h2>The Standard 5-Step Drawing Workflow</h2>
 <p>Every Drawlib illustration follows a clean, predictable lifecycle:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/quickstart_five_step_workflow.png" alt="quick_start_1" />
+  <figcaption class="drawlib-caption">The Standard 5-Step Drawlib Drawing Workflow</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">65.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Import</span><span class="se">\n</span><span class="s2">APIs"</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Setup</span><span class="se">\n</span><span class="s2">Canvas"</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Draw</span><span class="se">\n</span><span class="s2">Zones"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Shapes</span><span class="se">\n</span><span class="s2">&amp; Lines"</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"5. Save /</span><span class="se">\n</span><span class="s2">Export"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">17.0</span><span class="p">)</span>
+
+<span class="c1"># Icons above each stage</span>
+<span class="n">stage_icons</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">62.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">grid_four</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">87.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">111.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">floppy_disk</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">badge_style</span> <span class="ow">in</span> <span class="n">stage_icons</span><span class="p">:</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">26.8</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">badge_style</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">26.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <ol>
 <li><strong>Import APIs</strong>: Import canvas management, drawing primitives, and styling presets.</li>
 <li><strong>Setup Canvas</strong>: Initialize canvas dimensions (<code>width</code>, <code>height</code>) via <code>setup()</code>.</li>
@@ -433,39 +485,6 @@ You can author diagrams either as <strong>standalone Python scripts</strong> (<c
 <li><strong>Draw Entities &amp; Connectors</strong>: Add shapes, icons, and lines with semantic styles and labels.</li>
 <li><strong>Save / Export</strong>: Save the drawing to an image file via <code>save()</code>, or let the Document Builder render it inline automatically.</li>
 </ol>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/quickstart_five_step_workflow.png" alt="quick_start_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">The Standard 5-Step Drawlib Drawing Workflow</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-
-<span class="n">workflow</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span>
-    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
-    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
-    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Import</span><span class="se">\n</span><span class="s2">APIs"</span><span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Setup</span><span class="se">\n</span><span class="s2">Canvas"</span><span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Draw</span><span class="se">\n</span><span class="s2">Containers"</span><span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Entities &amp;</span><span class="se">\n</span><span class="s2">Connectors"</span><span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"5. Save /</span><span class="se">\n</span><span class="s2">Export"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <hr />
 <h2>1. Standalone Python Script (<code>images</code> Project)</h2>
 <blockquote>
@@ -483,19 +502,19 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="c1"># Step 2: Setup canvas dimensions (Cartesian space: 100 wide x 50 high)</span>
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="c1"># Step 2: Setup canvas dimensions (Cartesian space: 100 wide x 44 high)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
 <span class="c1"># Step 3: Draw background boundary container</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">92</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 
 <span class="c1"># Step 4: Draw main entities and connectors (50%+ Neutral-Grounded)</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Server"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Server"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
 
 <span class="c1"># Connection line with arrowhead</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">"REST API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">49.5</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="s2">"REST API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
 
 <span class="c1"># Step 5: Save image (defaults to client_server.png)</span>
 <span class="n">save</span><span class="p">()</span>
@@ -522,20 +541,20 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 
 Here is our primary service flow:
 
-<span class="sb">```drawlib</span><span class="w"> </span>600px center file:client_server_communication.png caption:"Client-Server REST Communication"
+<span class="sb">```drawlib</span><span class="w"> </span>center file:client_server_communication.png caption:"Client-Server REST Communication"
 <span class="s">from drawlib.canvas import save, setup</span>
 <span class="s">from drawlib.shapes import rectangle, circle</span>
 <span class="s">from drawlib.lines import line</span>
 <span class="s">from drawlib.text import text</span>
 <span class="s">from drawlib.styles import Styles</span>
 
-<span class="s">setup(width=100, height=50)</span>
+<span class="s">setup(width=100, height=44)</span>
 
-<span class="s">rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)</span>
-<span class="s">circle((25, 25), radius=12, style=Styles.Neutral, text="Client")</span>
-<span class="s">rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)</span>
-<span class="s">line((37, 25), (63, 25), arrow_head="-&gt;", style=Styles.DarkBold)</span>
-<span class="s">text((50, 30), "REST API", style=Styles.DarkBold)</span>
+<span class="s">rectangle((50, 22), width=92, height=36, style=Styles.MutedDashed)</span>
+<span class="s">circle((25, 22), radius=12, style=Styles.Neutral, text="Client", text_style=Styles.DarkBold.patch(text_size=11.5))</span>
+<span class="s">rectangle((75, 22), width=26, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold.patch(text_size=11.5))</span>
+<span class="s">line((37, 22), (62, 22), arrow_head="-&gt;", style=Styles.DarkBold)</span>
+<span class="s">text((49.5, 27), "REST API", style=Styles.DarkBold.patch(text_size=11.0))</span>
 <span class="s">save()</span>
 <span class="sb">```</span>
 </code></pre>
@@ -545,7 +564,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 </code></pre>
 <p>When compiled with <code>drawlib build html</code> or <code>drawlib build markdown</code>, the code fence is executed and replaced with the rendered image:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/client_server_communication_styled.png" alt="quick_start_2" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/client_server_communication_styled.png" alt="quick_start_2" />
   <figcaption class="drawlib-caption">Client-Server REST Communication</figcaption>
 </figure>
 <details class="drawlib-code-details">
@@ -556,13 +575,13 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Server"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">"REST API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">92</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Server"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">49.5</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="s2">"REST API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>

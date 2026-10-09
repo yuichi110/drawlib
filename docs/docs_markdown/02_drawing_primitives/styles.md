@@ -10,7 +10,7 @@ Drawlib solves this with a **unified design token system** in `drawlib.styles` a
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="styles_images/styles_overview.png" alt="styles_1" style="width: 650px; max-width: 100%;" />
+  <img src="styles_images/styles_overview.png" alt="styles_1" />
   <figcaption class="drawlib-caption">Overview of Semantic Style Tokens and Orthogonal Variants</figcaption>
 </figure>
 
@@ -22,17 +22,17 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=140, height=54)
+setup(width=128, height=52)
 
 # Row 1: Core Semantic Card & Hero Roles
-rectangle((26, 38), width=34, height=18, style=Styles.PrimaryFlat.patch(shape_r=2), text="PrimaryFlat\n(Hero Focal)", text_style=Styles.WhiteBold.patch(text_size=10))
-rectangle((70, 38), width=34, height=18, style=Styles.Neutral.patch(shape_r=2), text="Neutral\n(50%+ Baseline)", text_style=Styles.DarkBold.patch(text_size=10))
-rectangle((114, 38), width=34, height=18, style=Styles.SecondaryNeutral.patch(shape_r=2), text="SecondaryNeutral\n(Auxiliary Card)", text_style=Styles.DarkBold.patch(text_size=10))
+rectangle((24, 37), width=35, height=18, style=Styles.PrimaryFlat.patch(shape_r=2), text="PrimaryFlat\n(Hero Focal)", text_style=Styles.WhiteBold.patch(text_size=10.5))
+rectangle((64, 37), width=35, height=18, style=Styles.Neutral.patch(shape_r=2), text="Neutral\n(50%+ Baseline)", text_style=Styles.DarkBold.patch(text_size=10.5))
+rectangle((104, 37), width=35, height=18, style=Styles.SecondaryNeutral.patch(shape_r=2), text="SecondaryNeutral\n(Auxiliary Card)", text_style=Styles.DarkBold.patch(text_size=10.5))
 
 # Row 2: Structural & Status Variants
-rectangle((26, 15), width=34, height=18, style=Styles.SuccessNeutral.patch(shape_r=2), text="SuccessNeutral\n(Verified State)", text_style=Styles.DarkBold.patch(text_size=10))
-rectangle((70, 15), width=34, height=18, style=Styles.DangerFlat.patch(shape_r=2), text="DangerFlat\n(Critical Alert)", text_style=Styles.WhiteBold.patch(text_size=10))
-rectangle((114, 15), width=34, height=18, style=Styles.MutedDashed.patch(shape_r=2), text="MutedDashed\n(VPC / Boundary)", text_style=Styles.DarkBold.patch(text_size=10))
+rectangle((24, 15), width=35, height=18, style=Styles.SuccessNeutral.patch(shape_r=2), text="SuccessNeutral\n(Verified State)", text_style=Styles.DarkBold.patch(text_size=10.5))
+rectangle((64, 15), width=35, height=18, style=Styles.DangerFlat.patch(shape_r=2), text="DangerFlat\n(Critical Alert)", text_style=Styles.WhiteBold.patch(text_size=10.5))
+rectangle((104, 15), width=35, height=18, style=Styles.MutedDashed.patch(shape_r=2), text="MutedDashed\n(VPC / Boundary)", text_style=Styles.DarkBold.patch(text_size=10.5))
 
 save()
 ```
@@ -81,7 +81,7 @@ Styles = GoogleStyles().patch_font(
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="styles_images/styles_centralized_architecture.png" alt="styles_2" style="width: 650px; max-width: 100%;" />
+  <img src="styles_images/styles_centralized_architecture.png" alt="styles_2" />
   <figcaption class="drawlib-caption">Centralized styles.py Theme and Token Architecture</figcaption>
 </figure>
 
@@ -94,26 +94,26 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=148, height=44)
+setup(width=132, height=44)
 
 stages = [
-    (21, Styles.Neutral, "Immutable Presets\n(preset_colors,\npreset_styles, fonts)", Styles.DarkBold),
-    (58, Styles.SecondaryNeutral, "Project Root styles.py\n(Global Theme &\nFont Patching)", Styles.DarkBold),
-    (95, Styles.PrimaryFlat, "Runtime Singleton\n(drawlib.styles:\nColors, Styles)", Styles.WhiteBold),
-    (131, Styles.PrimaryNeutral, "Markdown Blocks &\nDrawing Scripts\n(Single Source)", Styles.DarkBold),
+    (18.5, Styles.Neutral, "Immutable Presets\npreset_colors\npreset_styles", Styles.DarkBold),
+    (50.2, Styles.SecondaryNeutral, "Project styles.py\nGlobal Theme &\nFont Patching", Styles.DarkBold),
+    (81.8, Styles.PrimaryFlat, "Runtime Singleton\ndrawlib.styles\nColors, Styles", Styles.WhiteBold),
+    (113.5, Styles.PrimaryNeutral, "Drawing Scripts\n& Docs Blocks\nSingle Source", Styles.DarkBold),
 ]
 
 for cx, st, label, txt_st in stages:
     rectangle(
         (cx, 22),
-        width=30,
-        height=26,
+        width=27,
+        height=28,
         style=st.patch(shape_r=2),
         text=label,
-        text_style=txt_st.patch(text_size=8.0),
+        text_style=txt_st.patch(text_size=10.0),
     )
 
-for x1, x2 in [(36, 43), (73, 80), (110, 116)]:
+for x1, x2 in [(32, 36.7), (63.7, 68.3), (95.3, 100)]:
     line((x1, 22), (x2, 22), arrow_head="->", style=Styles.DarkBold)
 
 save()
@@ -176,18 +176,18 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=126, height=48)
+setup(width=124, height=46)
 
-rectangle((63, 24), width=116, height=38, style=Styles.Neutral.patch(shape_r=2))
+rectangle((62, 23), width=116, height=38, style=Styles.Neutral.patch(shape_r=2))
 
 # 1. Original preset remains completely unchanged
 rectangle(
-    (28, 24),
+    (28, 23),
     width=36,
     height=22,
     style=Styles.Primary,
     text="Styles.Primary\n(Original Preset)",
-    text_style=Styles.WhiteBold.patch(text_size=9),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 # 2. Derive a custom card & connector style via .patch()
@@ -199,23 +199,23 @@ highlight_card = Styles.Primary.patch(
     line_style="dashed",
 )
 
-line((46, 24), (78, 24), arrow_head="->", style=highlight_card)
-text((62, 30), ".patch()", style=Styles.DarkBold.patch(text_size=8.5))
+line((46, 23), (76, 23), arrow_head="->", style=highlight_card)
+text((61, 29), ".patch()", style=Styles.DarkBold.patch(text_size=10.5))
 
 rectangle(
-    (97, 24),
+    (95, 23),
     width=38,
     height=22,
     style=highlight_card,
     text="highlight_card\n(shape_r=4, dashed)",
-    text_style=Styles.WhiteBold.patch(text_size=9),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="styles_images/styles_unified_token_domains.png" alt="styles_3" style="width: 600px; max-width: 100%;" />
+  <img src="styles_images/styles_unified_token_domains.png" alt="styles_3" />
   <figcaption class="drawlib-caption">Deriving Custom Styles with .patch() Without Mutating Presets</figcaption>
 </figure>
 
@@ -250,34 +250,34 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=62)
+setup(width=128, height=58)
 
 # Row 1: Filled & Tinted Card Variants
 row1 = [
-    (20, Styles.Neutral, "Neutral", Styles.DarkBold),
-    (53, Styles.PrimaryNeutral, "PrimaryNeutral", Styles.DarkBold),
-    (86, Styles.PrimaryFlat, "PrimaryFlat", Styles.WhiteBold),
-    (119, Styles.PrimaryBold, "PrimaryBold", Styles.WhiteBold),
+    (18.5, Styles.Neutral, "Neutral", Styles.DarkBold),
+    (48.8, Styles.PrimaryNeutral, "PrimaryNeutral", Styles.DarkBold),
+    (79.2, Styles.PrimaryFlat, "PrimaryFlat", Styles.WhiteBold),
+    (109.5, Styles.PrimaryBold, "PrimaryBold", Styles.WhiteBold),
 ]
 for x, st, label, txt_st in row1:
-    rectangle((x, 44), width=28, height=18, style=st.patch(shape_r=2), text=label, text_style=txt_st.patch(text_size=9))
+    rectangle((x, 42), width=27, height=18, style=st.patch(shape_r=2), text=label, text_style=txt_st.patch(text_size=10.0))
 
 # Row 2: Wireframe / Stroke Variants (Outline/Solid, Dashed, Dotted)
 row2 = [
-    (20, Styles.PrimarySolid, "PrimarySolid"),
-    (53, Styles.PrimarySolidBold, "SolidBold"),
-    (86, Styles.MutedDashed, "MutedDashed"),
-    (119, Styles.PrimaryDottedBold, "DottedBold"),
+    (18.5, Styles.PrimarySolid, "PrimarySolid"),
+    (48.8, Styles.PrimarySolidBold, "SolidBold"),
+    (79.2, Styles.MutedDashed, "MutedDashed"),
+    (109.5, Styles.PrimaryDottedBold, "DottedBold"),
 ]
 for x, st, label in row2:
-    rectangle((x, 18), width=28, height=18, style=st.patch(shape_r=2))
-    text((x, 18), label, style=Styles.DarkBold.patch(text_size=9))
+    rectangle((x, 16), width=27, height=18, style=st.patch(shape_r=2))
+    text((x, 16), label, style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="styles_images/styles_variant_matrix.png" alt="styles_4" style="width: 650px; max-width: 100%;" />
+  <img src="styles_images/styles_variant_matrix.png" alt="styles_4" />
   <figcaption class="drawlib-caption">Visual Matrix of Drawlib Style Variants (Neutral, Flat, Bordered, Solid, Dashed, Dotted)</figcaption>
 </figure>
 
@@ -305,30 +305,30 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=64)
+setup(width=128, height=60)
 
 themes = [
-    (26, "DefaultStyles", DefaultStyles()),
-    (70, "GoogleStyles", GoogleStyles()),
-    (114, "MonochromeStyles", MonochromeStyles()),
+    (23, "DefaultStyles", DefaultStyles()),
+    (64, "GoogleStyles", GoogleStyles()),
+    (105, "Monochrome", MonochromeStyles()),
 ]
 
 for cx, title, theme in themes:
     # Boundary container
-    rectangle((cx, 32), width=38, height=50, style=theme.MutedDashed.patch(shape_r=2))
-    text((cx, 51), title, style=Styles.DarkBold.patch(text_size=10))
+    rectangle((cx, 30), width=37, height=48, style=theme.MutedDashed.patch(shape_r=2))
+    text((cx, 48), title, style=Styles.DarkBold.patch(text_size=11.0))
 
     # Hero node (PrimaryFlat)
-    rectangle((cx, 36), width=30, height=12, style=theme.PrimaryFlat.patch(shape_r=1.5), text="Hero Node", text_style=theme.WhiteBold.patch(text_size=9))
+    rectangle((cx, 34), width=30, height=12, style=theme.PrimaryFlat.patch(shape_r=1.5), text="Hero Node", text_style=theme.WhiteBold.patch(text_size=10.5))
 
     # Supporting neutral card (SecondaryNeutral)
-    rectangle((cx, 18), width=30, height=12, style=theme.SecondaryNeutral.patch(shape_r=1.5), text="Neutral Card", text_style=theme.DarkBold.patch(text_size=9))
+    rectangle((cx, 17), width=30, height=12, style=theme.SecondaryNeutral.patch(shape_r=1.5), text="Neutral Card", text_style=theme.DarkBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="styles_images/styles_theme_comparison.png" alt="styles_5" style="width: 650px; max-width: 100%;" />
+  <img src="styles_images/styles_theme_comparison.png" alt="styles_5" />
   <figcaption class="drawlib-caption">Side-by-Side Comparison of DefaultStyles, GoogleStyles, and MonochromeStyles</figcaption>
 </figure>
 

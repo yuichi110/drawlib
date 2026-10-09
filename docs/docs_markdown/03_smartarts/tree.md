@@ -3,6 +3,101 @@
 The `TreeNode` component renders hierarchical tree structures, such as codebase directory trees, organizational hierarchy charts, and taxonomy categorizations. 
 It automates vertical branch alignment, indentation levels, and tree connector lines.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="tree_images/tree_hero.png" alt="tree_1" />
+  <figcaption class="drawlib-caption">Overview of TreeNode: Declarative Hierarchy and Icon/Badge Annotations</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.shapes import rectangle
+from drawlib.smartarts import TreeNode
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=130, height=54)
+
+# 1. Left Card: Declarative Nested Hierarchy (children=[...])
+rectangle((33, 27), width=58, height=46, style=Styles.Neutral.patch(shape_r=1.5))
+text((7, 45.0), "1. Declarative Tree (children=[...])", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+
+decl_root = TreeNode(
+    "drawlib/",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    line_style=Styles.DarkThin,
+    line_horizontal_margin=3.2,
+    line_horizontal_length=3.0,
+    line_vertical_margin=6.2,
+    children=[
+        TreeNode(
+            "smartarts/",
+            children=[
+                TreeNode("tree.py", text_style=Styles.Dark.patch(text_size=10.0)),
+                TreeNode("mindmap.py", text_style=Styles.Dark.patch(text_size=10.0)),
+            ],
+        ),
+        TreeNode("styles.py", text_style=Styles.Dark.patch(text_size=10.0)),
+    ],
+)
+decl_root.draw(xy=(8, 38.0))
+
+# 2. Right Card: Imperative (.add()) with Vector Icons & Trailing Badges
+rectangle((95, 27), width=62, height=46, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+text((67, 45.0), "2. Imperative (.add()) + Icons & Badges", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+
+TreeNode.register_drawing_item(
+    name="hero_dir",
+    location="before",
+    padding_width=4.2,
+    function=phosphor.folder,
+    style=Styles.PrimaryFlat,
+    args={"width": 3.0},
+)
+TreeNode.register_drawing_item(
+    name="hero_ok",
+    location="after",
+    padding_width=27.5,
+    function=rectangle,
+    style=Styles.PrimaryFlat.patch(shape_r=0.8),
+    args={"width": 8.5, "height": 4.2, "text": "OK", "text_style": Styles.WhiteBold.patch(text_size=10.0)},
+)
+TreeNode.register_drawing_item(
+    name="hero_warn",
+    location="after",
+    padding_width=27.5,
+    function=rectangle,
+    style=Styles.DangerFlat.patch(shape_r=0.8),
+    args={"width": 12.0, "height": 4.2, "text": "WARN", "text_style": Styles.WhiteBold.patch(text_size=10.0)},
+)
+
+imp_root = TreeNode(
+    "prod-cluster/",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    line_style=Styles.DarkThin,
+    line_horizontal_margin=3.2,
+    line_horizontal_length=3.0,
+    line_vertical_margin=6.2,
+).set_drawing_item("hero_dir")
+
+api_group = imp_root.add("api-mesh/").set_drawing_item("hero_dir")
+api_group.add("auth-svc (v2.4)", text_style=Styles.Dark.patch(text_size=10.0)).set_drawing_item("hero_ok")
+api_group.add("edge-gw (v1.8)", text_style=Styles.Dark.patch(text_size=10.0)).set_drawing_item("hero_ok")
+imp_root.add("batch-sync", text_style=Styles.DangerBold.patch(text_size=10.0), line_style=Styles.MutedDashed).set_drawing_item("hero_warn")
+
+imp_root.draw(xy=(68, 38.0))
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Quick Example: Project Directory Hierarchy
@@ -15,39 +110,39 @@ from drawlib.smartarts import TreeNode
 from drawlib.icons import phosphor
 from drawlib.styles import Styles
 
-setup(width=100, height=60)
+setup(width=115, height=44)
 
 # Register custom icons for folders and files
 TreeNode.register_drawing_item(
-    name="folder", location="before", padding_width=4.0, function=phosphor.folder,
-    style=Styles.PrimaryFlat, args={"width": 3.0}
+    name="folder", location="before", padding_width=4.5, function=phosphor.folder,
+    style=Styles.PrimaryFlat, args={"width": 3.2}
 )
 TreeNode.register_drawing_item(
-    name="file", location="before", padding_width=4.0, function=phosphor.file_text,
-    style=Styles.Dark, args={"width": 3.0}
+    name="file", location="before", padding_width=4.5, function=phosphor.file_text,
+    style=Styles.Dark, args={"width": 3.2}
 )
 
 root = TreeNode(
     "src/",
-    text_style=Styles.DarkBold,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
     line_style=Styles.DarkThin,
-    line_horizontal_margin=3.0,
-    line_horizontal_length=3.0,
-    line_vertical_margin=6.0,
+    line_horizontal_margin=3.5,
+    line_horizontal_length=3.2,
+    line_vertical_margin=6.8,
     children=[
         TreeNode("components/", children=[
-            TreeNode("Button.py").set_drawing_item("file"),
-            TreeNode("Modal.py").set_drawing_item("file"),
+            TreeNode("Button.py", text_style=Styles.Dark.patch(text_size=10.5)).set_drawing_item("file"),
+            TreeNode("Modal.py", text_style=Styles.Dark.patch(text_size=10.5)).set_drawing_item("file"),
         ]).set_drawing_item("folder"),
-        TreeNode("utils.py").set_drawing_item("file"),
+        TreeNode("utils.py", text_style=Styles.Dark.patch(text_size=10.5)).set_drawing_item("file"),
     ]
 ).set_drawing_item("folder")
 
-root.draw(xy=(10, 50))
+root.draw(xy=(8, 37))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_images/tree_project_structure.png" alt="tree_1" style="width: 600px; max-width: 100%;" />
+  <img src="tree_images/tree_project_structure.png" alt="tree_2" />
   <figcaption class="drawlib-caption">Project File Structure with TreeNode</figcaption>
 </figure>
 
@@ -68,57 +163,57 @@ from drawlib.shapes import rectangle
 from drawlib.smartarts import TreeNode
 from drawlib.styles import Styles
 
-setup(width=90, height=66)
+setup(width=115, height=58)
 
 # Register trailing status badges (location="after" places the item at x + padding_width)
 TreeNode.register_drawing_item(
     name="badge_live",
     location="after",
-    padding_width=24.0,
+    padding_width=32.0,
     function=rectangle,
     style=Styles.PrimaryFlat.patch(shape_r=0.8),
-    args={"width": 11.0, "height": 3.8, "text": "ACTIVE", "text_style": Styles.WhiteBold.patch(text_size=7.5)},
+    args={"width": 13.5, "height": 4.5, "text": "ACTIVE", "text_style": Styles.WhiteBold.patch(text_size=10.0)},
 )
 TreeNode.register_drawing_item(
     name="badge_warn",
     location="after",
-    padding_width=25.0,
+    padding_width=33.5,
     function=phosphor.warning_circle,
     style=Styles.DangerFlat,
-    args={"width": 3.4},
+    args={"width": 3.8},
 )
 
 root = TreeNode(
     "production-cluster/",
-    text_style=Styles.DarkBold.patch(text_size=10.5),
+    text_style=Styles.DarkBold.patch(text_size=11.0),
     line_style=Styles.DarkThin,
-    line_horizontal_margin=3.5,
-    line_horizontal_length=3.5,
-    line_vertical_margin=6.5,
+    line_horizontal_margin=3.8,
+    line_horizontal_length=3.6,
+    line_vertical_margin=6.8,
 )
 
 # 1. Core Services Subtree (inherits root margins, overrides text_style)
-core = root.add("core-services/", text_style=Styles.DarkBold.patch(text_size=9.5))
-core.add("auth-gateway (v2.4)", text_style=Styles.Dark.patch(text_size=9.5)).set_drawing_item("badge_live")
-core.add("billing-worker (v1.9)", text_style=Styles.Dark.patch(text_size=9.5)).set_drawing_item("badge_live")
+core = root.add("core-services/", text_style=Styles.DarkBold.patch(text_size=10.5))
+core.add("auth-gateway (v2.4)", text_style=Styles.Dark.patch(text_size=10.0)).set_drawing_item("badge_live")
+core.add("billing-worker (v1.9)", text_style=Styles.Dark.patch(text_size=10.0)).set_drawing_item("badge_live")
 
 # 2. Legacy Subtree (overrides line_style and tighter vertical spacing for all its children)
 legacy = root.add(
     "legacy-workers/",
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
     line_style=Styles.MutedDashed,
-    line_vertical_margin=5.5,
+    line_vertical_margin=6.2,
 )
-batch = legacy.add("nightly-sync (degraded)", text_style=Styles.DangerBold.patch(text_size=9.5))
+batch = legacy.add("nightly-sync (degraded)", text_style=Styles.DangerBold.patch(text_size=10.0))
 batch.set_drawing_item("badge_warn")
-legacy.add("csv-exporter (standby)", text_style=Styles.Muted.patch(text_size=9.5))
+legacy.add("csv-exporter (standby)", text_style=Styles.Muted.patch(text_size=10.0))
 
-root.draw(xy=(12, 57))
+root.draw(xy=(8, 51))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_images/tree_imperative_badges.png" alt="tree_2" style="width: 650px; max-width: 100%;" />
+  <img src="tree_images/tree_imperative_badges.png" alt="tree_3" />
   <figcaption class="drawlib-caption">Imperative TreeNode Construction with Cascading Subtree Overrides and 'after' Status Badges</figcaption>
 </figure>
 

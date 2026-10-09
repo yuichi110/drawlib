@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -421,7 +425,47 @@
             </header>
             <main class="main-content">
                 <h1>SourceCode</h1>
-<p>The <code>SourceCode</code> component renders syntax-highlighted source code snippets directly onto the Drawlib canvas as crisp vector shapes and typography powered by Pygments.</p>
+<p>The <code>SourceCode</code> component renders syntax-highlighted source code snippets directly onto the Drawlib canvas as crisp vector shapes and typography powered by Pygments.
+It supports built-in syntax themes, optional line-number gutters, CJK monospace fonts, and custom token color overrides.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="source_code_images/source_code_hero.png" alt="source_code_1" />
+  <figcaption class="drawlib-caption">Overview of SourceCode: Built-In Syntax Themes (default, google, dark, monochrome)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">snippet</span> <span class="o">=</span> <span class="s2">"""def health_check(port: int) -&gt; dict:</span>
+<span class="s2">    # Verify service readiness</span>
+<span class="s2">    return {"port": port, "ok": True}"""</span>
+
+<span class="n">themes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span> <span class="s1">'styles="default" (Light Slate)'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"google"</span><span class="p">,</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span> <span class="s1">'styles="google" (Clean White)'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"dark"</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="s1">'styles="dark" (High-Contrast Dark)'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"monochrome"</span><span class="p">,</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="s1">'styles="monochrome" (Print Grayscale)'</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">theme_name</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">themes</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+    <span class="n">sc_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">theme_name</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="n">snippet</span><span class="p">,</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">sc_styles</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <blockquote>
 <p><strong>Looking for speech bubbles &amp; callouts?</strong> The <code>bubblespeech()</code> primitive is documented in <strong><a href="../02_drawing_primitives/shapes_domain.html">Cylinders, Faces &amp; Callouts</a></strong>.</p>
 </blockquote>
@@ -433,10 +477,10 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
 <span class="c1"># 1. Left: Default Light Theme with Python Code</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="s2">"Default Theme (Python + Line Numbers)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mf">61.5</span><span class="p">),</span> <span class="s2">"Default Theme (Python + Line Numbers)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">py_code</span> <span class="o">=</span> <span class="s2">"""from dataclasses import dataclass</span>
 
@@ -445,14 +489,14 @@
 <span class="s2">    max_attempts: int = 3</span>
 <span class="s2">    backoff_sec: float = 0.5</span>
 
-<span class="s2">    def delay(self, attempt: int) -&gt; float:</span>
+<span class="s2">    def delay(self, n: int) -&gt; float:</span>
 <span class="s2">        # Exponential backoff</span>
-<span class="s2">        return self.backoff_sec * (2 ** attempt)"""</span>
+<span class="s2">        return self.backoff_sec * (2**n)"""</span>
 
-<span class="n">light_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">)</span>
+<span class="n">light_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">59</span><span class="p">,</span>
     <span class="n">code</span><span class="o">=</span><span class="n">py_code</span><span class="p">,</span>
     <span class="n">styles</span><span class="o">=</span><span class="n">light_styles</span><span class="p">,</span>
     <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
@@ -460,7 +504,7 @@
 <span class="p">)</span>
 
 <span class="c1"># 2. Right: Dark Theme with Kubernetes YAML Config</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">68</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="s2">"Dark Theme (YAML Configuration)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">67</span><span class="p">,</span> <span class="mf">61.5</span><span class="p">),</span> <span class="s2">"Dark Theme (YAML Configuration)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">yaml_code</span> <span class="o">=</span> <span class="s2">"""apiVersion: apps/v1</span>
 <span class="s2">kind: Deployment</span>
@@ -474,12 +518,12 @@
 <span class="s2">    spec:</span>
 <span class="s2">      containers:</span>
 <span class="s2">      - name: worker</span>
-<span class="s2">        image: registry.io/pay:v2.4"""</span>
+<span class="s2">        image: app.io/pay:v2.4"""</span>
 
-<span class="n">dark_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">)</span>
+<span class="n">dark_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">67</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">59</span><span class="p">,</span>
     <span class="n">code</span><span class="o">=</span><span class="n">yaml_code</span><span class="p">,</span>
     <span class="n">styles</span><span class="o">=</span><span class="n">dark_styles</span><span class="p">,</span>
     <span class="n">code_lang</span><span class="o">=</span><span class="s2">"yaml"</span><span class="p">,</span>
@@ -488,7 +532,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="source_code_images/smartarts_sourcecode_themes.png" alt="source_code_1" style="width: 650px; max-width: 100%;" />
+  <img src="source_code_images/smartarts_sourcecode_themes.png" alt="source_code_2" />
   <figcaption class="drawlib-caption">Syntax-Highlighted Python and YAML Blocks with Line Numbers</figcaption>
 </figure>
 <hr />
@@ -500,22 +544,22 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
 <span class="c1"># 1. Left: Syntax-Highlighted Code Block</span>
-<span class="n">snippet</span> <span class="o">=</span> <span class="s2">"""async def get_user_profile(uid: str):</span>
-<span class="s2">    cached = await redis.get(f"user:</span><span class="si">{uid}</span><span class="s2">")</span>
-<span class="s2">    if cached is not None:</span>
-<span class="s2">        return decode_profile(cached)</span>
+<span class="n">snippet</span> <span class="o">=</span> <span class="s2">"""async def get_profile(uid: str):</span>
+<span class="s2">    hit = await redis.get(f"u:</span><span class="si">{uid}</span><span class="s2">")</span>
+<span class="s2">    if hit is not None:</span>
+<span class="s2">        return decode(hit)</span>
 <span class="s2">    row = await db.fetch_one(uid)</span>
-<span class="s2">    await redis.set(f"user:</span><span class="si">{uid}</span><span class="s2">", row, ttl=300)</span>
+<span class="s2">    await redis.set(f"u:</span><span class="si">{uid}</span><span class="s2">", row)</span>
 <span class="s2">    return row"""</span>
 
-<span class="n">code_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"google"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+<span class="n">code_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"google"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
     <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">56</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span>
     <span class="n">code</span><span class="o">=</span><span class="n">snippet</span><span class="p">,</span>
     <span class="n">styles</span><span class="o">=</span><span class="n">code_styles</span><span class="p">,</span>
@@ -525,42 +569,49 @@
 
 <span class="c1"># 2. Callout Bubble pointing to the cache-aside lookup line</span>
 <span class="n">bubblespeech</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
     <span class="n">tail_edge</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
     <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
     <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
-    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">74</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">73</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"1. Fast Cache Lookup</span><span class="se">\n</span><span class="s2">(Sub-millisecond hit)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 3. Downstream Persistence Nodes referenced by the code</span>
 <span class="n">cylinder</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">87</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">89</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Redis</span><span class="se">\n</span><span class="s2">Cache"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">cylinder</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Primary</span><span class="se">\n</span><span class="s2">Postgres"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">74</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Cache-Aside Pattern Implementation"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">73</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Cache-Aside Pattern Implementation"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="source_code_images/smartarts_sourcecode_annotated.png" alt="source_code_2" style="width: 650px; max-width: 100%;" />
+  <img src="source_code_images/smartarts_sourcecode_annotated.png" alt="source_code_3" />
   <figcaption class="drawlib-caption">Annotated SourceCode Walkthrough with Callout Bubbles and Architecture Target</figcaption>
 </figure>
 <hr />
@@ -593,11 +644,11 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCodeStyles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">custom_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+<span class="n">custom_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
     <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
     <span class="n">keyword</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span>
-    <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>  <span class="c1"># Updates font size across all token types and line numbers</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>  <span class="c1"># Updates font size across all token types and line numbers</span>
 <span class="p">)</span>
 </code></pre>
 <table>

@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="overview.html" >Documentation as Code Overview</a>
+                                <a href="overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -422,6 +426,97 @@
             <main class="main-content">
                 <h1>Customization &amp; Theming: Templates, CSS &amp; Injected Code</h1>
 <p>Drawlib is designed to integrate seamlessly into corporate design languages and custom developer workflows. You can customize HTML layout structures, modify stylesheets, and inject project-wide Python drawing helpers and style definitions.</p>
+<p>A single theme preset (<code>--style &lt;preset&gt;</code>) synchronizes both your document CSS (<code>style.css</code>) and your diagram design tokens (<code>styles.py</code>):</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="customization_images/customization_unified_theming.png" alt="customization_1" />
+  <figcaption class="drawlib-caption">Unified Theme Architecture: Synchronizing Document CSS (style.css) and Diagram Tokens (styles.py)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left Focal Card: Single Theme Preset</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="s2">"Theme Preset"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="s2">"--style &lt;name&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="s2">"• default / dark</span><span class="se">\n</span><span class="s2">• google / github</span><span class="se">\n</span><span class="s2">• monochrome"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Branching connectors</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="c1"># Top Branch: Document &amp; Slide Styling (style.css)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">82</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_css</span><span class="p">((</span><span class="mf">47.5</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">83.5</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">),</span> <span class="s2">"Document &amp; Slide CSS: style.css"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">55.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"1. Tokens</span><span class="se">\n</span><span class="s2">Palette &amp; Fonts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Markdown</span><span class="se">\n</span><span class="s2">Tables &amp; Code"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">108.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">102.5</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">((</span><span class="mf">114.5</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.5</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"3. Target UI"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">67.25</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">70.25</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">93.75</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">96.75</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Bottom Branch: Diagram Canvas Styling (styles.py)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">82</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_py</span><span class="p">((</span><span class="mf">47.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">83.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span> <span class="s2">"Diagram Design Tokens: styles.py"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">55.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Colors</span><span class="se">\n</span><span class="s2">Palette"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Styles &amp;</span><span class="se">\n</span><span class="s2">Fonts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">108.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"All Diagrams</span><span class="se">\n</span><span class="s2">(100% Synced)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">67.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">70.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">93.75</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">96.75</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Customizing HTML Templates (<code>template.html</code>)</h2>
 <p>Every Drawlib site and PDF project contains a Jinja2 template (<code>template.html</code>) in its source directory. You can edit this file to:</p>
@@ -441,108 +536,6 @@
 <hr />
 <h2>2. Customizing CSS Stylesheets (<code>style.css</code>)</h2>
 <p>Drawlib projects include a local <code>style.css</code> in the source folder built with a 3-layer architecture (Layer 1: theme tokens, Layer 2: code &amp; Markdown components, Layer 3: target layout for <code>site</code>, <code>doc</code>, <code>pdf</code>, or <code>slide</code>). You can edit this stylesheet directly to alter colors, typography, or spacing.</p>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="customization_images/customization_unified_theming.png" alt="customization_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Unified Theme Architecture: Synchronizing Document CSS (style.css) and Diagram Tokens (styles.py)</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">156</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
-
-<span class="c1"># Left Focal Card: Single Theme Preset</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Theme Preset</span><span class="se">\n</span><span class="s2">(--style &lt;preset&gt;)</span><span class="se">\n\n</span><span class="s2">• default / dark</span><span class="se">\n</span><span class="s2">• google / dark</span><span class="se">\n</span><span class="s2">• editorial / github</span><span class="se">\n</span><span class="s2">• monochrome"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Branching connectors</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-
-<span class="c1"># Top Branch: Document &amp; Slide Styling (style.css)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">),</span> <span class="s2">"Document &amp; Slide Styling: style.css (3-Layer CSS Architecture)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
-
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Layer 1: Theme Tokens</span><span class="se">\n</span><span class="s2">Palette &amp; Font Variables"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Layer 2: Markdown &amp; Code</span><span class="se">\n</span><span class="s2">Tables, Alerts &amp; Syntax UI"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">135</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Layer 3: Target Layout</span><span class="se">\n</span><span class="s2">site, doc, pdf, slide"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">79</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">121</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-
-<span class="c1"># Bottom Branch: Diagram Canvas Styling (styles.py)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="s2">"Diagram Canvas Styling: styles.py (Python Design Tokens)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
-
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">61.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Colors Palette</span><span class="se">\n</span><span class="s2">(GoogleColors, ...)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">74.2</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="s2">"+"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">87.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Styles Catalog</span><span class="se">\n</span><span class="s2">(GoogleStyles, ...)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">99.7</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="s2">"+"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">112.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Fonts (patch_font)</span><span class="se">\n</span><span class="s2">(Roboto, Noto, ...)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">123.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">128.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">139.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"All Embedded &amp;</span><span class="se">\n</span><span class="s2">Standalone</span><span class="se">\n</span><span class="s2">Diagrams"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <h3>Built-In CSS Theme Presets:</h3>
 <table>
 <thead>
@@ -689,7 +682,7 @@ drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> <
 <span class="k">def</span><span class="w"> </span><span class="nf">draw_server_node</span><span class="p">(</span><span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy</span>
     <span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_active</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
-    <span class="n">t_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_active</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">t_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_active</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
     <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">t_style</span><span class="p">)</span>
 
     <span class="c1"># Status indicator LED (Green = Active, Red = Standby/Offline)</span>
@@ -700,16 +693,16 @@ drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> <
 <span class="c1"># Inside your Markdown drawing code (`drawlib build ... -u docs_src/utils.py`):</span>
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-<span class="n">draw_server_node</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"Primary App"</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">draw_server_node</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"Replica App"</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">draw_server_node</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"Primary App"</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">draw_server_node</span><span class="p">((</span><span class="mi">85</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"Replica App"</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">45</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="s2">"Async WAL Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="s2">"Async WAL Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="customization_images/customization_utils_server_nodes.png" alt="customization_2" style="width: 600px; max-width: 100%;" />
+  <img src="customization_images/customization_utils_server_nodes.png" alt="customization_2" />
   <figcaption class="drawlib-caption">Reusable Composite Server Node Helper Defined in utils.py</figcaption>
 </figure>
 

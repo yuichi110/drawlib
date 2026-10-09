@@ -68,7 +68,7 @@ Never manually assemble diagrams out of dozens of primitive rectangles and lines
 In technical documentation (`docs_src/`), embed diagrams directly within markdown files using the ````drawlib```` code fence:
 
 ````markdown
-```drawlib 600px center file:service_architecture.png caption:"Service Architecture"
+```drawlib center file:service_architecture.png caption:"Service Architecture"
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.shapes import rectangle
@@ -78,7 +78,7 @@ rectangle((50, 20), width=60, height=20, style=Styles.Neutral, text="Service")
 save()
 ```
 ````
-- **Attributes**: Always specify `file:<name>.png` and `caption:"..."`. Never rely on auto-numbered filenames (`0.png`).
+- **Attributes & Sizing**: Always specify `file:<name>.png` and `caption:"..."`. Never rely on auto-numbered filenames (`0.png`). Omit narrow pixel widths (such as `600px`) so the image fills the `.drawlib-image` container (`100%` max-width), and keep in-image `text_size >= 10.0` (standard `10.5`–`12.0`, headers `12.0`–`14.0`) so diagram labels match the surrounding HTML body text.
 - **Source of Truth**: Always edit `<base>_src/` (e.g. `docs_src/`). Never manually edit generated output directories (`docs/`, `docs_html/`).
 - **Incremental Build Cache (`.drawlib/cache.db`)**: `drawlib build` and `drawlib show` cache rendered images by hashing the code block, `styles.py`, `utils.py`, and referenced local assets (`_assets/`). If you edit an external imported Python module outside `styles.py`/`utils.py`, pass `--no-cache` or run `uv run drawlib cache clear --images` to force re-rendering.
 - **Font & Icon Asset Cache**: Pre-download font and icon packages for offline or CI builds via `uv run drawlib cache download --all` (inspect with `uv run drawlib cache list`, clear all with `uv run drawlib cache clear --all`).

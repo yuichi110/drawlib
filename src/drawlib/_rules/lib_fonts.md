@@ -129,7 +129,7 @@ When designing technical diagrams, maintain a clear typographic scale:
 
 ### 5.1. Applying Roboto and Monospace Fonts in Architecture Schemas
 
-```drawlib fold-code 600px center caption:"Typographic Scale with Roboto and Monospace"
+```drawlib fold-code center caption:"Typographic Scale with Roboto and Monospace"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontMonoSpace, FontRoboto
 from drawlib.lines import line
@@ -168,7 +168,7 @@ save()
 
 ### 5.2. Multilingual International Architecture Diagram
 
-```drawlib fold-code 600px center caption:"Multilingual Diagram with Universal CJK Font"
+```drawlib fold-code center caption:"Multilingual Diagram with Universal CJK Font"
 from drawlib.canvas import save, setup
 from drawlib.fonts import Font
 from drawlib.lines import line

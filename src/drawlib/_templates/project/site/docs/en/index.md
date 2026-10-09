@@ -6,7 +6,7 @@ Welcome to the documentation site created with [Drawlib](https://github.com/yuic
 
 This diagram demonstrates standard diagramming using Drawlib's core primitives without external helpers:
 
-```drawlib 600px center file:basic_architecture.png caption:"Basic Architecture Diagram"
+```drawlib center file:basic_architecture.png caption:"Basic Architecture Diagram"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -26,7 +26,7 @@ line((39, 22.5), (61, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 
 This diagram demonstrates reusable drawing components defined in `utils.py` and local image assets stored in `_assets/`:
 
-```drawlib 600px center file:reusable_helpers_architecture.png caption:"Architecture with Reusable Helpers & Local Assets"
+```drawlib center file:reusable_helpers_architecture.png caption:"Architecture with Reusable Helpers & Local Assets"
 from drawlib.canvas import setup
 from drawlib.images import image
 from drawlib.styles import Styles

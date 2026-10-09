@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation as Code: The Drawlib Build Engine</title>
+    <title>Illustrated Documentation as Code: The Drawlib Build Engine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -111,6 +111,10 @@
                             
                             <li class="nav-item ">
                                 <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item active">
-                                <a href="overview.html" >Documentation as Code Overview</a>
+                                <a href="overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -416,98 +420,100 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Documentation as Code: The Drawlib Build Engine</span>
+                    <span class="crumb active">Illustrated Documentation as Code: The Drawlib Build Engine</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Documentation as Code: The Drawlib Build Engine</h1>
-<p>Drawlib unifies technical documentation and architectural illustrations under a single <strong>&quot;Documentation as Code&quot;</strong> pipeline. Instead of managing out-of-sync vector files, manually exporting diagrams from third-party tools, or checking in opaque binary assets, you author declarative Python drawing blocks directly inside standard Markdown documents.</p>
-<hr />
-<h2>1. Core Principles</h2>
+                <h1>Illustrated Documentation as Code: The Drawlib Build Engine</h1>
+<p>Drawlib unifies technical documentation and architectural illustrations under a single <strong>&quot;Illustrated Documentation as Code&quot;</strong> pipeline. Instead of managing out-of-sync vector files, manually exporting diagrams from third-party tools, or checking in opaque binary assets, you author declarative Python drawing blocks directly inside standard Markdown documents.</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/doc_builder_overview_pipeline.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <img src="overview_images/doc_builder_overview_pipeline.png" alt="overview_1" />
   <figcaption class="drawlib-caption">The Drawlib Documentation Compilation Pipeline and Publishing Targets</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="c1"># Left: Markdown Source</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="s2">"Markdown Source"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"docs_src/*.md</span><span class="se">\n</span><span class="s2">styles.py &amp; utils.py</span><span class="se">\n</span><span class="s2">_assets/*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Markdown Source</span><span class="se">\n</span><span class="s2">(docs_src/*.md +</span><span class="se">\n</span><span class="s2">styles.py)</span><span class="se">\n\n</span><span class="s2">• Embedded drawlib blocks</span><span class="se">\n</span><span class="s2">• utils.py &amp; _assets/*"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"```drawlib Blocks"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Center: Drawlib Compilation Pipeline Container</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="s2">"Drawlib Compilation Pipeline"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mf">49.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">64.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="s2">"Compilation Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"1. Markdown Parser"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"1. MD Parser"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">35.25</span><span class="p">),</span> <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mf">31.75</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Python Sandbox"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Py Sandbox"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">),</span> <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mf">19.75</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"3. SQLite Cache (.drawlib/cache.db)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"3. SQLite Cache"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Right: 4 Publishing Targets</span>
 <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">49.5</span><span class="p">,</span> <span class="s2">"docs_html/ (Web Site)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">37.2</span><span class="p">,</span> <span class="s2">"docs_markdown/ (GitHub MD)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">24.8</span><span class="p">,</span> <span class="s2">"docs.pdf (Print PDF)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">12.5</span><span class="p">,</span> <span class="s2">"docs_images/ (Extracted Assets)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="s2">"docs_html/ (Web)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">35.2</span><span class="p">,</span> <span class="s2">"docs_markdown/"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">22.8</span><span class="p">,</span> <span class="s2">"docs.pdf (PDF)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="s2">"docs_images/"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">),</span>
 <span class="p">]</span>
-<span class="k">for</span> <span class="n">ty</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
-        <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-        <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
-        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
-    <span class="p">)</span>
+<span class="k">for</span> <span class="n">ty</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">icon_fn</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="mf">94.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
 
 <span class="c1"># Connectors: Source -&gt; Pipeline -&gt; 4 Publishing Targets</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">97</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="p">(</span><span class="mi">103</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">103</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">103</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">ty</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
-    <span class="n">line</span><span class="p">((</span><span class="mi">103</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">85</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ty</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+    <span class="n">line</span><span class="p">((</span><span class="mi">85</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
+<hr />
+<h2>1. Core Principles</h2>
 <ol>
 <li><strong>Source of Truth (<code>&lt;name&gt;_src/</code>)</strong>: You author content exclusively in source directories (e.g. <code>docs_src/</code>, <code>doc_src/</code>, <code>slide_src/</code>, or <code>images_src/</code>). Output folders (<code>docs_html/</code>, <code>docs_markdown/</code>, <code>docs_images/</code>, <code>images/</code>, etc.) are build artifacts and should never be manually modified.</li>
 <li><strong>Deterministic Build Cache</strong>: Drawlib computes a SHA-256 hash of each embedded code block (<code>styles.py</code>, <code>utils.py</code>, and referenced local assets included). Unaltered diagrams are restored instantly from <code>.drawlib/cache.db</code>, enabling sub-second incremental builds across massive multi-page sites.</li>
@@ -561,93 +567,89 @@
 </tbody>
 </table>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/doc_builder_four_templates_matrix.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
+  <img src="overview_images/doc_builder_four_templates_matrix.png" alt="overview_2" />
   <figcaption class="drawlib-caption">Overview of the Four Drawlib Project Starter Templates and Their Outputs</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
 <span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span>
-        <span class="mi">36</span><span class="p">,</span>
-        <span class="mi">43</span><span class="p">,</span>
-        <span class="s2">"1. doc (Linear Spec / RFC)"</span><span class="p">,</span>
+        <span class="mi">33</span><span class="p">,</span>
+        <span class="mf">41.5</span><span class="p">,</span>
+        <span class="s2">"1. doc (Linear Spec)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-        <span class="s2">"doc_src/*.md</span><span class="se">\n</span><span class="s2">(00_cover, 01_...)"</span><span class="p">,</span>
-        <span class="s2">"doc.pdf &amp; doc_html/</span><span class="se">\n</span><span class="s2">doc_markdown/</span><span class="se">\n</span><span class="s2">doc_images/"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="s2">"doc_src/*.md"</span><span class="p">,</span>
+        <span class="s2">"doc.pdf &amp; HTML</span><span class="se">\n</span><span class="s2">doc_markdown/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="mi">104</span><span class="p">,</span>
-        <span class="mi">43</span><span class="p">,</span>
-        <span class="s2">"2. site (Documentation Website)"</span><span class="p">,</span>
+        <span class="mi">93</span><span class="p">,</span>
+        <span class="mf">41.5</span><span class="p">,</span>
+        <span class="s2">"2. site (Doc Website)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/**/*.md</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
-        <span class="s2">"docs_html/ (Web)</span><span class="se">\n</span><span class="s2">docs_markdown/</span><span class="se">\n</span><span class="s2">docs_images/"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="s2">"docs_src/*.md</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
+        <span class="s2">"docs_html/</span><span class="se">\n</span><span class="s2">docs_markdown/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="mi">36</span><span class="p">,</span>
-        <span class="mi">15</span><span class="p">,</span>
-        <span class="s2">"3. slide (16:9 Presentation Deck)"</span><span class="p">,</span>
+        <span class="mi">33</span><span class="p">,</span>
+        <span class="mf">14.5</span><span class="p">,</span>
+        <span class="s2">"3. slide (16:9 Deck)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-        <span class="s2">"slide_src/*.md</span><span class="se">\n</span><span class="s2">(1920x1080 stage)"</span><span class="p">,</span>
-        <span class="s2">"slide_html/ (?presenter=1)</span><span class="se">\n</span><span class="s2">slide.pdf</span><span class="se">\n</span><span class="s2">slide_images/"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="s2">"slide_src/*.md"</span><span class="p">,</span>
+        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">slide.pdf"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="mi">104</span><span class="p">,</span>
-        <span class="mi">15</span><span class="p">,</span>
-        <span class="s2">"4. images (Batch Python Scripts)"</span><span class="p">,</span>
+        <span class="mi">93</span><span class="p">,</span>
+        <span class="mf">14.5</span><span class="p">,</span>
+        <span class="s2">"4. images (Batch Py)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-        <span class="s2">"images_src/*.py</span><span class="se">\n</span><span class="s2">+ styles.py"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="s2">"images_src/*.py"</span><span class="p">,</span>
         <span class="s2">"images/*.png</span><span class="se">\n</span><span class="s2">*.webp / *.svg"</span><span class="p">,</span>
     <span class="p">),</span>
 <span class="p">]</span>
 
-<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">hdr_style</span><span class="p">,</span> <span class="n">hdr_text_style</span><span class="p">,</span> <span class="n">src_text</span><span class="p">,</span> <span class="n">out_text</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
-    <span class="c1"># Outer card container</span>
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">hdr_style</span><span class="p">,</span> <span class="n">hdr_text_style</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">icon_st</span><span class="p">,</span> <span class="n">src_text</span><span class="p">,</span> <span class="n">out_text</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">57</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">7.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">hdr_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">22.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">7.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">+</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">7.8</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">hdr_text_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
     <span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="p">)</span>
-    <span class="c1"># Header banner</span>
-    <span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">8.2</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">61</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span>
-        <span class="n">style</span><span class="o">=</span><span class="n">hdr_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-        <span class="n">text</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
-        <span class="n">text_style</span><span class="o">=</span><span class="n">hdr_text_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-    <span class="p">)</span>
-    <span class="c1"># Source box (left)</span>
-    <span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">17.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">14.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.8</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
         <span class="n">text</span><span class="o">=</span><span class="n">src_text</span><span class="p">,</span>
-        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="p">)</span>
-    <span class="c1"># Arrow</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-    <span class="c1"># Output box (right)</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.8</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.8</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
     <span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="mf">15.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="mf">14.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.8</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
         <span class="n">text</span><span class="o">=</span><span class="n">out_text</span><span class="p">,</span>
-        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.3</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>

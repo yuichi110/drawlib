@@ -2,64 +2,54 @@
 
 Drawlib provides a unified Command Line Interface (`drawlib`) for compiling documentation, extracting standalone visual diagrams, managing cache assets, validating links, and inspecting built-in design systems.
 
----
-
-## 1. Quick Command Matrix
-
-```drawlib fold-code 650px center file:cli_command_taxonomy.png caption:"The Nine Drawlib CLI Subcommands Organized by Workflow Stage"
+```drawlib fold-code center file:cli_command_taxonomy.png caption:"The Nine Drawlib CLI Subcommands Organized by Workflow Stage"
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=156, height=58)
+setup(width=128, height=58)
 
 # Top Row: Primary 4-Stage Authoring & Publishing Pipeline
 stages = [
-    (22, "1. Scaffold\ndrawlib init\n(doc, site, slide, images)", Styles.Neutral, Styles.DarkBold),
-    (59, "2. Inspect & Debug\ndrawlib show\n(-g grid, -o export)", Styles.PrimaryNeutral, Styles.DarkBold),
-    (96, "3. Compile\ndrawlib build\n(html, pdf, md, image)", Styles.PrimaryFlat, Styles.WhiteBold),
-    (133, "4. Preview & Audit\ndrawlib serve\n(--check link audit)", Styles.SecondaryNeutral, Styles.DarkBold),
+    (18.5, "1. init", "doc / site / slide", Styles.Neutral, Styles.DarkBold, Styles.Dark, phosphor.rocket_launch, Styles.PrimaryBold),
+    (48.8, "2. show", "-g grid / -o export", Styles.PrimaryNeutral, Styles.DarkBold, Styles.Dark, phosphor.grid_four, Styles.PrimaryBold),
+    (79.2, "3. build", "html / pdf / md", Styles.PrimaryFlat, Styles.WhiteBold, Styles.White, phosphor.hammer, Styles.WhiteBold),
+    (109.5, "4. serve", "--check link audit", Styles.SecondaryNeutral, Styles.DarkBold, Styles.Dark, phosphor.eye, Styles.PrimaryBold),
 ]
-for sx, label, st, tst in stages:
-    rectangle((sx, 42), width=31, height=16, style=st.patch(shape_r=2.0), text=label, text_style=tst.patch(text_size=7.8))
+for sx, title, sub, st, tst, sub_st, icon_fn, icon_st in stages:
+    rectangle((sx, 42.5), width=26, height=22, style=st.patch(shape_r=2.0))
+    icon_fn((sx, 48.2), width=4.8, style=icon_st)
+    text((sx, 41.2), title, style=tst.patch(text_size=11.0))
+    text((sx, 35.8), sub, style=sub_st.patch(text_size=10.0))
 
-line((37.5, 42), (43.5, 42), arrow_head="->", style=Styles.DarkBold)
-line((74.5, 42), (80.5, 42), arrow_head="->", style=Styles.DarkBold)
-line((111.5, 42), (117.5, 42), arrow_head="->", style=Styles.DarkBold)
+line((31.5, 42.5), (35.8, 42.5), arrow_head="->", style=Styles.DarkBold)
+line((61.8, 42.5), (66.2, 42.5), arrow_head="->", style=Styles.DarkBold)
+line((92.2, 42.5), (96.5, 42.5), arrow_head="->", style=Styles.DarkBold)
 
 # Bottom Row: Supporting Design Systems, Cache & AI Rules Subcommands
-rectangle((77.5, 14.5), width=142, height=21, style=Styles.MutedDashed.patch(shape_r=2.0))
-text((77.5, 22.5), "Cross-Cutting Design, Asset Cache & AI Knowledge Subcommands", style=Styles.DarkBold.patch(text_size=8.0))
+rectangle((64, 14.5), width=117, height=22, style=Styles.MutedDashed.patch(shape_r=2.0))
+text((64, 22.8), "Cross-Cutting Design, Asset Cache & AI Knowledge", style=Styles.DarkBold.patch(text_size=11.0))
 
-rectangle(
-    (32, 12),
-    width=44,
-    height=11,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="Design Systems (3 Subcommands)\ndrawlib colors | drawlib styles | drawlib css",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (80, 12),
-    width=42,
-    height=11,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="Asset & Build Cache\ndrawlib cache (list, download, clear)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (125, 12),
-    width=40,
-    height=11,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="AI Knowledge Catalog\ndrawlib rules (27 manuals)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
+bottom_cards = [
+    (25.5, "colors | styles | css", "Design Palettes", Styles.Neutral, phosphor.palette),
+    (64.0, "drawlib cache", "Fonts & Icons", Styles.PrimaryNeutral, phosphor.database),
+    (102.5, "drawlib rules", "27 AI Manuals", Styles.SecondaryNeutral, phosphor.book_open),
+]
+for bx, btitle, bsub, bst, bicon in bottom_cards:
+    rectangle((bx, 11.8), width=35, height=11.5, style=bst.patch(shape_r=1.5))
+    bicon((bx - 12.5, 11.8), width=4.4, style=Styles.PrimaryBold)
+    text((bx + 2.5, 13.8), btitle, style=Styles.DarkBold.patch(text_size=10.2))
+    text((bx + 2.5, 9.2), bsub, style=Styles.Dark.patch(text_size=10.0))
 
 save()
 ```
+
+---
+
+## 1. Quick Command Matrix
 
 ```bash
 # Compilation
@@ -113,88 +103,69 @@ Global flags apply before any top-level command (`drawlib [GLOBAL_OPTIONS] COMMA
 
 ## 3. Compilation Subsystem (`drawlib build`)
 
-```drawlib fold-code 650px center file:cli_build_and_show_targets.png caption:"Interactive Single-Diagram Preview (drawlib show) vs. Full Project Compilation (drawlib build)"
+```drawlib fold-code center file:cli_build_and_show_targets.png caption:"Interactive Single-Diagram Preview (drawlib show) vs. Full Project Compilation (drawlib build)"
 from drawlib.canvas import save, setup
-from drawlib.lines import line
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
+from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=56)
+setup(width=126, height=58)
 
 # Top Panel: Fast Interactive Loop (drawlib show)
-rectangle((70, 42), width=132, height=22, style=Styles.MutedDashed.patch(shape_r=2.0))
+rectangle((63, 42.5), width=118, height=23, style=Styles.MutedDashed.patch(shape_r=2.0))
+phosphor.grid_four((13, 50.2), width=4.4, style=Styles.PrimaryBold)
 text(
-    (70, 50.2),
-    "Fast Interactive Loop: drawlib show (Single-Diagram Preview & Inspection)",
-    style=Styles.DarkBold.patch(text_size=8.2),
+    (66, 50.2),
+    "Fast Interactive Loop: drawlib show (Single-Diagram Preview)",
+    style=Styles.DarkBold.patch(text_size=11.0),
 )
 
-rectangle(
-    (24, 39.2),
-    width=34,
-    height=11.5,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="script.py or\ndoc.md + <diagram.png>",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
+show_flow = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=60.0,
+    spacing=1.8,
+    flat_left_end=True,
 )
-line((41, 39.2), (49, 39.2), arrow_head="->", style=Styles.DarkBold)
-
-rectangle(
-    (69, 39.2),
-    width=40,
-    height=11.5,
-    style=Styles.PrimaryFlat.patch(shape_r=1.5),
-    text="drawlib show\n-g -o preview.png",
-    text_style=Styles.WhiteBold.patch(text_size=7.8),
+show_flow.add("1. Source", description="doc.md / .py")
+show_flow.add(
+    "2. drawlib show",
+    description="-g -o preview.png",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.White.patch(text_size=10.0),
 )
-line((89, 39.2), (97, 39.2), arrow_head="->", style=Styles.DarkBold)
-
-rectangle(
-    (115, 39.2),
-    width=36,
-    height=11.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="Coordinate Grid Overlay\nfor Rapid Inspection",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
-)
+show_flow.add("3. Grid Review", description="Inspect Coords", style=Styles.PrimaryNeutral)
+show_flow.draw(xy=(8, 33.0), width=110, height=13.5)
 
 # Bottom Panel: Full Project Compilation (drawlib build)
-rectangle((70, 15), width=132, height=22, style=Styles.MutedDashed.patch(shape_r=2.0))
+rectangle((63, 15.0), width=118, height=23, style=Styles.MutedDashed.patch(shape_r=2.0))
+phosphor.hammer((13, 22.8), width=4.4, style=Styles.PrimaryBold)
 text(
-    (70, 23.2),
-    "Full Project Compilation: drawlib build (Incremental Multi-Target Publishing)",
-    style=Styles.DarkBold.patch(text_size=8.2),
+    (66, 22.8),
+    "Full Project Compilation: drawlib build (Multi-Target Output)",
+    style=Styles.DarkBold.patch(text_size=11.0),
 )
 
-rectangle(
-    (24, 12.2),
-    width=34,
-    height=11.5,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="<project>_src/ +\n.drawlib/cache.db",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
+build_flow = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=60.0,
+    spacing=1.8,
+    flat_left_end=True,
 )
-line((41, 12.2), (49, 12.2), arrow_head="->", style=Styles.DarkBold)
-
-rectangle(
-    (69, 12.2),
-    width=40,
-    height=11.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="drawlib build\n<html | md | pdf | slide | image>",
-    text_style=Styles.DarkBold.patch(text_size=7.4),
+build_flow.add("1. Project + Cache", description="docs_src/ & cache.db")
+build_flow.add(
+    "2. drawlib build",
+    description="html | pdf | md",
+    style=Styles.SecondaryNeutral,
 )
-line((89, 12.2), (97, 12.2), arrow_head="->", style=Styles.DarkBold)
-
-rectangle(
-    (115, 12.2),
-    width=36,
-    height=11.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="Published Deliverables\n(HTML, PDF, MD, Assets)",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
-)
+build_flow.add("3. Deliverables", description="HTML, PDF, Assets", style=Styles.PrimaryNeutral)
+build_flow.draw(xy=(8, 5.5), width=110, height=13.5)
 
 save()
 ```

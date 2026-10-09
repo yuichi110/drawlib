@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,19 +427,98 @@
                 <h1>LineChart: Continuous Trends, Markers &amp; Splines</h1>
 <p>The <code>LineChart</code> component (<code>drawlib.charts.line</code>) visualizes numerical trends over ordered categories or time intervals. It supports straight polygonal segments (<code>smooth=False</code>), smoothed spline curves (<code>smooth=True</code>), per-series vertex marker shapes (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;none&quot;</code>), configurable stroke patterns (<code>&quot;solid&quot;</code>, <code>&quot;dashed&quot;</code>, <code>&quot;dotted&quot;</code>, <code>&quot;dashdot&quot;</code>), inline vertex value labels, and decoupled legend rendering.</p>
 <hr />
-<h2>1. Quick Example: Smooth Spline User Growth Trends</h2>
+<h2>1. Overview &amp; Key Modes</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="line_images/linechart_topologies_overview.png" alt="line_1" />
+  <figcaption class="drawlib-caption">LineChart Modes: Smooth Cubic Spline Interpolation (smooth=True) vs. Straight Polygonal Segments (smooth=False)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"M1"</span><span class="p">,</span> <span class="s2">"M2"</span><span class="p">,</span> <span class="s2">"M3"</span><span class="p">,</span> <span class="s2">"M4"</span><span class="p">,</span> <span class="s2">"M5"</span><span class="p">]</span>
+<span class="n">active_vals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">42.0</span><span class="p">,</span> <span class="mf">86.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">]</span>
+<span class="n">baseline_vals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">]</span>
+
+<span class="c1"># Left: Smooth Spline Curve (smooth=True)</span>
+<span class="n">smooth_chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">56.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">point_size</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"1. Smooth Spline Curve (smooth=True)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">smooth_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Active"</span><span class="p">,</span> <span class="n">active_vals</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>
+<span class="n">smooth_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Baseline"</span><span class="p">,</span> <span class="n">baseline_vals</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="n">point_shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)</span>
+<span class="n">smooth_chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mf">25.0</span><span class="p">)</span>
+<span class="n">smooth_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">smooth_chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="c1"># Right: Straight Segments &amp; Value Labels (smooth=False)</span>
+<span class="n">straight_chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">56.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">point_shape</span><span class="o">=</span><span class="s2">"square"</span><span class="p">,</span>
+    <span class="n">point_size</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"2. Straight Segments &amp; Labels (smooth=False)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">straight_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Active"</span><span class="p">,</span> <span class="n">active_vals</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>
+<span class="n">straight_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Baseline"</span><span class="p">,</span> <span class="n">baseline_vals</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="n">point_shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)</span>
+<span class="n">straight_chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mf">25.0</span><span class="p">)</span>
+<span class="n">straight_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">straight_chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li><strong>Straight vs. Smooth Curves (<code>smooth</code>)</strong>:
+<ul>
+<li><code>smooth=False</code> <em>(default)</em>: Connects category vertices with crisp, straight polygonal line segments.</li>
+<li><code>smooth=True</code>: Renders organic, rounded curves through data vertices (when 3 or more points are present).</li>
+</ul>
+</li>
+<li><strong>Vertex Markers &amp; Per-Series Overrides (<code>show_points</code>, <code>point_shape</code>, <code>point_size</code>)</strong>:
+<ul>
+<li>Chart-level <code>point_shape</code> (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;none&quot;</code>) and <code>point_size</code> (<code>0.7</code> default) apply to all series unless overridden in <code>add_series(..., point_shape=..., point_size=...)</code>.</li>
+<li>Setting <code>point_shape=&quot;none&quot;</code> on a specific series suppresses both its vertex markers and its <code>value_text_style</code> labels—ideal for flat target or threshold reference lines.</li>
+</ul>
+</li>
+<li><strong>Stroke Patterns (<code>line_style</code>)</strong>: Supports <code>&quot;solid&quot;</code>, <code>&quot;dashed&quot;</code>, <code>&quot;dotted&quot;</code>, and <code>&quot;dashdot&quot;</code>.</li>
+<li><strong>Vertex Value Annotations (<code>value_text_style</code>)</strong>: When provided (not <code>None</code>), formats each vertex value using <code>y_axis.format_value(v)</code> and renders it directly above the marker.</li>
+</ul>
+<hr />
+<h2>2. Quick Example: Smooth Spline User Growth Trends</h2>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
     <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Jan"</span><span class="p">,</span> <span class="s2">"Feb"</span><span class="p">,</span> <span class="s2">"Mar"</span><span class="p">,</span> <span class="s2">"Apr"</span><span class="p">,</span> <span class="s2">"May"</span><span class="p">,</span> <span class="s2">"Jun"</span><span class="p">],</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">82</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Monthly Active Users (k)"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
@@ -445,35 +528,35 @@
 <span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2025"</span><span class="p">,</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2026"</span><span class="p">,</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">160</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
 
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">59</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="line_images/linechart_user_growth.png" alt="line_1" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/linechart_user_growth.png" alt="line_2" />
   <figcaption class="drawlib-caption">User Growth Trends with LineChart</figcaption>
 </figure>
 <hr />
-<h2>2. Straight Segments, Custom Markers, Stroke Styles &amp; Vertex Labels</h2>
+<h2>3. Straight Segments, Custom Markers, Stroke Styles &amp; Vertex Labels</h2>
 <p>By combining <code>smooth=False</code> (straight segments) with <code>value_text_style</code>, per-series <code>point_shape</code> (<code>&quot;square&quot;</code>, <code>&quot;circle&quot;</code>, <code>&quot;none&quot;</code>), and distinct <code>line_style</code> patterns (<code>&quot;solid&quot;</code>, <code>&quot;dotted&quot;</code>, <code>&quot;dashdot&quot;</code>), you can plot telemetry metrics alongside SLA thresholds:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">108</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
     <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"00:00"</span><span class="p">,</span> <span class="s2">"04:00"</span><span class="p">,</span> <span class="s2">"08:00"</span><span class="p">,</span> <span class="s2">"12:00"</span><span class="p">,</span> <span class="s2">"16:00"</span><span class="p">,</span> <span class="s2">"20:00"</span><span class="p">],</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">86.0</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">88.0</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"API Gateway p95 Latency &amp; Alert Thresholds"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
     <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span>
     <span class="s2">"Primary Region (p95)"</span><span class="p">,</span>
@@ -501,38 +584,20 @@
 <span class="p">)</span>
 
 <span class="n">chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">"</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"ms"</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">60.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
     <span class="n">swatch_size</span><span class="o">=</span><span class="p">(</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">item_gap</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+    <span class="n">item_gap</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="line_images/linechart_markers_and_styles.png" alt="line_2" style="width: 650px; max-width: 100%;" />
+  <img src="line_images/linechart_markers_and_styles.png" alt="line_3" />
   <figcaption class="drawlib-caption">Straight Line Segments with Square Vertex Markers, Value Labels, and Dashdot/Dotted Thresholds</figcaption>
 </figure>
-<hr />
-<h2>3. Key Features</h2>
-<ul>
-<li><strong>Straight vs. Smooth Curves (<code>smooth</code>)</strong>:
-<ul>
-<li><code>smooth=False</code> <em>(default)</em>: Connects category vertices with crisp, straight polygonal line segments.</li>
-<li><code>smooth=True</code>: Renders organic, rounded curves through data vertices (when 3 or more points are present).</li>
-</ul>
-</li>
-<li><strong>Vertex Markers &amp; Per-Series Overrides (<code>show_points</code>, <code>point_shape</code>, <code>point_size</code>)</strong>:
-<ul>
-<li>Chart-level <code>point_shape</code> (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;none&quot;</code>) and <code>point_size</code> (<code>0.7</code> default) apply to all series unless overridden in <code>add_series(..., point_shape=..., point_size=...)</code>.</li>
-<li>Setting <code>point_shape=&quot;none&quot;</code> on a specific series suppresses both its vertex markers and its <code>value_text_style</code> labels—ideal for flat target or threshold reference lines.</li>
-</ul>
-</li>
-<li><strong>Stroke Patterns (<code>line_style</code>)</strong>: Supports <code>&quot;solid&quot;</code>, <code>&quot;dashed&quot;</code>, <code>&quot;dotted&quot;</code>, and <code>&quot;dashdot&quot;</code>.</li>
-<li><strong>Vertex Value Annotations (<code>value_text_style</code>)</strong>: When provided (not <code>None</code>), formats each vertex value using <code>y_axis.format_value(v)</code> and renders it directly above the marker.</li>
-</ul>
 <hr />
 <h2>4. API Reference</h2>
 <h3>Constructor (<code>LineChart</code>)</h3>

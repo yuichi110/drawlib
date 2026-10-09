@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,6 +427,65 @@
                 <h1>TreeGraph: Balanced Hierarchies &amp; Decomposition Trees</h1>
 <p><code>TreeGraph</code> implements the <strong>Reingold-Tilford / Buchheim compact tree layout algorithm</strong>, arranging strict parent-child hierarchies so that every parent node is symmetrically centered over (or beside) its children while sibling subtrees are packed tightly without ever colliding.</p>
 <p>Use <code>TreeGraph</code> whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="tree_graph_images/graph_tree_hero.png" alt="tree_graph_1" />
+  <figcaption class="drawlib-caption">TreeGraph Overview: Orthogonal vs. Straight Branch Routing in Balanced Hierarchies</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
+    <span class="n">root</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span>
+    <span class="n">level_sep</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span>
+    <span class="n">sibling_sep</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Level 0: Root Node</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"core"</span><span class="p">,</span>
+    <span class="s2">"</span><span class="se">\n</span><span class="s2">Platform Core"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Level 1: Division Branches</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Compute Plane"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Data Plane"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Level 2: Leaf Subsystems (50%+ Neutral baseline)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">API Mesh"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"workers"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Worker Pool"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Primary SQL"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Cache Cluster"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"workers"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"sql"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"cache"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Constructor &amp; <code>.child()</code> Builder API</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
@@ -552,12 +615,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">"vp"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
+    <span class="n">root</span><span class="o">=</span><span class="s2">"vp"</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="c1"># Root focal node in PrimaryFlat</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"VP Engineering"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"VP Engineering"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
 <span class="c1"># Second level in Tinted-Neutral cards</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"Platform Div"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
@@ -569,11 +638,11 @@
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"web"</span><span class="p">,</span> <span class="s2">"Web Frontend"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"mob"</span><span class="p">,</span> <span class="s2">"Mobile Apps"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_graph_images/graph_tree_tb_hierarchy.png" alt="tree_graph_1" style="width: 680px; max-width: 100%;" />
+  <img src="tree_graph_images/graph_tree_tb_hierarchy.png" alt="tree_graph_2" />
   <figcaption class="drawlib-caption">Top-Down (TB) Engineering Organization Hierarchy with Orthogonal Branches</figcaption>
 </figure>
 <hr />
@@ -583,17 +652,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">95</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
     <span class="n">root</span><span class="o">=</span><span class="s2">"query_plan"</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Root query coordinator</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"Query Planner"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"Query Planner"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
 <span class="c1"># Intermediate execution branches</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"Index Lookup"</span><span class="p">,</span> <span class="n">edge_label</span><span class="o">=</span><span class="s2">"Filter"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
@@ -605,11 +675,11 @@
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"col_store"</span><span class="p">,</span> <span class="s2">"Orders Columnar"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"cache_hit"</span><span class="p">,</span> <span class="s2">"Materialized View"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_graph_images/graph_tree_lr_decomposition.png" alt="tree_graph_2" style="width: 700px; max-width: 100%;" />
+  <img src="tree_graph_images/graph_tree_lr_decomposition.png" alt="tree_graph_3" />
   <figcaption class="drawlib-caption">Left-to-Right (LR) Query Execution Decomposition Tree</figcaption>
 </figure>
 <hr />
@@ -619,31 +689,32 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span>
     <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"straight"</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Tree 1: Frontend App Hierarchy (Root 1)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"Frontend App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"Frontend App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"fe_router"</span><span class="p">,</span> <span class="s2">"SPA Router"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"fe_store"</span><span class="p">,</span> <span class="s2">"State Store"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
 <span class="c1"># Tree 2: Backend API Hierarchy (Root 2)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"Backend API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"Backend API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"be_auth"</span><span class="p">,</span> <span class="s2">"Auth Module"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"be_billing"</span><span class="p">,</span> <span class="s2">"Billing Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_graph_images/graph_tree_multi_root_forest.png" alt="tree_graph_3" style="width: 650px; max-width: 100%;" />
+  <img src="tree_graph_images/graph_tree_multi_root_forest.png" alt="tree_graph_4" />
   <figcaption class="drawlib-caption">Automatic Multi-Root Forest (root=None) with Straight Edge Routing</figcaption>
 </figure>
 <hr />

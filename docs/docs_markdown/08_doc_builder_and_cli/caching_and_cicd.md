@@ -2,13 +2,10 @@
 
 Drawlib uses a **two-tier caching architecture** to make local iterative builds instantaneous and CI/CD pipelines deterministic, fast, and offline-capable:
 
-1. **Layer 1 — Incremental Build Cache (`.drawlib/cache.db`)**: A project-local SQLite database that caches rendered diagram binaries by SHA-256 content hash, restoring unchanged diagrams in sub-millisecond time.
-2. **Layer 2 — Release Asset Cache (`drawlib cache`)**: A package cache for external font families, vector/PNG icon packs, and Natural Earth map datasets downloaded from official GitHub Releases.
-
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="caching_and_cicd_images/caching_two_tier_architecture.png" alt="caching_and_cicd_1" style="width: 680px; max-width: 100%;" />
+  <img src="caching_and_cicd_images/caching_two_tier_architecture.png" alt="caching_and_cicd_1" />
   <figcaption class="drawlib-caption">Drawlib Two-Tier Caching Architecture and CI/CD Pipeline</figcaption>
 </figure>
 
@@ -17,68 +14,54 @@ Drawlib uses a **two-tier caching architecture** to make local iterative builds 
 
 ```python
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=148, height=58)
+setup(width=128, height=58)
 
 # Outer pipeline boundary
-rectangle((74, 29), width=142, height=52, style=Styles.MutedDashed)
+rectangle((64, 29), width=120, height=50, style=Styles.MutedDashed.patch(shape_r=2.0))
 
 # Left: Source inputs
-rectangle(
-    (24, 29),
-    width=30,
-    height=36,
-    style=Styles.Neutral,
-    text="Project Source\n(docs_src/)\n\n• *.md + ```drawlib\n• styles.py / utils.py\n• _assets/*",
-    text_style=Styles.Dark.patch(text_size=8.0),
-)
+rectangle((21, 29), width=26, height=40, style=Styles.Neutral.patch(shape_r=1.8))
+phosphor.git_merge((21, 42.5), width=4.8, style=Styles.PrimaryBold)
+text((21, 34.5), "Project Source", style=Styles.DarkBold.patch(text_size=10.8))
+text((21, 22.0), "docs_src/*.md\nstyles.py\nutils.py\n_assets/*", style=Styles.Dark.patch(text_size=10.0))
 
 # Center: Drawlib Compiler (Hero focal point)
-rectangle(
-    (74, 41),
-    width=34,
-    height=15,
-    style=Styles.PrimaryFlat,
-    text="Drawlib Build Engine\n(SHA-256 Hash Check)",
-    text_style=Styles.WhiteBold.patch(text_size=8.5),
-)
+rectangle((64, 41.5), width=36, height=14.5, style=Styles.PrimaryFlat.patch(shape_r=1.8))
+phosphor.lightning((50.5, 41.5), width=4.8, style=Styles.WhiteBold)
+text((67.5, 41.5), "Build Engine\n(SHA-256 Check)", style=Styles.WhiteBold.patch(text_size=10.5))
 
 # Bottom Center: Two Cache Tiers
-rectangle(
-    (56, 15),
-    width=30,
-    height=15,
-    style=Styles.PrimaryNeutral,
-    text="Layer 1: Build Cache\n.drawlib/cache.db\n(Rendered Images)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (92, 15),
-    width=30,
-    height=15,
-    style=Styles.SecondaryNeutral,
-    text="Layer 2: Asset Cache\nFonts, Icons & Maps\n(drawlib cache)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
+rectangle((49.5, 16.0), width=27, height=16.5, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+phosphor.database((40.0, 20.5), width=4.2, style=Styles.PrimaryBold)
+text((52.5, 20.5), "Layer 1 Cache", style=Styles.DarkBold.patch(text_size=10.2))
+text((49.5, 12.2), ".drawlib/cache.db\n(Image Blobs)", style=Styles.Dark.patch(text_size=10.0))
+
+rectangle((78.5, 16.0), width=27, height=16.5, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.cloud_arrow_down((69.0, 20.5), width=4.2, style=Styles.PrimaryBold)
+text((81.5, 20.5), "Layer 2 Cache", style=Styles.DarkBold.patch(text_size=10.2))
+text((78.5, 12.2), "Fonts, Icons, Maps\n(drawlib cache)", style=Styles.Dark.patch(text_size=10.0))
 
 # Right: Published Artifacts
 rectangle(
-    (124, 29),
-    width=28,
-    height=36,
-    style=Styles.Neutral,
-    text="Build Outputs\n\n• docs_html/ (Site)\n• docs/ (Markdown)\n• doc.pdf (Chromium)\n• images/ (Assets)",
-    text_style=Styles.Dark.patch(text_size=8.0),
+    (107, 29),
+    width=26,
+    height=40,
+    style=Styles.Neutral.patch(shape_r=1.8),
+    text="Build Outputs\n\n• docs_html/\n• docs_markdown/\n• docs.pdf\n• images/",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # Connectors
-line((39, 41), (57, 41), arrow_head="->", style=Styles.DarkBold)
-line((91, 41), (110, 41), arrow_head="->", style=Styles.DarkBold)
-line((64, 33.5), (56, 22.5), arrow_head="<->", style=Styles.DarkBold)
-line((84, 33.5), (92, 22.5), arrow_head="<-", style=Styles.DarkBold)
+line((34, 41.5), (46, 41.5), arrow_head="->", style=Styles.DarkBold)
+line((82, 41.5), (94, 41.5), arrow_head="->", style=Styles.DarkBold)
+line((56, 34.25), (49.5, 24.25), arrow_head="<->", style=Styles.DarkBold)
+line((72, 34.25), (78.5, 24.25), arrow_head="<-", style=Styles.DarkBold)
 
 save()
 ```
@@ -86,6 +69,9 @@ save()
 </details>
 
 
+
+1. **Layer 1 — Incremental Build Cache (`.drawlib/cache.db`)**: A project-local SQLite database that caches rendered diagram binaries by SHA-256 content hash, restoring unchanged diagrams in sub-millisecond time.
+2. **Layer 2 — Release Asset Cache (`drawlib cache`)**: A package cache for external font families, vector/PNG icon packs, and Natural Earth map datasets downloaded from official GitHub Releases.
 
 ---
 
@@ -105,7 +91,7 @@ If the digest matches an entry in `.drawlib/cache.db`, Drawlib restores the rend
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="caching_and_cicd_images/caching_sha256_lookup_flow.png" alt="caching_and_cicd_2" style="width: 650px; max-width: 100%;" />
+  <img src="caching_and_cicd_images/caching_sha256_lookup_flow.png" alt="caching_and_cicd_2" />
   <figcaption class="drawlib-caption">Incremental Build Cache SHA-256 Digest Computation and Hit/Miss Workflow</figcaption>
 </figure>
 
@@ -114,106 +100,60 @@ If the digest matches an entry in `.drawlib/cache.db`, Drawlib restores the rend
 
 ```python
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=156, height=62)
+setup(width=128, height=62)
 
 # Left Stack: 4 Input Cards
-rectangle(
-    (22, 52.5),
-    width=36,
-    height=10.5,
-    style=Styles.Neutral,
-    text="1. Code Block Source\n(Python script or ```drawlib)",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (22, 38.5),
-    width=36,
-    height=10.5,
-    style=Styles.Neutral,
-    text="2. styles.py & utils.py\n(Project theme & helpers)",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (22, 24.5),
-    width=36,
-    height=10.5,
-    style=Styles.Neutral,
-    text="3. Referenced _assets/ Files\n(Local images & data blobs)",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (22, 10.5),
-    width=36,
-    height=10.5,
-    style=Styles.Neutral,
-    text="4. Format & DPI Context\n(png/webp/svg & total_slides)",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
+inputs = [
+    (52.0, "1. Code Block Source"),
+    (38.5, "2. styles.py & utils.py"),
+    (25.0, "3. _assets/ Local Files"),
+    (11.5, "4. Format & Context"),
+]
+for iy, ilabel in inputs:
+    rectangle(
+        (20, iy),
+        width=32,
+        height=10.0,
+        style=Styles.Neutral.patch(shape_r=1.5),
+        text=ilabel,
+        text_style=Styles.DarkBold.patch(text_size=10.0),
+    )
 
 # Center Focal Card: SHA-256 Digest Lookup
-rectangle(
-    (72, 31.5),
-    width=34,
-    height=22,
-    style=Styles.PrimaryFlat,
-    text="SHA-256 Digest\nLookup\n(.drawlib/cache.db)",
-    text_style=Styles.WhiteBold.patch(text_size=8.0),
-)
+rectangle((60, 31.8), width=28, height=24, style=Styles.PrimaryFlat.patch(shape_r=1.8))
+phosphor.database((60, 39.2), width=4.8, style=Styles.WhiteBold)
+text((60, 27.8), "SHA-256 Lookup\n(cache.db)", style=Styles.WhiteBold.patch(text_size=10.5))
 
 # Converging arrows from 4 inputs to SHA-256 Digest Lookup
-line((40, 52.5), (55, 37.5), arrow_head="->", style=Styles.DarkBold)
-line((40, 38.5), (55, 33.5), arrow_head="->", style=Styles.DarkBold)
-line((40, 24.5), (55, 29.5), arrow_head="->", style=Styles.DarkBold)
-line((40, 10.5), (55, 25.5), arrow_head="->", style=Styles.DarkBold)
+line((36, 52.0), (46, 38.0), arrow_head="->", style=Styles.DarkBold)
+line((36, 38.5), (46, 34.0), arrow_head="->", style=Styles.DarkBold)
+line((36, 25.0), (46, 29.5), arrow_head="->", style=Styles.DarkBold)
+line((36, 11.5), (46, 25.5), arrow_head="->", style=Styles.DarkBold)
 
 # Top Branch: Cache HIT
-line((89, 37.0), (104, 47.5), arrow_head="->", style=Styles.SuccessBold)
-text((95.0, 45.5), "HIT", style=Styles.SuccessBold.patch(text_size=7.5))
-rectangle(
-    (128, 47.5),
-    width=48,
-    height=18,
-    style=Styles.PrimaryNeutral,
-    text="Cache HIT (< 1 ms)\n\nRestore PNG/WebP/SVG Blob\n(Skip Python & Matplotlib)",
-    text_style=Styles.DarkBold.patch(text_size=7.4),
-)
+line((74, 37.5), (84, 47.5), arrow_head="->", style=Styles.SuccessBold)
+text((78.0, 45.8), "HIT", style=Styles.SuccessBold.patch(text_size=10.2))
+rectangle((104, 47.5), width=40, height=18, style=Styles.PrimaryNeutral.patch(shape_r=1.8))
+phosphor.lightning((89.5, 51.5), width=4.6, style=Styles.PrimaryBold)
+text((106.5, 51.5), "Cache HIT (< 1 ms)", style=Styles.DarkBold.patch(text_size=10.5))
+text((104, 43.2), "Restore Image Blob\n(Skip Matplotlib)", style=Styles.Dark.patch(text_size=10.0))
 
 # Bottom Branch: Cache MISS
-line((89, 26.0), (104, 15.5), arrow_head="->", style=Styles.DarkBold)
-text((95.0, 17.5), "MISS", style=Styles.DarkBold.patch(text_size=7.5))
-rectangle((128, 15.5), width=48, height=22, style=Styles.SecondaryNeutral)
-text((128, 23.5), "Cache MISS Workflow", style=Styles.DarkBold.patch(text_size=7.4))
-
+line((74, 26.0), (84, 16.5), arrow_head="->", style=Styles.DarkBold)
+text((78.0, 18.2), "MISS", style=Styles.DarkBold.patch(text_size=10.2))
 rectangle(
-    (112.5, 12.0),
-    width=13.5,
-    height=11,
-    style=Styles.Neutral,
-    text="Execute\nSandbox",
-    text_style=Styles.DarkBold.patch(text_size=6.4),
-)
-line((119.25, 12.0), (121.25, 12.0), arrow_head="->", style=Styles.DarkBold)
-rectangle(
-    (128.0, 12.0),
-    width=13.5,
-    height=11,
-    style=Styles.Neutral,
-    text="Store in\nSQLite",
-    text_style=Styles.DarkBold.patch(text_size=6.4),
-)
-line((134.75, 12.0), (136.75, 12.0), arrow_head="->", style=Styles.DarkBold)
-rectangle(
-    (143.5, 12.0),
-    width=13.5,
-    height=11,
-    style=Styles.Neutral,
-    text="1 GiB LRU\nEviction",
-    text_style=Styles.DarkBold.patch(text_size=6.4),
+    (104, 16.5),
+    width=40,
+    height=20,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.8),
+    text="Cache MISS Flow\n\n1. Run Py Sandbox\n2. Store in SQLite\n3. 1 GiB LRU Cap",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 save()

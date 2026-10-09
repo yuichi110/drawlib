@@ -2,6 +2,107 @@
 
 Drawlib allows you to embed Python drawing scripts directly into Markdown documents using the ````drawlib```` code fence. The builder compiles these blocks into vector images during site or document builds, automatically generating HTML elements, companion image files, and syntax-highlighted code blocks.
 
+Choose from three display modes (`hide-code`, `show-code`, and `fold-code`) to control how source code is presented alongside rendered diagrams:
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="code_blocks_images/code_blocks_display_modes.png" alt="code_blocks_1" />
+  <figcaption class="drawlib-caption">Visual Comparison of hide-code, show-code, and fold-code Display Modes</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=126, height=54)
+
+# 1. Left Card: hide-code (Default)
+rectangle((22, 27), width=36, height=46, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle(
+    (22, 45.5),
+    width=33,
+    height=6.2,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="1. hide-code",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+)
+rectangle((22, 30.5), width=32, height=18.5, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+phosphor.image((22, 35.0), width=5.2, style=Styles.PrimaryBold)
+text((22, 26.2), "Diagram Image", style=Styles.DarkBold.patch(text_size=10.5))
+rectangle(
+    (22, 16.5),
+    width=32,
+    height=5.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.0),
+    text="Figure Caption",
+    text_style=Styles.Dark.patch(text_size=10.0),
+)
+text((22, 9.2), "(Code hidden)", style=Styles.Muted.patch(text_size=10.0))
+
+# 2. Center Card: show-code (PrimaryFlat header banner)
+rectangle((63, 27), width=36, height=46, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle(
+    (63, 45.5),
+    width=33,
+    height=6.2,
+    style=Styles.PrimaryFlat.patch(shape_r=1.2),
+    text="2. show-code",
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
+)
+rectangle((63, 35.2), width=32, height=11.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.code((52.5, 35.2), width=4.8, style=Styles.PrimaryBold)
+text((66.5, 35.2), "Python Code\n(Highlighted)", style=Styles.DarkBold.patch(text_size=10.2))
+rectangle((63, 21.5), width=32, height=13.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+phosphor.image((52.5, 21.5), width=4.8, style=Styles.PrimaryBold)
+text((66.5, 21.5), "Diagram Image", style=Styles.DarkBold.patch(text_size=10.5))
+rectangle(
+    (63, 10.0),
+    width=32,
+    height=5.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.0),
+    text="Figure Caption",
+    text_style=Styles.Dark.patch(text_size=10.0),
+)
+
+# 3. Right Card: fold-code
+rectangle((104, 27), width=36, height=46, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle(
+    (104, 45.5),
+    width=33,
+    height=6.2,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="3. fold-code",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+)
+rectangle((104, 32.8), width=32, height=15.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+phosphor.image((104, 36.2), width=4.8, style=Styles.PrimaryBold)
+text((104, 29.0), "Diagram Image", style=Styles.DarkBold.patch(text_size=10.5))
+rectangle(
+    (104, 20.5),
+    width=32,
+    height=5.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.0),
+    text="Figure Caption",
+    text_style=Styles.Dark.patch(text_size=10.0),
+)
+rectangle((104, 11.2), width=32, height=9.5, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
+phosphor.caret_circle_down((93.0, 11.2), width=4.6, style=Styles.PrimaryBold)
+text((107.0, 11.2), "Source Code\n(<details>)", style=Styles.DarkBold.patch(text_size=10.0))
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Basic Code Fence Syntax
@@ -24,7 +125,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="code_blocks_images/code_blocks_service_arch.png" alt="code_blocks_1" style="width: 650px; max-width: 100%;" />
+  <img src="code_blocks_images/code_blocks_service_arch.png" alt="code_blocks_2" />
   <figcaption class="drawlib-caption">Service Architecture Example</figcaption>
 </figure>
 
@@ -49,129 +150,6 @@ Options are specified space-delimited on the opening code fence line (supporting
 | `hide-code` / `code:hide` *(default)* | Displays image only (`<figure><img ...></figure>`). | Replaces block with standard Markdown image link. |
 | `show-code` / `code:show` | Displays syntax-highlighted code block followed immediately by the image. | Renders code block followed by image link. |
 | `fold-code` / `code:fold` | Displays image followed by a collapsible dropdown (`<details><summary>Source Code</summary>...</details>`). | Displays image followed by collapsed details dropdown. |
-
-
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="code_blocks_images/code_blocks_display_modes.png" alt="code_blocks_2" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Visual Comparison of hide-code, show-code, and fold-code Display Modes</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-
-```python
-from drawlib.canvas import save, setup
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=140, height=54)
-
-# 1. Left Card: hide-code (Default)
-rectangle((25, 27), width=40, height=46, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle(
-    (25, 45.8),
-    width=37,
-    height=6.0,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="1. hide-code (Default)",
-    text_style=Styles.DarkBold.patch(text_size=8.0),
-)
-rectangle(
-    (25, 30.5),
-    width=35,
-    height=18.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="[Rendered Diagram Image]\n(<figure><img>)",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
-)
-rectangle(
-    (25, 16.5),
-    width=35,
-    height=5.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.0),
-    text="[Figure Caption]",
-    text_style=Styles.Dark.patch(text_size=7.4),
-)
-text((25, 9.0), "(Source code hidden)", style=Styles.Dark.patch(text_size=7.2))
-
-# 2. Center Card: show-code (PrimaryFlat header banner)
-rectangle((70, 27), width=40, height=46, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle(
-    (70, 45.8),
-    width=37,
-    height=6.0,
-    style=Styles.PrimaryFlat.patch(shape_r=1.2),
-    text="2. show-code",
-    text_style=Styles.WhiteBold.patch(text_size=8.0),
-)
-rectangle(
-    (70, 35.0),
-    width=35,
-    height=11.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="[Syntax-Highlighted\nPython Code Box]",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (70, 21.0),
-    width=35,
-    height=13.0,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="[Rendered Diagram Image]\n(<figure><img>)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (70, 9.8),
-    width=35,
-    height=5.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.0),
-    text="[Figure Caption]",
-    text_style=Styles.Dark.patch(text_size=7.4),
-)
-
-# 3. Right Card: fold-code
-rectangle((115, 27), width=40, height=46, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle(
-    (115, 45.8),
-    width=37,
-    height=6.0,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="3. fold-code",
-    text_style=Styles.DarkBold.patch(text_size=8.0),
-)
-rectangle(
-    (115, 32.5),
-    width=35,
-    height=15.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="[Rendered Diagram Image]\n(<figure><img>)",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
-)
-rectangle(
-    (115, 20.2),
-    width=35,
-    height=5.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.0),
-    text="[Figure Caption]",
-    text_style=Styles.Dark.patch(text_size=7.4),
-)
-rectangle(
-    (115, 11.0),
-    width=35,
-    height=9.0,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
-    text="[> Source Code (<details>)]\n(Collapsible dropdown)",
-    text_style=Styles.DarkBold.patch(text_size=7.3),
-)
-
-save()
-```
-
-</details>
-
-
 
 ### 2.2 Complete Fence Attributes Reference
 

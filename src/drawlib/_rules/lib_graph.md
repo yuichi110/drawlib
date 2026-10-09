@@ -167,7 +167,7 @@ ArchitectureGraph(
 )
 ```
 
-```drawlib show-code 750px center file:lib_graph_architecture.png caption:"ArchitectureGraph with Nested Clusters and Compass Zones"
+```drawlib show-code center file:lib_graph_architecture.png caption:"ArchitectureGraph with Nested Clusters and Compass Zones"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
@@ -225,7 +225,7 @@ LayerGraph(
 )
 ```
 
-```drawlib show-code 750px center file:lib_graph_layer.png caption:"LayerGraph Directed Acyclic Pipeline with Tiers"
+```drawlib show-code center file:lib_graph_layer.png caption:"LayerGraph Directed Acyclic Pipeline with Tiers"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
@@ -275,7 +275,7 @@ TreeGraph(
 )
 ```
 
-```drawlib show-code 700px center file:lib_graph_tree.png caption:"TreeGraph Hierarchy with Orthogonal Routing"
+```drawlib show-code center file:lib_graph_tree.png caption:"TreeGraph Hierarchy with Orthogonal Routing"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles
@@ -320,7 +320,7 @@ RadialGraph(
 )
 ```
 
-```drawlib show-code 650px center file:lib_graph_radial.png caption:"RadialGraph Hub-and-Spoke Topology with Ring Guides"
+```drawlib show-code center file:lib_graph_radial.png caption:"RadialGraph Hub-and-Spoke Topology with Ring Guides"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
@@ -364,7 +364,7 @@ GridGraph(
 )
 ```
 
-```drawlib show-code 700px center file:lib_graph_grid.png caption:"GridGraph Matrix with Row Clusters and Smart Channel Routing"
+```drawlib show-code center file:lib_graph_grid.png caption:"GridGraph Matrix with Row Clusters and Smart Channel Routing"
 from drawlib.canvas import save, setup
 from drawlib.graph import GridGraph
 from drawlib.styles import Styles
@@ -407,7 +407,7 @@ Calling `layout = g.calc()` returns a mutable `GraphLayout` container holding co
 
 Use `layout.offset(id, dx=..., dy=...)` to shift a node or an entire cluster (along with its enclosed nodes and attached edge endpoints) before calling `layout.draw()`. You can also read `layout.nodes[id].x` and `.y` to attach custom callouts or primitives, or mutate `layout.nodes[id].show` / `.style` across frames without re-running the layout solver.
 
-```drawlib show-code 700px center file:lib_graph_offset.png caption:"Fine-Tuning Computed Layout with offset() and Custom Annotations"
+```drawlib show-code center file:lib_graph_offset.png caption:"Fine-Tuning Computed Layout with offset() and Custom Annotations"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.shapes import bubblespeech

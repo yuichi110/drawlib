@@ -2,6 +2,78 @@
 
 Low-level drawing primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`) are stateless functions that draw directly onto the canvas. To animate them, use **Pattern A (In-Frame Build)** with `clear=True` (the default of `with anim.frame():`), computing per-frame coordinates, sizes, or styles inside a loop.
 
+```drawlib fold-code center file:anim_primitives_hero.png format:webp caption:"Multi-Frame Primitive Animation: Trajectory Motion, Color Fade, and Dynamic Scaling"
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.math import get_intermediate_points
+from drawlib.shapes import arrow, circle, rectangle
+from drawlib.styles import Colors, Styles, get_intermediate_colors
+from drawlib.text import text
+
+setup(width=124, height=40)
+anim = Animation(fps=10.0)
+
+pkt_points = get_intermediate_points((33.5, 20), (43.5, 20), num=3, include_ends=True)
+arrow_tips = [*get_intermediate_points((73, 20), (93, 20), num=3), (93, 20)]
+fade_colors = get_intermediate_colors(Colors.White, Colors.Primary, num=3, include_ends=True)
+scales = [1.0, 1.05, 1.10, 1.05, 1.0]
+
+# Phase 1: Packet travels from Producer to Router
+for pkt_xy in pkt_points:
+    with anim.frame(duration=0.11):
+        rectangle((17, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nProducer", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.globe((17, 23.2), width=4.4, style=Styles.Dark)
+        rectangle((59, 20), width=26, height=16, style=Styles.PrimaryNeutral.patch(shape_r=2.0), text="\nStream Router", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.git_merge((59, 23.2), width=4.4, style=Styles.Primary)
+        rectangle((107, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nReplica DB", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.database((107, 23.2), width=4.4, style=Styles.Dark)
+        line((28.5, 20), (46, 20), style=Styles.MutedDashed, arrow_head="->")
+        line((72, 20), (95.5, 20), style=Styles.MutedDashed, arrow_head="->")
+        circle(pkt_xy, radius=2.3, style=Styles.PrimaryFlat)
+        text((pkt_xy[0], 27.5), "event", style=Styles.PrimaryBold.patch(text_size=10.5))
+
+# Phase 2: Block arrow grows from Router to Replica DB
+for tip_xy in arrow_tips:
+    with anim.frame(duration=0.11):
+        rectangle((17, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nProducer", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.globe((17, 23.2), width=4.4, style=Styles.Dark)
+        rectangle((59, 20), width=26, height=16, style=Styles.PrimaryNeutral.patch(shape_r=2.0), text="\nStream Router", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.git_merge((59, 23.2), width=4.4, style=Styles.Primary)
+        rectangle((107, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nReplica DB", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.database((107, 23.2), width=4.4, style=Styles.Dark)
+        line((28.5, 20), (46, 20), style=Styles.DarkBold, arrow_head="->")
+        arrow((73, 20), tip_xy, tail_width=2.6, head_width=6.0, head_length=4.5, style=Styles.PrimaryFlat)
+
+# Phase 3: Replica DB scales and smoothly fades into Primary active state
+for i, (bg, sc) in enumerate(zip(fade_colors, scales)):
+    is_last = (i == len(fade_colors) - 1)
+    with anim.frame(duration=2.0 if is_last else 0.12):
+        rectangle((17, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nProducer", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.globe((17, 23.2), width=4.4, style=Styles.Dark)
+        rectangle((59, 20), width=26, height=16, style=Styles.PrimaryNeutral.patch(shape_r=2.0), text="\nStream Router", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.git_merge((59, 23.2), width=4.4, style=Styles.Primary)
+        line((28.5, 20), (46, 20), style=Styles.DarkBold, arrow_head="->")
+        arrow((73, 20), (93, 20), tail_width=2.6, head_width=6.0, head_length=4.5, style=Styles.PrimaryFlat)
+        dst_style = Styles.PrimaryOutline.patch(shape_fill_color=bg, shape_r=2.0)
+        dst_text = (Styles.WhiteBold if i >= 2 else Styles.DarkBold).patch(text_size=11.0)
+        ic_style = Styles.White if i >= 2 else Styles.Dark
+        rectangle(
+            (107, 20),
+            width=23 * sc,
+            height=16 * sc,
+            style=dst_style,
+            text="\nReplica DB",
+            text_style=dst_text,
+        )
+        phosphor.database((107, 23.2), width=4.4 * sc, style=ic_style)
+        if is_last:
+            text((83, 28.0), "Synced", style=Styles.PrimaryBold.patch(text_size=10.5))
+
+save()
+```
+
 ---
 
 ## 1. Coordinate & Path Interpolation (`get_intermediate_points` & `get_intermediate_paths`)
@@ -29,7 +101,7 @@ from drawlib.math import (
 ### Animating a Growing Block Arrow (`arrow`)
 By iterating over intermediate tip coordinates from `start_xy` to `end_xy`, you can smoothly grow a block arrow across frames:
 
-```drawlib 650px center show-code file:anim_primitives_growing_arrow.png caption:"Growing Block Arrow with get_intermediate_points()"
+```drawlib center show-code file:anim_primitives_growing_arrow.png caption:"Growing Block Arrow with get_intermediate_points()"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.math import get_intermediate_points
@@ -61,7 +133,7 @@ for i, tip_xy in enumerate(tip_points):
             style=Styles.PrimaryFlat,
         )
         if is_last:
-            text((55, 28), "Replicated", style=Styles.PrimaryBold.patch(text_size=8.5))
+            text((55, 28), "Replicated", style=Styles.PrimaryBold.patch(text_size=10.5))
 
 save()
 ```
@@ -69,7 +141,7 @@ save()
 ### Animating a Growing U-Shaped Polyline Arrow (`get_intermediate_paths` & `get_intermediate_path_point`)
 For L-shaped or U-shaped routes, `get_intermediate_paths(u_path, num=..., include_ends=True)` generates progressive partial polylines that preserve all corners passed so far, while `get_intermediate_path_point(u_path)` computes the true midpoint along the trajectory:
 
-```drawlib 650px center show-code file:anim_primitives_growing_u_arrow.png caption:"Growing U-Shaped Arrow and Trajectory Midpoint Label"
+```drawlib center show-code file:anim_primitives_growing_u_arrow.png caption:"Growing U-Shaped Arrow and Trajectory Midpoint Label"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
@@ -105,7 +177,7 @@ for i, sub_xys in enumerate(sub_paths):
             style=Styles.PrimaryFlat.patch(shape_r=6),
         )
         if is_last:
-            text((mid_xy[0], mid_xy[1] + 5.5), "Bypass Tunnel", style=Styles.PrimaryBold.patch(text_size=8.5))
+            text((mid_xy[0], mid_xy[1] + 5.5), "Bypass Tunnel", style=Styles.PrimaryBold.patch(text_size=10.5))
 
 save()
 ```
@@ -115,7 +187,7 @@ The same interpolation functions apply directly to primitive line connectors in 
 - **Straight `line(start_xy, tip_xy, arrow_head="->")`**: Iterate `tip_xy` over `[*get_intermediate_points(start_xy, end_xy, num=5), end_xy]` so the line and its `"->"` arrowhead extend smoothly toward the target.
 - **Multi-segment `lines(sub_xys, arrow_head="->")` or `lines_curved(sub_xys, r=..., arrow_head="->")`**: Iterate `sub_xys` over `get_intermediate_paths(full_path, num=8, include_ends=True)` to draw an orthogonal or rounded-corner connector progressively around bends:
 
-```drawlib show-code 600px center file:anim_primitives_progressive_lines.png format:webp caption:"Progressively Extending Straight and Curved Polylines Across Frames"
+```drawlib show-code center file:anim_primitives_progressive_lines.png format:webp caption:"Progressively Extending Straight and Curved Polylines Across Frames"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line, lines_curved
@@ -151,7 +223,7 @@ save()
 
 ### Animating a Moving Packet Along a Line
 
-```drawlib 650px center show-code file:anim_primitives_packet.png caption:"Packet Transmission Between Services"
+```drawlib center show-code file:anim_primitives_packet.png caption:"Packet Transmission Between Services"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line
@@ -178,7 +250,7 @@ for i, pkt_xy in enumerate(pts):
         line((31, 20), (79, 20), style=Styles.MutedDashed, arrow_head="->")
         if not is_last:
             circle(pkt_xy, radius=2.8, style=Styles.PrimaryFlat)
-            text((pkt_xy[0], 27), "msg", style=Styles.PrimaryBold.patch(text_size=8))
+            text((pkt_xy[0], 27), "msg", style=Styles.PrimaryBold.patch(text_size=10.5))
 
 save()
 ```
@@ -203,7 +275,7 @@ Both functions accept any `ColorType` (`Color` instance, `(R, G, B)` / `(R, G, B
 ### Animating Style Fades with `Style.patch()`
 Generate the color sequence once before the loop with `include_ends=True`, and apply each frame's color via `.patch(shape_fill_color=bg)`:
 
-```drawlib 650px center show-code file:anim_primitives_color_fade.png caption:"Smooth Color Interpolation with get_intermediate_colors()"
+```drawlib center show-code file:anim_primitives_color_fade.png caption:"Smooth Color Interpolation with get_intermediate_colors()"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
@@ -236,7 +308,7 @@ save()
 
 You can combine coordinate interpolation (`get_intermediate_points()`), dynamic geometric scaling (`width`, `height`, `radius`), rotation (`Style.patch(angle=...)`), and smooth color transitions (`get_intermediate_colors()`) in multi-phase animations—for example, moving and rotating a payload token across a link, and then pulsing (`width`/`height` scale) and fading the receiver node into its active state:
 
-```drawlib 650px center show-code file:anim_primitives_combined.png caption:"Combining Motion, Rotation (angle), Scaling (width/height), and Color Transition"
+```drawlib center show-code file:anim_primitives_combined.png caption:"Combining Motion, Rotation (angle), Scaling (width/height), and Color Transition"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line

@@ -2,6 +2,78 @@
 
 The `canvas` is the foundational drawing surface of Drawlib.  
 Under the "Illustration as Code" paradigm, canvas dimensions, resolution, background coloring, coordinate grids, and export formats are managed entirely through declarative Python function calls.
+Drawlib maintains an active canvas singleton where drawing functions register visual elements before the canvas is saved or rendered:
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/canvas_lifecycle_model.png" alt="canvas_1" />
+  <figcaption class="drawlib-caption">The Drawlib Canvas Lifecycle Model</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import lines_curved
+from drawlib.smartarts import ChevronProcess
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=124, height=44)
+
+# 4-Stage Canvas Lifecycle Pipeline using ChevronProcess
+lifecycle = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0, xy_shift=(0, -2.2)),
+    description_style=Styles.Dark.patch(text_size=10.0, xy_shift=(0, -2.8)),
+    corner_angle=65.0,
+    spacing=1.5,
+    flat_left_end=True,
+)
+lifecycle.add("1. Configure", description="setup(w, h)")
+lifecycle.add(
+    "2. Primitives",
+    description="shapes, lines",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=11.0, xy_shift=(0, -2.2)),
+    description_style=Styles.White.patch(text_size=10.0, xy_shift=(0, -2.8)),
+)
+lifecycle.add("3. Components", description="smartarts, graph", style=Styles.PrimaryNeutral)
+lifecycle.add("4. Export", description="save() / show()", style=Styles.SecondaryNeutral)
+
+lifecycle.draw(xy=(4, 15), width=116.0, height=25.0)
+
+# Overlay Phosphor icons at the top center of each chevron stage
+stage_icons = [
+    (17.5, phosphor.sliders_horizontal, Styles.DarkBold),
+    (46.5, phosphor.shapes, Styles.WhiteBold),
+    (75.5, phosphor.grid_four, Styles.PrimaryBold),
+    (104.5, phosphor.floppy_disk, Styles.SecondaryBold),
+]
+for cx, icon_fn, icon_st in stage_icons:
+    icon_fn((cx, 34.0), width=5.2, style=icon_st)
+
+# Return loop from Stage 4 back to Stage 1
+lines_curved(
+    [(105, 15), (105, 6.5), (18, 6.5), (18, 15)],
+    r=3.0,
+    arrow_head="->",
+    style=Styles.MutedDashed.patch(line_width=1.8),
+)
+text(
+    (61.5, 3.0),
+    "clear() — Reset canvas state for next illustration",
+    style=Styles.DarkBold.patch(text_size=10.5),
+)
+save()
+```
+
+</details>
+
+
 
 ---
 
@@ -19,74 +91,6 @@ from drawlib.canvas import (
     show,         # Display canvas in an interactive GUI window
 )
 ```
-
-### The Canvas Lifecycle Model
-
-Drawlib maintains an active canvas singleton. Drawing functions (`rectangle()`, `line()`, `text()`, etc.) register visual elements to this active canvas before it is saved or rendered:
-
-
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/canvas_lifecycle_model.png" alt="canvas_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">The Drawlib Canvas Lifecycle Model</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-
-```python
-from drawlib.canvas import save, setup
-from drawlib.lines import line, lines_curved
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=130, height=48)
-
-# 3-Step Lifecycle Cards (50%+ Neutral baseline with PrimaryFlat hero on Step 2)
-rectangle(
-    (24, 31),
-    width=32,
-    height=18,
-    style=Styles.Neutral.patch(shape_r=2),
-    text="1. Configure Canvas\nsetup(width, height)\nSet size, grid, bg",
-    text_style=Styles.DarkBold.patch(text_size=8.5),
-)
-rectangle(
-    (65, 31),
-    width=34,
-    height=18,
-    style=Styles.PrimaryFlat.patch(shape_r=2),
-    text="2. Draw Elements\nshapes, lines, text,\nsmartarts, diagrams",
-    text_style=Styles.WhiteBold.patch(text_size=8.5),
-)
-rectangle(
-    (106, 31),
-    width=32,
-    height=18,
-    style=Styles.Neutral.patch(shape_r=2),
-    text="3. Output Result\nsave() / show()\nExport to file or view",
-    text_style=Styles.DarkBold.patch(text_size=8.5),
-)
-
-# Forward transitions
-line((40, 31), (48, 31), arrow_head="->", style=Styles.DarkBold)
-line((82, 31), (90, 31), arrow_head="->", style=Styles.DarkBold)
-
-# Return loop from Step 3 back to Step 1
-lines_curved(
-    [(106, 22), (106, 12), (24, 12), (24, 22)],
-    r=3.5,
-    arrow_head="->",
-    style=Styles.MutedDashed.patch(line_width=1.8),
-)
-text((65, 6.5), "clear() — Reset canvas state for next image", style=Styles.DarkBold.patch(text_size=8.5))
-save()
-```
-
-</details>
-
-
 
 > [!IMPORTANT]
 > **Sequential Scripts & Multi-Image Generation**:  
@@ -113,14 +117,14 @@ from drawlib.styles import Colors, Styles
 # Custom background color (Muted tone 1) and coordinate grid
 setup(width=100, height=50, background_color=Colors.Muted1, grid=True)
 
-rectangle((50, 25), width=60, height=25, style=Styles.PrimaryFlat, text="Custom Canvas Setup", text_style=Styles.WhiteBold)
+rectangle((50, 25), width=60, height=25, style=Styles.PrimaryFlat, text="Custom Canvas Setup", text_style=Styles.WhiteBold.patch(text_size=12.0))
 circle((20, 25), radius=8, style=Styles.Neutral)
 circle((80, 25), radius=8, style=Styles.SecondaryNeutral)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/canvas_configuration_grid.png" alt="canvas_2" style="width: 650px; max-width: 100%;" />
+  <img src="canvas_images/canvas_configuration_grid.png" alt="canvas_2" />
   <figcaption class="drawlib-caption">Custom Canvas Configuration with Grid</figcaption>
 </figure>
 
@@ -227,35 +231,35 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=125, height=48, grid=True, grid_xpitch=25, grid_ypitch=12)
+setup(width=124, height=46, grid=True, grid_xpitch=25, grid_ypitch=12)
 
 def draw_service_pod(title: str, is_hero: bool = False) -> None:
-    """Reusable pod component authored in local coordinates around (28, 21)."""
+    """Reusable pod component authored in local coordinates around (26, 20)."""
     card_style = Styles.PrimaryFlat if is_hero else Styles.Neutral
-    label_style = Styles.WhiteBold if is_hero else Styles.DarkBold
-    rectangle((28, 21), width=36, height=24, style=Styles.MutedDashed.patch(shape_r=3))
-    rectangle((28, 25), width=28, height=10, style=card_style.patch(shape_r=2), text=title, text_style=label_style)
-    circle((20, 13), radius=3.5, style=Styles.SecondaryNeutral, text="1")
-    circle((36, 13), radius=3.5, style=Styles.SecondaryNeutral, text="2")
-    line((23.5, 13), (32.5, 13), arrow_head="<->", style=Styles.DarkBold)
+    label_style = (Styles.WhiteBold if is_hero else Styles.DarkBold).patch(text_size=11.0)
+    rectangle((26, 20), width=36, height=24, style=Styles.MutedDashed.patch(shape_r=3))
+    rectangle((26, 24), width=30, height=10, style=card_style.patch(shape_r=2), text=title, text_style=label_style)
+    circle((18, 12), radius=3.5, style=Styles.SecondaryNeutral, text="1", text_style=Styles.DarkBold.patch(text_size=10.5))
+    circle((34, 12), radius=3.5, style=Styles.SecondaryNeutral, text="2", text_style=Styles.DarkBold.patch(text_size=10.5))
+    line((21.5, 12), (30.5, 12), arrow_head="<->", style=Styles.DarkBold)
 
-# 1. Original 1.0x pod at (28, 21)
+# 1. Original 1.0x pod at (26, 20)
 draw_service_pod("Primary Pod (1.0x)", is_hero=True)
 
-# 2. Scaled (0.78x) and translated (+44, 0) replica pod
-with canvas.transform(origin=(28, 21), scale=0.78, translate=(44, 0)):
-    draw_service_pod("Replica (0.78x)")
+# 2. Scaled (0.80x) and translated (+43, 0) replica pod
+with canvas.transform(origin=(26, 20), scale=0.80, translate=(43, 0)):
+    draw_service_pod("Replica (0.80x)")
 
-# 3. Scaled (0.58x) and translated (+80, 0) standby pod
-with canvas.transform(origin=(28, 21), scale=0.58, translate=(80, 0)):
-    draw_service_pod("Standby (0.58x)")
+# 3. Scaled (0.65x) and translated (+79, 0) standby pod
+with canvas.transform(origin=(26, 20), scale=0.65, translate=(79, 0)):
+    draw_service_pod("Standby (0.65x)")
 
-text((90, 38), "Scaled & Translated via canvas.transform()", style=Styles.DarkBold.patch(text_size=9.5))
+text((86, 38), "Scaled & Translated via canvas.transform()", style=Styles.DarkBold.patch(text_size=10.5))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/canvas_transform_context.png" alt="canvas_3" style="width: 650px; max-width: 100%;" />
+  <img src="canvas_images/canvas_transform_context.png" alt="canvas_3" />
   <figcaption class="drawlib-caption">Local Coordinate Scaling and Translation with canvas.transform()</figcaption>
 </figure>
 

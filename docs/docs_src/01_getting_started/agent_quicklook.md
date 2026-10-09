@@ -1,91 +1,94 @@
 # AI-Driven Workflow & Agent Setup
 
-Drawlib v0.3 is engineered from the ground up for **autonomous AI coding agents** (such as Claude Code, Cursor, Gemini, and GitHub Copilot).
+Drawlib v0.3 is engineered from the ground up for **autonomous AI coding agents** (such as Claude Code, Cursor, Gemini, and GitHub Copilot). Instead of requiring human engineers to manually craft technical specifications and draw architecture diagrams, Drawlib makes it possible to delegate the **entire documentation lifecycle** to AI agents.
 
-Instead of requiring human engineers to manually craft technical specifications and draw architecture diagrams, Drawlib makes it possible to delegate the **entire documentation lifecycle** to AI agents.
-
----
-
-## Why Drawlib is Ideal for AI Agents
-
-When tasked with generating technical illustrations, AI agents typically struggle with raw SVG generation or GUI design tools:
-- **Raw SVGs are brittle**: LLMs frequently miscalculate coordinate bounds, leading to clipped text and misaligned arrows.
-- **Low-level Matplotlib requires boilerplate**: Matplotlib is designed for statistical plots, not clean software architecture schemas.
-- **GUI tools cannot be driven by agents**: AI agents cannot drag and drop shapes in Visio or Figma.
-
-### The Drawlib Advantage for LLMs
-1. **High-Level Declarative Abstractions**:  
-   Instead of drawing raw boxes and wires, an agent simply writes `ArchitectureDiagram`, `ERDiagram`, or `FlowDiagram`. The library handles orthogonal routing, padding, and marker styling automatically.
-2. **Built-in Visual Harmony**:  
-   Predefined semantic styles (`Styles.PrimaryFlat`, `Styles.AccentFlat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
----
-
-## Drawlib & AI Agent Collaboration Model
-
-Drawlib provides a tightly integrated tripartite architecture between the library's on-demand knowledge engine, the autonomous AI coding agent, and version-controlled project documentation:
-
-```drawlib fold-code 650px center file:agent_collaboration_model.png caption:"Drawlib & AI Agent Autonomous Interaction Model"
-from drawlib.canvas import setup
+```drawlib fold-code center file:agent_collaboration_model.png caption:"Drawlib & AI Agent Autonomous Interaction Model"
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=142, height=54)
+setup(width=126, height=40)
 
-header_ts = Styles.WhiteBold.patch(text_size=9.5)
-ts_body = Styles.Dark.patch(text_size=7.5, halign="left")
+header_ts = Styles.WhiteBold.patch(text_size=12.0)
+ts_title = Styles.DarkBold.patch(text_size=10.5, halign="left")
+ts_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 
 # 1. Drawlib (CLI & Knowledge Base)
-rectangle((22.0, 24.0), width=32.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
-rectangle((22.0, 40.0), width=30.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="Drawlib CLI & Engine", text_style=header_ts)
+rectangle((20.0, 20.0), width=35.0, height=36.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((20.0, 34.5), width=33.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="Drawlib CLI & Engine", text_style=header_ts)
 
-phosphor.book_bookmark(xy=(9.5, 31.0), width=4.5, style=Styles.Primary)
-text((13.5, 31.0), text="drawlib rules show\nOn-demand API manuals", style=ts_body)
+phosphor.book_bookmark(xy=(6.2, 26.8), width=4.8, style=Styles.Primary)
+text((9.8, 28.2), text="drawlib rules show", style=ts_title)
+text((9.8, 25.0), text="On-demand API manuals", style=ts_sub)
 
-phosphor.terminal_window(xy=(9.5, 21.5), width=4.5, style=Styles.Primary)
-text((13.5, 21.5), text="drawlib show -g\nMillimeter coordinate grid", style=ts_body)
+phosphor.terminal_window(xy=(6.2, 17.6), width=4.8, style=Styles.Primary)
+text((9.8, 19.0), text="drawlib show -g", style=ts_title)
+text((9.8, 15.8), text="Coordinate grid preview", style=ts_sub)
 
-phosphor.gear(xy=(9.5, 12.0), width=4.5, style=Styles.Primary)
-text((13.5, 12.0), text="drawlib build\nHTML / PDF / Markdown compiler", style=ts_body)
+phosphor.gear(xy=(6.2, 8.4), width=4.8, style=Styles.Primary)
+text((9.8, 9.8), text="drawlib build", style=ts_title)
+text((9.8, 6.6), text="HTML / PDF / MD compiler", style=ts_sub)
 
 # 2. AI Agent (Autonomous Partner)
-rectangle((71.0, 24.0), width=32.0, height=38.0, style=Styles.AccentOutline.patch(shape_r=2.0))
-rectangle((71.0, 40.0), width=30.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.5), text="AI Coding Agent", text_style=header_ts)
+rectangle((63.0, 20.0), width=35.0, height=36.0, style=Styles.AccentOutline.patch(shape_r=2.0))
+rectangle((63.0, 34.5), width=33.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.2), text="AI Coding Agent", text_style=header_ts)
 
-phosphor.chats(xy=(58.5, 31.0), width=4.5, style=Styles.Accent)
-text((62.5, 31.0), text="1. On-Demand Rules Query\nFetch syntax without bloat", style=ts_body)
+phosphor.chats(xy=(49.2, 26.8), width=4.8, style=Styles.Accent)
+text((52.8, 28.2), text="1. Query Rules", style=ts_title)
+text((52.8, 25.0), text="Fetch exact syntax", style=ts_sub)
 
-phosphor.code(xy=(58.5, 21.5), width=4.5, style=Styles.Accent)
-text((62.5, 21.5), text="2. Isolated Scratch Prototyping\nDraft in .drawlib/scratch/", style=ts_body)
+phosphor.code(xy=(49.2, 17.6), width=4.8, style=Styles.Accent)
+text((52.8, 19.0), text="2. Scratch Prototype", style=ts_title)
+text((52.8, 15.8), text="Draft in .drawlib/scratch/", style=ts_sub)
 
-phosphor.eye(xy=(58.5, 12.0), width=4.5, style=Styles.Accent)
-text((62.5, 12.0), text="3. Multimodal Review\nInspect & fix overlaps", style=ts_body)
+phosphor.eye(xy=(49.2, 8.4), width=4.8, style=Styles.Accent)
+text((52.8, 9.8), text="3. Visual Self-Review", style=ts_title)
+text((52.8, 6.6), text="Inspect & fix overlaps", style=ts_sub)
 
 # 3. Docs / Illustration (Deliverables)
-rectangle((120.0, 24.0), width=32.0, height=38.0, style=Styles.SuccessOutline.patch(shape_r=2.0))
-rectangle((120.0, 40.0), width=30.0, height=5.5, style=Styles.SuccessFlat.patch(shape_r=1.5), text="Docs & Deliverables", text_style=header_ts)
+rectangle((106.0, 20.0), width=35.0, height=36.0, style=Styles.SuccessOutline.patch(shape_r=2.0))
+rectangle((106.0, 34.5), width=33.0, height=5.5, style=Styles.SuccessFlat.patch(shape_r=1.2), text="Docs & Deliverables", text_style=header_ts)
 
-phosphor.file_text(xy=(107.5, 31.0), width=4.5, style=Styles.Success)
-text((111.5, 31.0), text="*.md Specifications\nEmbedded ```drawlib``` blocks", style=ts_body)
+phosphor.file_text(xy=(92.2, 26.8), width=4.8, style=Styles.Success)
+text((95.8, 28.2), text="*.md Specifications", style=ts_title)
+text((95.8, 25.0), text="Embedded drawlib blocks", style=ts_sub)
 
-phosphor.file_pdf(xy=(107.5, 21.5), width=4.5, style=Styles.Success)
-text((111.5, 21.5), text="*.pdf & Web Sites\nPublication-grade assets", style=ts_body)
+phosphor.file_pdf(xy=(92.2, 17.6), width=4.8, style=Styles.Success)
+text((95.8, 19.0), text="*.pdf & Web Sites", style=ts_title)
+text((95.8, 15.8), text="Publication-grade assets", style=ts_sub)
 
-phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.Success)
-text((111.5, 12.0), text="Git PR Code Review\nDiffable illustration code", style=ts_body)
+phosphor.git_branch(xy=(92.2, 8.4), width=4.8, style=Styles.Success)
+text((95.8, 9.8), text="Git PR Code Review", style=ts_title)
+text((95.8, 6.6), text="Diffable illustration code", style=ts_sub)
 
 # Connections (Drawlib <-> AI -> Docs)
-line((39.5, 24.0), (53.5, 24.0), arrow_head="<->", style=Styles.DarkBold)
-text((46.5, 28.5), text="Rules Query", style=Styles.DarkBold.patch(text_size=7.5))
-text((46.5, 19.5), text="Grid Images", style=Styles.Dark.patch(text_size=7.0))
+line((38.0, 20.0), (45.0, 20.0), arrow_head="<->", style=Styles.DarkBold)
+text((41.5, 24.2), text="Rules", style=Styles.DarkBold.patch(text_size=10.5))
+text((41.5, 15.8), text="Grid PNG", style=Styles.Dark.patch(text_size=10.0))
 
-line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.DarkBold)
-text((95.5, 28.5), text="Commit Code", style=Styles.DarkBold.patch(text_size=7.5))
-text((95.5, 19.5), text="Compiled Output", style=Styles.Dark.patch(text_size=7.0))
+line((81.0, 20.0), (88.0, 20.0), arrow_head="->", style=Styles.DarkBold)
+text((84.5, 24.2), text="Commit", style=Styles.DarkBold.patch(text_size=10.5))
+text((84.5, 15.8), text="Build", style=Styles.Dark.patch(text_size=10.0))
 save()
 ```
+
+---
+
+## The AI-Native Collaboration Model
+
+Drawlib provides a tightly integrated tripartite architecture between the library's on-demand knowledge engine, the autonomous AI coding agent, and version-controlled project documentation.
+
+### Why Drawlib is Ideal for AI Agents
+
+When tasked with generating technical illustrations, AI agents typically struggle with raw SVG generation or GUI design tools:
+- **Raw SVGs are brittle**: LLMs frequently miscalculate coordinate bounds, leading to clipped text and misaligned arrows.
+- **Low-level Matplotlib requires boilerplate**: Matplotlib is designed for statistical plots, not clean software architecture schemas.
+- **GUI tools cannot be driven by agents**: AI agents cannot drag and drop shapes in Visio or Figma.
+- **High-Level Declarative Abstractions**: Instead of drawing raw boxes and wires, an agent simply writes `ArchitectureDiagram`, `ERDiagram`, or `FlowDiagram`. The library handles orthogonal routing, padding, and marker styling automatically.
+- **Built-in Visual Harmony**: Predefined semantic styles (`Styles.PrimaryFlat`, `Styles.AccentFlat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
 
 ### Why Agents Don't Hallucinate Drawlib Code
 Unlike traditional libraries where agents often hallucinate outdated APIs or struggle with deprecated options, Drawlib eliminates hallucinations through **active command-line guidance**:
@@ -152,31 +155,50 @@ Ensure your agent knows how to query on-demand rule topics and preview drawings 
 
 Teach your agent to follow Drawlib's autonomous self-correction loop when creating diagrams:
 
-```drawlib fold-code 700px center file:ai_feedback_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
+```drawlib fold-code center file:ai_feedback_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=144, height=50)
+setup(width=126, height=44)
 
-# Agent loop boxes: Hero focal node in PrimaryFlat, supporting nodes in calm Neutral cards
-rectangle((22, 20), width=26, height=20, style=Styles.PrimaryFlat, text="1. LLM Agent\n(Reads Code)", text_style=Styles.WhiteBold)
-rectangle((56, 20), width=26, height=20, style=Styles.Neutral, text="2. Generate\nDrawlib Code")
-rectangle((90, 20), width=26, height=20, style=Styles.Neutral, text="3. Render Grid\n(-g Image)")
-rectangle((122, 20), width=24, height=20, style=Styles.SecondaryNeutral, text="4. Auto\nReview")
+# 1. Read Context (Hero node)
+rectangle((16.5, 17.5), width=26.0, height=24.0, style=Styles.PrimaryFlat.patch(shape_r=1.8))
+phosphor.robot((16.5, 23.5), width=5.6, style=Styles.WhiteBold)
+text((16.5, 14.5), "1. Read Context", style=Styles.WhiteBold.patch(text_size=11.0))
+text((16.5, 9.5), "Rules & Repo", style=Styles.White.patch(text_size=10.0))
+
+# 2. Author Code
+rectangle((47.5, 17.5), width=26.0, height=24.0, style=Styles.Neutral.patch(shape_r=1.8))
+phosphor.code((47.5, 23.5), width=5.6, style=Styles.Primary)
+text((47.5, 14.5), "2. Author Code", style=Styles.DarkBold.patch(text_size=11.0))
+text((47.5, 9.5), "Drawlib Python", style=Styles.Dark.patch(text_size=10.0))
+
+# 3. Render Grid
+rectangle((78.5, 17.5), width=26.0, height=24.0, style=Styles.Neutral.patch(shape_r=1.8))
+phosphor.grid_four((78.5, 23.5), width=5.6, style=Styles.Primary)
+text((78.5, 14.5), "3. Render Grid", style=Styles.DarkBold.patch(text_size=11.0))
+text((78.5, 9.5), "drawlib show -g", style=Styles.Dark.patch(text_size=10.0))
+
+# 4. Visual Review
+rectangle((109.5, 17.5), width=26.0, height=24.0, style=Styles.SecondaryNeutral.patch(shape_r=1.8))
+phosphor.eye((109.5, 23.5), width=5.6, style=Styles.Primary)
+text((109.5, 14.5), "4. Visual Review", style=Styles.DarkBold.patch(text_size=11.0))
+text((109.5, 9.5), "Inspect PNG", style=Styles.Dark.patch(text_size=10.0))
 
 # Forward arrows
-line((35, 20), (43, 20), arrow_head="->", style=Styles.DarkBold)
-line((69, 20), (77, 20), arrow_head="->", style=Styles.DarkBold)
-line((103, 20), (110, 20), arrow_head="->", style=Styles.DarkBold)
+line((30.0, 17.5), (34.0, 17.5), arrow_head="->", style=Styles.DarkBold)
+line((61.0, 17.5), (65.0, 17.5), arrow_head="->", style=Styles.DarkBold)
+line((92.0, 17.5), (96.0, 17.5), arrow_head="->", style=Styles.DarkBold)
 
 # Feedback loop
-line((122, 30), (122, 38), style=Styles.DarkDashed)
-line((122, 38), (56, 38), style=Styles.DarkDashed)
-line((56, 38), (56, 30), arrow_head="->", style=Styles.DarkDashed)
-text((89, 42.5), "Self-Correct Coordinates & Re-render", style=Styles.DarkBold.patch(text_size=9.5))
+line((109.5, 29.8), (109.5, 35.5), style=Styles.DarkDashed)
+line((109.5, 35.5), (47.5, 35.5), style=Styles.DarkDashed)
+line((47.5, 35.5), (47.5, 29.8), arrow_head="->", style=Styles.DarkDashed)
+text((78.5, 39.2), "Self-Correct Coordinates & Re-render", style=Styles.DarkBold.patch(text_size=11.0))
 save()
 ```
 

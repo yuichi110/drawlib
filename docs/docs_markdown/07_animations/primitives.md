@@ -2,6 +2,92 @@
 
 Low-level drawing primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`) are stateless functions that draw directly onto the canvas. To animate them, use **Pattern A (In-Frame Build)** with `clear=True` (the default of `with anim.frame():`), computing per-frame coordinates, sizes, or styles inside a loop.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="primitives_images/anim_primitives_hero.png" alt="primitives_1" />
+  <figcaption class="drawlib-caption">Multi-Frame Primitive Animation: Trajectory Motion, Color Fade, and Dynamic Scaling</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.math import get_intermediate_points
+from drawlib.shapes import arrow, circle, rectangle
+from drawlib.styles import Colors, Styles, get_intermediate_colors
+from drawlib.text import text
+
+setup(width=124, height=40)
+anim = Animation(fps=10.0)
+
+pkt_points = get_intermediate_points((33.5, 20), (43.5, 20), num=3, include_ends=True)
+arrow_tips = [*get_intermediate_points((73, 20), (93, 20), num=3), (93, 20)]
+fade_colors = get_intermediate_colors(Colors.White, Colors.Primary, num=3, include_ends=True)
+scales = [1.0, 1.05, 1.10, 1.05, 1.0]
+
+# Phase 1: Packet travels from Producer to Router
+for pkt_xy in pkt_points:
+    with anim.frame(duration=0.11):
+        rectangle((17, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nProducer", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.globe((17, 23.2), width=4.4, style=Styles.Dark)
+        rectangle((59, 20), width=26, height=16, style=Styles.PrimaryNeutral.patch(shape_r=2.0), text="\nStream Router", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.git_merge((59, 23.2), width=4.4, style=Styles.Primary)
+        rectangle((107, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nReplica DB", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.database((107, 23.2), width=4.4, style=Styles.Dark)
+        line((28.5, 20), (46, 20), style=Styles.MutedDashed, arrow_head="->")
+        line((72, 20), (95.5, 20), style=Styles.MutedDashed, arrow_head="->")
+        circle(pkt_xy, radius=2.3, style=Styles.PrimaryFlat)
+        text((pkt_xy[0], 27.5), "event", style=Styles.PrimaryBold.patch(text_size=10.5))
+
+# Phase 2: Block arrow grows from Router to Replica DB
+for tip_xy in arrow_tips:
+    with anim.frame(duration=0.11):
+        rectangle((17, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nProducer", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.globe((17, 23.2), width=4.4, style=Styles.Dark)
+        rectangle((59, 20), width=26, height=16, style=Styles.PrimaryNeutral.patch(shape_r=2.0), text="\nStream Router", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.git_merge((59, 23.2), width=4.4, style=Styles.Primary)
+        rectangle((107, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nReplica DB", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.database((107, 23.2), width=4.4, style=Styles.Dark)
+        line((28.5, 20), (46, 20), style=Styles.DarkBold, arrow_head="->")
+        arrow((73, 20), tip_xy, tail_width=2.6, head_width=6.0, head_length=4.5, style=Styles.PrimaryFlat)
+
+# Phase 3: Replica DB scales and smoothly fades into Primary active state
+for i, (bg, sc) in enumerate(zip(fade_colors, scales)):
+    is_last = (i == len(fade_colors) - 1)
+    with anim.frame(duration=2.0 if is_last else 0.12):
+        rectangle((17, 20), width=23, height=16, style=Styles.Neutral.patch(shape_r=2.0), text="\nProducer", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.globe((17, 23.2), width=4.4, style=Styles.Dark)
+        rectangle((59, 20), width=26, height=16, style=Styles.PrimaryNeutral.patch(shape_r=2.0), text="\nStream Router", text_style=Styles.DarkBold.patch(text_size=11.0))
+        phosphor.git_merge((59, 23.2), width=4.4, style=Styles.Primary)
+        line((28.5, 20), (46, 20), style=Styles.DarkBold, arrow_head="->")
+        arrow((73, 20), (93, 20), tail_width=2.6, head_width=6.0, head_length=4.5, style=Styles.PrimaryFlat)
+        dst_style = Styles.PrimaryOutline.patch(shape_fill_color=bg, shape_r=2.0)
+        dst_text = (Styles.WhiteBold if i >= 2 else Styles.DarkBold).patch(text_size=11.0)
+        ic_style = Styles.White if i >= 2 else Styles.Dark
+        rectangle(
+            (107, 20),
+            width=23 * sc,
+            height=16 * sc,
+            style=dst_style,
+            text="\nReplica DB",
+            text_style=dst_text,
+        )
+        phosphor.database((107, 23.2), width=4.4 * sc, style=ic_style)
+        if is_last:
+            text((83, 28.0), "Synced", style=Styles.PrimaryBold.patch(text_size=10.5))
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Coordinate & Path Interpolation (`get_intermediate_points` & `get_intermediate_paths`)
@@ -63,13 +149,13 @@ for i, tip_xy in enumerate(tip_points):
             style=Styles.PrimaryFlat,
         )
         if is_last:
-            text((55, 28), "Replicated", style=Styles.PrimaryBold.patch(text_size=8.5))
+            text((55, 28), "Replicated", style=Styles.PrimaryBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="primitives_images/anim_primitives_growing_arrow.png" alt="primitives_1" style="width: 650px; max-width: 100%;" />
+  <img src="primitives_images/anim_primitives_growing_arrow.png" alt="primitives_2" />
   <figcaption class="drawlib-caption">Growing Block Arrow with get_intermediate_points()</figcaption>
 </figure>
 
@@ -116,13 +202,13 @@ for i, sub_xys in enumerate(sub_paths):
             style=Styles.PrimaryFlat.patch(shape_r=6),
         )
         if is_last:
-            text((mid_xy[0], mid_xy[1] + 5.5), "Bypass Tunnel", style=Styles.PrimaryBold.patch(text_size=8.5))
+            text((mid_xy[0], mid_xy[1] + 5.5), "Bypass Tunnel", style=Styles.PrimaryBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="primitives_images/anim_primitives_growing_u_arrow.png" alt="primitives_2" style="width: 650px; max-width: 100%;" />
+  <img src="primitives_images/anim_primitives_growing_u_arrow.png" alt="primitives_3" />
   <figcaption class="drawlib-caption">Growing U-Shaped Arrow and Trajectory Midpoint Label</figcaption>
 </figure>
 
@@ -170,7 +256,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="primitives_images/anim_primitives_progressive_lines.png" alt="primitives_3" style="width: 600px; max-width: 100%;" />
+  <img src="primitives_images/anim_primitives_progressive_lines.png" alt="primitives_4" />
   <figcaption class="drawlib-caption">Progressively Extending Straight and Curved Polylines Across Frames</figcaption>
 </figure>
 
@@ -207,13 +293,13 @@ for i, pkt_xy in enumerate(pts):
         line((31, 20), (79, 20), style=Styles.MutedDashed, arrow_head="->")
         if not is_last:
             circle(pkt_xy, radius=2.8, style=Styles.PrimaryFlat)
-            text((pkt_xy[0], 27), "msg", style=Styles.PrimaryBold.patch(text_size=8))
+            text((pkt_xy[0], 27), "msg", style=Styles.PrimaryBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="primitives_images/anim_primitives_packet.png" alt="primitives_4" style="width: 650px; max-width: 100%;" />
+  <img src="primitives_images/anim_primitives_packet.png" alt="primitives_5" />
   <figcaption class="drawlib-caption">Packet Transmission Between Services</figcaption>
 </figure>
 
@@ -269,7 +355,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="primitives_images/anim_primitives_color_fade.png" alt="primitives_5" style="width: 650px; max-width: 100%;" />
+  <img src="primitives_images/anim_primitives_color_fade.png" alt="primitives_6" />
   <figcaption class="drawlib-caption">Smooth Color Interpolation with get_intermediate_colors()</figcaption>
 </figure>
 
@@ -328,7 +414,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="primitives_images/anim_primitives_combined.png" alt="primitives_6" style="width: 650px; max-width: 100%;" />
+  <img src="primitives_images/anim_primitives_combined.png" alt="primitives_7" />
   <figcaption class="drawlib-caption">Combining Motion, Rotation (angle), Scaling (width/height), and Color Transition</figcaption>
 </figure>
 

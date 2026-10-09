@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,6 +427,69 @@
                 <h1>GridGraph: 2D Matrix Layouts &amp; Channel Edge Routing</h1>
 <p><code>GridGraph</code> places nodes into a structured <strong>2D <code>(row, col)</code> matrix</strong> and routes edges cleanly between cells. While adjacent horizontal or vertical neighbors connect directly, non-adjacent cross-edges are automatically routed through inter-row and inter-column highway channels (<code>edge_routing=&quot;smart&quot;</code>) so lines never cut across intermediate nodes.</p>
 <p>Use <code>GridGraph</code> when you want tabular alignment across rows and columns—such as multi-tier service matrices, state grids, periodic/catalog topologies, or grid-aligned component architectures.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="grid_graph_images/graph_grid_hero.png" alt="grid_graph_1" />
+  <figcaption class="drawlib-caption">GridGraph Overview: 2D Matrix Cell Placement and Smart Inter-Channel Edge Routing</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">GridGraph</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">col_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+    <span class="n">row_sep</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"smart"</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Row 0: Ingress &amp; Routing Tier</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Web Portal"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span>
+    <span class="s2">"gateway"</span><span class="p">,</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">API Gateway"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Admin CLI"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># Row 1: Service &amp; Persistence Tier</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Orders API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"ledger"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Ledger DB"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Direct grid edges + smart channel-routed edge through the inter-row corridor around col=1</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"admin"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"ledger"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Constructor &amp; Matrix Helper API</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
@@ -544,9 +611,16 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">105</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">GridGraph</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">GridGraph</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">col_sep</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">row_sep</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="c1"># Row 0: Client Interfaces (calm Neutral baseline)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Web Portal"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
@@ -555,7 +629,7 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 
 <span class="c1"># Row 1: Core Services (Core API highlighted as PrimaryFlat focal point)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Core API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Core API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_bill"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Billing API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 
 <span class="c1"># Row 2: Persistence Layer</span>
@@ -564,9 +638,9 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_ledger"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ledger Store"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 
 <span class="c1"># Enclose rows in labeled horizontal containers</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"row_clients"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Client Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"row_services"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Service Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"row_storage"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Data Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"row_clients"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Client Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"row_services"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Service Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"row_storage"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Data Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
 
 <span class="c1"># Direct vertical/horizontal edges + non-adjacent channel-routed cross-edges</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="s2">"svc_core"</span><span class="p">)</span>
@@ -579,11 +653,11 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_bill"</span><span class="p">,</span> <span class="s2">"db_ledger"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="s2">"db_ledger"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_graph_images/graph_grid_explicit_matrix.png" alt="grid_graph_1" style="width: 680px; max-width: 100%;" />
+  <img src="grid_graph_images/graph_grid_explicit_matrix.png" alt="grid_graph_2" />
   <figcaption class="drawlib-caption">Explicit (row, col) Service Matrix with Row Clusters and Smart Channel Routing</figcaption>
 </figure>
 <hr />
@@ -593,15 +667,18 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">95</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
 <span class="c1"># Column-major order fills each 2-row column top-to-bottom before moving right</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">GridGraph</span><span class="p">(</span>
     <span class="n">columns</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">order</span><span class="o">=</span><span class="s2">"column-major"</span><span class="p">,</span>
-    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
-    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">col_sep</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">row_sep</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Column 0 (Ingest Zone)</span>
@@ -610,16 +687,16 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 
 <span class="c1"># Column 1 (Processing Zone)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Schema Check"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Enrich Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Enrich Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
 <span class="c1"># Column 2 (Sink Zone)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"warehouse"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"BigQuery Sink"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"dlq"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Dead-Letter Q"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">)</span>
 
 <span class="c1"># Group by column</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"col_in"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ingest"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"col_proc"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Transform"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"col_out"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Sinks"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"col_in"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ingest"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"col_proc"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Transform"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"col_out"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Sinks"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
 
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"webhook"</span><span class="p">,</span> <span class="s2">"validator"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"poller"</span><span class="p">,</span> <span class="s2">"enricher"</span><span class="p">)</span>
@@ -627,11 +704,11 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="s2">"dlq"</span><span class="p">,</span> <span class="s2">"Invalid"</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="s2">"warehouse"</span><span class="p">,</span> <span class="s2">"Valid"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_graph_images/graph_grid_auto_flow.png" alt="grid_graph_2" style="width: 680px; max-width: 100%;" />
+  <img src="grid_graph_images/graph_grid_auto_flow.png" alt="grid_graph_3" />
   <figcaption class="drawlib-caption">Auto-Flow 3-Column Grid Topology with Column Clusters</figcaption>
 </figure>
 <hr />

@@ -1,6 +1,58 @@
 # Animating Charts
 
 All 7 chart classes in `drawlib.charts` (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`) follow the **Pre-Build & Mutate** lifecycle:
+
+```drawlib fold-code center file:anim_charts_hero.png format:webp caption:"Chart Animation Overview: Locked Axes with Progressive Spatial Growth (draw_ratio)"
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.charts.bar import BarChart
+from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
+
+setup(width=126, height=48)
+anim = Animation(fps=10.0)
+
+bar = BarChart(
+    categories=["Q1", "Q2", "Q3", "Q4"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
+    grid_style=Styles.MutedThin,
+    width=52,
+    height=33,
+    title="Regional Revenue ($M)",
+    title_style=Styles.BlackBold.patch(text_size=11.0),
+    bar_r=0.7,
+)
+bar.configure_y_axis(min_value=0, max_value=100)
+s_base = bar.add_series("2025", [48, 56, 64, 72], style=Styles.SecondaryNeutral)
+s_curr = bar.add_series("2026", [62, 74, 86, 95], style=Styles.PrimaryFlat)
+
+pie = PieChart(
+    radius=12.5,
+    hole_ratio=0.58,
+    center_text="99.9%\nSLA",
+    center_text_style=Styles.DarkBold.patch(text_size=10.0),
+    title="Workload Mix",
+    title_style=Styles.BlackBold.patch(text_size=11.0),
+)
+sl1 = pie.add_slice("Compute", 50.0, style=Styles.PrimaryFlat)
+sl2 = pie.add_slice("Storage", 30.0, style=Styles.PrimaryNeutral)
+sl3 = pie.add_slice("Network", 20.0, style=Styles.SecondaryNeutral)
+slices = [sl1, sl2, sl3]
+
+for r in [0.15, 0.35, 0.55, 0.80, 1.0]:
+    s_curr.draw_ratio = r
+    for sl in slices:
+        sl.draw_ratio = r
+    is_last = (r == 1.0)
+    with anim.frame(duration=2.2 if is_last else 0.12):
+        bar.draw(xy=(8.0, 7.5))
+        pie.draw(xy=(69.0, 2.5))
+        pie.draw_legend(xy=(100.0, 24.5), text_style=Styles.Dark.patch(text_size=10.0))
+
+save()
+```
+
 1. Instantiate the chart and register all series, slices, or tasks **once** outside the loop (`s = chart.add_series(...)`, `sl = chart.add_slice(...)`, `t = chart.add_task(...)`).
 2. Inside `with anim.frame():`, mutate `.show`, `.draw_ratio` (`0.0` to `1.0`), or `.draw_direction` (`"bottom_to_top"` or `"left_to_right"`), and call `chart.draw(xy=..., scale=1.0)`.
 
@@ -10,7 +62,7 @@ All 7 chart classes in `drawlib.charts` (`BarChart`, `LineChart`, `AreaChart`, `
 
 Because Drawlib computes automatic axis bounds (`min_value`, `max_value`, `tick_step`), pie proportions, and Gantt row heights across **all registered elements regardless of `show=False`**, toggling `s.show = True` across frames reveals series one by one without ever shifting or rescaling the chart axes:
 
-```drawlib 650px center show-code file:anim_charts_series_reveal.png caption:"Progressive Multi-Series LineChart Reveal with Locked Y-Axis"
+```drawlib center show-code file:anim_charts_series_reveal.png caption:"Progressive Multi-Series LineChart Reveal with Locked Y-Axis"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
@@ -22,12 +74,12 @@ anim = Animation(fps=1.2)
 chart = LineChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=80,
+    width=82,
     height=44,
     title="Quarterly Throughput (K req/s)",
-    title_style=Styles.BlackBold.patch(text_size=12.5),
+    title_style=Styles.BlackBold.patch(text_size=12.0),
     smooth=True,
 )
 
@@ -41,8 +93,8 @@ for step in range(len(series_list)):
         s.show = (i <= step)
     is_last = (step == len(series_list) - 1)
     with anim.frame(duration=2.5 if is_last else 0.9):
-        chart.draw(xy=(12, 8))
-        chart.draw_legend(xy=(18, 56), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+        chart.draw(xy=(11, 8))
+        chart.draw_legend(xy=(15, 56), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal")
 
 save()
 ```
@@ -59,7 +111,7 @@ Every `Series`, `Slice`, and `Task` supports built-in partial spatial rendering 
 - **`RadarChart`**: `"bottom_to_top"` *(default)* expands the polygon radially from the center; `"left_to_right"` sweeps spoke-by-spoke.
 - **`GanttChart`**: `"left_to_right"` *(default)* extends task bars horizontally from `start` toward `end`; `"bottom_to_top"` grows task bars vertically from their bottom edge.
 
-```drawlib 650px center show-code file:anim_charts_bar_growth.png caption:"Smooth BarChart Growth via s.draw_ratio"
+```drawlib center show-code file:anim_charts_bar_growth.png caption:"Smooth BarChart Growth via s.draw_ratio"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
@@ -71,12 +123,12 @@ anim = Animation(fps=10.0)
 chart = BarChart(
     categories=["Gateway", "Auth", "Catalog", "Checkout"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=80,
+    width=82,
     height=44,
     title="Service Cache Hit Ratio (%)",
-    title_style=Styles.BlackBold.patch(text_size=12.5),
+    title_style=Styles.BlackBold.patch(text_size=12.0),
     bar_r=0.8,
 )
 chart.configure_y_axis(min_value=0, max_value=100, unit="%")
@@ -88,8 +140,8 @@ for r in [0.2, 0.4, 0.6, 0.8, 1.0]:
     s2.draw_ratio = r
     is_last = (r == 1.0)
     with anim.frame(duration=2.2 if is_last else 0.12):
-        chart.draw(xy=(12, 8))
-        chart.draw_legend(xy=(24, 56), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+        chart.draw(xy=(11, 8))
+        chart.draw_legend(xy=(21, 56), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal")
 
 save()
 ```
@@ -107,28 +159,28 @@ In `GanttChart`, every registration method returns a mutable model object:
 
 Mutating `task.show` and `task.draw_ratio` reveals and extends task bars along the timeline while keeping all row lanes and column headers fixed:
 
-```drawlib 650px center show-code file:anim_charts_gantt_reveal.png caption:"GanttChart Progressive Task Schedule Reveal"
+```drawlib center show-code file:anim_charts_gantt_reveal.png caption:"GanttChart Progressive Task Schedule Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles
 
-setup(width=110, height=56)
+setup(width=110, height=54)
 anim = Animation(fps=8.0)
 
 gantt = GanttChart(
     columns=["W1", "W2", "W3", "W4", "W5"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Black.patch(text_size=9.0),
+    axis_text_style=Styles.Black.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
     header_style=Styles.MutedThin,
     zebra_style=Styles.MutedThin,
-    width=94.0,
-    label_width=28.0,
-    header_height=6.0,
-    row_height=6.0,
+    width=96.0,
+    label_width=30.0,
+    header_height=6.2,
+    row_height=6.2,
     title="Release Rollout Schedule",
-    title_style=Styles.BlackBold.patch(text_size=12.5),
+    title_style=Styles.BlackBold.patch(text_size=12.0),
     bar_radius=1.0,
 )
 
@@ -143,7 +195,7 @@ for idx, active_task in enumerate(tasks):
         active_task.draw_ratio = r
         is_final = (idx == len(tasks) - 1 and r == 1.0)
         with anim.frame(duration=2.5 if is_final else 0.14):
-            gantt.draw(xy=(8, 8))
+            gantt.draw(xy=(7, 7))
 
 save()
 ```

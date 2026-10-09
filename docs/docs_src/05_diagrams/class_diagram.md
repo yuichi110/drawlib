@@ -6,35 +6,35 @@
 
 ## 1. Overview & Three-Compartment Cards
 
-```drawlib fold-code 650px center file:class_diagram_overview_anatomy.png caption:"Three-Compartment UML Class Cards with Realization and Composition"
+```drawlib fold-code center file:class_diagram_overview_anatomy.png caption:"Three-Compartment UML Class Cards with Realization and Composition"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
 
-setup(width=112, height=64)
+setup(width=102, height=58)
 
 cd = ClassDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
 )
 
 payment_svc = cd.add(
     ClassNode(name="PaymentService", stereotype="interface", width=30.0, style=Styles.PrimaryNeutral),
-    xy=(24.0, 48.0),
+    xy=(20.0, 44.0),
 )
 payment_svc.add_method("pay", params="amount", return_type="bool")
 
 stripe_svc = cd.add(
     ClassNode(name="StripeService", width=30.0, style=Styles.Neutral),
-    xy=(24.0, 16.0),
+    xy=(20.0, 14.0),
 )
 stripe_svc.add_attribute("api_key", type="str", is_public=False)
 stripe_svc.add_method("pay", params="amount", return_type="bool")
 
 tx = cd.add(
     ClassNode(name="Transaction", width=28.0, style=Styles.SecondaryNeutral),
-    xy=(86.0, 16.0),
+    xy=(81.0, 14.0),
 )
 tx.add_attribute("id", type="UUID", is_public=True)
 tx.add_attribute("amount", type="Decimal", is_public=True)
@@ -70,28 +70,32 @@ save()
 
 ## 2. Constructor, `ClassNode` & Member Declarations
 
-```drawlib show-code 550px center file:class_diagram_basic_node.png caption:"Basic Class and Interface Nodes"
+```drawlib show-code center file:class_diagram_basic_node.png caption:"Basic Class and Interface Nodes"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
 
-setup(width=90, height=45)
+setup(width=76, height=36)
 
 cd = ClassDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="Domain Model",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
 # Class with attributes and methods
-user = cd.add(ClassNode(name="User", width=26.0), xy=(25.0, 18.0))
+user = cd.add(ClassNode(name="User", width=26.0), xy=(18.0, 13.0))
 user.add_attribute("id", type="int", is_public=True)
 user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", params="password: str", return_type="bool")
 
 # Interface with stereotype
-gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral), xy=(65.0, 18.0))
+gateway = cd.add(
+    ClassNode(name="PaymentGateway", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral),
+    xy=(57.0, 13.0),
+)
 gateway.add_method("charge", params="amount: float", return_type="bool")
 
 cd.draw(xy=(0.0, 0.0))
@@ -181,37 +185,37 @@ Relationships between classes are registered at the diagram level via `cd.connec
 | `"association"` | `"associate"` | **Association** | Solid | None (or Open Arrow if `directed=True`) | Structural reference |
 | `"dependency"` | `"depend"` | **Dependency** | Dashed | Open Arrow (at `target`) | Uses-a dependency |
 
-```drawlib show-code 650px center file:class_diagram_relationship_types.png caption:"All Six UML Relationship Types and Marker Styles in ClassDiagram"
+```drawlib show-code center file:class_diagram_relationship_types.png caption:"All Six UML Relationship Types and Marker Styles in ClassDiagram"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=156, height=96)
+setup(width=128, height=84)
 
 cd = ClassDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
 )
 
 # 2x3 Grid of the 6 UML Relationship Types
 specs = [
-    # Left column (x_src=18, x_dst=60)
-    ("1. Inheritance (solid + hollow triangle)", "inheritance", False, 18.0, 60.0, 74.0, "SubClass", "SuperClass"),
-    ("3. Composition (solid + filled diamond)", "composition", False, 18.0, 60.0, 44.0, "Order", "LineItem"),
-    ("5. Association (directed=True)", "association", True, 18.0, 60.0, 14.0, "Customer", "Cart"),
-    # Right column (x_src=96, x_dst=138)
-    ("2. Realization (dashed + hollow triangle)", "realization", False, 96.0, 138.0, 74.0, "Impl", "Interface"),
-    ("4. Aggregation (solid + hollow diamond)", "aggregation", False, 96.0, 138.0, 44.0, "Team", "Member"),
-    ("6. Dependency (dashed + open arrow)", "dependency", False, 96.0, 138.0, 14.0, "Client", "Service"),
+    # Left column (x_src=14, x_dst=49)
+    ("1. Inheritance (solid + hollow triangle)", "inheritance", False, 14.0, 49.0, 64.0, "SubClass", "SuperClass"),
+    ("3. Composition (solid + filled diamond)", "composition", False, 14.0, 49.0, 38.0, "Order", "LineItem"),
+    ("5. Association (directed=True)", "association", True, 14.0, 49.0, 12.0, "Customer", "Cart"),
+    # Right column (x_src=79, x_dst=114)
+    ("2. Realization (dashed + hollow triangle)", "realization", False, 79.0, 114.0, 64.0, "Impl", "Interface"),
+    ("4. Aggregation (solid + hollow diamond)", "aggregation", False, 79.0, 114.0, 38.0, "Team", "Member"),
+    ("6. Dependency (dashed + open arrow)", "dependency", False, 79.0, 114.0, 12.0, "Client", "Service"),
 ]
 
-lbl_style = Styles.DarkBold.patch(text_size=9.5, text_color=Colors.Primary5)
+lbl_style = Styles.DarkBold.patch(text_size=10.5, text_color=Colors.Primary5)
 
-for title_str, rel_type, is_dir, x1, x2, y, src_name, dst_name in specs:
-    n_src = cd.add(ClassNode(name=src_name, width=18.0, style=Styles.PrimaryNeutral), xy=(x1, y))
-    n_dst = cd.add(ClassNode(name=dst_name, width=18.0, style=Styles.Neutral), xy=(x2, y))
+for _title_str, rel_type, is_dir, x1, x2, y, src_name, dst_name in specs:
+    n_src = cd.add(ClassNode(name=src_name, width=17.0, style=Styles.PrimaryNeutral), xy=(x1, y))
+    n_dst = cd.add(ClassNode(name=dst_name, width=17.0, style=Styles.Neutral), xy=(x2, y))
     cd.connect(
         n_src,
         n_dst,
@@ -224,7 +228,7 @@ for title_str, rel_type, is_dir, x1, x2, y, src_name, dst_name in specs:
 cd.draw(xy=(0.0, 0.0))
 
 for title_str, _rel_type, _is_dir, x1, x2, y, _src_name, _dst_name in specs:
-    text(((x1 + x2) / 2.0, y + 8.5), title_str, style=lbl_style)
+    text(((x1 + x2) / 2.0, y + 8.0), title_str, style=lbl_style)
 
 save()
 ```
@@ -265,37 +269,38 @@ cd.connect(
 
 The following example combines inheritance, composition, and interface dependency:
 
-```drawlib show-code 650px center file:class_diagram_ecommerce_domain.png caption:"E-Commerce Domain Class Hierarchy"
+```drawlib show-code center file:class_diagram_ecommerce_domain.png caption:"E-Commerce Domain Class Hierarchy"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
 
-setup(width=110, height=85)
+setup(width=94, height=74)
 
 cd = ClassDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="E-Commerce Domain Class Model",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
 # 1. Define classes
-user = cd.add(ClassNode(name="User", width=26.0), xy=(22.0, 60.0))
+user = cd.add(ClassNode(name="User", width=26.0), xy=(18.0, 51.0))
 user.add_attribute("id", type="int", is_public=True)
 user.add_attribute("email", type="str", is_public=True)
 user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", return_type="bool")
 
-customer = cd.add(ClassNode(name="Customer", width=26.0, style=Styles.SecondaryNeutral), xy=(22.0, 20.0))
+customer = cd.add(ClassNode(name="Customer", width=26.0, style=Styles.SecondaryNeutral), xy=(18.0, 14.0))
 customer.add_attribute("shipping_address", type="str")
 customer.add_method("checkout", return_type="Order")
 
-order = cd.add(ClassNode(name="Order", width=28.0, style=Styles.PrimaryNeutral), xy=(75.0, 20.0))
+order = cd.add(ClassNode(name="Order", width=28.0, style=Styles.PrimaryNeutral), xy=(73.0, 14.0))
 order.add_attribute("order_id", type="str")
 order.add_attribute("total", type="float")
 order.add_method("calculate_tax", return_type="float")
 
-iface = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=30.0), xy=(75.0, 60.0))
+iface = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=30.0), xy=(73.0, 51.0))
 iface.add_method("process_charge", params="amount: float", return_type="bool")
 
 # 2. Connect relationships using diagram.connect
@@ -322,38 +327,39 @@ save()
 
 Class diagrams excel at illustrating software design patterns such as the Observer pattern:
 
-```drawlib show-code 650px center file:class_diagram_observer_pattern.png caption:"UML Observer Design Pattern"
+```drawlib show-code center file:class_diagram_observer_pattern.png caption:"UML Observer Design Pattern"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
 
-setup(width=105, height=80)
+setup(width=92, height=68)
 
 cd = ClassDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="UML Observer Design Pattern",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
 subj_iface = cd.add(
     ClassNode(name="Subject", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral),
-    xy=(25.0, 58.0),
+    xy=(19.0, 47.0),
 )
 subj_iface.add_method("attach", params="o: Observer", return_type="void")
 subj_iface.add_method("notify", return_type="void")
 
 obs_iface = cd.add(
     ClassNode(name="Observer", stereotype="interface", width=28.0, style=Styles.SecondaryNeutral),
-    xy=(75.0, 58.0),
+    xy=(73.0, 47.0),
 )
 obs_iface.add_method("update", return_type="void")
 
-concrete_subj = cd.add(ClassNode(name="NewsPublisher", width=28.0), xy=(25.0, 20.0))
+concrete_subj = cd.add(ClassNode(name="NewsPublisher", width=28.0), xy=(19.0, 14.0))
 concrete_subj.add_attribute("state", type="str", is_public=False)
 concrete_subj.add_method("get_state", return_type="str")
 
-concrete_obs = cd.add(ClassNode(name="EmailSubscriber", width=28.0), xy=(75.0, 20.0))
+concrete_obs = cd.add(ClassNode(name="EmailSubscriber", width=28.0), xy=(73.0, 14.0))
 concrete_obs.add_method("update", return_type="void")
 
 cd.connect(concrete_subj, subj_iface, "realization", start_side="top", end_side="bottom")

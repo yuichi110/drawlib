@@ -1,6 +1,59 @@
 # Animating SmartArts
 
 All item-based SmartArt components (`ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `BulletPoints`, `TreeNode`, `MindMapNode`) follow the unified **Pre-Build & Mutate** lifecycle:
+
+```drawlib fold-code center file:anim_smartarts_hero.png format:webp caption:"SmartArt Animation Overview: Progressive Reveal and Active Highlighting Without Layout Jumping"
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.smartarts import BoxList, ChevronProcess
+from drawlib.styles import Styles
+
+setup(width=120, height=40)
+anim = Animation(fps=2.0)
+
+proc = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Dark,
+    flat_left_end=True,
+)
+chev_items = [
+    proc.add("1. Plan"),
+    proc.add("2. Build"),
+    proc.add("3. Verify"),
+    proc.add("4. Deploy"),
+]
+
+cards = BoxList(
+    style=Styles.Neutral,
+    text_style=Styles.Dark.patch(text_size=10.5),
+)
+box_items = [
+    cards.add("Spec Locked"),
+    cards.add("Artifact Built"),
+    cards.add("Checks Green"),
+    cards.add("Prod Live"),
+]
+
+for step in range(len(chev_items)):
+    for i, (c_item, b_item) in enumerate(zip(chev_items, box_items)):
+        is_visible = (i <= step)
+        is_active = (i == step)
+        c_item.show = is_visible
+        b_item.show = is_visible
+        c_item.style = Styles.PrimaryFlat if is_active else Styles.PrimaryNeutral
+        c_item.text_style = Styles.WhiteBold.patch(text_size=11.0) if is_active else Styles.DarkBold.patch(text_size=11.0)
+        b_item.style = Styles.SecondaryNeutral if is_active else Styles.Neutral
+        b_item.text_style = Styles.DarkBold.patch(text_size=10.5) if is_active else Styles.Dark.patch(text_size=10.5)
+
+    is_last = (step == len(chev_items) - 1)
+    with anim.frame(duration=2.5 if is_last else 0.7):
+        proc.draw(xy=(4.0, 21.0), width=112.0, height=14.0)
+        cards.draw(xy=(4.0, 5.0), box_width=28.0, box_height=11.5, align="left")
+
+save()
+```
+
 1. Instantiate the component and register all items **once** via `item = comp.add(..., show=...)` outside the loop.
 2. Inside `with anim.frame():`, mutate `item.show`, `item.style`, or `item.text_style`, and call `comp.draw(xy=..., scale=1.0)`.
 
@@ -33,18 +86,18 @@ When `item.show = False` on any SmartArt item:
 
 Build a `ChevronProcess` or `Cycle` once outside the loop, keep the list of returned `ChevronItem` or `CycleItem` objects (plus `cycle.center` (`CycleCenter`) for radial cycles), and mutate `.show`, `.style`, and `.text_style` across frames. In `Cycle`, hidden steps (`item.show = False`) preserve their angular orbit positions and automatically hide their outgoing connecting arrows:
 
-```drawlib 650px center show-code file:anim_smartarts_chevron.png caption:"Step-by-Step Pipeline Reveal with Active Stage Highlight"
+```drawlib center show-code file:anim_smartarts_chevron.png caption:"Step-by-Step Pipeline Reveal with Active Stage Highlight"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
-setup(width=115, height=34)
+setup(width=114, height=30)
 anim = Animation(fps=1.5)
 
 proc = ChevronProcess(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
     description_style=Styles.Dark,
     flat_left_end=True,
 )
@@ -59,18 +112,18 @@ for step in range(len(items)):
     for i, item in enumerate(items):
         item.show = (i <= step)
         item.style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
-        item.text_style = Styles.WhiteBold if i == step else Styles.DarkBold
+        item.text_style = Styles.WhiteBold.patch(text_size=11.0) if i == step else Styles.DarkBold.patch(text_size=11.0)
 
     is_last = (step == len(items) - 1)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        proc.draw(xy=(7.5, 9.5), width=100, height=15)
+        proc.draw(xy=(4.0, 6.5), width=106, height=17)
 
 save()
 ```
 
 Similarly, for `Cycle`:
 
-```drawlib show-code 550px center file:anim_smartarts_cycle.png format:webp caption:"Progressive Step Reveal and Active Highlighting on a Cycle SmartArt"
+```drawlib show-code center file:anim_smartarts_cycle.png format:webp caption:"Progressive Step Reveal and Active Highlighting on a Cycle SmartArt"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Cycle
@@ -120,20 +173,20 @@ save()
 
 In `GridLayout`, `grid.add((col, row), width, height, ...)` returns a mutable `GridItem` (`cell.show`, `cell.style`, `cell.text_style`). In `Table`, call `table.reset_styles()` and `table.set_style_cell(..., rows=[active_row])` before `table.draw(xy, width, height, data)` to sweep row highlights down a matrix:
 
-```drawlib 650px center show-code file:anim_smartarts_table.png caption:"Table Row Highlight Sweep Across Frames"
+```drawlib center show-code file:anim_smartarts_table.png caption:"Table Row Highlight Sweep Across Frames"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles
 
-setup(width=115, height=52)
+setup(width=114, height=46)
 anim = Animation(fps=1.5)
 
 tbl = Table(
     cell_style=Styles.White,
-    text_style=Styles.Dark,
+    text_style=Styles.Dark.patch(text_size=10.5),
     header_cell_style=Styles.PrimaryFlat,
-    header_text_style=Styles.WhiteBold,
+    header_text_style=Styles.WhiteBold.patch(text_size=11.0),
     border_style=Styles.DarkThin,
 )
 
@@ -148,12 +201,12 @@ for row_idx in [1, 2, 3]:
     tbl.reset_styles()
     tbl.set_style_cell(
         background_color=Colors.Primary1,
-        text_style=Styles.PrimaryBold,
+        text_style=Styles.PrimaryBold.patch(text_size=10.5),
         rows=[row_idx],
     )
     is_last = (row_idx == 3)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        tbl.draw(xy=(7.5, 44), width=100, height=34, data=data)
+        tbl.draw(xy=(4.0, 41.0), width=106, height=36, data=data)
 
 save()
 ```
@@ -165,36 +218,36 @@ save()
 For `TreeNode` and `MindMapNode`, instantiate the hierarchy **once outside the loop** and mutate `.show` across frames before calling `root.draw(xy=..., scale=1.0)`:
 - Setting `child.show = False` hides the child label, the incoming branch line from its parent, and its entire subtree, while preserving the exact vertical Y-coordinates of all subsequent sibling nodes:
 
-```drawlib 650px center show-code file:anim_smartarts_tree.png caption:"Progressive TreeNode Hierarchy Reveal"
+```drawlib center show-code file:anim_smartarts_tree.png caption:"Progressive TreeNode Hierarchy Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
 from drawlib.styles import Styles
 
-setup(width=100, height=56)
+setup(width=96, height=52)
 anim = Animation(fps=1.5)
 
 TreeNode.register_drawing_item(
-    name="folder", location="before", padding_width=4.0, function=phosphor.folder,
-    style=Styles.PrimaryFlat, args={"width": 3.0},
+    name="folder", location="before", padding_width=4.2, function=phosphor.folder,
+    style=Styles.PrimaryFlat, args={"width": 3.4},
 )
 TreeNode.register_drawing_item(
-    name="file", location="before", padding_width=4.0, function=phosphor.file_text,
-    style=Styles.Dark, args={"width": 3.0},
+    name="file", location="before", padding_width=4.2, function=phosphor.file_text,
+    style=Styles.Dark, args={"width": 3.4},
 )
 
-n_api = TreeNode("api.py", show=False).set_drawing_item("file")
-n_auth = TreeNode("auth.py", show=False).set_drawing_item("file")
-n_services = TreeNode("services/", children=[n_api, n_auth], show=False).set_drawing_item("folder")
-n_main = TreeNode("main.py", show=False).set_drawing_item("file")
+n_api = TreeNode("api.py", text_style=Styles.Dark.patch(text_size=11.0), show=False).set_drawing_item("file")
+n_auth = TreeNode("auth.py", text_style=Styles.Dark.patch(text_size=11.0), show=False).set_drawing_item("file")
+n_services = TreeNode("services/", text_style=Styles.DarkBold.patch(text_size=11.0), children=[n_api, n_auth], show=False).set_drawing_item("folder")
+n_main = TreeNode("main.py", text_style=Styles.Dark.patch(text_size=11.0), show=False).set_drawing_item("file")
 
 root = TreeNode(
     "src/",
-    text_style=Styles.DarkBold,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
     line_style=Styles.DarkThin,
     line_horizontal_margin=3.0,
-    line_horizontal_length=3.0,
+    line_horizontal_length=3.5,
     line_vertical_margin=6.0,
     children=[n_services, n_main],
 ).set_drawing_item("folder")
@@ -213,7 +266,7 @@ for idx, (s_svc, s_api, s_auth, s_main) in enumerate(steps):
     n_main.show = s_main
     is_last = (idx == len(steps) - 1)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        root.draw(xy=(22, 48))
+        root.draw(xy=(20, 44))
 
 save()
 ```

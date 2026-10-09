@@ -20,6 +20,7 @@
 - [Lines & Connectors](./02_drawing_primitives/lines.md)
 - [Text & Typography](./02_drawing_primitives/text.md)
 - [Fonts & Multilingual Catalog](./02_drawing_primitives/fonts.md)
+- [Custom Font Files (FontFile)](./02_drawing_primitives/font_file.md)
 - [Phosphor Vector Icons](./02_drawing_primitives/icons_phosphor.md)
 - [Google Cloud (GCP) Icons](./02_drawing_primitives/icons_gcp.md)
 - [Images & Dimage](./02_drawing_primitives/images.md)
@@ -78,7 +79,7 @@
 - [Animating Graphs](./07_animations/graphs.md)
 
 ## 8. Document Builder & CLI
-- [Documentation as Code Overview](./08_doc_builder_and_cli/overview.md)
+- [Illustrated Documentation as Code Overview](./08_doc_builder_and_cli/overview.md)
 - [Markdown Code Block Syntax](./08_doc_builder_and_cli/code_blocks.md)
 - [CLI Reference](./08_doc_builder_and_cli/cli_reference.md)
 - [Linear Document Project (`doc`)](./08_doc_builder_and_cli/project_doc.md)

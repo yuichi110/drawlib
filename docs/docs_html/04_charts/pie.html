@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -425,7 +429,7 @@
 <hr />
 <h2>1. Overview &amp; Topologies</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/piechart_topologies_overview.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_topologies_overview.png" alt="pie_1" />
   <figcaption class="drawlib-caption">Standard Solid Pie Chart vs. Donut Chart with Center KPI</figcaption>
 </figure>
 <details class="drawlib-code-details">
@@ -436,7 +440,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">145</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="c1"># Left: Solid Pie Chart (hole_ratio=0.0) with Exploded Slice</span>
 <span class="n">solid_pie</span> <span class="o">=</span> <span class="n">PieChart</span><span class="p">(</span>
@@ -444,24 +448,24 @@
     <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">start_angle</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"1. Solid Pie (hole_ratio=0.0)"</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">%"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">solid_pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Core Platform"</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">explode</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
 <span class="n">solid_pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"AI Services"</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">solid_pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Operations"</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">solid_pie</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+<span class="n">solid_pie</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
 
 <span class="c1"># Callout for start_angle=90° (12 o'clock)</span>
 <span class="n">pie_w</span><span class="p">,</span> <span class="n">pie_h</span> <span class="o">=</span> <span class="n">solid_pie</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
-<span class="n">pie_cx</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="o">+</span> <span class="n">pie_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+<span class="n">pie_cx</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pie_w</span> <span class="o">/</span> <span class="mf">2.0</span>
 <span class="n">pie_top_y</span> <span class="o">=</span> <span class="mf">5.0</span> <span class="o">+</span> <span class="p">(</span><span class="n">pie_h</span> <span class="o">-</span> <span class="mf">6.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">17.5</span>
 <span class="n">line</span><span class="p">((</span><span class="n">pie_cx</span><span class="p">,</span> <span class="n">pie_top_y</span> <span class="o">+</span> <span class="mf">4.2</span><span class="p">),</span> <span class="p">(</span><span class="n">pie_cx</span><span class="p">,</span> <span class="n">pie_top_y</span> <span class="o">+</span> <span class="mf">0.4</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">(</span>
     <span class="p">(</span><span class="n">pie_cx</span> <span class="o">+</span> <span class="mf">1.8</span><span class="p">,</span> <span class="n">pie_top_y</span> <span class="o">+</span> <span class="mf">2.8</span><span class="p">),</span>
     <span class="s2">"start_angle=90° (12 o'clock)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Right: Donut Chart (hole_ratio=0.62) with Center KPI</span>
@@ -469,17 +473,17 @@
     <span class="n">radius</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
     <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span>
     <span class="n">center_text</span><span class="o">=</span><span class="s2">"$1.2B</span><span class="se">\n</span><span class="s2">ARR"</span><span class="p">,</span>
-    <span class="n">center_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span>
+    <span class="n">center_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"2. Donut Chart (hole_ratio=0.62)"</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">%"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">donut_pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Core Platform"</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
 <span class="n">donut_pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"AI Services"</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">donut_pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Operations"</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">donut_pie</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
-<span class="n">donut_pie</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">116.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">donut_pie</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+<span class="n">donut_pie</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -498,16 +502,16 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.pie</span><span class="w"> </span><span class="kn">import</span> <span class="n">PieChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">102</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">PieChart</span><span class="p">(</span>
     <span class="n">radius</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span>
     <span class="n">center_text</span><span class="o">=</span><span class="s2">"$1.2B</span><span class="se">\n</span><span class="s2">ARR"</span><span class="p">,</span>
-    <span class="n">center_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">center_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Revenue Contribution by Product Line"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Cloud Infrastructure"</span><span class="p">,</span> <span class="mf">540.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"AI Developer Tools"</span><span class="p">,</span> <span class="mf">340.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
@@ -515,11 +519,11 @@
 <span class="n">chart</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Legacy Support"</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 
 <span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/piechart_revenue_donut.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_revenue_donut.png" alt="pie_2" />
   <figcaption class="drawlib-caption">Revenue Contribution Donut Chart</figcaption>
 </figure>
 <hr />
@@ -529,13 +533,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.pie</span><span class="w"> </span><span class="kn">import</span> <span class="n">PieChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">102</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">PieChart</span><span class="p">(</span>
     <span class="n">radius</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"R&amp;D Budget Allocation (2026)"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">value_format</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pct</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pct</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Generative AI Models"</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">explode</span><span class="o">=</span><span class="mf">2.8</span><span class="p">)</span>
@@ -545,11 +549,11 @@
 <span class="n">chart</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Experimental Labs (3%)"</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">)</span>
 
 <span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/piechart_budget_exploded.png" alt="pie_3" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_budget_exploded.png" alt="pie_3" />
   <figcaption class="drawlib-caption">Budget Allocation with Exploded Hero Slice and Callable Formatter</figcaption>
 </figure>
 <hr />

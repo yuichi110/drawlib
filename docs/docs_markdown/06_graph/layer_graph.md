@@ -4,6 +4,76 @@
 
 It is the ideal solver for CI/CD pipelines, ETL / data lineage graphs (dbt, Airflow), build dependency graphs, and multi-stage workflows where nodes progress through sequential ranks from left-to-right (`direction="LR"`) or top-to-bottom (`direction="TB"`).
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="layer_graph_images/graph_layer_hero.png" alt="layer_graph_1" />
+  <figcaption class="drawlib-caption">LayerGraph Overview: Automatic Sugiyama Topological Ranking and Rank Pinning (layer=int)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.graph import LayerGraph
+from drawlib.icons import phosphor
+from drawlib.styles import Styles
+
+setup(width=124, height=54)
+
+g = LayerGraph(
+    direction="LR",
+    rank_sep=16.0,
+    node_sep=7.0,
+    default_node_width=24.0,
+    default_node_height=12.5,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+
+# Rank 0: Ingestion Cluster
+g.node("events", "\nClick Events", layer=0, style=Styles.Neutral)
+g.node("orders", "\nOrder Stream", layer=0, style=Styles.Neutral)
+g.cluster("ingest_box", ["events", "orders"], label="Ingestion", padding=3.5)
+
+# Rank 1: Stream Processing Focal Node
+g.node(
+    "joiner",
+    "\nStream Join",
+    layer=1,
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+
+# Rank 2: Analytics Cluster
+g.node("mart", "\nRevenue Mart", layer=2, style=Styles.PrimaryNeutral)
+g.node("features", "\nFeature Store", layer=2, style=Styles.SecondaryNeutral)
+g.cluster("analytics_box", ["mart", "features"], label="Analytics", padding=3.5)
+
+g.edge("events", "joiner")
+g.edge("orders", "joiner")
+g.edge("joiner", "mart")
+g.edge("joiner", "features")
+
+layout = g.draw(margin=8.0)
+
+for nid, icon_fn, st in [
+    ("events", phosphor.globe, Styles.Dark),
+    ("orders", phosphor.lightning, Styles.Dark),
+    ("joiner", phosphor.git_merge, Styles.White),
+    ("mart", phosphor.chart_line_up, Styles.Primary),
+    ("features", phosphor.database, Styles.Secondary),
+]:
+    n = layout.nodes[nid]
+    icon_fn((n.x, n.y + 2.3), width=4.2, style=st)
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Constructor & Rank Pinning API
@@ -68,17 +138,19 @@ from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
-setup(width=190, height=95)
+setup(width=126, height=48)
 
 g = LayerGraph(
     direction="LR",
+    rank_sep=8.0,
     default_node_style=Styles.Neutral,
-    default_node_width=28.0,
-    default_node_height=12.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    default_node_width=23.0,
+    default_node_height=11.0,
 )
 
 # Source tables (automatically ranked at layer 0)
-g.node("raw_events", "Clickstream Log", style=Styles.Neutral)
+g.node("raw_events", "Clickstream", style=Styles.Neutral)
 g.node("raw_orders", "Orders CDC", style=Styles.Neutral)
 
 # Intermediate transformations (automatically ranked at layers 1 and 2)
@@ -88,22 +160,27 @@ g.node("user_features", "Feature Join", style=Styles.SecondaryNeutral)
 g.node("rev_rollup", "Revenue Mart", style=Styles.SecondaryNeutral)
 
 # Terminal consumer (automatically ranked at layer 3; highlighted as primary focal point)
-g.node("ml_ranker", "Realtime Ranker", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node(
+    "ml_ranker",
+    "Realtime Rank",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
 
 g.edge("raw_events", "clean_events")
 g.edge("raw_orders", "clean_orders")
 g.edge("clean_events", "user_features")
 g.edge("clean_orders", "user_features")
 g.edge("clean_orders", "rev_rollup")
-g.edge("user_features", "ml_ranker", "Features")
-g.edge("rev_rollup", "ml_ranker", "Weights")
+g.edge("user_features", "ml_ranker")
+g.edge("rev_rollup", "ml_ranker")
 
-g.draw(margin=12.0)
+g.draw(margin=5.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="layer_graph_images/graph_layer_auto_dag.png" alt="layer_graph_1" style="width: 720px; max-width: 100%;" />
+  <img src="layer_graph_images/graph_layer_auto_dag.png" alt="layer_graph_2" />
   <figcaption class="drawlib-caption">Automatic Topological Ranking and Crossing Minimization in LayerGraph</figcaption>
 </figure>
 
@@ -122,13 +199,14 @@ from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
-setup(width=195, height=98)
+setup(width=126, height=58)
 
 g = LayerGraph(
     direction="LR",
-    rank_sep=14.0,
-    default_node_width=26.0,
-    default_node_height=12.0,
+    rank_sep=9.0,
+    default_node_width=22.0,
+    default_node_height=11.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Stage 0: Source Trigger
@@ -138,30 +216,36 @@ g.node("git", "Git Commit", layer=0, style=Styles.Neutral)
 g.node("lint", "Ruff & Ty", style=Styles.PrimaryNeutral)
 g.node("pytest", "Unit Suite", style=Styles.PrimaryNeutral)
 g.tier("ci_stage", ["lint", "pytest"], layer=1)
-g.cluster("ci_cluster", ["lint", "pytest"], label="CI Verification", padding=5.5)
+g.cluster("ci_cluster", ["lint", "pytest"], label="CI Stage", padding=3.5)
 
 # Stage 2: Artifact Packaging & Security Scan
 g.node("docker", "Build Image", layer=2, style=Styles.SecondaryNeutral)
 g.node("sbom", "SBOM Scan", layer=2, style=Styles.Neutral)
-g.cluster("pkg_cluster", ["docker", "sbom"], label="Artifact Stage", padding=5.5)
+g.cluster("pkg_cluster", ["docker", "sbom"], label="Artifact", padding=3.5)
 
 # Stage 3: Production Rollout (Hero focal node)
-g.node("prod", "Prod Canary", layer=3, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node(
+    "prod",
+    "Prod Canary",
+    layer=3,
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
 
 g.edge("git", "lint")
 g.edge("git", "pytest")
 g.edge("lint", "docker")
 g.edge("pytest", "docker")
 g.edge("pytest", "sbom")
-g.edge("docker", "prod", "Deploy")
-g.edge("sbom", "prod", "Attest", line_style="dashed")
+g.edge("docker", "prod")
+g.edge("sbom", "prod", line_style="dashed")
 
-g.draw(margin=12.0)
+g.draw(margin=8.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="layer_graph_images/graph_layer_pinned_pipeline.png" alt="layer_graph_2" style="width: 720px; max-width: 100%;" />
+  <img src="layer_graph_images/graph_layer_pinned_pipeline.png" alt="layer_graph_3" />
   <figcaption class="drawlib-caption">CI/CD Release Pipeline with Explicit Layer Pinning and Stage Clusters</figcaption>
 </figure>
 
@@ -180,19 +264,20 @@ from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
-setup(width=160, height=110)
+setup(width=116, height=82)
 
 g = LayerGraph(
     direction="TB",
-    rank_sep=14.0,
+    rank_sep=9.5,
     node_sep=10.0,
     default_node_style=Styles.Neutral,
-    default_node_width=34.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=11.0),
+    default_node_width=32.0,
     default_node_height=11.0,
 )
 
 # Rank 0: Top-level entry point
-g.node("gateway", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node("gateway", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=11.0))
 
 # Rank 1: Parallel middleware tier
 g.node("auth", "Auth Guard", style=Styles.PrimaryNeutral)
@@ -212,12 +297,12 @@ g.edge("ratelimit", "resolver")
 g.edge("resolver", "sql_db", "Query")
 g.edge("resolver", "redis", "Lookup")
 
-g.draw(margin=12.0)
+g.draw(margin=6.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="layer_graph_images/graph_layer_tb_hierarchy.png" alt="layer_graph_3" style="width: 600px; max-width: 100%;" />
+  <img src="layer_graph_images/graph_layer_tb_hierarchy.png" alt="layer_graph_4" />
   <figcaption class="drawlib-caption">Top-to-Bottom (direction='TB') Sugiyama Ranked DAG Layout</figcaption>
 </figure>
 

@@ -346,7 +346,7 @@ For multi-page documentation sites, `docs_src/navbar.md` defines the navigation 
 In Markdown source files under `docs_src/`, embed illustrations using the ````drawlib```` language fence:
 
 ````markdown
-```drawlib 600px center show-code file:system_architecture.png caption:"System Architecture Overview"
+```drawlib center show-code file:system_architecture.png caption:"System Architecture Overview"
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.lines import line

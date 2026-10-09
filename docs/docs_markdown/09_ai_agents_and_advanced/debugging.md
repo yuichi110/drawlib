@@ -2,6 +2,71 @@
 
 This guide provides solutions for common rendering errors, coordinate clipping, missing fonts, broken links, and cache anomalies when working with Drawlib.
 
+Use `drawlib show -g` to inspect coordinate bounds and ensure shapes stay within a safe 5–10 unit perimeter margin:
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="debugging_images/debugging_boundary_clipping_fix.png" alt="debugging_1" />
+  <figcaption class="drawlib-caption">Boundary Clipping Defect vs. Safe 5%–10% Perimeter Margin with Grid (-g)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=58)
+
+# Left Panel: Bad (Boundary Clipping at x=100)
+phosphor.warning((10.5, 52.0), width=4.4, style=Styles.DangerBold)
+text((35.5, 52.0), "Bad: Clipped at Boundary", style=Styles.DangerBold.patch(text_size=10.8))
+rectangle((32, 26), width=54, height=40, style=Styles.MutedDashed.patch(shape_r=1.5))
+text((9, 41.5), "setup(width=100)", style=Styles.Muted.patch(text_size=10.0, halign="left"))
+
+rectangle((20, 24), width=18, height=14, style=Styles.Neutral.patch(shape_r=1.5), text="API", text_style=Styles.DarkBold.patch(text_size=10.5))
+# Simulated clipped box at right canvas edge (x=59)
+rectangle((50, 24), width=18, height=14, style=Styles.SecondaryNeutral.patch(shape_r=1.0), text="Work...", text_style=Styles.DarkBold.patch(text_size=10.5))
+line((59, 6), (59, 46), style=Styles.DangerBold)
+text((57, 10), "Clipped!", style=Styles.DangerBold.patch(text_size=10.2, halign="right"))
+line((29, 24), (41, 24), arrow_head="->", style=Styles.DarkBold)
+
+# Center Transition Arrow
+line((60.5, 26), (67.5, 26), arrow_head="->", style=Styles.DarkBold)
+
+# Right Panel: Good (Safe Perimeter Margin Inspected with -g)
+phosphor.check_circle((73.5, 52.0), width=4.4, style=Styles.PrimaryBold)
+phosphor.grid_four((79.5, 52.0), width=4.4, style=Styles.PrimaryBold)
+text((103.5, 52.0), "Good: Safe Margin (-g)", style=Styles.DarkBold.patch(text_size=10.8))
+rectangle((96, 26), width=54, height=40, style=Styles.MutedDashed.patch(shape_r=1.5))
+# Inner safe-zone guide
+rectangle((96, 26), width=46, height=32, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+text((96, 37.5), "Safe Zone (Margin)", style=Styles.Muted.patch(text_size=10.0))
+
+rectangle((84, 22), width=18, height=13, style=Styles.Neutral.patch(shape_r=1.5), text="API", text_style=Styles.DarkBold.patch(text_size=10.5))
+rectangle(
+    (108, 22),
+    width=18,
+    height=13,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="Worker",
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+line((93, 22), (99, 22), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Visual Geometry & Boundary Clipping
@@ -21,65 +86,6 @@ This guide provides solutions for common rendering errors, coordinate clipping, 
   1. Increase canvas dimensions in `setup(width=..., height=...)`.
   2. Or shift shapes inward, leaving at least 5–10 units of breathing room along all perimeter edges.
 
-
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="debugging_images/debugging_boundary_clipping_fix.png" alt="debugging_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Boundary Clipping Defect vs. Safe 5%–10% Perimeter Margin with Grid (-g)</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-
-```python
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=154, height=58)
-
-# Left Panel: Bad (Boundary Clipping at x=100)
-text((40, 52), "Bad: Node at x=95 Overflows width=100 Boundary", style=Styles.DangerBold.patch(text_size=8.2))
-rectangle((40, 26), width=64, height=40, style=Styles.MutedDashed.patch(shape_r=1.5))
-text((11, 42.5), "setup(width=100, height=60)", style=Styles.Muted.patch(text_size=7.2, halign="left"))
-
-rectangle((26, 24), width=22, height=14, style=Styles.Neutral.patch(shape_r=1.5), text="API", text_style=Styles.DarkBold.patch(text_size=8.0))
-# Simulated clipped box at right canvas edge (x=72)
-rectangle((63, 24), width=18, height=14, style=Styles.SecondaryNeutral.patch(shape_r=1.0), text="Worker...", text_style=Styles.DarkBold.patch(text_size=8.0))
-line((72, 6), (72, 46), style=Styles.DangerBold)
-text((72, 10), "Clipped at x=100!", style=Styles.DangerBold.patch(text_size=7.5, halign="right"))
-line((37, 24), (54, 24), arrow_head="->", style=Styles.DarkBold)
-
-# Center Transition Arrow
-line((75, 26), (81, 26), arrow_head="->", style=Styles.DarkBold)
-
-# Right Panel: Good (Safe 10-Unit Perimeter Margin Inspected with -g)
-text((115, 52), "Good: Safe 10-Unit Perimeter Margin Inspected with -g", style=Styles.DarkBold.patch(text_size=8.2))
-rectangle((115, 26), width=64, height=40, style=Styles.MutedDashed.patch(shape_r=1.5))
-# Inner safe-zone guide (10-unit margin)
-rectangle((115, 26), width=54, height=30, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
-text((115, 37.5), "Safe Content Zone (8–10 Unit Margin)", style=Styles.Muted.patch(text_size=7.2))
-
-rectangle((101, 23), width=20, height=13, style=Styles.Neutral.patch(shape_r=1.5), text="API", text_style=Styles.DarkBold.patch(text_size=8.0))
-rectangle(
-    (129, 23),
-    width=20,
-    height=13,
-    style=Styles.PrimaryFlat.patch(shape_r=1.5),
-    text="Worker",
-    text_style=Styles.WhiteBold.patch(text_size=8.0),
-)
-line((111, 23), (119, 23), arrow_head="->", style=Styles.DarkBold)
-
-save()
-```
-
-</details>
-
-
-
 ### Symptom: Label Overflow or Connector Line Cutting Across Node Text
 - **Cause**:
   1. Single-line labels that are wider than the enclosing rectangle's `width` spill past the left and right borders.
@@ -91,7 +97,7 @@ save()
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="debugging_images/debugging_text_overflow_and_z_order.png" alt="debugging_2" style="width: 650px; max-width: 100%;" />
+  <img src="debugging_images/debugging_text_overflow_and_z_order.png" alt="debugging_2" />
   <figcaption class="drawlib-caption">Common Visual Bugs and Fixes: Text Box Sizing and Painter's Algorithm Z-Order</figcaption>
 </figure>
 
@@ -100,61 +106,64 @@ save()
 
 ```python
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=142, height=58)
+setup(width=128, height=60)
 
 # Left Panel: Common Visual Bugs (Anti-Patterns)
-text((36, 52.5), "Common Visual Bugs (Anti-Patterns)", style=Styles.DangerBold.patch(text_size=8.0))
-rectangle((36, 26.5), width=60, height=44, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+phosphor.warning((10.5, 54.0), width=4.4, style=Styles.DangerBold)
+text((35.5, 54.0), "Visual Bugs (Anti-Patterns)", style=Styles.DangerBold.patch(text_size=10.8))
+rectangle((32, 27.0), width=54, height=45, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
 
-# Bug 1: Narrow box where "Authentication Service" overflows borders
-text((36, 44.5), "1. Single-Line Label Overflows Narrow Box (w=16)", style=Styles.DangerBold.patch(text_size=6.9))
+# Bug 1: Narrow box where "Auth Service" overflows borders
+text((32, 45.0), "1. Label Overflows Narrow Box", style=Styles.DangerBold.patch(text_size=10.0))
 rectangle(
-    (36, 36.0),
+    (32, 36.2),
     width=16,
     height=10,
     style=Styles.Neutral.patch(shape_r=1.2),
     text="Authentication Service",
-    text_style=Styles.DarkBold.patch(text_size=7.6),
+    text_style=Styles.DarkBold.patch(text_size=10.2),
 )
 
 # Bug 2: Connector line drawn after node cuts across text label
-text((36, 24.5), "2. line() Drawn After rectangle() Cuts Across Label", style=Styles.DangerBold.patch(text_size=6.9))
-rectangle((15, 14.0), width=12, height=9, style=Styles.Neutral.patch(shape_r=1.2), text="Client", text_style=Styles.DarkBold.patch(text_size=7.2))
-rectangle((36, 14.0), width=18, height=10, style=Styles.Neutral.patch(shape_r=1.2), text="API Node", text_style=Styles.DarkBold.patch(text_size=7.4))
-rectangle((57, 14.0), width=12, height=9, style=Styles.Neutral.patch(shape_r=1.2), text="DB", text_style=Styles.DarkBold.patch(text_size=7.2))
-# Anti-pattern: line drawn after middle node cuts right over "API Node"
-line((21, 14.0), (51, 14.0), arrow_head="->", style=Styles.DangerBold)
+text((32, 24.8), "2. line() Cuts Across Node", style=Styles.DangerBold.patch(text_size=10.0))
+rectangle((13, 14.0), width=12, height=9.5, style=Styles.Neutral.patch(shape_r=1.2), text="UI", text_style=Styles.DarkBold.patch(text_size=10.0))
+rectangle((32, 14.0), width=16, height=10.0, style=Styles.Neutral.patch(shape_r=1.2), text="API", text_style=Styles.DarkBold.patch(text_size=10.2))
+rectangle((51, 14.0), width=12, height=9.5, style=Styles.Neutral.patch(shape_r=1.2), text="DB", text_style=Styles.DarkBold.patch(text_size=10.0))
+line((19, 14.0), (45, 14.0), arrow_head="->", style=Styles.DangerBold)
 
 # Center Transition Arrow
-line((67.5, 26.5), (74.5, 26.5), arrow_head="->", style=Styles.DarkBold)
+line((60.5, 27.0), (67.5, 27.0), arrow_head="->", style=Styles.DarkBold)
 
 # Right Panel: Recommended Fixes (Best Practices)
-text((106, 52.5), "Recommended Fixes (Best Practices)", style=Styles.DarkBold.patch(text_size=8.0))
-rectangle((106, 26.5), width=60, height=44, style=Styles.Neutral.patch(shape_r=2.0))
+phosphor.check_circle((73.5, 54.0), width=4.4, style=Styles.PrimaryBold)
+phosphor.stack((79.5, 54.0), width=4.4, style=Styles.PrimaryBold)
+text((103.5, 54.0), "Fixes (Best Practices)", style=Styles.DarkBold.patch(text_size=10.8))
+rectangle((96, 27.0), width=54, height=45, style=Styles.Neutral.patch(shape_r=2.0))
 
 # Fix 1: Multi-line wrap + widened card (width=32)
-text((106, 44.5), "1. Multi-Line Wrap (\\n) + Widened Card (w=32)", style=Styles.DarkBold.patch(text_size=6.9))
+text((96, 45.0), "1. Multi-Line + Widened Card", style=Styles.DarkBold.patch(text_size=10.0))
 rectangle(
-    (106, 36.0),
+    (96, 36.2),
     width=32,
     height=10.5,
     style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text="Authentication\nService",
-    text_style=Styles.WhiteBold.patch(text_size=7.6),
+    text_style=Styles.WhiteBold.patch(text_size=10.2),
 )
 
 # Fix 2: Perimeter-anchored connectors (cx ± w/2) & clean Z-order
-text((106, 24.5), "2. Anchor Connectors to Perimeter Edges (cx ± w/2)", style=Styles.DarkBold.patch(text_size=6.9))
-rectangle((85, 14.0), width=12, height=9, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="Client", text_style=Styles.DarkBold.patch(text_size=7.2))
-rectangle((106, 14.0), width=18, height=10, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="API Node", text_style=Styles.DarkBold.patch(text_size=7.4))
-rectangle((127, 14.0), width=12, height=9, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="DB", text_style=Styles.DarkBold.patch(text_size=7.2))
-line((91, 14.0), (97, 14.0), arrow_head="->", style=Styles.DarkBold)
-line((115, 14.0), (121, 14.0), arrow_head="->", style=Styles.DarkBold)
+text((96, 24.8), "2. Anchor to Edges (cx ± w/2)", style=Styles.DarkBold.patch(text_size=10.0))
+rectangle((77, 14.0), width=12, height=9.5, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="UI", text_style=Styles.DarkBold.patch(text_size=10.0))
+rectangle((96, 14.0), width=16, height=10.0, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="API", text_style=Styles.DarkBold.patch(text_size=10.2))
+rectangle((115, 14.0), width=12, height=9.5, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="DB", text_style=Styles.DarkBold.patch(text_size=10.0))
+line((83, 14.0), (88, 14.0), arrow_head="->", style=Styles.DarkBold)
+line((104, 14.0), (109, 14.0), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -239,7 +248,7 @@ Drawlib scans all compiled HTML pages and verifies:
 
 | Error Message | Root Cause | Solution |
 | :--- | :--- | :--- |
-| **`Missing required 'file:...' option in drawlib code block`** | An embedded ````drawlib```` block in a `doc`, `site`, or `slide` Markdown file omitted the `file:<name>` attribute. | Add an explicit filename to the opening code fence (e.g. ```` ```drawlib 600px center file:service_arch.png caption:"..." ````). |
+| **`Missing required 'file:...' option in drawlib code block`** | An embedded ````drawlib```` block in a `doc`, `site`, or `slide` Markdown file omitted the `file:<name>` attribute. | Add an explicit filename to the opening code fence (e.g. ```` ```drawlib fold-code center file:service_arch.png caption:"..." ````). |
 | **`Directory build requires "index.md" / "navbar.md"`** | Running `drawlib build html` on a `site` directory missing mandatory root files, or missing `template.html` / `style.css`. | Ensure `index.md`, `navbar.md`, `template.html`, and `style.css` exist in `docs_src/`, or scaffold with `drawlib init site`. |
 | **`Refusing to overwrite input source directory / file`** | The `-o` output path points to the exact same path as the source input (`src_abs == dest_abs`). | Specify a separate output directory (e.g. `drawlib build markdown docs_src/ -o docs_markdown/`). |
 | **`Duplicate output image file detected`** | Two embedded blocks in the same Markdown file share the same `file:<name>`, or two `.py` scripts in `images_src/` call `save()` with the same target path. | Assign a unique `file:<name>.png` to each block or script. |

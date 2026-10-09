@@ -90,7 +90,7 @@ Drawlib presets organize styles into semantic roles with 13 orthogonal visual va
 The following embedded Markdown block illustrates the 50%+ neutral-grounded semantic system (anchoring the hero service in `Styles.PrimaryFlat` while grounding supporting nodes in calm neutral/tinted-neutral cards):
 
 ````markdown
-```drawlib 600px center caption:"Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
+```drawlib center caption:"Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -192,7 +192,7 @@ Align node center coordinates `(x, y)` to clean increments:
 ### 5.4 Equidistant Spacing via Formulas (Preventing Right-Edge Crowding)
 Never guess or hardcode absolute coordinates one by one from left to right. When placing a sequence of $N$ nodes across a canvas, **always calculate the gap dynamically** using Python math to ensure exact bilateral symmetry:
 
-```drawlib show-code 600px center file:style_equidistant_spacing.png caption:"Dynamic Equidistant Spacing via Formulas"
+```drawlib show-code center file:style_equidistant_spacing.png caption:"Dynamic Equidistant Spacing via Formulas"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -235,7 +235,7 @@ Never use opaque list indexing (`points[0]`, `a[1]`) or scatter magic literal tu
 2. **Self-Documenting Connections**: Connecting lines read clearly (`line(client_xy, gateway_xy)`), eliminating guesswork and AI hallucinations.
 3. **Clean Separation of Concerns**: Divides drawing code into (1) Layout Geometry, (2) Node Rendering, and (3) Connectors.
 
-```drawlib show-code 600px center file:style_semantic_coordinates.png caption:"Semantic Coordinate Variables Architecture"
+```drawlib show-code center file:style_semantic_coordinates.png caption:"Semantic Coordinate Variables Architecture"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -272,14 +272,15 @@ Execute drawing calls in a disciplined "back-to-front" sequence to prevent lines
 
 ## 6. Typography & Text Hierarchy
 
-Establish a clear typographical scale:
+Establish a clear typographical scale (never use `text_size < 9.5`, as Matplotlib fixes figure width at `720 pt` and smaller fonts become illegible relative to `16px` HTML body text):
 
 | Level | Size (`text_size`) | Recommended Style | Usage |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | 18 – 22 | `Styles.DarkBold.patch(text_size=20)` | Top of canvas diagram titles. |
-| **Section Header**| 14 – 16 | `Styles.DarkBold` | Subsystem containers, VPC group headers. |
-| **Node Label** | 11 – 13 | `Styles.WhiteBold` (on dark fill) / `Styles.DarkBold` (on light fill) | Service names, entity titles, actions. |
-| **Metadata / Note**| 8 – 10 | `Styles.Muted` (subtle) / `Styles.Dark` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
+| **Diagram Title** | 16 – 20 | `Styles.DarkBold.patch(text_size=18)` | Top of canvas diagram titles. |
+| **Section Header**| 12.5 – 15 | `Styles.DarkBold.patch(text_size=13)` | Subsystem containers, VPC group headers, card headers. |
+| **Node Label** | 11 – 12.5 | `Styles.WhiteBold` (on dark fill) / `Styles.DarkBold` (on light fill) | Service names, entity titles, actions (default is `12.0`). |
+| **Metadata / Note**| 10 – 11 | `Styles.Muted` (subtle) / `Styles.Dark` | IP addresses, protocols (`HTTP/2`), ports (`:8080`), subtitles. |
+
 
 ### 6.1 Default Text Color Principle: High-Contrast Neutral Typography
 

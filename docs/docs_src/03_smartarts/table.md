@@ -1,38 +1,112 @@
 # Table Component
 
-The `Table` component renders 2D tabular data, comparison matrices, and database schemas with fine-grained styling control over borders, headers, alternating even/odd row backgrounds, and specific cell highlights.
+The `Table` component renders 2D tabular data, comparison matrices, and database schemas.
+It provides fine-grained styling control over borders, headers, alternating even/odd row backgrounds, and specific cell highlights.
+
+```drawlib fold-code center file:table_hero.png caption:"Overview of Table: Styled Data Grids, Header Bands, and Custom Borders"
+from drawlib.canvas import save, setup
+from drawlib.smartarts import Table
+from drawlib.styles import Colors, Styles
+
+setup(width=130, height=46)
+
+t = Table(
+    cell_style=Styles.White,
+    text_style=Styles.Dark.patch(text_size=10.0),
+    header_cell_style=Styles.PrimaryFlat,
+    header_text_style=Styles.WhiteBold.patch(text_size=10.5),
+    border_style=Styles.MutedThin,
+    has_header=True,
+)
+
+t.set_style_cell_evenodd(
+    even_color=Colors.Muted1,
+    even_text_style=Styles.Dark.patch(text_size=10.0),
+    odd_color=Colors.White,
+    odd_text_style=Styles.Dark.patch(text_size=10.0),
+)
+t.set_style_cell_rowheader(
+    background_color=Colors.Primary1,
+    text_style=Styles.DarkBold.patch(text_size=10.0, halign="left"),
+)
+t.set_style_cell_header(
+    background_color=Colors.Primary,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+t.set_style_cell(
+    background_color=Colors.Success1,
+    text_style=Styles.SuccessBold.patch(text_size=10.0),
+    rows=[1, 2],
+    columns=[4],
+)
+t.set_style_cell(
+    background_color=Colors.Secondary1,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    rows=[3],
+    columns=[4],
+)
+t.set_style_border(
+    top=Styles.DarkBold,
+    top2=Styles.PrimaryBold,
+    bottom=Styles.DarkBold,
+    left=Styles.DarkBold,
+    left2=Styles.PrimaryBold,
+    right=Styles.DarkBold,
+    between_columns=Styles.MutedThin,
+    between_rows=Styles.MutedThin,
+)
+
+data = [
+    ["Region", "Primary Endpoint", "Replication Mode", "P99 Latency", "SLA Status"],
+    ["us-east-1", "api.use1.internal", "Sync Multi-AZ", "9.4 ms", "ACTIVE"],
+    ["eu-central-1", "api.euc1.internal", "Sync Multi-AZ", "11.2 ms", "ACTIVE"],
+    ["ap-northeast-1", "api.apne1.internal", "Async Read Pool", "18.5 ms", "STANDBY"],
+]
+
+t.draw_flexible(
+    xy=(6, 40.5),
+    column_widths=[24.0, 32.0, 26.0, 18.0, 18.0],
+    row_heights=[9.5, 8.5, 8.5, 8.5],
+    data=data,
+)
+save()
+```
 
 ---
 
 ## 1. Quick Example: Service SLA & Status Matrix
 
-```drawlib show-code 650px center file:table_service_status_matrix.png caption:"Service Status Matrix with Table"
+```drawlib show-code center file:table_service_status_matrix.png caption:"Service Status Matrix with Table"
 from drawlib.canvas import setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles
 
-setup(width=120, height=60)
+setup(width=118, height=50)
 
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Dark,
+    text_style=Styles.Dark.patch(text_size=10.5),
     header_cell_style=Styles.PrimaryFlat,
-    header_text_style=Styles.WhiteBold,
+    header_text_style=Styles.WhiteBold.patch(text_size=11.0),
     border_style=Styles.DarkThin,
 )
 
 # Custom even/odd row styling using semantic tokens
 table.set_style_cell_evenodd(
     even_color=Colors.Muted1,
-    even_text_style=Styles.Dark,
+    even_text_style=Styles.Dark.patch(text_size=10.5),
     odd_color=Colors.White,
-    odd_text_style=Styles.Dark,
+    odd_text_style=Styles.Dark.patch(text_size=10.5),
+)
+table.set_style_cell_header(
+    background_color=Colors.Primary,
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
 # SLA highlight on HEALTHY rows using Success tint
 table.set_style_cell(
     background_color=Colors.Success1,
-    text_style=Styles.SuccessBold,
+    text_style=Styles.SuccessBold.patch(text_size=10.5),
     rows=[1, 2],
     columns=[3],
 )
@@ -40,7 +114,7 @@ table.set_style_cell(
 # SLA highlight on DEGRADED row using Danger tint
 table.set_style_cell(
     background_color=Colors.Danger1,
-    text_style=Styles.DangerBold,
+    text_style=Styles.DangerBold.patch(text_size=10.5),
     rows=[3],
     columns=[3],
 )
@@ -52,7 +126,7 @@ data = [
     ["Payment Broker", "HTTPS", "45 ms", "DEGRADED"],
 ]
 
-table.draw(xy=(10, 52), width=100, height=40, data=data)
+table.draw(xy=(6, 45), width=106, height=40, data=data)
 ```
 
 ---
@@ -61,18 +135,18 @@ table.draw(xy=(10, 52), width=100, height=40, data=data)
 
 When columns have different content lengths (such as a wide description column next to compact numeric metrics), use `table.draw_flexible(xy, column_widths=[...], row_heights=[...], data=...)`. You can style both the top header row and left row-header column simultaneously with `set_style_cell_headers(...)` (or independently with `set_style_cell_rowheader(...)`), customize per-column text styles (`set_style_cell(..., columns=[...], text_style=Styles.Dark.patch(halign="left"|"right"))`), and place accented divider lines after row 0 (`top2`) and column 0 (`left2`) via `set_style_border(...)`.
 
-```drawlib show-code 650px center file:table_flexible_rowheaders_borders.png caption:"Flexible Column/Row Sizing, Row Headers, and Custom Borders (top2, left2)"
+```drawlib show-code center file:table_flexible_rowheaders_borders.png caption:"Flexible Column/Row Sizing, Row Headers, and Custom Borders (top2, left2)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles
 
-setup(width=125, height=62)
+setup(width=124, height=58)
 
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Dark.patch(text_size=9.5),
+    text_style=Styles.Dark.patch(text_size=10.0),
     header_cell_style=Styles.PrimaryFlat,
-    header_text_style=Styles.WhiteBold.patch(text_size=9.5),
+    header_text_style=Styles.WhiteBold.patch(text_size=10.5),
     border_style=Styles.MutedThin,
     has_header=True,
 )
@@ -80,34 +154,34 @@ table = Table(
 # Zebra-stripe data rows first
 table.set_style_cell_evenodd(
     even_color=Colors.Muted1,
-    even_text_style=Styles.Dark.patch(text_size=9.5),
+    even_text_style=Styles.Dark.patch(text_size=10.0),
     odd_color=Colors.White,
-    odd_text_style=Styles.Dark.patch(text_size=9.5),
+    odd_text_style=Styles.Dark.patch(text_size=10.0),
 )
 
 # Left-aligned workload profile column and right-aligned numeric columns
 table.set_style_cell(
     background_color=Colors.White,
-    text_style=Styles.Dark.patch(text_size=9.5, halign="left"),
+    text_style=Styles.Dark.patch(text_size=10.0, halign="left"),
     rows=[1, 2, 3],
     columns=[1],
 )
 table.set_style_cell(
     background_color=Colors.White,
-    text_style=Styles.Dark.patch(text_size=9.5, halign="right"),
+    text_style=Styles.Dark.patch(text_size=10.0, halign="right"),
     rows=[1, 2, 3],
     columns=[2, 3],
 )
 # Highlight the Enterprise row with right-aligned numeric metrics
 table.set_style_cell(
     background_color=Colors.Secondary1,
-    text_style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
+    text_style=Styles.DarkBold.patch(text_size=10.0, halign="left"),
     rows=[4],
     columns=[1],
 )
 table.set_style_cell(
     background_color=Colors.Secondary1,
-    text_style=Styles.DarkBold.patch(text_size=9.5, halign="right"),
+    text_style=Styles.DarkBold.patch(text_size=10.0, halign="right"),
     rows=[4],
     columns=[2, 3],
 )
@@ -115,15 +189,15 @@ table.set_style_cell(
 # Style both row 0 and column 0 headers, then refine row-header column 0 and top header row 0
 table.set_style_cell_headers(
     background_color=Colors.Primary1,
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 table.set_style_cell_rowheader(
     background_color=Colors.Primary1,
-    text_style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
+    text_style=Styles.DarkBold.patch(text_size=10.0, halign="left"),
 )
 table.set_style_cell_header(
     background_color=Colors.Primary,
-    text_style=Styles.WhiteBold.patch(text_size=9.5),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 # Emphasize outer perimeter plus header dividers (top2 beneath row 0, left2 right of column 0)
@@ -147,8 +221,8 @@ quota_data = [
 ]
 
 table.draw_flexible(
-    xy=(8, 55),
-    column_widths=[24.0, 41.0, 22.0, 22.0],
+    xy=(6, 52.5),
+    column_widths=[24.0, 42.0, 23.0, 23.0],
     row_heights=[10.5, 9.0, 9.0, 9.0, 9.0],
     data=quota_data,
 )

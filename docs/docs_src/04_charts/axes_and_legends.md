@@ -2,29 +2,97 @@
 
 All Cartesian charts (`BarChart`, `LineChart`, `AreaChart`, `ScatterChart`) and multi-series/slice charts (`PieChart`, `RadarChart`) share a unified foundation for **coordinate axis scaling**, **tick and unit formatting**, **decoupled legend placement**, and **bounding-box measurement**.
 
+Every visual axis element follows Drawlib's presence-based styling model, giving you independent control over domain bounds, gridlines, tick formatters, and legend coordinates.
+
+```drawlib fold-code center file:charts_axes_and_legends_hero.png caption:"Anatomy of Drawlib Chart Axes, Gridlines, Tick Formatters, and Decoupled Legends"
+from drawlib.canvas import save, setup
+from drawlib.charts.bar import BarChart
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Colors, Styles
+from drawlib.text import text
+
+setup(width=132, height=54)
+
+chart = BarChart(
+    categories=["Q1", "Q2", "Q3"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.DarkBold.patch(text_size=10.0),
+    grid_style=Styles.MutedThin,
+    background_style=Styles.Neutral.patch(shape_r=1.8, shape_fill_color=Colors.White, shape_line_color=Colors.Gray4),
+    width=50.0,
+    height=38.0,
+    title="SLA Compliance (%)",
+    title_style=Styles.BlackBold.patch(text_size=11.5),
+    bar_mode="group",
+    bar_r=0.8,
+)
+chart.add_series("Primary", [65.0, 82.0, 94.0], style=Styles.PrimaryFlat)
+chart.add_series("Backup", [50.0, 68.0, 80.0], style=Styles.SecondaryNeutral)
+chart.configure_y_axis(min_value=0, max_value=100, tick_step=25, format="{:.0f}%")
+chart.draw(xy=(36.0, 8.0))
+
+callout_title = Styles.DarkBold.patch(text_size=10.0, halign="left", text_color=Colors.Primary5)
+callout_sub = Styles.Muted.patch(text_size=10.0, halign="left")
+arrow_style = Styles.Primary.patch(shape_line_width=1.2)
+
+# 1. Title & Background Card (Top-Right Callout)
+line((90.5, 43.0), (84.5, 43.0), arrow_head="->", style=arrow_style)
+text((91.5, 44.8), "1. Title & Card", style=callout_title)
+text((91.5, 40.5), "title + background_style", style=callout_sub)
+
+# 2. Y-Axis Bounds & Format (Top-Left Callout)
+line((30.5, 34.0), (36.8, 34.0), arrow_head="->", style=arrow_style)
+text((2.0, 36.2), "2. Y-Axis Bounds", style=callout_title)
+text((2.0, 31.8), "configure_y_axis(...)", style=callout_sub)
+
+# 3. Horizontal Gridlines (Middle-Right Callout)
+line((90.5, 29.5), (81.5, 29.5), arrow_head="->", style=arrow_style)
+text((91.5, 31.3), "3. Gridlines", style=callout_title)
+text((91.5, 27.0), "grid_style=Styles.MutedThin", style=callout_sub)
+
+# 4. X-Axis Category Ticks (Bottom-Left Callout)
+line((30.5, 10.3), (47.0, 10.3), arrow_head="->", style=arrow_style)
+text((2.0, 12.6), "4. X-Axis Ticks", style=callout_title)
+text((2.0, 8.2), "categories + axis_text_style", style=callout_sub)
+
+# 5. Decoupled Legend (Bottom-Right Box & Callout)
+rectangle((110.5, 13.5), width=39.0, height=13.5, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+text((92.5, 17.2), "5. Decoupled Legend", style=callout_title)
+chart.draw_legend(
+    xy=(93.5, 10.8),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    orientation="horizontal",
+    swatch_size=(2.4, 1.2),
+    item_gap=3.0,
+)
+
+save()
+```
+
 ---
 
 ## 1. Custom Axis Bounds, Tick Steps & Value Formatting
 
 Cartesian charts expose `chart.configure_x_axis(...)` and `chart.configure_y_axis(...)` (backed by the `Axis` model) to customize domain bounds (`min_value`, `max_value`), explicit ticks (`ticks` or `tick_step`), format strings or callables (`format`), unit suffixes (`unit`), and axis titles (`label`).
 
-```drawlib 650px center show-code file:charts_axes_formatting.png caption:"Custom Axis Bounds, Tick Steps, Format Specifiers, and Units"
+```drawlib center show-code file:charts_axes_formatting.png caption:"Custom Axis Bounds, Tick Steps, Format Specifiers, and Units"
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
 
-setup(width=115, height=62)
+setup(width=118, height=62)
 
 # Left Chart: Explicit tick_step, format string, and unit suffix
 sla_chart = LineChart(
     axis_line_style=Styles.MutedDashed,
     categories=["00:00", "06:00", "12:00", "18:00", "24:00"],
-    axis_text_style=Styles.Muted.patch(text_size=8.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=48.0,
+    width=49.0,
     height=42.0,
     title="API Availability Window",
-    title_style=Styles.BlackBold.patch(text_size=11.0),
+    title_style=Styles.BlackBold.patch(text_size=11.5),
     smooth=True,
     show_points=True,
 )
@@ -39,18 +107,18 @@ sla_chart.configure_y_axis(
     label="Uptime (%)",
 )
 sla_chart.draw(xy=(6.0, 8.0))
-sla_chart.draw_legend(xy=(12.0, 53.0), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+sla_chart.draw_legend(xy=(10.0, 53.0), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal")
 
 # Right Chart: Custom callable formatter and explicit ticks list
 cost_chart = LineChart(
     axis_line_style=Styles.MutedDashed,
     categories=["Q1", "Q2", "Q3", "Q4"],
-    axis_text_style=Styles.Muted.patch(text_size=8.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=48.0,
+    width=49.0,
     height=42.0,
     title="Cloud Spend Trajectory",
-    title_style=Styles.BlackBold.patch(text_size=11.0),
+    title_style=Styles.BlackBold.patch(text_size=11.5),
     show_points=True,
 )
 cost_chart.add_series("Committed Spend", [120, 180, 260, 390], style=Styles.PrimaryFlat, line_width=2.2)
@@ -61,8 +129,8 @@ cost_chart.configure_y_axis(
     format=lambda v: f"${v:,.0f}k",
     label="Quarterly Cost (USD)",
 )
-cost_chart.draw(xy=(61.0, 8.0))
-cost_chart.draw_legend(xy=(65.0, 53.0), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+cost_chart.draw(xy=(63.0, 8.0))
+cost_chart.draw_legend(xy=(65.0, 53.0), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal")
 save()
 ```
 
@@ -74,7 +142,7 @@ Each `Axis` supports two scaling engines via `scale`:
 - **`scale="linear"` *(default)***: Uses the **Nice Numbers algorithm** to automatically select human-readable step intervals ($1, 2, 5 \times 10^k$) across the data range when `tick_step` and `ticks` are omitted.
 - **`scale="log"`**: Maps positive values onto a base-10 logarithmic axis ($\log_{10}$). Bounds automatically snap to powers of 10 ($10^0, 10^1, 10^2, \dots$), and intermediate ticks ($1, 2, 5 \times 10^k$) are generated automatically when the span covers $\le 2$ orders of magnitude.
 
-```drawlib 600px center show-code file:charts_axes_log_scale.png caption:"Logarithmic Y-Axis Scale (scale='log') Across Storage Hierarchy Latencies"
+```drawlib center show-code file:charts_axes_log_scale.png caption:"Logarithmic Y-Axis Scale (scale='log') Across Storage Hierarchy Latencies"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -84,9 +152,9 @@ setup(width=105, height=68)
 chart = BarChart(
     axis_line_style=Styles.MutedDashed,
     categories=["L1 Cache", "Main RAM", "NVMe SSD", "Regional RPC"],
-    axis_text_style=Styles.Muted.patch(text_size=9.0),
+    axis_text_style=Styles.Muted.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
-    value_text_style=Styles.DarkBold.patch(text_size=8.5),
+    value_text_style=Styles.DarkBold.patch(text_size=10.0),
     value_format="{:g} ns",
     width=82.0,
     height=46.0,
@@ -112,18 +180,18 @@ save()
 
 Instead of hardcoding legends inside a rigid chart box, Drawlib decouples legend rendering via `chart.draw_legend(...)`. You can place horizontal or vertical legends anywhere on the canvas, customize `swatch_size` and `item_gap`, and query `chart.get_size() -> (width, height)` to align legends or surrounding cards relative to the chart's dimensions.
 
-```drawlib 650px center show-code file:charts_legends_and_sizing.png caption:"Decoupled Horizontal and Vertical Legends with Custom Swatches and get_size() Alignment"
+```drawlib center show-code file:charts_legends_and_sizing.png caption:"Decoupled Horizontal and Vertical Legends with Custom Swatches and get_size() Alignment"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=115, height=68)
+setup(width=118, height=68)
 
 chart = BarChart(
     categories=["US-East", "EU-West", "AP-East"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=9.0),
+    axis_text_style=Styles.Muted.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
     width=66.0,
     height=42.0,
@@ -142,26 +210,26 @@ chart.draw(xy=(chart_x, chart_y))
 
 # 1. Horizontal Legend placed above the chart plot area
 chart.draw_legend(
-    xy=(12.0, 55.0),
+    xy=(11.0, 55.0),
     orientation="horizontal",
-    item_gap=4.0,
+    item_gap=3.5,
     swatch_size=(2.5, 1.3),
-    text_style=Styles.DarkBold.patch(text_size=8.5),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # 2. Vertical Legend inside a Sidebar Card aligned via chart.get_size()
 chart_w, chart_h = chart.get_size()
-legend_card_cx = chart_x + chart_w + 18.0
+legend_card_cx = chart_x + chart_w + 19.0
 rectangle(
     xy=(legend_card_cx, chart_y + chart_h / 2.0),
-    width=28.0,
+    width=30.0,
     height=26.0,
     style=Styles.Neutral.patch(shape_r=1.5),
 )
 
 chart.draw_legend(
-    xy=(legend_card_cx - 11.0, chart_y + chart_h / 2.0 + 7.0),
-    text_style=Styles.DarkBold.patch(text_size=9.0),
+    xy=(legend_card_cx - 12.5, chart_y + chart_h / 2.0 + 7.0),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
     orientation="vertical",
     swatch_size=(3.0, 1.5),
 )

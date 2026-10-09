@@ -6,43 +6,43 @@
 
 ## 1. Overview & Topologies
 
-```drawlib 650px center fold-code file:scatterchart_topologies_overview.png caption:"ScatterChart Topologies: Multi-Shape 2D Scatter vs. 3D Bubble Sizing"
+```drawlib center fold-code file:scatterchart_topologies_overview.png caption:"ScatterChart Topologies: Multi-Shape 2D Scatter vs. 3D Bubble Sizing"
 from drawlib.canvas import save, setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
 
-setup(width=145, height=55)
+setup(width=132, height=55)
 
 # Left: 2D Scatter with Multiple PointShapes & add() Callout
 scatter_2d = ScatterChart(
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=8.0),
-    value_text_style=Styles.DarkBold.patch(text_size=7.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
+    value_text_style=Styles.DarkBold.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=62.0,
+    width=58.0,
     height=38.0,
     title="1. Multi-Shape 2D Scatter & add() Callout",
-    title_style=Styles.BlackBold.patch(text_size=9.5),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
 )
 scatter_2d.configure_x_axis(label="Throughput (rps)", min_value=0, max_value=800, tick_step=200)
 scatter_2d.configure_y_axis(label="Latency (ms)", min_value=0, max_value=100, tick_step=25)
 
-scatter_2d.add(xy=(110, 22), style=Styles.Neutral, radius=1.5, shape="rhombus", label="add() Target")
-scatter_2d.add_series("v2 Engine", [(390, 18), (560, 24), (720, 30)], style=Styles.PrimaryFlat, shape="circle", radius=1.2)
-scatter_2d.add_series("Worker Pool", [(300, 46), (520, 58), (680, 72)], style=Styles.SecondaryNeutral, shape="triangle", radius=1.3)
-scatter_2d.add_series("Legacy", [(150, 62), (350, 78), (500, 92)], style=Styles.Dark, shape="square", radius=1.1)
-scatter_2d.draw(xy=(6.0, 8.0))
-scatter_2d.draw_legend(xy=(11.0, 48.0), text_style=Styles.Dark.patch(text_size=7.5), orientation="horizontal", item_gap=3.0)
+scatter_2d.add(xy=(90, 32), style=Styles.Neutral, radius=1.5, shape="rhombus", label="add() Target")
+scatter_2d.add_series("v2 Engine", [(420, 18), (580, 24), (720, 30)], style=Styles.PrimaryFlat, shape="circle", radius=1.2)
+scatter_2d.add_series("Worker Pool", [(340, 48), (520, 58), (680, 72)], style=Styles.SecondaryNeutral, shape="triangle", radius=1.3)
+scatter_2d.add_series("Legacy", [(150, 66), (350, 78), (500, 92)], style=Styles.Dark, shape="square", radius=1.1)
+scatter_2d.draw(xy=(4.0, 8.0))
+scatter_2d.draw_legend(xy=(8.0, 48.0), text_style=Styles.Dark.patch(text_size=10.0), orientation="horizontal", item_gap=3.0)
 
 # Right: 3D Proportional Bubble Plot (x, y, radius)
 bubble_3d = ScatterChart(
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=8.0),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=62.0,
+    width=58.0,
     height=38.0,
     title="2. 3D Bubble Sizing: (x, y, radius)",
-    title_style=Styles.BlackBold.patch(text_size=9.5),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
 )
 bubble_3d.configure_x_axis(label="RAM (GB)", min_value=0, max_value=32, tick_step=8)
 bubble_3d.configure_y_axis(label="Duration (s)", min_value=0, max_value=60, tick_step=15)
@@ -59,8 +59,8 @@ bubble_3d.add_series(
     style=Styles.SecondaryNeutral,
     shape="rhombus",
 )
-bubble_3d.draw(xy=(77.0, 8.0))
-bubble_3d.draw_legend(xy=(88.0, 48.0), text_style=Styles.Dark.patch(text_size=7.5), orientation="horizontal", item_gap=4.0)
+bubble_3d.draw(xy=(70.0, 8.0))
+bubble_3d.draw_legend(xy=(78.0, 48.0), text_style=Styles.Dark.patch(text_size=10.0), orientation="horizontal", item_gap=4.0)
 
 save()
 ```
@@ -76,7 +76,7 @@ save()
 
 Combining multi-series runs (`"circle"`, `"square"`, `"triangle"`) with individually annotated reference points (`"rhombus"`) makes system performance comparisons immediately actionable:
 
-```drawlib 650px center show-code file:scatterchart_latency_benchmark.png caption:"Throughput vs p99 Latency Benchmark Across Marker Shapes"
+```drawlib center show-code file:scatterchart_latency_benchmark.png caption:"Throughput vs p99 Latency Benchmark Across Marker Shapes"
 from drawlib.canvas import save, setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -85,8 +85,8 @@ setup(width=105, height=75)
 
 chart = ScatterChart(
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
-    value_text_style=Styles.BlackBold.patch(text_size=8.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.5),
+    value_text_style=Styles.BlackBold.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
     width=85.0,
     height=52.0,
@@ -97,19 +97,19 @@ chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, m
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
 # 1. Annotated Reference Points with Rhombus & Triangle Shapes
-chart.add(xy=(120.0, 22.0), style=Styles.Neutral, radius=1.5, shape="rhombus", label="v1.0 Baseline")
-chart.add(xy=(740.0, 36.0), style=Styles.PrimaryNeutral, radius=1.8, shape="triangle", label="v2.5 Target")
+chart.add(xy=(100.0, 20.0), style=Styles.Neutral, radius=1.5, shape="rhombus", label="v1.0 Baseline")
+chart.add(xy=(720.0, 38.0), style=Styles.PrimaryNeutral, radius=1.8, shape="triangle", label="v2.5 Target")
 
 # 2. Multi-Series Experimental Runs
 chart.add_series(
     name="Async Rust Engine",
-    data=[(300, 18.0), (500, 19.5), (700, 21.0), (950, 24.0)],
+    data=[(360, 18.0), (540, 19.5), (720, 21.0), (950, 24.0)],
     style=Styles.PrimaryFlat,
     shape="circle",
 )
 chart.add_series(
     name="Go Worker Pool",
-    data=[(250, 32.0), (450, 48.0), (650, 68.0), (850, 92.0)],
+    data=[(320, 42.0), (480, 54.0), (650, 68.0), (850, 92.0)],
     style=Styles.SecondaryNeutral,
     shape="triangle",
 )
@@ -121,7 +121,7 @@ chart.add_series(
 )
 
 chart.draw(xy=(10.0, 10.0))
-chart.draw_legend(xy=(22.0, 56.0), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+chart.draw_legend(xy=(18.0, 56.0), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal")
 save()
 ```
 
@@ -131,7 +131,7 @@ save()
 
 By providing 3-tuples `(x, y, radius)` in `add_series(data=...)`, each point's radius encodes a 3rd numerical dimension:
 
-```drawlib 650px center show-code file:scatterchart_bubble_plot.png caption:"Compute Workload Multidimensional Bubble Plot"
+```drawlib center show-code file:scatterchart_bubble_plot.png caption:"Compute Workload Multidimensional Bubble Plot"
 from drawlib.canvas import save, setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -140,7 +140,7 @@ setup(width=105, height=75)
 
 chart = ScatterChart(
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
     width=85.0,
     height=52.0,
@@ -165,7 +165,7 @@ chart.add_series(
 )
 
 chart.draw(xy=(10.0, 10.0))
-chart.draw_legend(xy=(25.0, 56.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
+chart.draw_legend(xy=(22.0, 56.0), text_style=Styles.Muted.patch(text_size=10.5), orientation="horizontal")
 save()
 ```
 

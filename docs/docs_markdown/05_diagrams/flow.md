@@ -9,7 +9,7 @@
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="flow_images/flow_standard_symbols.png" alt="flow_1" style="width: 650px; max-width: 100%;" />
+  <img src="flow_images/flow_standard_symbols.png" alt="flow_1" />
   <figcaption class="drawlib-caption">ISO 5807 Flowchart Symbol Classes in FlowDiagram</figcaption>
 </figure>
 
@@ -23,27 +23,33 @@ from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=152, height=62)
+setup(width=130, height=58)
 
 flow = FlowDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Neutral.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
-    width=144.0,
-    height=54.0,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
+    width=122.0,
+    height=50.0,
 )
 
 # 6 Standard Flowchart Symbol Classes: Start, Data, Process, Decision, Junction, End
-s_start = flow.add(Start("Start\n(Terminal)", width=22.0, height=11.0, style=Styles.PrimaryNeutral), xy=(15.0, 40.0))
-s_data = flow.add(Data("Data\n(Input / I/O)", width=26.0, height=12.0), xy=(52.0, 40.0))
-s_proc = flow.add(Process("Process\n(Operation)", width=26.0, height=12.0), xy=(90.0, 40.0))
-s_dec = flow.add(Decision("Decision\n(Branch?)", width=26.0, height=15.0, style=Styles.SecondaryNeutral), xy=(90.0, 15.0))
+s_start = flow.add(
+    Start("Start\n(Terminal)", width=20.0, height=11.0, style=Styles.PrimaryNeutral.patch(text_size=10.5)),
+    xy=(13.0, 37.0),
+)
+s_data = flow.add(Data("Data\n(Input / I/O)", width=23.0, height=12.0), xy=(44.5, 37.0))
+s_proc = flow.add(Process("Process\n(Operation)", width=23.0, height=12.0), xy=(77.5, 37.0))
+s_dec = flow.add(
+    Decision("Decision\n(Branch?)", width=24.0, height=15.0, style=Styles.SecondaryNeutral.patch(text_size=10.5)),
+    xy=(77.5, 14.0),
+)
 
 # Junction waypoint for orthogonal retry loop back to Data
-j_retry = flow.junction((52.0, 15.0))
+j_retry = flow.junction((44.5, 14.0))
 s_end = flow.add(
-    End("End\n(Complete)", width=22.0, height=11.0, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
-    xy=(130.0, 15.0),
+    End("End\n(Complete)", width=20.0, height=11.0, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5)),
+    xy=(110.0, 14.0),
 )
 
 s_start.connect(s_data)
@@ -55,12 +61,12 @@ j_retry.connect(s_data, label="Retry", end_side="bottom")
 
 flow.draw(xy=(4.0, 4.0))
 
-# Highlight the zero-size Junction coordinate point (4 + 52 = 56, 4 + 15 = 19)
-circle((56.0, 19.0), radius=1.3, style=Styles.PrimaryFlat)
+# Highlight the zero-size Junction coordinate point (4 + 44.5 = 48.5, 4 + 14 = 18)
+circle((48.5, 18.0), radius=1.3, style=Styles.PrimaryFlat)
 text(
-    (56.0, 14.0),
+    (48.5, 12.8),
     "Junction (x, y)",
-    style=Styles.DarkBold.patch(text_size=8.5, text_color=Colors.Primary5),
+    style=Styles.DarkBold.patch(text_size=10.5, text_color=Colors.Primary5),
 )
 
 save()
@@ -182,34 +188,42 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
-setup(width=110, height=95)
+setup(width=108, height=96)
 
 flow = FlowDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Neutral.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="Expense Reimbursement Approval Workflow",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
     width=100.0,
-    height=90.0,
+    height=86.0,
 )
 
 # 1. Define vertical department lanes (columns from left to right)
-flow.add_lane("Employee", width=30.0)
-flow.add_lane("Line Manager", width=35.0)
-flow.add_lane("Finance Dept", width=35.0)
+lane_lbl = Styles.DarkBold.patch(text_size=11.0)
+flow.add_lane("Employee", width=30.0, text_style=lane_lbl)
+flow.add_lane("Line Manager", width=35.0, text_style=lane_lbl)
+flow.add_lane("Finance Dept", width=35.0, text_style=lane_lbl)
 
 # 2. Add nodes (Y coordinates align corresponding steps horizontally)
-submit = flow.add(Start("Submit Claim"), xy=(15.0, 78.0))
-receipt = flow.add(Data("Attach Receipt"), xy=(15.0, 62.0))
+submit = flow.add(Start("Submit Claim"), xy=(15.0, 72.0))
+receipt = flow.add(Data("Attach Receipt"), xy=(15.0, 56.0))
 review = flow.add(
-    Process("Review Details", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
-    xy=(47.5, 62.0),
+    Process("Review Details", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5)),
+    xy=(47.5, 56.0),
 )
-decision = flow.add(Decision("Amount < $500?", style=Styles.SecondaryNeutral), xy=(47.5, 42.0))
+decision = flow.add(
+    Decision("Amount < $500?", style=Styles.SecondaryNeutral.patch(text_size=10.5)),
+    xy=(47.5, 37.0),
+)
 
-audit = flow.add(Process("Compliance Audit"), xy=(82.5, 42.0))
-auto_pay = flow.add(Process("Disburse Payment", style=Styles.PrimaryNeutral), xy=(82.5, 20.0))
-end = flow.add(End("Claim Closed"), xy=(15.0, 20.0))
+audit = flow.add(Process("Compliance Audit"), xy=(82.5, 37.0))
+auto_pay = flow.add(
+    Process("Disburse Payment", style=Styles.PrimaryNeutral.patch(text_size=10.5)),
+    xy=(82.5, 20.0),
+)
+end = flow.add(End("Claim Closed"), xy=(15.0, 12.0))
 
 # 3. Connect steps
 submit.connect(receipt)
@@ -220,14 +234,14 @@ review.connect(decision)
 decision.connect(audit, label="No", start_side="right", end_side="left")
 decision.connect(auto_pay, label="Yes", start_side="bottom", end_side="left")
 audit.connect(auto_pay, start_side="bottom", end_side="top")
-auto_pay.connect(end, label="Notice Sent", start_side="left", end_side="right")
+auto_pay.connect(end, label="Notice Sent", start_side="bottom", end_side="right")
 
-flow.draw(xy=(5.0, 5.0))
+flow.draw(xy=(4.0, 4.0))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="flow_images/flow_approval_workflow.png" alt="flow_2" style="width: 650px; max-width: 100%;" />
+  <img src="flow_images/flow_approval_workflow.png" alt="flow_2" />
   <figcaption class="drawlib-caption">Cross-Department Reimbursement Approval Workflow</figcaption>
 </figure>
 
@@ -246,38 +260,43 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
-setup(width=145, height=80)
+setup(width=130, height=74)
 
 flow = FlowDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Neutral.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="Fulfillment Logistics Pipeline",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
     lane_orientation="horizontal",
-    width=130.0,
-    height=65.0,
+    width=120.0,
+    height=60.0,
 )
 
-flow.add_lane("Sales Platform", height=32.5, header_size=22.0)
-flow.add_lane("Distribution Center", height=32.5, header_size=22.0)
+lane_lbl = Styles.DarkBold.patch(text_size=10.5)
+flow.add_lane("Sales Platform", height=30.0, header_size=22.0, text_style=lane_lbl)
+flow.add_lane("Distribution Center", height=30.0, header_size=22.0, text_style=lane_lbl)
 
-order = flow.add(Start("New Purchase", width=22.0), xy=(36.0, 48.0))
-validate = flow.add(Decision("In Stock?", style=Styles.SecondaryNeutral), xy=(68.0, 48.0))
-cancel = flow.add(End("Cancel & Refund", width=26.0), xy=(112.0, 48.0))
-pack = flow.add(Process("Pick & Pack", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=(68.0, 16.0))
-dispatch = flow.add(End("Ship Carrier", width=24.0), xy=(112.0, 16.0))
+order = flow.add(Start("New Purchase", width=21.0), xy=(35.0, 45.0))
+validate = flow.add(Decision("In Stock?", style=Styles.SecondaryNeutral.patch(text_size=10.5)), xy=(66.0, 45.0))
+cancel = flow.add(End("Cancel & Refund", width=25.0), xy=(104.0, 45.0))
+pack = flow.add(
+    Process("Pick & Pack", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5)),
+    xy=(66.0, 15.0),
+)
+dispatch = flow.add(End("Ship Carrier", width=23.0), xy=(104.0, 15.0))
 
 order.connect(validate)
 validate.connect(cancel, label="No", start_side="right", end_side="left")
 validate.connect(pack, label="Yes", start_side="bottom", end_side="top")
 pack.connect(dispatch)
 
-flow.draw(xy=(8.0, 5.0))
+flow.draw(xy=(5.0, 4.0))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="flow_images/flow_fulfillment_pipeline.png" alt="flow_3" style="width: 650px; max-width: 100%;" />
+  <img src="flow_images/flow_fulfillment_pipeline.png" alt="flow_3" />
   <figcaption class="drawlib-caption">Fulfillment Logistics Horizontal Pipeline</figcaption>
 </figure>
 

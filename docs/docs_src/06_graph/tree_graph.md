@@ -4,6 +4,60 @@
 
 Use `TreeGraph` whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees.
 
+```drawlib fold-code center file:graph_tree_hero.png caption:"TreeGraph Overview: Orthogonal vs. Straight Branch Routing in Balanced Hierarchies"
+from drawlib.canvas import save, setup
+from drawlib.graph import TreeGraph
+from drawlib.icons import phosphor
+from drawlib.styles import Styles
+
+setup(width=124, height=58)
+
+g = TreeGraph(
+    root="core",
+    direction="TB",
+    level_sep=7.0,
+    sibling_sep=5.0,
+    edge_routing="orthogonal",
+    default_node_width=24.0,
+    default_node_height=12.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+
+# Level 0: Root Node
+g.node(
+    "core",
+    "\nPlatform Core",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+
+# Level 1: Division Branches
+g.child("core", "compute", "\nCompute Plane", style=Styles.PrimaryNeutral)
+g.child("core", "data", "\nData Plane", style=Styles.SecondaryNeutral)
+
+# Level 2: Leaf Subsystems (50%+ Neutral baseline)
+g.child("compute", "api", "\nAPI Mesh", style=Styles.Neutral)
+g.child("compute", "workers", "\nWorker Pool", style=Styles.Neutral)
+g.child("data", "sql", "\nPrimary SQL", style=Styles.Neutral)
+g.child("data", "cache", "\nCache Cluster", style=Styles.Neutral)
+
+layout = g.draw(margin=4.5)
+
+for nid, icon_fn, st in [
+    ("core", phosphor.cloud, Styles.White),
+    ("compute", phosphor.cpu, Styles.Primary),
+    ("data", phosphor.database, Styles.Secondary),
+    ("api", phosphor.globe, Styles.Dark),
+    ("workers", phosphor.sliders_horizontal, Styles.Dark),
+    ("sql", phosphor.database, Styles.Dark),
+    ("cache", phosphor.lightning, Styles.Dark),
+]:
+    n = layout.nodes[nid]
+    icon_fn((n.x, n.y + 2.2), width=4.0, style=st)
+
+save()
+```
+
 ---
 
 ## 1. Constructor & `.child()` Builder API
@@ -74,17 +128,23 @@ g.child(
 
 A top-down (`direction="TB"`) tree is ideal for organizational structures, class taxonomies, and ASTs. Notice how the Buchheim contour solver centers `VP Engineering` over the two division heads and evenly spaces the four leaf teams:
 
-```drawlib show-code 680px center file:graph_tree_tb_hierarchy.png caption:"Top-Down (TB) Engineering Organization Hierarchy with Orthogonal Branches"
+```drawlib show-code center file:graph_tree_tb_hierarchy.png caption:"Top-Down (TB) Engineering Organization Hierarchy with Orthogonal Branches"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles
 
-setup(width=165, height=88)
+setup(width=124, height=62)
 
-g = TreeGraph(root="vp", direction="TB", default_node_width=28.0, default_node_height=12.0)
+g = TreeGraph(
+    root="vp",
+    direction="TB",
+    default_node_width=25.0,
+    default_node_height=11.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
 
 # Root focal node in PrimaryFlat
-g.node("vp", "VP Engineering", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node("vp", "VP Engineering", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
 
 # Second level in Tinted-Neutral cards
 g.child("vp", "plat", "Platform Div", style=Styles.PrimaryNeutral)
@@ -96,7 +156,7 @@ g.child("plat", "sec", "Security Eng", style=Styles.Neutral)
 g.child("prod", "web", "Web Frontend", style=Styles.Neutral)
 g.child("prod", "mob", "Mobile Apps", style=Styles.Neutral)
 
-g.draw(margin=12.0)
+g.draw(margin=5.0)
 save()
 ```
 
@@ -106,22 +166,23 @@ save()
 
 Switching to `direction="LR"` grows the hierarchy horizontally from left to right. This layout works exceptionally well for API request fan-out trees, work breakdown structures (WBS), and file/module trees where labels are wider than they are tall:
 
-```drawlib show-code 700px center file:graph_tree_lr_decomposition.png caption:"Left-to-Right (LR) Query Execution Decomposition Tree"
+```drawlib show-code center file:graph_tree_lr_decomposition.png caption:"Left-to-Right (LR) Query Execution Decomposition Tree"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles
 
-setup(width=175, height=95)
+setup(width=126, height=68)
 
 g = TreeGraph(
     root="query_plan",
     direction="LR",
     default_node_width=28.0,
     default_node_height=11.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Root query coordinator
-g.node("query_plan", "Query Planner", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node("query_plan", "Query Planner", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
 
 # Intermediate execution branches
 g.child("query_plan", "index_scan", "Index Lookup", edge_label="Filter", style=Styles.PrimaryNeutral)
@@ -133,7 +194,7 @@ g.child("index_scan", "shard_2", "Users Shard B", style=Styles.Neutral)
 g.child("agg_stage", "col_store", "Orders Columnar", style=Styles.Neutral)
 g.child("agg_stage", "cache_hit", "Materialized View", style=Styles.Neutral)
 
-g.draw(margin=12.0)
+g.draw(margin=5.0)
 save()
 ```
 
@@ -143,32 +204,33 @@ save()
 
 When `root=None`, `TreeGraph` automatically identifies all nodes with in-degree `0` and arranges multiple independent trees side-by-side as a balanced forest. Passing `edge_routing="straight"` connects parents to children with direct Euclidean line segments:
 
-```drawlib show-code 650px center file:graph_tree_multi_root_forest.png caption:"Automatic Multi-Root Forest (root=None) with Straight Edge Routing"
+```drawlib show-code center file:graph_tree_multi_root_forest.png caption:"Automatic Multi-Root Forest (root=None) with Straight Edge Routing"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles
 
-setup(width=175, height=82)
+setup(width=126, height=56)
 
 g = TreeGraph(
     direction="TB",
     root=None,
     edge_routing="straight",
-    default_node_width=29.0,
-    default_node_height=11.5,
+    default_node_width=25.0,
+    default_node_height=11.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Tree 1: Frontend App Hierarchy (Root 1)
-g.node("fe_app", "Frontend App", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node("fe_app", "Frontend App", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
 g.child("fe_app", "fe_router", "SPA Router", style=Styles.PrimaryNeutral)
 g.child("fe_app", "fe_store", "State Store", style=Styles.Neutral)
 
 # Tree 2: Backend API Hierarchy (Root 2)
-g.node("be_api", "Backend API", style=Styles.SecondaryNeutral, text_style=Styles.DarkBold)
+g.node("be_api", "Backend API", style=Styles.SecondaryNeutral)
 g.child("be_api", "be_auth", "Auth Module", style=Styles.Neutral)
 g.child("be_api", "be_billing", "Billing Engine", style=Styles.Neutral)
 
-g.draw(margin=12.0)
+g.draw(margin=5.0)
 save()
 ```
 

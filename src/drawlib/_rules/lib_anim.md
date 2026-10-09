@@ -160,7 +160,7 @@ You can embed animations directly inside Markdown documents using the ````drawli
 ````markdown
 # System Event Pipeline
 
-```drawlib 600px center file:packet_pipeline.png caption:"Live Packet Flow"
+```drawlib center file:packet_pipeline.png caption:"Live Packet Flow"
 from drawlib.anim import Animation
 from drawlib.canvas import setup
 from drawlib.lines import line

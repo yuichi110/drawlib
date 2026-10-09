@@ -1,18 +1,10 @@
 # Cylinders, Faces & Callouts
 
 Beyond standard geometric primitives, `drawlib.shapes` includes three expressive domain shapes for technical architecture and storytelling diagrams:
-- **`cylinder`**: 3D shaded storage cylinders and multi-disk database stacks.
-- **`face`**: Expressive user/actor personas and operational status faces.
-- **`bubblespeech`**: Callout speech bubbles with directional pointer tails.
-
----
-
-## 1. Overview: Combining Actors, Databases & Callouts
-
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_overview.png" alt="shapes_domain_1" style="width: 650px; max-width: 100%;" />
+  <img src="shapes_domain_images/shapes_domain_overview.png" alt="shapes_domain_1" />
   <figcaption class="drawlib-caption">Combining Actor Faces, 3D Database Cylinders, and Speech Callouts</figcaption>
 </figure>
 
@@ -26,37 +18,38 @@ from drawlib.shapes import bubblespeech, cylinder, face
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=125, height=56)
+setup(width=120, height=52)
 
 # 1. User Actor Face
-face((22, 26), radius=10, style=Styles.Neutral, mood="smile")
-text((22, 11), "SRE Operator", style=Styles.DarkBold)
+face((20, 26), radius=10, style=Styles.Neutral, mood="smile")
+text((20, 10), "SRE Operator", style=Styles.DarkBold.patch(text_size=11.0))
 
 # 2. 3-Disk Primary Database Cylinder
 cylinder(
-    (64, 24),
+    (60, 24),
     width=26,
     height=32,
     disks=3,
     style=Styles.PrimaryFlat,
     text="Primary\nCluster",
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
 # 3. Callout Speech Bubble pointing to the Database
 bubblespeech(
-    xy=(84, 26),
+    xy=(80, 25),
     width=35,
     height=18,
     tail_edge="left",
     tail_start_ratio=0.25,
     tail_end_ratio=0.55,
-    tail_vertex_xy=(77, 28),
+    tail_vertex_xy=(73, 28),
     style=Styles.SecondaryNeutral,
     text="3-disk replicated\nstorage volume",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
-line((34, 26), (49, 26), arrow_head="->", style=Styles.DarkBold)
+line((32, 26), (45, 26), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -64,6 +57,14 @@ save()
 </details>
 
 
+
+---
+
+## 1. Overview of Domain Shapes
+
+- **`cylinder`**: 3D shaded storage cylinders and multi-disk database stacks.
+- **`face`**: Expressive user/actor personas and operational status faces.
+- **`bubblespeech`**: Callout speech bubbles with directional pointer tails.
 
 ---
 
@@ -99,36 +100,37 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import cylinder
 from drawlib.styles import Styles
 
-setup(width=120, height=52)
+setup(width=118, height=48)
 
 # 1. Single-tier cache cylinder
-cylinder((24, 26), width=26, height=34, style=Styles.Neutral, text="Cache")
+cylinder((22, 24), width=26, height=34, style=Styles.Neutral, text="Cache", text_style=Styles.DarkBold.patch(text_size=11.5))
 
 # 2. 3-disk database stack (disks=3)
 cylinder(
-    (62, 26),
+    (60, 24),
     width=28,
     height=36,
     disks=3,
     style=Styles.PrimaryFlat,
     text="Primary\nDB",
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=11.5),
 )
 
 # 3. Horizontal rotated cylinder (angle=-90 for message queue)
 cylinder(
-    (99, 26),
+    (97, 24),
     width=20,
     height=32,
     style=Styles.SecondaryNeutral.patch(angle=-90),
     text="Queue",
+    text_style=Styles.DarkBold.patch(text_size=11.5),
 )
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_cylinder.png" alt="shapes_domain_2" style="width: 620px; max-width: 100%;" />
+  <img src="shapes_domain_images/shapes_domain_cylinder.png" alt="shapes_domain_2" />
   <figcaption class="drawlib-caption">Single Cylinder, 3-Disk Database Stack, and Horizontal Queue</figcaption>
 </figure>
 
@@ -163,7 +165,7 @@ from drawlib.shapes import face
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=125, height=46)
+setup(width=120, height=44)
 
 moods = [
     ("smile", Styles.PrimaryFlat),
@@ -174,15 +176,15 @@ moods = [
 ]
 
 for i, (mood_name, st) in enumerate(moods):
-    cx = 17 + i * 22.5
-    face((cx, 27), radius=9, style=st, mood=mood_name)
-    text((cx, 11), f'"{mood_name}"', style=Styles.DarkBold.patch(text_size=9.5))
+    cx = 16 + i * 22
+    face((cx, 26), radius=9, style=st, mood=mood_name)
+    text((cx, 10), f'"{mood_name}"', style=Styles.DarkBold.patch(text_size=10.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_3" style="width: 640px; max-width: 100%;" />
+  <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_3" />
   <figcaption class="drawlib-caption">The Five Facial Moods in drawlib.shapes.face</figcaption>
 </figure>
 
@@ -228,51 +230,52 @@ from drawlib.shapes import bubblespeech, circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=128, height=56)
+setup(width=124, height=54)
 
 # Target nodes
-circle((26, 14), radius=8.5, style=Styles.Neutral, text="Node A")
-rectangle((102, 22), width=26, height=16, style=Styles.Neutral, text="Service B")
+circle((26, 12), radius=8.0, style=Styles.Neutral, text="Node A", text_style=Styles.DarkBold.patch(text_size=10.5))
+rectangle((103, 21), width=26, height=16, style=Styles.Neutral, text="Service B", text_style=Styles.DarkBold.patch(text_size=10.5))
 
 # 1. Callout with bottom tail pointing down to Node A
 bubblespeech(
-    xy=(8, 33),
-    width=38,
+    xy=(6, 33),
+    width=40,
     height=15,
     tail_edge="bottom",
     tail_start_ratio=0.35,
     tail_end_ratio=0.60,
-    tail_vertex_xy=(26, 26),
+    tail_vertex_xy=(26, 25),
     style=Styles.PrimaryFlat,
     text="Bottom Tail Callout\n(tail_edge='bottom')",
-    text_style=Styles.WhiteBold.patch(text_size=9.5),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 # Coordinate indicators for bottom-left anchor xy and tail_vertex_xy
-circle((8, 33), radius=1.1, style=Styles.DangerFlat)
-text((4, 29.5), "xy=(8, 33)", style=Styles.DangerBold.patch(text_size=8.0, halign="left"))
+circle((6, 33), radius=1.1, style=Styles.DangerFlat)
+text((4, 29.0), "xy=(6, 33)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
-circle((26, 26), radius=1.1, style=Styles.DangerFlat)
-text((28.5, 26.5), "tail_vertex_xy=(26, 26)", style=Styles.DangerBold.patch(text_size=8.0, halign="left"))
+circle((26, 25), radius=1.1, style=Styles.DangerFlat)
+text((28.5, 25.0), "tail_vertex_xy=(26, 25)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
 # 2. Callout with right tail pointing to Service B
 bubblespeech(
-    xy=(64, 14),
-    width=15,
+    xy=(65, 13),
+    width=16,
     height=16,
     tail_edge="right",
     tail_start_ratio=0.30,
     tail_end_ratio=0.70,
-    tail_vertex_xy=(88, 22),
+    tail_vertex_xy=(88, 21),
     style=Styles.SecondaryNeutral,
     text="Note",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
 )
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_bubblespeech.png" alt="shapes_domain_4" style="width: 640px; max-width: 100%;" />
+  <img src="shapes_domain_images/shapes_domain_bubblespeech.png" alt="shapes_domain_4" />
   <figcaption class="drawlib-caption">Speech Bubble Callouts with Bottom-Left Anchor xy and Pointer Tail Vertex</figcaption>
 </figure>
 

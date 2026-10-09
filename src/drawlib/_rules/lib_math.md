@@ -142,7 +142,7 @@ for i in range(total_nodes):
 ### 3.2. Slanted Line Text Annotation
 Align text perfectly parallel to a connecting line between points `p1` and `p2`:
 
-```drawlib show-code 600px center file:math_slanted_line_text.png caption:"Slanted Line Annotation with get_angle()"
+```drawlib show-code center file:math_slanted_line_text.png caption:"Slanted Line Annotation with get_angle()"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle
@@ -173,7 +173,7 @@ save()
 
 ### 4.1. Automated Cluster Boundary via `get_center_and_size()`
 
-```drawlib fold-code 600px center caption:"Automated Grouping Box with get_center_and_size()"
+```drawlib fold-code center caption:"Automated Grouping Box with get_center_and_size()"
 from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
@@ -209,7 +209,7 @@ save()
 
 ### 4.2. Radial Network Hub with Calculated Angles & Distances
 
-```drawlib fold-code 600px center caption:"Radial Topology with Math Angle & Distance Computations"
+```drawlib fold-code center caption:"Radial Topology with Math Angle & Distance Computations"
 import math
 from drawlib.canvas import save, setup
 from drawlib.lines import line

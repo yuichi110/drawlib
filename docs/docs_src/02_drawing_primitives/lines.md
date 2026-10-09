@@ -1,26 +1,9 @@
 # Lines & Connectors
 
 Connectors establish communication pathways, data flow directions, and structural relationships between diagram entities.
-The `drawlib.lines` module provides **8 vector connector functions** covering straight lines, smooth circular arcs, quadratic and cubic Bézier curves, multi-point orthogonal (Manhattan) polylines, filleted polylines, compound paths, and elliptical arc connectors.
+The `drawlib.lines` module provides **8 vector connector functions** covering straight lines, smooth circular arcs, quadratic and cubic Bézier curves, multi-point orthogonal (Manhattan) polylines, filleted polylines, compound paths, and elliptical arc connectors:
 
-```python
-from drawlib.lines import (
-    line,          # Straight line segment between xy1 and xy2
-    line_curved,   # Circular arc spline between xy1 and xy2 with scalar bend
-    line_bezier1,  # Quadratic Bézier curve with 1 control point (cp)
-    line_bezier2,  # Cubic Bézier curve with 2 control points (cp1, cp2)
-    lines,         # Multi-point polyline through a sequence of coordinates
-    lines_curved,  # Multi-point polyline with automatic corner fillet radius r
-    lines_bezier,  # Multi-segment path mixing straight, quadratic, and cubic Béziers
-    line_arc,      # Open circular or elliptical arc connector
-)
-```
-
----
-
-## 1. Overview of Line Primitives
-
-```drawlib fold-code 650px center file:lines_overview.png caption:"Overview of All 8 Drawlib Line and Curve Connectors"
+```drawlib fold-code center file:lines_overview.png caption:"Overview of All 8 Drawlib Line and Curve Connectors"
 from drawlib.canvas import save, setup
 from drawlib.lines import (
     line,
@@ -36,45 +19,64 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=148, height=68)
+setup(width=132, height=62)
 
 # Background cards for the 4x2 showcase grid
-cols = [21, 56, 91, 126]
+cols = [19, 50.3, 81.7, 113]
 for c_idx, cx in enumerate(cols):
     r1_st = Styles.PrimaryNeutral if c_idx == 3 else Styles.Neutral
     r2_st = Styles.PrimaryNeutral if c_idx == 1 else (Styles.SecondaryNeutral if c_idx == 3 else Styles.Neutral)
-    rectangle((cx, 50), width=31, height=26, style=r1_st.patch(shape_r=2))
-    rectangle((cx, 20), width=31, height=26, style=r2_st.patch(shape_r=2))
+    rectangle((cx, 46), width=29.5, height=25, style=r1_st.patch(shape_r=2))
+    rectangle((cx, 17), width=29.5, height=25, style=r2_st.patch(shape_r=2))
 
-lbl = Styles.DarkBold.patch(text_size=8.5)
+lbl = Styles.DarkBold.patch(text_size=10.0)
 
 # Row 1: Straight line, circular arc spline, polyline, and filleted polyline
-line((10, 54), (32, 54), arrow_head="->", style=Styles.PrimaryBold)
-text((21, 41), "line()", style=lbl)
+line((9, 50), (29, 50), arrow_head="->", style=Styles.PrimaryBold)
+text((19, 37.5), "line()", style=lbl)
 
-line_curved((45, 51), (67, 51), bend=-0.35, arrow_head="->", style=Styles.DarkBold)
-text((56, 41), "line_curved()", style=lbl)
+line_curved((40, 47), (60.5, 47), bend=-0.35, arrow_head="->", style=Styles.DarkBold)
+text((50.3, 37.5), "line_curved()", style=lbl)
 
-lines([(80, 49), (91, 49), (91, 58), (102, 58)], arrow_head="->", style=Styles.DarkBold)
-text((91, 41), "lines()", style=lbl)
+lines([(72, 45), (81.7, 45), (81.7, 54), (91.5, 54)], arrow_head="->", style=Styles.DarkBold)
+text((81.7, 37.5), "lines()", style=lbl)
 
-lines_curved([(115, 49), (126, 49), (126, 58), (137, 58)], r=4.0, arrow_head="->", style=Styles.PrimaryBold)
-text((126, 41), "lines_curved()", style=lbl)
+lines_curved([(103, 45), (113, 45), (113, 54), (123, 54)], r=3.8, arrow_head="->", style=Styles.PrimaryBold)
+text((113, 37.5), "lines_curved()", style=lbl)
 
 # Row 2: Quadratic Bézier, cubic Bézier, compound Bézier path, and elliptical arc
-line_bezier1((10, 19), (32, 19), cp=(21, 30), arrow_head="->", style=Styles.SecondaryBold)
-text((21, 11), "line_bezier1()", style=lbl)
+line_bezier1((9, 16), (29, 16), cp=(19, 27), arrow_head="->", style=Styles.SecondaryBold)
+text((19, 8.5), "line_bezier1()", style=lbl)
 
-line_bezier2((45, 23), (67, 23), cp1=(52, 32), cp2=(60, 14), arrow_head="->", style=Styles.PrimaryBold)
-text((56, 11), "line_bezier2()", style=lbl)
+line_bezier2((40, 20), (60.5, 20), cp1=(47, 29), cp2=(54, 11), arrow_head="->", style=Styles.PrimaryBold)
+text((50.3, 8.5), "line_bezier2()", style=lbl)
 
-lines_bezier((80, 19), [(87, 19), ((94, 30), (102, 23))], arrow_head="->", style=Styles.DarkBold)
-text((91, 11), "lines_bezier()", style=lbl)
+lines_bezier((72, 16), [(78.5, 16), ((85, 27), (91.5, 20))], arrow_head="->", style=Styles.DarkBold)
+text((81.7, 8.5), "lines_bezier()", style=lbl)
 
-line_arc((126, 20), width=20, height=11, angle_start=15, angle_end=165, ccw=True, arrow_head="<->", style=Styles.DarkBold)
-text((126, 11), "line_arc()", style=lbl)
+line_arc((113, 17), width=19, height=11, angle_start=15, angle_end=165, ccw=True, arrow_head="<->", style=Styles.DarkBold)
+text((113, 8.5), "line_arc()", style=lbl)
 
 save()
+```
+
+---
+
+## 1. Imports & Overview
+
+All line and curve functions are imported from `drawlib.lines`:
+
+```python
+from drawlib.lines import (
+    line,          # Straight line segment between xy1 and xy2
+    line_curved,   # Circular arc spline between xy1 and xy2 with scalar bend
+    line_bezier1,  # Quadratic Bézier curve with 1 control point (cp)
+    line_bezier2,  # Cubic Bézier curve with 2 control points (cp1, cp2)
+    lines,         # Multi-point polyline through a sequence of coordinates
+    lines_curved,  # Multi-point polyline with automatic corner fillet radius r
+    lines_bezier,  # Multi-segment path mixing straight, quadratic, and cubic Béziers
+    line_arc,      # Open circular or elliptical arc connector
+)
 ```
 
 ---
@@ -105,49 +107,49 @@ Line stroke appearance and arrowhead geometry are controlled via `Style` attribu
 | `line_arrow_head_scale` | `float` | `20.0` | Physical size multiplier for terminal arrowheads. |
 | `alpha` | `float` | `1.0` | Overall line and arrowhead opacity (`0.0` transparent to `1.0` opaque). |
 
-```drawlib show-code 650px center file:lines_styling_and_arrowheads.png caption:"Dash Patterns (line_style), Filled Triangle Arrowheads (line_arrow_head_fill), and Scale (line_arrow_head_scale)"
+```drawlib show-code center file:lines_styling_and_arrowheads.png caption:"Dash Patterns (line_style), Filled Triangle Arrowheads (line_arrow_head_fill), and Scale (line_arrow_head_scale)"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=140, height=66)
+setup(width=128, height=62)
 
 # Left Panel: 4 Stroke Dash Patterns (style.line_style)
-rectangle((36, 33), width=62, height=54, style=Styles.Neutral.patch(shape_r=2))
-text((36, 53), "Dash Patterns (line_style)", style=Styles.DarkBold.patch(text_size=10))
+rectangle((32, 31), width=56, height=54, style=Styles.Neutral.patch(shape_r=2))
+text((32, 51), "Dash Patterns (line_style)", style=Styles.DarkBold.patch(text_size=11.0))
 
 dash_specs = [
-    (43, "solid", '"solid"', Colors.Dark),
-    (33, "dashed", '"dashed"', Colors.Primary),
-    (23, "dotted", '"dotted"', Colors.Secondary),
-    (13, "dashdot", '"dashdot"', Colors.Danger),
+    (41, "solid", '"solid"', Colors.Dark),
+    (31, "dashed", '"dashed"', Colors.Primary),
+    (21, "dotted", '"dotted"', Colors.Secondary),
+    (11, "dashdot", '"dashdot"', Colors.Danger),
 ]
 for y, pattern, label, col in dash_specs:
-    text((10, y), label, style=Styles.DarkBold.patch(text_size=8.5, halign="left"))
+    text((8, y), label, style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
     line(
-        (30, y),
-        (62, y),
+        (29, y),
+        (56, y),
         arrow_head="->",
         style=Styles.DarkBold.patch(line_style=pattern, line_color=col, line_width=2.0),
     )
 
 # Right Panel: Arrowhead Fill & Scale (line_arrow_head_fill / line_arrow_head_scale)
-rectangle((104, 33), width=62, height=54, style=Styles.PrimaryNeutral.patch(shape_r=2))
-text((104, 53), "Arrowhead Fill & Scale", style=Styles.DarkBold.patch(text_size=10))
+rectangle((94, 31), width=60, height=54, style=Styles.PrimaryNeutral.patch(shape_r=2))
+text((94, 51), "Arrowhead Fill & Scale", style=Styles.DarkBold.patch(text_size=11.0))
 
 arrow_specs = [
-    (43, "Stick (fill=False)", "->", False, 20.0, 2.0),
-    (33, "Filled (fill=True)", "->", True, 20.0, 2.0),
-    (23, "Bidirectional Filled", "<->", True, 20.0, 2.0),
-    (13, "Large (scale=32)", "->", True, 32.0, 2.5),
+    (41, "Stick (fill=False)", "->", False, 20.0, 2.0),
+    (31, "Filled (fill=True)", "->", True, 20.0, 2.0),
+    (21, "Two-Way (<->)", "<->", True, 20.0, 2.0),
+    (11, "Large (scale=32)", "->", True, 32.0, 2.5),
 ]
 for y, label, head, fill_flag, scale_val, width_val in arrow_specs:
-    text((77, y), label, style=Styles.DarkBold.patch(text_size=8.0, halign="left"))
+    text((67, y), label, style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
     line(
-        (106, y),
-        (131, y),
+        (100, y),
+        (120, y),
         arrow_head=head,
         style=Styles.PrimaryBold.patch(
             line_arrow_head_fill=fill_flag,
@@ -184,27 +186,27 @@ line(
 | `style` | `Style` | *Required* | Line style token (e.g. `Styles.DarkBold`, `Styles.PrimaryBold`). |
 | `arrow_head` | `str` | `""` | Optional arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
-```drawlib show-code 600px center file:lines_straight.png caption:"Straight Lines Across All Four arrow_head Modes and Stroke Styles"
+```drawlib show-code center file:lines_straight.png caption:"Straight Lines Across All Four arrow_head Modes and Stroke Styles"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=56)
+setup(width=120, height=54)
 
-rectangle((60, 28), width=108, height=46, style=Styles.Neutral.patch(shape_r=2))
+rectangle((60, 27), width=112, height=46, style=Styles.Neutral.patch(shape_r=2))
 
 rows = [
-    (43, 'arrow_head="" (Styles.DarkBold)', "", Styles.DarkBold),
-    (33, 'arrow_head="->" (Styles.DarkBold)', "->", Styles.DarkBold),
-    (23, 'arrow_head="<-" (Styles.PrimaryDashed)', "<-", Styles.PrimaryDashed.patch(line_width=2.0)),
-    (13, 'arrow_head="<->" (Styles.DangerDotted)', "<->", Styles.DangerDotted.patch(line_width=2.0)),
+    (42, 'arrow_head="" (Styles.DarkBold)', "", Styles.DarkBold),
+    (32, 'arrow_head="->" (Styles.DarkBold)', "->", Styles.DarkBold),
+    (22, 'arrow_head="<-" (Styles.PrimaryDashed)', "<-", Styles.PrimaryDashed.patch(line_width=2.0)),
+    (12, 'arrow_head="<->" (Styles.DangerDotted)', "<->", Styles.DangerDotted.patch(line_width=2.0)),
 ]
 
 for y, label, head, st in rows:
-    text((11, y), label, style=Styles.DarkBold.patch(text_size=8.5, halign="left"))
-    line((70, y), (108, y), arrow_head=head, style=st)
+    text((8, y), label, style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+    line((76, y), (111, y), arrow_head=head, style=st)
 
 save()
 ```
@@ -239,20 +241,20 @@ Internally, `line_curved()` uses `ConnectionStyle.Arc3(rad=bend)`, where curvatu
 - **`bend > 0`**: Curves to the **left** of the travel vector `xy1 -> xy2` (bows **downward** when drawing left-to-right from `(15, 22)` to `(85, 22)`).
 - **Request-Response Symmetry Tip**: If you draw a request from `A -> B` and a reply from `B -> A` using the *same* `bend` value, the reversed travel direction automatically bows the two curves in opposite directions to form a clean loop.
 
-```drawlib 500px center show-code file:lines_curved.png caption:"Curved Arc Lines Relative to Travel Direction xy1 -> xy2"
+```drawlib center show-code file:lines_curved.png caption:"Curved Arc Lines Relative to Travel Direction xy1 -> xy2"
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=100, height=45)
+setup(width=110, height=44)
 # Left-to-right with negative bend curves upward
-line_curved((15, 22), (85, 22), bend=-0.35, arrow_head="->", style=Styles.DarkBold)
-text((50, 40), "bend=-0.35 (left -> right: upward)", style=Styles.DarkBold.patch(text_size=9.5))
+line_curved((15, 22), (95, 22), bend=-0.32, arrow_head="->", style=Styles.DarkBold)
+text((55, 39), "bend=-0.32 (left -> right: upward)", style=Styles.DarkBold.patch(text_size=10.5))
 
 # Left-to-right with positive bend curves downward
-line_curved((15, 22), (85, 22), bend=0.35, arrow_head="->", style=Styles.DarkBold)
-text((50, 6), "bend=+0.35 (left -> right: downward)", style=Styles.Dark.patch(text_size=9.5))
+line_curved((15, 22), (95, 22), bend=0.32, arrow_head="->", style=Styles.DarkBold)
+text((55, 5), "bend=+0.32 (left -> right: downward)", style=Styles.Dark.patch(text_size=10.5))
 save()
 ```
 
@@ -279,22 +281,22 @@ line_bezier1(
 | `style` | `Style` | *Required* | Line style token. |
 | `arrow_head` | `str` | `""` | Optional arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
-```drawlib 500px center show-code file:lines_bezier1.png caption:"Quadratic Bézier Curve with Control Point"
+```drawlib center show-code file:lines_bezier1.png caption:"Quadratic Bézier Curve with Control Point"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=100, height=50)
-p1, p2 = (15, 15), (85, 15)
-cp = (50, 40)
+setup(width=106, height=46)
+p1, p2 = (14, 12), (92, 12)
+cp = (53, 37)
 
 # Control point tangent guides
 line(p1, cp, style=Styles.MutedDashed)
 line(cp, p2, style=Styles.MutedDashed)
-circle(cp, radius=2, style=Styles.DangerFlat)
-text((50, 45), "Control Point (cp)", style=Styles.Danger)
+circle(cp, radius=1.8, style=Styles.DangerFlat)
+text((53, 42), "Control Point (cp)", style=Styles.DangerBold.patch(text_size=11.0))
 
 # Quadratic Bézier curve
 line_bezier1(p1, p2, cp=cp, arrow_head="->", style=Styles.SecondaryBold)
@@ -326,24 +328,24 @@ line_bezier2(
 | `style` | `Style` | *Required* | Line style token. |
 | `arrow_head` | `str` | `""` | Optional arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
-```drawlib 500px center show-code file:lines_bezier2.png caption:"Cubic Bézier S-Curve with Two Control Points"
+```drawlib center show-code file:lines_bezier2.png caption:"Cubic Bézier S-Curve with Two Control Points"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=100, height=50)
-p1, p2 = (15, 25), (85, 25)
-cp1, cp2 = (35, 42), (65, 8)
+setup(width=106, height=48)
+p1, p2 = (14, 24), (92, 24)
+cp1, cp2 = (37, 40), (69, 8)
 
 # Tangent guides for both control points
 line(p1, cp1, style=Styles.MutedDashed)
 line(p2, cp2, style=Styles.MutedDashed)
-circle(cp1, radius=2, style=Styles.DangerFlat)
-text((35, 46), "cp1", style=Styles.Danger)
-circle(cp2, radius=2, style=Styles.DangerFlat)
-text((65, 4), "cp2", style=Styles.Danger)
+circle(cp1, radius=1.8, style=Styles.DangerFlat)
+text((37, 44.5), "cp1", style=Styles.DangerBold.patch(text_size=11.0))
+circle(cp2, radius=1.8, style=Styles.DangerFlat)
+text((69, 3.5), "cp2", style=Styles.DangerBold.patch(text_size=11.0))
 
 # Cubic Bézier S-curve
 line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrow_head="->", style=Styles.PrimaryBold)
@@ -376,37 +378,37 @@ In software architectures and circuit schematics, **orthogonal (Manhattan) routi
 ### 4.1. L-Routing (Single 90° Turn)
 Connects two entities horizontally first, then vertically:
 
-```drawlib 500px center show-code file:lines_l_routing.png caption:"Orthogonal L-Routing Between Two Services"
+```drawlib center show-code file:lines_l_routing.png caption:"Orthogonal L-Routing Between Two Services"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=100, height=45)
-rectangle((20, 30), width=24, height=14, style=Styles.Neutral, text="Client")
-rectangle((80, 15), width=24, height=14, style=Styles.PrimaryFlat, text="Worker", text_style=Styles.WhiteBold)
+setup(width=106, height=42)
+rectangle((22, 29), width=26, height=14, style=Styles.Neutral, text="Client", text_style=Styles.DarkBold.patch(text_size=11.0))
+rectangle((84, 13), width=26, height=14, style=Styles.PrimaryFlat, text="Worker", text_style=Styles.WhiteBold.patch(text_size=11.0))
 
 # L-shaped connection: horizontal from Client, then downward to Worker
-lines([(32, 30), (80, 30), (80, 22)], arrow_head="->", style=Styles.DarkBold)
+lines([(35, 29), (84, 29), (84, 20)], arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 
 ### 4.2. Z-Routing / Dogleg (Two 90° Turns)
 Connects two offset components across a shared mid-channel $x_{\text{mid}}$:
 
-```drawlib 500px center show-code file:lines_z_routing.png caption:"Orthogonal Z-Routing (Dogleg) Across a Shared Midpoint"
+```drawlib center show-code file:lines_z_routing.png caption:"Orthogonal Z-Routing (Dogleg) Across a Shared Midpoint"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=100, height=45)
-rectangle((20, 32), width=24, height=14, style=Styles.Neutral, text="Service A")
-rectangle((80, 14), width=24, height=14, style=Styles.PrimaryFlat, text="Service B", text_style=Styles.WhiteBold)
+setup(width=106, height=42)
+rectangle((22, 30), width=26, height=14, style=Styles.Neutral, text="Service A", text_style=Styles.DarkBold.patch(text_size=11.0))
+rectangle((84, 12), width=26, height=14, style=Styles.PrimaryFlat, text="Service B", text_style=Styles.WhiteBold.patch(text_size=11.0))
 
-# Z-shaped dogleg connection across midpoint x_mid = 50
-x_mid = 50
-lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrow_head="->", style=Styles.DarkBold)
+# Z-shaped dogleg connection across midpoint x_mid = 53
+x_mid = 53
+lines([(35, 30), (x_mid, 30), (x_mid, 12), (71, 12)], arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 
@@ -438,7 +440,7 @@ lines_curved(
 > [!TIP]
 > **Fillet Radius Constraint**: Keep the fillet radius smaller than half the shortest segment length ($r < 0.5 \min_i \|P_{i+1} - P_i\|$) so adjacent corner fillets have straight runway segments between them (internally, Drawlib clamps the fillet ratio to `0.5` of each segment).
 
-```drawlib 600px center show-code file:lines_curved_fillet.png caption:"Rounded Manhattan Routing with lines_curved(xys, r)"
+```drawlib center show-code file:lines_curved_fillet.png caption:"Rounded Manhattan Routing with lines_curved(xys, r)"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.shapes import rectangle
@@ -447,19 +449,19 @@ from drawlib.text import text
 
 setup(width=120, height=52)
 
-rectangle((20, 38), width=24, height=14, style=Styles.Neutral.patch(shape_r=2), text="API Ingress")
-rectangle((60, 26), width=22, height=14, style=Styles.Neutral.patch(shape_r=2), text="Firewall")
-rectangle((100, 14), width=24, height=14, style=Styles.PrimaryFlat.patch(shape_r=2), text="Core DB", text_style=Styles.WhiteBold)
+rectangle((20, 38), width=26, height=14, style=Styles.Neutral.patch(shape_r=2), text="API Ingress", text_style=Styles.DarkBold.patch(text_size=10.5))
+rectangle((60, 26), width=24, height=14, style=Styles.Neutral.patch(shape_r=2), text="Firewall", text_style=Styles.DarkBold.patch(text_size=10.5))
+rectangle((100, 14), width=26, height=14, style=Styles.PrimaryFlat.patch(shape_r=2), text="Core DB", text_style=Styles.WhiteBold.patch(text_size=10.5))
 
 # Route around the central Firewall box with r=6.0 rounded corners
-waypoints = [(32, 38), (60, 38), (60, 44), (100, 44), (100, 21)]
+waypoints = [(33, 38), (60, 38), (60, 44), (100, 44), (100, 21)]
 lines_curved(waypoints, r=6.0, arrow_head="->", style=Styles.PrimaryBold)
-text((80, 47), "lines_curved(..., r=6.0)", style=Styles.DarkBold.patch(text_size=9))
+text((80, 48), "lines_curved(..., r=6.0)", style=Styles.DarkBold.patch(text_size=10.5))
 
 # Bottom return path with smaller fillet radius r=4.0
-return_pts = [(88, 14), (20, 14), (20, 31)]
+return_pts = [(87, 14), (20, 14), (20, 31)]
 lines_curved(return_pts, r=4.0, arrow_head="->", style=Styles.MutedDashed)
-text((54, 9), "Async Audit Trail (r=4.0)", style=Styles.Muted.patch(text_size=8.5))
+text((53, 8.5), "Async Audit Trail (r=4.0)", style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
@@ -489,37 +491,37 @@ lines_bezier(
 | **Quadratic Bézier Segment** | `((cp_x, cp_y), (x, y))` | 1-control-point curve to `(x, y)` via `cp` (`Path.CURVE3`). |
 | **Cubic Bézier Segment** | `((cp1_x, cp1_y), (cp2_x, cp2_y), (x, y))` | 2-control-point curve to `(x, y)` via `cp1`, `cp2` (`Path.CURVE4`). |
 
-```drawlib 600px center show-code file:lines_bezier_compound.png caption:"Compound Path Combining Straight, Cubic S-Curve, and Quadratic Segments via lines_bezier()"
+```drawlib center show-code file:lines_bezier_compound.png caption:"Compound Path Combining Straight, Cubic S-Curve, and Quadratic Segments via lines_bezier()"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_bezier
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=125, height=52)
+setup(width=124, height=52)
 
-circle((16, 16), radius=7, style=Styles.Neutral, text="Source")
-rectangle((106, 36), width=24, height=14, style=Styles.PrimaryFlat.patch(shape_r=2), text="Sink", text_style=Styles.WhiteBold)
+circle((16, 16), radius=8.5, style=Styles.Neutral, text="Source", text_style=Styles.DarkBold.patch(text_size=10.0))
+rectangle((106, 36), width=24, height=14, style=Styles.PrimaryFlat.patch(shape_r=2), text="Sink", text_style=Styles.WhiteBold.patch(text_size=11.0))
 
 # Compound path: straight run -> cubic S-curve -> straight run -> quadratic turn
 compound_points = [
-    (38, 16),                                  # 1. Straight segment to (38, 16)
-    ((52, 16), (52, 36), (66, 36)),            # 2. Cubic S-curve to (66, 36)
+    (40, 16),                                  # 1. Straight segment to (40, 16)
+    ((53, 16), (53, 36), (66, 36)),            # 2. Cubic S-curve to (66, 36)
     (82, 36),                                  # 3. Straight segment to (82, 36)
     ((88, 44), (94, 36)),                      # 4. Quadratic hop into Sink port
 ]
 
 lines_bezier(
-    xy=(23, 16),
+    xy=(24.5, 16),
     path_points=compound_points,
     arrow_head="->",
     style=Styles.PrimaryBold.patch(line_arrow_head_fill=True),
 )
 
-text((31, 11), "1. Straight", style=Styles.Dark.patch(text_size=8.5))
-text((40, 31), "2. Cubic S-Curve", style=Styles.DarkBold.patch(text_size=8.5))
-text((74, 31), "3. Straight", style=Styles.Dark.patch(text_size=8.5))
-text((88, 45), "4. Quadratic", style=Styles.Dark.patch(text_size=8.5))
+text((33, 10.5), "1. Straight", style=Styles.DarkBold.patch(text_size=10.0))
+text((42, 31), "2. Cubic S-Curve", style=Styles.DarkBold.patch(text_size=10.0))
+text((74, 30.5), "3. Straight", style=Styles.DarkBold.patch(text_size=10.0))
+text((88, 45.5), "4. Quadratic", style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
@@ -555,7 +557,7 @@ line_arc(
 | `arrow_head` | `str` | `""` | Terminal arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 | `ccw` | `bool` | `True` | Sweep direction from `angle_start` to `angle_end` (`True` = counter-clockwise, `False` = clockwise). |
 
-```drawlib 600px center show-code file:lines_arc_feedback.png caption:"Self-Loop Retry and Elliptical Feedback Arcs with line_arc()"
+```drawlib center show-code file:lines_arc_feedback.png caption:"Self-Loop Retry and Elliptical Feedback Arcs with line_arc()"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_arc
 from drawlib.shapes import rectangle
@@ -565,11 +567,11 @@ from drawlib.text import text
 setup(width=120, height=58)
 
 # Nodes
-rectangle((32, 26), width=26, height=14, style=Styles.PrimaryFlat.patch(shape_r=2), text="Queue Worker", text_style=Styles.WhiteBold)
-rectangle((88, 26), width=26, height=14, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Payment API")
+rectangle((32, 26), width=28, height=14, style=Styles.PrimaryFlat.patch(shape_r=2), text="Queue Worker", text_style=Styles.WhiteBold.patch(text_size=10.5))
+rectangle((88, 26), width=28, height=14, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Payment API", text_style=Styles.DarkBold.patch(text_size=10.5))
 
 # Forward request
-line((45, 26), (75, 26), arrow_head="->", style=Styles.DarkBold)
+line((46, 26), (74, 26), arrow_head="->", style=Styles.DarkBold)
 
 # 1. Clockwise self-loop retry arc above Queue Worker (ccw=False)
 line_arc(
@@ -582,7 +584,7 @@ line_arc(
     arrow_head="->",
     style=Styles.DarkBold,
 )
-text((32, 45), "Self-Loop Retry (ccw=False)", style=Styles.DarkBold.patch(text_size=8.5))
+text((32, 45.5), "Self-Loop Retry (ccw=False)", style=Styles.DarkBold.patch(text_size=10.5))
 
 # 2. Clockwise elliptical feedback loop underneath (0° -> 180°, ccw=False)
 line_arc(
@@ -595,7 +597,7 @@ line_arc(
     arrow_head="->",
     style=Styles.MutedDashed.patch(line_width=1.8),
 )
-text((60, 5), "Backpressure / Rate-Limit Feedback", style=Styles.Muted.patch(text_size=8.5))
+text((60, 5.5), "Backpressure / Rate-Limit Feedback", style=Styles.DarkBold.patch(text_size=10.5))
 
 save()
 ```

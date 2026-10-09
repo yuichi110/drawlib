@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -425,7 +429,7 @@
 <hr />
 <h2>1. Overview of Polygons &amp; Custom Paths</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_overview.png" alt="shapes_polygons_1" style="width: 650px; max-width: 100%;" />
+  <img src="shapes_polygons_images/shapes_polygons_overview.png" alt="shapes_polygons_1" />
   <figcaption class="drawlib-caption">Overview of Polygons and Custom Path Primitives</figcaption>
 </figure>
 <details class="drawlib-code-details">
@@ -443,41 +447,47 @@
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">lbl_dark</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">lbl_white</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 
 <span class="c1"># Row 1: Planar Quadrilaterals &amp; Triangle</span>
-<span class="n">parallelogram</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">corner_angle</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"parallel"</span><span class="p">)</span>
+<span class="n">parallelogram</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">corner_angle</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"parallel"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">)</span>
 <span class="n">rhombus</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"rhombus"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_white</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">trapezoid</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-    <span class="n">bottomedge_width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-    <span class="n">topedge_width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">81</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">bottomedge_width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">topedge_width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"trapezoid"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">triangle</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"tri"</span><span class="p">)</span>
+<span class="n">triangle</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"tri"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)))</span>
 
 <span class="c1"># Row 2: Regular Polygons, Stars, Polygon &amp; Custom Shape</span>
-<span class="n">regularpolygon</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">num_vertex</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"hexagon"</span><span class="p">)</span>
-<span class="n">star</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">radius_ext</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">radius_int</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"star"</span><span class="p">)</span>
+<span class="n">regularpolygon</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">num_vertex</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"hexagon"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">star</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">radius_ext</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">radius_int</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"star"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">)</span>
 <span class="n">polygon</span><span class="p">(</span>
-    <span class="p">[(</span><span class="mi">73</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">91</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="mi">91</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="mi">73</span><span class="p">,</span> <span class="mi">23</span><span class="p">)],</span>
+    <span class="p">[(</span><span class="mi">69</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">89</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">89</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">69</span><span class="p">,</span> <span class="mi">22</span><span class="p">)],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"polygon"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">shape</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
     <span class="n">path_points</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"shape"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
@@ -521,53 +531,57 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallelogram</span><span class="p">,</span> <span class="n">rhombus</span><span class="p">,</span> <span class="n">trapezoid</span><span class="p">,</span> <span class="n">triangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+<span class="n">lbl_dark</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 
 <span class="c1"># 1. Parallelogram (I/O Stream)</span>
 <span class="n">parallelogram</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">corner_angle</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Input I/O"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Rhombus (Decision Gate with rounded vertices)</span>
 <span class="n">rhombus</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Valid?"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 3. Symmetric Trapezoid (Pooling / Funnel Layer)</span>
 <span class="n">trapezoid</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">bottomedge_width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
     <span class="n">topedge_width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Pool"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 4. Asymmetric Triangle (topvertex_x shifts apex horizontally)</span>
 <span class="n">triangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">topvertex_x</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Skew"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">)),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">)),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_planar.png" alt="shapes_polygons_2" style="width: 640px; max-width: 100%;" />
+  <img src="shapes_polygons_images/shapes_polygons_planar.png" alt="shapes_polygons_2" />
   <figcaption class="drawlib-caption">Parallelogram, Rhombus, Trapezoid, and Triangle</figcaption>
 </figure>
 <hr />
@@ -580,51 +594,56 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">regularpolygon</span><span class="p">,</span> <span class="n">star</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+<span class="n">lbl_dark</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 
 <span class="c1"># 1. Pentagon (num_vertex=5)</span>
 <span class="n">regularpolygon</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"N=5"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Rounded Hexagon Pod (num_vertex=6, shape_r=2)</span>
 <span class="n">regularpolygon</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Pod"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 3. 5-Point Star (radius_ext=13, radius_int=6)</span>
+<span class="c1"># 3. 5-Point Star (radius_ext=13, radius_int=6.5)</span>
 <span class="n">star</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">radius_ext</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">radius_int</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Star"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 4. Rounded 8-Point Seal Badge (shape_r=1.2)</span>
 <span class="n">star</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
     <span class="n">radius_ext</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">radius_int</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Seal"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_regular_and_star.png" alt="shapes_polygons_3" style="width: 640px; max-width: 100%;" />
+  <img src="shapes_polygons_images/shapes_polygons_regular_and_star.png" alt="shapes_polygons_3" />
   <figcaption class="drawlib-caption">Regular Polygons and Stars with Optional Corner Rounding</figcaption>
 </figure>
 <hr />
@@ -638,27 +657,28 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">polygon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># 1. Irregular network zone with uniform corner rounding</span>
 <span class="n">polygon</span><span class="p">(</span>
-    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
+    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">6</span><span class="p">)],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Subnet Zone A"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Custom tag card with per-vertex radii (sharp tip on right)</span>
 <span class="n">polygon</span><span class="p">(</span>
-    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">10</span><span class="p">)],</span>
+    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Pipeline Tag"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_4" style="width: 600px; max-width: 100%;" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_4" />
   <figcaption class="drawlib-caption">Custom Coordinate Polygons with Uniform and Per-Vertex Rounding</figcaption>
 </figure>
 <hr />
@@ -685,11 +705,11 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">shape</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
 <span class="c1"># 1. Custom Shield Badge (Quadratic Bézier curved bottom)</span>
 <span class="n">shape</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
     <span class="n">path_points</span><span class="o">=</span><span class="p">[</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span>
@@ -701,12 +721,12 @@
     <span class="p">],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Shield"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Document Card with Wavy Bottom Edge (Cubic Bézier)</span>
 <span class="n">shape</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
     <span class="n">path_points</span><span class="o">=</span><span class="p">[</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
@@ -716,12 +736,13 @@
     <span class="p">],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Custom Wave</span><span class="se">\n</span><span class="s2">Document"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_5" style="width: 600px; max-width: 100%;" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_5" />
   <figcaption class="drawlib-caption">Custom Vector Shapes Using Straight and Cubic Bézier Path Points</figcaption>
 </figure>
 

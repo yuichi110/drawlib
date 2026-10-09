@@ -2,18 +2,10 @@
 
 Drawlib was built from the ground up for the era of AI-assisted engineering. Instead of asking Large Language Models (LLMs) to construct thousands of lines of fragile SVG path strings or brittle Matplotlib code, Drawlib gives AI agents a clean, high-level, declarative Python vocabulary designed for zero-shot architectural visualization.
 
----
-
-## 1. Why Drawlib is Ideal for AI Agents
-
-1. **Deterministic Geometry**: Unlike heuristic layout engines (e.g. Graphviz, PlantUML) that scramble diagrams unexpectedly when a label changes, Drawlib uses a predictable Cartesian coordinate system where `(0, 0)` is anchored at the bottom-left.
-2. **High-Level Domain Abstractions**: AI agents can instantiate enterprise architecture topologies, UML class models, and data charts in fewer than 20 lines of Python.
-3. **On-Demand Knowledge Retrieval**: Drawlib includes a built-in terminal rules catalog (`drawlib rules show <topic>`). Agents can fetch targeted API specifications on demand without consuming valuable context window space with massive upfront manuals.
-
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="ai_agent_instructions_images/ai_agent_project_first_workflow.png" alt="ai_agent_instructions_1" style="width: 650px; max-width: 100%;" />
+  <img src="ai_agent_instructions_images/ai_agent_project_first_workflow.png" alt="ai_agent_instructions_1" />
   <figcaption class="drawlib-caption">The Four Core Rules for Autonomous AI Coding Agents Using Drawlib</figcaption>
 </figure>
 
@@ -22,59 +14,46 @@ Drawlib was built from the ground up for the era of AI-assisted engineering. Ins
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.lines import line
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
+from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=142, height=46)
+setup(width=126, height=48)
 
-text((71, 40.5), "Four Core Directives for Autonomous AI Coding Agents", style=Styles.DarkBold.patch(text_size=8.8))
+rectangle((63, 24), width=120, height=42, style=Styles.MutedDashed.patch(shape_r=2.0))
+text((63, 40.5), "Four Core Directives for Autonomous AI Coding Agents", style=Styles.DarkBold.patch(text_size=11.5))
 
-# Stage 1: Project-First Init
-rectangle(
-    (21.5, 20.5),
-    width=29,
-    height=27,
-    style=Styles.Neutral.patch(shape_r=2.0),
-    text="1. Project-First Init\n\ndrawlib init\n<doc|site|slide|images>\n\nScaffold styles.py & build.sh",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
+# Stage Icons above ChevronProcess
+icons = [
+    (19.5, phosphor.folder_plus),
+    (48.5, phosphor.book_open),
+    (77.5, phosphor.cube),
+    (106.5, phosphor.palette),
+]
+for ix, icon_fn in icons:
+    icon_fn((ix, 31.8), width=5.0, style=Styles.PrimaryBold)
+
+workflow = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=60.0,
+    spacing=1.6,
+    flat_left_end=True,
 )
-
-# Stage 2: Query Rules
-rectangle(
-    (54.5, 20.5),
-    width=29,
-    height=27,
-    style=Styles.SecondaryNeutral.patch(shape_r=2.0),
-    text="2. Query Rules\n\ndrawlib rules show <topic>\n\nLoad exact API &\nstyle-guide on demand",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
+workflow.add("1. Init Project", description="drawlib init")
+workflow.add("2. Query Rules", description="rules show", style=Styles.SecondaryNeutral)
+workflow.add(
+    "3. High-Level",
+    description="Graph & SmartArt",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.White.patch(text_size=10.0),
 )
-
-# Stage 3: High-Level & Neutral
-rectangle(
-    (87.5, 20.5),
-    width=29,
-    height=27,
-    style=Styles.PrimaryFlat.patch(shape_r=2.0),
-    text="3. High-Level & Neutral\n\nGraph, Diagrams,\nSmartArts, Charts\n\n50%+ Neutral + file:",
-    text_style=Styles.WhiteBold.patch(text_size=6.8),
-)
-
-# Stage 4: Grid Self-Repair
-rectangle(
-    (120.5, 20.5),
-    width=29,
-    height=27,
-    style=Styles.Neutral.patch(shape_r=2.0),
-    text="4. Grid Self-Repair\n\ndrawlib show -g\n\nInspect coordinates\n& fix overlaps",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-
-# Left-to-right workflow connectors
-line((36.0, 20.5), (40.0, 20.5), arrow_head="->", style=Styles.DarkBold)
-line((69.0, 20.5), (73.0, 20.5), arrow_head="->", style=Styles.DarkBold)
-line((102.0, 20.5), (106.0, 20.5), arrow_head="->", style=Styles.DarkBold)
+workflow.add("4. Grid Repair", description="show -g & Fix", style=Styles.PrimaryNeutral)
+workflow.draw(xy=(6, 7.5), width=114, height=18.5)
 
 save()
 ```
@@ -85,6 +64,14 @@ save()
 
 ---
 
+## 1. Why Drawlib is Ideal for AI Agents
+
+1. **Deterministic Geometry**: Unlike heuristic layout engines (e.g. Graphviz, PlantUML) that scramble diagrams unexpectedly when a label changes, Drawlib uses a predictable Cartesian coordinate system where `(0, 0)` is anchored at the bottom-left.
+2. **High-Level Domain Abstractions**: AI agents can instantiate enterprise architecture topologies, UML class models, and data charts in fewer than 20 lines of Python.
+3. **On-Demand Knowledge Retrieval**: Drawlib includes a built-in terminal rules catalog (`drawlib rules show <topic>`). Agents can fetch targeted API specifications on demand without consuming valuable context window space with massive upfront manuals.
+
+---
+
 ## 2. Recommended Agent Instruction Template
 
 Copy and paste the following snippet into your repository's AI instruction file (e.g. `.cursorrules`, `.agents/rules/drawlib.md`, or Claude/Gemini system prompts):
@@ -92,7 +79,7 @@ Copy and paste the following snippet into your repository's AI instruction file 
 ````markdown
 # Drawlib Agent Directives
 
-Drawlib is a pure-Python library for "Illustration as Code" and "Documentation as Code".
+Drawlib is a pure-Python library for "Illustration as Code" and "Illustrated Documentation as Code".
 When tasked with creating diagrams, architectures, flowcharts, or charts, follow these rules:
 
 1. Project-First Rule (`drawlib init` — No Bare `.py` Files):
@@ -139,7 +126,7 @@ Instead of pasting entire documentation manuals into prompts, train your agent t
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="ai_agent_instructions_images/ai_agent_on_demand_rules_architecture.png" alt="ai_agent_instructions_2" style="width: 650px; max-width: 100%;" />
+  <img src="ai_agent_instructions_images/ai_agent_on_demand_rules_architecture.png" alt="ai_agent_instructions_2" />
   <figcaption class="drawlib-caption">On-Demand Rule Retrieval Workflow for AI Coding Agents</figcaption>
 </figure>
 
@@ -148,63 +135,56 @@ Instead of pasting entire documentation manuals into prompts, train your agent t
 
 ```python
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=154, height=58)
+setup(width=128, height=58)
 
 # Left: AI Coding Agent
-rectangle(
-    (24, 29),
-    width=34,
-    height=36,
-    style=Styles.PrimaryFlat.patch(shape_r=2.0),
-    text="AI Coding Agent\n(Context-Aware)\n\n1. Inspects Repo Code\n2. Queries Targeted Rule\n3. Authors Drawlib Code",
-    text_style=Styles.WhiteBold.patch(text_size=8.0),
-)
+rectangle((20, 29), width=30, height=40, style=Styles.PrimaryFlat.patch(shape_r=2.0))
+phosphor.cpu((20, 42.5), width=5.0, style=Styles.WhiteBold)
+text((20, 34.5), "AI Coding Agent", style=Styles.WhiteBold.patch(text_size=11.0))
+text((20, 21.5), "1. Inspect Repo\n2. Query Rule\n3. Author Code", style=Styles.White.patch(text_size=10.2))
 
 # Center: On-Demand CLI Dispatcher
-rectangle(
-    (73, 29),
-    width=32,
-    height=18,
-    style=Styles.PrimaryNeutral.patch(shape_r=2.0),
-    text="CLI Rule Engine\n\ndrawlib rules show\n<topic>",
-    text_style=Styles.DarkBold.patch(text_size=8.0),
-)
+rectangle((62, 29), width=26, height=22, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
+phosphor.terminal_window((62, 35.2), width=4.6, style=Styles.PrimaryBold)
+text((62, 24.8), "CLI Rules\nrules show", style=Styles.DarkBold.patch(text_size=10.5))
 
 # Right: 27 Modular Manuals Container
-rectangle((124, 29), width=46, height=48, style=Styles.MutedDashed.patch(shape_r=2.5))
-text((124, 48.5), "27 Built-In Rule Manuals", style=Styles.DarkBold.patch(text_size=8.5))
+rectangle((104, 29), width=40, height=50, style=Styles.MutedDashed.patch(shape_r=2.5))
+phosphor.book_open((88.5, 49.5), width=4.4, style=Styles.PrimaryBold)
+text((106.5, 49.5), "27 Rule Manuals", style=Styles.DarkBold.patch(text_size=10.8))
 
 rectangle(
-    (124, 37),
-    width=40,
-    height=14,
+    (104, 36.8),
+    width=35,
+    height=15.5,
     style=Styles.Neutral.patch(shape_r=1.5),
-    text="8 General Manuals\noverview, style-guide,\nanim-guide, slide-guide, api...",
-    text_style=Styles.Dark.patch(text_size=7.5),
+    text="8 General Manuals\noverview, style-guide,\nanim-guide, api...",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 rectangle(
-    (124, 17),
-    width=40,
-    height=16,
+    (104, 16.5),
+    width=35,
+    height=17.5,
     style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="19 lib-* Module Manuals\nlib-graph, lib-diagrams,\nlib-smartarts, lib-charts,\nlib-shapes, lib-icons...",
-    text_style=Styles.Dark.patch(text_size=7.5),
+    text="19 lib-* Manuals\nlib-graph, lib-diagrams,\nlib-smartarts, lib-charts",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # Connectors
-line((41, 33), (57, 33), arrow_head="->", style=Styles.DarkBold)
-text((49, 36.5), "Query", style=Styles.DarkBold.patch(text_size=7.5))
+line((35, 33), (49, 33), arrow_head="->", style=Styles.DarkBold)
+text((42, 36.8), "Query", style=Styles.DarkBold.patch(text_size=10.0))
 
-line((57, 25), (41, 25), arrow_head="->", style=Styles.DarkBold)
-text((49, 21), "Spec + PNGs", style=Styles.Muted.patch(text_size=7.2))
+line((49, 25), (35, 25), arrow_head="->", style=Styles.DarkBold)
+text((42, 20.5), "Manual", style=Styles.Muted.patch(text_size=10.0))
 
-line((89, 33), (104, 37), arrow_head="<->", style=Styles.DarkBold)
-line((89, 25), (104, 17), arrow_head="<->", style=Styles.DarkBold)
+line((75, 33), (86.5, 36.8), arrow_head="<->", style=Styles.DarkBold)
+line((75, 25), (86.5, 16.5), arrow_head="<->", style=Styles.DarkBold)
 
 save()
 ```

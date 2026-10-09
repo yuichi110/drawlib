@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -421,7 +425,46 @@
             </header>
             <main class="main-content">
                 <h1>Pyramid</h1>
-<p>The <code>Pyramid</code> component renders tiered hierarchical trapezoids crowned by an apex triangle. It supports standard upright pyramids, inverted funnels, horizontal orientations, and custom per-tier heights—making it ideal for software testing pyramids, DIKW knowledge hierarchies, defense-in-depth tiers, and conversion funnels.</p>
+<p>The <code>Pyramid</code> component renders tiered hierarchical trapezoids crowned by an apex triangle.
+It supports standard upright pyramids, inverted funnels, horizontal orientations, and custom per-tier heights—making it ideal for software testing pyramids, DIKW knowledge hierarchies, defense-in-depth tiers, and conversion funnels.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="pyramid_images/smartarts_pyramid_orientations.png" alt="pyramid_1" />
+  <figcaption class="drawlib-caption">All Four Pyramid Alignments: bottom, top, left, and right</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pyramid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Pyramid</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="n">panels</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"align='bottom'</span><span class="se">\n</span><span class="s2">(Upright)"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"align='top'</span><span class="se">\n</span><span class="s2">(Inverted)"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="p">(</span><span class="mf">68.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"align='left'</span><span class="se">\n</span><span class="s2">(Apex Right)"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"right"</span><span class="p">,</span> <span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="s2">"align='right'</span><span class="se">\n</span><span class="s2">(Apex Left)"</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">align_val</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">panels</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="n">align_val</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">"vertex_to_base"</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"xy=(</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">px</span><span class="p">)</span><span class="si">}</span><span class="s2">, 9.5)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Upward Hierarchy Pyramid (<code>align=&quot;bottom&quot;</code>)</h2>
 <p>By default (<code>align=&quot;bottom&quot;, order=&quot;vertex_to_base&quot;</code>), the first added item is placed at the top apex triangle, and subsequent items form progressively wider trapezoidal tiers toward the base.</p>
@@ -429,21 +472,21 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pyramid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="n">pyramid</span> <span class="o">=</span> <span class="n">Pyramid</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Added from apex (top) to base (bottom) when order="vertex_to_base"</span>
 <span class="n">pyramid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"Manual</span><span class="se">\n</span><span class="s2">(5%)"</span><span class="p">,</span>
+    <span class="s2">"E2E</span><span class="se">\n</span><span class="s2">(5%)"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">pyramid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"End-to-End UI Tests (15%)"</span><span class="p">,</span>
+    <span class="s2">"UI &amp; Browser Tests (15%)"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">pyramid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -453,13 +496,13 @@
 <span class="n">pyramid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Fast Automated Unit Tests (50%)"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">pyramid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
     <span class="n">margin</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
     <span class="n">align</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
     <span class="n">order</span><span class="o">=</span><span class="s2">"vertex_to_base"</span><span class="p">,</span>
@@ -467,7 +510,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pyramid_images/smartarts_pyramid_testing.png" alt="pyramid_1" style="width: 600px; max-width: 100%;" />
+  <img src="pyramid_images/smartarts_pyramid_testing.png" alt="pyramid_2" />
   <figcaption class="drawlib-caption">Software Testing Pyramid (Upright Hierarchy)</figcaption>
 </figure>
 <hr />
@@ -477,11 +520,11 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pyramid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="n">funnel</span> <span class="o">=</span> <span class="n">Pyramid</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Added from wide top base to bottom apex when align="top", order="base_to_vertex"</span>
@@ -491,13 +534,13 @@
 <span class="n">funnel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"4. Alerts"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">funnel</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
-    <span class="n">item_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">],</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span>
+    <span class="n">item_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">],</span>
     <span class="n">margins</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>
     <span class="n">align</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span>
     <span class="n">order</span><span class="o">=</span><span class="s2">"base_to_vertex"</span><span class="p">,</span>
@@ -505,11 +548,12 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pyramid_images/smartarts_pyramid_funnel.png" alt="pyramid_2" style="width: 600px; max-width: 100%;" />
+  <img src="pyramid_images/smartarts_pyramid_funnel.png" alt="pyramid_3" />
   <figcaption class="drawlib-caption">Telemetry Ingestion & Filtering Funnel (align='top' with draw_flexible)</figcaption>
 </figure>
 <hr />
 <h2>3. Geometry, Orientations &amp; Ordering</h2>
+<p>As illustrated in the opening diagram at the top of this page:</p>
 <ul>
 <li><strong>Bottom-Left Anchor <code>(x, y)</code></strong>: The <code>xy</code> coordinate passed to <code>draw()</code> or <code>draw_flexible()</code> specifies the <strong>bottom-left corner</strong> of the pyramid's bounding box.</li>
 <li><strong>Alignment (<code>align</code>)</strong>:
@@ -527,44 +571,6 @@
 </ul>
 </li>
 </ul>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="pyramid_images/smartarts_pyramid_orientations.png" alt="pyramid_3" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">All Four Pyramid Alignments: bottom, top, left, and right</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pyramid</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">145</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
-
-<span class="n">p</span> <span class="o">=</span> <span class="n">Pyramid</span><span class="p">(</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-
-<span class="n">panels</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="s2">"align='bottom'</span><span class="se">\n</span><span class="s2">(Upright)"</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="p">(</span><span class="mf">41.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="s2">"align='top'</span><span class="se">\n</span><span class="s2">(Inverted Funnel)"</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="p">(</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="s2">"align='left'</span><span class="se">\n</span><span class="s2">(Apex Right)"</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"right"</span><span class="p">,</span> <span class="p">(</span><span class="mf">111.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="s2">"align='right'</span><span class="se">\n</span><span class="s2">(Apex Left)"</span><span class="p">),</span>
-<span class="p">]</span>
-
-<span class="k">for</span> <span class="n">align_val</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">panels</span><span class="p">:</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="n">align_val</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">"vertex_to_base"</span><span class="p">)</span>
-    <span class="n">circle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">py</span> <span class="o">-</span> <span class="mf">3.5</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"xy=(</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">px</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">py</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
-
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <hr />
 <h2>4. API Reference</h2>
 <h3>Constructor</h3>

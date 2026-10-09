@@ -6,7 +6,7 @@
 
 ## 1. Overview & Radial Geometry
 
-```drawlib 650px center fold-code file:radarchart_geometry_overview.png caption:"RadarChart Radial Geometry: Polygon vs. Circular Contours"
+```drawlib center fold-code file:radarchart_geometry_overview.png caption:"RadarChart Radial Geometry: Polygon vs. Circular Contours"
 from drawlib.canvas import save, setup
 from drawlib.charts.radar import RadarChart
 from drawlib.lines import line
@@ -14,7 +14,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=145, height=62)
+setup(width=132, height=62)
 
 dims = ["Scale", "Speed", "Security", "UX", "Uptime"]
 vals_a = [90, 75, 85, 70, 95]
@@ -24,7 +24,7 @@ vals_b = [65, 90, 70, 88, 75]
 poly_radar = RadarChart(
     categories=dims,
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.DarkBold.patch(text_size=8.0),
+    axis_text_style=Styles.DarkBold.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
     radius=16.5,
     min_value=0.0,
@@ -32,19 +32,19 @@ poly_radar = RadarChart(
     levels=4,
     grid_shape="polygon",
     title="Polygon Grid (grid_shape='polygon')",
-    title_style=Styles.BlackBold.patch(text_size=9.5),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
 )
 poly_radar.add_series("Profile A", vals_a, style=Styles.PrimaryFlat, fill_alpha=0.28)
 poly_radar.add_series("Profile B", vals_b, style=Styles.SecondaryNeutral, fill_alpha=0.25, line_style="dashed")
-poly_radar.draw(xy=(6.0, 5.0))
+poly_radar.draw(xy=(4.0, 5.0))
 
 # Right: Circular Grid with Scale Labels
 circ_radar = RadarChart(
     categories=dims,
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.DarkBold.patch(text_size=8.0),
+    axis_text_style=Styles.DarkBold.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    scale_text_style=Styles.Muted.patch(text_size=7.0),
+    scale_text_style=Styles.Muted.patch(text_size=10.0),
     scale_format="{:.0f}",
     radius=16.5,
     min_value=0.0,
@@ -52,25 +52,25 @@ circ_radar = RadarChart(
     levels=4,
     grid_shape="circle",
     title="Circular Grid (grid_shape='circle')",
-    title_style=Styles.BlackBold.patch(text_size=9.5),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
 )
 circ_radar.add_series("Profile A", vals_a, style=Styles.PrimaryFlat, fill_alpha=0.28)
 circ_radar.add_series("Profile B", vals_b, style=Styles.SecondaryNeutral, fill_alpha=0.25, line_style="dashed")
-circ_radar.draw(xy=(72.0, 5.0))
+circ_radar.draw(xy=(58.0, 5.0))
 
 # Callout annotations on Right RadarChart using exact center coordinates
 rw, rh = circ_radar.get_size()
-rcx = 72.0 + rw / 2.0
+rcx = 58.0 + rw / 2.0
 rcy = 5.0 + (rh - 6.0) / 2.0
 
 circle((rcx, rcy), radius=0.85, style=Styles.DangerFlat)
-line((rcx + 0.8, rcy - 0.3), (120.0, 18.0), style=Styles.DangerBold)
-text((121.0, 18.0), "min_value\n(Center Origin)", style=Styles.DangerBold.patch(text_size=7.5, halign="left"))
+line((rcx + 0.8, rcy - 0.3), (105.0, 18.0), style=Styles.DangerBold)
+text((106.0, 18.0), "min_value\n(Center Origin)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
-line((rcx + 3.0, rcy + 8.5), (120.0, 41.0), arrow_head="<-", style=Styles.DarkBold)
-text((121.0, 41.0), "90° Top Spoke\n(scale_text_style)", style=Styles.DarkBold.patch(text_size=7.5, halign="left"))
+line((rcx + 3.0, rcy + 8.5), (105.0, 41.0), arrow_head="<-", style=Styles.DarkBold)
+text((106.0, 41.0), "90° Top Spoke\n(scale_text_style)", style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
 
-circ_radar.draw_legend(xy=(54.0, 3.5), text_style=Styles.DarkBold.patch(text_size=8.0), orientation="horizontal")
+circ_radar.draw_legend(xy=(45.0, 3.5), text_style=Styles.DarkBold.patch(text_size=10.0), orientation="horizontal")
 save()
 ```
 
@@ -86,7 +86,7 @@ save()
 
 Polygonal gridlines (`grid_shape="polygon"`) align with radial spokes, making it easy to compare architectural trade-offs across non-functional requirements:
 
-```drawlib 650px center show-code file:radarchart_non_functional.png caption:"System Architecture Non-Functional Analysis"
+```drawlib center show-code file:radarchart_non_functional.png caption:"System Architecture Non-Functional Analysis"
 from drawlib.canvas import save, setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
@@ -96,9 +96,9 @@ setup(width=105, height=88)
 chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.BlackBold.patch(text_size=9.5),
+    axis_text_style=Styles.BlackBold.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
-    value_text_style=Styles.BlackBold.patch(text_size=8.5),
+    value_text_style=Styles.BlackBold.patch(text_size=10.0),
     radius=24.0,
     min_value=0.0,
     max_value=100.0,
@@ -119,7 +119,7 @@ chart.add_series(
 )
 
 chart.draw(xy=(8.0, 8.0))
-chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Black.patch(text_size=9.0))
+chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Black.patch(text_size=10.5))
 save()
 ```
 
@@ -129,7 +129,7 @@ save()
 
 Using `grid_shape="circle"` with `scale_text_style` and `configure_axis(...)` renders smooth concentric rings with numeric scale labels:
 
-```drawlib 650px center show-code file:radarchart_feature_matrix.png caption:"Device Feature Matrix with Circular Contours"
+```drawlib center show-code file:radarchart_feature_matrix.png caption:"Device Feature Matrix with Circular Contours"
 from drawlib.canvas import save, setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
@@ -139,9 +139,9 @@ setup(width=100, height=85)
 chart = RadarChart(
     categories=["UX Design", "Performance", "Battery Life", "Camera Quality", "Ecosystem", "Price"],
     axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.BlackBold.patch(text_size=9.5),
+    axis_text_style=Styles.BlackBold.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
-    scale_text_style=Styles.Muted.patch(text_size=8.5),
+    scale_text_style=Styles.Muted.patch(text_size=10.0),
     radius=24.0,
     levels=4,
     grid_shape="circle",
@@ -153,7 +153,7 @@ chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5], style=Styles.
 chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8], style=Styles.SecondaryNeutral, line_style="dashed")
 
 chart.draw(xy=(13.0, 15.0))
-chart.draw_legend(xy=(24.0, 10.0), text_style=Styles.Black.patch(text_size=9.0), orientation="horizontal")
+chart.draw_legend(xy=(22.0, 10.0), text_style=Styles.Black.patch(text_size=10.5), orientation="horizontal")
 save()
 ```
 

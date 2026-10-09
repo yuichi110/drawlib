@@ -4,6 +4,78 @@
 
 Use `GridGraph` when you want tabular alignment across rows and columns—such as multi-tier service matrices, state grids, periodic/catalog topologies, or grid-aligned component architectures.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="grid_graph_images/graph_grid_hero.png" alt="grid_graph_1" />
+  <figcaption class="drawlib-caption">GridGraph Overview: 2D Matrix Cell Placement and Smart Inter-Channel Edge Routing</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.graph import GridGraph
+from drawlib.icons import phosphor
+from drawlib.styles import Styles
+
+setup(width=122, height=48)
+
+g = GridGraph(
+    columns=3,
+    col_sep=14.0,
+    row_sep=11.0,
+    edge_routing="smart",
+    default_node_width=24.5,
+    default_node_height=12.5,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+
+# Row 0: Ingress & Routing Tier
+g.cell("web", row=0, col=0, label="\nWeb Portal", style=Styles.Neutral)
+g.cell(
+    "gateway",
+    row=0,
+    col=1,
+    label="\nAPI Gateway",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+g.cell("admin", row=0, col=2, label="\nAdmin CLI", style=Styles.Neutral)
+
+# Row 1: Service & Persistence Tier
+g.cell("auth", row=1, col=0, label="\nAuth Service", style=Styles.PrimaryNeutral)
+g.cell("orders", row=1, col=1, label="\nOrders API", style=Styles.PrimaryNeutral)
+g.cell("ledger", row=1, col=2, label="\nLedger DB", style=Styles.SecondaryNeutral)
+
+# Direct grid edges + smart channel-routed edge through the inter-row corridor around col=1
+g.edge("web", "gateway")
+g.edge("gateway", "admin")
+g.edge("gateway", "orders")
+g.edge("orders", "auth")
+g.edge("web", "ledger", style=Styles.PrimaryBold)
+
+layout = g.draw(margin=5.0)
+
+for nid, icon_fn, st in [
+    ("web", phosphor.globe, Styles.Dark),
+    ("gateway", phosphor.shield_check, Styles.White),
+    ("admin", phosphor.terminal_window, Styles.Dark),
+    ("auth", phosphor.lock_key, Styles.Primary),
+    ("orders", phosphor.cpu, Styles.Primary),
+    ("ledger", phosphor.database, Styles.Secondary),
+]:
+    n = layout.nodes[nid]
+    icon_fn((n.x, n.y + 2.3), width=4.2, style=st)
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Constructor & Matrix Helper API
@@ -67,9 +139,16 @@ from drawlib.canvas import save, setup
 from drawlib.graph import GridGraph
 from drawlib.styles import Styles
 
-setup(width=165, height=105)
+setup(width=124, height=78)
 
-g = GridGraph(columns=3, default_node_width=26.0, default_node_height=11.0)
+g = GridGraph(
+    columns=3,
+    col_sep=11.0,
+    row_sep=11.5,
+    default_node_width=24.0,
+    default_node_height=10.5,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
 
 # Row 0: Client Interfaces (calm Neutral baseline)
 g.cell("fe_web", row=0, col=0, label="Web Portal", style=Styles.Neutral)
@@ -78,7 +157,7 @@ g.cell("fe_cli", row=0, col=2, label="Admin CLI", style=Styles.Neutral)
 
 # Row 1: Core Services (Core API highlighted as PrimaryFlat focal point)
 g.cell("svc_auth", row=1, col=0, label="Auth Service", style=Styles.PrimaryNeutral)
-g.cell("svc_core", row=1, col=1, label="Core API", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.cell("svc_core", row=1, col=1, label="Core API", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
 g.cell("svc_bill", row=1, col=2, label="Billing API", style=Styles.PrimaryNeutral)
 
 # Row 2: Persistence Layer
@@ -87,9 +166,9 @@ g.cell("db_main", row=2, col=1, label="Primary SQL", style=Styles.SecondaryNeutr
 g.cell("db_ledger", row=2, col=2, label="Ledger Store", style=Styles.SecondaryNeutral)
 
 # Enclose rows in labeled horizontal containers
-g.cluster_row(0, "row_clients", label="Client Tier", padding=5.0)
-g.cluster_row(1, "row_services", label="Service Tier", padding=5.0)
-g.cluster_row(2, "row_storage", label="Data Tier", padding=5.0)
+g.cluster_row(0, "row_clients", label="Client Tier", padding=3.2)
+g.cluster_row(1, "row_services", label="Service Tier", padding=3.2)
+g.cluster_row(2, "row_storage", label="Data Tier", padding=3.2)
 
 # Direct vertical/horizontal edges + non-adjacent channel-routed cross-edges
 g.edge("fe_web", "svc_core")
@@ -102,12 +181,12 @@ g.edge("svc_core", "db_main")
 g.edge("svc_bill", "db_ledger")
 g.edge("svc_auth", "db_ledger", style=Styles.DangerDashed)
 
-g.draw(margin=12.0)
+g.draw(margin=7.5)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_graph_images/graph_grid_explicit_matrix.png" alt="grid_graph_1" style="width: 680px; max-width: 100%;" />
+  <img src="grid_graph_images/graph_grid_explicit_matrix.png" alt="grid_graph_2" />
   <figcaption class="drawlib-caption">Explicit (row, col) Service Matrix with Row Clusters and Smart Channel Routing</figcaption>
 </figure>
 
@@ -126,15 +205,18 @@ from drawlib.canvas import save, setup
 from drawlib.graph import GridGraph
 from drawlib.styles import Styles
 
-setup(width=165, height=95)
+setup(width=124, height=62)
 
 # Column-major order fills each 2-row column top-to-bottom before moving right
 g = GridGraph(
     columns=3,
     rows=2,
     order="column-major",
-    default_node_width=26.0,
-    default_node_height=12.0,
+    col_sep=12.0,
+    row_sep=10.0,
+    default_node_width=24.0,
+    default_node_height=11.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Column 0 (Ingest Zone)
@@ -143,16 +225,16 @@ g.cell("poller", label="S3 Poller", style=Styles.Neutral)
 
 # Column 1 (Processing Zone)
 g.cell("validator", label="Schema Check", style=Styles.PrimaryNeutral)
-g.cell("enricher", label="Enrich Engine", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.cell("enricher", label="Enrich Engine", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
 
 # Column 2 (Sink Zone)
 g.cell("warehouse", label="BigQuery Sink", style=Styles.SecondaryNeutral)
 g.cell("dlq", label="Dead-Letter Q", style=Styles.WarningNeutral)
 
 # Group by column
-g.cluster_column(0, "col_in", label="Ingest")
-g.cluster_column(1, "col_proc", label="Transform")
-g.cluster_column(2, "col_out", label="Sinks")
+g.cluster_column(0, "col_in", label="Ingest", padding=3.2)
+g.cluster_column(1, "col_proc", label="Transform", padding=3.2)
+g.cluster_column(2, "col_out", label="Sinks", padding=3.2)
 
 g.edge("webhook", "validator")
 g.edge("poller", "enricher")
@@ -160,12 +242,12 @@ g.edge("validator", "enricher")
 g.edge("validator", "dlq", "Invalid", line_style="dashed")
 g.edge("enricher", "warehouse", "Valid")
 
-g.draw(margin=12.0)
+g.draw(margin=8.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="grid_graph_images/graph_grid_auto_flow.png" alt="grid_graph_2" style="width: 680px; max-width: 100%;" />
+  <img src="grid_graph_images/graph_grid_auto_flow.png" alt="grid_graph_3" />
   <figcaption class="drawlib-caption">Auto-Flow 3-Column Grid Topology with Column Clusters</figcaption>
 </figure>
 

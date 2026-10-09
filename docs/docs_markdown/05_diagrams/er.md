@@ -9,7 +9,7 @@
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_overview_anatomy.png" alt="er_1" style="width: 650px; max-width: 100%;" />
+  <img src="er_images/er_overview_anatomy.png" alt="er_1" />
   <figcaption class="drawlib-caption">Entity-Relationship Tables with Row-Anchored Crow's Foot Notation</figcaption>
 </figure>
 
@@ -21,20 +21,20 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
 
-setup(width=106, height=44)
+setup(width=98, height=24)
 
 er = ERDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
 )
 
-users = er.add(Entity(name="users", width=32.0), xy=(21.0, 22.0))
+users = er.add(Entity(name="users", width=32.0), xy=(19.0, 12.0))
 users.add_column("id", type="INT", pk=True)
 users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("name", type="VARCHAR(100)")
 
-orders = er.add(Entity(name="orders", width=32.0, style=Styles.PrimaryNeutral), xy=(85.0, 22.0))
+orders = er.add(Entity(name="orders", width=32.0, style=Styles.PrimaryNeutral), xy=(79.0, 12.0))
 orders.add_column("id", type="INT", pk=True)
 orders.add_column("user_id", type="INT", fk=True)
 orders.add_column("total", type="DECIMAL(10,2)", nullable=False)
@@ -72,17 +72,20 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
 
-setup(width=50, height=45)
+setup(width=52, height=26)
 
 er = ERDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="User Schema",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
+    width=52.0,
+    height=20.0,
 )
 
 # Create entity table
-users = er.add(Entity(name="users", width=30.0), xy=(25.0, 18.0))
+users = er.add(Entity(name="users", width=42.0), xy=(26.0, 10.0))
 users.add_column("id", type="INT", pk=True)
 users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("created_at", type="TIMESTAMP")
@@ -92,7 +95,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_basic_entity.png" alt="er_2" style="width: 550px; max-width: 100%;" />
+  <img src="er_images/er_basic_entity.png" alt="er_2" />
   <figcaption class="drawlib-caption">Basic Entity Table</figcaption>
 </figure>
 
@@ -190,28 +193,28 @@ from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=158, height=112)
+setup(width=128, height=96)
 
 er = ERDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
 )
 
 # 7 supported Crow's Foot cardinality strings arranged in a clean 2-column catalog
 specs = [
-    # Left column (x_src=16, x_dst=58)
-    ('"1:*"  (One-to-Many)', "1:*", 16.0, 58.0, 92.0, "Parent", "Child"),
-    ('"1:1"  (One-to-One)', "1:1", 16.0, 58.0, 66.0, "Parent", "Child"),
-    ('"1:1..*"  (Mandatory Child)', "1:1..*", 16.0, 58.0, 40.0, "Parent", "Child"),
-    ('"1:0..1"  (Optional Child)', "1:0..1", 16.0, 58.0, 14.0, "Parent", "Child"),
-    # Right column (x_src=96, x_dst=138)
-    ('"0..1:1"  (Optional Parent 1:1)', "0..1:1", 96.0, 138.0, 92.0, "Parent", "Child"),
-    ('"0..1:*"  (Optional Parent 1:N)', "0..1:*", 96.0, 138.0, 66.0, "Parent", "Child"),
-    ('"*:*"  (Many-to-Many)', "*:*", 96.0, 138.0, 40.0, "Left", "Right"),
+    # Left column (x_src=14, x_dst=49)
+    ('"1:*"  (One-to-Many)', "1:*", 14.0, 49.0, 80.0, "Parent", "Child"),
+    ('"1:1"  (One-to-One)', "1:1", 14.0, 49.0, 57.0, "Parent", "Child"),
+    ('"1:1..*"  (Mandatory Child)', "1:1..*", 14.0, 49.0, 34.0, "Parent", "Child"),
+    ('"1:0..1"  (Optional Child)', "1:0..1", 14.0, 49.0, 11.0, "Parent", "Child"),
+    # Right column (x_src=79, x_dst=114)
+    ('"0..1:1"  (Optional Parent 1:1)', "0..1:1", 79.0, 114.0, 80.0, "Parent", "Child"),
+    ('"0..1:*"  (Optional Parent 1:N)', "0..1:*", 79.0, 114.0, 57.0, "Parent", "Child"),
+    ('"*:*"  (Many-to-Many)', "*:*", 79.0, 114.0, 34.0, "Left", "Right"),
 ]
 
-lbl_style = Styles.DarkBold.patch(text_size=9.0, text_color=Colors.Primary5)
+lbl_style = Styles.DarkBold.patch(text_size=10.5, text_color=Colors.Primary5)
 
 for _title_str, card, x1, x2, y, src_name, dst_name in specs:
     e_src = er.add(Entity(name=src_name, width=16.0, style=Styles.PrimaryNeutral), xy=(x1, y))
@@ -227,7 +230,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_cardinality_notations.png" alt="er_3" style="width: 650px; max-width: 100%;" />
+  <img src="er_images/er_cardinality_notations.png" alt="er_3" />
   <figcaption class="drawlib-caption">All Seven Crow's Foot Cardinality Notations in ERDiagram</figcaption>
 </figure>
 
@@ -246,36 +249,37 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
 
-setup(width=128, height=96)
+setup(width=114, height=82)
 
 er = ERDiagram(
     node_style=Styles.Neutral,
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
     title="E-Commerce Relational Database Schema",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
 # Top row: users (left) -> orders (right)
-users = er.add(Entity(name="users", width=34.0), xy=(26.0, 66.0))
+users = er.add(Entity(name="users", width=34.0), xy=(21.0, 54.0))
 users.add_column("id", type="INT", pk=True)
 users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("name", type="VARCHAR(100)")
 users.add_column("created_at", type="TIMESTAMP")
 
-orders = er.add(Entity(name="orders", width=34.0, style=Styles.PrimaryNeutral), xy=(100.0, 66.0))
+orders = er.add(Entity(name="orders", width=34.0, style=Styles.PrimaryNeutral), xy=(93.0, 54.0))
 orders.add_column("id", type="INT", pk=True)
 orders.add_column("user_id", type="INT", fk=True)
 orders.add_column("total_cents", type="INT", nullable=False)
 orders.add_column("status", type="VARCHAR(32)")
 
 # Bottom row: products (left) -> order_items (right)
-products = er.add(Entity(name="products", width=34.0), xy=(26.0, 22.0))
+products = er.add(Entity(name="products", width=34.0), xy=(21.0, 14.0))
 products.add_column("id", type="INT", pk=True)
 products.add_column("sku", type="VARCHAR(64)", nullable=False)
 products.add_column("title", type="VARCHAR(200)")
 products.add_column("price_cents", type="INT", nullable=False)
 
-order_items = er.add(Entity(name="order_items", width=34.0, style=Styles.SecondaryNeutral), xy=(100.0, 22.0))
+order_items = er.add(Entity(name="order_items", width=34.0, style=Styles.SecondaryNeutral), xy=(93.0, 14.0))
 order_items.add_column("id", type="INT", pk=True)
 order_items.add_column("order_id", type="INT", fk=True)
 order_items.add_column("product_id", type="INT", fk=True)
@@ -313,7 +317,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_ecommerce_schema.png" alt="er_4" style="width: 650px; max-width: 100%;" />
+  <img src="er_images/er_ecommerce_schema.png" alt="er_4" />
   <figcaption class="drawlib-caption">E-Commerce Relational Database Schema</figcaption>
 </figure>
 

@@ -4,13 +4,7 @@ The `GeoMap` component renders vector geographical maps (`GeoMap.World.*`, `GeoM
 
 By combining `GeoMap` with `get_area_xy()` and `lonlat_to_xy()`, you can overlay standard Drawlib shapes, icons, text labels, and curved arrows to build multi-region cloud topology diagrams, regional expansion maps, and territory highlights.
 
----
-
-## 1. Global Multi-Region Topology (`GeoMap.World.All`)
-
-Pass `GeoMap.World.All` to `GeoMap` to render a global world map. You can inspect all available area names via `get_areas()`, highlight specific areas with `set_area_styles()` (by English name, ISO code such as `"JP"` / `"USA"`, or Japanese name such as `"日本"`), and use `get_area_xy()` to anchor connectors and labels.
-
-```drawlib show-code 680px center file:geomap_world_topology.png caption:"Global Multi-Region Topology with World Map"
+```drawlib fold-code center file:geomap_world_topology.png caption:"Global Multi-Region Topology with World Map"
 from drawlib.canvas import setup
 from drawlib.lines import line_curved
 from drawlib.shapes import circle
@@ -18,13 +12,13 @@ from drawlib.smartarts import GeoMap
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=150, height=82)
+setup(width=130, height=70)
 
 world = GeoMap(GeoMap.World.All, area_style=Styles.Neutral)
 # Use world.get_areas() to inspect all available country/area names
 world.set_area_styles(["United States", "Germany", "Singapore", "Australia"], Styles.PrimaryNeutral)
 world.set_area_styles(["Japan"], Styles.PrimaryFlat)
-world.draw(xy=(5, 6), width=140, height=70)
+world.draw(xy=(4, 4), width=122, height=62)
 
 jp_xy = world.get_area_xy("Japan")
 us_xy = world.get_area_xy("United States")
@@ -42,7 +36,22 @@ for label, pt, dy in [
     ("AP-South", sg_xy, -3.5),
 ]:
     circle(pt, radius=1.0, style=Styles.DangerFlat)
-    text((pt[0], pt[1] + dy), label, style=Styles.DarkBold.patch(text_size=9.5))
+    text((pt[0], pt[1] + dy), label, style=Styles.DarkBold.patch(text_size=10.5))
+```
+
+---
+
+## 1. Global Multi-Region Topology (`GeoMap.World.All`)
+
+As shown in the global topology map above, pass `GeoMap.World.All` to `GeoMap` to render a complete world map. You can inspect all available area names via `get_areas()`, highlight specific areas with `set_area_styles()` (by English name, ISO code such as `"JP"` / `"USA"`, or Japanese name such as `"日本"`), and use `get_area_xy()` to anchor connectors and labels:
+
+```python
+world = GeoMap(GeoMap.World.All, area_style=Styles.Neutral)
+world.set_area_styles(["United States", "Germany", "Singapore", "Australia"], Styles.PrimaryNeutral)
+world.set_area_styles(["Japan"], Styles.PrimaryFlat)
+world.draw(xy=(4, 4), width=122, height=62)
+
+jp_xy = world.get_area_xy("Japan")
 ```
 
 ---
@@ -53,14 +62,14 @@ for label, pt, dy in [
 
 You can also initialize any map with `area_style=Styles.Transparent` so unstyled areas are hidden, style only the target countries via `set_area_styles()`, and refine the viewport with `lon_range` and `lat_range`.
 
-```drawlib show-code 650px center file:geomap_east_asia.png caption:"East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)"
+```drawlib show-code center file:geomap_east_asia.png caption:"East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)"
 from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.smartarts import GeoMap
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=102)
+setup(width=125, height=90)
 
 # Hide all unstyled areas with Styles.Transparent
 asia = GeoMap(GeoMap.World.Asia, area_style=Styles.Transparent)
@@ -72,9 +81,9 @@ asia.set_area_styles(["Japan", "Hong Kong"], Styles.PrimaryFlat)
 
 # Crop to East Asia (from Hong Kong to Japan)
 asia.draw(
-    xy=(10, 6),
-    width=120,
-    height=88,
+    xy=(5, 4),
+    width=115,
+    height=82,
     lon_range=(106, 146),
     lat_range=(18, 46),
 )
@@ -99,18 +108,18 @@ Use `GeoMap.Countries.<Country>` for Admin-1 state/province/prefecture maps acro
 
 When `area_style=Styles.Transparent` is used and only a subset of areas is styled via `set_area_styles()` (such as Tokyo's 23 wards excluding Tama and the islands), `GeoMap.draw()` automatically zooms and fits the viewport to the visible areas even without specifying `lon_range` / `lat_range`.
 
-```drawlib show-code 680px center file:geomap_japan_and_tokyo.png caption:"Japan Prefectures Map and Tokyo 23 Wards Map"
+```drawlib show-code center file:geomap_japan_and_tokyo.png caption:"Japan Prefectures Map and Tokyo 23 Wards Map"
 from drawlib.canvas import setup
 from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import GeoMap
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=150, height=82)
+setup(width=130, height=74)
 
 # Left Panel: Japan (highlight Kanto prefectures, Tokyo, and Osaka)
-rectangle((39, 41), width=68, height=72, style=Styles.White)
-text((39, 73), "GeoMap.Countries.Japan (47 Prefectures)", style=Styles.DarkBold.patch(text_size=11))
+rectangle((34, 37), width=60, height=66, style=Styles.White)
+text((34, 65), "GeoMap.Countries.Japan (47 Prefectures)", style=Styles.DarkBold.patch(text_size=10.5))
 
 jp = GeoMap(GeoMap.Countries.Japan, area_style=Styles.Neutral)
 # jp.get_areas() -> ['Hokkaido', 'Aomori', ..., 'Tokyo', ..., 'Okinawa']
@@ -120,11 +129,11 @@ jp.set_area_styles(
 )
 jp.set_area_styles(["Tokyo"], Styles.PrimaryFlat)
 jp.set_area_styles(["Osaka"], Styles.SecondaryFlat)
-jp.draw(xy=(8, 7), width=62, height=62, lon_range=(129, 146), lat_range=(30, 46))
+jp.draw(xy=(6, 6), width=56, height=56, lon_range=(129, 146), lat_range=(30, 46))
 
 # Right Panel: Tokyo 23 Wards (hide Tama & islands via Styles.Transparent)
-rectangle((111, 41), width=68, height=72, style=Styles.White)
-text((111, 73), "GeoMap.Cities.Japan_Tokyo (23 Wards)", style=Styles.DarkBold.patch(text_size=11))
+rectangle((96, 37), width=60, height=66, style=Styles.White)
+text((96, 65), "GeoMap.Cities.Japan_Tokyo (23 Wards)", style=Styles.DarkBold.patch(text_size=10.5))
 
 tokyo = GeoMap(GeoMap.Cities.Japan_Tokyo, area_style=Styles.Transparent)
 # tokyo.get_areas() -> ['Chiyoda', 'Chuo', 'Minato', ..., 'Hachioji', ...]
@@ -137,11 +146,11 @@ wards_23 = [
 tokyo.set_area_styles(wards_23, Styles.Neutral)
 tokyo.set_area_styles(["Chiyoda", "Chuo", "Minato"], Styles.PrimaryNeutral)
 tokyo.set_area_styles(["Shinjuku", "Shibuya"], Styles.PrimaryFlat)
-tokyo.draw(xy=(80, 7), width=62, height=62)
+tokyo.draw(xy=(68, 6), width=56, height=56)
 
 shibuya_xy = tokyo.get_area_xy("Shibuya")
 circle(shibuya_xy, radius=0.9, style=Styles.DangerFlat)
-text((shibuya_xy[0] - 4.5, shibuya_xy[1] - 2.5), "Shibuya", style=Styles.DarkBold.patch(text_size=9.5))
+text((shibuya_xy[0] - 4.5, shibuya_xy[1] - 2.5), "Shibuya", style=Styles.DarkBold.patch(text_size=10.0))
 ```
 
 ---
@@ -150,18 +159,18 @@ text((shibuya_xy[0] - 4.5, shibuya_xy[1] - 2.5), "Shibuya", style=Styles.DarkBol
 
 In addition to built-in presets, you can pass any `.geojson` file path (or parsed GeoJSON dictionary) to `GeoMap`. The example below loads custom municipal GeoJSON files from `_assets/geodata/hokkaido.geojson` and `_assets/geodata/okinawa.geojson`.
 
-```drawlib show-code 680px center file:geomap_custom_geojson.png caption:"Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)"
+```drawlib show-code center file:geomap_custom_geojson.png caption:"Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)"
 from drawlib.canvas import setup
 from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import GeoMap
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=150, height=82)
+setup(width=130, height=74)
 
 # Left Panel: Hokkaido Municipalities (_assets/geodata/hokkaido.geojson)
-rectangle((39, 41), width=68, height=72, style=Styles.White)
-text((39, 73), "Custom GeoJSON: Hokkaido (_assets/geodata/hokkaido.geojson)", style=Styles.DarkBold.patch(text_size=9.5))
+rectangle((34, 37), width=60, height=66, style=Styles.White)
+text((34, 65), "Custom GeoJSON: Hokkaido (hokkaido.geojson)", style=Styles.DarkBold.patch(text_size=10.0))
 
 hokkaido = GeoMap("_assets/geodata/hokkaido.geojson", area_style=Styles.Neutral)
 sapporo_wards = [a for a in hokkaido.get_areas() if a in {
@@ -170,24 +179,24 @@ sapporo_wards = [a for a in hokkaido.get_areas() if a in {
 }]
 hokkaido.set_area_styles(["Asahikawa", "Hakodate", "Obihiro", "Kushiro", "Otaru"], Styles.PrimaryNeutral)
 hokkaido.set_area_styles(sapporo_wards, Styles.PrimaryFlat)
-hokkaido.draw(xy=(8, 7), width=62, height=62, lon_range=(139.3, 145.9), lat_range=(41.3, 45.6))
+hokkaido.draw(xy=(6, 6), width=56, height=56, lon_range=(139.3, 145.9), lat_range=(41.3, 45.6))
 
 sp_xy = hokkaido.get_area_xy("Chuo")
 circle(sp_xy, radius=0.9, style=Styles.DangerFlat)
-text((sp_xy[0] - 6.0, sp_xy[1] + 2.5), "Sapporo", style=Styles.DarkBold.patch(text_size=9.5))
+text((sp_xy[0] - 6.0, sp_xy[1] + 2.5), "Sapporo", style=Styles.DarkBold.patch(text_size=10.0))
 
 # Right Panel: Okinawa Main Island (_assets/geodata/okinawa.geojson)
-rectangle((111, 41), width=68, height=72, style=Styles.White)
-text((111, 73), "Custom GeoJSON: Okinawa (_assets/geodata/okinawa.geojson)", style=Styles.DarkBold.patch(text_size=9.5))
+rectangle((96, 37), width=60, height=66, style=Styles.White)
+text((96, 65), "Custom GeoJSON: Okinawa (okinawa.geojson)", style=Styles.DarkBold.patch(text_size=10.0))
 
 okinawa = GeoMap("_assets/geodata/okinawa.geojson", area_style=Styles.Neutral)
 okinawa.set_area_styles(["Nago", "Uruma", "Okinawa", "Urasoe", "Ginowan", "Itoman"], Styles.PrimaryNeutral)
 okinawa.set_area_styles(["Naha"], Styles.PrimaryFlat)
-okinawa.draw(xy=(80, 7), width=62, height=62, lon_range=(127.6, 128.35), lat_range=(26.05, 26.9))
+okinawa.draw(xy=(68, 6), width=56, height=56, lon_range=(127.6, 128.35), lat_range=(26.05, 26.9))
 
 naha_xy = okinawa.get_area_xy("Naha")
 circle(naha_xy, radius=0.9, style=Styles.DangerFlat)
-text((naha_xy[0] - 5.0, naha_xy[1] + 1.5), "Naha", style=Styles.DarkBold.patch(text_size=9.5))
+text((naha_xy[0] - 5.0, naha_xy[1] + 1.5), "Naha", style=Styles.DarkBold.patch(text_size=10.0))
 ```
 
 ---

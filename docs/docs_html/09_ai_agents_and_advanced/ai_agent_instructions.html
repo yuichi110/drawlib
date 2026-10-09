@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -422,6 +426,57 @@
             <main class="main-content">
                 <h1>AI Agent Instructions &amp; Prompt Engineering</h1>
 <p>Drawlib was built from the ground up for the era of AI-assisted engineering. Instead of asking Large Language Models (LLMs) to construct thousands of lines of fragile SVG path strings or brittle Matplotlib code, Drawlib gives AI agents a clean, high-level, declarative Python vocabulary designed for zero-shot architectural visualization.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="ai_agent_instructions_images/ai_agent_project_first_workflow.png" alt="ai_agent_instructions_1" />
+  <figcaption class="drawlib-caption">The Four Core Rules for Autonomous AI Coding Agents Using Drawlib</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s2">"Four Core Directives for Autonomous AI Coding Agents"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+
+<span class="c1"># Stage Icons above ChevronProcess</span>
+<span class="n">icons</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">19.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">folder_plus</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">48.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">106.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">icon_fn</span> <span class="ow">in</span> <span class="n">icons</span><span class="p">:</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="mf">31.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib init"</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Query Rules"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"rules show"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. High-Level"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Graph &amp; SmartArt"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Grid Repair"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"show -g &amp; Fix"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">18.5</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Why Drawlib is Ideal for AI Agents</h2>
 <ol>
@@ -429,76 +484,12 @@
 <li><strong>High-Level Domain Abstractions</strong>: AI agents can instantiate enterprise architecture topologies, UML class models, and data charts in fewer than 20 lines of Python.</li>
 <li><strong>On-Demand Knowledge Retrieval</strong>: Drawlib includes a built-in terminal rules catalog (<code>drawlib rules show &lt;topic&gt;</code>). Agents can fetch targeted API specifications on demand without consuming valuable context window space with massive upfront manuals.</li>
 </ol>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="ai_agent_instructions_images/ai_agent_project_first_workflow.png" alt="ai_agent_instructions_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">The Four Core Rules for Autonomous AI Coding Agents Using Drawlib</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
-
-<span class="n">text</span><span class="p">((</span><span class="mi">71</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s2">"Four Core Directives for Autonomous AI Coding Agents"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-
-<span class="c1"># Stage 1: Project-First Init</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">21.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"1. Project-First Init</span><span class="se">\n\n</span><span class="s2">drawlib init</span><span class="se">\n</span><span class="s2">&lt;doc|site|slide|images&gt;</span><span class="se">\n\n</span><span class="s2">Scaffold styles.py &amp; build.sh"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Stage 2: Query Rules</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">54.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Query Rules</span><span class="se">\n\n</span><span class="s2">drawlib rules show &lt;topic&gt;</span><span class="se">\n\n</span><span class="s2">Load exact API &amp;</span><span class="se">\n</span><span class="s2">style-guide on demand"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Stage 3: High-Level &amp; Neutral</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"3. High-Level &amp; Neutral</span><span class="se">\n\n</span><span class="s2">Graph, Diagrams,</span><span class="se">\n</span><span class="s2">SmartArts, Charts</span><span class="se">\n\n</span><span class="s2">50%+ Neutral + file:"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Stage 4: Grid Self-Repair</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"4. Grid Self-Repair</span><span class="se">\n\n</span><span class="s2">drawlib show -g</span><span class="se">\n\n</span><span class="s2">Inspect coordinates</span><span class="se">\n</span><span class="s2">&amp; fix overlaps"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Left-to-right workflow connectors</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">73.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">102.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">106.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <hr />
 <h2>2. Recommended Agent Instruction Template</h2>
 <p>Copy and paste the following snippet into your repository's AI instruction file (e.g. <code>.cursorrules</code>, <code>.agents/rules/drawlib.md</code>, or Claude/Gemini system prompts):</p>
 <pre><code class="language-markdown"><span class="gh"># Drawlib Agent Directives</span>
 
-Drawlib is a pure-Python library for "Illustration as Code" and "Documentation as Code".
+Drawlib is a pure-Python library for "Illustration as Code" and "Illustrated Documentation as Code".
 When tasked with creating diagrams, architectures, flowcharts, or charts, follow these rules:
 
 <span class="k">1.</span> Project-First Rule (<span class="sb">`drawlib init`</span> — No Bare <span class="sb">`.py`</span> Files):
@@ -539,69 +530,62 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 <h2>3. Dynamic Knowledge Retrieval (<code>drawlib rules</code>)</h2>
 <p>Instead of pasting entire documentation manuals into prompts, train your agent to query <code>drawlib rules</code> on demand. Drawlib ships with <strong>27 modular rule manuals</strong> (8 general guidelines + 19 library module specifications):</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="ai_agent_instructions_images/ai_agent_on_demand_rules_architecture.png" alt="ai_agent_instructions_2" style="width: 650px; max-width: 100%;" />
+  <img src="ai_agent_instructions_images/ai_agent_on_demand_rules_architecture.png" alt="ai_agent_instructions_2" />
   <figcaption class="drawlib-caption">On-Demand Rule Retrieval Workflow for AI Coding Agents</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">154</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="c1"># Left: AI Coding Agent</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"AI Coding Agent</span><span class="se">\n</span><span class="s2">(Context-Aware)</span><span class="se">\n\n</span><span class="s2">1. Inspects Repo Code</span><span class="se">\n</span><span class="s2">2. Queries Targeted Rule</span><span class="se">\n</span><span class="s2">3. Authors Drawlib Code"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="s2">"AI Coding Agent"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="s2">"1. Inspect Repo</span><span class="se">\n</span><span class="s2">2. Query Rule</span><span class="se">\n</span><span class="s2">3. Author Code"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
 
 <span class="c1"># Center: On-Demand CLI Dispatcher</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">73</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"CLI Rule Engine</span><span class="se">\n\n</span><span class="s2">drawlib rules show</span><span class="se">\n</span><span class="s2">&lt;topic&gt;"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">24.8</span><span class="p">),</span> <span class="s2">"CLI Rules</span><span class="se">\n</span><span class="s2">rules show"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
 <span class="c1"># Right: 27 Modular Manuals Container</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">124</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">124</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span> <span class="s2">"27 Built-In Rule Manuals"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">((</span><span class="mf">88.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">106.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="s2">"27 Rule Manuals"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">124</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"8 General Manuals</span><span class="se">\n</span><span class="s2">overview, style-guide,</span><span class="se">\n</span><span class="s2">anim-guide, slide-guide, api..."</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"8 General Manuals</span><span class="se">\n</span><span class="s2">overview, style-guide,</span><span class="se">\n</span><span class="s2">anim-guide, api..."</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">124</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"19 lib-* Module Manuals</span><span class="se">\n</span><span class="s2">lib-graph, lib-diagrams,</span><span class="se">\n</span><span class="s2">lib-smartarts, lib-charts,</span><span class="se">\n</span><span class="s2">lib-shapes, lib-icons..."</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"19 lib-* Manuals</span><span class="se">\n</span><span class="s2">lib-graph, lib-diagrams,</span><span class="se">\n</span><span class="s2">lib-smartarts, lib-charts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Connectors</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">41</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="p">(</span><span class="mi">57</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="s2">"Query"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">),</span> <span class="s2">"Query"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">57</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"Spec + PNGs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="s2">"Manual"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">89</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">89</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>

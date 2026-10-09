@@ -47,10 +47,10 @@ def service_card(
     card_style = style if style.shape_r is not None else style.patch(shape_r=2.0)
     rectangle(xy, width=width, height=height, style=card_style)
     if subtitle:
-        text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=11))
-        text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=8))
+        text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=12))
+        text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=10))
     else:
-        text((x, y), title, style=Styles.WhiteBold)
+        text((x, y), title, style=Styles.WhiteBold.patch(text_size=12))
 
 
 def connect(
@@ -73,4 +73,5 @@ def connect(
     if label:
         mid_x = (start[0] + end[0]) / 2
         mid_y = (start[1] + end[1]) / 2
-        text((mid_x, mid_y + 3.0), label, style=Styles.Primary.patch(text_size=9))
+        text((mid_x, mid_y + 3.0), label, style=Styles.Primary.patch(text_size=10.5))
+

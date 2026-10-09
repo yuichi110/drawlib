@@ -386,9 +386,11 @@ rectangle((50, 50), width=40, height=20, style=Styles.Primary)
         encoding="utf-8",
     )
 
-    out_images = tmp_path / "images"
-    res = run_drawlib_cli(["build", "image", str(doc_dir), "-o", str(out_images)], cwd=str(tmp_path))
+    out_images = tmp_path / "doc_images"
+    res = run_drawlib_cli(["build", "image", "doc_src/", "-o", "doc_images/"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Successfully executed image build" in res.stdout
     assert (out_images / "chapter_images" / "arch.png").exists()
     assert (out_images / "chapter_images" / "arch.png").stat().st_size > 0
+    assert not (doc_dir / "doc_images").exists()
+

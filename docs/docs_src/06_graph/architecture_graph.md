@@ -2,9 +2,70 @@
 
 `ArchitectureGraph` is a declarative **two-level macro/micro layout solver** purpose-built for cloud infrastructure, VPC topologies, and multi-zone microservice architectures.
 
-Unlike generic DAG solvers that flatten nested groups or scramble boundary boxes, `ArchitectureGraph` solves layouts in two hierarchical phases:
-1. **Micro Layout**: Packs internal nodes inside each leaf cluster (`g.cluster(...)`), and recursively packs child clusters inside parent containers (`parent="vpc"`, `order=1, 2, ...`).
-2. **Macro Layout**: Arranges top-level containers across a **5-zone compass** (`pos="left" | "center" | "right" | "top" | "bottom"`) or along the primary flow axis (`direction="LR" | "TB"`), then routes orthogonal Manhattan highway edges with evenly distributed port offsets.
+Unlike generic DAG solvers that flatten nested groups or scramble boundary boxes, `ArchitectureGraph` solves layouts in two hierarchical phases: packing internal nodes and child clusters inside parent containers (**Micro Layout**), then arranging top-level containers across a **5-zone compass** (`pos="left" | "center" | "right" | "top" | "bottom"`) with orthogonal highway routing (**Macro Layout**).
+
+```drawlib fold-code center file:graph_arch_compass_zones.png caption:"ArchitectureGraph 5-Zone Compass Layout (top, left, center, right, bottom) and Nested Sub-Clusters"
+from drawlib.canvas import save, setup
+from drawlib.graph import ArchitectureGraph
+from drawlib.icons import phosphor
+from drawlib.styles import Styles
+
+setup(width=126, height=86)
+
+g = ArchitectureGraph(
+    direction="LR",
+    container_sep=3.5,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    default_node_width=15.5,
+    default_node_height=10.2,
+)
+
+# 1. Top Zone (pos="top")
+g.cluster("top_zone", ["iam"], label="Control (top)", pos="top", padding=2.6)
+g.node("iam", "\nIAM Policy", style=Styles.Neutral)
+
+# 2. Left Zone (pos="left")
+g.cluster("left_zone", ["waf"], label="Ingress (left)", pos="left", padding=2.6)
+g.node("waf", "\nEdge WAF", style=Styles.Neutral)
+
+# 3. Center Zone (pos="center") with two nested sub-clusters (parent="core", order=1 & 2)
+g.group("core", "Core VPC (pos='center')", pos="center", padding=3.0)
+g.cluster("tier1", ["api"], label="App (order=1)", parent="core", order=1, padding=3.8)
+g.cluster("tier2", ["worker"], label="Job (order=2)", parent="core", order=2, padding=3.8)
+g.node("api", "\nAPI Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
+g.node("worker", "\nTask Worker", style=Styles.PrimaryNeutral)
+
+# 4. Right Zone (pos="right")
+g.cluster("right_zone", ["dr_replica"], label="DR (right)", pos="right", padding=2.6)
+g.node("dr_replica", "\nDR Replica", style=Styles.SecondaryNeutral)
+
+# 5. Bottom Zone (pos="bottom")
+g.cluster("bottom_zone", ["obs"], label="Logs (bottom)", pos="bottom", padding=2.6)
+g.node("obs", "\nTelemetry", style=Styles.Neutral)
+
+# Connect across all 5 compass zones
+g.edge("waf", "api")
+g.edge("api", "worker")
+g.edge("worker", "dr_replica")
+g.edge("iam", "api", style=Styles.MutedDashed)
+g.edge("worker", "obs", style=Styles.MutedDashed)
+
+ox, oy = -5.5, -6.5
+layout = g.draw(xy=(ox, oy), width=126.0, height=86.0)
+
+for nid, icon_fn, st in [
+    ("iam", phosphor.lock_key, Styles.Dark),
+    ("waf", phosphor.globe, Styles.Dark),
+    ("api", phosphor.shield_check, Styles.White),
+    ("worker", phosphor.cpu, Styles.Primary),
+    ("dr_replica", phosphor.database, Styles.Secondary),
+    ("obs", phosphor.chart_line_up, Styles.Dark),
+]:
+    n = layout.nodes[nid]
+    icon_fn((n.x + ox, n.y + oy + 1.9), width=3.8, style=st)
+
+save()
+```
 
 ---
 
@@ -56,80 +117,37 @@ You can organize nodes into single-level or nested two-level containers using `g
 - **Inline Node Membership (`g.node(..., group="...", subgroup="...")`)**:
   During `calc()`, `ArchitectureGraph` inspects each node's `group` and `subgroup` attributes. Any referenced cluster ID that has not been explicitly created via `g.group()` or `g.cluster()` is **automatically registered** (using its ID as the label and `default_container_style`), the node is appended to the innermost container, and if both `group` and `subgroup` are provided, `subgroup.parent` is automatically linked to `group` (`subgroup.parent = node.group`). You can still call `g.group()` or `g.cluster()` before or after `g.node()` to customize labels, `pos`, `order`, or `padding`.
 
-```drawlib fold-code 650px center file:graph_arch_compass_zones.png caption:"ArchitectureGraph 5-Zone Compass Layout (top, left, center, right, bottom) and Nested Sub-Clusters"
-from drawlib.canvas import save, setup
-from drawlib.graph import ArchitectureGraph
-from drawlib.styles import Styles
-
-setup(width=218, height=132)
-
-g = ArchitectureGraph(
-    direction="LR",
-    container_sep=9.0,
-    default_node_text_style=Styles.Dark.patch(text_size=8.5),
-    default_node_width=24.0,
-    default_node_height=11.0,
-)
-
-# 1. Top Zone (pos="top")
-g.cluster("top_zone", ["iam"], label="Control Plane (pos='top')", pos="top", padding=4.5)
-g.node("iam", "IAM & Config", style=Styles.Neutral)
-
-# 2. Left Zone (pos="left")
-g.cluster("left_zone", ["waf"], label="Ingress Zone (pos='left')", pos="left", padding=4.5)
-g.node("waf", "Edge WAF", style=Styles.Neutral)
-
-# 3. Center Zone (pos="center") with two nested sub-clusters (parent="core", order=1 & 2)
-g.group("core", "Core VPC (pos='center')", pos="center", padding=5.5)
-g.cluster("tier1", ["api"], label="App Tier (order=1)", parent="core", order=1, padding=5.5)
-g.cluster("tier2", ["worker"], label="Worker Tier (order=2)", parent="core", order=2, padding=5.5)
-g.node("api", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=8.5))
-g.node("worker", "Task Worker", style=Styles.PrimaryNeutral)
-
-# 4. Right Zone (pos="right")
-g.cluster("right_zone", ["dr_replica"], label="Egress / DR (pos='right')", pos="right", padding=4.5)
-g.node("dr_replica", "DR Replica", style=Styles.SecondaryNeutral)
-
-# 5. Bottom Zone (pos="bottom")
-g.cluster("bottom_zone", ["obs"], label="Observability & Storage (pos='bottom')", pos="bottom", padding=4.5)
-g.node("obs", "Metrics & Logs", style=Styles.Neutral)
-
-# Connect across all 5 compass zones
-g.edge("waf", "api")
-g.edge("api", "worker")
-g.edge("worker", "dr_replica")
-g.edge("iam", "api", style=Styles.MutedDashed)
-g.edge("worker", "obs", style=Styles.MutedDashed)
-
-g.draw(margin=10.0)
-save()
-```
-
 ---
 
 ## 2. Multi-VPC / Multi-Tier Cloud Topology with Nested Clusters
 
-The following example builds a complete cloud architecture featuring an external client zone (`pos="left"`), a central production VPC (`pos="center"`) with nested Ingress, Compute, and Data tiers (`parent="vpc"`, `order=1, 2, 3`), and an observability zone (`pos="bottom"`):
+The following example builds a complete cloud architecture featuring an external client zone (`pos="left"`), a central production VPC (`pos="center"`) with nested Compute and Data tiers (`parent="prod_vpc"`, `order=1, 2`), and an observability zone (`pos="bottom"`):
 
-```drawlib show-code 740px center file:graph_arch_multi_tier_vpc.png caption:"Multi-Tier Cloud VPC Topology with Nested Clusters and 5-Zone Compass Placement"
+```drawlib show-code center file:graph_arch_multi_tier_vpc.png caption:"Multi-Tier Cloud VPC Topology with Nested Clusters and 5-Zone Compass Placement"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
 
-setup(width=200, height=118)
+setup(width=124, height=90)
 
-g = ArchitectureGraph(direction="LR", default_node_width=26.0, default_node_height=12.0)
+g = ArchitectureGraph(
+    direction="LR",
+    container_sep=6.0,
+    default_node_width=19.5,
+    default_node_height=10.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
 
-# 1. External client zone pinned to the left
-g.cluster("ext_zone", ["web_client", "mobile_client"], label="External Clients", pos="left", padding=5.0)
+# 1. External client zone pinned to the left (vertically stacked)
+g.cluster("ext_zone", ["web_client", "mobile_client"], label="Clients", pos="left", padding=3.5)
 g.node("web_client", "Web App", style=Styles.Neutral)
 g.node("mobile_client", "Mobile App", style=Styles.Neutral)
 
 # 2. Central Production VPC with nested Compute and Data tiers
-g.group("prod_vpc", "Production Cloud VPC (10.0.0.0/16)", pos="center", padding=5.5)
+g.group("prod_vpc", "Production VPC (10.0.0.0/16)", pos="center", padding=4.0)
 g.cluster(
     "compute_subnet",
-    ["api_gw", "auth_svc", "order_svc"],
+    ["api_gw", "order_svc"],
     label="Compute Subnet",
     parent="prod_vpc",
     order=1,
@@ -145,26 +163,23 @@ g.cluster(
 )
 
 # 50%+ Neutral baseline; single PrimaryFlat hero node for the API Gateway
-g.node("api_gw", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("auth_svc", "Auth Service", style=Styles.PrimaryNeutral)
+g.node("api_gw", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
 g.node("order_svc", "Order Worker", style=Styles.PrimaryNeutral)
 g.node("orders_db", "Primary SQL", style=Styles.SecondaryNeutral)
 g.node("redis_cache", "Redis Cache", style=Styles.SecondaryNeutral)
 
 # 3. Shared observability platform pinned to the bottom
-g.cluster("obs_zone", ["prometheus"], label="Observability VPC Peering", pos="bottom", padding=4.5)
+g.cluster("obs_zone", ["prometheus"], label="Observability", pos="bottom", padding=3.5)
 g.node("prometheus", "Metrics & Logs", style=Styles.Neutral)
 
 # 4. Orthogonal highway edges
 g.edge("web_client", "api_gw", "HTTPS")
-g.edge("mobile_client", "api_gw", "gRPC")
-g.edge("api_gw", "auth_svc", "Verify")
-g.edge("api_gw", "order_svc", "Dispatch")
-g.edge("auth_svc", "redis_cache", "Session")
-g.edge("order_svc", "orders_db", "Write")
+g.edge("mobile_client", "order_svc", "gRPC")
+g.edge("api_gw", "redis_cache")
+g.edge("order_svc", "orders_db")
 g.edge("order_svc", "prometheus", style=Styles.MutedDashed)
 
-g.draw(margin=10.0)
+g.draw(xy=(-3.0, -4.0), width=124.0, height=90.0)
 save()
 ```
 
@@ -174,41 +189,61 @@ save()
 
 When an automatically calculated topology needs a subtle visual adjustment—or when you want to attach custom [`drawlib.shapes`](../02_drawing_primitives/shapes_basic.md) badges at exact node coordinates—call `layout = g.calc()`, apply `layout.offset(node_id, dx=..., dy=...)`, and then render via `layout.draw()`:
 
-```drawlib show-code 700px center file:graph_arch_calc_offset.png caption:"Fine-Tuning ArchitectureGraph Coordinates with calc() and layout.offset()"
+```drawlib show-code center file:graph_arch_calc_offset.png caption:"Fine-Tuning ArchitectureGraph Coordinates with calc() and layout.offset()"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=175, height=95)
+setup(width=128, height=62)
 
-g = ArchitectureGraph(direction="LR", default_node_width=26.0)
+g = ArchitectureGraph(
+    direction="LR",
+    container_sep=6.0,
+    default_node_width=20.0,
+    default_node_height=10.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+)
 
-# Declare node membership directly via group / subgroup parameters
+# Declare containers with subgroup padding and inline node membership
+g.cluster("dmz", ["edge_lb"], label="DMZ (left)", pos="left", padding=3.5)
+g.group("vpc", "Production VPC", pos="center", padding=4.0)
+g.cluster("app", ["core_api"], label="App Tier", parent="vpc", order=1, padding=8.0)
+g.cluster("storage", ["worker", "AnalyticsDB"], label="Worker & Data", parent="vpc", order=2, padding=5.0)
+
 g.node("edge_lb", "Edge Router", group="dmz", style=Styles.Neutral)
-g.node("core_api", "Core API", group="vpc", subgroup="app", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("worker", "Async Worker", group="vpc", subgroup="app", style=Styles.PrimaryNeutral)
+g.node(
+    "core_api",
+    "Core API",
+    group="vpc",
+    subgroup="app",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+g.node("worker", "Async Worker", group="vpc", subgroup="storage", style=Styles.PrimaryNeutral)
 g.node("AnalyticsDB", "Analytics DB", group="vpc", subgroup="storage", style=Styles.SecondaryNeutral)
 
 g.edge("edge_lb", "core_api", "TLS 1.3")
 g.edge("core_api", "worker", "Events")
-g.edge("worker", "AnalyticsDB", "Batch")
+g.edge("core_api", "AnalyticsDB", "Query")
 
 # 1. Compute layout geometry without drawing
-layout = g.calc(margin=12.0)
+ox, oy = -5.0, -4.5
+layout = g.calc(width=128.0, height=62.0)
 
-# 2. Nudge the Core API node slightly upward and re-align its incident edge ports
-layout.offset("core_api", dx=0.0, dy=4.0)
-layout.draw()
+# 2. Nudge the Core API node slightly downward so a badge fits cleanly inside the App Tier
+layout.offset("core_api", dx=0.0, dy=-4.2)
+layout.draw(xy=(ox, oy))
 
 # 3. Overlay a SLA status badge right above the Core API node using computed coordinates
 api_box = layout.nodes["core_api"]
 rectangle(
-    (api_box.x, api_box.top + 4.5),
-    width=22.0,
-    height=6.0,
+    (api_box.x + ox, api_box.top + oy + 3.0),
+    width=20.0,
+    height=4.4,
     style=Styles.SuccessNeutral,
     text="SLA: 99.99%",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 save()

@@ -2,6 +2,93 @@
 
 Drawlib is designed to integrate seamlessly into corporate design languages and custom developer workflows. You can customize HTML layout structures, modify stylesheets, and inject project-wide Python drawing helpers and style definitions.
 
+A single theme preset (`--style <preset>`) synchronizes both your document CSS (`style.css`) and your diagram design tokens (`styles.py`):
+
+```drawlib fold-code center file:customization_unified_theming.png caption:"Unified Theme Architecture: Synchronizing Document CSS (style.css) and Diagram Tokens (styles.py)"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=62)
+
+# Left Focal Card: Single Theme Preset
+rectangle((18.5, 31), width=29, height=34, style=Styles.PrimaryFlat.patch(shape_r=2.0))
+phosphor.palette((18.5, 42.5), width=5.2, style=Styles.WhiteBold)
+text((18.5, 34.5), "Theme Preset", style=Styles.WhiteBold.patch(text_size=11.0))
+text((18.5, 29.5), "--style <name>", style=Styles.WhiteBold.patch(text_size=10.2))
+text((18.5, 21.0), "• default / dark\n• google / github\n• monochrome", style=Styles.White.patch(text_size=10.0))
+
+# Branching connectors
+line((33, 37), (41, 46.5), arrow_head="->", style=Styles.PrimaryBold)
+line((33, 25), (41, 15.5), arrow_head="->", style=Styles.PrimaryBold)
+
+# Top Branch: Document & Slide Styling (style.css)
+rectangle((82, 46.5), width=82, height=25, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
+phosphor.file_css((47.5, 55.0), width=4.4, style=Styles.PrimaryBold)
+text((83.5, 55.0), "Document & Slide CSS: style.css", style=Styles.DarkBold.patch(text_size=10.8))
+
+rectangle(
+    (55.5, 42.5),
+    width=23.5,
+    height=13,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="1. Tokens\nPalette & Fonts",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+rectangle(
+    (82.0, 42.5),
+    width=23.5,
+    height=13,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="2. Markdown\nTables & Code",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+rectangle((108.5, 42.5), width=23.5, height=13, style=Styles.SecondaryNeutral.patch(shape_r=1.2))
+phosphor.globe((102.5, 45.8), width=3.8, style=Styles.PrimaryBold)
+phosphor.file_pdf((114.5, 45.8), width=3.8, style=Styles.PrimaryBold)
+text((108.5, 39.2), "3. Target UI", style=Styles.DarkBold.patch(text_size=10.0))
+
+line((67.25, 42.5), (70.25, 42.5), arrow_head="->", style=Styles.DarkBold)
+line((93.75, 42.5), (96.75, 42.5), arrow_head="->", style=Styles.DarkBold)
+
+# Bottom Branch: Diagram Canvas Styling (styles.py)
+rectangle((82, 15.5), width=82, height=25, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+phosphor.file_py((47.5, 24.0), width=4.4, style=Styles.PrimaryBold)
+text((83.5, 24.0), "Diagram Design Tokens: styles.py", style=Styles.DarkBold.patch(text_size=10.8))
+
+rectangle(
+    (55.5, 11.5),
+    width=23.5,
+    height=13,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Colors\nPalette",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+rectangle(
+    (82.0, 11.5),
+    width=23.5,
+    height=13,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Styles &\nFonts",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+rectangle(
+    (108.5, 11.5),
+    width=23.5,
+    height=13,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+    text="All Diagrams\n(100% Synced)",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+line((67.25, 11.5), (70.25, 11.5), arrow_head="->", style=Styles.DarkBold)
+line((93.75, 11.5), (96.75, 11.5), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
 ---
 
 ## 1. Customizing HTML Templates (`template.html`)
@@ -23,103 +110,6 @@ Every Drawlib site and PDF project contains a Jinja2 template (`template.html`) 
 ## 2. Customizing CSS Stylesheets (`style.css`)
 
 Drawlib projects include a local `style.css` in the source folder built with a 3-layer architecture (Layer 1: theme tokens, Layer 2: code & Markdown components, Layer 3: target layout for `site`, `doc`, `pdf`, or `slide`). You can edit this stylesheet directly to alter colors, typography, or spacing.
-
-```drawlib fold-code 650px center file:customization_unified_theming.png caption:"Unified Theme Architecture: Synchronizing Document CSS (style.css) and Diagram Tokens (styles.py)"
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=156, height=62)
-
-# Left Focal Card: Single Theme Preset
-rectangle(
-    (21, 31),
-    width=34,
-    height=28,
-    style=Styles.PrimaryFlat,
-    text="Theme Preset\n(--style <preset>)\n\n• default / dark\n• google / dark\n• editorial / github\n• monochrome",
-    text_style=Styles.WhiteBold.patch(text_size=7.4),
-)
-
-# Branching connectors
-line((38, 36), (48, 46.5), arrow_head="->", style=Styles.PrimaryBold)
-line((38, 26), (48, 15.5), arrow_head="->", style=Styles.PrimaryBold)
-
-# Top Branch: Document & Slide Styling (style.css)
-rectangle((100, 46.5), width=104, height=25, style=Styles.PrimaryNeutral)
-text((100, 55.5), "Document & Slide Styling: style.css (3-Layer CSS Architecture)", style=Styles.DarkBold.patch(text_size=7.8))
-
-rectangle(
-    (65, 43.0),
-    width=28,
-    height=13,
-    style=Styles.Neutral,
-    text="Layer 1: Theme Tokens\nPalette & Font Variables",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (100, 43.0),
-    width=28,
-    height=13,
-    style=Styles.Neutral,
-    text="Layer 2: Markdown & Code\nTables, Alerts & Syntax UI",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-rectangle(
-    (135, 43.0),
-    width=28,
-    height=13,
-    style=Styles.SecondaryNeutral,
-    text="Layer 3: Target Layout\nsite, doc, pdf, slide",
-    text_style=Styles.DarkBold.patch(text_size=6.8),
-)
-line((79, 43.0), (86, 43.0), arrow_head="->", style=Styles.DarkBold)
-line((114, 43.0), (121, 43.0), arrow_head="->", style=Styles.DarkBold)
-
-# Bottom Branch: Diagram Canvas Styling (styles.py)
-rectangle((100, 15.5), width=104, height=25, style=Styles.SecondaryNeutral)
-text((100, 24.5), "Diagram Canvas Styling: styles.py (Python Design Tokens)", style=Styles.DarkBold.patch(text_size=7.8))
-
-rectangle(
-    (61.5, 12.0),
-    width=21,
-    height=13,
-    style=Styles.Neutral,
-    text="Colors Palette\n(GoogleColors, ...)",
-    text_style=Styles.DarkBold.patch(text_size=6.6),
-)
-text((74.2, 12.0), "+", style=Styles.DarkBold.patch(text_size=8.8))
-rectangle(
-    (87.0, 12.0),
-    width=21,
-    height=13,
-    style=Styles.Neutral,
-    text="Styles Catalog\n(GoogleStyles, ...)",
-    text_style=Styles.DarkBold.patch(text_size=6.6),
-)
-text((99.7, 12.0), "+", style=Styles.DarkBold.patch(text_size=8.8))
-rectangle(
-    (112.5, 12.0),
-    width=21,
-    height=13,
-    style=Styles.Neutral,
-    text="Fonts (patch_font)\n(Roboto, Noto, ...)",
-    text_style=Styles.DarkBold.patch(text_size=6.6),
-)
-line((123.0, 12.0), (128.0, 12.0), arrow_head="->", style=Styles.DarkBold)
-rectangle(
-    (139.0, 12.0),
-    width=22,
-    height=13,
-    style=Styles.PrimaryNeutral,
-    text="All Embedded &\nStandalone\nDiagrams",
-    text_style=Styles.DarkBold.patch(text_size=6.6),
-)
-
-save()
-```
 
 ### Built-In CSS Theme Presets:
 
@@ -208,7 +198,7 @@ When scaffolding projects using `drawlib init <type> --style google` (or `monoch
 
 For reusable composite drawing elements (such as specialized server racks, status badges, or complex icons), author custom functions in `utils.py`:
 
-```drawlib show-code 600px center file:customization_utils_server_nodes.png caption:"Reusable Composite Server Node Helper Defined in utils.py"
+```drawlib show-code center file:customization_utils_server_nodes.png caption:"Reusable Composite Server Node Helper Defined in utils.py"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -220,7 +210,7 @@ from drawlib.text import text
 def draw_server_node(xy: tuple[float, float], name: str, *, is_active: bool = True) -> None:
     x, y = xy
     style = Styles.PrimaryFlat.patch(shape_r=2.0) if is_active else Styles.Neutral.patch(shape_r=2.0)
-    t_style = Styles.WhiteBold if is_active else Styles.DarkBold
+    t_style = Styles.WhiteBold.patch(text_size=11.0) if is_active else Styles.DarkBold.patch(text_size=11.0)
     rectangle((x, y), width=34, height=18, style=style, text=name, text_style=t_style)
 
     # Status indicator LED (Green = Active, Red = Standby/Offline)
@@ -231,11 +221,11 @@ def draw_server_node(xy: tuple[float, float], name: str, *, is_active: bool = Tr
 # Inside your Markdown drawing code (`drawlib build ... -u docs_src/utils.py`):
 setup(width=110, height=42)
 
-draw_server_node((28, 21), "Primary App", is_active=True)
-draw_server_node((82, 21), "Replica App", is_active=False)
+draw_server_node((25, 21), "Primary App", is_active=True)
+draw_server_node((85, 21), "Replica App", is_active=False)
 
-line((45, 21), (65, 21), arrow_head="->", style=Styles.DarkBold)
-text((55, 25.5), "Async WAL Sync", style=Styles.Muted.patch(text_size=8.0))
+line((42, 21), (68, 21), arrow_head="->", style=Styles.DarkBold)
+text((55, 26.0), "Async WAL Sync", style=Styles.DarkBold.patch(text_size=10.5))
 
 save()
 ```

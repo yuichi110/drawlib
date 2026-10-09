@@ -4,6 +4,97 @@ The `doc` starter template is designed for authoring linear technical documents 
 
 By unifying single-page specs and multi-chapter reports into a single archetype, Drawlib allows you to compile **HTML, PDF, Markdown, and standalone images** from the same Markdown source files.
 
+```drawlib fold-code center file:project_doc_chapter_merge_and_toc.png caption:"Lexicographical Chapter Merging and Automatic Table of Contents (--toc) Injection"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=58)
+
+# Left Container: doc_src/ Lexicographical Source Chapters
+rectangle((19, 29), width=30, height=50, style=Styles.MutedDashed.patch(shape_r=2.0))
+phosphor.files((8.5, 50.2), width=4.2, style=Styles.PrimaryBold)
+text((21.5, 50.2), "doc_src/ (Sorted)", style=Styles.DarkBold.patch(text_size=10.8))
+
+src_chapters = [
+    (40.0, "00_cover.md\n(1st Chapter)"),
+    (27.0, "01_overview.md\n(2nd Chapter)"),
+    (14.0, "02_design.md\n(3rd Chapter)"),
+]
+for sy, label in src_chapters:
+    rectangle(
+        (19, sy),
+        width=26,
+        height=10.0,
+        style=Styles.Neutral.patch(shape_r=1.5),
+        text=label,
+        text_style=Styles.DarkBold.patch(text_size=10.2),
+    )
+
+# Center Container: Merged Linear Document Stream (--page-break)
+rectangle((64, 29), width=42, height=50, style=Styles.MutedDashed.patch(shape_r=2.0))
+phosphor.list_numbers((47.5, 50.2), width=4.4, style=Styles.PrimaryBold)
+text((66.5, 50.2), "Merged Stream", style=Styles.DarkBold.patch(text_size=10.8))
+
+rectangle(
+    (64, 42.2),
+    width=37,
+    height=7.8,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+    text="1. 00_cover.md (Cover)",
+    text_style=Styles.DarkBold.patch(text_size=10.2),
+)
+rectangle(
+    (64, 32.0),
+    width=37,
+    height=8.5,
+    style=Styles.PrimaryFlat.patch(shape_r=1.2),
+    text="Auto TOC (--toc)\nBetween Ch 1 & Ch 2",
+    text_style=Styles.WhiteBold.patch(text_size=10.2),
+)
+rectangle(
+    (64, 21.8),
+    width=37,
+    height=7.8,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="2. 01_overview.md",
+    text_style=Styles.DarkBold.patch(text_size=10.2),
+)
+rectangle(
+    (64, 12.0),
+    width=37,
+    height=7.8,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="3. 02_design.md",
+    text_style=Styles.DarkBold.patch(text_size=10.2),
+)
+
+# Arrows: Source -> Merged Stream
+line((32, 40.0), (45.5, 42.2), arrow_head="->", style=Styles.DarkBold)
+line((32, 27.0), (45.5, 21.8), arrow_head="->", style=Styles.DarkBold)
+line((32, 14.0), (45.5, 12.0), arrow_head="->", style=Styles.DarkBold)
+
+# Right: Exported Linear Deliverables
+rectangle((109, 39.0), width=30, height=16, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.file_pdf((99.0, 39.0), width=4.8, style=Styles.PrimaryBold)
+text((112.5, 39.0), "doc.pdf\nVector PDF\n+ TOC", style=Styles.DarkBold.patch(text_size=10.2))
+
+rectangle((109, 19.0), width=30, height=16, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+phosphor.globe((99.0, 19.0), width=4.8, style=Styles.PrimaryBold)
+text((112.5, 19.0), "doc_html/\nSingle-Page\nWeb Spec", style=Styles.DarkBold.patch(text_size=10.2))
+
+# Connectors: Merged Stream -> Deliverables
+line((85, 29.0), (89.5, 29.0), style=Styles.DarkBold)
+line((89.5, 19.0), (89.5, 39.0), style=Styles.DarkBold)
+line((89.5, 39.0), (94.0, 39.0), arrow_head="->", style=Styles.DarkBold)
+line((89.5, 19.0), (94.0, 19.0), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
 ---
 
 ## 1. Project Initialization
@@ -22,107 +113,107 @@ drawlib init doc my_report -s google -l en
 
 ## 2. Directory Layout & Anatomy
 
-```drawlib fold-code 600px center file:project_doc_directory_tree.png caption:"Directory Structure of a Linear Document (doc) Project"
+```drawlib fold-code center file:project_doc_directory_tree.png caption:"Directory Structure of a Linear Document (doc) Project"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
 from drawlib.styles import Styles
 
-setup(width=100, height=74)
+setup(width=98, height=76)
 
 TreeNode.register_drawing_item(
     name="folder",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.folder,
     style=Styles.PrimaryFlat,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="folder_out",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.folder,
     style=Styles.Secondary,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="md",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.file_text,
     style=Styles.Dark,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="py",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.file_py,
     style=Styles.PrimaryBold,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 TreeNode.register_drawing_item(
     name="code",
     location="before",
-    padding_width=3.8,
+    padding_width=4.2,
     function=phosphor.file_code,
     style=Styles.Dark,
-    args={"width": 2.8},
+    args={"width": 3.2},
 )
 
 root = TreeNode(
     "my_doc/",
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=11.5),
     line_style=Styles.DarkThin,
-    line_horizontal_margin=3.2,
-    line_horizontal_length=3.2,
-    line_vertical_margin=5.4,
+    line_horizontal_margin=3.4,
+    line_horizontal_length=3.4,
+    line_vertical_margin=5.6,
 ).set_drawing_item("folder")
 
 src = root.add(
-    "doc_src/  — [SOURCE OF TRUTH] Author Markdown chapters here",
-    text_style=Styles.DarkBold.patch(text_size=9.0),
+    "doc_src/  — [SOURCE OF TRUTH] Author Markdown chapters",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
 ).set_drawing_item("folder")
 src.add(
-    "00_cover.md, 01_overview.md, 02_design.md  — Cover & linear chapters",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "00_cover.md, 01_overview.md, 02_design.md  — Linear chapters",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("md")
 src.add(
     "template.html & style.css  — Jinja2 layout & 3-layer CSS",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("code")
 src.add(
-    "styles.py & utils.py  — Shared Python styling & helper functions",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "styles.py & utils.py  — Shared Python styling & helpers",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("py")
 src.add(
-    "build.sh, build_html.sh, build_pdf.sh  — HTML & Chromium PDF build scripts",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    "build.sh, build_html.sh, build_pdf.sh  — HTML & PDF scripts",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("code")
 src.add(
     "build_markdown.sh, build_image.sh, serve.sh, README.md",
-    text_style=Styles.Dark.patch(text_size=8.5),
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("code")
 
 root.add(
     "doc_html/  — [GENERATED] Merged single-page HTML document",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("folder_out")
 root.add(
     "doc.pdf  — [GENERATED] High-quality vector PDF with TOC",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("md")
 root.add(
-    "doc_markdown/  — [GENERATED] Markdown with rendered images for GitHub",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    "doc_markdown/  — [GENERATED] Markdown with rendered images",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("folder_out")
 root.add(
-    "doc_images/  — [GENERATED] Extracted standalone diagram images",
-    text_style=Styles.Dark.patch(text_size=8.8),
+    "doc_images/  — [GENERATED] Extracted standalone diagrams",
+    text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("folder_out")
 
-root.draw(xy=(8, 66))
+root.draw(xy=(6, 68))
 save()
 ```
 
@@ -142,103 +233,6 @@ A `doc` project compiles into 4 distinct target artifacts:
 ---
 
 ## 4. Chapter Ordering, Cover Page & Table of Contents Mechanics
-
-```drawlib fold-code 650px center file:project_doc_chapter_merge_and_toc.png caption:"Lexicographical Chapter Merging and Automatic Table of Contents (--toc) Injection"
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=148, height=58)
-
-# Left Container: doc_src/ Lexicographical Source Chapters
-rectangle((21, 29), width=34, height=48, style=Styles.MutedDashed.patch(shape_r=2.0))
-text((21, 49.5), "doc_src/ (Sorted)", style=Styles.DarkBold.patch(text_size=8.0))
-
-src_chapters = [
-    (39.5, "00_cover.md\n(1st Chapter)"),
-    (27.0, "01_overview.md\n(2nd Chapter)"),
-    (14.5, "02_design.md\n(3rd Chapter)"),
-]
-for sy, label in src_chapters:
-    rectangle(
-        (21, sy),
-        width=28,
-        height=9.5,
-        style=Styles.Neutral.patch(shape_r=1.5),
-        text=label,
-        text_style=Styles.DarkBold.patch(text_size=7.6),
-    )
-
-# Center Container: Merged Linear Document Stream (--page-break)
-rectangle((74, 29), width=48, height=48, style=Styles.MutedDashed.patch(shape_r=2.0))
-text((74, 49.5), "Merged Stream (--page-break)", style=Styles.DarkBold.patch(text_size=8.0))
-
-rectangle(
-    (74, 42.0),
-    width=42,
-    height=7.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
-    text="1. 00_cover.md (Cover Page)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (74, 32.0),
-    width=42,
-    height=8.0,
-    style=Styles.PrimaryFlat.patch(shape_r=1.2),
-    text="[Auto Table of Contents (--toc)]\nInjected between 1st & 2nd chapter",
-    text_style=Styles.WhiteBold.patch(text_size=7.3),
-)
-rectangle(
-    (74, 22.0),
-    width=42,
-    height=7.5,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="2. 01_overview.md (--page-break)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-rectangle(
-    (74, 12.0),
-    width=42,
-    height=7.5,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="3. 02_design.md (--page-break)",
-    text_style=Styles.DarkBold.patch(text_size=7.5),
-)
-
-# Arrows: Source -> Merged Stream
-line((35, 39.5), (53, 42.0), arrow_head="->", style=Styles.DarkBold)
-line((35, 27.0), (53, 22.0), arrow_head="->", style=Styles.DarkBold)
-line((35, 14.5), (53, 12.0), arrow_head="->", style=Styles.DarkBold)
-
-# Right: Exported Linear Deliverables
-rectangle(
-    (126, 37.5),
-    width=34,
-    height=13,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
-    text="doc.pdf\n(A4 Vector PDF\n+ Cover & TOC)",
-    text_style=Styles.DarkBold.patch(text_size=7.8),
-)
-rectangle(
-    (126, 19.5),
-    width=34,
-    height=13,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="doc_html/index.html\n(Single-Page\nWeb Specification)",
-    text_style=Styles.DarkBold.patch(text_size=7.8),
-)
-
-# Connectors: Merged Stream -> Deliverables
-line((98, 29.0), (103, 29.0), style=Styles.DarkBold)
-line((103, 19.5), (103, 37.5), style=Styles.DarkBold)
-line((103, 37.5), (109, 37.5), arrow_head="->", style=Styles.DarkBold)
-line((103, 19.5), (109, 19.5), arrow_head="->", style=Styles.DarkBold)
-
-save()
-```
 
 Because a `doc` project does not use a `navbar.md` sidebar file, Drawlib merges all `.md` files in `doc_src/` (excluding `README.md`) into a single linear document for both `doc_html/index.html` and `doc.pdf`:
 1. **Lexicographical Chapter Sorting**: Name your chapter files with numeric prefixes (`00_cover.md`, `01_overview.md`, `02_design.md`, `03_benchmarks.md`) so they are merged in deterministic reading order.

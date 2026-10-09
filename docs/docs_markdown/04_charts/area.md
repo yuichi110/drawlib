@@ -6,14 +6,10 @@
 
 ## 1. Overview & Key Modes
 
-Area charts support two core operational modes:
-- **`mode="overlap"` *(default)***: Each series polygon starts at the baseline ($Y=0$) and overlaps with preceding series. Use a semi-transparent opacity (`fill_alpha=0.25` to `0.45`) or per-series `fill_alpha` overrides so underlying curves remain clearly visible.
-- **`mode="stack"`**: Each series rests directly on top of the preceding one, showing cumulative totals (e.g., total gross revenue broken down by product line).
-
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="area_images/areachart_modes_comparison.png" alt="area_1" style="width: 650px; max-width: 100%;" />
+  <img src="area_images/areachart_modes_comparison.png" alt="area_1" />
   <figcaption class="drawlib-caption">AreaChart Modes: Overlapping Series (overlap) vs. Cumulative Stacked (stack)</figcaption>
 </figure>
 
@@ -25,7 +21,7 @@ from drawlib.canvas import save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
 
-setup(width=145, height=52)
+setup(width=132, height=52)
 
 categories = ["Q1", "Q2", "Q3", "Q4"]
 series_a = [30.0, 55.0, 45.0, 70.0]
@@ -35,12 +31,12 @@ series_b = [20.0, 35.0, 55.0, 40.0]
 overlap_chart = AreaChart(
     axis_line_style=Styles.MutedDashed,
     categories=categories,
-    axis_text_style=Styles.Muted.patch(text_size=8.0),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=62.0,
+    width=56.0,
     height=36.0,
     title="1. mode='overlap' (Independent from Y=0)",
-    title_style=Styles.BlackBold.patch(text_size=9.5),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
     mode="overlap",
     fill_alpha=0.35,
     show_points=True,
@@ -50,19 +46,19 @@ overlap_chart = AreaChart(
 overlap_chart.add_series("Series A", series_a, style=Styles.PrimaryFlat)
 overlap_chart.add_series("Series B", series_b, style=Styles.SecondaryNeutral, line_style="dashed")
 overlap_chart.configure_y_axis(min_value=0, max_value=120, tick_step=40)
-overlap_chart.draw(xy=(6.0, 6.0))
-overlap_chart.draw_legend(xy=(18.0, 45.0), text_style=Styles.DarkBold.patch(text_size=8.0), orientation="horizontal")
+overlap_chart.draw(xy=(5.0, 6.0))
+overlap_chart.draw_legend(xy=(14.0, 45.0), text_style=Styles.DarkBold.patch(text_size=10.0), orientation="horizontal")
 
 # Right: mode="stack" (Cumulative Total)
 stack_chart = AreaChart(
     axis_line_style=Styles.MutedDashed,
     categories=categories,
-    axis_text_style=Styles.Muted.patch(text_size=8.0),
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
     grid_style=Styles.MutedThin,
-    width=62.0,
+    width=56.0,
     height=36.0,
     title="2. mode='stack' (Cumulative Total)",
-    title_style=Styles.BlackBold.patch(text_size=9.5),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
     mode="stack",
     fill_alpha=0.65,
     show_points=True,
@@ -72,8 +68,8 @@ stack_chart = AreaChart(
 stack_chart.add_series("Series A", series_a, style=Styles.PrimaryFlat)
 stack_chart.add_series("Series B", series_b, style=Styles.SecondaryNeutral)
 stack_chart.configure_y_axis(min_value=0, max_value=120, tick_step=40)
-stack_chart.draw(xy=(77.0, 6.0))
-stack_chart.draw_legend(xy=(89.0, 45.0), text_style=Styles.DarkBold.patch(text_size=8.0), orientation="horizontal")
+stack_chart.draw(xy=(71.0, 6.0))
+stack_chart.draw_legend(xy=(80.0, 45.0), text_style=Styles.DarkBold.patch(text_size=10.0), orientation="horizontal")
 
 save()
 ```
@@ -81,6 +77,10 @@ save()
 </details>
 
 
+
+Area charts support two core operational modes:
+- **`mode="overlap"` *(default)***: Each series polygon starts at the baseline ($Y=0$) and overlaps with preceding series. Use a semi-transparent opacity (`fill_alpha=0.25` to `0.45`) or per-series `fill_alpha` overrides so underlying curves remain clearly visible.
+- **`mode="stack"`**: Each series rests directly on top of the preceding one, showing cumulative totals (e.g., total gross revenue broken down by product line).
 
 ---
 
@@ -95,15 +95,15 @@ from drawlib.canvas import save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
 
-setup(width=100, height=80)
+setup(width=102, height=74)
 
 chart = AreaChart(
     axis_line_style=Styles.MutedDashed,
     categories=["2021", "2022", "2023", "2024", "2025"],
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
-    width=80.0,
-    height=55.0,
+    width=82.0,
+    height=52.0,
     title="Cumulative Revenue Streams",
     title_style=Styles.BlackBold.patch(text_size=13.0),
     mode="stack",
@@ -114,13 +114,13 @@ chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0], style=Styles.P
 chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0], style=Styles.SecondaryNeutral)
 
 chart.configure_y_axis(unit="M$", label="Gross Revenue (USD Millions)")
-chart.draw(xy=(10.0, 15.0))
-chart.draw_legend(xy=(18.0, 72.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
+chart.draw(xy=(10.0, 10.0))
+chart.draw_legend(xy=(14.0, 65.0), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal")
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="area_images/area_chart_revenue_streams.png" alt="area_2" style="width: 650px; max-width: 100%;" />
+  <img src="area_images/area_chart_revenue_streams.png" alt="area_2" />
   <figcaption class="drawlib-caption">Cumulative Stacked Revenue Streams</figcaption>
 </figure>
 
@@ -139,14 +139,14 @@ from drawlib.canvas import save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Colors, Style, Styles
 
-setup(width=100, height=75)
+setup(width=102, height=72)
 
 chart = AreaChart(
     axis_line_style=Styles.MutedDashed,
     categories=["02:00", "06:00", "10:00", "14:00", "18:00", "22:00"],
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    axis_text_style=Styles.Muted.patch(text_size=10.5),
     grid_style=Styles.MutedThin,
-    width=80.0,
+    width=82.0,
     height=50.0,
     title="Ingress vs Egress Gateway Traffic (Smooth Spline)",
     title_style=Styles.BlackBold.patch(text_size=13.0),
@@ -175,13 +175,13 @@ chart.add_series(
 )
 
 chart.configure_y_axis(unit="Gbps", label="Throughput (Gbps)")
-chart.draw(xy=(10.0, 15.0))
-chart.draw_legend(xy=(25.0, 67.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
+chart.draw(xy=(10.0, 10.0))
+chart.draw_legend(xy=(24.0, 63.0), text_style=Styles.Muted.patch(text_size=10.5), orientation="horizontal")
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="area_images/area_chart_gateway_traffic.png" alt="area_3" style="width: 650px; max-width: 100%;" />
+  <img src="area_images/area_chart_gateway_traffic.png" alt="area_3" />
   <figcaption class="drawlib-caption">Smooth Overlapping Gateway Traffic with Per-Series fill_alpha and line_style</figcaption>
 </figure>
 

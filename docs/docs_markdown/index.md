@@ -1,13 +1,16 @@
 # Drawlib Documentation
 
-Drawlib is a pure-Python drawing library and documentation compiler crafted for **"Illustration as Code"** and **"Documentation as Code"**.
+Drawlib is a pure-Python drawing library and documentation compiler crafted for **"Illustration as Code"** and **"Illustrated Documentation as Code"**.
 
 Designed from the ground up for modern software engineering and **autonomous AI coding agents**, Drawlib eliminates manual GUI drawing tools and brittle image files. Developers and LLM agents can create, version-control, and publish publication-grade architectural diagrams, flowcharts, data charts, and complete multi-page documentation sites entirely from declarative Python code.
+
+> **Note — Built Autonomously with Drawlib & Gemini:**
+> Every page of prose and every illustration in this documentation was authored directly inside this Git repository using **Drawlib** and the **Gemini Coding Agent** (running in the **Antigravity IDE**). Human involvement was limited to high-level prompts—all document structure, technical explanations, and diagram designs were planned, coded, and visually verified autonomously by Gemini.
 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="index_images/drawlib_code_to_publication.png" alt="index_1" style="width: 650px; max-width: 100%;" />
+  <img src="index_images/drawlib_code_to_publication.png" alt="index_1" />
   <figcaption class="drawlib-caption">From Code to Publication with Drawlib</figcaption>
 </figure>
 
@@ -16,23 +19,55 @@ Designed from the ground up for modern software engineering and **autonomous AI 
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.shapes import rectangle
+from drawlib.icons import phosphor
 from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=120, height=45)
+setup(width=124, height=44)
 
-# Background Boundary
-rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
+header_white = Styles.WhiteBold.patch(text_size=12.0)
+header_dark = Styles.DarkBold.patch(text_size=12.0)
+title_ts = Styles.DarkBold.patch(text_size=11.0)
+sub_ts = Styles.Dark.patch(text_size=10.0)
+item_ts = Styles.DarkBold.patch(text_size=10.5, halign="left")
 
-# Pipeline stages: Hero focal point in PrimaryFlat, supporting nodes in calm Neutral cards
-rectangle((25, 22.5), width=30, height=18, style=Styles.PrimaryFlat, text="AI Agent / Dev\n(Python Script)", text_style=Styles.WhiteBold)
-rectangle((62, 22.5), width=28, height=18, style=Styles.Neutral, text="Markdown\n(```drawlib)")
-rectangle((98, 22.5), width=28, height=18, style=Styles.SecondaryNeutral, text="HTML, PDF\n& Markdown")
+# 1. Author as Code (Hero Stage)
+rectangle((20.5, 22.0), width=35.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((20.5, 36.8), width=33.0, height=5.8, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. Author as Code", text_style=header_white)
+phosphor.code((20.5, 26.2), width=6.5, style=Styles.Primary)
+text((20.5, 16.5), "Python & Markdown", style=title_ts)
+text((20.5, 11.2), "```drawlib blocks & .py", style=sub_ts)
+text((20.5, 6.5), "Git-tracked Single SoT", style=sub_ts)
+
+# 2. Drawlib Compiler Engine
+rectangle((61.0, 22.0), width=32.0, height=38.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((61.0, 36.8), width=30.0, height=5.8, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. Drawlib Engine", text_style=header_dark)
+phosphor.cpu((61.0, 26.2), width=6.5, style=Styles.Primary)
+text((61.0, 16.5), "drawlib build", style=title_ts)
+text((61.0, 11.2), "Headless Vector Render", style=sub_ts)
+text((61.0, 6.5), "SQLite Incremental Cache", style=sub_ts)
+
+# 3. Publication Outputs
+rectangle((102.5, 22.0), width=37.0, height=38.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((102.5, 36.8), width=35.0, height=5.8, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. Publications", text_style=header_dark)
+
+phosphor.globe((89.5, 28.5), width=4.5, style=Styles.Primary)
+text((93.2, 28.5), "HTML Web Site", style=item_ts)
+
+phosphor.file_pdf((89.5, 21.5), width=4.5, style=Styles.Primary)
+text((93.2, 21.5), "Vector PDF Book", style=item_ts)
+
+phosphor.presentation_chart((89.5, 14.5), width=4.5, style=Styles.Primary)
+text((93.2, 14.5), "16:9 Slide Deck", style=item_ts)
+
+phosphor.file_md((89.5, 7.5), width=4.5, style=Styles.Primary)
+text((93.2, 7.5), "GitHub Markdown", style=item_ts)
 
 # Connectors
-line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
-line((76, 22.5), (84, 22.5), arrow_head="->", style=Styles.DarkBold)
+line((38.5, 22.0), (44.5, 22.0), arrow_head="->", style=Styles.DarkBold)
+line((77.5, 22.0), (83.5, 22.0), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 
@@ -59,7 +94,7 @@ Avoid assembling hundreds of primitive shapes by hand. Drawlib provides producti
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="index_images/index_high_level_visualizations.png" alt="index_2" style="width: 650px; max-width: 100%;" />
+  <img src="index_images/index_high_level_visualizations.png" alt="index_2" />
   <figcaption class="drawlib-caption">Drawlib High-Level Visualization Ecosystem</figcaption>
 </figure>
 
@@ -68,86 +103,45 @@ Avoid assembling hundreds of primitive shapes by hand. Drawlib provides producti
 
 ```python
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=136, height=58)
+setup(width=126, height=48)
+
+hdr_white = Styles.WhiteBold.patch(text_size=11.5)
+hdr_dark = Styles.DarkBold.patch(text_size=11.5)
+body_bold = Styles.DarkBold.patch(text_size=10.5, halign="left")
+body_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 
 # 1. Top-Left: Auto-Layout Graphs (Hero primary header)
-rectangle((35, 42.5), width=60, height=23, style=Styles.Neutral.patch(shape_r=2))
-rectangle(
-    (35, 49.5),
-    width=56,
-    height=6,
-    style=Styles.PrimaryFlat.patch(shape_r=1.2),
-    text="1. Auto-Layout Graphs (drawlib.graph)",
-    text_style=Styles.WhiteBold.patch(text_size=8.6),
-)
-rectangle(
-    (35, 38.5),
-    width=56,
-    height=11.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1),
-    text="ArchitectureGraph • LayerGraph • TreeGraph\nRadialGraph • GridGraph • Nested Clusters",
-    text_style=Styles.Dark.patch(text_size=8.0),
-)
+rectangle((32.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. Auto-Layout Graphs (drawlib.graph)", text_style=hdr_white)
+phosphor.git_fork((9.5, 32.0), width=5.2, style=Styles.Primary)
+text((14.0, 34.0), "Architecture • Layer • Tree", style=body_bold)
+text((14.0, 29.8), "Radial • Grid • Nested Clusters", style=body_sub)
 
 # 2. Top-Right: Technical Diagrams
-rectangle((101, 42.5), width=60, height=23, style=Styles.Neutral.patch(shape_r=2))
-rectangle(
-    (101, 49.5),
-    width=56,
-    height=6,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="2. Technical Diagrams (drawlib.diagrams)",
-    text_style=Styles.DarkBold.patch(text_size=8.6),
-)
-rectangle(
-    (101, 38.5),
-    width=56,
-    height=11.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1),
-    text="Architecture • Flow • Sequence\nClass • ER • State",
-    text_style=Styles.Dark.patch(text_size=8.0),
-)
+rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. Technical Diagrams (drawlib.diagrams)", text_style=hdr_dark)
+phosphor.flow_arrow((71.5, 32.0), width=5.2, style=Styles.Primary)
+text((76.0, 34.0), "Architecture • Flow • Sequence", style=body_bold)
+text((76.0, 29.8), "UML Class • ER • State Machine", style=body_sub)
 
 # 3. Bottom-Left: SmartArts & GeoMap
-rectangle((35, 15.5), width=60, height=23, style=Styles.SecondaryNeutral.patch(shape_r=2))
-rectangle(
-    (35, 22.5),
-    width=56,
-    height=6,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="3. SmartArts & GeoMap (drawlib.smartarts)",
-    text_style=Styles.DarkBold.patch(text_size=8.6),
-)
-rectangle(
-    (35, 11.5),
-    width=56,
-    height=11.5,
-    style=Styles.Neutral.patch(shape_r=1),
-    text="ChevronProcess • Cycle • Table\nTreeNode • MindMapNode • GeoMap",
-    text_style=Styles.Dark.patch(text_size=8.0),
-)
+rectangle((32.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((32.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. SmartArts & GeoMap (drawlib.smartarts)", text_style=hdr_dark)
+phosphor.shapes((9.5, 9.0), width=5.2, style=Styles.Primary)
+text((14.0, 11.0), "ChevronProcess • Cycle • Table", style=body_bold)
+text((14.0, 6.8), "TreeNode • MindMap • GeoMap", style=body_sub)
 
 # 4. Bottom-Right: Pure-Python Charts
-rectangle((101, 15.5), width=60, height=23, style=Styles.Neutral.patch(shape_r=2))
-rectangle(
-    (101, 22.5),
-    width=56,
-    height=6,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="4. Pure-Python Charts (drawlib.charts)",
-    text_style=Styles.DarkBold.patch(text_size=8.6),
-)
-rectangle(
-    (101, 11.5),
-    width=56,
-    height=11.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1),
-    text="Bar • Line • Area • Pie\nRadar • Scatter • Gantt",
-    text_style=Styles.Dark.patch(text_size=8.0),
-)
+rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((94.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="4. Pure-Python Charts (drawlib.charts)", text_style=hdr_dark)
+phosphor.chart_bar((71.5, 9.0), width=5.2, style=Styles.Primary)
+text((76.0, 11.0), "Bar • Line • Area • Pie", style=body_bold)
+text((76.0, 6.8), "Radar • Scatter • Gantt", style=body_sub)
 
 save()
 ```
@@ -183,6 +177,6 @@ Explore the comprehensive guides below:
 7. [**Animations (APNG & WebP)**](./07_animations/overview.md)
    - Multi-frame animations, smooth color transitions, progressive component reveals, arrow growth (`draw_ratio`), and camera pan/zoom across all Drawlib modules.
 8. [**Document Builder & CLI**](./08_doc_builder_and_cli/overview.md)
-   - Documentation as Code: Markdown block syntax, CLI reference, project templates (`doc`, `site`, `slide`, `images`), 1920×1080 slide stage layout, customization, and two-tier caching & CI/CD.
+   - Illustrated Documentation as Code: Markdown block syntax, CLI reference, project templates (`doc`, `site`, `slide`, `images`), 1920×1080 slide stage layout, customization, and two-tier caching & CI/CD.
 9. [**AI Agents & Advanced Integration**](./09_ai_agents_and_advanced/ai_agent_instructions.md)
    - Autonomous agent instructions, visual self-correction feedback loop, programmatic Python APIs, math utilities, and troubleshooting.

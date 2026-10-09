@@ -6,55 +6,58 @@ The `drawlib.shapes` module provides declarative geometric primitives with built
 
 ## 1. Overview of Basic & Radial Shapes
 
-```drawlib fold-code 650px center file:shapes_basic_overview.png caption:"Overview of Basic Rectangular and Radial Shapes"
+```drawlib fold-code center file:shapes_basic_overview.png caption:"Overview of Basic Rectangular and Radial Shapes"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, rectangle, wedge
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=130, height=62)
+setup(width=122, height=58)
+
+lbl_dark = Styles.DarkBold.patch(text_size=11.0)
+lbl_white = Styles.WhiteBold.patch(text_size=11.0)
 
 # Row 1: Rectangle, Circle, Ellipse, Donuts
 rectangle(
-    (22, 44),
+    (20, 42),
     width=26,
     height=16,
     style=Styles.PrimaryFlat.patch(shape_r=3),
     text="rectangle",
-    text_style=Styles.WhiteBold,
+    text_style=lbl_white,
 )
-circle((55, 44), radius=9, style=Styles.Neutral, text="circle")
-ellipse((86, 44), width=24, height=15, style=Styles.SecondaryNeutral, text="ellipse")
-donuts((115, 44), radius=9, width=3.5, style=Styles.Neutral, text="donuts")
+circle((52, 42), radius=9.5, style=Styles.Neutral, text="circle", text_style=lbl_dark)
+ellipse((81, 42), width=24, height=16, style=Styles.SecondaryNeutral, text="ellipse", text_style=lbl_dark)
+donuts((109, 42), radius=9.5, width=3.2, style=Styles.Neutral, text="donuts", text_style=Styles.DarkBold.patch(text_size=10.0))
 
 # Row 2: Wedge, Fan, Arc
 wedge(
-    (32, 16),
+    (30, 15),
     radius=11,
-    width=4.5,
+    width=4.2,
     angle_start=20,
     angle_end=220,
     style=Styles.PrimaryNeutral,
     text="wedge",
+    text_style=lbl_dark,
 )
 fan(
-    (70, 12),
+    (66, 11),
     radius=13,
     angle_start=25,
     angle_end=155,
     style=Styles.Neutral,
     text="fan",
-    text_style=Styles.DarkBold.patch(xy_shift=(0, 6)),
+    text_style=lbl_dark.patch(xy_shift=(0, 6)),
 )
 arc(
-    (106, 16),
+    (100, 15),
     width=24,
     height=16,
     angle_start=20,
     angle_end=310,
     style=Styles.DarkBold,
     text="arc",
-    text_style=Styles.DarkBold,
+    text_style=lbl_dark,
 )
 
 save()
@@ -90,39 +93,41 @@ All basic and radial shape functions share a consistent parameter and styling co
 - **Per-Corner Rounding**: Pass a 4-tuple `(bottom_left, top_left, top_right, bottom_right)` to round specific corners (ideal for tabs, headers, and split cards).
 - **Rotation & Text Offset**: Patch `angle` on `style` to rotate the card, and `xy_shift` or `angle` on `text_style` to fine-tune the label.
 
-```drawlib show-code 620px center file:shapes_basic_rectangle.png caption:"Sharp, Uniform Rounded, and Per-Corner Rounded Rectangles"
+```drawlib show-code center file:shapes_basic_rectangle.png caption:"Sharp, Uniform Rounded, and Per-Corner Rounded Rectangles"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=125, height=42)
+setup(width=120, height=38)
 
 # 1. Sharp-cornered neutral card
 rectangle(
-    (24, 21),
+    (22, 19),
     width=32,
     height=20,
     style=Styles.Neutral,
     text="Sharp Corners\n(shape_r=0)",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # 2. Uniform rounded hero card
 rectangle(
-    (63, 21),
+    (60, 19),
     width=32,
     height=20,
     style=Styles.PrimaryFlat.patch(shape_r=4),
     text="Rounded Hero\n(shape_r=4)",
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 # 3. Per-corner rounded tab (top-left and top-right rounded)
 rectangle(
-    (102, 21),
+    (98, 19),
     width=32,
     height=20,
     style=Styles.SecondaryNeutral.patch(shape_r=(0, 5, 5, 0)),
     text="Top Tab\n(0, 5, 5, 0)",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 save()
@@ -136,38 +141,40 @@ save()
 - **`ellipse(xy, width, height, *, style, text="", text_style=None)`**: Oval bounded by horizontal `width` and vertical `height` (supports rotation via `style.patch(angle=...)`).
 - **`donuts(xy, radius, *, style, width=None, text="", text_style=None)`**: Concentric ring with outer `radius` and ring wall thickness `width` (so the hollow inner radius equals `radius - width`).
 
-```drawlib show-code 620px center file:shapes_basic_circle_ellipse_donuts.png caption:"Circle, Ellipse, and Annular Donuts"
+```drawlib show-code center file:shapes_basic_circle_ellipse_donuts.png caption:"Circle, Ellipse, and Annular Donuts"
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, donuts, ellipse
 from drawlib.styles import Styles
 
-setup(width=120, height=45)
+setup(width=116, height=40)
 
 # 1. Solid focal circle
 circle(
-    (22, 22.5),
+    (20, 20),
     radius=12,
     style=Styles.PrimaryFlat,
     text="circle\nr=12",
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
 # 2. Axis-aligned ellipse
 ellipse(
-    (60, 22.5),
+    (58, 20),
     width=34,
     height=20,
     style=Styles.Neutral,
     text="ellipse\n34x20",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
 )
 
-# 3. Annular donut ring (inner radius = 12 - 4 = 8)
+# 3. Annular donut ring (inner radius = 12 - 3.8 = 8.2)
 donuts(
-    (98, 22.5),
+    (96, 20),
     radius=12,
-    width=4,
+    width=3.8,
     style=Styles.SecondaryNeutral,
-    text="donuts\nw=4",
+    text="donuts\nw=3.8",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 save()
@@ -183,46 +190,46 @@ All angular primitives measure `angle_start` and `angle_end` in **degrees counte
 - **`fan(xy, radius, *, style, angle_start=0, angle_end=180, text="", text_style=None)`**: Draws a filled pie sector connecting the center apex `xy` to the outer circular arc from `angle_start` to `angle_end`.
 - **`arc(xy, width, height, *, style, angle_start=0.0, angle_end=360.0, text="", text_style=None)`**: Draws an open, unfilled elliptical stroke along the perimeter between `angle_start` to `angle_end`.
 
-```drawlib show-code 620px center file:shapes_basic_sectors_and_arcs.png caption:"Angular Ring Wedge, Pie Fan, and Elliptical Arc"
+```drawlib show-code center file:shapes_basic_sectors_and_arcs.png caption:"Angular Ring Wedge, Pie Fan, and Elliptical Arc"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arc, fan, wedge
 from drawlib.styles import Styles
 
-setup(width=125, height=45)
+setup(width=120, height=42)
 
 # 1. Angular donut slice (wedge with wall thickness width=5)
 wedge(
-    (25, 22),
+    (23, 21),
     radius=14,
     width=5,
     angle_start=0,
     angle_end=240,
     style=Styles.PrimaryFlat,
     text="67%",
-    text_style=Styles.PrimaryBold,
+    text_style=Styles.PrimaryBold.patch(text_size=11.0),
 )
 
 # 2. Circular pie sector (fan from 30° to 150°)
 fan(
-    (64, 14),
+    (61, 13),
     radius=18,
     angle_start=30,
     angle_end=150,
     style=Styles.Neutral,
     text="FOV 120°",
-    text_style=Styles.DarkBold.patch(xy_shift=(0, 8)),
+    text_style=Styles.DarkBold.patch(text_size=11.0, xy_shift=(0, 8)),
 )
 
 # 3. Open elliptical stroke (arc from 20° to 320°)
 arc(
-    (102, 22),
+    (99, 21),
     width=28,
     height=22,
     angle_start=20,
     angle_end=320,
     style=Styles.DarkBold.patch(shape_line_style="dashed"),
     text="Orbit",
-    text_style=Styles.DarkBold,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
 )
 
 save()

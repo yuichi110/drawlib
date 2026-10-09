@@ -3,6 +3,80 @@
 Drawlib provides native support for generating multi-frame animations in both **Animated Portable Network Graphics (APNG)** and **Animated WebP** formats.  
 Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations, data visualizations, and interactive walkthroughs using declarative Python code.
 
+```drawlib fold-code center file:animation_step_architecture.png caption:"Step-by-Step Architecture Reveal"
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=116, height=36)
+anim = Animation(fps=1.0, loop=0)
+
+# Step 1: Base Client
+with anim.frame(clear=True, duration=0.9):
+    rectangle((58, 22.0), width=110, height=23, style=Styles.MutedDashed.patch(shape_r=2.0))
+    rectangle(
+        (17.5, 22.0),
+        width=21,
+        height=16.5,
+        style=Styles.Neutral.patch(shape_r=1.8),
+        text="\nClient",
+        text_style=Styles.DarkBold.patch(text_size=11.0),
+    )
+    phosphor.globe((17.5, 25.3), width=4.6, style=Styles.Dark)
+
+# Step 2: Gateway appears (Hero focal node)
+with anim.frame(clear=False, duration=0.9):
+    rectangle(
+        (44.5, 22.0),
+        width=21,
+        height=16.5,
+        style=Styles.PrimaryFlat.patch(shape_r=1.8),
+        text="\nGateway",
+        text_style=Styles.WhiteBold.patch(text_size=11.0),
+    )
+    phosphor.shield_check((44.5, 25.3), width=4.6, style=Styles.White)
+    line((28.0, 22.0), (34.0, 22.0), arrow_head="->", style=Styles.DarkBold)
+
+# Step 3: Compute Service appears
+with anim.frame(clear=False, duration=0.9):
+    rectangle(
+        (71.5, 22.0),
+        width=21,
+        height=16.5,
+        style=Styles.PrimaryNeutral.patch(shape_r=1.8),
+        text="\nCompute",
+        text_style=Styles.DarkBold.patch(text_size=11.0),
+    )
+    phosphor.cpu((71.5, 25.3), width=4.6, style=Styles.Primary)
+    line((55.0, 22.0), (61.0, 22.0), arrow_head="->", style=Styles.DarkBold)
+
+# Step 4: Database & Completed State (Held for 2.5 seconds before looping)
+with anim.frame(clear=False, duration=2.5):
+    rectangle(
+        (98.5, 22.0),
+        width=21,
+        height=16.5,
+        style=Styles.SecondaryNeutral.patch(shape_r=1.8),
+        text="\nDatabase",
+        text_style=Styles.DarkBold.patch(text_size=11.0),
+    )
+    phosphor.database((98.5, 25.3), width=4.6, style=Styles.Secondary)
+    line((82.0, 22.0), (88.0, 22.0), arrow_head="->", style=Styles.DarkBold)
+    rectangle(
+        (58, 5.2),
+        width=58,
+        height=6.0,
+        style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+        text="Architecture Completed",
+        text_style=Styles.DarkBold.patch(text_size=11.0),
+    )
+
+save()
+```
+
 ---
 
 ## 1. Supported Animation Formats
@@ -11,38 +85,6 @@ Animations empower developers and AI coding agents to create clean, high-framera
 | :--- | :--- | :--- | :--- |
 | **APNG** | `.png`, `.apng` | **Universal Compatibility**: Renders natively in all modern web browsers and GitHub Markdown previews. Safe static fallback to Frame 1 in PDF compilers and legacy viewers. | GitHub READMEs, markdown documentation, printable technical documents. |
 | **Animated WebP** | `.webp` | **Ultra-Compact File Size**: Typically ~50% smaller than APNG with lossless quality. | Web-hosted documentation sites, high-performance web applications, mobile platforms. |
-
-```drawlib fold-code 650px center file:animation_step_architecture.png caption:"Step-by-Step Architecture Reveal"
-from drawlib.anim import Animation
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-
-setup(width=120, height=45)
-anim = Animation(fps=1.0, loop=0)
-
-# Step 1: Base Client
-with anim.frame(clear=True, duration=1.0):
-    rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
-    rectangle((25, 22.5), width=24, height=18, style=Styles.Neutral, text="Client App")
-
-# Step 2: Gateway appears (Hero node)
-with anim.frame(clear=False, duration=1.0):
-    rectangle((60, 22.5), width=24, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
-    line((37, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
-
-# Step 3: Backend Services appear
-with anim.frame(clear=False, duration=1.0):
-    rectangle((95, 22.5), width=24, height=18, style=Styles.SecondaryNeutral, text="Service Cluster")
-    line((72, 22.5), (83, 22.5), arrow_head="->", style=Styles.DarkBold)
-
-# Step 4: Completed State (Held for 2.5 seconds before looping)
-with anim.frame(clear=False, duration=2.5):
-    rectangle((60, 6.0), width=60, height=7, style=Styles.PrimaryNeutral, text="Architecture Completed")
-
-save()
-```
 
 ---
 
@@ -146,60 +188,57 @@ When animating technical illustrations, **prefer `clear=True` (default per-frame
 | **Technical Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, etc.) | **Pattern B: Pre-Build & Mutate**<br>Build topology once outside the loop, then mutate `.show` (auto-hides incident edges and dangling `Junction` wires), `.style`, `.text_style`, or `.set_label()` and call `draw(xy, scale)` in each frame. | [Animating Technical Diagrams](./diagrams.md) |
 | **Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, etc.) | **Pattern B: Pre-Build & Mutate**<br>`g.calc()` solves coordinates across the full topology regardless of `show=False`; mutate `node.show`, `cluster.show`, or `edge.style` and call `g.draw()`, or animate packets along `edge_layout.points`. | [Animating Auto-Layout Graphs](./graphs.md) |
 
-```drawlib fold-code 650px center file:anim_overview_patterns_workflow.png caption:"Pattern A (In-Frame Build) vs. Pattern B (Pre-Build Outside Loop & Mutate Inside Frame)"
+```drawlib fold-code center file:anim_overview_patterns_workflow.png caption:"Pattern A (In-Frame Build) vs. Pattern B (Pre-Build Outside Loop & Mutate Inside Frame)"
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=184, height=84)
+setup(width=126, height=68)
 
 # Left Panel: Pattern A (In-Frame Build)
-rectangle((47, 42), width=84, height=74, style=Styles.Neutral.patch(shape_r=3.0))
-text((47, 73.5), "Pattern A: In-Frame Build", style=Styles.DarkBold.patch(text_size=10.0))
-text((47, 68.5), "Stateless Primitives (shapes, lines, text)", style=Styles.Dark.patch(text_size=8.0))
+rectangle((32.5, 34.0), width=57, height=60, style=Styles.Neutral.patch(shape_r=2.5))
+phosphor.play_circle((9.5, 58.5), width=4.6, style=Styles.Primary)
+text((34.5, 58.5), "Pattern A: In-Frame", style=Styles.DarkBold.patch(text_size=11.0))
+text((32.5, 53.0), "Primitives (shapes, lines)", style=Styles.Dark.patch(text_size=10.0))
 
-rectangle((47, 56.5), width=74, height=12.0, style=Styles.White.patch(shape_r=2.0))
-text((47, 58.5), "1. Pre-Compute Trajectories / Colors", style=Styles.DarkBold.patch(text_size=8.2))
-text((47, 53.5), "get_intermediate_points() / _colors()", style=Styles.Dark.patch(text_size=7.6))
+rectangle((32.5, 43.0), width=51, height=11.0, style=Styles.White.patch(shape_r=1.8))
+text((32.5, 43.0), "1. Pre-compute points\n& interpolated colors", style=Styles.DarkBold.patch(text_size=10.0))
 
-line((47, 50.5), (47, 45.0), arrow_head="->", style=Styles.DarkBold)
+line((32.5, 37.5), (32.5, 33.5), arrow_head="->", style=Styles.DarkBold)
 
-rectangle((47, 32.5), width=74, height=24.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
-text((47, 40.5), "2. Loop: with anim.frame(clear=True):", style=Styles.PrimaryBold.patch(text_size=8.2))
-rectangle((47, 29.0), width=66, height=13.0, style=Styles.White.patch(shape_r=1.5))
-text((47, 29.0), "Draw primitives directly at step i:\nrectangle(xy_i, ...), line(...), arrow(...)", style=Styles.Dark.patch(text_size=7.6))
+rectangle((32.5, 24.5), width=51, height=17.5, style=Styles.PrimaryNeutral.patch(shape_r=1.8))
+text((32.5, 29.8), "2. with anim.frame():", style=Styles.PrimaryBold.patch(text_size=10.0))
+rectangle((32.5, 21.0), width=46, height=8.5, style=Styles.White.patch(shape_r=1.2))
+text((32.5, 21.0), "Draw shapes at xy_i", style=Styles.Dark.patch(text_size=10.0))
 
-line((47, 20.5), (47, 15.5), arrow_head="->", style=Styles.DarkBold)
+line((32.5, 15.7), (32.5, 12.2), arrow_head="->", style=Styles.DarkBold)
 
-rectangle((47, 10.5), width=54, height=9.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-text((47, 10.5), "3. save() -> APNG / WebP", style=Styles.DarkBold.patch(text_size=8.2))
+rectangle((32.5, 8.5), width=42, height=7.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+text((32.5, 8.5), "3. save() -> APNG/WebP", style=Styles.DarkBold.patch(text_size=10.0))
 
 # Right Panel: Pattern B (Pre-Build & Mutate)
-rectangle((137, 42), width=84, height=74, style=Styles.Neutral.patch(shape_r=3.0))
-text((137, 73.5), "Pattern B: Pre-Build & Mutate", style=Styles.DarkBold.patch(text_size=10.0))
-text((137, 68.5), "SmartArts, Charts, Diagrams & Graphs", style=Styles.Dark.patch(text_size=8.0))
+rectangle((93.5, 34.0), width=57, height=60, style=Styles.Neutral.patch(shape_r=2.5))
+phosphor.tree_structure((70.0, 58.5), width=4.6, style=Styles.Primary)
+text((95.5, 58.5), "Pattern B: Pre-Build", style=Styles.DarkBold.patch(text_size=11.0))
+text((93.5, 53.0), "SmartArts, Charts, Graphs", style=Styles.Dark.patch(text_size=10.0))
 
-rectangle((137, 56.5), width=74, height=12.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
-text((137, 58.5), "1. Build Full Topology Once Outside Loop", style=Styles.DarkBold.patch(text_size=8.0))
-text((137, 53.5), "comp.add() / d.add() / g.node() (Locks Layout)", style=Styles.Dark.patch(text_size=7.4))
+rectangle((93.5, 43.0), width=51, height=11.0, style=Styles.PrimaryNeutral.patch(shape_r=1.8))
+text((93.5, 43.0), "1. Build topology once\noutside loop (locks layout)", style=Styles.DarkBold.patch(text_size=10.0))
 
-line((137, 50.5), (137, 45.0), arrow_head="->", style=Styles.DarkBold)
+line((93.5, 37.5), (93.5, 33.5), arrow_head="->", style=Styles.DarkBold)
 
-rectangle((137, 32.5), width=74, height=24.0, style=Styles.PrimaryFlat.patch(shape_r=2.0))
-text((137, 40.5), "2. Loop: with anim.frame(clear=True):", style=Styles.WhiteBold.patch(text_size=8.2))
-rectangle((137, 29.0), width=66, height=13.0, style=Styles.White.patch(shape_r=1.5))
-text(
-    (137, 29.0),
-    "Mutate .show, .style, .draw_ratio\nThen call comp.draw() / d.draw() / g.draw()",
-    style=Styles.DarkBold.patch(text_size=7.5),
-)
+rectangle((93.5, 24.5), width=51, height=17.5, style=Styles.PrimaryFlat.patch(shape_r=1.8))
+text((93.5, 29.8), "2. with anim.frame():", style=Styles.WhiteBold.patch(text_size=10.0))
+rectangle((93.5, 21.0), width=46, height=8.5, style=Styles.White.patch(shape_r=1.2))
+text((93.5, 21.0), "Mutate .show / .style -> draw()", style=Styles.DarkBold.patch(text_size=10.0))
 
-line((137, 20.5), (137, 15.5), arrow_head="->", style=Styles.DarkBold)
+line((93.5, 15.7), (93.5, 12.2), arrow_head="->", style=Styles.DarkBold)
 
-rectangle((137, 10.5), width=54, height=9.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-text((137, 10.5), "3. save() -> APNG / WebP", style=Styles.DarkBold.patch(text_size=8.2))
+rectangle((93.5, 8.5), width=42, height=7.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+text((93.5, 8.5), "3. save() -> APNG/WebP", style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
@@ -242,44 +281,44 @@ from drawlib.anim import Animation
 | **`anim-loop`** | `once` \| `infinite` | `infinite` (`once` when `anim-pause` is set) | `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously. |
 | **`anim-pause`** | Comma-separated 0-based frame indices (e.g. `2,4`) | `None` | Pauses playback (`PAUSED`) immediately upon rendering each listed frame index. Clicking the diagram resumes playback from `frame + 1` until the next pause point or end. |
 
-```drawlib fold-code 650px center file:anim_overview_slide_playback_states.png caption:"Interactive Slide Animation Playback State Machine (READY, PLAYING, PAUSED, ENDED)"
+```drawlib fold-code center file:anim_overview_slide_playback_states.png caption:"Interactive Slide Animation Playback State Machine (READY, PLAYING, PAUSED, ENDED)"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.state import InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
-setup(width=205, height=92)
+setup(width=126, height=62)
 
 sd = StateDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Neutral.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
 )
 
-init = sd.add(InitialState(), xy=(8.0, 56.0))
+init = sd.add(InitialState(), xy=(6.0, 39.0))
 ready = sd.add(
-    State("READY", shape="box", entry="Frame 0", width=28.0, style=Styles.Neutral),
-    xy=(48.0, 56.0),
+    State("READY", shape="box", entry="Frame 0", width=23.0, style=Styles.Neutral.patch(text_size=10.5)),
+    xy=(28.0, 39.0),
 )
 playing = sd.add(
-    State("PLAYING", shape="box", do="render frames", width=36.0, style=Styles.PrimaryNeutral),
-    xy=(110.0, 56.0),
+    State("PLAYING", shape="box", do="render", width=26.0, style=Styles.PrimaryNeutral.patch(text_size=10.5)),
+    xy=(69.0, 39.0),
 )
 paused = sd.add(
-    State("PAUSED", shape="box", entry="anim-pause:2,4", width=36.0, style=Styles.SecondaryNeutral),
-    xy=(110.0, 16.0),
+    State("PAUSED", shape="box", entry="pause:2,4", width=26.0, style=Styles.SecondaryNeutral.patch(text_size=10.5)),
+    xy=(69.0, 11.0),
 )
 ended = sd.add(
-    State("ENDED", shape="box", entry="Final Frame", width=30.0, style=Styles.Neutral),
-    xy=(176.0, 56.0),
+    State("ENDED", shape="box", entry="Final", width=23.0, style=Styles.Neutral.patch(text_size=10.5)),
+    xy=(110.0, 39.0),
 )
 
 sd.connect(init, ready, label="init")
-sd.connect(ready, playing, label="click / auto")
+sd.connect(ready, playing, label="click")
 sd.connect(
     playing,
     paused,
     label="pause",
-    bend=0.55,
+    bend=0.5,
     start_side="bottom_left",
     end_side="top_left",
 )
@@ -287,16 +326,16 @@ sd.connect(
     paused,
     playing,
     label="resume",
-    bend=0.55,
+    bend=0.5,
     start_side="top_right",
     end_side="bottom_right",
 )
-sd.connect(playing, ended, label="loop:once")
+sd.connect(playing, ended, label="end")
 sd.connect(
     ended,
     playing,
-    label="click (replay)",
-    bend=0.38,
+    label="replay",
+    bend=0.35,
     start_side="top",
     end_side="top",
     style=Styles.PrimaryBold,

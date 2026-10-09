@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,25 +427,152 @@
                 <h1>Cycle Component</h1>
 <p>The <code>Cycle</code> component draws circular, repeating process diagrams and continuous feedback loops.
 It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, incident response loops, and token refresh mechanisms.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="cycle_images/cycle_hero.png" alt="cycle_1" />
+  <figcaption class="drawlib-caption">Overview of Cycle: Circular Node Orbits and Rectangular Card Loops</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cycle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Circular Node Orbit (node_shape="circle", description_placement="inside")</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">31.5</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span> <span class="s2">"1. Circular Nodes (node_shape='circle', inside)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">c_left</span> <span class="o">=</span> <span class="n">Cycle</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">node_radius</span><span class="o">=</span><span class="mf">7.8</span><span class="p">,</span>
+    <span class="n">description_placement</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span>
+    <span class="n">arrow_type</span><span class="o">=</span><span class="s2">"arc"</span><span class="p">,</span>
+    <span class="n">arrow_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+    <span class="n">arrow_head_width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
+    <span class="n">arrow_color_mode</span><span class="o">=</span><span class="s2">"monochrome"</span><span class="p">,</span>
+    <span class="n">arrow_gap</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">c_left</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"1. Plan"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Scope"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_left</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"2. Do"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Build"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_left</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Check"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Verify"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_left</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"4. Act"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Deploy"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_left</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span>
+    <span class="s2">"PDCA"</span><span class="p">,</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_left</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">31.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">16.5</span><span class="p">)</span>
+
+<span class="c1"># Center Divider</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">63.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mf">63.5</span><span class="p">,</span> <span class="mi">58</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+
+<span class="c1"># Right Panel: Rectangular Card Loop (node_shape="rectangle", description_placement="outside")</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span> <span class="s2">"2. Rectangular Cards (node_shape='rectangle', outside)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">c_right</span> <span class="o">=</span> <span class="n">Cycle</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span>
+    <span class="n">description_placement</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span>
+    <span class="n">arrow_type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
+    <span class="n">arrow_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+    <span class="n">arrow_color_mode</span><span class="o">=</span><span class="s2">"match_source"</span><span class="p">,</span>
+    <span class="n">arrow_gap</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">c_right</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"1. Login"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"OIDC"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_right</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"2. Issue"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"JWT"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">c_right</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Verify"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"mTLS"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">c_right</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"4. Rotate"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Refresh"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">c_right</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span>
+    <span class="s2">"Auth"</span><span class="p">,</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_right</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">13.5</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Quick Example: Agile Development Cycle</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cycle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">)</span>
 
 <span class="n">cycle</span> <span class="o">=</span> <span class="n">Cycle</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">9</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">clockwise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">start_angle</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>
     <span class="n">node_shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
-    <span class="n">node_radius</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">node_radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
     <span class="n">arrow_type</span><span class="o">=</span><span class="s2">"arc"</span><span class="p">,</span>
-    <span class="n">arrow_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">arrow_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
     <span class="n">arrow_head_width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
     <span class="n">arrow_color_mode</span><span class="o">=</span><span class="s2">"monochrome"</span><span class="p">,</span>
     <span class="n">description_placement</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span>
@@ -450,25 +581,42 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
     <span class="s2">"1. Plan"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"Sprint Goal"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">9</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Do"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Build Feature"</span><span class="p">)</span>
-<span class="n">cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Check"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Code Review"</span><span class="p">)</span>
-<span class="n">cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Act"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Retro &amp; Deploy"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"2. Do"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Build Code"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Check"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"QA Review"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"4. Act"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Deploy"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="n">cycle</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Agile"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"Loop"</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">cycle</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">28.0</span><span class="p">)</span>
+<span class="n">cycle</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">57.5</span><span class="p">,</span> <span class="mf">41.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">24.5</span><span class="p">)</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="cycle_images/cycle_agile_lifecycle.png" alt="cycle_1" style="width: 600px; max-width: 100%;" />
+  <img src="cycle_images/cycle_agile_lifecycle.png" alt="cycle_2" />
   <figcaption class="drawlib-caption">Continuous Agile Lifecycle with Cycle</figcaption>
 </figure>
 <hr />
@@ -478,16 +626,16 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cycle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">96</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">84</span><span class="p">)</span>
 
 <span class="n">auth_cycle</span> <span class="o">=</span> <span class="n">Cycle</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">clockwise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">start_angle</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>
     <span class="n">node_shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
-    <span class="n">node_size</span><span class="o">=</span><span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
     <span class="n">description_placement</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span>
     <span class="n">arrow_type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
     <span class="n">arrow_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
@@ -500,14 +648,16 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
     <span class="s2">"1. Authenticate"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"OIDC Login &amp; MFA"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="c1"># Right (0 deg) - left-align outside description so it extends cleanly rightward</span>
 <span class="n">auth_cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"2. Issue JWT"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Short-Lived Access Token"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Short-Lived Token"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
     <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="c1"># Bottom (270 deg)</span>
@@ -515,32 +665,35 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
     <span class="s2">"3. API Verify"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"mTLS &amp; Claims Check"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="c1"># Left (180 deg) - right-align outside description so it extends cleanly leftward</span>
 <span class="n">rotate_step</span> <span class="o">=</span> <span class="n">auth_cycle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"4. Refresh"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Rotate Refresh Token"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Rotate Token"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="c1"># Customize outgoing arrow style on the neutral step via CycleItem mutation</span>
 <span class="n">rotate_step</span><span class="o">.</span><span class="n">arrow_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
 
 <span class="n">auth_cycle</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Zero Trust"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Session Loop"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Session"</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">auth_cycle</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+<span class="n">auth_cycle</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="cycle_images/cycle_rectangular_outside.png" alt="cycle_2" style="width: 650px; max-width: 100%;" />
+  <img src="cycle_images/cycle_rectangular_outside.png" alt="cycle_3" />
   <figcaption class="drawlib-caption">Rectangular Cycle with Outside Descriptions (node_shape='rectangle', arrow_type='line', arrow_color_mode='match_source')</figcaption>
 </figure>
 <hr />

@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -425,7 +429,7 @@
 <hr />
 <h2>1. Overview &amp; Key Concepts</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="sequence_images/sequence_overview_concepts.png" alt="sequence_1" style="width: 650px; max-width: 100%;" />
+  <img src="sequence_images/sequence_overview_concepts.png" alt="sequence_1" />
   <figcaption class="drawlib-caption">SequenceDiagram Lifelines, Activation Bars, and Message Semantics</figcaption>
 </figure>
 <details class="drawlib-code-details">
@@ -434,16 +438,16 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">PhosphorIcon</span><span class="p">,</span> <span class="n">SequenceDiagram</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">92</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
-    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">col_width</span><span class="o">=</span><span class="mf">44.0</span><span class="p">,</span>
-    <span class="n">step_y</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
+    <span class="n">col_width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span>
+    <span class="n">step_y</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"Client"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LAPTOP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">))</span>
@@ -466,7 +470,7 @@
 
 <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="s2">"WebSocket Stream (&lt;-&gt;)"</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">)</span>
 
-<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
@@ -778,35 +782,36 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">ParticipantGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span><span class="p">,</span> <span class="n">SequenceDiagram</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">140</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
-    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Microservices Distributed Transaction Pipeline"</span><span class="p">,</span>
     <span class="n">autonumber</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">col_width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span>
-    <span class="n">step_y</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">col_width</span><span class="o">=</span><span class="mf">30.5</span><span class="p">,</span>
+    <span class="n">step_y</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 1. Participants: Client on the left, Backend services in VPC group on the right</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">))</span>
 
 <span class="n">backend</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">ParticipantGroup</span><span class="p">(</span>
         <span class="n">title</span><span class="o">=</span><span class="s2">"Google Cloud VPC"</span><span class="p">,</span>
-        <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
     <span class="p">)</span>
 <span class="p">)</span>
 <span class="n">api</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="s2">"Cloud Run</span><span class="se">\n</span><span class="s2">(Gateway)"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+    <span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Cloud Run</span><span class="se">\n</span><span class="s2">(Gateway)"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">worker</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="s2">"GKE Pod</span><span class="se">\n</span><span class="s2">(Worker)"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="s2">"Cloud SQL</span><span class="se">\n</span><span class="s2">(Database)"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+<span class="n">worker</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"GKE Pod</span><span class="se">\n</span><span class="s2">(Worker)"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">))</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Cloud SQL</span><span class="se">\n</span><span class="s2">(Database)"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">))</span>
 
 <span class="c1"># 2. Interactions</span>
 <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="s2">"POST /api/v1/checkout"</span><span class="p">)</span>
@@ -825,11 +830,11 @@
     <span class="n">worker</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="s2">"Deduct Inventory Rows"</span><span class="p">)</span>
     <span class="n">db</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="s2">"Rows Committed"</span><span class="p">)</span>
 
-<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="sequence_images/sequence_distributed_transaction.png" alt="sequence_2" style="width: 650px; max-width: 100%;" />
+  <img src="sequence_images/sequence_distributed_transaction.png" alt="sequence_2" />
   <figcaption class="drawlib-caption">Microservices Distributed Transaction Pipeline</figcaption>
 </figure>
 <hr />
@@ -839,19 +844,22 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">PhosphorIcon</span><span class="p">,</span> <span class="n">SequenceDiagram</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">92</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
-    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"WebSocket Real-Time Live Sync"</span><span class="p">,</span>
+    <span class="n">col_width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">app</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DEVICE_MOBILE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
-<span class="n">gateway</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"WS Gateway"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CLOUD</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">))</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DEVICE_MOBILE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Participant</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"WS Gateway"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CLOUD</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="p">)</span>
 
 <span class="n">app</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="s2">"GET /ws HTTP/1.1 (Upgrade: websocket)"</span><span class="p">)</span>
 <span class="n">gateway</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">"101 Switching Protocols"</span><span class="p">)</span>
@@ -863,11 +871,11 @@
     <span class="n">gateway</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">"PING"</span><span class="p">,</span> <span class="n">is_async</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="s2">"PONG"</span><span class="p">,</span> <span class="n">is_async</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="sequence_images/sequence_websocket_telemetry.png" alt="sequence_3" style="width: 650px; max-width: 100%;" />
+  <img src="sequence_images/sequence_websocket_telemetry.png" alt="sequence_3" />
   <figcaption class="drawlib-caption">WebSocket Full-Duplex Telemetry Stream</figcaption>
 </figure>
 <hr />
@@ -920,24 +928,24 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">PhosphorIcon</span><span class="p">,</span> <span class="n">SequenceDiagram</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">138</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">140</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">134</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
-    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"JWT Authentication &amp; Conditional Token Refresh"</span><span class="p">,</span>
-    <span class="n">col_width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span>
-    <span class="n">step_y</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
+    <span class="n">col_width</span><span class="o">=</span><span class="mf">37.0</span><span class="p">,</span>
+    <span class="n">step_y</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Client App"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LAPTOP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Client App"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LAPTOP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
 <span class="n">auth</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+    <span class="n">Participant</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">idp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"OAuth IdP"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">KEY</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+<span class="n">idp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"OAuth IdP"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">KEY</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
 
 <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="s2">"POST /verify (Bearer JWT)"</span><span class="p">)</span>
 <span class="n">auth</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
@@ -960,11 +968,11 @@
 <span class="c1"># Spanning note across multiple participants</span>
 <span class="n">d</span><span class="o">.</span><span class="n">note</span><span class="p">(</span><span class="s2">"All token exchanges require TLS 1.3 mTLS"</span><span class="p">,</span> <span class="n">over</span><span class="o">=</span><span class="p">[</span><span class="n">client</span><span class="p">,</span> <span class="n">auth</span><span class="p">])</span>
 
-<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="sequence_images/sequence_auth_alt_notes.png" alt="sequence_4" style="width: 650px; max-width: 100%;" />
+  <img src="sequence_images/sequence_auth_alt_notes.png" alt="sequence_4" />
   <figcaption class="drawlib-caption">Authentication Flow with Self-Calls, Sticky Notes, and alt/else_ Condition Frames</figcaption>
 </figure>
 

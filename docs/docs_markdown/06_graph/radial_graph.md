@@ -4,6 +4,80 @@
 
 It is purpose-built for event-driven message meshes, Pub/Sub broker topologies, microservice hub-and-spoke networks, and concentric dependency radars.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radial_graph_images/graph_radial_hero.png" alt="radial_graph_1" />
+  <figcaption class="drawlib-caption">RadialGraph Overview: Concentric BFS Orbit Rings and Dashed Ring Guides</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.graph import RadialGraph
+from drawlib.icons import phosphor
+from drawlib.styles import Styles
+
+setup(width=122, height=112)
+
+g = RadialGraph(
+    hub="core",
+    radius_step=24.5,
+    start_angle=35.0,
+    draw_ring_guides=True,
+    default_node_width=19.5,
+    default_node_height=11.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+
+# Ring 0: Central Hub
+g.node(
+    "core",
+    "\nEvent Hub",
+    shape="circle",
+    width=17.5,
+    height=17.5,
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+
+# Ring 1: Core Services
+g.spoke("core", "auth", "\nAuth API", ring=1, style=Styles.PrimaryNeutral)
+g.spoke("core", "orders", "\nOrders", ring=1, style=Styles.SecondaryNeutral)
+g.spoke("core", "billing", "\nBilling", ring=1, style=Styles.PrimaryNeutral)
+g.spoke("core", "audit", "\nAudit Log", ring=1, style=Styles.Neutral)
+
+# Ring 2: Outer Adapters
+g.spoke("auth", "idp", "\nOAuth IdP", ring=2, style=Styles.Neutral)
+g.spoke("orders", "db", "\nOrders DB", ring=2, style=Styles.Neutral)
+g.spoke("billing", "stripe", "\nStripe GW", ring=2, style=Styles.Neutral)
+g.spoke("audit", "siem", "\nSIEM Sink", ring=2, style=Styles.Neutral)
+
+layout = g.draw(margin=5.0)
+
+for nid, icon_fn, st in [
+    ("core", phosphor.circles_three_plus, Styles.White),
+    ("auth", phosphor.shield_check, Styles.Primary),
+    ("orders", phosphor.cpu, Styles.Secondary),
+    ("billing", phosphor.credit_card, Styles.Primary),
+    ("audit", phosphor.chart_line_up, Styles.Dark),
+    ("idp", phosphor.lock_key, Styles.Dark),
+    ("db", phosphor.database, Styles.Dark),
+    ("stripe", phosphor.globe, Styles.Dark),
+    ("siem", phosphor.terminal_window, Styles.Dark),
+]:
+    n = layout.nodes[nid]
+    icon_fn((n.x, n.y + (2.7 if nid == "core" else 2.0)), width=3.8, style=st)
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Constructor & `.spoke()` Builder API
@@ -84,40 +158,42 @@ from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
 
-setup(width=160, height=125)
+setup(width=118, height=84)
 
 g = RadialGraph(
     hub="broker",
+    radius_step=29.0,
     draw_ring_guides=True,
-    default_node_width=25.0,
-    default_node_height=11.0,
+    default_node_width=23.0,
+    default_node_height=10.5,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Central Hub (ring=0) in PrimaryFlat circle
 g.node(
     "broker",
-    "Event Broker",
+    "Event\nBroker",
     shape="circle",
-    width=26.0,
-    height=26.0,
+    width=22.0,
+    height=22.0,
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 # 6 Spoke Microservices on Ring 1 (calm Neutral & Tinted-Neutral cards)
 g.spoke("broker", "auth", "Auth Service", style=Styles.PrimaryNeutral, arrow_head="<->")
 g.spoke("broker", "orders", "Orders API", style=Styles.SecondaryNeutral, arrow_head="<->")
-g.spoke("broker", "billing", "Billing Worker", style=Styles.Neutral)
-g.spoke("broker", "inventory", "Inventory Sync", style=Styles.Neutral)
+g.spoke("broker", "billing", "Billing Job", style=Styles.Neutral)
+g.spoke("broker", "inventory", "Inventory", style=Styles.Neutral)
 g.spoke("broker", "notify", "Email & Push", style=Styles.Neutral)
 g.spoke("broker", "audit", "Audit Log", style=Styles.PrimaryNeutral)
 
-g.draw(margin=16.0)
+g.draw(margin=8.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radial_graph_images/graph_radial_single_ring.png" alt="radial_graph_1" style="width: 640px; max-width: 100%;" />
+  <img src="radial_graph_images/graph_radial_single_ring.png" alt="radial_graph_2" />
   <figcaption class="drawlib-caption">Single-Ring Hub-and-Spoke Microservice Mesh Around an Event Broker</figcaption>
 </figure>
 
@@ -136,13 +212,15 @@ from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
 
-setup(width=175, height=135)
+setup(width=122, height=112)
 
 g = RadialGraph(
     hub="domain_core",
+    radius_step=24.5,
     draw_ring_guides=True,
-    default_node_width=24.0,
-    default_node_height=10.5,
+    default_node_width=19.0,
+    default_node_height=10.0,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # Ring 0: Central Domain Kernel
@@ -150,10 +228,10 @@ g.node(
     "domain_core",
     "Domain\nKernel",
     shape="circle",
-    width=24.0,
-    height=24.0,
+    width=17.0,
+    height=17.0,
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
 )
 
 # Ring 1: Application Services
@@ -164,17 +242,17 @@ g.spoke("domain_core", "identity", "Identity", ring=1, style=Styles.SecondaryNeu
 # Ring 2: External Infrastructure Adapters
 g.spoke("checkout", "stripe", "Stripe API", ring=2, style=Styles.Neutral)
 g.spoke("checkout", "orders_db", "Orders SQL", ring=2, style=Styles.Neutral)
-g.spoke("catalog", "elastic", "Search Index", ring=2, style=Styles.Neutral)
+g.spoke("catalog", "elastic", "Search Idx", ring=2, style=Styles.Neutral)
 g.spoke("catalog", "cdn", "Media CDN", ring=2, style=Styles.Neutral)
 g.spoke("identity", "oauth", "OAuth IdP", ring=2, style=Styles.Neutral)
 g.spoke("identity", "redis", "Token Cache", ring=2, style=Styles.Neutral)
 
-g.draw(margin=16.0)
+g.draw(margin=5.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radial_graph_images/graph_radial_multi_ring.png" alt="radial_graph_2" style="width: 660px; max-width: 100%;" />
+  <img src="radial_graph_images/graph_radial_multi_ring.png" alt="radial_graph_3" />
   <figcaption class="drawlib-caption">Multi-Ring Concentric Dependency Radar (Ring 0 Core, Ring 1 Domain, Ring 2 Adapters)</figcaption>
 </figure>
 
@@ -193,17 +271,18 @@ from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
 
-setup(width=175, height=98)
+setup(width=124, height=66)
 
 g = RadialGraph(
     hub="gateway",
-    center=(87.5, 25.0),
-    radius_step=48.0,
+    center=(62.0, 15.0),
+    radius_step=36.0,
     start_angle=0.0,
     angle_range=180.0,
     draw_ring_guides=True,
-    default_node_width=27.0,
-    default_node_height=11.5,
+    default_node_width=22.0,
+    default_node_height=10.5,
+    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # Hub anchored near the bottom center
@@ -211,25 +290,25 @@ g.node(
     "gateway",
     "API\nGateway",
     shape="circle",
-    width=23.0,
-    height=23.0,
+    width=21.0,
+    height=21.0,
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
 # 5 downstream services fanned across the upper 0°..180° arc
 g.spoke("gateway", "cdn", "Edge CDN", style=Styles.Neutral)
-g.spoke("gateway", "auth", "Auth Service", style=Styles.PrimaryNeutral)
+g.spoke("gateway", "auth", "Auth API", style=Styles.PrimaryNeutral)
 g.spoke("gateway", "catalog", "Catalog API", style=Styles.SecondaryNeutral)
 g.spoke("gateway", "orders", "Orders API", style=Styles.PrimaryNeutral)
 g.spoke("gateway", "audit", "Audit Log", style=Styles.Neutral)
 
-g.draw(margin=12.0)
+g.draw(margin=6.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radial_graph_images/graph_radial_semicircle_fan.png" alt="radial_graph_3" style="width: 600px; max-width: 100%;" />
+  <img src="radial_graph_images/graph_radial_semicircle_fan.png" alt="radial_graph_4" />
   <figcaption class="drawlib-caption">Semicircular Dependency Fan Using angle_range=180.0 and start_angle=0.0</figcaption>
 </figure>
 

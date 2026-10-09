@@ -64,7 +64,7 @@ Never manually assemble diagrams out of dozens of primitive rectangles and lines
 In technical documentation (`docs_src/`), embed diagrams directly within markdown files using the ````drawlib```` code fence:
 
 ````markdown
-```drawlib 600px center file:service_architecture.png caption:"Service Architecture"
+```drawlib center file:service_architecture.png caption:"Service Architecture"
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.shapes import rectangle

@@ -8,28 +8,44 @@ Drawlib is not only a drawing library—it is a **complete documentation compile
 
 Instead of writing documentation in static wikis and manually copying and pasting PNG screenshots, Drawlib establishes a clean, repeatable build pipeline:
 
-```drawlib fold-code 650px center file:doc_build_pipeline.png caption:"Drawlib Documentation Build Pipeline"
+```drawlib fold-code center file:doc_build_pipeline.png caption:"Drawlib Documentation Build Pipeline"
 from drawlib.canvas import save, setup
-from drawlib.shapes import rectangle
+from drawlib.icons import phosphor
 from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=120, height=45)
+setup(width=122, height=42)
 
-# Source folder (Hero focal origin)
-rectangle((24, 22.5), width=32, height=24, style=Styles.PrimaryFlat, text="Source of Truth\n\ndocs_src/\n(Markdown + Code)", text_style=Styles.WhiteBold)
+# 1. Source folder (Hero focal origin)
+rectangle((20.5, 21.0), width=35.0, height=34.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((20.5, 34.0), width=33.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. Source of Truth", text_style=Styles.WhiteBold.patch(text_size=11.5))
+phosphor.file_text((20.5, 24.5), width=6.0, style=Styles.Primary)
+text((20.5, 15.5), "docs_src/", style=Styles.DarkBold.patch(text_size=11.0))
+text((20.5, 10.2), "Markdown + ```drawlib", style=Styles.Dark.patch(text_size=10.0))
 
-# Build engine (Calm Neutral card)
-rectangle((60, 22.5), width=24, height=16, style=Styles.Neutral, text="drawlib\nbuild")
+# 2. Build engine (Calm Neutral card)
+rectangle((60.0, 21.0), width=28.0, height=26.0, style=Styles.Neutral.patch(shape_r=2.0))
+phosphor.gear((60.0, 26.5), width=5.8, style=Styles.Primary)
+text((60.0, 17.5), "drawlib build", style=Styles.DarkBold.patch(text_size=11.0))
+text((60.0, 12.2), "SQLite Cache", style=Styles.Dark.patch(text_size=10.0))
 
-# Outputs (Secondary Neutral cards)
-rectangle((98, 31), width=28, height=12, style=Styles.SecondaryNeutral, text="docs_html/ (Site)")
-rectangle((98, 14), width=28, height=12, style=Styles.SecondaryNeutral, text="docs/ (GitHub MD)")
+# 3. Outputs (Secondary Neutral cards)
+rectangle((100.5, 30.5), width=37.0, height=14.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.globe((87.5, 30.5), width=5.0, style=Styles.Primary)
+text((92.0, 32.5), "docs_html/", style=Styles.DarkBold.patch(text_size=11.0, halign="left"))
+text((92.0, 28.2), "Web Site & Search", style=Styles.Dark.patch(text_size=10.0, halign="left"))
 
-# Lines
-line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
-line((72, 25), (84, 31), arrow_head="->", style=Styles.DarkBold)
-line((72, 20), (84, 14), arrow_head="->", style=Styles.DarkBold)
+rectangle((100.5, 11.5), width=37.0, height=14.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.file_pdf((87.5, 11.5), width=5.0, style=Styles.Primary)
+text((92.0, 13.5), "docs/ & *.pdf", style=Styles.DarkBold.patch(text_size=11.0, halign="left"))
+text((92.0, 9.2), "GitHub MD & PDF", style=Styles.Dark.patch(text_size=10.0, halign="left"))
+
+# Connectors
+line((38.5, 21.0), (45.5, 21.0), arrow_head="->", style=Styles.DarkBold)
+line((74.5, 24.0), (81.5, 30.5), arrow_head="->", style=Styles.DarkBold)
+line((74.5, 18.0), (81.5, 11.5), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 
@@ -63,88 +79,47 @@ Drawlib supports four starter project types:
 - **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
-```drawlib fold-code 650px center file:project_scaffolding_types.png caption:"The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
+```drawlib fold-code center file:project_scaffolding_types.png caption:"The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=138, height=58)
+setup(width=126, height=48)
+
+hdr_white = Styles.WhiteBold.patch(text_size=11.5)
+hdr_dark = Styles.DarkBold.patch(text_size=11.5)
+body_bold = Styles.DarkBold.patch(text_size=10.5, halign="left")
+body_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 
 # 1. Top-Left: drawlib init site (Hero header)
-rectangle((35.5, 42.5), width=61, height=23, style=Styles.Neutral.patch(shape_r=2))
-rectangle(
-    (35.5, 49.5),
-    width=57,
-    height=6,
-    style=Styles.PrimaryFlat.patch(shape_r=1.2),
-    text="1. drawlib init site (Multi-Page Website)",
-    text_style=Styles.WhiteBold.patch(text_size=8.5),
-)
-rectangle(
-    (35.5, 38.5),
-    width=57,
-    height=11.5,
-    style=Styles.SecondaryNeutral.patch(shape_r=1),
-    text="Source: docs_src/**/*.md + navbar.md\n-> docs_html/ (Web Site) + docs_markdown/",
-    text_style=Styles.Dark.patch(text_size=7.9),
-)
+rectangle((32.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. drawlib init site (Multi-Page Website)", text_style=hdr_white)
+phosphor.globe((9.5, 32.0), width=5.2, style=Styles.Primary)
+text((14.0, 34.0), "Source: docs_src/**/*.md + navbar.md", style=body_bold)
+text((14.0, 29.8), "Output: docs_html/ + docs_markdown/", style=body_sub)
 
 # 2. Top-Right: drawlib init doc
-rectangle((102.5, 42.5), width=61, height=23, style=Styles.Neutral.patch(shape_r=2))
-rectangle(
-    (102.5, 49.5),
-    width=57,
-    height=6,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="2. drawlib init doc (Linear Spec & PDF)",
-    text_style=Styles.DarkBold.patch(text_size=8.5),
-)
-rectangle(
-    (102.5, 38.5),
-    width=57,
-    height=11.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1),
-    text="Source: doc_src/00_cover.md, 01_*.md\n-> doc.pdf + doc_html/ + doc_markdown/",
-    text_style=Styles.Dark.patch(text_size=7.9),
-)
+rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. drawlib init doc (Linear Spec & PDF)", text_style=hdr_dark)
+phosphor.file_pdf((71.5, 32.0), width=5.2, style=Styles.Primary)
+text((76.0, 34.0), "Source: doc_src/00_cover.md, 01_*.md", style=body_bold)
+text((76.0, 29.8), "Output: doc.pdf + doc_html/ + doc_md/", style=body_sub)
 
 # 3. Bottom-Left: drawlib init slide
-rectangle((35.5, 15.5), width=61, height=23, style=Styles.SecondaryNeutral.patch(shape_r=2))
-rectangle(
-    (35.5, 22.5),
-    width=57,
-    height=6,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="3. drawlib init slide (16:9 Slide Deck)",
-    text_style=Styles.DarkBold.patch(text_size=8.5),
-)
-rectangle(
-    (35.5, 11.5),
-    width=57,
-    height=11.5,
-    style=Styles.Neutral.patch(shape_r=1),
-    text="Source: slide_src/*.md (1920x1080 16:9)\n-> slide_html/ (Presenter View) + slide.pdf",
-    text_style=Styles.Dark.patch(text_size=7.9),
-)
+rectangle((32.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((32.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. drawlib init slide (16:9 Slide Deck)", text_style=hdr_dark)
+phosphor.presentation_chart((9.5, 9.0), width=5.2, style=Styles.Primary)
+text((14.0, 11.0), "Source: slide_src/*.md (1920x1080 Stage)", style=body_bold)
+text((14.0, 6.8), "Output: slide_html/ (Presenter) + slide.pdf", style=body_sub)
 
 # 4. Bottom-Right: drawlib init images
-rectangle((102.5, 15.5), width=61, height=23, style=Styles.Neutral.patch(shape_r=2))
-rectangle(
-    (102.5, 22.5),
-    width=57,
-    height=6,
-    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="4. drawlib init images (Batch Scripts)",
-    text_style=Styles.DarkBold.patch(text_size=8.5),
-)
-rectangle(
-    (102.5, 11.5),
-    width=57,
-    height=11.5,
-    style=Styles.PrimaryNeutral.patch(shape_r=1),
-    text="Source: images_src/*.py + styles.py\n-> images/*.png / *.webp / *.svg",
-    text_style=Styles.Dark.patch(text_size=7.9),
-)
+rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((94.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="4. drawlib init images (Batch Scripts)", text_style=hdr_dark)
+phosphor.images((71.5, 9.0), width=5.2, style=Styles.Primary)
+text((76.0, 11.0), "Source: images_src/*.py + styles.py", style=body_bold)
+text((76.0, 6.8), "Output: images/*.png / *.webp / *.svg", style=body_sub)
 
 save()
 ```

@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,46 +427,122 @@
                 <h1>MindMap Component</h1>
 <p>The <code>MindMapNode</code> component renders multi-directional, radial mindmaps and hierarchical feature maps centered around a central root topic.
 Branches can project to the left, right, top, or bottom, with automatic elbow connector routing.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="mindmap_images/mindmap_hero.png" alt="mindmap_1" />
+  <figcaption class="drawlib-caption">Overview of MindMapNode: Multi-Directional Radial Branching (left, right, top, bottom)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">MindMapNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">MindMapNode</span><span class="p">(</span>
+    <span class="s2">"Cloud Platform"</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="s2">"oval"</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">line_length</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">horizontal_margin</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+    <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># Left Branch (shape="rectangle" + leaf shape="none")</span>
+        <span class="n">MindMapNode</span><span class="p">(</span>
+            <span class="s2">"Ingress (left)"</span><span class="p">,</span>
+            <span class="n">branch</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"CDN Edge"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"WAF Rules"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+        <span class="c1"># Right Branch (shape="rectangle" + leaf shape="none")</span>
+        <span class="n">MindMapNode</span><span class="p">(</span>
+            <span class="s2">"Workloads (right)"</span><span class="p">,</span>
+            <span class="n">branch</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"gRPC API"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Async Workers"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+        <span class="c1"># Top Branch (branch="top")</span>
+        <span class="n">MindMapNode</span><span class="p">(</span>
+            <span class="s2">"Control Plane (top)"</span><span class="p">,</span>
+            <span class="n">branch</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="c1"># Bottom Branch (branch="bottom")</span>
+        <span class="n">MindMapNode</span><span class="p">(</span>
+            <span class="s2">"Storage Tier (bottom)"</span><span class="p">,</span>
+            <span class="n">branch</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">29</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Quick Example: Architecture Topology Map</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">MindMapNode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 
 <span class="n">root</span> <span class="o">=</span> <span class="n">MindMapNode</span><span class="p">(</span>
     <span class="s2">"API Gateway"</span><span class="p">,</span>
     <span class="n">shape</span><span class="o">=</span><span class="s2">"oval"</span><span class="p">,</span>
-    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
     <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">line_length</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">line_length</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
     <span class="n">horizontal_margin</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
     <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
     <span class="n">children</span><span class="o">=</span><span class="p">[</span>
         <span class="n">MindMapNode</span><span class="p">(</span>
-            <span class="s2">"Clients"</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+            <span class="s2">"Clients"</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
             <span class="n">children</span><span class="o">=</span><span class="p">[</span>
-                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
             <span class="p">],</span>
         <span class="p">),</span>
         <span class="n">MindMapNode</span><span class="p">(</span>
-            <span class="s2">"Services"</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+            <span class="s2">"Services"</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
             <span class="n">children</span><span class="o">=</span><span class="p">[</span>
-                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Order Service"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+                <span class="n">MindMapNode</span><span class="p">(</span><span class="s2">"Order Service"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
             <span class="p">],</span>
         <span class="p">),</span>
     <span class="p">],</span>
 <span class="p">)</span>
 
-<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="mindmap_images/mindmap_system_breakdown.png" alt="mindmap_1" style="width: 650px; max-width: 100%;" />
+  <img src="mindmap_images/mindmap_system_breakdown.png" alt="mindmap_2" />
   <figcaption class="drawlib-caption">System Architecture Breakdown with MindMap</figcaption>
 </figure>
 <hr />
@@ -472,18 +552,18 @@ Branches can project to the left, right, top, or bottom, with automatic elbow co
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">MindMapNode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
 
 <span class="n">root</span> <span class="o">=</span> <span class="n">MindMapNode</span><span class="p">(</span>
     <span class="s2">"Platform Engineering"</span><span class="p">,</span>
     <span class="n">shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
-    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
     <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">line_length</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
-    <span class="n">horizontal_margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
-    <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+    <span class="n">line_length</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
+    <span class="n">horizontal_margin</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+    <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># 1. Left Subtree: Cloud Infrastructure</span>
@@ -491,38 +571,38 @@ Branches can project to the left, right, top, or bottom, with automatic elbow co
     <span class="s2">"Cloud Infra"</span><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">infra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"EKS Clusters"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-<span class="n">infra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Terraform IaC"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">infra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"EKS Clusters"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">infra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Terraform IaC"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># 2. Center Subtree: Developer Experience (nudged slightly downward with xy_shift)</span>
 <span class="n">devex</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Developer Experience"</span><span class="p">,</span>
-    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">devex</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CI/CD Runners"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-<span class="n">devex</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Preview Envs"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">devex</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CI/CD Runners"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">devex</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Preview Envs"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># 3. Right Subtree: Security &amp; SRE</span>
 <span class="n">sec</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Security &amp; SRE"</span><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">sec</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Zero-Trust Mesh"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-<span class="n">sec</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"SLOs &amp; Paging"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">sec</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Zero-Trust Mesh"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">sec</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"SLOs &amp; Paging"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># Default branch direction in draw() is "bottom" (top-down org chart layout)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span> <span class="n">branch</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">branch</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="mindmap_images/mindmap_imperative_topdown.png" alt="mindmap_2" style="width: 650px; max-width: 100%;" />
+  <img src="mindmap_images/mindmap_imperative_topdown.png" alt="mindmap_3" />
   <figcaption class="drawlib-caption">Imperative MindMapNode Construction with Top-Down Branching (branch='bottom') and xy_shift</figcaption>
 </figure>
 <hr />

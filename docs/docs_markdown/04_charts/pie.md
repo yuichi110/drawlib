@@ -9,7 +9,7 @@
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/piechart_topologies_overview.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_topologies_overview.png" alt="pie_1" />
   <figcaption class="drawlib-caption">Standard Solid Pie Chart vs. Donut Chart with Center KPI</figcaption>
 </figure>
 
@@ -23,7 +23,7 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=145, height=58)
+setup(width=132, height=58)
 
 # Left: Solid Pie Chart (hole_ratio=0.0) with Exploded Slice
 solid_pie = PieChart(
@@ -31,24 +31,24 @@ solid_pie = PieChart(
     hole_ratio=0.0,
     start_angle=90.0,
     title="1. Solid Pie (hole_ratio=0.0)",
-    title_style=Styles.BlackBold.patch(text_size=10.0),
-    value_text_style=Styles.BlackBold.patch(text_size=8.0),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
+    value_text_style=Styles.BlackBold.patch(text_size=10.0),
     value_format="{:.0f}%",
 )
 solid_pie.add_slice("Core Platform", 45.0, style=Styles.PrimaryFlat, explode=1.8)
 solid_pie.add_slice("AI Services", 35.0, style=Styles.PrimaryNeutral)
 solid_pie.add_slice("Operations", 20.0, style=Styles.SecondaryNeutral)
-solid_pie.draw(xy=(8.0, 5.0))
+solid_pie.draw(xy=(4.0, 5.0))
 
 # Callout for start_angle=90° (12 o'clock)
 pie_w, pie_h = solid_pie.get_size()
-pie_cx = 8.0 + pie_w / 2.0
+pie_cx = 4.0 + pie_w / 2.0
 pie_top_y = 5.0 + (pie_h - 6.0) / 2.0 + 17.5
 line((pie_cx, pie_top_y + 4.2), (pie_cx, pie_top_y + 0.4), arrow_head="->", style=Styles.DarkBold)
 text(
     (pie_cx + 1.8, pie_top_y + 2.8),
     "start_angle=90° (12 o'clock)",
-    style=Styles.DarkBold.patch(text_size=7.5, halign="left"),
+    style=Styles.DarkBold.patch(text_size=10.0, halign="left"),
 )
 
 # Right: Donut Chart (hole_ratio=0.62) with Center KPI
@@ -56,17 +56,17 @@ donut_pie = PieChart(
     radius=17.5,
     hole_ratio=0.62,
     center_text="$1.2B\nARR",
-    center_text_style=Styles.DarkBold.patch(text_size=12),
+    center_text_style=Styles.DarkBold.patch(text_size=12.0),
     title="2. Donut Chart (hole_ratio=0.62)",
-    title_style=Styles.BlackBold.patch(text_size=10.0),
-    value_text_style=Styles.BlackBold.patch(text_size=8.0),
+    title_style=Styles.BlackBold.patch(text_size=11.0),
+    value_text_style=Styles.BlackBold.patch(text_size=10.0),
     value_format="{:.0f}%",
 )
 donut_pie.add_slice("Core Platform", 45.0, style=Styles.PrimaryFlat)
 donut_pie.add_slice("AI Services", 35.0, style=Styles.PrimaryNeutral)
 donut_pie.add_slice("Operations", 20.0, style=Styles.SecondaryNeutral)
-donut_pie.draw(xy=(72.0, 5.0))
-donut_pie.draw_legend(xy=(116.0, 32.0), text_style=Styles.Dark.patch(text_size=8.5))
+donut_pie.draw(xy=(58.0, 5.0))
+donut_pie.draw_legend(xy=(100.0, 32.0), text_style=Styles.Dark.patch(text_size=10.0))
 
 save()
 ```
@@ -94,16 +94,16 @@ from drawlib.canvas import save, setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
-setup(width=98, height=78)
+setup(width=102, height=78)
 
 chart = PieChart(
     radius=24.0,
     hole_ratio=0.62,
     center_text="$1.2B\nARR",
-    center_text_style=Styles.BlackBold.patch(text_size=11.0),
+    center_text_style=Styles.BlackBold.patch(text_size=12.0),
     title="Revenue Contribution by Product Line",
     title_style=Styles.BlackBold.patch(text_size=13.0),
-    value_text_style=Styles.BlackBold.patch(text_size=8.5),
+    value_text_style=Styles.BlackBold.patch(text_size=10.5),
 )
 chart.add_slice("Cloud Infrastructure", 540.0, style=Styles.PrimaryFlat)
 chart.add_slice("AI Developer Tools", 340.0, style=Styles.PrimaryNeutral)
@@ -111,12 +111,12 @@ chart.add_slice("Security Suite", 220.0, style=Styles.SecondaryNeutral)
 chart.add_slice("Legacy Support", 100.0, style=Styles.Neutral)
 
 chart.draw(xy=(8.0, 8.0))
-chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Dark.patch(text_size=9.0))
+chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Dark.patch(text_size=10.5))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/piechart_revenue_donut.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_revenue_donut.png" alt="pie_2" />
   <figcaption class="drawlib-caption">Revenue Contribution Donut Chart</figcaption>
 </figure>
 
@@ -135,13 +135,13 @@ from drawlib.canvas import save, setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
-setup(width=98, height=78)
+setup(width=102, height=78)
 
 chart = PieChart(
     radius=24.0,
     title="R&D Budget Allocation (2026)",
     title_style=Styles.BlackBold.patch(text_size=13.0),
-    value_text_style=Styles.BlackBold.patch(text_size=8.5),
+    value_text_style=Styles.BlackBold.patch(text_size=10.5),
     value_format=lambda pct: f"{pct:.0f}%",
 )
 chart.add_slice("Generative AI Models", 45.0, style=Styles.PrimaryFlat, explode=2.8)
@@ -151,12 +151,12 @@ chart.add_slice("Compliance & Audit", 8.0, style=Styles.Neutral)
 chart.add_slice("Experimental Labs (3%)", 3.0, style=Styles.Muted)
 
 chart.draw(xy=(8.0, 8.0))
-chart.draw_legend(xy=(64.0, 50.0), text_style=Styles.Dark.patch(text_size=9.0))
+chart.draw_legend(xy=(64.0, 50.0), text_style=Styles.Dark.patch(text_size=10.5))
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/piechart_budget_exploded.png" alt="pie_3" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_budget_exploded.png" alt="pie_3" />
   <figcaption class="drawlib-caption">Budget Allocation with Exploded Hero Slice and Callable Formatter</figcaption>
 </figure>
 

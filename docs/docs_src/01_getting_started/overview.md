@@ -1,8 +1,69 @@
 # About Drawlib
 
-Drawlib is a pure-Python library engineered around the dual paradigms of **"Illustration as Code"** and **"Documentation as Code"**.
+Drawlib is a pure-Python library engineered around the dual paradigms of **"Illustration as Code"** and **"Illustrated Documentation as Code"**.
 
 It empowers human developers, system architects, and **autonomous AI coding agents** to design, version-control, and publish clean architectural schemas, workflow charts, and entire multi-page technical documentation websites directly from declarative Python code.
+
+```drawlib fold-code center file:overview_paradigm_shift.png caption:"Legacy Diagramming Approaches vs. Drawlib Illustration as Code"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=126, height=48)
+
+hdr_dark = Styles.DarkBold.patch(text_size=11.5)
+hdr_white = Styles.WhiteBold.patch(text_size=11.5)
+ts_title = Styles.DarkBold.patch(text_size=10.5, halign="left")
+ts_sub = Styles.Dark.patch(text_size=10.0, halign="left")
+
+# Left container: Legacy Approaches (Fragmented & Fragile)
+rectangle((29.5, 24.0), width=53.0, height=42.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+rectangle((29.5, 40.5), width=50.0, height=5.5, style=Styles.Neutral.patch(shape_r=1.2), text="Legacy Approaches (Fragile)", text_style=hdr_dark)
+
+rectangle((29.5, 31.5), width=50.0, height=9.2, style=Styles.Neutral.patch(shape_r=1.2))
+phosphor.x_circle((8.2, 31.5), width=4.6, style=Styles.Danger)
+text((12.0, 33.4), "GUI Drag-and-Drop Tools", style=ts_title)
+text((12.0, 29.5), "No Git diffs • Binary PNG rot", style=ts_sub)
+
+rectangle((29.5, 20.5), width=50.0, height=9.2, style=Styles.Neutral.patch(shape_r=1.2))
+phosphor.warning((8.2, 20.5), width=4.6, style=Styles.Danger)
+text((12.0, 22.4), "Raw SVG XML Generation", style=ts_title)
+text((12.0, 18.5), "Text overflows • Manual path math", style=ts_sub)
+
+rectangle((29.5, 9.5), width=50.0, height=9.2, style=Styles.Neutral.patch(shape_r=1.2))
+phosphor.x_circle((8.2, 9.5), width=4.6, style=Styles.Danger)
+text((12.0, 11.4), "Low-Level Matplotlib", style=ts_title)
+text((12.0, 7.5), "Academic API • Heavy boilerplate", style=ts_sub)
+
+# Right container: The Drawlib Solution ("Illustration as Code")
+rectangle((96.5, 24.0), width=53.0, height=42.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((96.5, 40.5), width=50.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="Drawlib: Illustration as Code", text_style=hdr_white)
+
+rectangle((96.5, 31.5), width=50.0, height=9.2, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
+phosphor.shapes((75.2, 31.5), width=4.6, style=Styles.Primary)
+text((79.0, 33.4), "Declarative Domain APIs", style=ts_title)
+text((79.0, 29.5), "Graphs, Diagrams, SmartArts, Charts", style=ts_sub)
+
+rectangle((96.5, 20.5), width=50.0, height=9.2, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
+phosphor.git_branch((75.2, 20.5), width=4.6, style=Styles.Primary)
+text((79.0, 22.4), "Git & PR Friendly", style=ts_title)
+text((79.0, 18.5), "Clean diffs + SQLite build cache", style=ts_sub)
+
+rectangle((96.5, 9.5), width=50.0, height=9.2, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
+phosphor.robot((75.2, 9.5), width=4.6, style=Styles.Primary)
+text((79.0, 11.4), "AI-Native Self-Correction", style=ts_title)
+text((79.0, 7.5), "CLI rules + grid (-g) verification", style=ts_sub)
+
+# Transition arrows from Legacy pain points to Drawlib solutions
+line((56.8, 31.5), (69.2, 31.5), arrow_head="->", style=Styles.DarkBold)
+line((56.8, 20.5), (69.2, 20.5), arrow_head="->", style=Styles.DarkBold)
+line((56.8, 9.5), (69.2, 9.5), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
 
 ---
 
@@ -41,92 +102,6 @@ Drawlib treats architectural illustrations as first-class software artifacts gov
 4. **Algorithmic Geometry**: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.
 5. **Centralized Style Governance**: Theme tokens (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.
 
-```drawlib fold-code 650px center file:overview_paradigm_shift.png caption:"Legacy Diagramming Approaches vs. Drawlib Illustration as Code"
-from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-
-setup(width=140, height=56)
-
-# Left container: Legacy Approaches (Fragmented & Fragile)
-rectangle((35, 28), width=62, height=48, style=Styles.SecondaryNeutral.patch(shape_r=2.5))
-rectangle(
-    (35, 46.5),
-    width=58,
-    height=6.5,
-    style=Styles.Neutral.patch(shape_r=1.5),
-    text="Legacy Approaches (Fragmented & Fragile)",
-    text_style=Styles.DarkBold.patch(text_size=8.8),
-)
-rectangle(
-    (35, 36.5),
-    width=58,
-    height=10,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="GUI Drag-and-Drop Tools\nNo Git diffs • AI agents cannot edit binary PNGs",
-    text_style=Styles.Dark.patch(text_size=7.8),
-)
-rectangle(
-    (35, 24.5),
-    width=58,
-    height=10,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="Raw SVG XML Generation\nText overflows boxes • Manual trig & path math breaks",
-    text_style=Styles.Dark.patch(text_size=7.8),
-)
-rectangle(
-    (35, 12.5),
-    width=58,
-    height=10,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="Low-Level Matplotlib\nAcademic plotting API • Dozens of lines per box",
-    text_style=Styles.Dark.patch(text_size=7.8),
-)
-
-# Right container: The Drawlib Solution ("Illustration as Code")
-rectangle((105, 28), width=62, height=48, style=Styles.Neutral.patch(shape_r=2.5))
-rectangle(
-    (105, 46.5),
-    width=58,
-    height=6.5,
-    style=Styles.PrimaryFlat.patch(shape_r=1.5),
-    text='The Drawlib Solution ("Illustration as Code")',
-    text_style=Styles.WhiteBold.patch(text_size=8.8),
-)
-rectangle(
-    (105, 36.5),
-    width=58,
-    height=10,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
-    text="Declarative Domain APIs\nGraphs, Diagrams, SmartArts, Charts in pure Python",
-    text_style=Styles.Dark.patch(text_size=7.8),
-)
-rectangle(
-    (105, 24.5),
-    width=58,
-    height=10,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
-    text="Git & PR Friendly\nClean code diffs + deterministic SQLite build cache",
-    text_style=Styles.Dark.patch(text_size=7.8),
-)
-rectangle(
-    (105, 12.5),
-    width=58,
-    height=10,
-    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
-    text="AI-Native Self-Correction\nOn-demand CLI rules + multimodal grid (-g) verification",
-    text_style=Styles.Dark.patch(text_size=7.8),
-)
-
-# Transition arrows from Legacy pain points to Drawlib solutions
-line((64, 36.5), (76, 36.5), arrow_head="->", style=Styles.DarkBold)
-line((64, 24.5), (76, 24.5), arrow_head="->", style=Styles.DarkBold)
-line((64, 12.5), (76, 12.5), arrow_head="->", style=Styles.DarkBold)
-
-save()
-```
-
 ---
 
 ## AI-Native by Design
@@ -146,18 +121,44 @@ Large Language Models (LLMs) and AI coding agents (such as Claude Code, Cursor, 
 
 Drawlib is structured into four cohesive layers, ensuring both low-level flexibility and high-level productivity:
 
-```drawlib fold-code 650px center file:drawlib_layered_architecture.png caption:"Drawlib Layered Architecture"
+```drawlib fold-code center file:drawlib_layered_architecture.png caption:"Drawlib Layered Architecture"
 from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=120, height=60)
+setup(width=120, height=54)
 
-# Layers: Core Engine as hero anchor, upper layers in calm neutral cards
-rectangle((60, 50), width=110, height=11, style=Styles.PrimaryNeutral, text="Layer 4: Animation, Slide & Doc Builder (anim, slide, tools, CLI)")
-rectangle((60, 37), width=110, height=11, style=Styles.Neutral, text="Layer 3: High-Level Visualizations (Graphs, Diagrams, Charts, SmartArts)")
-rectangle((60, 24), width=110, height=11, style=Styles.SecondaryNeutral, text="Layer 2: Drawing Primitives (Shapes, Lines, Text, Icons, Images)")
-rectangle((60, 11), width=110, height=11, style=Styles.PrimaryFlat, text="Layer 1: Core Engine (Canvas, Coordinates, Theming, Fonts)", text_style=Styles.WhiteBold)
+title_dark = Styles.DarkBold.patch(text_size=11.5, halign="left")
+sub_dark = Styles.Dark.patch(text_size=10.5, halign="left")
+title_white = Styles.WhiteBold.patch(text_size=11.5, halign="left")
+sub_white = Styles.White.patch(text_size=10.5, halign="left")
+
+# Layer 4: Animation, Slide & Doc Builder
+rectangle((60.0, 45.0), width=112.0, height=10.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+phosphor.stack((10.5, 45.0), width=5.2, style=Styles.Primary)
+text((15.5, 47.0), "Layer 4: Animation, Slide & Doc Builder", style=title_dark)
+text((15.5, 42.8), "drawlib.anim • drawlib.slide • drawlib.tools • CLI Compiler", style=sub_dark)
+
+# Layer 3: High-Level Visualizations
+rectangle((60.0, 33.0), width=112.0, height=10.0, style=Styles.Neutral.patch(shape_r=1.5))
+phosphor.cube((10.5, 33.0), width=5.2, style=Styles.Primary)
+text((15.5, 35.0), "Layer 3: High-Level Visualizations & Geometry", style=title_dark)
+text((15.5, 30.8), "drawlib.graph • diagrams • smartarts • charts • math", style=sub_dark)
+
+# Layer 2: Drawing Primitives
+rectangle((60.0, 21.0), width=112.0, height=10.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+phosphor.paint_brush((10.5, 21.0), width=5.2, style=Styles.Primary)
+text((15.5, 23.0), "Layer 2: Drawing Primitives & Assets", style=title_dark)
+text((15.5, 18.8), "drawlib.shapes (24 shapes) • lines • text • icons • images", style=sub_dark)
+
+# Layer 1: Core Engine (Hero anchor)
+rectangle((60.0, 9.0), width=112.0, height=10.0, style=Styles.PrimaryFlat.patch(shape_r=1.5))
+phosphor.gear((10.5, 9.0), width=5.2, style=Styles.WhiteBold)
+text((15.5, 11.0), "Layer 1: Core Engine (Foundation)", style=title_white)
+text((15.5, 6.8), "drawlib.canvas • styles • types • fonts (Cartesian Engine)", style=sub_white)
+
 save()
 ```
 

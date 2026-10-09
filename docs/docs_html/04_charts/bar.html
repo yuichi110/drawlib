@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -423,77 +427,62 @@
                 <h1>BarChart: Vertical, Horizontal, Grouped &amp; Stacked Bars</h1>
 <p>The <code>BarChart</code> component (<code>drawlib.charts.bar</code>) renders vertical columns or horizontal bars for comparing discrete categorical metrics across one or more series. It supports side-by-side grouped clusters, cumulative stacked bars, outer-tip corner rounding (<code>bar_r</code>), inline value annotations, orientation-aware axis properties, and decoupled legend rendering.</p>
 <hr />
-<h2>1. Quick Example: Vertical Grouped Resource Allocation</h2>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Dev"</span><span class="p">,</span> <span class="s2">"Stage"</span><span class="p">,</span> <span class="s2">"Prod"</span><span class="p">],</span>
-    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
-    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"Container Resource Limits: Allocated vs Burst (vCPU)"</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
-    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"group"</span><span class="p">,</span>
-    <span class="n">bar_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Allocated"</span><span class="p">,</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Burst Buffer"</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">59</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
+<h2>1. Overview &amp; Topologies</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="bar_images/barchart_resource_allocation.png" alt="bar_1" style="width: 600px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Grouped Vertical Resource Allocation with BarChart (bar_mode='group')</figcaption>
+  <img src="bar_images/barchart_topologies_overview.png" alt="bar_1" />
+  <figcaption class="drawlib-caption">BarChart Topologies: Grouped Vertical Bars (bar_mode='group') vs. Stacked Horizontal Bars (bar_mode='stack')</figcaption>
 </figure>
-<hr />
-<h2>2. Horizontal Bar Chart &amp; Percentage Axis Formatting</h2>
-<p>Setting <code>orientation=&quot;horizontal&quot;</code> rotates the category axis to the left Y-axis and the numerical value axis to the bottom X-axis. Combine <code>value_format</code> with <code>configure_x_axis(min_value=0, max_value=100, tick_step=20, unit=&quot;%&quot;)</code> to build clean utilization and benchmark breakdowns:</p>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
 
-<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+<span class="c1"># Left: Vertical Grouped (orientation="vertical", bar_mode="group")</span>
+<span class="n">vert_chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Frontend"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="s2">"Database"</span><span class="p">,</span> <span class="s2">"Search Index"</span><span class="p">],</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">82.0</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">56.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
+    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"group"</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"1. Vertical Grouped (bar_mode='group')"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">vert_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Primary"</span><span class="p">,</span> <span class="p">[</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">vert_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Replica"</span><span class="p">,</span> <span class="p">[</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">vert_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">vert_chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="c1"># Right: Horizontal Stacked (orientation="horizontal", bar_mode="stack")</span>
+<span class="n">horiz_chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Web"</span><span class="p">,</span> <span class="s2">"API"</span><span class="p">,</span> <span class="s2">"DB"</span><span class="p">,</span> <span class="s2">"Cache"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">56.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
     <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
     <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"stack"</span><span class="p">,</span>
-    <span class="n">bar_width_ratio</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">bar_width_ratio</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span>
     <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"Cluster Node Resource Allocation (%)"</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
-    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
-    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
-    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">%"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"2. Horizontal Stacked (bar_mode='stack')"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Compute (CPU)"</span><span class="p">,</span> <span class="p">[</span><span class="mf">38.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Memory Cache"</span><span class="p">,</span> <span class="p">[</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Storage I/O"</span><span class="p">,</span> <span class="p">[</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">horiz_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Used"</span><span class="p">,</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">58.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">horiz_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Buffer"</span><span class="p">,</span> <span class="p">[</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">horiz_chart</span><span class="o">.</span><span class="n">configure_x_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"%"</span><span class="p">)</span>
+<span class="n">horiz_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">horiz_chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">81.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
 
-<span class="n">chart</span><span class="o">.</span><span class="n">configure_x_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"%"</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">63.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="bar_images/barchart_horizontal_utilization.png" alt="bar_2" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Horizontal Stacked Resource Utilization with Custom X-Axis Ticks</figcaption>
-</figure>
-<hr />
-<h2>3. Modes, Orientations &amp; Partial Rendering</h2>
+</details>
 <ul>
 <li><strong><code>orientation</code></strong>:
 <ul>
@@ -515,6 +504,76 @@
 </ul>
 </li>
 </ul>
+<hr />
+<h2>2. Quick Example: Vertical Grouped Resource Allocation</h2>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Dev"</span><span class="p">,</span> <span class="s2">"Stage"</span><span class="p">,</span> <span class="s2">"Prod"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">82</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Container Resource Limits: Allocated vs Burst (vCPU)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"group"</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Allocated"</span><span class="p">,</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Burst Buffer"</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bar_images/barchart_resource_allocation.png" alt="bar_2" />
+  <figcaption class="drawlib-caption">Grouped Vertical Resource Allocation with BarChart (bar_mode='group')</figcaption>
+</figure>
+<hr />
+<h2>3. Horizontal Bar Chart &amp; Percentage Axis Formatting</h2>
+<p>Setting <code>orientation=&quot;horizontal&quot;</code> rotates the category axis to the left Y-axis and the numerical value axis to the bottom X-axis. Combine <code>value_format</code> with <code>configure_x_axis(min_value=0, max_value=100, tick_step=20, unit=&quot;%&quot;)</code> to build clean utilization and benchmark breakdowns:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Frontend"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="s2">"Database"</span><span class="p">,</span> <span class="s2">"Search Index"</span><span class="p">],</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">84.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"stack"</span><span class="p">,</span>
+    <span class="n">bar_width_ratio</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Cluster Node Resource Allocation (%)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">%"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Compute (CPU)"</span><span class="p">,</span> <span class="p">[</span><span class="mf">38.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Memory Cache"</span><span class="p">,</span> <span class="p">[</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Storage I/O"</span><span class="p">,</span> <span class="p">[</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">configure_x_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"%"</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">61.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bar_images/barchart_horizontal_utilization.png" alt="bar_3" />
+  <figcaption class="drawlib-caption">Horizontal Stacked Resource Utilization with Custom X-Axis Ticks</figcaption>
+</figure>
 <hr />
 <h2>4. API Reference</h2>
 <h3>Constructor (<code>BarChart</code>)</h3>

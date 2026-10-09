@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="overview.html" >Documentation as Code Overview</a>
+                                <a href="overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -421,8 +425,72 @@
             </header>
             <main class="main-content">
                 <h1>Slide Stage Layout &amp; API</h1>
-<p>When authoring 16:9 widescreen presentation decks (<code>drawlib init slide</code>), Drawlib provides a precision <strong>1920 × 1080 pixel virtual stage</strong> (<code>::: block</code>, <code>::: note</code>), built-in layout patterns, inline vector SVG font bundling, and the programmatic <a href="../09_ai_agents_and_advanced/programmatic_api.html"><code>drawlib.slide</code></a> Python runtime API (<code>current_slide</code>, <code>SlideContext</code>, <code>BoundingBox</code>, <code>build_slide</code>).</p>
-<p><em>(For initializing and building a slide deck project, see <a href="./project_slide.html">Slide Deck Project Guide</a>.)</em></p>
+<p>When authoring 16:9 widescreen presentation decks (<code>drawlib init slide</code>), Drawlib provides a precision <strong>1920 × 1080 pixel virtual stage</strong> (<code>::: block</code>, <code>::: note</code>), built-in layout patterns, inline vector SVG font bundling, and the programmatic <a href="../09_ai_agents_and_advanced/programmatic_api.html"><code>drawlib.slide</code></a> Python runtime API (<code>current_slide</code>, <code>SlideContext</code>, <code>BoundingBox</code>, <code>build_slide</code>). <em>(For initializing and building a slide deck project, see <a href="./project_slide.html">Slide Deck Project Guide</a>.)</em></p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="slide_layout_and_api_images/slide_stage_layout_zones.png" alt="slide_layout_and_api_1" />
+  <figcaption class="drawlib-caption">1920x1080 Virtual Slide Stage Zones and ::: block (x, y) (w, h) Layout Grid</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="c1"># Outer 1920x1080 Stage Frame</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span> <span class="s2">"(0, 0) Top-Left Stage Origin"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">122</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span> <span class="s2">"1920 x 1080 px Stage (16:9)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">))</span>
+
+<span class="c1"># Header Zone: ::: block (80, 40) (1760, 60)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">61.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">layout</span><span class="p">((</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">61.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">67.0</span><span class="p">,</span> <span class="mf">61.5</span><span class="p">),</span> <span class="s2">"Header Block — ::: block (80, 40) (1760, 60)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
+<span class="c1"># Left Narrative Column: ::: block (80, 140) (740, 840)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">31.5</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">columns</span><span class="p">((</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span> <span class="s2">"Left Narrative"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">31.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span>
+    <span class="s2">"::: block (80, 140) (740, 840)</span><span class="se">\n\n</span><span class="s2">• Headings &amp; bullets</span><span class="se">\n</span><span class="s2">• Tables &amp; code</span><span class="se">\n</span><span class="s2">• Styled cards"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right Diagram Column: ::: block (860, 140) (980, 840)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">90.0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">squares_four</span><span class="p">((</span><span class="mf">66.5</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span> <span class="s2">"Right Diagram Block"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">90.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span>
+    <span class="s2">"::: block (860, 140) (980, 840)</span><span class="se">\n\n</span><span class="s2">```drawlib file:arch.svg</span><span class="se">\n</span><span class="s2">setup(width=98, height=84)</span><span class="se">\n</span><span class="s2">(0, 0) Bottom-Left Canvas"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Footer &amp; Page Counter Blocks</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">74</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Footer — ::: block (80, 1010) (820, 30)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Page # (1700, 1010)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Dual Coordinate Systems: 1920×1080 Stage vs. Drawlib Canvas</h2>
 <p>Two coordinate systems work together on every slide:</p>
@@ -450,75 +518,6 @@
 </ul>
 </li>
 </ol>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="slide_layout_and_api_images/slide_stage_layout_zones.png" alt="slide_layout_and_api_1" style="width: 680px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">1920x1080 Virtual Slide Stage Zones and ::: block (x, y) (w, h) Layout Grid</figcaption>
-</figure>
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">192</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">114</span><span class="p">)</span>
-
-<span class="c1"># Outer 1920x1080 Stage Frame (mapped 1:10 to 192x108)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">188</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mf">109.5</span><span class="p">),</span> <span class="s2">"(0, 0) Top-Left Stage Origin"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">180</span><span class="p">,</span> <span class="mf">109.5</span><span class="p">),</span> <span class="s2">"1920 x 1080 px Stage (16:9)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">))</span>
-
-<span class="c1"># Header Zone: ::: block (80, 40) (1760, 60)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">97</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">172</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Header Block — ::: block (80, 40) (1760, 60)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Left Narrative Column: ::: block (80, 140) (740, 840)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="mi">53</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Left Narrative Block</span><span class="se">\n</span><span class="s2">::: block (80, 140) (740, 840)</span><span class="se">\n\n</span><span class="s2">• Markdown headings &amp; bullets</span><span class="se">\n</span><span class="s2">• Tables &amp; code snippets</span><span class="se">\n</span><span class="s2">• Styled cards &amp; callouts"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Right Diagram Column: ::: block (860, 140) (980, 840)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">135</span><span class="p">,</span> <span class="mi">53</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">94</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Right Diagram Block</span><span class="se">\n</span><span class="s2">::: block (860, 140) (980, 840)</span><span class="se">\n\n</span><span class="s2">```drawlib file:arch.svg</span><span class="se">\n</span><span class="s2">setup(width=98, height=84)</span><span class="se">\n</span><span class="s2">(0, 0) Bottom-Left Canvas Origin"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Footer &amp; Page Counter Blocks</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">78</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Footer — ::: block (80, 1010) (820, 30)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Page # (1700, 1010)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-</details>
 <h3>1.1. Golden Rule: Match <code>setup(width, height)</code> Aspect Ratio to Block <code>(w, h)</code></h3>
 <p>Always set <code>setup(width=W, height=H)</code> proportional to the enclosing <code>::: block (x, y) (w, h)</code> pixel dimensions (typically dividing pixel width and height by <code>10</code> or <code>20</code>):</p>
 <table>
@@ -628,96 +627,93 @@
 <hr />
 <h2>3. Built-In Slide Layout Patterns &amp; Templates</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="slide_layout_and_api_images/slide_builtin_layout_templates.png" alt="slide_layout_and_api_2" style="width: 650px; max-width: 100%;" />
+  <img src="slide_layout_and_api_images/slide_builtin_layout_templates.png" alt="slide_layout_and_api_2" />
   <figcaption class="drawlib-caption">Visual Comparison of the Four Built-In 16:9 Slide Layout Templates</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">156</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">76</span><span class="p">)</span>
 
 <span class="c1"># 1. Top-Left: Title / Cover Slide (title)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">82</span><span class="p">),</span> <span class="s2">"1. Title / Cover (title)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">layout</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.5</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span> <span class="s2">"1. Title / Cover (title)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">23.5</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Presentation Title &amp; Subtitle</span><span class="se">\n</span><span class="s2">Speaker Metadata</span><span class="se">\n</span><span class="s2">(160, 240) (1160, 600)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Title &amp; Subtitle</span><span class="se">\n</span><span class="s2">Speaker Info</span><span class="se">\n</span><span class="s2">(1160 x 600)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">49.5</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Hero</span><span class="se">\n</span><span class="s2">Logo"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Logo"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Top-Right: Section Divider / Closing (section)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">82</span><span class="p">),</span> <span class="s2">"2. Section Divider (section)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">layout</span><span class="p">((</span><span class="mf">73.5</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">98.5</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span> <span class="s2">"2. Section Divider"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">95</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Centered Section Header</span><span class="se">\n</span><span class="s2">(160, 360) (1600, 360) center"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Section Header</span><span class="se">\n</span><span class="s2">(1600 x 360) center"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 3. Bottom-Left: Two-Column Split (default)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">"3. Two-Column Split (default)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">columns</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"3. Two-Column (default)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Header (80, 40) (1760, 60)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Header (1760 x 60)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">19.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Narrative</span><span class="se">\n</span><span class="s2">(740, 840)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Narrative</span><span class="se">\n</span><span class="s2">(740x840)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mf">53.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Diagram Canvas</span><span class="se">\n</span><span class="s2">(980, 840)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Footer &amp; Page Counter (y=1010)"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Diagram</span><span class="se">\n</span><span class="s2">(980x840)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 4. Bottom-Right: Full-Canvas Hero ((0,0)-(1920,1080))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">"4. Full-Canvas Hero ((0,0)-(1920,1080))"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">squares_four</span><span class="p">((</span><span class="mf">73.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">98.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"4. Full-Canvas Hero"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">95</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Full-Bleed Vector Stage Canvas</span><span class="se">\n</span><span class="s2">setup(width=192, height=108)</span><span class="se">\n\n</span><span class="s2">+ Optional z:10 Overlay Cards"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Full-Bleed Stage Canvas</span><span class="se">\n</span><span class="s2">setup(width=192, height=108)</span><span class="se">\n</span><span class="s2">+ z:10 Overlay Cards"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>

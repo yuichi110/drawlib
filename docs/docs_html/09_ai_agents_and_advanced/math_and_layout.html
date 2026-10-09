@@ -114,6 +114,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
                             </li>
                             
@@ -340,7 +344,7 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -422,6 +426,114 @@
             <main class="main-content">
                 <h1>Mathematical Utilities &amp; Dynamic Geometric Layouts (<code>drawlib.math</code>)</h1>
 <p>Drawlib provides geometric and mathematical calculation utilities to streamline coordinate positioning, angle derivations, distance measurements, and dynamic bounding box computations for technical diagrams.</p>
+<p>The <code>drawlib.math</code> module provides four core geometric capabilities for algorithmic layouts and animations:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/math_capabilities_hero.png" alt="math_and_layout_1" />
+  <figcaption class="drawlib-caption">Overview of drawlib.math: Dynamic Bounding Boxes, Path Interpolation, Radial Orbits, and Orthogonal Routing</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">compute_orthogonal_path</span><span class="p">,</span>
+    <span class="n">get_center_and_size</span><span class="p">,</span>
+    <span class="n">get_intermediate_path_points</span><span class="p">,</span>
+    <span class="n">get_point_on_ellipse</span><span class="p">,</span>
+    <span class="n">rotate_point</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
+
+<span class="c1"># Panel 1: Dynamic Bounding Box (get_center_and_size)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_out_cardinal</span><span class="p">((</span><span class="mf">9.2</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">20.8</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"1. Bounds"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+
+<span class="n">pts</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">)]</span>
+<span class="p">(</span><span class="n">bcx</span><span class="p">,</span> <span class="n">bcy</span><span class="p">),</span> <span class="p">(</span><span class="n">bw</span><span class="p">,</span> <span class="n">bh</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_center_and_size</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">bcx</span><span class="p">,</span> <span class="n">bcy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">bw</span> <span class="o">+</span> <span class="mf">9.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">bh</span> <span class="o">+</span> <span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span>
+    <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"P</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">),</span> <span class="s2">"Center &amp; Size"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Panel 2: Polyline Path Interpolation (get_intermediate_path_points)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">bezier_curve</span><span class="p">((</span><span class="mf">39.7</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">51.3</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"2. Path Pts"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+
+<span class="n">poly</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">)]</span>
+<span class="n">lines</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="ow">in</span> <span class="n">get_intermediate_path_points</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">include_ends</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">),</span> <span class="s2">"Interpolate"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Panel 3: Radial &amp; Elliptical Orbit (get_point_on_ellipse / rotate_point)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">compass</span><span class="p">((</span><span class="mf">70.2</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">81.8</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"3. Orbit"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+
+<span class="n">hub_xy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">)</span>
+<span class="n">sat_pts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">get_point_on_ellipse</span><span class="p">(</span><span class="n">hub_xy</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+    <span class="n">get_point_on_ellipse</span><span class="p">(</span><span class="n">hub_xy</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">145</span><span class="p">),</span>
+    <span class="n">rotate_point</span><span class="p">((</span><span class="mf">88.5</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="mi">215</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">hub_xy</span><span class="p">),</span>
+    <span class="n">get_point_on_ellipse</span><span class="p">(</span><span class="n">hub_xy</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">325</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">s_pt</span> <span class="ow">in</span> <span class="n">sat_pts</span><span class="p">:</span>
+    <span class="n">line</span><span class="p">(</span><span class="n">hub_xy</span><span class="p">,</span> <span class="n">s_pt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">hub_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"H"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">s_pt</span> <span class="ow">in</span> <span class="n">sat_pts</span><span class="p">:</span>
+    <span class="n">circle</span><span class="p">(</span><span class="n">s_pt</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">),</span> <span class="s2">"Ellipse &amp; Rotate"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Panel 4: Orthogonal Port Routing (compute_orthogonal_path)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">110.0</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">110.0</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">ruler</span><span class="p">((</span><span class="mf">100.7</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">112.3</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"4. Route"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">102.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">118.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">route</span> <span class="o">=</span> <span class="n">compute_orthogonal_path</span><span class="p">(</span>
+    <span class="n">start_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">106.25</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
+    <span class="n">end_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">113.75</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="n">routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>
+    <span class="n">offset</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">lines</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span> <span class="ow">in</span> <span class="n">route</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">110.0</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">),</span> <span class="s2">"Orthogonal"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>1. Imports &amp; Core Functions</h2>
 <p>All public math, interpolation, transformation, and routing utilities are imported from <code>drawlib.math</code>:</p>
@@ -506,30 +618,30 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
-<span class="c1"># 1. Draw anchor nodes (Node A right edge = 40.0, Node B left edge = 85.0)</span>
+<span class="c1"># 1. Draw anchor nodes (Node A right edge = 39.0, Node B left edge = 81.0)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Node A</span><span class="se">\n</span><span class="s2">(start_side='right')"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Node A</span><span class="se">\n</span><span class="s2">(right)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Node B</span><span class="se">\n</span><span class="s2">(end_side='left')"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Node B</span><span class="se">\n</span><span class="s2">(left)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 2. Compute orthogonal Z-bend waypoints: [(40.0, 19.0), (62.5, 19.0), (62.5, 40.0), (85.0, 40.0)]</span>
+<span class="c1"># 2. Compute orthogonal Z-bend waypoints</span>
 <span class="n">waypoints</span> <span class="o">=</span> <span class="n">compute_orthogonal_path</span><span class="p">(</span>
-    <span class="n">start_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
-    <span class="n">end_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">),</span>
+    <span class="n">start_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">39.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+    <span class="n">end_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">81.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span>
     <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
     <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
     <span class="n">routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>
@@ -539,15 +651,15 @@
 <span class="c1"># 3. Render orthogonal connector and intermediate bend markers</span>
 <span class="n">lines</span><span class="p">(</span><span class="n">waypoints</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span> <span class="ow">in</span> <span class="n">waypoints</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-    <span class="n">circle</span><span class="p">((</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
 
-<span class="n">text</span><span class="p">((</span><span class="mf">62.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="s2">"Bend 1 (62.5, 19.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">62.5</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="s2">"Bend 2 (62.5, 40.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="s2">"Bend 1 (60.0, 18.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">),</span> <span class="s2">"Bend 2 (60.0, 38.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="math_and_layout_images/math_orthogonal_routing.png" alt="math_and_layout_1" style="width: 600px; max-width: 100%;" />
+  <img src="math_and_layout_images/math_orthogonal_routing.png" alt="math_and_layout_2" />
   <figcaption class="drawlib-caption">Orthogonal Z-Bend Waypoint Routing Computed by compute_orthogonal_path()</figcaption>
 </figure>
 <hr />
@@ -558,33 +670,33 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">96</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
 
 <span class="c1"># 1. Define service node positions</span>
-<span class="n">nodes</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">25</span><span class="p">)]</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">14</span><span class="p">)]</span>
 
 <span class="c1"># 2. Calculate dynamic bounding box</span>
 <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="p">(</span><span class="n">bw</span><span class="p">,</span> <span class="n">bh</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_center_and_size</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
 
-<span class="c1"># 3. Draw background container with +28 width and +22 height padding</span>
+<span class="c1"># 3. Draw background container with +28 width and +20 height padding</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="n">bw</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="n">bh</span> <span class="o">+</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">bh</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Kubernetes Worker Cluster"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 4. Render nodes</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span>
-    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
-    <span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Pod </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">t_st</span><span class="p">)</span>
+    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Pod </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">t_st</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="math_and_layout_images/math_dynamic_grouping_box.png" alt="math_and_layout_2" style="width: 650px; max-width: 100%;" />
+  <img src="math_and_layout_images/math_dynamic_grouping_box.png" alt="math_and_layout_3" />
   <figcaption class="drawlib-caption">Automated Grouping Box via get_center_and_size()</figcaption>
 </figure>
 <hr />
@@ -597,30 +709,30 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">88</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
-<span class="n">hub</span> <span class="o">=</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-<span class="n">radius</span> <span class="o">=</span> <span class="mi">26</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">23</span>
 <span class="n">num_clients</span> <span class="o">=</span> <span class="mi">5</span>
 
-<span class="c1"># Central Hub</span>
-<span class="n">circle</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Master"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-
-<span class="c1"># Surrounding Worker Nodes</span>
+<span class="c1"># 1. Draw spoke lines and surrounding worker nodes first</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_clients</span><span class="p">):</span>
     <span class="n">angle_rad</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">num_clients</span>
     <span class="n">node_xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hub</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">),</span> <span class="n">hub</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">))</span>
-    
+
     <span class="c1"># Calculate connection angle and distance</span>
     <span class="n">dist</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">node_xy</span><span class="p">)</span>
     <span class="n">angle_deg</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">node_xy</span><span class="p">)</span>
-    
+
     <span class="n">line</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">node_xy</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-    <span class="n">circle</span><span class="p">(</span><span class="n">node_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"N</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span><span class="n">node_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"N</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
+<span class="c1"># 2. Draw Central Hub on top so spoke lines do not cross label text</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Master"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="math_and_layout_images/math_radial_distribution.png" alt="math_and_layout_3" style="width: 650px; max-width: 100%;" />
+  <img src="math_and_layout_images/math_radial_distribution.png" alt="math_and_layout_4" />
   <figcaption class="drawlib-caption">Radial Topology with Polar Math Distribution</figcaption>
 </figure>
 <hr />
@@ -632,24 +744,24 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">92</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
-<span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
-<span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mi">36</span><span class="p">)</span>
 
 <span class="c1"># Draw slanted wire</span>
 <span class="n">line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="c1"># Calculate rotation angle and midpoint</span>
 <span class="n">angle</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
-<span class="n">midpoint</span> <span class="o">=</span> <span class="p">((</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">midpoint</span> <span class="o">=</span> <span class="p">((</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">4.2</span><span class="p">)</span>
 
 <span class="c1"># Render rotated text parallel to the connection</span>
-<span class="n">text</span><span class="p">(</span><span class="n">midpoint</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Telemetry Stream (</span><span class="si">{</span><span class="n">angle</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span><span class="n">midpoint</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Telemetry Stream (</span><span class="si">{</span><span class="n">angle</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="math_and_layout_images/math_slanted_line_text.png" alt="math_and_layout_4" style="width: 550px; max-width: 100%;" />
+  <img src="math_and_layout_images/math_slanted_line_text.png" alt="math_and_layout_5" />
   <figcaption class="drawlib-caption">Parallel Text on Angled Line</figcaption>
 </figure>
 

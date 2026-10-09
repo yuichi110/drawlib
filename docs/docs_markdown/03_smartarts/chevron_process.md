@@ -3,6 +3,78 @@
 The `ChevronProcess` component draws horizontal, sequential process pipelines consisting of interlocking arrowhead blocks (chevrons). 
 It is the premier component for CI/CD delivery pipelines, phased development milestones, fulfillment lifecycles, and multi-step workflows.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="chevron_process_images/chevron_process_hero.png" alt="chevron_process_1" />
+  <figcaption class="drawlib-caption">Overview of ChevronProcess: Standard Flat-Start vs. Indented Multi-Line Pipelines</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.smartarts import ChevronProcess
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=56)
+
+# 1. Top Row: Flat-Start Chevron Pipeline (flat_left_end=True, corner_angle=60.0)
+text((5, 50.5), "1. Flat-Start Pipeline (flat_left_end=True, corner_angle=60.0)", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+
+# Stage icons above each chevron
+phosphor.file_text(xy=(16.5, 42.8), width=3.8, style=Styles.DarkBold)
+phosphor.gear(xy=(46.0, 42.8), width=3.8, style=Styles.PrimaryBold)
+phosphor.shield_check(xy=(75.5, 42.8), width=3.8, style=Styles.PrimaryFlat)
+phosphor.rocket_launch(xy=(105.0, 42.8), width=3.8, style=Styles.SecondaryBold)
+
+flat_pipe = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=60.0,
+    spacing=2.0,
+    flat_left_end=True,
+)
+flat_pipe.add("1. Plan", description="RFC & Design")
+flat_pipe.add("2. Build", description="Compile & Test", style=Styles.PrimaryNeutral)
+flat_pipe.add(
+    "3. Verify",
+    description="Canary Gate",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.White.patch(text_size=10.0),
+)
+flat_pipe.add("4. Release", description="Global Rollout", style=Styles.SecondaryNeutral)
+flat_pipe.draw(xy=(5, 27.5), width=118.0, height=13.5)
+
+# 2. Bottom Row: Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0)
+text((5, 21.0), "2. Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0)", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+
+indented_pipe = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=45.0,
+    spacing=2.0,
+    flat_left_end=False,
+)
+indented_pipe.add("1. Ingest", description="Event Stream")
+indented_pipe.add("2. Cleanse", description="Schema Check", style=Styles.SecondaryNeutral)
+indented_pipe.add("3. Enrich", description="Feature Join", style=Styles.PrimaryNeutral)
+indented_pipe.add("4. Serve", description="Data Mart")
+indented_pipe.draw(xy=(5, 4.0), width=118.0, height=13.5)
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 1. Quick Example: CI/CD Pipeline
@@ -14,33 +86,33 @@ from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
-setup(width=130, height=45)
+setup(width=128, height=34)
 
 pipeline = ChevronProcess(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=10),
-    description_style=Styles.Dark.patch(text_size=7.5),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
 )
-pipeline.add("1. Commit", description="Lint & Tests")
+pipeline.add("1. Commit", description="Lint & Test")
 pipeline.add("2. Build", description="Docker Image")
 pipeline.add(
     "3. Security",
-    description="Vulnerability Scan",
+    description="Vuln Scan",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10),
-    description_style=Styles.White.patch(text_size=7.5),
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.White.patch(text_size=10.0),
 )
-pipeline.add("4. Staging", description="E2E Validation")
-pipeline.add("5. Production", description="Canary Release", style=Styles.SecondaryNeutral)
+pipeline.add("4. Staging", description="E2E Checks")
+pipeline.add("5. Release", description="Canary", style=Styles.SecondaryNeutral)
 
-pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
+pipeline.draw(xy=(5, 8), width=118.0, height=18.0)
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="chevron_process_images/chevron_process_cd_pipeline.png" alt="chevron_process_1" style="width: 650px; max-width: 100%;" />
+  <img src="chevron_process_images/chevron_process_cd_pipeline.png" alt="chevron_process_2" />
   <figcaption class="drawlib-caption">Continuous Delivery Pipeline with ChevronProcess</figcaption>
 </figure>
 
@@ -59,33 +131,33 @@ from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
-setup(width=130, height=45)
+setup(width=126, height=34)
 
 etl = ChevronProcess(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=10),
-    description_style=Styles.Dark.patch(text_size=8),
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
     corner_angle=45.0,
     spacing=2.5,
     flat_left_end=False,
 )
 
-etl.add("1. Ingest", description="Kafka Streams", style=Styles.PrimaryNeutral)
-transform_stage = etl.add("2. Normalize", description="Schema Cleanse")
+etl.add("1. Ingest", description="Kafka Stream", style=Styles.PrimaryNeutral)
+transform_stage = etl.add("2. Cleanse", description="Schema Check")
 etl.add("3. Enrich", description="Feature Join", style=Styles.SecondaryNeutral)
 etl.add("4. Serve", description="Parquet Lake")
 
 # Mutate a ChevronItem (or access via etl.items[1]) before calling draw()
 transform_stage.style = Styles.PrimaryFlat
-transform_stage.text_style = Styles.WhiteBold.patch(text_size=10)
-transform_stage.description_style = Styles.White.patch(text_size=8)
+transform_stage.text_style = Styles.WhiteBold.patch(text_size=10.5)
+transform_stage.description_style = Styles.White.patch(text_size=10.0)
 
-etl.draw(xy=(9.5, 14.5), height=16.0, item_width=24.0)
+etl.draw(xy=(6.5, 8.0), height=18.0, item_width=24.0)
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="chevron_process_images/chevron_process_custom_angle_width.png" alt="chevron_process_2" style="width: 650px; max-width: 100%;" />
+  <img src="chevron_process_images/chevron_process_custom_angle_width.png" alt="chevron_process_3" />
   <figcaption class="drawlib-caption">Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0, explicit item_width)</figcaption>
 </figure>
 
