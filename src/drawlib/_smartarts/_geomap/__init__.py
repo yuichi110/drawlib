@@ -7,20 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public geographical map module for drawlib.
-
-Provides the unified ``GeoMap`` component for rendering world, country, city,
-and custom GeoJSON maps onto the drawlib canvas.
-"""
+"""Internal geographical map module for drawlib.smartarts."""
 
 from __future__ import annotations
 
-from drawlib._geo import (
+from drawlib._smartarts._geomap._geomap import GeoMap
+from drawlib._smartarts._geomap._loader import load_geodata, parse_geojson_dict
+from drawlib._smartarts._geomap._projection import GeoProjection, clip_ring_to_bbox
+from drawlib._smartarts._geomap._types import (
     Cities,
     Countries,
     GeoData,
     GeoElement,
-    GeoMap,
     GeoPolygon,
     GeoTarget,
     World,
@@ -34,7 +32,11 @@ __all__ = [
     "GeoElement",
     "GeoMap",
     "GeoPolygon",
+    "GeoProjection",
     "GeoTarget",
     "World",
     "WorldPreset",
+    "clip_ring_to_bbox",
+    "load_geodata",
+    "parse_geojson_dict",
 ]

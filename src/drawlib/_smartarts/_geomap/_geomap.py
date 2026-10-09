@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""GeoMap component implementation for drawlib.geo."""
+"""GeoMap component implementation for drawlib.smartarts."""
 
 from __future__ import annotations
 
@@ -23,9 +23,9 @@ from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import canvas, rectangle, transform
-from drawlib._geo._loader import load_geodata
-from drawlib._geo._projection import GeoProjection, clip_ring_to_bbox
-from drawlib._geo._types import (
+from drawlib._smartarts._geomap._loader import load_geodata
+from drawlib._smartarts._geomap._projection import GeoProjection, clip_ring_to_bbox
+from drawlib._smartarts._geomap._types import (
     Cities,
     Countries,
     GeoData,

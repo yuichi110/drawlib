@@ -10,7 +10,7 @@
 import pytest
 
 from drawlib.canvas import canvas, clear, setup
-from drawlib.geo import Cities, Countries, GeoMap, World
+from drawlib.smartarts import Cities, Countries, GeoMap, World
 from drawlib.styles import Styles
 
 

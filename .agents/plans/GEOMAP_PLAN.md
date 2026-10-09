@@ -1,15 +1,15 @@
-# Drawlib 地図描画モジュール (`drawlib.geo`) 設計計画書
+# Drawlib 地図描画コンポーネント (`drawlib.smartarts.GeoMap`) 設計計画書
 (DRAWLIB GEOMAP MODULE PLAN)
 
 - **作成日**: 2026-10-09
 - **対象バージョン**: Drawlib 次期マイナーリリース (`v0.3.x`)
 - **対象モジュール**:
-  - `src/drawlib/geo.py` (公開ファサード)
-  - `src/drawlib/_geo/` (内部データモデル・GeoJSONローダ・投影計算・描画エンジン)
+  - `src/drawlib/smartarts.py` (公開ファサード: `GeoMap`, `World`, `Countries`, `Cities` をエクスポート)
+  - `src/drawlib/_smartarts/_geomap/` (内部データモデル・GeoJSONローダ・投影計算・描画エンジン)
   - `tools/dcli/codegen/map_download.py`, `map_normalize.py` (アセット取得・正規化ツール)
   - `tools/original_assets/maps/` (取得直後の生 GeoJSON データ)
   - `src/drawlib/_cached_assets/maps/` (開発・テスト用正規化済み GeoJSON データ)
-  - `tests/drawlib/geo/` (単体テスト・ビジュアル検証テスト)
+  - `tests/drawlib/smartarts/test_geomap.py` (単体テスト・ビジュアル検証テスト)
 
 ---
 
@@ -28,8 +28,8 @@
    - 各地域のポリゴン（`Polygon` / `MultiPolygon`）を [`PathPatch`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_core/l4_canvas/_base.py#L29) として描画することで、既存の [`Style`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_core/l3_styles/__init__.py)（塗り・枠線幅・線種・透過）およびキャンバスのスケーリング（[`transform`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_core/l4_canvas/_base.py#L86-L101)）と100%互換にする。
 3. **標準フォーマット GeoJSON (RFC 7946) + 内部独自データ構造 (`GeoData`)**:
    - 外部ファイルおよびプリセットアセットの保存形式は IETF 標準の **GeoJSON (RFC 7946)** とし、読み込み時に `drawlib` 独自の正規化データ構造（`GeoData` / `GeoElement` / `GeoPolygon`）へ変換する。
-4. **統一された単一クラス (`GeoMap`) と `width, height` 規約**:
-   - 世界（`World`）・国（`Countries.Japan`）・都市（`Cities.Tokyo`）・ユーザー独自 GeoJSON ファイルを区別せず、単一の `GeoMap` クラスで一貫して扱う。
+4. **`drawlib.smartarts` への集約と `width, height` 規約**:
+   - 世界（`World`）・国（`Countries.Japan`）・都市（`Cities.Tokyo`）・ユーザー独自 GeoJSON ファイルを区別せず、単一の `GeoMap` クラスで一貫して扱う。ドキュメント粒度および `Table` や `SourceCode` と同様のビルダ型コンポーネントであることから、`drawlib.smartarts` モジュールに集約する。
    - サイズ指定は AI および人間にとって座標タプル `xy` と混同しにくくレイアウト計算が容易な **`width, height` 個別引数方式** に統一する。
 
 ---
@@ -40,13 +40,15 @@
 
 ```text
 src/drawlib/
-├── geo.py                        # 公開ファサード (GeoMap, World, Countries, Cities, GeoData, GeoElement)
-└── _geo/                         # 内部実装パッケージ
+├── smartarts.py                  # 公開ファサード (GeoMap, World, Countries, Cities 等をエクスポート)
+└── _smartarts/
     ├── __init__.py               # 内部シンボル集約
-    ├── _types.py                 # プリセット識別子 (World, Countries, Cities) とデータ構造 (GeoPolygon, GeoElement, GeoData)
-    ├── _loader.py                # GeoJSON 読み込み・GeoData への正規化変換・エイリアス解決
-    ├── _projection.py            # 緯度経度 -> キャンバス座標 (xy, width, height) 投影・クリッピング計算
-    └── _geomap.py                # GeoMap クラス実装 (get_elements, set_style, set_styles, draw, get_element_xy 等)
+    └── _geomap/                  # GeoMap 内部実装サブパッケージ
+        ├── __init__.py
+        ├── _types.py             # プリセット識別子 (World, Countries, Cities) とデータ構造 (GeoPolygon, GeoElement, GeoData)
+        ├── _loader.py            # GeoJSON 読み込み・GeoData への正規化変換・エイリアス解決
+        ├── _projection.py        # 緯度経度 -> キャンバス座標 (xy, width, height) 投影・クリッピング計算
+        └── _geomap.py            # GeoMap クラス実装 (get_elements, set_style, set_styles, draw, get_element_xy 等)
 ```
 
 ### 2.2. アセット管理パイプライン（3段階構成）
@@ -54,7 +56,7 @@ src/drawlib/
 ```text
 [1. 取得直後の生データ]               [2. 開発・検証用キャッシュ]               [3. リリース配信用 (仕様確定後)]
 tools/original_assets/maps/   ──>   src/drawlib/_cached_assets/maps/   ──>   tools/release_assets/v0.3/maps/
-- ne_50m_admin_0_countries          - world.geojson (754 KB, 242国)          - map_preset.zip としてパッケージ化
+- ne_50m_admin_0_countries          - world.geojson (760 KB, 242国)          - map_preset.zip としてパッケージ化
 - japan.geojson                     - japan.geojson (372 KB, 47都道府県)     - オンデマンド取得 (l3_external)
 - tokyo.geojson                     - tokyo.geojson (180 KB, 62市区町村)
   (./dcli codegen map で正規化)
@@ -65,7 +67,7 @@ tools/original_assets/maps/   ──>   src/drawlib/_cached_assets/maps/   ─�
 
 ---
 
-## 3. データ構造設計 (`_geo/_types.py`, `_geo/_loader.py`)
+## 3. データ構造設計 (`_smartarts/_geomap/_types.py`, `_loader.py`)
 
 ### 3.1. プリセットターゲット定義
 
@@ -220,9 +222,9 @@ class GeoMap:
 ### 例1：世界地図で特定の国をハイライトし、リージョン間を矢印で結ぶ
 ```python
 from drawlib.canvas import save, setup
-from drawlib.geo import GeoMap, World
 from drawlib.lines import line_curved
 from drawlib.shapes import circle
+from drawlib.smartarts import GeoMap, World
 from drawlib.styles import Styles
 
 setup(width=160, height=90)
@@ -248,7 +250,7 @@ save()
 ### 例2：日本地図・東京23区マップの描画
 ```python
 from drawlib.canvas import save, setup
-from drawlib.geo import Cities, Countries, GeoMap
+from drawlib.smartarts import Cities, Countries, GeoMap
 from drawlib.styles import Styles
 
 setup(width=160, height=80)
@@ -273,12 +275,12 @@ save()
 
 ## 7. 実装ステップ (Implementation Steps)
 
-1. **`src/drawlib/_geo/_types.py`**: `World`, `Countries`, `Cities` および `GeoPolygon`, `GeoElement`, `GeoData` の定義
-2. **`src/drawlib/_geo/_loader.py`**: `_cached_assets/maps/` からのプリセット GeoJSON ロード、および任意 `.geojson` ファイル・辞書の正規化ローダ実装
-3. **`src/drawlib/_geo/_projection.py`**: コサイン緯度補正付き投影、アスペクト比維持フィット、バウンディングボックス・クリップパス計算
-4. **`src/drawlib/_geo/_geomap.py`**: `GeoMap` クラスの実装（`PathPatch` 描画、`transform` による `scale` 対応、`get_element_xy` / `lonlat_to_xy`）
-5. **`src/drawlib/geo.py` & `src/drawlib/__init__.py`**: 公開ファサードの作成とエクスポート登録
+1. **`src/drawlib/_smartarts/_geomap/_types.py`**: `World`, `Countries`, `Cities` および `GeoPolygon`, `GeoElement`, `GeoData` の定義
+2. **`src/drawlib/_smartarts/_geomap/_loader.py`**: `_cached_assets/maps/` からのプリセット GeoJSON ロード、および任意 `.geojson` ファイル・辞書の正規化ローダ実装
+3. **`src/drawlib/_smartarts/_geomap/_projection.py`**: コサイン緯度補正付き投影、アスペクト比維持フィット、バウンディングボックス・クリップパス計算
+4. **`src/drawlib/_smartarts/_geomap/_geomap.py`**: `GeoMap` クラスの実装（`PathPatch` 描画、`transform` による `scale` 対応、`get_element_xy` / `lonlat_to_xy`）
+5. **`src/drawlib/_smartarts/__init__.py` & `src/drawlib/smartarts.py`**: 公開ファサードへのエクスポート登録
 6. **単体テスト & ビジュアル検証**:
-   - `tests/drawlib/geo/test_geo.py` の作成と `./dcli test` 実行
+   - `tests/drawlib/smartarts/test_geomap.py` の作成と `./dcli test target smartarts` 実行
    - `./dcli code-check all` のパス確認
    - `World`, `Countries.Japan`, `Cities.Tokyo` のレンダリング画像を生成し、`view_file` で視覚検査を実施

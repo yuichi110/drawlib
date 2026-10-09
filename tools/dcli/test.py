@@ -115,7 +115,6 @@ MODULE_SHORTCUTS: dict[str, str] = {
     "smartarts": "tests/drawlib/smartarts/",
     "charts": "tests/drawlib/charts/",
     "diagrams": "tests/drawlib/diagrams/",
-    "geo": "tests/drawlib/geo/",
     "graph": "tests/drawlib/graph/",
     "slide": "tests/drawlib/slide/",
     "anim": "tests/drawlib/anim/",

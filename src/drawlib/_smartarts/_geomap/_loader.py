@@ -18,7 +18,7 @@ from typing import Any, Final
 
 from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l1_core._const import ASSETS_DIR_PATH
-from drawlib._geo._types import (
+from drawlib._smartarts._geomap._types import (
     Cities,
     Countries,
     GeoData,
