@@ -38,23 +38,22 @@ rectangle(
     (50, 58),
     width=92,
     height=38,
-    r=3,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=3),
 )
 text((8, 73), "Traditional Fragmented Workflow (Disconnected Silos)", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
 
 # Silo 1: Git
-rectangle((20, 55), width=24, height=22, r=2.5, style=Styles.Neutral)
+rectangle((20, 55), width=24, height=22, style=Styles.Neutral.patch(shape_r=2.5))
 phosphor.git_branch((20, 60), width=6.5, style=Styles.DarkBold)
 text((20, 50), "Git Repo\n(Source Code)", style=Styles.DarkBold.patch(text_size=8.5))
 
 # Silo 2: GUI Tool
-rectangle((50, 55), width=24, height=22, r=2.5, style=Styles.PrimaryNeutral)
+rectangle((50, 55), width=24, height=22, style=Styles.PrimaryNeutral.patch(shape_r=2.5))
 phosphor.bounding_box((50, 60), width=6.5, style=Styles.PrimaryBold)
 text((50, 50), "GUI Canvas\n(Draw.io / Visio)", style=Styles.DarkBold.patch(text_size=8.5))
 
 # Silo 3: External Wiki
-rectangle((80, 55), width=24, height=22, r=2.5, style=Styles.Neutral)
+rectangle((80, 55), width=24, height=22, style=Styles.Neutral.patch(shape_r=2.5))
 phosphor.file_text((80, 60), width=6.5, style=Styles.DarkBold)
 text((80, 50), "External Wiki\n(Static PNGs)", style=Styles.DarkBold.patch(text_size=8.5))
 
@@ -70,8 +69,7 @@ rectangle(
     (50, 19),
     width=92,
     height=30,
-    r=3,
-    style=Styles.SecondaryNeutral,
+    style=Styles.SecondaryNeutral.patch(shape_r=3),
 )
 text((8, 30), "The Drawlib Paradigm: Single Source of Truth in Git", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
 
@@ -79,8 +77,7 @@ rectangle(
     (28, 16),
     width=36,
     height=15,
-    r=2.5,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2.5),
     text="Git Repository\n(.py + .md + styles.py)",
     text_style=Styles.WhiteBold.patch(text_size=9.5),
 )
@@ -88,8 +85,7 @@ rectangle(
     (75, 16),
     width=30,
     height=15,
-    r=2.5,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=2.5),
     text="Deterministic Build\n(Site / PDF / Slides)",
     text_style=Styles.DarkBold.patch(text_size=9.5),
 )

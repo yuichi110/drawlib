@@ -37,7 +37,7 @@ clear()
 setup(width=106, height=84)
 
 # 1. Left Card: Repository TreeNode with Phosphor Icons
-rectangle((21, 42), width=38, height=78, r=2.0, style=Styles.NeutralFlat)
+rectangle((21, 42), width=38, height=78, style=Styles.NeutralFlat.patch(shape_r=2.0))
 text(
     (5, 76.5),
     "Monorepo Structure (TreeNode)",
@@ -106,7 +106,7 @@ repo_tree = TreeNode(
 repo_tree.draw(xy=(6, 70))
 
 # 2. Right Card: 4-Directional MindMapNode
-rectangle((72, 42), width=60, height=78, r=2.0, style=Styles.MutedOutline)
+rectangle((72, 42), width=60, height=78, style=Styles.MutedOutline.patch(shape_r=2.0))
 text(
     (45, 76.5),
     "4-Way System Taxonomy (MindMapNode)",
@@ -133,8 +133,7 @@ mindmap = MindMapNode(
             branch="left",
             shape="rectangle",
             size=(15, 6.5),
-            r=1.0,
-            style=Styles.PrimaryNeutral,
+            style=Styles.PrimaryNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
                 MindMapNode("Web SPA", shape="none", text_style=txt_leaf),
@@ -146,8 +145,7 @@ mindmap = MindMapNode(
             branch="right",
             shape="rectangle",
             size=(16, 6.5),
-            r=1.0,
-            style=Styles.SecondaryNeutral,
+            style=Styles.SecondaryNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
                 MindMapNode("Order API", shape="none", text_style=txt_leaf),
@@ -159,8 +157,7 @@ mindmap = MindMapNode(
             branch="top",
             shape="rectangle",
             size=(16, 6.5),
-            r=1.0,
-            style=Styles.BlueNeutral,
+            style=Styles.BlueNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
                 MindMapNode("Traces", shape="none", text_style=txt_leaf),
@@ -172,8 +169,7 @@ mindmap = MindMapNode(
             branch="bottom",
             shape="rectangle",
             size=(16, 6.5),
-            r=1.0,
-            style=Styles.TealNeutral,
+            style=Styles.TealNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
                 MindMapNode("PostgreSQL", shape="none", text_style=txt_leaf),

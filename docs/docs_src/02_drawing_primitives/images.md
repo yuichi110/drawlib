@@ -17,12 +17,12 @@ from drawlib.text import text
 setup(width=120, height=50)
 
 # Card 1: Local image file
-rectangle((35, 25), width=45, height=36, r=3, style=Styles.Neutral)
+rectangle((35, 25), width=45, height=36, style=Styles.Neutral.patch(shape_r=3))
 image((35, 28), width=18, image="../_assets/linux.png")
 text((35, 12), "Linux Logo", style=Styles.DarkBold)
 
 # Card 2: Memory Dimage
-rectangle((85, 25), width=45, height=36, r=3, style=Styles.SecondaryNeutral)
+rectangle((85, 25), width=45, height=36, style=Styles.SecondaryNeutral.patch(shape_r=3))
 dimg = Dimage("../_assets/python.png")
 image((85, 28), width=18, image=dimg)
 text((85, 12), "Python Dimage", style=Styles.DarkBold)

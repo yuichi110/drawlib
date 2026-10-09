@@ -439,10 +439,11 @@ Drawlib resolves this with a <strong>systematic design token system</strong> in 
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span>
 
-<span class="c1"># 1. Derive a custom branded node card</span>
+<span class="c1"># 1. Derive a custom branded node card with rounded corners</span>
 <span class="n">custom_card</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
     <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
     <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Blue</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
     <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
 <span class="p">)</span>
 

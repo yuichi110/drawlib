@@ -247,6 +247,8 @@ def _draw_task_row(
         bar_cy = row_cy
 
     task_shape = ensure_shape_style(task.style)
+    if task_shape.shape_r is None:
+        task_shape = task_shape.patch(shape_r=chart.bar_radius)
     color = task_shape.shape_fill_color or (50, 100, 200, 1.0)
 
     if task.progress <= 0.0:
@@ -255,7 +257,6 @@ def _draw_task_row(
             xy=(bar_cx, bar_cy),
             width=bar_w,
             height=bar_h,
-            r=chart.bar_radius,
             style=task_shape,
         )
     else:
@@ -264,12 +265,12 @@ def _draw_task_row(
             shape_fill_color=with_alpha(color, 0.28),
             shape_line_color=with_alpha(color, 0.5),
             shape_line_width=0.8,
+            shape_r=task_shape.shape_r,
         )
         canvas_rectangle(
             xy=(bar_cx, bar_cy),
             width=bar_w,
             height=bar_h,
-            r=chart.bar_radius,
             style=bg_style,
         )
 
@@ -280,7 +281,6 @@ def _draw_task_row(
             xy=(prog_cx, bar_cy),
             width=prog_w,
             height=bar_h,
-            r=chart.bar_radius,
             style=task_shape,
         )
 
@@ -425,11 +425,11 @@ def _draw_markers(
                 xy=(mx, tag_y),
                 width=tag_w,
                 height=tag_h,
-                r=0.6,
                 style=Style(
                     shape_fill_color=color,
                     shape_line_color=(0, 0, 0, 0.0),
                     shape_line_width=0,
+                    shape_r=0.6,
                 ),
             )
             label_text_style = ensure_text_style(

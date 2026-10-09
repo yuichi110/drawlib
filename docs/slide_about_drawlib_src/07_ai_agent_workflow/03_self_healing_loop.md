@@ -40,7 +40,7 @@ from drawlib.text import text
 clear()
 setup(width=98, height=84)
 
-rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((49, 75.5), "Closed-Loop Autonomous AI Visual Self-Healing Cycle", style=Styles.DarkBold.patch(text_size=11.5))
 
 loop = Cycle(

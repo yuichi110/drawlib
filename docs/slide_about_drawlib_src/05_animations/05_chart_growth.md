@@ -63,7 +63,7 @@ bar_chart = BarChart(
     height=32.0,
     title="API Gateway Throughput (k RPS) — draw_direction='bottom_to_top'",
     title_style=Styles.DarkBold.patch(text_size=9.5),
-    r=0.8,
+    bar_r=0.8,
     bar_width_ratio=0.62,
     axis_text_style=Styles.Muted.patch(text_size=8.0),
     grid_style=Styles.MutedDashed,
@@ -108,13 +108,12 @@ for idx, r in enumerate(ratios):
     s_bar.draw_ratio = r
     s_line.draw_ratio = r
     with anim.frame(duration=2.2 if is_last else 0.13):
-        rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+        rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
         rectangle(
             (84, 76),
             width=18,
             height=4.5,
-            r=1.0,
-            style=Styles.PrimaryNeutral,
+            style=Styles.PrimaryNeutral.patch(shape_r=1.0),
             text=f"ratio = {r:.2f}",
             text_style=Styles.PrimaryBold.patch(text_size=8.0),
         )

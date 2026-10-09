@@ -31,7 +31,7 @@ clear()
 setup(width=100, height=82)
 
 # Top Panel: Rigid Black-Box DSL
-rectangle((50, 60), width=92, height=34, r=3, style=Styles.MutedDashed)
+rectangle((50, 60), width=92, height=34, style=Styles.MutedDashed.patch(shape_r=3))
 text((8, 73), "Black-Box Text DSL (Opaque Heuristic Auto-Layout)", style=Styles.DarkBold.patch(text_size=10, halign="left"))
 
 # Tangled / misaligned nodes
@@ -40,11 +40,11 @@ n2 = (46, 66)
 n3 = (42, 49)
 n4 = (76, 63)
 n5 = (72, 48)
-rectangle(n1, width=18, height=9, r=1.5, style=Styles.Neutral, text="Gateway")
-rectangle(n2, width=18, height=9, r=1.5, style=Styles.Neutral, text="Auth Svc")
-rectangle(n3, width=18, height=9, r=1.5, style=Styles.Neutral, text="Order Svc")
-rectangle(n4, width=18, height=9, r=1.5, style=Styles.Neutral, text="Redis")
-rectangle(n5, width=18, height=9, r=1.5, style=Styles.Neutral, text="Postgres")
+rectangle(n1, width=18, height=9, style=Styles.Neutral.patch(shape_r=1.5), text="Gateway")
+rectangle(n2, width=18, height=9, style=Styles.Neutral.patch(shape_r=1.5), text="Auth Svc")
+rectangle(n3, width=18, height=9, style=Styles.Neutral.patch(shape_r=1.5), text="Order Svc")
+rectangle(n4, width=18, height=9, style=Styles.Neutral.patch(shape_r=1.5), text="Redis")
+rectangle(n5, width=18, height=9, style=Styles.Neutral.patch(shape_r=1.5), text="Postgres")
 
 # Awkward crossing wires
 line((29, 62), (37, 66), arrow_head="->", style=Styles.DarkBold)
@@ -54,14 +54,14 @@ line((51, 49), (67, 63), arrow_head="->", style=Styles.DangerBold)
 text((60, 56), "Unavoidable\nWire Crossings!", style=Styles.DangerBold.patch(text_size=8))
 
 # Bottom Panel: Drawlib Deterministic + Auto-Layout Hybrid
-rectangle((50, 20), width=92, height=36, r=3, style=Styles.PrimaryNeutral)
+rectangle((50, 20), width=92, height=36, style=Styles.PrimaryNeutral.patch(shape_r=3))
 text((8, 34), "Drawlib: Deterministic Coordinates + Inspectable Solvers", style=Styles.DarkBold.patch(text_size=10, halign="left"))
 
-rectangle((18, 17), width=18, height=10, r=2, style=Styles.PrimaryFlat, text="Gateway", text_style=Styles.WhiteBold.patch(text_size=9))
-rectangle((48, 24), width=20, height=9, r=2, style=Styles.Neutral, text="Auth Svc")
-rectangle((48, 10), width=20, height=9, r=2, style=Styles.Neutral, text="Order Svc")
-rectangle((80, 24), width=18, height=9, r=2, style=Styles.SecondaryNeutral, text="Redis")
-rectangle((80, 10), width=18, height=9, r=2, style=Styles.SecondaryNeutral, text="Postgres")
+rectangle((18, 17), width=18, height=10, style=Styles.PrimaryFlat.patch(shape_r=2), text="Gateway", text_style=Styles.WhiteBold.patch(text_size=9))
+rectangle((48, 24), width=20, height=9, style=Styles.Neutral.patch(shape_r=2), text="Auth Svc")
+rectangle((48, 10), width=20, height=9, style=Styles.Neutral.patch(shape_r=2), text="Order Svc")
+rectangle((80, 24), width=18, height=9, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Redis")
+rectangle((80, 10), width=18, height=9, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Postgres")
 
 lines([(27, 17), (33, 17), (33, 24), (38, 24)], arrow_head="->", style=Styles.DarkBold)
 lines([(27, 17), (33, 17), (33, 10), (38, 10)], arrow_head="->", style=Styles.DarkBold)

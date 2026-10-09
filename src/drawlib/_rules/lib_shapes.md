@@ -784,7 +784,6 @@ def rectangle(
     xy: tuple[float, float],
     width: float,
     height: float,
-    r: float = 0.0,
     *,
     style: Style | None = None,
     text: str = "",
@@ -799,14 +798,13 @@ def rectangle(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the rectangle. |
 | `width` | `float` | *Required* | Width along horizontal axis (must be $> 0$). |
 | `height` | `float` | *Required* | Height along vertical axis (must be $> 0$). |
-| `r` | `float` | `0.0` | Corner rounding radius ($r \ge 0$). Must not exceed $\min(W, H)/2$. |
-| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation around geometric center). |
+| `style` | `Style \| None` | `None` | Fill, stroke, and corner radius style (`style.shape_r` as a scalar or 4-tuple `(bottom_left, top_left, top_right, bottom_right)`). |
 | `text` | `str` | `""` | Embedded center text label. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Default coordinate `xy` is the geometric center of the shape.
-- Corner rounding `r > 0` constructs smooth quadratic or arc transitions at each vertex.
+- Corner rounding via `style.shape_r` constructs smooth quadratic Bezier transitions at each vertex (accepts a scalar `float` or a 4-tuple of radii per vertex).
 - Fundamental building block for system architecture diagrams, UI cards, and network topologies.
 
 #### Code Examples
@@ -827,12 +825,12 @@ rectangle(
     (72, 25),
     width=35,
     height=20,
-    r=4,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.GhostWhite,
         shape_line_color=CssColors.SlateGray,
         shape_line_width=2,
         shape_line_style="dashed",
+        shape_r=4,
     ),
     text="Worker Node",
     text_style=Styles.Primary.patch(text_color=CssColors.MidnightBlue, text_size=11),
@@ -1566,7 +1564,6 @@ def arrow_l(
     head_width: float,
     head_length: float,
     head: Literal["->", "<-", "<->"] = "->",
-    r: float = 0.0,
     *,
     style: Style | None = None,
 ) -> None:
@@ -1583,8 +1580,7 @@ def arrow_l(
 | `head_width` | `float` | *Required* | Arrowhead width at the tip end. |
 | `head_length` | `float` | *Required* | Arrowhead axial length. |
 | `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
-| `r` | `float` | `0.0` | Elbow corner rounding radius ($r \ge 0$). |
-| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation). |
+| `style` | `Style \| None` | `None` | Fill, stroke, rotation (`angle`), and elbow rounding radius (`shape_r` scalar or 1-tuple). |
 
 > **Important**: `arrow_l` **does not accept `text`**. Place external `drawlib.text.text()` labels next to the elbow.
 
@@ -1609,9 +1605,11 @@ arrow_l(
     tail_width=4,
     head_width=10,
     head_length=7,
-    r=5,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.MistyRose, shape_line_color=CssColors.Crimson, shape_line_width=2
+        shape_fill_color=CssColors.MistyRose,
+        shape_line_color=CssColors.Crimson,
+        shape_line_width=2,
+        shape_r=5,
     ),
 )
 save()
@@ -1633,7 +1631,6 @@ def arrow_u(
     head_width: float,
     head_length: float,
     head: Literal["->", "<-", "<->"] = "->",
-    r: float = 0.0,
     *,
     style: Style | None = None,
 ) -> None:
@@ -1650,8 +1647,7 @@ def arrow_u(
 | `head_width` | `float` | *Required* | Arrowhead width. |
 | `head_length` | `float` | *Required* | Arrowhead axial length. |
 | `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
-| `r` | `float` | `0.0` | Corner rounding radius at turns. |
-| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation). |
+| `style` | `Style \| None` | `None` | Fill, stroke, rotation (`angle`), and corner rounding radius at turns (`shape_r` scalar or 2-tuple). |
 
 > **Important**: `arrow_u` **does not accept `text`**.
 
@@ -1676,12 +1672,12 @@ arrow_u(
     tail_width=3,
     head_width=9,
     head_length=7,
-    r=4,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.Lavender,
         shape_line_color=CssColors.Purple,
         shape_line_width=1.5,
         angle=90,
+        shape_r=4,
     ),
 )
 save()
@@ -1772,7 +1768,6 @@ def arrow_polyline(
     head_length: float,
     *,
     head: Literal["->", "<-", "<->"] = "->",
-    r: float = 0.0,
     style: Style | None = None,
 ) -> None:
     ...
@@ -1786,8 +1781,7 @@ def arrow_polyline(
 | `head_width` | `float` | *Required* | Arrowhead width at final tip. |
 | `head_length` | `float` | *Required* | Arrowhead axial length. |
 | `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
-| `r` | `float` | `0.0` | Corner rounding radius at all intermediate vertex joints. |
-| `style` | `Style \| None` | `None` | Fill and stroke style. |
+| `style` | `Style \| None` | `None` | Fill, stroke, and corner rounding radius at intermediate joints (`shape_r` scalar or `(len(xys) - 2)`-tuple). |
 
 > **Important**: `arrow_polyline` **does not accept `text`**.
 
@@ -1807,8 +1801,7 @@ arrow_polyline(
     tail_width=3,
     head_width=8,
     head_length=6,
-    r=3,
-    style=Styles.BlueFlat,
+    style=Styles.BlueFlat.patch(shape_r=3),
 )
 
 # 2. Multi-segment bypass route
@@ -1817,9 +1810,11 @@ arrow_polyline(
     tail_width=2.5,
     head_width=7,
     head_length=5,
-    r=2,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.LightGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=1.5
+        shape_fill_color=CssColors.LightGreen,
+        shape_line_color=CssColors.ForestGreen,
+        shape_line_width=1.5,
+        shape_r=2,
     ),
 )
 save()
@@ -1899,8 +1894,7 @@ rectangle(
     (75, 45),
     width=140,
     height=80,
-    r=4,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=4),
     text="VPC (10.0.0.0/16)",
     text_style=Styles.SecondaryBold.patch(text_size=12, xy_shift=(-45, 34)),
 )
@@ -1919,8 +1913,7 @@ rectangle(
     (58, 62),
     width=50,
     height=32,
-    r=3,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=3),
     text="Public Subnet (DMZ)",
     text_style=Styles.SecondaryBold.patch(text_size=10, xy_shift=(-8, 12)),
 )
@@ -1928,8 +1921,7 @@ rectangle(
     (46, 60),
     width=18,
     height=14,
-    r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
     text="ALB",
     text_style=Styles.WhiteBold.patch(text_size=10),
 )
@@ -1937,8 +1929,7 @@ rectangle(
     (70, 60),
     width=18,
     height=14,
-    r=2,
-    style=Styles.PrimaryNeutral,
+    style=Styles.PrimaryNeutral.patch(shape_r=2),
     text="Nginx",
 )
 
@@ -1947,8 +1938,7 @@ rectangle(
     (58, 26),
     width=50,
     height=32,
-    r=3,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=3),
     text="Private App Subnet",
     text_style=Styles.SecondaryBold.patch(text_size=10, xy_shift=(-8, 12)),
 )
@@ -1956,16 +1946,14 @@ rectangle(
     (46, 24),
     width=18,
     height=14,
-    r=2,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=2),
     text="Auth\nSvc",
 )
 rectangle(
     (70, 24),
     width=18,
     height=14,
-    r=2,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=2),
     text="Order\nSvc",
 )
 
@@ -1974,8 +1962,7 @@ rectangle(
     (120, 44),
     width=44,
     height=60,
-    r=3,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=3),
     text="Database Tier (Multi-AZ)",
     text_style=Styles.SecondaryBold.patch(text_size=10, xy_shift=(0, 25)),
 )
@@ -2023,8 +2010,7 @@ rectangle(
     (20, 32.5),
     width=24,
     height=20,
-    r=3,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=3),
     text="Order\nProducer",
     text_style=Styles.WhiteBold.patch(text_size=11),
 )
@@ -2045,16 +2031,14 @@ rectangle(
     (115, 45),
     width=32,
     height=18,
-    r=3,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=3),
     text="Payment Worker",
 )
 rectangle(
     (115, 20),
     width=32,
     height=18,
-    r=3,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=3),
     text="Inventory Worker",
 )
 
@@ -2112,8 +2096,7 @@ rectangle(
     (42, 25),
     width=20,
     height=28,
-    r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
     text="Conv2D\n64 filters",
     text_style=Styles.WhiteBold.patch(text_size=9),
 )
@@ -2123,8 +2106,7 @@ rectangle(
     (68, 25),
     width=18,
     height=22,
-    r=2,
-    style=Styles.PrimaryNeutral,
+    style=Styles.PrimaryNeutral.patch(shape_r=2),
     text="BN +\nReLU",
     text_style=Styles.DarkBold.patch(text_size=9),
 )
@@ -2134,8 +2116,7 @@ rectangle(
     (92, 25),
     width=20,
     height=28,
-    r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
     text="Conv2D\n64 filters",
     text_style=Styles.WhiteBold.patch(text_size=9),
 )
@@ -2173,8 +2154,7 @@ arrow_polyline(
     tail_width=1.5,
     head_width=4,
     head_length=3,
-    r=3,
-    style=Styles.SecondaryBold,
+    style=Styles.SecondaryBold.patch(shape_r=3),
 )
 
 save()
@@ -2202,8 +2182,7 @@ rectangle(
     (40, 30),
     width=26,
     height=20,
-    r=5,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=5),
     text="DRAFT",
     text_style=Styles.WhiteBold.patch(text_size=10),
 )
@@ -2216,8 +2195,7 @@ rectangle(
     (104, 43),
     width=26,
     height=18,
-    r=5,
-    style=Styles.SecondaryNeutral,
+    style=Styles.SecondaryNeutral.patch(shape_r=5),
     text="PUBLISHED",
     text_style=Styles.DarkBold.patch(text_size=9),
 )
@@ -2227,8 +2205,7 @@ rectangle(
     (104, 17),
     width=26,
     height=18,
-    r=5,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=5),
     text="REJECTED",
     text_style=Styles.DarkBold.patch(text_size=9),
 )
@@ -2276,8 +2253,7 @@ rectangle(
     (70, 37.5),
     width=130,
     height=65,
-    r=4,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=4),
 )
 
 # KPI Card 1: Server Load
@@ -2285,8 +2261,7 @@ rectangle(
     (28, 37.5),
     width=36,
     height=50,
-    r=3,
-    style=Styles.PrimaryNeutral,
+    style=Styles.PrimaryNeutral.patch(shape_r=3),
     text="CPU LOAD\n\n42%",
     text_style=Styles.DarkBold.patch(text_size=11, xy_shift=(0, -8)),
 )
@@ -2304,8 +2279,7 @@ rectangle(
     (70, 37.5),
     width=36,
     height=50,
-    r=3,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=3),
     text="MEMORY\n\n78%",
     text_style=Styles.DarkBold.patch(text_size=11, xy_shift=(0, -8)),
 )
@@ -2323,8 +2297,7 @@ rectangle(
     (112, 37.5),
     width=36,
     height=50,
-    r=3,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=3),
     text="NETWORK\n\nActive",
     text_style=Styles.DarkBold.patch(text_size=11, xy_shift=(0, -8)),
 )
@@ -2343,32 +2316,32 @@ save()
 
 ### 7.1 Function Capabilities Matrix
 
-| Function | Default Anchor | Primary Dimensions | Corner Radius `r` | Rotation (`style.angle`) | Supports `text` | Ignores `halign/valign` |
+| Function | Default Anchor | Primary Dimensions | Corner Radius (`style.shape_r`) | Rotation (`style.angle`) | Supports `text` | Ignores `halign/valign` |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| `circle` | Center `(x, y)` | `radius` | No | Yes (text) | Yes | No |
-| `donuts` | Center `(x, y)` | `radius`, `width` | No | Yes (text) | Yes | No |
-| `ellipse`| Center `(x, y)` | `width`, `height` | No | Yes | Yes | No |
-| `wedge`  | Center `(x, y)` | `radius`, `width`, `angle_start/end` | No | Yes | Yes | No |
-| `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | No | Yes | Yes | No |
-| `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | No | Yes | Yes | No |
-| `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | No | Yes | Yes | No |
-| `face`   | Center `(x, y)` | `radius`, `mood` | No | Yes | Yes | No |
-| `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** | Yes | Yes | No |
-| `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
-| `rhombus` | Center `(x, y)` | `width`, `height` | No | Yes | Yes | No |
-| `trapezoid` | Center `(x, y)` | `height`, `bottomedge_width`, `topedge_width` | No | Yes | Yes | No |
-| `triangle` | Center `(x, y)` | `width`, `height`, `topvertex_x` | No | Yes | Yes | No |
-| `regularpolygon` | Center `(x, y)` | `num_vertex`, `radius` | No | Yes | Yes | No |
-| `polygon` | Vertices `xys` | `xys: list[tuple[float, float]]` | No | **No** | Yes | **Yes** |
-| `star` | Center `(x, y)` | `num_vertex`, `radius_ext`, `radius_int` | No | Yes | Yes | No |
+| `circle` | Center `(x, y)` | `radius` | Ignored | Yes (text) | Yes | No |
+| `donuts` | Center `(x, y)` | `radius`, `width` | Ignored | Yes (text) | Yes | No |
+| `ellipse`| Center `(x, y)` | `width`, `height` | Ignored | Yes | Yes | No |
+| `wedge`  | Center `(x, y)` | `radius`, `width`, `angle_start/end` | Ignored | Yes | Yes | No |
+| `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | Ignored | Yes | Yes | No |
+| `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | Ignored | Yes | Yes | No |
+| `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | Ignored | Yes | Yes | No |
+| `face`   | Center `(x, y)` | `radius`, `mood` | Ignored | Yes | Yes | No |
+| `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `rhombus` | Center `(x, y)` | `width`, `height` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `trapezoid` | Center `(x, y)` | `height`, `bottomedge_width`, `topedge_width` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `triangle` | Center `(x, y)` | `width`, `height`, `topvertex_x` | **Yes** (scalar or 3-tuple) | Yes | Yes | No |
+| `regularpolygon` | Center `(x, y)` | `num_vertex`, `radius` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
+| `polygon` | Vertices `xys` | `xys: list[tuple[float, float]]` | **Yes** (scalar or N-tuple) | **No** | Yes | **Yes** |
+| `star` | Center `(x, y)` | `num_vertex`, `radius_ext`, `radius_int` | **Yes** (scalar or 2N-tuple) | Yes | Yes | No |
 | `shape` | Center `(x, y)` | `path_points` | Via Bezier | Yes | Yes | No |
-| `arrow` | Endpoints `xy1, xy2` | `tail_width`, `head_width`, `head_length` | No | Auto ($\Delta xy$) | Yes | **Yes** |
-| `arrow_polyline` | Vertices `xys` | `tail_width`, `head_width`, `head_length` | **Yes** | Path-driven | **No** | **Yes** |
-| `arrow_arc` | Center `(x, y)` | `width`, `height`, `head_angle` | No | Yes | **No** | **Yes** |
-| `arrow_l` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** | Yes | **No** | **Yes** |
-| `arrow_u` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** | Yes | **No** | **Yes** |
-| `chevron` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
-| `bubblespeech` | Bottom-Left `(x, y)` | `width`, `height`, `tail_*` | No | No | Yes | **Yes** |
+| `arrow` | Endpoints `xy1, xy2` | `tail_width`, `head_width`, `head_length` | Ignored | Auto ($\Delta xy$) | Yes | **Yes** |
+| `arrow_polyline` | Vertices `xys` | `tail_width`, `head_width`, `head_length` | **Yes** (scalar or (N-2)-tuple) | Path-driven | **No** | **Yes** |
+| `arrow_arc` | Center `(x, y)` | `width`, `height`, `head_angle` | Ignored | Yes | **No** | **Yes** |
+| `arrow_l` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** (scalar or 1-tuple) | Yes | **No** | **Yes** |
+| `arrow_u` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** (scalar or 2-tuple) | Yes | **No** | **Yes** |
+| `chevron` | Center `(x, y)` | `width`, `height`, `corner_angle` | **Yes** (scalar or 6-tuple) | Yes | Yes | No |
+| `bubblespeech` | Bottom-Left `(x, y)` | `width`, `height`, `tail_*` | Ignored | No | Yes | **Yes** |
 
 ---
 

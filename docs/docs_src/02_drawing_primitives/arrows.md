@@ -108,8 +108,8 @@ arrow_l(
     tail_width=4,
     head_width=11,
     head_length=8,
-    r=5,  # Corner rounding radius
-    style=Styles.DarkBold,
+    # Corner rounding radius
+    style=Styles.DarkBold.patch(shape_r=5),
 )
 save()
 ```
@@ -130,8 +130,8 @@ arrow_u(
     tail_width=4,
     head_width=11,
     head_length=8,
-    r=6,  # Corner rounding radius
-    style=Styles.DarkBold,
+    # Corner rounding radius
+    style=Styles.DarkBold.patch(shape_r=6),
 )
 save()
 ```
@@ -176,8 +176,7 @@ arrow_polyline(
     tail_width=4,
     head_width=11,
     head_length=8,
-    r=4,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=4),
 )
 save()
 ```

@@ -213,7 +213,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         height: PosFloat,
         *,
         style: Style,
-        r: PosFloat = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -224,54 +223,26 @@ class CanvasShapeBasicFeature(CanvasBase):
             width: Width of the rectangle.
             height: Height of the rectangle.
             style: Style of the rectangle (required).
-            r (float, optional): Radius for rounded corners (default is 0.0).
             text (str, optional): Text to display within the rectangle.
             text_style (Style | None, optional): Style of the text.
 
         Raises:
-            ValueError: If invalid path points are provided.
+            ValueError: If invalid path points or shape_r are provided.
         """
         style, text_style = ShapeUtil.format_styles(
             style,
             text_style,
         )
 
-        if r == 0:
-            p1 = (0, 0)
-            p2 = (0, height)
-            p3 = (width, height)
-            p4 = (width, 0)
-            self.shape(
-                xy=xy,
-                path_points=[p1, p2, p3, p4],
-                style=style,
-                text=text,
-                text_style=text_style,
-            )
-            return
-
-        # left center
-        p1 = (0, height / 2)
-
-        # left top corner
-        p2 = (0, height - r)
-        p3 = ((0, height), (r, height))
-
-        # right top corner
-        p4 = (width - r, height)
-        p5 = ((width, height), (width, height - r))
-
-        # right bottom corner
-        p6 = (width, r)
-        p7 = ((width, 0), (width - r, 0))
-
-        # left bottom corner
-        p8 = (r, 0)
-        p9 = ((0, 0), (0, r))
+        p1 = (0, 0)
+        p2 = (0, height)
+        p3 = (width, height)
+        p4 = (width, 0)
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
 
         self.shape(
             xy=xy,
-            path_points=[p1, p2, p3, p4, p5, p6, p7, p8, p9],
+            path_points=path_points,
             style=style,
             text=text,
             text_style=text_style,
@@ -302,9 +273,14 @@ class CanvasShapeBasicFeature(CanvasBase):
             text_style,
         )
 
+        path_points = ShapeUtil.round_polygon_points(list(xys), style.shape_r)
         style = style.patch(halign=None, valign=None)
         options = ShapeUtil.get_shape_options(style)
-        self._artists.append(Polygon(xy=xys, closed=True, **options))
+        if len(path_points) == len(xys) and all(isinstance(p[0], (int, float)) for p in path_points):
+            self._artists.append(Polygon(xy=xys, closed=True, **options))
+        else:
+            path = ShapeUtil.build_matplotlib_path(path_points)
+            self._artists.append(PathPatch(path=path, **options))
 
         if not text:
             return
@@ -318,6 +294,7 @@ class CanvasShapeBasicFeature(CanvasBase):
                 style=effective_text_style,
             ),
         )
+
 
     @validate_call
     def arc(
@@ -522,15 +499,40 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         angle_rad = math.radians(angle)
         options = ShapeUtil.get_shape_options(style)
-        self._artists.append(
-            RegularPolygon(
-                xy,
-                numVertices=num_vertex,
-                radius=radius,
-                orientation=angle_rad,
-                **options,
+        if style.shape_r is not None:
+            start_a = math.pi / 2.0 + angle_rad
+            verts: list[Coordinate] = [
+                (
+                    xy[0] + radius * math.cos(start_a + i * 2.0 * math.pi / num_vertex),
+                    xy[1] + radius * math.sin(start_a + i * 2.0 * math.pi / num_vertex),
+                )
+                for i in range(num_vertex)
+            ]
+            path_points = ShapeUtil.round_polygon_points(verts, style.shape_r)
+            if len(path_points) == num_vertex and all(isinstance(p[0], (int, float)) for p in path_points):
+                self._artists.append(
+                    RegularPolygon(
+                        xy,
+                        numVertices=num_vertex,
+                        radius=radius,
+                        orientation=angle_rad,
+                        **options,
+                    )
+                )
+            else:
+                path = ShapeUtil.build_matplotlib_path(path_points)
+                self._artists.append(PathPatch(path=path, **options))
+        else:
+            self._artists.append(
+                RegularPolygon(
+                    xy,
+                    numVertices=num_vertex,
+                    radius=radius,
+                    orientation=angle_rad,
+                    **options,
+                )
             )
-        )
+
 
         if not text:
             return

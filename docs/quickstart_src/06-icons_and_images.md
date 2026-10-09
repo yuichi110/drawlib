@@ -26,7 +26,7 @@ icons_list = [
 ]
 
 for x, fn, label, st in icons_list:
-    rectangle(xy=(x, 22), width=20, height=36, r=2, style=Styles.MutedDashed)
+    rectangle(xy=(x, 22), width=20, height=36, style=Styles.MutedDashed.patch(shape_r=2))
     fn(xy=(x, 28), width=10, style=st)
     text(xy=(x, 10), text=label, style=Styles.PrimaryBold.patch(text_size=7.5))
 ```
@@ -53,7 +53,7 @@ services = [
 ]
 
 for idx, (x, icon_fn, label) in enumerate(services):
-    rectangle(xy=(x, 22), width=24, height=36, r=2, style=Styles.MutedDashed)
+    rectangle(xy=(x, 22), width=24, height=36, style=Styles.MutedDashed.patch(shape_r=2))
     icon_fn(xy=(x, 28), width=10, style=Styles.Primary)
     text(xy=(x, 10), text=label, style=Styles.DarkBold.patch(text_size=8))
     if idx < len(services) - 1:

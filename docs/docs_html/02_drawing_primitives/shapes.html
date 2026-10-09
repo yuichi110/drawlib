@@ -483,10 +483,10 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 </ul>
 <hr />
 <h2>6. Rectangular &amp; Planar Polygons</h2>
-<h3><code>rectangle(xy, width, height, r=0.0, ...)</code></h3>
+<h3><code>rectangle(xy, width, height, ...)</code></h3>
 <p>Draws a rectangle centered at <code>xy</code>.</p>
 <ul>
-<li>Set <code>r</code> to create smooth <strong>rounded corners</strong> (e.g., <code>r=4.0</code>).</li>
+<li>Set <code>style.shape_r</code> to create smooth <strong>rounded corners</strong> (e.g., <code>style=Styles.PrimaryFlat.patch(shape_r=4.0)</code>, or pass a per-vertex tuple matching the vertex count).</li>
 <li>Use <code>style.angle</code> to rotate around the geometric center.</li>
 </ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
@@ -495,7 +495,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Service Card"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Service Card"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>

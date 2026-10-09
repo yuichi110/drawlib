@@ -28,7 +28,7 @@ templates = [
 ]
 
 for x, icon_fn, title, desc, st in templates:
-    rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.MutedDashed)
+    rectangle(xy=(x, 24), width=24, height=36, style=Styles.MutedDashed.patch(shape_r=2.5))
     icon_fn(xy=(x, 34), width=7, style=st)
     text(xy=(x, 25), text=title, style=Styles.DarkBold.patch(text_size=8.5))
     text(xy=(x, 14), text=desc, style=Styles.Dark.patch(text_size=7.5))

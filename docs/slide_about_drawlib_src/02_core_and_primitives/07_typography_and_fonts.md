@@ -44,7 +44,7 @@ clear()
 setup(width=100, height=82)
 
 # Top Card: Anchor Alignment Precision (halign & valign)
-rectangle((50, 65), width=90, height=26, r=2.5, style=Styles.LightFlat)
+rectangle((50, 65), width=90, height=26, style=Styles.LightFlat.patch(shape_r=2.5))
 text((10, 74), "1. Explicit Anchor Alignment (halign)", style=Styles.DarkBold.patch(text_size=9.5, halign="left"))
 
 line((50, 54), (50, 71), style=Styles.PrimaryDashed.patch(line_width=1.5))
@@ -59,10 +59,10 @@ circle((50, 56), radius=1.0, style=Styles.AccentFlat)
 text((50, 56), 'halign="right"  ', style=Styles.DarkBold.patch(text_size=9.0, halign="right"))
 
 # Bottom Card: Font Families & Vertical Text
-rectangle((50, 26), width=90, height=44, r=2.5, style=Styles.Neutral)
+rectangle((50, 26), width=90, height=44, style=Styles.Neutral.patch(shape_r=2.5))
 
 # Vertical text badge on left
-rectangle((13, 26), width=9, height=36, r=2.0, style=Styles.PrimaryFlat)
+rectangle((13, 26), width=9, height=36, style=Styles.PrimaryFlat.patch(shape_r=2.0))
 text_vertical((13, 26), "FONTS", style=Styles.WhiteBold.patch(text_size=9.5))
 
 # Font family specimens

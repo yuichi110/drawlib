@@ -88,7 +88,7 @@ arch_nodes = [n_edge, n_gw, n_run, n_sql, n_bq]
 for step in range(5):
     is_last = step == 4
     with anim.frame(duration=2.5 if is_last else 0.8):
-        rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+        rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
         text(
             (49, 75),
             f"Progressive Reveal — Stage {step + 1} of 5  (Click or Press 'A' to Step)",

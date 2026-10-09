@@ -23,11 +23,11 @@ from drawlib.text import text
 setup(width=105, height=42)
 
 # クライアントノード
-rectangle((20, 21), width=24, height=18, r=1.5, style=Styles.SecondaryFlat, text="Client App", text_style=Styles.WhiteBold)
+rectangle((20, 21), width=24, height=18, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="Client App", text_style=Styles.WhiteBold)
 phosphor.device_mobile(xy=(20, 34), width=6, style=Styles.Secondary)
 
 # API Gateway ノード
-rectangle((55, 21), width=26, height=20, r=1.5, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((55, 21), width=26, height=20, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="API Gateway", text_style=Styles.WhiteBold)
 phosphor.cloud(xy=(55, 35), width=6, style=Styles.Primary)
 
 # データベースノード
@@ -44,7 +44,7 @@ text((73.5, 24), "SQL", style=Styles.DarkBold.patch(text_size=9))
 
 ## 7.3 主要な描画関数一覧
 
-- **`rectangle(xy, width, height, r=0, style=...)`**: 角丸対応の長方形
+- **`rectangle(xy, width, height, style=...)`**: 長方形（`style.shape_r` で角丸対応）
 - **`circle(xy, radius, style=...)`**: 円
 - **`line(start_xy, end_xy, arrow_head="->", style=...)`**: 矢印付き直線
 - **`line_curved(start_xy, end_xy, bend=0.2, ...)`**: 滑らかな曲線

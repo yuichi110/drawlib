@@ -75,7 +75,7 @@ chart = BarChart(
     height=44,
     title="Service Cache Hit Ratio (%)",
     title_style=Styles.BlackBold.patch(text_size=12.5),
-    r=0.8,
+    bar_r=0.8,
 )
 chart.configure_y_axis(min_value=0, max_value=100, unit="%")
 

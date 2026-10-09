@@ -66,8 +66,7 @@ rectangle(
     (cx, cy),
     width=bw + 28,
     height=bh + 22,
-    r=4,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=4),
     text="Kubernetes Worker Cluster",
     text_style=Styles.DarkBold,
 )

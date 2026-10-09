@@ -45,8 +45,7 @@ rectangle(
     (50, 32.5),
     width=80,
     height=45,
-    r=3,
-    style=Styles.PrimaryNeutral,
+    style=Styles.PrimaryNeutral.patch(shape_r=3),
 )
 text((14, 51), "VPC Boundary: center=(50, 32.5), size=80x45", style=Styles.PrimaryBold.patch(text_size=8.5, halign="left"))
 
@@ -55,8 +54,7 @@ rectangle(
     (25, 30),
     width=20,
     height=14,
-    r=2,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=2),
     text="Web UI\n(25, 30)",
     text_style=Styles.DarkBold.patch(text_size=9),
 )
@@ -66,8 +64,7 @@ rectangle(
     (52, 30),
     width=20,
     height=14,
-    r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
     text="Gateway\n(52, 30)",
     text_style=Styles.WhiteBold.patch(text_size=9),
 )

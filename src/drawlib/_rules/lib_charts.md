@@ -187,7 +187,7 @@ All charts follow Drawlib's unified 4-phase component lifecycle (**1. Instantiat
 | `orientation` | `"vertical"` \| `"horizontal"` | `"vertical"` | Direction of bars. |
 | `bar_mode` | `"group"` \| `"stack"` | `"group"` | Grouped side-by-side or stacked cumulatively. |
 | `bar_width_ratio` | `float` | `0.7` | Relative thickness ratio of bars within category bin (0.1 to 1.0). |
-| `r` | `float` | `0.0` | Corner rounding radius for bar rectangles. |
+| `bar_r` | `float` | `0.0` | Corner rounding radius applied only to the outer tip corners of bars (axis-side and intermediate stacked edges remain sharp). |
 | `value_format` | `FormatterType` | `None` | Formatter string or callable for value labels. |
 | `axis_text_style` | `Style \| None` | `None` | Style for axis tick marks and category labels. If None, labels are omitted. |
 | `grid_style` | `Style \| None` | `None` | Style for value axis gridlines. If None, grid is omitted. |
@@ -224,7 +224,7 @@ chart = BarChart(
     orientation="vertical",
     bar_mode="group",
     bar_width_ratio=0.75,
-    r=1.0,
+    bar_r=1.0,
     axis_text_style=Styles.Muted.patch(text_size=9.5),
     grid_style=Styles.MutedDashed,
     value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
@@ -253,7 +253,7 @@ chart = BarChart(
     orientation="horizontal",
     bar_mode="stack",
     bar_width_ratio=0.6,
-    r=0.8,
+    bar_r=0.8,
     title="Infrastructure Resource Utilization (%)",
     title_style=Styles.BlackBold.patch(text_size=13.0),
     axis_text_style=Styles.Muted.patch(text_size=9.5),

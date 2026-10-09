@@ -15,22 +15,22 @@ setup(width=132, height=52)
 ts = Styles.WhiteBold.patch(text_size=9.5)
 
 # 1. Inspect Context
-rectangle((20.5, 18), width=25, height=20, r=2.0, style=Styles.PrimaryFlat)
+rectangle((20.5, 18), width=25, height=20, style=Styles.PrimaryFlat.patch(shape_r=2.0))
 phosphor.file_code(xy=(20.5, 23.5), width=5.5, style=Styles.White)
 text((20.5, 13.5), text="1. Inspect Context\n(Code & Architecture)", style=ts)
 
 # 2. Generate Code
-rectangle((51.0, 18), width=25, height=20, r=2.0, style=Styles.AccentFlat)
+rectangle((51.0, 18), width=25, height=20, style=Styles.AccentFlat.patch(shape_r=2.0))
 phosphor.code(xy=(51.0, 23.5), width=5.5, style=Styles.White)
 text((51.0, 13.5), text="2. Generate Code\n(Declarative Python)", style=ts)
 
 # 3. Render with Grid
-rectangle((81.5, 18), width=25, height=20, r=2.0, style=Styles.SecondaryFlat)
+rectangle((81.5, 18), width=25, height=20, style=Styles.SecondaryFlat.patch(shape_r=2.0))
 phosphor.image(xy=(81.5, 23.5), width=5.5, style=Styles.White)
 text((81.5, 13.5), text="3. Render with Grid\n(drawlib show -g)", style=ts)
 
 # 4. Autonomous Review
-rectangle((112.0, 18), width=25, height=20, r=2.0, style=Styles.SuccessFlat)
+rectangle((112.0, 18), width=25, height=20, style=Styles.SuccessFlat.patch(shape_r=2.0))
 phosphor.eye(xy=(112.0, 23.5), width=5.5, style=Styles.White)
 text((112.0, 13.5), text="4. Autonomous Review\n(Visual Inspection)", style=ts)
 

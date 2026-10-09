@@ -100,7 +100,7 @@ from drawlib.text import text
 PROJECT_NAME = "Enterprise Platform"
 
 def service_card(xy: tuple[float, float], title: str) -> None:
-    rectangle(xy, width=32, height=18, r=2, style=Styles.BlueFlat)
+    rectangle(xy, width=32, height=18, style=Styles.BlueFlat.patch(shape_r=2))
     text(xy, title, style=Styles.WhiteBold)
 ```
 

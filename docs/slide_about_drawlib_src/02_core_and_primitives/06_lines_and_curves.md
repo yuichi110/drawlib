@@ -55,27 +55,27 @@ clear()
 setup(width=100, height=82)
 
 # Row 1: line() and lines()
-rectangle((27, 68), width=42, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((27, 68), width=42, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 line((12, 71), (42, 71), arrow_head="->", style=Styles.DarkBold.patch(line_width=2.2))
 line((12, 65), (42, 65), arrow_head="<->", style=Styles.PrimaryDashed.patch(line_width=2.0))
 text((27, 59.5), 'line(arrow_head="->" / "<->")', style=Styles.DarkBold.patch(text_size=8.0))
 
-rectangle((73, 68), width=42, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((73, 68), width=42, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 lines([(57, 64), (73, 64), (73, 74), (89, 74)], arrow_head="->", style=Styles.PrimaryBold.patch(line_width=2.2))
 text((73, 59.5), "lines() Orthogonal Z-Bend", style=Styles.DarkBold.patch(text_size=8.0))
 
 # Row 2: line_curved() and lines_curved()
-rectangle((27, 41), width=42, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((27, 41), width=42, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 line_curved((12, 42), (42, 42), bend=0.35, arrow_head="->", style=Styles.PrimaryBold.patch(line_width=2.2))
 line_curved((42, 40), (12, 40), bend=0.35, arrow_head="->", style=Styles.SecondaryBold.patch(line_width=2.0))
 text((27, 32.5), "line_curved(bend=0.35)", style=Styles.DarkBold.patch(text_size=8.0))
 
-rectangle((73, 41), width=42, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((73, 41), width=42, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 lines_curved([(57, 36), (73, 36), (73, 48), (89, 48)], r=4.5, arrow_head="->", style=Styles.DarkBold.patch(line_width=2.2))
 text((73, 32.5), "lines_curved(r=4.5)", style=Styles.DarkBold.patch(text_size=8.0))
 
 # Row 3: line_bezier1(), line_bezier2(), and line_arc()
-rectangle((50, 14), width=88, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((50, 14), width=88, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 
 # Quadratic Bezier
 line_bezier1((10, 11), (34, 11), cp=(22, 24), arrow_head="->", style=Styles.PrimaryBold.patch(line_width=2.2))

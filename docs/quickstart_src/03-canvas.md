@@ -20,7 +20,7 @@ from drawlib.text import text
 setup(width=120, height=55)
 
 # Outer canvas boundary
-rectangle(xy=(60, 27.5), width=108, height=45, r=2, style=Styles.MutedDashed)
+rectangle(xy=(60, 27.5), width=108, height=45, style=Styles.MutedDashed.patch(shape_r=2))
 
 # Coordinate axes
 line((12, 10), (110, 10), arrow_head="->", style=Styles.DarkBold)

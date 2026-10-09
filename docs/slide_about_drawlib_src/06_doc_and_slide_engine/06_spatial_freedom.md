@@ -72,12 +72,11 @@ rectangle(
     (46, 68),
     width=68,
     height=38,
-    r=2.5,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=2.5),
 )
 text((16, 83), "Layer z:1 — Base Architecture Canvas", style=Styles.MutedBold.patch(text_size=8.5, halign="left"))
-rectangle((28, 65), width=22, height=14, r=1.5, style=Styles.PrimaryNeutral, text="Ingress Edge", text_style=Styles.DarkBold.patch(text_size=8.5))
-rectangle((62, 65), width=22, height=14, r=1.5, style=Styles.SecondaryNeutral, text="Core Mesh", text_style=Styles.DarkBold.patch(text_size=8.5))
+rectangle((28, 65), width=22, height=14, style=Styles.PrimaryNeutral.patch(shape_r=1.5), text="Ingress Edge", text_style=Styles.DarkBold.patch(text_size=8.5))
+rectangle((62, 65), width=22, height=14, style=Styles.SecondaryNeutral.patch(shape_r=1.5), text="Core Mesh", text_style=Styles.DarkBold.patch(text_size=8.5))
 line((39, 65), (51, 65), arrow_head="->", style=Styles.DarkBold)
 
 # Middle Overlapping Layer card (z:5)
@@ -85,16 +84,14 @@ rectangle(
     (58, 44),
     width=66,
     height=30,
-    r=2.5,
-    style=Styles.BlueNeutral,
+    style=Styles.BlueNeutral.patch(shape_r=2.5),
 )
 text((29, 55), "Layer z:5 — Overlapping Telemetry Overlay", style=Styles.PrimaryBold.patch(text_size=8.5, halign="left"))
 rectangle(
     (45, 41),
     width=26,
     height=12,
-    r=1.5,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text="99.99% SLA\nZero Drift",
     text_style=Styles.WhiteBold.patch(text_size=8.5),
 )
@@ -102,8 +99,7 @@ rectangle(
     (75, 41),
     width=24,
     height=12,
-    r=1.5,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.5),
     text="P99: 4.2 ms\nAuto-Scaled",
     text_style=Styles.DarkBold.patch(text_size=8.5),
 )

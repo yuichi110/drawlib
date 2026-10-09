@@ -4,7 +4,7 @@ Drawlib provides a rich suite of 2D geometric primitives, flexible line connecti
 
 ## Shape Primitives (`drawlib.shapes`)
 
-Drawlib includes over 20 shape primitives. Every shape supports direct text embedding, corner radius rounding (`r`), rotation (`style.angle`), and full alignment controls (`style.halign`, `style.valign`):
+Drawlib includes over 20 shape primitives. Every shape supports direct text embedding, corner radius rounding (`style.shape_r`), rotation (`style.angle`), and full alignment controls (`style.halign`, `style.valign`):
 
 ```drawlib 620px center file:shapes_primitives.png caption:"Figure 4.1: Selection of Drawlib Vector Shapes"
 from drawlib.canvas import setup
@@ -14,7 +14,7 @@ from drawlib.styles import Styles
 setup(width=120, height=45)
 
 # 1. Rounded Rectangle
-rectangle((15, 23), width=20, height=22, r=2, style=Styles.PrimaryFlat, text="Rounded\nBox", text_style=Styles.WhiteBold)
+rectangle((15, 23), width=20, height=22, style=Styles.PrimaryFlat.patch(shape_r=2), text="Rounded\nBox", text_style=Styles.WhiteBold)
 
 # 2. Circle
 circle((38, 23), radius=10, style=Styles.SecondaryFlat, text="Circle", text_style=Styles.WhiteBold)
@@ -41,8 +41,7 @@ rectangle(
     xy=(50, 30),
     width=32,
     height=18,
-    r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
     text="Worker Node\n(Active)",
     text_style=Styles.WhiteBold,
 )

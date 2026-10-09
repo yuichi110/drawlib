@@ -270,7 +270,7 @@ class TestBarChartRendering:
                 categories=["Mon", "Tue", "Wed"],
                 width=70,
                 height=45,
-                r=1.5,
+                bar_r=1.5,
             )
             chart.add_series("Visitors", [120.0, 180.0, 240.0], style=custom_style)
             chart.draw(xy=(15.0, 15.0))
@@ -310,6 +310,38 @@ class TestBarChartRendering:
             chart.draw(xy=(10.0, 10.0), width=80.0, height=50.0, scale=0.8)
             chart.draw_legend(xy=(10.0, 65.0), text_style=_DEFAULT_TEXT, scale=0.8)
             assert chart.get_size() == (70.0, 45.0)
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0
+
+    def test_render_stacked_and_horizontal_bar_r(self) -> None:
+        """Test bar_r tip-only corner rounding in stacked vertical and horizontal modes."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "stacked_bar_r.png"
+            canvas.clear()
+            s_style = Style(shape_fill_color=(50, 100, 200, 1.0))
+
+            v_chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                categories=["A", "B"],
+                bar_mode="stack",
+                bar_r=2.0,
+            )
+            v_chart.add_series("S1", [10.0, 20.0], style=s_style)
+            v_chart.add_series("S2", [15.0, 25.0], style=s_style)
+            v_chart.draw(xy=(10.0, 10.0))
+
+            h_chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                categories=["A", "B"],
+                orientation="horizontal",
+                bar_mode="stack",
+                bar_r=2.0,
+            )
+            h_chart.add_series("S1", [10.0, 20.0], style=s_style)
+            h_chart.add_series("S2", [15.0, 25.0], style=s_style)
+            h_chart.draw(xy=(10.0, 55.0))
 
             canvas.save(str(out_file))
             assert out_file.exists()

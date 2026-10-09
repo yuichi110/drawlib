@@ -30,7 +30,7 @@ steps = [
 ]
 
 for x, icon_fn, title, desc, st in steps:
-    rectangle((x, 32), width=23, height=28, r=2, style=Styles.MutedDashed)
+    rectangle((x, 32), width=23, height=28, style=Styles.MutedDashed.patch(shape_r=2))
     icon_fn(xy=(x, 38), width=6, style=st)
     text(xy=(x, 29), text=title, style=Styles.DarkBold.patch(text_size=8))
     text(xy=(x, 21), text=desc, style=Styles.Dark.patch(text_size=7))

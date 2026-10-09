@@ -9,6 +9,7 @@
 
 """Shape utility module for canvas operations."""
 
+import math
 from typing import Any, cast
 
 from matplotlib.path import Path
@@ -21,6 +22,7 @@ from drawlib._core.l2_types import (
     Coordinate,
     PathPoint,
     PathPoints,
+    ShapeRadius,
     Size,
 )
 from drawlib._core.l3_colors import ColorUtil
@@ -193,6 +195,102 @@ class ShapeUtil:
         vertices.append(start_coord)
         codes.append(Path.CLOSEPOLY)
         return Path(vertices=vertices, codes=codes)
+
+    @staticmethod
+    def _normalize_shape_radii(
+        n: int,
+        shape_r: ShapeRadius | None,
+    ) -> list[float] | None:
+        """Normalize scalar or tuple shape_r into a per-vertex radius list, or None if unrounded."""
+        if shape_r is None:
+            return None
+        if isinstance(shape_r, (int, float)):
+            r_val = float(shape_r)
+            if r_val < 0.0:
+                raise ValueError("shape_r must be non-negative.")
+            if r_val == 0.0:
+                return None
+            return [r_val] * n
+
+        if len(shape_r) != n:
+            raise ValueError(
+                f"shape_r tuple length ({len(shape_r)}) must match the number of vertices ({n})."
+            )
+        radii = [float(r) for r in shape_r]
+        if any(r < 0.0 for r in radii):
+            raise ValueError("shape_r values must be non-negative.")
+        if all(r == 0.0 for r in radii):
+            return None
+        return radii
+
+    @staticmethod
+    def round_polygon_points(
+        vertices: list[Coordinate],
+        shape_r: ShapeRadius | None,
+    ) -> PathPoints:
+        """Convert polygon vertices into PathPoints with optional per-vertex corner rounding.
+
+        Args:
+            vertices: Ordered list of polygon vertices.
+            shape_r: Single corner radius or tuple of per-vertex corner radii.
+
+        Returns:
+            PathPoints: Path points with quadratic Bezier curves at rounded corners.
+
+        Raises:
+            ValueError: If shape_r is a tuple whose length does not match len(vertices).
+        """
+        n = len(vertices)
+        radii = ShapeUtil._normalize_shape_radii(n, shape_r)
+        if radii is None:
+            return list(vertices)
+
+        p_in: list[Coordinate] = []
+        p_out: list[Coordinate] = []
+        is_rounded: list[bool] = []
+
+        for i in range(n):
+            v_prev = vertices[(i - 1) % n]
+            v_curr = vertices[i]
+            v_next = vertices[(i + 1) % n]
+            r_curr = radii[i]
+            r_prev = radii[(i - 1) % n]
+            r_next = radii[(i + 1) % n]
+
+            dx_in = v_prev[0] - v_curr[0]
+            dy_in = v_prev[1] - v_curr[1]
+            d_in = math.hypot(dx_in, dy_in)
+
+            dx_out = v_next[0] - v_curr[0]
+            dy_out = v_next[1] - v_curr[1]
+            d_out = math.hypot(dx_out, dy_out)
+
+            if r_curr <= 0.0 or d_in == 0.0 or d_out == 0.0:
+                p_in.append(v_curr)
+                p_out.append(v_curr)
+                is_rounded.append(False)
+            else:
+                avail_in = d_in * (r_curr / (r_prev + r_curr)) if (r_prev + r_curr) > d_in else r_curr
+                avail_out = d_out * (r_curr / (r_curr + r_next)) if (r_curr + r_next) > d_out else r_curr
+                r_eff = min(r_curr, avail_in, avail_out)
+                p_in.append((v_curr[0] + (dx_in / d_in) * r_eff, v_curr[1] + (dy_in / d_in) * r_eff))
+                p_out.append((v_curr[0] + (dx_out / d_out) * r_eff, v_curr[1] + (dy_out / d_out) * r_eff))
+                is_rounded.append(True)
+
+        start_pt: Coordinate = (
+            (p_out[-1][0] + p_in[0][0]) / 2.0,
+            (p_out[-1][1] + p_in[0][1]) / 2.0,
+        )
+        path_points: PathPoints = [start_pt]
+        for i in range(n):
+            if is_rounded[i]:
+                path_points.append(p_in[i])
+                path_points.append((vertices[i], p_out[i]))
+            else:
+                path_points.append(vertices[i])
+
+        return path_points
+
 
     @staticmethod
     def _shift_path_point(p: PathPoint, offset: Coordinate) -> PathPoint:

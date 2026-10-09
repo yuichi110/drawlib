@@ -46,8 +46,7 @@ rectangle(
     (58, 46),
     width=76,
     height=56,
-    r=2,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=2),
 )
 text((58, 70.5), "10-15% Safe Perimeter Margin Zone", style=Styles.MutedBold.patch(text_size=8.5))
 
@@ -68,8 +67,7 @@ rectangle(
     (cx, cy),
     width=40,
     height=22,
-    r=2.5,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2.5),
     text="Shape Center\n(cx, cy)",
     text_style=Styles.WhiteBold.patch(text_size=10, xy_shift=(0, 3.5)),
 )

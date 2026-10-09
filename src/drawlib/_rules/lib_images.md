@@ -126,8 +126,8 @@ img_frontend = get_dimage_from_code(frontend_code)
 img_api = get_dimage_from_code(api_code)
 
 # Service container cards
-rectangle((35, 30), width=36, height=36, r=3, style=Styles.MutedDashed)
-rectangle((105, 30), width=36, height=36, r=3, style=Styles.MutedDashed)
+rectangle((35, 30), width=36, height=36, style=Styles.MutedDashed.patch(shape_r=3))
+rectangle((105, 30), width=36, height=36, style=Styles.MutedDashed.patch(shape_r=3))
 
 # Embed sub-diagram images
 image((35, 30), width=22, image=img_frontend)
@@ -165,7 +165,7 @@ star((15, 15), num_vertex=5, radius_ext=12, radius_int=6, style=Styles.PrimaryFl
 badge_img = get_dimage_from_code(badge_code)
 
 # Solid border backdrop
-rectangle((50, 25), width=80, height=36, r=4, style=Styles.MutedDashed)
+rectangle((50, 25), width=80, height=36, style=Styles.MutedDashed.patch(shape_r=4))
 
 # Place image with alpha transparency
 image_style = Styles.Primary.patch(alpha=0.6)

@@ -85,7 +85,7 @@ L 259.536667 184.819292
 L 259.536667 172.514042 
 L 233.796667 172.514042 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; fill-opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
     <g clip-path="url(#pe9bfb2d8ab)">
      <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="246.666667" y="181.010042" transform="rotate(-0 246.666667 181.010042)">places</text>
@@ -135,7 +135,7 @@ L 499.788146 184.426667
 L 499.788146 172.906667 
 L 466.878521 172.906667 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; fill-opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
     <g clip-path="url(#pe9bfb2d8ab)">
      <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="483.333333" y="181.402667" transform="rotate(-0 483.333333 181.402667)">contains</text>
@@ -191,7 +191,7 @@ L 614.461312 318.228
 L 614.461312 305.772 
 L 585.538688 305.772 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; fill-opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
     <g clip-path="url(#pe9bfb2d8ab)">
      <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="600" y="314.268" transform="rotate(-0 600 314.268)">catalog</text>
@@ -237,7 +237,7 @@ L 386.449229 318.170625
 L 386.449229 305.829375 
 L 346.884104 305.829375 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: #ffffff; fill-opacity: 0.9; stroke: #e2e8f0; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
     <g clip-path="url(#pe9bfb2d8ab)">
      <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="366.666667" y="314.325375" transform="rotate(-0 366.666667 314.325375)">settled_by</text>
@@ -341,7 +341,7 @@ L 230 130.666667
 L 230 242.666667 
 L 36.666667 242.666667 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; opacity: 0"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_40">
     <path d="M 263.333333 242.666667 
@@ -446,7 +446,7 @@ L 470 130.666667
 L 470 242.666667 
 L 263.333333 242.666667 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; opacity: 0"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_48">
     <path d="M 496.666667 242.666667 
@@ -556,7 +556,7 @@ L 703.333333 130.666667
 L 703.333333 242.666667 
 L 496.666667 242.666667 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; opacity: 0"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_56">
     <path d="M 496.666667 472 
@@ -641,7 +641,7 @@ L 703.333333 381.333333
 L 703.333333 472 
 L 496.666667 472 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; opacity: 0"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_63">
     <path d="M 263.333333 472 
@@ -731,7 +731,7 @@ L 470 381.333333
 L 470 472 
 L 263.333333 472 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; opacity: 0"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
   </g>
  </g>

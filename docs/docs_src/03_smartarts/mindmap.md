@@ -57,7 +57,7 @@ root.draw(xy=(70, 40))
   - `"bottom"`: Sub-branches extend downward (`-y`).
 - **Node Shapes**:
   - `"oval"`: Pill / ellipse container.
-  - `"rectangle"`: Rectangular box with optional corner rounding (`r`).
+  - `"rectangle"`: Rectangular box with optional corner rounding (`style.shape_r`).
   - `"none"`: Clean text label without border or background fill.
 
 ---
@@ -72,7 +72,6 @@ MindMapNode(
     shape: Literal["oval", "rectangle", "none"] | None = None,
     size: tuple[float, float] | None = None,
     style: Style | None = None,
-    r: float | None = None,
     text_style: Style | None = None,
     line_style: Style | None = None,
     horizontal_margin: float | None = None,

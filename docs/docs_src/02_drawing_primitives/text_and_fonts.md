@@ -125,8 +125,7 @@ rectangle(
     (32, 24),
     width=42,
     height=32,
-    r=2,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=2),
     text=sample,
 )
 
@@ -135,8 +134,7 @@ rectangle(
     (83, 24),
     width=42,
     height=32,
-    r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
     text=sample,
     text_style=Styles.WhiteBold.patch(text_line_spacing=1.8),
 )

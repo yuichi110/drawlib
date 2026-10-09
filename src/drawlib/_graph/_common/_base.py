@@ -188,7 +188,7 @@ class BaseGraph(ABC):
         *,
         style: Style | None = None,
         text_style: Style | None = None,
-        shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle",
+        shape: Literal["rectangle", "circle"] = "rectangle",
         width: float | None = None,
         height: float | None = None,
         ring: int | None = None,
@@ -206,7 +206,7 @@ class BaseGraph(ABC):
             label: Text label displayed inside/beside the node. Defaults to id if None.
             style: Shape styling for this node.
             text_style: Text styling for the node label.
-            shape: Shape geometry ("rectangle", "circle", "rounded_rectangle").
+            shape: Shape geometry ("rectangle", "circle").
             width: Custom width for this node.
             height: Custom height for this node.
             ring: Optional concentric ring number (for radial layouts).

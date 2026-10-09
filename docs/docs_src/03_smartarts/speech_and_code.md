@@ -86,7 +86,6 @@ sc = SourceCode(
     styles: SourceCodeStyles,
     code_lang: str | None = "python",
     show_linenum: bool = False,
-    r: float = 1.5,
 )
 sc.add(code: str | None = None, *, file: str | None = None, show: bool = True)
 sc.draw(xy: tuple[float, float], width: float, *, scale: float = 1.0)
@@ -104,7 +103,6 @@ SourceCode.draw(
     file: str | None = None,           # Path to code file (alternative to `code`)
     code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
     show_linenum: bool = False,        # Whether to show line numbers in a gutter
-    r: float = 1.5,                    # Corner radius of the container box
     scale: float = 1.0,                # Proportional scale factor relative to `xy`
 )
 ```

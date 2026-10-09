@@ -29,7 +29,7 @@ pillars = [
 ]
 
 for x, icon_fn, title, bullets, style in pillars:
-    rectangle(xy=(x, 22), width=34, height=36, r=3, style=Styles.MutedDashed)
+    rectangle(xy=(x, 22), width=34, height=36, style=Styles.MutedDashed.patch(shape_r=3))
     icon_fn(xy=(x, 34), width=7, style=style)
     text(xy=(x, 26), text=title, style=Styles.DarkBold.patch(text_size=10))
     text(xy=(x, 14), text=bullets, style=Styles.Dark.patch(text_size=7.5))

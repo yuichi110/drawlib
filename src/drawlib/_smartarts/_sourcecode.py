@@ -183,6 +183,7 @@ class SourceCodeStyles(BaseModel):
                 shape_fill_color=(248, 250, 252),
                 shape_line_color=(203, 213, 225),
                 shape_line_width=1.0,
+                shape_r=1.5,
             ),
             linenum_style=Style(
                 text_color=(148, 163, 184),
@@ -256,6 +257,7 @@ class SourceCodeStyles(BaseModel):
                 shape_fill_color=(255, 255, 255),
                 shape_line_color=(0, 0, 0),
                 shape_line_width=1.0,
+                shape_r=1.5,
             ),
             linenum_style=Style(
                 text_color=(150, 150, 150),
@@ -329,6 +331,7 @@ class SourceCodeStyles(BaseModel):
                 shape_fill_color=(39, 40, 34),
                 shape_line_color=(60, 60, 60),
                 shape_line_width=1.0,
+                shape_r=1.5,
             ),
             linenum_style=Style(
                 text_color=(120, 120, 120),
@@ -402,6 +405,7 @@ class SourceCodeStyles(BaseModel):
                 shape_fill_color=(255, 255, 255),
                 shape_line_color=(218, 220, 224),
                 shape_line_width=1.0,
+                shape_r=1.5,
             ),
             linenum_style=Style(
                 text_color=(128, 134, 139),
@@ -495,7 +499,6 @@ class SourceCode:
         file: FilePath | None = None,
         code_lang: str | None = None,
         show_linenum: bool = False,
-        r: PosFloat = 1.5,
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw syntax-highlighted source code on the canvas.
@@ -509,7 +512,6 @@ class SourceCode:
             code_lang: Programming language for highlighting (e.g. 'python', 'json').
                        If None, language is inferred from `file` or code content.
             show_linenum: Whether to display line numbers in a gutter.
-            r: Corner radius of the container box. Defaults to 1.5.
             scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
@@ -595,7 +597,6 @@ class SourceCode:
                 xy=(cx, cy),
                 width=width,
                 height=box_h,
-                r=r,
                 style=styles.box_style,
             )
 
@@ -703,7 +704,6 @@ def sourcecode(  # noqa: PLR0913
     file: FilePath | None = None,
     code_lang: str | None = None,
     show_linenum: bool = False,
-    r: PosFloat = 1.5,
     scale: PosFloat = 1.0,
 ) -> None:
     """Draw syntax-highlighted source code on the canvas.
@@ -718,7 +718,6 @@ def sourcecode(  # noqa: PLR0913
         file: Path to a file containing source code. (Alternative to `code`).
         code_lang: Programming language for highlighting (e.g. 'python', 'json').
         show_linenum: Whether to display line numbers.
-        r: Corner radius of the container box. Defaults to 1.5.
         scale: Proportional scale factor around xy. Defaults to 1.0.
     """
     SourceCode.draw(
@@ -729,7 +728,6 @@ def sourcecode(  # noqa: PLR0913
         file=file,
         code_lang=code_lang,
         show_linenum=show_linenum,
-        r=r,
         scale=scale,
     )
 

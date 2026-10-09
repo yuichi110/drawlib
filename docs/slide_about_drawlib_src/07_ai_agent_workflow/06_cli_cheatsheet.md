@@ -52,7 +52,7 @@ from drawlib.text import text
 clear()
 setup(width=106, height=84)
 
-rectangle((53, 42), width=102, height=78, r=2.5, style=Styles.Neutral)
+rectangle((53, 42), width=102, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((53, 75.5), "Drawlib Command-Line Interface Reference Matrix", style=Styles.DarkBold.patch(text_size=12.0))
 
 table = Table(

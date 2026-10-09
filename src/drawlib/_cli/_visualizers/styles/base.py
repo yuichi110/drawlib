@@ -224,11 +224,11 @@ def render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None
         (legend_cx, legend_y),
         width=legend_w,
         height=legend_h,
-        r=1.2,
         style=Style(
             shape_fill_color=Color(250, 250, 250),
             shape_line_color=Color(215, 215, 215),
             shape_line_width=1,
+            shape_r=1.2,
         ),
     )
     text(
@@ -257,8 +257,7 @@ def render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None
         (legend_cx - 40.0, legend_y),
         width=13.0,
         height=4.6,
-        r=0.6,
-        style=st_sample,
+        style=st_sample.patch(shape_r=0.6),
         text="Shape",
         text_style=Style(text_size=7.2, text_font=Font.SANSSERIF_BOLD, text_color=legend_text_color),
     )
@@ -316,12 +315,12 @@ def draw_swatch(
             (cx, cy),
             width=tile_w - 1.2,
             height=tile_h - 1.0,
-            r=0.6,
             style=Style(
                 shape_fill_color=Color(252, 252, 252),
                 shape_line_color=Color(235, 235, 235),
                 shape_line_width=1,
                 shape_line_style="dashed",
+                shape_r=0.6,
             ),
             text="-",
             text_style=Style(
@@ -345,8 +344,7 @@ def draw_swatch(
         (cx, cy),
         width=tile_w - 1.2,
         height=tile_h - 1.0,
-        r=0.6,
-        style=st,
+        style=st.patch(shape_r=0.6),
     )
 
     badge = format_supports_badge(st.supports)

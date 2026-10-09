@@ -131,7 +131,7 @@ bar = BarChart(
     height=38,
     title="Partial Growth (draw_ratio=0.6)",
     title_style=Styles.BlackBold.patch(text_size=11.0),
-    r=0.8,
+    bar_r=0.8,
 )
 bar.add_series("2025 Baseline", [20, 28, 34, 42], style=Styles.SecondaryNeutral, draw_ratio=1.0)
 bar.add_series("2026 Actual", [25, 36, 48, 60], style=Styles.PrimaryFlat, draw_ratio=0.6)

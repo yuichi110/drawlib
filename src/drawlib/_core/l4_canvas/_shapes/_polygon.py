@@ -78,9 +78,10 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p1 = (0, 0)
         p2 = (topvertex_x, height)
         p3 = (width, 0)
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3], style.shape_r)
         self.shape(
             xy=xy,
-            path_points=[p1, p2, p3],
+            path_points=path_points,
             style=style,
             text=text,
             text_style=text_style,
@@ -123,10 +124,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = calculate_parallelogram_lefttop_coordinate()
         p3 = (p2[0] + width, height)
         p4 = (width, 0)
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
 
         self.shape(
             xy=xy,
-            path_points=[p1, p2, p3, p4],
+            path_points=path_points,
             style=style,
             text=text,
             text_style=text_style,
@@ -168,10 +170,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (topedge_x, height)
         p3 = (topedge_x + topedge_width, height)
         p4 = (bottomedge_width, 0)
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
 
         self.shape(
             xy=xy,
-            path_points=[p1, p2, p3, p4],
+            path_points=path_points,
             style=style,
             text=text,
             text_style=text_style,
@@ -207,10 +210,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (width / 2, height)
         p3 = (width, height / 2)
         p4 = (width / 2, 0)
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
 
         self.shape(
             xy=xy,
-            path_points=[p1, p2, p3, p4],
+            path_points=path_points,
             style=style,
             text=text,
             text_style=text_style,
@@ -265,9 +269,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             p5 = (p5[0] * -1, p5[1])
             p6 = (p6[0] * -1, p6[1])
 
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4, p5, p6], style.shape_r)
+
         self.shape(
             xy=xy,
-            path_points=[p1, p2, p3, p4, p5, p6],
+            path_points=path_points,
             style=style,
             text=text,
             text_style=text_style,
@@ -337,21 +343,14 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
 
         cx = x + width / 2
         cy = y + height / 2
-        points2 = []
+        points2: list[Coordinate] = []
         for pp in points:
             rx, ry = rotate_point(pp, angle=angle)
             points2.append((rx + cx, ry + cy))
 
         # create Path
-
-        vertices = [points2[0]]
-        codes = [Path.MOVETO]
-        for p in points2[1:]:
-            vertices.append((p[0], p[1]))
-            codes.append(Path.LINETO)
-        vertices.append(points2[0])
-        codes.append(Path.CLOSEPOLY)
-        path = Path(vertices=vertices, codes=codes)
+        path_points = ShapeUtil.round_polygon_points(points2, style.shape_r)
+        path = ShapeUtil.build_matplotlib_path(path_points)
 
         # create PathPatch
 
@@ -430,7 +429,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             xys.append(tail_vertex_xy)
             xys.append((x + width * tail_start_ratio, y))
 
-        self.polygon(xys=xys, style=style)
+        self.polygon(xys=xys, style=style.patch(shape_r=0.0))
+
 
         if text:
             center_x = x + width / 2.0

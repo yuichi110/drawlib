@@ -37,7 +37,7 @@ from drawlib.graph import (
 
 ### Core Declaration & Execution Methods
 - **`g.node(id, label=None, *, style=None, text_style=None, shape="rectangle", icon=None, width=None, height=None, ..., show: bool = True) -> Node`**
-  - Supported `shape` values: `"rectangle"` *(default)*, `"rounded_rectangle"`, `"circle"`.
+  - Supported `shape` values: `"rectangle"` *(default; corner radius controlled via `style.shape_r`)*, `"circle"`.
   - Setting `show=False` keeps the node in the layout calculation (`calc()`) so coordinates remain fixed, while skipping the node and its connected edges during rendering (`draw()`).
 - **`g.edge(src, dst, label=None, *, style=None, text_style=None, arrow_head="->", line_style=None, show: bool = True) -> Edge`**
   - Connects `src` to `dst` (automatically creating undeclared nodes with default styling). Automatically hidden during rendering if `show=False` or if either endpoint node has `show=False`.

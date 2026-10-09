@@ -35,7 +35,7 @@ class BarChart(AxisChartMixin):
         orientation: Orientation = "vertical",
         bar_mode: BarMode = "group",
         bar_width_ratio: float = 0.7,
-        r: float = 0.0,
+        bar_r: float = 0.0,
         axis_text_style: Style | None = None,
         grid_style: Style | None = None,
         value_text_style: Style | None = None,
@@ -54,7 +54,7 @@ class BarChart(AxisChartMixin):
             orientation: Bar orientation ("vertical" or "horizontal"). Defaults to "vertical".
             bar_mode: Multi-series layout ("group" or "stack"). Defaults to "group".
             bar_width_ratio: Ratio of category slot occupied by bars (0.1 to 1.0). Defaults to 0.7.
-            r: Corner radius for bars. Defaults to 0.0.
+            bar_r: Corner radius for bar tips (applied only to the 2 tip corners). Defaults to 0.0.
             axis_text_style: Optional Style for axis tick labels and category names.
             grid_style: Optional Style for background gridlines.
             value_text_style: Optional Style for data value labels drawn on bars.
@@ -70,7 +70,7 @@ class BarChart(AxisChartMixin):
         self.orientation: Orientation = orientation
         self.bar_mode: BarMode = bar_mode
         self.bar_width_ratio: float = float(bar_width_ratio)
-        self.r: float = float(r)
+        self.bar_r: float = float(bar_r)
         self.axis_text_style: Style | None = axis_text_style
         self.grid_style: Style | None = grid_style
         self.value_text_style: Style | None = value_text_style

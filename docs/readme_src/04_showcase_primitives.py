@@ -26,7 +26,7 @@ row_card_style = Styles.MutedOutline.patch(shape_fill_color=Colors.White, shape_
 
 # Background card rows
 for ry in [52, 40, 28, 16, 5.5]:
-    rectangle((60, ry), width=112, height=9.5, r=1.5, style=row_card_style)
+    rectangle((60, ry), width=112, height=9.5, style=row_card_style.patch(shape_r=1.5))
 
 # 1. Icons (Phosphor & GCP)
 y_icon = 52
@@ -74,8 +74,7 @@ rectangle(
     (33, y_shape),
     width=12,
     height=6.5,
-    r=1.5,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text="Primary",
     text_style=Styles.WhiteBold.patch(text_size=8),
 )
@@ -83,8 +82,7 @@ rectangle(
     (49, y_shape),
     width=12,
     height=6.5,
-    r=1.5,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=1.5),
     text="Neutral",
     text_style=Styles.DarkBold.patch(text_size=8),
 )
@@ -92,8 +90,7 @@ rectangle(
     (65, y_shape),
     width=12,
     height=6.5,
-    r=1.5,
-    style=Styles.SecondaryNeutral,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
     text="Secondary",
     text_style=Styles.SecondaryBold.patch(text_size=8),
 )

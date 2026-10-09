@@ -24,6 +24,32 @@ if TYPE_CHECKING:
     from drawlib._diagrams.class_diagram._class_node import ClassNode
 
 
+def _resolve_header_box_style(
+    node: ClassNode,
+    default_node_style: Style,
+    default_header_style: Style | None,
+    box_style: Style,
+) -> Style:
+    """Resolve the Style for the class header box."""
+    if node.header_style is not None:
+        header_base = default_header_style if default_header_style is not None else default_node_style
+        header_box_style = header_base.patch(node.header_style)
+    elif default_header_style is not None:
+        header_box_style = default_header_style
+    else:
+        border_color = box_style.shape_line_color or (71, 85, 105, 1.0)
+        header_box_style = Style(
+            shape_fill_color=border_color,
+            shape_line_color=border_color,
+            shape_line_width=1.5,
+            text_color=(255, 255, 255, 1.0),
+            shape_r=1.0,
+        )
+    if header_box_style.shape_r is None:
+        header_box_style = header_box_style.patch(shape_r=1.0)
+    return header_box_style
+
+
 def render_class_node(
     node: ClassNode,
     canvas_xy: tuple[float, float],
@@ -47,25 +73,16 @@ def render_class_node(
 
     # 1. Main Background and Outer Box
     box_style = default_node_style.patch(node.style) if node.style is not None else default_node_style
+    if box_style.shape_r is None:
+        box_style = box_style.patch(shape_r=1.0)
     border_color = box_style.shape_line_color or (71, 85, 105, 1.0)
-    canvas_rectangle(xy=(cx, cy), width=w, height=h, r=1.0, style=box_style)
+    canvas_rectangle(xy=(cx, cy), width=w, height=h, style=box_style)
 
     # 2. Header Box & Title Text
     hh = node.header_height
     header_cy = top_y - hh / 2.0
-    if node.header_style is not None:
-        header_base = default_header_style if default_header_style is not None else default_node_style
-        header_box_style = header_base.patch(node.header_style)
-    elif default_header_style is not None:
-        header_box_style = default_header_style
-    else:
-        header_box_style = Style(
-            shape_fill_color=border_color,
-            shape_line_color=border_color,
-            shape_line_width=1.5,
-            text_color=(255, 255, 255, 1.0),
-        )
-    canvas_rectangle(xy=(cx, header_cy), width=w, height=hh, r=1.0, style=header_box_style)
+    header_box_style = _resolve_header_box_style(node, default_node_style, default_header_style, box_style)
+    canvas_rectangle(xy=(cx, header_cy), width=w, height=hh, style=header_box_style)
 
     header_text_color = header_box_style.text_color or (255, 255, 255, 1.0)
     header_font = Font.SANSSERIF_BOLD
@@ -177,10 +194,10 @@ def render_class_node(
         xy=(cx, cy),
         width=w,
         height=h,
-        r=1.0,
         style=Style(
             shape_fill_color=Colors.Transparent,
             shape_line_color=border_color,
             shape_line_width=1.5,
+            shape_r=box_style.shape_r,
         ),
     )

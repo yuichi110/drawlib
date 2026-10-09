@@ -81,11 +81,11 @@ def draw_legend(
                     xy=(swatch_cx, item_y),
                     width=swatch_w,
                     height=swatch_h,
-                    r=swatch_r,
                     style=Style(
                         shape_fill_color=color,
                         shape_line_color=Colors.Transparent,
                         shape_line_width=0,
+                        shape_r=swatch_r,
                     ),
                 )
                 raw_style = text_style.patch(custom_text_style) if custom_text_style is not None else text_style
@@ -109,11 +109,11 @@ def draw_legend(
                         xy=(swatch_cx, start_y),
                         width=swatch_w,
                         height=swatch_h,
-                        r=swatch_r,
                         style=Style(
                             shape_fill_color=color,
                             shape_line_color=Colors.Transparent,
                             shape_line_width=0,
+                            shape_r=swatch_r,
                         ),
                     )
                     text_x = cur_x + swatch_w + text_offset

@@ -37,7 +37,7 @@ regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.SecondaryNeutral,
 star((105, 45), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.Neutral)
 
 # Row 2: Rectangles & Polygons
-rectangle((20, 18), width=24, height=14, r=2, style=Styles.Neutral, text="rounded")
+rectangle((20, 18), width=24, height=14, style=Styles.Neutral.patch(shape_r=2), text="rounded")
 rhombus((50, 18), width=22, height=16, style=Styles.Neutral, text="rhombus")
 trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.Neutral, text="trapezoid")
 triangle((105, 18), width=18, height=14, style=Styles.SecondaryNeutral, text="tri")
@@ -139,9 +139,9 @@ save()
 
 ## 6. Rectangular & Planar Polygons
 
-### `rectangle(xy, width, height, r=0.0, ...)`
-Draws a rectangle centered at `xy`. 
-- Set `r` to create smooth **rounded corners** (e.g., `r=4.0`).
+### `rectangle(xy, width, height, ...)`
+Draws a rectangle centered at `xy`.
+- Set `style.shape_r` to create smooth **rounded corners** (e.g., `style=Styles.PrimaryFlat.patch(shape_r=4.0)`, or pass a per-vertex tuple matching the vertex count).
 - Use `style.angle` to rotate around the geometric center.
 
 ```drawlib show-code 600px center file:shapes_rectangle.png caption:"Rounded Rectangle Service Card"
@@ -151,7 +151,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", text_style=Styles.WhiteBold)
+rectangle((50, 25), width=50, height=26, style=Styles.PrimaryFlat.patch(shape_r=4), text="Service Card", text_style=Styles.WhiteBold)
 
 save()
 ```

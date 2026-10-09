@@ -32,8 +32,8 @@ setup(width=135, height=54)
 ts_body = Styles.Dark.patch(text_size=8.5, halign="left")
 
 # 1. スキャフォールド: drawlib init
-rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.MutedDashed)
-rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.SecondaryFlat, text="1. drawlib init", text_style=Styles.WhiteBold)
+rectangle((23.5, 24.0), width=35.0, height=38.0, style=Styles.MutedDashed.patch(shape_r=2.0))
+rectangle((23.5, 40.0), width=33.0, height=5.5, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init", text_style=Styles.WhiteBold)
 
 phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.Secondary)
 text((16.0, 31.0), text="init doc report\n対象フォルダの自動決定", style=ts_body)
@@ -49,8 +49,8 @@ line((42.0, 24.0), (49.0, 24.0), arrow_head="->", style=Styles.DarkBold)
 text((45.5, 27.5), text="自動生成", style=Styles.DarkBold.patch(text_size=8.5))
 
 # 2. 編集ディレクトリ: report_src/ (Source of Truth)
-rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
-rectangle((67.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="2. report_src/ (編集源)", text_style=Styles.WhiteBold)
+rectangle((67.5, 24.0), width=35.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((67.5, 40.0), width=33.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="2. report_src/ (編集源)", text_style=Styles.WhiteBold)
 
 phosphor.file_text(xy=(55.0, 31.0), width=5.0, style=Styles.Primary)
 text((60.0, 31.0), text="00_cover.md, 01_*.md\n文章 + 埋め込み作図コード", style=ts_body)
@@ -66,8 +66,8 @@ line((86.0, 24.0), (93.0, 24.0), arrow_head="->", style=Styles.DarkBold)
 text((89.5, 27.5), text="build.sh", style=Styles.DarkBold.patch(text_size=8.5))
 
 # 3. 成果物: report.pdf
-rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.AccentOutline)
-rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="3. report.pdf (成果物)", text_style=Styles.WhiteBold)
+rectangle((111.5, 24.0), width=35.0, height=38.0, style=Styles.AccentOutline.patch(shape_r=2.0))
+rectangle((111.5, 40.0), width=33.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.5), text="3. report.pdf (成果物)", text_style=Styles.WhiteBold)
 
 phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.Accent)
 text((104.0, 31.0), text="A4 印刷最適化\nChromium による描画", style=ts_body)

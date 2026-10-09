@@ -18,8 +18,8 @@ header_ts = Styles.WhiteBold.patch(text_size=9.5)
 ts_body = Styles.Dark.patch(text_size=7.5, halign="left")
 
 # 1. Slide Source Markdown & Canvas
-rectangle((24.0, 26.0), width=36.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
-rectangle((24.0, 42.0), width=34.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="Markdown 16:9 Stage", text_style=header_ts)
+rectangle((24.0, 26.0), width=36.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((24.0, 42.0), width=34.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="Markdown 16:9 Stage", text_style=header_ts)
 
 phosphor.presentation(xy=(10.0, 33.0), width=4.5, style=Styles.Primary)
 text((14.0, 33.0), text="1 Markdown = 1 Slide\n1920x1080 固定ステージ", style=ts_body)
@@ -31,8 +31,8 @@ phosphor.code(xy=(10.0, 14.0), width=4.5, style=Styles.Primary)
 text((14.0, 14.0), text="```drawlib コードブロック\nインラインアーキテクチャ図", style=ts_body)
 
 # 2. Build Pipeline
-rectangle((70.0, 26.0), width=28.0, height=38.0, r=2.0, style=Styles.AccentOutline)
-rectangle((70.0, 42.0), width=26.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="Compiler Engine", text_style=header_ts)
+rectangle((70.0, 26.0), width=28.0, height=38.0, style=Styles.AccentOutline.patch(shape_r=2.0))
+rectangle((70.0, 42.0), width=26.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.5), text="Compiler Engine", text_style=header_ts)
 
 phosphor.gear(xy=(60.0, 31.0), width=4.5, style=Styles.Accent)
 text((64.0, 31.0), text="drawlib build\nスライド構文解析", style=ts_body)
@@ -41,8 +41,8 @@ phosphor.arrows_split(xy=(60.0, 19.0), width=4.5, style=Styles.Accent)
 text((64.0, 19.0), text="HTML & PDF\nデュアル生成パイプライン", style=ts_body)
 
 # 3. Deliverables
-rectangle((116.0, 26.0), width=36.0, height=38.0, r=2.0, style=Styles.SuccessOutline)
-rectangle((116.0, 42.0), width=34.0, height=5.5, r=1.5, style=Styles.SuccessFlat, text="Dual Outputs", text_style=header_ts)
+rectangle((116.0, 26.0), width=36.0, height=38.0, style=Styles.SuccessOutline.patch(shape_r=2.0))
+rectangle((116.0, 42.0), width=34.0, height=5.5, style=Styles.SuccessFlat.patch(shape_r=1.5), text="Dual Outputs", text_style=header_ts)
 
 phosphor.desktop(xy=(102.0, 33.0), width=4.5, style=Styles.Success)
 text((106.0, 33.0), text="Web Presentation\nキーボード操作・全画面(F)", style=ts_body)

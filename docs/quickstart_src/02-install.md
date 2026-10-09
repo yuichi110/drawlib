@@ -53,7 +53,7 @@ layers = [
 ]
 
 for idx, (x, icon_fn, title, desc, st) in enumerate(layers):
-    rectangle(xy=(x, 22), width=22, height=36, r=2.5, style=Styles.MutedDashed)
+    rectangle(xy=(x, 22), width=22, height=36, style=Styles.MutedDashed.patch(shape_r=2.5))
     icon_fn(xy=(x, 34), width=6, style=st)
     text(xy=(x, 26), text=title, style=Styles.DarkBold.patch(text_size=8))
     text(xy=(x, 14), text=desc, style=Styles.Dark.patch(text_size=7))

@@ -163,12 +163,11 @@ class TestCanvasBase:
             text_style=s_def.patch(xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
 
-        # Style & rounded corner (r > 0)
+        # Style & rounded corner (shape_r > 0)
         rectangle(
             (50, 50),
             40,
             20,
-            r=3.0,
             text="Rectangle",
             style=s_def.patch(
                 angle=45,
@@ -177,6 +176,7 @@ class TestCanvasBase:
                 alpha=0.5,
                 shape_line_style="dashed",
                 shape_line_width=3,
+                shape_r=3.0,
             ),
         )
 
@@ -221,7 +221,7 @@ class TestCanvasBase:
             canvas.regularpolygon((40, 40), num_vertex=5, radius=10, style=Styles.Primary)
             canvas.wedge((40, 40), radius=10, width=4, style=Styles.Primary)
             canvas.polygon([(20, 20), (40, 20), (30, 40)], style=Styles.Primary)
-            canvas.rectangle((20, 20), width=20, height=10, r=2.0, style=Styles.Primary, text="Box")
+            canvas.rectangle((20, 20), width=20, height=10, style=Styles.Primary.patch(shape_r=2.0), text="Box")
             canvas.line((20, 20), (40, 40), style=Styles.Primary, arrow_head="->")
             canvas.line_curved((20, 20), (40, 40), bend=0.2, style=Styles.Primary, arrow_head="->")
             canvas.text(

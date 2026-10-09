@@ -69,7 +69,8 @@ def service_card(
         style: Card shape style.
     """
     x, y = xy
-    rectangle(xy, width=width, height=height, r=2.0, style=style)
+    card_style = style if style.shape_r is not None else style.patch(shape_r=2.0)
+    rectangle(xy, width=width, height=height, style=card_style)
     if subtitle:
         text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=11))
         text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=8))
@@ -162,8 +163,9 @@ def draw_curved_agenda(
             shape_fill_color=(255, 255, 255),
             shape_line_color=(226, 232, 240),
             shape_line_width=1.0,
+            shape_r=h_pill / 2.0,
         )
-        rectangle((x_pill_center, yi), width=w_pill, height=h_pill, r=h_pill / 2.0, style=pill_style)
+        rectangle((x_pill_center, yi), width=w_pill, height=h_pill, style=pill_style)
 
         # Text labels
         x_text = x_pill_start + 4.0
@@ -236,8 +238,9 @@ def draw_kpi_cards(
             shape_fill_color=(248, 250, 252),
             shape_line_color=(226, 232, 240),
             shape_line_width=1.0,
+            shape_r=3.0,
         )
-        rectangle((cx, cy), width=card_w, height=card_h, r=3.0, style=card_style)
+        rectangle((cx, cy), width=card_w, height=card_h, style=card_style)
 
         # Left accent pill
         accent = accent_colors[i % len(accent_colors)]
@@ -245,9 +248,10 @@ def draw_kpi_cards(
             shape_fill_color=accent,
             shape_line_color=accent,
             shape_line_width=0.0,
+            shape_r=1.0,
         )
         pill_x = cx - (card_w / 2.0) + 1.5
-        rectangle((pill_x, cy), width=2.0, height=card_h * 0.7, r=1.0, style=pill_style)
+        rectangle((pill_x, cy), width=2.0, height=card_h * 0.7, style=pill_style)
 
         # Metric number
         text(

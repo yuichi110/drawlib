@@ -38,6 +38,7 @@ Style(
     shape_line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     shape_line_width: float | None = None,
     shape_line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
+    shape_r: float | tuple[float, ...] | None = None,
 
     # Line / Arrow Properties (line, lines, arrow, etc.)
     line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
@@ -85,6 +86,7 @@ Style(
 | `shape_line_color` | `ColorType` | Shape border stroke color. |
 | `shape_line_width` | `float` | Shape border stroke thickness in points. |
 | `shape_line_style` | `str` | Shape border pattern: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`. |
+| `shape_r` | `float \| tuple[float, ...]` | Corner rounding radius for polygonal/arrow shapes (scalar for all vertices, or per-vertex tuple matching vertex count; ignored on circular shapes). |
 | `line_color` | `ColorType` | Connector/path line stroke color. |
 | `line_width` | `float` | Line stroke thickness in points. |
 | `line_style` | `str` | Line dash pattern: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`. |
@@ -199,6 +201,7 @@ card_style = Styles.Primary.patch(
     shape_line_color=Colors.Blue,
     shape_line_width=2,
     shape_line_style="solid",
+    shape_r=3,
     text_color=(30, 40, 50),
     text_font=FontRoboto.ROBOTO_BOLD,
     text_size=14,
@@ -210,8 +213,8 @@ active_card_style = card_style.patch(
     text_color=(255, 255, 255),
 )
 
-rectangle((40, 30), width=40, height=24, r=3, style=card_style, text="Standby Node")
-rectangle((100, 30), width=40, height=24, r=3, style=active_card_style, text="Active Leader")
+rectangle((40, 30), width=40, height=24, style=card_style, text="Standby Node")
+rectangle((100, 30), width=40, height=24, style=active_card_style, text="Active Leader")
 
 line((60, 30), (80, 30), arrow_head="->", style=Styles.PrimaryBold)
 save()

@@ -79,6 +79,7 @@ Size = (
         BeforeValidator(_normalize_str),
     ]
 )
+ShapeRadius = PosFloat | Annotated[tuple[PosFloat, ...], Field(min_length=1)]
 
 __all__ = [
     "Angle",
@@ -89,7 +90,9 @@ __all__ = [
     "HAlign",
     "IconStyle",
     "LineStyle",
+    "ShapeRadius",
     "Size",
     "TailEdge",
     "VAlign",
 ]
+

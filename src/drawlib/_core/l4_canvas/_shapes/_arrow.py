@@ -24,6 +24,7 @@ from drawlib._core.l2_types import (
     Coordinates,
     PathPoints,
     PosFloat,
+    ShapeRadius,
     Size,
 )
 from drawlib._core.l3_math import (
@@ -139,7 +140,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         head_width: PosFloat,
         head_length: PosFloat,
         head: ArrowHead = "->",
-        r: PosFloat = 0,
         *,
         style: Style,
     ) -> None:
@@ -151,7 +151,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_width: Width of arrow head.
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
-            r: Corner radius for polyline joints.
             style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
@@ -190,7 +189,7 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         new_xys = xys[1:-1]
         new_xys.insert(0, xys_start)
         new_xys.append(xys_end)
-        aph = ArrowPolylineHelper(new_xys, r, 100)
+        aph = ArrowPolylineHelper(new_xys, style.shape_r, 100)
         parallel_xys1 = aph.get_parallel_points(tail_width / 2)
         parallel_xys2 = aph.get_parallel_points(tail_width / -2)
         parallel_xys2.reverse()
@@ -210,7 +209,8 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             parallel_xys1.append(ahp4)
 
         parallel_xys1.extend(parallel_xys2)
-        self.polygon(xys=parallel_xys1, style=style, text="", text_style=None)
+        self.polygon(xys=parallel_xys1, style=style.patch(shape_r=0.0), text="", text_style=None)
+
 
     @validate_call
     def arrow_arc(
@@ -370,7 +370,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         head_width: PosFloat,
         head_length: PosFloat,
         head: ArrowHead = "->",
-        r: PosFloat = 0,
         *,
         style: Style,
     ) -> None:
@@ -384,7 +383,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_width: Width of arrow head.
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
-            r: Corner radius.
             style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
@@ -407,7 +405,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_width=head_width,
             head_length=head_length,
             head=head,
-            r=r,
             style=style,
         )
 
@@ -421,7 +418,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         head_width: PosFloat,
         head_length: PosFloat,
         head: ArrowHead = "->",
-        r: PosFloat = 0,
         *,
         style: Style,
     ) -> None:
@@ -435,7 +431,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_width: Width of arrow head.
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
-            r: Corner radius.
             style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
@@ -459,7 +454,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_width=head_width,
             head_length=head_length,
             head=head,
-            r=r,
             style=style,
         )
 
@@ -503,10 +497,22 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
 class ArrowPolylineHelper:
     """Internal class"""
 
+    @staticmethod
+    def _normalize_joint_radii(num_joints: int, r: ShapeRadius | None) -> list[float]:
+        if r is None:
+            return [0.0] * num_joints
+        if isinstance(r, (int, float)):
+            return [float(r)] * num_joints
+        if len(r) != num_joints:
+            raise ValueError(
+                f"shape_r tuple length ({len(r)}) must match the number of joints ({num_joints})."
+            )
+        return [float(val) for val in r]
+
     def __init__(
         self,
         xys: Coordinates,
-        r: float,
+        r: ShapeRadius | None,
         num_points: int = 100,
     ) -> None:
         """Internal function"""
@@ -514,12 +520,13 @@ class ArrowPolylineHelper:
         def get_mid_points(
             a: Coordinate,
             b: Coordinate,
+            radius: float,
         ) -> tuple[Coordinate, Coordinate]:
             ab = [b[0] - a[0], b[1] - a[1]]
             ab_distance = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = [ab[0] / ab_distance, ab[1] / ab_distance]
-            c = (a[0] + r * ab_unit[0], a[1] + r * ab_unit[1])
-            d = (b[0] - r * ab_unit[0], b[1] - r * ab_unit[1])
+            c = (a[0] + radius * ab_unit[0], a[1] + radius * ab_unit[1])
+            d = (b[0] - radius * ab_unit[0], b[1] - radius * ab_unit[1])
             return c, d
 
         def bernstein_poly(i: int, n: int, t: float) -> float:
@@ -536,34 +543,26 @@ class ArrowPolylineHelper:
                 curve.append((x, y))
             return curve
 
-        self._r = r
-        if r == 0:
+        num_joints = max(0, len(xys) - 2)
+        radii = self._normalize_joint_radii(num_joints, r)
+
+        if not radii or all(val == 0.0 for val in radii):
+            self._r = 0.0
             self._original_points = xys[:]
             return
 
-        points = []
-        bezier_start: Coordinate = (0, 0)
-        last_i = len(xys) - 2
-        # last_xy = (0, 0)
-        for i in range(len(xys)):
-            # first straight line
-            if i == 0:
-                _, bezier_start = get_mid_points(xys[0], xys[1])
-                points.append(xys[0])
-                continue
-
-            # last straight line
-            if i == last_i:
-                p1, _ = get_mid_points(xys[i], xys[i + 1])
-                bezier_points = [bezier_start, xys[i], p1]
+        self._r = max(radii)
+        points: Coordinates = [xys[0]]
+        for i in range(1, len(xys) - 1):
+            r_joint = radii[i - 1]
+            if r_joint <= 0.0:
+                points.append(xys[i])
+            else:
+                _, p_in = get_mid_points(xys[i - 1], xys[i], r_joint)
+                p_out, _ = get_mid_points(xys[i], xys[i + 1], r_joint)
+                bezier_points = [p_in, xys[i], p_out]
                 points.extend(get_points(bezier_points))
-                points.append(xys[i + 1])
-                break
-
-            p1, p2 = get_mid_points(xys[i], xys[i + 1])
-            bezier_points = [bezier_start, xys[i], p1]
-            points.extend(get_points(bezier_points))
-            bezier_start = p2
+        points.append(xys[-1])
 
         self._original_points = points
 
@@ -584,6 +583,8 @@ class ArrowPolylineHelper:
             p0, p1 = self._original_points[i - 1], self._original_points[i]
             dx, dy = p1[0] - p0[0], p1[1] - p0[1]
             length = get_distance(p0, p1)
+            if length == 0:
+                continue
             nx, ny = -dy / length, dx / length
             px0, py0 = p0[0] + distance * nx, p0[1] + distance * ny
             px1, py1 = p1[0] + distance * nx, p1[1] + distance * ny
@@ -592,6 +593,7 @@ class ArrowPolylineHelper:
                 parallel_curve_points.append((px1, py1))
 
         return parallel_curve_points
+
 
     def _get_parallel_straight_points(self, distance: float) -> Coordinates:
         """Internal function"""

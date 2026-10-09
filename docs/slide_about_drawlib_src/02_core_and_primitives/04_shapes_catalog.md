@@ -37,8 +37,8 @@ def draw_cell_label(cx: float, cy: float, label: str) -> None:
     text((cx, cy - 8.2), label, style=Styles.DarkBold.patch(text_size=8.5))
 
 # Row 1 (y = 67)
-rectangle((cols[0], rows[0]), width=22, height=11, r=2.5, style=Styles.PrimaryFlat, text="Hero Card", text_style=Styles.WhiteBold.patch(text_size=8.5))
-draw_cell_label(cols[0], rows[0], "rectangle(r=2.5)")
+rectangle((cols[0], rows[0]), width=22, height=11, style=Styles.PrimaryFlat.patch(shape_r=2.5), text="Hero Card", text_style=Styles.WhiteBold.patch(text_size=8.5))
+draw_cell_label(cols[0], rows[0], "rectangle(shape_r=2.5)")
 
 circle((cols[1], rows[0]), radius=6.0, style=Styles.Neutral, text="Node", text_style=Styles.DarkBold.patch(text_size=8.5))
 draw_cell_label(cols[1], rows[0], "circle()")

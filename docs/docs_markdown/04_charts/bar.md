@@ -26,7 +26,7 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 - **`bar_mode`**:
   - `"group"` *(default)*: Side-by-side clustered bars for comparing distinct series across categories.
   - `"stack"`: Accumulates series vertically/horizontally to show part-to-whole proportions.
-- **`r`**: Corner rounding radius applied to the outer edges of the bars.
+- **`bar_r`**: Corner rounding radius applied only to the outer tip corners of the bars (not the axis side or intermediate stacked boundaries).
 - **`value_text_style`**: When provided (not `None`), numerical values are automatically printed directly on the bars.
 - **`draw_legend`**: Decoupled legend rendering at any coordinate on the canvas.
 
@@ -50,7 +50,7 @@ BarChart(
     orientation: Literal["vertical", "horizontal"] = "vertical",
     bar_mode: Literal["group", "stack"] = "group",
     bar_width_ratio: float = 0.7,
-    r: float = 0.0,
+    bar_r: float = 0.0,
 )
 ```
 

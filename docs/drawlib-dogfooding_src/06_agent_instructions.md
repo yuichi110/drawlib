@@ -16,8 +16,8 @@ header_ts = Styles.WhiteBold.patch(text_size=10.0)
 ts_body = Styles.Dark.patch(text_size=7.8, halign="left")
 
 # 1. Drawlib (CLI & Knowledge Base)
-rectangle((22.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
-rectangle((22.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="Drawlib (CLI & ナレッジ)", text_style=header_ts)
+rectangle((22.0, 24.0), width=32.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((22.0, 40.0), width=30.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="Drawlib (CLI & ナレッジ)", text_style=header_ts)
 
 phosphor.book_bookmark(xy=(9.5, 31.0), width=4.5, style=Styles.Primary)
 text((13.5, 31.0), text="drawlib rules show\nAPI仕様・作図ルールを提供", style=ts_body)
@@ -29,8 +29,8 @@ phosphor.gear(xy=(9.5, 12.0), width=4.5, style=Styles.Primary)
 text((13.5, 12.0), text="drawlib build\nPDF / HTML の自動コンパイル", style=ts_body)
 
 # 2. AI Agent (Cursor / Claude / Gemini)
-rectangle((71.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.AccentOutline)
-rectangle((71.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="AI Agent (自律パートナー)", text_style=header_ts)
+rectangle((71.0, 24.0), width=32.0, height=38.0, style=Styles.AccentOutline.patch(shape_r=2.0))
+rectangle((71.0, 40.0), width=30.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.5), text="AI Agent (自律パートナー)", text_style=header_ts)
 
 phosphor.chats(xy=(58.5, 31.0), width=4.5, style=Styles.Accent)
 text((62.5, 31.0), text="1. 知識のオンデマンド対話\nDrawlib から必要な構文を調査", style=ts_body)
@@ -42,8 +42,8 @@ phosphor.eye(xy=(58.5, 12.0), width=4.5, style=Styles.Accent)
 text((62.5, 12.0), text="3. 視覚的セルフレビュー\n重なり・文字溢れを自動検知修正", style=ts_body)
 
 # 3. Docs / Illustration (最終成果物)
-rectangle((120.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.SuccessOutline)
-rectangle((120.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.SuccessFlat, text="Docs / Illustration", text_style=header_ts)
+rectangle((120.0, 24.0), width=32.0, height=38.0, style=Styles.SuccessOutline.patch(shape_r=2.0))
+rectangle((120.0, 40.0), width=30.0, height=5.5, style=Styles.SuccessFlat.patch(shape_r=1.5), text="Docs / Illustration", text_style=header_ts)
 
 phosphor.file_text(xy=(107.5, 31.0), width=4.5, style=Styles.Success)
 text((111.5, 31.0), text="*.md 技術仕様書\nインライン ```drawlib``` 統合", style=ts_body)

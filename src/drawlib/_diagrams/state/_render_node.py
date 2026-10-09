@@ -113,9 +113,11 @@ def _render_box_state(node: State, center_xy: tuple[float, float], default_node_
     h = node.effective_height
 
     style = default_node_style.patch(node.style) if node.style is not None else default_node_style
+    if style.shape_r is None:
+        style = style.patch(shape_r=2.0)
     border_color = _get_visible_border_color(style)
     text_color = style.text_color or (30, 41, 59, 1.0)
-    canvas_rectangle(xy=(cx, cy), width=w, height=h, r=node.r, style=style)
+    canvas_rectangle(xy=(cx, cy), width=w, height=h, style=style)
 
     if not node.actions:
         # Single central name label
@@ -402,9 +404,10 @@ def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float],
         shape_fill_color=solid_color,
         shape_line_color=solid_color,
         shape_line_width=1.0,
+        shape_r=0.4,
     )
     style = base_style.patch(node.style) if node.style is not None else base_style
-    canvas_rectangle(xy=(cx, cy), width=node.width, height=node.height, r=0.4, style=style)
+    canvas_rectangle(xy=(cx, cy), width=node.width, height=node.height, style=style)
 
     if node.name:
         label_style = Style(

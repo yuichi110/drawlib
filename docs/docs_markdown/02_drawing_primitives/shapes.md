@@ -150,9 +150,9 @@ save()
 
 ## 6. Rectangular & Planar Polygons
 
-### `rectangle(xy, width, height, r=0.0, ...)`
-Draws a rectangle centered at `xy`. 
-- Set `r` to create smooth **rounded corners** (e.g., `r=4.0`).
+### `rectangle(xy, width, height, ...)`
+Draws a rectangle centered at `xy`.
+- Set `style.shape_r` to create smooth **rounded corners** (e.g., `style=Styles.PrimaryFlat.patch(shape_r=4.0)`, or pass a per-vertex tuple matching the vertex count).
 - Use `style.angle` to rotate around the geometric center.
 
 
@@ -164,7 +164,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", text_style=Styles.WhiteBold)
+rectangle((50, 25), width=50, height=26, style=Styles.PrimaryFlat.patch(shape_r=4), text="Service Card", text_style=Styles.WhiteBold)
 
 save()
 ```

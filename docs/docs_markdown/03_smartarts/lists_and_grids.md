@@ -25,7 +25,7 @@ Drawlib includes four specialized layout components for structuring collections 
 
 `GridLayout` organizes cards across a grid of `num_column` columns and `num_row` rows:
 - **Anchor**: Bottom-Left `(x, y)`. Row 0 is the bottom row; Column 0 is the left column.
-- **Cell Spanning**: `grid.add(position=(col, row), width=1, height=1, text="", style=None, text_style=None, r=None, show: bool = True)` spans `width` columns and `height` rows. Setting `show=False` hides the cell card while preserving the matrix grid.
+- **Cell Spanning**: `grid.add(position=(col, row), width=1, height=1, text="", style=None, text_style=None, show: bool = True)` spans `width` columns and `height` rows. Setting `show=False` hides the cell card while preserving the matrix grid.
 - **Rendering**: `grid.draw(xy, width, height, margin, outer_margin=0.0, *, scale: float = 1.0)` renders all visible cells and proportionally scales geometry and typography by `scale`.
 
 
@@ -36,7 +36,7 @@ from drawlib.smartarts import GridLayout
 from drawlib.styles import Styles
 
 setup(width=110, height=75)
-grid = GridLayout(num_column=3, num_row=3, style=Styles.Neutral, text_style=Styles.DarkBold, r=2.0)
+grid = GridLayout(num_column=3, num_row=3, style=Styles.Neutral.patch(shape_r=2.0), text_style=Styles.DarkBold)
 grid.add(position=(0, 2), width=3, height=1, text="Top Header Span", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
 grid.add(position=(0, 0), width=1, height=2, text="Sidebar", style=Styles.SecondaryNeutral)
 grid.add(position=(1, 0), width=2, height=2, text="Main Content")
@@ -68,7 +68,7 @@ save()
 ## 4. BoxList (Linear Card Sequences)
 
 `BoxList` sequences cards along one axis (`align="left"`, `"right"`, `"top"`, or `"bottom"`):
-- **`bl.add(text, width=None, height=None, r=None, style=None, text_style=None, show: bool = True)`**: Adds a box to the sequence (`show=False` reserves the box slot and spacing without drawing the box).
+- **`bl.add(text, *, style=None, text_style=None, show: bool = True)`**: Adds a box to the sequence (`show=False` reserves the box slot and spacing without drawing the box).
 - **`bl.draw(xy, box_width, box_height, box_margin=2.0, align="left", *, scale: float = 1.0)`**: Renders the sequence anchored at `xy` with proportional scaling via `scale`.
 
 

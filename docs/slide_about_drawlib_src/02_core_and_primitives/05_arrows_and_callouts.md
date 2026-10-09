@@ -19,16 +19,15 @@ arrow((10, 66), (48, 66), tail_width=4, head_width=9,
 
 # 2. L-shaped & U-turn block arrows (with rounded elbow r)
 arrow_l((25, 42), width=26, height=18, tail_width=3.5,
-        head_width=8, head_length=6, r=4, style=Styles.SecondaryNeutral)
+        head_width=8, head_length=6, style=Styles.SecondaryNeutral.patch(shape_r=4))
 arrow_u((68, 42), width=24, height=20, tail_width=3.5,
-        head_width=8, head_length=6, r=4, style=Styles.BlueNeutral)
+        head_width=8, head_length=6, style=Styles.BlueNeutral.patch(shape_r=4))
 
 # 3. Circular arc & multi-segment polyline block arrows
 arrow_arc((25, 16), width=22, height=18, angle_start=180,
           angle_end=20, tail_width=3, head_width=7, style=Styles.PrimaryNeutral)
 arrow_polyline([(52, 10), (66, 10), (66, 22), (88, 22)],
-               tail_width=3, head_width=7, head_length=5, r=3,
-               style=Styles.Neutral)
+               tail_width=3, head_width=7, head_length=5, style=Styles.Neutral.patch(shape_r=3))
 ```
 
 - **Note**: `arrow()` supports embedded `text`; for `arrow_l`, `arrow_u`, `arrow_arc`, and `arrow_polyline`, place external `text()` labels alongside the shaft.
@@ -53,7 +52,7 @@ clear()
 setup(width=100, height=82)
 
 # Row 1: Straight Block Arrow + Speech Callout
-rectangle((50, 68), width=90, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((50, 68), width=90, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 arrow(
     (12, 68),
     (52, 68),
@@ -78,7 +77,7 @@ bubblespeech(
 )
 
 # Row 2: L-Arrow and U-Arrow
-rectangle((27, 41), width=42, height=24, r=2.5, style=Styles.LightFlat)
+rectangle((27, 41), width=42, height=24, style=Styles.LightFlat.patch(shape_r=2.5))
 arrow_l(
     (27, 43),
     width=26,
@@ -86,12 +85,11 @@ arrow_l(
     tail_width=3.5,
     head_width=8,
     head_length=6,
-    r=4,
-    style=Styles.PrimaryNeutral,
+    style=Styles.PrimaryNeutral.patch(shape_r=4),
 )
-text((27, 32.5), "arrow_l(r=4)", style=Styles.DarkBold.patch(text_size=8.5))
+text((27, 32.5), "arrow_l(shape_r=4)", style=Styles.DarkBold.patch(text_size=8.5))
 
-rectangle((73, 41), width=42, height=24, r=2.5, style=Styles.LightFlat)
+rectangle((73, 41), width=42, height=24, style=Styles.LightFlat.patch(shape_r=2.5))
 arrow_u(
     (73, 43),
     width=24,
@@ -99,13 +97,12 @@ arrow_u(
     tail_width=3.5,
     head_width=8,
     head_length=6,
-    r=4,
-    style=Styles.BlueNeutral,
+    style=Styles.BlueNeutral.patch(shape_r=4),
 )
-text((73, 32.5), "arrow_u(r=4)", style=Styles.DarkBold.patch(text_size=8.5))
+text((73, 32.5), "arrow_u(shape_r=4)", style=Styles.DarkBold.patch(text_size=8.5))
 
 # Row 3: Arc Arrow and Polyline Arrow
-rectangle((27, 14), width=42, height=24, r=2.5, style=Styles.LightFlat)
+rectangle((27, 14), width=42, height=24, style=Styles.LightFlat.patch(shape_r=2.5))
 arrow_arc(
     (27, 16),
     width=24,
@@ -118,16 +115,15 @@ arrow_arc(
 )
 text((27, 5.5), "arrow_arc()", style=Styles.DarkBold.patch(text_size=8.5))
 
-rectangle((73, 14), width=42, height=24, r=2.5, style=Styles.LightFlat)
+rectangle((73, 14), width=42, height=24, style=Styles.LightFlat.patch(shape_r=2.5))
 arrow_polyline(
     [(57, 11), (71, 11), (71, 21), (88, 21)],
     tail_width=3.2,
     head_width=7.5,
     head_length=5.5,
-    r=3.0,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=3.0),
 )
-text((73, 5.5), "arrow_polyline(r=3)", style=Styles.DarkBold.patch(text_size=8.5))
+text((73, 5.5), "arrow_polyline(shape_r=3)", style=Styles.DarkBold.patch(text_size=8.5))
 
 save()
 ```
@@ -142,5 +138,5 @@ utils.draw_page_number()
 
 ::: note
 - Beyond standard geometric shapes, `drawlib.shapes` includes five specialized 2D block arrows (`arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`) and `bubblespeech` callouts.
-- Notice how `arrow_l`, `arrow_u`, and `arrow_polyline` accept a corner fillet radius `r` to create smooth, rounded bends automatically.
+- Notice how `arrow_l`, `arrow_u`, and `arrow_polyline` use `style.shape_r` to create smooth, rounded bends automatically.
 :::

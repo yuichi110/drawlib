@@ -46,7 +46,7 @@ clear()
 setup(width=96, height=84)
 
 # Outer container card
-rectangle((48, 42), width=92, height=80, r=2.0, style=Styles.MutedOutline)
+rectangle((48, 42), width=92, height=80, style=Styles.MutedOutline.patch(shape_r=2.0))
 
 # 1. Top Section: 4-Phase Lifecycle ChevronProcess (Bottom-Left Anchored)
 text(
@@ -75,7 +75,7 @@ lifecycle.add(
 lifecycle.draw(xy=(6, 61), width=84, height=12)
 
 # 2. Bottom-Left Section: BulletPoints Takeaways (Top-Left Anchored)
-rectangle((26, 30), width=40, height=50, r=1.5, style=Styles.NeutralFlat)
+rectangle((26, 30), width=40, height=50, style=Styles.NeutralFlat.patch(shape_r=1.5))
 bp = BulletPoints(
     text_style=Styles.Dark.patch(text_size=8.5),
     vertical_margin=5.2,
@@ -125,7 +125,6 @@ SourceCode.draw(
     styles=code_styles,
     code_lang="python",
     show_linenum=True,
-    r=1.5,
 )
 
 save()

@@ -31,7 +31,6 @@ class FlowNode:
         text: str = "",
         width: float = 24.0,
         height: float = 12.0,
-        r: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         shape_type: ShapeType = "process",
@@ -43,8 +42,7 @@ class FlowNode:
             text: Text content to display centered inside the shape.
             width: Width of the shape. Defaults to 24.0.
             height: Height of the shape. Defaults to 12.0.
-            r: Corner radius for rounded corners. Defaults to 0.0.
-            style: Style object for the shape (fill color, border color/width).
+            style: Style object for the shape (fill color, border color/width, shape_r).
             text_style: Style object for the label text.
             shape_type: Shape type ("process", "decision", "start", "end", "data").
             show: Whether to render this node. Defaults to True.
@@ -52,7 +50,6 @@ class FlowNode:
         self.text = text
         self.width = float(width)
         self.height = float(height)
-        self.r = float(r)
         self.style = style
         self.text_style = text_style
         self.shape_type: ShapeType = shape_type

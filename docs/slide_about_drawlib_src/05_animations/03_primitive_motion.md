@@ -78,11 +78,11 @@ schedule = [
 for step_idx, (pkt_x, active_idx, status_msg, dt) in enumerate(schedule):
     with anim.frame(duration=dt):
         # Outer card & title
-        rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+        rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
         text((49, 73), "Live Microservice Request & ACK Packet Flow", style=Styles.DarkBold.patch(text_size=12.0))
 
         # VPC Container around Gateway, Worker, DB
-        rectangle((60.5, 45), width=62, height=34, r=2.0, style=Styles.PrimaryNeutral)
+        rectangle((60.5, 45), width=62, height=34, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
         text((32.5, 58.5), "Production VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=8.5, halign="left"))
 
         # Connectors between hops
@@ -99,7 +99,7 @@ for step_idx, (pkt_x, active_idx, status_msg, dt) in enumerate(schedule):
             if kind == "db":
                 cylinder((nx, 43), width=15, height=16, style=n_style, text=label, text_style=t_style)
             else:
-                rectangle((nx, 43), width=16, height=16, r=2.0, style=n_style, text=label, text_style=t_style)
+                rectangle((nx, 43), width=16, height=16, style=n_style.patch(shape_r=2.0), text=label, text_style=t_style)
 
         # Draw traveling packet badge
         is_return = step_idx >= 7
@@ -109,8 +109,7 @@ for step_idx, (pkt_x, active_idx, status_msg, dt) in enumerate(schedule):
             (pkt_x, 54.0),
             width=12.0,
             height=4.2,
-            r=1.0,
-            style=pkt_style,
+            style=pkt_style.patch(shape_r=1.0),
             text="ACK" if is_return else "REQ",
             text_style=Styles.WhiteBold.patch(text_size=7.5),
         )
@@ -120,8 +119,7 @@ for step_idx, (pkt_x, active_idx, status_msg, dt) in enumerate(schedule):
             (49, 14.5),
             width=84,
             height=9.0,
-            r=1.5,
-            style=Styles.White,
+            style=Styles.White.patch(shape_r=1.5),
             text=f"[Frame {step_idx + 1}/10]  {status_msg}",
             text_style=Styles.DarkBold.patch(text_size=9.5),
         )

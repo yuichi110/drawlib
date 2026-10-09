@@ -26,10 +26,10 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=100, height=56)
-rectangle((50, 28), 90, 44, r=3, style=Styles.MutedDashed)
-rectangle((24, 28), 26, 20, r=2, style=Styles.Neutral,
+rectangle((50, 28), 90, 44, style=Styles.MutedDashed.patch(shape_r=3))
+rectangle((24, 28), 26, 20, style=Styles.Neutral.patch(shape_r=2),
           text="Client App")
-rectangle((72, 28), 30, 20, r=2, style=Styles.PrimaryFlat,
+rectangle((72, 28), 30, 20, style=Styles.PrimaryFlat.patch(shape_r=2),
           text="API Service", text_style=Styles.WhiteBold)
 line((37, 28), (57, 28), arrow_head="->", style=Styles.DarkBold)
 save()
@@ -59,7 +59,7 @@ arrow(
 
 # Right: Rendered Output Card (image uses center anchor by default)
 card_style = Styles.MutedOutline.patch(shape_fill_color=Colors.White, shape_line_width=1.2)
-rectangle((91, 31.5), width=48, height=33, r=2, style=card_style)
+rectangle((91, 31.5), width=48, height=33, style=card_style.patch(shape_r=2))
 inner_dimage = get_dimage_from_code(INNER_CODE)
 image((91, 31.5), width=45, image=inner_dimage)
 

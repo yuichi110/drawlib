@@ -361,7 +361,7 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 <li><code>&quot;stack&quot;</code>: Accumulates series vertically/horizontally to show part-to-whole proportions.</li>
 </ul>
 </li>
-<li><strong><code>r</code></strong>: Corner rounding radius applied to the outer edges of the bars.</li>
+<li><strong><code>bar_r</code></strong>: Corner rounding radius applied only to the outer tip corners of the bars (not the axis side or intermediate stacked boundaries).</li>
 <li><strong><code>value_text_style</code></strong>: When provided (not <code>None</code>), numerical values are automatically printed directly on the bars.</li>
 <li><strong><code>draw_legend</code></strong>: Decoupled legend rendering at any coordinate on the canvas.</li>
 </ul>
@@ -382,7 +382,7 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
     <span class="n">orientation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"vertical"</span><span class="p">,</span> <span class="s2">"horizontal"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">bar_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"group"</span><span class="p">,</span> <span class="s2">"stack"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"group"</span><span class="p">,</span>
     <span class="n">bar_width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
-    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <h3>Adding Data &amp; Rendering</h3>

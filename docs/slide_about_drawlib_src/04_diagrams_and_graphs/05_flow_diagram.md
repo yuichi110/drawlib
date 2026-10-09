@@ -16,7 +16,7 @@ utils.draw_page_number()
 `FlowDiagram` models operational workflows, CI/CD release gates, and approval processes across organizational or system swimlanes:
 
 ### Standard Flowchart Node Classes
-- **`Start` / `End`**: Rounded stadium/pill terminals (`r=5.0`).
+- **`Start` / `End`**: Rounded stadium/pill terminals (`shape_r=5.0`).
 - **`Process`**: Rectangular execution step (`24 x 12`).
 - **`Decision`**: Diamond conditional gate (`22 x 14`) with explicit `start_side="right" | "bottom" | "left"` branch routing.
 - **`Data`**: Slanted parallelogram for I/O artifacts or payloads (`24 x 12`).

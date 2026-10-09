@@ -23,7 +23,6 @@ class GridItem(BaseModel):
     position: tuple[PosInt, PosInt]
     width: PosInt
     height: PosInt
-    r: PosFloat
     style: Style
     text: str
     text_style: Style
@@ -41,7 +40,6 @@ class GridLayout:
         num_row: PosInt,
         style: Style,
         text_style: Style,
-        r: PosFloat = 0.0,
     ) -> None:
         """Initializes a GridLayout instance.
 
@@ -50,11 +48,9 @@ class GridLayout:
             num_row: The number of rows in the grid.
             style: The default style for the cell rectangles.
             text_style: The default text style for the cell text.
-            r: The default radius for the rectangles. Defaults to 0.0.
         """
         self._num_column = num_column
         self._num_row = num_row
-        self._r = r
         self._style = style
         self._text_style = text_style
 
@@ -72,7 +68,6 @@ class GridLayout:
         width: PosInt,
         height: PosInt,
         *,
-        r: PosFloat | None = None,
         style: Style | None = None,
         text: str = "",
         text_style: Style | None = None,
@@ -84,7 +79,6 @@ class GridLayout:
             position: Starting (column, row) coordinate for the cell.
             width: Number of columns this cell spans.
             height: Number of rows this cell spans.
-            r: Corner radius for the cell rectangle. If None, default r is used.
             style: Style for the cell rectangle. If None, default style is used.
             text: Text to display inside the cell.
             text_style: Style for the text. If None, default text_style is used.
@@ -114,7 +108,6 @@ class GridLayout:
         if row_end >= self._num_row:
             raise ValueError("Grid cell's row start position must be between 0 ~ last-column.")
 
-        cell_r = r if r is not None else self._r
         resolved_style = style if style is not None else self._style
         resolved_text_style = text_style if text_style is not None else self._text_style
 
@@ -122,7 +115,6 @@ class GridLayout:
             position=(column_start, row_start),
             width=width,
             height=height,
-            r=cell_r,
             text=text,
             style=resolved_style,
             text_style=resolved_text_style,
@@ -138,7 +130,6 @@ class GridLayout:
         width: PosFloat,
         height: PosFloat,
         margin: PosFloat,
-        outer_r: PosFloat | None = None,
         outer_style: Style | None = None,
         scale: PosFloat = 1.0,
     ) -> None:
@@ -149,7 +140,6 @@ class GridLayout:
             width (float): The total width of the grid.
             height (float): The total height of the grid.
             margin (float): The margin between grid items.
-            outer_r (int, optional): The radius for the outer grid border. Default is 0.
             outer_style (Style, optional): The style for the outer grid border.
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
@@ -170,7 +160,6 @@ class GridLayout:
             column_margins=column_margins,
             row_heights=row_heights,
             row_margins=row_margins,
-            outer_r=outer_r,
             outer_style=outer_style,
             scale=scale,
         )
@@ -183,7 +172,6 @@ class GridLayout:
         column_margins: list[PosFloat],
         row_heights: list[PosFloat],
         row_margins: list[PosFloat],
-        outer_r: PosFloat | None = None,
         outer_style: Style | None = None,
         scale: PosFloat = 1.0,
     ) -> None:
@@ -195,7 +183,6 @@ class GridLayout:
             column_margins (List[float]): The margins between columns.
             row_heights (List[float]): The heights of each row.
             row_margins (List[float]): The margins between rows.
-            outer_r (int, optional): The radius for the outer grid border. Default is 0.
             outer_style (Style, optional): The style for the outer grid border.
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
 
@@ -216,14 +203,11 @@ class GridLayout:
             # draw outer rectangle
             if outer_style is not None:
                 outer_style = outer_style.patch(halign="left", valign="bottom")
-                if outer_r is None:
-                    outer_r = self._r
 
                 rectangle(
                     xy=xy,
                     width=sum(column_widths) + sum(column_margins),
                     height=sum(row_heights) + sum(row_margins),
-                    r=outer_r,
                     style=outer_style,
                 )
 
@@ -251,7 +235,6 @@ class GridLayout:
                 rr0 = item.position[1]
                 rr1 = item.position[1] + item.height - 1
 
-                r = item.r
                 style = item.style.patch(halign="left", valign="bottom")
                 text = item.text
                 text_style = item.text_style
@@ -269,7 +252,6 @@ class GridLayout:
                     xy=item_xy_left_bottom,
                     width=width,
                     height=height,
-                    r=r,
                     style=style,
                     text=text,
                     text_style=text_style,

@@ -201,6 +201,24 @@ def _get_bar_cat_ratio(
     return r
 
 
+def _get_vertical_tip_shape_r(bar_r: float, value: float) -> float | tuple[float, float, float, float]:
+    """Return 4-corner shape_r tuple for vertical bar tip (top 2 corners for >=0, bottom 2 for <0)."""
+    if bar_r <= 0.0:
+        return 0.0
+    if value < 0.0:
+        return (bar_r, 0.0, 0.0, bar_r)
+    return (0.0, bar_r, bar_r, 0.0)
+
+
+def _get_horizontal_tip_shape_r(bar_r: float, value: float) -> float | tuple[float, float, float, float]:
+    """Return 4-corner shape_r tuple for horizontal bar tip (right 2 corners for >=0, left 2 for <0)."""
+    if bar_r <= 0.0:
+        return 0.0
+    if value < 0.0:
+        return (bar_r, bar_r, 0.0, 0.0)
+    return (0.0, 0.0, bar_r, bar_r)
+
+
 def _draw_vertical_grouped_bars(
     chart: BarChart,
     p_min_x: float,
@@ -239,12 +257,12 @@ def _draw_vertical_grouped_bars(
             h = max(0.1, abs(val_ratio - base_ratio) * plot_h)
             bar_cy = p_min_y + ((base_ratio + val_ratio) / 2.0) * plot_h
 
+            tip_r = _get_vertical_tip_shape_r(chart.bar_r, v)
             canvas_rectangle(
                 xy=(bar_cx, bar_cy),
                 width=bar_w,
                 height=h,
-                r=chart.r,
-                style=ensure_shape_style(series.style),
+                style=ensure_shape_style(series.style).patch(shape_r=tip_r),
             )
 
             if val_label_style is not None:
@@ -272,17 +290,18 @@ def _draw_vertical_stacked_bars(
     for c_idx in range(cat_count):
         cat_cx = p_min_x + (c_idx + 0.5) * slot_w
         accum_val = base_val
-        any_drawn = False
 
+        drawn_segments: list[tuple[Series, float]] = []
         for series in chart.series:
             if c_idx >= len(series.values):
                 continue
-
             cat_r = _get_bar_cat_ratio(c_idx, cat_count, series, "vertical")
             if cat_r <= 0.0:
                 continue
+            drawn_segments.append((series, cat_r))
 
-            any_drawn = True
+        for seg_idx, (series, cat_r) in enumerate(drawn_segments):
+            is_tip = seg_idx == len(drawn_segments) - 1
             v = series.values[c_idx] * cat_r
             prev_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             accum_val += v
@@ -291,15 +310,15 @@ def _draw_vertical_stacked_bars(
             h = max(0.1, abs(next_ratio - prev_ratio) * plot_h)
             bar_cy = p_min_y + ((prev_ratio + next_ratio) / 2.0) * plot_h
 
+            seg_r = _get_vertical_tip_shape_r(chart.bar_r, v) if is_tip else 0.0
             canvas_rectangle(
                 xy=(cat_cx, bar_cy),
                 width=bar_w,
                 height=h,
-                r=chart.r,
-                style=ensure_shape_style(series.style),
+                style=ensure_shape_style(series.style).patch(shape_r=seg_r),
             )
 
-        if val_label_style is not None and any_drawn:
+        if val_label_style is not None and drawn_segments:
             top_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             lbl = val_axis.format_value(accum_val)
             v_style = ensure_text_style(val_label_style, halign="center", valign="bottom")
@@ -455,12 +474,12 @@ def _draw_horizontal_grouped_bars(
             w = max(0.1, abs(val_ratio - base_ratio) * plot_w)
             bar_cx = p_min_x + ((base_ratio + val_ratio) / 2.0) * plot_w
 
+            tip_r = _get_horizontal_tip_shape_r(chart.bar_r, v)
             canvas_rectangle(
                 xy=(bar_cx, bar_cy),
                 width=w,
                 height=bar_h,
-                r=chart.r,
-                style=ensure_shape_style(series.style),
+                style=ensure_shape_style(series.style).patch(shape_r=tip_r),
             )
 
             if val_label_style is not None:
@@ -488,17 +507,18 @@ def _draw_horizontal_stacked_bars(
     for c_idx in range(cat_count):
         cat_cy = p_max_y - (c_idx + 0.5) * slot_h
         accum_val = base_val
-        any_drawn = False
 
+        drawn_segments: list[tuple[Series, float]] = []
         for series in chart.series:
             if c_idx >= len(series.values):
                 continue
-
             cat_r = _get_bar_cat_ratio(c_idx, cat_count, series, "horizontal")
             if cat_r <= 0.0:
                 continue
+            drawn_segments.append((series, cat_r))
 
-            any_drawn = True
+        for seg_idx, (series, cat_r) in enumerate(drawn_segments):
+            is_tip = seg_idx == len(drawn_segments) - 1
             v = series.values[c_idx] * cat_r
             prev_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             accum_val += v
@@ -507,15 +527,15 @@ def _draw_horizontal_stacked_bars(
             w = max(0.1, abs(next_ratio - prev_ratio) * plot_w)
             bar_cx = p_min_x + ((prev_ratio + next_ratio) / 2.0) * plot_w
 
+            seg_r = _get_horizontal_tip_shape_r(chart.bar_r, v) if is_tip else 0.0
             canvas_rectangle(
                 xy=(bar_cx, cat_cy),
                 width=w,
                 height=bar_h,
-                r=chart.r,
-                style=ensure_shape_style(series.style),
+                style=ensure_shape_style(series.style).patch(shape_r=seg_r),
             )
 
-        if val_label_style is not None and any_drawn:
+        if val_label_style is not None and drawn_segments:
             top_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             lbl = val_axis.format_value(accum_val)
             v_style = ensure_text_style(val_label_style, halign="left", valign="center")

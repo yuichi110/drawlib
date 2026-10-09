@@ -188,12 +188,11 @@ def draw_chapter_divider(
         (98.0, 84.0),
         width=24.0,
         height=5.2,
-        r=2.5,
         style=Style(
             shape_fill_color=(224, 231, 255),
             shape_line_color=(199, 210, 254),
             shape_line_width=1.0,
-        ),
+        ).patch(shape_r=2.5),
     )
     text(
         (98.0, 84.0),
@@ -245,12 +244,11 @@ def draw_chapter_divider(
                 (132.0, cy),
                 width=92.0,
                 height=card_h,
-                r=1.8,
                 style=Style(
                     shape_fill_color=(255, 255, 255),
                     shape_line_color=(226, 232, 240),
                     shape_line_width=1.0,
-                ),
+                ).patch(shape_r=1.8),
             )
             circle(
                 (91.5, cy),
@@ -295,7 +293,7 @@ def service_card(
 ) -> None:
     """Draw a standardized service card with a title and optional subtitle."""
     x, y = xy
-    rectangle(xy, width=width, height=height, r=2.0, style=style)
+    rectangle(xy, width=width, height=height, style=style.patch(shape_r=2.0))
     if subtitle:
         text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=11))
         text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=8))
@@ -373,7 +371,7 @@ def draw_curved_agenda(
             shape_line_color=(226, 232, 240),
             shape_line_width=1.0,
         )
-        rectangle((x_pill_center, yi), width=w_pill, height=h_pill, r=h_pill / 2.0, style=pill_style)
+        rectangle((x_pill_center, yi), width=w_pill, height=h_pill, style=pill_style.patch(shape_r=h_pill / 2.0))
 
         # Text labels
         x_text = x_pill_start + 3.5
@@ -440,7 +438,7 @@ def draw_kpi_cards(
             shape_line_color=(226, 232, 240),
             shape_line_width=1.0,
         )
-        rectangle((cx, cy), width=card_w, height=card_h, r=3.0, style=card_style)
+        rectangle((cx, cy), width=card_w, height=card_h, style=card_style.patch(shape_r=3.0))
 
         # Left accent pill
         accent = accent_colors[i % len(accent_colors)]
@@ -450,7 +448,7 @@ def draw_kpi_cards(
             shape_line_width=0.0,
         )
         pill_x = cx - (card_w / 2.0) + 1.5
-        rectangle((pill_x, cy), width=2.0, height=card_h * 0.7, r=1.0, style=pill_style)
+        rectangle((pill_x, cy), width=2.0, height=card_h * 0.7, style=pill_style.patch(shape_r=1.0))
 
         # Metric number
         text(

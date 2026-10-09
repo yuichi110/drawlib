@@ -626,35 +626,35 @@ text((70, 84), "Enterprise E-Commerce Microservices", style=Styles.DarkBold.patc
 text((70, 77), "Synchronous REST Ingress & Asynchronous Event Bus", style=Styles.Muted.patch(text_size=11))
 
 # Subnet / Boundary Containers (Z-Layer 1)
-rectangle((70, 40), width=132, height=62, r=4, style=Styles.MutedDashed)
+rectangle((70, 40), width=132, height=62, style=Styles.MutedDashed.patch(shape_r=4))
 text((24, 67), "Internal VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=10))
 
 # Tier 1: External Client (Neutral) & API Gateway (Hero PrimaryFlat)
-rectangle((22, 40), width=22, height=30, r=2, style=Styles.Neutral)
+rectangle((22, 40), width=22, height=30, style=Styles.Neutral.patch(shape_r=2))
 phosphor.user((22, 48), width=8, style=Styles.Dark)
 text((22, 38), "Client Apps", style=Styles.DarkBold.patch(text_size=10))
 text((22, 31), "Web / Mobile", style=Styles.Muted.patch(text_size=8))
 
-rectangle((50, 40), width=22, height=30, r=2, style=Styles.PrimaryFlat)
+rectangle((50, 40), width=22, height=30, style=Styles.PrimaryFlat.patch(shape_r=2))
 phosphor.cloud((50, 48), width=8, style=Styles.WhiteBold)
 text((50, 38), "API Gateway", style=Styles.WhiteBold.patch(text_size=10))
 text((50, 31), "Rate Limiting", style=Styles.White.patch(text_size=8))
 
 # Tier 2: Backend Core Services (Calm Neutral Cards)
-rectangle((80, 52), width=24, height=18, r=2, style=Styles.Neutral)
+rectangle((80, 52), width=24, height=18, style=Styles.Neutral.patch(shape_r=2))
 text((80, 55), "Order Service", style=Styles.DarkBold.patch(text_size=10))
 text((80, 48), "gRPC :8081", style=Styles.Muted.patch(text_size=8))
 
-rectangle((80, 28), width=24, height=18, r=2, style=Styles.Neutral)
+rectangle((80, 28), width=24, height=18, style=Styles.Neutral.patch(shape_r=2))
 text((80, 31), "Payment Service", style=Styles.DarkBold.patch(text_size=10))
 text((80, 24), "gRPC :8082", style=Styles.Muted.patch(text_size=8))
 
 # Tier 3: Asynchronous Pub/Sub Queue & Storage (Tinted Neutral Cards)
-rectangle((114, 52), width=22, height=18, r=2, style=Styles.SecondaryNeutral)
+rectangle((114, 52), width=22, height=18, style=Styles.SecondaryNeutral.patch(shape_r=2))
 phosphor.broadcast((114, 56), width=6, style=Styles.Dark)
 text((114, 47), "Kafka Broker", style=Styles.DarkBold.patch(text_size=9))
 
-rectangle((114, 28), width=22, height=18, r=2, style=Styles.PrimaryNeutral)
+rectangle((114, 28), width=22, height=18, style=Styles.PrimaryNeutral.patch(shape_r=2))
 phosphor.database((114, 32), width=6, style=Styles.Dark)
 text((114, 23), "PostgreSQL HA", style=Styles.DarkBold.patch(text_size=9))
 
@@ -686,15 +686,15 @@ circle((15, 26), radius=5, style=Styles.DarkFlat)
 text((15, 15), "Initial", style=Styles.DarkBold.patch(text_size=10))
 
 # Processing State (Hero Focal State)
-rectangle((45, 26), width=24, height=16, r=3, style=Styles.PrimaryFlat)
+rectangle((45, 26), width=24, height=16, style=Styles.PrimaryFlat.patch(shape_r=3))
 text((45, 29), "Validating", style=Styles.WhiteBold.patch(text_size=10))
 text((45, 22), "Worker Poll", style=Styles.White.patch(text_size=8))
 
 # Decision Branches: Success vs Failure (Tinted Neutral Cards)
-rectangle((82, 37), width=22, height=14, r=3, style=Styles.SuccessNeutral)
+rectangle((82, 37), width=22, height=14, style=Styles.SuccessNeutral.patch(shape_r=3))
 text((82, 37), "Processed", style=Styles.DarkBold.patch(text_size=10))
 
-rectangle((82, 15), width=22, height=14, r=3, style=Styles.DangerNeutral)
+rectangle((82, 15), width=22, height=14, style=Styles.DangerNeutral.patch(shape_r=3))
 text((82, 15), "Rejected", style=Styles.DarkBold.patch(text_size=10))
 
 # Final State
@@ -736,34 +736,34 @@ text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=Styles.
 text((75, 71), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=Styles.Muted.patch(text_size=11))
 
 # Tier 1: Ingestion Sources (Neutral Outline)
-rectangle((20, 38), width=24, height=44, r=2, style=Styles.MutedDashed)
+rectangle((20, 38), width=24, height=44, style=Styles.MutedDashed.patch(shape_r=2))
 phosphor.broadcast((20, 52), width=7, style=Styles.Dark)
 text((20, 44), "IoT / CDC", style=Styles.DarkBold.patch(text_size=9))
 phosphor.file_csv((20, 32), width=7, style=Styles.Dark)
 text((20, 24), "Batch Files", style=Styles.DarkBold.patch(text_size=9))
 
 # Tier 2: Bronze Layer (Warm Neutral Card)
-rectangle((53, 38), width=24, height=44, r=2, style=Styles.AmberNeutral)
+rectangle((53, 38), width=24, height=44, style=Styles.AmberNeutral.patch(shape_r=2))
 phosphor.database((53, 51), width=8, style=Styles.Dark)
 text((53, 41), "Bronze Tier", style=Styles.DarkBold.patch(text_size=10))
 text((53, 34), "Raw Append", style=Styles.Muted.patch(text_size=8))
 text((53, 27), "Parquet / JSON", style=Styles.Muted.patch(text_size=8))
 
 # Tier 3: Silver Layer (Cool Neutral Card)
-rectangle((86, 38), width=24, height=44, r=2, style=Styles.Neutral)
+rectangle((86, 38), width=24, height=44, style=Styles.Neutral.patch(shape_r=2))
 phosphor.check_circle((86, 51), width=8, style=Styles.Dark)
 text((86, 41), "Silver Tier", style=Styles.DarkBold.patch(text_size=10))
 text((86, 34), "Cleaned / Joined", style=Styles.Muted.patch(text_size=8))
 text((86, 27), "Delta Tables", style=Styles.Muted.patch(text_size=8))
 
 # Tier 4: Gold Layer (Hero PrimaryFlat Focal Mart)
-rectangle((120, 50), width=26, height=20, r=2, style=Styles.PrimaryFlat)
+rectangle((120, 50), width=26, height=20, style=Styles.PrimaryFlat.patch(shape_r=2))
 phosphor.chart_bar((120, 55), width=6, style=Styles.WhiteBold)
 text((120, 47), "Gold Marts", style=Styles.WhiteBold.patch(text_size=10))
 text((120, 42), "Star Schemas", style=Styles.White.patch(text_size=8))
 
 # Tier 5: Consumers (SecondaryNeutral Card)
-rectangle((120, 26), width=26, height=20, r=2, style=Styles.SecondaryNeutral)
+rectangle((120, 26), width=26, height=20, style=Styles.SecondaryNeutral.patch(shape_r=2))
 phosphor.cpu((120, 31), width=6, style=Styles.Dark)
 text((120, 23), "ML Models", style=Styles.DarkBold.patch(text_size=10))
 text((120, 18), "Serving API", style=Styles.Muted.patch(text_size=8))

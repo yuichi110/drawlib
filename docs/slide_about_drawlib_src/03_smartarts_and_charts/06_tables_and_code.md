@@ -38,7 +38,7 @@ clear()
 setup(width=104, height=84)
 
 # 1. Top Panel: Microservice SLA & Availability Table
-rectangle((52, 62), width=100, height=40, r=2.0, style=Styles.MutedOutline)
+rectangle((52, 62), width=100, height=40, style=Styles.MutedOutline.patch(shape_r=2.0))
 text(
     (6, 78.5),
     "Production Microservice SLA Matrix — Table.draw_flexible()",
@@ -130,7 +130,6 @@ SourceCode.draw(
     styles=code_styles,
     code_lang="yaml",
     show_linenum=True,
-    r=1.8,
 )
 
 save()

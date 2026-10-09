@@ -39,7 +39,7 @@ clear()
 setup(width=106, height=84)
 
 # Top Panel: Live LayerGraph rendered via Workflow 2 (calc -> offset -> draw + overlay)
-rectangle((53, 61), width=102, height=42, r=2.0, style=Styles.MutedOutline)
+rectangle((53, 61), width=102, height=42, style=Styles.MutedOutline.patch(shape_r=2.0))
 text(
     (5, 78.5),
     "Workflow 2 Live Output: layout = g.calc() -> layout.offset() -> layout.draw()",
@@ -110,8 +110,8 @@ print(g.export_code(width=160, height=90))
 # line((34.0, 45.0), (58.0, 62.0), ...)"""
 
 cs = SourceCodeStyles.get("dark", font_lang="en", text_size=6.8)
-SourceCode.draw(xy=(4, 32.5), width=47, code=code_w12, styles=cs, code_lang="python", r=1.5)
-SourceCode.draw(xy=(55, 32.5), width=47, code=code_w3, styles=cs, code_lang="python", r=1.5)
+SourceCode.draw(xy=(4, 32.5), width=47, code=code_w12, styles=cs, code_lang="python")
+SourceCode.draw(xy=(55, 32.5), width=47, code=code_w3, styles=cs, code_lang="python")
 
 save()
 ```

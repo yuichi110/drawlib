@@ -20,7 +20,7 @@ utils.draw_page_number()
 ### 2. `GridLayout` — Multi-Span Architecture Matrices
 - **Bottom-Left Indexed**: `(col=0, row=0)` starts at the bottom-left cell; rows increment upward (`+y`) and columns increment rightward (`+x`).
 - **Cell Spanning**: Any item can span multiple columns and rows (`position=(col, row), width=w, height=h`) to model full-width ingress/platform layers alongside multi-column microservice cells.
-- **Outer Container**: Optional `outer_style` and `outer_r` wrap the entire matrix in a dashed or solid boundary.
+- **Outer Container**: Optional `outer_style` (including `shape_r`) wraps the entire matrix in a dashed or solid boundary.
 
 ### 3. `Pyramid` — Proportional Tiered Hierarchies
 - Slices a triangular pyramid into an apex triangle and progressive trapezoidal tiers.
@@ -47,9 +47,8 @@ text(
 grid = GridLayout(
     num_column=4,
     num_row=4,
-    style=Styles.Neutral,
+    style=Styles.Neutral.patch(shape_r=1.2),
     text_style=Styles.DarkBold.patch(text_size=7.8),
-    r=1.2,
 )
 # Row 3 (Top): Edge Ingress (spans all 4 columns)
 grid.add(
@@ -81,8 +80,7 @@ grid.draw(
     width=48,
     height=53,
     margin=1.2,
-    outer_r=1.8,
-    outer_style=Styles.MutedDashed,
+    outer_style=Styles.MutedDashed.patch(shape_r=1.8),
 )
 
 # 2. Right Column: Software Testing Pyramid (Pyramid)

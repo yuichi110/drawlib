@@ -98,7 +98,7 @@ def compute_boundary_intersection(
 ) -> tuple[float, float]:
     """Compute the intersection point between a node's perimeter and a line toward target_xy.
 
-    Accurately calculates intersections for circle, rectangle, and rounded_rectangle geometries.
+    Accurately calculates intersections for circle and rectangle geometries.
 
     Args:
         node: NodeLayout of the shape.

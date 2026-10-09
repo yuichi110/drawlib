@@ -27,7 +27,6 @@ class Process(FlowNode):
         text: str = "",
         width: float = 24.0,
         height: float = 12.0,
-        r: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -38,8 +37,7 @@ class Process(FlowNode):
             text: Description of the action or process.
             width: Width of the process box. Defaults to 24.0.
             height: Height of the process box. Defaults to 12.0.
-            r: Corner radius for rounded corners. Defaults to 0.0.
-            style: Optional Style for fill and border stroke.
+            style: Optional Style for fill, border stroke, and shape_r.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
         """
@@ -47,7 +45,6 @@ class Process(FlowNode):
             text=text,
             width=width,
             height=height,
-            r=r,
             style=style,
             text_style=text_style,
             shape_type="process",
@@ -81,7 +78,6 @@ class Decision(FlowNode):
             text=text,
             width=width,
             height=height,
-            r=0.0,
             style=style,
             text_style=text_style,
             shape_type="decision",
@@ -97,7 +93,6 @@ class Start(FlowNode):
         text: str = "Start",
         width: float = 20.0,
         height: float = 10.0,
-        r: float = 5.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -108,8 +103,7 @@ class Start(FlowNode):
             text: Starting label text. Defaults to "Start".
             width: Width of the terminal shape. Defaults to 20.0.
             height: Height of the terminal shape. Defaults to 10.0.
-            r: Corner radius. Defaults to 5.0 (half height for full stadium curve).
-            style: Optional Style for fill and border stroke.
+            style: Optional Style for fill, border stroke, and shape_r.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
         """
@@ -117,7 +111,6 @@ class Start(FlowNode):
             text=text,
             width=width,
             height=height,
-            r=r,
             style=style,
             text_style=text_style,
             shape_type="start",
@@ -133,7 +126,6 @@ class End(FlowNode):
         text: str = "End",
         width: float = 20.0,
         height: float = 10.0,
-        r: float = 5.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -144,8 +136,7 @@ class End(FlowNode):
             text: Ending label text. Defaults to "End".
             width: Width of the terminal shape. Defaults to 20.0.
             height: Height of the terminal shape. Defaults to 10.0.
-            r: Corner radius. Defaults to 5.0 (half height for full stadium curve).
-            style: Optional Style for fill and border stroke.
+            style: Optional Style for fill, border stroke, and shape_r.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
         """
@@ -153,7 +144,6 @@ class End(FlowNode):
             text=text,
             width=width,
             height=height,
-            r=r,
             style=style,
             text_style=text_style,
             shape_type="end",
@@ -187,7 +177,6 @@ class Data(FlowNode):
             text=text,
             width=width,
             height=height,
-            r=0.0,
             style=style,
             text_style=text_style,
             shape_type="data",

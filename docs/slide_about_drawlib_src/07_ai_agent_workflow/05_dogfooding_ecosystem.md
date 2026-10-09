@@ -45,7 +45,7 @@ from drawlib.text import text
 clear()
 setup(width=98, height=84)
 
-rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((49, 75), "Drawlib Repository Dogfooding & Quality Gate Ecosystem", style=Styles.DarkBold.patch(text_size=11.5))
 
 # Top Center: Core Engine & ./dcli Orchestrator
@@ -53,8 +53,7 @@ rectangle(
     (49, 63.0),
     width=84,
     height=12.5,
-    r=2.0,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2.0),
     text="Core Library (src/drawlib/)   +   Development CLI (./dcli)\ncode-check all (Ruff + Ty)   •   test all (pytest + xdist)   •   docs build --all",
     text_style=Styles.WhiteBold.patch(text_size=8.8),
 )
@@ -69,7 +68,7 @@ targets = [
 ]
 
 for cx, cy, title_s, sub_s, st_c, st_t in targets:
-    rectangle((cx, cy), width=26.5, height=15.0, r=1.8, style=st_c)
+    rectangle((cx, cy), width=26.5, height=15.0, style=st_c.patch(shape_r=1.8))
     text((cx, cy + 3.2), title_s, style=st_t.patch(text_size=8.5))
     sub_style = Styles.White.patch(text_size=7.6) if st_c == Styles.AccentFlat else Styles.Dark.patch(text_size=7.6)
     text((cx, cy - 2.8), sub_s, style=sub_style)
@@ -85,8 +84,7 @@ rectangle(
     (49, 8.5),
     width=84,
     height=6.5,
-    r=1.5,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.5),
     text="Continuous Feedback Loop: Every Library Change Is Verified Against Real Production Docs & Slides",
     text_style=Styles.PrimaryBold.patch(text_size=8.5),
 )

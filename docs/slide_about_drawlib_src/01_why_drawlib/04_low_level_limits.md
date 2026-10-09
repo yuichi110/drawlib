@@ -28,8 +28,8 @@ clear()
 setup(width=100, height=82)
 
 # Left Card: Low-Level Boilerplate
-rectangle((26, 42), width=44, height=70, r=3, style=Styles.Neutral)
-rectangle((26, 71), width=44, height=12, r=3, style=Styles.DarkFlat, text="Raw Matplotlib / SVG\n(~180 Lines of Boilerplate)", text_style=Styles.WhiteBold.patch(text_size=9.5))
+rectangle((26, 42), width=44, height=70, style=Styles.Neutral.patch(shape_r=3))
+rectangle((26, 71), width=44, height=12, style=Styles.DarkFlat.patch(shape_r=3), text="Raw Matplotlib / SVG\n(~180 Lines of Boilerplate)", text_style=Styles.WhiteBold.patch(text_size=9.5))
 
 low_level_items = [
     "fig, ax = plt.subplots(figsize=...)",
@@ -42,12 +42,12 @@ low_level_items = [
 ]
 for idx, item in enumerate(low_level_items):
     cy = 58 - idx * 7.2
-    rectangle((26, cy), width=38, height=5.4, r=1.2, style=Styles.White)
+    rectangle((26, cy), width=38, height=5.4, style=Styles.White.patch(shape_r=1.2))
     text((9, cy), f"✗  {item}", style=Styles.Dark.patch(text_size=8.0, halign="left"))
 
 # Right Card: Drawlib High-Level Declarative API
-rectangle((74, 42), width=44, height=70, r=3, style=Styles.PrimaryNeutral)
-rectangle((74, 71), width=44, height=12, r=3, style=Styles.PrimaryFlat, text="Drawlib Declarative API\n(~15 Lines of Clean Python)", text_style=Styles.WhiteBold.patch(text_size=9.5))
+rectangle((74, 42), width=44, height=70, style=Styles.PrimaryNeutral.patch(shape_r=3))
+rectangle((74, 71), width=44, height=12, style=Styles.PrimaryFlat.patch(shape_r=3), text="Drawlib Declarative API\n(~15 Lines of Clean Python)", text_style=Styles.WhiteBold.patch(text_size=9.5))
 
 drawlib_items = [
     "setup(width=120, height=70)",
@@ -60,7 +60,7 @@ drawlib_items = [
 ]
 for idx, item in enumerate(drawlib_items):
     cy = 58 - idx * 7.2
-    rectangle((74, cy), width=38, height=5.4, r=1.2, style=Styles.White)
+    rectangle((74, cy), width=38, height=5.4, style=Styles.White.patch(shape_r=1.2))
     text((57, cy), f"✓  {item}", style=Styles.PrimaryBold.patch(text_size=8.0, halign="left"))
 
 save()

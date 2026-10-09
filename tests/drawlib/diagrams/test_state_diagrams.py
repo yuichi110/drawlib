@@ -42,7 +42,6 @@ class TestStateNode:
         state = State(name="Idle")
         assert state.name == "Idle"
         assert state.shape == "box"
-        assert state.r == 2.0
         assert state.effective_width == 22.0
         assert state.effective_height == 12.0
         assert len(state.actions) == 0

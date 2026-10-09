@@ -89,7 +89,7 @@ Registers a node in the graph and returns a mutable `Node` declaration object (`
 | `label` | `str \| None` | `None` | Display text inside the node (defaults to `id` when `None`). |
 | `style` | `Style \| None` | `None` | Visual style for the node shape (defaults to solver's `default_node_style`, typically `Styles.PrimaryFlat`). |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the node label. |
-| `shape` | `Literal["rectangle", "circle", "rounded_rectangle"]` | `"rectangle"` | Shape geometry (`"rectangle"`, `"circle"`, `"rounded_rectangle"`). |
+| `shape` | `Literal["rectangle", "circle"]` | `"rectangle"` | Shape geometry (`"rectangle"`, `"circle"`; corner rounding controlled via `style.shape_r`). |
 | `width` | `float \| None` | `None` | Explicit node width in canvas units (defaults to solver's `default_node_width`). |
 | `height` | `float \| None` | `None` | Explicit node height in canvas units (defaults to solver's `default_node_height`). |
 | `layer` | `int \| None` | `None` | Explicit rank/layer index for `LayerGraph` (`0` = first rank). |

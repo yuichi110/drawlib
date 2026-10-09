@@ -311,8 +311,8 @@ d.draw(xy=(4.0, 4.0))
 ### 4.2 Standard Symbols & Geometries
 | Class | Symbol / Geometry | Shape Type | Default Size (W x H) | Standard Usage |
 |---|---|---|---|---|
-| `Start` | Stadium / Pill (`r=5.0`) | `"start"` | `20.0 x 10.0` | Initial entry point of the flow |
-| `End` | Stadium / Pill (`r=5.0`) | `"end"` | `20.0 x 10.0` | Terminal termination point |
+| `Start` | Stadium / Pill (`shape_r=5.0`) | `"start"` | `20.0 x 10.0` | Initial entry point of the flow |
+| `End` | Stadium / Pill (`shape_r=5.0`) | `"end"` | `20.0 x 10.0` | Terminal termination point |
 | `Process` | Rectangle | `"process"` | `24.0 x 12.0` | Task, execution step, or operation |
 | `Decision` | Rhombus / Diamond | `"decision"`| `22.0 x 14.0` | Conditional branch (Yes/No, True/False) |
 | `Data` | Parallelogram | `"data"` | `24.0 x 12.0` | Data input, output, or file I/O |
@@ -323,8 +323,7 @@ d.draw(xy=(4.0, 4.0))
 All flow nodes inherit from `FlowNode` and accept standard geometric customization arguments:
 - `text`: Label centered inside shape (multiline supported via `\n`).
 - `width` / `height`: Boundary dimensions in canvas units.
-- `r`: Corner rounding radius.
-- `style`: Fill color, border stroke color, line width, and line style.
+- `style`: Fill color, border stroke color, line width, line style, and corner rounding radius (`style.shape_r`).
 - `text_style`: Typography style for the centered text.
 - `show`: `bool = True` (initial visibility flag; can also be overridden in `flow.add(..., show=...)` or mutated via `node.show = ...`).
 

@@ -324,12 +324,12 @@ class Cycle:
                 if self._node_shape == "circle":
                     canvas_circle(xy=(nx, ny), radius=self._node_radius, style=node_style)
                 elif self._node_shape == "rectangle":
+                    rect_style = node_style if node_style.shape_r is not None else node_style.patch(shape_r=2.0)
                     canvas_rectangle(
                         xy=(nx, ny),
                         width=self._node_size[0],
                         height=self._node_size[1],
-                        r=2.0,
-                        style=node_style,
+                        style=rect_style,
                     )
 
                 # Render texts

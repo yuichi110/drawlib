@@ -31,8 +31,8 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=36)
-rectangle((25, 18), width=30, height=18, r=2, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
-rectangle((75, 18), width=30, height=18, r=2, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
+rectangle((25, 18), width=30, height=18, style=Styles.PrimaryFlat.patch(shape_r=2), text="Publisher", text_style=Styles.WhiteBold)
+rectangle((75, 18), width=30, height=18, style=Styles.SecondaryFlat.patch(shape_r=2), text="Consumer", text_style=Styles.WhiteBold)
 line((40, 18), (60, 18), arrow_head="->", style=Styles.DarkBold)
 ```
 

@@ -46,15 +46,14 @@ clear()
 setup(width=98, height=84)
 
 # Outer dark slate hero card with light inner cards
-rectangle((49, 42), width=94, height=78, r=3.0, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=3.0))
 
 # Top Hero Banner
 rectangle(
     (49, 67.5),
     width=86,
     height=18.0,
-    r=2.2,
-    style=Styles.WhiteFlat.patch(shape_fill_color=(15, 23, 42)),
+    style=Styles.WhiteFlat.patch(shape_fill_color=(15, 23, 42), shape_r=2.2),
 )
 text(
     (49, 71.0),
@@ -103,7 +102,7 @@ pillars = [
     (81.5, "4 Build Targets\n& AI Agent Rules", "Site, Doc, PDF,\n16:9 Slide Deck"),
 ]
 for px, p_title, p_sub in pillars:
-    rectangle((px, 24.5), width=19.8, height=18.0, r=1.5, style=Styles.White)
+    rectangle((px, 24.5), width=19.8, height=18.0, style=Styles.White.patch(shape_r=1.5))
     text((px, 28.5), p_title, style=Styles.PrimaryBold.patch(text_size=8.0))
     text((px, 19.5), p_sub, style=Styles.Muted.patch(text_size=7.4))
 
@@ -112,8 +111,7 @@ rectangle(
     (49, 8.8),
     width=86,
     height=7.5,
-    r=2.0,
-    style=Styles.AccentFlat,
+    style=Styles.AccentFlat.patch(shape_r=2.0),
     text="GitHub Repository:   https://github.com/yuichi110/drawlib   —   Thank You!",
     text_style=Styles.WhiteBold.patch(text_size=9.5),
 )

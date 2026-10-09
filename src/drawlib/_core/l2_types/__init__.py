@@ -57,6 +57,7 @@ from drawlib._core.l2_types._style import (
     HAlign,
     IconStyle,
     LineStyle,
+    ShapeRadius,
     Size,
     TailEdge,
     VAlign,
@@ -97,7 +98,9 @@ __all__ = [
     "PosFloat",
     "PosInt",
     "Ratio",
+    "ShapeRadius",
     "Size",
     "TailEdge",
     "VAlign",
 ]
+

@@ -46,7 +46,7 @@ from drawlib.text import text
 clear()
 setup(width=98, height=84)
 
-rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((49, 75), "Embedded Agent Knowledge Base Architecture (src/drawlib/_rules/)", style=Styles.DarkBold.patch(text_size=11.2))
 
 # Top Hero Command Box
@@ -54,8 +54,7 @@ rectangle(
     (49, 64.5),
     width=84,
     height=9.0,
-    r=1.8,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=1.8),
     text="AI Coding Agent Query:   uv run drawlib rules show <topic>   (Offline & Version-Locked)",
     text_style=Styles.WhiteBold.patch(text_size=9.2),
 )
@@ -64,9 +63,8 @@ rectangle(
 grid = GridLayout(
     num_column=2,
     num_row=3,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.6),
     text_style=Styles.DarkBold.patch(text_size=8.5),
-    r=1.6,
 )
 
 grid.add(
@@ -125,8 +123,7 @@ rectangle(
     (49, 9.5),
     width=84,
     height=7.0,
-    r=1.5,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.5),
     text="Result: Zero Web Search Needed  •  Zero Hallucinated Signatures  •  Instant Agent Onboarding",
     text_style=Styles.PrimaryBold.patch(text_size=8.8),
 )

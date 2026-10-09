@@ -24,6 +24,7 @@ from drawlib._core.l2_types import (
     IconStyle,
     LineStyle,
     PosFloat,
+    ShapeRadius,
     Size,
     VAlign,
 )
@@ -144,6 +145,7 @@ class Style(BaseModel):
     shape_line_color: ColorType | None = None
     shape_line_width: PosFloat | None = None
     shape_line_style: LineStyle | None = None
+    shape_r: ShapeRadius | None = None
 
     # --- Line / Arrow Properties (line, lines, arrow, bezier, etc.) ---
     line_color: ColorType | None = None
@@ -191,6 +193,7 @@ class Style(BaseModel):
         shape_line_color: ColorType | None = None,
         shape_line_width: PosFloat | None = None,
         shape_line_style: LineStyle | None = None,
+        shape_r: ShapeRadius | None = None,
         # Line Properties
         line_color: ColorType | None = None,
         line_width: PosFloat | None = None,
@@ -232,6 +235,7 @@ class Style(BaseModel):
             shape_line_color: Border line color for shapes.
             shape_line_width: Border line width for shapes.
             shape_line_style: Border line style for shapes.
+            shape_r: Corner radius for shapes (single float or per-vertex tuple).
             line_color: Stroke color for lines.
             line_width: Stroke width for lines.
             line_style: Stroke style for lines.

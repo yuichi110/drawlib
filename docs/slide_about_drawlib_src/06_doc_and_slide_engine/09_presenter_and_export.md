@@ -38,17 +38,16 @@ from drawlib.text import text
 clear()
 setup(width=98, height=84)
 
-rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((49, 75), "Dual-Window Presenter View & Self-Contained Bundle Architecture", style=Styles.DarkBold.patch(text_size=11.2))
 
 # Top Left: Audience Main Window
-rectangle((26.5, 55.0), width=39.0, height=28.0, r=2.0, style=Styles.White)
+rectangle((26.5, 55.0), width=39.0, height=28.0, style=Styles.White.patch(shape_r=2.0))
 rectangle(
     (26.5, 66.0),
     width=39.0,
     height=5.0,
-    r=1.0,
-    style=Styles.DarkFlat,
+    style=Styles.DarkFlat.patch(shape_r=1.0),
     text="Audience Screen (index.html — Fullscreen 'F')",
     text_style=Styles.WhiteBold.patch(text_size=7.8),
 )
@@ -56,35 +55,33 @@ rectangle(
     (26.5, 52.5),
     width=34.0,
     height=17.5,
-    r=1.2,
-    style=Styles.PrimaryNeutral,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
     text="1920 x 1080 Widescreen Stage\n• Crisp Inline Vector SVGs\n• Interactive <canvas> Animations",
     text_style=Styles.DarkBold.patch(text_size=7.8),
 )
 
 # Top Right: Presenter View Window (?presenter=1)
-rectangle((71.5, 55.0), width=39.0, height=28.0, r=2.0, style=Styles.White)
+rectangle((71.5, 55.0), width=39.0, height=28.0, style=Styles.White.patch(shape_r=2.0))
 rectangle(
     (71.5, 66.0),
     width=39.0,
     height=5.0,
-    r=1.0,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=1.0),
     text="Presenter View (Press 'P' — ?presenter=1)",
     text_style=Styles.WhiteBold.patch(text_size=7.8),
 )
 # Left thumb strip inside presenter view
-rectangle((57.5, 52.5), width=8.0, height=17.5, r=0.8, style=Styles.Neutral, text="Slide\n Strip", text_style=Styles.MutedBold.patch(text_size=6.8))
+rectangle((57.5, 52.5), width=8.0, height=17.5, style=Styles.Neutral.patch(shape_r=0.8), text="Slide\n Strip", text_style=Styles.MutedBold.patch(text_size=6.8))
 # Right preview + timer + speaker notes inside presenter view
-rectangle((75.5, 57.5), width=25.0, height=7.5, r=0.8, style=Styles.SecondaryNeutral, text="Live Slide Preview + Timer", text_style=Styles.DarkBold.patch(text_size=7.2))
-rectangle((75.5, 48.0), width=25.0, height=9.0, r=0.8, style=Styles.BlueNeutral, text="::: note Speaker Notes\n+ ▶ Play Animation Button", text_style=Styles.DarkBold.patch(text_size=7.2))
+rectangle((75.5, 57.5), width=25.0, height=7.5, style=Styles.SecondaryNeutral.patch(shape_r=0.8), text="Live Slide Preview + Timer", text_style=Styles.DarkBold.patch(text_size=7.2))
+rectangle((75.5, 48.0), width=25.0, height=9.0, style=Styles.BlueNeutral.patch(shape_r=0.8), text="::: note Speaker Notes\n+ ▶ Play Animation Button", text_style=Styles.DarkBold.patch(text_size=7.2))
 
 # Sync Arrow between windows
 line((46.0, 55.0), (52.0, 55.0), arrow_head="<->", style=Styles.PrimaryBold)
 text((49.0, 58.2), "BroadcastChannel", style=Styles.PrimaryBold.patch(text_size=7.2))
 
 # Bottom Section: Self-Contained Output Directory
-rectangle((49.0, 21.5), width=84.0, height=29.0, r=2.0, style=Styles.PrimaryNeutral)
+rectangle((49.0, 21.5), width=84.0, height=29.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
 text((49.0, 32.5), "Zero-Dependency Output Bundle (Works Offline via file:// & Headless PDF)", style=Styles.PrimaryBold.patch(text_size=9.2))
 
 bundle_items = [
@@ -93,7 +90,7 @@ bundle_items = [
     (77.5, "slide.pdf + README.md", "1920x1080 Vector PDF\n+ Quickstart Guide", Styles.SecondaryNeutral, Styles.DarkBold),
 ]
 for bx, b_title, b_sub, b_st, b_tst in bundle_items:
-    rectangle((bx, 18.5), width=25.5, height=16.5, r=1.5, style=b_st)
+    rectangle((bx, 18.5), width=25.5, height=16.5, style=b_st.patch(shape_r=1.5))
     text((bx, 22.5), b_title, style=b_tst.patch(text_size=8.5))
     sub_c = Styles.White.patch(text_size=7.5) if b_st == Styles.PrimaryFlat else Styles.Dark.patch(text_size=7.5)
     text((bx, 15.0), b_sub, style=sub_c)

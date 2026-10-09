@@ -109,7 +109,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 
 | Function | Geometric Parameters | Description |
 | :--- | :--- | :--- |
-| `rectangle(xy, width, height, ...)` | `r: float = 0` | Rectangle or rounded rectangle (`r > 0`). |
+| `rectangle(xy, width, height, ...)` | `width, height: float` | Rectangle or rounded rectangle (via `style.shape_r`). |
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
 | `cylinder(xy, width, height, ...)` | `disks: int = 1` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
 | `face(xy, radius, ...)` | `mood: str = "smile"` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) centered at `xy`. |

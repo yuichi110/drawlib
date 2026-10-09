@@ -34,7 +34,7 @@ clear()
 setup(width=104, height=84)
 
 # Outer taxonomy frame
-rectangle((52, 42), width=100, height=80, r=2.0, style=Styles.MutedOutline)
+rectangle((52, 42), width=100, height=80, style=Styles.MutedOutline.patch(shape_r=2.0))
 text(
     (6, 77.5),
     "drawlib.diagrams — 6 Specialized Software Engineering Engines",
@@ -103,14 +103,13 @@ cards = [
 
 for cx, cy, title_str, sub_str, bullets, hdr_style, body_style in cards:
     # Card body
-    rectangle((cx, cy), width=29.0, height=27.0, r=1.8, style=body_style)
+    rectangle((cx, cy), width=29.0, height=27.0, style=body_style.patch(shape_r=1.8))
     # Header banner
     rectangle(
         (cx, cy + 10.0),
         width=29.0,
         height=7.0,
-        r=1.5,
-        style=hdr_style,
+        style=hdr_style.patch(shape_r=1.5),
         text=title_str,
         text_style=Styles.WhiteBold.patch(text_size=7.6),
     )

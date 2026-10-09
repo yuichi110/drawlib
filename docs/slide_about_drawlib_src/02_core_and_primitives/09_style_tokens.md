@@ -40,23 +40,23 @@ clear()
 setup(width=100, height=82)
 
 # Section 1: Anti-Pattern vs Best Practice (50%+ Neutral Rule)
-rectangle((50, 66), width=90, height=26, r=2.5, style=Styles.LightFlat)
+rectangle((50, 66), width=90, height=26, style=Styles.LightFlat.patch(shape_r=2.5))
 text((9, 75), "1. Anti-Pattern (Rainbow Chaos) vs. 50%+ Neutral Discipline", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 # Left: Rainbow Chaos (Anti-Pattern)
 text((27, 69.5), "✗ Anti-Pattern: All Saturated Fills", style=Styles.DangerBold.patch(text_size=8.0))
-rectangle((15, 61), width=11, height=9, r=1.5, style=Styles.DangerFlat, text="UI", text_style=Styles.WhiteBold.patch(text_size=7.5))
-rectangle((27, 61), width=11, height=9, r=1.5, style=Styles.WarningFlat, text="API", text_style=Styles.WhiteBold.patch(text_size=7.5))
-rectangle((39, 61), width=11, height=9, r=1.5, style=Styles.PurpleFlat, text="DB", text_style=Styles.WhiteBold.patch(text_size=7.5))
+rectangle((15, 61), width=11, height=9, style=Styles.DangerFlat.patch(shape_r=1.5), text="UI", text_style=Styles.WhiteBold.patch(text_size=7.5))
+rectangle((27, 61), width=11, height=9, style=Styles.WarningFlat.patch(shape_r=1.5), text="API", text_style=Styles.WhiteBold.patch(text_size=7.5))
+rectangle((39, 61), width=11, height=9, style=Styles.PurpleFlat.patch(shape_r=1.5), text="DB", text_style=Styles.WhiteBold.patch(text_size=7.5))
 
 # Right: 50%+ Neutral Grounded (Best Practice)
 text((73, 69.5), "✓ Best Practice: 1 Hero + Calm Neutrals", style=Styles.SecondaryBold.patch(text_size=8.0))
-rectangle((61, 61), width=11, height=9, r=1.5, style=Styles.Neutral, text="UI", text_style=Styles.DarkBold.patch(text_size=7.5))
-rectangle((73, 61), width=11, height=9, r=1.5, style=Styles.PrimaryFlat, text="API", text_style=Styles.WhiteBold.patch(text_size=7.5))
-rectangle((85, 61), width=11, height=9, r=1.5, style=Styles.SecondaryNeutral, text="DB", text_style=Styles.DarkBold.patch(text_size=7.5))
+rectangle((61, 61), width=11, height=9, style=Styles.Neutral.patch(shape_r=1.5), text="UI", text_style=Styles.DarkBold.patch(text_size=7.5))
+rectangle((73, 61), width=11, height=9, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="API", text_style=Styles.WhiteBold.patch(text_size=7.5))
+rectangle((85, 61), width=11, height=9, style=Styles.SecondaryNeutral.patch(shape_r=1.5), text="DB", text_style=Styles.DarkBold.patch(text_size=7.5))
 
 # Section 2: Structural Variants Matrix
-rectangle((50, 38), width=90, height=22, r=2.5, style=Styles.LightFlat)
+rectangle((50, 38), width=90, height=22, style=Styles.LightFlat.patch(shape_r=2.5))
 text((9, 45.5), "2. Orthogonal Style Variants (Styles.<Role><Variant>)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 variants = [
@@ -66,17 +66,17 @@ variants = [
     (82, Styles.MutedDashed, Styles.DarkBold.patch(text_size=7.5), "MutedDashed"),
 ]
 for cx, st, tst, lbl in variants:
-    rectangle((cx, 36), width=18, height=10, r=2.0, style=st, text=lbl, text_style=tst)
+    rectangle((cx, 36), width=18, height=10, style=st.patch(shape_r=2.0), text=lbl, text_style=tst)
 
 # Section 3: Color Interpolation (get_intermediate_colors)
-rectangle((50, 13), width=90, height=20, r=2.5, style=Styles.LightFlat)
+rectangle((50, 13), width=90, height=20, style=Styles.LightFlat.patch(shape_r=2.5))
 text((9, 19.5), "3. Color Interpolation: get_intermediate_colors(Primary, Secondary)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 ramp = get_intermediate_colors(Colors.Primary, Colors.Secondary, num=4, include_ends=True)
 for i, col in enumerate(ramp):
     cx = 16 + i * 13.6
     st = Styles.WhiteFlat.patch(shape_fill_color=col)
-    rectangle((cx, 10.5), width=11.5, height=8.5, r=1.5, style=st, text=f"Step {i}", text_style=Styles.WhiteBold.patch(text_size=7.5))
+    rectangle((cx, 10.5), width=11.5, height=8.5, style=st.patch(shape_r=1.5), text=f"Step {i}", text_style=Styles.WhiteBold.patch(text_size=7.5))
 
 save()
 ```

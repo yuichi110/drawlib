@@ -36,7 +36,7 @@ clear()
 setup(width=104, height=84)
 
 # Outer container framing the composite canvas
-rectangle((52, 42), width=100, height=80, r=2.0, style=Styles.MutedOutline)
+rectangle((52, 42), width=100, height=80, style=Styles.MutedOutline.patch(shape_r=2.0))
 text(
     (6, 78),
     "Single-Canvas Coexistence: Architecture Nodes + Live Telemetry Charts",
@@ -44,17 +44,16 @@ text(
 )
 
 # 1. Left Side: Architecture Topology Nodes on the Same Canvas
-rectangle((18, 60), width=24, height=11, r=1.5, style=Styles.Neutral, text="Edge Ingress\n(Cloud CDN)")
+rectangle((18, 60), width=24, height=11, style=Styles.Neutral.patch(shape_r=1.5), text="Edge Ingress\n(Cloud CDN)")
 rectangle(
     (18, 41),
     width=24,
     height=12,
-    r=1.5,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text="API Gateway\n(Telemetry Source)",
     text_style=Styles.WhiteBold.patch(text_size=8.0),
 )
-rectangle((18, 21), width=24, height=11, r=1.5, style=Styles.SecondaryNeutral, text="Worker Pool\n(GKE Autoscaler)")
+rectangle((18, 21), width=24, height=11, style=Styles.SecondaryNeutral.patch(shape_r=1.5), text="Worker Pool\n(GKE Autoscaler)")
 
 line((18, 54.5), (18, 47.0), arrow_head="->", style=Styles.DarkBold)
 line((18, 35.0), (18, 26.5), arrow_head="->", style=Styles.DarkBold)
@@ -73,7 +72,7 @@ bar = BarChart(
     title_style=Styles.DarkBold.patch(text_size=9.0),
     bar_mode="group",
     bar_width_ratio=0.7,
-    r=0.6,
+    bar_r=0.6,
     axis_text_style=Styles.Muted.patch(text_size=7.5),
     grid_style=Styles.MutedDashed,
     value_text_style=Styles.DarkBold.patch(text_size=7.0),

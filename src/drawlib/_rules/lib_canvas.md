@@ -191,8 +191,7 @@ rectangle(
     (40, 15),
     width=72,
     height=22,
-    r=11,
-    style=Styles.SuccessFlat,
+    style=Styles.SuccessFlat.patch(shape_r=11),
     text="DEPLOYED - v2.4.0",
     text_style=Styles.WhiteBold,
 )

@@ -29,15 +29,15 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 53.181818 57.272727 
+    <path d="M 98.181818 79.772727 
+L 63.409091 79.772727 
+Q 53.181818 79.772727 53.181818 69.545455 
 L 53.181818 45 
 Q 53.181818 34.772727 63.409091 34.772727 
 L 132.954545 34.772727 
 Q 143.181818 34.772727 143.181818 45 
 L 143.181818 69.545455 
 Q 143.181818 79.772727 132.954545 79.772727 
-L 63.409091 79.772727 
-Q 53.181818 79.772727 53.181818 69.545455 
 z
 " clip-path="url(#p1de67ba67e)" style="fill: #4862da"/>
    </g>
@@ -48,7 +48,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#p1de67ba67e)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="98.181818" y="93.525565" transform="rotate(-0 98.181818 93.525565)">rectangle(r=2.5)</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="98.181818" y="93.525565" transform="rotate(-0 98.181818 93.525565)">rectangle(shape_r=2.5)</text>
     </g>
    </g>
    <g id="patch_3">

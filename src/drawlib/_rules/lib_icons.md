@@ -457,7 +457,7 @@ In production cloud architecture schemas and workflow diagrams, icons rarely exi
 
 ```text
  ┌────────────────────────────────────────────────────────┐
- │ Container Card (rectangle with r=2, style=Styles.MutedFlat) │
+ │ Container Card (rectangle with style=Styles.MutedFlat.patch(shape_r=2)) │
  │                                                        │
  │        ┌──────────┐                                    │
  │        │   ICON   │    ◄── Icon (e.g. gcp.cloud_run)    │
@@ -512,8 +512,8 @@ card_x, card_y = 50, 30
 card_w, card_h = 36, 42
 
 # 1. Card container background
-rectangle((card_x, card_y), width=card_w, height=card_h, r=3, style=Styles.MutedFlat)
-rectangle((card_x, card_y), width=card_w, height=card_h, r=3, style=Styles.MutedSolid)
+rectangle((card_x, card_y), width=card_w, height=card_h, style=Styles.MutedFlat.patch(shape_r=3))
+rectangle((card_x, card_y), width=card_w, height=card_h, style=Styles.MutedSolid.patch(shape_r=3))
 
 # 2. Cloud service icon
 gcp.compute_engine((card_x, card_y + 6), width=14, style=Styles.Primary)
@@ -595,10 +595,10 @@ text((77.5, 88), "High-Availability Multi-Tier Web Application on GCP", style=St
 text((77.5, 82), "End-to-End Traffic Routing, Microservices, Caching, and Persistence", style=Styles.Muted.patch(text_size=9.5))
 
 # 2. Boundary Containers: GCP Project & VPC Network
-rectangle((88, 41), width=124, height=68, r=4, style=Styles.MutedDashed)
+rectangle((88, 41), width=124, height=68, style=Styles.MutedDashed.patch(shape_r=4))
 text((30, 71), "Google Cloud Project (prod-us-central1)", style=Styles.DarkBold.patch(text_size=9.5, halign="left"))
 
-rectangle((88, 38), width=116, height=54, r=3, style=Styles.Muted)
+rectangle((88, 38), width=116, height=54, style=Styles.Muted.patch(shape_r=3))
 text((34, 61), "Custom VPC Network (10.0.0.0/16)", style=Styles.Muted.patch(text_size=8.5, halign="left"))
 
 # 3. Public Internet Tier (Users & CDN)
@@ -607,14 +607,14 @@ text((13, 33), "Web Clients", style=Styles.DarkBold.patch(text_size=9))
 text((13, 28), "HTTPS / SSL", style=Styles.Muted.patch(text_size=8))
 
 # 4. Ingress Tier: Cloud Armor & Load Balancing
-rectangle((44, 42), width=20, height=38, r=2, style=Styles.Neutral)
+rectangle((44, 42), width=20, height=38, style=Styles.Neutral.patch(shape_r=2))
 gcp.cloud_armor((44, 53), width=7.5, style=Styles.Primary)
 text((44, 45.5), "Cloud Armor", style=Styles.DarkBold.patch(text_size=8))
 gcp.cloud_load_balancing((44, 34), width=7.5, style=Styles.Primary)
 text((44, 26.5), "Global ALB", style=Styles.DarkBold.patch(text_size=8))
 
 # 5. Compute Tier: Cloud Run Service (Primary Hero Node)
-rectangle((74, 42), width=24, height=34, r=2, style=Styles.PrimaryNeutral)
+rectangle((74, 42), width=24, height=34, style=Styles.PrimaryNeutral.patch(shape_r=2))
 gcp.cloud_run((74, 49), width=10, style=Styles.Primary)
 text((74, 38), "App Backend", style=Styles.DarkBold.patch(text_size=9))
 text((74, 33), "Cloud Run", style=Styles.Muted.patch(text_size=8))
@@ -623,17 +623,17 @@ circle((83, 56), radius=2.5, style=Styles.PrimaryFlat)
 text((83, 56), "x8", style=Styles.WhiteBold.patch(text_size=7))
 
 # 6. Caching Tier: Memorystore Redis
-rectangle((106, 52), width=22, height=18, r=2, style=Styles.SecondaryNeutral)
+rectangle((106, 52), width=22, height=18, style=Styles.SecondaryNeutral.patch(shape_r=2))
 gcp.memorystore((106, 55.5), width=7.5, style=Styles.Primary)
 text((106, 47.5), "Memorystore", style=Styles.DarkBold.patch(text_size=8))
 
 # 7. Database Tier: Cloud SQL HA
-rectangle((106, 28), width=22, height=18, r=2, style=Styles.SecondaryNeutral)
+rectangle((106, 28), width=22, height=18, style=Styles.SecondaryNeutral.patch(shape_r=2))
 gcp.cloud_sql((106, 31.5), width=7.5, style=Styles.Primary)
 text((106, 23.5), "Cloud SQL HA", style=Styles.DarkBold.patch(text_size=8))
 
 # 8. Storage & Observability Tier
-rectangle((134, 42), width=20, height=38, r=2, style=Styles.Neutral)
+rectangle((134, 42), width=20, height=38, style=Styles.Neutral.patch(shape_r=2))
 gcp.cloud_storage((134, 53), width=7.5, style=Styles.Primary)
 text((134, 45.5), "GCS Assets", style=Styles.DarkBold.patch(text_size=8))
 gcp.cloud_monitoring((134, 34), width=7.5, style=Styles.Primary)
@@ -672,19 +672,19 @@ text((16, 19), "IoT Sensors", style=Styles.DarkBold.patch(text_size=9))
 text((16, 14), "MQTT Stream", style=Styles.Muted.patch(text_size=8))
 
 # Step 2: Message Buffer (Pub/Sub - Hero Ingest Hub)
-rectangle((45, 30), width=24, height=28, r=2, style=Styles.PrimaryNeutral)
+rectangle((45, 30), width=24, height=28, style=Styles.PrimaryNeutral.patch(shape_r=2))
 gcp.pubsub((45, 36), width=10, style=Styles.Primary)
 text((45, 25), "Cloud Pub/Sub", style=Styles.DarkBold.patch(text_size=9))
 text((45, 20), "Buffer Topic", style=Styles.Muted.patch(text_size=8))
 
 # Step 3: Serverless Worker (Cloud Functions)
-rectangle((76, 30), width=24, height=28, r=2, style=Styles.Neutral)
+rectangle((76, 30), width=24, height=28, style=Styles.Neutral.patch(shape_r=2))
 gcp.cloud_functions((76, 36), width=10, style=Styles.Primary)
 text((76, 25), "Cloud Functions", style=Styles.DarkBold.patch(text_size=9))
 text((76, 20), "Transform / Parse", style=Styles.Muted.patch(text_size=8))
 
 # Step 4: Analytical Data Warehouse (BigQuery)
-rectangle((107, 30), width=24, height=28, r=2, style=Styles.SecondaryNeutral)
+rectangle((107, 30), width=24, height=28, style=Styles.SecondaryNeutral.patch(shape_r=2))
 gcp.bigquery((107, 36), width=10, style=Styles.Primary)
 text((107, 25), "BigQuery", style=Styles.DarkBold.patch(text_size=9))
 text((107, 20), "Partitioned Tables", style=Styles.Muted.patch(text_size=8))
@@ -721,7 +721,7 @@ setup(width=145, height=62)
 text((72.5, 55), "Hybrid Enterprise On-Premises to GCP Interconnect", style=Styles.DarkBold.patch(text_size=14))
 
 # On-Premise Datacenter Boundary
-rectangle((30, 26), width=46, height=36, r=2, style=Styles.Neutral)
+rectangle((30, 26), width=46, height=36, style=Styles.Neutral.patch(shape_r=2))
 text((30, 39), "Corporate On-Premises Datacenter", style=Styles.DarkBold.patch(text_size=8.5))
 
 phosphor.hard_drives((19, 25), width=9, style=Styles.DarkBold)
@@ -731,7 +731,7 @@ phosphor.database((41, 25), width=9, style=Styles.DarkBold)
 text((41, 15), "Oracle DB", style=Styles.Dark.patch(text_size=8))
 
 # Cloud Boundary
-rectangle((112, 26), width=50, height=36, r=2, style=Styles.MutedDashed)
+rectangle((112, 26), width=50, height=36, style=Styles.MutedDashed.patch(shape_r=2))
 text((112, 39), "Google Cloud Platform VPC", style=Styles.DarkBold.patch(text_size=8.5))
 
 gcp.google_kubernetes_engine((100, 25), width=10, style=Styles.Primary)
@@ -741,7 +741,7 @@ gcp.cloud_spanner((124, 25), width=10, style=Styles.Primary)
 text((124, 15), "Cloud Spanner", style=Styles.Dark.patch(text_size=8))
 
 # Dedicated Cloud Interconnect (Hero Bridge)
-rectangle((71, 25), width=18, height=13, r=1.5, style=Styles.PrimaryFlat)
+rectangle((71, 25), width=18, height=13, style=Styles.PrimaryFlat.patch(shape_r=1.5))
 text((71, 27.5), "Cloud", style=Styles.WhiteBold.patch(text_size=8))
 text((71, 22), "Interconnect", style=Styles.White.patch(text_size=7.5))
 
@@ -771,25 +771,25 @@ setup(width=150, height=65)
 text((75, 58), "Automated GitOps & CI/CD Delivery Pipeline", style=Styles.DarkBold.patch(text_size=15))
 
 # Stage 1: Developer Workstation
-rectangle((22, 28), width=26, height=32, r=2, style=Styles.Neutral)
+rectangle((22, 28), width=26, height=32, style=Styles.Neutral.patch(shape_r=2))
 phosphor.laptop((22, 36), width=10, style=Styles.DarkBold)
 text((22, 24), "Developer", style=Styles.DarkBold.patch(text_size=9))
 text((22, 18.5), "git push", style=Styles.Muted.patch(text_size=8))
 
 # Stage 2: Source Repository & Webhook
-rectangle((56, 28), width=26, height=32, r=2, style=Styles.Neutral)
+rectangle((56, 28), width=26, height=32, style=Styles.Neutral.patch(shape_r=2))
 phosphor.git_branch((56, 36), width=10, style=Styles.DarkBold)
 text((56, 24), "Cloud Source", style=Styles.DarkBold.patch(text_size=9))
 text((56, 18.5), "Pull Request", style=Styles.Muted.patch(text_size=8))
 
 # Stage 3: Build & Automated Testing (Cloud Build - Hero Stage)
-rectangle((90, 28), width=26, height=32, r=2, style=Styles.PrimaryNeutral)
+rectangle((90, 28), width=26, height=32, style=Styles.PrimaryNeutral.patch(shape_r=2))
 gcp.cloud_build((90, 36), width=10, style=Styles.Primary)
 text((90, 24), "Cloud Build", style=Styles.DarkBold.patch(text_size=9))
 text((90, 18.5), "Unit / Lint / Test", style=Styles.Muted.patch(text_size=8))
 
 # Stage 4: Artifact Registry (OCI Images)
-rectangle((124, 28), width=26, height=32, r=2, style=Styles.SecondaryNeutral)
+rectangle((124, 28), width=26, height=32, style=Styles.SecondaryNeutral.patch(shape_r=2))
 gcp.artifact_registry((124, 36), width=10, style=Styles.Primary)
 text((124, 24), "Artifact Reg.", style=Styles.DarkBold.patch(text_size=9))
 text((124, 18.5), "OCI Images", style=Styles.Muted.patch(text_size=8))

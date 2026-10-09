@@ -99,7 +99,7 @@ gateway.fork([w1, w2, w3], at_x=52.0, padding=1.5)
 d.draw(xy=(4.0, 6.0))
 
 # Callout badges explaining the mechanics
-rectangle((26, 13), width=42, height=11, r=1.5, style=Styles.BlueNeutral)
+rectangle((26, 13), width=42, height=11, style=Styles.BlueNeutral.patch(shape_r=1.5))
 text(
     (26, 15.2),
     "1. Card-Centric xy=(x, 38.0)",

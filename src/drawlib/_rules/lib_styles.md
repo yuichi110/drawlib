@@ -79,7 +79,7 @@ DATABASE_PORT = 5432
 def draw_service_card(center: tuple[float, float], title: str, subtitle: str) -> None:
     """Reusable diagram component for microservice nodes."""
     x, y = center
-    rectangle((x, y), width=36, height=20, r=2, style=Styles.Primary)
+    rectangle((x, y), width=36, height=20, style=Styles.Primary.patch(shape_r=2))
     text((x, y + 4), title, style=Styles.PrimaryBold)
     text((x, y - 4), subtitle, style=Styles.Light)
 ```

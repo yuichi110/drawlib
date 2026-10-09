@@ -25,8 +25,8 @@
 
 | Class | Shape Geometry | Default Size ($W \times H$) | Standard ISO Usage |
 |---|---|---|---|
-| `Start` | Stadium / Pill (`r=5.0`) | `20.0 x 10.0` | Initial entry point |
-| `End` | Stadium / Pill (`r=5.0`) | `20.0 x 10.0` | Terminal completion point |
+| `Start` | Stadium / Pill (`shape_r=5.0`) | `20.0 x 10.0` | Initial entry point |
+| `End` | Stadium / Pill (`shape_r=5.0`) | `20.0 x 10.0` | Terminal completion point |
 | `Process` | Rectangle | `24.0 x 12.0` | Execution task, calculation, or step |
 | `Decision` | Rhombus / Diamond | `22.0 x 14.0` | Conditional branch (Yes/No, True/False) |
 | `Data` | Parallelogram | `24.0 x 12.0` | Input, output, or file I/O |

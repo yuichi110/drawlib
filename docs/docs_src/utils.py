@@ -44,7 +44,7 @@ def service_card(
         style: Card shape style.
     """
     x, y = xy
-    rectangle(xy, width=width, height=height, r=2.0, style=style)
+    rectangle(xy, width=width, height=height, style=style.patch(shape_r=2.0))
     if subtitle:
         text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=11))
         text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=8))

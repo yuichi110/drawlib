@@ -55,14 +55,13 @@ rectangle(
     (174.0, 98.5),
     width=24.0,
     height=7.5,
-    r=2.0,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2.0),
     text=f"Pure SVG ({current_slide.text})",
     text_style=Styles.WhiteBold.patch(text_size=8.8),
 )
 
 # 3. Left Zone: ArchitectureDiagram Card (X: 6..94, Y: 12..84)
-rectangle((50.0, 48.0), width=88.0, height=72.0, r=2.5, style=Styles.White)
+rectangle((50.0, 48.0), width=88.0, height=72.0, style=Styles.White.patch(shape_r=2.5))
 text((50.0, 79.0), "1. Cloud Topology (drawlib.diagrams.architecture)", style=Styles.DarkBold.patch(text_size=10.5))
 
 diag = ArchitectureDiagram(
@@ -89,7 +88,7 @@ diag.connect(n_run, n_bq, label="OLAP", padding=1.0)
 diag.draw(xy=(8.0, 16.0))
 
 # 4. Top-Right Zone: Quantitative BarChart Card (X: 98..186, Y: 49..84)
-rectangle((142.0, 66.5), width=88.0, height=35.0, r=2.5, style=Styles.White)
+rectangle((142.0, 66.5), width=88.0, height=35.0, style=Styles.White.patch(shape_r=2.5))
 chart = BarChart(
     axis_line_style=Styles.Dark,
     categories=["v0.1", "v0.2", "v0.3", "v0.4"],
@@ -97,7 +96,7 @@ chart = BarChart(
     height=27.0,
     title="2. Build Throughput (Diagrams / Sec) — drawlib.charts.bar",
     title_style=Styles.DarkBold.patch(text_size=9.2),
-    r=0.8,
+    bar_r=0.8,
     bar_width_ratio=0.58,
     axis_text_style=Styles.Muted.patch(text_size=8.0),
     grid_style=Styles.MutedDashed,
@@ -109,7 +108,7 @@ chart.add_series("Throughput", [28.0, 54.0, 86.0, 112.0], style=Styles.PrimaryFl
 chart.draw(xy=(104.0, 50.5))
 
 # 5. Bottom-Right Zone: 3 KPI Callout Cards (X: 98..186, Y: 12..45)
-rectangle((142.0, 28.5), width=88.0, height=33.0, r=2.5, style=Styles.White)
+rectangle((142.0, 28.5), width=88.0, height=33.0, style=Styles.White.patch(shape_r=2.5))
 text((142.0, 40.5), "3. Programmatic KPI Badges & Cross-Zone Connectors", style=Styles.DarkBold.patch(text_size=10.0))
 
 kpis = [
@@ -119,7 +118,7 @@ kpis = [
 ]
 for idx, (val_s, lbl_s, st_card, st_txt) in enumerate(kpis):
     kx = 114.5 + idx * 27.5
-    rectangle((kx, 24.5), width=24.5, height=18.0, r=1.8, style=st_card)
+    rectangle((kx, 24.5), width=24.5, height=18.0, style=st_card.patch(shape_r=1.8))
     text((kx, 27.5), val_s, style=st_txt.patch(text_size=11.0))
     sub_st = Styles.White.patch(text_size=8.0) if idx == 0 else Styles.MutedBold.patch(text_size=8.0)
     text((kx, 20.0), lbl_s, style=sub_st)

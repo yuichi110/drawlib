@@ -12,7 +12,22 @@
 import pytest
 
 from drawlib.canvas import clear, save
-from drawlib.shapes import chevron, parallelogram, rhombus, star, trapezoid, triangle
+from drawlib.shapes import (
+    arrow_l,
+    arrow_polyline,
+    arrow_u,
+    chevron,
+    circle,
+    ellipse,
+    parallelogram,
+    polygon,
+    rectangle,
+    regularpolygon,
+    rhombus,
+    star,
+    trapezoid,
+    triangle,
+)
 from drawlib.styles import Colors, Styles
 
 # ruff: noqa: F403, F405
@@ -263,3 +278,54 @@ class TestCanvasPolygon:
         star((50, 50), 5, 30, 15, text="Hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_star.png")
+
+    def test_shape_r_scalar_and_tuple(self) -> None:
+        """Verify Style.shape_r scalar and per-vertex tuple on polygons and ignore on circles."""
+        clear()
+        s = default_styles.Primary
+
+        # Scalar and tuple shape_r on polygon primitives
+        triangle((20, 20), 20, 20, style=s.patch(shape_r=2.0))
+        triangle((20, 20), 20, 20, style=s.patch(shape_r=(0.0, 3.0, 0.0)))
+        rectangle((50, 20), 20, 15, style=s.patch(shape_r=(0.0, 2.0, 2.0, 0.0)))
+        parallelogram((80, 20), 20, 15, 60, style=s.patch(shape_r=(1.0, 2.0, 1.0, 2.0)))
+        trapezoid((20, 50), 15, 25, 15, style=s.patch(shape_r=(1.0, 2.0, 2.0, 1.0)))
+        rhombus((50, 50), 20, 20, style=s.patch(shape_r=(1.0, 2.0, 1.0, 2.0)))
+        chevron((80, 50), 15, 15, 60, style=s.patch(shape_r=(1.0, 1.0, 1.0, 1.0, 1.0, 1.0)))
+        regularpolygon((20, 80), radius=10, num_vertex=5, style=s.patch(shape_r=1.5))
+        regularpolygon((20, 80), radius=10, num_vertex=5, style=s.patch(shape_r=(1.0, 2.0, 1.0, 2.0, 1.0)))
+        star((50, 80), 4, 12, 6, style=s.patch(shape_r=1.0))
+        polygon([(70, 70), (90, 70), (90, 90), (80, 95), (70, 90)], style=s.patch(shape_r=(0.0, 0.0, 2.0, 3.0, 2.0)))
+
+        # Circular shapes ignore shape_r without raising errors
+        circle((50, 50), radius=10, style=s.patch(shape_r=5.0))
+        ellipse((50, 50), width=20, height=10, style=s.patch(shape_r=(1.0, 2.0, 3.0)))
+
+    def test_shape_r_invalid_tuple_length(self) -> None:
+        """Verify that mismatched shape_r tuple length raises ValueError."""
+        clear()
+        s = default_styles.Primary
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            triangle((50, 50), 20, 20, style=s.patch(shape_r=(1.0, 2.0, 3.0, 4.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            rectangle((50, 50), 20, 20, style=s.patch(shape_r=(1.0, 2.0, 3.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            chevron((50, 50), 20, 20, 60, style=s.patch(shape_r=(1.0, 2.0, 3.0, 4.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            regularpolygon((50, 50), radius=10, num_vertex=5, style=s.patch(shape_r=(1.0, 2.0, 3.0, 4.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            star((50, 50), 5, 20, 10, style=s.patch(shape_r=(1.0, 2.0, 3.0, 4.0, 5.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            arrow_l((50, 50), 20, 15, 2, 5, 3, style=s.patch(shape_r=(1.0, 2.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            arrow_u((50, 50), 20, 15, 2, 5, 3, style=s.patch(shape_r=(1.0, 2.0, 3.0)))
+
+        with pytest.raises(ValueError, match="shape_r tuple length"):
+            arrow_polyline([(10, 10), (10, 30), (30, 30), (30, 10)], 2, 5, 3, style=s.patch(shape_r=(1.0, 2.0, 3.0)))

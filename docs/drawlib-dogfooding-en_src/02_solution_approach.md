@@ -23,13 +23,13 @@ from drawlib.text import text
 setup(width=110, height=45)
 
 # Left: Traditional Approach
-rectangle((28, 22.5), width=48, height=36, r=2, style=Styles.MutedDashed)
+rectangle((28, 22.5), width=48, height=36, style=Styles.MutedDashed.patch(shape_r=2))
 text((28, 36), text="Traditional Manual Approach", style=Styles.MutedBold.patch(text_size=10))
 phosphor.file_x(xy=(16, 24), width=8, style=Styles.Muted)
 text((34, 24), text="• Hand-drawn in Figma / draw.io\n• Binary PNGs stored in Git\n• Out-of-sync docs & diagram rot", style=Styles.Muted.patch(text_size=8.5))
 
 # Right: Drawlib Approach
-rectangle((82, 22.5), width=48, height=36, r=2, style=Styles.PrimaryOutline)
+rectangle((82, 22.5), width=48, height=36, style=Styles.PrimaryOutline.patch(shape_r=2))
 text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.DarkBold.patch(text_size=10))
 phosphor.code(xy=(70, 24), width=8, style=Styles.Primary)
 text((88, 24), text="• Declarative Python drawing code\n• Inline ```drawlib``` blocks in Markdown\n• Git diff reviews & CI/CD builds", style=Styles.Dark.patch(text_size=8.5))

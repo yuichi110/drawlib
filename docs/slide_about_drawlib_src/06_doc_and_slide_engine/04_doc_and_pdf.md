@@ -40,11 +40,11 @@ from drawlib.text import text
 clear()
 setup(width=98, height=84)
 
-rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((49, 75), "Linear Document & Headless Vector PDF Pipeline", style=Styles.DarkBold.patch(text_size=12.0))
 
 # Left Column: Ordered Markdown Chapters
-rectangle((18.5, 42.0), width=23.0, height=54.0, r=2.0, style=Styles.PrimaryNeutral)
+rectangle((18.5, 42.0), width=23.0, height=54.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
 text((18.5, 64.5), "doc_src/ Chapters", style=Styles.PrimaryBold.patch(text_size=9.5))
 
 ch_files = [
@@ -59,8 +59,7 @@ for i, (fname, desc) in enumerate(ch_files):
         (18.5, cy),
         width=19.5,
         height=8.8,
-        r=1.2,
-        style=Styles.White,
+        style=Styles.White.patch(shape_r=1.2),
         text=f"{fname}\n{desc}",
         text_style=Styles.DarkBold.patch(text_size=7.8),
     )
@@ -70,35 +69,32 @@ rectangle(
     (48.0, 42.0),
     width=21.0,
     height=28.0,
-    r=2.0,
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=2.0),
     text="Document Merger\n& Block Processor\n\n• Sort 00..03\n• Render Diagrams\n• Generate ToC\n• Inject Page Breaks",
     text_style=Styles.WhiteBold.patch(text_size=8.2),
 )
 line((30.0, 42.0), (37.5, 42.0), arrow_head="->", style=Styles.DarkBold)
 
 # Right Top: Standalone index.html (900px centered reading view)
-rectangle((78.5, 56.5), width=25.0, height=25.0, r=2.0, style=Styles.SecondaryNeutral)
+rectangle((78.5, 56.5), width=25.0, height=25.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
 text((78.5, 65.5), "1. Standalone Web Doc", style=Styles.DarkBold.patch(text_size=9.0))
 rectangle(
     (78.5, 53.5),
     width=21.0,
     height=15.0,
-    r=1.2,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.2),
     text="doc_html/index.html\n• Centered 900px layout\n• Interactive ToC links\n• Works via file://",
     text_style=Styles.Dark.patch(text_size=7.8),
 )
 
 # Right Bottom: Headless Chromium Vector PDF
-rectangle((78.5, 25.5), width=25.0, height=27.0, r=2.0, style=Styles.BlueNeutral)
+rectangle((78.5, 25.5), width=25.0, height=27.0, style=Styles.BlueNeutral.patch(shape_r=2.0))
 text((78.5, 35.5), "2. Vector PDF Export", style=Styles.DarkBold.patch(text_size=9.0))
 rectangle(
     (78.5, 22.5),
     width=21.0,
     height=16.5,
-    r=1.2,
-    style=Styles.AccentFlat,
+    style=Styles.AccentFlat.patch(shape_r=1.2),
     text="Playwright + Chromium\n--> doc.pdf (A4)\n• Crisp Vector Graphics\n• CSS @page Breaks",
     text_style=Styles.WhiteBold.patch(text_size=7.8),
 )

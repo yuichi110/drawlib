@@ -88,12 +88,12 @@ def draw_color_tile(
             (cx, cy),
             width=tile_w - 1.2,
             height=tile_h - 1.2,
-            r=0.8,
             style=Style(
                 shape_fill_color=Color(255, 255, 255),
                 shape_line_color=Color(180, 180, 180),
                 shape_line_width=1,
                 shape_line_style="dashed",
+                shape_r=0.8,
             ),
         )
         text_color = Color(80, 80, 80)
@@ -103,11 +103,11 @@ def draw_color_tile(
             (cx, cy),
             width=tile_w - 1.2,
             height=tile_h - 1.2,
-            r=0.8,
             style=Style(
                 shape_fill_color=col,
                 shape_line_color=Color(200, 200, 200, 0.6),
                 shape_line_width=1,
+                shape_r=0.8,
             ),
         )
         lum = (col.r * 299 + col.g * 587 + col.b * 114) / 1000

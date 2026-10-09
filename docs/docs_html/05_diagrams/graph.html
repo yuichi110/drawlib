@@ -404,7 +404,7 @@
 <ul>
 <li><strong><code>g.node(id, label=None, *, style=None, text_style=None, shape=&quot;rectangle&quot;, icon=None, width=None, height=None, ..., show: bool = True) -&gt; Node</code></strong>
 <ul>
-<li>Supported <code>shape</code> values: <code>&quot;rectangle&quot;</code> <em>(default)</em>, <code>&quot;rounded_rectangle&quot;</code>, <code>&quot;circle&quot;</code>.</li>
+<li>Supported <code>shape</code> values: <code>&quot;rectangle&quot;</code> <em>(default; corner radius controlled via <code>style.shape_r</code>)</em>, <code>&quot;circle&quot;</code>.</li>
 <li>Setting <code>show=False</code> keeps the node in the layout calculation (<code>calc()</code>) so coordinates remain fixed, while skipping the node and its connected edges during rendering (<code>draw()</code>).</li>
 </ul>
 </li>

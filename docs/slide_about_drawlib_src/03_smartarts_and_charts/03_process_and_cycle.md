@@ -36,7 +36,7 @@ clear()
 setup(width=100, height=84)
 
 # Top Panel: 5-Stage CI/CD ChevronProcess
-rectangle((50, 70), width=96, height=24, r=2.0, style=Styles.NeutralFlat)
+rectangle((50, 70), width=96, height=24, style=Styles.NeutralFlat.patch(shape_r=2.0))
 text(
     (6, 78.5),
     "Cloud CI/CD Release Pipeline — ChevronProcess(flat_left_end=True)",
@@ -65,7 +65,7 @@ pipeline.add("5. Production", description="Global Rollout", style=Styles.TealNeu
 pipeline.draw(xy=(6, 60.5), width=88.0, height=13.5)
 
 # Bottom Panel: SRE Incident Response Cycle with set_center()
-rectangle((50, 29), width=96, height=52, r=2.0, style=Styles.MutedOutline)
+rectangle((50, 29), width=96, height=52, style=Styles.MutedOutline.patch(shape_r=2.0))
 text(
     (6, 51.5),
     "SRE Incident Response Loop — Cycle() + set_center()",
@@ -110,7 +110,7 @@ incident_cycle.set_center(
 incident_cycle.draw(xy=(34, 24.5), radius=16.2, align="center")
 
 # Right callout summary inside bottom panel
-rectangle((77, 26.5), width=32, height=34, r=1.5, style=Styles.Neutral)
+rectangle((77, 26.5), width=32, height=34, style=Styles.Neutral.patch(shape_r=1.5))
 text((64, 39.5), "Cycle Highlights:", style=Styles.DarkBold.patch(text_size=8.5, halign="left"))
 text((64, 34.0), "• Auto-distributed angles", style=Styles.Dark.patch(text_size=7.8, halign="left"))
 text((64, 29.0), "• Curved arc connectors", style=Styles.Dark.patch(text_size=7.8, halign="left"))

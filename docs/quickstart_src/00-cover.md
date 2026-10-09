@@ -15,7 +15,7 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 # 1. Stage: Source Code & Markdown
-rectangle(xy=(18, 24), width=26, height=32, r=2.5, style=Styles.PrimaryOutline)
+rectangle(xy=(18, 24), width=26, height=32, style=Styles.PrimaryOutline.patch(shape_r=2.5))
 phosphor.code(xy=(18, 30), width=9, style=Styles.Primary)
 text(xy=(18, 16), text="Declarative Python\n& Markdown", style=Styles.DarkBold.patch(text_size=9.5))
 
@@ -31,13 +31,13 @@ text(xy=(56, 18), text="drawlib\nEngine", style=Styles.DarkBold.patch(text_size=
 line((69, 24), (81, 24), arrow_head="->", style=Styles.DarkBold)
 
 # 3. Stage: Unified Publication Outputs
-rectangle(xy=(98, 35), width=26, height=12, r=2, style=Styles.AccentFlat)
+rectangle(xy=(98, 35), width=26, height=12, style=Styles.AccentFlat.patch(shape_r=2))
 text(xy=(98, 35), text="Static Site / HTML", style=Styles.WhiteBold.patch(text_size=9))
 
-rectangle(xy=(98, 24), width=26, height=12, r=2, style=Styles.SecondaryFlat)
+rectangle(xy=(98, 24), width=26, height=12, style=Styles.SecondaryFlat.patch(shape_r=2))
 text(xy=(98, 24), text="Design Spec / PDF", style=Styles.WhiteBold.patch(text_size=9))
 
-rectangle(xy=(98, 13), width=26, height=12, r=2, style=Styles.PrimaryFlat)
+rectangle(xy=(98, 13), width=26, height=12, style=Styles.PrimaryFlat.patch(shape_r=2))
 text(xy=(98, 13), text="Image Batch / PNG", style=Styles.WhiteBold.patch(text_size=9))
 ```
 

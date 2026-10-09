@@ -140,8 +140,7 @@ rectangle(
     (cx, cy),
     width=box_w,
     height=box_h,
-    r=4,
-    style=Styles.MutedDashed,
+    style=Styles.MutedDashed.patch(shape_r=4),
 )
 text((cx, cy + box_h / 2 - 4), "Kubernetes Worker Nodes", style=Styles.SecondaryBold)
 

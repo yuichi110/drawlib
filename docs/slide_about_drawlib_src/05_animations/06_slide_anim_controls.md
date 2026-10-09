@@ -74,7 +74,7 @@ steps = [
 
 for active_step in range(4):
     with anim.frame(duration=0.8):
-        rectangle((48, 42), width=92, height=78, r=2.5, style=Styles.Neutral)
+        rectangle((48, 42), width=92, height=78, style=Styles.Neutral.patch(shape_r=2.5))
         text(
             (48, 74.5),
             "Interactive Click-Through Demo  (Click Diagram or Press 'A')",
@@ -88,7 +88,7 @@ for active_step in range(4):
             is_cur = idx == active_step
             st = Styles.AccentFlat if is_cur else (Styles.PrimaryNeutral if idx < active_step else Styles.White)
             ts = Styles.WhiteBold.patch(text_size=8.0) if is_cur else Styles.DarkBold.patch(text_size=8.0)
-            rectangle((sx, 65.0), width=18.0, height=6.5, r=1.2, style=st, text=s_lbl, text_style=ts)
+            rectangle((sx, 65.0), width=18.0, height=6.5, style=st.patch(shape_r=1.2), text=s_lbl, text_style=ts)
             if idx < 3:
                 line((sx + 9.0, 65.0), (sx + 12.0, 65.0), arrow_head="->", style=Styles.DarkBold)
 
@@ -101,8 +101,7 @@ for active_step in range(4):
                     (48, cy),
                     width=82,
                     height=8.8,
-                    r=1.5,
-                    style=Styles.MutedDashed,
+                    style=Styles.MutedDashed.patch(shape_r=1.5),
                     text=f"Step {i + 1} — Waiting for presenter trigger...",
                     text_style=Styles.Muted.patch(text_size=8.8),
                 )
@@ -113,7 +112,7 @@ for active_step in range(4):
                 t_desc = Styles.White.patch(text_size=8.2, halign="left") if is_active else Styles.Muted.patch(text_size=8.2, halign="left")
                 badge_st = Styles.AccentFlat if is_active else Styles.SecondaryFlat
 
-                rectangle((48, cy), width=82, height=8.8, r=1.5, style=c_style)
+                rectangle((48, cy), width=82, height=8.8, style=c_style.patch(shape_r=1.5))
                 circle((12.5, cy), radius=2.6, style=badge_st, text=str(i + 1), text_style=Styles.WhiteBold.patch(text_size=8.5))
                 text((17.5, cy + 1.6), steps[i][1], style=t_title)
                 text((17.5, cy - 1.8), steps[i][2], style=t_desc)
@@ -123,8 +122,7 @@ for active_step in range(4):
             (48, 8.5),
             width=82,
             height=6.0,
-            r=1.2,
-            style=Styles.PrimaryNeutral,
+            style=Styles.PrimaryNeutral.patch(shape_r=1.2),
             text=steps[active_step][0],
             text_style=Styles.PrimaryBold.patch(text_size=8.8),
         )

@@ -40,11 +40,12 @@ class TestFlowNodes:
 
     def test_process_initialization(self) -> None:
         """Verify Process node defaults and attributes."""
-        p = Process(text="Execute Job", width=30.0, height=15.0, r=2.0)
+        p = Process(text="Execute Job", width=30.0, height=15.0, style=Styles.PrimaryFlat.patch(shape_r=2.0))
         assert p.text == "Execute Job"
         assert p.width == 30.0
         assert p.height == 15.0
-        assert p.r == 2.0
+        assert p.style is not None
+        assert p.style.shape_r == 2.0
         assert p.shape_type == "process"
         assert p.xy == (0.0, 0.0)
 
@@ -62,10 +63,8 @@ class TestFlowNodes:
         e = End("Finish")
         assert s.text == "Begin"
         assert s.shape_type == "start"
-        assert s.r == 5.0
         assert e.text == "Finish"
         assert e.shape_type == "end"
-        assert e.r == 5.0
 
     def test_data_initialization(self) -> None:
         """Verify Data parallelogram node."""

@@ -34,8 +34,8 @@ ts_body = Styles.Dark.patch(text_size=7.8, halign="left")
 ts_bold = Styles.DarkBold.patch(text_size=8.5)
 
 # 1. Scaffold: drawlib init
-rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.MutedDashed)
-rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.SecondaryFlat, text="1. drawlib init", text_style=header_ts)
+rectangle((23.5, 24.0), width=35.0, height=38.0, style=Styles.MutedDashed.patch(shape_r=2.0))
+rectangle((23.5, 40.0), width=33.0, height=5.5, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init", text_style=header_ts)
 
 phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.Secondary)
 text((16.0, 31.0), text="init doc report\nAuto-resolves report_src/", style=ts_body)
@@ -51,8 +51,8 @@ line((42.0, 24.0), (49.0, 24.0), arrow_head="->", style=Styles.DarkBold)
 text((45.5, 27.5), text="Scaffold", style=ts_bold)
 
 # 2. Source Directory: report_src/ (Source of Truth)
-rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
-rectangle((67.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="2. report_src/ (Source)", text_style=header_ts)
+rectangle((67.5, 24.0), width=35.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
+rectangle((67.5, 40.0), width=33.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="2. report_src/ (Source)", text_style=header_ts)
 
 phosphor.file_text(xy=(55.0, 31.0), width=5.0, style=Styles.Primary)
 text((60.0, 31.0), text="00_cover.md, 01_*.md\nMarkdown + embedded code", style=ts_body)
@@ -68,8 +68,8 @@ line((86.0, 24.0), (93.0, 24.0), arrow_head="->", style=Styles.DarkBold)
 text((89.5, 27.5), text="build.sh", style=ts_bold)
 
 # 3. Deliverable: report.pdf
-rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.AccentOutline)
-rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="3. report.pdf (Output)", text_style=header_ts)
+rectangle((111.5, 24.0), width=35.0, height=38.0, style=Styles.AccentOutline.patch(shape_r=2.0))
+rectangle((111.5, 40.0), width=33.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.5), text="3. report.pdf (Output)", text_style=header_ts)
 
 phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.Accent)
 text((104.0, 31.0), text="A4 Print Optimization\nChromium rendering engine", style=ts_body)

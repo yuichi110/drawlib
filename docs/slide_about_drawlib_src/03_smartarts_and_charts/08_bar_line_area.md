@@ -15,7 +15,7 @@ utils.draw_page_number()
 
 ### 1. `BarChart` — Grouped, Stacked & Log Scales
 - Supports `orientation="vertical" | "horizontal"` and `bar_mode="group" | "stack"`.
-- Rounded bar corners (`r=0.8`), direct value labels (`value_format="{:.0f}M"`), and linear or logarithmic (`scale="log"`) axes.
+- Rounded bar tip corners (`bar_r=0.8`), direct value labels (`value_format="{:.0f}M"`), and linear or logarithmic (`scale="log"`) axes.
 
 ### 2. `LineChart` — Linear Polylines & Smooth Splines
 - Set `smooth=True` for cubic-like spline interpolation or `smooth=False` for exact vertex segments.
@@ -47,7 +47,7 @@ bar = BarChart(
     title_style=Styles.DarkBold.patch(text_size=8.8),
     bar_mode="group",
     bar_width_ratio=0.72,
-    r=0.6,
+    bar_r=0.6,
     axis_text_style=Styles.Muted.patch(text_size=7.2),
     grid_style=Styles.MutedDashed,
     value_text_style=Styles.DarkBold.patch(text_size=6.5),
@@ -118,7 +118,7 @@ save()
 
 ::: note
 - This slide demonstrates the three core Cartesian categorical/trend chart types: `BarChart`, `LineChart`, and `AreaChart`.
-- **Top-Left (`BarChart`)**: Compares quarterly Cloud ARR vs. Services revenue using `bar_mode="group"`, rounded corners (`r=0.6`), and direct value labels above each bar.
+- **Top-Left (`BarChart`)**: Compares quarterly Cloud ARR vs. Services revenue using `bar_mode="group"`, rounded tip corners (`bar_r=0.6`), and direct value labels above each bar.
 - **Top-Right (`LineChart`)**: Plots 24-hour CPU utilization across a Primary Cluster (solid smooth spline curve with circle markers) and a Read Replica (dashed curve with square markers).
 - **Bottom (`AreaChart`)**: Visualizes cumulative regional network bandwidth in `mode="stack"` with `fill_alpha=0.65`, showing both individual region contributions and the aggregate global bandwidth envelope.
 :::

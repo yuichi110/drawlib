@@ -46,11 +46,11 @@ roles = [
 for x, label, st_flat, st_out, st_dash in roles:
     text((x, 48), label, style=Styles.DarkBold.patch(text_size=9))
     # Flat box
-    rectangle((x, 37), width=15, height=12, r=1.5, style=st_flat, text="flat", text_style=Styles.WhiteBold)
+    rectangle((x, 37), width=15, height=12, style=st_flat.patch(shape_r=1.5), text="flat", text_style=Styles.WhiteBold)
     # Outline box
-    rectangle((x, 22), width=15, height=12, r=1.5, style=st_out, text="outline", text_style=Styles.Dark)
+    rectangle((x, 22), width=15, height=12, style=st_out.patch(shape_r=1.5), text="outline", text_style=Styles.Dark)
     # Dashed box
-    rectangle((x, 7), width=15, height=12, r=1.5, style=st_dash, text="dashed", text_style=Styles.Dark)
+    rectangle((x, 7), width=15, height=12, style=st_dash.patch(shape_r=1.5), text="dashed", text_style=Styles.Dark)
 ```
 
 ## Creating Custom Styles with `.patch()`
@@ -93,8 +93,8 @@ type_samples = [
 ]
 
 for x, title, sub, font_obj, st in type_samples:
-    rectangle((x, 22), width=34, height=36, r=2.5, style=Styles.MutedDashed)
-    rectangle((x, 32), width=30, height=10, r=1.5, style=st, text=title, text_style=Styles.WhiteBold)
+    rectangle((x, 22), width=34, height=36, style=Styles.MutedDashed.patch(shape_r=2.5))
+    rectangle((x, 32), width=30, height=10, style=st.patch(shape_r=1.5), text=title, text_style=Styles.WhiteBold)
     text((x, 20), sub, style=Styles.DarkBold.patch(text_size=7.5))
     text((x, 11), "Quick brown fox jumps\n1234567890", style=Styles.Dark.patch(text_font=font_obj, text_size=7.5))
 ```

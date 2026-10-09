@@ -25,12 +25,12 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 # Input
-rectangle(xy=(18, 24), width=24, height=34, r=2, style=Styles.PrimaryOutline)
+rectangle(xy=(18, 24), width=24, height=34, style=Styles.PrimaryOutline.patch(shape_r=2))
 phosphor.file_text(xy=(18, 30), width=8, style=Styles.Primary)
 text(xy=(18, 16), text="Source Docs\n(docs_src/)", style=Styles.DarkBold.patch(text_size=9))
 
 # CLI Engine
-rectangle(xy=(56, 24), width=26, height=34, r=2, style=Styles.SecondaryOutline)
+rectangle(xy=(56, 24), width=26, height=34, style=Styles.SecondaryOutline.patch(shape_r=2))
 phosphor.terminal_window(xy=(56, 30), width=8, style=Styles.Secondary)
 text(xy=(56, 16), text="drawlib CLI\n& SQLite Cache", style=Styles.DarkBold.patch(text_size=9))
 
@@ -45,7 +45,7 @@ targets = [
 
 for y_pos, label, st in targets:
     line((69, 24), (82, y_pos), arrow_head="->", style=Styles.DarkBold)
-    rectangle(xy=(101, y_pos), width=36, height=10, r=1.5, style=st, text=label, text_style=Styles.WhiteBold)
+    rectangle(xy=(101, y_pos), width=36, height=10, style=st.patch(shape_r=1.5), text=label, text_style=Styles.WhiteBold)
 ```
 
 ## High-Performance Incremental Build Cache

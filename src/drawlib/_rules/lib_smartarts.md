@@ -332,7 +332,6 @@ MindMapNode(
     shape: Literal["rectangle", "oval", "none"] | None = None,
     size: tuple[float, float] | None = None,
     style: Style | None = None,
-    r: float | None = None,
     text_style: Style | None = None,
     line_style: Style | None = None,
     horizontal_margin: float | None = None,
@@ -347,7 +346,7 @@ MindMapNode(
 - `node.draw(xy, branch="right", scale=1.0)`: Renders the mindmap centered at `xy` with optional proportional `scale`.
 
 ### 6.3 Shapes & Layout Options
-- `shape`: `"rectangle"` (rounded via `r`), `"oval"`, or `"none"` (clean text label).
+- `shape`: `"rectangle"` (rounded via `style.shape_r`), `"oval"`, or `"none"` (clean text label).
 - `branch`: `"bottom"` (top-down), `"top"` (bottom-up), `"right"` (left-to-right), `"left"` (right-to-left), or multi-directional.
 - `xy_shift`: Relative `(dx, dy)` offset applied after layout calculation to fine-tune placement or avoid label collisions.
 - Cascading: Children automatically inherit unassigned style, size, shape, margins, and line styles from parent nodes. Root requires `style`, `text_style`, and `line_style`.
@@ -588,7 +587,6 @@ GridLayout(
     num_row: int,
     style: Style,
     text_style: Style,
-    r: float = 0.0,
 )
 ```
 
@@ -599,7 +597,6 @@ item = grid.add(
     width: int,                 # Number of columns spanned
     height: int,                # Number of rows spanned
     *,
-    r: float | None = None,
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
@@ -608,8 +605,8 @@ item = grid.add(
 ```
 
 ### 9.3 Drawing Modes
-- `draw(xy, width, height, margin, outer_r=None, outer_style=None, scale=1.0)`: Even column and row dimensions with uniform `margin` gutters between cells and around borders, plus optional proportional `scale`.
-- `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_r=None, outer_style=None, scale=1.0)`: Custom widths and heights for each individual column and row, plus optional proportional `scale`.
+- `draw(xy, width, height, margin, outer_style=None, scale=1.0)`: Even column and row dimensions with uniform `margin` gutters between cells and around borders, plus optional proportional `scale`.
+- `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_style=None, scale=1.0)`: Custom widths and heights for each individual column and row, plus optional proportional `scale`.
 
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib show-code
@@ -619,7 +616,7 @@ from drawlib.styles import Styles
 
 setup(width=110, height=75)
 
-grid = GridLayout(num_column=4, num_row=4, style=Styles.Neutral, text_style=Styles.DarkBold, r=1.5)
+grid = GridLayout(num_column=4, num_row=4, style=Styles.Neutral.patch(shape_r=1.5), text_style=Styles.DarkBold)
 
 # Row 3 (Top): Client & CDN Ingress (Hero layer)
 grid.add(
@@ -627,27 +624,26 @@ grid.add(
     width=4,
     height=1,
     text="Edge Ingress: Cloudflare CDN & WAF Gateway",
-    style=Styles.PrimaryFlat,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text_style=Styles.WhiteBold,
 )
 # Row 2: Microservice Layer
-grid.add(position=(0, 2), width=2, height=1, text="Order & Cart API", style=Styles.PrimaryNeutral)
-grid.add(position=(2, 2), width=1, height=1, text="Auth API", style=Styles.PrimaryNeutral)
-grid.add(position=(3, 2), width=1, height=1, text="Notify", style=Styles.PrimaryNeutral)
+grid.add(position=(0, 2), width=2, height=1, text="Order & Cart API", style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+grid.add(position=(2, 2), width=1, height=1, text="Auth API", style=Styles.PrimaryNeutral.patch(shape_r=1.5))
+grid.add(position=(3, 2), width=1, height=1, text="Notify", style=Styles.PrimaryNeutral.patch(shape_r=1.5))
 # Row 1: Persistence Tier
-grid.add(position=(0, 1), width=1, height=1, text="Postgres", style=Styles.SecondaryNeutral)
-grid.add(position=(1, 1), width=1, height=1, text="Mongo", style=Styles.SecondaryNeutral)
-grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style=Styles.SecondaryNeutral)
+grid.add(position=(0, 1), width=1, height=1, text="Postgres", style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+grid.add(position=(1, 1), width=1, height=1, text="Mongo", style=Styles.SecondaryNeutral.patch(shape_r=1.5))
+grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 # Row 0 (Bottom): Cloud Infrastructure
-grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=Styles.Neutral)
+grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=Styles.Neutral.patch(shape_r=1.5))
 
 grid.draw(
     xy=(10, 10),
     width=90,
     height=55,
     margin=1.5,
-    outer_r=2.0,
-    outer_style=Styles.MutedDashed,
+    outer_style=Styles.MutedDashed.patch(shape_r=2.0),
 )
 save()
 ```
@@ -813,13 +809,12 @@ SourceCode.draw(
     file: str | None = None,           # Path to code file (alternative to `code`)
     code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
     show_linenum: bool = False,        # Whether to show line numbers in a gutter
-    r: float = 1.5,                    # Corner radius of the container box
     scale: float = 1.0,                # Proportional scaling anchored at xy
 )
 ```
 
 ### 12.3 Style Management (`SourceCodeStyles`)
-Styles are configured via `SourceCodeStyles.get(...)` (or `get_source_code_styles(...)`) and can be patched via `.patch()`:
+Styles are configured via `SourceCodeStyles.get(...)` (or `get_source_code_styles(...)`) and can be patched via `.patch()` (the outer box corner radius is controlled via `styles.box_style.shape_r`, defaulting to `1.5`):
 ```python
 styles = SourceCodeStyles.get("dark", font_lang="en", text_size=11.0)
 custom = styles.patch(keyword=Styles.PrimaryBold, comment=Styles.MutedItalic)
@@ -835,14 +830,13 @@ from drawlib.styles import Styles
 setup(width=110, height=105)
 
 # Outer window frame
-rectangle(xy=(55, 52.5), width=96, height=95, r=2, style=Styles.DarkSolid)
+rectangle(xy=(55, 52.5), width=96, height=95, style=Styles.DarkSolid.patch(shape_r=2))
 # Header bar
 rectangle(
     xy=(55, 94),
     width=96,
     height=12,
-    r=2,
-    style=Styles.DarkFlat,
+    style=Styles.DarkFlat.patch(shape_r=2),
     text="Kubernetes Deployment Spec (v1)",
     text_style=Styles.WhiteBold,
 )

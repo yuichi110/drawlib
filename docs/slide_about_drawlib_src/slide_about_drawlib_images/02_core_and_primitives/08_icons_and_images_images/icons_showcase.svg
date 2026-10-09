@@ -29,15 +29,15 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 36 100.8 
+    <path d="M 360 180 
+L 54 180 
+Q 36 180 36 162 
 L 36 39.6 
 Q 36 21.6 54 21.6 
 L 666 21.6 
 Q 684 21.6 684 39.6 
 L 684 162 
 Q 684 180 666 180 
-L 54 180 
-Q 36 180 36 162 
 z
 " clip-path="url(#p5a0ea125fc)" style="fill: #ffffff"/>
    </g>
@@ -97,15 +97,15 @@ z
     </g>
    </g>
    <g id="patch_3">
-    <path d="M 36 295.2 
+    <path d="M 360 374.4 
+L 54 374.4 
+Q 36 374.4 36 356.4 
 L 36 234 
 Q 36 216 54 216 
 L 666 216 
 Q 684 216 684 234 
 L 684 356.4 
 Q 684 374.4 666 374.4 
-L 54 374.4 
-Q 36 374.4 36 356.4 
 z
 " clip-path="url(#p5a0ea125fc)" style="fill: #ffffff"/>
    </g>
@@ -151,15 +151,15 @@ iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAQiElEQVR4nO2deXgUVbbAz73VGxACZiMQ
     </g>
    </g>
    <g id="patch_4">
-    <path d="M 36 489.6 
+    <path d="M 360 568.8 
+L 54 568.8 
+Q 36 568.8 36 550.8 
 L 36 428.4 
 Q 36 410.4 54 410.4 
 L 666 410.4 
 Q 684 410.4 684 428.4 
 L 684 550.8 
 Q 684 568.8 666 568.8 
-L 54 568.8 
-Q 36 568.8 36 550.8 
 z
 " clip-path="url(#p5a0ea125fc)" style="fill: #ffffff"/>
    </g>

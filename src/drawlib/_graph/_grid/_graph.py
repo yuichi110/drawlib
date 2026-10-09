@@ -92,7 +92,7 @@ class GridGraph(BaseGraph):
         *,
         style: Style | None = None,
         text_style: Style | None = None,
-        shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle",
+        shape: Literal["rectangle", "circle"] = "rectangle",
         width: float | None = None,
         height: float | None = None,
         show: bool = True,
@@ -106,7 +106,7 @@ class GridGraph(BaseGraph):
             label: Text label displayed on the node. Defaults to cell_id if None.
             style: Shape styling for this node.
             text_style: Text styling for the node label.
-            shape: Shape geometry ("rectangle", "circle", "rounded_rectangle").
+            shape: Shape geometry ("rectangle", "circle").
             width: Custom width for this node.
             height: Custom height for this node.
             show: Whether to render this cell node.

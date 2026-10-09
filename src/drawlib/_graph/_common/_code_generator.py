@@ -135,11 +135,6 @@ def _format_nodes_code(nodes: dict[str, NodeLayout]) -> list[str]:
         if node.shape == "circle":
             r = node.width / 2.0
             lines.append(f"circle({var_name}, radius={r:.1f}, {lbl}, style=Styles.PrimaryFlat)")
-        elif node.shape == "rounded_rectangle":
-            lines.append(
-                f"rectangle({var_name}, width={node.width:.1f}, height={node.height:.1f}, "
-                f"r=2.0, {lbl}, style=Styles.PrimaryFlat)"
-            )
         else:
             lines.append(
                 f"rectangle({var_name}, width={node.width:.1f}, height={node.height:.1f}, "

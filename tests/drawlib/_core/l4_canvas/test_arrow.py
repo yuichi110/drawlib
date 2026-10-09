@@ -147,8 +147,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
 
         # Polyline with duplicated consecutive points
@@ -158,8 +157,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
 
         # Polyline with straight slopes (same m)
@@ -169,8 +167,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
 
         # Other heads
@@ -180,8 +177,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="<-",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
         arrow_polyline(
             xys=[(70, 40), (70, 60), (90, 60), (90, 40)],
@@ -189,8 +185,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="<->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=(5, 2)),
         )
 
         save(f"{OUTPUT_DIR}test_arrow_polyline.png")
@@ -287,8 +282,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
 
         # Angles & other heads
@@ -300,8 +294,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def.patch(angle=90),
+            style=s_def.patch(angle=90, shape_r=5),
         )
         arrow_l(
             xy=(75, 75),
@@ -311,8 +304,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="<-",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
         arrow_l(
             xy=(50, 50),
@@ -322,8 +314,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="<->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=(5,)),
         )
 
         save(f"{OUTPUT_DIR}test_arrow_l.png")
@@ -342,8 +333,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
 
         # Angles & other heads
@@ -355,8 +345,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="->",
-            r=5,
-            style=s_def.patch(angle=90),
+            style=s_def.patch(angle=90, shape_r=5),
         )
         arrow_u(
             xy=(75, 25),
@@ -366,8 +355,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="<-",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=5),
         )
         arrow_u(
             xy=(75, 75),
@@ -377,8 +365,7 @@ class TestCanvasArrow:
             head_length=3,
             head_width=5,
             head="<->",
-            r=5,
-            style=s_def,
+            style=s_def.patch(shape_r=(5, 2)),
         )
 
         save(f"{OUTPUT_DIR}test_arrow_u.png")

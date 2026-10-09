@@ -89,10 +89,11 @@ Styles in Drawlib are immutable data models. To create custom variations without
 from drawlib.styles import Styles
 from drawlib.preset_colors import Colors
 
-# 1. Derive a custom branded node card
+# 1. Derive a custom branded node card with rounded corners
 custom_card = Styles.PrimaryNeutral.patch(
     shape_line_width=2.0,
     shape_line_color=Colors.Blue,
+    shape_r=2.0,
     text_size=11.0,
 )
 

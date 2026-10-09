@@ -38,19 +38,18 @@ from drawlib.text import text
 clear()
 setup(width=98, height=84)
 
-rectangle((49, 42), width=94, height=78, r=2.5, style=Styles.Neutral)
+rectangle((49, 42), width=94, height=78, style=Styles.Neutral.patch(shape_r=2.5))
 text((49, 75), "SQLite Incremental Build Cache Architecture & Speedup", style=Styles.DarkBold.patch(text_size=11.5))
 
 # Top Section: Hash Computation & Lookup Flow
-rectangle((49, 58.0), width=86, height=24.0, r=2.0, style=Styles.PrimaryNeutral)
+rectangle((49, 58.0), width=86, height=24.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
 text((9.0, 67.0), "1. Deterministic SHA-256 Cache Key Pipeline", style=Styles.PrimaryBold.patch(text_size=8.8, halign="left"))
 
 rectangle(
     (21.0, 55.5),
     width=24.0,
     height=13.0,
-    r=1.5,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.5),
     text="Hash Inputs:\n• Code Block AST/Text\n• styles.py + utils.py\n• Format + total_slides",
     text_style=Styles.DarkBold.patch(text_size=7.6),
 )
@@ -66,8 +65,7 @@ rectangle(
     (78.0, 59.0),
     width=22.0,
     height=6.0,
-    r=1.2,
-    style=Styles.SecondaryNeutral,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
     text="HIT: Restore (< 1 ms)",
     text_style=Styles.DarkBold.patch(text_size=8.0),
 )
@@ -75,8 +73,7 @@ rectangle(
     (78.0, 51.5),
     width=22.0,
     height=6.0,
-    r=1.2,
-    style=Styles.White,
+    style=Styles.White.patch(shape_r=1.2),
     text="MISS: Execute & Store",
     text_style=Styles.DarkBold.patch(text_size=8.0),
 )
@@ -86,7 +83,7 @@ line((60.0, 57.5), (67.0, 59.0), arrow_head="->", style=Styles.DarkBold)
 line((60.0, 53.5), (67.0, 51.5), arrow_head="->", style=Styles.DarkBold)
 
 # Bottom Section: BarChart comparing Cold Build vs Warm Cache Build Times
-rectangle((49, 24.5), width=86, height=37.0, r=2.0, style=Styles.White)
+rectangle((49, 24.5), width=86, height=37.0, style=Styles.White.patch(shape_r=2.0))
 
 chart = BarChart(
     axis_line_style=Styles.Dark,
@@ -97,7 +94,7 @@ chart = BarChart(
     title_style=Styles.DarkBold.patch(text_size=9.2),
     bar_mode="group",
     bar_width_ratio=0.65,
-    r=0.8,
+    bar_r=0.8,
     axis_text_style=Styles.Muted.patch(text_size=8.0),
     grid_style=Styles.MutedDashed,
     value_text_style=Styles.DarkBold.patch(text_size=7.8),

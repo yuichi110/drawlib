@@ -30,8 +30,7 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            r=2,
-            style=styles.PrimarySolid,
+            style=styles.PrimarySolid.patch(shape_r=2),
             text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A")
@@ -49,8 +48,7 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            r=2,
-            style=styles.PrimarySolid,
+            style=styles.PrimarySolid.patch(shape_r=2),
             text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A", text_style=styles.PrimaryBold.patch(angle=270))
@@ -68,8 +66,7 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            r=2,
-            style=styles.PrimarySolid,
+            style=styles.PrimarySolid.patch(shape_r=2),
             text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A", text_style=styles.PrimaryBold.patch(xy_shift=(3, 3)))
@@ -87,8 +84,7 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            r=2,
-            style=styles.PrimarySolid,
+            style=styles.PrimarySolid.patch(shape_r=2),
             text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A")
@@ -96,8 +92,8 @@ class TestGridLayout:
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")
-        gl.draw((10, 10), 30, 30, 1, outer_style=styles.PrimarySolid)
-        gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style=styles.PrimarySolid)
+        gl.draw((10, 10), 30, 30, 1, outer_style=styles.PrimarySolid.patch(shape_r=2))
+        gl.draw((60, 10), 30, 30, 1, outer_style=styles.PrimarySolid)
         save(f"{OUTPUT_DIR}test_gridlayout_outerstyle.png")
 
     def test_gridlayout_missing_style_raises_error(self) -> None:
@@ -119,8 +115,7 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=2,
             num_row=2,
-            r=2,
-            style=styles.PrimarySolid,
+            style=styles.PrimarySolid.patch(shape_r=2),
             text_style=styles.PrimaryBold,
         )
         item_a = gl.add((0, 0), 1, 1, text="A")

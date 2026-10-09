@@ -116,7 +116,6 @@ class State(StateNodeBase):
         entry: str = "",
         do: str = "",
         exit: str = "",  # noqa: A002
-        r: float = 2.0,
         width: float | None = None,
         height: float | None = None,
         size: tuple[float, float] | None = None,
@@ -131,11 +130,10 @@ class State(StateNodeBase):
             entry: Optional entry action string ('entry / action').
             do: Optional internal activity string ('do / activity').
             exit: Optional exit action string ('exit / action').
-            r: Corner radius when shape is 'box' (default: 2.0).
             width: Optional width of the state shape.
             height: Optional height of the state shape.
             size: Optional shorthand (width, height) tuple overriding width and height.
-            style: Optional Style object overriding border, fill, and text colors.
+            style: Optional Style object overriding border, fill, text colors, and shape_r.
             show: Whether to render this state node.
         """
         valid_shapes = {"box", "oval", "circle", "double_circle", "text_only"}
@@ -143,7 +141,6 @@ class State(StateNodeBase):
             raise ValueError(f"Invalid shape: {shape!r}. Must be one of {sorted(valid_shapes)}.")
 
         self.shape: ShapeType = shape
-        self.r = float(r)
 
         # Actions
         self.actions: list[StateAction] = []

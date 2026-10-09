@@ -136,7 +136,6 @@ def _render_nodes(
                 xy=(cx, cy),
                 width=w,
                 height=h,
-                r=node.r,
                 style=applied_style,
                 text=node.text,
                 text_style=text_style,
@@ -152,13 +151,12 @@ def _render_nodes(
             )
         elif node.shape_type in {"start", "end"}:
             # Stadium/pill shape
-            radius = node.r if node.r > 0 else h / 2.0
+            stadium_style = applied_style if applied_style.shape_r is not None else applied_style.patch(shape_r=h / 2.0)
             canvas_rectangle(
                 xy=(cx, cy),
                 width=w,
                 height=h,
-                r=radius,
-                style=applied_style,
+                style=stadium_style,
                 text=node.text,
                 text_style=text_style,
             )
@@ -177,7 +175,6 @@ def _render_nodes(
                 xy=(cx, cy),
                 width=w,
                 height=h,
-                r=node.r,
                 style=applied_style,
                 text=node.text,
                 text_style=text_style,

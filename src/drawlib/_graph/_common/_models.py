@@ -30,7 +30,7 @@ class Node:
     label: str | None = None
     style: Style | None = None
     text_style: Style | None = None
-    shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle"
+    shape: Literal["rectangle", "circle"] = "rectangle"
     width: float | None = None
     height: float | None = None
     ring: int | None = None

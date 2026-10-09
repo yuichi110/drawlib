@@ -95,7 +95,7 @@ class RadialGraph(BaseGraph):
         ring: int | None = None,
         style: Style | None = None,
         text_style: Style | None = None,
-        shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle",
+        shape: Literal["rectangle", "circle"] = "rectangle",
         width: float | None = None,
         height: float | None = None,
         edge_label: str | None = None,

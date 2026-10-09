@@ -114,16 +114,6 @@ def _draw_nodes(nodes: dict[str, NodeLayout]) -> None:
                 text=node.label,
                 **n_kwargs,
             )
-        elif node.shape == "rounded_rectangle":
-            rectangle(
-                node.xy,
-                width=node.width,
-                height=node.height,
-                r=2.0,
-                style=node.style,
-                text=node.label,
-                **n_kwargs,
-            )
         else:
             rectangle(
                 node.xy,
