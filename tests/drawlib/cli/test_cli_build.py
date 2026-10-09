@@ -394,3 +394,55 @@ rectangle((50, 50), width=40, height=20, style=Styles.Primary)
     assert (out_images / "chapter_images" / "arch.png").stat().st_size > 0
     assert not (doc_dir / "doc_images").exists()
 
+
+def test_cli_build_html_favicon_resolution(tmp_path) -> None:
+    """Test CLI build html resolves correct relative favicon paths for root and nested pages."""
+    src_dir = tmp_path / "site_src"
+    out_dir = tmp_path / "site_dist"
+    src_dir.mkdir()
+    (src_dir / "_assets").mkdir()
+    (src_dir / "_assets" / "favicon.png").write_bytes(b"dummy_png_data")
+
+    (src_dir / "template.html").write_text(
+        '<!DOCTYPE html><html><head>{% if favicon_href %}<link rel="icon" href="{{ favicon_href }}">'
+        "{% endif %}{% if css_href %}<link rel=\"stylesheet\" href=\"{{ css_href }}\">"
+        "{% endif %}</head><body>{{ body }}</body></html>",
+        encoding="utf-8",
+    )
+    (src_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+    (src_dir / "index.md").write_text("# Home Page\n\nWelcome home.", encoding="utf-8")
+    sub_dir = src_dir / "guides"
+    sub_dir.mkdir()
+    (sub_dir / "tutorial.md").write_text("# Tutorial\n\nStep by step.", encoding="utf-8")
+    (src_dir / "navbar.md").write_text("- [Home](index.md)\n- [Tutorial](guides/tutorial.md)\n", encoding="utf-8")
+
+    res = run_drawlib_cli(["build", "html", str(src_dir), "-o", str(out_dir)], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert (out_dir / "_assets" / "favicon.png").is_file()
+
+    # Root index.html should have relative href="_assets/favicon.png"
+    root_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" href="_assets/favicon.png">' in root_html
+
+    # Nested tutorial.html should have relative href="../_assets/favicon.png"
+    sub_html = (out_dir / "guides" / "tutorial.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" href="../_assets/favicon.png">' in sub_html
+
+
+def test_cli_build_slide_favicon(tmp_path) -> None:
+    """Test CLI build slide presentation automatically injects favicon link when present."""
+    slide_dir = tmp_path / "slide_src"
+    out_dir = tmp_path / "slide_dist"
+    slide_dir.mkdir()
+    (slide_dir / "_assets").mkdir()
+    (slide_dir / "_assets" / "favicon.png").write_bytes(b"dummy_favicon_data")
+    (slide_dir / "01_title.md").write_text("# Keynote\n\nIntroductory slide.", encoding="utf-8")
+
+    res = run_drawlib_cli(["build", "slide", str(slide_dir), "-o", str(out_dir)], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert (out_dir / "_assets" / "favicon.png").is_file()
+
+    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" type="image/png" href="_assets/favicon.png">' in index_html
+
+

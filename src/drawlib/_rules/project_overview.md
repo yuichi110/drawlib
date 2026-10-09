@@ -123,6 +123,7 @@ from drawlib.utils import draw_service_card
 ### 3.4. Local Static Assets (`_assets/`)
 Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots inside `<target>_src/_assets/`.
 - During HTML/Markdown/Slide builds, `_assets/` is automatically copied to the output directory.
+- `drawlib init` automatically provisions `_assets/favicon.png` so HTML pages, documentation websites, and slide presentations display the brand favicon out-of-the-box (customizable by replacing `_assets/favicon.png`).
 - Inside drawing code, reference files as `"_assets/logo.png"` or `FontFile("_assets/brand.ttf")`—Drawlib automatically resolves paths relative to the document or project root and hashes them in `.drawlib/cache.db`.
 
 ### 3.5. Modular Build Scripts (`build_*.sh`)

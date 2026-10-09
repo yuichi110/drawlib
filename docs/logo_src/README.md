@@ -13,6 +13,7 @@ This directory contains the standalone Python scripts that generate the official
   - `logo.py` / `logo_transparent.py`: Official horizontal brand logo (`docs/logo/logo.png`, `docs/logo/logo_transparent.png`).
   - `logo_icon.py` / `logo_icon_transparent.py`: Standalone square icon mark (`docs/logo/logo_icon.png`, `docs/logo/logo_icon_transparent.png`).
   - `logo_text.py` / `logo_text_transparent.py`: Standalone wordmark (`docs/logo/logo_text.png`, `docs/logo/logo_text_transparent.png`).
+  - `favicon.py`: Official rounded white-card favicon for browsers and tabs (`docs/logo/favicon.png`).
 - `logo/`: Generated logo images directory (**Do not edit directly**).
 
 ---

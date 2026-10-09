@@ -319,6 +319,18 @@ def build_slide(
     slides_markup = "\n\n".join(slides_html_list)
     thumbs_markup = "\n".join(thumbs_html_list)
 
+    favicon_markup = ""
+    for sub in ("_assets", "assets", ""):
+        for fav_name in ("favicon.png", "favicon.ico", "favicon.svg"):
+            src_fav = os.path.join(input_abs, sub, fav_name) if sub else os.path.join(input_abs, fav_name)
+            dst_fav = os.path.join(output_abs, sub, fav_name) if sub else os.path.join(output_abs, fav_name)
+            if os.path.isfile(src_fav) or os.path.isfile(dst_fav):
+                rel_fav = f"{sub}/{fav_name}" if sub else fav_name
+                favicon_markup = f'  <link rel="icon" type="image/png" href="{rel_fav}">\n'
+                break
+        if favicon_markup:
+            break
+
     html_content = (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n'
@@ -326,6 +338,7 @@ def build_slide(
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
         f"  <title>{deck_title}</title>\n"
+        f"{favicon_markup}"
         '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
         '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
         '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?'

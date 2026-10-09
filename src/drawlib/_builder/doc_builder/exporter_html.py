@@ -61,6 +61,7 @@ def render_html_document(
     template_path: Optional[str] = None,
     index_url: str = "index.html",
     site_title: Optional[str] = None,
+    favicon_href: Optional[str] = None,
 ) -> str:
     """Render full standalone HTML document using template and html_css.
 
@@ -74,6 +75,7 @@ def render_html_document(
         template_path (Optional[str]): File path to template.html.
         index_url (str): Relative URL to root index.html for brand link. Defaults to 'index.html'.
         site_title (Optional[str]): Site / brand title displayed in header (e.g. from navbar.md). Defaults to 'drawlib'.
+        favicon_href (Optional[str]): Relative path/href for favicon link. Defaults to None.
 
     Returns:
         str: Complete HTML string.
@@ -103,6 +105,7 @@ def render_html_document(
         nav_sections=nav_sections or [],
         index_url=index_url,
         site_title=site_title or "drawlib",
+        favicon_href=favicon_href,
     )
 
 

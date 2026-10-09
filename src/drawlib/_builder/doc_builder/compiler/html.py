@@ -40,6 +40,18 @@ from drawlib._slide._assets import bundle_svg_fonts
 from drawlib._templates import get_html_readme
 
 
+def resolve_favicon_href(input_abs: str, out_dir_abs: str, dest_abs: str) -> Optional[str]:
+    """Resolve relative href to favicon for a given output HTML file."""
+    for sub in ("_assets", "assets", ""):
+        for fav_name in ("favicon.png", "favicon.ico", "favicon.svg"):
+            src_fav = os.path.join(input_abs, sub, fav_name) if sub else os.path.join(input_abs, fav_name)
+            dst_fav = os.path.join(out_dir_abs, sub, fav_name) if sub else os.path.join(out_dir_abs, fav_name)
+            if os.path.isfile(src_fav) or os.path.isfile(dst_fav):
+                return os.path.relpath(dst_fav, os.path.dirname(dest_abs)).replace(os.sep, "/")
+    return None
+
+
+
 def build_html(
     input_dir: str,
     output_dir: Optional[str] = None,
@@ -169,6 +181,7 @@ def build_html(
                 else None
             )
             rel_index_url = os.path.relpath(root_index_dest_abs, os.path.dirname(dest_abs)).replace(os.sep, "/")
+            rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, dest_abs)
             if is_md:
                 cur_sections, cur_items = resolve_navbar_for_page(
                     sections=navbar_sections,
@@ -204,6 +217,7 @@ def build_html(
                 index_url=rel_index_url,
                 site_title=site_title,
                 project_root=input_abs,
+                favicon_href=rel_favicon_href,
             )
     else:
         _compile_merged_doc_html(
@@ -343,6 +357,8 @@ def _compile_merged_doc_html(
         body_parts.extend(chapters_html)
 
     combined_body = "\n\n".join(body_parts)
+    index_dest_abs = os.path.join(out_dir_abs, "index.html")
+    rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, index_dest_abs)
     full_html = render_html_document(
         body_html=combined_body,
         title=inferred_title or "Drawlib Document",
@@ -353,9 +369,9 @@ def _compile_merged_doc_html(
         template_path=template_path,
         index_url="index.html",
         site_title=None,
+        favicon_href=rel_favicon_href,
     )
 
-    index_dest_abs = os.path.join(out_dir_abs, "index.html")
     os.makedirs(out_dir_abs, exist_ok=True)
     with open(index_dest_abs, "w", encoding="utf-8") as f:
         f.write(full_html)
@@ -480,6 +496,7 @@ def _compile_single_html_file(
     index_url: Optional[str] = None,
     site_title: Optional[str] = None,
     project_root: Optional[str] = None,
+    favicon_href: Optional[str] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     body_html, doc_title, processor = _compile_chapter_body(
@@ -505,6 +522,7 @@ def _compile_single_html_file(
         template_path=template_path,
         index_url=(index_url or "index.html"),
         site_title=site_title,
+        favicon_href=favicon_href,
     )
 
     os.makedirs(os.path.dirname(dest_abs), exist_ok=True)

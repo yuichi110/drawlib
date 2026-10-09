@@ -72,6 +72,7 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
     assert (tmp_path / "doc_src" / "template.html").is_file()
     assert (tmp_path / "doc_src" / "style.css").is_file()
     assert (tmp_path / "doc_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "doc_src" / "_assets" / "favicon.png").is_file()
 
     for script in [
         "build.sh",
@@ -110,6 +111,7 @@ def test_cli_init_site_default(tmp_path: Path) -> None:
     assert (tmp_path / "docs_src" / "architecture" / "index.md").is_file()
     assert (tmp_path / "docs_src" / "workflow" / "index.md").is_file()
     assert (tmp_path / "docs_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "docs_src" / "_assets" / "favicon.png").is_file()
 
     for script in ["build.sh", "build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"]:
         s = tmp_path / "docs_src" / script
@@ -137,6 +139,7 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
     assert (tmp_path / "slide_src" / "02_agenda.md").is_file()
     assert (tmp_path / "slide_src" / "03_architecture.md").is_file()
     assert (tmp_path / "slide_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "slide_src" / "_assets" / "favicon.png").is_file()
 
     for script in ["build.sh", "build_html.sh", "build_pdf.sh", "build_image.sh", "serve.sh"]:
         s = tmp_path / "slide_src" / script
@@ -162,6 +165,7 @@ def test_cli_init_images_default(tmp_path: Path) -> None:
     assert (tmp_path / "images_src" / "sample1.py").is_file()
     assert (tmp_path / "images_src" / "sample2.py").is_file()
     assert (tmp_path / "images_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "images_src" / "_assets" / "favicon.png").is_file()
 
     for script in ["build.sh", "build_image.sh"]:
         s = tmp_path / "images_src" / script

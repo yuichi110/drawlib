@@ -15,6 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title | default("Drawlib Document") }}</title>
     __RTD_FONT_LINK__
+    {% if favicon_href %}
+    <link rel="icon" type="image/png" href="{{ favicon_href }}">
+    {% endif %}
     {% if css_href %}
     <link rel="stylesheet" href="{{ css_href }}">
     {% endif %}
