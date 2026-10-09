@@ -64,15 +64,100 @@ $ playwright install chromium
 
 ---
 
-## 4. On-Demand Asset Downloads
+## 4. Asset & Build Cache Management (`drawlib cache`)
 
-To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons) and multilingual fonts are downloaded on demand upon first use and cached in your user data directory (`~/.drawlib/` or platform equivalent).
+To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons), multilingual fonts, and geographic map datasets are downloaded on demand upon first use and cached inside `drawlib/_cached_assets/` (managed via `drawlib cache`). Meanwhile, project-local incremental diagram builds are cached separately in `.drawlib/cache.db`.
 
-To pre-fetch and warm the cache ahead of time (e.g. for offline builds or CI/CD pipelines):
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="installation_images/installation_two_tier_cache.png" alt="installation_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Two-Tier Asset and Incremental Build Cache Architecture</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=136, height=58)
+
+# Left container: Tier 1 Global Asset Cache
+rectangle((36, 29), width=58, height=46, style=Styles.SecondaryNeutral.patch(shape_r=2.5))
+rectangle(
+    (36, 46.5),
+    width=54,
+    height=7,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="Tier 1: Global Asset Cache",
+    text_style=Styles.WhiteBold.patch(text_size=9.5),
+)
+text((36, 39.5), "drawlib/_cached_assets/", style=Styles.DarkBold.patch(text_size=8.8))
+rectangle((36, 32.5), width=52, height=5.5, style=Styles.Neutral.patch(shape_r=1), text="Fonts (Roboto, Noto CJK, Source Code)", text_style=Styles.Dark.patch(text_size=8.2))
+rectangle((36, 25.5), width=52, height=5.5, style=Styles.Neutral.patch(shape_r=1), text="Icons (phosphor, fontawesome, gcp)", text_style=Styles.Dark.patch(text_size=8.2))
+rectangle((36, 18.5), width=52, height=5.5, style=Styles.Neutral.patch(shape_r=1), text="GeoMap Vector Datasets (world & regional)", text_style=Styles.Dark.patch(text_size=8.2))
+rectangle(
+    (36, 10.5),
+    width=52,
+    height=6,
+    style=Styles.PrimaryNeutral.patch(shape_r=1),
+    text="drawlib cache download --all\nclear --fonts | --icons | --maps",
+    text_style=Styles.DarkBold.patch(text_size=7.8),
+)
+
+# Right container: Tier 2 Project Incremental Build Cache
+rectangle((100, 29), width=58, height=46, style=Styles.Neutral.patch(shape_r=2.5))
+rectangle(
+    (100, 46.5),
+    width=54,
+    height=7,
+    style=Styles.DarkFlat.patch(shape_r=1.5),
+    text="Tier 2: Incremental Build Cache",
+    text_style=Styles.WhiteBold.patch(text_size=9.5),
+)
+text((100, 39.5), ".drawlib/cache.db (SQLite)", style=Styles.DarkBold.patch(text_size=8.8))
+rectangle((100, 32.5), width=52, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1), text="SHA-256 Digest (Code + styles.py + utils.py)", text_style=Styles.Dark.patch(text_size=8.2))
+rectangle((100, 25.5), width=52, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1), text="Hashed Diagram Renders (PNG / WebP / SVG)", text_style=Styles.Dark.patch(text_size=8.2))
+rectangle((100, 18.5), width=52, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1), text="Instant Cache Hit on Unchanged Blocks", text_style=Styles.Dark.patch(text_size=8.2))
+rectangle(
+    (100, 10.5),
+    width=52,
+    height=6,
+    style=Styles.PrimaryNeutral.patch(shape_r=1),
+    text="drawlib build [--no-cache]\ndrawlib cache clear --images",
+    text_style=Styles.DarkBold.patch(text_size=7.8),
+)
+
+save()
+```
+
+</details>
+
+
+
+You can inspect, pre-fetch (e.g. for offline builds, Docker images, or CI/CD pipelines), and clear both caches via `drawlib cache`:
 
 ```bash
-# Warm asset caches
-$ uv run drawlib cache update
+# Inspect cached font, icon, and map packages
+$ uv run drawlib cache list
+
+# Pre-download all font, icon, and map packages
+$ uv run drawlib cache download --all
+
+# Or pre-download specific asset categories selectively
+$ uv run drawlib cache download --fonts
+$ uv run drawlib cache download --icons
+$ uv run drawlib cache download --maps
+
+# Clear project-local incremental diagram build cache (.drawlib/cache.db)
+$ uv run drawlib cache clear --images
+
+# Clear all caches (downloaded font/icon/map assets + SQLite image build cache)
+$ uv run drawlib cache clear --all
 ```
 
 ---

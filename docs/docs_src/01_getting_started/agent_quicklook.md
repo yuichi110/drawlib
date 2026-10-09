@@ -24,7 +24,7 @@ When tasked with generating technical illustrations, AI agents typically struggl
 
 Drawlib provides a tightly integrated tripartite architecture between the library's on-demand knowledge engine, the autonomous AI coding agent, and version-controlled project documentation:
 
-```drawlib 650px center file:agent_collaboration_model.png caption:"Drawlib & AI Agent Autonomous Interaction Model"
+```drawlib fold-code 650px center file:agent_collaboration_model.png caption:"Drawlib & AI Agent Autonomous Interaction Model"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -84,6 +84,7 @@ text((46.5, 19.5), text="Grid Images", style=Styles.Dark.patch(text_size=7.0))
 line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.DarkBold)
 text((95.5, 28.5), text="Commit Code", style=Styles.DarkBold.patch(text_size=7.5))
 text((95.5, 19.5), text="Compiled Output", style=Styles.Dark.patch(text_size=7.0))
+save()
 ```
 
 ### Why Agents Don't Hallucinate Drawlib Code
@@ -107,15 +108,43 @@ You can dump the official agent instruction template directly using the CLI:
 $ uv run drawlib rules show agent-instruction
 ```
 
-### 2. Essential Commands to Teach Your Agent
-Ensure your agent knows how to query rules and preview drawings:
+### 2. Project-First Rule (`drawlib init`)
+Teach your agent to **never create bare `.py` files in an uninitialized directory** or build project folders manually. Always scaffold a Drawlib project first so `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+
+```bash
+# Standalone diagram image(s) only -> images_src/*.py -> images/*.png
+$ uv run drawlib init images [-l <lang>] [-s <style>]
+
+# Linear technical document / RFC / PDF -> doc_src/*.md
+$ uv run drawlib init doc [target] [-l <lang>] [-s <style>]
+
+# Multi-page documentation website -> docs_src/**/*.md
+$ uv run drawlib init site [target] [-l <lang>] [-s <style>]
+
+# 16:9 presentation slide deck -> slide_src/*.md
+$ uv run drawlib init slide [target] [-l <lang>] [-s <style>]
+```
+
+### 3. Essential Commands & On-Demand Rules Catalog
+Ensure your agent knows how to query on-demand rule topics and preview drawings with a coordinate grid:
 
 | Purpose | Command |
-|---|---|
-| **Query Module Syntax** | `uv run drawlib rules show <topic>` (e.g. `lib-diagrams`, `lib-smartarts`) |
-| **List Available Rules** | `uv run drawlib rules list` |
-| **Render Grid Preview** | `uv run drawlib show <path> -g -o .drawlib/scratch/test.png` |
-| **Build Full Docs** | `./build.sh` or `uv run drawlib build html docs_src/ -o docs_html/` |
+| :--- | :--- |
+| **List Available Rule Topics** | `uv run drawlib rules list` |
+| **Canvas & Lifecycle Overview** | `uv run drawlib rules show overview` |
+| **Style Guide & 50%+ Neutral Rule** | `uv run drawlib rules show style-guide` |
+| **Animation Loop & Idioms** | `uv run drawlib rules show anim-guide` |
+| **16:9 Slide Authoring & Layouts** | `uv run drawlib rules show slide-guide` |
+| **Project Scaffolding & Structure** | `uv run drawlib rules show project` |
+| **CLI Reference (`build`, `show`, `cache`)** | `uv run drawlib rules show cli` |
+| **Unified API Cheat Sheet** | `uv run drawlib rules show api` |
+| **Auto-Layout Graphs (`drawlib.graph`)** | `uv run drawlib rules show lib-graph` |
+| **Domain Diagrams (`drawlib.diagrams`)** | `uv run drawlib rules show lib-diagrams` |
+| **SmartArts & GeoMap (`drawlib.smartarts`)** | `uv run drawlib rules show lib-smartarts` |
+| **Quantitative Charts (`drawlib.charts`)** | `uv run drawlib rules show lib-charts` |
+| **Render Named Markdown Block Preview** | `uv run drawlib show <md_path> <diagram.png> -g -o .drawlib/scratch/preview.png` |
+| **Render Standalone Script Preview** | `uv run drawlib show <script.py> -g -o .drawlib/scratch/preview.png` |
+| **Build Full Project** | `./<target>_src/build.sh` or `uv run drawlib build html docs_src/ -o docs_html/` |
 
 ---
 
@@ -123,42 +152,45 @@ Ensure your agent knows how to query rules and preview drawings:
 
 Teach your agent to follow Drawlib's autonomous self-correction loop when creating diagrams:
 
-```drawlib 700px center file:ai_feedback_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
-from drawlib.canvas import setup
-from drawlib.shapes import rectangle
+```drawlib fold-code 700px center file:ai_feedback_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
+from drawlib.canvas import save, setup
 from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=130, height=45)
+setup(width=144, height=50)
 
 # Agent loop boxes: Hero focal node in PrimaryFlat, supporting nodes in calm Neutral cards
-rectangle((20, 22.5), width=26, height=20, style=Styles.PrimaryFlat, text="1. LLM Agent\n(Reads Code)", text_style=Styles.WhiteBold)
-rectangle((56, 22.5), width=28, height=20, style=Styles.Neutral, text="2. Generate\nDrawlib Code")
-rectangle((92, 22.5), width=26, height=20, style=Styles.Neutral, text="3. Render Grid\n(-g Image)")
-rectangle((118, 22.5), width=18, height=20, style=Styles.SecondaryNeutral, text="4. Auto\nReview")
+rectangle((22, 20), width=26, height=20, style=Styles.PrimaryFlat, text="1. LLM Agent\n(Reads Code)", text_style=Styles.WhiteBold)
+rectangle((56, 20), width=26, height=20, style=Styles.Neutral, text="2. Generate\nDrawlib Code")
+rectangle((90, 20), width=26, height=20, style=Styles.Neutral, text="3. Render Grid\n(-g Image)")
+rectangle((122, 20), width=24, height=20, style=Styles.SecondaryNeutral, text="4. Auto\nReview")
 
 # Forward arrows
-line((33, 22.5), (42, 22.5), arrow_head="->", style=Styles.DarkBold)
-line((70, 22.5), (79, 22.5), arrow_head="->", style=Styles.DarkBold)
-line((105, 22.5), (109, 22.5), arrow_head="->", style=Styles.DarkBold)
+line((35, 20), (43, 20), arrow_head="->", style=Styles.DarkBold)
+line((69, 20), (77, 20), arrow_head="->", style=Styles.DarkBold)
+line((103, 20), (110, 20), arrow_head="->", style=Styles.DarkBold)
 
 # Feedback loop
-line((118, 32.5), (118, 38), style=Styles.DarkDashed)
-line((118, 38), (56, 38), style=Styles.DarkDashed)
-line((56, 38), (56, 32.5), arrow_head="->", style=Styles.DarkDashed)
+line((122, 30), (122, 38), style=Styles.DarkDashed)
+line((122, 38), (56, 38), style=Styles.DarkDashed)
+line((56, 38), (56, 30), arrow_head="->", style=Styles.DarkDashed)
+text((89, 42.5), "Self-Correct Coordinates & Re-render", style=Styles.DarkBold.patch(text_size=9.5))
+save()
 ```
 
 1. **Inspect Context**: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.
-2. **Draft Illustration**: The agent writes drawing prototype code in an isolated scratch script (`.drawlib/scratch/test.py`) or embedded Markdown block. Do not pollute the root directory; ensure `.drawlib/` is in `.gitignore`.
+2. **Draft Illustration**: The agent scaffolds a project via `drawlib init` (if not already present) and authors the drawing code in `images_src/<name>.py` or an embedded ````drawlib```` Markdown block with `file:<diagram.png>`.
 3. **Render Image with Grid (`-g`)**:  
-   `uv run drawlib show .drawlib/scratch/test.py -g -o .drawlib/scratch/test.png`
+   `uv run drawlib show <md_path> <diagram.png> -g -o .drawlib/scratch/preview.png` (or `uv run drawlib show images_src/<name>.py -g -o .drawlib/scratch/preview.png`).
 4. **Multimodal Self-Review**: The agent inspects the rendered PNG with its vision/file viewing tool, checking for:
    - Label overflow or text clipping outside boxes.
    - Overlapping arrow lines or awkward elbow routings.
    - Missing perimeter margins around canvas borders.
-5. **Auto-Adjust & Finalize**: The agent adjusts coordinates and integrates the verified code directly into the documentation.
+5. **Auto-Adjust & Finalize**: The agent adjusts coordinates, re-renders until clean, and builds the final project outputs.
 
 ---
 
 > [!TIP]
-> For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to **[Chapter 8: AI Agents & Advanced Integration](../08_ai_agents_and_advanced/ai_agent_instructions.md)**.
+> For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to **[Chapter 9: AI Agents & Advanced Integration](../09_ai_agents_and_advanced/ai_agent_instructions.md)**.

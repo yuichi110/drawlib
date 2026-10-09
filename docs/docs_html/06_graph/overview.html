@@ -1,0 +1,806 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Engine Overview (`drawlib.graph`)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Graph Engine Overview (`drawlib.graph`)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Graph Engine Overview (<code>drawlib.graph</code>)</h1>
+<p><code>drawlib.graph</code> provides a declarative <strong>auto-layout graph engine</strong> powered by five specialized layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, and <code>GridGraph</code>).</p>
+<p>Instead of manually computing <code>(x, y)</code> coordinates for every vertex and container when drafting a complex topology, you declare <strong>structural relationships</strong>—nodes, edges, and clusters—and let Drawlib's pure-Python layout algorithms calculate clean coordinates, container bounding boxes, and orthogonal or radial edge routes automatically.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">185</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">110</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">)</span>
+
+<span class="c1"># External client zone pinned to the left</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"clients"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"client"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"External"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"Client App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># Cloud VPC container with nested Compute and Data tiers in the center</span>
+<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="s2">"Production VPC"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"app_tier"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Compute Tier"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"data_tier"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"db"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Data Tier"</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="c1"># 50%+ Neutral baseline with a single PrimaryFlat focal node</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Worker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"db"</span><span class="p">,</span> <span class="s2">"Primary DB"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"Redis Cache"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Observability cluster pinned to the bottom</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"metrics"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observability"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"metrics"</span><span class="p">,</span> <span class="s2">"Prometheus"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">,</span> <span class="s2">"HTTPS"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Queue"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"Read"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">,</span> <span class="s2">"Write"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"metrics"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/graph_overview_workflow.png" alt="overview_1" style="width: 720px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Declarative Cloud Architecture Layout Computed Automatically by ArchitectureGraph</figcaption>
+</figure>
+<hr />
+<h2>1. When to Use <code>drawlib.graph</code> vs. <code>drawlib.diagrams</code></h2>
+<p>Drawlib offers two complementary approaches to technical diagramming:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dimension</th>
+<th style="text-align:left"><code>drawlib.graph</code> (Auto-Layout Graphs)</th>
+<th style="text-align:left"><a href="../05_diagrams/overview.html"><code>drawlib.diagrams</code></a> (Coordinate Diagrams)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Coordinate Placement</strong></td>
+<td style="text-align:left"><strong>Automatic</strong>: Solvers calculate <code>(x, y)</code> coordinates from topology (<code>node</code>, <code>edge</code>, <code>cluster</code>).</td>
+<td style="text-align:left"><strong>Deterministic</strong>: You specify exact <code>(x, y)</code> coordinates (<code>d.add(node, xy=(x, y))</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Primary Strength</strong></td>
+<td style="text-align:left">Solving the <strong>Cold-Start Problem</strong>; rapid topology prototyping, large DAGs, trees, and matrices.</td>
+<td style="text-align:left">Domain-specific notations and rich icon cards (<code>GcpIcon</code>, <code>PhosphorIcon</code>), UML compartments, Crow's Foot ER tables, and chronological lifelines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fine-Tuning</strong></td>
+<td style="text-align:left">Post-layout nudging via <code>layout.offset(id, dx, dy)</code> or scaffolding to primitive code via <code>g.export_code()</code>.</td>
+<td style="text-align:left">Direct coordinate control, explicit attachment sides (<code>start_side</code>, <code>end_side</code>), and <code>Junction</code> bus lines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Animation Support</strong></td>
+<td style="text-align:left">Full visibility (<code>show=False</code>) and <code>scale</code> support on nodes, edges, clusters, and <code>GraphLayout</code> (<a href="../07_animations/graphs.html">Animating Graphs</a>).</td>
+<td style="text-align:left">Full visibility (<code>show=False</code>) and <code>scale</code> support (<a href="../07_animations/diagrams.html">Animating Diagrams</a>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. The Five Specialized Layout Solvers</h2>
+<p>Rather than forcing every graph through a single generic force-directed or Sugiyama heuristic, <code>drawlib.graph</code> provides five purpose-built solvers tailored to distinct topological structures:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Solver Class</th>
+<th style="text-align:left">Layout Algorithm</th>
+<th style="text-align:left">Primary Use Cases</th>
+<th style="text-align:left">Key Helper Methods</th>
+<th style="text-align:left">Guide Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><a href="./architecture_graph.html"><code>ArchitectureGraph</code></a></strong></td>
+<td style="text-align:left">2-Level Macro/Micro Packing + 5-Zone Compass</td>
+<td style="text-align:left">Cloud VPCs, nested subnets, multi-zone microservices</td>
+<td style="text-align:left"><code>.group()</code>, <code>.cluster(parent=..., pos=...)</code></td>
+<td style="text-align:left"><a href="./architecture_graph.html">ArchitectureGraph</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><a href="./layer_graph.html"><code>LayerGraph</code></a></strong></td>
+<td style="text-align:left">Sugiyama Hierarchical DAG (Cycle removal, Barycenter ordering)</td>
+<td style="text-align:left">CI/CD pipelines, ETL dataflows, layered dependency DAGs</td>
+<td style="text-align:left"><code>.tier(name, nodes, layer=...)</code>, <code>node(..., layer=...)</code></td>
+<td style="text-align:left"><a href="./layer_graph.html">LayerGraph</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><a href="./tree_graph.html"><code>TreeGraph</code></a></strong></td>
+<td style="text-align:left">Reingold-Tilford / Buchheim Compact Tree</td>
+<td style="text-align:left">Org charts, ASTs, decision trees, call hierarchies</td>
+<td style="text-align:left"><code>.child(parent, child_id, ...)</code></td>
+<td style="text-align:left"><a href="./tree_graph.html">TreeGraph</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><a href="./radial_graph.html"><code>RadialGraph</code></a></strong></td>
+<td style="text-align:left">Concentric BFS Rings &amp; Angular Sector Allocation</td>
+<td style="text-align:left">Hub-and-spoke meshes, Pub/Sub topologies, dependency radars</td>
+<td style="text-align:left"><code>.spoke(parent, spoke_id, ring=...)</code>, <code>draw_ring_guides=True</code></td>
+<td style="text-align:left"><a href="./radial_graph.html">RadialGraph</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><a href="./grid_graph.html"><code>GridGraph</code></a></strong></td>
+<td style="text-align:left">2D Matrix Assignment &amp; Smart Channel Routing</td>
+<td style="text-align:left">Service catalogs, state matrices, tabular component grids</td>
+<td style="text-align:left"><code>.cell(id, row, col)</code>, <code>.cluster_row()</code>, <code>.cluster_column()</code></td>
+<td style="text-align:left"><a href="./grid_graph.html">GridGraph</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Shared Architecture (<code>BaseGraph</code>)</h2>
+<p>All five solvers inherit from <code>BaseGraph</code> and share a unified API for building topologies, calculating layouts, rendering to the canvas, and exporting standalone code:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ArchitectureGraph</span><span class="p">,</span>
+    <span class="n">BaseGraph</span><span class="p">,</span>
+    <span class="n">Cluster</span><span class="p">,</span>
+    <span class="n">ClusterLayout</span><span class="p">,</span>
+    <span class="n">Edge</span><span class="p">,</span>
+    <span class="n">EdgeLayout</span><span class="p">,</span>
+    <span class="n">GraphLayout</span><span class="p">,</span>
+    <span class="n">GridGraph</span><span class="p">,</span>
+    <span class="n">LayerGraph</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">NodeLayout</span><span class="p">,</span>
+    <span class="n">RadialGraph</span><span class="p">,</span>
+    <span class="n">TreeGraph</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>3.1. Building Topologies (<code>node</code>, <code>edge</code>, <code>cluster</code>, <code>group</code>)</h3>
+<h4><code>g.node(...) -&gt; Node</code></h4>
+<p>Registers a node in the graph and returns a mutable <code>Node</code> dataclass instance.</p>
+<ul>
+<li><strong>Signature</strong>:<pre><code class="language-python"><span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="s2">"circle"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rectangle"</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ring</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">row</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">col</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">subgroup</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span>
+</code></pre>
+</li>
+<li><strong>Note</strong>: <code>drawlib.graph</code> nodes are geometric shapes (<code>&quot;rectangle&quot;</code> or <code>&quot;circle&quot;</code>, with corner rounding controlled via <code>style.shape_r</code>) and do not take an <code>icon</code> parameter. For icon-centric architecture cards (<code>GcpIcon</code>, <code>PhosphorIcon</code>), use <a href="../05_diagrams/architecture.html"><code>ArchitectureDiagram</code></a> or overlay icons at computed <code>layout.nodes[id].xy</code> coordinates.</li>
+</ul>
+<h4><code>g.edge(...) -&gt; Edge</code></h4>
+<p>Registers a directed or undirected edge between <code>src</code> and <code>dst</code> (automatically creating undeclared endpoint nodes with default styling).</p>
+<ul>
+<li><strong>Signature</strong>:<pre><code class="language-python"><span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">line_style</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"solid"</span><span class="p">,</span> <span class="s2">"dashed"</span><span class="p">,</span> <span class="s2">"dotted"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Edge</span>
+</code></pre>
+</li>
+</ul>
+<h4><code>g.cluster(...) -&gt; Cluster</code> and <code>g.group(...) -&gt; Cluster</code></h4>
+<p>Groups a list of nodes inside a labeled boundary rectangle (defaulting to <code>Styles.MutedDashed</code>).</p>
+<ul>
+<li><strong>Signatures</strong>:<pre><code class="language-python"><span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pos</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cluster</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pos</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cluster</span>
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3>3.2. Layout Lifecycle (<code>calc</code>, <code>offset</code>, <code>draw</code>, <code>export_code</code>)</h3>
+<p><code>drawlib.graph</code> supports a progressive three-stage workflow:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/graph_overview_lifecycle_stages.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Three Progressive Workflows in drawlib.graph: Auto-Draw, Calculate & Offset, and Export Standalone Code</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">186</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="c1"># Top Header / Input Node</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">64.5</span><span class="p">),</span> <span class="s2">"Declarative Graph Topology"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">59.0</span><span class="p">),</span> <span class="s2">"g.node()   ·   g.edge()   ·   g.cluster()   ·   g.group()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="c1"># Orthogonal fan-out lines from top header into the 3 workflow cards</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">153</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">153</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Card 1: Direct Auto-Draw (Neutral)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"1. Direct Auto-Draw"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="s2">"g.draw(margin=10.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="s2">"One-step layout</span><span class="se">\n</span><span class="s2">&amp; canvas render"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="c1"># Card 2: Calculate, Offset &amp; Overlay (PrimaryFlat focal card)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"2. Calculate, Offset &amp; Overlay"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="s2">"layout = g.calc()</span><span class="se">\n</span><span class="s2">layout.offset() -&gt; layout.draw()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Inspect layout.nodes[id].x, y</span><span class="se">\n</span><span class="s2">&amp; overlay custom callouts"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
+
+<span class="c1"># Card 3: Export Standalone Code (SecondaryNeutral)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">153</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">153</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"3. Export Standalone Code"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">153</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">153</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="s2">"code = g.export_code()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">153</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="s2">"Emit editable setup(),</span><span class="se">\n</span><span class="s2">rectangle(), line(), save() script"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ol>
+<li><strong>Compute Layout (<code>layout = g.calc(*, width=None, height=None, margin=10.0) -&gt; GraphLayout</code>)</strong>:
+<ul>
+<li>Solves all coordinates without drawing onto the canvas.</li>
+<li>Returns a <code>GraphLayout</code> instance containing:
+<ul>
+<li><code>layout.nodes</code>: <code>dict[str, NodeLayout]</code> — each <code>NodeLayout</code> exposes <code>.id</code>, <code>.xy</code>, <code>.x</code>, <code>.y</code>, <code>.width</code>, <code>.height</code>, <code>.left</code>, <code>.right</code>, <code>.top</code>, <code>.bottom</code>, <code>.style</code>, <code>.text_style</code>, <code>.label</code>, <code>.shape</code>, and <code>.show</code>.</li>
+<li><code>layout.edges</code>: <code>list[EdgeLayout]</code> — each <code>EdgeLayout</code> exposes <code>.src</code>, <code>.dst</code>, <code>.src_port</code>, <code>.dst_port</code>, <code>.waypoints</code>, <code>.points</code>, <code>.label</code>, <code>.style</code>, <code>.text_style</code>, <code>.arrow_head</code>, and <code>.show</code>.</li>
+<li><code>layout.clusters</code>: <code>dict[str, ClusterLayout]</code> — each <code>ClusterLayout</code> exposes <code>.id</code>, <code>.label</code>, <code>.bbox</code>, <code>.cx</code>, <code>.cy</code>, <code>.width</code>, <code>.height</code>, <code>.left</code>, <code>.right</code>, <code>.top</code>, <code>.bottom</code>, <code>.style</code>, <code>.text_style</code>, <code>.shape</code>, and <code>.show</code>.</li>
+<li><code>layout.width</code>, <code>layout.height</code>: Target canvas dimensions.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Post-Layout Fine-Tuning (<code>layout.offset(node_id, dx=0.0, dy=0.0) -&gt; None</code>)</strong>:
+<ul>
+<li>Shifts a specific node by <code>(dx, dy)</code> and automatically updates the attachment ports of all incident edges.</li>
+<li>You can also inspect <code>layout.nodes[id].x</code> and <code>.y</code> to attach custom primitives from <a href="../02_drawing_primitives/shapes_basic.html"><code>drawlib.shapes</code></a> or <a href="../02_drawing_primitives/icons_phosphor.html"><code>drawlib.icons</code></a>.</li>
+</ul>
+</li>
+<li><strong>Render to Canvas (<code>g.draw(*, xy=(0.0, 0.0), width=None, height=None, margin=10.0, scale=1.0) -&gt; GraphLayout</code> or <code>layout.draw(*, xy=(0.0, 0.0), scale=1.0) -&gt; None</code>)</strong>:
+<ul>
+<li>Renders visible clusters, edges, and nodes in proper z-order onto the active canvas, translated by <code>xy</code> and proportionally scaled by <code>scale</code>.</li>
+<li><strong>Fixed-Layout Visibility (<code>show=False</code>)</strong>: Setting <code>show=False</code> on any node, edge, or cluster preserves its slot during <code>calc()</code> so remaining elements never jump, while skipping hidden elements (and edges attached to hidden endpoint nodes) during <code>draw()</code>.</li>
+</ul>
+</li>
+<li><strong>Export Editable Primitive Code (<code>g.export_code(*, width=None, height=None, margin=10.0) -&gt; str</code> or <code>layout.to_code() -&gt; str</code>)</strong>:
+<ul>
+<li>Generates a complete, self-contained Drawlib Python script using <code>setup()</code>, <code>rectangle()</code>, <code>circle()</code>, <code>line()</code>, and <code>save()</code> with all solved coordinates baked in as semantic variables (<code>api_xy = (85.0, 62.0)</code>).</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">bubblespeech</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">155</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"ingest"</span><span class="p">,</span> <span class="s2">"Ingest"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"process"</span><span class="p">,</span> <span class="s2">"Stream Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"store"</span><span class="p">,</span> <span class="s2">"Data Lake"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"ingest"</span><span class="p">,</span> <span class="s2">"process"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"process"</span><span class="p">,</span> <span class="s2">"store"</span><span class="p">)</span>
+
+<span class="c1"># 1. Calculate layout without rendering</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">calc</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">14.0</span><span class="p">)</span>
+
+<span class="c1"># 2. Fine-tune the middle node position and draw the graph</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="s2">"process"</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mf">6.0</span><span class="p">)</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="c1"># 3. Overlay a custom primitive anchored to the computed node coordinates</span>
+<span class="n">proc</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"process"</span><span class="p">]</span>
+<span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">18.0</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">14.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+    <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">proc</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Auto-scaled x8"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/graph_overview_offset_overlay.png" alt="overview_3" style="width: 680px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Calculating Layout with calc(), Shifting a Node with offset(), and Attaching a Speech Callout</figcaption>
+</figure>
+<hr />
+<h2>4. Best Practices &amp; 50%+ Neutral Baseline</h2>
+<ol>
+<li><strong>Override <code>default_node_style=Styles.Neutral</code> for the 50%+ Neutral Baseline</strong>:
+<ul>
+<li>By default, <code>BaseGraph</code> initializes <code>default_node_style=Styles.PrimaryFlat</code> if none is supplied. In multi-node graphs, leaving every node in <code>Styles.PrimaryFlat</code> creates a visually heavy, over-saturated diagram.</li>
+<li>Pass <code>default_node_style=Styles.Neutral</code> in the graph constructor (or style supporting nodes in <code>Styles.Neutral</code>, <code>Styles.PrimaryNeutral</code>, and <code>Styles.SecondaryNeutral</code>), and explicitly pass <code>style=Styles.PrimaryFlat, text_style=Styles.WhiteBold</code> on only <strong>1–2 primary focal nodes</strong>.</li>
+</ul>
+</li>
+<li><strong>Use <code>calc()</code> + <code>offset()</code> Before Exporting Code</strong>:
+<ul>
+<li>Start with <code>g.draw()</code> to iterate rapidly on your topology. If a specific node or edge needs slight adjustment, switch to <code>layout = g.calc()</code> and <code>layout.offset(id, dx=..., dy=...)</code>—or call <code>g.export_code()</code> once the structure stabilizes to customize individual primitives freely.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>5. Chapter Navigation</h2>
+<p>Explore each of the five graph solvers in detail:</p>
+<ul>
+<li><strong><a href="./architecture_graph.html">ArchitectureGraph</a></strong>: Multi-tier cloud topologies, nested VPC/subnet clusters, and 5-zone compass placement.</li>
+<li><strong><a href="./layer_graph.html">LayerGraph</a></strong>: Sugiyama hierarchical DAGs, CI/CD pipelines, and explicit rank/tier pinning.</li>
+<li><strong><a href="./tree_graph.html">TreeGraph</a></strong>: Balanced parent-child trees (<code>TB</code> and <code>LR</code>) using the Reingold-Tilford / Buchheim algorithm.</li>
+<li><strong><a href="./radial_graph.html">RadialGraph</a></strong>: Hub-and-spoke networks and multi-ring concentric dependency radars.</li>
+<li><strong><a href="./grid_graph.html">GridGraph</a></strong>: 2D <code>(row, col)</code> matrix placement, row/column clusters, and smart channel routing.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

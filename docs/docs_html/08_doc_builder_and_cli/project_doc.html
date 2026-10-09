@@ -1,0 +1,629 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Document Project Guide (`drawlib init doc`)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Linear Document Project Guide (`drawlib init doc`)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Linear Document Project Guide (<code>drawlib init doc</code>)</h1>
+<p>The <code>doc</code> starter template is designed for authoring linear technical documents — such as specifications, Request for Comments (RFCs), system architecture proposals, whitepapers, thesis papers, and formal engineering reports.</p>
+<p>By unifying single-page specs and multi-chapter reports into a single archetype, Drawlib allows you to compile <strong>HTML, PDF, Markdown, and standalone images</strong> from the same Markdown source files.</p>
+<hr />
+<h2>1. Project Initialization</h2>
+<p>Scaffold a linear document project using <code>drawlib init</code>:</p>
+<pre><code class="language-bash"><span class="c1"># Scaffold standard doc project in current directory (creates 'doc_src/'):</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>doc
+
+<span class="c1"># With custom target name, theme, and language (creates 'my_report_src/'):</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+</code></pre>
+<hr />
+<h2>2. Directory Layout &amp; Anatomy</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_doc_images/project_doc_directory_tree.png" alt="project_doc_1" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Directory Structure of a Linear Document (doc) Project</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"folder"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"folder_out"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"md"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"py"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_py</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"code"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span>
+    <span class="s2">"my_doc/"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">,</span>
+    <span class="n">line_horizontal_margin</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
+    <span class="n">line_horizontal_length</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
+    <span class="n">line_vertical_margin</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
+
+<span class="n">src</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"doc_src/  — [SOURCE OF TRUTH] Author Markdown chapters here"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"00_cover.md, 01_overview.md, 02_design.md  — Cover &amp; linear chapters"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"md"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"template.html &amp; style.css  — Jinja2 layout &amp; 3-layer CSS"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"code"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"styles.py &amp; utils.py  — Shared Python styling &amp; helper functions"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"py"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"build.sh, build_html.sh, build_pdf.sh  — HTML &amp; Chromium PDF build scripts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"code"</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"build_markdown.sh, build_image.sh, serve.sh, README.md"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"code"</span><span class="p">)</span>
+
+<span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"doc_html/  — [GENERATED] Merged single-page HTML document"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"doc.pdf  — [GENERATED] High-quality vector PDF with TOC"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"md"</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"doc_markdown/  — [GENERATED] Markdown with rendered images for GitHub"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"doc_images/  — [GENERATED] Extracted standalone diagram images"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
+
+<span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">66</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>3. Four Target Outputs from One Source</h2>
+<p>A <code>doc</code> project compiles into 4 distinct target artifacts:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Output Target</th>
+<th style="text-align:left">Target Audience</th>
+<th style="text-align:left">Primary Use Case</th>
+<th style="text-align:left">Build Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>doc_html/</code></strong></td>
+<td style="text-align:left">Web Browsers</td>
+<td style="text-align:left">Fast local preview, web publishing, internal documentation wikis</td>
+<td style="text-align:left"><code>build_html.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>doc.pdf</code></strong></td>
+<td style="text-align:left">Print &amp; Distribution</td>
+<td style="text-align:left">Formal whitepapers, client deliverables, printable reports with Table of Contents</td>
+<td style="text-align:left"><code>build_pdf.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>doc_markdown/</code></strong></td>
+<td style="text-align:left">GitHub &amp; Version Control</td>
+<td style="text-align:left">Direct viewing in GitHub/GitLab repositories with rendered image links</td>
+<td style="text-align:left"><code>build_markdown.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>doc_images/</code></strong></td>
+<td style="text-align:left">Presentations &amp; Messaging</td>
+<td style="text-align:left">Drag-and-drop into Google Slides, Keynote, PowerPoint, Slack, or PRs</td>
+<td style="text-align:left"><code>build_image.sh</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Chapter Ordering, Cover Page &amp; Table of Contents Mechanics</h2>
+<p>Because a <code>doc</code> project does not use a <code>navbar.md</code> sidebar file, Drawlib merges all <code>.md</code> files in <code>doc_src/</code> (excluding <code>README.md</code>) into a single linear document for both <code>doc_html/index.html</code> and <code>doc.pdf</code>:</p>
+<ol>
+<li><strong>Lexicographical Chapter Sorting</strong>: Name your chapter files with numeric prefixes (<code>00_cover.md</code>, <code>01_overview.md</code>, <code>02_design.md</code>, <code>03_benchmarks.md</code>) so they are merged in deterministic reading order.</li>
+<li><strong>Cover Page Convention (<code>00_cover.md</code>)</strong>: The first file in sorted order acts as the document cover page. When <code>--toc</code> (<code>--generate-index</code>) is passed to <code>drawlib build pdf</code>, the automated Table of Contents is inserted cleanly <strong>between the 1st document (<code>00_cover.md</code>) and the 2nd document (<code>01_overview.md</code>)</strong>.</li>
+<li><strong>Chapter Page Breaks (<code>--page-break</code>)</strong>: By default in PDF compilation (<code>--page-break</code>), each merged <code>.md</code> file begins on a new A4 page (<code>page-break-before: always</code>). Pass <code>--no-page-break</code> if you prefer continuous flow without forced page breaks between files.</li>
+</ol>
+<hr />
+<h2>5. Modular Build Scripts Architecture</h2>
+<p>Each project contains specialized scripts alongside a master orchestrator:</p>
+<ol>
+<li><strong><code>build_html.sh</code></strong>:
+Compiles and merges Markdown chapters into a standalone HTML document (<code>doc_html/index.html</code>). Extremely fast for local verification.</li>
+<li><strong><code>build_pdf.sh</code></strong>:
+Renders the merged document into an A4 vector PDF via headless Chromium (<code>page.pdf()</code>). Supports automatic Table of Contents (<code>--toc</code>) and clean chapter page breaks (<code>--page-break</code>).</li>
+<li><strong><code>build_markdown.sh</code></strong>:
+Converts inline <code>drawlib</code> blocks into standard Markdown image tags pointing to rendered diagrams in <code>doc_markdown/&lt;chapter&gt;_images/</code>.</li>
+<li><strong><code>build_image.sh</code></strong>:
+Scans all Markdown files, extracts embedded <code>drawlib</code> blocks, and renders them cleanly into <code>doc_images/&lt;chapter&gt;_images/</code> without risk of name collisions.</li>
+<li><strong><code>build.sh</code> (Master Script)</strong>:
+Runs all of the above target builds in sequence to produce a complete set of release artifacts.</li>
+</ol>
+<hr />
+<h2>6. Direct CLI Commands</h2>
+<p>You can also run the build commands directly from the terminal:</p>
+<pre><code class="language-bash"><span class="c1"># 1. Compile to HTML:</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_html/
+
+<span class="c1"># 2. Compile to PDF with Cover and Table of Contents:</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.pdf<span class="w"> </span>--toc<span class="w"> </span>--page-break
+
+<span class="c1"># 3. Compile to GitHub-ready Markdown:</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_markdown/
+
+<span class="c1"># 4. Extract diagram images from Markdown:</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_images/
+</code></pre>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonts & Multilingual Catalog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Fonts & Multilingual Catalog</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Fonts &amp; Multilingual Catalog</h1>
+<p>Drawlib does not rely on host operating system fonts, which often differ across Linux, macOS, and Windows and cause text clipping or layout drift in CI.
+Instead, <code>drawlib.fonts</code> provides <strong>14 curated font classes</strong> backed by open-source Google Noto, Roboto, M PLUS, and Adobe Source families—downloaded on demand and cached locally for deterministic, cross-platform rendering.</p>
+<hr />
+<h2>1. Overview of Built-in Typography</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="fonts_images/fonts_overview.png" alt="fonts_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Cross-Platform Western, Monospace, and CJK Font Families in Drawlib</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FontJapanese</span><span class="p">,</span>
+    <span class="n">FontMonoSpace</span><span class="p">,</span>
+    <span class="n">FontRoboto</span><span class="p">,</span>
+    <span class="n">FontSansSerif</span><span class="p">,</span>
+    <span class="n">FontSerif</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Left card: Western &amp; Monospace specimen</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="s2">"Roboto Bold (UI &amp; Titles)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="s2">"Montserrat Regular (Geometric)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontSansSerif</span><span class="o">.</span><span class="n">MONTSERRAT_REGULAR</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="s2">"Merriweather Serif (Editorial)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontSerif</span><span class="o">.</span><span class="n">MERRIWEATHER_REGULAR</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"SELECT * FROM nodes;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontMonoSpace</span><span class="o">.</span><span class="n">SOURCECODEPRO_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+
+<span class="c1"># Right card: Multilingual CJK specimen</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="s2">"Noto Sans JP (日本語標準)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="s2">"M PLUS Rounded (丸ゴシック)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">MPLUSROUNDED1C_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span> <span class="s2">"Sawarabi Mincho (明朝体)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SAWARABI_MINCHO</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. Complete Catalog of All 14 Classes in <code>drawlib.fonts</code></h2>
+<p>All font classes are imported directly from <code>drawlib.fonts</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="c1"># 1. Universal Default, Custom File Loader &amp; Base Class</span>
+    <span class="n">Font</span><span class="p">,</span>
+    <span class="n">FontFile</span><span class="p">,</span>
+    <span class="n">FontBase</span><span class="p">,</span>
+    <span class="c1"># 2. Western &amp; Code Typography</span>
+    <span class="n">FontRoboto</span><span class="p">,</span>
+    <span class="n">FontSansSerif</span><span class="p">,</span>
+    <span class="n">FontSerif</span><span class="p">,</span>
+    <span class="n">FontMonoSpace</span><span class="p">,</span>
+    <span class="n">FontSourceCode</span><span class="p">,</span>
+    <span class="c1"># 3. CJK &amp; International Scripts</span>
+    <span class="n">FontJapanese</span><span class="p">,</span>
+    <span class="n">FontChinese</span><span class="p">,</span>
+    <span class="n">FontKorean</span><span class="p">,</span>
+    <span class="n">FontArabic</span><span class="p">,</span>
+    <span class="n">FontThai</span><span class="p">,</span>
+    <span class="n">FontBrahmic</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>2.1. System, Universal &amp; Custom Font Classes (3 Classes)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Members / Signature</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>Font</code></strong></td>
+<td style="text-align:left">Universal Default</td>
+<td style="text-align:left"><code>SANSSERIF_THIN</code>, <code>SANSSERIF_REGULAR</code>, <code>SANSSERIF_BOLD</code>, <code>SERIF_THIN</code>, <code>SERIF_REGULAR</code>, <code>SERIF_BOLD</code></td>
+<td style="text-align:left">Default cross-platform font family (Noto Sans / Noto Serif CJK) supporting Latin and East Asian scripts out of the box.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontFile</code></strong></td>
+<td style="text-align:left">Custom Font Loader</td>
+<td style="text-align:left"><code>FontFile(file=&quot;path/to/font.ttf&quot;)</code></td>
+<td style="text-align:left">Loads any external <code>.ttf</code>, <code>.otf</code>, <code>.woff</code>, or <code>.woff2</code> corporate font file (resolved relative to the calling script).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontBase</code></strong></td>
+<td style="text-align:left">Abstract Base Enum</td>
+<td style="text-align:left"><code>class FontBase(str, Enum)</code></td>
+<td style="text-align:left">Base class inherited by all built-in font enumerations for type checking and style validation.</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2. Western &amp; Code Typography Classes (5 Classes)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">Typeface Families</th>
+<th style="text-align:left">Available Weight / Style Variants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>FontRoboto</code></strong></td>
+<td style="text-align:left">Roboto, Roboto Serif, Roboto Mono, Roboto Condensed, Roboto Slab</td>
+<td style="text-align:left"><code>ROBOTO_THIN</code>, <code>ROBOTO_REGULAR</code>, <code>ROBOTO_BOLD</code> (aliases: <code>THIN</code>, <code>REGULAR</code>, <code>BOLD</code>), <code>SERIF_THIN</code>, <code>SERIF_REGULAR</code>, <code>SERIF_BOLD</code>, <code>MONO_THIN</code>, <code>MONO_REGULAR</code>, <code>MONO_BOLD</code>, <code>CONDENSED_THIN</code>, <code>CONDENSED_REGULAR</code>, <code>CONDENSED_BOLD</code>, <code>SLAB_THIN</code>, <code>SLAB_REGULAR</code>, <code>SLAB_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontSansSerif</code></strong></td>
+<td style="text-align:left">Lato, Montserrat, Oswald, Poppins, Raleway</td>
+<td style="text-align:left"><code>LATO_THIN</code>, <code>LATO_REGULAR</code>, <code>LATO_BOLD</code>, <code>MONTSERRAT_THIN</code>, <code>MONTSERRAT_REGULAR</code>, <code>MONTSERRAT_BOLD</code>, <code>OSWALD_THIN</code>, <code>OSWALD_REGULAR</code>, <code>OSWALD_BOLD</code>, <code>POPPINS_THIN</code>, <code>POPPINS_REGULAR</code>, <code>POPPINS_BOLD</code>, <code>RALEWAYS_THIN</code>, <code>RALEWAYS_REGULAR</code>, <code>RALEWAYS_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontSerif</code></strong></td>
+<td style="text-align:left">Courier, Merriweather, Platypi, Playfair Display</td>
+<td style="text-align:left"><code>COURIER_REGULAR</code>, <code>COURIER_BOLD</code>, <code>MERRIWEATHER_THIN</code>, <code>MERRIWEATHER_REGULAR</code>, <code>MERRIWEATHER_BOLD</code>, <code>PLATYPI_THIN</code>, <code>PLATYPI_REGULAR</code>, <code>PLATYPI_BOLD</code>, <code>PLAYFAIRDISPLAY_REGULAR</code>, <code>PLAYFAIRDISPLAY_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontMonoSpace</code></strong></td>
+<td style="text-align:left">Roboto Mono, Courier, Source Code Pro, Source Han Code JP</td>
+<td style="text-align:left"><code>ROBOTO_MONO_THIN</code>, <code>ROBOTO_MONO_REGULAR</code>, <code>ROBOTO_MONO_BOLD</code>, <code>COURIER_REGULAR</code>, <code>COURIER_BOLD</code>, <code>SOURCECODEPRO_THIN</code>, <code>SOURCECODEPRO_REGULAR</code>, <code>SOURCECODEPRO_BOLD</code>, <code>SOURCEHANCODEJP_THIN</code>, <code>SOURCEHANCODEJP_REGULAR</code>, <code>SOURCEHANCODEJP_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontSourceCode</code></strong></td>
+<td style="text-align:left">Source Code Blocks</td>
+<td style="text-align:left"><code>ROBOTO_MONO</code>, <code>COURIER</code>, <code>SOURCECODEPRO</code>, <code>SOURCEHANCODEJP</code> (used for <code>Styles.sourcecode_font</code> and <code>SourceCode</code> smartarts)</td>
+</tr>
+</tbody>
+</table>
+<h3>2.3. CJK &amp; International Script Classes (6 Classes)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">Script / Region</th>
+<th style="text-align:left">Available Weight / Style Variants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>FontJapanese</code></strong></td>
+<td style="text-align:left">Japanese (Kanji, Hiragana, Katakana)</td>
+<td style="text-align:left"><code>SANSSERIF_THIN</code>, <code>SANSSERIF_REGULAR</code>, <code>SANSSERIF_BOLD</code>, <code>SERIF_THIN</code>, <code>SERIF_REGULAR</code>, <code>SERIF_BOLD</code>, <code>MPLUS1P_THIN</code>, <code>MPLUS1P_REGULAR</code>, <code>MPLUS1P_BOLD</code>, <code>MPLUSROUNDED1C_THIN</code>, <code>MPLUSROUNDED1C_REGULAR</code>, <code>MPLUSROUNDED1C_BOLD</code>, <code>SAWARABI_GOTHIC</code>, <code>SAWARABI_MINCHO</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontChinese</code></strong></td>
+<td style="text-align:left">Simplified (SC), Traditional (TC), Hong Kong (HK)</td>
+<td style="text-align:left"><code>SIMPLIFIED_SANSSERIF_THIN</code>, <code>SIMPLIFIED_SANSSERIF_REGULAR</code>, <code>SIMPLIFIED_SANSSERIF_BOLD</code>, <code>SIMPLIFIED_SERIF_THIN</code>, <code>SIMPLIFIED_SERIF_REGULAR</code>, <code>SIMPLIFIED_SERIF_BOLD</code>, <code>TRADITIONAL_SANSSERIF_THIN</code>, <code>TRADITIONAL_SANSSERIF_REGULAR</code>, <code>TRADITIONAL_SANSSERIF_BOLD</code>, <code>TRADITIONAL_SERIF_THIN</code>, <code>TRADITIONAL_SERIF_REGULAR</code>, <code>TRADITIONAL_SERIF_BOLD</code>, <code>HONGKONG_SANSSERIF_THIN</code>, <code>HONGKONG_SANSSERIF_REGULAR</code>, <code>HONGKONG_SANSSERIF_BOLD</code>, <code>HONGKONG_SERIF_THIN</code>, <code>HONGKONG_SERIF_REGULAR</code>, <code>HONGKONG_SERIF_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontKorean</code></strong></td>
+<td style="text-align:left">Korean (Hangul)</td>
+<td style="text-align:left"><code>SANSSERIF_THIN</code>, <code>SANSSERIF_REGULAR</code>, <code>SANSSERIF_BOLD</code>, <code>SERIF_THIN</code>, <code>SERIF_REGULAR</code>, <code>SERIF_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontArabic</code></strong></td>
+<td style="text-align:left">Arabic (Sans, Kufi, Naskh)</td>
+<td style="text-align:left"><code>SANSSERIF_THIN</code>, <code>SANSSERIF_REGULAR</code>, <code>SANSSERIF_BOLD</code>, <code>KUFI_THIN</code>, <code>KUFI_REGULAR</code>, <code>KUFI_BOLD</code>, <code>NASKH_REGULAR</code>, <code>NASKH_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontThai</code></strong></td>
+<td style="text-align:left">Thai</td>
+<td style="text-align:left"><code>SANSSERIF_THIN</code>, <code>SANSSERIF_REGULAR</code>, <code>SANSSERIF_BOLD</code>, <code>SERIF_THIN</code>, <code>SERIF_REGULAR</code>, <code>SERIF_BOLD</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FontBrahmic</code></strong></td>
+<td style="text-align:left">Bengali, Devanagari, Tamil, Telugu</td>
+<td style="text-align:left"><code>BENGALI_SANSSERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>BENGALI_SERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>DEVANAGARI_SANSSERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>DEVANAGARI_SERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>TAMIL_SANSSERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>TAMIL_SERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>TELUGU_SANSSERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code>, <code>TELUGU_SERIF_THIN</code>/<code>REGULAR</code>/<code>BOLD</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Visual Specimen: Western &amp; Monospace Typography</h2>
+<p>Use <code>style.patch(text_font=...)</code> to apply specific font families and weights (<code>THIN</code>, <code>REGULAR</code>, <code>BOLD</code>) to individual labels or cards:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FontMonoSpace</span><span class="p">,</span>
+    <span class="n">FontRoboto</span><span class="p">,</span>
+    <span class="n">FontSansSerif</span><span class="p">,</span>
+    <span class="n">FontSerif</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="c1"># Column 1: FontRoboto &amp; FontSansSerif</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">61</span><span class="p">),</span> <span class="s2">"Sans-Serif &amp; Roboto"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">13</span><span class="p">))</span>
+
+<span class="n">specimens_left</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_THIN</span><span class="p">,</span> <span class="s2">"FontRoboto.ROBOTO_THIN"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_REGULAR</span><span class="p">,</span> <span class="s2">"FontRoboto.ROBOTO_REGULAR"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_BOLD</span><span class="p">,</span> <span class="s2">"FontRoboto.ROBOTO_BOLD"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="n">FontSansSerif</span><span class="o">.</span><span class="n">POPPINS_REGULAR</span><span class="p">,</span> <span class="s2">"FontSansSerif.POPPINS_REGULAR"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">FontSansSerif</span><span class="o">.</span><span class="n">OSWALD_BOLD</span><span class="p">,</span> <span class="s2">"FontSansSerif.OSWALD_BOLD"</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">font_enum</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">specimens_left</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">font_enum</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># Column 2: FontSerif &amp; FontMonoSpace</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">61</span><span class="p">),</span> <span class="s2">"Serif &amp; Monospace"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontSerif</span><span class="o">.</span><span class="n">MERRIWEATHER_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">13</span><span class="p">))</span>
+
+<span class="n">specimens_right</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">FontSerif</span><span class="o">.</span><span class="n">MERRIWEATHER_REGULAR</span><span class="p">,</span> <span class="s2">"FontSerif.MERRIWEATHER"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="n">FontSerif</span><span class="o">.</span><span class="n">PLATYPI_BOLD</span><span class="p">,</span> <span class="s2">"FontSerif.PLATYPI_BOLD"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">SLAB_BOLD</span><span class="p">,</span> <span class="s2">"FontRoboto.SLAB_BOLD"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="n">FontMonoSpace</span><span class="o">.</span><span class="n">ROBOTO_MONO_REGULAR</span><span class="p">,</span> <span class="s2">"ROBOTO_MONO: 10.0.0.1:443"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">FontMonoSpace</span><span class="o">.</span><span class="n">SOURCECODEPRO_BOLD</span><span class="p">,</span> <span class="s2">"SOURCECODEPRO: git commit"</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">font_enum</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">specimens_right</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">font_enum</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="fonts_images/fonts_western_specimen.png" alt="fonts_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Western Sans-Serif, Serif, and Monospace Font Specimen Catalog</figcaption>
+</figure>
+<hr />
+<h2>4. Visual Specimen: CJK &amp; Multilingual Typography</h2>
+<p>Drawlib provides dedicated regional font classes for Japanese (<code>FontJapanese</code>), Chinese (<code>FontChinese</code>), and Korean (<code>FontKorean</code>), as well as <code>FontArabic</code>, <code>FontThai</code>, and <code>FontBrahmic</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontChinese</span><span class="p">,</span> <span class="n">FontJapanese</span><span class="p">,</span> <span class="n">FontKorean</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># 1. Japanese Fonts (FontJapanese)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="s2">"FontJapanese"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="s2">"標準ゴシック (Sans)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"明朝体 (Serif)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SERIF_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"丸ゴシック (Rounded)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">MPLUSROUNDED1C_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 2. Chinese Fonts (FontChinese)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="s2">"FontChinese"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="s2">"简体中文无衬线"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontChinese</span><span class="o">.</span><span class="n">SIMPLIFIED_SANSSERIF_REGULAR</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"简体中文衬线体"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontChinese</span><span class="o">.</span><span class="n">SIMPLIFIED_SERIF_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"繁體中文設計規範"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontChinese</span><span class="o">.</span><span class="n">TRADITIONAL_SANSSERIF_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 3. Korean Fonts (FontKorean)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="s2">"FontKorean"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="s2">"클라우드 아키텍처"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontKorean</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"시스템 설계 문서"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontKorean</span><span class="o">.</span><span class="n">SANSSERIF_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">"명조체 타이포그래피"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontKorean</span><span class="o">.</span><span class="n">SERIF_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="fonts_images/fonts_cjk_specimen.png" alt="fonts_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Multilingual CJK Typography Specimen (Japanese, Chinese, Korean)</figcaption>
+</figure>
+<hr />
+<h2>5. Project-Wide Font Patching &amp; Asset Caching</h2>
+<h3>5.1. Switching Project Fonts Globally (<code>Styles.patch_font()</code>)</h3>
+<p>Instead of patching <code>text_font</code> or <code>text_size</code> on every individual call, configure your project's <code>styles.py</code> using <code>Styles.patch_font()</code> to update regular, bold, thin, source-code fonts, and baseline font size across all preset tokens at once:</p>
+<pre><code class="language-python"><span class="n">Styles</span><span class="o">.</span><span class="n">patch_font</span><span class="p">(</span>
+    <span class="n">regular</span><span class="p">:</span> <span class="n">FontBase</span> <span class="o">|</span> <span class="n">FontFile</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">bold</span><span class="p">:</span> <span class="n">FontBase</span> <span class="o">|</span> <span class="n">FontFile</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">thin</span><span class="p">:</span> <span class="n">FontBase</span> <span class="o">|</span> <span class="n">FontFile</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sourcecode</span><span class="p">:</span> <span class="n">FontSourceCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>regular</code></td>
+<td style="text-align:left"><code>FontBase | FontFile | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Baseline font applied to regular style variants. If <code>bold</code> or <code>thin</code> are omitted, <code>regular</code> is also used as their fallback.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bold</code></td>
+<td style="text-align:left"><code>FontBase | FontFile | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Keyword-only font override applied to <code>Bold</code> and <code>*Bold</code> style variants.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>thin</code></td>
+<td style="text-align:left"><code>FontBase | FontFile | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Keyword-only font override applied to <code>Thin</code> and <code>*Thin</code> style variants.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>sourcecode</code></td>
+<td style="text-align:left"><code>FontSourceCode | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Keyword-only monospace font override assigned to <code>Styles.sourcecode_font</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>size</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Keyword-only global font size override in points (<code>text_size</code>) applied across all <code>Style</code> tokens in the catalog.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="c1"># styles.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontJapanese</span><span class="p">,</span> <span class="n">FontSourceCode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">Styles</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">patch_font</span><span class="p">(</span>
+    <span class="n">regular</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">,</span>
+    <span class="n">bold</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_BOLD</span><span class="p">,</span>
+    <span class="n">thin</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_THIN</span><span class="p">,</span>
+    <span class="n">sourcecode</span><span class="o">=</span><span class="n">FontSourceCode</span><span class="o">.</span><span class="n">SOURCEHANCODEJP</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<p>When scaffolding a new project with <code>drawlib init</code>, pass <code>--lang ja</code> (or <code>zh</code>, <code>ko</code>) to generate this <code>styles.py</code> configuration automatically.</p>
+<h3>5.2. Offline &amp; CI Font Asset Caching (<code>drawlib cache</code>)</h3>
+<p>To keep the core <code>drawlib</code> wheel lightweight, font files are downloaded on first use and cached locally. For air-gapped environments, Docker builds, or CI pipelines, pre-download font packages using the CLI (see <a href="../08_doc_builder_and_cli/caching_and_cicd.html">Caching Architecture &amp; CI/CD</a>):</p>
+<pre><code class="language-bash"><span class="c1"># Inspect cached font and icon packages</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>list
+
+<span class="c1"># Pre-download all font and icon packages for offline builds</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all
+
+<span class="c1"># Clear cached font/icon assets if needed</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--all
+</code></pre>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

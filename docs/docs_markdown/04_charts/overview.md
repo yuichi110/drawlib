@@ -19,32 +19,76 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
   <figcaption class="drawlib-caption">Declarative Multi-Series Bar Chart</figcaption>
 </figure>
 
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.charts.bar import BarChart
+from drawlib.styles import Styles
+
+setup(width=100, height=70)
+
+chart = BarChart(
+    categories=["Q1", "Q2", "Q3", "Q4"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedThin,
+    width=80,
+    height=45,
+    title="Quarterly Revenue ($M)",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+)
+chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], style=Styles.SecondaryNeutral)
+chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], style=Styles.PrimaryFlat)
+
+chart.draw(xy=(10, 8))
+chart.draw_legend(xy=(25, 59), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
+save()
+```
+
+</details>
+
 
 
 ---
 
-## 2. The Seven Chart Families
+## 2. The Seven Chart Families & Submodule Exports
 
-Drawlib organizes charts into seven specialized submodules under `drawlib.charts`:
+Drawlib organizes charts into seven specialized submodules under `drawlib.charts`, built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
 
-| Module | Primary Class | Best Suited For |
+| Module | Primary Class | Companion Data Models | Exported Type Literals & Aliases | Best Suited For |
+| :--- | :--- | :--- | :--- | :--- |
+| `drawlib.charts.bar` | **[`BarChart`](./bar.md)** | `Series`, `Axis` | `Mode`, `Orientation`, `FormatterType`, `DrawDirection`, `LegendPosition` | Categorical comparisons (vertical, horizontal, grouped, stacked). |
+| `drawlib.charts.line` | **[`LineChart`](./line.md)** | `Series`, `Axis` | `LineStyle`, `PointShape`, `FormatterType`, `DrawDirection`, `LegendPosition` | Continuous metrics and trends over time (linear or spline smoothed). |
+| `drawlib.charts.area` | **[`AreaChart`](./area.md)** | `Series`, `Axis` | `Mode`, `FormatterType`, `DrawDirection`, `LegendPosition` | Cumulative volume and part-to-whole trends over time. |
+| `drawlib.charts.pie` | **[`PieChart`](./pie.md)** | `Slice` | `FormatterType`, `DrawDirection` | Proportional distributions, donut charts, and center KPI badges. |
+| `drawlib.charts.radar` | **[`RadarChart`](./radar.md)** | `Series` | `GridShape`, `FormatterType`, `DrawDirection`, `LegendPosition` | Multi-attribute evaluation, skill matrices, and spiderweb plots. |
+| `drawlib.charts.scatter` | **[`ScatterChart`](./scatter.md)** | `Series`, `Point`, `Axis` | `ScaleType`, `PointShape`, `DrawDirection`, `LegendPosition` | 2D correlations, cluster distributions, and 3D bubble plots. |
+| `drawlib.charts.gantt` | **[`GanttChart`](./gantt.md)** | `Task`, `Section`, `Milestone`, `Marker`, `Dependency` | `DrawDirection` | Project roadmaps, phase tasks, milestones, and dependency arrows. |
+
+### Exported Type Literals Reference
+
+| Type Alias | Definition | Used By |
 | :--- | :--- | :--- |
-| `drawlib.charts.bar` | **`BarChart`** | Categorical comparisons (vertical, horizontal, grouped, stacked). |
-| `drawlib.charts.line` | **`LineChart`** | Continuous metrics and trends over time (linear or spline smoothed). |
-| `drawlib.charts.area` | **`AreaChart`** | Cumulative volume and part-to-whole trends over time. |
-| `drawlib.charts.pie` | **`PieChart`** | Proportional distributions, donut charts, and center KPI badges. |
-| `drawlib.charts.radar` | **`RadarChart`** | Multi-attribute evaluation, skill matrices, and spiderweb plots. |
-| `drawlib.charts.scatter` | **`ScatterChart`** | 2D correlations, cluster distributions, and 3D bubble plots. |
-| `drawlib.charts.gantt` | **`GanttChart`** | Project roadmaps, phase tasks, milestones, and dependency arrows. |
+| **`Mode`** (`bar`) | `Literal["group", "stack"]` | `BarChart(bar_mode=...)` |
+| **`Mode`** (`area`) | `Literal["overlap", "stack"]` | `AreaChart(mode=...)` |
+| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `draw_legend(orientation=...)` |
+| **`LineStyle`** | `Literal["solid", "dashed", "dotted", "dashdot"]` | `LineChart`, `AreaChart`, `RadarChart` series stroke patterns |
+| **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart` (all 5 shapes); `LineChart`, `AreaChart`, `RadarChart` (`"circle"`, `"square"`, `"none"`) |
+| **`GridShape`** | `Literal["polygon", "circle"]` | `RadarChart(grid_shape=...)` concentric ring geometry |
+| **`ScaleType`** | `Literal["linear", "log"]` | `Axis(scale=...)` linear Nice Numbers or $\log_{10}$ scaling |
+| **`FormatterType`** | `str \| Callable[[float], str] \| None` | Value/tick formatting (`"{:.1f}%"`, `lambda v: f"${v:,.0f}"`) |
+| **`DrawDirection`** | `Literal["bottom_to_top", "left_to_right"]` | Partial spatial rendering direction on `Series`, `Slice`, and `Task` (also exported at `drawlib.charts.DrawDirection`) |
 
 ---
 
-## 3. Universal Chart Architecture
+## 3. Universal Chart Architecture & Presence-Based Styling
 
-Every chart in Drawlib follows a consistent lifecycle and coordinate contract:
+Every chart in Drawlib follows a consistent lifecycle and coordinate contract (see **[Axes, Scales & Legends](./axes_and_legends.md)** for full details on axis formatting, logarithmic scaling, legend customization, and `get_size()`):
 
 ### 1. Dimension Instantiation & Mandatory Anchor
-Specify category labels and a mandatory `axis_line_style` (the structural anchor) during initialization:
+Specify category labels and a mandatory `axis_line_style` (the structural anchor for Cartesian, Radar, and Gantt charts) during initialization:
 ```python
 chart = BarChart(
     categories=["US", "EU", "APAC"],
@@ -58,14 +102,31 @@ chart = BarChart(
 )
 ```
 
-### 2. Adding Data Series
-Add data series directly with explicit styles:
+### 2. Presence-Based Styling Summary (`Style | None = None`)
+Drawlib charts enforce a strict **"Style-as-Presence"** rule: optional visual elements default to `None` and are only rendered when an explicit `Style` is provided:
+
+| Optional Style Keyword | Default | Visual Elements Toggled When Provided (`Style`) | Applicable Chart Classes |
+| :--- | :--- | :--- | :--- |
+| **`axis_text_style`** | `None` | Axis tick labels, category names, spoke labels (`RadarChart`), and column/row labels (`GanttChart`). | `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
+| **`grid_style`** | `None` | Background value gridlines, concentric rings (`RadarChart`), or vertical column dividers (`GanttChart`). | `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
+| **`value_text_style`** | `None` | Inline numerical labels on bars, line/radar vertices, pie wedges, or scatter point callouts. | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart` |
+| **`title_style`** | `None` | Top chart title text (requires non-empty `title` string). | All 7 chart classes |
+| **`background_style`** | `None` | Outer chart container card background fill and border stroke. | All 7 chart classes |
+| **`scale_text_style`** | `None` | Numeric ring scale labels along the vertical spoke of a radar web. | `RadarChart` |
+| **`center_text_style`** | `None` | Center KPI badge text inside a donut hole (requires `hole_ratio > 0` and `center_text`). | `PieChart` |
+| **`header_style`** | `None` | Background card fill/border for the top timeline column header band. | `GanttChart` |
+| **`zebra_style`** | `None` | Alternating horizontal row background stripes across schedule rows. | `GanttChart` |
+| **`progress_text_style`**| `None` | Completion percentage text (`"85%"`) inside or next to task bars. | `GanttChart` (chart-level or per-task) |
+
+### 3. Adding Data Series & Configuring Axes
+Add data series directly with explicit styles, and optionally configure axis bounds, ticks, units, or logarithmic scales via `configure_x_axis()` / `configure_y_axis()`:
 ```python
 chart.add_series("Allocated", [120, 180, 240], style=Styles.PrimaryFlat)
 chart.add_series("Available", [90, 150, 210], style=Styles.SecondaryFlat)
+chart.configure_y_axis(min_value=0, max_value=300, tick_step=100, unit="TB")
 ```
 
-### 3. Rendering via Bottom-Left Anchor & Decoupled Legend
+### 4. Rendering via Bottom-Left Anchor & Decoupled Legend
 All charts are anchored by their **bottom-left corner** via `draw(xy=(x, y))`. Legends are rendered independently wherever desired via `draw_legend(xy=(x, y), text_style=...)`:
 ```python
 chart.draw(xy=(15, 10))
@@ -87,7 +148,7 @@ Every element registration method (`add_series`, `add_slice`, `add`, `add_task`,
 
 | Chart Class | Default `draw_direction` | `"bottom_to_top"` Behavior | `"left_to_right"` Behavior |
 | :--- | :--- | :--- | :--- |
-| **`BarChart`** | `"bottom_to_top"` | All bars grow simultaneously from the baseline toward target value. | Bars reveal sequentially category-by-category from left to right. |
+| **`BarChart`** | `"bottom_to_top"` (`"vertical"`) / `"left_to_right"` (`"horizontal"`) | Vertical: all bars grow upward from baseline. Horizontal: bars reveal sequentially from bottom category to top. | Vertical: bars reveal sequentially across categories left-to-right. Horizontal: all bars grow rightward from baseline. |
 | **`LineChart`** | `"left_to_right"` | All vertices rise simultaneously from the baseline toward target `y`. | Curve extends continuously from left to right along arc length. |
 | **`AreaChart`** | `"left_to_right"` | Area polygon and top contour rise from the baseline / lower stack. | Area polygon and top contour sweep continuously from left to right. |
 | **`ScatterChart`** | `"left_to_right"` | Points rise from the bottom axis toward target `y` (`radius * r`). | Points reveal left-to-right across the X-axis range. |
@@ -99,6 +160,50 @@ Every element registration method (`add_series`, `add_slice`, `add`, `add_task`,
 Every `draw()` call accepts optional temporary layout overrides (`width`, `height`, and `radius` on `PieChart`/`RadarChart`) as well as `scale: float = 1.0` (also supported on `draw_legend()`). Passing `scale != 1.0` scales the entire chart—including plot geometry, stroke widths, point markers, and font sizes—proportionally from `xy`:
 
 
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.charts.bar import BarChart
+from drawlib.charts.line import LineChart
+from drawlib.styles import Styles
+
+setup(width=115, height=58)
+
+# Left: BarChart with partial series rendering (draw_ratio)
+bar = BarChart(
+    categories=["Q1", "Q2", "Q3", "Q4"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=9.0),
+    grid_style=Styles.MutedThin,
+    width=48,
+    height=38,
+    title="Partial Growth (draw_ratio=0.6)",
+    title_style=Styles.BlackBold.patch(text_size=11.0),
+    bar_r=0.8,
+)
+bar.add_series("2025 Baseline", [20, 28, 34, 42], style=Styles.SecondaryNeutral, draw_ratio=1.0)
+bar.add_series("2026 Actual", [25, 36, 48, 60], style=Styles.PrimaryFlat, draw_ratio=0.6)
+bar.draw(xy=(6, 10))
+bar.draw_legend(xy=(10, 52), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+
+# Right: LineChart rendered at compact 0.75x proportional scale
+line = LineChart(
+    categories=["M1", "M2", "M3", "M4", "M5"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
+    grid_style=Styles.MutedThin,
+    width=60,
+    height=46,
+    title="Scaled Trend (scale=0.75, ratio=0.75)",
+    title_style=Styles.BlackBold.patch(text_size=12.0),
+    smooth=True,
+)
+line.add_series("Target", [30, 45, 60, 80, 100], style=Styles.SecondaryNeutral, line_style="dashed")
+line.add_series("Active", [32, 54, 78, 95, 120], style=Styles.PrimaryFlat, line_width=2.5, draw_ratio=0.75)
+line.draw(xy=(62, 10), scale=0.75)
+line.draw_legend(xy=(68, 47), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal", scale=0.75)
+save()
+```
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="overview_images/charts_lifecycle_partial_scale.png" alt="overview_2" style="width: 650px; max-width: 100%;" />

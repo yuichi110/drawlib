@@ -1,0 +1,933 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Stage Layout & API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Slide Stage Layout & API</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Slide Stage Layout &amp; API</h1>
+<p>When authoring 16:9 widescreen presentation decks (<code>drawlib init slide</code>), Drawlib provides a precision <strong>1920 × 1080 pixel virtual stage</strong> (<code>::: block</code>, <code>::: note</code>), built-in layout patterns, inline vector SVG font bundling, and the programmatic <a href="../09_ai_agents_and_advanced/programmatic_api.html"><code>drawlib.slide</code></a> Python runtime API (<code>current_slide</code>, <code>SlideContext</code>, <code>BoundingBox</code>, <code>build_slide</code>).</p>
+<p><em>(For initializing and building a slide deck project, see <a href="./project_slide.html">Slide Deck Project Guide</a>.)</em></p>
+<hr />
+<h2>1. Dual Coordinate Systems: 1920×1080 Stage vs. Drawlib Canvas</h2>
+<p>Two coordinate systems work together on every slide:</p>
+<ol>
+<li><strong>Slide Stage (<code>::: block (x, y) (w, h)</code>) — Top-Left Origin <code>(0, 0)</code></strong>:
+<ul>
+<li>Every slide renders on a fixed <strong>1920 × 1080 pixel</strong> widescreen stage (16:9 aspect ratio) that automatically scales to fit the browser viewport or PDF page.</li>
+<li>Container blocks (<code>::: block</code>) are positioned in CSS stage pixels where <strong><code>(0, 0)</code> is the top-left corner</strong>:
+<ul>
+<li><code>x</code> increases rightward (<code>0</code> → <code>1920</code>).</li>
+<li><code>y</code> increases downward (<code>0</code> → <code>1080</code>).</li>
+</ul>
+</li>
+<li><strong>Standard Safe Content Zone</strong>: Keep primary text and diagrams inside <code>x: 80..1840</code> (<code>w: 1760</code>) and <code>y: 140..980</code> (<code>h: 840</code>), reserving <code>y: 40..100</code> for the slide header and <code>y: 1010..1040</code> for the footer and page counter.</li>
+</ul>
+</li>
+<li><strong>Drawlib Canvas (<code>drawlib</code> Python block) — Bottom-Left Origin <code>(0, 0)</code></strong>:
+<ul>
+<li>Inside any <code>drawlib</code> code block, <code>setup(width=W, height=H)</code> defines a mathematical Cartesian canvas where <strong><code>(0, 0)</code> is the bottom-left corner</strong>:
+<ul>
+<li><code>x</code> increases rightward (<code>0</code> → <code>W</code>).</li>
+<li><code>y</code> increases upward (<code>0</code> → <code>H</code>).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="slide_layout_and_api_images/slide_stage_layout_zones.png" alt="slide_layout_and_api_1" style="width: 680px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">1920x1080 Virtual Slide Stage Zones and ::: block (x, y) (w, h) Layout Grid</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">192</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">114</span><span class="p">)</span>
+
+<span class="c1"># Outer 1920x1080 Stage Frame (mapped 1:10 to 192x108)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">188</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mf">109.5</span><span class="p">),</span> <span class="s2">"(0, 0) Top-Left Stage Origin"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">180</span><span class="p">,</span> <span class="mf">109.5</span><span class="p">),</span> <span class="s2">"1920 x 1080 px Stage (16:9)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">))</span>
+
+<span class="c1"># Header Zone: ::: block (80, 40) (1760, 60)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">97</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">172</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Header Block — ::: block (80, 40) (1760, 60)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Narrative Column: ::: block (80, 140) (740, 840)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="mi">53</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Left Narrative Block</span><span class="se">\n</span><span class="s2">::: block (80, 140) (740, 840)</span><span class="se">\n\n</span><span class="s2">• Markdown headings &amp; bullets</span><span class="se">\n</span><span class="s2">• Tables &amp; code snippets</span><span class="se">\n</span><span class="s2">• Styled cards &amp; callouts"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right Diagram Column: ::: block (860, 140) (980, 840)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">135</span><span class="p">,</span> <span class="mi">53</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">94</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Right Diagram Block</span><span class="se">\n</span><span class="s2">::: block (860, 140) (980, 840)</span><span class="se">\n\n</span><span class="s2">```drawlib file:arch.svg</span><span class="se">\n</span><span class="s2">setup(width=98, height=84)</span><span class="se">\n</span><span class="s2">(0, 0) Bottom-Left Canvas Origin"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Footer &amp; Page Counter Blocks</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">78</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Footer — ::: block (80, 1010) (820, 30)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Page # (1700, 1010)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>1.1. Golden Rule: Match <code>setup(width, height)</code> Aspect Ratio to Block <code>(w, h)</code></h3>
+<p>Always set <code>setup(width=W, height=H)</code> proportional to the enclosing <code>::: block (x, y) (w, h)</code> pixel dimensions (typically dividing pixel width and height by <code>10</code> or <code>20</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Enclosing <code>::: block</code> Size <code>(w, h)</code></th>
+<th style="text-align:left">Recommended <code>setup(width, height)</code></th>
+<th style="text-align:left">Aspect Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>(980, 840)</code> <em>(Right diagram column)</em></td>
+<td style="text-align:left"><code>setup(width=98, height=84)</code></td>
+<td style="text-align:left"><code>98 : 84</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(1020, 840)</code> <em>(Wide right column)</em></td>
+<td style="text-align:left"><code>setup(width=102, height=84)</code></td>
+<td style="text-align:left"><code>102 : 84</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(1760, 840)</code> <em>(Full-width content area)</em></td>
+<td style="text-align:left"><code>setup(width=176, height=84)</code></td>
+<td style="text-align:left"><code>176 : 84</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(980, 1080)</code> <em>(Right half full-bleed)</em></td>
+<td style="text-align:left"><code>setup(width=98, height=108)</code></td>
+<td style="text-align:left"><code>98 : 108</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(1920, 1080)</code> <em>(Full-canvas hero slide)</em></td>
+<td style="text-align:left"><code>setup(width=192, height=108)</code></td>
+<td style="text-align:left"><code>16 : 9</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Stage Container Block Syntax (<code>::: block</code> &amp; <code>::: note</code>)</h2>
+<p>Slide Markdown files use pure Markdown without YAML frontmatter (<code>---</code>). Every visual element on a slide is placed inside one or more <code>::: block</code> (or alias <code>::: box</code>) containers:</p>
+<pre><code class="language-markdown">::: block (x, y) (w, h) [options...]
+&lt;Markdown content or ```drawlib code fence&gt;
+:::
+</code></pre>
+<p>If a slide file contains no <code>::: block</code> tags at all, Drawlib automatically wraps the slide content in the default content zone <code>::: block (80, 140) (1760, 840)</code>. Similarly, if <code>(x, y)</code> or <code>(w, h)</code> are omitted on a <code>::: block</code> header, they default to <code>(80, 140)</code> and <code>(1760, 840)</code>.</p>
+<h3>2.1. Complete <code>::: block</code> Options Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Option Token</th>
+<th style="text-align:left">Syntax Examples</th>
+<th style="text-align:left">Compiled CSS / Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Position <code>(x, y)</code></strong></td>
+<td style="text-align:left"><code>(80, 140)</code>, <code>(0, 0)</code></td>
+<td style="text-align:left"><code>position: absolute; left: 80px; top: 140px;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Dimensions <code>(w, h)</code></strong></td>
+<td style="text-align:left"><code>(740, 840)</code>, <code>(1920, 1080)</code></td>
+<td style="text-align:left"><code>width: 740px; height: 840px;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Font Size</strong></td>
+<td style="text-align:left"><code>font:22px</code>, <code>font-size:20px</code>, <code>fontsize:1.2rem</code>, <code>fs:18</code>, or bare <code>20px</code></td>
+<td style="text-align:left"><code>font-size: 22px;</code> (bare numbers automatically append <code>px</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compact Density</strong></td>
+<td style="text-align:left"><code>compact</code></td>
+<td style="text-align:left">Adds <code>.compact</code> class to <code>&lt;div class=&quot;slide-block slide-text-box compact&quot;&gt;</code> for tighter line-height and list spacing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Text Alignment</strong></td>
+<td style="text-align:left"><code>left</code>, <code>center</code>, <code>right</code>, or <code>align:center</code></td>
+<td style="text-align:left"><code>text-align: center;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Layer Depth (<code>z-index</code>)</strong></td>
+<td style="text-align:left"><code>z:5</code>, <code>z-index:10</code>, <code>z_index:1</code></td>
+<td style="text-align:left"><code>z-index: 5;</code> — controls foreground/background stacking when blocks overlap.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Custom CSS Classes</strong></td>
+<td style="text-align:left"><code>class:&quot;card panel accent border shadow&quot;</code></td>
+<td style="text-align:left">Appends custom utility or theme classes (<code>card</code>, <code>panel</code>, <code>accent</code>, <code>transparent</code>, <code>border</code>, <code>shadow</code>, <code>middle</code>, etc.) to the container <code>&lt;div&gt;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Inline CSS Styles</strong></td>
+<td style="text-align:left"><code>style:&quot;padding: 24px; background: #f8fafc; border-radius: 12px&quot;</code></td>
+<td style="text-align:left">Appends custom inline CSS rules (<code>padding</code>, <code>background</code>, <code>border</code>, etc.) to the container <code>&lt;div&gt;</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><em>(Both <code>key:value</code> and <code>key=value</code> syntaxes are supported for keyed options.)</em></p>
+<h3>2.2. Speaker Notes (<code>::: note</code> / <code>::: notes</code>)</h3>
+<p>Add presenter notes anywhere inside a slide Markdown file using <code>::: note</code> (or <code>::: notes</code>). Speaker notes are stripped from the visible slide stage and compiled into <code>&lt;aside class=&quot;slide-notes&quot; hidden&gt;</code> for the synchronized dual-window <strong>Presenter View</strong> (<code>P</code> or <code>S</code> key):</p>
+<pre><code class="language-markdown">::: note
+<span class="k">-</span><span class="w"> </span>Emphasize that <span class="gs">**SQLite hash caching**</span> restores unchanged diagrams in <span class="gs">**&lt; 1ms**</span>.
+<span class="k">-</span><span class="w"> </span>Press <span class="sb">`A`</span> or click <span class="gs">**Play Animation**</span> to step through the pipeline animation.
+:::
+</code></pre>
+<hr />
+<h2>3. Built-In Slide Layout Patterns &amp; Templates</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="slide_layout_and_api_images/slide_builtin_layout_templates.png" alt="slide_layout_and_api_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Visual Comparison of the Four Built-In 16:9 Slide Layout Templates</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">156</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
+
+<span class="c1"># 1. Top-Left: Title / Cover Slide (title)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">82</span><span class="p">),</span> <span class="s2">"1. Title / Cover (title)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Presentation Title &amp; Subtitle</span><span class="se">\n</span><span class="s2">Speaker Metadata</span><span class="se">\n</span><span class="s2">(160, 240) (1160, 600)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Hero</span><span class="se">\n</span><span class="s2">Logo"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Top-Right: Section Divider / Closing (section)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">82</span><span class="p">),</span> <span class="s2">"2. Section Divider (section)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">62</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Centered Section Header</span><span class="se">\n</span><span class="s2">(160, 360) (1600, 360) center"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Bottom-Left: Two-Column Split (default)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">"3. Two-Column Split (default)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Header (80, 40) (1760, 60)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Narrative</span><span class="se">\n</span><span class="s2">(740, 840)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">53.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Diagram Canvas</span><span class="se">\n</span><span class="s2">(980, 840)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Footer &amp; Page Counter (y=1010)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Bottom-Right: Full-Canvas Hero ((0,0)-(1920,1080))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">"4. Full-Canvas Hero ((0,0)-(1920,1080))"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Full-Bleed Vector Stage Canvas</span><span class="se">\n</span><span class="s2">setup(width=192, height=108)</span><span class="se">\n\n</span><span class="s2">+ Optional z:10 Overlay Cards"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3.1. Title / Cover Slide (<code>title</code>)</h3>
+<p>Places the main title, subtitle, and speaker metadata on the left and a hero illustration or logo on the right:</p>
+<pre><code class="language-markdown">::: block (160, 240) (1160, 600)
+<span class="gh"># Presentation Title</span>
+<span class="gu">## Subtitle or Core Value Proposition</span>
+
+Brief one-line summary of the presentation topic
+
+---
+
+<span class="gs">**Speaker Name**</span> | Role / Organization  
+<span class="ge">*October 2026*</span>
+:::
+
+::: block (1360, 260) (400, 480)
+![<span class="nt">Hero Logo</span>](<span class="na">_assets/logo.png</span>)
+:::
+</code></pre>
+<h3>3.2. Section Divider / Closing Slide (<code>section</code> / <code>closing</code>)</h3>
+<p>Centers a bold section header or closing call-to-action across the middle of the stage (<code>(160, 360) (1600, 360) center</code>), or uses a full-bleed <code>(0, 0) (1920, 1080)</code> vector background canvas:</p>
+<pre><code class="language-markdown">::: block (160, 360) (1600, 360) center
+<span class="gh"># Part 2: Distributed Storage Engine</span>
+<span class="gu">## Consensus, Replication &amp; Recovery Workflows</span>
+:::
+</code></pre>
+<h3>3.3. Default Content &amp; Two-Column Split (<code>default</code>)</h3>
+<p>Combines a standard header (<code>(80, 40) (1760, 60)</code>), footer (<code>(80, 1010) (820, 30)</code>), page counter (<code>(1700, 1010) (140, 30)</code>), left narrative column (<code>(80, 140) (740, 840)</code>), and right diagram column (<code>(860, 140) (980, 840)</code>):</p>
+<pre><code class="language-markdown">::: block (1700, 1010) (140, 30)
+<span class="sb">```drawlib</span><span class="w"> </span>file:page.svg
+<span class="s">import utils</span>
+<span class="s">utils.draw_page_number()</span>
+<span class="sb">```</span>
+:::
+
+::: block (80, 40) (1760, 60)
+<span class="gh"># Cloud Microservices Topology</span>
+:::
+
+::: block (80, 140) (740, 840)
+<span class="gu">## Key Architectural Decisions</span>
+
+<span class="k">-</span><span class="w"> </span><span class="gs">**API Gateway**</span>: Centralized TLS termination and rate limiting
+<span class="k">-</span><span class="w"> </span><span class="gs">**Service Mesh**</span>: mTLS zero-trust east-west communication
+<span class="k">-</span><span class="w"> </span><span class="gs">**Event Streaming**</span>: Asynchronous decoupling via Pub/Sub
+:::
+
+::: block (860, 140) (980, 840)
+<span class="sb">```drawlib</span><span class="w"> </span>file:arch_topology.svg
+<span class="s">from drawlib.canvas import clear, save, setup</span>
+<span class="s">from drawlib.shapes import rectangle</span>
+<span class="s">from drawlib.styles import Styles</span>
+
+<span class="s">clear()</span>
+<span class="s">setup(width=98, height=84)</span>
+<span class="s">rectangle((49, 42), width=80, height=60, style=Styles.Neutral, text="Architecture Diagram")</span>
+<span class="s">save()</span>
+<span class="sb">```</span>
+:::
+
+::: block (80, 1010) (820, 30) font:14px
+<span class="ge">*Deck Footer / Presentation Title*</span>
+:::
+</code></pre>
+<h3>3.4. Full-Canvas Hero Slide (<code>(0, 0) (1920, 1080)</code>)</h3>
+<p>Use a single <code>(0, 0) (1920, 1080)</code> block with <code>setup(width=192, height=108)</code> and <code>z:10</code> overlays when you want to draw the entire 16:9 slide as a unified vector canvas.</p>
+<hr />
+<h2>4. Inline Vector <code>.svg</code> vs. Animated <code>.png</code> / <code>.webp</code> in Slides</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Output Format</th>
+<th style="text-align:left">Fence Syntax</th>
+<th style="text-align:left">How It Renders in <code>slide_html/</code> and <code>slide.pdf</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Inline Vector SVG</strong> <em>(default for static diagrams)</em></td>
+<td style="text-align:left"><code>```drawlib file:diagram.svg</code></td>
+<td style="text-align:left">Inlined directly as <code>&lt;div class=&quot;slide-svg-container&quot;&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/div&gt;</code>. Provides infinite vector sharpness at any zoom level and full <code>Ctrl+F</code> text searchability. Automatically bundles any referenced Drawlib <code>.ttf</code>/<code>.otf</code> text and icon fonts into <code>_assets/fonts/</code> with <code>@font-face</code> rules injected into <code>style.css</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Interactive <code>&lt;canvas&gt;</code> Animation</strong> <em>(default when <code>Animation()</code> is used)</em></td>
+<td style="text-align:left"><code>```drawlib file:flow.png anim-trigger:click anim-loop:once anim-pause:2,4</code></td>
+<td style="text-align:left">Encodes the APNG (<code>.png</code>) or Animated WebP (<code>.webp</code>) payload as Base64 inside an interactive <code>&lt;canvas class=&quot;drawlib-anim-canvas&quot;&gt;</code> player so playback works seamlessly over both <code>http://</code> and <code>file://</code>. In PDF export (<code>build_pdf.sh</code>), Frame 0 is rendered cleanly as a static poster image.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Programmatic <code>drawlib.slide</code> Python API</h2>
+<p>All slide runtime helpers, geometry models, and compilation functions are exported by <code>drawlib.slide</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BoundingBox</span><span class="p">,</span>
+    <span class="n">SlideContext</span><span class="p">,</span>
+    <span class="n">build_slide</span><span class="p">,</span>
+    <span class="n">current_slide</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Symbol</th>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>current_slide</code></strong></td>
+<td style="text-align:left">Runtime Proxy</td>
+<td style="text-align:left">Dynamic <code>contextvars</code>-backed proxy exposing the active slide's 1-based <code>index</code>, <code>total</code> slide count, <code>.text</code> (<code>&quot;{index} / {total}&quot;</code>), and <code>.format(template)</code> during deck compilation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>SlideContext</code></strong></td>
+<td style="text-align:left">Frozen Dataclass</td>
+<td style="text-align:left">Immutable context model (<code>index: int = 1</code>, <code>total: int = 1</code>, <code>.text</code>, <code>.format()</code>) holding slide numbering state.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BoundingBox</code></strong></td>
+<td style="text-align:left">Frozen Dataclass</td>
+<td style="text-align:left">Immutable stage geometry model (<code>x: float</code>, <code>y: float</code>, <code>width: float</code>, <code>height: float</code>) in 1920×1080 stage pixels.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>build_slide</code></strong></td>
+<td style="text-align:left">Compiler Function</td>
+<td style="text-align:left">Programmatically compiles a <code>slide_src/</code> Markdown directory into a standalone HTML presentation deck (<code>index.html</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3>5.1. <code>current_slide</code>, <code>SlideContext</code>, and <code>BoundingBox</code> Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Object</th>
+<th style="text-align:left">Attribute / Method</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>current_slide</code></strong> / <strong><code>SlideContext</code></strong></td>
+<td style="text-align:left"><code>.index</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">1-based index of the current slide in sorted deck order (defaults to <code>1</code> outside slide builds).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>current_slide</code></strong> / <strong><code>SlideContext</code></strong></td>
+<td style="text-align:left"><code>.total</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">Total number of slides in the presentation deck (defaults to <code>1</code> outside slide builds).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>current_slide</code></strong> / <strong><code>SlideContext</code></strong></td>
+<td style="text-align:left"><code>.text</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left">Standard formatted slide counter string <code>f&quot;{index} / {total}&quot;</code> (e.g. <code>&quot;4 / 9&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>current_slide</code></strong> / <strong><code>SlideContext</code></strong></td>
+<td style="text-align:left"><code>.format(template=&quot;{index} / {total}&quot;)</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left">Custom formatted counter string using <code>{index}</code> and <code>{total}</code> placeholders (e.g. <code>current_slide.format(&quot;Slide {index} of {total}&quot;)</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BoundingBox</code></strong></td>
+<td style="text-align:left"><code>.x</code>, <code>.y</code>, <code>.width</code>, <code>.height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left">Top-left stage coordinates (<code>x</code>, <code>y</code>) and dimensions (<code>width</code>, <code>height</code>) in 1920×1080 stage pixels.</td>
+</tr>
+</tbody>
+</table>
+<p>During <code>build_slide()</code>, Drawlib binds <code>SlideContext(index=idx, total=N)</code> before executing each slide's <code>drawlib</code> blocks (defaulting safely to <code>1 / 1</code> when run standalone):</p>
+<pre><code class="language-python"><span class="c1"># slide_src/utils.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">current_slide</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Style</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_page_number</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw a standardized slide page number badge on a transparent canvas."""</span>
+    <span class="n">clear</span><span class="p">()</span>
+    <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">effective_style</span> <span class="o">=</span> <span class="n">style</span> <span class="ow">or</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">current_slide</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">effective_style</span><span class="p">)</span>
+</code></pre>
+<h3>5.2. Compiling Slides Programmatically (<code>build_slide</code>)</h3>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_slide</span>
+
+<span class="n">index_html_path</span> <span class="o">=</span> <span class="n">build_slide</span><span class="p">(</span>
+    <span class="n">input_dir</span><span class="o">=</span><span class="s2">"slide_src"</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">"slide_html"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"System Architecture Deck"</span><span class="p">,</span>
+    <span class="n">theme</span><span class="o">=</span><span class="s2">"google"</span><span class="p">,</span>
+    <span class="n">image_format</span><span class="o">=</span><span class="s2">"svg"</span><span class="p">,</span>
+    <span class="n">styles_path</span><span class="o">=</span><span class="s2">"slide_src/styles.py"</span><span class="p">,</span>
+    <span class="n">utils_path</span><span class="o">=</span><span class="s2">"slide_src/utils.py"</span><span class="p">,</span>
+    <span class="n">no_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

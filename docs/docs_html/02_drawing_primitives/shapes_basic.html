@@ -1,0 +1,730 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic & Radial Shapes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Basic & Radial Shapes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Basic &amp; Radial Shapes</h1>
+<p>The <code>drawlib.shapes</code> module provides declarative geometric primitives with built-in center text labels, corner rounding, and unified styling. This page covers <strong>basic rectangular cards</strong> (<code>rectangle</code>) and <strong>radial/circular geometries</strong> (<code>circle</code>, <code>ellipse</code>, <code>donuts</code>, <code>wedge</code>, <code>fan</code>, <code>arc</code>).</p>
+<hr />
+<h2>1. Overview of Basic &amp; Radial Shapes</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_basic_images/shapes_basic_overview.png" alt="shapes_basic_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Overview of Basic Rectangular and Radial Shapes</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arc</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">donuts</span><span class="p">,</span> <span class="n">ellipse</span><span class="p">,</span> <span class="n">fan</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">wedge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Row 1: Rectangle, Circle, Ellipse, Donuts</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">)</span>
+<span class="n">ellipse</span><span class="p">((</span><span class="mi">86</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"ellipse"</span><span class="p">)</span>
+<span class="n">donuts</span><span class="p">((</span><span class="mi">115</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"donuts"</span><span class="p">)</span>
+
+<span class="c1"># Row 2: Wedge, Fan, Arc</span>
+<span class="n">wedge</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">220</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"wedge"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fan</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">155</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"fan"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">arc</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">310</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"arc"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. Parameter &amp; Style Signature Reference</h2>
+<p>All basic and radial shape functions share a consistent parameter and styling contract:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter / Style Field</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Anchor coordinate <code>(x, y)</code> (geometric center when using preset <code>Styles.*</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Horizontal and vertical dimensions (<code>&gt; 0</code>) for <code>rectangle</code>, <code>ellipse</code>, and <code>arc</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>radius</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer radius (<code>&gt; 0</code>) for <code>circle</code>, <code>donuts</code>, <code>wedge</code>, and <code>fan</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Visual style defining fill (<code>shape_fill_color</code>), border (<code>shape_line_color</code>, <code>shape_line_width</code>, <code>shape_line_style</code>), and geometry modifiers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style.shape_r</code></td>
+<td style="text-align:left"><code>float | tuple[float, ...]</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Corner rounding radius for <code>rectangle</code> (scalar <code>float</code> or 4-tuple <code>(bl, tl, tr, br)</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style.angle</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0.0</code></td>
+<td style="text-align:left">Counterclockwise rotation angle in degrees around the shape center.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style.halign</code> / <code>valign</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;center&quot;</code></td>
+<td style="text-align:left">Coordinate anchor alignment (<code>&quot;left&quot;</code>/<code>&quot;center&quot;</code>/<code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>/<code>&quot;center&quot;</code>/<code>&quot;top&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">Embedded label rendered at the geometric center of the shape.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Typography style override (<code>text_color</code>, <code>text_size</code>, <code>text_font</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text_style.xy_shift</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><code>(0.0, 0.0)</code></td>
+<td style="text-align:left">Relative <code>(dx, dy)</code> offset for the embedded text label (rotates with the shape).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text_style.angle</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Independent text rotation angle in degrees (overrides shape <code>style.angle</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Rectangles &amp; Rounded Corners (<code>rectangle</code>)</h2>
+<p><code>rectangle(xy, width, height, *, style, text=&quot;&quot;, text_style=None)</code> draws a rectangular card centered at <code>xy</code>.</p>
+<ul>
+<li><strong>Uniform Rounded Corners</strong>: Patch <code>shape_r</code> with a scalar float (e.g. <code>Styles.Neutral.patch(shape_r=4)</code>).</li>
+<li><strong>Per-Corner Rounding</strong>: Pass a 4-tuple <code>(bottom_left, top_left, top_right, bottom_right)</code> to round specific corners (ideal for tabs, headers, and split cards).</li>
+<li><strong>Rotation &amp; Text Offset</strong>: Patch <code>angle</code> on <code>style</code> to rotate the card, and <code>xy_shift</code> or <code>angle</code> on <code>text_style</code> to fine-tune the label.</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 1. Sharp-cornered neutral card</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Sharp Corners</span><span class="se">\n</span><span class="s2">(shape_r=0)"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Uniform rounded hero card</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Rounded Hero</span><span class="se">\n</span><span class="s2">(shape_r=4)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Per-corner rounded tab (top-left and top-right rounded)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Top Tab</span><span class="se">\n</span><span class="s2">(0, 5, 5, 0)"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_basic_images/shapes_basic_rectangle.png" alt="shapes_basic_2" style="width: 620px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Sharp, Uniform Rounded, and Per-Corner Rounded Rectangles</figcaption>
+</figure>
+<hr />
+<h2>4. Circles, Ellipses &amp; Donuts (<code>circle</code>, <code>ellipse</code>, <code>donuts</code>)</h2>
+<ul>
+<li><strong><code>circle(xy, radius, *, style, text=&quot;&quot;, text_style=None)</code></strong>: Standard circle centered at <code>xy</code> with diameter <code>2 * radius</code>.</li>
+<li><strong><code>ellipse(xy, width, height, *, style, text=&quot;&quot;, text_style=None)</code></strong>: Oval bounded by horizontal <code>width</code> and vertical <code>height</code> (supports rotation via <code>style.patch(angle=...)</code>).</li>
+<li><strong><code>donuts(xy, radius, *, style, width=None, text=&quot;&quot;, text_style=None)</code></strong>: Concentric ring with outer <code>radius</code> and ring wall thickness <code>width</code> (so the hollow inner radius equals <code>radius - width</code>).</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">donuts</span><span class="p">,</span> <span class="n">ellipse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="c1"># 1. Solid focal circle</span>
+<span class="n">circle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"circle</span><span class="se">\n</span><span class="s2">r=12"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Axis-aligned ellipse</span>
+<span class="n">ellipse</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"ellipse</span><span class="se">\n</span><span class="s2">34x20"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Annular donut ring (inner radius = 12 - 4 = 8)</span>
+<span class="n">donuts</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">98</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"donuts</span><span class="se">\n</span><span class="s2">w=4"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_basic_images/shapes_basic_circle_ellipse_donuts.png" alt="shapes_basic_3" style="width: 620px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Circle, Ellipse, and Annular Donuts</figcaption>
+</figure>
+<hr />
+<h2>5. Angular Sectors, Wedges &amp; Arcs (<code>wedge</code>, <code>fan</code>, <code>arc</code>)</h2>
+<p>All angular primitives measure <code>angle_start</code> and <code>angle_end</code> in <strong>degrees counterclockwise (CCW)</strong> from the positive X-axis ($0^\circ$ = right, $90^\circ$ = top, $180^\circ$ = left, $270^\circ$ = bottom):</p>
+<ul>
+<li><strong><code>wedge(xy, radius, *, style, width=None, angle_start=0, angle_end=360, text=&quot;&quot;, text_style=None)</code></strong>: Draws an angular ring slice when <code>width</code> (wall thickness) is specified, or a solid pie sector when <code>width=None</code>.</li>
+<li><strong><code>fan(xy, radius, *, style, angle_start=0, angle_end=180, text=&quot;&quot;, text_style=None)</code></strong>: Draws a filled pie sector connecting the center apex <code>xy</code> to the outer circular arc from <code>angle_start</code> to <code>angle_end</code>.</li>
+<li><strong><code>arc(xy, width, height, *, style, angle_start=0.0, angle_end=360.0, text=&quot;&quot;, text_style=None)</code></strong>: Draws an open, unfilled elliptical stroke along the perimeter between <code>angle_start</code> to <code>angle_end</code>.</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arc</span><span class="p">,</span> <span class="n">fan</span><span class="p">,</span> <span class="n">wedge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="c1"># 1. Angular donut slice (wedge with wall thickness width=5)</span>
+<span class="n">wedge</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"67%"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Circular pie sector (fan from 30° to 150°)</span>
+<span class="n">fan</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"FOV 120°"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Open elliptical stroke (arc from 20° to 320°)</span>
+<span class="n">arc</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Orbit"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_basic_images/shapes_basic_sectors_and_arcs.png" alt="shapes_basic_4" style="width: 620px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Angular Ring Wedge, Pie Fan, and Elliptical Arc</figcaption>
+</figure>
+<blockquote>
+<p>[!TIP]</p>
+<ul>
+<li>To draw curved arc connectors with terminal <strong>arrowheads</strong> (<code>arrow_head=&quot;-&gt;&quot;</code>), use <code>line_arc()</code> or <code>line_curved()</code> in <strong><a href="./lines.html">Lines &amp; Connectors</a></strong>, or 2D block <code>arrow_arc()</code> in <strong><a href="./arrows.html">Block Arrows</a></strong>.</li>
+<li>For multi-sided polygons and custom Bézier paths, see <strong><a href="./shapes_polygons.html">Polygons &amp; Custom Paths</a></strong>.</li>
+<li>For 3D database cylinders, actor faces, and speech callouts, see <strong><a href="./shapes_domain.html">Cylinders, Faces &amp; Callouts</a></strong>.</li>
+</ul>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

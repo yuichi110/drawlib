@@ -46,6 +46,7 @@ uv run drawlib rules show style-guide   # Visual design rules, typography, and c
   - **Focal Hierarchy**: Reserve saturated fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`) strictly for 1–2 hero components.
   - **PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`.
   - **Deterministic Code Blocks**: Always specify `file:<name>.png` and `caption:"..."` on every ````drawlib```` block in Markdown.
+  - **Code Visibility in `docs/docs_src/` (`show-code` / `fold-code`)**: Because `docs/docs_src/` is Drawlib's official reference documentation, never hide drawing code (never omit both `show-code` and `fold-code`). Use **`show-code`** for primary API tutorials and feature implementation examples, and use **`fold-code`** for conceptual overview diagrams or multi-item catalog showcase banners.
 
 ---
 

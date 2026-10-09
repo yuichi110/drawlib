@@ -12,7 +12,7 @@ This guide defines the architectural principles, loop idioms, and component-spec
 When `with anim.frame():` executes with its default `clear=True`, Drawlib clears the canvas at the start of the frame and draws the complete scene for that instant.
 - **Why `clear=True` is strongly recommended**:
   - Allows elements to move (`xy`), scale, or change style (`Styles.PrimaryFlat` -> `Styles.PrimaryNeutral`) without leaving behind stale drawings from previous frames.
-  - Works seamlessly with all high-level components (`SmartArts`, `Charts`, `Diagrams`, `Graph`) via their `.show`, `.style`, and `.draw_ratio` controls.
+  - Works seamlessly with all high-level components (`SmartArts`, `Charts`, `Diagrams`, `Graph`) via their `.show` and `.style` controls (plus `.draw_ratio` / `.draw_direction` on `Charts`).
 - **When to use `clear=False`**:
   - Only when strictly appending static primitive shapes onto the canvas without ever moving, un-highlighting, or modifying previously drawn elements.
 
@@ -24,7 +24,7 @@ Standard image viewers, GitHub file previews, and vector PDF compilation render 
 ### 1.3. Target Frame Rates & Final Frame Hold Duration
 | Animation Type | Recommended `fps` | Frame `duration` Strategy |
 | :--- | :--- | :--- |
-| **Continuous Motion / Transitions** (moving packets, growing bars/lines via `draw_ratio`, color fades, pan/zoom) | `fps=8.0` – `12.0` | Use default frame duration (`0.08s` – `0.14s`) during motion, and hold the final completed state with `duration=2.0` – `3.0`. |
+| **Continuous Motion / Transitions** (moving packets, growing chart bars/lines via `draw_ratio`, color fades, pan/zoom) | `fps=8.0` – `12.0` | Use default frame duration (`0.08s` – `0.14s`) during motion, and hold the final completed state with `duration=2.0` – `3.0`. |
 | **Step-by-Step Architectural Walkthrough** (revealing pipeline stages, chart series, or diagram nodes one by one) | `fps=1.0` – `2.0` | Use `0.6s` – `1.0s` per step, and hold the final completed diagram with `duration=2.5` – `3.0` so viewers can read the full diagram before it loops. |
 
 ---
@@ -35,8 +35,8 @@ Drawlib's unified component lifecycle (`add()` -> `draw()`) supports two clean l
 
 | Target Module | Recommended Loop Pattern | Why |
 | :--- | :--- | :--- |
-| **Primitives** (`shapes`, `lines`, `text`, `icons`)<br>**SmartArts** (`ChevronProcess`, `Table`, `GridLayout`, `Cycle`, etc.) | **Pattern A: In-Frame Build**<br>Instantiate and call `add(..., show=...)` -> `draw()` inside `with anim.frame():` | Lightweight builders that automatically preserve full container widths, row heights, and cycle slots even when items have `show=False`. |
-| **Charts** (`BarChart`, `LineChart`, `PieChart`, `GanttChart`, etc.)<br>**Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`)<br>**Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, etc.)<br>**Node Trees** (`TreeNode`, `MindMapNode`) | **Pattern B: Pre-Build & Mutate**<br>Build topology/series once outside the loop, then mutate `.show` / `.style` / `.draw_ratio` and call `draw()` inside `with anim.frame():` | Avoids re-declaring series or topologies on every frame; locks automatic chart axes (`min_value`/`max_value`) and graph node coordinates; automatically hides connected diagram edges when `node.show = False`. |
+| **Primitives** (`shapes`, `lines`, `text`, `icons`)<br>**SmartArts** (`ChevronProcess`, `Table`, `GridLayout`, `Cycle`, etc.) | **Pattern A / B**: Compute per-frame coordinates for primitives, or register SmartArt items once via `add()` and mutate `.show` / `.style` before `draw()` | Lightweight builders that automatically preserve full container widths, row heights, and cycle slots even when items have `show=False`. |
+| **Charts** (`BarChart`, `LineChart`, `PieChart`, `GanttChart`, etc.)<br>**Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`)<br>**Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, etc.)<br>**Node Trees** (`TreeNode`, `MindMapNode`) | **Pattern B: Pre-Build & Mutate**<br>Build topology/series once outside the loop, then mutate `.show` / `.style` (and `.draw_ratio` / `.draw_direction` on `Charts`) and call `draw()` inside `with anim.frame():` | Avoids re-declaring series or topologies on every frame; locks automatic chart axes (`min_value`/`max_value`) and graph node coordinates; automatically hides connected diagram/graph edges when `node.show = False`. |
 
 ### Three Universal Loop Rules
 1. **Hoist Invariant Data Outside the Loop**: Define canvas `setup()`, `Animation()`, color palettes, coordinate arrays, and static data tables once before the `for` loop.
@@ -220,19 +220,16 @@ All 6 diagram engines (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, 
 
 ### 6.1. Key Capabilities on Diagram Elements
 1. **Visibility & Automatic Connected Edge Hiding (`.show`)**:
-   - Every node, container, note, and connection has a mutable `.show: bool` attribute.
+   - Every node, container (`NodeGroup`, `ParticipantGroup`, `Lane`), block (`Block` from `loop`/`alt`/`opt`/`par`), note (`Note`), and connection (`Edge`, `Message`, `Transition`, `Relationship`) has a mutable `.show: bool` attribute.
    - Setting `node.show = False` automatically hides any connected edges (`Edge`, `Transition`, `Relationship`).
    - For `Junction` routing points in `FlowDiagram` and `ArchitectureDiagram`, the upstream wire entering the junction is automatically hidden until at least one downstream target from that junction is visible.
-2. **Dynamic Style Mutation (`.style`, `.text_style`)**:
-   - Mutate `node.style = Styles.PrimaryFlat` or `edge.style = Styles.PrimaryBold` between frames to highlight active request paths.
-3. **Progressive Arrow & Line Drawing (`edge.draw_ratio`, `edge.draw_direction`)**:
-   - All connection objects (`Edge`, `Transition`, `Relationship`, `Message`, `Junction`) support `draw_ratio: float` (`0.0` to `1.0`) and `draw_direction: Literal["forward", "backward"]`.
-   - Animating `edge.draw_ratio` across `[0.35, 0.7, 1.0]` smoothly grows the connector line and traveling arrowhead from source to target.
-4. **Camera Pan & Zoom (`draw(xy=..., scale=...)`)**:
+2. **Dynamic Style & Label Mutation (`.style`, `.text_style`, `.set_label()`, `.set_style()`)**:
+   - Mutate `node.style = Styles.PrimaryFlat` (with `Styles.WhiteBold`) or `edge.style = Styles.PrimaryBold` (or `msg.set_style(...)` / `msg.set_label(...)`) between frames to highlight active request paths and settle visited steps into `Styles.PrimaryNeutral`.
+3. **Camera Pan & Zoom (`draw(xy=..., scale=...)`)**:
    - Calling `d.draw(xy=(ox, oy), scale=s)` translates and scales all diagram coordinates, dimensions, and font sizes—enabling smooth slide-in transitions or camera zoom-outs.
 
 ### 6.2. Diagram Walkthrough Example (`FlowDiagram`)
-Build the topology once outside the loop, then mutate `.show`, `.draw_ratio`, and `.style` across frames:
+Build the topology once outside the loop, then mutate `.show`, `node.style`, and `edge.style` across frames:
 
 ```python
 from drawlib.anim import Animation
@@ -241,7 +238,7 @@ from drawlib.diagrams.flow import End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
 setup(width=110, height=40)
-anim = Animation(fps=8.0)
+anim = Animation(fps=1.5)
 
 # 1. Build topology once outside the loop
 flow = FlowDiagram(node_style=Styles.Neutral, edge_style=Styles.DarkBold, edge_text_style=Styles.Dark)
@@ -251,31 +248,32 @@ n3 = flow.add(End("Complete", style=Styles.SecondaryNeutral), xy=(90, 20), show=
 e1 = n1.connect(n2)
 e2 = n2.connect(n3)
 
-# 2. Frame 1: Initial state (only Start node visible)
-with anim.frame(duration=0.6):
+# 2. Frame 1: Initial state (only Start node visible; e1 and e2 are auto-hidden)
+with anim.frame(duration=0.8):
     flow.draw()
 
-# 3. Reveal n2 and progressively draw edge e1
+# 3. Frame 2: Reveal n2 (e1 automatically appears and highlights active path)
 n2.show = True
-for r in [0.4, 0.8, 1.0]:
-    with anim.frame(duration=0.15):
-        e1.draw_ratio = r
-        flow.draw()
+e1.style = Styles.PrimaryBold
+with anim.frame(duration=0.8):
+    flow.draw()
 
-# 4. Settle n2 style, reveal n3, and progressively draw edge e2
+# 4. Frame 3: Settle n2 style, reveal n3, and highlight e2
+e1.style = Styles.DarkBold
 n2.style = Styles.PrimaryNeutral
 n2.text_style = Styles.DarkBold
 n3.show = True
-for r in [0.4, 0.8, 1.0]:
-    with anim.frame(duration=2.5 if r == 1.0 else 0.15):
-        e2.draw_ratio = r
-        flow.draw()
+e2.style = Styles.PrimaryBold
+with anim.frame(duration=2.5):
+    flow.draw()
 
 save("flow_walkthrough.png")
 ```
 
 ### 6.3. Auto-Layout Graph Animation (`drawlib.graph`)
-For `drawlib.graph` solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `g.node(id, label, ...)` returns a mutable `Node` declaration (`node.show`, `node.style`, `node.text_style`). Because `g.calc()` solves coordinates across the full topology regardless of `show=False`, mutating `node.show` / `node.style` and calling `g.draw(margin=..., scale=...)` inside `with anim.frame():` keeps all node coordinates and cluster boxes fixed:
+For `drawlib.graph` solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `g.node(id, label, ...)` returns a mutable `Node` declaration (`node.show`, `node.style`, `node.text_style`).
+- Because `g.calc()` solves coordinates across the full topology regardless of `show=False`, mutating `node.show` / `node.style` and calling `g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)` inside `with anim.frame():` keeps all node coordinates and cluster boxes fixed.
+- To animate a data packet (`circle`) traveling along an auto-routed graph edge, pre-calculate `layout = g.calc(margin=...)` and pass `edge_layout.points` (`list[tuple[float, float]]`) to `get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)`:
 
 ```python
 from drawlib.anim import Animation

@@ -6,19 +6,54 @@
 
 ## 1. Overview & Standard Symbols
 
-```text
-  Lane: Customer                Lane: Gateway              Lane: Warehouse
- ┌───────────────────────────┬───────────────────────────┬───────────────────────────┐
- │   (Start)                 │                           │                           │
- │      │                    │                           │                           │
- │      ▼                    │                           │                           │
- │ [Submit Order]───────────►│ <Payment Valid?>          │                           │
- │                           │    │           │ (No)     │                           │
- │                           │    ▼ (Yes)     ▼          │                           │
- │                           │    │        [Show Error]  │                           │
- │                           │    ▼                      │                           │
- │                           │    └─────────────────────►│ [Pack & Ship]             │
- └───────────────────────────┴───────────────────────────┴───────────────────────────┘
+```drawlib fold-code 650px center file:flow_standard_symbols.png caption:"ISO 5807 Flowchart Symbol Classes in FlowDiagram"
+from drawlib.canvas import save, setup
+from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
+from drawlib.shapes import circle
+from drawlib.styles import Colors, Styles
+from drawlib.text import text
+
+setup(width=152, height=62)
+
+flow = FlowDiagram(
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    width=144.0,
+    height=54.0,
+)
+
+# 6 Standard Flowchart Symbol Classes: Start, Data, Process, Decision, Junction, End
+s_start = flow.add(Start("Start\n(Terminal)", width=22.0, height=11.0, style=Styles.PrimaryNeutral), xy=(15.0, 40.0))
+s_data = flow.add(Data("Data\n(Input / I/O)", width=26.0, height=12.0), xy=(52.0, 40.0))
+s_proc = flow.add(Process("Process\n(Operation)", width=26.0, height=12.0), xy=(90.0, 40.0))
+s_dec = flow.add(Decision("Decision\n(Branch?)", width=26.0, height=15.0, style=Styles.SecondaryNeutral), xy=(90.0, 15.0))
+
+# Junction waypoint for orthogonal retry loop back to Data
+j_retry = flow.junction((52.0, 15.0))
+s_end = flow.add(
+    End("End\n(Complete)", width=22.0, height=11.0, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
+    xy=(130.0, 15.0),
+)
+
+s_start.connect(s_data)
+s_data.connect(s_proc)
+s_proc.connect(s_dec, start_side="bottom", end_side="top")
+s_dec.connect(s_end, label="Yes", start_side="right", end_side="left")
+s_dec.connect(j_retry, label="No", start_side="left", end_side="right")
+j_retry.connect(s_data, label="Retry", end_side="bottom")
+
+flow.draw(xy=(4.0, 4.0))
+
+# Highlight the zero-size Junction coordinate point (4 + 52 = 56, 4 + 15 = 19)
+circle((56.0, 19.0), radius=1.3, style=Styles.PrimaryFlat)
+text(
+    (56.0, 14.0),
+    "Junction (x, y)",
+    style=Styles.DarkBold.patch(text_size=8.5, text_color=Colors.Primary5),
+)
+
+save()
 ```
 
 ### Flowchart Symbol Classes
@@ -35,19 +70,90 @@
 
 ---
 
-## 2. Global Coordinate Architecture & Core Methods
+## 2. Global Coordinate Architecture & Core API Reference
 
 In Drawlib's `FlowDiagram`, swimlanes provide a structured visual background and column/row headers **without trapping nodes inside local relative coordinates**.
 
-All nodes share a single global canvas coordinate system. This means:
+All nodes share a single global canvas coordinate system (`flow.add(node, xy=(cx, cy))` places the **center `(cx, cy)`** of the shape). This means:
 - Steps occurring at the same stage in different departments can be placed at the exact same vertical $Y$ coordinate.
 - Connecting lines cross swimlane boundaries cleanly with automatic orthogonal right-angle routing.
 
-### Core Registration, Connection & Rendering Methods
-- **`flow.add(node, xy=(x, y), *, show: bool = True) -> FlowNode`**: Places a flow node at `(x, y)` and returns the mutable `FlowNode` instance (`node.show`, `node.style`, `node.text_style`). If `show=False`, the node and its connected edges are hidden during rendering while diagram bounds remain unchanged.
-- **`flow.add_lane(name, width=..., height=..., header_size=..., *, show: bool = True) -> Lane`**: Adds a vertical or horizontal swimlane (`show=False` hides the lane visual while keeping subsequent lane offsets fixed).
-- **`node.connect(other, label="", start_side=None, end_side=None, routing="orthogonal", arrow="->", style=None, text_style=None, bend=0.25, show: bool = True) -> Edge`**: Connects two nodes and returns a mutable `Edge` (`edge.show`, `edge.style`, `edge.draw_ratio`, `edge.draw_direction`).
-- **`flow.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the diagram at `xy`, proportionally scaling all coordinates, lane widths/heights, node dimensions, and font sizes by `scale`.
+### Parameter Reference Tables
+
+#### `FlowDiagram` Class
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `node_style` | `Style` | *(Required)* | Base `Style` object for flowchart shapes in the diagram. |
+| `edge_style` | `Style` | *(Required)* | Base `Style` object for connection lines and arrowheads. |
+| `edge_text_style` | `Style` | *(Required)* | Base `Style` object for connection text labels. |
+| `title` | `str` | `""` | Optional banner title displayed above the diagram. |
+| `title_style` | `Style \| None` | `None` | Optional `Style` override for the diagram title. |
+| `width` | `float \| None` | `None` | Optional fixed width of the diagram canvas (auto-fit if `None`). |
+| `height` | `float \| None` | `None` | Optional fixed height of the diagram canvas (auto-fit if `None`). |
+| `style` | `Style \| None` | `None` | Optional `Style` for the overall diagram background card. |
+| `lane_orientation` | `Literal["vertical", "horizontal"]` | `"vertical"` | Swimlane layout orientation (`"vertical"` columns or `"horizontal"` rows). |
+
+#### `FlowNode` & Concrete Node Classes (`Start`, `End`, `Process`, `Decision`, `Data`)
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `text` | `str` | `""` (`"Start"` / `"End"` on terminals) | Text label centered inside the flowchart symbol (supports `\n`). |
+| `width` | `float` | `24.0` (`20.0` for `Start`/`End`, `22.0` for `Decision`) | Outer width of the symbol in canvas units. |
+| `height` | `float` | `12.0` (`10.0` for `Start`/`End`, `14.0` for `Decision`) | Outer height of the symbol in canvas units. |
+| `style` | `Style \| None` | `None` | Optional `Style` override for shape fill, border stroke, and `shape_r`. |
+| `text_style` | `Style \| None` | `None` | Optional `Style` override for the node text label. |
+| `shape_type` | `Literal["process", "decision", "start", "end", "data"]` | `"process"` | Underlying symbol geometry (`FlowNode` base constructor only). |
+| `show` | `bool` | `True` | Visibility flag (connected `FlowEdge` lines auto-hide when `False`). |
+
+- **Anchor & Geometry Properties on `FlowNode`**: `node.xy`, `node.center`, `node.top`, `node.bottom`, `node.left`, `node.right`, `node.get_anchor(side="auto")`, and `node.get_bounds()`.
+
+### Core Registration, Swimlane, Connection & Waypoint Methods
+
+- **Node Registration (`flow.add`)**:
+  ```python
+  flow.add(item: FlowNode | Junction, xy: tuple[float, float], *, show: bool | None = None) -> FlowNode | Junction
+  ```
+  Places `item` at center coordinate `xy` and returns the mutable instance (`node.show`, `node.style`, `node.text_style`). If `show=False`, the node and its connected edges are hidden during rendering while diagram bounds remain unchanged.
+- **Swimlane Registration (`flow.add_lane`)**:
+  ```python
+  flow.add_lane(
+      title: str,
+      size: float | None = None,
+      width: float | None = None,
+      height: float | None = None,
+      style: Style | None = None,
+      text_style: Style | None = None,
+      header_size: float = 6.0,
+      header_style: Style | None = None,
+      show: bool = True,
+  ) -> Lane
+  ```
+  Adds a vertical column (`width` or `size`, default `30.0`) or horizontal row (`height` or `size`, default `30.0`) swimlane and returns the `Lane` instance. Setting `show=False` hides the lane visual while keeping subsequent lane offsets fixed.
+- **Connecting Nodes (`FlowNode.connect` & `flow.connect`)**:
+  ```python
+  node.connect(
+      target: FlowNode | Junction,
+      label: str = "",
+      arrow: Literal["->", "<-", "<->", "-"] | None = None,
+      routing: Literal["orthogonal", "direct"] = "orthogonal",
+      start_side: Literal["left", "right", "top", "bottom", "auto"] = "auto",
+      end_side: Literal["left", "right", "top", "bottom", "auto"] = "auto",
+      style: Style | None = None,
+      text_style: Style | None = None,
+      padding: float | tuple[float, float] = 0.0,
+      show: bool = True,
+  ) -> FlowEdge
+  ```
+  Also callable at the diagram level via `flow.connect(start, end, ...) -> FlowEdge` (or `flow.add_edge(edge, *, show=None) -> FlowEdge`). When `arrow=None`, defaults to `"-"` if `target` is a `Junction`, otherwise `"->"`.
+- **1-to-N Bus Fan-Out (`FlowNode.fork`) & `Junction`**:
+  - **`node.fork(targets: list[Connectable], at_x: float | None = None, at_y: float | None = None, style: Style | None = None, padding: float | tuple[float, float] = 0.0, show: bool = True) -> list[FlowEdge]`**: Branches from `node` to multiple targets through an intermediate `Junction`.
+  - **`flow.junction(xy: tuple[float, float], *, show: bool = True) -> Junction`**: Creates and registers a zero-size connectable waypoint at `xy` (`j.connect(...)`).
+- **`FlowEdge` Waypoint Methods**:
+  - **`edge.points(waypoints: list[tuple[float, float]]) -> FlowEdge`**: Sets explicit intermediate `(x, y)` waypoints and returns `self`.
+  - **`edge.via(*waypoints: tuple[float, float]) -> FlowEdge`**: Unpacked variadic shorthand for `.points(list(waypoints))`.
+  - **`edge.add_point(xy: tuple[float, float]) -> Junction`**: Appends `xy` as a waypoint on `edge` and returns a branching `Junction` registered at `xy`.
+- **Sizing & Rendering (`flow.get_size` & `flow.draw`)**:
+  - **`flow.get_size() -> tuple[float, float]`**: Returns the overall `(width, height)` of the diagram.
+  - **`flow.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the diagram anchored at bottom-left `xy`, proportionally scaling all coordinates, lane widths/heights, node dimensions, and font sizes by `scale`.
 
 ---
 
@@ -55,13 +161,12 @@ All nodes share a single global canvas coordinate system. This means:
 
 The following example illustrates a multi-department expense reimbursement process across three vertical swimlanes:
 
-```drawlib 650px center file:flow_approval_workflow.png caption:"Cross-Department Reimbursement Approval Workflow"
-from drawlib import canvas
+```drawlib show-code 650px center file:flow_approval_workflow.png caption:"Cross-Department Reimbursement Approval Workflow"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
-canvas.clear()
-canvas.setup(width=110, height=95)
+setup(width=110, height=95)
 
 flow = FlowDiagram(
     node_style=Styles.Neutral,
@@ -102,6 +207,7 @@ audit.connect(auto_pay, start_side="bottom", end_side="top")
 auto_pay.connect(end, label="Notice Sent", start_side="left", end_side="right")
 
 flow.draw(xy=(5.0, 5.0))
+save()
 ```
 
 ---
@@ -110,13 +216,12 @@ flow.draw(xy=(5.0, 5.0))
 
 By specifying `lane_orientation="horizontal"`, lanes are laid out as stacked horizontal bands:
 
-```drawlib 650px center file:flow_fulfillment_pipeline.png caption:"Fulfillment Logistics Horizontal Pipeline"
-from drawlib import canvas
+```drawlib show-code 650px center file:flow_fulfillment_pipeline.png caption:"Fulfillment Logistics Horizontal Pipeline"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
-canvas.clear()
-canvas.setup(width=145, height=80)
+setup(width=145, height=80)
 
 flow = FlowDiagram(
     node_style=Styles.Neutral,
@@ -143,6 +248,7 @@ validate.connect(pack, label="Yes", start_side="bottom", end_side="top")
 pack.connect(dispatch)
 
 flow.draw(xy=(8.0, 5.0))
+save()
 ```
 
 ---

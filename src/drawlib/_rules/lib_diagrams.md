@@ -622,7 +622,7 @@ d.draw(xy=(5.0, 5.0))
       show=True,
   )
   ```
-  Automatically formats formal UML labels: `event [guard] / action`, and returns a mutable `Transition` object (`tr.show`, `tr.style`, `tr.draw_ratio`, `tr.draw_direction`).
+  Automatically formats formal UML labels: `event [guard] / action`, and returns a mutable `Transition` object (`tr.show`, `tr.style`, `tr.text_style`, `tr.event`, `tr.guard`, `tr.action`).
 - **Self-Transitions**: Call `sd.connect(state, state, side="top", event="tick")`.
 
 ### 6.4 Production Examples
@@ -770,7 +770,7 @@ Relationships between classes are registered cleanly at the diagram level via `c
 | `"association"` | **Association** | Solid | None (or Open Arrow) | Structural reference |
 | `"dependency"` | **Dependency** | Dashed | Open Arrow (at target) | Client depends on supplier |
 
-`cd.connect(...)` supports `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, `label`, and `show: bool = True`, returning a mutable `Relationship` instance (`rel.show`, `rel.style`, `rel.draw_ratio`, `rel.draw_direction`).
+`cd.connect(...)` supports `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, `label`, and `show: bool = True`, returning a mutable `Relationship` instance (`rel.show`, `rel.style`, `rel.text_style`, `rel.label`).
 
 ### 7.4 Production Examples
 

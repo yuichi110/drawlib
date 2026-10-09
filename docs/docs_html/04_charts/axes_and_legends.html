@@ -1,0 +1,750 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axes, Scales & Legends</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Axes, Scales & Legends</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Axes, Scales &amp; Legends</h1>
+<p>All Cartesian charts (<code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>ScatterChart</code>) and multi-series/slice charts (<code>PieChart</code>, <code>RadarChart</code>) share a unified foundation for <strong>coordinate axis scaling</strong>, <strong>tick and unit formatting</strong>, <strong>decoupled legend placement</strong>, and <strong>bounding-box measurement</strong>.</p>
+<hr />
+<h2>1. Custom Axis Bounds, Tick Steps &amp; Value Formatting</h2>
+<p>Cartesian charts expose <code>chart.configure_x_axis(...)</code> and <code>chart.configure_y_axis(...)</code> (backed by the <code>Axis</code> model) to customize domain bounds (<code>min_value</code>, <code>max_value</code>), explicit ticks (<code>ticks</code> or <code>tick_step</code>), format strings or callables (<code>format</code>), unit suffixes (<code>unit</code>), and axis titles (<code>label</code>).</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left Chart: Explicit tick_step, format string, and unit suffix</span>
+<span class="n">sla_chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"00:00"</span><span class="p">,</span> <span class="s2">"06:00"</span><span class="p">,</span> <span class="s2">"12:00"</span><span class="p">,</span> <span class="s2">"18:00"</span><span class="p">,</span> <span class="s2">"24:00"</span><span class="p">],</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"API Availability Window"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sla_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Edge Gateway"</span><span class="p">,</span> <span class="p">[</span><span class="mf">99.2</span><span class="p">,</span> <span class="mf">99.5</span><span class="p">,</span> <span class="mf">99.8</span><span class="p">,</span> <span class="mf">99.4</span><span class="p">,</span> <span class="mf">99.9</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>
+<span class="n">sla_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"SLA Target"</span><span class="p">,</span> <span class="p">[</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
+
+<span class="n">sla_chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span>
+    <span class="n">min_value</span><span class="o">=</span><span class="mf">98.5</span><span class="p">,</span>
+    <span class="n">max_value</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
+    <span class="n">tick_step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.1f}</span><span class="s2">%"</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Uptime (%)"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sla_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+<span class="n">sla_chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="c1"># Right Chart: Custom callable formatter and explicit ticks list</span>
+<span class="n">cost_chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Cloud Spend Trajectory"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cost_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Committed Spend"</span><span class="p">,</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">390</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>
+<span class="n">cost_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Reserved Cap"</span><span class="p">,</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dotted"</span><span class="p">)</span>
+
+<span class="n">cost_chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
+    <span class="nb">format</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"$</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">k"</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Quarterly Cost (USD)"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cost_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+<span class="n">cost_chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">65.0</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="axes_and_legends_images/charts_axes_formatting.png" alt="axes_and_legends_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Custom Axis Bounds, Tick Steps, Format Specifiers, and Units</figcaption>
+</figure>
+<hr />
+<h2>2. Linear (&quot;Nice Numbers&quot;) vs. Logarithmic (<code>scale=&quot;log&quot;</code>) Scaling</h2>
+<p>Each <code>Axis</code> supports two scaling engines via <code>scale</code>:</p>
+<ul>
+<li><strong><code>scale=&quot;linear&quot;</code> <em>(default)</em></strong>: Uses the <strong>Nice Numbers algorithm</strong> to automatically select human-readable step intervals ($1, 2, 5 \times 10^k$) across the data range when <code>tick_step</code> and <code>ticks</code> are omitted.</li>
+<li><strong><code>scale=&quot;log&quot;</code></strong>: Maps positive values onto a base-10 logarithmic axis ($\log_{10}$). Bounds automatically snap to powers of 10 ($10^0, 10^1, 10^2, \dots$), and intermediate ticks ($1, 2, 5 \times 10^k$) are generated automatically when the span covers $\le 2$ orders of magnitude.</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">105</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"L1 Cache"</span><span class="p">,</span> <span class="s2">"Main RAM"</span><span class="p">,</span> <span class="s2">"NVMe SSD"</span><span class="p">,</span> <span class="s2">"Regional RPC"</span><span class="p">],</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:g}</span><span class="s2"> ns"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">82.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Storage &amp; Network Access Latency (Log10 Scale)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+    <span class="n">bar_width_ratio</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Median Read Latency"</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">150000.0</span><span class="p">,</span> <span class="mf">45000000.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span>
+    <span class="n">scale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="s2">"ns"</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Access Time in Nanoseconds (log10)"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="axes_and_legends_images/charts_axes_log_scale.png" alt="axes_and_legends_2" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Logarithmic Y-Axis Scale (scale='log') Across Storage Hierarchy Latencies</figcaption>
+</figure>
+<hr />
+<h2>3. Decoupled Legends (<code>draw_legend</code>) &amp; Bounding Sizing (<code>get_size</code>)</h2>
+<p>Instead of hardcoding legends inside a rigid chart box, Drawlib decouples legend rendering via <code>chart.draw_legend(...)</code>. You can place horizontal or vertical legends anywhere on the canvas, customize <code>swatch_size</code> and <code>item_gap</code>, and query <code>chart.get_size() -&gt; (width, height)</code> to align legends or surrounding cards relative to the chart's dimensions.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"US-East"</span><span class="p">,</span> <span class="s2">"EU-West"</span><span class="p">,</span> <span class="s2">"AP-East"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">66.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Regional Compute Capacity (vCPU)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
+    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"stack"</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"On-Demand"</span><span class="p">,</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Spot Instances"</span><span class="p">,</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Reserved Nodes"</span><span class="p">,</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">110</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s2">"vCPU"</span><span class="p">)</span>
+
+<span class="n">chart_x</span><span class="p">,</span> <span class="n">chart_y</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">chart_x</span><span class="p">,</span> <span class="n">chart_y</span><span class="p">))</span>
+
+<span class="c1"># 1. Horizontal Legend placed above the chart plot area</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+    <span class="n">item_gap</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+    <span class="n">swatch_size</span><span class="o">=</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Vertical Legend inside a Sidebar Card aligned via chart.get_size()</span>
+<span class="n">chart_w</span><span class="p">,</span> <span class="n">chart_h</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+<span class="n">legend_card_cx</span> <span class="o">=</span> <span class="n">chart_x</span> <span class="o">+</span> <span class="n">chart_w</span> <span class="o">+</span> <span class="mf">18.0</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">legend_card_cx</span><span class="p">,</span> <span class="n">chart_y</span> <span class="o">+</span> <span class="n">chart_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">legend_card_cx</span> <span class="o">-</span> <span class="mf">11.0</span><span class="p">,</span> <span class="n">chart_y</span> <span class="o">+</span> <span class="n">chart_h</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
+    <span class="n">swatch_size</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="axes_and_legends_images/charts_legends_and_sizing.png" alt="axes_and_legends_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Decoupled Horizontal and Vertical Legends with Custom Swatches and get_size() Alignment</figcaption>
+</figure>
+<hr />
+<h2>4. API Reference</h2>
+<h3>Axis Configuration (<code>configure_x_axis</code> / <code>configure_y_axis</code> &amp; <code>Axis</code>)</h3>
+<p>Available on <code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, and <code>ScatterChart</code> (returns the underlying <code>Axis</code> instance):</p>
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">configure_x_axis</span><span class="p">(</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"linear"</span><span class="p">,</span> <span class="s2">"log"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">min_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ticks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tick_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show_grid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show_axis_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">line_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show_ticks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tick_label_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axis</span>
+</code></pre>
+<p><em>(Identical parameters are accepted by <code>chart.configure_y_axis(...)</code>. The underlying <code>Axis(...)</code> constructor and <code>axis.configure(...)</code> method also accept <code>label_style: Style | None = None</code>).</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>scale</code></td>
+<td style="text-align:left"><code>&quot;linear&quot;</code> | <code>&quot;log&quot;</code></td>
+<td style="text-align:left"><code>&quot;linear&quot;</code></td>
+<td style="text-align:left">Coordinate scaling mode (linear Nice Numbers or base-10 logarithmic).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>min_value</code> / <code>max_value</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Explicit minimum/maximum axis bounds. If <code>None</code>, derived from series data.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ticks</code></td>
+<td style="text-align:left"><code>list[float] | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Explicit list of tick values (overrides automatic tick generation).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tick_step</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Explicit step interval between linear ticks.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>format</code></td>
+<td style="text-align:left"><code>str | Callable[[float], str] | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Python format string (e.g. <code>&quot;{:.1f}%&quot;</code>, <code>&quot;${:,.0f}&quot;</code>) or callable <code>fn(val) -&gt; str</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>unit</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">Unit suffix appended to formatted tick labels if not already present (e.g. <code>&quot;ms&quot;</code>, <code>&quot;Gbps&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>label</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">Axis title label rendered along the axis.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>show_grid</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left">Whether to draw gridlines for this axis when <code>grid_style</code> is present.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Per-axis gridline style override.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>show_axis_line</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left">Whether to draw the axis baseline stroke.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>line_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Per-axis baseline stroke style override.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>show_ticks</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left">Whether to draw tick labels along this axis.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tick_label_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Per-axis tick label text style override.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>label_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Optional <code>Style</code> override on <code>Axis</code> for the axis title (<code>label</code>) typography (<code>axis.configure(label_style=...)</code> or <code>chart.y_axis.label_style = ...</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3>Direct Axis Property Access &amp; <code>Axis.format_value(val)</code></h3>
+<p>In addition to <code>configure_x_axis()</code> and <code>configure_y_axis()</code>, you can inspect or mutate the underlying <code>Axis</code> objects directly via properties:</p>
+<ul>
+<li><strong><code>chart.x_axis -&gt; Axis</code></strong> and <strong><code>chart.y_axis -&gt; Axis</code></strong>: Direct access to the horizontal and vertical <code>Axis</code> instances on <code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, and <code>ScatterChart</code>.</li>
+<li><strong><code>bar_chart.value_axis -&gt; Axis</code></strong>: Orientation-aware property on <code>BarChart</code> that returns <code>y_axis</code> when <code>orientation == &quot;vertical&quot;</code> and <code>x_axis</code> when <code>orientation == &quot;horizontal&quot;</code>.</li>
+<li><strong><code>bar_chart.category_axis -&gt; Axis</code></strong>: Orientation-aware property on <code>BarChart</code> that returns <code>x_axis</code> when <code>orientation == &quot;vertical&quot;</code> and <code>y_axis</code> when <code>orientation == &quot;horizontal&quot;</code>.</li>
+<li><strong><code>axis.format_value(value: float) -&gt; str</code></strong>: Formats any numeric value into a display string using the axis's configured <code>format</code> string/callable and <code>unit</code> suffix (automatically rounding near-integers when <code>format=None</code>).</li>
+</ul>
+<pre><code class="language-python"><span class="c1"># Orientation-independent configuration on BarChart + custom label_style and format_value()</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">value_axis</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"%"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Utilization"</span><span class="p">,</span> <span class="n">label_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">formatted</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">value_axis</span><span class="o">.</span><span class="n">format_value</span><span class="p">(</span><span class="mf">85.0</span><span class="p">)</span>  <span class="c1"># -&gt; "85 %"</span>
+</code></pre>
+<blockquote>
+<p><strong>Radial Axis Configuration (<code>RadarChart</code>)</strong>: <code>RadarChart</code> provides <code>chart.configure_axis(*, min_value=None, max_value=None, levels=None, scale_format=None) -&gt; RadarChart</code> to configure concentric spoke rings.</p>
+</blockquote>
+<h3>Decoupled Legend Rendering (<code>draw_legend</code>)</h3>
+<p>Available on <code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, and <code>ScatterChart</code>:</p>
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"vertical"</span><span class="p">,</span> <span class="s2">"horizontal"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"vertical"</span><span class="p">,</span>
+    <span class="n">swatch_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">item_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<ul>
+<li><strong>Coordinate Anchor <code>xy</code></strong>: For <code>orientation=&quot;vertical&quot;</code>, <code>xy</code> is the <strong>top-left</strong> starting point (items step downward). For <code>orientation=&quot;horizontal&quot;</code>, <code>xy</code> is the <strong>middle-left</strong> starting point (items flow rightward separated by <code>item_gap</code>).</li>
+<li><strong>Per-Item Styling &amp; Visibility</strong>: Each <code>add_series(...)</code> or <code>add_slice(...)</code> call accepts <code>legend_text_style: Style | None = None</code> and <code>show: bool = True</code>. If an element has <code>show=False</code>, its legend entry is automatically hidden while preserving horizontal layout spacing.</li>
+</ul>
+<h3>Layout Sizing (<code>get_size</code>)</h3>
+<p>Available on all 7 chart classes (<code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code>):</p>
+<pre><code class="language-python"><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+</code></pre>
+<p>Returns the unscaled <code>(width, height)</code> bounding box dimensions of the chart in canvas units.</p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

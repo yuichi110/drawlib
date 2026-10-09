@@ -1,0 +1,847 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Reference Manual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">CLI Reference Manual</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>CLI Reference Manual</h1>
+<p>Drawlib provides a unified Command Line Interface (<code>drawlib</code>) for compiling documentation, extracting standalone visual diagrams, managing cache assets, validating links, and inspecting built-in design systems.</p>
+<hr />
+<h2>1. Quick Command Matrix</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="cli_reference_images/cli_command_taxonomy.png" alt="cli_reference_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">The Nine Drawlib CLI Subcommands Organized by Workflow Stage</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">156</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Top Row: Primary 4-Stage Authoring &amp; Publishing Pipeline</span>
+<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s2">"1. Scaffold</span><span class="se">\n</span><span class="s2">drawlib init</span><span class="se">\n</span><span class="s2">(doc, site, slide, images)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="s2">"2. Inspect &amp; Debug</span><span class="se">\n</span><span class="s2">drawlib show</span><span class="se">\n</span><span class="s2">(-g grid, -o export)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="s2">"3. Compile</span><span class="se">\n</span><span class="s2">drawlib build</span><span class="se">\n</span><span class="s2">(html, pdf, md, image)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">133</span><span class="p">,</span> <span class="s2">"4. Preview &amp; Audit</span><span class="se">\n</span><span class="s2">drawlib serve</span><span class="se">\n</span><span class="s2">(--check link audit)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">sx</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">sx</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">37.5</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="p">(</span><span class="mf">43.5</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">74.5</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="p">(</span><span class="mf">80.5</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">111.5</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="p">(</span><span class="mf">117.5</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Bottom Row: Supporting Design Systems, Cache &amp; AI Rules Subcommands</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Cross-Cutting Design, Asset Cache &amp; AI Knowledge Subcommands"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Design Systems (3 Subcommands)</span><span class="se">\n</span><span class="s2">drawlib colors | drawlib styles | drawlib css"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Asset &amp; Build Cache</span><span class="se">\n</span><span class="s2">drawlib cache (list, download, clear)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"AI Knowledge Catalog</span><span class="se">\n</span><span class="s2">drawlib rules (27 manuals)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<pre><code class="language-bash"><span class="c1"># Compilation</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs_html/<span class="w">                  </span><span class="c1"># Responsive static HTML website</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs/<span class="w">                  </span><span class="c1"># GitHub-ready Markdown</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>manual.pdf<span class="w"> </span>--toc<span class="w">             </span><span class="c1"># High-fidelity vector PDF</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>scripts/<span class="w"> </span>-o<span class="w"> </span>assets/<span class="w"> </span>-g<span class="w">                 </span><span class="c1"># Batch Python image rendering</span>
+
+<span class="c1"># Scaffolding</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>list<span class="w">                                          </span><span class="c1"># List starter project templates (site, doc, slide, images)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_doc<span class="w">                                    </span><span class="c1"># Scaffold linear document project (HTML, PDF, MD, images)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_site<span class="w">                                  </span><span class="c1"># Scaffold documentation site</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w">                       </span><span class="c1"># Scaffold 16:9 presentation slide deck</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"> </span>my_images<span class="w">                              </span><span class="c1"># Scaffold standalone images project (alias: image)</span>
+
+<span class="c1"># Inspection &amp; Preview</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>doc.md<span class="w">                                        </span><span class="c1"># List all drawlib code blocks in doc.md</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>doc.md<span class="w"> </span>arch.png<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/arch.png<span class="w">          </span><span class="c1"># Headless extraction by explicit filename (Recommended)</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>doc.md<span class="w"> </span>arch.png<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/arch_grid.png<span class="w">  </span><span class="c1"># Export named block with coordinate grid</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>script.py<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/fig.png<span class="w">                 </span><span class="c1"># Export standalone Python script</span>
+
+<span class="c1"># Local Server &amp; Verification</span>
+drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w">                                   </span><span class="c1"># Local preview on http://localhost:8000</span>
+drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check<span class="w">                           </span><span class="c1"># Pre-flight broken link/asset audit</span>
+
+<span class="c1"># Design Systems, Cache &amp; AI Rules</span>
+drawlib<span class="w"> </span>colors<span class="w"> </span>list<span class="w">                                        </span><span class="c1"># List color catalogs (default, google, monochrome, css)</span>
+drawlib<span class="w"> </span>styles<span class="w"> </span>list<span class="w">                                        </span><span class="c1"># List style catalogs (default, google, monochrome)</span>
+drawlib<span class="w"> </span>css<span class="w"> </span>list<span class="w">                                           </span><span class="c1"># List CSS presets for HTML and PDF</span>
+drawlib<span class="w"> </span>cache<span class="w"> </span>list<span class="w">                                         </span><span class="c1"># Inspect cached fonts, icons, and maps</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">                                         </span><span class="c1"># List 27 AI rule instruction manuals</span>
+</code></pre>
+<hr />
+<h2>2. Global CLI Options</h2>
+<p>Global flags apply before any top-level command (<code>drawlib [GLOBAL_OPTIONS] COMMAND ...</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-v</code>, <code>--version</code></td>
+<td>Print installed <code>drawlib</code> version and exit with status <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>-h</code>, <code>--help</code></td>
+<td>Show contextual help message and available subcommands.</td>
+</tr>
+<tr>
+<td><code>--quiet</code></td>
+<td>Suppress non-critical standard output (emit warnings and errors only).</td>
+</tr>
+<tr>
+<td><code>--verbose</code> / <code>--debug</code></td>
+<td>Enable diagnostic logging, timing metrics, and cache hit/miss details.</td>
+</tr>
+<tr>
+<td><code>--developer</code></td>
+<td>Enable verbose logging and disable user-friendly error wrapping so full Python stack traces propagate.</td>
+</tr>
+</tbody>
+</table>
+<p><em>(Note: <code>--quiet</code> cannot be combined with <code>--verbose</code>, <code>--debug</code>, or <code>--developer</code>; doing so exits with code <code>2</code>.)</em></p>
+<hr />
+<h2>3. Compilation Subsystem (<code>drawlib build</code>)</h2>
+<h3>3.1 <code>drawlib build html</code></h3>
+<p>Compiles Markdown documents or directories into a responsive static HTML documentation website (<code>site</code> when <code>navbar.md</code> is present) or merged single-page HTML document (<code>doc</code> when <code>navbar.md</code> is absent).</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>&lt;INPUT&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--output</code></td>
+<td><code>-o</code></td>
+<td><code>&lt;input_dir&gt;</code> or <code>&lt;name&gt;.html</code></td>
+<td>Destination directory or HTML file path.</td>
+</tr>
+<tr>
+<td><code>--format</code></td>
+<td><code>-f</code></td>
+<td><code>png</code></td>
+<td>Image format for embedded diagrams (<code>png</code> or <code>webp</code>).</td>
+</tr>
+<tr>
+<td><code>--styles</code></td>
+<td><code>-s</code></td>
+<td>Auto-resolved <code>styles.py</code></td>
+<td>Path to project styles script.</td>
+</tr>
+<tr>
+<td><code>--utils</code></td>
+<td><code>-u</code></td>
+<td>Auto-resolved <code>utils.py</code></td>
+<td>Path to helper drawing script.</td>
+</tr>
+<tr>
+<td><code>--no-cache</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Force clean diagram rendering, ignoring <code>.drawlib/cache.db</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 <code>drawlib build markdown</code></h3>
+<p>Compiles source Markdown containing embedded <code>drawlib</code> blocks into standard GitHub-Flavored Markdown. Rendered diagrams are exported to companion image folders (<code>&lt;doc&gt;_images/</code>).</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs/<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</code></pre>
+<ul>
+<li>Supports <code>-o/--output</code>, <code>-f/--format &lt;png|webp&gt;</code>, <code>-s/--styles</code>, <code>-u/--utils</code>, and <code>--no-cache</code>.</li>
+<li><strong>Overwrite Protection</strong>: Refuses to overwrite source files in-place (<code>src_abs == dest_abs</code>). Always compile to a distinct output directory (e.g. <code>docs/</code> or <code>docs_markdown/</code>).</li>
+</ul>
+<h3>3.3 <code>drawlib build pdf</code></h3>
+<p>Merges Markdown chapters or slide decks into a high-fidelity vector PDF using headless Chromium via Playwright (<code>pip install &quot;drawlib[pdf]&quot;</code> and <code>playwright install chromium</code>).</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>report.pdf<span class="w"> </span>--toc<span class="w"> </span>--page-break
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--output</code></td>
+<td><code>-o</code></td>
+<td><code>&lt;first_stem&gt;.pdf</code></td>
+<td>Destination PDF file path.</td>
+</tr>
+<tr>
+<td><code>--title</code></td>
+<td></td>
+<td>Extracted from H1</td>
+<td>Overall document title displayed on cover and running headers.</td>
+</tr>
+<tr>
+<td><code>--generate-index</code></td>
+<td><code>--toc</code></td>
+<td><code>False</code></td>
+<td>Insert an automated Table of Contents between the 1st (<code>00_cover.md</code>) and 2nd chapter.</td>
+</tr>
+<tr>
+<td><code>--page-break</code> / <code>--no-page-break</code></td>
+<td></td>
+<td><code>True</code></td>
+<td>Insert CSS page breaks (<code>page-break-before: always</code>) between chapters.</td>
+</tr>
+<tr>
+<td><code>--styles</code> / <code>--utils</code></td>
+<td><code>-s</code> / <code>-u</code></td>
+<td>Auto-resolved</td>
+<td>Path to <code>styles.py</code> and <code>utils.py</code>.</td>
+</tr>
+<tr>
+<td><code>--no-cache</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Bypass <code>.drawlib/cache.db</code> and re-render all diagrams.</td>
+</tr>
+<tr>
+<td><code>--timestamp</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Include current build timestamp in PDF metadata (omitted by default for deterministic builds).</td>
+</tr>
+</tbody>
+</table>
+<h3>3.4 <code>drawlib build image</code></h3>
+<p>Batch executes standalone Python illustration scripts (<code>.py</code>) or extracts embedded drawing blocks from Markdown files (<code>.md</code>) to generate image assets.</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/<span class="w"> </span>--grid
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--output</code>, <code>--output-dir</code></td>
+<td><code>-o</code></td>
+<td><code>None</code></td>
+<td>Output file path (single script) or destination directory.</td>
+</tr>
+<tr>
+<td><code>--format</code></td>
+<td><code>-f</code></td>
+<td>Script setting (<code>png</code>)</td>
+<td>Global output image format override (<code>png</code>, <code>webp</code>, <code>jpg</code>, <code>pdf</code>).</td>
+</tr>
+<tr>
+<td><code>--styles</code> / <code>--utils</code></td>
+<td><code>-s</code> / <code>-u</code></td>
+<td>Auto-resolved</td>
+<td>Path to <code>styles.py</code> and <code>utils.py</code>.</td>
+</tr>
+<tr>
+<td><code>--grid</code></td>
+<td><code>-g</code></td>
+<td><code>False</code></td>
+<td>Save companion <code>*_grid.&lt;ext&gt;</code> images overlaid with coordinate grids.</td>
+</tr>
+<tr>
+<td><code>--disable-auto-clear</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Disable automatic <code>canvas.clear()</code> between executed <code>.py</code> files.</td>
+</tr>
+<tr>
+<td><code>--enable-auto-initialize</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Enable full canvas re-initialization between executed <code>.py</code> files.</td>
+</tr>
+<tr>
+<td><code>--no-cache</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Bypass <code>.drawlib/cache.db</code>.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Python Scripts</strong>: Redirects <code>save()</code> outputs into <code>-o</code>, mirroring nested subdirectory structures automatically. Performs pre-execution static AST analysis across all scripts and aborts immediately if two scripts would write to the same output file.</li>
+<li><strong>Markdown Files</strong>: Extracts embedded <code>drawlib</code> blocks into <code>&lt;markdown_name&gt;_images/&lt;image_file&gt;</code> subdirectories.</li>
+</ul>
+<hr />
+<h2>4. Scaffolding Subsystem (<code>drawlib init</code>)</h2>
+<p>Bootstraps new projects with standardized folder structures, configuration scripts, and build automations:</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>&lt;TYPE&gt;<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>list
+</code></pre>
+<ul>
+<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>slide</code>, <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
+<li><code>[target]</code>: Base name for the project and source folder (creates <code>&lt;target&gt;_src/</code>). Defaults: <code>doc</code> for <code>doc</code>, <code>docs</code> for <code>site</code>, <code>slide</code> for <code>slide</code>, <code>images</code> for <code>images</code>.</li>
+<li><code>-s</code>, <code>--style &lt;theme&gt;</code>: Style preset theme (<code>default</code>, <code>google</code>, <code>monochrome</code>, etc.) synchronously configuring both <code>style.css</code> and <code>styles.py</code>.</li>
+<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.). Default: <code>en</code>.</li>
+<li><code>-f</code>, <code>--force</code>: Overwrite existing files if destination directory already exists.</li>
+</ul>
+<hr />
+<h2>5. Single Diagram Extraction &amp; Preview (<code>drawlib show</code>)</h2>
+<p>Lists embedded blocks in a document, previews a diagram in a desktop GUI window, or exports it headlessly to disk when <code>-o</code> is supplied:</p>
+<pre><code class="language-bash"><span class="c1"># 1. List all drawlib blocks in a Markdown document (when [TARGET] is omitted):</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md
+
+<span class="c1"># 2. Export block by explicit filename with coordinate grid (Recommended):</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md<span class="w"> </span>arch.png<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/arch_grid.png
+
+<span class="c1"># 3. Export block by 1-based index (or -1 for the last block in the file):</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md<span class="w"> </span><span class="m">1</span><span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/fig1.png
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md<span class="w"> </span>-1<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/last_fig.png
+
+<span class="c1"># 4. Preview standalone Python script in interactive GUI window:</span>
+drawlib<span class="w"> </span>show<span class="w"> </span>my_drawing.py
+</code></pre>
+<p>Supports <code>-o/--output</code>, <code>-g/--grid</code>, <code>-s/--styles</code>, <code>-u/--utils</code>, and <code>--no-cache</code>.</p>
+<hr />
+<h2>6. Local Server &amp; Pre-Flight Link Checking (<code>drawlib serve</code>)</h2>
+<p>Starts a zero-dependency local HTTP development server (<code>Cache-Control: no-store</code>) to preview built HTML documentation:</p>
+<pre><code class="language-bash"><span class="c1"># Start server on default port 8000 (runs link check first and opens browser):</span>
+drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/
+
+<span class="c1"># Custom port without opening browser:</span>
+drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span><span class="w"> </span>--no-browser
+
+<span class="c1"># Pre-flight broken link and missing asset check only (exits 0 if clean, 1 if broken):</span>
+drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
+
+<span class="c1"># Start server immediately without running pre-flight link scan:</span>
+drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--skip-check
+</code></pre>
+<hr />
+<h2>7. Design Systems, Stylesheets &amp; Asset Cache (<code>css</code>, <code>colors</code>, <code>styles</code>, <code>cache</code>)</h2>
+<h3>7.1 CSS Stylesheet Presets (<code>drawlib css</code>)</h3>
+<pre><code class="language-bash">drawlib<span class="w"> </span>css<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>html<span class="p">|</span>pdf<span class="o">]</span><span class="w">                            </span><span class="c1"># List built-in CSS themes and target support</span>
+drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>google<span class="w">                           </span><span class="c1"># Print synthesized Google HTML CSS to terminal</span>
+drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>google<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force<span class="w">  </span><span class="c1"># Export preset to file</span>
+</code></pre>
+<h3>7.2 Color &amp; Style Visual Catalogs (<code>drawlib colors</code> &amp; <code>drawlib styles</code>)</h3>
+<pre><code class="language-bash"><span class="c1"># Color palettes (default, google, monochrome, css):</span>
+drawlib<span class="w"> </span>colors<span class="w"> </span>list
+drawlib<span class="w"> </span>colors<span class="w"> </span>show<span class="w"> </span>google<span class="w"> </span>--sort<span class="w"> </span>hsv<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/colors_google.png
+
+<span class="c1"># Style matrices (default, google, monochrome):</span>
+drawlib<span class="w"> </span>styles<span class="w"> </span>list
+drawlib<span class="w"> </span>styles<span class="w"> </span>show<span class="w"> </span>google<span class="w"> </span><span class="m">1</span><span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/styles_google_p1.png
+drawlib<span class="w"> </span>styles<span class="w"> </span>show<span class="w"> </span>default<span class="w"> </span>--all<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/styles_default.png
+drawlib<span class="w"> </span>styles<span class="w"> </span>show<span class="w"> </span>default<span class="w"> </span>-c<span class="w"> </span>blue<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/styles_blue.png
+</code></pre>
+<h3>7.3 Cache Management (<code>drawlib cache</code>)</h3>
+<pre><code class="language-bash">drawlib<span class="w"> </span>cache<span class="w"> </span>list<span class="w">                  </span><span class="c1"># Inspect font, icon, and map packages and local cache size</span>
+drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all<span class="w">        </span><span class="c1"># Pre-download all font, icon, and map packages for offline/CI use</span>
+drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--fonts<span class="w">      </span><span class="c1"># Pre-download font packages only</span>
+drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--icons<span class="w">      </span><span class="c1"># Pre-download icon packages only</span>
+drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--images<span class="w">        </span><span class="c1"># Clear SQLite build &amp; CLI image cache (.drawlib/cache.db)</span>
+drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--all<span class="w">           </span><span class="c1"># Clear all caches (fonts, icons, maps, and .drawlib/cache.db)</span>
+</code></pre>
+<hr />
+<h2>8. AI Rules Catalog (<code>drawlib rules</code>)</h2>
+<p>Inspect built-in architectural and library manuals (with on-demand companion illustration rendering into <code>_cached_assets/rules/</code>) from the terminal:</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">                        </span><span class="c1"># List all 27 rule topics and cache status</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction<span class="w">      </span><span class="c1"># View AI agent bootstrap manual</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>overview<span class="w">               </span><span class="c1"># View Cartesian geometry principles</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>style-guide<span class="w">            </span><span class="c1"># View 50%+ neutral baseline &amp; semantic color rules</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>anim-guide<span class="w">             </span><span class="c1"># View animation idioms across all modules</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>slide-guide<span class="w">            </span><span class="c1"># View 1920x1080 slide authoring &amp; stage rules</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-graph<span class="w">              </span><span class="c1"># View declarative graph layout solvers</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-diagrams<span class="w"> </span>--raw<span class="w">     </span><span class="c1"># Output raw Markdown without building/checking cache</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-shapes<span class="w"> </span>--rebuild<span class="w">   </span><span class="c1"># Force regenerate companion rule illustrations</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>build<span class="w"> </span>--all<span class="w">                 </span><span class="c1"># Pre-build illustrations for all 27 rule topics</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>clear<span class="w">                       </span><span class="c1"># Delete cached rule documents and generated images</span>
+</code></pre>
+<hr />
+<h2>9. CLI Exit Codes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Exit Code</th>
+<th style="text-align:left">Meaning</th>
+<th style="text-align:left">Common Causes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong><code>0</code></strong></td>
+<td style="text-align:left">Success</td>
+<td style="text-align:left">Command completed normally (<code>--check</code> passed with 0 broken links).</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong><code>1</code></strong></td>
+<td style="text-align:left">Build / Execution Error</td>
+<td style="text-align:left">Missing mandatory files (<code>index.md</code>, <code>navbar.md</code>), Python exception in a <code>drawlib</code> block, duplicate output collision, or broken links detected by <code>drawlib serve --check</code>.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong><code>2</code></strong></td>
+<td style="text-align:left">Bad Parameter / Usage Error</td>
+<td style="text-align:left">Conflicting CLI flags (e.g. <code>--quiet</code> with <code>--verbose</code>), unknown subcommand, or missing required argument.</td>
+</tr>
+</tbody>
+</table>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

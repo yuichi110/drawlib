@@ -384,7 +384,7 @@ seq.draw()
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
 
 ### 7.5 Declarative Auto-Layout Graphs (`drawlib.graph`)
-When you want automatic coordinate computation from topological declarations (`node(..., show=True)`, `edge(..., show=True)`, `cluster(..., show=True)`) with support for post-layout tweaking (`calc()` + `offset()`), translation/scaling (`g.draw(xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)` / `layout.draw(xy=(0, 0), scale=1.0)`), or code scaffolding (`export_code()`):
+When you want automatic coordinate computation from topological declarations (`node(..., show=True)`, `edge(..., show=True)`, `cluster(..., show=True)`) with support for post-layout tweaking (`calc()` + `offset()`), translation/scaling (`g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)` / `layout.draw(*, xy=(0, 0), scale=1.0)`), or code scaffolding (`export_code()`):
 - **`ArchitectureGraph`**: 2-level macro/micro container packing and 5-zone compass positioning (`pos="left"|"center"|"right"|"top"|"bottom"`, `parent=...`).
 - **`LayerGraph`**: Sugiyama hierarchical DAG solver with `.tier()` stage pinning.
 - **`TreeGraph`**: Reingold-Tilford compact tree solver with `.child()`.
@@ -546,9 +546,10 @@ text((50, 15), "AVENGER FONT", style=avenger_style)
 
 Drawlib natively supports multi-frame animations in **APNG** (`.png`) and **Animated WebP** (`.webp`) formats.
 
-| Class / Method | Parameters | Description |
+| Class / Method / Property | Parameters / Type | Description |
 | :--- | :--- | :--- |
-| `Animation(fps=10.0, loop=0)` | `fps: float = 10.0`, `loop: int = 0` | Initializes animation controller and registers with canvas. |
+| `Animation(fps=10.0, loop=0)` | `fps: float \| None = None`, `frame_rate: float \| None = None`, `loop: int = 0` | Initializes animation controller and registers with canvas. |
+| `anim.fps` / `anim.frame_rate` | `float` (read-only property) | Returns the active playback frame rate in frames per second. |
 | `anim.frame(duration=None, clear=True)` | `duration: float \| None = None`, `clear: bool = True` | Context manager defining shapes drawn in a single frame. |
 | `anim.add_frame(duration=None, clear=True)` | `duration: float \| None = None`, `clear: bool = True` | Imperative method to capture the current canvas as a frame. |
 

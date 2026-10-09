@@ -6,22 +6,52 @@
 
 ## 1. Overview & Key Concepts
 
-```text
-    Client               API Server            Database
-      │                      │                    │
-      │ ──POST /login───────►│                    │
-      │                      │ ──SELECT user─────►│
-      │                      │                    │ █ (Activation)
-      │                      │ ◄──User Record─────│
-      │ ◄──200 OK (JWT)──────│                    │
-      │                      │                    │
+```drawlib fold-code 650px center file:sequence_overview_concepts.png caption:"SequenceDiagram Lifelines, Activation Bars, and Message Semantics"
+from drawlib.canvas import save, setup
+from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
+from drawlib.styles import Styles
+
+setup(width=136, height=92)
+
+d = SequenceDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
+    col_width=44.0,
+    step_y=9.0,
+)
+
+client = d.add(Participant((22, 15), "Client", icon=PhosphorIcon.LAPTOP, icon_size=6.5))
+api = d.add(
+    Participant((22, 15), "API Server", icon=PhosphorIcon.CLOUD, icon_size=6.5, card_style=Styles.PrimaryNeutral)
+)
+db = d.add(Participant((22, 15), "Database", icon=PhosphorIcon.DATABASE, icon_size=6.5))
+
+client.request(api, "POST /login (Sync request)")
+api.activate()
+
+api.request(db, "SELECT user_record")
+db.activate()
+db.reply(api, "User row (Dashed reply)")
+db.deactivate()
+
+api.request(db, "INSERT audit_log (Async)", is_async=True)
+api.reply(client, "200 OK + JWT")
+api.deactivate()
+
+client.connect(api, "WebSocket Stream (<->)", arrow="<->")
+
+d.draw(xy=(6.0, 4.0))
+save()
 ```
 
 - **Vertical Lifelines**: Participants are placed along the horizontal header band, with lifelines extending downwards.
-- **Message Semantics**:
-  - `request()`: Solid line with filled arrow (`―▶`). With `is_async=True`, renders an open arrow (`―>`).
-  - `reply()`: Dashed line with filled arrow (`---▶`).
-  - `connect()`: Bidirectional communication (`<->`), such as full-duplex WebSocket channels.
+- **Message Semantics** (illustrated in the diagram above):
+  - `request()`: Solid line with a filled arrowhead for synchronous calls. With `is_async=True`, renders an open stick arrowhead.
+  - `reply()`: Dashed line with a filled arrowhead for return responses.
+  - `connect()`: Bidirectional communication (`arrow="<->"`), such as full-duplex WebSocket channels.
   - Self-Calls: `p.request(p, label)` loops back to the caller's own lifeline.
 - **Activation Boxes**: `p.activate()` and `p.deactivate()` draw execution focus rectangles along lifelines.
 - **Autonumbering**: Setting `autonumber=True` automatically numbers messages sequentially (`1.`, `2.`, `3.`, ...).
@@ -61,26 +91,93 @@ db = vpc.add(Participant((22, 16), "Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
 ```
 
-### Registration, Message & Rendering Methods
-- **`d.add(item, *, show: bool = True) -> Participant | ParticipantGroup`** (and `group.add(participant, *, show: bool = True) -> Participant`): Registers a participant (`Participant(card_size, text="", icon=None, icon_size=8.0, style=None, text_style=None, card_style=None, lifeline_style=None, show=True)`) or group (`show=False` hides the lifeline/group and any attached messages while keeping horizontal column spacing fixed).
-- **`a.request(b, label="", is_async=False, show: bool = True) -> Message`**, **`b.reply(a, label="", is_async=False, show: bool = True) -> Message`**, **`a.connect(b, label="", arrow="<->", show: bool = True) -> Message`**: Records a chronological message step and returns a mutable `Message` instance (`msg.show`, `msg.style`, `msg.draw_ratio`, `msg.draw_direction`). Hidden messages (`show=False`) keep their vertical `step_y` row reserved.
-- **`p.note(text, pos="left"|"right", show: bool = True) -> Note`** and **`d.note(text, over=[p1, p2], show: bool = True) -> Note`**: Attaches a sticky note and returns a mutable `Note` instance.
-- **`with d.loop(cond, show=True) as blk:`** (also `alt`, `opt`, `par`): Yields a mutable `Block` instance (`blk.show`, `blk.style`).
-- **`d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the sequence diagram at `xy`, proportionally scaling column widths, vertical steps, icons, and typography by `scale`.
+### Parameter Reference Tables
+
+#### `SequenceDiagram` Class
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `node_style` | `Style` | *(Required)* | Base `Style` object for participant icons and images. |
+| `node_text_style` | `Style` | *(Required)* | Base `Style` object for participant text labels. |
+| `edge_style` | `Style` | *(Required)* | Base `Style` object for message arrows and lifelines. |
+| `edge_text_style` | `Style` | *(Required)* | Base `Style` object for message labels. |
+| `node_card_style` | `Style \| None` | `None` | Optional base `Style` for participant header cards (transparent if `None`). |
+| `title` | `str` | `""` | Optional banner title displayed above the diagram. |
+| `autonumber` | `bool` | `False` | When `True`, prefixes message labels with sequential numbers (`1.`, `2.`, `3.`, ...). |
+| `width` | `float \| None` | `None` | Optional fixed canvas width (auto-calculated from lifelines if `None`). |
+| `height` | `float \| None` | `None` | Optional fixed canvas height (auto-calculated from timeline steps if `None`). |
+| `col_width` | `float` | `20.0` | Default horizontal center-to-center spacing between participant lifelines. |
+| `step_y` | `float` | `7.0` | Vertical distance advanced per chronological message or note step. |
+| `margin` | `float` | `5.0` | Outer margin surrounding all lifelines and headers. |
+| `style` | `Style \| None` | `None` | Optional `Style` for the overall diagram background card. |
+| `title_style` | `Style \| None` | `None` | Optional `Style` override for the diagram title text. |
+
+#### `Participant` Class
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `card_size` | `tuple[float, float]` | *(Required)* | Header card dimensions `(width, height)` in canvas units. |
+| `text` | `str` | `""` | Display name shown in the participant header card (supports `\n`). |
+| `icon` | `IconType` | `None` | `GcpIcon`, `PhosphorIcon`, `CustomIcon`, `Dimage`, `PIL.Image`, path, or icon callable. |
+| `icon_size` | `float` | `8.0` | Icon width/height in coordinate units. |
+| `style` | `Style \| None` | `None` | Optional `Style` override for the participant icon/image. |
+| `text_style` | `Style \| None` | `None` | Optional `Style` override for the participant label text. |
+| `card_style` | `Style \| None` | `None` | Optional `Style` override for the participant header card background/border. |
+| `lifeline_style` | `Style \| None` | `None` | Optional `Style` override for the vertical dashed lifeline. |
+| `show` | `bool` | `True` | Visibility flag (hides header, lifeline, and attached messages/notes when `False`). |
+
+- **Horizontal Lifeline Pinning & Sizing**:
+  - `d.add(participant, x: float | None = None, *, show: bool | None = None) -> Participant`: Registers a participant, optionally pinning its lifeline to an explicit horizontal coordinate `x`.
+  - `participant.set_x(x: float) -> Participant`: Explicitly pins the participant's horizontal lifeline position `x` and returns `self`.
+  - `participant.activate() -> None` and `participant.deactivate() -> None`: Starts and ends an execution focus bar on the lifeline.
+  - `participant.get_size() -> tuple[float, float]` and `participant.get_header_size() -> tuple[float, float]`: Returns `card_size`.
+
+#### `ParticipantGroup` Class
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `title` | `str` | `""` | Header title for the participant group boundary box. |
+| `padding` | `float` | `4.0` | Padding around enclosed participant header cards. |
+| `style` | `Style \| None` | `None` | Optional `Style` for the group boundary box. |
+| `text_style` | `Style \| None` | `None` | Optional `Style` for the group title text. |
+| `show` | `bool` | `True` | Visibility flag (hides the group box when `False` while keeping column spacing fixed). |
+
+- **`group.add(participant: Participant, *, show: bool | None = None) -> Participant`**: Adds a participant to the group (and registers it with the parent diagram).
+
+---
+
+### Messages, Notes, Spacing & Rendering API
+
+- **Participant-Level & Diagram-Level Messages**:
+  - **`a.request(b, label="", is_async=False, style=None, text_style=None, show=True) -> Message`** or **`d.request(a, b, ...) -> Message`**: Solid request arrow (`->`). Passing the same participant (`a.request(a, "...")`) renders a 3-segment **self-call** loop (`msg.is_self_call == True`).
+  - **`b.reply(a, label="", is_async=False, style=None, text_style=None, show=True) -> Message`** or **`d.reply(b, a, ...) -> Message`**: Dashed return arrow (`-->`).
+  - **`a.connect(b, label="", arrow="->", is_async=False, style=None, text_style=None, show=True) -> Message`** or **`d.connect(a, b, ...) -> Message`**: Custom directional or bidirectional (`arrow="<->" | "->" | "-"`) message.
+- **`Message` Fluent Mutators**:
+  - `msg.set_label(text: str) -> Message`
+  - `msg.set_reply(is_reply: bool = True) -> Message`
+  - `msg.set_async(is_async: bool = True) -> Message`
+  - `msg.set_arrow(arrow: Literal["->", "<->", "-"]) -> Message`
+  - `msg.set_style(style: Style) -> Message`
+  - `msg.set_text_style(text_style: Style) -> Message`
+  - `msg.set_padding(padding: float | tuple[float, float]) -> Message`
+- **Sticky Notes (`d.note` & `p.note`)**:
+  - **`d.note(text: str, on: Participant | None = None, over: list[Participant] | None = None, pos: Literal["left", "right", "over"] = "right", style: Style | None = None, show: bool = True) -> Note`**: Places a sticky note beside a single lifeline (`on=p, pos="left"|"right"`) or spanning across multiple lifelines (`over=[p1, p2]`).
+  - **`p.note(text: str, pos: Literal["left", "right"] = "right", style: Style | None = None, show: bool = True) -> Note`**: Convenience shorthand for `d.note(text, on=p, pos=pos, ...)`.
+  - **`Note` Mutators**: `note.set_text(text) -> Note`, `note.set_style(style) -> Note`, `note.set_text_style(text_style) -> Note`.
+- **Timeline Spacing, Sizing & Rendering**:
+  - **`d.space(dy: float = 5.0) -> None`**: Advances the vertical timeline by an extra `dy` units to add visual breathing room between phases.
+  - **`d.get_size() -> tuple[float, float]`**: Computes the total `(width, height)` of the sequence diagram.
+  - **`d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the sequence diagram anchored at bottom-left `xy`, proportionally scaling column widths, vertical steps, icons, and typography by `scale`.
 
 ---
 
 ## 3. Distributed Transaction Pipeline
 
-The following complete example showcases participant groups, cloud icons, activations, sticky notes, asynchronous dispatches, and a retry loop frame:
+The following complete example showcases participant groups, cloud icons, activations, asynchronous dispatches, and a retry loop frame:
 
-```drawlib 650px center file:sequence_distributed_transaction.png caption:"Microservices Distributed Transaction Pipeline"
-from drawlib import canvas
+```drawlib show-code 650px center file:sequence_distributed_transaction.png caption:"Microservices Distributed Transaction Pipeline"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-canvas.clear()
-canvas.setup(width=165, height=140)
+setup(width=165, height=140)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
@@ -128,6 +225,7 @@ with d.loop("Retry up to 3 times on DB lock"):
     db.reply(worker, "Rows Committed")
 
 d.draw(xy=(5.0, 3.0))
+save()
 ```
 
 ---
@@ -136,13 +234,12 @@ d.draw(xy=(5.0, 3.0))
 
 For real-time bidirectional streams, use `connect()` with `arrow="<->"`:
 
-```drawlib 650px center file:sequence_websocket_telemetry.png caption:"WebSocket Full-Duplex Telemetry Stream"
-from drawlib import canvas
+```drawlib show-code 650px center file:sequence_websocket_telemetry.png caption:"WebSocket Full-Duplex Telemetry Stream"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-canvas.clear()
-canvas.setup(width=85, height=80)
+setup(width=85, height=80)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
@@ -167,19 +264,73 @@ with d.loop("Every 500ms Ping Interval"):
     app.reply(gateway, "PONG", is_async=True)
 
 d.draw(xy=(5.0, 5.0))
+save()
 ```
 
 ---
 
-## 5. Condition Frames & Structured Blocks
+## 5. Condition Frames (`alt` / `else_`), Self-Calls & Sticky Notes
 
-Drawlib supports standard UML interaction operators using clean Python context managers:
+Drawlib supports all 7 standard UML interaction operators (`BlockType = Literal["loop", "alt", "else", "opt", "par", "critical", "break"]`) via context managers on `SequenceDiagram` or direct `Block(block_type, label="", diagram=d, style=None, text_style=None, show=True)` instantiation:
 
-| Frame Type | Syntax | Standard UML Operator |
+| Frame Type | Context Manager / Constructor | Standard UML Operator |
 |---|---|---|
-| **Loop** | `with d.loop("condition"):` | `loop` |
-| **Alternative** | `with d.alt("condition"):`<br>`with d.else_("condition"):` | `alt` / `else` |
-| **Option** | `with d.opt("condition"):` | `opt` |
-| **Parallel** | `with d.par("description"):` | `par` |
+| **Loop** | `with d.loop("condition", show=True):` | `loop` |
+| **Alternative** | `with d.alt("condition", show=True):`<br>`with d.else_("fallback", show=True):` | `alt` / `else` |
+| **Option** | `with d.opt("condition", show=True):` | `opt` |
+| **Parallel** | `with d.par("description", show=True):` | `par` |
+| **Critical Region** | `with Block("critical", "atomic lock", diagram=d):` | `critical` |
+| **Break** | `with Block("break", "fatal error", diagram=d):` | `break` |
 
-Frames automatically compute their enclosing bounding box around all enclosed message lines and draw the standard UML frame tag in the top-left corner.
+Frames automatically compute their enclosing bounding box around all enclosed messages and notes, drawing the `[OPERATOR] label` tag in the top-left corner.
+
+The following example demonstrates **self-calls** (`auth.request(auth, ...)`), **sticky notes** (`auth.note(...)` and `d.note(..., over=[...])`), and conditional **`alt` / `else_`** branches:
+
+```drawlib show-code 650px center file:sequence_auth_alt_notes.png caption:"Authentication Flow with Self-Calls, Sticky Notes, and alt/else_ Condition Frames"
+from drawlib.canvas import save, setup
+from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
+from drawlib.styles import Styles
+
+setup(width=138, height=140)
+
+d = SequenceDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
+    title="JWT Authentication & Conditional Token Refresh",
+    col_width=40.0,
+    step_y=8.5,
+)
+
+client = d.add(Participant((24, 16), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=7.5))
+auth = d.add(
+    Participant((24, 16), "Auth Service", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5, card_style=Styles.PrimaryNeutral)
+)
+idp = d.add(Participant((24, 16), "OAuth IdP", icon=PhosphorIcon.KEY, icon_size=7.5))
+
+client.request(auth, "POST /verify (Bearer JWT)")
+auth.activate()
+
+# Self-call for local signature verification + attached participant note
+auth.request(auth, "Verify JWT")
+auth.note("Local public key cache", pos="right")
+
+# Conditional alt / else_ blocks
+with d.alt("Token Valid & Unexpired"):
+    auth.reply(client, "200 OK (Claims Payload)")
+
+with d.else_("Token Expired (Refresh Flow)"):
+    auth.request(idp, "POST /oauth/token (refresh_token)")
+    idp.reply(auth, "New Access JWT")
+    auth.reply(client, "200 OK (Rotated JWT)")
+
+auth.deactivate()
+
+# Spanning note across multiple participants
+d.note("All token exchanges require TLS 1.3 mTLS", over=[client, auth])
+
+d.draw(xy=(6.0, 4.0))
+save()
+```

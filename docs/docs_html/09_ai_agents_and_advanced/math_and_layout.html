@@ -1,0 +1,661 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematical Utilities & Dynamic Geometric Layouts (`drawlib.math`)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Mathematical Utilities & Dynamic Geometric Layouts (`drawlib.math`)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Mathematical Utilities &amp; Dynamic Geometric Layouts (<code>drawlib.math</code>)</h1>
+<p>Drawlib provides geometric and mathematical calculation utilities to streamline coordinate positioning, angle derivations, distance measurements, and dynamic bounding box computations for technical diagrams.</p>
+<hr />
+<h2>1. Imports &amp; Core Functions</h2>
+<p>All public math, interpolation, transformation, and routing utilities are imported from <code>drawlib.math</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="c1"># Distance, Angle &amp; Bounding Box</span>
+    <span class="n">get_angle</span><span class="p">,</span>                     <span class="c1"># Calculate angle in degrees [0, 360) from point A to point B</span>
+    <span class="n">get_center_and_size</span><span class="p">,</span>           <span class="c1"># Compute center coordinates and bounding box dimensions</span>
+    <span class="n">get_distance</span><span class="p">,</span>                  <span class="c1"># Compute Euclidean distance between two points</span>
+    <span class="c1"># Linear &amp; Polyline Trajectory Interpolation</span>
+    <span class="n">get_intermediate_point</span><span class="p">,</span>        <span class="c1"># Compute the 50% midpoint between two points</span>
+    <span class="n">get_intermediate_points</span><span class="p">,</span>       <span class="c1"># Compute evenly spaced points along a straight segment</span>
+    <span class="n">get_intermediate_path_point</span><span class="p">,</span>   <span class="c1"># Compute 50% arc-length midpoint along a polyline path</span>
+    <span class="n">get_intermediate_path_points</span><span class="p">,</span>  <span class="c1"># Compute evenly spaced points along a polyline path</span>
+    <span class="n">get_intermediate_paths</span><span class="p">,</span>        <span class="c1"># Compute progressive partial sub-paths along a polyline</span>
+    <span class="c1"># Vector Arithmetic, Rotation &amp; Ellipse Geometry</span>
+    <span class="n">plus_2points</span><span class="p">,</span>                  <span class="c1"># Element-wise vector addition (x1 + x2, y1 + y2)</span>
+    <span class="n">minus_2points</span><span class="p">,</span>                 <span class="c1"># Element-wise vector subtraction (x1 - x2, y1 - y2)</span>
+    <span class="n">rotate_point</span><span class="p">,</span>                  <span class="c1"># Rotate a single point around a center by angle in degrees</span>
+    <span class="n">get_rotated_points</span><span class="p">,</span>            <span class="c1"># Rotate a list of points around a center by angle in degrees</span>
+    <span class="n">get_rotated_path_points</span><span class="p">,</span>       <span class="c1"># Rotate path points (including Bezier control tuples)</span>
+    <span class="n">get_point_on_ellipse</span><span class="p">,</span>          <span class="c1"># Calculate point on ellipse perimeter at a given angle</span>
+    <span class="c1"># Orthogonal Waypoint Routing</span>
+    <span class="n">compute_orthogonal_path</span><span class="p">,</span>       <span class="c1"># Compute right-angled or direct waypoints between two anchors</span>
+    <span class="n">Side</span><span class="p">,</span>                          <span class="c1"># Literal["left", "right", "top", "bottom"]</span>
+    <span class="n">RoutingType</span><span class="p">,</span>                   <span class="c1"># Literal["direct", "orthogonal"]</span>
+<span class="p">)</span>
+</code></pre>
+<hr />
+<h2>2. Function Specifications</h2>
+<h3>2.1 <code>get_angle(xy1, xy2) -&gt; float</code></h3>
+<p>Calculates the counter-clockwise angle in degrees from point <code>xy1</code> to point <code>xy2</code>:</p>
+<ul>
+<li><strong>Reference</strong>: 0° points horizontally along the positive X-axis (East).</li>
+<li><strong>Range</strong>: <code>[0.0, 360.0)</code>.
+<ul>
+<li>Point to the right: <code>0.0°</code></li>
+<li>Point directly above: <code>90.0°</code></li>
+<li>Point to the left: <code>180.0°</code></li>
+<li>Point directly below: <code>270.0°</code></li>
+</ul>
+</li>
+<li><strong>Primary Use Case</strong>: Aligning text labels or rotating directional icons parallel to slanted connection lines.</li>
+</ul>
+<h3>2.2 <code>get_distance(xy1, xy2) -&gt; float</code></h3>
+<p>Calculates the Euclidean distance $\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ between two points:</p>
+<ul>
+<li><strong>Primary Use Case</strong>: Determining line lengths, collision thresholds, and radial distribution spacing.</li>
+</ul>
+<h3>2.3 <code>get_center_and_size(xys) -&gt; tuple[tuple[float, float], tuple[float, float]]</code></h3>
+<p>Computes the geometric midpoint and outer bounding box dimensions for an arbitrary collection of coordinates:</p>
+<ul>
+<li><strong>Returns</strong>: <code>((center_x, center_y), (width, height))</code>.</li>
+<li><strong>Primary Use Case</strong>: Dynamically enclosing multiple service nodes inside an automated background container rectangle with uniform padding.</li>
+</ul>
+<h3>2.4 <code>get_intermediate_point(xy1, xy2)</code> &amp; <code>get_intermediate_points(xy1, xy2, num=1, *, include_ends=False)</code></h3>
+<p>Computes linearly interpolated coordinates between <code>xy1</code> and <code>xy2</code>:</p>
+<ul>
+<li><strong><code>get_intermediate_point(xy1, xy2) -&gt; tuple[float, float]</code></strong>: Returns the exact 50% midpoint <code>(mx, my)</code>.</li>
+<li><strong><code>get_intermediate_points(xy1, xy2, num=1, *, include_ends=False) -&gt; list[tuple[float, float]]</code></strong>: Returns <code>num</code> evenly spaced intermediate points (or <code>num + 2</code> points including <code>xy1</code> and <code>xy2</code> when <code>include_ends=True</code>).</li>
+<li><strong>Primary Use Case</strong>: Animating moving packets or progressively extending block arrows (<code>arrow(xy1, pt, ...)</code>) and lines across frames.</li>
+</ul>
+<h3>2.5 <code>get_intermediate_path_point(xys)</code>, <code>get_intermediate_path_points(xys, ...)</code> &amp; <code>get_intermediate_paths(xys, ...)</code></h3>
+<p>Computes trajectory-aware intermediate points and progressive prefix sub-paths along a multi-point polyline <code>xys</code> (such as L-shaped or U-shaped routes):</p>
+<ul>
+<li><strong><code>get_intermediate_path_point(xys) -&gt; tuple[float, float]</code></strong>: Returns the coordinate at 50% of the total arc length along <code>xys</code> (e.g., the center of the bottom bar of a U-shaped path).</li>
+<li><strong><code>get_intermediate_path_points(xys, num=1, *, include_ends=False) -&gt; list[tuple[float, float]]</code></strong>: Returns <code>num</code> evenly spaced <code>(x, y)</code> coordinates along the trajectory of <code>xys</code> (or <code>num + 2</code> points with <code>include_ends=True</code>).</li>
+<li><strong><code>get_intermediate_paths(xys, num=1, *, include_ends=False) -&gt; list[list[tuple[float, float]]]</code></strong>: Returns <code>num</code> progressive partial coordinate lists <code>[(x0, y0), ..., (xt, yt)]</code> starting at <code>xys[0]</code>, passing through all corners reached so far, and ending at the step's tip (plus the full <code>xys</code> at the end when <code>include_ends=True</code>). Ideal for growing <code>lines()</code>, <code>lines_curved()</code>, or <code>arrow_polyline()</code> along L/U trajectories.</li>
+</ul>
+<h3>2.6 Vector Arithmetic, Rotation &amp; Ellipse Helpers</h3>
+<ul>
+<li><strong><code>plus_2points(xy1, xy2)</code> / <code>minus_2points(xy1, xy2)</code></strong>: Element-wise 2D coordinate addition <code>(x1 + x2, y1 + y2)</code> and subtraction <code>(x1 - x2, y1 - y2)</code>.</li>
+<li><strong><code>rotate_point(xy, angle, center=(0.0, 0.0))</code></strong>: Rotates <code>xy</code> counter-clockwise by <code>angle</code> degrees around <code>center</code>.</li>
+<li><strong><code>get_rotated_points(xys, center, angle)</code> / <code>get_rotated_path_points(path_points, center, angle)</code></strong>: Rotates a list of polygon vertices or Bezier path control points around <code>center</code>.</li>
+<li><strong><code>get_point_on_ellipse(center, width, height, angle)</code></strong>: Computes the <code>(x, y)</code> boundary point on an ellipse of size <code>(width, height)</code> at <code>angle</code> degrees (<code>0°</code> = East, <code>90°</code> = North).</li>
+</ul>
+<h3>2.7 Orthogonal Waypoint Routing (<code>compute_orthogonal_path</code>)</h3>
+<p>Computes right-angled (<code>&quot;orthogonal&quot;</code>) or straight (<code>&quot;direct&quot;</code>) polyline waypoints connecting two anchor coordinates given their exit/entry boundary sides (<code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>):</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_orthogonal_path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># 1. Draw anchor nodes (Node A right edge = 40.0, Node B left edge = 85.0)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Node A</span><span class="se">\n</span><span class="s2">(start_side='right')"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Node B</span><span class="se">\n</span><span class="s2">(end_side='left')"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Compute orthogonal Z-bend waypoints: [(40.0, 19.0), (62.5, 19.0), (62.5, 40.0), (85.0, 40.0)]</span>
+<span class="n">waypoints</span> <span class="o">=</span> <span class="n">compute_orthogonal_path</span><span class="p">(</span>
+    <span class="n">start_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+    <span class="n">end_pt</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">),</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="n">routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>
+    <span class="n">offset</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Render orthogonal connector and intermediate bend markers</span>
+<span class="n">lines</span><span class="p">(</span><span class="n">waypoints</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span> <span class="ow">in</span> <span class="n">waypoints</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mf">62.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="s2">"Bend 1 (62.5, 19.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">62.5</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="s2">"Bend 2 (62.5, 40.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/math_orthogonal_routing.png" alt="math_and_layout_1" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Orthogonal Z-Bend Waypoint Routing Computed by compute_orthogonal_path()</figcaption>
+</figure>
+<hr />
+<h2>3. Dynamic Automated Grouping Box</h2>
+<p>Using <code>get_center_and_size()</code>, you can calculate the exact boundary of a cluster of service nodes and draw an encompassing card behind them:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_center_and_size</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># 1. Define service node positions</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">25</span><span class="p">)]</span>
+
+<span class="c1"># 2. Calculate dynamic bounding box</span>
+<span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="p">(</span><span class="n">bw</span><span class="p">,</span> <span class="n">bh</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_center_and_size</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+
+<span class="c1"># 3. Draw background container with +28 width and +22 height padding</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">bw</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">bh</span> <span class="o">+</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Kubernetes Worker Cluster"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Render nodes</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span>
+    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Pod </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">t_st</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/math_dynamic_grouping_box.png" alt="math_and_layout_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Automated Grouping Box via get_center_and_size()</figcaption>
+</figure>
+<hr />
+<h2>4. Radial Circular Node Distribution</h2>
+<p>To distribute $N$ worker nodes symmetrically around a central hub:</p>
+<pre><code class="language-python"><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_angle</span><span class="p">,</span> <span class="n">get_distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">hub</span> <span class="o">=</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">26</span>
+<span class="n">num_clients</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Central Hub</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Master"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="c1"># Surrounding Worker Nodes</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_clients</span><span class="p">):</span>
+    <span class="n">angle_rad</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">num_clients</span>
+    <span class="n">node_xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hub</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">),</span> <span class="n">hub</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">))</span>
+    
+    <span class="c1"># Calculate connection angle and distance</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">node_xy</span><span class="p">)</span>
+    <span class="n">angle_deg</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">node_xy</span><span class="p">)</span>
+    
+    <span class="n">line</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">node_xy</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span><span class="n">node_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"N</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/math_radial_distribution.png" alt="math_and_layout_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Radial Topology with Polar Math Distribution</figcaption>
+</figure>
+<hr />
+<h2>5. Slanted Connection Line Text Alignment</h2>
+<p>Align text labels parallel to angled lines using <code>get_angle()</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_angle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="c1"># Draw slanted wire</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Calculate rotation angle and midpoint</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="n">get_angle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+<span class="n">midpoint</span> <span class="o">=</span> <span class="p">((</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Render rotated text parallel to the connection</span>
+<span class="n">text</span><span class="p">(</span><span class="n">midpoint</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Telemetry Stream (</span><span class="si">{</span><span class="n">angle</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/math_slanted_line_text.png" alt="math_and_layout_4" style="width: 550px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Parallel Text on Angled Line</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

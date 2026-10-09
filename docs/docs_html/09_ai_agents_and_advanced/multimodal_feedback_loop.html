@@ -1,0 +1,583 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Autonomous Multimodal Visual Feedback Loop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">The Autonomous Multimodal Visual Feedback Loop</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>The Autonomous Multimodal Visual Feedback Loop</h1>
+<p>A key strength of modern AI coding assistants equipped with vision tools (such as Claude 3.5 Sonnet, Gemini 1.5 Pro, and GPT-4o) is the ability to visually inspect their own drawings before presenting them to the user.</p>
+<p>Drawlib is engineered specifically to empower this autonomous self-correction loop.</p>
+<hr />
+<h2>1. The Autonomous Feedback Cycle</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="multimodal_feedback_loop_images/multimodal_feedback_cycle.png" alt="multimodal_feedback_loop_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">The Autonomous Multimodal AI Visual Self-Correction Loop</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Top Row: Stages 1 to 4</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"1. Inspect Context</span><span class="se">\n</span><span class="s2">&amp; Rules"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Author</span><span class="se">\n</span><span class="s2">Drawlib Code"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"3. Render with</span><span class="se">\n</span><span class="s2">Grid (-g)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">122</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"4. Multimodal</span><span class="se">\n</span><span class="s2">Vision Review"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Forward Connectors (1 -&gt; 2 -&gt; 3 -&gt; 4)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">65</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">98</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Decision Branch A: Defects Found -&gt; Loop Back to Step 2</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Defects Found:</span><span class="se">\n</span><span class="s2">Self-Correct Coordinates &amp; Retry"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">113</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">14</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">56</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Decision Branch B: Pass -&gt; Step 5 Final Deliverable</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">136</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"5. Final Deliverable</span><span class="se">\n</span><span class="s2">(Clean Layout &amp; 50%+ Neutral)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">131</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">131</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">133.5</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="s2">"Pass"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Stage 1: Inspect Context</h3>
+<p>Rather than imagining an architecture from thin air, the agent inspects real repository source code (<code>models.py</code>, API routes, microservice configurations).</p>
+<h3>Stage 2: Prototype in Isolated Scratch Space (<code>.drawlib/scratch/</code>)</h3>
+<p>The agent drafts the drawing prototype code in an isolated scratch file (<code>.drawlib/scratch/test_diagram.py</code>) or tests a specific block instead of altering production assets blindly. Do NOT pollute the project root; ensure <code>.drawlib/</code> is in <code>.gitignore</code>.</p>
+<h3>Stage 3: Headless Render with Coordinate Grid (<code>-g</code>)</h3>
+<p>The agent executes <code>drawlib show</code> with the <code>-g</code> flag to render the diagram overlaid with coordinate axes, tick marks, and numeric coordinate labels (targeting embedded Markdown blocks by their explicit <code>file:</code> name rather than fragile numeric index):</p>
+<pre><code class="language-bash"><span class="c1"># Render an embedded Markdown block by explicit filename with coordinate grid (Recommended):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/architecture.md<span class="w"> </span>service_mesh.png<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/preview.png
+
+<span class="c1"># Or render a standalone Python script with coordinate grid:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>.drawlib/scratch/test_diagram.py<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/test_diagram.png
+</code></pre>
+<h3>Stage 4: Multimodal Inspection</h3>
+<p>Using vision inspection tools (such as <code>view_file</code> or an image viewer), the agent examines the rendered output for five common visual defects:</p>
+<ol>
+<li><strong>Text Overflow &amp; Clipping</strong>: Did a long service name or method label spill outside its enclosing box?</li>
+<li><strong>Line &amp; Arrow Overlaps</strong>: Are orthogonal lines colliding awkwardly, or are arrowheads obscured by shapes?</li>
+<li><strong>Canvas Margin Starvation</strong>: Are outermost elements pushed right up against the canvas boundary with zero padding?</li>
+<li><strong>Color Contrast</strong>: Is dark text placed over dark shape fills, or light text on pale backgrounds?</li>
+<li><strong>Color Overuse (Rainbow Chaos)</strong>: Are all boxes colored with saturated fills? Ground 50%+ of nodes in calm neutral or tinted-neutral styles (<code>Styles.Neutral</code>, <code>Styles.NeutralFlat</code>, <code>Styles.PrimaryNeutral</code>, <code>Styles.SecondaryNeutral</code>) and reserve saturated hero fills (<code>Styles.PrimaryFlat</code>) for 1–2 key focal points.</li>
+</ol>
+<h3>Stage 5: Iterative Refinement</h3>
+<p>Because the coordinate grid directly reveals the exact <code>(x, y)</code> location of every visual defect, the agent can adjust coordinates deterministically (e.g. &quot;Move box X from 45.0 to 52.0 to eliminate overlap&quot;) rather than guessing.</p>
+<h3>Stage 6: Deliver Final Asset</h3>
+<p>The agent compiles the clean, verified drawing into the document or commits the Python script with 100% confidence.</p>
+<hr />
+<h2>2. Visual Self-Repair Checklist</h2>
+<p>When performing a multimodal self-review, check off each item in this matrix:</p>
+<table>
+<thead>
+<tr>
+<th>Verification Area</th>
+<th>Common Visual Flaw</th>
+<th>Deterministic Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Canvas Padding</strong></td>
+<td>Outer nodes or labels touching canvas perimeter</td>
+<td>Increase canvas dimensions in <code>setup(width=..., height=...)</code> or inset outer shapes by at least <code>8–12</code> units from all edges.</td>
+</tr>
+<tr>
+<td><strong>Node Alignment</strong></td>
+<td>Jagged, slightly crooked horizontal or vertical connection lines</td>
+<td>Ensure horizontally aligned nodes share the exact same <code>y</code> coordinate and vertically stacked nodes share the exact same <code>x</code> coordinate.</td>
+</tr>
+<tr>
+<td><strong>Label Breathing Room</strong></td>
+<td>Multi-line text touching or overflowing card borders</td>
+<td>Increase box <code>width</code> / <code>height</code>, insert explicit <code>\n</code> line breaks, or lower <code>text_size</code> via <code>.patch(text_size=...)</code>.</td>
+</tr>
+<tr>
+<td><strong>Arrowheads &amp; Edge Labels</strong></td>
+<td>Arrowhead clipped inside target node, or parallel edge labels colliding</td>
+<td>Add <code>padding=1.5</code> or <code>2.0</code> on connectors, route return paths onto distinct sides (<code>from_side=&quot;bottom&quot;</code>, <code>to_side=&quot;bottom&quot;</code>), or use <code>label_offset=(dx, dy)</code>.</td>
+</tr>
+<tr>
+<td><strong>50%+ Neutral Baseline</strong></td>
+<td>Confusing multi-color &quot;rainbow&quot; diagram where every node competes for attention</td>
+<td>Ground 50%+ of shapes in calm neutral styles (<code>Styles.Neutral</code>, <code>Styles.PrimaryNeutral</code>, <code>Styles.SecondaryNeutral</code>), use <code>Styles.MutedDashed</code> for boundary containers, and reserve saturated hero fills (<code>Styles.PrimaryFlat</code>) for 1–2 focal components.</td>
+</tr>
+<tr>
+<td><strong>Text Luminance Contrast</strong></td>
+<td>Dark text over dark <code>Flat</code> fill or white text over light <code>Neutral</code> fill</td>
+<td>Always pair saturated <code>Flat</code> fills (<code>Styles.PrimaryFlat</code>, <code>Styles.DangerFlat</code>) with <code>text_style=Styles.WhiteBold</code>, and light <code>Neutral</code> fills with <code>Styles.DarkBold</code> or <code>Styles.Dark</code>.</td>
+</tr>
+</tbody>
+</table>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

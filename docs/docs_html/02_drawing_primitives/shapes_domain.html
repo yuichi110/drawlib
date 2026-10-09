@@ -1,0 +1,737 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cylinders, Faces & Callouts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Cylinders, Faces & Callouts</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Cylinders, Faces &amp; Callouts</h1>
+<p>Beyond standard geometric primitives, <code>drawlib.shapes</code> includes three expressive domain shapes for technical architecture and storytelling diagrams:</p>
+<ul>
+<li><strong><code>cylinder</code></strong>: 3D shaded storage cylinders and multi-disk database stacks.</li>
+<li><strong><code>face</code></strong>: Expressive user/actor personas and operational status faces.</li>
+<li><strong><code>bubblespeech</code></strong>: Callout speech bubbles with directional pointer tails.</li>
+</ul>
+<hr />
+<h2>1. Overview: Combining Actors, Databases &amp; Callouts</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_overview.png" alt="shapes_domain_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Combining Actor Faces, 3D Database Cylinders, and Speech Callouts</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">bubblespeech</span><span class="p">,</span> <span class="n">cylinder</span><span class="p">,</span> <span class="n">face</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># 1. User Actor Face</span>
+<span class="n">face</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">mood</span><span class="o">=</span><span class="s2">"smile"</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">"SRE Operator"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># 2. 3-Disk Primary Database Cylinder</span>
+<span class="n">cylinder</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">disks</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Primary</span><span class="se">\n</span><span class="s2">Cluster"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Callout Speech Bubble pointing to the Database</span>
+<span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"3-disk replicated</span><span class="se">\n</span><span class="s2">storage volume"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. 3D Cylinders &amp; Database Stacks (<code>cylinder</code>)</h2>
+<p>For relational databases, object storage buckets, disk arrays, and message queues, <code>cylinder</code> renders a 3D cylindrical container with an automatically lightened elliptical top cap:</p>
+<pre><code class="language-python"><span class="n">cylinder</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">disks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the cylinder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Total horizontal width and vertical height (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>disks</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>1</code></td>
+<td style="text-align:left">Number of stacked disk tiers (<code>&gt;= 1</code>). Values <code>2</code> or <code>3+</code> add curved divider seams.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Shape fill and stroke style. Set <code>style.patch(angle=-90)</code> for horizontal FIFO queues/pipes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Centered text label and optional typography override.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">cylinder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="c1"># 1. Single-tier cache cylinder</span>
+<span class="n">cylinder</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Cache"</span><span class="p">)</span>
+
+<span class="c1"># 2. 3-disk database stack (disks=3)</span>
+<span class="n">cylinder</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+    <span class="n">disks</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Primary</span><span class="se">\n</span><span class="s2">DB"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Horizontal rotated cylinder (angle=-90 for message queue)</span>
+<span class="n">cylinder</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">angle</span><span class="o">=-</span><span class="mi">90</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Queue"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_cylinder.png" alt="shapes_domain_2" style="width: 620px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Single Cylinder, 3-Disk Database Stack, and Horizontal Queue</figcaption>
+</figure>
+<hr />
+<h2>3. Expressive Actor &amp; Status Faces (<code>face</code>)</h2>
+<p>For user personas, customer journey maps, and system health indicators, <code>face</code> renders a circular face with eyes, eyebrows, and five built-in facial expressions (<code>mood</code>):</p>
+<pre><code class="language-python"><span class="n">face</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">mood</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"smile"</span><span class="p">,</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"sad"</span><span class="p">,</span> <span class="s2">"angry"</span><span class="p">,</span> <span class="s2">"surprised"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"smile"</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<ul>
+<li><strong><code>mood</code></strong>: Selects the mouth and eyebrow geometry (<code>&quot;smile&quot;</code>, <code>&quot;neutral&quot;</code>, <code>&quot;sad&quot;</code>, <code>&quot;angry&quot;</code>, or <code>&quot;surprised&quot;</code>).</li>
+<li><strong>Automatic Feature Contrast</strong>: Eyes, eyebrows, and mouth automatically use <code>style.shape_line_color</code> on outlined cards, or high-contrast <code>text_color</code> / white on borderless flat styles (<code>Styles.PrimaryFlat</code>).</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">face</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
+
+<span class="n">moods</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"smile"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"neutral"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"surprised"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"sad"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"angry"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">mood_name</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">moods</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">22.5</span>
+    <span class="n">face</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">mood</span><span class="o">=</span><span class="n">mood_name</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">mood_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_3" style="width: 640px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">The Five Facial Moods in drawlib.shapes.face</figcaption>
+</figure>
+<hr />
+<h2>4. Callout Speech Bubbles (<code>bubblespeech</code>)</h2>
+<p><code>bubblespeech</code> draws a rectangular callout box with an integrated triangular pointer tail that originates from any of the four edges (<code>&quot;left&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>) and points to an exact target coordinate <code>tail_vertex_xy</code>:</p>
+<pre><code class="language-python"><span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">],</span>
+    <span class="n">tail_start_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">tail_end_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><strong>Bottom-left corner</strong> <code>(x, y)</code> of the rectangular bubble body (always bottom-left anchored regardless of <code>style.halign</code>/<code>valign</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left">Width and height of the rectangular bubble body (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tail_edge</code></td>
+<td style="text-align:left"><code>&quot;left&quot; | &quot;top&quot; | &quot;right&quot; | &quot;bottom&quot;</code></td>
+<td style="text-align:left">Which edge of the bubble body the pointer tail attaches to.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tail_start_ratio</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left">Start position along <code>tail_edge</code> in <code>[0.0, 1.0]</code> (<code>&lt; tail_end_ratio</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tail_end_ratio</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left">End position along <code>tail_edge</code> in <code>[0.0, 1.0]</code> (<code>&gt; tail_start_ratio</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tail_vertex_xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left">Absolute canvas coordinate <code>(x, y)</code> where the tip of the tail points.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code> / <code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>Style</code> / <code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left">Bubble fill/stroke style and centered annotation text. Note: <code>bubblespeech</code> ignores <code>style.shape_r</code>, <code>style.angle</code>, and <code>style.halign</code>/<code>valign</code>.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">bubblespeech</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># Target nodes</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Node A"</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Service B"</span><span class="p">)</span>
+
+<span class="c1"># 1. Callout with bottom tail pointing down to Node A</span>
+<span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+    <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
+    <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Bottom Tail Callout</span><span class="se">\n</span><span class="s2">(tail_edge='bottom')"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Coordinate indicators for bottom-left anchor xy and tail_vertex_xy</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="s2">"xy=(8, 33)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">circle</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">28.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"tail_vertex_xy=(26, 26)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># 2. Callout with right tail pointing to Service B</span>
+<span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+    <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span>
+    <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Note"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_bubblespeech.png" alt="shapes_domain_4" style="width: 640px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Speech Bubble Callouts with Bottom-Left Anchor xy and Pointer Tail Vertex</figcaption>
+</figure>
+<blockquote>
+<p>[!TIP]
+For embedding syntax-highlighted source code blocks alongside callouts, see <strong><a href="../03_smartarts/source_code.html">SourceCode</a></strong>.</p>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

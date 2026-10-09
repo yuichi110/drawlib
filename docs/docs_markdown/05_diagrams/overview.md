@@ -1,63 +1,133 @@
 # Technical Diagrams Overview & Universal Routing Engine
 
-Drawlib's `drawlib.diagrams` module provides a declarative, pure-Python visualization suite for technical architectures, workflow flowcharts, interaction sequence diagrams, state machines, UML class hierarchies, and relational database schemas.
+Drawlib's `drawlib.diagrams` module provides a declarative, pure-Python visualization suite for cloud architectures, workflow flowcharts, interaction sequence diagrams, UML class hierarchies, relational database schemas, and state machines.
 
-Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque automatic layout solvers that scramble diagrams when text changes, Drawlib diagrams offer:
+Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque layout heuristics that scramble diagrams when a label changes, `drawlib.diagrams` offers:
 - **Deterministic coordinate control**: You position elements with precision while Drawlib automatically handles boundary clipping, line offsets, and arrow alignments.
-- **Universal `Connectable` interface**: Nodes, entities, classes, boundaries, and junctions implement a common protocol for flexible orthogonal, direct, and curved connections.
-- **Rich vector and cloud icons**: Built-in access to 259 official Google Cloud Platform (`GcpIcon`) icons and 1,531 Phosphor (`PhosphorIcon`) icons.
-- **Native theming integration**: All diagrams use standard `Styles`, `Colors`, and `Font` models.
+- **Universal `Connectable` interface**: Nodes, entities, classes, boundaries, and junctions implement a common protocol for orthogonal, direct, and curved connections.
+- **Rich vector and cloud icons**: Built-in access to 259 official [Google Cloud Platform (`GcpIcon`)](../02_drawing_primitives/icons_gcp.md) icons and 1,531 [Phosphor (`PhosphorIcon`)](../02_drawing_primitives/icons_phosphor.md) icons.
+- **Native theming integration**: All diagrams use standard [`Styles`](../02_drawing_primitives/styles.md), [`Colors`](../02_drawing_primitives/colors.md), and [`Font`](../02_drawing_primitives/fonts.md) models.
+
+> **Looking for Automatic Graph Layout?**  
+> When you want to declare nodes, edges, and clusters without specifying `(x, y)` coordinates—or scaffold initial coordinates using `export_code()`—see **[Chapter 6: Auto-Layout Graphs (`drawlib.graph`)](../06_graph/overview.md)**.
 
 ---
 
-## 1. Diagram Taxonomy
+## 1. The 6 Technical Diagram Engines (`drawlib.diagrams`)
 
-| Diagram Category | Class Name | Module Import | Primary Use Case |
-|---|---|---|---|
-| **Auto-Layout Graphs** | `ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph` | `drawlib.graph` | Automatic coordinate solving, nested clusters, DAGs, code scaffolding |
-| **Cloud & Architecture** | `ArchitectureDiagram` | `drawlib.diagrams.architecture` | Microservices, VPC boundaries, cloud topologies |
-| **Workflow & Processes** | `FlowDiagram` | `drawlib.diagrams.flow` | ISO 5807 flowcharts, cross-functional swimlanes |
-| **API Sequences & Protocols** | `SequenceDiagram` | `drawlib.diagrams.sequence` | Chronological message lifelines, condition blocks |
-| **Object-Oriented Structure** | `ClassDiagram` | `drawlib.diagrams.class_diagram` | UML 2.0 class cards, 6 standard relationships |
-| **Relational Schemas** | `ERDiagram` | `drawlib.diagrams.er` | Crow's foot physical schemas, column-level anchors |
-| **Statecharts & Automata** | `StateDiagram` | `drawlib.diagrams.state` | Finite state machines, curved arc transitions |
-
----
-
-## 2. Solving the Cold-Start Problem with Auto-Layout (`drawlib.graph`)
-
-When drafting a new architecture or workflow from scratch, calculating precise coordinate pairs `(x, y)` for every node and boundary can strain cognitive working memory for both human engineers and AI agents—a challenge known as the **Cold-Start Problem**.
-
-To solve this, Drawlib introduces a seamless **two-stage workflow**:
-
-```text
-Step 1: Declare Topology (Fast Draft)       Step 2: Export Clean Code (Fine Tuning)
-┌──────────────────────────────────────┐    ┌──────────────────────────────────────┐
-│ g = ArchitectureGraph()              │    │ # Generated Drawlib Python Code      │
-│ g.cluster("vpc", ["api", "db"])      │───►│ client_xy = (25.0, 30.0)             │
-│ g.edge("client", "api")              │    │ rectangle(client_xy, width=28, ...)  │
-│ g.export_code()                      │    │ line(client_xy, api_xy, ...)         │
-└──────────────────────────────────────┘    └──────────────────────────────────────┘
-```
-
-1. **Declarative Auto-Layout (`g.draw()`)**: Focus purely on structural relationships—nodes, edges, and nested clusters. The Pure-Python solver automatically computes neat orthogonal geometry.
-2. **Scaffold to Deterministic Code (`g.export_code()`)**: Once the overall layout looks balanced, call `export_code()` to output self-contained Drawlib Python code with calculated coordinates baked in as semantic variables (`api_xy`, `db_xy`).
-3. **Pixel-Perfect Polishing**: Tweak specific coordinates, add custom icons, or attach styled badges directly in code without re-running black-box solvers.
-
-For complete details on the five specialized solvers, see **[Auto-Layout Graphs (`drawlib.graph`)](./graph.md)**.
+| Diagram Category | Class Name | Module Import | Primary Use Case | Guide Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cloud & Architecture** | `ArchitectureDiagram` | `drawlib.diagrams.architecture` | Microservices, VPC boundaries, cloud icon topologies | [Architecture Diagrams](./architecture.md) |
+| **Workflow & Processes** | `FlowDiagram` | `drawlib.diagrams.flow` | ISO 5807 flowcharts, cross-functional swimlanes | [Flow Diagrams](./flow.md) |
+| **API Sequences & Protocols** | `SequenceDiagram` | `drawlib.diagrams.sequence` | Chronological message lifelines, condition blocks | [Sequence Diagrams](./sequence.md) |
+| **Object-Oriented Structure** | `ClassDiagram` | `drawlib.diagrams.class_diagram` | UML 2.0 3-compartment class cards, 6 UML relationships | [UML Class Diagrams](./class_diagram.md) |
+| **Relational Schemas** | `ERDiagram` | `drawlib.diagrams.er` | Crow's Foot physical schemas, column-level PK/FK anchors | [ER Diagrams](./er.md) |
+| **Statecharts & Automata** | `StateDiagram` | `drawlib.diagrams.state` | Finite state machines, action compartments, curved arcs | [State Machine Diagrams](./state_diagram.md) |
 
 ---
 
-## 3. Universal Connection Engine
+## 2. Universal Connection Engine (`Connectable`)
 
 All diagram elements (nodes, entities, classes, boundaries, and junctions) implement the `Connectable` protocol:
 
-```text
-       Orthogonal Z-Bend                 Direct Straight                  Curved Arc (bend)
-    ┌─────┐        ┌─────┐           ┌─────┐         ┌─────┐          ┌─────┐  . - ~ - .  ┌─────┐
-    │  A  ├──┐     │  B  │           │  A  │────────►│  B  │          │  A  ├'           '┤  B  │
-    └─────┘  └───►─┴─────┘           └─────┘         └─────┘          └─────┘             └─────┘
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_overview_routing_modes.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Comparison of Orthogonal Z-Bend, Direct Straight, and Curved Arc Routing</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
+from drawlib.diagrams.state import State, StateDiagram
+from drawlib.shapes import rectangle
+from drawlib.styles import Colors, Styles
+from drawlib.text import text
+
+setup(width=162, height=56)
+
+panel_style = Styles.Neutral.patch(shape_r=2.0, shape_line_color=Colors.Gray4)
+header_style = Styles.DarkBold.patch(text_size=10.5)
+code_style = Styles.DarkBold.patch(text_size=9.0, text_color=Colors.Primary5)
+
+# Panel 1: Orthogonal Z-Bend
+rectangle((28, 28), width=48, height=48, style=panel_style)
+text((28, 48.5), '1. Orthogonal Routing', style=header_style)
+text((28, 44.5), 'routing="orthogonal"', style=code_style)
+
+d1 = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=9.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.PrimaryNeutral,
+)
+a1 = d1.add(Node((14, 11), "Node A", icon=PhosphorIcon.CUBE, icon_size=4.5), xy=(12.0, 27.0))
+b1 = d1.add(Node((14, 11), "Node B", icon=PhosphorIcon.DATABASE, icon_size=4.5, card_style=Styles.Neutral), xy=(36.0, 11.0))
+d1.connect(a1, b1, routing="orthogonal", padding=1.0)
+d1.draw(xy=(4.0, 3.0))
+
+# Panel 2: Direct Straight
+rectangle((81, 28), width=48, height=48, style=panel_style)
+text((81, 48.5), '2. Direct Routing', style=header_style)
+text((81, 44.5), 'routing="direct"', style=code_style)
+
+d2 = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=9.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.PrimaryNeutral,
+)
+a2 = d2.add(Node((14, 11), "Node A", icon=PhosphorIcon.CUBE, icon_size=4.5), xy=(12.0, 27.0))
+b2 = d2.add(Node((14, 11), "Node B", icon=PhosphorIcon.DATABASE, icon_size=4.5, card_style=Styles.Neutral), xy=(36.0, 11.0))
+d2.connect(a2, b2, routing="direct", padding=1.0)
+d2.draw(xy=(57.0, 3.0))
+
+# Panel 3: Curved Arc (bend)
+rectangle((134, 28), width=48, height=48, style=panel_style)
+text((134, 48.5), '3. Curved Arc Routing', style=header_style)
+text((134, 44.5), 'bend=-0.35 / bend=0.35', style=code_style)
+
+sd = StateDiagram(
+    node_style=Styles.PrimaryNeutral.patch(text_size=9.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=8.5),
+)
+s_a = sd.add(State("State A", shape="box", width=13.5, height=9.5), xy=(12.0, 20.0))
+s_b = sd.add(
+    State("State B", shape="box", width=13.5, height=9.5, style=Styles.Neutral.patch(text_size=9.5)),
+    xy=(38.0, 20.0),
+)
+sd.connect(
+    s_a,
+    s_b,
+    label="bend=-0.35",
+    bend=-0.35,
+    start_side="top_right",
+    end_side="top_left",
+)
+sd.connect(
+    s_b,
+    s_a,
+    label="bend=-0.35",
+    bend=-0.35,
+    start_side="bottom_left",
+    end_side="bottom_right",
+    text_style=Styles.Dark.patch(text_size=8.5, valign="top"),
+)
+sd.draw(xy=(109.0, 2.0))
+
+save()
 ```
+
+</details>
+
+
 
 ### Connection Routing Strategies
 1. **`routing="orthogonal"`** *(Default for Architecture, Flow, Class, and ER)*:
@@ -68,44 +138,203 @@ All diagram elements (nodes, entities, classes, boundaries, and junctions) imple
    Generates a quadratic Bezier or arc curve between nodes. A positive bend curves to the left/top, while a negative bend curves to the right/bottom, allowing elegant bidirectional transitions.
 
 ### Attachment Sides and Edge Padding
-- **`start_side` / `end_side`**: Set explicitly to `"left"`, `"right"`, `"top"`, `"bottom"`, or `"auto"` (resolved by nearest Euclidean distance).
+- **`start_side` / `end_side`**: Set explicitly to `"left"`, `"right"`, `"top"`, `"bottom"`, or `"auto"` (resolved by nearest Euclidean distance; `StateDiagram` also supports diagonal sides `"top_left"`, `"top_right"`, `"bottom_left"`, `"bottom_right"`).
 - **`padding`**:
-  - `padding=2.0`: Adds a 2.0-unit gap between the edge endpoint and the node perimeter.
+  - `padding=1.5`: Adds a 1.5-unit gap between the edge endpoint and the node perimeter.
   - `padding=(1.0, 3.0)`: Configures asymmetric padding (1.0 at start, 3.0 at end).
+
+### Coordinate Origin Principle (`center` vs. `bottom-left`)
+Understanding how coordinates are anchored across `drawlib.diagrams` ensures crisp alignment:
+- **Node & Card Placement (`center` `(cx, cy)`)**: Calling `d.add(item, xy=(cx, cy))` places the **geometric center `(cx, cy)`** for all vertex cards and symbols: `Node` (`ArchitectureDiagram`), `FlowNode` / `Start` / `End` / `Process` / `Decision` / `Data` (`FlowDiagram`), `ClassNode` (`ClassDiagram`), `Entity` (`ERDiagram`), and `State` / `StateNodeBase` (`StateDiagram`). Giving two horizontally or vertically aligned nodes the same `y` or `x` coordinate aligns their centers on a straight line.
+- **Group Origin & Diagram Rendering (`bottom-left` `(x, y)`)**:
+  - `d.draw(xy=(x, y), *, scale=1.0)` always anchors the diagram's **bottom-left** origin at `(x, y)` on the canvas.
+  - In `ArchitectureDiagram`, `d.add(group, xy=(x, y))` sets the **bottom-left** local origin for `NodeGroup` (when fixed `width` and `height` are specified on `NodeGroup`, the box spans `[x, x + width] × [y, y + height]`; when auto-sized, child coordinates passed to `group.add(child, xy=...)` are relative to `group.xy`).
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_overview_ports_and_origins.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Attachment Port Sides (top, bottom, left, right) and Node Center vs. NodeGroup Bottom-Left Origins</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.lines import line
+from drawlib.shapes import circle, rectangle
+from drawlib.styles import Colors, Styles
+from drawlib.text import text
+
+setup(width=164, height=68)
+
+panel_style = Styles.Neutral.patch(shape_r=2.0, shape_line_color=Colors.Gray4)
+header_style = Styles.DarkBold.patch(text_size=11.0)
+mono_style = Styles.DarkBold.patch(text_size=9.0, text_color=Colors.Primary5)
+anchor_dot_style = Styles.DangerFlat.patch(shape_line_color=Colors.White, shape_line_width=1.0)
+anchor_lbl_style = Styles.DarkBold.patch(
+    text_size=8.5,
+    text_color=Colors.Danger5,
+    text_bg_fill_color=(255, 255, 255, 0.9),
+)
+
+# Left Panel: 4 Cardinal Attachment Ports & Asymmetric Padding
+rectangle((40, 34), width=74, height=62, style=panel_style)
+text((40, 61.0), "Cardinal Ports & Asymmetric Padding", style=header_style)
+
+d_ports = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=9.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.PrimaryNeutral,
+)
+src = d_ports.add(Node((22, 16), "Source Card", icon=PhosphorIcon.CUBE, icon_size=5.5), xy=(25.0, 29.0))
+dst = d_ports.add(
+    Node((18, 16), "Target", icon=PhosphorIcon.DATABASE, icon_size=5.5, card_style=Styles.White),
+    xy=(61.0, 29.0),
+)
+d_ports.connect(src, dst, padding=(1.0, 3.0))
+d_ports.draw(xy=(0.0, 0.0))
+
+# Port dots on Source Card (center at (25, 29), size 22x16 -> top=(25,37), bottom=(25,21), left=(14,29), right=(36,29))
+for px, py in [(25, 37), (25, 21), (14, 29), (36, 29)]:
+    circle((px, py), radius=1.1, style=Styles.PrimaryFlat)
+
+text((25, 41.0), '"top"', style=mono_style)
+text((25, 16.5), '"bottom"', style=mono_style)
+text((8.5, 29.0), '"left"', style=mono_style)
+text((40.5, 33.0), '"right"', style=mono_style)
+
+# Highlight asymmetric padding=(1.0, 3.0)
+text((44.0, 22.0), "padding=(1.0, 3.0)", style=anchor_lbl_style)
+text((44.0, 17.5), "1.0 start gap / 3.0 end gap", style=Styles.Dark.patch(text_size=8.5))
+
+# Right Panel: Node Center (cx, cy) vs. NodeGroup Bottom-Left (x, y)
+rectangle((121, 34), width=78, height=62, style=panel_style)
+text((121, 61.0), "Node Center (cx, cy) vs. Group Bottom-Left (x, y)", style=header_style)
+
+d_orig = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=9.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.White,
+)
+grp = d_orig.add(
+    NodeGroup(title="NodeGroup (bottom-left origin)", width=66.0, height=38.0, style=Styles.SecondaryNeutral),
+    xy=(88.0, 14.0),
+)
+n1 = grp.add(Node((22, 16), "Service A", icon=GcpIcon.CLOUD_RUN, icon_size=5.5), xy=(17.0, 17.0))
+n2 = grp.add(Node((22, 16), "Service B", icon=GcpIcon.CLOUD_SQL, icon_size=5.5), xy=(49.0, 17.0))
+d_orig.connect(n1, n2, padding=1.2)
+d_orig.draw(xy=(0.0, 0.0))
+
+# Shared horizontal Y alignment guide line through node centers (y = 14 + 17 = 31)
+line((90.0, 31.0), (152.0, 31.0), style=Styles.DangerDashed.patch(shape_line_width=1.2))
+
+# Red anchor dots for NodeGroup bottom-left (88, 14) and Node centers (105, 31), (137, 31)
+circle((88.0, 14.0), radius=1.4, style=anchor_dot_style)
+text((108.0, 9.5), "Group xy=(x, y) [bottom-left]", style=anchor_lbl_style)
+
+circle((105.0, 31.0), radius=1.3, style=anchor_dot_style)
+circle((137.0, 31.0), radius=1.3, style=anchor_dot_style)
+text((121.0, 44.5), "Node xy=(cx, cy) [geometric centers aligned on shared y]", style=anchor_lbl_style)
+
+save()
+```
+
+</details>
+
+
 
 ---
 
-## 4. Waypoints & Bus Lines with `Junction`
+## 3. Waypoints & Bus Lines with `Junction`
 
 A `Junction` represents a zero-dimension coordinate `(x, y)` on the canvas. It allows you to:
-- **Fork Bus Lines**: Split a single wire into multiple downstream connections.
+- **Fork Bus Lines**: Split a single wire into multiple downstream connections (or use `node.fork([target1, target2], at_x=...)` in `ArchitectureDiagram` and `FlowDiagram`).
 - **Merge Paths**: Combine multiple upstream error or completion paths into a single successor node.
 - **Dynamic Insertion**: Calling `edge.add_point(xy)` converts an intermediate edge coordinate into a reusable `Junction`.
 
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
+
+setup(width=150, height=82)
+
+d = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
+    title="Request Routing & Bus Fan-Out",
+)
+
+client = d.add(Node((22, 16), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=7.5), xy=(14.0, 36.0))
+gateway = d.add(
+    Node((24, 16), "API Gateway", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, card_style=Styles.PrimaryNeutral),
+    xy=(54.0, 36.0),
+)
+
+cluster = d.add(NodeGroup(title="Backend Services", padding=5.5), xy=(84.0, 10.0))
+svc_a = cluster.add(Node((24, 16), "Order Service", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5), xy=(18.0, 40.0))
+svc_b = cluster.add(Node((24, 16), "Audit Worker", icon=GcpIcon.CLOUD_SQL, icon_size=7.5), xy=(18.0, 14.0))
+
+d.connect(client, gateway, label="HTTPS", padding=1.5)
+gateway.fork([svc_a, svc_b], at_x=76.0, padding=1.5)
+
+d.draw(xy=(4.0, 4.0))
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_overview_routing.png" alt="overview_3" style="width: 680px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Universal Connection Engine: Hierarchical Groups, Orthogonal Routing, and Bus Fan-Out</figcaption>
+</figure>
+
+
+
 ---
 
-## 5. Unified Component Lifecycle (`show`, Mutable Elements, and `scale`)
+## 4. Unified Component Lifecycle (`show`, Mutable Elements, Sizing, and `scale`)
 
-All diagram classes (`ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`) and `drawlib.graph` solvers share a unified lifecycle for static and multi-frame rendering:
+All six diagram classes (`ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ClassDiagram`, `ERDiagram`, `StateDiagram`) share a unified lifecycle for static and multi-frame rendering (see [Animating Diagrams](../07_animations/diagrams.md)):
 
 1. **Visibility Control (`show: bool = True`)**:
-   - Every element constructor (`Node`, `NodeGroup`, `FlowNode`, `Lane`, `Participant`, `ParticipantGroup`, `State`, `ClassNode`, `Entity`) and registration method (`d.add(..., show=True)`, `.connect(..., show=True)`, `g.node(..., show=True)`, `g.edge(..., show=True)`, `g.cluster(..., show=True)`) accepts `show: bool = True`.
-   - **Fixed-Layout Guarantee**: Hidden elements (`show=False`) still participate in bounding-box, group, lane, lifeline, and graph layout calculations so visible elements never jump or shift when toggling `.show`.
-   - **Connected Edge & Dangling `Junction` Auto-Hiding**: If either endpoint of a connection (`Edge`, `Transition`, `Relationship`, `Message`) has `show=False` (or is inside a hidden group), the connection is automatically skipped during `draw()`. Furthermore, if an intermediate `Junction` has no visible downstream path, its upstream wire segment is also automatically hidden.
+   - Every element constructor (`Node`, `NodeGroup`, `FlowNode`, `Lane`, `Participant`, `ParticipantGroup`, `State`, `ClassNode`, `Entity`) and registration method (`d.add(..., show=True)`, `.connect(..., show=True)`) accepts `show: bool = True`.
+   - **Fixed-Layout Guarantee**: Hidden elements (`show=False`) still participate in bounding-box, group, lane, and lifeline calculations so visible elements never jump or shift when toggling `.show`.
+   - **Connected Edge & Dangling `Junction` Auto-Hiding**: If either endpoint of a connection (`Edge` in `ArchitectureDiagram`, `FlowEdge` in `FlowDiagram`, `Message` in `SequenceDiagram`, `ClassRelationship` in `ClassDiagram`, `Relationship` in `ERDiagram`, `StateTransition` in `StateDiagram`) has `show=False` (or is inside a hidden group), the connection is automatically skipped during `draw()`. Furthermore, if an intermediate `Junction` has no visible downstream path, its upstream wire segment is also automatically hidden.
 2. **Mutable Element Instances**:
-   - `d.add(...)` and `.connect(...)` return the registered element instance (`Node`, `Edge`, `Transition`, `Relationship`, `Message`, `Block`, `Note`), allowing in-place mutation of `.show`, `.style`, `.text_style`, `.draw_ratio` (`0.0` to `1.0` partial wire drawing), and `.draw_direction` (`"forward"` | `"backward"`).
-3. **Proportional Scaling & Translation (`draw(xy=(0.0, 0.0), *, scale: float = 1.0)`)**:
-   - Every diagram's `draw(xy=(0.0, 0.0), *, scale: float = 1.0)` (as well as `g.draw(xy=(0.0, 0.0), ..., scale=1.0)` and `layout.draw(xy=(0.0, 0.0), *, scale=1.0)`) translates the diagram by `xy` and proportionally scales all node coordinates, widths/heights, icon sizes, line widths, and font sizes by `scale`.
+   - `d.add(...)` and `.connect(...)` return the registered element instance (`Node`, `Edge`, `FlowNode`, `FlowEdge`, `Participant`, `Message`, `Block`, `Note`, `ClassNode`, `ClassRelationship`, `Entity`, `Relationship`, `State`, `StateTransition`), allowing in-place mutation of `.show`, `.style`, and `.text_style` across animation frames.
+3. **Diagram Size & Bounding Box Queries (`get_size()` and `get_bounds()`)**:
+   - `d.get_size() -> tuple[float, float]`: Supported on **all 6 diagram classes**, returning the computed or explicit `(width, height)` of the diagram in canvas units.
+   - `d.get_bounds() -> tuple[float, float, float, float]`: Supported on **`ClassDiagram`** and **`StateDiagram`**, returning the tight enclosing bounding box `(min_x, min_y, max_x, max_y)` of all registered nodes (and self-transition loops in `StateDiagram`).
+4. **Proportional Scaling & Translation (`draw(xy=(0.0, 0.0), *, scale: float = 1.0)`)**:
+   - Every diagram's `draw(xy=(0.0, 0.0), *, scale: float = 1.0)` translates the diagram by `xy` and proportionally scales all node coordinates, widths/heights, icon sizes, line widths, and font sizes by `scale`.
+
+---
+
+## 5. Choosing Between `drawlib.diagrams` and `drawlib.graph`
+
+When starting a new architecture or workflow diagram:
+- Choose **`drawlib.diagrams`** (this chapter) when you want **domain-specific visual notations** (cloud icon cards, ISO flowchart swimlanes, UML sequence lifelines, 3-compartment UML classes, Crow's Foot ER tables, or UML statecharts) and **deterministic coordinate control**.
+- Choose **[`drawlib.graph`](../06_graph/overview.md)** (Chapter 6) when you want **automatic topological coordinate solving** (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), or when you want to solve an initial layout automatically and export editable coordinate code via `g.export_code()`.
 
 ---
 
 ## 6. Chapter Navigation
 
 Explore each dedicated diagram guide:
-- [Auto-Layout Graphs (`drawlib.graph`)](./graph.md): Declarative layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `offset()`, and `export_code()`.
-- [Cloud & Architecture Diagrams](./architecture.md): Microservices, VPC boundaries, and cloud icon topologies.
-- [Flowcharts & Swimlanes](./flow.md): ISO 5807 flowchart symbols with multi-lane workflows.
-- [Sequence Diagrams](./sequence.md): Chronological API interactions, message styles, and condition blocks.
-- [UML Class Diagrams](./class_diagram.md): 3-compartment class cards with the 6 standard UML relationships.
-- [Database ER Diagrams](./er.md): Relational schemas with Information Engineering (Crow's Foot) notation.
-- [State Machines & Automata](./state_diagram.md): UML statecharts, action compartments, and curved transitions.
+- **[Architecture Diagrams](./architecture.md)**: Microservices, VPC boundaries, and cloud icon topologies (`GcpIcon`, `PhosphorIcon`).
+- **[Flow Diagrams](./flow.md)**: ISO 5807 flowchart symbols with vertical and horizontal multi-lane workflows.
+- **[Sequence Diagrams](./sequence.md)**: Chronological API interactions, message styles, activation bars, and `with` condition blocks.
+- **[UML Class Diagrams](./class_diagram.md)**: 3-compartment class cards with the 6 standard UML relationships.
+- **[ER Diagrams](./er.md)**: Relational database schemas with Information Engineering (Crow's Foot) notation and column-level anchors.
+- **[State Machine Diagrams](./state_diagram.md)**: UML statecharts, internal action compartments, pseudo-states, and curved transitions.

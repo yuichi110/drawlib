@@ -1,0 +1,706 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadialGraph: Concentric Orbits & Hub-and-Spoke Topologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">RadialGraph: Concentric Orbits & Hub-and-Spoke Topologies</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>RadialGraph: Concentric Orbits &amp; Hub-and-Spoke Topologies</h1>
+<p><code>RadialGraph</code> places a central hub node at the origin (<code>ring=0</code>) and arranges connected nodes on <strong>concentric orbital rings</strong> (<code>ring=1, 2, ...</code>). Angular sectors are allocated proportionally to subtree sizes so multi-hop spokes radiate outward without crossing lines.</p>
+<p>It is purpose-built for event-driven message meshes, Pub/Sub broker topologies, microservice hub-and-spoke networks, and concentric dependency radars.</p>
+<hr />
+<h2>1. Constructor &amp; <code>.spoke()</code> Builder API</h2>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s2">"core"</span><span class="p">,</span>                      <span class="c1"># Central hub node ID (auto-detects highest degree if None)</span>
+    <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>                     <span class="c1"># Explicit (cx, cy) origin (defaults to canvas center)</span>
+    <span class="n">radius_step</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>                <span class="c1"># Radial distance between rings (auto-scales if None)</span>
+    <span class="n">start_angle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>                 <span class="c1"># Starting angle in degrees (0.0 = East, 90.0 = North)</span>
+    <span class="n">angle_range</span><span class="o">=</span><span class="mf">360.0</span><span class="p">,</span>               <span class="c1"># Total angular sweep (e.g. 360.0 full circle, 180.0 arc)</span>
+    <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># Render dashed circular orbit guides for each ring</span>
+    <span class="n">ring_guide_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>hub</code></td>
+<td style="text-align:left"><code>str | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">ID of the central <code>ring=0</code> hub node. If <code>None</code>, selects the node with highest connectivity.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>center</code></td>
+<td style="text-align:left"><code>tuple[float, float] | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Center <code>(cx, cy)</code> of the concentric rings. Defaults to <code>(width / 2, height / 2)</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>radius_step</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Fixed radial gap between successive rings. Auto-scales to canvas if <code>None</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>start_angle</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0.0</code></td>
+<td style="text-align:left">Starting angle in degrees (<code>0.0</code> = right/east, <code>90.0</code> = top/north).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle_range</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>360.0</code></td>
+<td style="text-align:left">Total angular sweep in degrees (<code>360.0</code> for full orbit, <code>180.0</code> for semicircular fan).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>draw_ring_guides</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">When <code>True</code>, draws subtle dashed circular orbit guidelines behind each ring.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_guide_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Custom <code>Style</code> for the ring guide circles (defaults to <code>Styles.MutedDashed</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default style for nodes (defaults to <code>Styles.PrimaryFlat</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_text_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default typography style for node labels.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_edge_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default style for radial spoke edges (defaults to <code>Styles.DarkBold</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_edge_text_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default text style for edge labels.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>20.0</code></td>
+<td style="text-align:left">Default node width in canvas units.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>12.0</code></td>
+<td style="text-align:left">Default node height in canvas units.</td>
+</tr>
+</tbody>
+</table>
+<h3>Assigning Orbits with <code>g.spoke(...)</code> and <code>ring=</code></h3>
+<p>In addition to <code>g.node()</code> and <code>g.edge()</code>, <code>RadialGraph</code> provides <code>.spoke()</code> to register a satellite node and connect it from <code>parent</code> in a single call:</p>
+<pre><code class="language-python"><span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">spoke_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">ring</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="s2">"circle"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rectangle"</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">edge_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">edge_show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span>
+</code></pre>
+<ul>
+<li><strong>Automatic BFS Ring Assignment</strong>: By default (<code>ring=None</code>), each node's ring index equals its shortest hop distance from <code>hub</code> (<code>ring=0</code> for the hub, <code>ring=1</code> for direct neighbors, <code>ring=2</code> for second-hop neighbors).</li>
+<li><strong>Explicit Ring Assignment (<code>ring=int</code>)</strong>: Pass <code>ring=1</code> or <code>ring=2</code> to <code>g.node(id, label, ring=...)</code> or <code>g.spoke(parent, spoke_id, label, ring=...)</code> to pin a node to a specific concentric orbit.</li>
+</ul>
+<hr />
+<h2>2. Single-Ring Hub-and-Spoke Microservice Mesh</h2>
+<p>A single-ring <code>RadialGraph</code> arranges satellite services evenly around a central broker or API gateway:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s2">"broker"</span><span class="p">,</span>
+    <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Central Hub (ring=0) in PrimaryFlat circle</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"broker"</span><span class="p">,</span>
+    <span class="s2">"Event Broker"</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 6 Spoke Microservices on Ring 1 (calm Neutral &amp; Tinted-Neutral cards)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"Orders API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"billing"</span><span class="p">,</span> <span class="s2">"Billing Worker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"inventory"</span><span class="p">,</span> <span class="s2">"Inventory Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"notify"</span><span class="p">,</span> <span class="s2">"Email &amp; Push"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"broker"</span><span class="p">,</span> <span class="s2">"audit"</span><span class="p">,</span> <span class="s2">"Audit Log"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radial_graph_images/graph_radial_single_ring.png" alt="radial_graph_1" style="width: 640px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Single-Ring Hub-and-Spoke Microservice Mesh Around an Event Broker</figcaption>
+</figure>
+<hr />
+<h2>3. Multi-Ring Concentric Dependency Radar (<code>ring=0, 1, 2</code>)</h2>
+<p>By connecting second-hop spokes or explicitly passing <code>ring=2</code>, <code>RadialGraph</code> constructs multi-ring concentric architectures where inner rings represent core domain services (<code>ring=1</code>) and outer rings represent external adapters or storage engines (<code>ring=2</code>):</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">135</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s2">"domain_core"</span><span class="p">,</span>
+    <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Ring 0: Central Domain Kernel</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"domain_core"</span><span class="p">,</span>
+    <span class="s2">"Domain</span><span class="se">\n</span><span class="s2">Kernel"</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Ring 1: Application Services</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"domain_core"</span><span class="p">,</span> <span class="s2">"checkout"</span><span class="p">,</span> <span class="s2">"Checkout"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"domain_core"</span><span class="p">,</span> <span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"Catalog"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"domain_core"</span><span class="p">,</span> <span class="s2">"identity"</span><span class="p">,</span> <span class="s2">"Identity"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Ring 2: External Infrastructure Adapters</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"checkout"</span><span class="p">,</span> <span class="s2">"stripe"</span><span class="p">,</span> <span class="s2">"Stripe API"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"checkout"</span><span class="p">,</span> <span class="s2">"orders_db"</span><span class="p">,</span> <span class="s2">"Orders SQL"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"elastic"</span><span class="p">,</span> <span class="s2">"Search Index"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"cdn"</span><span class="p">,</span> <span class="s2">"Media CDN"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"identity"</span><span class="p">,</span> <span class="s2">"oauth"</span><span class="p">,</span> <span class="s2">"OAuth IdP"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"identity"</span><span class="p">,</span> <span class="s2">"redis"</span><span class="p">,</span> <span class="s2">"Token Cache"</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radial_graph_images/graph_radial_multi_ring.png" alt="radial_graph_2" style="width: 660px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Multi-Ring Concentric Dependency Radar (Ring 0 Core, Ring 1 Domain, Ring 2 Adapters)</figcaption>
+</figure>
+<hr />
+<h2>4. Semicircular Dependency Fan (<code>angle_range=180.0</code>, <code>start_angle=0.0</code>)</h2>
+<p>Instead of a full <code>360.0</code> degree orbit, you can restrict spokes to a semicircular or quadrant fan using <code>start_angle</code> and <code>angle_range</code> (along with an explicit <code>center=(cx, cy)</code> and <code>radius_step</code>):</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadialGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">98</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">RadialGraph</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s2">"gateway"</span><span class="p">,</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
+    <span class="n">radius_step</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">start_angle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">angle_range</span><span class="o">=</span><span class="mf">180.0</span><span class="p">,</span>
+    <span class="n">draw_ring_guides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Hub anchored near the bottom center</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+    <span class="s2">"gateway"</span><span class="p">,</span>
+    <span class="s2">"API</span><span class="se">\n</span><span class="s2">Gateway"</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 5 downstream services fanned across the upper 0°..180° arc</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"cdn"</span><span class="p">,</span> <span class="s2">"Edge CDN"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"catalog"</span><span class="p">,</span> <span class="s2">"Catalog API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"Orders API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">spoke</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"audit"</span><span class="p">,</span> <span class="s2">"Audit Log"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radial_graph_images/graph_radial_semicircle_fan.png" alt="radial_graph_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Semicircular Dependency Fan Using angle_range=180.0 and start_angle=0.0</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices</h2>
+<ol>
+<li><strong>Enable <code>draw_ring_guides=True</code> for Multi-Ring Graphs</strong>: Subtle dashed orbit circles make concentric hierarchy levels (<code>ring=1</code> vs. <code>ring=2</code>) immediately legible at a glance.</li>
+<li><strong>Use <code>shape=&quot;circle&quot;</code> for the Central Hub</strong>: Making the center hub a circle (<code>shape=&quot;circle&quot;</code>, <code>width=24.0</code>, <code>height=24.0</code>) with <code>Styles.PrimaryFlat</code> creates a natural visual anchor for radial spokes.</li>
+<li><strong>Give Outer Rings Generous Canvas Margin</strong>: Pass <code>margin=16.0</code> (or higher) to <code>g.draw(margin=16.0)</code> so rectangular cards at the top, bottom, left, and right extremes of the outer ring have comfortable breathing room.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

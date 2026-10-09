@@ -1,0 +1,788 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Cloud (GCP) Icons</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Google Cloud (GCP) Icons</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Google Cloud (GCP) Icons</h1>
+<p>Drawlib provides over 250 official, multi-color <strong>Google Cloud Platform (GCP)</strong> architecture icons via <code>drawlib.icons.gcp</code>. Assets are automatically downloaded and cached on first use, and can be placed either as standalone canvas primitives or inside high-level layout and architecture diagram components.</p>
+<hr />
+<h2>1. Categorized GCP Icon Showcase</h2>
+<p>Every GCP service is available as a function <code>gcp.&lt;service_name&gt;(xy, width, *, style)</code> (with convenient shorthand aliases <code>gcp.gce</code>, <code>gcp.gke</code>, <code>gcp.gcs</code>, and <code>gcp.bq</code>):</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_gcp_images/icons_gcp_categories.png" alt="icons_gcp_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Official Google Cloud Architecture Icons Across Core Categories</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Compute Engine"</span><span class="p">,</span> <span class="s2">"Compute (gce)"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">compute_engine</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"GKE Cluster"</span><span class="p">,</span> <span class="s2">"Containers (gke)"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">google_kubernetes_engine</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Cloud Run"</span><span class="p">,</span> <span class="s2">"Serverless"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_run</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Cloud Storage"</span><span class="p">,</span> <span class="s2">"Storage (gcs)"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_storage</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="s2">"Databases"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_sql</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Load Balancing"</span><span class="p">,</span> <span class="s2">"Networking"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_load_balancing</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"BigQuery"</span><span class="p">,</span> <span class="s2">"Analytics (bq)"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">bigquery</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Vertex AI"</span><span class="p">,</span> <span class="s2">"AI / ML"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">vertex_ai</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mi">49</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">19</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mi">21</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mi">31</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">cat</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">7</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>1.1. Major GCP Icon Categories &amp; Shorthand Aliases</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Representative <code>drawlib.icons.gcp</code> Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Compute</strong></td>
+<td style="text-align:left"><code>compute_engine</code> <em>(alias: <code>gce</code>)</em>, <code>app_engine</code>, <code>batch</code>, <code>vmware_engine</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Containers &amp; Serverless</strong></td>
+<td style="text-align:left"><code>google_kubernetes_engine</code> <em>(alias: <code>gke</code>)</em>, <code>cloud_run</code>, <code>cloud_functions</code> <em>(alias: <code>functions</code>)</em>, <code>anthos</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Storage</strong></td>
+<td style="text-align:left"><code>cloud_storage</code> <em>(alias: <code>gcs</code>)</em>, <code>filestore</code>, <code>persistent_disk</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Databases</strong></td>
+<td style="text-align:left"><code>cloud_sql</code>, <code>cloud_spanner</code>, <code>bigtable</code>, <code>firestore</code>, <code>memorystore</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Networking</strong></td>
+<td style="text-align:left"><code>virtual_private_cloud</code> <em>(alias: <code>vpc</code>)</em>, <code>cloud_load_balancing</code>, <code>cloud_cdn</code>, <code>cloud_dns</code>, <code>cloud_nat</code>, <code>cloud_interconnect</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Data &amp; Analytics</strong></td>
+<td style="text-align:left"><code>bigquery</code> <em>(alias: <strong><code>bq</code></strong>)</em>, <code>pubsub</code>, <code>dataflow</code>, <code>dataproc</code>, <code>cloud_composer</code>, <code>looker</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AI &amp; Machine Learning</strong></td>
+<td style="text-align:left"><code>vertex_ai</code>, <code>automl</code>, <code>document_ai</code>, <code>cloud_vision_api</code>, <code>speech_to_text</code>, <code>cloud_translation_api</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Security &amp; Operations</strong></td>
+<td style="text-align:left"><code>cloud_armor</code>, <code>identity_and_access_management</code> <em>(alias: <code>iam</code>)</em>, <code>secret_manager</code>, <code>key_management_service</code> <em>(alias: <code>kms</code>)</em>, <code>cloud_monitoring</code>, <code>cloud_logging</code>, <code>cloud_build</code>, <code>artifact_registry</code></td>
+</tr>
+</tbody>
+</table>
+<h3>1.2. Dynamic Icon Lookup by Name (<code>gcp_icon</code>)</h3>
+<p>When the icon name is determined dynamically at runtime (for example, loaded from a configuration file or dictionary), you can invoke the low-level <code>gcp_icon()</code> helper or resolve functions from <code>drawlib.icons.gcp</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span><span class="p">,</span> <span class="n">gcp_icon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># Render a GCP service icon by string identifier</span>
+<span class="n">gcp_icon</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"bigquery"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># Or look up the generated service function dynamically on the gcp module</span>
+<span class="nb">getattr</span><span class="p">(</span><span class="n">gcp</span><span class="p">,</span> <span class="s2">"compute_engine"</span><span class="p">)((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>2. Sizing, Opacity, Tinting &amp; Border Framing (<code>style.image_*</code>)</h2>
+<p>Because <code>gcp.&lt;service_name&gt;(xy, width, *, style)</code> renders normalized 512×512 RGBA PNG assets through the canvas <code>image()</code> engine, it supports all <code>image_*</code> styling and transform attributes on <code>Style</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>Style</code> Attribute</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Visual Effect on GCP Icon</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>alpha</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>1.0</code></td>
+<td style="text-align:left">Fades the icon opacity (<code>0.35</code> is ideal for standby/decommissioned replicas).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_tint_color</code></td>
+<td style="text-align:left"><code>Color | tuple | str</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Fills transparent background pixels behind the icon artwork with a solid color (<code>Dimage.fill()</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_border_color</code></td>
+<td style="text-align:left"><code>Color | tuple | str</code></td>
+<td style="text-align:left"><code>(0, 0, 0)</code></td>
+<td style="text-align:left">Stroke color of the rectangular border frame around the icon bounding box.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_border_width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">Border stroke width in points (<code>&gt; 0</code> draws a frame around the icon).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_border_style</code></td>
+<td style="text-align:left"><code>&quot;solid&quot; | &quot;dashed&quot; | &quot;dotted&quot; | &quot;dashdot&quot;</code></td>
+<td style="text-align:left"><code>&quot;solid&quot;</code></td>
+<td style="text-align:left">Dash pattern of the icon border frame.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle</code>, <code>halign</code>, <code>valign</code></td>
+<td style="text-align:left"><code>float</code>, <code>str</code>, <code>str</code></td>
+<td style="text-align:left"><code>0.0</code>, <code>&quot;center&quot;</code>, <code>&quot;center&quot;</code></td>
+<td style="text-align:left">Rotates or shifts the icon anchor point on the canvas.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Diagram Role</th>
+<th style="text-align:left">Recommended <code>width</code></th>
+<th style="text-align:left">Typical Styling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Primary Gateway / Hero Service</strong></td>
+<td style="text-align:left"><code>11.0 – 14.0</code> units</td>
+<td style="text-align:left"><code>style=Styles.Primary</code> inside a <code>Styles.PrimaryNeutral</code> card</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Standard Service Node</strong></td>
+<td style="text-align:left"><code>8.5 – 10.5</code> units</td>
+<td style="text-align:left"><code>style=Styles.Primary</code> inside a <code>Styles.Neutral</code> card</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Embedded Pod / Sub-Node</strong></td>
+<td style="text-align:left"><code>7.0 – 8.0</code> units</td>
+<td style="text-align:left"><code>style=Styles.Primary</code> inside a compact subnet card</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Decommissioned / Standby Node</strong></td>
+<td style="text-align:left"><code>8.5 – 10.0</code> units</td>
+<td style="text-align:left"><code>style=Styles.Primary.patch(alpha=0.35)</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># 1. Compact Size (width=7.5)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_run</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"Compact (w=7.5)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="c1"># 2. Hero Size (width=12.0)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_run</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"Hero (w=12.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="c1"># 3. Standby Opacity (alpha=0.35)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">74</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_run</span><span class="p">((</span><span class="mi">74</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.35</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">74</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"alpha=0.35"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="c1"># 4. Background Tint + Dashed Border (image_tint_color &amp; image_border_*)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">111</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">framed_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">image_tint_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary1</span><span class="p">,</span>
+    <span class="n">image_border_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">image_border_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">image_border_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_run</span><span class="p">((</span><span class="mi">111</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">framed_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">111</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"image_tint + image_border_*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_gcp_images/icons_gcp_sizing_and_styling.png" alt="icons_gcp_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">GCP Icon Sizing Tiers, Opacity (alpha), Background Tint (image_tint_color), and Border Framing (image_border_*)</figcaption>
+</figure>
+<hr />
+<h2>3. Using GCP Icons in Diagrams</h2>
+<p>You can integrate GCP icons into technical illustrations at three levels of abstraction depending on your layout needs:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Approach</th>
+<th style="text-align:left">Best For</th>
+<th style="text-align:left">How Icons Are Placed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1. Standalone <code>gcp.&lt;service&gt;()</code></strong></td>
+<td style="text-align:left">Custom canvas layouts, bespoke cards, annotations</td>
+<td style="text-align:left">Call <code>gcp.&lt;service&gt;((x, y), width=...)</code> directly over <code>rectangle()</code> cards.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2. Paired with <code>GridLayout</code></strong></td>
+<td style="text-align:left">Tiered architecture matrices, service catalogs</td>
+<td style="text-align:left">Draw matrix background cells with <code>GridLayout</code>, then overlay <code>gcp.&lt;service&gt;()</code> at cell centers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3. Inside <code>ArchitectureDiagram</code></strong></td>
+<td style="text-align:left">Connected VPC topologies, subnets, fan-out routing</td>
+<td style="text-align:left">Pass <code>icon=GcpIcon.&lt;SERVICE&gt;</code> to <code>Node(...)</code> for automatic card layout and orthogonal wire routing.</td>
+</tr>
+</tbody>
+</table>
+<h3>3.1. Overlaying GCP Icons on <code>GridLayout</code> Matrix Tiers</h3>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># 1. Draw a 3-column x 2-row GridLayout matrix</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span>
+    <span class="n">num_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">num_row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">9</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="c1"># Top header row spanning all 3 columns</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Global Cloud Load Balancing &amp; CDN Edge"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="c1"># Bottom 3 service cells (shift labels down to make room for icons)</span>
+<span class="n">lbl_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"GKE Workloads"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_style</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Cloud SQL HA"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_style</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"BigQuery DW"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_style</span><span class="p">)</span>
+
+<span class="n">grid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+
+<span class="c1"># 2. Overlay GCP icons onto the grid cells</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_load_balancing</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">gke</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_sql</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">gcp</span><span class="o">.</span><span class="n">bigquery</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_gcp_images/icons_gcp_standalone_grid.png" alt="icons_gcp_3" style="width: 640px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Overlaying GCP Icons on a GridLayout Tier Matrix</figcaption>
+</figure>
+<h3>3.2. High-Level <code>ArchitectureDiagram</code> (<code>Node</code> &amp; <code>GcpIcon</code>)</h3>
+<p>When connecting services with routed arrows and VPC/subnet boundary boxes, use <strong><a href="../05_diagrams/architecture.html"><code>ArchitectureDiagram</code></a></strong> with <code>Node(..., icon=GcpIcon.&lt;SERVICE&gt;)</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear</span><span class="p">,</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">clear</span><span class="p">()</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">146</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Serverless GCP Microservice Topology"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production VPC"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="s2">"Cloud Load</span><span class="se">\n</span><span class="s2">Balancing"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">run</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+        <span class="s2">"Cloud Run</span><span class="se">\n</span><span class="s2">API"</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+        <span class="s2">"Cloud SQL"</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">104.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gcs</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="s2">"Cloud Storage"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_STORAGE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">104.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">run</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">sql</span><span class="p">,</span> <span class="n">gcs</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">84.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_gcp_images/icons_gcp_architecture_diagram.png" alt="icons_gcp_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Mini GCP Topology Using ArchitectureDiagram and GcpIcon</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

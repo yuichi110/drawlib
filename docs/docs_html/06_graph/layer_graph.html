@@ -1,0 +1,680 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LayerGraph: Sugiyama Hierarchical DAGs & Pipelines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">LayerGraph: Sugiyama Hierarchical DAGs & Pipelines</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>LayerGraph: Sugiyama Hierarchical DAGs &amp; Pipelines</h1>
+<p><code>LayerGraph</code> implements a <strong>Sugiyama-style layered Directed Acyclic Graph (DAG) solver</strong>—combining DFS cycle breaking, longest-path topological rank assignment, barycenter edge-crossing minimization, and Manhattan orthogonal routing.</p>
+<p>It is the ideal solver for CI/CD pipelines, ETL / data lineage graphs (dbt, Airflow), build dependency graphs, and multi-stage workflows where nodes progress through sequential ranks from left-to-right (<code>direction=&quot;LR&quot;</code>) or top-to-bottom (<code>direction=&quot;TB&quot;</code>).</p>
+<hr />
+<h2>1. Constructor &amp; Rank Pinning API</h2>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>                  <span class="c1"># "LR" (Left-to-Right) or "TB" (Top-to-Bottom)</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>                   <span class="c1"># Fixed gap between layers (auto-scales if None)</span>
+    <span class="n">node_sep</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>                    <span class="c1"># Fixed gap between nodes in the same layer (auto-scales if None)</span>
+    <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>       <span class="c1"># "orthogonal" or "straight"</span>
+    <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">default_edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>direction</code></td>
+<td style="text-align:left"><code>Literal[&quot;LR&quot;, &quot;TB&quot;]</code></td>
+<td style="text-align:left"><code>&quot;LR&quot;</code></td>
+<td style="text-align:left">Flow progression axis (<code>&quot;LR&quot;</code> horizontal ranks or <code>&quot;TB&quot;</code> vertical ranks).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>rank_sep</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Fixed distance between successive layers/ranks. Auto-scales to canvas if <code>None</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>node_sep</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Minimum distance between sibling nodes within the same layer. Auto-scales if <code>None</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>edge_routing</code></td>
+<td style="text-align:left"><code>Literal[&quot;orthogonal&quot;, &quot;straight&quot;]</code></td>
+<td style="text-align:left"><code>&quot;orthogonal&quot;</code></td>
+<td style="text-align:left">Edge path routing mode (<code>&quot;orthogonal&quot;</code> Z-bends or <code>&quot;straight&quot;</code> Euclidean lines).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default style for nodes without an explicit <code>style</code> (defaults to <code>Styles.PrimaryFlat</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_text_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default typography style for node labels.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_edge_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default line style for edges (defaults to <code>Styles.DarkBold</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_edge_text_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default text style for edge labels.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>22.0</code></td>
+<td style="text-align:left">Default node width in canvas units.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>default_node_height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>12.0</code></td>
+<td style="text-align:left">Default node height in canvas units.</td>
+</tr>
+</tbody>
+</table>
+<h3>Automatic Topological Ranking vs. Explicit <code>layer</code> Pinning</h3>
+<p>By default, <code>LayerGraph</code> assigns each node's rank (<code>0, 1, 2, ...</code>) automatically from the longest incoming dependency path. When you want strict alignment across specific stages:</p>
+<ul>
+<li><strong>Per-Node Pinning</strong>: Pass <code>layer: int</code> to <code>g.node(id, label, layer=2)</code>.</li>
+<li><strong>Batch Tier Pinning (<code>g.tier</code>)</strong>:<pre><code class="language-python"><span class="n">g</span><span class="o">.</span><span class="n">tier</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+Pins a list of <code>nodes</code> to the same horizontal/vertical rank (<code>layer</code>). Undeclared node IDs in <code>nodes</code> are automatically created with default styling, and if <code>layer</code> is provided, every node in <code>nodes</code> has its <code>node.layer</code> set to <code>layer</code>.</li>
+<li><strong>Stage Clusters</strong>: Combine <code>g.tier(...)</code> with <code>g.cluster(id, nodes, label=...)</code> to draw a visual stage boundary around a rank.</li>
+</ul>
+<hr />
+<h2>2. Automatic DAG Workflow &amp; Dependency Graph</h2>
+<p>In this example, <code>LayerGraph</code> automatically infers the 4 topological ranks of a data engineering lineage DAG (Sources → Staging → Feature Store / Aggregations → ML Serving) and minimizes edge crossings using barycenter ordering:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">190</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">95</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Source tables (automatically ranked at layer 0)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"raw_events"</span><span class="p">,</span> <span class="s2">"Clickstream Log"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"raw_orders"</span><span class="p">,</span> <span class="s2">"Orders CDC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># Intermediate transformations (automatically ranked at layers 1 and 2)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"clean_events"</span><span class="p">,</span> <span class="s2">"Sessionize"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"clean_orders"</span><span class="p">,</span> <span class="s2">"Deduplicate"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"user_features"</span><span class="p">,</span> <span class="s2">"Feature Join"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"rev_rollup"</span><span class="p">,</span> <span class="s2">"Revenue Mart"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Terminal consumer (automatically ranked at layer 3; highlighted as primary focal point)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"ml_ranker"</span><span class="p">,</span> <span class="s2">"Realtime Ranker"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"raw_events"</span><span class="p">,</span> <span class="s2">"clean_events"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"raw_orders"</span><span class="p">,</span> <span class="s2">"clean_orders"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"clean_events"</span><span class="p">,</span> <span class="s2">"user_features"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"clean_orders"</span><span class="p">,</span> <span class="s2">"user_features"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"clean_orders"</span><span class="p">,</span> <span class="s2">"rev_rollup"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"user_features"</span><span class="p">,</span> <span class="s2">"ml_ranker"</span><span class="p">,</span> <span class="s2">"Features"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"rev_rollup"</span><span class="p">,</span> <span class="s2">"ml_ranker"</span><span class="p">,</span> <span class="s2">"Weights"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="layer_graph_images/graph_layer_auto_dag.png" alt="layer_graph_1" style="width: 720px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Automatic Topological Ranking and Crossing Minimization in LayerGraph</figcaption>
+</figure>
+<hr />
+<h2>3. Multi-Stage Pipeline with Explicit <code>layer=</code> and <code>tier()</code> Pinning</h2>
+<p>When building a release pipeline or architecture stage diagram where specific nodes must align vertically even if they have different path depths, pin them explicitly via <code>g.tier(..., layer=...)</code> or <code>g.node(..., layer=...)</code> and wrap parallel stages in <code>g.cluster(...)</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">195</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">98</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Stage 0: Source Trigger</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"Git Commit"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="c1"># Stage 1: Parallel CI Checks (pinned via g.tier + enclosed in a cluster)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"Ruff &amp; Ty"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"Unit Suite"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">tier</span><span class="p">(</span><span class="s2">"ci_stage"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ci_cluster"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"CI Verification"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
+
+<span class="c1"># Stage 2: Artifact Packaging &amp; Security Scan</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"Build Image"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"sbom"</span><span class="p">,</span> <span class="s2">"SBOM Scan"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"pkg_cluster"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"sbom"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Artifact Stage"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
+
+<span class="c1"># Stage 3: Production Rollout (Hero focal node)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Prod Canary"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"lint"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"git"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"lint"</span><span class="p">,</span> <span class="s2">"docker"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"docker"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"sbom"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Deploy"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"sbom"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Attest"</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="layer_graph_images/graph_layer_pinned_pipeline.png" alt="layer_graph_2" style="width: 720px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">CI/CD Release Pipeline with Explicit Layer Pinning and Stage Clusters</figcaption>
+</figure>
+<hr />
+<h2>4. Top-to-Bottom (<code>direction=&quot;TB&quot;</code>) Ranked Hierarchy</h2>
+<p>Switching to <code>direction=&quot;TB&quot;</code> flows topological layers vertically from top to bottom. Combine <code>rank_sep</code> and <code>node_sep</code> to control vertical spacing between ranks and horizontal spacing between sibling nodes in the same rank:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">110</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+    <span class="n">node_sep</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Rank 0: Top-level entry point</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="c1"># Rank 1: Parallel middleware tier</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Guard"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"ratelimit"</span><span class="p">,</span> <span class="s2">"Rate Limiter"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Rank 2: Core execution service</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"resolver"</span><span class="p">,</span> <span class="s2">"GraphQL Resolver"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+<span class="c1"># Rank 3: Downstream persistence tier</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"sql_db"</span><span class="p">,</span> <span class="s2">"Read Replica"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"redis"</span><span class="p">,</span> <span class="s2">"Redis Cache"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"ratelimit"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"resolver"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"ratelimit"</span><span class="p">,</span> <span class="s2">"resolver"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"resolver"</span><span class="p">,</span> <span class="s2">"sql_db"</span><span class="p">,</span> <span class="s2">"Query"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"resolver"</span><span class="p">,</span> <span class="s2">"redis"</span><span class="p">,</span> <span class="s2">"Lookup"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="layer_graph_images/graph_layer_tb_hierarchy.png" alt="layer_graph_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Top-to-Bottom (direction='TB') Sugiyama Ranked DAG Layout</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices</h2>
+<ol>
+<li><strong>Choose <code>direction=&quot;LR&quot;</code> for Wide Pipelines, <code>&quot;TB&quot;</code> for Deep Hierarchies</strong>: Left-to-right (<code>&quot;LR&quot;</code>) fits horizontal widescreen canvases and documentation columns naturally when a pipeline has 3–5 stages. Use <code>&quot;TB&quot;</code> when nodes have wide text labels or many parallel branches per rank.</li>
+<li><strong>Use <code>rank_sep</code> and <code>node_sep</code> for Edge Labels</strong>: If you attach text labels to edges (<code>g.edge(&quot;a&quot;, &quot;b&quot;, &quot;Deploy&quot;)</code>), setting <code>rank_sep=14.0</code> or higher guarantees generous clearance for the label badge.</li>
+<li><strong>Group Parallel Ranks with <code>g.cluster()</code></strong>: Wrapping nodes that share the same <code>layer</code> inside a <code>g.cluster()</code> visually communicates concurrent execution stages.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

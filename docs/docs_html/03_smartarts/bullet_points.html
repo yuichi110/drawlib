@@ -1,0 +1,593 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BulletPoints</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">BulletPoints</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>BulletPoints</h1>
+<p>The <code>BulletPoints</code> component renders multi-level nested bullet lists starting from a top-left anchor <code>(x, y)</code>. It supports customizable indentation widths, line spacing, per-level shape or icon markers, and layout-preserving visibility toggling.</p>
+<hr />
+<h2>1. Multi-Level Nested Bullet Hierarchy</h2>
+<p>By default, <code>indent=0</code> renders unbulleted section titles, <code>indent=1</code> renders filled circle bullets, and <code>indent=2</code> renders open outline circle bullets. You can also customize any indentation level's bullet marker using <code>set_bullet_style(...)</code>.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BulletPoints</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">bp</span> <span class="o">=</span> <span class="n">BulletPoints</span><span class="p">(</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">indent_width</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Customize level-1 marker to a Primary square and level-2 to a Muted circle</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_bullet_style</span><span class="p">(</span>
+    <span class="n">indent_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">rectangle</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_bullet_style</span><span class="p">(</span>
+    <span class="n">indent_level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">circle</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"radius"</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"RFC-104: Zero-Downtime Database Migration"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Dual-Write Replication Phase"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Mirror all incoming transactional writes to the target cluster"</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Verify checksum parity via asynchronous background workers"</span><span class="p">)</span>
+
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Read Cutover &amp; Canary Validation"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Shift 10</span><span class="si">% o</span><span class="s2">f read-only queries to the new replica pool"</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Monitor p99 latency and connection pool saturation"</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Promote target cluster to primary once zero drift is confirmed"</span><span class="p">)</span>
+
+<span class="n">bp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">53</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bullet_points_images/smartarts_bulletpoints_hierarchy.png" alt="bullet_points_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Multi-Level Nested Architecture Requirements with BulletPoints</figcaption>
+</figure>
+<hr />
+<h2>2. Checklist &amp; Agenda Cards with Vector Icon Markers</h2>
+<p>By passing Phosphor icon functions (such as <code>phosphor.check_circle</code> or <code>phosphor.arrow_right</code>) to <code>set_bullet_style(...)</code> and placing <code>BulletPoints</code> inside rectangular cards, you can create rich release checklists, feature comparison cards, and sprint agendas.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BulletPoints</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Left Card: Completed Pre-Flight Checks (Neutral card + Primary header)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Completed Checks"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">done_list</span> <span class="o">=</span> <span class="n">BulletPoints</span><span class="p">(</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">indent_width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">set_bullet_style</span><span class="p">(</span>
+    <span class="n">indent_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.6</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Unit &amp; integration test suite green"</span><span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Container image signed &amp; scanned"</span><span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Database schema backward-compatible"</span><span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Rollback playbook verified in staging"</span><span class="p">)</span>
+<span class="n">done_list</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">34</span><span class="p">))</span>
+
+<span class="c1"># Right Card: Rollout Execution Steps (SecondaryNeutral card)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"Rollout Execution Agenda"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">agenda_list</span> <span class="o">=</span> <span class="n">BulletPoints</span><span class="p">(</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">indent_width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">set_bullet_style</span><span class="p">(</span>
+    <span class="n">indent_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">arrow_circle_right</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.6</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Deploy canary pod (5% traffic)"</span><span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Bake for 30m and inspect error budget"</span><span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Expand rollout to 50% -&gt; 100</span><span class="si">% r</span><span class="s2">egions"</span><span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Publish release notes to status page"</span><span class="p">)</span>
+<span class="n">agenda_list</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">69</span><span class="p">,</span> <span class="mi">34</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bullet_points_images/smartarts_bulletpoints_checklist_cards.png" alt="bullet_points_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Release Readiness Checklist Cards Using BulletPoints and Phosphor Icons</figcaption>
+</figure>
+<hr />
+<h2>3. Coordinate &amp; Indentation Mechanics</h2>
+<ul>
+<li><strong>Top-Left Anchor <code>(x, y)</code></strong>: The <code>xy</code> coordinate passed to <code>bp.draw(xy=...)</code> specifies the <strong>left edge and vertical center</strong> of the first line (<code>y</code>). Subsequent items step downward by <code>vertical_margin</code> (<code>y - i * vertical_margin</code>).</li>
+<li><strong>Indentation Geometry</strong>:
+<ul>
+<li>Text for an item at indentation level <code>indent</code> starts at <code>x_text = x + indent_width * indent</code>.</li>
+<li>When <code>indent != 0</code> and a bullet style is registered for <code>indent</code>, the marker is centered at <code>x_marker = x + indent_width * (indent - 0.5)</code>.</li>
+</ul>
+</li>
+<li><strong>Default Bullet Markers</strong>:
+<ul>
+<li><code>indent = 0</code>: No bullet marker (ideal for list titles and section headers).</li>
+<li><code>indent = 1</code>: Filled circle (<code>radius=0.5</code>) matching <code>text_style.text_color</code>.</li>
+<li><code>indent = 2</code>: Open outline circle (<code>radius=0.5</code>) matching <code>text_style.text_color</code>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>4. API Reference</h2>
+<h3>Constructor</h3>
+<pre><code class="language-python"><span class="n">BulletPoints</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">vertical_margin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">indent_width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>Methods &amp; Properties</h3>
+<ul>
+<li><strong><code>set_indent(level: int) -&gt; None</code></strong>:
+Sets the active indentation level (<code>0</code>, <code>1</code>, <code>2</code>, ...) applied to subsequent <code>add()</code> calls.</li>
+<li><strong><code>set_bullet_style(indent_level: int, function: Callable, style: Style, args: dict) -&gt; None</code></strong>:
+Registers a custom drawing callable (such as <code>rectangle</code>, <code>circle</code>, or any <code>phosphor.*</code> icon function) for <code>indent_level</code>. At draw time, <code>function(xy=(x_marker, y), style=style, **args)</code> is invoked.</li>
+<li><strong><code>add(text: str, *, text_style: Style | None = None, show: bool = True) -&gt; BulletPointItem</code></strong>:
+Appends a bullet item at the current indentation level and returns a mutable <code>BulletPointItem</code> (<code>indent: int</code>, <code>text: str</code>, <code>text_style: Style</code>, <code>show: bool</code>). Note that <code>BulletPointItem.style</code> is also provided as a mutable property alias for <code>BulletPointItem.text_style</code>. Setting <code>show=False</code> hides the bullet and text while keeping the vertical spacing reserved for subsequent lines.</li>
+<li><strong><code>bp.items -&gt; list[BulletPointItem]</code></strong>:
+Returns the list of all registered <code>BulletPointItem</code> instances, allowing deferred mutation of <code>.text</code>, <code>.text_style</code> (or <code>.style</code>), <code>.indent</code>, and <code>.show</code> before or between <code>draw()</code> calls.</li>
+<li><strong><code>draw(xy: tuple[float, float], scale: float = 1.0) -&gt; None</code></strong>:
+Renders all visible bullet items starting at <code>xy</code>, with optional proportional scaling via <code>scale</code>.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

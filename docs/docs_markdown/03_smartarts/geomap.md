@@ -12,14 +12,6 @@ Pass `GeoMap.World.All` to `GeoMap` to render a global world map. You can inspec
 
 
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_world_topology.png" alt="geomap_1" style="width: 680px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Global Multi-Region Topology with World Map</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
-
 ```python
 from drawlib.canvas import setup
 from drawlib.lines import line_curved
@@ -55,7 +47,10 @@ for label, pt, dy in [
     text((pt[0], pt[1] + dy), label, style=Styles.DarkBold.patch(text_size=9.5))
 ```
 
-</details>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_world_topology.png" alt="geomap_1" style="width: 680px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Global Multi-Region Topology with World Map</figcaption>
+</figure>
 
 
 
@@ -68,14 +63,6 @@ for label, pt, dy in [
 You can also initialize any map with `area_style=Styles.Transparent` so unstyled areas are hidden, style only the target countries via `set_area_styles()`, and refine the viewport with `lon_range` and `lat_range`.
 
 
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_east_asia.png" alt="geomap_2" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
 
 ```python
 from drawlib.canvas import setup
@@ -115,7 +102,10 @@ for label, lon, lat, dx, dy in [
     text((px + dx, py + dy), label, style=Styles.DarkBold.patch(text_size=10.5))
 ```
 
-</details>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_east_asia.png" alt="geomap_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)</figcaption>
+</figure>
 
 
 
@@ -128,14 +118,6 @@ Use `GeoMap.Countries.<Country>` for Admin-1 state/province/prefecture maps acro
 When `area_style=Styles.Transparent` is used and only a subset of areas is styled via `set_area_styles()` (such as Tokyo's 23 wards excluding Tama and the islands), `GeoMap.draw()` automatically zooms and fits the viewport to the visible areas even without specifying `lon_range` / `lat_range`.
 
 
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_japan_and_tokyo.png" alt="geomap_3" style="width: 680px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Japan Prefectures Map and Tokyo 23 Wards Map</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
 
 ```python
 from drawlib.canvas import setup
@@ -182,7 +164,10 @@ circle(shibuya_xy, radius=0.9, style=Styles.DangerFlat)
 text((shibuya_xy[0] - 4.5, shibuya_xy[1] - 2.5), "Shibuya", style=Styles.DarkBold.patch(text_size=9.5))
 ```
 
-</details>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_japan_and_tokyo.png" alt="geomap_3" style="width: 680px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Japan Prefectures Map and Tokyo 23 Wards Map</figcaption>
+</figure>
 
 
 
@@ -193,14 +178,6 @@ text((shibuya_xy[0] - 4.5, shibuya_xy[1] - 2.5), "Shibuya", style=Styles.DarkBol
 In addition to built-in presets, you can pass any `.geojson` file path (or parsed GeoJSON dictionary) to `GeoMap`. The example below loads custom municipal GeoJSON files from `_assets/geodata/hokkaido.geojson` and `_assets/geodata/okinawa.geojson`.
 
 
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_custom_geojson.png" alt="geomap_4" style="width: 680px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)</figcaption>
-</figure>
-
-<details class="drawlib-code-details">
-<summary>Source Code</summary>
 
 ```python
 from drawlib.canvas import setup
@@ -242,7 +219,10 @@ circle(naha_xy, radius=0.9, style=Styles.DangerFlat)
 text((naha_xy[0] - 5.0, naha_xy[1] + 1.5), "Naha", style=Styles.DarkBold.patch(text_size=9.5))
 ```
 
-</details>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_custom_geojson.png" alt="geomap_4" style="width: 680px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)</figcaption>
+</figure>
 
 
 
@@ -288,8 +268,11 @@ GeoMap(
 - **`target`**: Preset (`GeoMap.World.All`, `GeoMap.World.Asia`, `GeoMap.Countries.Japan`, `GeoMap.Cities.Japan_Tokyo`), path to a `.geojson` file, or a parsed GeoJSON `dict`.
 - **`area_style`**: Default `Style` applied to all areas (defaults to `Styles.Neutral`). Pass `Styles.Transparent` to hide unstyled areas.
 - **`background_style`**: Optional `Style` for the map bounding box background (defaults to `None` for transparent background).
+- **`id_key`**: Optional GeoJSON feature `properties` key to use as the canonical area identifier when loading custom GeoJSON files or dicts.
+- **`name_key`**: Optional GeoJSON feature `properties` key to use as the area display name when loading custom GeoJSON files or dicts.
 
-### Methods
+### Methods & Properties
+- **`geomap.data -> GeoData`**: Returns the underlying normalized `GeoData` model containing the parsed map elements (`elements`), dataset name (`name`), and default viewport bounds (`default_lon_range`, `default_lat_range`).
 - **`get_areas() -> list[str]`**: Return the ordered list of canonical area names in this map.
 - **`set_area_styles(areas: list[str], style: Style) -> Self`**: Assign a `Style` to the specified list of areas (pass `Styles.Transparent` to hide specific areas).
 - **`draw(xy=(0.0, 0.0), width=None, height=None, *, lon_range=None, lat_range=None, scale=1.0) -> Self`**:
@@ -298,3 +281,4 @@ GeoMap(
   - **Viewport Cropping (`lon_range`, `lat_range`)**: Optional `(min_lon, max_lon)` and `(min_lat, max_lat)` tuples to crop and zoom into a specific region. When omitted, `draw()` automatically fits the viewport to all visible (non-transparent) areas.
 - **`get_area_xy(area: str) -> tuple[float, float]`**: Returns the canvas `(x, y)` coordinate of the area's largest-polygon interior center from the most recent `draw()` call.
 - **`lonlat_to_xy(lon: float, lat: float) -> tuple[float, float]`**: Converts any `(longitude, latitude)` pair into canvas `(x, y)` coordinates from the most recent `draw()` call.
+

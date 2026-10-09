@@ -71,28 +71,29 @@ Drawlib is structured into four cohesive layers, ensuring both low-level flexibi
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
 
 # Layers: Core Engine as hero anchor, upper layers in calm neutral cards
-rectangle((60, 50), width=110, height=11, style=Styles.PrimaryNeutral, text="Layer 4: Document Builder & CLI (HTML, Markdown, PDF)")
-rectangle((60, 37), width=110, height=11, style=Styles.Neutral, text="Layer 3: High-Level Visualizations (Diagrams, Charts, SmartArts)")
+rectangle((60, 50), width=110, height=11, style=Styles.PrimaryNeutral, text="Layer 4: Animation, Slide & Doc Builder (anim, slide, tools, CLI)")
+rectangle((60, 37), width=110, height=11, style=Styles.Neutral, text="Layer 3: High-Level Visualizations (Graphs, Diagrams, Charts, SmartArts)")
 rectangle((60, 24), width=110, height=11, style=Styles.SecondaryNeutral, text="Layer 2: Drawing Primitives (Shapes, Lines, Text, Icons, Images)")
 rectangle((60, 11), width=110, height=11, style=Styles.PrimaryFlat, text="Layer 1: Core Engine (Canvas, Coordinates, Theming, Fonts)", text_style=Styles.WhiteBold)
+save()
 ```
 
 </details>
 
 
 
-1. **Layer 1: Core Engine (`drawlib.canvas`, `drawlib.styles`)**  
-   Manages canvas lifecycle, Cartesian coordinate systems, theme resolution, and universal font typography.
+1. **Layer 1: Core Engine (`drawlib.canvas`, `drawlib.styles`, `drawlib.types`, `drawlib.fonts`)**  
+   Manages canvas lifecycle, Cartesian coordinate systems, local coordinate transforms, theme resolution, and universal font typography.
 2. **Layer 2: Drawing Primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`, `drawlib.images`)**  
-   Provides 23 vector shapes (including 3D cylinders), flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
-3. **Layer 3: High-Level Visualizations (`drawlib.graph`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`)**  
-   Ready-to-use domain components: auto-layout graphs, cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, data charts, and process flows.
-4. **Layer 4: Document Builder & CLI (`drawlib._builder`, `drawlib._cli`)**  
-   Compiles Markdown files with embedded `drawlib` blocks into responsive static HTML sites, GitHub-ready Markdown, and standalone PDF publications.
+   Provides **24** vector shapes (including `cylinder`, `face`, and `bubblespeech`), flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
+3. **Layer 3: High-Level Visualizations & Geometry (`drawlib.graph`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`, `drawlib.math`)**  
+   Ready-to-use domain components: auto-layout graphs (`LayerGraph`, `ArchitectureGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), cloud architectures, flowcharts, sequence diagrams, UML class/state diagrams, ER diagrams, data charts, process flows, geographic maps (`drawlib.smartarts.GeoMap`), and geometry & path/color interpolation utilities (`drawlib.math`).
+4. **Layer 4: Animation, Presentation & Document Builder (`drawlib.anim`, `drawlib.slide`, `drawlib.tools`)**  
+   Provides multi-frame animation (`drawlib.anim` for APNG & Animated WebP), a 16:9 widescreen slide stage & compiler (`drawlib.slide`), and a programmatic build, preview server, and cache API (`drawlib.tools`) that compiles Markdown files with embedded `drawlib` blocks into responsive static HTML sites, GitHub-ready Markdown, slide decks, and standalone PDF publications.

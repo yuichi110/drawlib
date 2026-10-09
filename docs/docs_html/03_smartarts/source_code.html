@@ -1,0 +1,695 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SourceCode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">SourceCode</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>SourceCode</h1>
+<p>The <code>SourceCode</code> component renders syntax-highlighted source code snippets directly onto the Drawlib canvas as crisp vector shapes and typography powered by Pygments.</p>
+<blockquote>
+<p><strong>Looking for speech bubbles &amp; callouts?</strong> The <code>bubblespeech()</code> primitive is documented in <strong><a href="../02_drawing_primitives/shapes_domain.html">Cylinders, Faces &amp; Callouts</a></strong>.</p>
+</blockquote>
+<hr />
+<h2>1. Syntax-Highlighted Code with Line Numbers (<code>SourceCode.draw</code>)</h2>
+<p><code>SourceCode.draw(...)</code> (or its function alias <code>sourcecode(...)</code>) renders a syntax-highlighted code block anchored at its <strong>top-left corner <code>xy=(x, y)</code></strong>. You configure token colors, container styles, font size, and CJK language fonts using <code>SourceCodeStyles.get(...)</code>.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># 1. Left: Default Light Theme with Python Code</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="s2">"Default Theme (Python + Line Numbers)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">py_code</span> <span class="o">=</span> <span class="s2">"""from dataclasses import dataclass</span>
+
+<span class="s2">@dataclass(frozen=True)</span>
+<span class="s2">class RetryPolicy:</span>
+<span class="s2">    max_attempts: int = 3</span>
+<span class="s2">    backoff_sec: float = 0.5</span>
+
+<span class="s2">    def delay(self, attempt: int) -&gt; float:</span>
+<span class="s2">        # Exponential backoff</span>
+<span class="s2">        return self.backoff_sec * (2 ** attempt)"""</span>
+
+<span class="n">light_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">)</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="n">py_code</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">light_styles</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+    <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Right: Dark Theme with Kubernetes YAML Config</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">68</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="s2">"Dark Theme (YAML Configuration)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">yaml_code</span> <span class="o">=</span> <span class="s2">"""apiVersion: apps/v1</span>
+<span class="s2">kind: Deployment</span>
+<span class="s2">metadata:</span>
+<span class="s2">  name: payment-worker</span>
+<span class="s2">spec:</span>
+<span class="s2">  replicas: 4</span>
+<span class="s2">  strategy:</span>
+<span class="s2">    type: RollingUpdate</span>
+<span class="s2">  template:</span>
+<span class="s2">    spec:</span>
+<span class="s2">      containers:</span>
+<span class="s2">      - name: worker</span>
+<span class="s2">        image: registry.io/pay:v2.4"""</span>
+
+<span class="n">dark_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">)</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="n">yaml_code</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">dark_styles</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"yaml"</span><span class="p">,</span>
+    <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="source_code_images/smartarts_sourcecode_themes.png" alt="source_code_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Syntax-Highlighted Python and YAML Blocks with Line Numbers</figcaption>
+</figure>
+<hr />
+<h2>2. Annotating Code Blocks in Architecture &amp; Tutorial Diagrams</h2>
+<p>Because <code>SourceCode.draw()</code> renders directly onto the shared vector canvas, you can combine code containers with callout bubbles (<code>bubblespeech</code>), architecture nodes, and arrows to create annotated code walkthroughs.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">bubblespeech</span><span class="p">,</span> <span class="n">cylinder</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># 1. Left: Syntax-Highlighted Code Block</span>
+<span class="n">snippet</span> <span class="o">=</span> <span class="s2">"""async def get_user_profile(uid: str):</span>
+<span class="s2">    cached = await redis.get(f"user:</span><span class="si">{uid}</span><span class="s2">")</span>
+<span class="s2">    if cached is not None:</span>
+<span class="s2">        return decode_profile(cached)</span>
+<span class="s2">    row = await db.fetch_one(uid)</span>
+<span class="s2">    await redis.set(f"user:</span><span class="si">{uid}</span><span class="s2">", row, ttl=300)</span>
+<span class="s2">    return row"""</span>
+
+<span class="n">code_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"google"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="n">snippet</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">code_styles</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+    <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Callout Bubble pointing to the cache-aside lookup line</span>
+<span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
+    <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">74</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"1. Fast Cache Lookup</span><span class="se">\n</span><span class="s2">(Sub-millisecond hit)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Downstream Persistence Nodes referenced by the code</span>
+<span class="n">cylinder</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">87</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Redis</span><span class="se">\n</span><span class="s2">Cache"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cylinder</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Primary</span><span class="se">\n</span><span class="s2">Postgres"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">74</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Cache-Aside Pattern Implementation"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="source_code_images/smartarts_sourcecode_annotated.png" alt="source_code_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Annotated SourceCode Walkthrough with Callout Bubbles and Architecture Target</figcaption>
+</figure>
+<hr />
+<h2>3. Themes, Languages &amp; Token Customization (<code>SourceCodeStyles</code>)</h2>
+<h3>Built-in Themes &amp; CJK Font Selection</h3>
+<p>Use <code>SourceCodeStyles.get(styles, font_lang, *, font=None, text_size=12.0)</code> (or <code>get_source_code_styles(...)</code>):</p>
+<ul>
+<li><strong><code>styles</code> (Theme Name)</strong>:
+<ul>
+<li><code>&quot;default&quot;</code>: Clean light slate background with blue/green/red syntax colors.</li>
+<li><code>&quot;google&quot;</code>: Crisp white card with Google-inspired syntax palette.</li>
+<li><code>&quot;dark&quot;</code> (or <code>&quot;monokai&quot;</code>, <code>&quot;github-dark&quot;</code>): High-contrast dark theme.</li>
+<li><code>&quot;monochrome&quot;</code>: Grayscale print-safe theme.</li>
+</ul>
+</li>
+<li><strong><code>font_lang</code></strong>:
+<ul>
+<li><code>&quot;en&quot;</code> <em>(default)</em>: Uses <code>FontSourceCode.SOURCECODEPRO</code>.</li>
+<li><code>&quot;ja&quot;</code>, <code>&quot;zh-cn&quot;</code>, <code>&quot;zh-tw&quot;</code>, <code>&quot;ko&quot;</code>: Automatically selects <code>FontSourceCode.SOURCEHANCODEJP</code> so CJK comments and strings render without missing-glyph tofu boxes.</li>
+</ul>
+</li>
+<li><strong><code>code_lang</code></strong>:
+<ul>
+<li>Supports <code>&quot;python&quot;</code>, <code>&quot;yaml&quot;</code>, <code>&quot;json&quot;</code>, <code>&quot;sql&quot;</code>, <code>&quot;bash&quot;</code>, <code>&quot;go&quot;</code>, <code>&quot;rust&quot;</code>, <code>&quot;typescript&quot;</code>, <code>&quot;javascript&quot;</code>, <code>&quot;html&quot;</code>, <code>&quot;css&quot;</code>, <code>&quot;dockerfile&quot;</code>, <code>&quot;toml&quot;</code>, <code>&quot;protobuf&quot;</code>, <code>&quot;c&quot;</code>, <code>&quot;cpp&quot;</code>, <code>&quot;java&quot;</code>, <code>&quot;kotlin&quot;</code>, <code>&quot;swift&quot;</code>, <code>&quot;markdown&quot;</code>, or <code>None</code> (auto-detected from <code>file</code> extension or content).</li>
+</ul>
+</li>
+</ul>
+<h3>Customizing Token Styles (<code>SourceCodeStyles</code> &amp; <code>.patch()</code>)</h3>
+<p><code>SourceCodeStyles</code> is an immutable Pydantic model defining the outer container, gutter line numbers, and 8 syntax token categories. Calling <code>styles.patch(...)</code> returns a new <code>SourceCodeStyles</code> instance with specified fields updated:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">custom_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">keyword</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>  <span class="c1"># Updates font size across all token types and line numbers</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Field / <code>.patch()</code> Argument</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>box_style</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Shape style for the outer code container rectangle (corner radius controlled via <code>shape_r</code>, default <code>1.5</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>linenum_style</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for right-aligned line numbers in the left gutter (<code>show_linenum=True</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>default</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for standard code text and unclassified identifiers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>keyword</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for language keywords (e.g. <code>def</code>, <code>class</code>, <code>return</code>, <code>if</code>, <code>import</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>string</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for string literals.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>comment</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for single-line and multi-line comments.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>number</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for integer and floating-point numeric literals.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>function</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for function and method names.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>type_</code></strong> <em>(or <code>type</code> in <code>.patch()</code>)</em></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for class names, type annotations, and builtin identifiers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>operator</code></strong></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Text style for operators and punctuation symbols.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>text_size</code></strong> <em>(in <code>.patch()</code>)</em></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left">Convenience parameter in <code>.patch(text_size=...)</code> that updates <code>text_size</code> across <code>linenum_style</code> and all 8 token styles simultaneously.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. API Reference</h2>
+<h3>Drawing Code (<code>SourceCode.draw</code> / <code>sourcecode</code>)</h3>
+<pre><code class="language-python"><span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>           <span class="c1"># Top-left corner (x, y) of the code container</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                      <span class="c1"># Total container width in canvas units</span>
+    <span class="n">code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># Source code string (mutually exclusive with `file`)</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">styles</span><span class="p">:</span> <span class="n">SourceCodeStyles</span><span class="p">,</span>          <span class="c1"># Required style configuration</span>
+    <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>    <span class="c1"># Path to external source file (mutually exclusive with `code`)</span>
+    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>      <span class="c1"># Lexer language name (e.g. "python", "yaml")</span>
+    <span class="n">show_linenum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>        <span class="c1"># Render line numbers in a left gutter</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>                <span class="c1"># Proportional scale factor anchored at `xy`</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<ul>
+<li><strong>Function Aliases</strong>: <code>sourcecode(...)</code> is a top-level function alias for <code>SourceCode.draw(...)</code>, and <code>get_source_code_styles(...)</code> is a top-level function alias for <code>SourceCodeStyles.get(...)</code>.</li>
+<li><strong>Height Calculation</strong>: Container height is computed automatically from the number of lines in <code>code</code> (or <code>file</code>) and <code>styles.default.text_size</code>.</li>
+<li><strong>Loading External Files</strong>: Pass <code>file=&quot;path/to/example.py&quot;</code> directly to <code>SourceCode.draw(...)</code>, or read the file string via <code>SourceCode.get_text(file, strip=True)</code>.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
