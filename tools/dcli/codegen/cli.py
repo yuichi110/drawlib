@@ -18,12 +18,14 @@ import typer
 from tools.dcli.codegen.gcp_codegen import generate_gcp_code
 from tools.dcli.codegen.gcp_download import download_and_extract_gcp_icons
 from tools.dcli.codegen.gcp_normalize import normalize_all_gcp_icons
+from tools.dcli.codegen.map_download import download_original_maps
+from tools.dcli.codegen.map_normalize import normalize_all_maps
 from tools.dcli.codegen.phosphor import generate_phosphor_code
 from tools.dcli.common import PROJECT_ROOT, console
 
 app = typer.Typer(
     name="codegen",
-    help="Code generation utilities for icons and Python bindings.",
+    help="Code generation utilities for icons, maps, and Python bindings.",
     no_args_is_help=True,
 )
 
@@ -103,6 +105,47 @@ def gen_icon_gcp(
         console.print("[bold cyan]Generating Google Cloud icon Python bindings...[/bold cyan]")
         generate_gcp_code(manifest_file=manifest_file)
         console.print("[bold green]✓ Google Cloud icon bindings generated successfully![/bold green]")
+
+
+@app.command("map")
+def gen_map(
+    download_only: bool = typer.Option(
+        False,
+        "--download-only",
+        help="Only download raw upstream GeoJSON files into tools/original_assets/maps.",
+    ),
+    normalize_only: bool = typer.Option(
+        False,
+        "--normalize-only",
+        help="Only normalize existing original GeoJSON files.",
+    ),
+    src_dir: str = typer.Option(
+        "tools/original_assets/maps",
+        "--src-dir",
+        help="Source directory for raw original GeoJSON files.",
+    ),
+    dest_dir: str = typer.Option(
+        "src/drawlib/_cached_assets/maps",
+        "--dest-dir",
+        help="Destination directory for normalized GeoJSON map files.",
+    ),
+) -> None:
+    """Download and normalize preset GeoJSON map assets (world, japan, tokyo)."""
+    src_path = PROJECT_ROOT / src_dir if not Path(src_dir).is_absolute() else Path(src_dir)
+    dest_path = PROJECT_ROOT / dest_dir if not Path(dest_dir).is_absolute() else Path(dest_dir)
+
+    should_download = download_only or (not normalize_only and not (src_path / "manifest.json").exists())
+    should_normalize = normalize_only or not download_only
+
+    if should_download:
+        console.print("[bold cyan]Downloading raw upstream GeoJSON map assets...[/bold cyan]")
+        download_original_maps(output_dir=src_path)
+        console.print("[bold green]✓ Raw GeoJSON map assets downloaded successfully![/bold green]")
+
+    if should_normalize:
+        console.print("[bold cyan]Normalizing GeoJSON map assets...[/bold cyan]")
+        normalize_all_maps(src_dir=src_path, dest_dir=dest_path)
+        console.print("[bold green]✓ GeoJSON map assets normalized successfully![/bold green]")
 
 
 if __name__ == "__main__":

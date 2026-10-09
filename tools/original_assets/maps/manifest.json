@@ -1,0 +1,39 @@
+{
+  "format_version": "1.0",
+  "provider": "maps",
+  "downloaded_at": "2026-10-09T02:47:40.877209+00:00",
+  "sources": {
+    "world_110m": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson",
+      "file_name": "ne_110m_admin_0_countries.geojson",
+      "license": "Public Domain (Natural Earth)",
+      "sha256": "6866c877d39cba9c357620878839b336d569f8c662d3cfab4cb1dbe2d39c977f",
+      "size_bytes": 838726,
+      "features_count": 177
+    },
+    "world_50m": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson",
+      "file_name": "ne_50m_admin_0_countries.geojson",
+      "license": "Public Domain (Natural Earth)",
+      "sha256": "3e458fc036ad0a66411f2c1e6cac49c5d7bfb81cb1123bc513b22511a2b7fdeb",
+      "size_bytes": 3083490,
+      "features_count": 242
+    },
+    "japan": {
+      "url": "https://raw.githubusercontent.com/dataofjapan/land/master/japan.geojson",
+      "file_name": "japan.geojson",
+      "license": "National Land Numerical Information (MLIT Japan) / dataofjapan",
+      "sha256": "b2fa31a9ce37c006904a06b8afcaeaf5ceeff40ae365eca167e09fbfff052f00",
+      "size_bytes": 13050092,
+      "features_count": 47
+    },
+    "tokyo": {
+      "url": "https://raw.githubusercontent.com/dataofjapan/land/master/tokyo.geojson",
+      "file_name": "tokyo.geojson",
+      "license": "National Land Numerical Information (MLIT Japan) / dataofjapan",
+      "sha256": "21bd8dc0e8eb8577f368328328cb4dac8e6ea26a9da8cdba55b58cfadbd361fa",
+      "size_bytes": 6611773,
+      "features_count": 63
+    }
+  }
+}
