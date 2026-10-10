@@ -98,4 +98,5 @@
 - [Troubleshooting & Debugging](./09_ai_agents_and_advanced/debugging.md)
 - [Case Study: Designing Official Brand Assets](./09_ai_agents_and_advanced/case_study_brand_assets.md)
 - [Case Study: Building Documentation Sites with AI Agents](./09_ai_agents_and_advanced/case_study_documentation_site.md)
+- [Case Study: Authoring Software Architecture as Code](./09_ai_agents_and_advanced/case_study_software_architecture.md)
 
