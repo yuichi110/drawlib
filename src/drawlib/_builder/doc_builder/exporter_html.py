@@ -62,6 +62,8 @@ def render_html_document(
     index_url: str = "index.html",
     site_title: Optional[str] = None,
     favicon_href: Optional[str] = None,
+    logo_href: Optional[str] = None,
+    logo_dark_href: Optional[str] = None,
 ) -> str:
     """Render full standalone HTML document using template and html_css.
 
@@ -76,6 +78,8 @@ def render_html_document(
         index_url (str): Relative URL to root index.html for brand link. Defaults to 'index.html'.
         site_title (Optional[str]): Site / brand title displayed in header (e.g. from navbar.md). Defaults to 'drawlib'.
         favicon_href (Optional[str]): Relative path/href for favicon link. Defaults to None.
+        logo_href (Optional[str]): Relative path/href for light mode brand logo image. Defaults to None.
+        logo_dark_href (Optional[str]): Relative path/href for dark mode brand logo image. Defaults to None.
 
     Returns:
         str: Complete HTML string.
@@ -106,6 +110,8 @@ def render_html_document(
         index_url=index_url,
         site_title=site_title or "drawlib",
         favicon_href=favicon_href,
+        logo_href=logo_href,
+        logo_dark_href=logo_dark_href,
     )
 
 

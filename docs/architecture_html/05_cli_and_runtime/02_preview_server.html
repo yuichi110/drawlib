@@ -1,0 +1,368 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Preview Server & Cache Management Tooling</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Local Preview Server & Cache Management Tooling</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Local Preview Server &amp; Cache Management Tooling</h1>
+<p>Developing documentation requires rapid feedback. If testing a layout change requires deploying to a remote server or installing complex web servers (like Nginx, Node.js, or Apache), the developer loop slows down significantly.</p>
+<p>Drawlib includes a lightweight, built-in HTTP server (<code>_http_server/</code>) and asset distribution toolset (<code>drawlib cache</code>) to provide <strong>instant zero-dependency local previewing</strong> and <strong>air-gapped asset management</strong>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_preview_server_images/preview_server_architecture.png" alt="02_preview_server_1" />
+  <figcaption class="drawlib-caption">Local Preview Server & Request Handling Architecture</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
+    <span class="s2">"Local Preview Server &amp; Request Handling Architecture"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left: Browser Client</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
+    <span class="s2">"http://localhost:8000</span><span class="se">\n</span><span class="s2">• Live doc preview</span><span class="se">\n</span><span class="s2">• HTML / SVG assets</span><span class="se">\n</span><span class="s2">• Instant reload"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Center: Python HTTP Server Engine</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="s2">"_http_server"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
+    <span class="s2">"ThreadingHTTPServer</span><span class="se">\n</span><span class="s2">• Zero external deps</span><span class="se">\n</span><span class="s2">• Custom MIME map</span><span class="se">\n</span><span class="s2">• Path traversal guard"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">41</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">89</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Right: Static File Tree</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">108</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="s2">"docs_html/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
+    <span class="s2">"• index.html</span><span class="se">\n</span><span class="s2">• styles.css</span><span class="se">\n</span><span class="s2">• SVG / PNG images</span><span class="se">\n</span><span class="s2">• font files"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Zero-Dependency Developer Experience</h2>
+<p>Drawlib's preview server requires no Node.js runtime, npm packages, or external web servers:</p>
+<ul>
+<li>Built strictly using Python's standard library <code>http.server.ThreadingHTTPServer</code>.</li>
+<li>Serves generated HTML documentation, CSS stylesheets, Javascript modules, vector SVGs, and raster PNGs concurrently.</li>
+<li>Automatically allocates the next available port if default port <code>8000</code> is occupied.</li>
+</ul>
+<hr />
+<h2>2. Positioning: HTTP Server Subsystems &amp; Security</h2>
+<p>The preview server implements several specialized architectural capabilities:</p>
+<ol>
+<li><strong><code>_CustomHTTPServer</code> &amp; macOS DNS Stall Bypass</strong>:
+Standard Python <code>http.server.HTTPServer</code> can suffer from 5-second connection delays on macOS when resolving <code>localhost</code>. <code>_CustomHTTPServer</code> overrides <code>server_bind()</code> on <code>socketserver.TCPServer</code>, enforcing explicit IPv4 loopback binding (<code>127.0.0.1</code>) and disabling blocking reverse-DNS lookups.</li>
+<li><strong><code>_CustomHTTPRequestHandler</code> &amp; Cache-Busting</strong>:
+To ensure that documentation edits and re-rendered images display immediately upon page refresh, the handler injects aggressive cache-control headers:<pre><code class="language-http"><span class="err">Cache-Control: no-store, no-cache, must-revalidate, max-age=0</span>
+<span class="err">Pragma: no-cache</span>
+<span class="err">Expires: 0</span>
+</code></pre>
+It also logs referer telemetry on <code>404 Not Found</code> responses to rapidly diagnose broken assets.</li>
+<li><strong>Preflight Link Scanner Mode (<code>--check</code>)</strong>:
+When launched with <code>--check</code>, the server runs headlessly without binding a port:
+<ul>
+<li>Uses <code>_LinkExtractor(HTMLParser)</code> to extract all <code>&lt;a href&gt;</code> and <code>&lt;img src&gt;</code> tags.</li>
+<li><strong>Forbidden Path Scanner</strong>: Scans for accidental leaks of local filesystem paths, immediately flagging URIs starting with <code>/usr/</code>, <code>/home/</code>, <code>/private/</code>, <code>/tmp/</code>, Windows drive letters (<code>^[A-Za-z]:[\\/]</code>), or <code>file://</code>.</li>
+<li>Exits with <code>0</code> (clean) or <code>1</code> (broken/forbidden links found).</li>
+</ul>
+</li>
+</ol>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_preview_server_images/asset_distribution_architecture.png" alt="02_preview_server_2" />
+  <figcaption class="drawlib-caption">Release Asset Distribution & Offline Cache Sync Pipeline</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"Release Asset Distribution &amp; Offline Cache Sync Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. GitHub Releases"</span><span class="p">,</span> <span class="s2">"Deterministic .zip</span><span class="se">\n</span><span class="s2">Hosted on GitHub CDN"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Cache Sync CLI"</span><span class="p">,</span> <span class="s2">"drawlib cache download</span><span class="se">\n</span><span class="s2">Integrity hash check"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">download_simple</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Local Cache"</span><span class="p">,</span> <span class="s2">"~/.cache/drawlib/</span><span class="se">\n</span><span class="s2">Fonts, icons, sqlite"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Air-Gapped Use"</span><span class="p">,</span> <span class="s2">"Offline CI/CD runners</span><span class="se">\n</span><span class="s2">Docker full images"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>3. Details: Release Asset Distribution &amp; Offline CI/CD</h2>
+<p>To keep the <code>drawlib</code> wheel package lightweight (&lt; 5MB on PyPI), heavy binary font packages and icon catalogs are hosted externally on GitHub Releases:</p>
+<h3>3.1. Deterministic <code>.zip</code> Archives &amp; Manifest Verification</h3>
+<p>External asset packages are distributed as byte-reproducible <code>.zip</code> archives generated via <code>create_deterministic_zip_bytes()</code>:</p>
+<ul>
+<li>File timestamps are pegged to a fixed epoch (<code>2026-01-01 00:00:00</code>).</li>
+<li>Permissions are normalized to <code>0o644</code> (files) and <code>0o755</code> (directories).</li>
+<li><code>AssetManifest</code> cryptographically records the SHA-256 hash and package size, ensuring tamper-proof downloads.</li>
+</ul>
+<h3>3.2. Air-Gapped &amp; Docker Container Readiness</h3>
+<p>For enterprise environments without internet access or strict offline CI/CD requirements:</p>
+<pre><code class="language-bash"><span class="c1"># Pre-download all assets into user cache</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all
+
+<span class="c1"># Build full offline Docker container</span>
+./dcli<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--full
+</code></pre>
+<p>Because all fonts and icons are pre-warmed inside <code>~/.cache/drawlib/</code>, documentation builds and tests run 100% offline with zero external network requests.</p>
+<p>Next, explore how development workflows and toolsets are automated in <strong><a href="../06_developer_tooling/01_dcli_orchestrator.html">Developer Tooling: dcli Orchestrator</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

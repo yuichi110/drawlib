@@ -1,0 +1,391 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Architecture: Dogfooding & Static Quality Gates</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Test Architecture: Dogfooding & Static Quality Gates</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Test Architecture: Dogfooding &amp; Static Quality Gates</h1>
+<p>The most rigorous test of an &quot;Illustration as Code&quot; and &quot;Illustrated Documentation as Code&quot; library is using it to build its own production documentation. In the Drawlib repository, six independent documentation projects serve as a live, end-to-end integration test suite.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_dogfooding_and_quality_gates_images/dogfooding_feedback_loop.png" alt="02_dogfooding_and_quality_gates_1" />
+  <figcaption class="drawlib-caption">Repository Dogfooding and Continuous Quality Feedback Loop</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">50.5</span><span class="p">),</span>
+    <span class="s2">"The Autonomous Dogfooding &amp; Quality Verification Loop"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">loop_nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Core Engine Edit"</span><span class="p">,</span> <span class="s2">"src/drawlib/</span><span class="se">\n</span><span class="s2">Feature or layout fix"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">pencil_simple</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Doc Projects Build"</span><span class="p">,</span> <span class="s2">"docs/*_src/</span><span class="se">\n</span><span class="s2">6 real-world sites"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Visual Review"</span><span class="p">,</span> <span class="s2">"Multimodal review</span><span class="se">\n</span><span class="s2">Grid &amp; browser check"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Quality Gates"</span><span class="p">,</span> <span class="s2">"./dcli code-check</span><span class="se">\n</span><span class="s2">Ruff, Ty, Docstrings"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">loop_nodes</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">loop_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">loop_nodes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Return loop</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">120.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s2">"Autonomous Self-Healing Feedback Loop (CI / Agent Iteration)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Live Repository Dogfooding</h2>
+<p>Unit tests verify that code behaves according to isolated assertions. However, unit tests alone cannot confirm:</p>
+<ul>
+<li>Whether a newly introduced chart styling renders legibly alongside prose.</li>
+<li>Whether a documentation compiler generates valid HTML, PDF, and Markdown across complex page structures.</li>
+<li>Whether real-world diagrams with dozens of interacting nodes suffer from text clipping or visual crowding.</li>
+</ul>
+<p>Drawlib solves this through <strong>Repository Dogfooding</strong>:
+The repository hosts six production documentation suites built entirely with <code>drawlib</code>. Whenever a core drawing primitive, geometry algorithm, or style token changes, all documentation projects compile against the modified library code. If any layout breaks or any link becomes invalid, the build fails immediately.</p>
+<hr />
+<h2>2. Positioning: The Six Dogfooding Archetypes</h2>
+<p>The documentation projects in <code>docs/</code> cover the four primary architectural archetypes of Drawlib:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Project Directory</th>
+<th style="text-align:left">Archetype</th>
+<th style="text-align:left">Target Output</th>
+<th style="text-align:left">Architectural Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>docs/docs_src/</code></strong></td>
+<td style="text-align:left"><code>site</code></td>
+<td style="text-align:left">HTML website</td>
+<td style="text-align:left">Full user guide, API documentation, and AI case studies.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>docs/quickstart_src/</code></strong></td>
+<td style="text-align:left"><code>doc</code></td>
+<td style="text-align:left">HTML &amp; A4 PDF</td>
+<td style="text-align:left">Concise linear onboarding guide and vector PDF book export.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>docs/drawlib-dogfooding_src/</code></strong></td>
+<td style="text-align:left"><code>doc</code></td>
+<td style="text-align:left">HTML &amp; A4 PDF</td>
+<td style="text-align:left">In-depth architectural whitepaper in Japanese.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>docs/drawlib-dogfooding-en_src/</code></strong></td>
+<td style="text-align:left"><code>doc</code></td>
+<td style="text-align:left">HTML &amp; A4 PDF</td>
+<td style="text-align:left">In-depth architectural whitepaper in English.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>docs/slide_about_drawlib_src/</code></strong></td>
+<td style="text-align:left"><code>slide</code></td>
+<td style="text-align:left">16:9 Presentation</td>
+<td style="text-align:left">Slide deck with presenter view and widescreen graphics.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>docs/architecture_src/</code></strong></td>
+<td style="text-align:left"><code>site</code></td>
+<td style="text-align:left">HTML website</td>
+<td style="text-align:left">This comprehensive software architecture specification.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Details: Multi-Tiered Static Quality Gates</h2>
+<p>Before any code is committed or published, the repository enforces a strict static quality pipeline via <code>./dcli code-check all</code>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_dogfooding_and_quality_gates_images/static_quality_pipeline.png" alt="02_dogfooding_and_quality_gates_2" />
+  <figcaption class="drawlib-caption">Multi-Tiered Static Quality Gate Pipeline</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
+    <span class="s2">"Multi-Tiered Static Quality Gate Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">gates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Ruff Linter"</span><span class="p">,</span> <span class="s2">"PEP 8 style guide</span><span class="se">\n</span><span class="s2">Import sorting &amp; format</span><span class="se">\n</span><span class="s2">Zero syntax errors"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Ty Type Check"</span><span class="p">,</span> <span class="s2">"Strict type checking</span><span class="se">\n</span><span class="s2">Full coverage across</span><span class="se">\n</span><span class="s2">src/, tests/, tools/"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">brackets_curly</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Docstrings"</span><span class="p">,</span> <span class="s2">"@validate_call checks</span><span class="se">\n</span><span class="s2">No internal aliases in</span><span class="se">\n</span><span class="s2">user-facing docs"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">text_align_left</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Link Scanner"</span><span class="p">,</span> <span class="s2">"drawlib serve --check</span><span class="se">\n</span><span class="s2">Zero broken links</span><span class="se">\n</span><span class="s2">Relative path hygiene"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">link</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">gates</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">gates</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">gates</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3.1. Ruff Lint &amp; Format (<code>./dcli code-check lint</code>)</h3>
+<p>Enforces modern Python 3.11+ syntax, PEP 8 conventions, strict import order, and automatic formatting across all source code, unit tests, and tooling scripts.</p>
+<h3>3.2. Ty Static Type Checking (<code>./dcli code-check type</code>)</h3>
+<p>Performs deep static type checking across <code>src/drawlib/</code>, <code>tests/</code>, and <code>tools/</code>. Every public function signature, style patch argument, and internal data model is statically checked to eliminate <code>None</code> dereferences and runtime <code>AttributeError</code> bugs.</p>
+<h3>3.3. Docstring Contract Validation (<code>./dcli code-check docstring</code>)</h3>
+<p>Drawlib uses Pydantic's <code>@validate_call</code> for runtime argument validation. However, internal type aliases (such as <code>_AngleType</code>, <code>_Point2D</code>, or internal Pydantic constrained types) should never leak into public docstrings.</p>
+<p><code>find_docstring_violations</code> uses Python's standard <code>ast</code> module to parse every public function across <code>src/drawlib/</code>, scanning docstrings against a registry of 32 forbidden internal type aliases. It guarantees that user-facing documentation only documents standard Python types (<code>float</code>, <code>tuple[float, float]</code>), ensuring pristine IDE autocompletion and hover documentation.</p>
+<h3>3.4. Link &amp; Image Integrity (<code>drawlib serve --check</code>)</h3>
+<p>The preflight HTML crawler crawls all compiled pages, testing every relative link, image source, and anchor reference. Broken links or forbidden local filesystem absolute paths (<code>/home/...</code>, <code>file:///...</code>) immediately fail the build.</p>
+<hr />
+<h2>4. Conclusion: The Complete Architecture as Code Loop</h2>
+<p>Through the combination of:</p>
+<ol>
+<li><strong>Unidirectional Layer Architecture</strong> (<code>l1_core</code> -&gt; <code>l2_types</code> -&gt; <code>l3_*</code> -&gt; <code>l4_canvas</code> -&gt; Domain modules).</li>
+<li><strong>Headless In-Process Compilation</strong> (Virtual canvas and cryptographic SQLite AST caching).</li>
+<li><strong>Unified Developer Tooling</strong> (<code>./dcli</code> orchestrating 7 toolsets).</li>
+<li><strong>Deterministic Testing &amp; Live Dogfooding</strong> (Property assertion and multi-project doc compilation).</li>
+</ol>
+<p>Drawlib establishes <strong>Illustration as Code</strong> and <strong>Illustrated Documentation as Code</strong> as a first-class engineering discipline.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

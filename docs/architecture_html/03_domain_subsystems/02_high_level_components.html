@@ -1,0 +1,447 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartArts, Charts & Diagrams Subsystems</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">SmartArts, Charts & Diagrams Subsystems</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>SmartArts, Charts &amp; Diagrams Subsystems</h1>
+<p>Manual assembly of technical diagrams from raw primitives (<code>rectangle</code>, <code>line</code>, <code>text</code>) is tedious and error-prone. As systems scale, computing exact bounding boxes, alignment offsets, and arrow intersections by hand becomes unsustainable.</p>
+<p>Drawlib addresses this complexity through three specialized <strong>high-level component families</strong>: <strong>SmartArts</strong>, <strong>Charts</strong>, and <strong>Diagrams</strong>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_high_level_components_images/high_level_components_trio.png" alt="02_high_level_components_1" />
+  <figcaption class="drawlib-caption">The Three High-Level Component Families</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span>
+    <span class="s2">"The Three High-Level Component Families"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">families</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="s2">"1. SmartArts"</span><span class="p">,</span> <span class="s2">"Tree, MindMap, Table</span><span class="se">\n</span><span class="s2">ChevronProcess, Cycle</span><span class="se">\n</span><span class="s2">Declarative visual lists"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">tree_structure</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="s2">"2. Quantitative Charts"</span><span class="p">,</span> <span class="s2">"Bar, Line, Area, Pie</span><span class="se">\n</span><span class="s2">Radar, Scatter, Gantt</span><span class="se">\n</span><span class="s2">Data -&gt; Canvas mapping"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="s2">"3. Domain Diagrams"</span><span class="p">,</span> <span class="s2">"Architecture, Sequence</span><span class="se">\n</span><span class="s2">Flow, State, ER, Class</span><span class="se">\n</span><span class="s2">UML &amp; Cloud topologies"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">families</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Declarative Bounding Boxes <code>(x0, y0, w, h)</code></h2>
+<p>Unlike low-level primitives that center around <code>(cx, cy)</code>, all high-level components accept a <strong>bottom-left bounding anchor <code>(x0, y0)</code></strong> alongside total bounding dimensions <code>width</code> and <code>height</code>:</p>
+<pre><code class="language-python"><span class="c1"># Declarative high-level component invocation</span>
+<span class="n">chevron_process</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="s2">"Requirements"</span><span class="p">,</span> <span class="s2">"Design"</span><span class="p">,</span> <span class="s2">"Implementation"</span><span class="p">,</span> <span class="s2">"Verification"</span><span class="p">],</span>
+<span class="p">)</span>
+</code></pre>
+<p>Within this bounded rectangle $[x_0, x_0 + w] \times [y_0, y_0 + h]$, the component's internal layout engine:</p>
+<ul>
+<li>Automatically calculates spacing, paddings, and element widths.</li>
+<li>Proportionally scales text labels and icons to fit available space.</li>
+<li>Renders background cards, connecting arrows, and labels in a single deterministic pass.</li>
+</ul>
+<hr />
+<h2>2. Positioning: Component Subsystem Breakdown</h2>
+<h3>2.1. <code>drawlib.smartarts</code> — Structured Visual Lists &amp; Composite Models</h3>
+<p>SmartArts translate structured data into polished, auto-aligned graphics using an <strong>Item (<code>BaseModel</code>) + Container</strong> composite architecture:</p>
+<ul>
+<li><strong><code>TreeNode</code></strong>: Computes multi-level recursive tree hierarchies, routing orthogonal connecting lines between parent and child nodes.</li>
+<li><strong><code>MindMapNode</code></strong>: An <strong>orthogonal 4-cardinal-direction branching tree</strong> that distributes concepts along the North, South, East, and West axes using right-angled fork lines and intermediate routing junctions.</li>
+<li><strong><code>ChevronProcess</code> &amp; <code>ChevronItem</code></strong>: Linear stages with interlocking chevron arrows and optional sub-labels.</li>
+<li><strong><code>GridLayout</code> &amp; <code>GridItem</code></strong>: Matrix layouts with cell-aligned cards and responsive horizontal/vertical item distributions.</li>
+<li><strong><code>Table</code></strong>: Column-aligned tabular data with automatic text wrapping, custom headers, and alternating row fills.</li>
+<li><strong><code>SourceCode</code></strong>: Tokenizes source code via Pygments and renders vector text glyphs on the canvas with language-aware syntax highlighting and <code>SourceCodeStyles</code>.</li>
+<li><strong><code>GeoMap</code></strong>: Spherical geographic projection and GeoJSON polygon clipping engine for rendering country and regional maps in pure vector form.</li>
+</ul>
+<h3>2.2. <code>drawlib.charts</code> — OOP Mixin Tree &amp; The Triad Architecture</h3>
+<p>Unlike heavy scientific plotting packages that generate axes and tick marks across arbitrary pixel dimensions, Drawlib's chart engine decomposes chart generation into a <strong>Triad Architecture</strong>:</p>
+<ol>
+<li><strong>Container / Builder</strong>: Configures axes, titles, dimensions, and legends (<code>BarChart</code>, <code>LineChart</code>, <code>PieChart</code>, etc.).</li>
+<li><strong>Data Series / Items</strong>: Strongly-typed value containers (<code>Series</code>, <code>Slice</code>, <code>Point</code>, <code>Item</code>).</li>
+<li><strong>Procedural Renderers</strong>: Dedicated geometry calculation and rendering functions (<code>_renderer.py</code>).</li>
+</ol>
+<p>The container classes follow a strict object-oriented mixin inheritance tree:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_high_level_components_images/charts_mixin_hierarchy.png" alt="02_high_level_components_2" />
+  <figcaption class="drawlib-caption">drawlib.charts OOP Mixin Hierarchy & Triad Architecture</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">cd</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"drawlib.charts OOP Mixin Hierarchy &amp; Triad Architecture"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Root Mixin</span>
+<span class="n">legend_mixin</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"LegendChartMixin"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"mixin"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">))</span>
+<span class="n">legend_mixin</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"draw_legend"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, text_style, ..."</span><span class="p">)</span>
+<span class="n">legend_mixin</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"_get_legend_elements"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"list"</span><span class="p">)</span>
+
+<span class="c1"># Intermediate Mixins (Row 2)</span>
+<span class="n">axis_mixin</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"AxisChartMixin"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"mixin"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">56.0</span><span class="p">))</span>
+<span class="n">axis_mixin</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"width, height: float"</span><span class="p">)</span>
+<span class="n">axis_mixin</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"x_axis, y_axis: Axis"</span><span class="p">)</span>
+<span class="n">axis_mixin</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"configure_x_axis"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Axis"</span><span class="p">)</span>
+<span class="n">axis_mixin</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"configure_y_axis"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Axis"</span><span class="p">)</span>
+
+<span class="n">radial_mixin</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"RadialChartMixin"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"mixin"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">56.0</span><span class="p">))</span>
+<span class="n">radial_mixin</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"radius: float"</span><span class="p">)</span>
+<span class="n">radial_mixin</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"title: str"</span><span class="p">)</span>
+<span class="n">radial_mixin</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"get_size"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"tuple[float, float]"</span><span class="p">)</span>
+
+<span class="c1"># Cartesian Base (Row 3)</span>
+<span class="n">cartesian_base</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CartesianChartBase"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">))</span>
+<span class="n">cartesian_base</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"categories: list[str]"</span><span class="p">)</span>
+
+<span class="c1"># Concrete Charts (Row 4)</span>
+<span class="n">line_chart</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"LineChart / AreaChart"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">))</span>
+<span class="n">line_chart</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"add_series"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"name, values, ..."</span><span class="p">)</span>
+<span class="n">line_chart</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"draw"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"None"</span><span class="p">)</span>
+
+<span class="n">bar_chart</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"BarChart / ScatterChart"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">))</span>
+<span class="n">bar_chart</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"add_series"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"name, values, ..."</span><span class="p">)</span>
+<span class="n">bar_chart</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"draw"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"None"</span><span class="p">)</span>
+
+<span class="n">radial_chart</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"PieChart / RadarChart"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">))</span>
+<span class="n">radial_chart</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"add_slice / add_series"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"..."</span><span class="p">)</span>
+<span class="n">radial_chart</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"draw"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"None"</span><span class="p">)</span>
+
+<span class="c1"># Connections</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">axis_mixin</span><span class="p">,</span> <span class="n">legend_mixin</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">radial_mixin</span><span class="p">,</span> <span class="n">legend_mixin</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cartesian_base</span><span class="p">,</span> <span class="n">axis_mixin</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">line_chart</span><span class="p">,</span> <span class="n">cartesian_base</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">bar_chart</span><span class="p">,</span> <span class="n">axis_mixin</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">radial_chart</span><span class="p">,</span> <span class="n">radial_mixin</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+
+<span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h4>Coordinate Normalization Pipeline</h4>
+<p>Data arrays are mapped directly into Cartesian canvas units:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="02_high_level_components_images/chart_coordinate_mapping.png" alt="02_high_level_components_3" />
+  <figcaption class="drawlib-caption">Data Space to Canvas Coordinate Normalization</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"Data Space to Canvas Coordinate Normalization"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left: Data Domain</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">table</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Raw Data Space"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="s2">"• Revenue: $0 ~ $100k</span><span class="se">\n</span><span class="s2">• Dates: Jan ~ Dec</span><span class="se">\n</span><span class="s2">• Unbounded numeric values"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Center: Normalization Transform</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span> <span class="s2">"Linear</span><span class="se">\n</span><span class="s2">Mapping"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">72</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Right: Canvas Cartesian Space</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Canvas Bounds (x0, y0, w, h)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="s2">"• x = x0 + (val - min) / range * w</span><span class="se">\n</span><span class="s2">• y = y0 + (val - min) / range * h</span><span class="se">\n</span><span class="s2">• Vector lines &amp; bars placed"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li>Data arrays are normalized:
+$$x_{\text{canvas}} = x_0 + \frac{x_{\text{val}} - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}} \times w$$
+$$y_{\text{canvas}} = y_0 + \frac{y_{\text{val}} - y_{\text{min}}}{y_{\text{max}} - y_{\text{min}}} \times h$$</li>
+</ul>
+<h3>2.3. <code>drawlib.diagrams</code> — Technical &amp; UML Models</h3>
+<p>Provides ready-to-use software engineering visualizations structured into object-oriented node models:</p>
+<ul>
+<li><strong><code>sequence</code></strong>: Client/server lifelines, synchronous calls, async responses, and loop activations.</li>
+<li><strong><code>flow</code></strong>: Decision trees built on the <code>FlowNode</code> base class (<code>Process</code>, <code>Decision</code>, <code>Start</code>, <code>End</code>, <code>Data</code>) with automatic orthogonal routing.</li>
+<li><strong><code>state</code></strong>: Finite state machines powered by <code>StateNodeBase</code> (<code>State</code>, <code>InitialState</code>, <code>FinalState</code>, <code>ChoiceState</code>, <code>ForkJoinState</code>) with self-referential arcs and transition labels.</li>
+<li><strong><code>er</code></strong>: Entity-relationship models with primary/foreign key attributes and cardinality notations (<code>1:1</code>, <code>1:N</code>, <code>M:N</code>).</li>
+<li><strong><code>class_diagram</code></strong>: UML class boxes (<code>ClassDiagram</code>, <code>ClassNode</code>) with attribute and method compartments and standard UML connectors (<code>inheritance</code>, <code>composition</code>, <code>aggregation</code>, <code>dependency</code>).</li>
+<li><strong>Polymorphic Icon Dispatch</strong>: Uses <code>draw_diagram_icon</code> to seamlessly embed Phosphor, FontAwesome, or GCP icons into diagram headers and node badges.</li>
+</ul>
+<hr />
+<h2>3. Details: Layout Mechanics &amp; Style Cascading</h2>
+<h3>3.1. Proportional Font &amp; Margin Calculation</h3>
+<p>When a user sets <code>width=80</code> and <code>height=20</code> on a SmartArt component, child elements dynamically adjust:</p>
+<ul>
+<li>Box margins are computed as a percentage of total element width ($m = 0.05 \times w_{\text{item}}$).</li>
+<li>Font sizes dynamically scale within safe typographic bounds ($9.5 \le \text{text_size} \le 13.0$).</li>
+<li>If text exceeds the allowable width, words automatically wrap or truncate based on configured overflow policies.</li>
+</ul>
+<h3>3.2. Vector Arrow Head Calculation</h3>
+<p>In sequence and flow diagrams, arrow heads are drawn using geometric projections:</p>
+<ul>
+<li>Given start point $P_1 = (x_1, y_1)$ and end point $P_2 = (x_2, y_2)$, the direction angle is:
+$$\theta = \text{atan2}(y_2 - y_1, x_2 - x_1)$$</li>
+<li>Arrow wings are projected back at angles $\theta \pm 150^\circ$, ensuring sharp arrowheads regardless of canvas aspect ratio.</li>
+</ul>
+<p>Next, explore the declarative graph auto-layout engine in <strong><a href="03_graph_autolayout.html">Graph Auto-Layout</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

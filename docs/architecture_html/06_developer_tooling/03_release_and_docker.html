@@ -1,0 +1,349 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Tooling: Publishing & Clean-Room Testing</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Developer Tooling: Publishing & Clean-Room Testing</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Developer Tooling: Publishing &amp; Clean-Room Testing</h1>
+<p>Releasing a production library requires rigorous verification to ensure that published packages install cleanly, lack hidden local dependencies, and function in completely isolated environments.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="03_release_and_docker_images/release_lifecycle_pipeline.png" alt="03_release_and_docker_1" />
+  <figcaption class="drawlib-caption">PyPI Release and Clean-Room Verification Lifecycle</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
+    <span class="s2">"End-to-End Release &amp; Clean-Room Testing Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Dependency Audit"</span><span class="p">,</span> <span class="s2">"./dcli pypi check-version</span><span class="se">\n</span><span class="s2">Audit deps &amp; pyproject"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. TestPyPI Staging"</span><span class="p">,</span> <span class="s2">"./dcli pypi publish --test</span><span class="se">\n</span><span class="s2">Build wheel &amp; sdist"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud_arrow_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Clean Docker Test"</span><span class="p">,</span> <span class="s2">"./dcli docker test --test</span><span class="se">\n</span><span class="s2">Pristine Linux container"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Production PyPI"</span><span class="p">,</span> <span class="s2">"./dcli pypi publish</span><span class="se">\n</span><span class="s2">Live PyPI distribution"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Clean-Room Release Verification</h2>
+<p>A notorious failure mode in Python library development is the &quot;works on my machine&quot; release:</p>
+<ul>
+<li>A developer accidentally relies on an uncommitted local file or unpinned global package.</li>
+<li>A package wheel is built and pushed to PyPI without verifying that it can be cleanly installed and run on a stock Linux machine.</li>
+<li>Version tags jump unpredictably (e.g. accidentally releasing <code>0.3.0</code> instead of <code>0.2.1</code>), breaking semantic version expectations.</li>
+</ul>
+<p>Drawlib eliminates these risks through two foundational tooling modules:</p>
+<ol>
+<li><strong><code>pypi</code> Toolset (<code>tools/dcli/pypi/</code>)</strong>: Audits dependency health, enforces monotonic version progression, synchronizes <code>README_PYPI.md</code>, and handles authenticated package publishing.</li>
+<li><strong><code>docker</code> Toolset (<code>tools/dcli/docker.py</code>)</strong>: Spawns isolated clean-room Linux containers that download the newly staged package from TestPyPI, install it into a virgin Python virtualenv, and execute the entire test suite.</li>
+</ol>
+<hr />
+<h2>2. Positioning: The Release and Deployment Boundary</h2>
+<p>The release tooling acts as the quality firewall between local code repositories and public distribution channels:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="03_release_and_docker_images/docker_container_matrix.png" alt="03_release_and_docker_2" />
+  <figcaption class="drawlib-caption">Drawlib Docker Container Variants and Layering</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
+    <span class="s2">"Docker Container Image Architecture &amp; Capabilities"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">variants</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"drawlib:slim"</span><span class="p">,</span> <span class="s2">"Base Linux + Python 3.12</span><span class="se">\n</span><span class="s2">Minimal library wheel</span><span class="se">\n</span><span class="s2">Lightweight CI runners"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">circle_dashed</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"drawlib:pdf"</span><span class="p">,</span> <span class="s2">"Slim + Playwright</span><span class="se">\n</span><span class="s2">Chromium headless browser</span><span class="se">\n</span><span class="s2">A4 PDF book compiling"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"drawlib:assets"</span><span class="p">,</span> <span class="s2">"Slim + Cached Fonts/Icons</span><span class="se">\n</span><span class="s2">Pre-warmed ~/.cache/</span><span class="se">\n</span><span class="s2">Zero external downloads"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"drawlib:full"</span><span class="p">,</span> <span class="s2">"All-in-one offline image</span><span class="se">\n</span><span class="s2">PDF engine + all assets</span><span class="se">\n</span><span class="s2">Air-gapped enterprise"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">variants</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">variants</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">variants</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>3. Details: Tooling Workflows and Docker Architecture</h2>
+<h3>3.1. PyPI Release Workflow (<code>./dcli pypi</code>)</h3>
+<p>The release sequence follows a strict verification pipeline:</p>
+<ol>
+<li><strong>Dependency Audit (<code>./dcli pypi deps</code>)</strong>: Generates the runtime dependency tree, flagging outdated or incompatible transitive dependencies.</li>
+<li><strong>Version Progression (<code>./dcli pypi check-version</code>)</strong>: Queries PyPI to verify that the version declared in <code>pyproject.toml</code> is strictly greater than the latest published release and conforms to semantic versioning (preventing accidental minor/major jumps unless explicitly passed <code>--allow-jump</code>).</li>
+<li><strong>Metadata Synchronization (<code>./dcli pypi update-pyproject</code>)</strong>: Ensures that <code>README_PYPI.md</code>, license files, and project URLs are synchronized into <code>pyproject.toml</code>.</li>
+<li><strong>Decoupled Asset Separation</strong>: Binary fonts, icons, and maps are intentionally excluded from the wheel distribution to keep package sizes under 2 MB. Instead, their bit-exact SHA-256 hashes are compiled into <code>src/drawlib/_release_assets.py</code>, and the archives are hosted on GitHub Releases (see <strong><a href="02_codegen_and_assets.html">Code Generation &amp; Assets</a></strong>).</li>
+<li><strong>Staging (<code>./dcli pypi publish --test-pypi</code>)</strong>: Builds source distributions (<code>sdist</code>) and binary wheels (<code>bdist_wheel</code>), publishing them to TestPyPI.</li>
+<li><strong>Production Publishing (<code>./dcli pypi publish</code>)</strong>: After clean-room Docker container verification passes, published packages are deployed to live PyPI.</li>
+</ol>
+<h3>3.2. Clean-Room Docker Container Testing (<code>./dcli docker test</code>)</h3>
+<p>Before pushing to production PyPI, <code>./dcli docker test --test-pypi &lt;VERSION&gt;</code> executes:</p>
+<ul>
+<li>Spawns a clean <code>debian:bookworm-slim</code> or <code>python:3.12-slim</code> container with no access to local project files.</li>
+<li>Installs <code>drawlib==&lt;VERSION&gt;</code> directly from TestPyPI.</li>
+<li>Runs <code>pytest tests/drawlib/</code> inside the clean container.</li>
+<li>Verifies that all imports, asset caches, and drawing operations succeed without requiring development dependencies.</li>
+</ul>
+<h3>3.3. Production Container Variants</h3>
+<p>Drawlib provides 4 container configurations for different operational environments:</p>
+<ul>
+<li><strong><code>drawlib:slim</code></strong>: Standard minimal image for diagram-rendering CLI containers.</li>
+<li><strong><code>drawlib:pdf</code></strong>: Includes headless Chromium for automated PDF documentation pipelines.</li>
+<li><strong><code>drawlib:assets</code></strong>: Pre-downloads and verifies all 53 font, icon, and map packages (<code>drawlib cache download --all</code>) at build time into <code>drawlib._cached_assets/</code>, eliminating external network requests during runtime execution.</li>
+<li><strong><code>drawlib:full</code></strong>: Combines PDF export and pre-warmed assets for completely air-gapped enterprise deployments.</li>
+</ul>
+<p>Next, explore Drawlib's testing architecture and verification methodologies in <strong><a href="../07_test_architecture/01_test_hierarchy_and_strategy.html">Test Architecture: Hierarchy &amp; Strategy</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

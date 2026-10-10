@@ -1,0 +1,362 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified CLI Architecture (drawlib._cli)</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Unified CLI Architecture (drawlib._cli)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Unified CLI Architecture (drawlib._cli)</h1>
+<p>A command-line interface serves as the primary bridge between developers, automated CI/CD runners, AI coding agents, and the underlying drawing and compilation engines. If a CLI lacks structured error reporting, predictable exit codes, or intuitive argument discovery, automation becomes fragile and difficult to maintain.</p>
+<p>Drawlib's CLI (<code>_cli/</code>) is built on <strong>Typer + Rich</strong>, providing a unified, type-safe command hierarchy with explicit exit code contracts and interactive visual diagnostics.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_cli_architecture_images/cli_command_hierarchy.png" alt="01_cli_architecture_1" />
+  <figcaption class="drawlib-caption">Unified Typer CLI Command Hierarchy</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span>
+    <span class="s2">"Unified Typer CLI Command Hierarchy"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Root Command at Top</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">terminal</span><span class="p">((</span><span class="mi">48</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="s2">"drawlib &lt;subcommand&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+
+<span class="c1"># 6 Subcommands in Grid</span>
+<span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="s2">"build"</span><span class="p">,</span> <span class="s2">"html, markdown</span><span class="se">\n</span><span class="s2">pdf, image"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">hammer</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="s2">"show"</span><span class="p">,</span> <span class="s2">"Fast preview with</span><span class="se">\n</span><span class="s2">-g coordinate grid"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="s2">"init"</span><span class="p">,</span> <span class="s2">"site, doc, slide</span><span class="se">\n</span><span class="s2">images scaffolding"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">plus_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">"serve"</span><span class="p">,</span> <span class="s2">"Local HTTP server</span><span class="se">\n</span><span class="s2">--check validator"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"list, download</span><span class="se">\n</span><span class="s2">clear image blobs"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">"rules"</span><span class="p">,</span> <span class="s2">"show, list agent</span><span class="se">\n</span><span class="s2">system instructions"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">16</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">11</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">),</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">11</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">2.8</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+    <span class="n">line</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Type-Safe Command Dispatching</h2>
+<p>Instead of manual <code>argparse</code> dispatching with loose strings, Drawlib utilizes <strong>Typer</strong>, harnessing Python type hints for CLI arguments:</p>
+<ul>
+<li>Parameters annotated with <code>Path</code> automatically resolve relative paths and verify filesystem existence.</li>
+<li>Flag options annotated with <code>bool</code> generate synchronized positive and negative flags (e.g. <code>--cache / --no-cache</code>, <code>--check / --no-check</code>).</li>
+<li>Dynamic Shell Autocompletion: Shell completion scripts for Bash, Zsh, and Fish are generated natively via Typer.</li>
+</ul>
+<hr />
+<h2>2. Positioning: The Six Core Subcommands</h2>
+<p>Drawlib exposes six primary command groups:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Subcommand</th>
+<th style="text-align:left">Primary Purpose</th>
+<th style="text-align:left">Key Flags &amp; Arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>build</code></strong></td>
+<td style="text-align:left">Multi-target project compiler (<code>html</code>, <code>markdown</code>, <code>pdf</code>, <code>image</code>).</td>
+<td style="text-align:left"><code>-o/--output-dir</code>, <code>-s/--styles</code>, <code>-u/--utils</code>, <code>--no-cache</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>show</code></strong></td>
+<td style="text-align:left">Headless single-diagram exporter with fast visual inspection.</td>
+<td style="text-align:left"><code>-g/--grid</code> (draws coordinate grid), <code>-o/--output</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>init</code></strong></td>
+<td style="text-align:left">Project scaffolding for 4 archetypes (<code>site</code>, <code>doc</code>, <code>slide</code>, <code>images</code>).</td>
+<td style="text-align:left"><code>-l/--lang ja</code>, <code>-s/--style default|google|monochrome</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>serve</code></strong></td>
+<td style="text-align:left">Threaded local preview server with preflight validation.</td>
+<td style="text-align:left"><code>-p/--port 8000</code>, <code>--check</code> (link crawl without serving).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cache</code></strong></td>
+<td style="text-align:left">Inspection and pruning of <code>.drawlib/cache.db</code>.</td>
+<td style="text-align:left"><code>list</code>, <code>clear --images</code>, <code>clear --all</code>, <code>download --all</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>rules</code></strong></td>
+<td style="text-align:left">Embedded AI agent instructions and API manuals.</td>
+<td style="text-align:left"><code>list</code>, <code>show &lt;rule_name&gt;</code> (<code>overview</code>, <code>style-guide</code>, etc.).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Details: Exit Code Contracts for CI/CD Automation</h2>
+<p>In CI/CD environments (GitHub Actions, GitLab CI, pre-commit hooks), exit codes are the universal contract determining pipeline success or failure:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_cli_architecture_images/cli_exit_codes.png" alt="01_cli_architecture_2" />
+  <figcaption class="drawlib-caption">CLI Exit Code Contracts for CI/CD Pipelines</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
+    <span class="s2">"CLI Exit Code Contracts for CI/CD Pipelines"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">codes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="s2">"Exit Code 0: Success"</span><span class="p">,</span> <span class="s2">"Command executed cleanly</span><span class="se">\n</span><span class="s2">All diagrams compiled</span><span class="se">\n</span><span class="s2">--check links passed"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="s2">"Exit Code 1: Execution Error"</span><span class="p">,</span> <span class="s2">"Code block exception</span><span class="se">\n</span><span class="s2">Missing navbar.md</span><span class="se">\n</span><span class="s2">Broken link or asset"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">warning_circle</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="s2">"Exit Code 2: Syntax Error"</span><span class="p">,</span> <span class="s2">"Invalid CLI flag</span><span class="se">\n</span><span class="s2">Missing required argument</span><span class="se">\n</span><span class="s2">Conflicting options"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">x_circle</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span><span class="p">,</span> <span class="n">icon_func</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">13</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Exit Code Guarantees</h3>
+<ul>
+<li><strong><code>0</code> (Success)</strong>: Compilation completed cleanly, all embedded Python drawing code executed without errors, and all link checks passed.</li>
+<li><strong><code>1</code> (Execution Failure)</strong>: A Python exception occurred inside a drawing block, a required file (e.g. <code>navbar.md</code>) was missing, or <code>drawlib serve --check</code> discovered broken links or forbidden absolute paths.</li>
+<li><strong><code>2</code> (Usage / Syntax Error)</strong>: The user or agent provided invalid CLI arguments or unrecognized option flags.</li>
+</ul>
+<p>Next, explore the preview server and tooling in <strong><a href="02_preview_server.html">Preview Server &amp; Tooling</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLite Cache Engine & AST Analysis</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">SQLite Cache Engine & AST Analysis</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>SQLite Cache Engine &amp; AST Analysis</h1>
+<p>A major friction point with &quot;Documentation as Code&quot; is compilation speed. If compiling an 80-page documentation site with 400 diagrams requires re-executing every Python script from scratch, build times exceed several minutes, destroying the rapid feedback loop required for interactive documentation authoring.</p>
+<p>Drawlib solves this via a <strong>cryptographic caching engine</strong> (<code>_builder/_common/cache.py</code>) backed by an embedded SQLite database (<code>.drawlib/cache.db</code>), reducing incremental rebuild times to <strong>&lt; 1ms per diagram</strong>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="03_caching_and_ast_engine_images/caching_decision_flow.png" alt="03_caching_and_ast_engine_1" />
+  <figcaption class="drawlib-caption">Cryptographic AST & SQLite Cache Decision Pipeline</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
+    <span class="s2">"Cryptographic AST &amp; SQLite Cache Decision Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="s2">"1. Code Block"</span><span class="p">,</span> <span class="s2">"Markdown Fence</span><span class="se">\n</span><span class="s2">or Python Script"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="s2">"2. AST &amp; Hash"</span><span class="p">,</span> <span class="s2">"Composite SHA-256</span><span class="se">\n</span><span class="s2">Code + Deps + Assets"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"3. SQLite Check"</span><span class="p">,</span> <span class="s2">"Lookup cache.db</span><span class="se">\n</span><span class="s2">Match Hash Key"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="s2">"4. Fast Restore"</span><span class="p">,</span> <span class="s2">"Hit: &lt; 1ms copy</span><span class="se">\n</span><span class="s2">Miss: Execute &amp; Cache"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Cryptographic Content Hashing vs. Timestamp Invalidation</h2>
+<p>Traditional build tools (like <code>make</code> or file mtime watchers) rely on filesystem modification timestamps. This approach fails catastrophically for embedded documentation diagrams:</p>
+<ul>
+<li>Editing a single typographical error in a Markdown file updates the file's timestamp, which would unnecessarily force the re-rendering of all 10 diagrams on that page.</li>
+<li>Conversely, modifying an external imported theme (<code>styles.py</code>) might not touch the Markdown file at all, leaving diagrams stale.</li>
+</ul>
+<h3>The Drawlib Solution: Multi-Factor Composite Hashing</h3>
+<p>Drawlib ignores filesystem timestamps entirely. Instead, it computes a <strong>cryptographic SHA-256 composite hash</strong> for every diagram block based on its true dependency tree:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="03_caching_and_ast_engine_images/composite_hash_inputs.png" alt="03_caching_and_ast_engine_2" />
+  <figcaption class="drawlib-caption">Composition of the Cryptographic Cache Key</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"Composition of the Cryptographic Cache Key"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 4 Inputs on Left (X: 32)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="s2">"Code Block Source"</span><span class="p">,</span> <span class="s2">"Normalized drawing Python AST"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="s2">"styles.py Hash"</span><span class="p">,</span> <span class="s2">"Palettes, fonts, custom styles"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="s2">"utils.py Hash"</span><span class="p">,</span> <span class="s2">"Shared drawing macros"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">wrench</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"Assets Hash"</span><span class="p">,</span> <span class="s2">"_assets/*.png, *.ttf binaries"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
+    <span class="n">line</span><span class="p">((</span><span class="mi">56</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span>
+
+<span class="c1"># Center Hashing Function</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="s2">"SHA-256</span><span class="se">\n</span><span class="s2">Hasher"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Output Cache Key &amp; SQLite Entry</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"cache.db Entry"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"Primary Key:</span><span class="se">\n</span><span class="s2">Composite Hash"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. Positioning: Cache Engine in the Compilation Pipeline</h2>
+<p>The cache engine operates transparently between the Markdown block extractor and the drawing canvas:</p>
+<ol>
+<li><strong>Extraction</strong>: When <code>doc_builder</code> encounters a <code>drawlib</code> block, <code>DrawlibBlockProcessor</code> extracts the Python code and evaluates cache viability.</li>
+<li><strong>Static AST Analysis</strong>: Before executing any code, <code>image_builder.py</code> parses the AST to statically inspect <code>canvas.save(&quot;...&quot;)</code> invocations, detecting output file name conflicts across multiple documents without execution overhead.</li>
+<li><strong>Dependency Hashing</strong>: <code>_builder/_common/cache.py</code> computes SHA-256 hashes for:
+<ul>
+<li>The normalized drawing code.</li>
+<li>Global configuration files (<code>styles.py</code> and <code>utils.py</code>).</li>
+<li>Any local binary assets (<code>_assets/*.png</code>, <code>*.ttf</code>) discovered via string literal inspection.</li>
+</ul>
+</li>
+<li><strong>Database Query</strong>: Queries <code>.drawlib/cache.db</code> using the computed composite key.
+<ul>
+<li><strong>Cache Hit</strong>: Restores pre-rendered binary blobs directly from SQLite in <strong>&lt; 1ms</strong>.</li>
+<li><strong>Cache Miss</strong>: Executes the Python block in an in-process sandbox, saves the generated images, and persists all format blobs into SQLite.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>3. Details: SQLite Database Schema &amp; Invalidation</h2>
+<h3>3.1. Database Schema &amp; Multi-Blob Storage</h3>
+<p>The cache database resides in <code>.drawlib/cache.db</code> with Write-Ahead Logging (<code>PRAGMA journal_mode=WAL;</code>) enabled for high-concurrency performance:</p>
+<pre><code class="language-sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">image_cache</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">cache_key</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">code_hash</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">config_hash</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_grid_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">webp_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">webp_grid_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">total_size_bytes</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">last_accessed_at</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_image_cache_accessed</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">image_cache</span><span class="w"> </span><span class="p">(</span><span class="n">last_accessed_at</span><span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">cache_meta</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">key</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+</code></pre>
+<h4>Dual Normal &amp; Coordinate Grid Blobs</h4>
+<p>To support instantaneous previewing with coordinate grids (<code>uv run drawlib show page.md block.png -g</code>), Drawlib stores <strong>four distinct blobs per cache key</strong>:</p>
+<ol>
+<li><code>png_blob</code>: Standard production raster image.</li>
+<li><code>png_grid_blob</code>: Raster image with 10-unit/5-unit coordinate overlay grid for authoring.</li>
+<li><code>webp_blob</code>: Compressed modern web asset.</li>
+<li><code>webp_grid_blob</code>: Coordinate grid overlay compressed web asset.</li>
+</ol>
+<h3>3.2. Automatic 1 GiB LRU Eviction</h3>
+<p>To prevent cache bloat in large repositories:</p>
+<ul>
+<li><code>total_size_bytes</code> tracks the exact byte footprint of each record.</li>
+<li>When total cache size exceeds <strong>1 GiB</strong> (<code>1,073,741,824 bytes</code>), <code>BuildImageCache</code> triggers an automatic <strong>LRU (Least Recently Used) prune</strong>, deleting the oldest 50% of entries sorted by <code>last_accessed_at</code>.</li>
+</ul>
+<h3>3.3. Cache Invalidation Triggers</h3>
+<p>A diagram is invalidated and re-rendered only when:</p>
+<ul>
+<li>The Python code within the code fence is modified.</li>
+<li>Target canvas dimensions (<code>width</code>, <code>height</code>, or <code>dpi</code>) change.</li>
+<li><code>styles.py</code> or <code>utils.py</code> is edited.</li>
+<li>Any referenced asset file in <code>_assets/</code> (e.g. a company logo or font file) is changed.</li>
+</ul>
+<h3>3.4. Cache Management CLI</h3>
+<p>Developers and CI runners can inspect and prune the cache via the CLI:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>list<span class="w">            </span><span class="c1"># Display cache statistics and total stored assets</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--images<span class="w">  </span><span class="c1"># Purge all rendered diagram blobs</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--all<span class="w">     </span><span class="c1"># Complete reset of database and downloaded assets</span>
+</code></pre>
+<p>Next, proceed to Chapter 3: <strong><a href="../03_domain_subsystems/01_primitives_and_backends.html">Primitives &amp; Backends</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -67,6 +67,7 @@ SERVE_TARGET_MAP: dict[str, str] = {
     "slide": "docs/slide_about_drawlib_html",
     "slide_about_drawlib": "docs/slide_about_drawlib_html",
     "slide-about-drawlib": "docs/slide_about_drawlib_html",
+    "architecture": "docs/architecture_html",
 }
 
 

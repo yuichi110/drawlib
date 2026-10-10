@@ -142,14 +142,24 @@ service_card((50, 25), "Auth Gateway")
   ```
 - **`template.html`**: Customize the Jinja2 HTML layout. You can add custom headers, footers, favicons, analytics scripts, or navigation elements.
 
-### 3.5. Adding New Chapters & Pages
+### 3.5. Brand Title, Favicon & Custom Logos (`_assets/`)
+The sidebar brand header supports both text titles and custom graphical logos:
+
+- **Browser Tab Favicon (`_assets/favicon.png`)**:
+  - Present by default. Automatically linked in the `<head>` of all HTML pages as the browser tab icon.
+- **Header Brand Display**:
+  - **Text Mode (Default)**: By default, the sidebar header displays the text title defined by the first `# Heading 1` in `navbar.md`.
+  - **Image Logo Mode**: If you place `logo.png` (light mode) and optional `logo_dark.png` (dark mode) in `_assets/`, the HTML site automatically renders the image logos instead of text.
+  - **Starter Templates**: Initialized projects include sample logo images named `_assets/_logo.png` and `_assets/_logo_dark.png`. To enable image logos, simply remove the leading underscore (`logo.png` and `logo_dark.png`) or replace them with your own brand assets.
+
+### 3.6. Adding New Chapters & Pages
 To add a new documentation page:
 1. Create a Markdown file or subdirectory with `index.md` under `docs/architecture_src/`.
 2. Add an entry for the new file in `navbar.md`.
 3. Embed illustrations using ````drawlib```` code blocks.
 4. Run `./build.sh` to compile.
 
-### 3.6. Fast Developer Verification
+### 3.7. Fast Developer Verification
 When designing diagrams, test individual blocks quickly with a coordinate grid (`-g`):
 ```bash
 # Export block 1 of a Markdown document to an image with alignment grid:

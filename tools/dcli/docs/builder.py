@@ -93,6 +93,17 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
             "docs/slide_about_drawlib_images",
         ),
     ),
+    BuildTarget(
+        name="architecture",
+        src_dir="docs/architecture_src",
+        script_rel_path="docs/architecture_src/build.sh",
+        description="Software Architecture Specification Site",
+        clean_paths=(
+            "docs/architecture_markdown",
+            "docs/architecture_html",
+            "docs/architecture_images",
+        ),
+    ),
 )
 
 TARGET_MAP: dict[str, BuildTarget] = {

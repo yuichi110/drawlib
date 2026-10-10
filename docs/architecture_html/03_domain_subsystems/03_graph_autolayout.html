@@ -1,0 +1,419 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declarative Graph Auto-Layout Engine (drawlib.graph)</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Declarative Graph Auto-Layout Engine (drawlib.graph)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Declarative Graph Auto-Layout Engine (drawlib.graph)</h1>
+<p>Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and cannot be customized with Python styling tokens.</p>
+<p>To solve this, Drawlib includes <code>drawlib.graph</code>: a <strong>pure-Python declarative graph auto-layout engine</strong> that calculates topological coordinates, nested cluster boundaries, and edge routing in-memory without external dependencies.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="03_graph_autolayout_images/graph_layout_pipeline.png" alt="03_graph_autolayout_1" />
+  <figcaption class="drawlib-caption">Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Node/Edge Spec"</span><span class="p">,</span> <span class="s2">"Declarative DAG</span><span class="se">\n</span><span class="s2">Parents &amp; Children"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Topology Sort"</span><span class="p">,</span> <span class="s2">"Layer assignment</span><span class="se">\n</span><span class="s2">Rank distribution"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sort_ascending</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Coord Solving"</span><span class="p">,</span> <span class="s2">"X/Y coordinates</span><span class="se">\n</span><span class="s2">Cluster boundaries"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Edge Routing"</span><span class="p">,</span> <span class="s2">"Arrow curves</span><span class="se">\n</span><span class="s2">Collision avoidance"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_split</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: Pure-Python Declarative Graph Layout</h2>
+<p>Instead of writing graph descriptions in external domain-specific languages (e.g. Graphviz DOT files), <code>drawlib.graph</code> allows developers to define nodes, edges, and clusters using native Python syntax:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"Web Browser"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"service"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"service"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</code></pre>
+<h3>Key Advantages:</h3>
+<ul>
+<li><strong>No External Binaries</strong>: Runs anywhere standard Python runs—including lightweight Docker alpine images and air-gapped CI environments.</li>
+<li><strong>Unified Visual Styling</strong>: Graph nodes and edges accept standard Drawlib <code>Style</code> tokens (<code>Styles.PrimaryFlat</code>, <code>Styles.Neutral</code>), ensuring aesthetic parity with hand-crafted diagrams.</li>
+<li><strong>Deterministic Coordinate Mapping</strong>: The solved coordinates can be extracted and composed alongside hand-drawn callouts, legends, and icons.</li>
+</ul>
+<hr />
+<h2>2. Positioning: The 5 Graph Layout Engines</h2>
+<p>All solvers in <code>drawlib.graph</code> inherit from the abstract base class <code>BaseGraph(ABC)</code> (<code>_common/_base.py</code>). <code>BaseGraph</code> defines the standard lifecycle:</p>
+<ol>
+<li><strong>Specification Phase</strong>: Registering nodes (<code>add_node()</code>), edges (<code>add_edge()</code>), and nested boundaries (<code>add_cluster()</code> or <code>container()</code>).</li>
+<li><strong>Solve Phase (<code>calc()</code>)</strong>: Returns an immutable <code>GraphLayout</code> dataclass containing absolute node centroids, cluster bounds, and polyline edge waypoints.</li>
+<li><strong>Render Phase (<code>draw(xy)</code>)</strong>: Renders artists to the canvas offset by <code>(x0, y0)</code>, or serializes to standalone Python code (<code>export_code()</code>).</li>
+</ol>
+<p><code>drawlib.graph</code> provides <strong>five specialized layout solvers</strong>:</p>
+<ol>
+<li><strong><code>LayerGraph</code> (Ranked DAG Layout)</strong>:
+<ul>
+<li>Uses an adapted Sugiyama-style layering algorithm:
+<ul>
+<li>Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting and longest-path analysis.</li>
+<li>Orders nodes within each layer to minimize edge crossings.</li>
+<li>Solves coordinate positions and projects orthogonal or curved connecting arrows.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>ArchitectureGraph</code> (2-Level Macro/Micro Compound Topology)</strong>:
+<ul>
+<li>Specialized layout solver designed for cloud architectures and distributed microservices.</li>
+<li>Solves layouts across two coupled geometric tiers:
+<ul>
+<li><strong>Macro Level</strong>: Arranges top-level containers (VPCs, AWS/GCP regions, client tiers, SaaS services) along the macro flow direction (<code>LR</code> or <code>TB</code>).</li>
+<li><strong>Micro Level</strong>: Automatically arranges internal services, subnets, and databases within their respective container boundaries.</li>
+<li>Automatically routes cross-container connections with collision-avoiding orthogonal clearance paths.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>TreeGraph</code> (Hierarchical Directory / Org Layout)</strong>:
+<ul>
+<li>Optimized for single-parent trees, directory trees, and organizational hierarchies.</li>
+<li>Computes subtree widths recursively to prevent node overlaps.</li>
+</ul>
+</li>
+<li><strong><code>RadialGraph</code> (Central Hub &amp; Spoke Layout)</strong>:
+<ul>
+<li>Distributes peripheral nodes in concentric angular orbits around a central hub.</li>
+</ul>
+</li>
+<li><strong><code>GridGraph</code> (Matrix / Cluster Topology)</strong>:
+<ul>
+<li>Aligns nodes on a 2D coordinate grid with configurable column and row gaps.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>3. Details: ArchitectureGraph &amp; 2-Level Compound Layout</h2>
+<h3>3.1. The Macro/Micro Compound Layout Problem</h3>
+<p>Traditional graph algorithms (like standard Sugiyama layering or force-directed placement) treat all nodes and clusters homogeneously. In cloud architecture diagrams, this creates severe layout failure modes:</p>
+<ul>
+<li>Subnets inside a VPC become stretched across distant columns to align with unrelated external nodes.</li>
+<li>High-level containers collapse or overlap because the solver lacks hierarchical rank separation.</li>
+</ul>
+<h3>3.2. Two-Stage Decomposition in <code>ArchitectureGraph</code></h3>
+<p><code>ArchitectureGraph</code> (<code>_architecture/_solver.py</code>) resolves this via <strong>two-stage geometric decomposition</strong>:</p>
+<ol>
+<li><strong>Container Abstraction</strong>: Top-level containers (e.g. <code>Client Zone</code>, <code>VPC</code>, <code>External SaaS</code>) are treated as macro nodes in an overarching container dependency DAG.</li>
+<li><strong>Micro Layout &amp; Dimension Solving</strong>: Inside each container, child nodes are resolved locally. The container's intrinsic bounding box is calculated using bottom-up envelope expansion:
+$$\text{width}_{\text{container}} = \max(x_1) - \min(x_0) + 2 \times \text{padding}$$</li>
+<li><strong>Macro Positioning &amp; Flow</strong>: Containers are positioned sequentially along the macro axis (<code>direction=&quot;LR&quot;</code> or <code>&quot;TB&quot;</code>), respecting inter-container dependencies and user-configured <code>container_sep</code>.</li>
+<li><strong>Global Edge Routing</strong>: Edges crossing container boundaries calculate entry and exit boundary anchor points, routing cleanly through inter-container channels.</li>
+</ol>
+<hr />
+<h2>4. Details: Nested Cluster Boundary Computation</h2>
+<p>A standout architectural capability of <code>drawlib.graph</code> is <strong>automatic recursive cluster boundary expansion</strong>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="03_graph_autolayout_images/graph_cluster_boundaries.png" alt="03_graph_autolayout_2" />
+  <figcaption class="drawlib-caption">Hierarchical Nested Cluster Bounding Box Calculation</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span>
+    <span class="s2">"Hierarchical Nested Cluster Bounding Box Calculation"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Outer Cluster (VPC)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="s2">"Outer Cluster (e.g. VPC Network)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># Inner Cluster 1 (Public Subnet)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="s2">"Subnet A (Public)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Web App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="mi">45</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="c1"># Inner Cluster 2 (Private Subnet)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="s2">"Subnet B (Private Data)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">((</span><span class="mi">81</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Postgres"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">112</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">hard_drives</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Redis Cache"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="c1"># Connecting line between clusters</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Bottom-Up Geometric Solving</h3>
+<p>When clusters contain child nodes or sub-clusters:</p>
+<ol>
+<li><strong>Leaf Node Positioning</strong>: Leaf nodes are positioned first within their local rank coordinate space.</li>
+<li><strong>Cluster Bounding Box Calculation</strong>: The enclosing cluster iterates over all member bounding boxes to compute the minimum enclosing envelope:
+$$x_0 = \min_{i}(x_{0,i}) - \text{padding}$$
+$$y_0 = \min_{i}(y_{0,i}) - \text{padding}$$
+$$\text{width} = \max_{i}(x_{1,i}) - x_0 + \text{padding}$$
+$$\text{height} = \max_{i}(y_{1,i}) - y_0 + \text{padding}$$</li>
+<li><strong>Parent Propagation</strong>: Parent clusters recursively absorb child cluster envelopes, rendering grouped cloud topologies with balanced padding and zero boundary collisions.</li>
+</ol>
+<p>Next, proceed to Chapter 4: <strong><a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html">Compilation Pipeline</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

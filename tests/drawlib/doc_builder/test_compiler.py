@@ -23,6 +23,7 @@ from drawlib._builder.doc_builder import (
     detect_document_type,
     exporter_pdf,
 )
+from drawlib._builder.doc_builder.compiler.html import resolve_logo_hrefs
 from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._builder.doc_builder.merger import build_merged_html
 
@@ -672,3 +673,76 @@ def test_build_pdf_missing_style_error(tmp_path) -> None:
     out = tmp_path / "doc.pdf"
     with pytest.raises(ValueError, match='Missing required "style.css"'):
         build_pdf(input_dir=str(src_dir), output_file=str(out))
+
+
+def test_resolve_logo_hrefs(tmp_path) -> None:
+    """Test resolve_logo_hrefs returns None when logo is absent, and returns relpath when present."""
+    src_dir = tmp_path / "src"
+    out_dir = tmp_path / "out"
+    dest_file = out_dir / "index.html"
+    src_dir.mkdir()
+    out_dir.mkdir()
+
+    # When no logo exists
+    logo_href, logo_dark_href = resolve_logo_hrefs(str(src_dir), str(out_dir), str(dest_file))
+    assert logo_href is None
+    assert logo_dark_href is None
+
+    # When _logo.png exists (sample template), but logo.png does not
+    assets_dir = src_dir / "_assets"
+    assets_dir.mkdir()
+    (assets_dir / "_logo.png").write_bytes(b"sample")
+    logo_href, logo_dark_href = resolve_logo_hrefs(str(src_dir), str(out_dir), str(dest_file))
+    assert logo_href is None
+    assert logo_dark_href is None
+
+    # When logo.png is added
+    (assets_dir / "logo.png").write_bytes(b"logo")
+    logo_href, logo_dark_href = resolve_logo_hrefs(str(src_dir), str(out_dir), str(dest_file))
+    assert logo_href == "_assets/logo.png"
+    assert logo_dark_href == "_assets/logo.png"
+
+    # When logo_dark.png is also added
+    (assets_dir / "logo_dark.png").write_bytes(b"logo_dark")
+    logo_href, logo_dark_href = resolve_logo_hrefs(str(src_dir), str(out_dir), str(dest_file))
+    assert logo_href == "_assets/logo.png"
+    assert logo_dark_href == "_assets/logo_dark.png"
+
+
+def test_build_html_logo_and_text_fallback(tmp_path) -> None:
+    """Test build_html renders text brand when logo is absent, and img tags when logo is present."""
+    src_dir = tmp_path / "src"
+    out_dir = tmp_path / "out"
+    src_dir.mkdir()
+    assets_dir = src_dir / "_assets"
+    assets_dir.mkdir()
+    (assets_dir / "favicon.png").write_bytes(b"favicon")
+    (assets_dir / "_logo.png").write_bytes(b"sample_logo")
+
+    (src_dir / "navbar.md").write_text("# My Brand\n\n- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "index.md").write_text("# Home\nWelcome.\n", encoding="utf-8")
+    (src_dir / "style.css").write_text("body {}", encoding="utf-8")
+
+    template_content = (
+        "<!DOCTYPE html><html><head>"
+        "{% if favicon_href %}<link rel='icon' href='{{ favicon_href }}'>{% endif %}"
+        "</head><body><header>"
+        "{% if logo_href %}<img src='{{ logo_href }}' class='logo-light'>"
+        "<img src='{{ logo_dark_href }}' class='logo-dark'>"
+        "{% else %}{{ site_title }}{% endif %}"
+        "</header>{{ body }}</body></html>"
+    )
+    (src_dir / "template.html").write_text(template_content, encoding="utf-8")
+
+    # 1. Build with no logo.png -> should render text "My Brand"
+    build_html(input_dir=str(src_dir), output_dir=str(out_dir))
+    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert "My Brand" in index_html
+    assert "class='logo-light'" not in index_html
+
+    # 2. Add logo.png -> should render logo images
+    (assets_dir / "logo.png").write_bytes(b"real_logo")
+    build_html(input_dir=str(src_dir), output_dir=str(out_dir))
+    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert "class='logo-light'" in index_html
+    assert "_assets/logo.png" in index_html

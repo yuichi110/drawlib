@@ -52,6 +52,36 @@ def resolve_favicon_href(input_abs: str, out_dir_abs: str, dest_abs: str) -> Opt
     return None
 
 
+def resolve_logo_hrefs(input_abs: str, out_dir_abs: str, dest_abs: str) -> tuple[Optional[str], Optional[str]]:
+    """Resolve relative hrefs to logo.png and logo_dark.png for a given output HTML file if present in source."""
+    for sub in ("_assets", "assets", ""):
+        for logo_name in ("logo.png", "logo.svg"):
+            src_logo = os.path.join(input_abs, sub, logo_name) if sub else os.path.join(input_abs, logo_name)
+            dst_logo = os.path.join(out_dir_abs, sub, logo_name) if sub else os.path.join(out_dir_abs, logo_name)
+            if os.path.isfile(src_logo):
+                logo_href = os.path.relpath(dst_logo, os.path.dirname(dest_abs)).replace(os.sep, "/")
+
+                logo_dark_href: Optional[str] = None
+                for dark_name in ("logo_dark.png", "logo_dark.svg"):
+                    src_dark = (
+                        os.path.join(input_abs, sub, dark_name)
+                        if sub
+                        else os.path.join(input_abs, dark_name)
+                    )
+                    dst_dark = (
+                        os.path.join(out_dir_abs, sub, dark_name)
+                        if sub
+                        else os.path.join(out_dir_abs, dark_name)
+                    )
+                    if os.path.isfile(src_dark):
+                        logo_dark_href = os.path.relpath(dst_dark, os.path.dirname(dest_abs)).replace(os.sep, "/")
+                        break
+                if not logo_dark_href:
+                    logo_dark_href = logo_href
+                return logo_href, logo_dark_href
+    return None, None
+
+
 
 def build_html(
     input_dir: str,
@@ -183,6 +213,7 @@ def build_html(
             )
             rel_index_url = os.path.relpath(root_index_dest_abs, os.path.dirname(dest_abs)).replace(os.sep, "/")
             rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, dest_abs)
+            rel_logo_href, rel_logo_dark_href = resolve_logo_hrefs(input_abs, out_dir_abs, dest_abs)
             if is_md:
                 cur_sections, cur_items = resolve_navbar_for_page(
                     sections=navbar_sections,
@@ -219,6 +250,8 @@ def build_html(
                 site_title=site_title,
                 project_root=input_abs,
                 favicon_href=rel_favicon_href,
+                logo_href=rel_logo_href,
+                logo_dark_href=rel_logo_dark_href,
             )
     else:
         _compile_merged_doc_html(
@@ -360,6 +393,7 @@ def _compile_merged_doc_html(
     combined_body = "\n\n".join(body_parts)
     index_dest_abs = os.path.join(out_dir_abs, "index.html")
     rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, index_dest_abs)
+    rel_logo_href, rel_logo_dark_href = resolve_logo_hrefs(input_abs, out_dir_abs, index_dest_abs)
     full_html = render_html_document(
         body_html=combined_body,
         title=inferred_title or "Drawlib Document",
@@ -371,6 +405,8 @@ def _compile_merged_doc_html(
         index_url="index.html",
         site_title=None,
         favicon_href=rel_favicon_href,
+        logo_href=rel_logo_href,
+        logo_dark_href=rel_logo_dark_href,
     )
 
     os.makedirs(out_dir_abs, exist_ok=True)
@@ -499,6 +535,8 @@ def _compile_single_html_file(
     site_title: Optional[str] = None,
     project_root: Optional[str] = None,
     favicon_href: Optional[str] = None,
+    logo_href: Optional[str] = None,
+    logo_dark_href: Optional[str] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     body_html, doc_title, processor = _compile_chapter_body(
@@ -525,6 +563,8 @@ def _compile_single_html_file(
         index_url=(index_url or "index.html"),
         site_title=site_title,
         favicon_href=favicon_href,
+        logo_href=logo_href,
+        logo_dark_href=logo_dark_href,
     )
 
     os.makedirs(os.path.dirname(dest_abs), exist_ok=True)

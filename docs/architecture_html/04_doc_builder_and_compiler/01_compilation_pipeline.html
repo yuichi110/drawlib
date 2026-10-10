@@ -1,0 +1,434 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Tokenization & Code Block Processor</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Markdown Tokenization & Code Block Processor</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Markdown Tokenization &amp; Code Block Processor</h1>
+<p>The core engine enabling <strong>&quot;Illustrated Documentation as Code&quot;</strong> is Drawlib's document compilation pipeline (<code>_builder/doc_builder/</code>). Rather than relying on fragile regex string substitutions or headless browser preprocessing, Drawlib tokenizes Markdown documents into an Abstract Syntax Tree (AST), identifies embedded drawing blocks, executes Python code in-process, and transforms code tokens into responsive web elements and vector image assets.</p>
+<p>This document details the tokenization lifecycle, code fence option parsing, and sandbox execution mechanics.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_compilation_pipeline_images/compiler_pipeline_flow.png" alt="01_compilation_pipeline_1" />
+  <figcaption class="drawlib-caption">Document Compilation Pipeline Architecture</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"Document Compilation Pipeline Architecture"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Protect Fences"</span><span class="p">,</span> <span class="s2">"preserve_outer_fences</span><span class="se">\n</span><span class="s2">Mask nested blocks"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Block Processor"</span><span class="p">,</span> <span class="s2">"Regex extract &amp; cache</span><span class="se">\n</span><span class="s2">DrawlibBlockProcessor"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">gear</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Sandboxed Exec"</span><span class="p">,</span> <span class="s2">"In-process execution</span><span class="se">\n</span><span class="s2">_no_op_save &amp; blobs"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. GFM &amp; Exporter"</span><span class="p">,</span> <span class="s2">"markdown-it-py AST</span><span class="se">\n</span><span class="s2">Pygments &amp; HTML/PDF"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: The 3-Stage Text &amp; AST Hybrid Pipeline</h2>
+<p>Unlike naive documentation generators that either rely exclusively on fragile regex replacements or heavy headless browser rendering, Drawlib implements a high-performance <strong>3-Stage Text &amp; AST Hybrid Pipeline</strong>:</p>
+<pre><code><span class="k">[Markdown Source]</span>
+<span class="w">       </span><span class="na">│</span>
+<span class="w">       </span><span class="na">▼</span>
+<span class="na">Stage A</span><span class="o">:</span><span class="w"> </span><span class="s">Outer Fence Protection (detector.preserve_outer_fences)</span>
+<span class="w">       </span><span class="na">│  Masks nested code blocks inside markdown quotes/lists</span>
+<span class="w">       </span><span class="na">▼</span>
+<span class="na">Stage B</span><span class="o">:</span><span class="w"> </span><span class="s">Block Extraction &amp; Execution Sandbox (DrawlibBlockProcessor)</span>
+<span class="w">       </span><span class="na">│  Extracts ```drawlib fences via regex</span>
+<span class="w">       </span><span class="na">│  Queries BuildImageCache (SQLite WAL)</span>
+<span class="w">       </span><span class="na">│  Executes code with _no_op_save and renders image assets</span>
+<span class="w">       </span><span class="na">│  Substitutes fences with HTML &lt;figure&gt; tags or Markdown image links</span>
+<span class="w">       </span><span class="na">▼</span>
+<span class="na">Stage C</span><span class="o">:</span><span class="w"> </span><span class="s">Downstream GFM AST Parsing (markdown-it-py)</span>
+<span class="w">          </span><span class="na">Parses remaining Markdown into HTML/AST tokens</span>
+<span class="w">          </span><span class="na">Applies Pygments syntax highlighting</span>
+<span class="w">          </span><span class="na">Rewrites relative .md links to .html</span>
+</code></pre>
+<h3>Why a Hybrid Pipeline?</h3>
+<ol>
+<li><strong>Preserving Drawing Semantics</strong>: Intercepting and executing drawing blocks before full Markdown AST tokenization allows Drawlib to insert semantic <code>&lt;figure&gt;</code> elements, responsive <code>&lt;details&gt;</code> toggles, and image references seamlessly into the document flow.</li>
+<li><strong>Deterministic Output Caching</strong>: Blocks are hashed and resolved against <code>.drawlib/cache.db</code> before any heavy parsing or execution takes place, achieving sub-millisecond incremental builds.</li>
+<li><strong>Robust Syntax Highlighting</strong>: Surrounding Markdown prose and standard non-drawlib code blocks are handled cleanly by <code>markdown-it-py</code> and Pygments without interference.</li>
+</ol>
+<hr />
+<h2>2. Positioning: Compiler Architecture &amp; Core Models</h2>
+<p>The document builder subsystem (<code>_builder/doc_builder/</code>) decomposes responsibilities into dedicated Pydantic configuration models, processing engines, and format exporters:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_compilation_pipeline_images/doc_builder_architecture.png" alt="01_compilation_pipeline_2" />
+  <figcaption class="drawlib-caption">doc_builder Compilation Pipeline & Exporter Architecture</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">168</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">102</span><span class="p">)</span>
+
+<span class="n">cd</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"doc_builder Compilation Pipeline &amp; Exporter Architecture"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Core Models (Row 1)</span>
+<span class="n">doc_info</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"DocumentInputInfo"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"BaseModel"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">78.0</span><span class="p">))</span>
+<span class="n">doc_info</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"src_dir: Path"</span><span class="p">)</span>
+<span class="n">doc_info</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"output_dir: Path"</span><span class="p">)</span>
+<span class="n">doc_info</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"site_title, lang: str"</span><span class="p">)</span>
+
+<span class="n">block_opts</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"DrawlibBlockOptions"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"BaseModel"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.5</span><span class="p">,</span> <span class="mf">78.0</span><span class="p">))</span>
+<span class="n">block_opts</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"file: str | None"</span><span class="p">)</span>
+<span class="n">block_opts</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"fold_code, no_code: bool"</span><span class="p">)</span>
+<span class="n">block_opts</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"align: Literal"</span><span class="p">)</span>
+<span class="n">block_opts</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"caption: str | None"</span><span class="p">)</span>
+
+<span class="n">cache_cls</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"BuildImageCache"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">138.0</span><span class="p">,</span> <span class="mf">78.0</span><span class="p">))</span>
+<span class="n">cache_cls</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"cache_db: Path"</span><span class="p">)</span>
+<span class="n">cache_cls</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"get_image"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"bytes | None"</span><span class="p">)</span>
+<span class="n">cache_cls</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"put_image"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"key, png, webp, ..."</span><span class="p">)</span>
+
+<span class="c1"># Core Processor (Row 2)</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"DrawlibBlockProcessor"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.5</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">))</span>
+<span class="n">processor</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"cache: BuildImageCache"</span><span class="p">)</span>
+<span class="n">processor</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"options_parser: OptionsParser"</span><span class="p">)</span>
+<span class="n">processor</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"process_markdown"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"content: str"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"tuple"</span><span class="p">)</span>
+<span class="n">processor</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"execute_block"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"code: str"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Path"</span><span class="p">)</span>
+
+<span class="c1"># Exporters (Row 3)</span>
+<span class="n">exp_base</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"ExporterBase"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">exp_base</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"export"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"input_info, ..."</span><span class="p">)</span>
+
+<span class="n">exp_html</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"ExporterHTML"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">70.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">exp_html</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"render_page"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"str"</span><span class="p">)</span>
+
+<span class="n">exp_pdf</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"ExporterPDF"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">exp_pdf</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"compile_pdf"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Path"</span><span class="p">)</span>
+<span class="n">exp_pdf</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"normalize_pdf_timestamps"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"None"</span><span class="p">)</span>
+
+<span class="n">merger</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"DocumentMerger"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">150.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">merger</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"merge_documents"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"str"</span><span class="p">)</span>
+
+<span class="c1"># Relationships</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">block_opts</span><span class="p">,</span> <span class="s2">"composition"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"parses into"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">cache_cls</span><span class="p">,</span> <span class="s2">"aggregation"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"queries"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">exp_html</span><span class="p">,</span> <span class="n">exp_base</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">exp_pdf</span><span class="p">,</span> <span class="n">exp_base</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">exp_pdf</span><span class="p">,</span> <span class="n">merger</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">exp_html</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"invokes"</span><span class="p">)</span>
+
+<span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Code Fence Attribute Parser</h3>
+<p>Drawlib code fences support declarative metadata options on the opening line:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_compilation_pipeline_images/fence_attribute_parsing.png" alt="01_compilation_pipeline_3" />
+  <figcaption class="drawlib-caption">Code Fence Token Extraction & Options Parsing</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"Code Fence Token Extraction &amp; Options Parsing"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Top: Raw Code Fence Header</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span>
+    <span class="s1">'```drawlib center fold-code file:arch.png caption:"Architecture Diagram"'</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Bottom: 4 Parsed Attributes</span>
+<span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"align='center'"</span><span class="p">,</span> <span class="s2">"CSS flexbox</span><span class="se">\n</span><span class="s2">center alignment"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">align_center_horizontal</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"fold_code=True"</span><span class="p">,</span> <span class="s2">"&lt;details&gt; tag</span><span class="se">\n</span><span class="s2">collapsible code"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">caret_down</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"file='arch.png'"</span><span class="p">,</span> <span class="s2">"Explicit target</span><span class="se">\n</span><span class="s2">output asset name"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"caption='...'"</span><span class="p">,</span> <span class="s2">"&lt;figcaption&gt; text</span><span class="se">\n</span><span class="s2">below image"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chat_centered_text</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Supported Header Options</h3>
+<ul>
+<li><strong><code>file:&lt;name&gt;.&lt;ext&gt;</code></strong>: Specifies the output filename (e.g. <code>file:pipeline.png</code> or <code>file:diagram.svg</code>). If omitted, Drawlib generates an automatic deterministic hash name.</li>
+<li><strong><code>fold-code</code> / <code>no-code</code></strong>: Controls code visibility. <code>fold-code</code> wraps Python source in an interactive HTML <code>&lt;details&gt;</code> disclosure toggle; <code>no-code</code> suppresses source display completely.</li>
+<li><strong><code>center</code> / <code>left</code> / <code>right</code></strong>: Controls container alignment via CSS flexbox.</li>
+<li><strong><code>caption:&quot;...&quot;</code></strong>: Renders an accessible, semantic <code>&lt;figcaption&gt;</code> beneath the illustration.</li>
+</ul>
+<hr />
+<h2>3. Details: Sandboxed Execution &amp; Error Reporting</h2>
+<h3>3.1. In-Process Sandbox &amp; <code>_no_op_save</code></h3>
+<p>When a code block must be executed (on cache miss):</p>
+<ol>
+<li><strong>Scope Isolation</strong>: <code>DrawlibBlockProcessor</code> constructs a dedicated <code>globals()</code> dictionary populated with project-wide imports (<code>styles.py</code>, <code>utils.py</code>), isolating execution from the compiler's own internal namespace.</li>
+<li><strong>Context Path Injection</strong>: The document's source directory is temporarily prepended to <code>sys.path</code>, allowing blocks to load local assets (<code>_assets/</code>) and helper scripts seamlessly.</li>
+<li><strong><code>_no_op_save</code> Monkeypatching</strong>: The compiler automatically intercepts and patches <code>canvas.save()</code> to prevent user code from writing directly to disk before the processor captures and caches the rendered image buffers.</li>
+</ol>
+<h3>3.2. Accurate Line Number Error Diagnostics</h3>
+<p>If a Python exception occurs inside a drawing block:</p>
+<ul>
+<li>Drawlib catches the exception, inspects the traceback, and calculates the exact physical line number within the Markdown source file (<code>file.md:L142</code>).</li>
+<li>The build terminates immediately with an informative terminal message showing the offending code line, avoiding mysterious stack traces inside <code>exec()</code>.</li>
+</ul>
+<p>Next, explore how the AST compiles into multiple formats in <strong><a href="02_multi_target_exporters.html">Multi-Target Exporters</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

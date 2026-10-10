@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ "docs/architecture_src" = "." ]; then
     cd "$SCRIPT_DIR"
 else
-    PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+    PARENT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
     cd "$PARENT_DIR"
 fi
 

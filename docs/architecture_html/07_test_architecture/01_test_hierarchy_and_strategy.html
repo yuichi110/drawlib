@@ -1,0 +1,368 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Architecture: Hierarchy & Headless Verification</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    Drawlib Architecture
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview & Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas & Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types & Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache & AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/01_primitives_and_backends.html" >Primitives & Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder & Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link & Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI & Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server & Tooling</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation & Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing & Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture & Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="01_test_hierarchy_and_strategy.html" >Test Hierarchy & Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_dogfooding_and_quality_gates.html" >Dogfooding & Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Test Architecture: Hierarchy & Headless Verification</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Test Architecture: Hierarchy &amp; Headless Verification</h1>
+<p>Testing a 2D drawing and documentation engine presents unique challenges: graphics must be thoroughly validated across operating systems without opening interactive windows, and without relying on fragile pixel-by-pixel bitmap comparisons.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_test_hierarchy_and_strategy_images/test_hierarchy_and_mirroring.png" alt="01_test_hierarchy_and_strategy_1" />
+  <figcaption class="drawlib-caption">1:1 Mirroring Test Suite Hierarchy</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">50.5</span><span class="p">),</span>
+    <span class="s2">"1:1 Structural Mirroring: Source Code vs. Test Hierarchy"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Source Layer</span>
+<span class="n">src_modules</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s2">"src/drawlib/_core"</span><span class="p">,</span> <span class="s2">"L1-L4 internal stack</span><span class="se">\n</span><span class="s2">Canvas, types, styles"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="s2">"src/drawlib/shapes"</span><span class="p">,</span> <span class="s2">"Primitives, lines</span><span class="se">\n</span><span class="s2">text, bezier curves"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"src/drawlib/charts"</span><span class="p">,</span> <span class="s2">"Domain components</span><span class="se">\n</span><span class="s2">SmartArts, Diagrams"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">118</span><span class="p">,</span> <span class="s2">"src/drawlib/_builder"</span><span class="p">,</span> <span class="s2">"Markdown compiler</span><span class="se">\n</span><span class="s2">HTML, PDF, CLI"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">src_modules</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+
+<span class="c1"># Test Layer</span>
+<span class="n">test_modules</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s2">"tests/drawlib/_core"</span><span class="p">,</span> <span class="s2">"Mirroring unit tests</span><span class="se">\n</span><span class="s2">State &amp; style tests"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flask</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="s2">"tests/drawlib/shapes"</span><span class="p">,</span> <span class="s2">"Patch geometry tests</span><span class="se">\n</span><span class="s2">Bounding box checks"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"tests/drawlib/charts"</span><span class="p">,</span> <span class="s2">"Domain calculations</span><span class="se">\n</span><span class="s2">Data mapping tests"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">118</span><span class="p">,</span> <span class="s2">"tests/drawlib/doc_builder"</span><span class="p">,</span> <span class="s2">"AST parsing tests</span><span class="se">\n</span><span class="s2">Link validation tests"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">test_modules</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+    <span class="c1"># Vertical mirroring connector</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Concept: The Dual-Verification Testing Strategy</h2>
+<p>Traditional graphical test suites suffer from severe dilemmas: relying strictly on bitmap comparisons leads to brittle tests and false positives across operating systems, while relying solely on property tests risks silent visual regressions (such as clipped labels or overlapping connectors).</p>
+<p>Drawlib resolves this with a <strong>Dual-Verification Architecture</strong>:</p>
+<pre><code><span class="w">                 </span><span class="o">[</span><span class="n">Drawing Function Under Test</span><span class="o">]</span>
+<span class="w">                               </span><span class="err">│</span>
+<span class="w">               </span><span class="err">┌───────────────┴───────────────┐</span>
+<span class="w">               </span><span class="err">▼</span><span class="w">                               </span><span class="err">▼</span>
+<span class="w">       </span><span class="o">[</span><span class="n">Layer 1: Property</span><span class="o">]</span><span class="w">             </span><span class="o">[</span><span class="n">Layer 2: Visual</span><span class="o">]</span>
+<span class="w">    </span><span class="ow">In</span><span class="o">-</span><span class="n">memory</span><span class="w"> </span><span class="n">direct</span><span class="w"> </span><span class="n">assertions</span><span class="w">     </span><span class="n">pytest_runtest_call</span><span class="w"> </span><span class="n">hook</span>
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Bounding</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">math</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">)</span><span class="err">•</span><span class="w"> </span><span class="n">check_image_match</span><span class="p">()</span>
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Color</span><span class="w"> </span><span class="n">hex</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RGBA</span><span class="w"> </span><span class="k">values</span><span class="w">       </span><span class="err">•</span><span class="w"> </span><span class="n">PIL</span><span class="w"> </span><span class="n">histogram</span><span class="w"> </span><span class="n">diffing</span>
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Patch</span><span class="w"> </span><span class="n">counts</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">stroke</span><span class="w"> </span><span class="n">widths</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">output_tests</span><span class="o">/</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="o">*</span><span class="n">_answers</span><span class="o">/</span>
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Fast</span><span class="p">,</span><span class="w"> </span><span class="k">cross</span><span class="o">-</span><span class="n">platform</span><span class="w"> </span><span class="n">unit</span><span class="w">     </span><span class="err">•</span><span class="w"> </span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">image_threshold</span>
+</code></pre>
+<ol>
+<li><strong>Layer 1 — Mathematical Geometry Assertions</strong>: Fast in-memory unit tests that verify coordinate transforms, bounding boxes, patch counts, and style attributes without disk I/O.</li>
+<li><strong>Layer 2 — Automated Image Regression Hook</strong>: A custom <code>pytest_runtest_call</code> hook in <code>conftest.py</code> that intercepts test completion, comparing newly rendered output images in <code>output_tests/</code> against golden reference images in <code>*_answers/</code> using PIL histogram diffing (<code>check_image_match()</code>).</li>
+<li><strong>Configurable Thresholds</strong>: Tests calibrate tolerance via <code>@pytest.mark.image_threshold(0.99)</code>, accommodating sub-pixel rasterization variances across operating systems while immediately catching visual layout breakages.</li>
+</ol>
+<hr />
+<h2>2. Positioning: The Test Suite Architecture</h2>
+<p>The test suite is organized into two primary sub-packages, separated from the production distribution:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="01_test_hierarchy_and_strategy_images/headless_graphics_test_pipeline.png" alt="01_test_hierarchy_and_strategy_2" />
+  <figcaption class="drawlib-caption">Headless Graphics Testing and Patch Assertion Mechanics</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
+    <span class="s2">"Headless Graphics Execution and Patch Assertion Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Pytest Fixture"</span><span class="p">,</span> <span class="s2">"Isolated Canvas state</span><span class="se">\n</span><span class="s2">Temporary memory buffers"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flask</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Headless Draw"</span><span class="p">,</span> <span class="s2">"setup(100, 50)</span><span class="se">\n</span><span class="s2">rectangle((50,25), ...)"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">paint_brush</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Virtual Axes"</span><span class="p">,</span> <span class="s2">"Agg Backend in memory</span><span class="se">\n</span><span class="s2">Generates patch primitives"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Patch Assertions"</span><span class="p">,</span> <span class="s2">"assert patch.get_x() == 50</span><span class="se">\n</span><span class="s2">assert color == '#2563EB'"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ol>
+<li><strong><code>tests/drawlib/</code></strong>: Tests the core library package. Contains unit tests for L1–L4 layers, domain components (charts, diagrams, smartarts, graph), document builder engines, and CLI interfaces.</li>
+<li><strong><code>tests/dcli/</code></strong>: Tests internal development tools, CLI subcommands, release asset management scripts, and Docker orchestration.</li>
+</ol>
+<hr />
+<h2>3. Details: Test Fixtures and Targeted Execution</h2>
+<h3>3.1. Pytest Fixtures &amp; Canvas Isolation</h3>
+<p><code>tests/conftest.py</code> provides shared test fixtures to ensure complete isolation between tests:</p>
+<ul>
+<li><strong>Canvas Reset</strong>: Ensures the Canvas singleton state is cleared before and after each test function, preventing coordinate leakage or stale drawing buffers.</li>
+<li><strong>Filesystem Isolation</strong>: Provides temporary sandbox directories for document builder compilation tests, preventing dirty artifacts from polluting the workspace.</li>
+</ul>
+<h3>3.2. Targeted Execution via <code>./dcli test</code></h3>
+<p>Running the entire test suite on every change can slow down rapid iteration. <code>./dcli test</code> provides fast targeted shortcuts:</p>
+<pre><code class="language-bash"><span class="c1"># Run tests by module shortcut</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>core<span class="w">          </span><span class="c1"># Tests src/drawlib/_core/</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>charts<span class="w">        </span><span class="c1"># Tests charts and quantitative models</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>diagrams<span class="w">      </span><span class="c1"># Tests UML and architecture diagrams</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>graph<span class="w">         </span><span class="c1"># Tests declarative DAG autolayout</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>doc-builder<span class="w">   </span><span class="c1"># Tests Markdown compiler and link checker</span>
+
+<span class="c1"># Run full test suite with parallel execution</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>all<span class="w"> </span>--parallel
+</code></pre>
+<h3>3.3. Parallelization &amp; Code Coverage</h3>
+<ul>
+<li><strong>pytest-xdist (<code>--parallel</code>)</strong>: Spawns multiple worker processes, utilizing all CPU cores for sub-second test execution.</li>
+<li><strong>Coverage Auditing (<code>--cov-report</code>)</strong>: Generates line and branch coverage metrics, ensuring critical geometric calculation paths and validation checks are verified.</li>
+</ul>
+<p>Next, explore how repository dogfooding and static quality gates guarantee zero-defect releases in <strong><a href="02_dogfooding_and_quality_gates.html">Dogfooding &amp; Quality Gates</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>
