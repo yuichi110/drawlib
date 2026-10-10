@@ -458,6 +458,8 @@ class TestSlideCli:
         assert (src_dir / "style.css").is_file()
         assert (src_dir / "utils.py").is_file()
         assert (src_dir / "styles.py").is_file()
+        assert not (src_dir / "output_readme.md").exists()
+        assert not (src_dir / "output_html_readme.md").exists()
 
     @pytest.mark.parametrize("style_name", ["default", "google", "monochrome"])
     def test_cli_init_slide_styles(self, tmp_path: Path, style_name: str) -> None:
@@ -862,4 +864,45 @@ utils.draw_page_number()
         assert "1 / 3" in svg1
         assert "2 / 3" in svg2
         assert "3 / 3" in svg3
+
+    def test_build_slide_excludes_underscore_prefix_and_special_files(self, tmp_path: Path) -> None:
+        """Verify files/directories starting with _ and special files (README.md, navbar.md) are excluded."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide_out"
+        src_dir.mkdir()
+
+        (src_dir / "01_title.md").write_text("# Valid Slide 1\n", encoding="utf-8")
+        (src_dir / "02_content.md").write_text("# Valid Slide 2\n", encoding="utf-8")
+
+        # Non-slide files prefixed with _
+        (src_dir / "_CONTENTS_PLANNING.md").write_text("# Secret Planning Doc\n", encoding="utf-8")
+        (src_dir / "_notes.markdown").write_text("# Internal Notes\n", encoding="utf-8")
+
+        # Subdirectory prefixed with _
+        drafts_dir = src_dir / "_drafts"
+        drafts_dir.mkdir()
+        (drafts_dir / "99_wip.md").write_text("# WIP Slide\n", encoding="utf-8")
+
+        # Special excluded files
+        (src_dir / "README.md").write_text("# Project Readme\n", encoding="utf-8")
+        (src_dir / "navbar.md").write_text("* [Home](01_title.md)\n", encoding="utf-8")
+        (src_dir / "output_readme.md").write_text("# Output Viewer Readme\n", encoding="utf-8")
+        (src_dir / "output_html_readme.md").write_text("# Output HTML Viewer Readme\n", encoding="utf-8")
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        html = Path(result_html).read_text(encoding="utf-8")
+
+        assert "Valid Slide 1" in html
+        assert "Valid Slide 2" in html
+        assert 'data-slide-index="1"' in html
+        assert 'data-slide-index="2"' in html
+        assert 'data-slide-index="3"' not in html
+
+        assert "Secret Planning Doc" not in html
+        assert "Internal Notes" not in html
+        assert "WIP Slide" not in html
+        assert "Project Readme" not in html
+        assert "Output Viewer Readme" not in html
+        assert "Output HTML Viewer Readme" not in html
+
 

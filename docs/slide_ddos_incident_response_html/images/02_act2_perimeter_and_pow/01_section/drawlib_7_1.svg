@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="405pt" viewBox="0 0 720 405" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 405 
+L 720 405 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 270 405 
+L 270 0 
+L 720 0 
+L 720 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #f8fafc"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 0 405 
+L 0 0 
+L 270 0 
+L 270 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #121c2d"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 52.5 150 
+C 76.368279 150 99.262188 140.517032 116.13961 123.63961 
+C 133.017032 106.762188 142.5 83.868279 142.5 60 
+C 142.5 36.131721 133.017032 13.237812 116.13961 -3.63961 
+C 99.262188 -20.517032 76.368279 -30 52.5 -30 
+C 28.631721 -30 5.737812 -20.517032 -11.13961 -3.63961 
+C -28.017032 13.237812 -37.5 36.131721 -37.5 60 
+C -37.5 83.868279 -28.017032 106.762188 -11.13961 123.63961 
+C 5.737812 140.517032 28.631721 150 52.5 150 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #1c2a42; stroke: #2d405f; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 195 405 
+C 208.923163 405 222.277943 399.468269 232.123106 389.623106 
+C 241.968269 379.777943 247.5 366.423163 247.5 352.5 
+C 247.5 338.576837 241.968269 325.222057 232.123106 315.376894 
+C 222.277943 305.531731 208.923163 300 195 300 
+C 181.076837 300 167.722057 305.531731 157.876894 315.376894 
+C 148.031731 325.222057 142.5 338.576837 142.5 352.5 
+C 142.5 366.423163 148.031731 379.777943 157.876894 389.623106 
+C 167.722057 399.468269 181.076837 405 195 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #1c2a42; stroke: #2d405f; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 267.1875 405 
+L 267.1875 0 
+L 272.8125 0 
+L 272.8125 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #8ab4f8" x="135" y="146.869141" transform="rotate(-0 135 146.869141)">ACT / CHAPTER</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 54px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="135" y="230.52" transform="rotate(-0 135 230.52)">02</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 96.75 312.75 
+C 98.142316 312.75 99.477794 312.196827 100.462311 311.212311 
+C 101.446827 310.227794 102 308.892316 102 307.5 
+C 102 306.107684 101.446827 304.772206 100.462311 303.787689 
+C 99.477794 302.803173 98.142316 302.25 96.75 302.25 
+C 95.357684 302.25 94.022206 302.803173 93.037689 303.787689 
+C 92.053173 304.772206 91.5 306.107684 91.5 307.5 
+C 91.5 308.892316 92.053173 310.227794 93.037689 311.212311 
+C 94.022206 312.196827 95.357684 312.75 96.75 312.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #8ab4f8"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 122.25 315.75 
+C 124.437926 315.75 126.536534 314.880728 128.083631 313.333631 
+C 129.630728 311.786534 130.5 309.687926 130.5 307.5 
+C 130.5 305.312074 129.630728 303.213466 128.083631 301.666369 
+C 126.536534 300.119272 124.437926 299.25 122.25 299.25 
+C 120.062074 299.25 117.963466 300.119272 116.416369 301.666369 
+C 114.869272 303.213466 114 305.312074 114 307.5 
+C 114 309.687926 114.869272 311.786534 116.416369 313.333631 
+C 117.963466 314.880728 120.062074 315.75 122.25 315.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ea4335; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 147.75 312.75 
+C 149.142316 312.75 150.477794 312.196827 151.462311 311.212311 
+C 152.446827 310.227794 153 308.892316 153 307.5 
+C 153 306.107684 152.446827 304.772206 151.462311 303.787689 
+C 150.477794 302.803173 149.142316 302.25 147.75 302.25 
+C 146.357684 302.25 145.022206 302.803173 144.037689 303.787689 
+C 143.053173 304.772206 142.5 306.107684 142.5 307.5 
+C 142.5 308.892316 143.053173 310.227794 144.037689 311.212311 
+C 145.022206 312.196827 146.357684 312.75 147.75 312.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #374763"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 173.25 312.75 
+C 174.642316 312.75 175.977794 312.196827 176.962311 311.212311 
+C 177.946827 310.227794 178.5 308.892316 178.5 307.5 
+C 178.5 306.107684 177.946827 304.772206 176.962311 303.787689 
+C 175.977794 302.803173 174.642316 302.25 173.25 302.25 
+C 171.857684 302.25 170.522206 302.803173 169.537689 303.787689 
+C 168.553173 304.772206 168 306.107684 168 307.5 
+C 168 308.892316 168.553173 310.227794 169.537689 311.212311 
+C 170.522206 312.196827 171.857684 312.75 173.25 312.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #374763"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 367.5 100.125 
+L 331.875 100.125 
+Q 322.5 100.125 322.5 90.75 
+L 322.5 89.25 
+Q 322.5 79.875 331.875 79.875 
+L 403.125 79.875 
+Q 412.5 79.875 412.5 89.25 
+L 412.5 90.75 
+Q 412.5 100.125 403.125 100.125 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #e8f0fe; stroke: #aecbfa; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #1a73e8" x="367.5" y="93.8" transform="rotate(-0 367.5 93.8)">Act 2 of 4</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 21px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #172135" x="315" y="142.98" transform="rotate(-0 315 142.98)">Perimeter WAF &amp; Proof-of-Work</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #475569" x="315" y="174.09" transform="rotate(-0 315 174.09)">Cat-and-Mouse Geo-Blocking, JS Header Spoofing, and Asymmetric PoW</text>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 315 198.75 
+L 682.5 198.75 
+" clip-path="url(#p6494dea2b6)" style="fill: none; stroke: #cbd5e1; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 498.75 253.5 
+L 321.75 253.5 
+Q 315 253.5 315 246.75 
+L 315 231.75 
+Q 315 225 321.75 225 
+L 675.75 225 
+Q 682.5 225 682.5 231.75 
+L 682.5 246.75 
+Q 682.5 253.5 675.75 253.5 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dae0e9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 335.625 248.25 
+C 338.011828 248.25 340.301219 247.301703 341.988961 245.613961 
+C 343.676703 243.926219 344.625 241.636828 344.625 239.25 
+C 344.625 236.863172 343.676703 234.573781 341.988961 232.886039 
+C 340.301219 231.198297 338.011828 230.25 335.625 230.25 
+C 333.238172 230.25 330.948781 231.198297 329.261039 232.886039 
+C 327.573297 234.573781 326.625 236.863172 326.625 239.25 
+C 326.625 241.636828 327.573297 243.926219 329.261039 245.613961 
+C 330.948781 247.301703 333.238172 248.25 335.625 248.25 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="335.625" y="242.86" transform="rotate(-0 335.625 242.86)">2.1</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="352.5" y="242.594414" transform="rotate(-0 352.5 242.594414)">Perimeter Hardening with GCLB Anycast Edge &amp; Cloud Armor WAF</text>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 498.75 291.75 
+L 321.75 291.75 
+Q 315 291.75 315 285 
+L 315 270 
+Q 315 263.25 321.75 263.25 
+L 675.75 263.25 
+Q 682.5 263.25 682.5 270 
+L 682.5 285 
+Q 682.5 291.75 675.75 291.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dae0e9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 335.625 286.5 
+C 338.011828 286.5 340.301219 285.551703 341.988961 283.863961 
+C 343.676703 282.176219 344.625 279.886828 344.625 277.5 
+C 344.625 275.113172 343.676703 272.823781 341.988961 271.136039 
+C 340.301219 269.448297 338.011828 268.5 335.625 268.5 
+C 333.238172 268.5 330.948781 269.448297 329.261039 271.136039 
+C 327.573297 272.823781 326.625 275.113172 326.625 277.5 
+C 326.625 279.886828 327.573297 282.176219 329.261039 283.863961 
+C 330.948781 285.551703 333.238172 286.5 335.625 286.5 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="335.625" y="281.11" transform="rotate(-0 335.625 281.11)">2.2</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="352.5" y="280.844414" transform="rotate(-0 352.5 280.844414)">Why Geo-Blocking Failed: 4 Rapid Proxy Hopping Waves</text>
+    </g>
+   </g>
+   <g id="patch_17">
+    <path d="M 498.75 330 
+L 321.75 330 
+Q 315 330 315 323.25 
+L 315 308.25 
+Q 315 301.5 321.75 301.5 
+L 675.75 301.5 
+Q 682.5 301.5 682.5 308.25 
+L 682.5 323.25 
+Q 682.5 330 675.75 330 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dae0e9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 335.625 324.75 
+C 338.011828 324.75 340.301219 323.801703 341.988961 322.113961 
+C 343.676703 320.426219 344.625 318.136828 344.625 315.75 
+C 344.625 313.363172 343.676703 311.073781 341.988961 309.386039 
+C 340.301219 307.698297 338.011828 306.75 335.625 306.75 
+C 333.238172 306.75 330.948781 307.698297 329.261039 309.386039 
+C 327.573297 311.073781 326.625 313.363172 326.625 315.75 
+C 326.625 318.136828 327.573297 320.426219 329.261039 322.113961 
+C 330.948781 323.801703 333.238172 324.75 335.625 324.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="335.625" y="319.36" transform="rotate(-0 335.625 319.36)">2.3</text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="352.5" y="319.094414" transform="rotate(-0 352.5 319.094414)">Static JS Token Spoofing vs. Asymmetric SHA-256 Proof-of-Work</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #808080" x="682.5" y="391.454453" transform="rotate(-0 682.5 391.454453)">7 / 21</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6494dea2b6">
+   <rect x="0" y="0" width="720" height="405"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

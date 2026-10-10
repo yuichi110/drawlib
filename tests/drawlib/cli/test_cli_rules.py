@@ -48,6 +48,7 @@ def test_cli_rules_list() -> None:
         "style-guide",
         "review-guide",
         "anim-guide",
+        "slide-guide",
         "project-overview",
         "project-images",
         "project-doc",
@@ -86,6 +87,7 @@ def test_cli_rules_list() -> None:
         ("style-guide", "# Drawlib Diagram Style Guide & Aesthetic Philosophy"),
         ("review-guide", "# Drawlib Autonomous Review & Self-Correction Guide"),
         ("anim-guide", "# Drawlib Animation Design & Best Practices Guide"),
+        ("slide-guide", "# Drawlib Slide Deck Design & Best Practices Guide (`slide-guide`)"),
         ("project-overview", "# Drawlib Project Architecture & Overview Guidelines"),
         ("project-images", "# Drawlib Standalone Images Project Guidelines (`project-images`)"),
         ("project-doc", "# Drawlib Linear Document & PDF Project Guidelines (`project-doc`)"),
@@ -143,6 +145,10 @@ def test_cli_rules_show_underscore_normalization() -> None:
     assert res_anim.returncode == 0
     assert "# Drawlib Animation Design & Best Practices Guide" in res_anim.stdout
 
+    res_slide_guide = run_drawlib_cli(["rules", "show", "slide_guide"])
+    assert res_slide_guide.returncode == 0
+    assert "# Drawlib Slide Deck Design & Best Practices Guide (`slide-guide`)" in res_slide_guide.stdout
+
     res_proj_overview = run_drawlib_cli(["rules", "show", "project_overview"])
     assert res_proj_overview.returncode == 0
     assert "# Drawlib Project Architecture & Overview Guidelines" in res_proj_overview.stdout
@@ -163,8 +169,6 @@ def test_cli_rules_show_underscore_normalization() -> None:
         "docs",
         "doc",
         "project",
-        "slide-guide",
-        "slide_guide",
         "preset_styles",
         "overview-min",
         "overview_min",

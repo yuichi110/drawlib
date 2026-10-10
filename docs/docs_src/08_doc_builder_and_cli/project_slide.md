@@ -216,7 +216,11 @@ A `slide` project produces presentation artifacts tailored for every scenario:
 
 ## 4. Authoring Slides & Stage Blocks
 
-Each Markdown file in `slide_src/` represents a single 16:9 slide (`1920x1080` stage). Use `::: block (x, y) (w, h)` containers alongside standard Markdown and helper components from `utils.py` (see [Slide Stage Layout & API](./slide_layout_and_api.md) for the complete stage coordinate reference, layout templates, and `drawlib.slide` API):
+Each Markdown file in `slide_src/` (and any nested chapter subdirectories such as `01_intro/01_cover.md`) represents a single 16:9 slide (`1920x1080` stage), compiled in sorted relative-path order.
+- **Excluding Non-Slide Files (`_` Prefix)**: Prefix any planning notes, outlines, or draft files/folders with an underscore `_` (e.g., `_planning.md`, `_drafts/`) to exclude them from slide compilation.
+- **Special Excluded Files**: `README.md` and `navbar.md` are also automatically excluded from the slide deck.
+
+Use `::: block (x, y) (w, h)` containers alongside standard Markdown and helper components from `utils.py` (see [Slide Stage Layout & API](./slide_layout_and_api.md) for the complete stage coordinate reference, layout templates, and `drawlib.slide` API):
 
 ````markdown
 ::: block (80, 40) (1760, 60)

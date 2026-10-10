@@ -213,7 +213,7 @@ def _deploy_shared_templates(
     if not shared_root.is_dir():
         return
     for item in shared_root.iterdir():
-        if item.name == "__pycache__" or item.name.startswith("."):
+        if item.name in {"__pycache__", "output_html_readme.md"} or item.name.startswith("."):
             continue
         if project_type == "slide" and item.name == "utils.py":
             continue
@@ -241,7 +241,7 @@ def _deploy_type_root_files(
 ) -> None:
     """Deploy type-specific root files (build scripts, template.html, etc.)."""
     for item in type_root.iterdir():
-        if item.name in {"docs", "utils", "__pycache__"} or item.name.startswith("."):
+        if item.name in {"docs", "utils", "__pycache__", "output_readme.md"} or item.name.startswith("."):
             continue
         _copy_item_with_substitutions(item, src_dir / item.name, replacements, created_files)
 

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="257.727273pt" viewBox="0 0 720 257.727273" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 257.727273 
+L 720 257.727273 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 249.545455 
+L 18.409091 249.545455 
+Q 8.181818 249.545455 8.181818 239.318182 
+L 8.181818 18.409091 
+Q 8.181818 8.181818 18.409091 8.181818 
+L 701.590909 8.181818 
+Q 711.818182 8.181818 711.818182 18.409091 
+L 711.818182 239.318182 
+Q 711.818182 249.545455 701.590909 249.545455 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="32.617809" transform="rotate(-0 360 32.617809)">24-Hour Geographic Proxy Escalation Timeline</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 32.727273 114.545455 
+L 32.727273 49.090909 
+L 185.503498 49.090909 
+L 204.398598 81.818182 
+L 185.503498 114.545455 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #e8f0fe; stroke: #669df6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="112.422028" y="74.689869" transform="rotate(-0 112.422028 74.689869)">Wave 1: Single Region</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="112.422028" y="96.849297" transform="rotate(-0 112.422028 96.849297)">95% China (CN) IPs</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 193.685316 114.545455 
+L 212.580416 81.818182 
+L 193.685316 49.090909 
+L 346.461541 49.090909 
+L 365.356641 81.818182 
+L 346.461541 114.545455 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #e8f0fe; stroke: #669df6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="279.520978" y="74.689869" transform="rotate(-0 279.520978 74.689869)">Wave 2: Regional Shift</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="279.520978" y="96.929453" transform="rotate(-0 279.520978 96.929453)">SG / VN / ID / BR / US</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 354.643359 114.545455 
+L 373.538459 81.818182 
+L 354.643359 49.090909 
+L 507.419584 49.090909 
+L 526.314684 81.818182 
+L 507.419584 114.545455 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #d9d2e9; stroke: #8e7cc3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="440.479022" y="75.335455" transform="rotate(-0 440.479022 75.335455)">Wave 3: Global Mesh</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="440.479022" y="96.668203" transform="rotate(-0 440.479022 96.668203)">120+ Countries (JP-Only Rule)</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 515.601402 114.545455 
+L 534.496502 81.818182 
+L 515.601402 49.090909 
+L 668.377628 49.090909 
+L 687.272727 81.818182 
+L 668.377628 114.545455 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="601.437065" y="75.335455" transform="rotate(-0 601.437065 75.335455)">Wave 4: Domestic JP</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="601.437065" y="97.21" transform="rotate(-0 601.437065 97.21)">JP Residential ISPs + Cloud</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 110.454545 239.318182 
+L 42.954545 239.318182 
+Q 34.772727 239.318182 34.772727 231.136364 
+L 34.772727 141.136364 
+Q 34.772727 132.954545 42.954545 132.954545 
+L 177.954545 132.954545 
+Q 186.136364 132.954545 186.136364 141.136364 
+L 186.136364 231.136364 
+Q 186.136364 239.318182 177.954545 239.318182 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #ffffff; stroke: #434343; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 23px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4285f4" x="110.454545" y="165.517045" transform="rotate(-0 110.454545 165.517045)"></text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="110.454545" y="186.035455" transform="rotate(-0 110.454545 186.035455)">WAF Rule #1</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="110.454545" y="205.4925" transform="rotate(-0 110.454545 205.4925)">Block CN Region</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="110.454545" y="226.070249" transform="rotate(-0 110.454545 226.070249)">Bypassed in 15 mins</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 276.136364 239.318182 
+L 208.636364 239.318182 
+Q 200.454545 239.318182 200.454545 231.136364 
+L 200.454545 141.136364 
+Q 200.454545 132.954545 208.636364 132.954545 
+L 343.636364 132.954545 
+Q 351.818182 132.954545 351.818182 141.136364 
+L 351.818182 231.136364 
+Q 351.818182 239.318182 343.636364 239.318182 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #ffffff; stroke: #434343; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 23px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4285f4" x="276.136364" y="165.517045" transform="rotate(-0 276.136364 165.517045)"></text>
+    </g>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="276.136364" y="186.035455" transform="rotate(-0 276.136364 186.035455)">WAF Rule #2</text>
+    </g>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="276.136364" y="206.11" transform="rotate(-0 276.136364 206.11)">Block 10+ Countries</text>
+    </g>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="276.136364" y="226.070249" transform="rotate(-0 276.136364 226.070249)">Bypassed in 1 hour</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 441.818182 239.318182 
+L 374.318182 239.318182 
+Q 366.136364 239.318182 366.136364 231.136364 
+L 366.136364 141.136364 
+Q 366.136364 132.954545 374.318182 132.954545 
+L 509.318182 132.954545 
+Q 517.5 132.954545 517.5 141.136364 
+L 517.5 231.136364 
+Q 517.5 239.318182 509.318182 239.318182 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #ffffff; stroke: #434343; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 23px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #f57c00" x="441.818182" y="165.517045" transform="rotate(-0 441.818182 165.517045)"></text>
+    </g>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="441.818182" y="186.035455" transform="rotate(-0 441.818182 186.035455)">WAF Rule #3</text>
+    </g>
+   </g>
+   <g id="text_20">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="441.818182" y="205.591953" transform="rotate(-0 441.818182 205.591953)">Allow ONLY Japan (JP)</text>
+    </g>
+   </g>
+   <g id="text_21">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="441.818182" y="226.070249" transform="rotate(-0 441.818182 226.070249)">Bypassed in 4 hours</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 607.5 239.318182 
+L 540 239.318182 
+Q 531.818182 239.318182 531.818182 231.136364 
+L 531.818182 141.136364 
+Q 531.818182 132.954545 540 132.954545 
+L 675 132.954545 
+Q 683.181818 132.954545 683.181818 141.136364 
+L 683.181818 231.136364 
+Q 683.181818 239.318182 675 239.318182 
+z
+" clip-path="url(#p3b2b8627c4)" style="fill: #d9d2e9; stroke: #8e7cc3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_22">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 23px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #f57c00" x="607.5" y="165.517045" transform="rotate(-0 607.5 165.517045)"></text>
+    </g>
+   </g>
+   <g id="text_23">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="607.5" y="186.035455" transform="rotate(-0 607.5 186.035455)">Geo-Block Defeated</text>
+    </g>
+   </g>
+   <g id="text_24">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="607.5" y="206.11" transform="rotate(-0 607.5 206.11)">Attacker inside JP ISPs!</text>
+    </g>
+   </g>
+   <g id="text_25">
+    <g clip-path="url(#p3b2b8627c4)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="607.5" y="226.564545" transform="rotate(-0 607.5 226.564545)">Cannot block own users</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p3b2b8627c4">
+   <rect x="0" y="0" width="720" height="257.727273"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"},{"family":"drawlib-phosphor-regular","rel_path":"_assets/fonts/phosphor/regular.ttf","src":"builtin:fonticons/phosphor/regular.ttf","format":"truetype"}] -->
+</svg>

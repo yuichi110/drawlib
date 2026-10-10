@@ -41,6 +41,7 @@ GENERAL_TOPICS: Final[dict[str, str]] = {
     "style-guide": "Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices",
     "review-guide": "Autonomous 3-stage multimodal review loop, 720pt typography scaling, and quality criteria",
     "anim-guide": "Animation design principles, loop idioms, and component animation patterns across all modules",
+    "slide-guide": "Slide deck story arc, Dual-Layer (::: block vs. ::: note) rule, and visual best practices",
     "project-overview": "Project scaffolding (init), choosing among the 4 project archetypes, and cache architecture",
     "project-images": "Standalone Python diagram scripts (images_src/*.py), clear() lifecycle, and batch image build",
     "project-doc": "Linear technical documents, whitepapers, cover/ToC, and A4 vector PDF export (doc_src/)",

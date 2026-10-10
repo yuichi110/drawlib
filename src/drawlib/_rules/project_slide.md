@@ -2,7 +2,7 @@
 
 A **`slide` project** (`drawlib init slide`) compiles Markdown slide files (`slide_src/*.md`) into an **interactive 16:9 widescreen web presentation deck (`slide_html/index.html`)** with dual-window Presenter View (`?presenter=1`), a **high-resolution 1920×1080 vector PDF (`slide.pdf`)**, and **standalone vector/animated slide assets (`slide_images/`)**.
 
-*(For general project scaffolding, see `uv run drawlib rules show project-overview`. For the Python runtime API in `drawlib.slide`—including `current_slide`, `SlideContext`, `BoundingBox`, and `build_slide()`—run `uv run drawlib rules show lib-slide`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
+*(For slide storytelling, the Dual-Layer (`::: block` vs. `::: note`) authoring standard, mandatory Cover/Agenda/Section Divider slides, and visual best practices, **always read `uv run drawlib rules show slide-guide`**. For general project scaffolding, see `uv run drawlib rules show project-overview`. For the Python runtime API in `drawlib.slide`, run `uv run drawlib rules show lib-slide`.)*
 
 ---
 
@@ -118,7 +118,10 @@ slide_src/
 └── serve.sh               # Local preview server (drawlib serve)
 ```
 
-- **File Discovery & Chapter Subdirectories**: All `.md` / `.markdown` files in `slide_src/` and any nested chapter subdirectories (e.g., `00_opening/01_title.md`, `01_why_drawlib/01_section.md` — skipping directories starting with `.` or `_`, `README.md`, and `navbar.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside chapter subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/`.
+- **File Discovery & Chapter Subdirectories**: All `.md` / `.markdown` files in `slide_src/` and any nested chapter subdirectories (e.g., `00_opening/01_title.md`, `01_why_drawlib/01_section.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside chapter subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/`.
+- **Excluding Non-Slide Documents (`_` Prefix & Special Files)**:
+  - **Underscore (`_`) Prefix Rule**: Any Markdown file or subdirectory whose name starts with `_` (e.g., `_CONTENTS_PLANNING.md`, `_notes.md`, `_drafts/`) is automatically excluded from slide compilation. Always prefix planning documents, outlines, or WIP drafts inside `slide_src/` with `_` so they are never rendered as slides.
+  - **Special Excluded Files**: `README.md` (`readme.markdown`) and `navbar.md` (`navbar.markdown`) are also automatically excluded by special rule.
 - **Pure Markdown & Zero Frontmatter**: Do not add YAML frontmatter (`---`) at the top of slide files. Every visual element on a slide is placed inside one or more `::: block` containers.
 - **Relative Paths Only (No Absolute Paths or file:// URLs)**: All markdown links, image references (`![logo](_assets/logo.png)`), and diagram asset references must use relative paths. Never write machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in slide source files.
 

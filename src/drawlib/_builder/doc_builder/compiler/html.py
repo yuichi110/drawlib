@@ -161,17 +161,26 @@ def build_html(
             dirnames[:] = sorted(
                 d
                 for d in dirnames
-                if not (
+                if not d.startswith(".")
+                and not d.startswith("_")
+                and not (
                     os.path.abspath(os.path.join(root, d)) == out_dir_abs
                     or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
                 )
             )
         else:
-            dirnames.sort()
+            dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
         for fname in sorted(files):
-            if fname.startswith("."):
+            if fname.startswith(".") or fname.startswith("_"):
                 continue
-            if fname.lower() in {"readme.md", "readme.markdown", "template.html", "template.html.j2"}:
+            if fname.lower() in {
+                "readme.md",
+                "readme.markdown",
+                "output_readme.md",
+                "output_html_readme.md",
+                "template.html",
+                "template.html.j2",
+            }:
                 continue
             src_abs = os.path.join(root, fname)
             if active_navbar_path and os.path.abspath(src_abs) == os.path.abspath(active_navbar_path):

@@ -50,7 +50,7 @@ uv run drawlib init doc rbac_spec -s default
 └── doc_images/                # [GENERATED] Extracted chapter diagram images
 ```
 
-> **CRITICAL (`No navbar.md` in `doc` Projects)**: Never create a `navbar.md` file inside `doc_src/`. Drawlib's HTML builder uses the presence of `navbar.md` to distinguish between a multi-page website (`site`) and a merged single-page linear document (`doc`).
+> **CRITICAL (`No navbar.md` in `doc` Projects & Excluding Planning Files)**: Never create a `navbar.md` file inside `doc_src/`. Drawlib's HTML builder uses the presence of `navbar.md` to distinguish between a multi-page website (`site`) and a merged single-page linear document (`doc`). Any non-chapter files or subdirectories starting with `_` (e.g., `_outline.md`, `_drafts/`) as well as `README.md` are automatically excluded from document compilation.
 
 ```drawlib center fold-code file:project_doc_pipeline.png caption:"Linear Document (doc_src/) Chapter Merging, ToC Injection & PDF Compilation"
 from drawlib.canvas import save, setup

@@ -106,13 +106,16 @@ def expand_input_files(inputs: List[str]) -> List[str]:
             collected.append(abs_path)
         elif os.path.isdir(abs_path):
             dir_files: List[str] = []
-            for root, _, files in os.walk(abs_path):
+            for root, dirnames, files in os.walk(abs_path):
+                dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
                 for fname in sorted(files):
-                    if fname.startswith("."):
+                    if fname.startswith(".") or fname.startswith("_"):
                         continue
                     if fname.lower() in {
                         "readme.md",
                         "readme.markdown",
+                        "output_readme.md",
+                        "output_html_readme.md",
                         "template.html",
                         "template.html.j2",
                         "navbar.md",

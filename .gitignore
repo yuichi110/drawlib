@@ -39,6 +39,7 @@ docs/drawlib-dogfooding-en_html/
 docs/drawlib-dogfooding-en_images/
 docs/drawlib-dogfooding-en_markdown/
 docs/slide_about_drawlib_images/
+docs/slide_ddos_incident_response_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

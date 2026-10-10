@@ -71,15 +71,26 @@ def build_markdown(
             dirnames[:] = [
                 d
                 for d in dirnames
-                if not (
+                if not d.startswith(".")
+                and not d.startswith("_")
+                and not (
                     os.path.abspath(os.path.join(root, d)) == out_dir_abs
                     or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
                 )
             ]
+        else:
+            dirnames[:] = [d for d in dirnames if not d.startswith(".") and not d.startswith("_")]
         for fname in sorted(files):
-            if fname.startswith("."):
+            if fname.startswith(".") or fname.startswith("_"):
                 continue
-            if fname.lower() in {"readme.md", "readme.markdown"}:
+            if fname.lower() in {
+                "readme.md",
+                "readme.markdown",
+                "output_readme.md",
+                "output_html_readme.md",
+                "navbar.md",
+                "navbar.markdown",
+            }:
                 continue
             if fname.endswith((".md", ".markdown")):
                 src_abs = os.path.join(root, fname)

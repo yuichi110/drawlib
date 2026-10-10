@@ -101,6 +101,7 @@ uv run drawlib rules show overview          # Geometry, coordinate space (0,0 at
 uv run drawlib rules show style-guide       # Color tokens, typography, 50%+ neutral rule
 uv run drawlib rules show review-guide      # 3-stage multimodal review loop, 720pt font math, anchor table
 uv run drawlib rules show anim-guide        # Animation loop idioms and component animation patterns
+uv run drawlib rules show slide-guide       # Slide deck story arc, Dual-Layer (::: block vs. ::: note) & visual best practices
 uv run drawlib rules show project-overview  # Project scaffolding (init), 4 archetypes, shared config & cache
 uv run drawlib rules show project-images    # Standalone Python scripts (images_src/*.py) best practices
 uv run drawlib rules show project-doc       # Linear documents, whitepapers & A4 vector PDFs (doc_src/)

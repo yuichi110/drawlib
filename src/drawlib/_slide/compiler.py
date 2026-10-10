@@ -76,8 +76,23 @@ def _clean_output_dir(output_abs: str, input_abs: str) -> None:
             os.remove(item_path)
 
 
+_EXCLUDED_SLIDE_FILENAMES: Final[frozenset[str]] = frozenset(
+    {
+        "readme.md",
+        "readme.markdown",
+        "navbar.md",
+        "navbar.markdown",
+        "output_readme.md",
+        "output_html_readme.md",
+    }
+)
+
+
 def _collect_slide_files(input_abs: str) -> list[str]:
     """Discover and alphabetically sort candidate markdown slide files (including chapter subdirectories).
+
+    Files and directories starting with ``.`` or ``_`` (e.g., ``_planning.md``, ``_drafts/``)
+    as well as special project files (``README.md``, ``navbar.md``) are excluded.
 
     Args:
         input_abs: Absolute path to source directory.
@@ -94,7 +109,8 @@ def _collect_slide_files(input_abs: str) -> list[str]:
             if (
                 (f.endswith(".md") or f.endswith(".markdown"))
                 and not f.startswith(".")
-                and f.lower() not in {"navbar.md", "readme.md"}
+                and not f.startswith("_")
+                and f.lower() not in _EXCLUDED_SLIDE_FILENAMES
             ):
                 abs_p = os.path.join(root, f)
                 rel_p = os.path.relpath(abs_p, input_abs).replace(os.sep, "/")

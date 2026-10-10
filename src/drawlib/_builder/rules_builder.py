@@ -29,6 +29,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "style-guide",
     "review-guide",
     "anim-guide",
+    "slide-guide",
     "project-overview",
     "project-images",
     "project-doc",

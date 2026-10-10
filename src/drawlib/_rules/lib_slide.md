@@ -160,7 +160,7 @@ output_index_html = build_slide(
 
 ### 5.2. Compilation Pipeline & Output Artifacts
 When `build_slide()` runs, it performs the following steps automatically:
-1. **Slide Discovery**: Collects and sorts all `.md` / `.markdown` files in `input_dir` (excluding `README.md`, `navbar.md`, and hidden files).
+1. **Slide Discovery**: Collects and sorts all `.md` / `.markdown` files in `input_dir`, automatically excluding files and subdirectories starting with `_` or `.` (e.g., `_planning.md`, `_drafts/`, `_assets/`) as well as special files (`README.md`, `navbar.md`).
 2. **Slide Context Binding**: Iterates through slides `1..N`, setting `SlideContext(index=idx, total=N)` so `current_slide` resolves accurately inside every ````drawlib```` block.
 3. **Diagram Rendering & Inline SVG Embedding**: Compiles ````drawlib```` blocks into `images/<slide_stem>/` (with SQLite hash caching) and inlines `.svg` diagrams or attaches interactive `<canvas>` players for `.webp` / `.png` animations.
 4. **Speaker Notes & Container Blocks**: Extracts `::: note` blocks into `<aside class="slide-notes" hidden>` and transforms `::: block (x, y) (w, h)` into positioned `<div class="slide-block">` stage elements.
@@ -168,10 +168,13 @@ When `build_slide()` runs, it performs the following steps automatically:
 
 ---
 
-## 6. Authoring Guide & Stage Layout Patterns (`project-slide`)
+## 6. Slide Design Best Practices (`slide-guide`) & Project System Guide (`project-slide`)
 
-For comprehensive instructions on authoring slide Markdown files—including the **1920×1080 stage vs. Drawlib canvas coordinate systems**, **`::: block` and `::: note` syntax**, **copy-paste slide layout templates**, **interactive animation attributes (`anim-trigger`, `anim-loop`, `anim-pause`)**, and **Presenter View (`?presenter=1`)**—consult the dedicated Slide Project Guide:
-
-```bash
-uv run drawlib rules show project-slide
-```
+- **Slide Design & Storytelling Best Practices (`slide-guide`)**: For the **Dual-Layer (`::: block` simple visual stage + `::: note` deep explanation) rule**, mandatory Cover / Agenda / Section Divider arc, layout variety, and high-level component selection, run:
+  ```bash
+  uv run drawlib rules show slide-guide
+  ```
+- **Slide Project System & Stage Syntax (`project-slide`)**: For `slide_src/` file discovery (`_` prefix and `README.md` exclusion), `1920×1080` stage coordinates, `::: block` / `::: note` syntax, interactive animations (`anim-trigger`, `anim-loop`, `anim-pause`), and Presenter View (`?presenter=1`), run:
+  ```bash
+  uv run drawlib rules show project-slide
+  ```

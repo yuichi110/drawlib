@@ -721,11 +721,19 @@ def _collect_target_files(
             all_py_files.extend(
                 fp for fp in executer._get_python_files(realpath) if not os.path.basename(fp).startswith("__")
             )
-            for root, _, files in os.walk(realpath):
+            for root, dirnames, files in os.walk(realpath):
+                dirnames[:] = sorted(
+                    d for d in dirnames if not d.startswith(".") and not d.startswith("_")
+                )
                 for f in sorted(files):
-                    if f.startswith("."):
+                    if f.startswith(".") or f.startswith("_"):
                         continue
-                    if f.lower().endswith((".md", ".markdown")) and not f.lower().startswith("readme"):
+                    f_lower = f.lower()
+                    if (
+                        f_lower.endswith((".md", ".markdown"))
+                        and not f_lower.startswith("readme")
+                        and f_lower not in {"navbar.md", "navbar.markdown", "output_readme.md", "output_html_readme.md"}
+                    ):
                         all_md_files.append(os.path.join(root, f))
     return resolved_targets, all_py_files, all_md_files
 
