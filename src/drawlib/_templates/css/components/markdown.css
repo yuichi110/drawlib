@@ -11,6 +11,7 @@ body {
     background-color: var(--rtd-bg-color);
     margin: 0;
     padding: 0;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {

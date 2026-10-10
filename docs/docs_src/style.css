@@ -44,6 +44,41 @@
   --slide-code-text: #e0e7ff;
 }
 
+html[data-theme="dark"] {
+    --rtd-sidebar-bg: #090d16;
+    --rtd-sidebar-header: #090d16;
+    --rtd-sidebar-text: #94a3b8;
+    --rtd-sidebar-hover: #1e293b;
+    --rtd-sidebar-active: #1e1b4b;
+    --rtd-sidebar-active-text: #a5b4fc;
+    --rtd-brand-color: #818cf8;
+    --rtd-brand-dark: #6366f1;
+    --rtd-heading-color: #f1f5f9;
+    --rtd-text-color: #e2e8f0;
+    --rtd-muted-color: #94a3b8;
+    --rtd-bg-color: #090d16;
+    --rtd-content-bg: #0f172a;
+    --rtd-surface-bg: #1e293b;
+    --rtd-border-color: #334155;
+    --rtd-code-bg: #090d16;
+    --rtd-inline-code-bg: #1e1b4b;
+    --rtd-inline-code-color: #a5b4fc;
+    --rtd-note-bg: #1e1b4b;
+    --rtd-note-border: #6366f1;
+    --rtd-code-keyword: #818cf8;
+    --rtd-code-string: #4ade80;
+    --rtd-code-comment: #94a3b8;
+    --rtd-code-number: #fbbf24;
+    --rtd-code-function: #60a5fa;
+    --rtd-code-type: #c084fc;
+    --rtd-code-operator: #cbd5e1;
+    --rtd-code-builtin: #38bdf8;
+
+    --slide-card-bg: #1e293b;
+    --slide-border: #334155;
+}
+
+
 
 /* drawlib Code Highlighting and Code Blocks */
 code {
@@ -99,6 +134,7 @@ body {
     background-color: var(--rtd-bg-color);
     margin: 0;
     padding: 0;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -316,7 +352,11 @@ details.drawlib-code-details pre {
 .sidebar-header {
     background-color: var(--rtd-sidebar-header);
     border-bottom: 1px solid var(--rtd-border-color);
-    padding: 1.25rem 1.5rem;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
 }
 
 .site-title,
@@ -335,6 +375,103 @@ details.drawlib-code-details pre {
 .sidebar-brand:hover {
     color: var(--rtd-brand-color);
     text-decoration: none;
+}
+
+.sidebar-logo {
+    height: 42px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--rtd-muted-color);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: var(--rtd-brand-color);
+    border-color: var(--rtd-brand-color);
+}
+
+.theme-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.theme-toggle-btn .icon-sun { display: none; }
+.theme-toggle-btn .icon-moon { display: block; }
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .theme-toggle-btn .icon-sun { display: block !important; }
+    html:not([data-theme="light"]) .theme-toggle-btn .icon-moon { display: none !important; }
+}
+
+html[data-theme="light"] .theme-toggle-btn .icon-sun { display: none !important; }
+html[data-theme="light"] .theme-toggle-btn .icon-moon { display: block !important; }
+
+html[data-theme="dark"] .theme-toggle-btn .icon-sun { display: block !important; }
+html[data-theme="dark"] .theme-toggle-btn .icon-moon { display: none !important; }
+
+/* Base default: Light logo visible, Dark logo hidden */
+.sidebar-logo-light {
+    display: block;
+}
+
+.sidebar-logo-dark {
+    display: none;
+}
+
+/* Fallback for OS Dark mode when no explicit data-theme="light" is set */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .sidebar-logo-light {
+        display: none !important;
+    }
+    html:not([data-theme="light"]) .sidebar-logo-dark {
+        display: block !important;
+    }
+}
+
+/* Explicit Light Mode Override: ALWAYS show light logo and hide dark logo */
+html[data-theme="light"] .sidebar-logo-light,
+.light .sidebar-logo-light {
+    display: block !important;
+}
+
+html[data-theme="light"] .sidebar-logo-dark,
+.light .sidebar-logo-dark {
+    display: none !important;
+}
+
+/* Explicit Dark Mode Override: ALWAYS show dark logo and hide light logo */
+html[data-theme="dark"] .sidebar-logo-light,
+.dark .sidebar-logo-light {
+    display: none !important;
+}
+
+html[data-theme="dark"] .sidebar-logo-dark,
+.dark .sidebar-logo-dark {
+    display: block !important;
 }
 
 .nav-tree,
@@ -461,3 +598,42 @@ details.drawlib-code-details pre {
         padding: 1.5rem;
     }
 }
+
+/* Print & PDF Export Immunity: Ensure clean Light Mode in printed / PDF documents */
+@media print {
+    #theme-toggle {
+        display: none !important;
+    }
+
+    html[data-theme="dark"] {
+        --rtd-sidebar-bg: #f8fafc;
+        --rtd-sidebar-header: #f8fafc;
+        --rtd-sidebar-text: #475569;
+        --rtd-sidebar-hover: #f1f5f9;
+        --rtd-sidebar-active: #eef2ff;
+        --rtd-sidebar-active-text: #4338ca;
+        --rtd-brand-color: #4f46e5;
+        --rtd-brand-dark: #3730a3;
+        --rtd-heading-color: #0f172a;
+        --rtd-text-color: #334155;
+        --rtd-muted-color: #64748b;
+        --rtd-bg-color: #f8fafc;
+        --rtd-content-bg: #ffffff;
+        --rtd-surface-bg: #f1f5f9;
+        --rtd-border-color: #e2e8f0;
+        --rtd-code-bg: #f8fafc;
+        --rtd-inline-code-bg: #eef2ff;
+        --rtd-inline-code-color: #4338ca;
+        --rtd-note-bg: #eef2ff;
+        --rtd-note-border: #6366f1;
+    }
+
+    html[data-theme="dark"] .sidebar-logo-light {
+        display: block !important;
+    }
+
+    html[data-theme="dark"] .sidebar-logo-dark {
+        display: none !important;
+    }
+}
+

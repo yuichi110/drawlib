@@ -37,6 +37,7 @@ def _corner_arc(
 def draw_logo_icon(
     *,
     canvas_width: float = 100.0,
+    is_dark: bool = False,
 ) -> None:
     """Draw the Drawlib icon mark in a 100x100 local coordinate space.
 
@@ -77,31 +78,35 @@ def draw_logo_icon(
     pt_top = (41.75, 56.2)
 
     # --- Styles ---
-    dark_color = Colors.Dark
+    outline_color = Colors.Gray2 if is_dark else Colors.Dark
     stroke_style = Style(
-        line_color=dark_color,
+        line_color=outline_color,
         line_width=stroke_pt,
         line_style="solid",
     )
     cap_style = Style(
-        shape_fill_color=dark_color,
-        shape_line_color=dark_color,
+        shape_fill_color=outline_color,
+        shape_line_color=outline_color,
         shape_line_width=0.0,
     )
 
+    blue_node_color = Colors.Blue3 if is_dark else Colors.Primary
+    teal_node_color = Colors.Teal3 if is_dark else Colors.Secondary
+    purple_node_color = Colors.Purple3 if is_dark else Colors.Accent
+
     node_top_style = Styles.PrimaryFlat.patch(
-        shape_fill_color=Colors.Primary,
-        shape_line_color=Colors.Primary,
+        shape_fill_color=blue_node_color,
+        shape_line_color=blue_node_color,
         shape_line_width=0.0,
     )
     node_left_style = Styles.SecondaryFlat.patch(
-        shape_fill_color=Colors.Secondary,
-        shape_line_color=Colors.Secondary,
+        shape_fill_color=teal_node_color,
+        shape_line_color=teal_node_color,
         shape_line_width=0.0,
     )
     node_right_style = Styles.AccentFlat.patch(
-        shape_fill_color=Colors.Accent,
-        shape_line_color=Colors.Accent,
+        shape_fill_color=purple_node_color,
+        shape_line_color=purple_node_color,
         shape_line_width=0.0,
     )
 
@@ -180,6 +185,7 @@ def draw_logo_text(
     text_size_pt: float = 162.0,
     canvas_width: float = 210.0,
     dot_color: object | None = None,
+    is_dark: bool = False,
 ) -> None:
     """Draw the Drawlib wordmark in Poppins Bold with a circular colored 'i' dot.
 
@@ -189,10 +195,13 @@ def draw_logo_text(
         xy: Left-center anchor coordinate (x, y) for the wordmark text.
         text_size_pt: Font size in points.
         canvas_width: Virtual width of the active canvas (defaults to 210.0).
-        dot_color: Color for the circular 'i' dot (defaults to Colors.Secondary).
+        dot_color: Color for the circular 'i' dot (defaults to Colors.Secondary or Colors.Teal3 in dark mode).
+        is_dark: Whether to use dark mode styling (Gray2 text + Teal3 dot).
     """
     pts_per_unit = 720.0 / canvas_width
-    resolved_dot_color = Colors.Secondary if dot_color is None else dot_color
+    text_color = Colors.Gray2 if is_dark else Colors.Dark
+    default_dot = Colors.Teal3 if is_dark else Colors.Secondary
+    resolved_dot_color = default_dot if dot_color is None else dot_color
     wx, wy = xy
 
     text(
@@ -201,7 +210,7 @@ def draw_logo_text(
         style=Styles.DarkBold.patch(
             text_font=FontSansSerif.POPPINS_BOLD,
             text_size=text_size_pt,
-            text_color=Colors.Dark,
+            text_color=text_color,
             halign="left",
             valign="center",
         ),
@@ -228,6 +237,7 @@ def draw_logo(
     *,
     canvas_width: float = 310.0,
     dot_color: object | None = None,
+    is_dark: bool = False,
 ) -> None:
     """Draw the horizontal Drawlib logo (icon mark + Poppins Bold wordmark with colored 'i' dot).
 
@@ -235,11 +245,12 @@ def draw_logo(
 
     Args:
         canvas_width: Virtual width of the active canvas (defaults to 310.0).
-        dot_color: Color for the circular 'i' dot (defaults to Colors.Secondary).
+        dot_color: Color for the circular 'i' dot (defaults to Colors.Secondary or Colors.Teal3 in dark mode).
+        is_dark: Whether to use dark mode styling (Gray2 + Pastel Level 3).
     """
     # 1. Left: Icon mark
     with canvas.transform(origin=(0, 0), scale=1.0, translate=(1.5, 0.0)):
-        draw_logo_icon(canvas_width=canvas_width)
+        draw_logo_icon(canvas_width=canvas_width, is_dark=is_dark)
 
     # 2. Right: Wordmark "Drawlıb" in Poppins Bold with circular 'i' dot
     draw_logo_text(
@@ -247,4 +258,5 @@ def draw_logo(
         text_size_pt=110.0,
         canvas_width=canvas_width,
         dot_color=dot_color,
+        is_dark=is_dark,
     )

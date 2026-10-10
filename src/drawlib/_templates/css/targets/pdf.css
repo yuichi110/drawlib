@@ -17,6 +17,10 @@ html, body {
     overflow-x: hidden;
 }
 
+#theme-toggle {
+    display: none !important;
+}
+
 .pdf-body, .pdf-document {
     width: 100%;
     margin: 0;

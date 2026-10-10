@@ -16,7 +16,7 @@
     --rtd-bg-color: #090d16;
     --rtd-content-bg: #0f172a;
     --rtd-surface-bg: #1e293b;
-    --rtd-border-color: #1e293b;
+    --rtd-border-color: #334155;
     --rtd-code-bg: #090d16;
     --rtd-inline-code-bg: #1e1b4b;
     --rtd-inline-code-color: #a5b4fc;

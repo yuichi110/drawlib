@@ -13,7 +13,7 @@ from drawlib.canvas import save, setup
 from drawlib.styles import Colors
 from drawlib.utils import draw_logo
 
-setup(width=310, height=100, dpi=200, color=Colors.Canvas)
+setup(width=310, height=100, dpi=200, color=Colors.Canvas, alpha=0.0)
 
 draw_logo(canvas_width=310.0)
 
