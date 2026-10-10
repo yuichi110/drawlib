@@ -870,13 +870,26 @@ save()
 
 `GeoMap` renders vector geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`, or custom GeoJSON files) onto the Drawlib canvas without external GIS dependencies.
 
-### Presets & Targets
+### 12b.1 Geometry, Anchor & Sizing Rules
+- **Anchor**: Coordinate `xy=(x, y)` marks the **Bottom-Left** corner of the map bounding box on the canvas.
+- **Required Dimension (`width` or `height` Must Be Provided)**:
+  Although `width` and `height` both default to `None` in the method signature, **at least one of `width` or `height` MUST be passed to `draw()`**. Calling `m.draw()` with both `width=None` and `height=None` raises `ValueError: At least one of 'width' or 'height' must be provided to GeoMap.draw().`
+- **Aspect Ratio & `background_style` Alignment**:
+  - **Single-Dimension Sizing (Recommended for Natural Fit)**: Pass only `width=...` (or only `height=...`). `GeoMap` automatically calculates the other dimension from the map's natural geographical aspect ratio:
+    $$\text{natural\_aspect} = \frac{(\text{max\_lon} - \text{min\_lon}) \cdot \cos(\text{mid\_lat})}{\text{max\_lat} - \text{min\_lat}}$$
+    Both `background_style` and map polygons will match edge-to-edge with zero letterboxing.
+  - **Dual-Dimension Sizing (`width` AND `height` with `lon_range` / `lat_range`)**: When both `width` and `height` are specified, `background_style` fills the entire `width × height` outer box, while the map polygons are clipped to `lon_range` / `lat_range` and centered inside that box. If $\text{natural\_aspect}$ does not match `width / height`, continental landmasses will appear abruptly clipped inside the ocean background box. To fill a fixed `width × height` frame edge-to-edge, choose `lon_range` and `lat_range` so that $\text{natural\_aspect} \approx \text{width} / \text{height}$.
+- **Coordinate Lookup Order (`draw()` First)**:
+  - `get_area_xy(area)` and `lonlat_to_xy(lon, lat)` rely on the projection computed during `draw()` and **must be called AFTER `m.draw(...)`** (calling them before `draw()` raises `RuntimeError`).
+  - To inspect valid area names before drawing, call `m.get_areas()` (which does not require `draw()`). `set_area_styles()` and `get_area_xy()` accept canonical English names (`"Japan"`), ISO codes (`"JP"`, `"JPN"`), or Japanese names (`"日本"`).
+
+### 12b.2 Presets & Targets
 - `GeoMap.World`: `All`, `Asia`, `Europe`, `NorthAmerica`, `SouthAmerica`, `Africa`, `Oceania`, `EastAsia`, `SoutheastAsia`, `APAC`, `MiddleEast`
 - `GeoMap.Countries`: All 215 countries & territories (`Japan`, `UnitedStates`, `UnitedKingdom`, `Germany`, `France`, ...)
 - `GeoMap.Cities`: 16 global metropolitan maps (`Australia_Sydney`, `China_HongKong`, `China_Shanghai`, `France_Paris`, `Germany_Berlin`, `Italy_Rome`, `Japan_Kyoto`, `Japan_Osaka`, `Japan_Tokyo`, `Singapore_Singapore`, `SouthKorea_Seoul`, `Taiwan_Taipei`, `UnitedKingdom_London`, `UnitedStates_LosAngeles`, `UnitedStates_NewYork`, `UnitedStates_SanFrancisco`)
 - Custom GeoJSON: Any `.geojson` path (e.g. `"_assets/geodata/okinawa.geojson"`) or GeoJSON `dict`.
 
-### Constructor & 5-Method API
+### 12b.3 Constructor & 5-Method API
 ```python
 m = GeoMap(target, *, area_style=Styles.Neutral, background_style=None, id_key=None, name_key=None)
 m.get_areas() -> list[str]
@@ -884,6 +897,40 @@ m.set_area_styles(areas: list[str], style: Style) -> Self
 m.draw(xy=(0.0, 0.0), width=None, height=None, *, lon_range=None, lat_range=None, scale=1.0) -> Self
 m.get_area_xy(area: str) -> tuple[float, float]
 m.lonlat_to_xy(lon: float, lat: float) -> tuple[float, float]
+```
+
+### 12b.4 Production Example: Regional Map with Curved Trajectories & Pin Overlays
+```drawlib show-code
+from drawlib.canvas import save, setup
+from drawlib.lines import line_curved
+from drawlib.shapes import circle, rectangle
+from drawlib.smartarts import GeoMap
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=115, height=70)
+
+asia = GeoMap(
+    GeoMap.World.Asia,
+    area_style=Styles.White,
+    background_style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+)
+asia.set_area_styles(["China", "Vietnam", "Philippines"], Styles.AccentFlat)
+asia.set_area_styles(["Japan"], Styles.PrimaryFlat)
+
+# Match lon_range / lat_range aspect ratio (~1.75) to width / height (103 / 59)
+asia.draw(xy=(6.0, 6.0), width=103.0, height=58.0, lon_range=(73, 148), lat_range=(16, 53))
+
+tokyo_xy = asia.lonlat_to_xy(139.69, 35.69)
+for lon, lat, bend in [(116.40, 39.90, -0.18), (121.47, 31.23, 0.15), (105.83, 21.03, 0.18)]:
+    src_xy = asia.lonlat_to_xy(lon, lat)
+    line_curved(src_xy, tokyo_xy, bend=bend, arrow_head="->", style=Styles.AccentBold)
+    circle(src_xy, radius=1.0, style=Styles.DarkFlat)
+
+circle(tokyo_xy, radius=1.4, style=Styles.PrimaryFlat)
+rectangle((tokyo_xy[0] - 5.0, tokyo_xy[1] + 8.0), width=24.0, height=5.8, style=Styles.PrimaryFlat.patch(shape_r=1.2))
+text((tokyo_xy[0] - 5.0, tokyo_xy[1] + 8.0), "Tokyo Origin", style=Styles.WhiteBold.patch(text_size=10.5))
+save()
 ```
 
 ---
@@ -911,6 +958,7 @@ top_left_y = bottom_y + H
 | `ChevronProcess` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `GridLayout` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `Pyramid` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
+| `GeoMap` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `MindMapNode` | Root Center `(x, y)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 
@@ -996,5 +1044,11 @@ save()
 - **Resolution**: Increase `horizontal_margin` (for `"bottom"` or `"top"` branches) or `vertical_margin` (for `"left"` or `"right"` branches). You can also apply localized `xy_shift=(dx, dy)` on problematic child nodes.
 
 ### 4. Cycle Arrow Overlaps
-- **Problem**: Connecting curved arrows collide with step circles.
-- **Resolution**: Increase `arrow_gap` (default 2.5) or enlarge `radius` relative to `node_radius`. Ensure `arrow_width <= arrow_head_width`.
+- **Problem**: Connecting curved arrows collide with step circles or rectangular nodes.
+- **Resolution**: Increase `arrow_gap` (default 2.5) or enlarge orbit `radius` relative to `node_radius` / `node_size`. For 5-node pentagonal `Cycle` diagrams with rectangular nodes, keep `node_size[0] <= 0.9 * radius` so the bottom two nodes maintain a clean horizontal gap for their connecting arrow.
+
+### 5. GeoMap Missing Dimensions or Clipped Continents Inside `background_style`
+- **Problem A**: Calling `m.draw()` without `width` or `height` raises `ValueError: At least one of 'width' or 'height' must be provided to GeoMap.draw().`, or calling `m.get_area_xy()` before `m.draw()` raises `RuntimeError`.
+- **Resolution A**: Always pass at least `width=...` (or `height=...`) to `m.draw(...)`, and call `get_area_xy()` / `lonlat_to_xy()` only after `m.draw(...)` has executed. Use `m.get_areas()` if you only need to inspect area names without drawing.
+- **Problem B**: When passing both `width` and `height` along with `background_style` and custom `lon_range` / `lat_range`, landmasses appear vertically or horizontally sliced off inside the background box.
+- **Resolution B**: Either pass only `width` (or only `height`) so the box auto-sizes to the map's aspect ratio, or widen `lon_range` / `lat_range` so that $(\Delta\text{lon} \cdot \cos(\text{mid\_lat})) / \Delta\text{lat} \approx \text{width} / \text{height}$.

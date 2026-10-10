@@ -328,16 +328,31 @@ class GeoMap:
     ) -> Self:
         """Render the map onto the active drawlib canvas.
 
+        At least one of ``width`` or ``height`` must be provided. When only one
+        dimension is passed, the other is calculated automatically from the map's
+        natural geographical aspect ratio. When both ``width`` and ``height`` are
+        passed, ``background_style`` fills the ``width x height`` bounding box while
+        map polygons are clipped to ``lon_range`` / ``lat_range`` and centered inside
+        the box.
+
         Args:
             xy: Bottom-left coordinate tuple ``(x, y)`` of the map bounding box on the canvas.
             width: Target width of the map bounding box (or ``None`` to auto-calculate from ``height``).
+                At least one of ``width`` or ``height`` must be specified.
             height: Target height of the map bounding box (or ``None`` to auto-calculate from ``width``).
+                At least one of ``width`` or ``height`` must be specified.
             lon_range: Optional ``(min_lon, max_lon)`` viewport range to crop/zoom the map.
             lat_range: Optional ``(min_lat, max_lat)`` viewport range to crop/zoom the map.
             scale: Proportional scale factor applied around ``xy`` (> 0). Defaults to 1.0.
 
         Returns:
-            Self: This GeoMap instance for method chaining and coordinate lookup.
+            Self: This GeoMap instance for method chaining and coordinate lookup
+                (``get_area_xy()`` and ``lonlat_to_xy()``).
+
+        Raises:
+            ValueError: If both ``width`` and ``height`` are ``None``, if ``width``,
+                ``height``, or ``scale`` is ``<= 0``, or if ``lon_range`` / ``lat_range``
+                bounds are inverted.
         """
         if width is not None and width <= 0:
             raise ValueError(f"width must be positive (> 0), got {width}.")
