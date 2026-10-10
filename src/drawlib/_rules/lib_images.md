@@ -44,6 +44,12 @@ image(
 ### Anchor Alignment
 By default, `(x, y)` corresponds to the **geometric center** of the image in canvas coordinates.
 
+### Asset Paths & Portability (Relative Paths Only)
+When referencing image files in `image(..., image="...")` or `Dimage("...")`:
+- **Always use relative paths** (e.g. `_assets/logo.png` or `../_assets/icon.png`).
+- In Drawlib projects (`site`, `doc`, `slide`, `images`), static assets are placed under `_assets/` within the source directory and copied to the build output.
+- **Never use machine-specific absolute paths** (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file://` URLs. Absolute paths break portability across environments, CI/CD runners, and team collaboration.
+
 ---
 
 ## 3. The `Dimage` Model

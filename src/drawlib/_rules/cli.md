@@ -1095,9 +1095,9 @@ repos:
 - **Cause**: The output path `-o` points to the exact same file or directory as the input source.
 - **Fix**: Specify a distinct destination path (e.g. `drawlib build markdown docs_src/ -o docs/`).
 
-#### 4. `Broken links / missing assets detected`
-- **Cause**: `drawlib serve --check` detected `<a href="...">` or `<img src="...">` paths that do not exist on disk.
-- **Fix**: Review the terminal error log for the exact file and line number. Verify relative paths and filename spelling.
+#### 4. `Broken links / missing assets detected` or `Invalid link target in Markdown`
+- **Cause**: `drawlib build` detected prohibited absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in Markdown source files, or `drawlib serve --check` detected `<a href="...">` or `<img src="...">` paths that do not exist on disk or point to local filesystem schemes.
+- **Fix**: Review the terminal error log for the exact file and line number. Ensure all Markdown links and asset paths use relative paths, and verify filename spelling.
 
 #### 5. Playwright or Chromium Not Found for PDF Build
 - **Cause**: `drawlib build pdf` requires Playwright and a downloaded headless Chromium binary.

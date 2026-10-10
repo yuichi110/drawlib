@@ -60,9 +60,10 @@ uv run drawlib rules show style-guide   # Visual design rules, typography, and c
        - **Standard Node / Body Text**: Use **`text_size = 10.5` to `12.0`** (Drawlib default is `12.0`).
        - **Card Headers / Section Titles**: Use **`text_size = 12.0` to `14.0`**.
        - **Secondary Annotations / Subtitles**: **Minimum `text_size >= 9.5`–`10.0`**. **Never use `text_size < 9.5`** (ban `6.5`–`8.5`), and avoid `canvas.transform(scale < 0.8)` unless inner font sizes are scaled up proportionally to compensate.
-  - **Minimum 2 Illustrations Per Page & No ASCII Art**:
-    - Every documentation page in `docs/docs_src/` (excluding `01_getting_started/release_notes.md`) **must contain at least 2 `drawlib` illustrations** (`1` `fold-code` Top Hero + `>= 1` `show-code` tutorial or `fold-code` architectural/reference diagram).
-    - **Never use ASCII art diagrams** (`+---+`, `--->`, `[Box]`) or **ASCII directory trees** (`├──`, `└──`) in documentation prose; always render workflows, coordinate geometry, and directory trees (`TreeNode`) using `drawlib`.
+  - **No Absolute Paths or `file://` URLs in Documentation (Relative Links Only)**:
+    - **Never** write local filesystem absolute paths (e.g. `/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs/*_src/**/*.md`). All links must use relative paths (e.g. `../08_doc_builder_and_cli/customization.md` or `../../.agents/rules/drawlib.md`) or inline code format (e.g. `` `drawlib.md` (`.agents/rules/drawlib.md`) ``).
+    - **Distinction from Agent Chat**: While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable IDE navigation, repository documentation files published on the web or GitHub must **never** contain `file:///` or machine-specific absolute paths.
+    - Violations are automatically caught and will fail the build (`drawlib build` / `validate_markdown_links`).
 
 ---
 

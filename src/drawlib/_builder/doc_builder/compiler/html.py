@@ -25,6 +25,7 @@ from drawlib._builder.doc_builder.compiler.base import (
     require_directory,
     resolve_template_and_css,
     validate_markdown_images,
+    validate_markdown_links,
 )
 from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._builder.doc_builder.exporter_html import render_html_document
@@ -399,6 +400,7 @@ def _compile_chapter_body(
         progress.update(0, total_steps, done=False)
 
     if doc_info.is_markdown:
+        validate_markdown_links(src_abs, content)
         validate_markdown_images(src_abs, content)
 
     if doc_info.has_drawlib and processor is None:

@@ -120,6 +120,7 @@ slide_src/
 
 - **File Discovery & Chapter Subdirectories**: All `.md` / `.markdown` files in `slide_src/` and any nested chapter subdirectories (e.g., `00_opening/01_title.md`, `01_why_drawlib/01_section.md` — skipping directories starting with `.` or `_`, `README.md`, and `navbar.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside chapter subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/`.
 - **Pure Markdown & Zero Frontmatter**: Do not add YAML frontmatter (`---`) at the top of slide files. Every visual element on a slide is placed inside one or more `::: block` containers.
+- **Relative Paths Only (No Absolute Paths or file:// URLs)**: All markdown links, image references (`![logo](_assets/logo.png)`), and diagram asset references must use relative paths. Never write machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in slide source files.
 
 ---
 
@@ -393,6 +394,7 @@ uv run drawlib serve slide_html/
    - `setup(width=W, height=H)` inside ````drawlib```` uses **bottom-left `(0, 0)`** (`Y=H` is top; `Y=0` is bottom).
    - Always begin each slide ````drawlib```` block with `clear()` followed by `setup(width=..., height=...)` matching the enclosing `::: block` `(w, h)` aspect ratio.
    - Use `file:<name>.svg` for static diagrams and `file:<name>.png` (or `.webp`) when using `Animation()`.
+   - **Relative Paths Only**: Verify that all markdown links, image elements (`![logo](_assets/logo.png)`), and script asset paths use relative paths. Never use absolute paths or `file://` URLs.
 2. **Stage 2 — Grid Preview (`drawlib show ... -g` + `view_file`)**:
    - Export complex slide diagrams with `-g` to `.drawlib/scratch/preview.png` and inspect via `view_file` to ensure zero text collisions, `50%+` neutral balance, and clean perimeter margins.
 3. **Stage 3 — Full Slide Stage / PDF Verification (`view_file`)**:

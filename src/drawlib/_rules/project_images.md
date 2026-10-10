@@ -147,6 +147,12 @@ Never duplicate boilerplate helper functions or hardcoded colors across multiple
 - **50%+ Neutral Baseline**: Ground at least 50% of nodes in calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and reserve `Styles.PrimaryFlat` / `Styles.AccentFlat` for 1–2 focal nodes.
 - **Anchor Awareness**: Remember that `shapes.*`, `text.text()`, and `icons.*` use **Center `(cx, cy)`** anchors, whereas `smartarts.*`, `charts.*`, `diagrams.*`, and `graph.*` use **Bottom-Left `(x0, y0)`** anchors (`x0 = (W - width) / 2` to center horizontally).
 
+### 3.5. Relative Asset Paths (No Absolute Paths or file:// URLs)
+When loading external logos, icons, or custom fonts in illustration scripts:
+- Store static assets under `images_src/_assets/` (e.g. `images_src/_assets/logo.png`).
+- Reference them using relative paths (e.g. `image=image("_assets/logo.png")` or `Dimage("_assets/logo.png")`).
+- Never hardcode machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs, which break portability across developer machines and automated build environments.
+
 ---
 
 ## 4. Verification & Build Workflow for `images` Projects

@@ -436,6 +436,10 @@
                                 <a href="case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
                         </ul>
                     
                 
@@ -798,19 +802,27 @@ $$\text{dot}_r = 0.1125 \times \text{unit_scale}$$</p>
 <span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="c">/* System Adaptive: Switch when user/OS prefers dark mode */</span>
+<span class="c">/* System Adaptive: Switch when user/OS prefers dark mode (unless explicitly set to light) */</span>
 <span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">prefers-color-scheme</span><span class="o">:</span><span class="w"> </span><span class="nt">dark</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nt">html</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"light"</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nt">html</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"light"</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c">/* Explicit Themes: Support data-theme or .dark toggle classes */</span>
-<span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"dark"</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="o">,</span>
-<span class="p">.</span><span class="nc">dark</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="w"> </span><span class="p">{</span>
+<span class="c">/* Explicit Themes: Support data-theme or .dark / .light toggle classes */</span>
+<span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"light"</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">light</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"light"</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">light</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"dark"</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="o">,</span>
+<span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"dark"</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">dark</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-light</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"dark"</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="o">,</span>
 <span class="p">.</span><span class="nc">dark</span><span class="w"> </span><span class="p">.</span><span class="nc">sidebar-logo-dark</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
 <span class="p">}</span>

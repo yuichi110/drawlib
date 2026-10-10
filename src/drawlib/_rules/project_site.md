@@ -181,8 +181,12 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \frac{\text{Disp
    - **Dense Code (`SourceCode`) / Small Badges**: `text_size >= 9.5` (strict minimum floor).
    - When increasing `text_size`, proportionally widen boxes (`width += 20%–30%`) and `Table` `col_widths` so labels never clip.
 
-### 4.4. Law 4: Cross-Page Relative Markdown Links
-- In Markdown prose (`[Link Text](../02_architecture/overview.md)`), write links as relative `.md` paths (or `.html` paths—Drawlib's HTML compiler automatically rewrites internal `.md` links to `.html` in `docs_html/` while preserving `.md` in `docs_markdown/`).
+### 4.4. Law 4: Cross-Page Relative Markdown Links & Asset References
+- **Strictly Relative Links**: In Markdown prose (`[Link Text](../02_architecture/overview.md)`), write links as relative `.md` paths (Drawlib's HTML compiler automatically rewrites internal `.md` links to `.html` in `docs_html/` while preserving `.md` in `docs_markdown/`).
+- **Static Assets (`_assets/`)**: Reference local assets relatively from the current file (e.g. `![Logo](_assets/logo.png)` or `![Architecture](../_assets/arch.png)`).
+- **No Absolute Paths or `file://` URLs**: Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs in documentation Markdown. All links and image paths must be relative or inline code.
+- **Distinction from Agent Chat**: While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable local IDE navigation, repository documentation files published on the web or GitHub must never contain `file:///` or machine-specific absolute paths.
+- **Automated Build Validation**: `drawlib build` automatically scans all links and images and aborts with line numbers if any forbidden `file://` or absolute filesystem path is detected.
 
 ---
 
@@ -191,7 +195,7 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \frac{\text{Disp
 Never deliver changes to `docs_src/` without executing all 3 verification stages:
 
 1. **Stage 1 — Static & Anchor Audit**:
-   Verify `>= 2` diagrams per page, Top Hero at `Lines 5–15` with `fold-code`, zero narrow `px` fence caps, `text_size >= 10.0`, and accurate `Center` (`shapes`/`text`/`icons`) vs. `Bottom-Left` (`SmartArts`/`Charts`/`Diagrams`/`Graphs`) coordinate anchors.
+   Verify `>= 2` diagrams per page, Top Hero at `Lines 5–15` with `fold-code`, zero narrow `px` fence caps, `text_size >= 10.0`, zero `file://` or absolute path links, and accurate `Center` (`shapes`/`text`/`icons`) vs. `Bottom-Left` (`SmartArts`/`Charts`/`Diagrams`/`Graphs`) coordinate anchors.
 2. **Stage 2 — Micro-Geometry Grid Review (`drawlib show ... -g` + `view_file`)**:
    Export each modified diagram with the coordinate grid to `.drawlib/scratch/` (do not rebuild the entire site just to test one diagram):
    ```bash

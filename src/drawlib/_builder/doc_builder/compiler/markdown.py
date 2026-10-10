@@ -20,6 +20,7 @@ from drawlib._builder.doc_builder.compiler.base import (
     copy_directory_assets,
     require_directory,
     validate_markdown_images,
+    validate_markdown_links,
 )
 from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
@@ -143,6 +144,7 @@ def _compile_single_markdown_file(
     if progress is not None:
         progress.update(0, total_steps, done=False)
 
+    validate_markdown_links(src_abs, content)
     validate_markdown_images(src_abs, content)
 
     if doc_info.has_drawlib and processor is None:

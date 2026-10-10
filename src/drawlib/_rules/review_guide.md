@@ -120,6 +120,7 @@ Before or immediately after authoring `.md` files in `docs_src/` (or `doc_src/`)
 | **Fence Width Attribute** | **Omit pixel widths** (let CSS fill `100%` of `.drawlib-image`) | Hardcoding `500px`, `600px`, or `680px` on fences, which shrinks the entire image and its text. |
 | **In-Image `text_size`** | **`>= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5` for dense code) | Using `text_size=7.5`–`8.5`, which renders at `~9px`–`10px` in HTML. |
 | **Visual Richness** | Combine **`phosphor` / `gcp` / `font_icon`** with **`SmartArts` / `Diagrams` / `Graphs` / `Charts`** | Drawing barren boxes and straight lines with raw primitives only. |
+| **Link & Path Hygiene** | **Strictly relative links (zero `file://` or absolute local paths)** | Writing machine-specific `file:///...` or `/home/...` links, which break on the web and trigger build errors. |
 
 #### Automated Static Audit Snippet
 Run this one-liner via `uv run python` to scan all Markdown files in a project for violations:

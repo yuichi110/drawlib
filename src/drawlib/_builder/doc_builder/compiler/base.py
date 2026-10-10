@@ -82,6 +82,71 @@ def resolve_template_and_css(search_dir: str) -> tuple[str, str]:
 
     return template_cand, css_cand
 
+_FORBIDDEN_LINK_PREFIXES: tuple[str, ...] = (
+    "file://",
+    "file:/",
+    "/usr/",
+    "/home/",
+    "/users/",
+    "/root/",
+    "/private/",
+    "/tmp/",  # noqa: S108
+    "/var/",
+    "/opt/",
+)
+
+
+def _mask_code_blocks(text: str) -> str:
+    """Mask code block contents with spaces while preserving line numbers and line breaks."""
+
+    def repl(m: re.Match[str]) -> str:
+        return re.sub(r"[^\n]", " ", m.group(0))
+
+    masked = re.sub(r"(?s)(`{3,}|~{3,}).*?\1", repl, text)
+    return re.sub(r"`[^`\n]+`", lambda m: " " * len(m.group(0)), masked)
+
+
+def validate_markdown_links(src_abs: str, content: str) -> None:
+    """Validate that Markdown content does not contain forbidden absolute paths or file:// URLs.
+
+    Args:
+        src_abs (str): Absolute path to the source Markdown file.
+        content (str): Raw Markdown text content.
+
+    Raises:
+        ValueError: If forbidden file:// URLs or local filesystem absolute paths are found.
+    """
+    masked = _mask_code_blocks(content)
+    md_pattern = re.compile(r"!?\[(.*?)\]\((.*?)\)")
+    html_pattern = re.compile(r"""<(?:a|img)\b[^>]*?\b(?:href|src)=["']([^"']+)["']""", re.IGNORECASE)
+
+    violations: list[tuple[int, str]] = []
+    for line_num, line in enumerate(masked.splitlines(), start=1):
+        for m in md_pattern.finditer(line):
+            raw_target = m.group(2).strip()
+            if not raw_target:
+                continue
+            clean_target = raw_target.split()[0].strip("<>\"'")
+            if clean_target.lower().startswith(_FORBIDDEN_LINK_PREFIXES) or re.match(r"^[A-Za-z]:[\\/]", clean_target):
+                violations.append((line_num, clean_target))
+
+        for m in html_pattern.finditer(line):
+            raw_target = m.group(1).strip()
+            if not raw_target:
+                continue
+            clean_target = raw_target.split()[0].strip("<>\"'")
+            if clean_target.lower().startswith(_FORBIDDEN_LINK_PREFIXES) or re.match(r"^[A-Za-z]:[\\/]", clean_target):
+                violations.append((line_num, clean_target))
+
+    if violations:
+        lines_summary = "\n".join(f"  • Line {ln}: (target: '{tgt}')" for ln, tgt in violations)
+        raise ValueError(
+            f'Forbidden absolute path or file:// URL detected in "{src_abs}":\n'
+            f"{lines_summary}\n"
+            "Documentation links must be relative paths (e.g. '../path.md') "
+            "and must not reference local filesystem paths."
+        )
+
 
 def validate_markdown_images(src_abs: str, content: str) -> None:
     """Check for missing local static images referenced via ![alt](path) in markdown."""

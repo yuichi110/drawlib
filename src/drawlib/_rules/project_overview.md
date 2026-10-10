@@ -125,8 +125,13 @@ Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots in
 - During HTML/Markdown/Slide builds, `_assets/` is automatically copied to the output directory.
 - `drawlib init` automatically provisions `_assets/favicon.png` so HTML pages, documentation websites, and slide presentations display the brand favicon out-of-the-box (customizable by replacing `_assets/favicon.png`).
 - Inside drawing code, reference files as `"_assets/logo.png"` or `FontFile("_assets/brand.ttf")`—Drawlib automatically resolves paths relative to the document or project root and hashes them in `.drawlib/cache.db`.
+- **Strictly Relative Referencing (No Absolute Paths or `file://` URLs)**: Always reference assets relatively (e.g. `_assets/logo.png` or `../_assets/logo.png`). Never use machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file:///` URLs. The compiler validates link hygiene at build time and rejects prohibited paths.
 
-### 3.5. Modular Build Scripts (`build_*.sh`)
+### 3.5. Link & Path Hygiene in Markdown Documents
+- **Relative Links Only**: All internal page links, cross-chapter references, and asset links in Markdown source files (`*_src/**/*.md`) must be written as relative paths (e.g. `../architecture/overview.md`) or inline code format.
+- **Prohibition of `file://` and Local Absolute Paths**: Never write `file:///` URIs or local filesystem roots (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) into documentation files. While AI assistants use `file:///` links for chat UI navigation, committed documentation files must remain 100% portable.
+
+### 3.6. Modular Build Scripts (`build_*.sh`)
 Each project scaffolds focused shell scripts alongside the master `build.sh`:
 - **`build_html.sh`**: Fast HTML compilation for rapid browser verification.
 - **`build_pdf.sh`**: Headless Chromium print to vector PDF (`doc` and `slide`).

@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import re
 import sys
 import urllib.parse
 from html.parser import HTMLParser
@@ -32,6 +33,18 @@ class _LinkExtractor(HTMLParser):
             self.links.append((tag, attr_dict["src"]))
         elif tag == "link" and attr_dict.get("rel") == "stylesheet" and "href" in attr_dict:
             self.links.append((tag, attr_dict["href"]))
+
+
+_FORBIDDEN_PATH_PREFIXES: tuple[str, ...] = (
+    "/usr/",
+    "/home/",
+    "/users/",
+    "/root/",
+    "/private/",
+    "/tmp/",  # noqa: S108
+    "/var/",
+    "/opt/",
+)
 
 
 def scan_broken_links(root_dir: str) -> tuple[int, int, list[tuple[str, str, str]]]:
@@ -65,6 +78,17 @@ def scan_broken_links(root_dir: str) -> tuple[int, int, list[tuple[str, str, str
             trimmed = url.strip()
             if not trimmed or trimmed.startswith(("http://", "https://", "mailto:", "javascript:", "data:", "#")):
                 continue
+
+            lower_trimmed = trimmed.lower()
+            if lower_trimmed.startswith(("file://", "file:/")):
+                total_links += 1
+                broken_links.append((rel_html_path, tag, f"{trimmed} (prohibited file:// URL)"))
+                continue
+            if lower_trimmed.startswith(_FORBIDDEN_PATH_PREFIXES) or re.match(r"^[A-Za-z]:[\\/]", trimmed):
+                total_links += 1
+                broken_links.append((rel_html_path, tag, f"{trimmed} (prohibited local filesystem path)"))
+                continue
+
             clean_url = urllib.parse.urldefrag(trimmed)[0].split("?")[0]
             if not clean_url:
                 continue

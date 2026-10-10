@@ -436,19 +436,27 @@ Documentation websites can dynamically switch between light and dark brand logos
 .sidebar-logo-light { display: block; }
 .sidebar-logo-dark { display: none; }
 
-/* System Adaptive: Switch when user/OS prefers dark mode */
+/* System Adaptive: Switch when user/OS prefers dark mode (unless explicitly set to light) */
 @media (prefers-color-scheme: dark) {
-    .sidebar-logo-light { display: none !important; }
-    .sidebar-logo-dark { display: block !important; }
+    html:not([data-theme="light"]) .sidebar-logo-light { display: none !important; }
+    html:not([data-theme="light"]) .sidebar-logo-dark { display: block !important; }
 }
 
-/* Explicit Themes: Support data-theme or .dark toggle classes */
-[data-theme="dark"] .sidebar-logo-light,
-.dark .sidebar-logo-light {
+/* Explicit Themes: Support data-theme or .dark / .light toggle classes */
+html[data-theme="light"] .sidebar-logo-light,
+.light .sidebar-logo-light {
+    display: block !important;
+}
+html[data-theme="light"] .sidebar-logo-dark,
+.light .sidebar-logo-dark {
     display: none !important;
 }
 
-[data-theme="dark"] .sidebar-logo-dark,
+html[data-theme="dark"] .sidebar-logo-light,
+.dark .sidebar-logo-light {
+    display: none !important;
+}
+html[data-theme="dark"] .sidebar-logo-dark,
 .dark .sidebar-logo-dark {
     display: block !important;
 }

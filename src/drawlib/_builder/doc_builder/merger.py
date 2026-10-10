@@ -19,6 +19,7 @@ import sys
 from typing import List, Optional
 
 from drawlib._builder._common.cache import BuildImageCache
+from drawlib._builder.doc_builder.compiler.base import validate_markdown_links
 from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._builder.doc_builder.exporter_html import render_pdf_document
 from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
@@ -244,6 +245,8 @@ def build_merged_html(
             content = f.read()
 
         doc_info = detect_document_type(src_abs, content)
+        if doc_info.is_markdown:
+            validate_markdown_links(src_abs, content)
         total_steps = doc_info.block_count
         progress = FileBuildProgress(
             idx,

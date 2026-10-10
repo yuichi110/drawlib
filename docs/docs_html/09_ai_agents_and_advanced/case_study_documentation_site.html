@@ -1,0 +1,833 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Building & Evolving Documentation Sites with AI Agents</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Case Study: Building & Evolving Documentation Sites with AI Agents</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Case Study: Building &amp; Evolving Documentation Sites with AI Agents</h1>
+<p>Modern software libraries require extensive, visually rich documentation to communicate their architecture, API capabilities, and design patterns. However, traditional technical documentation quickly falls into the trap of <strong>documentation decay (Doc Rot)</strong>: external diagramming tools drift out of sync with codebases, screenshot captures become obsolete, and human maintenance across dozens of pages becomes unsustainable.</p>
+<p>Drawlib's own official documentation—spanning <strong>79 HTML pages, over 6,900 cross-references, and more than 400 pure-Python diagrams</strong>—was constructed and continues to evolve autonomously through human-AI agent collaboration.</p>
+<p>This case study outlines the practical 5-phase methodology used to architect, author, refine, and continuously maintain this large-scale documentation site using <strong>&quot;Illustrated Documentation as Code&quot;</strong> and <strong>AI dogfooding</strong>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_documentation_site_images/doc_site_lifecycle.png" alt="case_study_documentation_site_1" />
+  <figcaption class="drawlib-caption">The 5-Phase Human-AI Collaborative Documentation Architecture & Lifecycle</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># Title &amp; background card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span>
+    <span class="s2">"The 5-Phase Human-AI Documentation Architecture &amp; Lifecycle"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 5 Phase Cards</span>
+<span class="n">phases</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">15.5</span><span class="p">,</span> <span class="s2">"1. Scaffolding"</span><span class="p">,</span> <span class="s2">"IA &amp; Draft Prose</span><span class="se">\n</span><span class="s2">No Micro-Tuning"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">git_branch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">41.5</span><span class="p">,</span> <span class="s2">"2. Visual Polish"</span><span class="p">,</span> <span class="s2">"High-Level Comps</span><span class="se">\n</span><span class="s2">Top Hero Banners"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="s2">"3. Rule Codifying"</span><span class="p">,</span> <span class="s2">"System Instructions</span><span class="se">\n</span><span class="s2">3-Stage Review Loop"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">93.5</span><span class="p">,</span> <span class="s2">"4. Dogfood Sync"</span><span class="p">,</span> <span class="s2">"Auto-Doc Followup</span><span class="se">\n</span><span class="s2">Zero Code Drift"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">119.5</span><span class="p">,</span> <span class="s2">"5. Brand &amp; UX"</span><span class="p">,</span> <span class="s2">"Logo, Dark Mode</span><span class="se">\n</span><span class="s2">Template Upstream"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">icon_col</span> <span class="ow">in</span> <span class="n">phases</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span> <span class="o">&gt;</span> <span class="mi">110</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">icon_color</span><span class="o">=</span><span class="n">icon_col</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+
+    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">d_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">d_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">))</span>
+
+<span class="c1"># Arrows between cards</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">27.25</span><span class="p">,</span> <span class="mf">53.25</span><span class="p">,</span> <span class="mf">79.25</span><span class="p">,</span> <span class="mf">105.25</span><span class="p">]:</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. The Core Problem: Fragmentation &amp; Documentation Decay</h2>
+<p>In conventional software development, technical documentation suffers from deep workflow fragmentation:</p>
+<ol>
+<li><strong>Disconnected Toolchains</strong>: Developers write code in Git, write documentation in separate systems (Wikis, Notion, Google Docs), and draw diagrams in third-party GUI tools (draw.io, Figma, Omnigraffle).</li>
+<li><strong>Asynchronous Drift</strong>: When an API parameter changes or a component is refactored, updating external diagram files, exporting static PNGs, and re-uploading them is cumbersome. Inevitably, diagrams diverge from reality.</li>
+<li><strong>High Cognitive Burden on Review</strong>: Readers must reconcile outdated screenshots with current code, leading to confusion and loss of trust in the documentation.</li>
+</ol>
+<h3>The Drawlib Solution: &quot;Illustrated Documentation as Code&quot;</h3>
+<p>Drawlib eliminates this fragmentation by treating technical diagrams and prose as version-controlled code:</p>
+<ul>
+<li><strong>Single Source of Truth (SoT)</strong>: Markdown content and executable Python drawing blocks live side-by-side inside the repository (<code>docs_src/</code>).</li>
+<li><strong>Headless Build Pipeline</strong>: Running <code>./dcli docs build site</code> compiles both documentation prose and renders hundreds of illustrations simultaneously.</li>
+<li><strong>Dogfooding Quality Guarantee</strong>: The documentation build directly exercises the live library (<code>src/drawlib/</code>). A broken API or invalid style token immediately breaks the documentation build, catching regressions before code is ever merged.</li>
+</ul>
+<hr />
+<h2>2. Phase 1: Information Architecture &amp; Rapid Drafting</h2>
+<p>When bootstrapping a comprehensive documentation site, developers often make the mistake of attempting to draw perfect, pixel-aligned diagrams on day one. In reality, <strong>premature aesthetic polish during architectural discovery is extremely wasteful</strong>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_documentation_site_images/draft_vs_refined_evolution.png" alt="case_study_documentation_site_2" />
+  <figcaption class="drawlib-caption">Evolutionary Strategy: Structure & Prose First, Visual Polish Second</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Outer container card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">),</span>
+    <span class="s2">"Evolutionary Strategy: Structure &amp; Text First, Visual Polish Second"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Column: Phase 1 Rapid Draft</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">((</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">37.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="s2">"Phase 1: Rapid Drafting (Fast Feedback)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Draft placeholder simulation</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="s2">"[ Draft Diagram Placeholder ]</span><span class="se">\n</span><span class="s2">rectangle((50, 20), text=</span><span class="se">\"</span><span class="s2">Service A -&gt; Service B</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">No fine coordinates or color tuning yet"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="c1"># Draft principles list</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="s2">"• Focus 100</span><span class="si">% o</span><span class="s2">n site IA, prose accuracy, and heading flow</span><span class="se">\n</span><span class="s2">• Fast iteration with zero sunk cost if structure changes</span><span class="se">\n</span><span class="s2">• Avoid premature pixel-perfection during discovery"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+
+<span class="c1"># Right Column: Phase 2 Visual Refinement</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">((</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">102.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="s2">"Phase 2: High-Level Visual Polish"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Refined components simulation</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">hard_drives</span><span class="p">((</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="s2">"Data Ingestion"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">97.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">102.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="s2">"Pipeline Core"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="c1"># Refined principles list</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="s2">"• Upgrade placeholders to High-Level Drawlib components</span><span class="se">\n</span><span class="s2">• Enforce 50%+ neutral rule &amp; semantic color discipline</span><span class="se">\n</span><span class="s2">• Integrate Top Hero eye-catchers with fold-code"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. Collaborative IA Discussion with the AI Agent</h3>
+<p>The first step was an interactive planning dialogue with the AI coding assistant:</p>
+<ol>
+<li><strong>Target Audience &amp; Learning Progression</strong>: Dividing the material into 9 thematic sections (<code>01_getting_started</code>, <code>02_drawing_primitives</code>, <code>03_smartarts</code>, <code>04_charts</code>, <code>05_diagrams</code>, <code>06_graph</code>, <code>07_animations</code>, <code>08_doc_builder_and_cli</code>, <code>09_ai_agents_and_advanced</code>).</li>
+<li><strong>Single Navigation Source of Truth</strong>: Codifying the hierarchy in <code>navbar.md</code>. Each page was mapped to a clear conceptual scope with zero redundant overlaps.</li>
+</ol>
+<h3>2.2. The &quot;Structure &amp; Prose First&quot; Drafting Rule</h3>
+<p>During initial page creation, the agent was instructed <strong>not</strong> to spend time fine-tuning graphics. Instead:</p>
+<ul>
+<li>Generate complete markdown prose, code listings, and explanations.</li>
+<li>For required diagrams, output lightweight placeholder blocks using simple shapes:<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Architecture Overview (Draft)"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</li>
+<li><strong>Benefit</strong>: Human reviewers could review the entire site narrative, verify technical correctness, and rearrange sections in minutes without throwing away hours of fine-tuned graphic coordinates.</li>
+</ul>
+<hr />
+<h2>3. Phase 2: Visual Refinement &amp; Top Hero Eye-Catchers</h2>
+<p>Once the overall structure and page outlines were validated, the team began the systematic enhancement of visual assets.</p>
+<h3>3.1. Upgrading from Primitives to High-Level Components</h3>
+<p>Placeholder boxes were replaced with tailored high-level Drawlib components:</p>
+<ul>
+<li><strong>Cloud &amp; Microservices</strong>: Replaced manual rectangles with <code>drawlib.diagrams.architecture</code> and official Phosphor/GCP icon badges.</li>
+<li><strong>Pipelines &amp; Sequences</strong>: Replaced manual lines with <code>drawlib.smartarts.ChevronProcess</code> or <code>drawlib.diagrams.sequence</code>.</li>
+<li><strong>Relational Models &amp; State Machines</strong>: Formatted with <code>drawlib.diagrams.er</code> and <code>drawlib.diagrams.state</code>.</li>
+<li><strong>Topologies &amp; DAGs</strong>: Auto-laid out using <code>drawlib.graph</code>.</li>
+</ul>
+<h3>3.2. The &quot;Top Hero&quot; Eye-Catcher Standard</h3>
+<p>To maximize reader engagement and visual retention, the documentation established the <strong>Top Hero Rule</strong>:</p>
+<ol>
+<li><strong>Placement at Lines 5–15</strong>: Every documentation page features a prominent Top Hero illustration immediately below <code># Title</code> and the introductory lead sentence.</li>
+<li><strong><code>fold-code</code> Fencing</strong>: By marking code fences with <code>drawlib fold-code center file:&lt;name&gt;.png caption:&quot;...&quot;</code>, the rendered image appears prominently above the fold, while the Python drawing source code is collapsed by default into an expandable <code>&lt;details&gt;</code> block.</li>
+<li><strong>Visual Density</strong>: Each page includes at least <strong>2+ diagrams</strong>, ensuring complex ideas are explained both textually and diagrammatically.</li>
+</ol>
+<h3>3.3. 720pt Typography Math</h3>
+<p>To ensure in-image typography harmonizes seamlessly with the 16px body prose of the documentation site, diagram labels are designed using Drawlib's <code>720pt</code> base coordinate rule:</p>
+<p>$$\text{Rendered Label Size} = \text{text_size} \times \frac{\text{Canvas Width}}{720}$$</p>
+<p>By maintaining <code>text_size &gt;= 10.0</code> (standard labels <code>10.5</code>–<code>12.0</code>, headers <code>12.0</code>–<code>14.0</code>, floor <code>9.5</code>), diagram labels render with the exact visual weight of standard reading text, eliminating eye strain.</p>
+<hr />
+<h2>4. Phase 3: Codifying Rules into Agent Instructions</h2>
+<p>As the site grew to dozens of pages, managing consistency across pages through ad-hoc chat prompts became unmanageable. The critical breakthrough was <strong>formalizing human review standards into machine-readable rule files</strong>.</p>
+<h3>4.1. From Tacit Knowledge to Repository Rules</h3>
+<p>Rules were organized into the <code>.agents/rules/</code> directory and permanently attached to the AI agent's execution context:</p>
+<ul>
+<li><code>drawlib.md</code> (<code>.agents/rules/drawlib.md</code>): Core library principles, the 50%+ neutral card requirement, PascalCase style token imports, and project archetypes.</li>
+<li><code>workflow.md</code> (<code>.agents/rules/workflow.md</code>): The mandatory 6-step dogfooding lifecycle (Implement $\rightarrow$ Unit Test $\rightarrow$ Code Check $\rightarrow$ Sync Docs $\rightarrow$ Render $\rightarrow$ Multimodal Review).</li>
+<li><code>docs.md</code> (<code>.agents/rules/docs.md</code>): Documentation authoring guidelines, navbar requirements, and build commands.</li>
+</ul>
+<h3>4.2. The Autonomous 3-Stage Verification Loop</h3>
+<p>Rather than delivering uninspected code, the agent was mandated to run an autonomous self-healing loop:</p>
+<ol>
+<li><strong>Stage 1 (Static Check)</strong>: Verify Top Hero placement at lines 5–15, check for <code>fold-code</code>, verify <code>2+</code> diagrams per page, and ensure <code>text_size &gt;= 10.0</code>.</li>
+<li><strong>Stage 2 (Micro-Geometry Review with <code>-g</code>)</strong>: Render diagrams with Drawlib's coordinate grid overlay (<code>uv run drawlib show &lt;file&gt; [diagram.png] -g -o preview.png</code>) and inspect via vision tools (<code>view_file</code>) to eliminate label clipping, arrow misalignment, and cramped margins in a single shot.</li>
+<li><strong>Stage 3 (Macro-Page HTML Review)</strong>: Run <code>./dcli docs build site</code> and verify that zero broken links exist (<code>./dcli docs serve site --check</code>). Inspect full-page headless screenshots to ensure proper rhythm and responsive display.</li>
+</ol>
+<hr />
+<h2>5. Phase 4: Automated Documentation Evolution (Dogfooding)</h2>
+<p>A major triumph of this architecture is how documentation updates are seamlessly tied to feature development.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_documentation_site_images/dogfooding_development_cycle.png" alt="case_study_documentation_site_3" />
+  <figcaption class="drawlib-caption">The Continuous Dogfooding Loop: Code, Rules & Living Documentation</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="c1"># Outer container card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">59.5</span><span class="p">),</span>
+    <span class="s2">"The Continuous Dogfooding Loop: Code, Rules &amp; Living Documentation"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 4 Loop Cards</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"1. Code &amp; Tests"</span><span class="p">,</span> <span class="s2">"src/drawlib/ &amp; tests/</span><span class="se">\n</span><span class="s2">Implement features"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code_block</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"2. Codify Rules"</span><span class="p">,</span> <span class="s2">".agents/rules/ &amp; _rules/</span><span class="se">\n</span><span class="s2">Update constraints"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"3. Sync Living Docs"</span><span class="p">,</span> <span class="s2">"docs_src/ &amp; examples</span><span class="se">\n</span><span class="s2">Add runnable blocks"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"4. Build &amp; Review"</span><span class="p">,</span> <span class="s2">"./dcli docs build site</span><span class="se">\n</span><span class="s2">Multimodal visual check"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">icon_col</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">icon_color</span><span class="o">=</span><span class="n">icon_col</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+
+    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">d_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">6.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">d_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="c1"># Top Forward Arrows (1 -&gt; 2 -&gt; 3 -&gt; 4)</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">35.5</span><span class="p">,</span> <span class="mf">65.5</span><span class="p">,</span> <span class="mf">95.5</span><span class="p">]:</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Bottom Integration Card: "Living Documentation as Ultimate Integration Test"</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">117</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">((</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="s2">"Zero Documentation Rot: Documentation is the Ultimate Integration Test"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="s2">"Drawlib compiles directly from the live source: breaking API changes trigger instant build failures."</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># Down arrow from Node 4 to Bottom card</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Return arrow from Bottom card back to Node 1</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>5.1. Automated Synchronization on Every Feature</h3>
+<p>Whenever a new feature is added to <code>src/drawlib/</code> (e.g. a new chart type, a geometric polygon, or an icon integration), the AI agent executes a coordinated update:</p>
+<ol>
+<li><strong>Implementation &amp; Unit Tests</strong>: Implement the feature in <code>src/drawlib/</code> and add comprehensive tests in <code>tests/</code>.</li>
+<li><strong>Update Embedded Rules</strong>: Update internal rule files in <code>src/drawlib/_rules/</code> so future agent prompts immediately recognize the new API signatures.</li>
+<li><strong>Update Documentation Pages</strong>: Add runnable examples and practical use cases to relevant <code>docs/docs_src/</code> chapters.</li>
+<li><strong>Site Rebuild &amp; Visual Verification</strong>: Build the documentation site (<code>./dcli docs build site</code>) to render the new diagrams and verify that no visual regressions occurred.</li>
+</ol>
+<h3>5.2. Documentation as the Ultimate Integration Test</h3>
+<p>Because Drawlib's documentation is compiled directly from the live Python source code, the 400+ diagrams in the documentation site serve as a <strong>massive real-world end-to-end integration test suite</strong>. If an internal refactoring introduces an inadvertent breaking change, the documentation build immediately fails, catching bugs that isolated unit tests might overlook.</p>
+<hr />
+<h2>6. Phase 5: Brand Identity, UI Customization &amp; Upstream Feedback</h2>
+<p>In the final phase of site polish, the team focused on enterprise-grade brand identity, accessibility, and UI customization.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_documentation_site_images/ui_customization_and_template_feedback.png" alt="case_study_documentation_site_4" />
+  <figcaption class="drawlib-caption">Upstream Feedback: From Site Customization to Core Scaffolding Templates</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="c1"># Outer container card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">57.5</span><span class="p">),</span>
+    <span class="s2">"Upstream Feedback: From Site Customization to Core Scaffolding Templates"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Column: Production Site Customization</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">browser</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="s2">"Production UI Tuning"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="s2">"docs/docs_src/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">bullets_left</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"• Dual vector/raster logos with auto light/dark switching"</span><span class="p">,</span>
+    <span class="s2">"• Instant theme toggle button (Sun/Moon) with memory"</span><span class="p">,</span>
+    <span class="s2">"• Zero-flicker FOUC prevention via inline head script"</span><span class="p">,</span>
+    <span class="s2">"• Tuned Slate-700 (#334155) borders for dark contrast"</span><span class="p">,</span>
+    <span class="s2">"• @media print immunity: PDF locked to white paper"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bullets_left</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># Center Upstream Feedback Arrow</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="s2">"Upstream</span><span class="se">\n</span><span class="s2">Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="c1"># Right Column: Core Template Library</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="s2">"Core Template Feedback"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="s2">"src/drawlib/_templates/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">bullets_right</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"• template.html.template: Injected toggle UI &amp; script"</span><span class="p">,</span>
+    <span class="s2">"• site.css &amp; pdf.css: Dual logo &amp; print protection rules"</span><span class="p">,</span>
+    <span class="s2">"• default*.css.template: Standardized #334155 dark border"</span><span class="p">,</span>
+    <span class="s2">"• _assets/: Bundled 500px transparent light &amp; dark logos"</span><span class="p">,</span>
+    <span class="s2">"• drawlib init site: Enterprise UX out-of-the-box!"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">78.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bullets_right</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>6.1. Production Site UI Enhancements</h3>
+<p>Rather than accepting generic template defaults, the documentation site underwent targeted UI enhancements:</p>
+<ol>
+<li><strong>Dual Brand Logos with Auto Switching</strong>: Integrating official 500px transparent light (<code>logo.png</code>) and dark (<code>logo_dark.png</code>) logos into the sidebar header, switching automatically via CSS attributes and media queries.</li>
+<li><strong>Instant Theme Toggle Button</strong>: Placing a smooth Sun / Moon toggle button in the sidebar header with <code>localStorage</code> persistence, allowing readers to toggle their preferred theme with zero page reload.</li>
+<li><strong>FOUC (Flash of Unstyled Content) Prevention</strong>: Injecting an inline synchronous <code>&lt;script&gt;</code> in the <code>&lt;head&gt;</code> of the HTML template to detect and apply <code>data-theme</code> before the DOM renders, completely eliminating white screen flash during dark mode reloads.</li>
+<li><strong>Subtle Slate-700 Border Luminance</strong>: Fine-tuning dark mode dividers and card borders to <code>#334155</code> (Slate-700 / <code>rgb(51, 65, 85)</code>), providing a balanced 5.2% contrast ratio against <code>#0f172a</code> (Slate-900) dark backgrounds without visual harshness.</li>
+<li><strong>Print &amp; PDF Export Immunity</strong>: Enforcing <code>@media print { ... }</code> overrides to ensure that PDF exports and physical printing always lock to clean white backgrounds and dark text, regardless of user theme settings.</li>
+</ol>
+<h3>6.2. Upstream Feedback into Core Project Templates</h3>
+<p>Crucially, these refinements were not left as one-off hacks inside <code>docs/docs_src/</code>. Once perfected on the production site, they were <strong>fed back directly into Drawlib's core scaffolding engine</strong> (<code>src/drawlib/_templates/</code>):</p>
+<ul>
+<li><code>project/site/template.html.template</code>: Pre-wired with the toggle button, dual logos, and FOUC prevention.</li>
+<li><code>css/targets/site.css</code> &amp; <code>css/targets/pdf.css</code>: Production-tested responsive rules and print immunity.</li>
+<li><code>css/themes/default*.css.template</code>: Standardized Slate-700 dark borders.</li>
+<li><code>_assets/</code>: Pre-bundled 500px transparent light and dark logos.</li>
+</ul>
+<p>As a result, any developer running <code>uv run drawlib init site</code> immediately receives a production-ready, dark-mode-enabled documentation portal out of the box.</p>
+<hr />
+<h2>7. Key Takeaways &amp; Best Practices</h2>
+<p>Building and maintaining large-scale technical documentation with AI coding assistants yields four essential best practices:</p>
+<ol>
+<li><strong>Structure First, Aesthetics Second</strong>:
+Never invest hours fine-tuning diagram coordinates during early planning. Use lightweight placeholder boxes to finalize information architecture and prose first.</li>
+<li><strong>Top Hero First-View Rule</strong>:
+Place an illustrative Top Hero diagram at lines 5–15 with <code>fold-code</code>. A clear visual anchor immediately engages readers and establishes a shared mental model before they read in-depth prose.</li>
+<li><strong>Machine-Readable Rules Over Ad-Hoc Prompting</strong>:
+Ad-hoc chat instructions degrade over long sessions. Codify formatting standards, color tokens, and multimodal verification loops into persistent repository rule files (<code>.agents/rules/</code>).</li>
+<li><strong>Dogfooding as Continuous Quality Assurance</strong>:
+When documentation and code live in the same repository and compile together, documentation becomes the ultimate integration test. Feature implementation and documentation synchronization become a single, unified development cycle.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

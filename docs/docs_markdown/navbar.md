@@ -97,4 +97,5 @@
 - [Algorithmic Layout & Math](./09_ai_agents_and_advanced/math_and_layout.md)
 - [Troubleshooting & Debugging](./09_ai_agents_and_advanced/debugging.md)
 - [Case Study: Designing Official Brand Assets](./09_ai_agents_and_advanced/case_study_brand_assets.md)
+- [Case Study: Building Documentation Sites with AI Agents](./09_ai_agents_and_advanced/case_study_documentation_site.md)
 

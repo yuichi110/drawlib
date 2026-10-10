@@ -137,6 +137,9 @@ Choose the ```` ```drawlib ```` visibility attribute based on the document's pur
 4. **Landscape Aspect Ratios for Clean PDF Page Breaks**:
    - Avoid tall portrait canvases (`height > width`), which often get pushed to the next A4 page and leave large blank gaps at the bottom of the preceding page.
    - Favor compact widescreen or landscape canvases (`setup(width=140, height=60)`, `150×65`, or `120×55`) that fit comfortably alongside headings and prose on an A4 page.
+5. **Strictly Relative Links & Asset References (No Absolute Paths or `file://` URLs)**:
+   - All cross-chapter references (`[Chapter 2](02_details.md)`) and image assets (`![Fig](_assets/arch.png)`) must use relative paths.
+   - Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs. Prohibited paths are rejected at build time.
 
 ---
 
@@ -145,7 +148,7 @@ Choose the ```` ```drawlib ```` visibility attribute based on the document's pur
 Always verify linear documents across all three stages before finishing:
 
 1. **Stage 1 — Static & Anchor Check**:
-   Verify that every chapter has `>= 2` diagrams, a Chapter Hero at `Lines 5–15`, explicit `file:<name>.png` and `caption:"..."`, zero narrow `px` width caps, `text_size >= 10.0`, and accurate `Center` (`shapes`/`text`/`icons`) vs. `Bottom-Left` (`SmartArts`/`Charts`/`Diagrams`/`Graphs`) coordinate anchors.
+   Verify that every chapter has `>= 2` diagrams, a Chapter Hero at `Lines 5–15`, explicit `file:<name>.png` and `caption:"..."`, zero narrow `px` width caps, `text_size >= 10.0`, zero `file://` or absolute path links, and accurate `Center` (`shapes`/`text`/`icons`) vs. `Bottom-Left` (`SmartArts`/`Charts`/`Diagrams`/`Graphs`) coordinate anchors.
 2. **Stage 2 — Micro-Geometry Grid Review (`drawlib show ... -g` + `view_file`)**:
    Test each new or modified diagram quickly with the coordinate grid without rebuilding the entire PDF:
    ```bash
