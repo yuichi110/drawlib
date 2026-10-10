@@ -4,12 +4,12 @@ import utils
 
 utils.draw_chapter_divider(
     chapter_num=2,
-    title="Perimeter WAF & Proof-of-Work",
-    subtitle="Cat-and-Mouse Geo-Blocking, JS Header Spoofing, and Asymmetric PoW",
+    title="Perimeter WAF & Evasion Loops",
+    subtitle="5-Step Adaptation Cycles, 4 Geo-Hopping Waves & JS Token Cracking",
     topics=[
-        "Perimeter Hardening with GCLB Anycast Edge & Cloud Armor WAF",
-        "Why Geo-Blocking Failed: 4 Rapid Proxy Hopping Waves",
-        "Static JS Token Spoofing vs. Asymmetric SHA-256 Proof-of-Work",
+        "Defender vs. Attacker: Two 5-Step Adaptation Cycles",
+        "GCLB + Cloud Armor WAF & 4 Proxy Geo-Hopping Waves",
+        "Static Client JS Token Spoofing (Cracked in 3 Hours)",
     ],
     total_chapters=4,
 )
@@ -17,6 +17,6 @@ utils.draw_chapter_divider(
 :::
 
 ::: note
-In Act 2, we move defense from the origin container out to the network edge.
-We examine the architectural overhaul using Google Cloud Load Balancing (GCLB) and Cloud Armor WAF, see why geographic IP blocking failed within hours as the attacker rotated through global and domestic residential proxy pools, analyze how the adversary reverse-engineered our client-side JavaScript signature in 3 hours, and finally regain control of the synthesis API using an asymmetric SHA-256 Proof-of-Work puzzle.
+In Act 2, we move defense from the origin container out to the network edge and enter a multi-round cat-and-mouse battle.
+First, we look at the two competing 5-step adaptation cycles: how we iteratively analyzed leaked traffic, extracted bot signatures, deployed rules, and measured effectiveness—and how the attacker simultaneously probed our endpoints in parallel, inferred our WAF thresholds from response differences, and concentrated fire on unblocked blind spots. We then trace GCLB + Cloud Armor deployment, geo-blocking failure across 4 proxy waves (China, Asia, World, Domestic Japan), and JS token reverse-engineering in 3 hours.
 :::

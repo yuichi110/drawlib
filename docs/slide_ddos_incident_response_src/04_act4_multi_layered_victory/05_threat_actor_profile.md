@@ -3,85 +3,67 @@
 :::
 
 ::: block (80, 140) (680, 810)
-## Behavioral Forensics
+## Why Their Cycle Ran So Fast
 
-- **LLM-Speed Adaptation (<3 Hours)**
+- **LLM-Speed JS Cracking (<3 Hours)**
   De-obfuscated our custom frontend JS bundle and replicated HMAC signing in under 180 minutes.
-- **Automated Threshold Probing**
-  Tuned 5,000+ nodes to `6–8 req/10s` to stay just beneath our `10 req/10s` WAF rule.
-- **Persistent Multi-Week Testing**
-  Used our live production endpoint as a continuous adversarial training sandbox.
+- **Automated A/B Threshold Probing**
+  Binary-searched our WAF rate rule and tuned 5,000+ nodes to `6–8 req/10s` (just below `10 req/10s`).
+- **Adversarial Training Sandbox**
+  Used our low-stakes hobby service as a live proving ground to train automated WAF-evasion agents.
 :::
 
 ::: block (800, 140) (1040, 810)
 ```drawlib
 from drawlib.canvas import setup
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
-from drawlib.smartarts import Cycle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
 setup(width=115, height=90)
 
 rectangle((57.5, 45.0), width=111, height=86, style=Styles.Neutral.patch(shape_r=2.5))
-text((57.5, 83.5), "Closed-Loop Adaptation Cycle of an AI-Orchestrated Botnet", style=Styles.BlackBold.patch(text_size=12.0))
+text((57.5, 82.5), "Forensic Evidence: Manual Script vs. AI-Assisted Botnet", style=Styles.BlackBold.patch(text_size=14.5))
 
-cycle = Cycle(
-    style=Styles.White,
-    text_style=Styles.DarkBold.patch(text_size=9.5),
-    description_style=Styles.Dark.patch(text_size=9.5),
-    arrow_style=Styles.PrimaryBold,
-    clockwise=True,
-    start_angle=90.0,
-    node_shape="rectangle",
-    node_size=(26.0, 13.0),
-    arrow_type="arc",
-    arrow_width=1.8,
-    arrow_head_width=4.0,
-    arrow_color_mode="monochrome",
-    description_placement="inside",
-)
+cards = [
+    (
+        63.0,
+        "1. Client JS Signature Reverse-Engineering",
+        "Manual Attacker: Days of DevTools debugging",
+        "Observed AI Bot: Parsed AST & cloned HMAC in < 3 hours",
+        phosphor. robot,
+        Styles.PrimaryFlat,
+        Styles.PrimaryNeutral,
+    ),
+    (
+        39.5,
+        "2. WAF Rule & Rate-Limit Inference (Step 3 -> 4)",
+        "Manual Attacker: Static flood until blocked (429)",
+        "Observed AI Bot: Parallel A/B probe -> tuned 5k IPs to 6-8 req/10s",
+        phosphor.gauge,
+        Styles.AccentFlat,
+        Styles.SecondaryNeutral,
+    ),
+    (
+        16.0,
+        "3. Strategic Motivation on a $10/mo Hobby Site",
+        "Manual Attacker: Demands ransom or steals user PII",
+        "Observed AI Bot: Zero data theft — live WAF evasion benchmark!",
+        phosphor.cpu,
+        Styles.DarkFlat,
+        Styles.White,
+    ),
+]
 
-cycle.add(
-    "1. AI Recon Agent",
-    description="Detect 403 / WAF rule",
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9.5),
-    description_style=Styles.White.patch(text_size=9.5),
-)
-cycle.add(
-    "2. JS AST Parser",
-    description="LLM de-obfuscates JS",
-    style=Styles.PrimaryNeutral,
-)
-cycle.add(
-    "3. Proxy Rotation",
-    description="Hop CN -> Global -> JP",
-    style=Styles.SecondaryNeutral,
-)
-cycle.add(
-    "4. Sub-Limit Tuning",
-    description="Throttle to 8 req/10s",
-    style=Styles.PrimaryNeutral,
-)
-cycle.add(
-    "5. EDoS Pivot",
-    description="300M/day billing flood",
-    style=Styles.AccentFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9.5),
-    description_style=Styles.White.patch(text_size=9.5),
-)
+for cy, title_str, manual_str, ai_str, icon_fn, badge_style, card_style in cards:
+    rectangle((57.5, cy), width=101.0, height=19.5, style=card_style.patch(shape_r=2.0, shape_line_width=1.4))
+    rectangle((16.5, cy), width=13.0, height=13.5, style=badge_style.patch(shape_r=1.8))
+    icon_fn((16.5, cy), width=7.5, style=Styles.White)
 
-cycle.set_center(
-    text="AI Botnet",
-    description="Controller",
-    radius=12.5,
-    style=Styles.DarkFlat,
-    text_style=Styles.WhiteBold.patch(text_size=11.0),
-    description_style=Styles.White.patch(text_size=9.5),
-)
-
-cycle.draw(xy=(57.5, 42.0), radius=27.5, align="center")
+    text((26.0, cy + 5.2), title_str, style=Styles.BlackBold.patch(text_size=13.5, halign="left"))
+    text((26.0, cy - 0.5), manual_str, style=Styles.Dark.patch(text_size=12.0, halign="left"))
+    text((26.0, cy - 5.6), ai_str, style=Styles.AccentBold.patch(text_size=12.5, halign="left"))
 ```
 :::
 
@@ -93,8 +75,8 @@ utils.draw_page_number()
 :::
 
 ::: note
-Why would a sophisticated threat actor spend weeks attacking a $10/month hobby speech synthesis service with zero monetizable user data?
+In Act 2, we saw the attacker's 5-step adaptation cycle. Why did that cycle execute at superhuman speed against a $10/month hobby speech synthesis service with zero monetizable user data?
 - **AI-Assisted Reverse Engineering**: The 3-hour turnaround between deploying our obfuscated JS signature and the botnet replicating the exact signing algorithm strongly points to an **LLM-assisted coding workflow** (feeding minified JS bundles into an LLM to generate Python/Go request signers).
-- **Automated Rate-Limit Probing**: Whenever we adjusted per-IP rate limits, the swarm automatically binary-searched the exact threshold and dialed per-node request rates just underneath it.
-- **Production as an Adversarial Sandbox**: Modern botnet operators and AI security researchers routinely use real-world public APIs as live proving grounds to test residential proxy rotation and WAF evasion frameworks before attacking high-value commercial targets.
+- **Automated Rate-Limit Probing**: Whenever we adjusted per-IP rate limits, the swarm automatically binary-searched the exact threshold via parallel A/B probes and dialed per-node request rates just underneath it.
+- **Production as an Adversarial Sandbox**: Modern botnet operators and AI security researchers routinely use real-world public APIs as live proving grounds to benchmark residential proxy rotation and WAF evasion frameworks before attacking high-value commercial targets.
 :::

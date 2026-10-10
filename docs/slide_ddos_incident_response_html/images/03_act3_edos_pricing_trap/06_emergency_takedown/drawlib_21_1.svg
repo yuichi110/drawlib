@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="331.363636pt" viewBox="0 0 720 331.363636" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 331.363636 
+L 720 331.363636 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 139.090909 
+L 18.409091 139.090909 
+Q 8.181818 139.090909 8.181818 128.863636 
+L 8.181818 18.409091 
+Q 8.181818 8.181818 18.409091 8.181818 
+L 701.590909 8.181818 
+Q 711.818182 8.181818 711.818182 18.409091 
+L 711.818182 128.863636 
+Q 711.818182 139.090909 701.590909 139.090909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 14.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="33.25484" transform="rotate(-0 360 33.25484)">Midnight Emergency Cutover Sequence (Stopping the $225/Day Bleeding)</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 32.727273 124.772727 
+L 32.727273 53.181818 
+L 185.060644 53.181818 
+L 205.727159 88.977273 
+L 185.060644 124.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="112.510598" y="82.082727" transform="rotate(-0 112.510598 82.082727)">1. Delete GCLB &amp; Armor</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="112.510598" y="105.416293" transform="rotate(-0 112.510598 105.416293)">Stop $225/day meter</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 193.242462 124.772727 
+L 213.908977 88.977273 
+L 193.242462 53.181818 
+L 345.575833 53.181818 
+L 366.242349 88.977273 
+L 345.575833 124.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #d9d2e9; stroke: #8e7cc3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="279.742405" y="81.344915" transform="rotate(-0 279.742405 81.344915)">2. Temp Origin Clamp</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="279.742405" y="105.443793" transform="rotate(-0 279.742405 105.443793)">max-instances=1 cap</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 353.757651 124.772727 
+L 374.424167 88.977273 
+L 353.757651 53.181818 
+L 506.091023 53.181818 
+L 526.757538 88.977273 
+L 506.091023 124.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e8f0fe; stroke: #669df6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="440.257595" y="81.512727" transform="rotate(-0 440.257595 81.512727)">3. Audit 4 WAF Options</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="440.257595" y="105.328636" transform="rotate(-0 440.257595 105.328636)">Reject per-req billing</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 514.272841 124.772727 
+L 534.939356 88.977273 
+L 514.272841 53.181818 
+L 666.606212 53.181818 
+L 687.272727 88.977273 
+L 666.606212 124.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="600.772784" y="82.082727" transform="rotate(-0 600.772784 82.082727)">4. Cutover Cloudflare</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="600.772784" y="105.718793" transform="rotate(-0 600.772784 105.718793)">Flat $20/mo unlimited</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 360 319.090909 
+L 18.409091 319.090909 
+Q 8.181818 319.090909 8.181818 308.863636 
+L 8.181818 161.590909 
+Q 8.181818 151.363636 18.409091 151.363636 
+L 701.590909 151.363636 
+Q 711.818182 151.363636 711.818182 161.590909 
+L 711.818182 308.863636 
+Q 711.818182 319.090909 701.590909 319.090909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 14.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="172.345749" transform="rotate(-0 360 172.345749)">Architectural Comparison: Pay-Per-Request Cloud WAFs vs. Flat-Rate Edge Proxy</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 24.545455 208.227273 
+L 24.545455 182.045455 
+L 188.181818 182.045455 
+L 188.181818 208.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="106.363636" y="198.879254" transform="rotate(-0 106.363636 198.879254)">Defense Option</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 188.181818 208.227273 
+L 188.181818 182.045455 
+L 294.545455 182.045455 
+L 294.545455 208.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="241.363636" y="199.506364" transform="rotate(-0 241.363636 199.506364)">Base Fee</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 294.545455 208.227273 
+L 294.545455 182.045455 
+L 433.636364 182.045455 
+L 433.636364 208.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="364.090909" y="198.879254" transform="rotate(-0 364.090909 198.879254)">Per-Request WAF Fee</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 433.636364 208.227273 
+L 433.636364 182.045455 
+L 552.272727 182.045455 
+L 552.272727 208.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="492.954545" y="198.850504" transform="rotate(-0 492.954545 198.850504)">Cost @ 300M/Day</text>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 552.272727 208.227273 
+L 552.272727 182.045455 
+L 695.454545 182.045455 
+L 695.454545 208.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="623.863636" y="199.506364" transform="rotate(-0 623.863636 199.506364)">Verdict</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 24.545455 234.409091 
+L 24.545455 208.227273 
+L 188.181818 208.227273 
+L 188.181818 234.409091 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="106.363636" y="224.940682" transform="rotate(-0 106.363636 224.940682)">Google Cloud Armor</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 188.181818 234.409091 
+L 188.181818 208.227273 
+L 294.545455 208.227273 
+L 294.545455 234.409091 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="241.363636" y="225.348572" transform="rotate(-0 241.363636 225.348572)">$5/mo + GCLB</text>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 294.545455 234.409091 
+L 294.545455 208.227273 
+L 433.636364 208.227273 
+L 433.636364 234.409091 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="364.090909" y="225.348572" transform="rotate(-0 364.090909 225.348572)">$0.75 / 1M evaluated</text>
+    </g>
+   </g>
+   <g id="patch_16">
+    <path d="M 433.636364 234.409091 
+L 433.636364 208.227273 
+L 552.272727 208.227273 
+L 552.272727 234.409091 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="492.954545" y="225.285682" transform="rotate(-0 492.954545 225.285682)">~$6,750 / mo</text>
+    </g>
+   </g>
+   <g id="patch_17">
+    <path d="M 552.272727 234.409091 
+L 552.272727 208.227273 
+L 695.454545 208.227273 
+L 695.454545 234.409091 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_20">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="623.863636" y="225.032322" transform="rotate(-0 623.863636 225.032322)">REJECT: EDoS Bankruptcy</text>
+    </g>
+   </g>
+   <g id="patch_18">
+    <path d="M 24.545455 260.590909 
+L 24.545455 234.409091 
+L 188.181818 234.409091 
+L 188.181818 260.590909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_21">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="106.363636" y="251.530391" transform="rotate(-0 106.363636 251.530391)">AWS / Azure WAF</text>
+    </g>
+   </g>
+   <g id="patch_19">
+    <path d="M 188.181818 260.590909 
+L 188.181818 234.409091 
+L 294.545455 234.409091 
+L 294.545455 260.590909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_22">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="241.363636" y="251.530391" transform="rotate(-0 241.363636 251.530391)">$5–10/mo + ALB</text>
+    </g>
+   </g>
+   <g id="patch_20">
+    <path d="M 294.545455 260.590909 
+L 294.545455 234.409091 
+L 433.636364 234.409091 
+L 433.636364 260.590909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_23">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="364.090909" y="251.530391" transform="rotate(-0 364.090909 251.530391)">$0.60 / 1M evaluated</text>
+    </g>
+   </g>
+   <g id="patch_21">
+    <path d="M 433.636364 260.590909 
+L 433.636364 234.409091 
+L 552.272727 234.409091 
+L 552.272727 260.590909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_24">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="492.954545" y="251.4675" transform="rotate(-0 492.954545 251.4675)">~$5,400 / mo</text>
+    </g>
+   </g>
+   <g id="patch_22">
+    <path d="M 552.272727 260.590909 
+L 552.272727 234.409091 
+L 695.454545 234.409091 
+L 695.454545 260.590909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #f8fafc"/>
+   </g>
+   <g id="text_25">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="623.863636" y="251.242891" transform="rotate(-0 623.863636 251.242891)">REJECT: Per-Req Trap</text>
+    </g>
+   </g>
+   <g id="patch_23">
+    <path d="M 24.545455 286.772727 
+L 24.545455 260.590909 
+L 188.181818 260.590909 
+L 188.181818 286.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_26">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="106.363636" y="277.304318" transform="rotate(-0 106.363636 277.304318)">Self-Hosted Nginx VPS</text>
+    </g>
+   </g>
+   <g id="patch_24">
+    <path d="M 188.181818 286.772727 
+L 188.181818 260.590909 
+L 294.545455 260.590909 
+L 294.545455 286.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_27">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="241.363636" y="277.712209" transform="rotate(-0 241.363636 277.712209)">$10/mo fixed</text>
+    </g>
+   </g>
+   <g id="patch_25">
+    <path d="M 294.545455 286.772727 
+L 294.545455 260.590909 
+L 433.636364 260.590909 
+L 433.636364 286.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_28">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="364.090909" y="277.615178" transform="rotate(-0 364.090909 277.615178)">$0 (Fixed Bandwidth)</text>
+    </g>
+   </g>
+   <g id="patch_26">
+    <path d="M 433.636364 286.772727 
+L 433.636364 260.590909 
+L 552.272727 260.590909 
+L 552.272727 286.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_29">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="492.954545" y="277.712209" transform="rotate(-0 492.954545 277.712209)">$10 / mo</text>
+    </g>
+   </g>
+   <g id="patch_27">
+    <path d="M 552.272727 286.772727 
+L 552.272727 260.590909 
+L 695.454545 260.590909 
+L 695.454545 286.772727 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_30">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="623.863636" y="278.051818" transform="rotate(-0 623.863636 278.051818)">REJECT: 1 NIC Saturates</text>
+    </g>
+   </g>
+   <g id="patch_28">
+    <path d="M 24.545455 312.954545 
+L 24.545455 286.772727 
+L 188.181818 286.772727 
+L 188.181818 312.954545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6f4ea"/>
+   </g>
+   <g id="text_31">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="106.363636" y="303.761957" transform="rotate(-0 106.363636 303.761957)">Cloudflare Pro (Flat)</text>
+    </g>
+   </g>
+   <g id="patch_29">
+    <path d="M 188.181818 312.954545 
+L 188.181818 286.772727 
+L 294.545455 286.772727 
+L 294.545455 312.954545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6f4ea"/>
+   </g>
+   <g id="text_32">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="241.363636" y="303.883246" transform="rotate(-0 241.363636 303.883246)">$20/mo FLAT</text>
+    </g>
+   </g>
+   <g id="patch_30">
+    <path d="M 294.545455 312.954545 
+L 294.545455 286.772727 
+L 433.636364 286.772727 
+L 433.636364 312.954545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6f4ea"/>
+   </g>
+   <g id="text_33">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="364.090909" y="303.761957" transform="rotate(-0 364.090909 303.761957)">$0.00 (Unmetered)</text>
+    </g>
+   </g>
+   <g id="patch_31">
+    <path d="M 433.636364 312.954545 
+L 433.636364 286.772727 
+L 552.272727 286.772727 
+L 552.272727 312.954545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6f4ea"/>
+   </g>
+   <g id="text_34">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="492.954545" y="303.883246" transform="rotate(-0 492.954545 303.883246)">$20 / mo FLAT</text>
+    </g>
+   </g>
+   <g id="patch_32">
+    <path d="M 552.272727 312.954545 
+L 552.272727 286.772727 
+L 695.454545 286.772727 
+L 695.454545 312.954545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6f4ea"/>
+   </g>
+   <g id="text_35">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="623.863636" y="304.233636" transform="rotate(-0 623.863636 304.233636)">SELECTED: Zero EDoS Risk</text>
+    </g>
+   </g>
+   <g id="patch_33">
+    <path d="M 24.545455 182.045455 
+L 24.545455 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_34">
+    <path d="M 188.181818 182.045455 
+L 188.181818 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_35">
+    <path d="M 294.545455 182.045455 
+L 294.545455 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_36">
+    <path d="M 433.636364 182.045455 
+L 433.636364 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_37">
+    <path d="M 552.272727 182.045455 
+L 552.272727 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_38">
+    <path d="M 695.454545 182.045455 
+L 695.454545 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_39">
+    <path d="M 24.545455 182.045455 
+L 695.454545 182.045455 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_40">
+    <path d="M 24.545455 208.227273 
+L 695.454545 208.227273 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_41">
+    <path d="M 24.545455 234.409091 
+L 695.454545 234.409091 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_42">
+    <path d="M 24.545455 260.590909 
+L 695.454545 260.590909 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_43">
+    <path d="M 24.545455 286.772727 
+L 695.454545 286.772727 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+   <g id="patch_44">
+    <path d="M 24.545455 312.954545 
+L 695.454545 312.954545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #b7b7b7; stroke-width: 0.75; stroke-linecap: round"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1de67ba67e">
+   <rect x="0" y="0" width="720" height="331.363636"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

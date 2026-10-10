@@ -42,12 +42,245 @@ def draw_page_number(
     )
     text((width / 2.0, height / 2.0), current_slide.text, style=effective_style)
 
+
 _GOOGLE_PALETTE = [
     (26, 115, 232),  # Blue (#1a73e8)
     (234, 67, 53),   # Red (#ea4335)
     (24, 128, 56),   # Green (#188038)
     (251, 188, 4),   # Yellow (#fbbc04)
 ]
+
+
+def draw_chapter_divider(
+    chapter_num: int,
+    title: str,
+    subtitle: str = "",
+    topics: Sequence[str] = (),
+    total_chapters: int = 4,
+) -> None:
+    """Draw a full-bleed 16:9 chapter divider slide (192.0 x 108.0 coordinate canvas).
+
+    Args:
+        chapter_num: 1-based chapter number.
+        title: Chapter title displayed prominently on the right panel.
+        subtitle: One-line summary displayed under the chapter title.
+        topics: List of key topic strings previewed in the chapter.
+        total_chapters: Total number of chapters in the presentation.
+    """
+    clear()
+    setup(width=192, height=108)
+
+    accent_color = _GOOGLE_PALETTE[(chapter_num - 1) % len(_GOOGLE_PALETTE)]
+
+    # Right panel background (soft slate)
+    rectangle(
+        (132.0, 54.0),
+        width=120.0,
+        height=108.0,
+        style=Styles.WhiteFlat.patch(
+            shape_fill_color=(248, 250, 252),
+            shape_line_color=(248, 250, 252),
+            shape_line_width=0.0,
+        ),
+    )
+
+    # Left dark navy panel
+    rectangle(
+        (36.0, 54.0),
+        width=72.0,
+        height=108.0,
+        style=Styles.WhiteFlat.patch(
+            shape_fill_color=(18, 28, 45),
+            shape_line_color=(18, 28, 45),
+            shape_line_width=0.0,
+        ),
+    )
+
+    # Subtle decorative geometry on left panel
+    circle(
+        (14.0, 92.0),
+        radius=24.0,
+        style=Style(
+            shape_fill_color=(28, 42, 66),
+            shape_line_color=(45, 64, 95),
+            shape_line_width=1.0,
+        ),
+    )
+    circle(
+        (52.0, 14.0),
+        radius=14.0,
+        style=Style(
+            shape_fill_color=(28, 42, 66),
+            shape_line_color=(45, 64, 95),
+            shape_line_width=1.0,
+        ),
+    )
+
+    # Accent vertical bar separating left & right panels
+    rectangle(
+        (72.0, 54.0),
+        width=1.5,
+        height=108.0,
+        style=Styles.WhiteFlat.patch(
+            shape_fill_color=accent_color,
+            shape_line_color=accent_color,
+            shape_line_width=0.0,
+        ),
+    )
+
+    # Chapter label and large two-digit number
+    text(
+        (36.0, 70.0),
+        "ACT / CHAPTER",
+        style=Styles.WhiteBold.patch(
+            text_size=12.5,
+            text_color=(138, 180, 248),
+        ),
+    )
+    text(
+        (36.0, 52.0),
+        f"{chapter_num:02d}",
+        style=Styles.WhiteBold.patch(
+            text_size=54.0,
+            text_color=(255, 255, 255),
+        ),
+    )
+
+    # Chapter progress indicator dots
+    if total_chapters > 0:
+        spacing = 6.8
+        start_x = 36.0 - ((total_chapters - 1) * spacing) / 2.0
+        for i in range(1, total_chapters + 1):
+            cx = start_x + (i - 1) * spacing
+            if i == chapter_num:
+                circle(
+                    (cx, 26.0),
+                    radius=2.2,
+                    style=Style(
+                        shape_fill_color=accent_color,
+                        shape_line_color=(255, 255, 255),
+                        shape_line_width=1.2,
+                    ),
+                )
+            elif i < chapter_num:
+                circle(
+                    (cx, 26.0),
+                    radius=1.4,
+                    style=Styles.WhiteFlat.patch(
+                        shape_fill_color=(138, 180, 248),
+                        shape_line_color=(138, 180, 248),
+                        shape_line_width=0.0,
+                    ),
+                )
+            else:
+                circle(
+                    (cx, 26.0),
+                    radius=1.4,
+                    style=Styles.WhiteFlat.patch(
+                        shape_fill_color=(55, 71, 99),
+                        shape_line_color=(55, 71, 99),
+                        shape_line_width=0.0,
+                    ),
+                )
+
+    # Right panel header badge
+    rectangle(
+        (98.0, 84.0),
+        width=24.0,
+        height=5.4,
+        style=Style(
+            shape_fill_color=(232, 240, 254),
+            shape_line_color=(174, 203, 250),
+            shape_line_width=1.0,
+        ).patch(shape_r=2.5),
+    )
+    text(
+        (98.0, 84.0),
+        f"Act {chapter_num} of {total_chapters}",
+        style=Styles.BlackBold.patch(
+            text_size=10.5,
+            text_color=(26, 115, 232),
+        ),
+    )
+
+    # Chapter title & subtitle
+    text(
+        (84.0, 72.0),
+        title,
+        style=Styles.BlackBold.patch(
+            text_size=21.0,
+            halign="left",
+            valign="center",
+            text_color=(23, 33, 53),
+        ),
+    )
+    if subtitle:
+        text(
+            (84.0, 62.5),
+            subtitle,
+            style=Styles.Black.patch(
+                text_size=11.0,
+                halign="left",
+                valign="center",
+                text_color=(71, 85, 105),
+            ),
+        )
+
+    line(
+        (84.0, 55.0),
+        (182.0, 55.0),
+        style=Style(line_color=(203, 213, 225), line_width=1.5),
+    )
+
+    # Key topics list cards
+    if topics:
+        n_topics = len(topics)
+        card_h = min(7.8, 36.0 / max(n_topics, 1))
+        gap = min(2.6, (40.0 - card_h * n_topics) / max(n_topics, 1))
+        top_y = 48.0
+        for idx, topic in enumerate(topics, start=1):
+            cy = top_y - (idx - 1) * (card_h + gap) - card_h / 2.0
+            rectangle(
+                (134.5, cy),
+                width=103.0,
+                height=card_h,
+                style=Style(
+                    shape_fill_color=(255, 255, 255),
+                    shape_line_color=(218, 224, 233),
+                    shape_line_width=1.0,
+                ).patch(shape_r=1.8),
+            )
+            circle(
+                (88.5, cy),
+                radius=2.5,
+                style=Styles.WhiteFlat.patch(
+                    shape_fill_color=accent_color,
+                    shape_line_color=accent_color,
+                    shape_line_width=0.0,
+                ),
+                text=f"{chapter_num}.{idx}",
+                text_style=Styles.WhiteBold.patch(text_size=10.5),
+            )
+            text(
+                (93.0, cy),
+                topic,
+                style=Styles.BlackBold.patch(
+                    text_size=11.5,
+                    halign="left",
+                    valign="center",
+                    text_color=(30, 41, 59),
+                ),
+            )
+
+    # Bottom-right slide counter
+    text(
+        (182.0, 4.5),
+        current_slide.text,
+        style=Styles.Black.patch(
+            text_size=9.5,
+            text_color=(128, 128, 128),
+        ),
+    )
 
 
 def service_card(
@@ -72,10 +305,10 @@ def service_card(
     card_style = style if style.shape_r is not None else style.patch(shape_r=2.0)
     rectangle(xy, width=width, height=height, style=card_style)
     if subtitle:
-        text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=11))
-        text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=8))
+        text((x, y + 2.5), title, style=Styles.WhiteBold.patch(text_size=13.0))
+        text((x, y - 3.5), subtitle, style=Styles.White.patch(text_size=10.5))
     else:
-        text((x, y), title, style=Styles.WhiteBold)
+        text((x, y), title, style=Styles.WhiteBold.patch(text_size=13.5))
 
 
 def connect(
@@ -98,7 +331,7 @@ def connect(
     if label:
         mid_x = (start[0] + end[0]) / 2
         mid_y = (start[1] + end[1]) / 2
-        text((mid_x, mid_y + 3.0), label, style=Styles.Primary.patch(text_size=9))
+        text((mid_x, mid_y + 3.0), label, style=Styles.Primary.patch(text_size=11.5))
 
 
 def draw_curved_agenda(
@@ -129,9 +362,9 @@ def draw_curved_agenda(
         rectangle((1.0, h / 2.0), width=1.5, height=h * 0.9, style=bar_style)
 
     # Smooth curved arc line
-    p_start = (w * 0.18, h * 0.88)
-    p_end = (w * 0.17, h * 0.12)
-    p_ctrl = (w * 0.28, h * 0.50)
+    p_start = (w * 0.14, h * 0.88)
+    p_end = (w * 0.13, h * 0.12)
+    p_ctrl = (w * 0.24, h * 0.50)
 
     arc_style = Style(line_color=(205, 210, 218), line_width=3.5)
     line_bezier1(p_start, p_end, p_ctrl, style=arc_style)
@@ -150,14 +383,20 @@ def draw_curved_agenda(
         yi = (1 - t) ** 2 * p_start[1] + 2 * (1 - t) * t * p_ctrl[1] + t**2 * p_end[1]
 
         color = palette[i % len(palette)]
-        r_badge = min(3.8, h / (n * 3.2))
+        r_badge = min(5.0, h / (n * 2.6))
         badge_style = Style(shape_fill_color=color, shape_line_color=color, shape_line_width=0.0)
-        circle((xi, yi), radius=r_badge, style=badge_style, text=str(i + 1), text_style=Styles.WhiteBold)
+        circle(
+            (xi, yi),
+            radius=r_badge,
+            style=badge_style,
+            text=str(i + 1),
+            text_style=Styles.WhiteBold.patch(text_size=17.5),
+        )
 
         # Pill container
-        x_pill_start = xi + r_badge + 2.5
-        w_pill = min(w - x_pill_start - 3.0, 75.0)
-        h_pill = max(6.5, min(r_badge * 2.3, 9.0))
+        x_pill_start = xi + r_badge + 2.2
+        w_pill = min(w - x_pill_start - 1.5, 84.0)
+        h_pill = max(12.5, min(r_badge * 3.1, 16.0))
         x_pill_center = x_pill_start + w_pill / 2.0
         pill_style = Style(
             shape_fill_color=(255, 255, 255),
@@ -168,26 +407,26 @@ def draw_curved_agenda(
         rectangle((x_pill_center, yi), width=w_pill, height=h_pill, style=pill_style)
 
         # Text labels
-        x_text = x_pill_start + 4.0
+        x_text = x_pill_start + 3.8
         if sub_str:
             text(
-                (x_text, yi + 1.2),
+                (x_text, yi + 2.6),
                 title_str,
                 style=Styles.BlackBold.patch(
-                    text_size=12.0,
+                    text_size=17.0,
                     halign="left",
                     valign="center",
                     text_color=(32, 33, 36),
                 ),
             )
             text(
-                (x_text, yi - 1.4),
+                (x_text, yi - 2.6),
                 sub_str,
                 style=Styles.WhiteBold.patch(
-                    text_size=9.0,
+                    text_size=13.5,
                     halign="left",
                     valign="center",
-                    text_color=(105, 110, 118),
+                    text_color=(95, 99, 104),
                 ),
             )
         else:
@@ -195,7 +434,7 @@ def draw_curved_agenda(
                 (x_text, yi),
                 title_str,
                 style=Styles.BlackBold.patch(
-                    text_size=12.5,
+                    text_size=17.5,
                     halign="left",
                     valign="center",
                     text_color=(32, 33, 36),
@@ -225,20 +464,21 @@ def draw_kpi_cards(
     n = len(cards)
     accent_colors = colors or _GOOGLE_PALETTE
 
-    card_h = min(22.0, (h - 10.0) / max(n, 1))
-    gap = (h - 10.0 - (card_h * n)) / max(n + 1, 1)
+    card_h = min(22.0, (h - 6.0) / max(n, 1))
+    gap = (h - 6.0 - (card_h * n)) / max(n + 1, 1)
 
     for i, (metric, label, subtext) in enumerate(cards):
-        cy = h - 5.0 - gap - (i * (card_h + gap)) - (card_h / 2.0)
+        cy = h - 3.0 - gap - (i * (card_h + gap)) - (card_h / 2.0)
         cx = w / 2.0
-        card_w = w * 0.92
+        card_w = w * 0.96
+        x_left = cx - (card_w / 2.0)
 
         # Background card
         card_style = Style(
             shape_fill_color=(248, 249, 250),
             shape_line_color=(220, 225, 235),
             shape_line_width=1.0,
-            shape_r=3.0,
+            shape_r=2.5,
         )
         rectangle((cx, cy), width=card_w, height=card_h, style=card_style)
 
@@ -250,28 +490,31 @@ def draw_kpi_cards(
             shape_line_width=0.0,
             shape_r=1.0,
         )
-        pill_x = cx - (card_w / 2.0) + 1.5
-        rectangle((pill_x, cy), width=2.0, height=card_h * 0.7, style=pill_style)
+        pill_x = x_left + card_w * 0.022
+        rectangle((pill_x, cy), width=card_w * 0.025, height=card_h * 0.74, style=pill_style)
 
         # Metric number
         text(
-            (cx - (card_w / 2.0) + 8.0, cy),
+            (x_left + card_w * 0.052, cy),
             metric,
             style=Styles.BlackBold.patch(
-                text_size=16.0,
+                text_size=30.0,
                 halign="left",
                 valign="center",
                 text_color=accent,
             ),
         )
 
+        # Proportional text column offset (30% of card width)
+        x_text = x_left + card_w * 0.30
+
         # Label
         if label:
             text(
-                (cx - (card_w / 2.0) + 40.0, cy + 3.0),
+                (x_text, cy + card_h * 0.135),
                 label,
                 style=Styles.BlackBold.patch(
-                    text_size=11.0,
+                    text_size=19.5,
                     halign="left",
                     valign="center",
                     text_color=(32, 33, 36),
@@ -281,12 +524,12 @@ def draw_kpi_cards(
         # Subtext
         if subtext:
             text(
-                (cx - (card_w / 2.0) + 40.0, cy - 3.5),
+                (x_text, cy - card_h * 0.145),
                 subtext,
-                style=Styles.BlackBold.patch(
-                    text_size=8.5,
+                style=Styles.Black.patch(
+                    text_size=15.0,
                     halign="left",
                     valign="center",
-                    text_color=(95, 99, 104),
+                    text_color=(90, 95, 102),
                 ),
             )

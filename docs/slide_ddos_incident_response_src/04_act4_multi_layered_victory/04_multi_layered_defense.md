@@ -14,20 +14,20 @@ from drawlib.text import text
 setup(width=176, height=81)
 
 rectangle((88.0, 40.5), width=172, height=77, style=Styles.Neutral.patch(shape_r=2.5))
-text((88.0, 74.0), "5 Orthogonal Defense Layers: Filtering 300M Req/Day Down to 100% Clean Origin Traffic", style=Styles.BlackBold.patch(text_size=12.5))
+text((88.0, 74.0), "5 Orthogonal Defense Layers: Filtering 300M Req/Day Down to 100% Clean Origin Traffic", style=Styles.BlackBold.patch(text_size=14.5))
 
 # Left: Inverted Funnel Pyramid (align="top", order="base_to_vertex")
 funnel = Pyramid(
     style=Styles.PrimaryNeutral,
-    text_style=Styles.DarkBold.patch(text_size=10.0),
+    text_style=Styles.DarkBold.patch(text_size=11.5),
 )
 funnel.add(
     "L1: Cloud ASN Block (-55%)",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    text_style=Styles.WhiteBold.patch(text_size=12.0),
 )
 funnel.add(
-    "L2: User-Agent Hygiene (-15%)",
+    "L2: UA Hygiene (-15%)",
     style=Styles.PrimaryNeutral,
 )
 funnel.add(
@@ -41,24 +41,24 @@ funnel.add(
 funnel.add(
     "PoW",
     style=Styles.AccentFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9.5, xy_shift=(0.0, 1.5)),
+    text_style=Styles.WhiteBold.patch(text_size=10.5, xy_shift=(0.0, 1.5)),
 )
-funnel.draw(xy=(8.0, 8.0), width=78.0, height=60.0, margin=1.8, align="top", order="base_to_vertex")
+funnel.draw(xy=(6.5, 8.0), width=70.0, height=60.0, margin=1.8, align="top", order="base_to_vertex")
 
 # Right: 5 Corresponding Layer Specification Cards aligned vertically with the 5 pyramid tiers
 layers = [
-    (62.2, "L1: Network ASN Filter (Cloudflare WAF)", "Drop all hosting/VPS ASNs (AWS, GCP, Azure, OVH, Hetzner)", phosphor.globe),
-    (49.9, "L2: User-Agent Sanity Check (Cloudflare WAF)", "Drop empty UAs, curl/python/go clients, and Chrome < v110", phosphor.magnifying_glass),
-    (37.6, "L3: Wire Protocol Enforcement (ALPN Check)", "Block HTTP/1.1 requests; require HTTP/2 or HTTP/3 (QUIC)", phosphor.shield_check),
-    (25.3, "L4: Tighten Edge Rate Limit (Flat-Rate Edge)", "Composite IP + TLS fingerprint limit on GET /challenge", phosphor.gauge),
-    (13.0, "L5: Asymmetric SHA-256 Proof-of-Work (App Layer)", "Signed seed + Web Worker nonce (<50ms) for synthesis API", phosphor.cpu),
+    (62.2, "L1: Network ASN Filter (Cloudflare WAF)", "Drop commercial cloud/VPS ASNs (AWS, GCP, Azure, OVH)", phosphor.globe),
+    (49.9, "L2: User-Agent Hygiene (Cloudflare WAF)", "Drop empty UAs, curl/python/go, and Chrome < v110", phosphor.magnifying_glass),
+    (37.6, "L3: Wire Protocol Enforcement (ALPN Check)", "Block HTTP/1.1 relays; require HTTP/2 or HTTP/3", phosphor.shield_check),
+    (25.3, "L4: Tighten Edge Rate Limit (Flat-Rate Edge)", "Composite IP + TLS limit on GET /challenge", phosphor.gauge),
+    (13.0, "L5: SHA-256 Proof-of-Work (App Layer)", "Signed seed + Web Worker nonce (<50ms) for API", phosphor.cpu),
 ]
 
 for cy, title_str, desc_str, icon_fn in layers:
-    rectangle((132.0, cy), width=80.0, height=10.2, style=Styles.White.patch(shape_r=2.0))
-    icon_fn((98.0, cy), width=5.0, style=Styles.Primary)
-    text((103.5, cy + 2.0), title_str, style=Styles.BlackBold.patch(text_size=10.5, halign="left"))
-    text((103.5, cy - 2.2), desc_str, style=Styles.Dark.patch(text_size=9.5, halign="left"))
+    rectangle((126.0, cy), width=89.0, height=10.4, style=Styles.White.patch(shape_r=2.0))
+    icon_fn((87.5, cy), width=5.2, style=Styles.Primary)
+    text((93.0, cy + 2.1), title_str, style=Styles.BlackBold.patch(text_size=12.0, halign="left"))
+    text((93.0, cy - 2.3), desc_str, style=Styles.Dark.patch(text_size=11.0, halign="left"))
 ```
 :::
 

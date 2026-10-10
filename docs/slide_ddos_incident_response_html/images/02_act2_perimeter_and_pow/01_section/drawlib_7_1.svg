@@ -160,12 +160,12 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 21px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #172135" x="315" y="142.98" transform="rotate(-0 315 142.98)">Perimeter WAF &amp; Proof-of-Work</text>
+     <text style="font-size: 21px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #172135" x="315" y="141.9825" transform="rotate(-0 315 141.9825)">Perimeter WAF &amp; Evasion Loops</text>
     </g>
    </g>
    <g id="text_5">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #475569" x="315" y="174.09" transform="rotate(-0 315 174.09)">Cat-and-Mouse Geo-Blocking, JS Header Spoofing, and Asymmetric PoW</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #475569" x="315" y="174.09" transform="rotate(-0 315 174.09)">5-Step Adaptation Cycles, 4 Geo-Hopping Waves &amp; JS Token Cracking</text>
     </g>
    </g>
    <g id="patch_12">
@@ -174,116 +174,116 @@ L 682.5 198.75
 " clip-path="url(#p6494dea2b6)" style="fill: none; stroke: #cbd5e1; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_13">
-    <path d="M 498.75 253.5 
-L 321.75 253.5 
-Q 315 253.5 315 246.75 
-L 315 231.75 
-Q 315 225 321.75 225 
-L 675.75 225 
-Q 682.5 225 682.5 231.75 
-L 682.5 246.75 
-Q 682.5 253.5 675.75 253.5 
+    <path d="M 504.375 254.25 
+L 318 254.25 
+Q 311.25 254.25 311.25 247.5 
+L 311.25 231.75 
+Q 311.25 225 318 225 
+L 690.75 225 
+Q 697.5 225 697.5 231.75 
+L 697.5 247.5 
+Q 697.5 254.25 690.75 254.25 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dae0e9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_14">
-    <path d="M 335.625 248.25 
-C 338.011828 248.25 340.301219 247.301703 341.988961 245.613961 
-C 343.676703 243.926219 344.625 241.636828 344.625 239.25 
-C 344.625 236.863172 343.676703 234.573781 341.988961 232.886039 
-C 340.301219 231.198297 338.011828 230.25 335.625 230.25 
-C 333.238172 230.25 330.948781 231.198297 329.261039 232.886039 
-C 327.573297 234.573781 326.625 236.863172 326.625 239.25 
-C 326.625 241.636828 327.573297 243.926219 329.261039 245.613961 
-C 330.948781 247.301703 333.238172 248.25 335.625 248.25 
+    <path d="M 331.875 249 
+C 334.361279 249 336.746061 248.012191 338.504126 246.254126 
+C 340.262191 244.496061 341.25 242.111279 341.25 239.625 
+C 341.25 237.138721 340.262191 234.753939 338.504126 232.995874 
+C 336.746061 231.237809 334.361279 230.25 331.875 230.25 
+C 329.388721 230.25 327.003939 231.237809 325.245874 232.995874 
+C 323.487809 234.753939 322.5 237.138721 322.5 239.625 
+C 322.5 242.111279 323.487809 244.496061 325.245874 246.254126 
+C 327.003939 248.012191 329.388721 249 331.875 249 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
    </g>
    <g id="text_6">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="335.625" y="242.86" transform="rotate(-0 335.625 242.86)">2.1</text>
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="331.875" y="243.615" transform="rotate(-0 331.875 243.615)">2.1</text>
     </g>
    </g>
    <g id="text_7">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="352.5" y="242.594414" transform="rotate(-0 352.5 242.594414)">Perimeter Hardening with GCLB Anycast Edge &amp; Cloud Armor WAF</text>
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="348.75" y="243.396641" transform="rotate(-0 348.75 243.396641)">Defender vs. Attacker: Two 5-Step Adaptation Cycles</text>
     </g>
    </g>
    <g id="patch_15">
-    <path d="M 498.75 291.75 
-L 321.75 291.75 
-Q 315 291.75 315 285 
-L 315 270 
-Q 315 263.25 321.75 263.25 
-L 675.75 263.25 
-Q 682.5 263.25 682.5 270 
-L 682.5 285 
-Q 682.5 291.75 675.75 291.75 
+    <path d="M 504.375 293.25 
+L 318 293.25 
+Q 311.25 293.25 311.25 286.5 
+L 311.25 270.75 
+Q 311.25 264 318 264 
+L 690.75 264 
+Q 697.5 264 697.5 270.75 
+L 697.5 286.5 
+Q 697.5 293.25 690.75 293.25 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dae0e9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_16">
-    <path d="M 335.625 286.5 
-C 338.011828 286.5 340.301219 285.551703 341.988961 283.863961 
-C 343.676703 282.176219 344.625 279.886828 344.625 277.5 
-C 344.625 275.113172 343.676703 272.823781 341.988961 271.136039 
-C 340.301219 269.448297 338.011828 268.5 335.625 268.5 
-C 333.238172 268.5 330.948781 269.448297 329.261039 271.136039 
-C 327.573297 272.823781 326.625 275.113172 326.625 277.5 
-C 326.625 279.886828 327.573297 282.176219 329.261039 283.863961 
-C 330.948781 285.551703 333.238172 286.5 335.625 286.5 
+    <path d="M 331.875 288 
+C 334.361279 288 336.746061 287.012191 338.504126 285.254126 
+C 340.262191 283.496061 341.25 281.111279 341.25 278.625 
+C 341.25 276.138721 340.262191 273.753939 338.504126 271.995874 
+C 336.746061 270.237809 334.361279 269.25 331.875 269.25 
+C 329.388721 269.25 327.003939 270.237809 325.245874 271.995874 
+C 323.487809 273.753939 322.5 276.138721 322.5 278.625 
+C 322.5 281.111279 323.487809 283.496061 325.245874 285.254126 
+C 327.003939 287.012191 329.388721 288 331.875 288 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
    </g>
    <g id="text_8">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="335.625" y="281.11" transform="rotate(-0 335.625 281.11)">2.2</text>
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="331.875" y="282.615" transform="rotate(-0 331.875 282.615)">2.2</text>
     </g>
    </g>
    <g id="text_9">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="352.5" y="280.844414" transform="rotate(-0 352.5 280.844414)">Why Geo-Blocking Failed: 4 Rapid Proxy Hopping Waves</text>
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="348.75" y="282.28793" transform="rotate(-0 348.75 282.28793)">GCLB + Cloud Armor WAF &amp; 4 Proxy Geo-Hopping Waves</text>
     </g>
    </g>
    <g id="patch_17">
-    <path d="M 498.75 330 
-L 321.75 330 
-Q 315 330 315 323.25 
-L 315 308.25 
-Q 315 301.5 321.75 301.5 
-L 675.75 301.5 
-Q 682.5 301.5 682.5 308.25 
-L 682.5 323.25 
-Q 682.5 330 675.75 330 
+    <path d="M 504.375 332.25 
+L 318 332.25 
+Q 311.25 332.25 311.25 325.5 
+L 311.25 309.75 
+Q 311.25 303 318 303 
+L 690.75 303 
+Q 697.5 303 697.5 309.75 
+L 697.5 325.5 
+Q 697.5 332.25 690.75 332.25 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dae0e9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_18">
-    <path d="M 335.625 324.75 
-C 338.011828 324.75 340.301219 323.801703 341.988961 322.113961 
-C 343.676703 320.426219 344.625 318.136828 344.625 315.75 
-C 344.625 313.363172 343.676703 311.073781 341.988961 309.386039 
-C 340.301219 307.698297 338.011828 306.75 335.625 306.75 
-C 333.238172 306.75 330.948781 307.698297 329.261039 309.386039 
-C 327.573297 311.073781 326.625 313.363172 326.625 315.75 
-C 326.625 318.136828 327.573297 320.426219 329.261039 322.113961 
-C 330.948781 323.801703 333.238172 324.75 335.625 324.75 
+    <path d="M 331.875 327 
+C 334.361279 327 336.746061 326.012191 338.504126 324.254126 
+C 340.262191 322.496061 341.25 320.111279 341.25 317.625 
+C 341.25 315.138721 340.262191 312.753939 338.504126 310.995874 
+C 336.746061 309.237809 334.361279 308.25 331.875 308.25 
+C 329.388721 308.25 327.003939 309.237809 325.245874 310.995874 
+C 323.487809 312.753939 322.5 315.138721 322.5 317.625 
+C 322.5 320.111279 323.487809 322.496061 325.245874 324.254126 
+C 327.003939 326.012191 329.388721 327 331.875 327 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ea4335"/>
    </g>
    <g id="text_10">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="335.625" y="319.36" transform="rotate(-0 335.625 319.36)">2.3</text>
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="331.875" y="321.615" transform="rotate(-0 331.875 321.615)">2.3</text>
     </g>
    </g>
    <g id="text_11">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="352.5" y="319.094414" transform="rotate(-0 352.5 319.094414)">Static JS Token Spoofing vs. Asymmetric SHA-256 Proof-of-Work</text>
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="348.75" y="321.28793" transform="rotate(-0 348.75 321.28793)">Static Client JS Token Spoofing (Cracked in 3 Hours)</text>
     </g>
    </g>
    <g id="text_12">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #808080" x="682.5" y="391.454453" transform="rotate(-0 682.5 391.454453)">7 / 21</text>
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #808080" x="682.5" y="391.454453" transform="rotate(-0 682.5 391.454453)">7 / 27</text>
     </g>
    </g>
   </g>

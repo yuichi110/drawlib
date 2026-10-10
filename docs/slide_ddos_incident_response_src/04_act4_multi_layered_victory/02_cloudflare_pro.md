@@ -28,33 +28,33 @@ rectangle((57.5, 45.0), width=111, height=86, style=Styles.Neutral.patch(shape_r
 chart = BarChart(
     axis_line_style=Styles.Primary,
     categories=[
-        "Naive Flood Bot\n(Blocked @ Edge)",
-        "Bot Node #1\n(Sub-Threshold)",
-        "Bot Node #2\n(Sub-Threshold)",
-        "Bot Node #5,000\n(Sub-Threshold)",
-        "WAF Per-IP Limit\n(Rule Ceiling)",
+        "Naive Bot\n(Blocked)",
+        "Bot #1\n(Leaked)",
+        "Bot #2\n(Leaked)",
+        "Bot #5,000\n(Leaked)",
+        "IP Ceiling\n(10 / 10s)",
     ],
-    width=96.0,
-    height=56.0,
-    title="Per-IP Request Rate per 10s Window (5,000 Nodes x 8 req/10s = 4,000 RPS Leak)",
-    title_style=Styles.BlackBold.patch(text_size=10.5),
-    bar_width_ratio=0.52,
+    width=95.0,
+    height=54.0,
+    title="Per-IP Rate per 10s Window (5,000 IPs x 8 req/10s = 4,000 RPS Leak)",
+    title_style=Styles.BlackBold.patch(text_size=13.5),
+    bar_width_ratio=0.48,
     bar_r=1.0,
-    axis_text_style=Styles.Dark.patch(text_size=9.5),
+    axis_text_style=Styles.DarkBold.patch(text_size=12.0),
     grid_style=Styles.MutedDashed,
-    value_text_style=Styles.BlackBold.patch(text_size=9.5),
-    value_format="{:.0f} req/10s",
+    value_text_style=Styles.BlackBold.patch(text_size=12.0),
+    value_format="{:.0f}/10s",
 )
 chart.add_series("Per-IP Rate", [18.0, 8.0, 7.0, 8.0, 10.0], style=Styles.AccentFlat)
-chart.configure_y_axis(min_value=0.0, max_value=20.0, tick_step=5.0, label="Requests / 10s / IP")
-chart.draw(xy=(9.0, 22.0))
+chart.configure_y_axis(min_value=0.0, max_value=20.0, tick_step=5.0)
+chart.draw(xy=(10.0, 23.0))
 
 # Bottom Callout Banner
-rectangle((57.5, 11.0), width=100.0, height=12.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+rectangle((57.5, 11.0), width=102.0, height=12.5, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
 text(
     (57.5, 11.0),
-    "Math of Sub-Threshold Evasion: 5,000 IPs x 0.8 RPS/IP = 4,000 RPS hitting Cloud Run without triggering IP limits!",
-    style=Styles.AccentBold.patch(text_size=9.5),
+    "Sub-Threshold Evasion: 5,000 IPs x 0.8 RPS/IP = 4,000 RPS bypassing per-IP limits!",
+    style=Styles.AccentBold.patch(text_size=12.0),
 )
 ```
 :::

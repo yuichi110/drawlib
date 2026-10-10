@@ -11,8 +11,8 @@ setup(width=104, height=84)
 utils.draw_curved_agenda(
     [
         ("Act 1: The Incident Onset", "10 Years of VPS Peace to Serverless Cloud Run Bill Shock"),
-        ("Act 2: Perimeter WAF & Proof-of-Work", "GCLB + Cloud Armor, Geo-Hopping & SHA-256 PoW"),
-        ("Act 3: The EDoS Pivot & WAF Pricing Trap", "300M Req/Day Flood & $225/Day Cloud Armor Fee Crisis"),
+        ("Act 2: Perimeter WAF & Evasion Loops", "Adaptation Cycles, GCLB WAF, 4 Geo-Waves & JS Cracking"),
+        ("Act 3: PoW, EDoS Pivot & WAF Pricing Trap", "SHA-256 PoW, 300M/Day Flood & $225/Day Cloud Armor Crisis"),
         ("Act 4: Multi-Layered Edge Victory", "Flat-Rate Cloudflare Pro, 5 Defense Pillars & AI Forensics"),
     ],
     width=104,
@@ -51,7 +51,7 @@ utils.draw_page_number()
 This presentation is structured into four chronological acts that mirror the real-world incident response timeline:
 
 1. **Act 1 — The Incident Onset**: We examine why 10 years of peaceful operation on a fixed-cost VPS ended abruptly after migrating to Google Cloud Run, where cache-busting TTS requests drove CPU utilization to 100% and multiplied weekly compute bills by 4-5x.
-2. **Act 2 — Perimeter WAF & Proof-of-Work**: We trace the deployment of Google Cloud Load Balancing and Cloud Armor, the failure of country-level geo-blocking across 4 rapid proxy waves, the defeat of static JS signatures within 3 hours, and the success of an asymmetric SHA-256 Proof-of-Work challenge.
-3. **Act 3 — The EDoS Pivot & WAF Pricing Trap**: Blocked from stealing CPU via PoW, the attacker launched a 300M req/day volumetric flood. While Cloud Armor blocked 99.9% of requests, per-request WAF evaluation fees ($0.75/M) created a $225/day ($6,750/month) Economic Denial of Sustainability (EDoS) crisis.
+2. **Act 2 — Perimeter WAF & Evasion Loops**: We contrast the 5-step adaptation cycles of the defender and the attacker, trace the deployment of Google Cloud Load Balancing and Cloud Armor, and see how the botnet defeated country-level geo-blocking across 4 rapid proxy waves and cracked our static JS signatures in 3 hours.
+3. **Act 3 — PoW, EDoS Pivot & WAF Pricing Trap**: We deploy an asymmetric SHA-256 Proof-of-Work challenge that stops unauthorized TTS synthesis—triggering a shift in the attacker's goal toward pure origin penetration (300M req/day) and a $225/day ($6,750/month) Cloud Armor evaluation fee crisis.
 4. **Act 4 — Multi-Layered Edge Victory**: We detail the midnight emergency teardown of GCLB, migration to flat-rate Cloudflare Pro ($20/month), traffic decomposition of datacenter vs. residential bots, the 5-layer defense-in-depth architecture, and lessons for defending against AI-assisted adversaries.
 :::

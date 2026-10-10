@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="550.188679pt" viewBox="0 0 720 550.188679" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 550.188679 
+L 720 550.188679 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 536.603774 
+L 30.566038 536.603774 
+Q 13.584906 536.603774 13.584906 519.622642 
+L 13.584906 30.566038 
+Q 13.584906 13.584906 30.566038 13.584906 
+L 689.433962 13.584906 
+Q 706.415094 13.584906 706.415094 30.566038 
+L 706.415094 519.622642 
+Q 706.415094 536.603774 689.433962 536.603774 
+z
+" clip-path="url(#pb4830e7bf6)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 14.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="58.958099" transform="rotate(-0 360 58.958099)">4 SRE Golden Rules for Serverless &amp; Edge Security</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 194.433962 292.075472 
+L 50.943396 292.075472 
+Q 37.358491 292.075472 37.358491 278.490566 
+L 37.358491 101.886792 
+Q 37.358491 88.301887 50.943396 88.301887 
+L 337.924528 88.301887 
+Q 351.509434 88.301887 351.509434 101.886792 
+L 351.509434 278.490566 
+Q 351.509434 292.075472 337.924528 292.075472 
+z
+" clip-path="url(#pb4830e7bf6)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(110.072634 167.751179)">Rule 1: No Direct Serverless</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(194.433962 180.251179)"/>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(93.493533 192.751179)">Lock run.app to internal/LB only.</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(104.594119 206.55196)">Place a flat-rate Anycast Edge</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(93.855837 220.58907)">in front of auto-scaling compute.</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 525.566038 292.075472 
+L 382.075472 292.075472 
+Q 368.490566 292.075472 368.490566 278.490566 
+L 368.490566 101.886792 
+Q 368.490566 88.301887 382.075472 88.301887 
+L 669.056604 88.301887 
+Q 682.641509 88.301887 682.641509 101.886792 
+L 682.641509 278.490566 
+Q 682.641509 292.075472 669.056604 292.075472 
+z
+" clip-path="url(#pb4830e7bf6)" style="fill: #d9d2e9; stroke: #8e7cc3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(438.990842 168.576375)">Rule 2: Audit WAF EDoS Fees</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(525.566038 181.076375)"/>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(428.856077 193.576375)">Per-request WAFs ($0.75/M) can</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(425.820921 207.263875)">bankrupt you during a 300M/day</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(430.963499 221.300984)">flood even at 99.9% block rate.</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 194.433962 512.830189 
+L 50.943396 512.830189 
+Q 37.358491 512.830189 37.358491 499.245283 
+L 37.358491 322.641509 
+Q 37.358491 309.056604 50.943396 309.056604 
+L 337.924528 309.056604 
+Q 351.509434 309.056604 351.509434 322.641509 
+L 351.509434 499.245283 
+Q 351.509434 512.830189 337.924528 512.830189 
+z
+" clip-path="url(#pb4830e7bf6)" style="fill: #e8f0fe; stroke: #669df6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(113.04822 387.619177)">Rule 3: Orthogonal Signals</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(194.433962 401.656287)"/>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(104.057986 414.156287)">Combine Hosting ASN blocks,</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(87.964236 428.193396)">UA hygiene, HTTP/2+ ALPN checks,</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(98.323611 442.230506)">and composite edge rate limits.</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 525.566038 512.830189 
+L 382.075472 512.830189 
+Q 368.490566 512.830189 368.490566 499.245283 
+L 368.490566 322.641509 
+Q 368.490566 309.056604 382.075472 309.056604 
+L 669.056604 309.056604 
+Q 682.641509 309.056604 682.641509 322.641509 
+L 682.641509 499.245283 
+Q 682.641509 512.830189 669.056604 512.830189 
+z
+" clip-path="url(#pb4830e7bf6)" style="fill: #ffffff; stroke: #434343; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(451.140256 389.274451)">Rule 4: Asymmetric PoW</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(525.566038 403.075232)"/>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(438.469358 415.575232)">Client JS secrets get cracked</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(419.82971 429.612342)">in hours. Use SHA-256 Web Worker</text>
+    </g>
+    <g clip-path="url(#pb4830e7bf6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(453.887327 442.112342)">PoW to invert CPU cost.</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb4830e7bf6">
+   <rect x="0" y="0" width="720" height="550.188679"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"}] -->
+</svg>

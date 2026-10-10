@@ -20,25 +20,25 @@ setup(width=105, height=98)
 
 # Outer subtle framing card
 rectangle((52.5, 49.0), width=101, height=94, style=Styles.Neutral.patch(shape_r=3.0))
-text((52.5, 90.5), "End-to-End Defense Evolution Overview", style=Styles.BlackBold.patch(text_size=12.5))
-text((52.5, 85.5), "From Direct Origin Exposure & WAF Billing Shock to Flat-Rate Edge Victory", style=Styles.Muted.patch(text_size=9.5))
+text((52.5, 90.0), "End-to-End Defense Evolution Overview", style=Styles.BlackBold.patch(text_size=15.0))
+text((52.5, 84.0), "Direct Origin Exposure -> WAF Billing Shock -> Flat-Rate Edge Victory", style=Styles.Muted.patch(text_size=12.0))
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold.patch(text_size=9.5),
+    node_text_style=Styles.DarkBold.patch(text_size=12.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark.patch(text_size=9.5),
+    edge_text_style=Styles.DarkBold.patch(text_size=12.0),
     node_card_style=Styles.White,
 )
 
 # Attackers & Legitimate Users on Left
 botnet = d.add(
-    Node((22, 18), "AI Botnet Swarm\n300M+ Req/Day", icon=PhosphorIcon.SKULL, icon_size=7.0,
+    Node((24, 19), "AI Botnet\n300M+ Req/Day", icon=PhosphorIcon.SKULL, icon_size=7.0,
          style=Styles.Accent, card_style=Styles.SecondaryNeutral),
     xy=(15.0, 56.0),
 )
 users = d.add(
-    Node((22, 18), "Legitimate Users\nBrowser + PoW", icon=PhosphorIcon.USERS, icon_size=7.0,
+    Node((24, 19), "Real Users\nBrowser + PoW", icon=PhosphorIcon.USERS, icon_size=7.0,
          style=Styles.Primary, card_style=Styles.PrimaryNeutral),
     xy=(15.0, 22.0),
 )
@@ -47,33 +47,33 @@ users = d.add(
 edge_group = d.add(
     NodeGroup(title="Flat-Rate Edge ($20/mo)", padding=4.0,
               style=Styles.PrimaryNeutral.patch(shape_r=2.0),
-              text_style=Styles.PrimaryBold.patch(text_size=9.5, halign="left")),
-    xy=(36.0, 10.0),
+              text_style=Styles.PrimaryBold.patch(text_size=12.5, halign="left")),
+    xy=(36.0, 9.0),
 )
 waf = edge_group.add(
-    Node((22, 18), "5-Layer Edge WAF\nASN / TLS / Rate", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5,
-         style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=9.5), card_style=Styles.PrimaryFlat),
-    xy=(15.0, 46.0),
+    Node((24, 19), "5-Layer WAF\nASN / TLS / Rate", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5,
+         style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.PrimaryFlat),
+    xy=(15.5, 47.0),
 )
 drop = edge_group.add(
-    Node((22, 14), "100% Bot Drop\n$0 Overages", icon=PhosphorIcon.PROHIBIT, icon_size=6.0,
-         style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=9.5), card_style=Styles.AccentFlat),
-    xy=(15.0, 16.0),
+    Node((24, 15), "100% Bot Drop\n$0 Overages", icon=PhosphorIcon.PROHIBIT, icon_size=6.0,
+         style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.AccentFlat),
+    xy=(15.5, 16.0),
 )
 
 # Protected Origin on Right
 origin = d.add(
-    Node((22, 20), "Cloud Run Origin\nTTS Synthesis\n($10/mo Stable)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0,
+    Node((23, 21), "Cloud Run\nTTS Origin\n($10/mo)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5,
          card_style=Styles.Neutral),
-    xy=(88.0, 46.0),
+    xy=(88.5, 47.0),
 )
 
-d.connect(botnet, waf, label="Flood", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=9.5), padding=1.0)
-d.connect(users, waf, label="HTTPS", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=9.5), padding=1.0)
-d.connect(waf, drop, label="Blocked", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=9.5), padding=1.0)
-d.connect(waf, origin, label="Clean", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=9.5), padding=1.0)
+d.connect(botnet, waf, label="Flood", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=12.0), padding=1.0)
+d.connect(users, waf, label="HTTPS", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=12.0), padding=1.0)
+d.connect(waf, drop, label="Drop", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=12.0), padding=1.0)
+d.connect(waf, origin, label="Clean", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=12.0), padding=1.0)
 
-d.draw(xy=(2.0, 4.0))
+d.draw(xy=(2.0, 3.0))
 ```
 :::
 

@@ -243,13 +243,27 @@ Repeating the exact same `Left Text (740px) + Right Diagram (980px)` split acros
 
 ## 5. Typography, Color Discipline & Spatial Margins
 
-### 5.1. Calibrating In-Diagram `text_size` for 1920×1080 Slides
-When `setup(width=W, height=H)` is scaled by `1/10` of the enclosing `::: block (x, y) (w, h)` pixel size (e.g., `setup(width=100, height=82)` inside `(1000, 820)`), `1pt` of Drawlib `text_size` renders at roughly `1.39px` on the 1920×1080 stage.
-- **Avoid Oversized Diagram Text**: Setting `text_size=18–22` on normal node labels makes diagram text larger than the slide's `<h2>` headings and causes text to overflow boxes.
-- **Recommended `text_size` Scale for Slide Diagrams (`1:10` canvas scale)**:
-  - **Standard Node / Card Body / Edge Labels**: `text_size = 11.0 – 13.5` (floor `9.5`)
-  - **Node Titles / Container Group Headers**: `text_size = 13.5 – 15.5`
-  - **Hero Banner / KPI Callout Numbers**: `text_size = 20.0 – 30.0`
+### 5.1. Calibrating In-Diagram `text_size` for 1920×1080 Slides (Block-Width Math)
+
+Drawlib's rendering engine normalizes the full canvas width `setup(width=W, height=H)` to **`10 inches = 720 points`** (`720 × H/W pt` tall), and CSS fits the image into `::: block (x, y) (W_block, H_block)` via `object-fit: contain`. Therefore, the actual rendered font size on the **`1920×1080` slide stage** is:
+
+$$\text{Rendered Slide Font Size (px)} = \text{text\_size} \times \text{scale} \times \min\!\left(\frac{W_{\text{block}}}{720},\; \frac{H_{\text{block}}}{720 \times (H / W)}\right)$$
+
+> **CRITICAL SLIDE TYPOGRAPHY RULE**:
+> Never blindly copy Web Documentation font sizes (`text_size = 9.5–10.5`, which are calibrated for `16px` HTML body text in a `900px` column) into a 2-column slide block!
+> On a **`1920×1080` slide**, Markdown body text (`p`, `li`) is **`26px`** (`h2` is `34px`, `h1` is `52px`). If you place `text_size = 9.5` inside a `1000px` right-hand column (or a `700px` KPI column), it renders at only **`9px–13px`**—less than half the size of the `26px` slide text beside it!
+
+Always calibrate `text_size` according to the enclosing **`::: block` width ($W_{\text{block}}$)** so rendered labels stay **`>= 18px–24px`** on the `1920×1080` stage:
+
+| Enclosing `::: block` Type | Block Width $W_{\text{block}}$ | Scale Factor (`px/pt`) | Node / Axis / Table / Edge `text_size` | Card / Chart Title `text_size` | Rendered Size on `1920×1080` Stage |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Full-Width / Top-Bottom Wide** | `1760px` | `~2.44 px/pt` | **`11.0` – `13.0`** *(floor `10.5`)* | **`14.0` – `16.0`** | **`27px` – `32px`** *(matches `26px` prose)* |
+| **Two-Column Split (Right Diagram)**| `960px` – `1040px` | `~1.33 – 1.44 px/pt` | **`13.5` – `15.5`** *(floor `12.5`)* | **`16.0` – `18.5`** | **`18px` – `22px`** *(clear & legible)* |
+| **Narrow Column (KPI Cards, etc.)** | `660px` – `760px` | `~0.95 – 1.05 px/pt` | **`14.0` – `17.0`** *(KPI value `22.0+`)*| **`18.0` – `20.0`** | **`14px` – `24px`** *(never microscopic)* |
+
+- **Match Canvas Aspect Ratio (`1:10` Rule)**: Always set `setup(width=W_block / 10, height=H_block / 10)` (e.g., `setup(width=104, height=81)` for `::: block (800, 140) (1040, 810)`). If $H / W > H_{\text{block}} / W_{\text{block}}$, `object-fit: contain` will letterbox the image horizontally and shrink all fonts!
+- **Never Shrink 2-Column Diagrams with `scale < 1.0`**: Passing `d.draw(..., scale=0.8)` inside a 2-column block compounds font shrinkage. Instead, reduce the number of steps/nodes, tighten `step_y` / `padding`, or switch to a **Full-Stage** or **Top-Bottom Wide** block.
+- **Shorten In-Node Labels & Widen Cards**: When using `text_size = 13.5–15.5` in 2-column diagrams, keep node labels to **1–3 punchy words per line** and increase `card_size` / `column_widths` so larger text never clips.
 
 ### 5.2. 50%+ Neutral Baseline (No All-Red / Rainbow Slides)
 - Even in incident postmortems or security decks, **never color every box red (`Danger`) or orange (`Warning`)**. When everything is highlighted as an alert, nothing stands out.
@@ -257,7 +271,7 @@ When `setup(width=W, height=H)` is scaled by `1/10` of the enclosing `::: block 
 - Reserve saturated fills (`Styles.PrimaryFlat`, `Styles.AccentFlat`, `Styles.DangerFlat`, `Styles.SuccessFlat`) strictly for **1–2 primary focal points** per diagram (e.g., the single bottleneck database or the primary defense gateway).
 
 ### 5.3. Vertical Safe Zones & Language Consistency
-- **Respect the Footer Safe Zone (`Y <= 960`)**: The slide footer and page counter live at `Y: 1010..1040`. Ensure main content blocks end at or above `Y = 960` (`y + h <= 960`) so text and diagrams never collide with the footer.
+- **Respect the Footer Safe Zone (`Y <= 960`)**: The slide footer and page counter live at `Y: 995..1040`. Ensure main content blocks end at or above `Y = 960` (`y + h <= 960`) so text and diagrams never collide with the footer.
 - **Language & Terminology Consistency**: Match the language of slide headers (`# Title`), footer text, and diagram labels to the presentation's target language (e.g., in a Japanese deck initialized with `--lang ja`, write slide titles and footers in natural Japanese rather than leaving English template placeholders).
 
 ---
@@ -273,4 +287,4 @@ When `setup(width=W, height=H)` is scaled by `1/10` of the enclosing `::: block 
 | **Diagrams** | Drawing every slide with primitive `rectangle()` + `line()` boxes | Use **`SmartArts`**, **`Diagrams`**, **`Graphs`**, **`Charts`**, **`utils.py` helpers**, and **`phosphor`/`gcp` icons** |
 | **Layout Rhythm** | Using identical Left-Text / Right-Diagram split on all 15+ slides | Alternate among **2-Column Split**, **Top-Bottom Wide Split**, **Full-Stage Visual**, and **KPI + Chart** layouts |
 | **Color Balance** | Coloring all nodes `DangerFlat` / `WarningFlat` / `PrimaryFlat` | Maintain **50%+ Neutral** cards (`Styles.Neutral`, `PrimaryNeutral`) and highlight only **1–2 focal nodes** |
-| **Diagram Fonts** | Using `text_size=18+` on standard boxes, causing text clipping and visual clutter | Use **`text_size = 11.0–13.5`** for body labels and **`13.5–15.5`** for card headers on `1:10` canvases |
+| **Diagram Fonts** | Using Web-doc `text_size=9.5` or `scale < 1.0` inside 2-column slide blocks (renders `<13px` vs `26px` prose) | Scale `text_size` by block width: **`11.0–13.0`** (full-width `1760px`), **`13.5–15.5`** (2-col `1000px`), **`14.0–17.0`** (narrow `700px`) |

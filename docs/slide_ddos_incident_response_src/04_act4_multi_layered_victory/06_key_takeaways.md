@@ -13,13 +13,13 @@ from drawlib.text import text
 setup(width=106, height=81)
 
 rectangle((53.0, 40.5), width=102, height=77, style=Styles.Neutral.patch(shape_r=2.5))
-text((53.0, 73.5), "4 SRE Golden Rules for Serverless & Edge Security", style=Styles.BlackBold.patch(text_size=12.5))
+text((53.0, 73.0), "4 SRE Golden Rules for Serverless & Edge Security", style=Styles.BlackBold.patch(text_size=14.5))
 
 grid = GridLayout(
     num_column=2,
     num_row=2,
     style=Styles.White.patch(shape_r=2.0),
-    text_style=Styles.DarkBold.patch(text_size=10.0),
+    text_style=Styles.DarkBold.patch(text_size=12.5),
 )
 
 # Top-Left (col=0, row=1)
@@ -27,9 +27,9 @@ grid.add(
     position=(0, 1),
     width=1,
     height=1,
-    text="Rule 1: Never Expose Serverless Direct\n\nLock down *.run.app to internal/LB only.\nAlways place a flat-rate Anycast Edge\nin front of auto-scaling compute.",
+    text="Rule 1: No Direct Serverless\n\nLock run.app to internal/LB only.\nPlace a flat-rate Anycast Edge\nin front of auto-scaling compute.",
     style=Styles.PrimaryFlat.patch(shape_r=2.0),
-    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    text_style=Styles.WhiteBold.patch(text_size=12.5),
 )
 
 # Top-Right (col=1, row=1)
@@ -37,9 +37,9 @@ grid.add(
     position=(1, 1),
     width=1,
     height=1,
-    text="Rule 2: Audit WAF EDoS Pricing\n\nPay-per-request WAFs ($0.75/M) can\nbankrupt you during a 300M/day flood\neven when blocking 99.9% of traffic.",
+    text="Rule 2: Audit WAF EDoS Fees\n\nPer-request WAFs ($0.75/M) can\nbankrupt you during a 300M/day\nflood even at 99.9% block rate.",
     style=Styles.SecondaryNeutral.patch(shape_r=2.0),
-    text_style=Styles.DarkBold.patch(text_size=10.0),
+    text_style=Styles.DarkBold.patch(text_size=12.5),
 )
 
 # Bottom-Left (col=0, row=0)
@@ -47,9 +47,9 @@ grid.add(
     position=(0, 0),
     width=1,
     height=1,
-    text="Rule 3: Layer Orthogonal Signals\n\nSingle rules fail. Combine ASN blocks,\nUA hygiene, HTTP/2+ ALPN checks,\nand composite edge rate limits.",
+    text="Rule 3: Orthogonal Signals\n\nCombine Hosting ASN blocks,\nUA hygiene, HTTP/2+ ALPN checks,\nand composite edge rate limits.",
     style=Styles.PrimaryNeutral.patch(shape_r=2.0),
-    text_style=Styles.DarkBold.patch(text_size=10.0),
+    text_style=Styles.DarkBold.patch(text_size=12.5),
 )
 
 # Bottom-Right (col=1, row=0)
@@ -57,12 +57,12 @@ grid.add(
     position=(1, 0),
     width=1,
     height=1,
-    text="Rule 4: Use Asymmetric Proof-of-Work\n\nClient JS secrets get reverse-engineered\nin hours. Use SHA-256 Web Worker PoW\nto make CPU abuse cost the attacker.",
+    text="Rule 4: Asymmetric PoW\n\nClient JS secrets get cracked\nin hours. Use SHA-256 Web Worker\nPoW to invert CPU cost.",
     style=Styles.White.patch(shape_r=2.0),
-    text_style=Styles.DarkBold.patch(text_size=10.0),
+    text_style=Styles.DarkBold.patch(text_size=12.5),
 )
 
-grid.draw(xy=(6.0, 6.0), width=94.0, height=62.0, margin=2.5)
+grid.draw(xy=(5.5, 5.5), width=95.0, height=62.5, margin=2.5)
 ```
 :::
 

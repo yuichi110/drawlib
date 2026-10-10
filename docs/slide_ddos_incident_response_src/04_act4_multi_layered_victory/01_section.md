@@ -7,9 +7,9 @@ utils.draw_chapter_divider(
     title="Multi-Layered Edge Victory",
     subtitle="Traffic Forensics, 5 Defense Pillars, and AI Adversary Profiling",
     topics=[
-        "Cloudflare Pro Migration & The Sub-Threshold Botnet Leak (25%)",
-        "Traffic Forensics: Datacenter VMs vs. Hijacked Residential PCs",
-        "The 5-Layer Defense Architecture, AI Botnet Profile & SRE Rules",
+        "Cloudflare Pro Migration & Sub-Threshold Bot Leak (25%)",
+        "Traffic Forensics: Cloud VMs vs. Home Residential Proxies",
+        "5-Layer Defense Architecture, AI Bot Profile & SRE Rules",
     ],
     total_chapters=4,
 )

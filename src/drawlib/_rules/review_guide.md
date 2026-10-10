@@ -207,10 +207,12 @@ Inspect `.drawlib/scratch/browser_check.png` using `view_file` and verify:
 
 ### Criterion 1: Mathematical Typography Scaling (`720pt` Canvas Law)
 
-Drawlib's internal rendering engine maps the **full canvas width (`setup(width=W)`) to exactly `10 inches = 720 points`** regardless of whether `W=100` or `W=160`.
-When the resulting image is displayed inside an HTML page at width $W_{\text{HTML}}$ (in CSS `px`), any in-image `text_size` (in `pt`) scales according to:
+Drawlib's internal rendering engine maps the **full canvas width (`setup(width=W, height=H)`) to exactly `10 inches = 720 points`** (`720 × H/W pt` tall) regardless of whether `W=100` or `W=160`.
+When the resulting image is displayed inside an HTML container or slide `::: block` of pixel dimensions $(W_{\text{HTML}}, H_{\text{HTML}})$, any in-image `text_size` (in `pt`) scales according to:
 
-$$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \frac{W_{\text{HTML}}}{720}$$
+$$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \text{scale} \times \min\!\left(\frac{W_{\text{HTML}}}{720},\; \frac{H_{\text{HTML}}}{720 \times (H / W)}\right)$$
+
+#### 1A. Web Documentation & Linear Docs (`site` / `doc` — `16px` HTML Prose in `~900px` Column)
 
 | Fence Width Setting | Displayed $W_{\text{HTML}}$ | `text_size=8.0` Renders As | `text_size=11.0` Renders As | Visual Verdict vs. `16px` HTML Prose |
 | :--- | :--- | :--- | :--- | :--- |
@@ -218,12 +220,28 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \frac{W_{\text{H
 | `600px` (Old Cap — **Avoid**) | `600px` | `6.7px` (Tiny) | `9.2px` (Cramped) | **Fails**: Noticeably smaller than prose. |
 | **Omitted (`100%` Container — Mandatory)** | **`~880px–960px`** | `9.8px–10.6px` (Marginal) | **`13.4px–14.7px` (Ideal)** | **Passes**: Matches `14px–16px` HTML prose! |
 
-- **Rule 1A (Full Container Width)**: Never restrict standard documentation diagrams with narrow pixel widths (`500px`, `600px`, `680px`). Omit the width token on the ```` ```drawlib ```` fence so the `.drawlib-image` container expands to `100%` of the content column (`max-width: 1000px`).
-- **Rule 1B (`text_size >= 10.0`)**:
+- **Full Container Width**: Never restrict standard documentation diagrams with narrow pixel widths (`500px`, `600px`, `680px`). Omit the width token on the ```` ```drawlib ```` fence so `.drawlib-image` expands to `100%` of the content column (`max-width: 1000px`).
+- **In-Image `text_size` (`site` / `doc`)**:
   - **Standard Node / Body Labels**: `text_size = 10.5` – `12.0`
   - **Section Headers / Banner Titles**: `text_size = 12.0` – `15.0`
   - **Dense Code Listings (`SourceCode`) / Secondary Badges**: `text_size >= 9.5` (strict floor)
-- **Rule 1C (Widen Boxes When Raising `text_size`)**: Whenever you increase `text_size` (e.g., from `8.5` to `11.0`), proportionally increase container widths (`width += 20%–30%`), `Table` `col_widths`, or `FlowDiagram` node widths so enlarged text never clips or wraps awkwardly.
+
+#### 1B. 16:9 Presentation Slide Decks (`slide` — `26px` Markdown Prose on `1920×1080` Stage)
+
+In **16:9 Slide Decks (`project-slide` / `slide-guide`)**, the stage is **`1920px × 1080px`** and Markdown body text inside `::: block` is **`26px`** (`h2` is `34px`, `h1` is `52px`).
+> **CRITICAL SLIDE REVIEW RULE**: Checking only for "zero overlapping text" is **not sufficient** on slides! A diagram with `text_size = 9.5` inside a `1000px`-wide 2-column block renders at **`~13px`** on the `1920×1080` stage—half the size of the `26px` Markdown bullets beside it! Always compare in-diagram text height directly against adjacent `26px` slide prose when reviewing the compiled PDF (`slide.pdf`) or HTML stage (`slide_html/index.html`).
+
+Scale `text_size` inversely with the enclosing `::: block (x, y) (W_block, H_block)` width so rendered diagram labels stay **`>= 18px–24px`** on the `1920×1080` stage:
+
+| Slide `::: block` Layout | Block Width $W_{\text{block}}$ | Scale (`px/pt`) | Mandatory `text_size` (Nodes / Axes / Tables) | Mandatory `text_size` (Titles) | Rendered Size on `1920×1080` Stage |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Full-Width / Top-Bottom Wide** | `1760px` | `~2.44` | **`11.0` – `13.0`** *(floor `10.5`)* | **`14.0` – `16.0`** | **`27px` – `32px`** *(matches `26px` prose)* |
+| **Two-Column Split (Right Diagram)** | `960px` – `1040px` | `~1.33 – 1.44` | **`13.5` – `15.5`** *(floor `12.5`)* | **`16.0` – `18.5`** | **`18px` – `22px`** *(clear & legible)* |
+| **Narrow Column (KPI Cards, etc.)** | `660px` – `760px` | `~0.95 – 1.05` | **`14.0` – `17.0`** *(KPI value `22.0+`)* | **`18.0` – `20.0`** | **`14px` – `24px`** *(never microscopic)* |
+
+- **Match Block Aspect Ratio (`setup(width=W_block/10, height=H_block/10)`)**: Ensure canvas `H / W` matches `H_block / W_block` so `object-fit: contain` never shrinks the diagram horizontally.
+- **No `scale < 1.0` in 2-Column Slide Blocks**: Never pass `scale=0.8` to `draw()` in a half-width slide block; reduce node/step count or switch to a wide/full-stage layout instead.
+- **Widen Boxes & Shorten Labels When Raising `text_size`**: Whenever you increase `text_size` (e.g., to `13.5`–`15.5` on 2-column slides), keep node text to **1–3 words per line** and increase `card_size`, `Table` `column_widths`, or `FlowDiagram` node widths by `25%–40%` so larger text never clips.
 
 ---
 
@@ -268,7 +286,9 @@ Avoid **"Rainbow Color Chaos"** (assigning a different saturated fill to every n
 
 ## 4. Quick Self-Correction Checklist for AI Agents
 
-- [ ] **Stage 1 (Static Check)**: Does every page have `>= 2` diagrams, a Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` width caps on fences, and `text_size >= 10.0`?
+- [ ] **Stage 1 (Static Check)**:
+  - For **`site` / `doc`**: `>= 2` diagrams/page, Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` width caps, and `text_size >= 10.0`.
+  - For **`slide`**: Dual-Layer split (`::: block` 3–4 short phrases + `::: note` full script), Cover/Agenda/Section Dividers/Takeaways arc, and block-width-calibrated `text_size` (`11.0–13.0` full-width, `13.5–15.5` 2-column, `14.0–17.0` narrow column; no `scale < 1.0` in 2-column blocks).
 - [ ] **Stage 2 (Grid Check `-g`)**: Did you export each new/modified diagram with `drawlib show ... -g -o .drawlib/scratch/preview.png` and inspect it via `view_file` to verify zero overlapping labels, accurate `Center` vs. `Bottom-Left` anchors, and `50%+` neutral color balance?
-- [ ] **Stage 3 (Browser HTML Check)**: Did you build the HTML (`./build.sh`), pass `drawlib serve --check`, and inspect a `1280×920` Playwright browser screenshot via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font size parity?
+- [ ] **Stage 3 (Macro-Page HTML / Slide PDF Check)**: Did you build (`./build.sh`) and inspect the rendered HTML page (`1280×920` Playwright screenshot) or compiled Slide PDF (`view_file`) to confirm prose-to-diagram font size parity (`~14px–16px` in docs; `>= 18px–24px` vs `26px` prose on `1920×1080` slides)?
 - [ ] **Cleanup**: Did you remove temporary files in `.drawlib/scratch/` before finishing?

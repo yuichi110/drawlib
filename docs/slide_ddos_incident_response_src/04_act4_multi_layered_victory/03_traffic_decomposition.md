@@ -20,54 +20,54 @@ setup(width=176, height=63)
 
 # Left Card: Donut PieChart of Traffic Composition
 rectangle((33.0, 31.5), width=60.0, height=59.0, style=Styles.Neutral.patch(shape_r=2.5))
-text((33.0, 55.5), "Attack Fleet Breakdown", style=Styles.BlackBold.patch(text_size=11.5))
+text((33.0, 55.5), "Attack Fleet Breakdown", style=Styles.BlackBold.patch(text_size=14.0))
 
 pie = PieChart(
-    radius=14.0,
-    hole_ratio=0.58,
-    center_text="300M\nReq/Day",
-    center_text_style=Styles.BlackBold.patch(text_size=9.5),
-    value_text_style=Styles.WhiteBold.patch(text_size=9.5),
+    radius=14.5,
+    hole_ratio=0.44,
+    center_text="300M\n/Day",
+    center_text_style=Styles.BlackBold.patch(text_size=11.0),
+    value_text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 pie.add_slice("Fleet A: Cloud ASNs (55%)", 55.0, style=Styles.PrimaryFlat)
-pie.add_slice("Fleet B: Residential HTTP/1.1 (44.5%)", 44.5, style=Styles.AccentFlat)
+pie.add_slice("Fleet B: Home HTTP/1.1 (44.5%)", 44.5, style=Styles.AccentFlat)
 pie.add_slice("Real Users: HTTP/2+3 (0.5%)", 0.5, style=Styles.SecondaryFlat)
-pie.draw(xy=(19.0, 21.5))
-pie.draw_legend(xy=(6.5, 15.5), text_style=Styles.DarkBold.patch(text_size=9.5), orientation="vertical")
+pie.draw(xy=(18.5, 22.0))
+pie.draw_legend(xy=(6.5, 16.5), text_style=Styles.DarkBold.patch(text_size=11.0), orientation="vertical")
 
 # Right Card: Forensic Comparison Table
 rectangle((120.5, 31.5), width=107.0, height=59.0, style=Styles.Neutral.patch(shape_r=2.5))
-text((120.5, 55.5), "Forensic Fingerprint Comparison: Fleet A vs. Fleet B vs. Real Users", style=Styles.BlackBold.patch(text_size=11.5))
+text((120.5, 55.5), "Forensic Fingerprint Comparison: Bot Fleets vs. Real Users", style=Styles.BlackBold.patch(text_size=14.0))
 
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Dark.patch(text_size=9.5),
+    text_style=Styles.Dark.patch(text_size=11.0),
     header_cell_style=Styles.PrimaryFlat,
-    header_text_style=Styles.WhiteBold.patch(text_size=9.5),
+    header_text_style=Styles.WhiteBold.patch(text_size=11.0),
     border_style=Styles.MutedThin,
 )
 table.set_style_cell_evenodd(
     even_color=(248, 250, 252),
-    even_text_style=Styles.Dark.patch(text_size=9.5),
+    even_text_style=Styles.Dark.patch(text_size=11.0),
     odd_color=Colors.White,
-    odd_text_style=Styles.Dark.patch(text_size=9.5),
+    odd_text_style=Styles.Dark.patch(text_size=11.0),
 )
 table.set_style_cell(
     background_color=(252, 232, 230),
-    text_style=Styles.AccentBold.patch(text_size=9.5),
+    text_style=Styles.AccentBold.patch(text_size=11.0),
     rows=[3, 4],
     columns=[2],
 )
 
 forensics = [
-    ["Signal", "Fleet A: Cloud VMs (55%)", "Fleet B: Residential (44.5%)", "Real Humans (0.5%)"],
-    ["Network ASN", "Hosting (AWS, GCP, OVH)", "JP Home Fiber ISPs", "JP Consumer ISPs"],
-    ["Rate per IP", "High Burst (20–100 / 10s)", "Stealth (6–8 req / 10s)", "1–3 req / min"],
-    ["User-Agent", "python / Go / Old Chrome", "Spoofed Chrome 130+", "Modern Chrome / Safari"],
-    ["HTTP Version", "HTTP/1.1 or HTTP/2", "HTTP/1.1 ONLY (Tell!)", "HTTP/2 or HTTP/3"],
-    ["WAF Action", "Block Hosting ASNs", "Block HTTP/1.1 @ Edge", "Zero-Friction Pass"],
+    ["Signal", "Fleet A: Cloud VMs", "Fleet B: Home Proxies", "Real Users (0.5%)"],
+    ["Network ASN", "AWS / GCP / OVH", "JP Home Fiber ISPs", "JP Consumer ISPs"],
+    ["Rate per IP", "Burst (20–100 / 10s)", "Stealth (6–8 / 10s)", "1–3 req / min"],
+    ["User-Agent", "python / Go / Old UA", "Spoofed Chrome 130", "Chrome / Safari"],
+    ["HTTP Version", "HTTP/1.1 or HTTP/2", "HTTP/1.1 ONLY!", "HTTP/2 or HTTP/3"],
+    ["WAF Action", "Block Hosting ASNs", "Block HTTP/1.1", "Zero-Friction Pass"],
 ]
-table.draw_flexible(xy=(70.0, 51.0), column_widths=[19.0, 27.0, 29.0, 26.0], row_heights=[7.2, 7.2, 7.2, 7.2, 7.2, 7.2], data=forensics)
+table.draw_flexible(xy=(69.5, 51.0), column_widths=[19.0, 26.5, 30.5, 26.0], row_heights=[7.2, 7.2, 7.2, 7.2, 7.2, 7.2], data=forensics)
 ```
 :::
 
