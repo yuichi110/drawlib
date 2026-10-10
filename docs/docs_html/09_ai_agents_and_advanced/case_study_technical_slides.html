@@ -1,0 +1,875 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Creating Technical Slide Decks with AI Agents</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Faces & Callouts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons_gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Case Study: Creating Technical Slide Decks with AI Agents</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Case Study: Creating Technical Slide Decks with AI Agents</h1>
+<p>Engineering postmortems, architecture reviews, and conference talks demand clear visual storytelling. However, creating technical slide decks in traditional GUI presentation tools (PowerPoint, Keynote, Google Slides) suffers from severe friction: engineers spend hours manually dragging boxes, aligning arrows, and copy-pasting screenshots that immediately become impossible to version-control or refactor when the narrative evolves.</p>
+<p>Drawlib's <strong>Slide Deck Project (<code>slide</code>)</strong> transforms presentation authoring into a declarative, Git-tracked workflow where <strong>16:9 HTML/PDF slide decks, speaker notes, and pure-Python technical diagrams</strong> are co-developed by humans and AI coding agents.</p>
+<p>This case study documents the real-world <strong>9-step iterative workflow</strong> used to build <strong>&quot;Surviving a 300M+ Req/Day DDoS &amp; EDoS Attack&quot;</strong>—a 27-slide serverless security postmortem deck (<code>docs/slide_ddos_incident_response_src/</code>) featuring cloud architecture diagrams, sequence protocols, data charts, 5-step adaptation cycles, and multi-wave geographic attack maps (<code>GeoMap</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_technical_slides_images/case_study_slide_9step_workflow.png" alt="case_study_technical_slides_1" />
+  <figcaption class="drawlib-caption">The 9-Step Human-AI Collaborative Slide Authoring Lifecycle</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">138.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">74.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">),</span>
+    <span class="s2">"The 9-Step Human-AI Collaborative Technical Slide Workflow"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Row 1: Steps 1 to 5 (Scaffolding -&gt; Planning -&gt; Generation -&gt; AI Self-Review)</span>
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="s2">"drawlib init slide</span><span class="se">\n</span><span class="s2">Theme &amp; utils.py"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">44.0</span><span class="p">,</span> <span class="s2">"2. AI Discussion"</span><span class="p">,</span> <span class="s2">"Brainstorm story</span><span class="se">\n</span><span class="s2">4-Act narrative arc"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chats_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="s2">"3. _PLAN File"</span><span class="p">,</span> <span class="s2">"_CONTENTS_PLANNING</span><span class="se">\n</span><span class="s2">Ignored by build"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_dashed</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">98.0</span><span class="p">,</span> <span class="s2">"4. Draft Slides"</span><span class="p">,</span> <span class="s2">"::: block (visuals)</span><span class="se">\n</span><span class="s2">::: note (details)"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">125.0</span><span class="p">,</span> <span class="s2">"5. AI Self-Check"</span><span class="p">,</span> <span class="s2">"720pt font math</span><span class="se">\n</span><span class="s2">Multimodal fix"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">cstyle</span><span class="p">,</span> <span class="n">tstyle</span> <span class="ow">in</span> <span class="n">row1</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">53.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cstyle</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="ow">in</span> <span class="p">[(</span><span class="mf">28.8</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">55.8</span><span class="p">,</span> <span class="mf">59.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">82.8</span><span class="p">,</span> <span class="mf">86.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">109.8</span><span class="p">,</span> <span class="mf">113.2</span><span class="p">)]:</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x0</span><span class="p">,</span> <span class="mf">53.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mf">53.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Orthogonal connector from Step 5 down to Row 2 (Step 6)</span>
+<span class="n">lines</span><span class="p">(</span>
+    <span class="p">[(</span><span class="mf">125.0</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">125.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">)],</span>
+    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Row 2: Steps 6 to 9 (Human Review &lt;-&gt; AI Iteration Loop -&gt; Final Deck)</span>
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">30.5</span><span class="p">,</span> <span class="s2">"6. Human Review"</span><span class="p">,</span> <span class="s2">"Inspect story flow</span><span class="se">\n</span><span class="s2">&amp; domain nuance"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">user_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">61.5</span><span class="p">,</span> <span class="s2">"7. Request Changes"</span><span class="p">,</span> <span class="s2">"Add PDCA &amp; GeoMap</span><span class="se">\n</span><span class="s2">Reorder PoW -&gt; EDoS"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_left_right</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">92.5</span><span class="p">,</span> <span class="s2">"8. AI Refinement"</span><span class="p">,</span> <span class="s2">"Build new diagrams</span><span class="se">\n</span><span class="s2">Codify slide rules"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">wrench</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">122.5</span><span class="p">,</span> <span class="s2">"9. Final Deck"</span><span class="p">,</span> <span class="s2">"Repeat 6-8 to polish</span><span class="se">\n</span><span class="s2">27-Slide HTML &amp; PDF"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">cstyle</span><span class="p">,</span> <span class="n">tstyle</span> <span class="ow">in</span> <span class="n">row2</span><span class="p">:</span>
+    <span class="n">is_final</span> <span class="o">=</span> <span class="p">(</span><span class="n">cstyle</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cstyle</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">d_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_final</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">17.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">d_st</span><span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">43.8</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">48.2</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">74.8</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">79.2</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">105.8</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">109.2</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="c1"># Iterative feedback loop U-connector between Step 8 and Step 6</span>
+<span class="n">lines</span><span class="p">(</span>
+    <span class="p">[(</span><span class="mf">92.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">92.5</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">)],</span>
+    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">61.5</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">61.5</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="s2">"Iterative Human-AI Loop (Steps 6 -&gt; 7 -&gt; 8)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Overview of the 9-Step Collaborative Workflow</h2>
+<p>Rather than expecting a single &quot;one-shot&quot; prompt to produce a finished 27-slide technical presentation, the most effective workflow pairs <strong>AI speed in layout and diagram generation</strong> with <strong>human domain insight and narrative direction</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Step</th>
+<th style="text-align:center">Actor</th>
+<th style="text-align:left">Phase</th>
+<th style="text-align:left">Key Action &amp; Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>1</strong></td>
+<td style="text-align:center">Human / AI</td>
+<td style="text-align:left"><strong>Project Creation</strong></td>
+<td style="text-align:left">Scaffold <code>slide</code> project (<code>drawlib init slide</code>) with theme, <code>styles.py</code>, and <code>utils.py</code> helpers.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2</strong></td>
+<td style="text-align:center">Human + AI</td>
+<td style="text-align:left"><strong>Content Discussion</strong></td>
+<td style="text-align:left">Discuss the raw incident facts, technical bottlenecks, and target audience takeaways.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>3</strong></td>
+<td style="text-align:center">AI Agent</td>
+<td style="text-align:left"><strong><code>_PLAN</code> Specification</strong></td>
+<td style="text-align:left">Write <code>_CONTENTS_PLANNING.md</code> (prefixed with <code>_</code> so the slide compiler ignores it).</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>4</strong></td>
+<td style="text-align:center">AI Agent</td>
+<td style="text-align:left"><strong>Initial Slide Generation</strong></td>
+<td style="text-align:left">Author multi-act <code>.md</code> slides using Dual-Layer separation (<code>::: block</code> visuals vs. <code>::: note</code> prose).</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>5</strong></td>
+<td style="text-align:center">AI Agent</td>
+<td style="text-align:left"><strong>Autonomous Self-Review</strong></td>
+<td style="text-align:left">Render images/PDF, verify <code>720pt</code> slide font scaling, and fix text clipping or arrow collisions.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>6</strong></td>
+<td style="text-align:center">Human</td>
+<td style="text-align:left"><strong>Human Review</strong></td>
+<td style="text-align:left">Review the compiled HTML/PDF deck for narrative pacing, visual impact, and domain accuracy.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>7</strong></td>
+<td style="text-align:center">Human</td>
+<td style="text-align:left"><strong>Change &amp; Addition Requests</strong></td>
+<td style="text-align:left">Request deeper visuals (e.g. <code>GeoMap</code> waves, PDCA cycles) and structural reordering (PoW $\rightarrow$ EDoS).</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>8</strong></td>
+<td style="text-align:center">AI Agent</td>
+<td style="text-align:left"><strong>AI Refinement &amp; Rules</strong></td>
+<td style="text-align:left">Implement new slides, re-verify layouts multimodally, and codify best practices into <code>_rules/</code>.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>9</strong></td>
+<td style="text-align:center">Human + AI</td>
+<td style="text-align:left"><strong>Iterative Convergence</strong></td>
+<td style="text-align:left">Repeat Steps 6–8 across 2–3 fast cycles until the presentation is publication-ready.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Steps 1–3: Scaffolding, Discussion &amp; The <code>_</code> Planning File Pattern</h2>
+<h3>2.1. Step 1: Scaffolding the Slide Project (<code>drawlib init slide</code>)</h3>
+<p>Every slide deck starts by initializing a structured Drawlib <code>slide</code> project:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>docs/slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
+</code></pre>
+<p>This generates the complete presentation infrastructure:</p>
+<ul>
+<li><strong><code>styles.py</code></strong>: Configures the color palette (<code>GoogleStyles</code>) and language-appropriate fonts.</li>
+<li><strong><code>utils.py</code></strong>: Provides reusable presentation helpers (<code>draw_page_number()</code>, <code>draw_chapter_divider()</code>, <code>draw_curved_agenda()</code>, <code>draw_kpi_cards()</code>).</li>
+<li><strong><code>build.sh</code> / <code>serve.sh</code></strong>: Scripts to compile the interactive HTML deck (<code>*_html/index.html</code>), vector PDF (<code>*.pdf</code>), and standalone PNG assets (<code>*_images/</code>).</li>
+</ul>
+<h3>2.2. Step 2: Structuring the Narrative Arc with AI</h3>
+<p>Through interactive dialogue, the raw chronological events of the DDoS/EDoS incident were organized into a <strong>4-Act Story Arc</strong>:</p>
+<ol>
+<li><strong>Act 1 — The Incident Onset</strong>: 10 years of peaceful operation on a <code>$10/mo</code> VPS, migration to serverless Google Cloud Run, cache-busting TTS requests causing a 4–5x weekly bill spike, and why naive origin clamping (<code>max-instances=1</code>) caused a 504 outage for real users.</li>
+<li><strong>Act 2 — Perimeter WAF &amp; Evasion Loops</strong>: The competing 5-step adaptation loops of defender and attacker, deploying GCLB + Cloud Armor, why geo-blocking failed across 4 proxy waves, and how bots reverse-engineered static JS tokens in 3 hours.</li>
+<li><strong>Act 3 — SHA-256 PoW &amp; The EDoS Pricing Trap</strong>: Stopping unauthorized TTS CPU theft with an asymmetric SHA-256 Proof-of-Work challenge—which caused the attacker to pivot to a 300M req/day volumetric flood that triggered a <code>$225/day</code> (<code>$6,750/mo</code>) Cloud Armor request evaluation fee crisis.</li>
+<li><strong>Act 4 — Multi-Layered Edge Victory</strong>: Midnight emergency teardown of GCLB, migration to flat-rate Cloudflare Pro (<code>$20/mo</code>), log forensics separating cloud VMs from residential HTTP/1.1 proxies, the 5-layer defense architecture, and AI botnet profiling.</li>
+</ol>
+<h3>2.3. Step 3: Creating an Underscore-Prefixed Plan (<code>_CONTENTS_PLANNING.md</code>)</h3>
+<p>Before generating 20+ slide files, the AI agent writes a comprehensive slide-by-slide blueprint into <code>_CONTENTS_PLANNING.md</code> inside the project root.</p>
+<p>Drawlib's slide compiler enforces two automatic file-filtering rules:</p>
+<ul>
+<li><strong>Underscore Prefix Rule (<code>_*</code>)</strong>: Any file or directory whose name starts with <code>_</code> (such as <code>_CONTENTS_PLANNING.md</code>, <code>_drafts/</code>, or <code>_assets/</code>) is <strong>automatically excluded</strong> from slide compilation.</li>
+<li><strong>Repository Metadata Exclusion</strong>: Standard repository documentation files (<code>README.md</code>, <code>CLAUDE.md</code>, <code>AGENTS.md</code>, <code>GEMINI.md</code>) are also excluded automatically.</li>
+</ul>
+<p>This allows the team to version-control detailed planning documents and project READMEs directly inside <code>slide_ddos_incident_response_src/</code> without polluting the compiled presentation deck.</p>
+<hr />
+<h2>3. Steps 4–5: Dual-Layer Authoring &amp; Autonomous AI Self-Review</h2>
+<h3>3.1. Step 4: Dual-Layer Slide Architecture (<code>::: block</code> vs. <code>::: note</code>)</h3>
+<p>A common failure mode in technical presentations is cramming full paragraphs of explanation onto the visible slide stage—creating &quot;walls of text&quot; with tiny fonts.</p>
+<p>To prevent this, Drawlib codifies the <strong>Dual-Layer Presentation Principle</strong> (<code>uv run drawlib rules show slide-guide</code>):</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_technical_slides_images/case_study_slide_dual_layer.png" alt="case_study_technical_slides_2" />
+  <figcaption class="drawlib-caption">Dual-Layer Slide Architecture: Visual Stage (::: block) vs. Presenter Notes (::: note)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">68.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">132.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">68.0</span><span class="p">,</span> <span class="mf">50.5</span><span class="p">),</span>
+    <span class="s2">"Dual-Layer Slide Architecture: Audience Stage vs. Presenter View"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Card: Visible Slide Stage (::: block)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">39.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s2">"Layer 1: Audience Stage (::: block)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">phosphor</span><span class="o">.</span><span class="n">monitor_play</span><span class="p">((</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="s2">"Visual-First &amp; Scannable (&lt;5 sec)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+    <span class="s2">"• 1920x1080 coordinate stage</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"• Max 3–4 short keyword bullets on left</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"• High-level Drawlib diagram is the Hero</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"• Large, high-contrast labels (&gt;= 18px)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Center Divider</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">65.8</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">70.2</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Right Card: Presenter Console (::: note)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">99.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">39.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">99.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">99.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s2">"Layer 2: Speaker Notes (::: note)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">phosphor</span><span class="o">.</span><span class="n">microphone_stage</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="s2">"Deep Technical Context (Press 'P')"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">75.0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+    <span class="s2">"• Full narrative &amp; spoken transitions</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"• Exact WAF expressions &amp; cost formulas</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"• Visible in Presenter View &amp; standalone</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"• Keeps the main slide clutter-free"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3.2. Step 5: Autonomous AI Self-Review &amp; Block-Width Typography Math</h3>
+<p>After generating the initial slides, the AI agent runs an autonomous multimodal review (<code>uv run drawlib rules show review-guide</code>).</p>
+<p>A critical insight discovered and codified during this case study is the <strong>Block-Width-Aware Slide Typography Standard</strong>. Because Drawlib exports every figure at a base physical width of <code>10 inches = 720pt</code> (<code>setup(width=W, height=H)</code> only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the <code>::: block (X, Y) (Width, Height)</code> container where the image is placed:</p>
+<p>$$\text{Rendered Slide Font Size (px)} = \text{text_size} \times \frac{\text{Block Width (px)}}{720}$$</p>
+<p>To ensure diagram labels never look tiny next to <code>26px</code> slide body prose on a <code>1920×1080</code> stage, the AI agent enforces minimum <code>text_size</code> thresholds based on block width:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Slide Block Archetype</th>
+<th style="text-align:center">Typical <code>::: block</code> Width</th>
+<th style="text-align:center">Scale Factor ($\text{Width}/720$)</th>
+<th style="text-align:center">Standard Label <code>text_size</code> (<code>~18–22px</code>)</th>
+<th style="text-align:center">Header / Metric <code>text_size</code> (<code>~21–28px</code>)</th>
+<th style="text-align:center">Absolute Floor (<code>&gt;= 16px</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Narrow Column</strong> (KPI Cards, Donut)</td>
+<td style="text-align:center"><code>650–800px</code></td>
+<td style="text-align:center"><code>0.90× – 1.11×</code></td>
+<td style="text-align:center"><strong><code>16.0 – 20.0</code></strong></td>
+<td style="text-align:center"><strong><code>20.0 – 30.0</code></strong></td>
+<td style="text-align:center"><strong><code>14.5</code></strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2-Column Diagram</strong> (Right Visual Pane)</td>
+<td style="text-align:center"><code>900–1100px</code></td>
+<td style="text-align:center"><code>1.25× – 1.53×</code></td>
+<td style="text-align:center"><strong><code>12.5 – 15.0</code></strong></td>
+<td style="text-align:center"><strong><code>14.5 – 16.5</code></strong></td>
+<td style="text-align:center"><strong><code>11.5</code></strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Full-Width Canvas</strong> (Wide Table / Flow)</td>
+<td style="text-align:center"><code>1600–1760px</code></td>
+<td style="text-align:center"><code>2.22× – 2.44×</code></td>
+<td style="text-align:center"><strong><code>11.5 – 13.5</code></strong></td>
+<td style="text-align:center"><strong><code>13.5 – 15.5</code></strong></td>
+<td style="text-align:center"><strong><code>10.0</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p>By inspecting the compiled PDF pages via <code>view_file</code>, the agent automatically detects and repairs visual defects—such as shifting an L-bend <code>FlowDiagram</code> edge label (<code>xy_shift=(14.0, 3.0)</code>) so it sits cleanly on the horizontal arrow segment, or adjusting <code>PieChart(hole_ratio=0.44)</code> so donut slice percentages never collide with the center metric.</p>
+<hr />
+<h2>4. Steps 6–9: Human Review &amp; Iterative Evolution</h2>
+<p>Once the AI agent completes its initial self-corrected build, the human author reviews the deck and guides high-level structural and visual improvements. In the DDoS postmortem project, three key iterations transformed the deck from a good draft into a compelling narrative:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="case_study_technical_slides_images/case_study_slide_iterative_evolution.png" alt="case_study_technical_slides_3" />
+  <figcaption class="drawlib-caption">Three High-Impact Refinements Driven by Human Review (Steps 6–8)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">138</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">134.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">),</span>
+    <span class="s2">"Iterative Evolution: From Initial AI Draft to Final 27-Slide Narrative"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mf">24.5</span><span class="p">,</span>
+        <span class="s2">"Iteration 1: Adaptation Loops"</span><span class="p">,</span>
+        <span class="s2">"Human Feedback:</span><span class="se">\n\"</span><span class="s2">Both defender and attacker</span><span class="se">\n</span><span class="s2">ran iterative PDCA loops.</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"AI Implementation:</span><span class="se">\n</span><span class="s2">Added 2 symmetric 5-node</span><span class="se">\n</span><span class="s2">Cycle slides at Act 2 start</span><span class="se">\n</span><span class="s2">contrasting SRE vs. Botnet."</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mf">69.0</span><span class="p">,</span>
+        <span class="s2">"Iteration 2: 4-Wave GeoMap"</span><span class="p">,</span>
+        <span class="s2">"Human Feedback:</span><span class="se">\n\"</span><span class="s2">Use GeoMap to vividly show</span><span class="se">\n</span><span class="s2">CN -&gt; Asia -&gt; World -&gt; JP.</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"AI Implementation:</span><span class="se">\n</span><span class="s2">Replaced 1 static slide with</span><span class="se">\n</span><span class="s2">4 sequential GeoMap slides</span><span class="se">\n</span><span class="s2">with curved attack arcs."</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">globe_hemisphere_east</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mf">113.5</span><span class="p">,</span>
+        <span class="s2">"Iteration 3: PoW -&gt; EDoS Bridge"</span><span class="p">,</span>
+        <span class="s2">"Human Feedback:</span><span class="se">\n\"</span><span class="s2">Move PoW to Act 3 start &amp; add</span><span class="se">\n</span><span class="s2">a goal-shift bridge slide.</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"AI Implementation:</span><span class="se">\n</span><span class="s2">Moved SHA-256 PoW to Act 3</span><span class="se">\n</span><span class="s2">and added Before/After PoW</span><span class="se">\n</span><span class="s2">attacker goal-shift diagram."</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">shuffle</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkFlat</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">fb_text</span><span class="p">,</span> <span class="n">ai_text</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">cstyle</span><span class="p">,</span> <span class="n">hstyle</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">44.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cstyle</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">37.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">hstyle</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">fb_text</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+    <span class="n">line</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">))</span>
+
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">ai_text</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>4.1. Iteration 1: Adding Symmetric 5-Step Adaptation Loops (<code>Cycle</code>)</h3>
+<ul>
+<li><strong>Human Review (Steps 6–7)</strong>: Reviewing the cat-and-mouse progression in Act 2, the author noted that both the defender and the attacker were operating via iterative feedback loops (PDCA / OODA):
+<ul>
+<li><em>Defender's 5 Steps</em>: (1) Inspect attack traffic reaching origin $\rightarrow$ (2) Identify shared bot tells $\rightarrow$ (3) Design zero-false-positive filter $\rightarrow$ (4) Apply setting $\rightarrow$ (5) Measure effectiveness.</li>
+<li><em>Attacker's 5 Steps</em>: (1) Analyze normal user access flow $\rightarrow$ (2) Pick low-cost, high-damage vector $\rightarrow$ (3) Launch parallel multi-pattern probes $\rightarrow$ (4) Compare <code>200</code> vs. <code>403</code>/<code>429</code> responses to infer WAF rules $\rightarrow$ (5) Concentrate full flood on the unblocked blind spot.</li>
+</ul>
+</li>
+<li><strong>AI Execution (Step 8)</strong>: The agent added two consecutive slides at the start of Act 2 (<code>02_defender_cycle.md</code> and <code>03_attacker_cycle.md</code>) using identical 5-node pentagonal <code>Cycle</code> geometries so flipping between them visually highlights the symmetry of the two competing loops. To avoid repeating the <code>Cycle</code> shape later in Act 4, the agent simultaneously refactored Slide 26 (<code>05_threat_actor_profile.md</code>) into a 3-row forensic comparison card stack.</li>
+</ul>
+<h3>4.2. Iteration 2: Upgrading to a 4-Slide <code>GeoMap</code> Attack Sequence</h3>
+<ul>
+<li><strong>Human Review (Steps 6–7)</strong>: Originally, the failure of geographic IP blocking was summarized on a single slide using a 4-stage <code>ChevronProcess</code>. The author requested using <code>drawlib.smartarts.GeoMap</code> across multiple slides to vividly depict bots hopping across <strong>China $\rightarrow$ Neighboring Asian Countries $\rightarrow$ Worldwide (120+ Countries) $\rightarrow$ Domestic Japan</strong> as stepping stones.</li>
+<li><strong>AI Execution (Step 8)</strong>: The agent replaced the single summary slide with a 4-slide visual sequence (<code>05_geo_wave1_china.md</code> through <code>08_geo_wave4_japan.md</code>) combining <code>GeoMap.World.Asia</code>, <code>GeoMap.World.All</code>, and <code>GeoMap.Countries.Japan</code> with <code>lonlat_to_xy()</code> and curved trajectories (<code>line_curved</code>) converging onto Tokyo (<code>139.69, 35.69</code>), complete with a 4-step progress indicator bar at the top of each map.</li>
+</ul>
+<h3>4.3. Iteration 3: Narrative Reordering &amp; The Goal-Shift Bridge Slide</h3>
+<ul>
+<li><strong>Human Review (Steps 6–7)</strong>: In the initial outline, <strong>Asymmetric SHA-256 Proof-of-Work</strong> was placed at the end of Act 2. During review, the author pointed out that SHA-256 PoW was the direct trigger for the attacker's pivot to EDoS—and requested moving PoW to the start of Act 3, followed by a light bridge slide explaining how the attacker's goal changed from <em>&quot;calling the TTS synthesis API directly&quot;</em> to <em>&quot;sneaking massive request volume through to the origin on any URL.&quot;</em></li>
+<li><strong>AI Execution (Step 8)</strong>: Because every slide in a Drawlib <code>slide</code> project is an independent, numbered Markdown file (<code>01_section.md</code>, <code>02_pow_challenge.md</code>, <code>03_attacker_goal_shift.md</code>, ...), reordering slides across chapters required only a <code>mv</code> command and updating the chapter divider topics—followed by <code>./docs/slide_ddos_incident_response_src/build.sh</code> to automatically renumber all 27 slides and re-verify the PDF.</li>
+</ul>
+<hr />
+<h2>5. Key Takeaways for Technical Slide Authoring</h2>
+<ol>
+<li><strong>Separate Planning from Compilation with <code>_</code> Files</strong>:
+Always align on the story arc first using an underscore-prefixed planning file (<code>_CONTENTS_PLANNING.md</code>). Iterating on a markdown outline takes seconds and prevents wasted rendering cycles.</li>
+<li><strong>Enforce Dual-Layer Discipline (<code>::: block</code> vs. <code>::: note</code>)</strong>:
+Keep the visible slide stage minimal (short bullets + large high-level diagrams) and put complex technical explanations, formulas, and spoken narrative inside <code>::: note</code> for Presenter View.</li>
+<li><strong>Scale In-Diagram Typography to the Block Width</strong>:
+Remember that a <code>720pt</code> Drawlib canvas placed inside a narrow <code>680px</code> column renders text smaller than the same canvas placed across a <code>1760px</code> full-width block. Use the Block-Width-Aware Typography table (<code>16.0–20.0pt</code> for narrow blocks, <code>12.5–15.0pt</code> for 2-column blocks) and always inspect the compiled PDF via <code>view_file</code>.</li>
+<li><strong>Use Sequential Slides for Dramatic Progression</strong>:
+Rather than cramming a 4-stage geographic or architectural evolution into a single crowded slide, split it across consecutive slides with a shared coordinate frame and top progress bar (as demonstrated by the 4-wave <code>GeoMap</code> sequence).</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -444,6 +444,10 @@
                                 <a href="../09_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../09_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
                         </ul>
                     
                 
@@ -695,7 +699,12 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 </table>
 <hr />
 <h2>4. Authoring Slides &amp; Stage Blocks</h2>
-<p>Each Markdown file in <code>slide_src/</code> represents a single 16:9 slide (<code>1920x1080</code> stage). Use <code>::: block (x, y) (w, h)</code> containers alongside standard Markdown and helper components from <code>utils.py</code> (see <a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a> for the complete stage coordinate reference, layout templates, and <code>drawlib.slide</code> API):</p>
+<p>Each Markdown file in <code>slide_src/</code> (and any nested chapter subdirectories such as <code>01_intro/01_cover.md</code>) represents a single 16:9 slide (<code>1920x1080</code> stage), compiled in sorted relative-path order.</p>
+<ul>
+<li><strong>Excluding Non-Slide Files (<code>_</code> Prefix)</strong>: Prefix any planning notes, outlines, or draft files/folders with an underscore <code>_</code> (e.g., <code>_planning.md</code>, <code>_drafts/</code>) to exclude them from slide compilation.</li>
+<li><strong>Special Excluded Files</strong>: <code>README.md</code> and <code>navbar.md</code> are also automatically excluded from the slide deck.</li>
+</ul>
+<p>Use <code>::: block (x, y) (w, h)</code> containers alongside standard Markdown and helper components from <code>utils.py</code> (see <a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a> for the complete stage coordinate reference, layout templates, and <code>drawlib.slide</code> API):</p>
 <pre><code class="language-markdown">::: block (80, 40) (1760, 60)
 <span class="gh"># Architecture Overview</span>
 :::

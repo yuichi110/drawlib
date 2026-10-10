@@ -99,4 +99,5 @@
 - [Case Study: Designing Official Brand Assets](./09_ai_agents_and_advanced/case_study_brand_assets.md)
 - [Case Study: Building Documentation Sites with AI Agents](./09_ai_agents_and_advanced/case_study_documentation_site.md)
 - [Case Study: Authoring Software Architecture as Code](./09_ai_agents_and_advanced/case_study_software_architecture.md)
+- [Case Study: Creating Technical Slide Decks](./09_ai_agents_and_advanced/case_study_technical_slides.md)
 
