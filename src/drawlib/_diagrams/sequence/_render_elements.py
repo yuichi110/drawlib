@@ -125,7 +125,8 @@ def render_participant_header(
     """Render a participant's top card, icon, and label."""
     render_icon_text_card(
         canvas_xy=canvas_xy,
-        card_size=(header_w, header_h),
+        width=header_w,
+        height=header_h,
         text=participant.text,
         icon=participant.icon,
         icon_size=participant.icon_size,

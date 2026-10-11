@@ -780,7 +780,7 @@ Registers a closed radar polygon series and returns the mutable <code>Series</co
 Returns the computed <code>(width, height)</code> bounding box of the chart container.</li>
 <li><strong><code>draw(xy: tuple[float, float] = (0.0, 0.0), *, radius: float | None = None, width: float | None = None, height: float | None = None, scale: float = 1.0) -&gt; None</code></strong>:
 Renders the chart anchored at bottom-left <code>xy</code>, with optional temporary <code>radius</code>/<code>width</code>/<code>height</code> overrides and uniform <code>scale</code>.</li>
-<li><strong><code>draw_legend(xy: tuple[float, float], text_style: Style, orientation: Literal[&quot;vertical&quot;, &quot;horizontal&quot;] = &quot;vertical&quot;, swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -&gt; None</code></strong>:
+<li><strong><code>draw_legend(xy: tuple[float, float], text_style: Style, orientation: Literal[&quot;vertical&quot;, &quot;horizontal&quot;] = &quot;vertical&quot;, swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -&gt; None</code></strong>:
 Renders the decoupled series legend at <code>xy</code>.</li>
 <li><strong>Properties</strong>:
 <ul>

@@ -159,7 +159,8 @@ chart.draw_legend(
     xy=(13.0, 60.5),
     text_style=Styles.Muted.patch(text_size=10.0),
     orientation="horizontal",
-    swatch_size=(2.6, 1.2),
+    swatch_width=2.6,
+    swatch_height=1.2,
     item_gap=4.0,
 )
 save()
@@ -221,7 +222,7 @@ chart = LineChart(
   Returns `(width, height)` of the chart container.
 - **`draw(xy: tuple[float, float] = (0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`**:
   Renders the chart anchored at bottom-left `xy`, with optional temporary size overrides and proportional `scale`.
-- **`draw_legend(xy: tuple[float, float], text_style: Style, orientation: Literal["vertical", "horizontal"] = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`**:
+- **`draw_legend(xy: tuple[float, float], text_style: Style, orientation: Literal["vertical", "horizontal"] = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`**:
   Renders the decoupled series legend at `xy`.
 - **Properties**:
   - **`chart.series -> list[Series]`**: Returns a copy of registered `Series` objects.

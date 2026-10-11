@@ -304,18 +304,19 @@ diag = ArchitectureDiagram(
 group = diag.add(NodeGroup(title="Production VPC", width=100, height=44), (10, 8))
 
 # 2. Nodes with Built-in Cloud / Phosphor Icons (1 hero focal node, 2 neutral nodes)
-client = diag.add(Node((18, 16), text="Web Client", icon=PhosphorIcon.GLOBE), (25, 30))
+client = diag.add(Node("Web Client", width=18, height=16, icon=PhosphorIcon.GLOBE), (25, 30))
 gateway = diag.add(
     Node(
-        (20, 16),
-        text="API Gateway",
+        "API Gateway",
+        width=20,
+        height=16,
         icon=GcpIcon.CLOUD_API_GATEWAY,
         card_style=Styles.PrimaryFlat,
         text_style=Styles.WhiteBold,
     ),
     (60, 30),
 )
-db = diag.add(Node((18, 16), text="Cloud SQL", icon=GcpIcon.CLOUD_SQL, card_style=Styles.SecondaryNeutral), (95, 30))
+db = diag.add(Node("Cloud SQL", width=18, height=16, icon=GcpIcon.CLOUD_SQL, card_style=Styles.SecondaryNeutral), (95, 30))
 
 # 3. Smart Boundary-Clipping Edges
 diag.connect(client, gateway, label="HTTPS")
@@ -366,9 +367,9 @@ seq = SequenceDiagram(
     edge_text_style=Styles.Dark,
     node_card_style=Styles.Neutral,
 )
-user = seq.add(Participant((18, 8), "User"))
-auth = seq.add(Participant((18, 8), "Auth API", card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
-db = seq.add(Participant((18, 8), "Database", card_style=Styles.SecondaryNeutral))
+user = seq.add(Participant("User", width=18, height=8))
+auth = seq.add(Participant("Auth API", width=18, height=8, card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
+db = seq.add(Participant("Database", width=18, height=8, card_style=Styles.SecondaryNeutral))
 
 seq.request(user, auth, label="POST /login")
 seq.request(auth, db, label="SELECT user")

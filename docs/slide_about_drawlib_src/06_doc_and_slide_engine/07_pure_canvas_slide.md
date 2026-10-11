@@ -75,11 +75,11 @@ vpc = diag.add(
     NodeGroup(title="Regional Cloud VPC", padding=5.5, style=Styles.PrimaryNeutral),
     xy=(22.0, 6.0),
 )
-n_user = diag.add(Node((14, 13), "Users", icon=PhosphorIcon.USERS, icon_size=6.5, card_style=Styles.Neutral), xy=(7.0, 22.0))
-n_lb = vpc.add(Node((15, 13), "Cloud LB", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5), xy=(9.0, 16.0))
-n_run = vpc.add(Node((15, 13), "Cloud Run", icon=GcpIcon.CLOUD_RUN, icon_size=6.5), xy=(28.0, 16.0))
-n_sql = vpc.add(Node((15, 13), "Cloud SQL", icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(47.0, 24.0))
-n_bq = vpc.add(Node((15, 13), "BigQuery", icon=GcpIcon.BIGQUERY, icon_size=6.5), xy=(47.0, 8.0))
+n_user = diag.add(Node("Users", width=14, height=13, icon=PhosphorIcon.USERS, icon_size=6.5, card_style=Styles.Neutral), xy=(7.0, 22.0))
+n_lb = vpc.add(Node("Cloud LB", width=15, height=13, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5), xy=(9.0, 16.0))
+n_run = vpc.add(Node("Cloud Run", width=15, height=13, icon=GcpIcon.CLOUD_RUN, icon_size=6.5), xy=(28.0, 16.0))
+n_sql = vpc.add(Node("Cloud SQL", width=15, height=13, icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(47.0, 24.0))
+n_bq = vpc.add(Node("BigQuery", width=15, height=13, icon=GcpIcon.BIGQUERY, icon_size=6.5), xy=(47.0, 8.0))
 
 diag.connect(n_user, n_lb, label="HTTPS", padding=1.0)
 diag.connect(n_lb, n_run, label="gRPC", padding=1.0)

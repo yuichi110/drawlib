@@ -33,11 +33,11 @@ d = SequenceDiagram(
     step_y=8.5,
 )
 
-client = d.add(Participant((22, 15), "Client", icon=PhosphorIcon.LAPTOP, icon_size=6.5))
+client = d.add(Participant("Client", width=22, height=15, icon=PhosphorIcon.LAPTOP, icon_size=6.5))
 api = d.add(
-    Participant((22, 15), "API Server", icon=PhosphorIcon.CLOUD, icon_size=6.5, card_style=Styles.PrimaryNeutral)
+    Participant("API Server", width=22, height=15, icon=PhosphorIcon.CLOUD, icon_size=6.5, card_style=Styles.PrimaryNeutral)
 )
-db = d.add(Participant((22, 15), "Database", icon=PhosphorIcon.DATABASE, icon_size=6.5))
+db = d.add(Participant("Database", width=22, height=15, icon=PhosphorIcon.DATABASE, icon_size=6.5))
 
 client.request(api, "POST /login (Sync request)")
 api.activate()
@@ -98,11 +98,11 @@ d = SequenceDiagram(
 
 # Participant group for clustered backend services
 vpc = d.add(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
-api = vpc.add(Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, card_style=Styles.PrimaryNeutral))
-db = vpc.add(Participant((22, 16), "Cloud SQL", icon=GcpIcon.CLOUD_SQL))
+api = vpc.add(Participant("Cloud Run\n(Gateway)", width=22, height=16, icon=GcpIcon.CLOUD_RUN, card_style=Styles.PrimaryNeutral))
+db = vpc.add(Participant("Cloud SQL", width=22, height=16, icon=GcpIcon.CLOUD_SQL))
 
 # External participant
-client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
+client = d.add(Participant("Web Browser", width=22, height=16, icon=PhosphorIcon.BROWSER))
 ```
 
 ### Parameter Reference Tables
@@ -128,8 +128,9 @@ client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
 #### `Participant` Class
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `card_size` | `tuple[float, float]` | *(Required)* | Header card dimensions `(width, height)` in canvas units. |
 | `text` | `str` | `""` | Display name shown in the participant header card (supports `\n`). |
+| `width` | `float` | `20.0` | Header card width in canvas units. |
+| `height` | `float` | `16.0` | Header card height in canvas units. |
 | `icon` | `IconType` | `None` | `GcpIcon`, `PhosphorIcon`, `CustomIcon`, `Dimage`, `PIL.Image`, path, or icon callable. |
 | `icon_size` | `float` | `8.0` | Icon width/height in coordinate units. |
 | `style` | `Style \| None` | `None` | Optional `Style` override for the participant icon/image. |
@@ -142,7 +143,7 @@ client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
   - `d.add(participant, x: float | None = None, *, show: bool | None = None) -> Participant`: Registers a participant, optionally pinning its lifeline to an explicit horizontal coordinate `x`.
   - `participant.set_x(x: float) -> Participant`: Explicitly pins the participant's horizontal lifeline position `x` and returns `self`.
   - `participant.activate() -> None` and `participant.deactivate() -> None`: Starts and ends an execution focus bar on the lifeline.
-  - `participant.get_size() -> tuple[float, float]` and `participant.get_header_size() -> tuple[float, float]`: Returns `card_size`.
+  - `participant.get_size() -> tuple[float, float]` and `participant.get_header_size() -> tuple[float, float]`: Returns `(width, height)`.
 
 #### `ParticipantGroup` Class
 | Parameter | Type | Default | Description |
@@ -208,7 +209,7 @@ d = SequenceDiagram(
 )
 
 # 1. Participants: Client on the left, Backend services in VPC group on the right
-client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER, icon_size=6.5))
+client = d.add(Participant("Web Browser", width=22, height=16, icon=PhosphorIcon.BROWSER, icon_size=6.5))
 
 backend = d.add(
     ParticipantGroup(
@@ -219,10 +220,10 @@ backend = d.add(
     )
 )
 api = backend.add(
-    Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=6.5, card_style=Styles.PrimaryNeutral)
+    Participant("Cloud Run\n(Gateway)", width=22, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=6.5, card_style=Styles.PrimaryNeutral)
 )
-worker = backend.add(Participant((22, 16), "GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5))
-db = backend.add(Participant((22, 16), "Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=6.5))
+worker = backend.add(Participant("GKE Pod\n(Worker)", width=22, height=16, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5))
+db = backend.add(Participant("Cloud SQL\n(Database)", width=22, height=16, icon=GcpIcon.CLOUD_SQL, icon_size=6.5))
 
 # 2. Interactions
 client.request(api, "POST /api/v1/checkout")
@@ -277,9 +278,9 @@ d = SequenceDiagram(
     col_width=40.0,
 )
 
-app = d.add(Participant((22, 15), "Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.0))
+app = d.add(Participant("Mobile App", width=22, height=15, icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.0))
 gateway = d.add(
-    Participant((22, 15), "WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.0, card_style=Styles.PrimaryNeutral)
+    Participant("WS Gateway", width=22, height=15, icon=PhosphorIcon.CLOUD, icon_size=7.0, card_style=Styles.PrimaryNeutral)
 )
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
@@ -342,11 +343,11 @@ d = SequenceDiagram(
     step_y=8.2,
 )
 
-client = d.add(Participant((23, 16), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=7.0))
+client = d.add(Participant("Client App", width=23, height=16, icon=PhosphorIcon.LAPTOP, icon_size=7.0))
 auth = d.add(
-    Participant((23, 16), "Auth Service", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.0, card_style=Styles.PrimaryNeutral)
+    Participant("Auth Service", width=23, height=16, icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.0, card_style=Styles.PrimaryNeutral)
 )
-idp = d.add(Participant((23, 16), "OAuth IdP", icon=PhosphorIcon.KEY, icon_size=7.0))
+idp = d.add(Participant("OAuth IdP", width=23, height=16, icon=PhosphorIcon.KEY, icon_size=7.0))
 
 client.request(auth, "POST /verify (Bearer JWT)")
 auth.activate()

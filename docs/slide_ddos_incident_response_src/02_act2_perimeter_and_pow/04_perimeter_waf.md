@@ -36,12 +36,12 @@ d = ArchitectureDiagram(
 
 # External Actors
 bots = d.add(
-    Node((24, 18), "Botnet Flood\nDirect Bypass", icon=PhosphorIcon.SKULL, icon_size=6.5,
+    Node("Botnet Flood\nDirect Bypass", width=24, height=18, icon=PhosphorIcon.SKULL, icon_size=6.5,
          style=Styles.Accent, card_style=Styles.SecondaryNeutral),
     xy=(15.5, 22.0),
 )
 traffic = d.add(
-    Node((24, 18), "Public Traffic\nHTTPS :443", icon=PhosphorIcon.GLOBE, icon_size=6.5,
+    Node("Public Traffic\nHTTPS :443", width=24, height=18, icon=PhosphorIcon.GLOBE, icon_size=6.5,
          card_style=Styles.PrimaryNeutral),
     xy=(15.5, 58.0),
 )
@@ -55,22 +55,22 @@ gcp_edge = d.add(
 )
 
 armor = gcp_edge.add(
-    Node((25, 19), "Cloud Armor\nWAF & Rate", icon=GcpIcon.CLOUD_ARMOR, icon_size=7.5,
+    Node("Cloud Armor\nWAF & Rate", width=25, height=19, icon=GcpIcon.CLOUD_ARMOR, icon_size=7.5,
          style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.PrimaryFlat),
     xy=(16.5, 51.0),
 )
 neg = gcp_edge.add(
-    Node((24, 18), "Serverless NEG\nInternal Bridge", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.0,
+    Node("Serverless NEG\nInternal Bridge", width=24, height=18, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.0,
          card_style=Styles.White),
     xy=(47.0, 51.0),
 )
 crun = gcp_edge.add(
-    Node((24, 19), "Cloud Run\nPrivate Origin", icon=GcpIcon.CLOUD_RUN, icon_size=7.5,
+    Node("Cloud Run\nPrivate Origin", width=24, height=19, icon=GcpIcon.CLOUD_RUN, icon_size=7.5,
          card_style=Styles.White),
     xy=(47.0, 16.0),
 )
 blocked_url = gcp_edge.add(
-    Node((25, 17), "Direct run.app\n403 Blocked", icon=PhosphorIcon.LOCK_KEY, icon_size=6.5,
+    Node("Direct run.app\n403 Blocked", width=25, height=17, icon=PhosphorIcon.LOCK_KEY, icon_size=6.5,
          style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.AccentFlat),
     xy=(16.5, 16.0),
 )

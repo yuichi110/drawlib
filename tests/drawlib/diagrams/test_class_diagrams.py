@@ -56,9 +56,9 @@ class TestClassNode:
         assert node.stereotype == "interface"
         assert node.header_height == 6.5
 
-    def test_class_node_size_shorthand(self) -> None:
-        """Verify size tuple shorthand."""
-        node = ClassNode(name="Item", size=(35.0, 45.0))
+    def test_class_node_explicit_dimensions(self) -> None:
+        """Verify explicit width and height parameters."""
+        node = ClassNode(name="Item", width=35.0, height=45.0)
         assert node.width == 35.0
         assert node.height == 45.0
 

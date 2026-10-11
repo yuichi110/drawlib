@@ -333,7 +333,8 @@ MindMapNode(
     *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
     shape: Literal["rectangle", "oval", "none"] | None = None,
-    size: tuple[float, float] | None = None,
+    width: float | None = None,
+    height: float | None = None,
     style: Style | None = None,
     text_style: Style | None = None,
     line_style: Style | None = None,
@@ -352,7 +353,7 @@ MindMapNode(
 - `shape`: `"rectangle"` (rounded via `style.shape_r`), `"oval"`, or `"none"` (clean text label).
 - `branch`: `"bottom"` (top-down), `"top"` (bottom-up), `"right"` (left-to-right), `"left"` (right-to-left), or multi-directional.
 - `xy_shift`: Relative `(dx, dy)` offset applied after layout calculation to fine-tune placement or avoid label collisions.
-- Cascading: Children automatically inherit unassigned style, size, shape, margins, and line styles from parent nodes. Root requires `style`, `text_style`, and `line_style`.
+- Cascading: Children automatically inherit unassigned style, width/height, shape, margins, and line styles from parent nodes. Root requires `style`, `text_style`, and `line_style`.
 
 ### 6.4 Production Example: Multi-Directional Architecture Overview
 ```drawlib show-code
@@ -369,7 +370,8 @@ txt_leaf = Styles.Dark.patch(text_size=9)
 root = MindMapNode(
     "Core API Gateway",
     shape="oval",
-    size=(28, 12),
+    width=28,
+    height=12,
     style=Styles.PrimaryFlat,
     text_style=txt_white,
     line_style=Styles.DarkBold,
@@ -378,7 +380,7 @@ root = MindMapNode(
     vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style=Styles.PrimaryNeutral, text_style=txt_branch,
+            "Client Traffic", branch="left", shape="rectangle", width=22, height=8, style=Styles.PrimaryNeutral, text_style=txt_branch,
             children=[
                 MindMapNode("Web App (SPA)", shape="none", text_style=txt_leaf),
                 MindMapNode("Mobile Apps", shape="none", text_style=txt_leaf),
@@ -386,22 +388,22 @@ root = MindMapNode(
             ],
         ),
         MindMapNode(
-            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style=Styles.SecondaryNeutral, text_style=txt_branch,
+            "Internal Services", branch="right", shape="rectangle", width=24, height=8, style=Styles.SecondaryNeutral, text_style=txt_branch,
             children=[
-                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style=Styles.Neutral, text_style=txt_branch),
-                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style=Styles.Neutral, text_style=txt_branch),
-                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style=Styles.Neutral, text_style=txt_branch),
+                MindMapNode("Auth Service", shape="rectangle", width=22, height=6, style=Styles.Neutral, text_style=txt_branch),
+                MindMapNode("Billing Engine", shape="rectangle", width=22, height=6, style=Styles.Neutral, text_style=txt_branch),
+                MindMapNode("Notification Hub", shape="rectangle", width=22, height=6, style=Styles.Neutral, text_style=txt_branch),
             ],
         ),
         MindMapNode(
-            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style=Styles.Neutral, text_style=txt_branch,
+            "Telemetry Stack", branch="top", shape="rectangle", width=24, height=8, style=Styles.Neutral, text_style=txt_branch,
             children=[
                 MindMapNode("Prometheus Metrics", shape="none", text_style=txt_leaf),
                 MindMapNode("OpenTelemetry Traces", shape="none", text_style=txt_leaf),
             ],
         ),
         MindMapNode(
-            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style=Styles.Neutral, text_style=txt_branch,
+            "Persistence Tier", branch="bottom", shape="rectangle", width=24, height=8, style=Styles.Neutral, text_style=txt_branch,
             children=[
                 MindMapNode("PostgreSQL Primary", shape="none", text_style=txt_leaf),
                 MindMapNode("Redis Cache Cluster", shape="none", text_style=txt_leaf),
@@ -500,7 +502,8 @@ Cycle(
     start_angle: float = 90.0,
     node_shape: Literal["circle", "rectangle", "none"] = "circle",
     node_radius: float = 8.0,
-    node_size: tuple[float, float] = (18.0, 10.0),
+    node_width: float = 18.0,
+    node_height: float = 10.0,
     description_placement: Literal["inside", "outside"] = "inside",
     arrow_type: Literal["arc", "line", "none"] = "arc",
     arrow_width: float = 2.0,
@@ -1045,7 +1048,7 @@ save()
 
 ### 4. Cycle Arrow Overlaps
 - **Problem**: Connecting curved arrows collide with step circles or rectangular nodes.
-- **Resolution**: Increase `arrow_gap` (default 2.5) or enlarge orbit `radius` relative to `node_radius` / `node_size`. For 5-node pentagonal `Cycle` diagrams with rectangular nodes, keep `node_size[0] <= 0.9 * radius` so the bottom two nodes maintain a clean horizontal gap for their connecting arrow.
+- **Resolution**: Increase `arrow_gap` (default 2.5) or enlarge orbit `radius` relative to `node_radius` / `node_width` and `node_height`. For 5-node pentagonal `Cycle` diagrams with rectangular nodes, keep `node_width <= 0.9 * radius` so the bottom two nodes maintain a clean horizontal gap for their connecting arrow.
 
 ### 5. GeoMap Missing Dimensions or Clipped Continents Inside `background_style`
 - **Problem A**: Calling `m.draw()` without `width` or `height` raises `ValueError: At least one of 'width' or 'height' must be provided to GeoMap.draw().`, or calling `m.get_area_xy()` before `m.draw()` raises `RuntimeError`.

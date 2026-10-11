@@ -118,7 +118,6 @@ class State(StateNodeBase):
         exit: str = "",  # noqa: A002
         width: float | None = None,
         height: float | None = None,
-        size: tuple[float, float] | None = None,
         style: Style | None = None,
         show: bool = True,
     ) -> None:
@@ -132,7 +131,6 @@ class State(StateNodeBase):
             exit: Optional exit action string ('exit / action').
             width: Optional width of the state shape.
             height: Optional height of the state shape.
-            size: Optional shorthand (width, height) tuple overriding width and height.
             style: Optional Style object overriding border, fill, text colors, and shape_r.
             show: Whether to render this state node.
         """
@@ -152,11 +150,11 @@ class State(StateNodeBase):
             self.actions.append(StateAction(kind="exit", action=exit))
 
         # Dimensions
-        init_w, init_h = _compute_state_default_size(shape, width, height, size)
+        init_w, init_h = _compute_state_default_size(shape, width, height)
 
         super().__init__(name=name, width=init_w, height=init_h, style=style, show=show)
-        self.custom_width = width is not None or size is not None
-        self.custom_height = height is not None or size is not None
+        self.custom_width = width is not None
+        self.custom_height = height is not None
 
     @property
     def effective_height(self) -> float:
@@ -308,7 +306,6 @@ def _compute_state_default_size(
     shape: ShapeType,
     width: float | None,
     height: float | None,
-    size: tuple[float, float] | None,
 ) -> tuple[float, float]:
     """Compute default or explicitly configured dimensions for a State.
 
@@ -316,14 +313,10 @@ def _compute_state_default_size(
         shape: Visual shape type.
         width: Optional explicit width.
         height: Optional explicit height.
-        size: Optional (width, height) tuple.
 
     Returns:
         Resolved (width, height) tuple.
     """
-    if size is not None:
-        return (float(size[0]), float(size[1]))
-
     default_widths = {
         "box": 22.0,
         "oval": 24.0,

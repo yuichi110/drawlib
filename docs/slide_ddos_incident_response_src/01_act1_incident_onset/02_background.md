@@ -41,9 +41,9 @@ era1 = d.add(
               text_style=Styles.PrimaryBold.patch(text_size=12.5, halign="left")),
     xy=(7.0, 46.0),
 )
-u1 = era1.add(Node((24, 17), "Web Users\nLow Volume", icon=PhosphorIcon.USERS, icon_size=6.5), xy=(14.5, 13.5))
-vps = era1.add(Node((28, 17), "Single Linux VPS\n$10/mo Hard Cap", icon=PhosphorIcon.HARD_DRIVES, icon_size=6.5), xy=(52.0, 13.5))
-patch1 = era1.add(Node((25, 17), "Manual Patching\nHigh Ops Toil", icon=PhosphorIcon.WRENCH, icon_size=6.5, card_style=Styles.Neutral), xy=(88.5, 13.5))
+u1 = era1.add(Node("Web Users\nLow Volume", width=24, height=17, icon=PhosphorIcon.USERS, icon_size=6.5), xy=(14.5, 13.5))
+vps = era1.add(Node("Single Linux VPS\n$10/mo Hard Cap", width=28, height=17, icon=PhosphorIcon.HARD_DRIVES, icon_size=6.5), xy=(52.0, 13.5))
+patch1 = era1.add(Node("Manual Patching\nHigh Ops Toil", width=25, height=17, icon=PhosphorIcon.WRENCH, icon_size=6.5, card_style=Styles.Neutral), xy=(88.5, 13.5))
 d.connect(u1, vps, label="HTTPS", padding=0.8)
 d.connect(vps, patch1, label="Toil", style=Styles.Muted, padding=0.8)
 
@@ -54,14 +54,14 @@ era2 = d.add(
               text_style=Styles.AccentBold.patch(text_size=12.5, halign="left")),
     xy=(7.0, 7.0),
 )
-u2 = era2.add(Node((24, 17), "Internet\n& Botnets", icon=PhosphorIcon.GLOBE, icon_size=6.5, style=Styles.Accent), xy=(14.5, 13.5))
+u2 = era2.add(Node("Internet\n& Botnets", width=24, height=17, icon=PhosphorIcon.GLOBE, icon_size=6.5, style=Styles.Accent), xy=(14.5, 13.5))
 crun = era2.add(
-    Node((28, 17), "Cloud Run\nPublic Ingress", icon=GcpIcon.CLOUD_RUN, icon_size=7.0,
+    Node("Cloud Run\nPublic Ingress", width=28, height=17, icon=GcpIcon.CLOUD_RUN, icon_size=7.0,
          style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.PrimaryFlat),
     xy=(52.0, 13.5),
 )
 bill = era2.add(
-    Node((25, 17), "Auto-Scale Bill\nCPU + Egress", icon=PhosphorIcon.WARNING_OCTAGON, icon_size=6.5,
+    Node("Auto-Scale Bill\nCPU + Egress", width=25, height=17, icon=PhosphorIcon.WARNING_OCTAGON, icon_size=6.5,
          style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.AccentFlat),
     xy=(88.5, 13.5),
 )

@@ -13,7 +13,8 @@ setup(width=130, height=58)
 root = MindMapNode(
     "Cloud Platform",
     shape="oval",
-    size=(26, 9.5),
+    width=26,
+    height=9.5,
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=10.5),
     line_style=Styles.DarkBold,
@@ -26,7 +27,8 @@ root = MindMapNode(
             "Ingress (left)",
             branch="left",
             shape="rectangle",
-            size=(22, 7.5),
+            width=22,
+            height=7.5,
             style=Styles.PrimaryNeutral.patch(shape_r=1.2),
             text_style=Styles.DarkBold.patch(text_size=10.0),
             children=[
@@ -39,7 +41,8 @@ root = MindMapNode(
             "Workloads (right)",
             branch="right",
             shape="rectangle",
-            size=(24, 7.5),
+            width=24,
+            height=7.5,
             style=Styles.SecondaryNeutral.patch(shape_r=1.2),
             text_style=Styles.DarkBold.patch(text_size=10.0),
             children=[
@@ -52,7 +55,8 @@ root = MindMapNode(
             "Control Plane (top)",
             branch="top",
             shape="rectangle",
-            size=(28, 7.5),
+            width=28,
+            height=7.5,
             style=Styles.Neutral.patch(shape_r=1.2),
             text_style=Styles.DarkBold.patch(text_size=10.0),
         ),
@@ -61,7 +65,8 @@ root = MindMapNode(
             "Storage Tier (bottom)",
             branch="bottom",
             shape="rectangle",
-            size=(28, 7.5),
+            width=28,
+            height=7.5,
             style=Styles.Neutral.patch(shape_r=1.2),
             text_style=Styles.DarkBold.patch(text_size=10.0),
         ),
@@ -86,7 +91,8 @@ setup(width=130, height=40)
 root = MindMapNode(
     "API Gateway",
     shape="oval",
-    size=(26, 11),
+    width=26,
+    height=11,
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=11.0),
     line_style=Styles.DarkBold,
@@ -95,7 +101,7 @@ root = MindMapNode(
     vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Clients", branch="left", shape="rectangle", size=(20, 8), style=Styles.Neutral,
+            "Clients", branch="left", shape="rectangle", width=20, height=8, style=Styles.Neutral,
             text_style=Styles.DarkBold.patch(text_size=10.5),
             children=[
                 MindMapNode("Web Browser", shape="none", text_style=Styles.Dark.patch(text_size=10.0)),
@@ -103,7 +109,7 @@ root = MindMapNode(
             ],
         ),
         MindMapNode(
-            "Services", branch="right", shape="rectangle", size=(20, 8), style=Styles.SecondaryNeutral,
+            "Services", branch="right", shape="rectangle", width=20, height=8, style=Styles.SecondaryNeutral,
             text_style=Styles.DarkBold.patch(text_size=10.5),
             children=[
                 MindMapNode("Auth Service", shape="none", text_style=Styles.Dark.patch(text_size=10.0)),
@@ -132,7 +138,8 @@ setup(width=130, height=54)
 root = MindMapNode(
     "Platform Engineering",
     shape="rectangle",
-    size=(34, 9.5),
+    width=34,
+    height=9.5,
     style=Styles.PrimaryFlat.patch(shape_r=1.5),
     text_style=Styles.WhiteBold.patch(text_size=11.0),
     line_style=Styles.DarkBold,
@@ -144,7 +151,8 @@ root = MindMapNode(
 # 1. Left Subtree: Cloud Infrastructure
 infra = root.add(
     "Cloud Infra",
-    size=(26, 8.5),
+    width=26,
+    height=8.5,
     style=Styles.PrimaryNeutral.patch(shape_r=1.2),
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
@@ -154,7 +162,8 @@ infra.add("Terraform IaC", shape="none", text_style=Styles.Dark.patch(text_size=
 # 2. Center Subtree: Developer Experience (nudged slightly downward with xy_shift)
 devex = root.add(
     "Developer Experience",
-    size=(31, 8.5),
+    width=31,
+    height=8.5,
     style=Styles.SecondaryNeutral.patch(shape_r=1.2),
     text_style=Styles.DarkBold.patch(text_size=10.5),
     xy_shift=(0.0, -1.5),
@@ -165,7 +174,8 @@ devex.add("Preview Envs", shape="none", text_style=Styles.Dark.patch(text_size=1
 # 3. Right Subtree: Security & SRE
 sec = root.add(
     "Security & SRE",
-    size=(26, 8.5),
+    width=26,
+    height=8.5,
     style=Styles.Neutral.patch(shape_r=1.2),
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
@@ -182,17 +192,17 @@ save()
 ## 3. Geometry, Cascading & Layout Mechanics
 
 - **Center Anchor `(cx, cy)`**: The coordinate passed to `root.draw(xy=...)` anchors the **exact center** of the root node.
-- **Root Mandatory Parameters**: The root `MindMapNode` **must** be initialized with `style`, `text_style`, and `line_style` (otherwise `root.draw()` raises a `ValueError`). If omitted on the root, `shape` defaults to `"rectangle"`, `size` to `(20.0, 8.0)`, `horizontal_margin` to `4.0`, `vertical_margin` to `4.0`, and `line_length` to `10.0`. All descendant nodes inherit any unassigned style, shape, size, or spacing parameter from their parent.
+- **Root Mandatory Parameters**: The root `MindMapNode` **must** be initialized with `style`, `text_style`, and `line_style` (otherwise `root.draw()` raises a `ValueError`). If omitted on the root, `shape` defaults to `"rectangle"`, `width` to `20.0`, `height` to `8.0`, `horizontal_margin` to `4.0`, `vertical_margin` to `4.0`, and `line_length` to `10.0`. All descendant nodes inherit any unassigned style, shape, width/height, or spacing parameter from their parent.
 - **Directional Branching (`branch`)**:
   - `"bottom"` *(default in `root.draw()`)*: Sub-branches extend downward (`-y`), ideal for top-down org charts and WBS trees.
   - `"top"`: Sub-branches extend upward (`+y`).
   - `"right"`: Sub-branches extend rightward (`+x`).
   - `"left"`: Sub-branches extend leftward (`-x`).
   - You can mix directions on the same root by setting `branch="left"`, `"right"`, `"top"`, or `"bottom"` on individual child nodes.
-- **Node Shapes & Automatic Text Sizing (`shape`, `size`)**:
+- **Node Shapes & Automatic Text Sizing (`shape`, `width`, `height`)**:
   - `"rectangle"`: Rectangular box with optional corner rounding (`style.shape_r`).
   - `"oval"`: Pill / ellipse container.
-  - `"none"`: Clean borderless text label. When `shape="none"` and `size=None`, `MindMapNode` **automatically measures the text width and height** from `text_style.text_size` (including CJK wide-character compensation) so sibling labels never overlap.
+  - `"none"`: Clean borderless text label. When `shape="none"` and `width=None` / `height=None`, `MindMapNode` **automatically measures the text width and height** from `text_style.text_size` (including CJK wide-character compensation) so sibling labels never overlap.
 - **Layout & Spacing Parameters**:
   - `horizontal_margin`: Horizontal gap between sibling subtrees when branching `"bottom"` or `"top"`.
   - `vertical_margin`: Vertical gap between sibling subtrees when branching `"left"` or `"right"`.
@@ -210,7 +220,8 @@ MindMapNode(
     *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
     shape: Literal["rectangle", "oval", "none"] | None = None,
-    size: tuple[float, float] | None = None,
+    width: float | None = None,
+    height: float | None = None,
     style: Style | None = None,
     text_style: Style | None = None,
     line_style: Style | None = None,
@@ -228,7 +239,8 @@ MindMapNode(
 | **`text`** | `str` | *(Required)* | Text content displayed in this node. |
 | **`branch`** | `Literal["bottom", "top", "left", "right"] \| None` | `None` | Branch direction for this node/subtree (inherits parent or `draw(branch=...)` default if `None`). |
 | **`shape`** | `Literal["rectangle", "oval", "none"] \| None` | `None` | Node shape (root defaults to `"rectangle"` if `None`; children inherit parent `shape`). |
-| **`size`** | `tuple[float, float] \| None` | `None` | Node `(width, height)` (root defaults to `(20.0, 8.0)`; auto-sized from text when `shape="none"` and `size=None`). |
+| **`width`** | `float \| None` | `None` | Node width (root defaults to `20.0`; auto-sized from text when `shape="none"` and `width=None`). |
+| **`height`** | `float \| None` | `None` | Node height (root defaults to `8.0`; auto-sized from text when `shape="none"` and `height=None`). |
 | **`style`** | `Style \| None` | `None` | Node shape style (**required on root**; inherited by children if `None`). |
 | **`text_style`** | `Style \| None` | `None` | Node text style (**required on root**; inherited by children if `None`). |
 | **`line_style`** | `Style \| None` | `None` | Connector line style (**required on root**; inherited by children if `None`). |
@@ -246,7 +258,8 @@ node.add(
     *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
     shape: Literal["rectangle", "oval", "none"] | None = None,
-    size: tuple[float, float] | None = None,
+    width: float | None = None,
+    height: float | None = None,
     style: Style | None = None,
     text_style: Style | None = None,
     line_style: Style | None = None,
@@ -274,7 +287,8 @@ root.draw(
   - `node.text: str`
   - `node.branch: Literal["bottom", "top", "left", "right"] | None`
   - `node.shape: Literal["rectangle", "oval", "none"] | None`
-  - `node.size: tuple[float, float] | None`
+  - `node.width: float | None`
+  - `node.height: float | None`
   - `node.style: Style | None`
   - `node.text_style: Style | None`
   - `node.line_style: Style | None`

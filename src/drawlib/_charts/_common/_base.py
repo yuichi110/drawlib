@@ -74,7 +74,8 @@ class LegendChartMixin:
         xy: tuple[float, float],
         text_style: Style,
         orientation: Orientation = "vertical",
-        swatch_size: tuple[float, float] = (2.4, 1.2),
+        swatch_width: float = 2.4,
+        swatch_height: float = 1.2,
         item_gap: float = 4.0,
         *,
         scale: float = 1.0,
@@ -85,7 +86,8 @@ class LegendChartMixin:
             xy: Starting placement coordinate (x, y).
             text_style: Base Style for legend text labels.
             orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
-            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
+            swatch_width: Width of color swatches. Defaults to 2.4.
+            swatch_height: Height of color swatches. Defaults to 1.2.
             item_gap: Spacing between consecutive legend items. Defaults to 4.0.
             scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
@@ -103,7 +105,8 @@ class LegendChartMixin:
             xy=xy,
             text_style=text_style,
             orientation=orientation,
-            swatch_size=swatch_size,
+            swatch_width=swatch_width,
+            swatch_height=swatch_height,
             item_gap=item_gap,
             scale=scale,
         )

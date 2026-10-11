@@ -177,8 +177,9 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 #### `Node` Class:
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `card_size` | `tuple[float, float]` | *(Required)* | Card bounding box `(width, height)` in canvas units. |
 | `text` | `str` | `""` | Node label text (supports `\n`). |
+| `width` | `float` | `20.0` | Card bounding box width in canvas units. |
+| `height` | `float` | `16.0` | Card bounding box height in canvas units. |
 | `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
@@ -186,7 +187,7 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 | `card_style` | `Style \| None` | `None` | Optional style override for the card background/border (transparent if `None` and `node_card_style` is `None`). |
 | `show` | `bool` | `True` | Whether to render this node (and its connected edges). |
 
-- **Card-Centric Coordinates**: The coordinate `xy` passed to `d.add(node, xy)` defines the **center of the node card** `card_size=(width, height)`. When both `icon` and `text` are provided, the icon is placed in the upper middle of the card and the label in the lower portion (adjustable via `text_style=Styles.DarkBold.patch(xy_shift=...)`).
+- **Card-Centric Coordinates**: The coordinate `xy` passed to `d.add(node, xy)` defines the **center of the node card** `(width, height)`. When both `icon` and `text` are provided, the icon is placed in the upper middle of the card and the label in the lower portion (adjustable via `text_style=Styles.DarkBold.patch(xy_shift=...)`).
 - `node.connect(target, label="", arrow="->", routing="orthogonal", style=None, text_style=None, padding=0.0, show=True) -> Edge`: Connects this node to `target`.
 - `node.fork(targets, at_x=None, at_y=None, style=None, padding=0.0, show=True) -> list[Edge]`: Creates a 1-to-N bus fan-out via an automatic intermediate junction.
 
@@ -232,17 +233,17 @@ vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(32.0,
 
 # Public Subnet with Load Balancer (local coordinates inside vpc)
 public_subnet = vpc.add(NodeGroup(title="Public Subnet (10.0.1.0/24)", padding=5.0), xy=(6.0, 6.0))
-lb = public_subnet.add(Node((26, 17), "Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(16.0, 30.0))
+lb = public_subnet.add(Node("Cloud Load Balancer", width=26, height=17, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(16.0, 30.0))
 
 # Private Subnet with Application Pods (local coordinates inside vpc)
 private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(48.0, 6.0))
-gke1 = private_subnet.add(Node((20, 16), "API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 44.0))
-gke2 = private_subnet.add(Node((20, 16), "API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 16.0))
+gke1 = private_subnet.add(Node("API Pod 1", width=20, height=16, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 44.0))
+gke2 = private_subnet.add(Node("API Pod 2", width=20, height=16, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 16.0))
 
 # External Actor and Managed Services (global diagram coordinates outside vpc)
-user = d.add(Node((18, 16), "Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(9.0, 44.0))
-db = d.add(Node((24, 18), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(140.0, 58.0))
-storage = d.add(Node((24, 18), "Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(140.0, 30.0))
+user = d.add(Node("Client User", width=18, height=16, icon=PhosphorIcon.USER, icon_size=8.0), xy=(9.0, 44.0))
+db = d.add(Node("Cloud SQL\n(PostgreSQL)", width=24, height=18, icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(140.0, 58.0))
+storage = d.add(Node("Cloud Storage\n(Assets)", width=24, height=18, icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(140.0, 30.0))
 
 # Connections
 d.connect(user, lb, label="HTTPS (443)", padding=1.5)
@@ -272,12 +273,12 @@ d = ArchitectureDiagram(
 )
 
 cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(30.0, 10.0))
-broker1 = cluster.add(Node((22, 16), "Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(17.0, 40.0))
-broker2 = cluster.add(Node((22, 16), "Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(17.0, 14.0))
+broker1 = cluster.add(Node("Kafka Broker 1", width=22, height=16, icon=PhosphorIcon.STACK, icon_size=7.0), xy=(17.0, 40.0))
+broker2 = cluster.add(Node("Kafka Broker 2", width=22, height=16, icon=PhosphorIcon.STACK, icon_size=7.0), xy=(17.0, 14.0))
 
-pub = d.add(Node((20, 17), "Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(9.0, 37.0))
-analytics = d.add(Node((26, 17), "Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(104.0, 50.0))
-archiver = d.add(Node((26, 17), "Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(104.0, 24.0))
+pub = d.add(Node("Event Ingest\nProducer", width=20, height=17, icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(9.0, 37.0))
+analytics = d.add(Node("Realtime Analytics\nConsumer", width=26, height=17, icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(104.0, 50.0))
+archiver = d.add(Node("Parquet Lakehouse\nArchiver", width=26, height=17, icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(104.0, 24.0))
 
 pub.fork([broker1, broker2], at_x=25.0, padding=1.5)
 d.connect(broker1, analytics, label="Consumer Group A", padding=1.5)
@@ -453,7 +454,7 @@ from drawlib.diagrams.sequence import Block, Message, Note, Participant, Partici
 
 #### Constructor, Participant Management & Rendering:
 - `SequenceDiagram(node_style, node_text_style, edge_style, edge_text_style, node_card_style=None, title="", width=None, height=None, margin=5.0, autonumber=False, style=None, title_style=None)`
-- `d.add(Participant(card_size, text="", icon=None, icon_size=8.0, style=None, text_style=None, card_style=None, lifeline_style=None, show=True), *, show: bool = True) -> Participant`
+- `d.add(Participant(text="", width=20.0, height=16.0, icon=None, icon_size=8.0, style=None, text_style=None, card_style=None, lifeline_style=None, show=True), *, show: bool = True) -> Participant`
 - `d.add(ParticipantGroup(title="", padding=4.0, style=None, show=True), *, show: bool = True) -> ParticipantGroup`
 - `group.add(Participant(...), *, show: bool = True) -> Participant`
 - `d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
@@ -502,7 +503,7 @@ d = SequenceDiagram(
 )
 
 # 1. Participants: Client on the left, Backend services in VPC group on the right
-client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
+client = d.add(Participant("Web Browser", width=22, height=16, icon=PhosphorIcon.BROWSER, icon_size=7.5))
 
 backend = d.add(
     ParticipantGroup(
@@ -512,10 +513,10 @@ backend = d.add(
     )
 )
 api = backend.add(
-    Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, card_style=Styles.PrimaryNeutral)
+    Participant("Cloud Run\n(Gateway)", width=22, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=7.5, card_style=Styles.PrimaryNeutral)
 )
-worker = backend.add(Participant((22, 16), "GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
-db = backend.add(Participant((22, 16), "Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
+worker = backend.add(Participant("GKE Pod\n(Worker)", width=22, height=16, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
+db = backend.add(Participant("Cloud SQL\n(Database)", width=22, height=16, icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
 
 # 2. Interactions
 client.request(api, "POST /api/v1/checkout")
@@ -555,8 +556,8 @@ d = SequenceDiagram(
     title="WebSocket Real-Time Live Sync",
 )
 
-app = d.add(Participant((22, 15), "Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
-gateway = d.add(Participant((22, 15), "WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, card_style=Styles.PrimaryNeutral))
+app = d.add(Participant("Mobile App", width=22, height=15, icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
+gateway = d.add(Participant("WS Gateway", width=22, height=15, icon=PhosphorIcon.CLOUD, icon_size=7.5, card_style=Styles.PrimaryNeutral))
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
 gateway.reply(app, "101 Switching Protocols")

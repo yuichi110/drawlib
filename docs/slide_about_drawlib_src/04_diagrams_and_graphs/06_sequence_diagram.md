@@ -17,7 +17,7 @@ utils.draw_page_number()
 
 ### Expressive Python Idioms
 - **Participants & Groups**:
-  - `d.add(Participant((18, 13), "Name", icon=GcpIcon.CLOUD_RUN))`
+  - `d.add(Participant("Name", width=18, height=13, icon=GcpIcon.CLOUD_RUN))`
   - `vpc = d.add(ParticipantGroup(title="Zero-Trust Mesh", style=Styles.MutedDashed))`
 - **Message Verbs (`autonumber=True`)**:
   - `a.request(b, "label")`: Solid synchronous call arrow (`―▶`).
@@ -60,7 +60,7 @@ d = SequenceDiagram(
 )
 
 # 1. Participants & Mesh Group
-client = d.add(Participant((18, 13), "SPA Client", icon=PhosphorIcon.BROWSER, icon_size=6.0))
+client = d.add(Participant("SPA Client", width=18, height=13, icon=PhosphorIcon.BROWSER, icon_size=6.0))
 
 mesh = d.add(
     ParticipantGroup(
@@ -71,8 +71,9 @@ mesh = d.add(
 )
 gateway = mesh.add(
     Participant(
-        (18, 13),
         "API Gateway",
+        width=18,
+        height=13,
         icon=GcpIcon.CLOUD_RUN,
         icon_size=6.0,
         card_style=Styles.PrimaryNeutral,
@@ -80,8 +81,9 @@ gateway = mesh.add(
 )
 auth = mesh.add(
     Participant(
-        (18, 13),
         "Auth / JWKS",
+        width=18,
+        height=13,
         icon=PhosphorIcon.SHIELD_CHECK,
         icon_size=6.0,
         card_style=Styles.SecondaryNeutral,
@@ -89,8 +91,9 @@ auth = mesh.add(
 )
 orders = mesh.add(
     Participant(
-        (18, 13),
         "Order Service",
+        width=18,
+        height=13,
         icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE,
         icon_size=6.0,
         card_style=Styles.Neutral,

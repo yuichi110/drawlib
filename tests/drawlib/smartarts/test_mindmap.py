@@ -27,7 +27,8 @@ class TestMindMapNode:
         node = MindMapNode(text="Center")
         assert node._text == "Center"
         assert node._shape is None
-        assert node._size is None
+        assert node._width is None
+        assert node._height is None
         assert node._branch is None
         assert node._children == []
 
@@ -45,14 +46,16 @@ class TestMindMapNode:
         root = MindMapNode(
             "CEO",
             shape="rectangle",
-            size=(22.0, 8.0),
+            width=22.0,
+            height=8.0,
             style=styles.PrimarySolid,
             text_style=styles.WhiteBold,
             line_style=styles.PrimarySolid,
             children=[
                 MindMapNode(
                     "CTO",
-                    size=(18.0, 7.0),
+                    width=18.0,
+                    height=7.0,
                     children=[
                         MindMapNode("Dev Team", shape="none"),
                         MindMapNode("QA Team", shape="none"),
@@ -60,7 +63,8 @@ class TestMindMapNode:
                 ),
                 MindMapNode(
                     "CFO",
-                    size=(18.0, 7.0),
+                    width=18.0,
+                    height=7.0,
                     children=[
                         MindMapNode("Accounting", shape="none"),
                     ],
@@ -77,7 +81,8 @@ class TestMindMapNode:
         root = MindMapNode(
             "Root",
             shape="rectangle",
-            size=(20.0, 8.0),
+            width=20.0,
+            height=8.0,
             style=styles.PrimarySolid,
             text_style=styles.WhiteBold,
             line_style=styles.PrimarySolid,
@@ -96,7 +101,8 @@ class TestMindMapNode:
         root = MindMapNode(
             "Topic",
             shape="oval",
-            size=(20.0, 10.0),
+            width=20.0,
+            height=10.0,
             style=styles.PrimarySolid,
             text_style=styles.WhiteBold,
             line_style=styles.PrimarySolid,
@@ -115,7 +121,8 @@ class TestMindMapNode:
         root = MindMapNode(
             "Topic",
             shape="oval",
-            size=(20.0, 10.0),
+            width=20.0,
+            height=10.0,
             style=styles.PrimarySolid,
             text_style=styles.WhiteBold,
             line_style=styles.PrimarySolid,
@@ -134,7 +141,8 @@ class TestMindMapNode:
         root = MindMapNode(
             "Main Concept",
             shape="oval",
-            size=(26.0, 12.0),
+            width=26.0,
+            height=12.0,
             style=styles.PrimaryBold,
             text_style=styles.Primary,
             line_style=styles.PrimarySolid,
@@ -144,7 +152,8 @@ class TestMindMapNode:
                     "Pros",
                     branch="right",
                     shape="rectangle",
-                    size=(20.0, 8.0),
+                    width=20.0,
+                    height=8.0,
                     style=styles.PrimarySolid,
                     children=[
                         MindMapNode("Speed", shape="none"),
@@ -156,7 +165,8 @@ class TestMindMapNode:
                     "Cons",
                     branch="left",
                     shape="rectangle",
-                    size=(20.0, 8.0),
+                    width=20.0,
+                    height=8.0,
                     style=styles.PrimarySolid,
                     children=[
                         MindMapNode("Complexity", shape="none"),
@@ -167,7 +177,8 @@ class TestMindMapNode:
                     "Goals",
                     branch="top",
                     shape="rectangle",
-                    size=(20.0, 8.0),
+                    width=20.0,
+                    height=8.0,
                     style=styles.PrimarySolid,
                 ),
                 # Bottom branch
@@ -175,7 +186,8 @@ class TestMindMapNode:
                     "Next Steps",
                     branch="bottom",
                     shape="rectangle",
-                    size=(20.0, 8.0),
+                    width=20.0,
+                    height=8.0,
                     style=styles.PrimarySolid,
                     xy_shift=(0.0, -2.0),
                 ),
@@ -206,7 +218,8 @@ class TestMindMapNode:
         root = MindMapNode(
             "Root",
             shape="oval",
-            size=(22.0, 10.0),
+            width=22.0,
+            height=10.0,
             style=styles.PrimarySolid,
             text_style=styles.WhiteBold,
             line_style=styles.PrimarySolid,

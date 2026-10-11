@@ -32,13 +32,13 @@ vpc = diag.add(
 )
 
 # Services Inside VPC (vpc.add)
-gw = vpc.add(Node((22, 16), "API Gateway", icon=GcpIcon.APIGEE, icon_size=7.5, card_style=Styles.PrimaryNeutral), xy=(15.0, 26.0))
-auth = vpc.add(Node((24, 16), "Auth Service", icon=GcpIcon.SECURITY_COMMAND_CENTER, icon_size=7.5), xy=(48.0, 38.0))
-order = vpc.add(Node((24, 16), "Order Service", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5), xy=(48.0, 14.0))
-db = vpc.add(Node((26, 17), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5), xy=(90.0, 26.0))
+gw = vpc.add(Node("API Gateway", width=22, height=16, icon=GcpIcon.APIGEE, icon_size=7.5, card_style=Styles.PrimaryNeutral), xy=(15.0, 26.0))
+auth = vpc.add(Node("Auth Service", width=24, height=16, icon=GcpIcon.SECURITY_COMMAND_CENTER, icon_size=7.5), xy=(48.0, 38.0))
+order = vpc.add(Node("Order Service", width=24, height=16, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5), xy=(48.0, 14.0))
+db = vpc.add(Node("Cloud SQL\n(PostgreSQL)", width=26, height=17, icon=GcpIcon.CLOUD_SQL, icon_size=7.5), xy=(90.0, 26.0))
 
 # External Client Node (diag.add)
-client = diag.add(Node((22, 17), "Client User\n(Web/Mobile)", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5), xy=(13.0, 32.0))
+client = diag.add(Node("Client User\n(Web/Mobile)", width=22, height=17, icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5), xy=(13.0, 32.0))
 
 # Inter-Service Connections
 diag.connect(client, gw, label="HTTPS (443)", padding=1.5)

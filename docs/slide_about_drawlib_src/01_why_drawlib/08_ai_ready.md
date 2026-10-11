@@ -38,13 +38,14 @@ d = ArchitectureDiagram(
 
 # Left: Collaborators
 human = d.add(
-    Node((22, 18), "Human Engineer\n(Intent & Review)", icon=PhosphorIcon.USER, icon_size=9.0, card_style=Styles.SecondaryNeutral),
+    Node("Human Engineer\n(Intent & Review)", width=22, height=18, icon=PhosphorIcon.USER, icon_size=9.0, card_style=Styles.SecondaryNeutral),
     xy=(14.0, 56.0),
 )
 agent = d.add(
     Node(
-        (22, 18),
         "AI Coding Agent\n(Autonomous Loop)",
+        width=22,
+        height=18,
         icon=PhosphorIcon.ROBOT,
         icon_size=9.5,
         style=Styles.White,
@@ -60,19 +61,19 @@ workspace = d.add(
     xy=(36.0, 8.0),
 )
 rules_node = workspace.add(
-    Node((22, 17), "Rules Catalog\n(drawlib rules)", icon=PhosphorIcon.BOOK_OPEN, icon_size=8.5, card_style=Styles.White),
+    Node("Rules Catalog\n(drawlib rules)", width=22, height=17, icon=PhosphorIcon.BOOK_OPEN, icon_size=8.5, card_style=Styles.White),
     xy=(15.0, 52.0),
 )
 code_node = workspace.add(
-    Node((22, 17), "Declarative Code\n(.md & .py)", icon=PhosphorIcon.CODE, icon_size=8.5, card_style=Styles.White),
+    Node("Declarative Code\n(.md & .py)", width=22, height=17, icon=PhosphorIcon.CODE, icon_size=8.5, card_style=Styles.White),
     xy=(15.0, 28.0),
 )
 grid_node = workspace.add(
-    Node((22, 17), "Grid Preview (-g)\n& Multimodal Check", icon=PhosphorIcon.EYE, icon_size=8.5, card_style=Styles.BlueNeutral),
+    Node("Grid Preview (-g)\n& Multimodal Check", width=22, height=17, icon=PhosphorIcon.EYE, icon_size=8.5, card_style=Styles.BlueNeutral),
     xy=(45.0, 28.0),
 )
 output_node = workspace.add(
-    Node((22, 17), "Verified Output\n(Site / PDF / Slides)", icon=PhosphorIcon.CHECK_CIRCLE, icon_size=8.5, card_style=Styles.SecondaryNeutral),
+    Node("Verified Output\n(Site / PDF / Slides)", width=22, height=17, icon=PhosphorIcon.CHECK_CIRCLE, icon_size=8.5, card_style=Styles.SecondaryNeutral),
     xy=(45.0, 52.0),
 )
 

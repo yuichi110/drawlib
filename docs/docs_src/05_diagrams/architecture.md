@@ -40,7 +40,7 @@ pub_subnet = vpc.add(
     xy=(5.5, 5.5),
 )
 lb = pub_subnet.add(
-    Node((22, 16), "Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.0, card_style=Styles.White),
+    Node("Load Balancer", width=22, height=16, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.0, card_style=Styles.White),
     xy=(14.5, 24.0),
 )
 
@@ -54,11 +54,11 @@ priv_subnet = vpc.add(
     xy=(46.0, 5.5),
 )
 app1 = priv_subnet.add(
-    Node((20, 15), "App 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5, card_style=Styles.White),
+    Node("App 1", width=20, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5, card_style=Styles.White),
     xy=(13.5, 35.0),
 )
 app2 = priv_subnet.add(
-    Node((20, 15), "App 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5, card_style=Styles.White),
+    Node("App 2", width=20, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5, card_style=Styles.White),
     xy=(13.5, 13.0),
 )
 
@@ -68,7 +68,7 @@ d.draw(xy=(3.0, 3.0))
 save()
 ```
 
-- **Card-Centric Coordinates**: When placing a node via `d.add(node, xy=(x, y))`, the coordinate defines the **center of the node card** `card_size=(width, height)`. When both `icon` and `text` are present, the icon is positioned in the upper middle and the text label in the lower portion (adjustable via `text_style=Styles.DarkBold.patch(xy_shift=...)`). If neither `node_card_style` nor `card_style` is provided, the card background is transparent.
+- **Card-Centric Coordinates**: When placing a node via `d.add(node, xy=(x, y))`, the coordinate defines the **center of the node card** (`width`, `height`). When both `icon` and `text` are present, the icon is positioned in the upper middle and the text label in the lower portion (adjustable via `text_style=Styles.DarkBold.patch(xy_shift=...)`). If neither `node_card_style` nor `card_style` is provided, the card background is transparent.
 - **Hierarchical Auto-Bounding (`NodeGroup`)**: Groups automatically compute their outer boundary boxes to enclose all enclosed nodes and nested sub-groups with configurable padding.
 - **Connectable Boundaries**: You can connect edges directly to or from a group's perimeter box as well as individual nodes.
 - **1-to-N Fan-Out (`fork`)**: Easily split a single connection line into multiple downstream destinations using an automatic intermediate bus line.
@@ -110,8 +110,9 @@ d = ArchitectureDiagram(
 #### `Node` Class & `CustomIcon`
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `card_size` | `tuple[float, float]` | *(Required)* | Card bounding box `(width, height)` in canvas units. |
 | `text` | `str` | `""` | Node label text (supports `\n`). |
+| `width` | `float` | `20.0` | Card bounding box width in canvas units. |
+| `height` | `float` | `16.0` | Card bounding box height in canvas units. |
 | `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
@@ -216,7 +217,7 @@ public_subnet = vpc.add(
     xy=(4.5, 4.5),
 )
 lb = public_subnet.add(
-    Node((20, 16), "Cloud Load\nBalancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5),
+    Node("Cloud Load\nBalancer", width=20, height=16, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5),
     xy=(12.5, 25.0),
 )
 
@@ -230,18 +231,18 @@ private_subnet = vpc.add(
     xy=(36.5, 4.5),
 )
 gke1 = private_subnet.add(
-    Node((18, 15), "API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
+    Node("API Pod 1", width=18, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
     xy=(11.5, 37.0),
 )
 gke2 = private_subnet.add(
-    Node((18, 15), "API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
+    Node("API Pod 2", width=18, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
     xy=(11.5, 13.0),
 )
 
 # 4. External Actor and Managed Services (global diagram coordinates outside vpc)
-user = d.add(Node((18, 15), "Client User", icon=PhosphorIcon.USER, icon_size=6.5), xy=(9.0, 35.5))
-db = d.add(Node((22, 16), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(114.0, 47.5))
-storage = d.add(Node((22, 16), "Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=6.5), xy=(114.0, 23.5))
+user = d.add(Node("Client User", width=18, height=15, icon=PhosphorIcon.USER, icon_size=6.5), xy=(9.0, 35.5))
+db = d.add(Node("Cloud SQL\n(PostgreSQL)", width=22, height=16, icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(114.0, 47.5))
+storage = d.add(Node("Cloud Storage\n(Assets)", width=22, height=16, icon=GcpIcon.CLOUD_STORAGE, icon_size=6.5), xy=(114.0, 23.5))
 
 # 5. Connections
 d.connect(user, lb, label="HTTPS", padding=1.2)
@@ -283,16 +284,16 @@ cluster = d.add(
     ),
     xy=(29.0, 8.0),
 )
-broker1 = cluster.add(Node((22, 15), "Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=6.5), xy=(16.0, 36.0))
-broker2 = cluster.add(Node((22, 15), "Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=6.5), xy=(16.0, 12.5))
+broker1 = cluster.add(Node("Kafka Broker 1", width=22, height=15, icon=PhosphorIcon.STACK, icon_size=6.5), xy=(16.0, 36.0))
+broker2 = cluster.add(Node("Kafka Broker 2", width=22, height=15, icon=PhosphorIcon.STACK, icon_size=6.5), xy=(16.0, 12.5))
 
-pub = d.add(Node((20, 16), "Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.0), xy=(10.0, 32.2))
+pub = d.add(Node("Event Ingest\nProducer", width=20, height=16, icon=PhosphorIcon.BROADCAST, icon_size=7.0), xy=(10.0, 32.2))
 analytics = d.add(
-    Node((28, 16), "Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.0),
+    Node("Realtime Analytics\nConsumer", width=28, height=16, icon=PhosphorIcon.CHART_BAR, icon_size=7.0),
     xy=(104.0, 44.0),
 )
 archiver = d.add(
-    Node((28, 16), "Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.0),
+    Node("Parquet Lakehouse\nArchiver", width=28, height=16, icon=PhosphorIcon.HARD_DRIVES, icon_size=7.0),
     xy=(104.0, 20.5),
 )
 

@@ -218,7 +218,8 @@ def draw_diagram_icon(
 
 def render_icon_text_card(
     canvas_xy: tuple[float, float],
-    card_size: tuple[float, float],
+    width: float,
+    height: float,
     *,
     text: str = "",
     icon: IconType = None,
@@ -233,7 +234,7 @@ def render_icon_text_card(
 ) -> None:
     """Render a unified card (optional), icon/image (optional), and text (optional) at canvas_xy."""
     cx, cy = canvas_xy
-    card_w, card_h = card_size
+    card_w, card_h = float(width), float(height)
 
     resolved_card_style: Style | None = None
     if default_node_card_style is not None and card_style is not None:

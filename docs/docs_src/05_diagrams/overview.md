@@ -51,9 +51,9 @@ grp = arch.add(
     ),
     xy=(18.5, 1.5),
 )
-n_api = arch.add(Node((13.0, 11.5), "Gateway", icon=GcpIcon.CLOUD_RUN, icon_size=4.5), xy=(7.5, 8.7))
+n_api = arch.add(Node("Gateway", width=13.0, height=11.5, icon=GcpIcon.CLOUD_RUN, icon_size=4.5), xy=(7.5, 8.7))
 n_db = grp.add(
-    Node((13.5, 11.5), "Cloud SQL", icon=GcpIcon.CLOUD_SQL, icon_size=4.5, card_style=Styles.White),
+    Node("Cloud SQL", width=13.5, height=11.5, icon=GcpIcon.CLOUD_SQL, icon_size=4.5, card_style=Styles.White),
     xy=(9.0, 7.2),
 )
 arch.connect(n_api, n_db, padding=0.8)
@@ -92,8 +92,8 @@ seq = SequenceDiagram(
     step_y=4.2,
     margin=0.2,
 )
-p_cli = seq.add(Participant((12.5, 7.2), "Client", icon=PhosphorIcon.LAPTOP, icon_size=3.2))
-p_srv = seq.add(Participant((12.5, 7.2), "Server", icon=PhosphorIcon.CLOUD, icon_size=3.2, card_style=Styles.Neutral))
+p_cli = seq.add(Participant("Client", width=12.5, height=7.2, icon=PhosphorIcon.LAPTOP, icon_size=3.2))
+p_srv = seq.add(Participant("Server", width=12.5, height=7.2, icon=PhosphorIcon.CLOUD, icon_size=3.2, card_style=Styles.Neutral))
 p_cli.request(p_srv, "POST")
 p_srv.reply(p_cli, "200 OK")
 seq.draw(xy=(91.0, 33.6), scale=1.0)
@@ -211,9 +211,9 @@ d1 = ArchitectureDiagram(
     edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.PrimaryNeutral,
 )
-a1 = d1.add(Node((13, 11), "Node A", icon=PhosphorIcon.CUBE, icon_size=4.2), xy=(9.5, 24.0))
+a1 = d1.add(Node("Node A", width=13, height=11, icon=PhosphorIcon.CUBE, icon_size=4.2), xy=(9.5, 24.0))
 b1 = d1.add(
-    Node((13, 11), "Node B", icon=PhosphorIcon.DATABASE, icon_size=4.2, card_style=Styles.Neutral),
+    Node("Node B", width=13, height=11, icon=PhosphorIcon.DATABASE, icon_size=4.2, card_style=Styles.Neutral),
     xy=(29.5, 9.5),
 )
 d1.connect(a1, b1, routing="orthogonal", padding=0.8)
@@ -231,9 +231,9 @@ d2 = ArchitectureDiagram(
     edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.PrimaryNeutral,
 )
-a2 = d2.add(Node((13, 11), "Node A", icon=PhosphorIcon.CUBE, icon_size=4.2), xy=(9.5, 24.0))
+a2 = d2.add(Node("Node A", width=13, height=11, icon=PhosphorIcon.CUBE, icon_size=4.2), xy=(9.5, 24.0))
 b2 = d2.add(
-    Node((13, 11), "Node B", icon=PhosphorIcon.DATABASE, icon_size=4.2, card_style=Styles.Neutral),
+    Node("Node B", width=13, height=11, icon=PhosphorIcon.DATABASE, icon_size=4.2, card_style=Styles.Neutral),
     xy=(29.5, 9.5),
 )
 d2.connect(a2, b2, routing="direct", padding=0.8)
@@ -328,9 +328,9 @@ d_ports = ArchitectureDiagram(
     edge_text_style=Styles.Dark.patch(text_size=10.0),
     node_card_style=Styles.PrimaryNeutral,
 )
-src = d_ports.add(Node((18, 14), "Source", icon=PhosphorIcon.CUBE, icon_size=4.8), xy=(21.0, 29.0))
+src = d_ports.add(Node("Source", width=18, height=14, icon=PhosphorIcon.CUBE, icon_size=4.8), xy=(21.0, 29.0))
 dst = d_ports.add(
-    Node((15, 14), "Target", icon=PhosphorIcon.DATABASE, icon_size=4.8, card_style=Styles.White),
+    Node("Target", width=15, height=14, icon=PhosphorIcon.DATABASE, icon_size=4.8, card_style=Styles.White),
     xy=(50.5, 29.0),
 )
 d_ports.connect(src, dst, padding=(1.0, 3.0))
@@ -370,8 +370,8 @@ grp = d_orig.add(
     ),
     xy=(71.5, 13.0),
 )
-n1 = grp.add(Node((18, 14), "Service A", icon=GcpIcon.CLOUD_RUN, icon_size=4.8), xy=(14.0, 14.5))
-n2 = grp.add(Node((18, 14), "Service B", icon=GcpIcon.CLOUD_SQL, icon_size=4.8), xy=(40.0, 14.5))
+n1 = grp.add(Node("Service A", width=18, height=14, icon=GcpIcon.CLOUD_RUN, icon_size=4.8), xy=(14.0, 14.5))
+n2 = grp.add(Node("Service B", width=18, height=14, icon=GcpIcon.CLOUD_SQL, icon_size=4.8), xy=(40.0, 14.5))
 d_orig.connect(n1, n2, padding=1.0)
 d_orig.draw(xy=(0.0, 0.0))
 
@@ -414,9 +414,9 @@ d = ArchitectureDiagram(
     title="Request Routing & Bus Fan-Out",
 )
 
-client = d.add(Node((22, 16), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=7.0), xy=(13.0, 32.0))
+client = d.add(Node("Client App", width=22, height=16, icon=PhosphorIcon.LAPTOP, icon_size=7.0), xy=(13.0, 32.0))
 gateway = d.add(
-    Node((22, 16), "API Gateway", icon=GcpIcon.CLOUD_RUN, icon_size=7.0, card_style=Styles.PrimaryNeutral),
+    Node("API Gateway", width=22, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=7.0, card_style=Styles.PrimaryNeutral),
     xy=(49.0, 32.0),
 )
 
@@ -429,10 +429,10 @@ cluster = d.add(
     xy=(77.0, 6.0),
 )
 svc_a = cluster.add(
-    Node((24, 15), "Order Service", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.0),
+    Node("Order Service", width=24, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.0),
     xy=(17.0, 36.0),
 )
-svc_b = cluster.add(Node((24, 15), "Audit Worker", icon=GcpIcon.CLOUD_SQL, icon_size=7.0), xy=(17.0, 13.0))
+svc_b = cluster.add(Node("Audit Worker", width=24, height=15, icon=GcpIcon.CLOUD_SQL, icon_size=7.0), xy=(17.0, 13.0))
 
 d.connect(client, gateway, label="HTTPS", padding=1.5)
 gateway.fork([svc_a, svc_b], at_x=69.0, padding=1.5)

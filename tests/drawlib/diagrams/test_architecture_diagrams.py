@@ -87,14 +87,15 @@ class TestArchitectureNode:
 
     def test_node_coordinates_are_card_centered(self) -> None:
         """Verify node coordinates always refer to the card center."""
-        node_no_text = Node((16.0, 16.0), icon=GcpIcon.COMPUTE_ENGINE, icon_size=10.0)
+        node_no_text = Node(width=16.0, height=16.0, icon=GcpIcon.COMPUTE_ENGINE, icon_size=10.0)
         node_no_text._local_xy = (20.0, 30.0)
         assert node_no_text.xy == (20.0, 30.0)
         assert node_no_text.center == (20.0, 30.0)
 
         node_with_text = Node(
-            (20.0, 18.0),
-            text="Very Long Production Service Label\nLine 2",
+            "Very Long Production Service Label\nLine 2",
+            width=20.0,
+            height=18.0,
             icon=GcpIcon.COMPUTE_ENGINE,
             icon_size=10.0,
         )
@@ -104,7 +105,7 @@ class TestArchitectureNode:
 
     def test_node_anchors(self) -> None:
         """Verify left, right, top, and bottom anchors are on the card boundary."""
-        node = Node((16.0, 12.0), text="App", icon_size=8.0)
+        node = Node("App", width=16.0, height=12.0, icon_size=8.0)
         node._local_xy = (50.0, 50.0)
         assert node.left == (42.0, 50.0)
         assert node.right == (58.0, 50.0)
@@ -112,8 +113,10 @@ class TestArchitectureNode:
         assert node.bottom == (50.0, 44.0)
 
     def test_node_size_calculation(self) -> None:
-        """Verify get_size and get_bounds match card_size."""
-        node = Node((18.0, 14.0), text="Server", icon_size=8.0)
+        """Verify get_size and get_bounds match width and height."""
+        node = Node("Server", width=18.0, height=14.0, icon_size=8.0)
+        assert node.width == 18.0
+        assert node.height == 14.0
         assert node.get_size() == (18.0, 14.0)
         assert node.get_bounds() == (-9.0, -7.0, 9.0, 7.0)
 
@@ -124,8 +127,8 @@ class TestArchitectureGroup:
     def test_group_auto_bounds(self) -> None:
         """Verify auto-bounding box calculation based on children and padding."""
         group = NodeGroup(title="Subnet", padding=5.0)
-        n1 = Node((10.0, 10.0), icon=GcpIcon.COMPUTE_ENGINE, icon_size=10.0)
-        n2 = Node((10.0, 10.0), icon=GcpIcon.COMPUTE_ENGINE, icon_size=10.0)
+        n1 = Node(width=10.0, height=10.0, icon=GcpIcon.COMPUTE_ENGINE, icon_size=10.0)
+        n2 = Node(width=10.0, height=10.0, icon=GcpIcon.COMPUTE_ENGINE, icon_size=10.0)
         group.add(n1, (10.0, 10.0))
         group.add(n2, (30.0, 10.0))
 
@@ -167,8 +170,8 @@ class TestArchitectureJunctionAndEdge:
 
     def test_edge_chaining(self) -> None:
         """Verify Edge fluent chaining methods."""
-        n1 = Node((16.0, 12.0), text="A")
-        n2 = Node((16.0, 12.0), text="B")
+        n1 = Node("A", width=16.0, height=12.0)
+        n2 = Node("B", width=16.0, height=12.0)
         edge = Edge(start=n1, end=n2)
 
         edge.set_label("HTTPS", pos=0.5).set_arrow("<->").via((10.0, 20.0), (30.0, 40.0))
@@ -184,8 +187,8 @@ class TestArchitectureJunctionAndEdge:
             node_text_style=Styles.Dark,
             edge_text_style=Styles.Dark,
         )
-        n1 = d.add(Node((16.0, 12.0), text="A"), (0.0, 0.0))
-        n2 = d.add(Node((16.0, 12.0), text="B"), (50.0, 0.0))
+        n1 = d.add(Node("A", width=16.0, height=12.0), (0.0, 0.0))
+        n2 = d.add(Node("B", width=16.0, height=12.0), (50.0, 0.0))
         edge = d.connect(n1, n2)
 
         j = edge.add_point((25.0, 0.0))
@@ -195,8 +198,8 @@ class TestArchitectureJunctionAndEdge:
 
     def test_edge_padding_properties(self) -> None:
         """Verify edge padding parameter and fluent setter."""
-        n1 = Node((16.0, 12.0), text="A")
-        n2 = Node((16.0, 12.0), text="B")
+        n1 = Node("A", width=16.0, height=12.0)
+        n2 = Node("B", width=16.0, height=12.0)
         edge = Edge(start=n1, end=n2, padding=2.0)
         assert edge.padding == 2.0
 
@@ -211,8 +214,8 @@ class TestArchitectureJunctionAndEdge:
             node_text_style=Styles.Dark,
             edge_text_style=Styles.Dark,
         )
-        n1 = d.add(Node((16.0, 12.0), text="A"), (10.0, 10.0))
-        n2 = d.add(Node((16.0, 12.0), text="B"), (30.0, 10.0))
+        n1 = d.add(Node("A", width=16.0, height=12.0), (10.0, 10.0))
+        n2 = d.add(Node("B", width=16.0, height=12.0), (30.0, 10.0))
         grp = d.add(NodeGroup(title="G"), (50.0, 10.0))
 
         e1 = d.connect(n1, n2, padding=1.5)
@@ -257,9 +260,9 @@ class TestArchitectureJunctionAndEdge:
             node_text_style=Styles.Dark,
             edge_text_style=Styles.Dark,
         )
-        src = d.add(Node((16.0, 12.0), text="Client"), (10.0, 50.0))
-        t1 = d.add(Node((16.0, 12.0), text="API 1"), (60.0, 70.0))
-        t2 = d.add(Node((16.0, 12.0), text="API 2"), (60.0, 30.0))
+        src = d.add(Node("Client", width=16.0, height=12.0), (10.0, 50.0))
+        t1 = d.add(Node("API 1", width=16.0, height=12.0), (60.0, 70.0))
+        t2 = d.add(Node("API 2", width=16.0, height=12.0), (60.0, 30.0))
 
         edges = src.fork([t1, t2], at_x=35.0, padding=1.5)
         assert len(edges) == 3
@@ -320,10 +323,10 @@ class TestArchitectureDiagramEndToEnd:
         vpc = d.add(NodeGroup(title="VPC Network", padding=6.0), (10.0, 10.0))
         subnet = vpc.add(NodeGroup(title="us-central1 Subnet", padding=4.0), (5.0, 5.0))
 
-        vm1 = subnet.add(Node((18.0, 16.0), "Web Server 1", icon=GcpIcon.COMPUTE_ENGINE), (15.0, 20.0))
-        vm2 = subnet.add(Node((18.0, 16.0), "Web Server 2", icon=GcpIcon.COMPUTE_ENGINE), (15.0, 45.0))
+        vm1 = subnet.add(Node("Web Server 1", width=18.0, height=16.0, icon=GcpIcon.COMPUTE_ENGINE), (15.0, 20.0))
+        vm2 = subnet.add(Node("Web Server 2", width=18.0, height=16.0, icon=GcpIcon.COMPUTE_ENGINE), (15.0, 45.0))
 
-        db = d.add(Node((18.0, 16.0), "Primary DB", icon=GcpIcon.CLOUD_SQL), (60.0, 30.0))
+        db = d.add(Node("Primary DB", width=18.0, height=16.0, icon=GcpIcon.CLOUD_SQL), (60.0, 30.0))
 
         d.connect(vm1, db, label="SQL Query")
         d.connect(vm2, db, label="SQL Query", text_style=Styles.Accent)
@@ -351,18 +354,21 @@ class TestArchitectureDiagramEndToEnd:
             edge_text_style=Styles.Dark,
             title="Microservices",
         )
-        client = d.add(Node((18.0, 16.0), "Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0), (15.0, 50.0))
+        client = d.add(Node("Browser", width=18.0, height=16.0, icon=PhosphorIcon.BROWSER, icon_size=8.0), (15.0, 50.0))
         gateway = d.add(
             Node(
-                (20.0, 18.0),
                 "Custom Gateway",
+                width=20.0,
+                height=18.0,
                 icon=custom_icon,
                 icon_size=10.0,
                 card_style=Style(shape_fill_color=Colors.White, shape_line_color=Colors.Gray4, shape_line_width=1.0),
             ),
             (45.0, 50.0),
         )
-        storage = d.add(Node((18.0, 16.0), "Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (75.0, 50.0))
+        storage = d.add(
+            Node("Database", width=18.0, height=16.0, icon=PhosphorIcon.DATABASE, icon_size=8.0), (75.0, 50.0)
+        )
 
         d.connect(client, gateway, label="HTTPS", routing="orthogonal")
         d.connect(gateway, storage, label="TCP", routing="orthogonal")
@@ -385,8 +391,8 @@ class TestArchitectureDiagramEndToEnd:
             edge_text_style=Styles.Dark,
             node_card_style=Styles.Neutral,
         )
-        n1 = d.add(Node((18.0, 16.0), "A", icon=PhosphorIcon.BROWSER), (20.0, 50.0))
-        n2 = d.add(Node((18.0, 16.0), "B", icon=PhosphorIcon.DATABASE), (80.0, 50.0))
+        n1 = d.add(Node("A", width=18.0, height=16.0, icon=PhosphorIcon.BROWSER), (20.0, 50.0))
+        n2 = d.add(Node("B", width=18.0, height=16.0, icon=PhosphorIcon.DATABASE), (80.0, 50.0))
         d.connect(n1, n2, padding=3.0)
         d.draw()
 

@@ -34,7 +34,8 @@ class MindMapNode:
         *,
         branch: Literal["bottom", "top", "left", "right"] | None = None,
         shape: Literal["rectangle", "oval", "none"] | None = None,
-        size: tuple[PosFloat, PosFloat] | None = None,
+        width: PosFloat | None = None,
+        height: PosFloat | None = None,
         style: Style | None = None,
         text_style: Style | None = None,
         line_style: Style | None = None,
@@ -51,7 +52,8 @@ class MindMapNode:
             text: Text content displayed in this node.
             branch: Branch direction for child nodes ("bottom", "top", "left", "right").
             shape: Shape of this node ("rectangle", "oval", "none").
-            size: Size of the node as (width, height).
+            width: Width of the node.
+            height: Height of the node.
             style: Shape style object.
             text_style: Style object for text.
             line_style: Style object for connecting lines.
@@ -65,7 +67,8 @@ class MindMapNode:
         self._text = text
         self._branch = branch
         self._shape = shape
-        self._size = size
+        self._width = width
+        self._height = height
         self._style = style
         self._text_style = text_style
         self._line_style = line_style
@@ -110,13 +113,22 @@ class MindMapNode:
         self._shape = value
 
     @property
-    def size(self) -> tuple[PosFloat, PosFloat] | None:
-        """Return or set the node size."""
-        return self._size
+    def width(self) -> PosFloat | None:
+        """Return or set the node width."""
+        return self._width
 
-    @size.setter
-    def size(self, value: tuple[PosFloat, PosFloat] | None) -> None:
-        self._size = value
+    @width.setter
+    def width(self, value: PosFloat | None) -> None:
+        self._width = value
+
+    @property
+    def height(self) -> PosFloat | None:
+        """Return or set the node height."""
+        return self._height
+
+    @height.setter
+    def height(self, value: PosFloat | None) -> None:
+        self._height = value
 
     @property
     def style(self) -> Style | None:
@@ -157,7 +169,8 @@ class MindMapNode:
         *,
         branch: Literal["bottom", "top", "left", "right"] | None = None,
         shape: Literal["rectangle", "oval", "none"] | None = None,
-        size: tuple[PosFloat, PosFloat] | None = None,
+        width: PosFloat | None = None,
+        height: PosFloat | None = None,
         style: Style | None = None,
         text_style: Style | None = None,
         line_style: Style | None = None,
@@ -173,7 +186,8 @@ class MindMapNode:
             text: Text content displayed in the child node.
             branch: Branch direction for the child node ("bottom", "top", "left", "right").
             shape: Shape of the child node ("rectangle", "oval", "none").
-            size: Size of the child node as (width, height).
+            width: Width of the child node.
+            height: Height of the child node.
             style: Shape style object for the child node.
             text_style: Style object for child text.
             line_style: Style object for connecting lines.
@@ -190,7 +204,8 @@ class MindMapNode:
             text=text,
             branch=branch,
             shape=shape,
-            size=size,
+            width=width,
+            height=height,
             style=style,
             text_style=text_style,
             line_style=line_style,
@@ -233,7 +248,8 @@ class MindMapNode:
 
         # Baseline defaults for root if not explicitly provided
         root_shape = self._shape if self._shape is not None else "rectangle"
-        root_size = self._size if self._size is not None else (20.0, 8.0)
+        root_w = float(self._width) if self._width is not None else 20.0
+        root_h = float(self._height) if self._height is not None else 8.0
         root_h_margin = self._horizontal_margin if self._horizontal_margin is not None else 4.0
         root_v_margin = self._vertical_margin if self._vertical_margin is not None else 4.0
         root_line_len = self._line_length if self._line_length is not None else 10.0
@@ -242,7 +258,8 @@ class MindMapNode:
         self._measure_pass(
             current_branch=root_branch,
             parent_shape=root_shape,
-            parent_size=root_size,
+            parent_w=root_w,
+            parent_h=root_h,
             parent_style=self._style,
             parent_text_style=self._text_style,
             parent_h_margin=root_h_margin,
@@ -260,7 +277,6 @@ class MindMapNode:
                 center_xy=(root_cx, root_cy),
                 current_branch=root_branch,
                 parent_shape=root_shape,
-                parent_size=root_size,
                 parent_style=self._style,
                 parent_text_style=self._text_style,
                 parent_line_style=self._line_style,
@@ -288,7 +304,8 @@ class MindMapNode:
         self,
         current_branch: Literal["bottom", "top", "left", "right"],
         parent_shape: Literal["rectangle", "oval", "none"],
-        parent_size: tuple[float, float],
+        parent_w: float,
+        parent_h: float,
         parent_style: Style,
         parent_text_style: Style,
         parent_h_margin: float,
@@ -296,7 +313,8 @@ class MindMapNode:
         parent_line_len: float,
     ) -> None:
         shape = self._shape if self._shape is not None else parent_shape
-        size = self._size if self._size is not None else parent_size
+        next_w = float(self._width) if self._width is not None else parent_w
+        next_h = float(self._height) if self._height is not None else parent_h
         node_style = self._style if self._style is not None else parent_style
         text_style = self._text_style if self._text_style is not None else parent_text_style
 
@@ -307,11 +325,11 @@ class MindMapNode:
             text_w = sum(cw if ord(ch) > 127 else cw * 0.52 for ch in self._text)
             auto_w = max(text_w + cw * 1.6, cw * 2.5)
             auto_h = max(cw * 1.8, 6.0)
-            w = float(size[0]) if self._size is not None else auto_w
-            h = float(size[1]) if self._size is not None else auto_h
+            w = float(self._width) if self._width is not None else auto_w
+            h = float(self._height) if self._height is not None else auto_h
         else:
-            w = float(size[0])
-            h = float(size[1])
+            w = next_w
+            h = next_h
 
         self._resolved_w = w
         self._resolved_h = h
@@ -327,7 +345,8 @@ class MindMapNode:
                 child._measure_pass(
                     current_branch=b,
                     parent_shape=shape,
-                    parent_size=size,
+                    parent_w=next_w,
+                    parent_h=next_h,
                     parent_style=node_style,
                     parent_text_style=text_style,
                     parent_h_margin=h_margin,
@@ -363,7 +382,6 @@ class MindMapNode:
         center_xy: tuple[float, float],
         current_branch: Literal["bottom", "top", "left", "right"],
         parent_shape: Literal["rectangle", "oval", "none"],
-        parent_size: tuple[float, float],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -374,7 +392,6 @@ class MindMapNode:
         cx, cy = center_xy
 
         shape = self._shape if self._shape is not None else parent_shape
-        size = self._size if self._size is not None else parent_size
         node_style = self._style if self._style is not None else parent_style
         base_text_style = self._text_style if self._text_style is not None else parent_text_style
         line_style = self._line_style if self._line_style is not None else parent_line_style
@@ -458,7 +475,6 @@ class MindMapNode:
                     h_margin=h_margin,
                     line_style=line_style,
                     parent_shape=shape,
-                    parent_size=size,
                     parent_style=node_style,
                     parent_text_style=base_text_style,
                     parent_line_style=line_style,
@@ -477,7 +493,6 @@ class MindMapNode:
                     h_margin=h_margin,
                     line_style=line_style,
                     parent_shape=shape,
-                    parent_size=size,
                     parent_style=node_style,
                     parent_text_style=base_text_style,
                     parent_line_style=line_style,
@@ -496,7 +511,6 @@ class MindMapNode:
                     v_margin=v_margin,
                     line_style=line_style,
                     parent_shape=shape,
-                    parent_size=size,
                     parent_style=node_style,
                     parent_text_style=base_text_style,
                     parent_line_style=line_style,
@@ -515,7 +529,6 @@ class MindMapNode:
                     v_margin=v_margin,
                     line_style=line_style,
                     parent_shape=shape,
-                    parent_size=size,
                     parent_style=node_style,
                     parent_text_style=base_text_style,
                     parent_line_style=line_style,
@@ -535,7 +548,6 @@ class MindMapNode:
         h_margin: float,
         line_style: Style,
         parent_shape: Literal["rectangle", "oval", "none"],
-        parent_size: tuple[float, float],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -587,7 +599,6 @@ class MindMapNode:
                 center_xy=(child_cx, child_cy),
                 current_branch="bottom",
                 parent_shape=parent_shape,
-                parent_size=parent_size,
                 parent_style=parent_style,
                 parent_text_style=parent_text_style,
                 parent_line_style=parent_line_style,
@@ -606,7 +617,6 @@ class MindMapNode:
         h_margin: float,
         line_style: Style,
         parent_shape: Literal["rectangle", "oval", "none"],
-        parent_size: tuple[float, float],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -658,7 +668,6 @@ class MindMapNode:
                 center_xy=(child_cx, child_cy),
                 current_branch="top",
                 parent_shape=parent_shape,
-                parent_size=parent_size,
                 parent_style=parent_style,
                 parent_text_style=parent_text_style,
                 parent_line_style=parent_line_style,
@@ -677,7 +686,6 @@ class MindMapNode:
         v_margin: float,
         line_style: Style,
         parent_shape: Literal["rectangle", "oval", "none"],
-        parent_size: tuple[float, float],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -729,7 +737,6 @@ class MindMapNode:
                 center_xy=(child_cx, child_cy),
                 current_branch="right",
                 parent_shape=parent_shape,
-                parent_size=parent_size,
                 parent_style=parent_style,
                 parent_text_style=parent_text_style,
                 parent_line_style=parent_line_style,
@@ -748,7 +755,6 @@ class MindMapNode:
         v_margin: float,
         line_style: Style,
         parent_shape: Literal["rectangle", "oval", "none"],
-        parent_size: tuple[float, float],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -800,7 +806,6 @@ class MindMapNode:
                 center_xy=(child_cx, child_cy),
                 current_branch="left",
                 parent_shape=parent_shape,
-                parent_size=parent_size,
                 parent_style=parent_style,
                 parent_text_style=parent_text_style,
                 parent_line_style=parent_line_style,

@@ -186,7 +186,7 @@ chart = PieChart(
   Returns the computed `(width, height)` bounding box of the chart container.
 - **`draw(xy: tuple[float, float] = (0.0, 0.0), *, radius: float | None = None, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`**:
   Renders the chart anchored at bottom-left `xy`, with optional temporary `radius`/`width`/`height` overrides and uniform `scale`.
-- **`draw_legend(xy: tuple[float, float], text_style: Style, orientation: Literal["vertical", "horizontal"] = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`**:
+- **`draw_legend(xy: tuple[float, float], text_style: Style, orientation: Literal["vertical", "horizontal"] = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`**:
   Renders the decoupled slice legend at `xy`.
 - **Properties**:
   - **`chart.slices -> list[Slice]`**: Returns a copy of registered `Slice` objects.

@@ -61,7 +61,7 @@ Every chart class implements a consistent positioning, sizing override, and unif
   - The `xy` tuple defines the **bottom-left corner** of the chart's total bounding container (including margins and titles).
   - Passing `width`, `height`, or `radius` (on `PieChart` / `RadarChart`) temporarily overrides the layout dimensions for that `draw()` call without permanently mutating the chart instance.
   - Passing `scale != 1.0` applies a uniform proportional canvas transformation anchored at `xy`, scaling all geometry, stroke widths, marker radii, and font sizes together.
-- **`draw_legend(xy=(x, y), text_style: Style, orientation="vertical" | "horizontal", swatch_size=(2.4, 1.2), item_gap=4.0, *, scale=1.0)`**: Renders the legend independently at the specified coordinate, with optional proportional scaling anchored at `xy`.
+- **`draw_legend(xy=(x, y), text_style: Style, orientation="vertical" | "horizontal", swatch_width=2.4, swatch_height=1.2, item_gap=4.0, *, scale=1.0)`**: Renders the legend independently at the specified coordinate, with optional proportional scaling anchored at `xy`.
 - **`get_size() -> tuple[float, float]`**: Returns `(width, height)` representing the unscaled total bounding box dimensions on the canvas.
 
 ```text
@@ -200,7 +200,7 @@ All charts follow Drawlib's unified 4-phase component lifecycle (**1. Instantiat
 - `configure_y_axis(...) -> Axis`: Configures vertical axis (value axis for vertical, category axis for horizontal).
 - `configure_x_axis(...) -> Axis`: Configures horizontal axis (category axis for vertical, value axis for horizontal).
 - `draw(xy: tuple[float, float] = (0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart body at bottom-left position `xy`.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
 `Series` encapsulates `name: str`, `values: list[float]`, `style: Style`, `legend_text_style: Style | None`, `show: bool`, `draw_ratio: float`, and `draw_direction: DrawDirection`.
 
@@ -334,7 +334,7 @@ chart.draw(xy=(10.0, 10.0))
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale and ticks.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
 `Series` captures `name`, `values`, `style`, `line_width`, `line_style`, `point_shape`, `point_size`, `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
@@ -437,7 +437,7 @@ chart.draw(xy=(10.0, 12.0))
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale and ticks.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
 `Series` tracks `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, `point_size`, `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
@@ -541,7 +541,7 @@ chart.draw(xy=(10.0, 12.0))
 - `add_slice(name: str, value: float, style: Style, explode: float = 0.0, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
 - `get_size() -> tuple[float, float]`: Computes required bounding box dimensions based on radius and title.
 - `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, radius: float | None = None, scale: float = 1.0) -> None`: Renders chart body on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
 `Slice` encapsulates `name: str`, `value: float`, `style: Style`, `explode: float`, `legend_text_style: Style | None`, `show: bool`, `draw_ratio: float`, and `draw_direction: DrawDirection`.
 
@@ -641,7 +641,7 @@ chart.draw_legend(xy=(68.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0),
 - `configure_axis(min_value: float | None = None, max_value: float | None = None, levels: int | None = None, scale_format: FormatterType = None) -> RadarChart`: Configures radial scale bounds, concentric contour count, and scale label formatting.
 - `get_size() -> tuple[float, float]`: Returns total computed bounding dimensions.
 - `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, radius: float | None = None, scale: float = 1.0) -> None`: Renders radar chart body on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
 `Series` maintains `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
@@ -740,7 +740,7 @@ chart.draw_legend(xy=(24.0, 10.0), text_style=Styles.Muted.patch(text_size=9.0),
 - `configure_y_axis(...) -> Axis`: Configures the continuous numerical vertical axis.
 - `get_size() -> tuple[float, float]`: Returns container dimensions.
 - `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders scatter chart body at bottom-left coordinate `xy`.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
 `Point` represents `xy`, `style`, `radius`, `shape`, `label`, `label_style`, `legend_text_style`, and `show`. `Series` groups member points under `name` with `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 

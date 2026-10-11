@@ -22,11 +22,12 @@ d = SequenceDiagram(
     title="OAuth 2.0 Token Exchange Sequence",
 )
 
-client = d.add(Participant((20, 15), "Client App", icon=PhosphorIcon.DESKTOP, icon_size=7.0))
+client = d.add(Participant("Client App", width=20, height=15, icon=PhosphorIcon.DESKTOP, icon_size=7.0))
 gateway = d.add(
     Participant(
-        (20, 15),
         "API Gateway",
+        width=20,
+        height=15,
         icon=PhosphorIcon.CLOUD,
         icon_size=7.0,
         style=Styles.White,
@@ -34,8 +35,8 @@ gateway = d.add(
         text_style=Styles.WhiteBold,
     )
 )
-auth = d.add(Participant((20, 15), "Auth Server", icon=PhosphorIcon.LOCK, icon_size=7.0))
-user_db = d.add(Participant((20, 15), "User DB", icon=PhosphorIcon.DATABASE, icon_size=7.0))
+auth = d.add(Participant("Auth Server", width=20, height=15, icon=PhosphorIcon.LOCK, icon_size=7.0))
+user_db = d.add(Participant("User DB", width=20, height=15, icon=PhosphorIcon.DATABASE, icon_size=7.0))
 
 client.request(gateway, "POST /v1/auth/token")
 gateway.request(auth, "Validate Client Secret")

@@ -29,8 +29,9 @@ class Participant:
 
     def __init__(
         self,
-        card_size: tuple[float, float],
         text: str = "",
+        width: float = 20.0,
+        height: float = 16.0,
         icon: IconType = None,
         icon_size: float = 8.0,
         style: Style | None = None,
@@ -42,8 +43,9 @@ class Participant:
         """Initialize Participant.
 
         Args:
-            card_size: (width, height) dimensions of the participant header card.
             text: Participant display name / label.
+            width: Width of the participant header card. Defaults to 20.0.
+            height: Height of the participant header card. Defaults to 16.0.
             icon: Icon identifier (GcpIcon, PhosphorIcon, CustomIcon, Dimage, PIL Image, path, or function).
             icon_size: Size of icon in coordinate units. Defaults to 8.0.
             style: Optional Style for participant icon or image.
@@ -52,8 +54,9 @@ class Participant:
             lifeline_style: Style for vertical lifeline.
             show: Whether to render this participant and its lifeline. Defaults to True.
         """
-        self.card_size: tuple[float, float] = (float(card_size[0]), float(card_size[1]))
         self.text = text
+        self.width: float = float(width)
+        self.height: float = float(height)
         self.icon = icon
         self.icon_size = float(icon_size)
         self.style = style
@@ -236,8 +239,8 @@ class Participant:
 
     def get_header_size(self) -> tuple[float, float]:
         """Get width and height of the participant's header card."""
-        return self.card_size
+        return (self.width, self.height)
 
     def get_size(self) -> tuple[float, float]:
         """Get width and height of the participant's header card."""
-        return self.card_size
+        return (self.width, self.height)

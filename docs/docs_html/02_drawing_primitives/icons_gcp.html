@@ -783,13 +783,14 @@
 
 <span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production VPC"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
 <span class="n">lb</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Node</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="s2">"Cloud Load</span><span class="se">\n</span><span class="s2">Balancing"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud Load</span><span class="se">\n</span><span class="s2">Balancing"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
     <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">run</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
         <span class="s2">"Cloud Run</span><span class="se">\n</span><span class="s2">API"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
         <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span>
         <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
         <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
@@ -798,8 +799,9 @@
 <span class="p">)</span>
 <span class="n">sql</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
         <span class="s2">"Cloud SQL"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
         <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span>
         <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
         <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
@@ -807,7 +809,7 @@
     <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">98.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">gcs</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Node</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="s2">"Cloud Storage"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_STORAGE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud Storage"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_STORAGE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
     <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">98.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
 <span class="p">)</span>
 

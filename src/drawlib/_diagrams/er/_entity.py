@@ -31,7 +31,6 @@ class Entity:
         name: str,
         width: float = 25.0,
         height: float | None = None,
-        size: tuple[float, float] | None = None,
         header_height: float = 4.0,
         row_height: float = 3.2,
         style: Style | None = None,
@@ -45,19 +44,14 @@ class Entity:
             width: Width of the entity box (default: 25.0).
             height: Optional fixed height of the entity box. If provided and larger than content,
                 extra space is left blank. If None, height auto-fits all columns.
-            size: Optional shorthand tuple (width, height) overriding width and height arguments.
             header_height: Height of the header section (default: 4.0).
             row_height: Height of each column row (default: 3.2).
             style: Optional Style for the main entity box and border.
             header_style: Optional Style for the entity header background and text.
             show: Whether to render this entity.
         """
-        if size is not None:
-            self.width = float(size[0])
-            self.height = float(size[1])
-        else:
-            self.width = float(width)
-            self.height = float(height) if height is not None else None
+        self.width = float(width)
+        self.height = float(height) if height is not None else None
 
         self.name = name
         self.header_height = float(header_height)

@@ -149,7 +149,8 @@ def _render_nodes(
         nx, ny = canvas_xy_map[node]
         render_icon_text_card(
             canvas_xy=(nx, ny),
-            card_size=node.card_size,
+            width=node.width,
+            height=node.height,
             text=node.text,
             icon=node.icon,
             icon_size=node.icon_size,

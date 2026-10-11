@@ -73,7 +73,8 @@ chart.draw_legend(
     xy=(93.5, 10.8),
     text_style=Styles.DarkBold.patch(text_size=10.0),
     orientation="horizontal",
-    swatch_size=(2.4, 1.2),
+    swatch_width=2.4,
+    swatch_height=1.2,
     item_gap=3.0,
 )
 
@@ -210,7 +211,7 @@ save()
 
 ## 3. Decoupled Legends (`draw_legend`) & Bounding Sizing (`get_size`)
 
-Instead of hardcoding legends inside a rigid chart box, Drawlib decouples legend rendering via `chart.draw_legend(...)`. You can place horizontal or vertical legends anywhere on the canvas, customize `swatch_size` and `item_gap`, and query `chart.get_size() -> (width, height)` to align legends or surrounding cards relative to the chart's dimensions.
+Instead of hardcoding legends inside a rigid chart box, Drawlib decouples legend rendering via `chart.draw_legend(...)`. You can place horizontal or vertical legends anywhere on the canvas, customize `swatch_width`, `swatch_height`, and `item_gap`, and query `chart.get_size() -> (width, height)` to align legends or surrounding cards relative to the chart's dimensions.
 
 
 
@@ -247,7 +248,8 @@ chart.draw_legend(
     xy=(11.0, 55.0),
     orientation="horizontal",
     item_gap=3.5,
-    swatch_size=(2.5, 1.3),
+    swatch_width=2.5,
+    swatch_height=1.3,
     text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
@@ -265,7 +267,8 @@ chart.draw_legend(
     xy=(legend_card_cx - 12.5, chart_y + chart_h / 2.0 + 7.0),
     text_style=Styles.DarkBold.patch(text_size=10.0),
     orientation="vertical",
-    swatch_size=(3.0, 1.5),
+    swatch_width=3.0,
+    swatch_height=1.5,
 )
 save()
 ```
@@ -348,7 +351,8 @@ chart.draw_legend(
     xy: tuple[float, float],
     text_style: Style,
     orientation: Literal["vertical", "horizontal"] = "vertical",
-    swatch_size: tuple[float, float] = (2.4, 1.2),
+    swatch_width: float = 2.4,
+    swatch_height: float = 1.2,
     item_gap: float = 4.0,
     *,
     scale: float = 1.0,

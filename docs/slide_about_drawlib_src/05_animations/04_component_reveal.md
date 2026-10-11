@@ -18,9 +18,9 @@ Every element in `drawlib.smartarts`, `drawlib.diagrams`, and `drawlib.graph` su
 # Build full topology once outside the loop
 d = ArchitectureDiagram(...)
 vpc = d.add(NodeGroup("Cloud VPC"), xy=(6, 8))
-n1 = vpc.add(Node((16, 14), "1. Edge LB", ...), xy=(14, 24))
-n2 = vpc.add(Node((16, 14), "2. App Tier", ...), xy=(42, 24), show=False)
-n3 = vpc.add(Node((16, 14), "3. Storage", ...), xy=(70, 24), show=False)
+n1 = vpc.add(Node("1. Edge LB", width=16, height=14, ...), xy=(14, 24))
+n2 = vpc.add(Node("2. App Tier", width=16, height=14, ...), xy=(42, 24), show=False)
+n3 = vpc.add(Node("3. Storage", width=16, height=14, ...), xy=(70, 24), show=False)
 d.connect(n1, n2, label="gRPC")
 d.connect(n2, n3, label="SQL")
 
@@ -72,11 +72,11 @@ vpc = diag.add(
     xy=(22.0, 10.0),
 )
 
-n_edge = diag.add(Node((15, 13), "1. Edge CDN", icon=PhosphorIcon.GLOBE, icon_size=7.0), xy=(9.0, 26.0))
-n_gw = vpc.add(Node((16, 13), "2. API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY, icon_size=7.0), xy=(10.0, 16.0))
-n_run = vpc.add(Node((16, 13), "3. Cloud Run", icon=GcpIcon.CLOUD_RUN, icon_size=7.0), xy=(30.0, 16.0))
-n_sql = vpc.add(Node((16, 13), "4. Cloud SQL", icon=GcpIcon.CLOUD_SQL, icon_size=7.0), xy=(50.0, 25.0))
-n_bq = vpc.add(Node((16, 13), "5. BigQuery", icon=GcpIcon.BIGQUERY, icon_size=7.0), xy=(50.0, 7.0))
+n_edge = diag.add(Node("1. Edge CDN", width=15, height=13, icon=PhosphorIcon.GLOBE, icon_size=7.0), xy=(9.0, 26.0))
+n_gw = vpc.add(Node("2. API Gateway", width=16, height=13, icon=GcpIcon.CLOUD_API_GATEWAY, icon_size=7.0), xy=(10.0, 16.0))
+n_run = vpc.add(Node("3. Cloud Run", width=16, height=13, icon=GcpIcon.CLOUD_RUN, icon_size=7.0), xy=(30.0, 16.0))
+n_sql = vpc.add(Node("4. Cloud SQL", width=16, height=13, icon=GcpIcon.CLOUD_SQL, icon_size=7.0), xy=(50.0, 25.0))
+n_bq = vpc.add(Node("5. BigQuery", width=16, height=13, icon=GcpIcon.BIGQUERY, icon_size=7.0), xy=(50.0, 7.0))
 
 diag.connect(n_edge, n_gw, label="HTTPS", padding=1.0)
 diag.connect(n_gw, n_run, label="gRPC", padding=1.0)

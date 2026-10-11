@@ -263,7 +263,7 @@ Always calibrate `text_size` according to the enclosing **`::: block` width ($W_
 
 - **Match Canvas Aspect Ratio (`1:10` Rule)**: Always set `setup(width=W_block / 10, height=H_block / 10)` (e.g., `setup(width=104, height=81)` for `::: block (800, 140) (1040, 810)`). If $H / W > H_{\text{block}} / W_{\text{block}}$, `object-fit: contain` will letterbox the image horizontally and shrink all fonts!
 - **Never Shrink 2-Column Diagrams with `scale < 1.0`**: Passing `d.draw(..., scale=0.8)` inside a 2-column block compounds font shrinkage. Instead, reduce the number of steps/nodes, tighten `step_y` / `padding`, or switch to a **Full-Stage** or **Top-Bottom Wide** block.
-- **Shorten In-Node Labels & Widen Cards**: When using `text_size = 13.5–15.5` in 2-column diagrams, keep node labels to **1–3 punchy words per line** and increase `card_size` / `column_widths` so larger text never clips.
+- **Shorten In-Node Labels & Widen Cards**: When using `text_size = 13.5–15.5` in 2-column diagrams, keep node labels to **1–3 punchy words per line** and increase node `width` / `height` or `column_widths` so larger text never clips.
 
 ### 5.2. 50%+ Neutral Baseline (No All-Red / Rainbow Slides)
 - Even in incident postmortems or security decks, **never color every box red (`Danger`) or orange (`Warning`)**. When everything is highlighted as an alert, nothing stands out.

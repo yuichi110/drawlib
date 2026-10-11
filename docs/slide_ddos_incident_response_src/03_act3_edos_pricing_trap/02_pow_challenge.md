@@ -38,9 +38,9 @@ d = SequenceDiagram(
     margin=2.0,
 )
 
-browser = d.add(Participant((25, 16), "Client Browser\n(UI Thread)", icon=PhosphorIcon.BROWSER, icon_size=6.0, card_style=Styles.PrimaryNeutral))
-worker = d.add(Participant((25, 16), "Web Worker\n(SHA-256 Solver)", icon=PhosphorIcon.CPU, icon_size=6.0, card_style=Styles.SecondaryNeutral))
-server = d.add(Participant((25, 16), "Cloud Run API\n(O(1) Verifier)", icon=GcpIcon.CLOUD_RUN, icon_size=6.0, card_style=Styles.White))
+browser = d.add(Participant("Client Browser\n(UI Thread)", width=25, height=16, icon=PhosphorIcon.BROWSER, icon_size=6.0, card_style=Styles.PrimaryNeutral))
+worker = d.add(Participant("Web Worker\n(SHA-256 Solver)", width=25, height=16, icon=PhosphorIcon.CPU, icon_size=6.0, card_style=Styles.SecondaryNeutral))
+server = d.add(Participant("Cloud Run API\n(O(1) Verifier)", width=25, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=6.0, card_style=Styles.White))
 
 browser.request(server, "GET /challenge")
 server.reply(browser, "Signed Seed (16 Zero Bits)")

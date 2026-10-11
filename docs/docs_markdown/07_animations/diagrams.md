@@ -30,14 +30,15 @@ d = ArchitectureDiagram(
 )
 
 client = d.add(
-    Node((24, 15), "Client App", icon=PhosphorIcon.LAPTOP, icon_size=6.2, card_style=Styles.Neutral),
+    Node("Client App", width=24, height=15, icon=PhosphorIcon.LAPTOP, icon_size=6.2, card_style=Styles.Neutral),
     xy=(15.0, 21.0),
 )
 vpc = d.add(NodeGroup(title="Production VPC", padding=4.2, show=False), xy=(46.0, 5.0))
 gw = vpc.add(
     Node(
-        (24, 15),
         "API Gateway",
+        width=24,
+        height=15,
         icon=PhosphorIcon.SHIELD_CHECK,
         icon_size=6.2,
         card_style=Styles.PrimaryFlat,
@@ -49,8 +50,9 @@ gw = vpc.add(
 )
 svc = vpc.add(
     Node(
-        (24, 15),
         "Order Service",
+        width=24,
+        height=15,
         icon=PhosphorIcon.CPU,
         icon_size=6.2,
         card_style=Styles.PrimaryNeutral,
@@ -232,9 +234,9 @@ seq = SequenceDiagram(
     node_card_style=Styles.Neutral,
     autonumber=True,
 )
-client = seq.add(Participant((21, 9.5), "Client", card_style=Styles.PrimaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5)))
-api = seq.add(Participant((21, 9.5), "API Server", card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5)))
-db = seq.add(Participant((21, 9.5), "Database", card_style=Styles.SecondaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5)))
+client = seq.add(Participant("Client", width=21, height=9.5, card_style=Styles.PrimaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5)))
+api = seq.add(Participant("API Server", width=21, height=9.5, card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5)))
+db = seq.add(Participant("Database", width=21, height=9.5, card_style=Styles.SecondaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5)))
 
 m1 = client.request(api, "POST /orders")
 with seq.opt("Idempotent Write", show=False) as blk:
@@ -300,8 +302,9 @@ d = ArchitectureDiagram(
 # 1. External Load Balancer (Visible on Frame 1)
 lb = d.add(
     Node(
-        (26, 16),
         "Load Balancer",
+        width=26,
+        height=16,
         icon=PhosphorIcon.GLOBE,
         icon_size=6.5,
         card_style=Styles.PrimaryFlat,
@@ -314,11 +317,11 @@ lb = d.add(
 # 2. Private Subnet Group & App Pods (Revealed progressively across frames)
 group = d.add(NodeGroup(title="Compute Subnet (group.show)", padding=5.0, show=False), xy=(52.0, 4.0))
 app1 = group.add(
-    Node((24, 15.5), "App Pod 1", icon=PhosphorIcon.CPU, icon_size=6.5, card_style=Styles.PrimaryNeutral, show=False),
+    Node("App Pod 1", width=24, height=15.5, icon=PhosphorIcon.CPU, icon_size=6.5, card_style=Styles.PrimaryNeutral, show=False),
     xy=(28.0, 35.0),
 )
 app2 = group.add(
-    Node((24, 15.5), "App Pod 2", icon=PhosphorIcon.CPU, icon_size=6.5, card_style=Styles.SecondaryNeutral, show=False),
+    Node("App Pod 2", width=24, height=15.5, icon=PhosphorIcon.CPU, icon_size=6.5, card_style=Styles.SecondaryNeutral, show=False),
     xy=(28.0, 12.5),
 )
 

@@ -37,10 +37,10 @@ class TestArchitectureDiagramLifecycle:
             edge_text_style=Styles.Dark,
         )
         vpc = d.add(NodeGroup("VPC", width=70.0, height=50.0), (50.0, 50.0))
-        n1 = vpc.add(Node((16.0, 14.0), "API", icon=PhosphorIcon.CLOUD), (-20.0, 0.0))
+        n1 = vpc.add(Node("API", width=16.0, height=14.0, icon=PhosphorIcon.CLOUD), (-20.0, 0.0))
         j = d.add(Junction((50.0, 50.0)), (50.0, 50.0))
-        n2 = vpc.add(Node((16.0, 14.0), "DB1", icon=PhosphorIcon.DATABASE), (20.0, 12.0))
-        n3 = vpc.add(Node((16.0, 14.0), "DB2", icon=PhosphorIcon.DATABASE), (20.0, -12.0))
+        n2 = vpc.add(Node("DB1", width=16.0, height=14.0, icon=PhosphorIcon.DATABASE), (20.0, 12.0))
+        n3 = vpc.add(Node("DB2", width=16.0, height=14.0, icon=PhosphorIcon.DATABASE), (20.0, -12.0))
         e1 = d.connect(n1, j, label="req", arrow="-")
         e2 = d.connect(j, n2, label="sql1")
         e3 = d.connect(j, n3, label="sql2")
@@ -89,8 +89,8 @@ class TestArchitectureDiagramLifecycle:
             node_text_style=Styles.Dark,
             edge_text_style=Styles.Dark,
         )
-        n1 = d.add(Node((16.0, 12.0), "A"), (20.0, 20.0))
-        n2 = d.add(Node((16.0, 12.0), "B"), (40.0, 20.0))
+        n1 = d.add(Node("A", width=16.0, height=12.0), (20.0, 20.0))
+        n2 = d.add(Node("B", width=16.0, height=12.0), (40.0, 20.0))
         size_no_waypoints = d.get_size()
 
         d.connect(n1, n2).via((30.0, 90.0))
@@ -106,8 +106,8 @@ class TestArchitectureDiagramLifecycle:
             node_text_style=Styles.Dark,
             edge_text_style=Styles.Dark,
         )
-        n1 = d.add(Node((16.0, 12.0), "Service A", show=False), (20.0, 30.0), show=True)
-        n2 = d.add(Node((16.0, 12.0), "Service B"), (60.0, 30.0))
+        n1 = d.add(Node("Service A", width=16.0, height=12.0, show=False), (20.0, 30.0), show=True)
+        n2 = d.add(Node("Service B", width=16.0, height=12.0), (60.0, 30.0))
         edge = n1.connect(n2, label="v1", show=True)
 
         assert n1.show is True
@@ -203,10 +203,10 @@ class TestSequenceDiagramLifecycle:
             edge_text_style=Styles.Dark,
             node_card_style=Styles.Neutral,
         )
-        client = seq.add(Participant((18.0, 8.0), "Client"))
+        client = seq.add(Participant("Client", width=18.0, height=8.0))
         grp = seq.add(ParticipantGroup("Backend"))
-        api = grp.add(Participant((18.0, 8.0), "API"))
-        db = grp.add(Participant((18.0, 8.0), "DB"))
+        api = grp.add(Participant("API", width=18.0, height=8.0))
+        db = grp.add(Participant("DB", width=18.0, height=8.0))
 
         m1 = seq.request(client, api, "GET /items")
         with seq.loop("retry") as loop_blk:
@@ -251,8 +251,8 @@ class TestSequenceDiagramLifecycle:
             edge_text_style=Styles.Dark,
             node_card_style=Styles.Neutral,
         )
-        a = seq.add(Participant((16.0, 8.0), "A"))
-        b = seq.add(Participant((16.0, 8.0), "B"))
+        a = seq.add(Participant("A", width=16.0, height=8.0))
+        b = seq.add(Participant("B", width=16.0, height=8.0))
         seq.request(a, b, "ping")
         seq.draw(xy=(10.0, 10.0), scale=0.7)
         assert len(canvas._artists) > 0

@@ -17,7 +17,7 @@ In naive diagramming tools, adding a 2-line label underneath an icon shifts the 
 
 ### 3 Core Innovations
 1. **Card-Centric Coordinates (`xy` = Card Center)**:
-   - When you call `d.add(Node((w, h), "Label", icon=...), xy=(x, y))`, `(x, y)` is strictly the **center of the node card** `(w, h)`.
+   - When you call `d.add(Node("Label", width=w, height=h, icon=...), xy=(x, y))`, `(x, y)` is strictly the **center of the node card** `(w, h)`.
    - Multi-line labels fit inside the card without shifting the card's center—so nodes sharing the same `y` always connect with a razor-straight horizontal line!
 2. **Auto-Bounding `NodeGroup` Containers**:
    - Calling `group = d.add(NodeGroup(title="...", padding=6.0), xy=(gx, gy))` creates a relative coordinate group that automatically expands its boundary box to enclose all child nodes and nested subgroups.
@@ -54,13 +54,14 @@ d = ArchitectureDiagram(
 
 # 1. External Client & Ingress Gateway (Aligned at Y = 38.0 -> Straight wire!)
 client = d.add(
-    Node((18, 17), "Mobile & Web\nClient App\n(3-line label)", icon=PhosphorIcon.DEVICES, icon_size=8.0),
+    Node("Mobile & Web\nClient App\n(3-line label)", width=18, height=17, icon=PhosphorIcon.DEVICES, icon_size=8.0),
     xy=(10.0, 38.0),
 )
 gateway = d.add(
     Node(
-        (18, 17),
         "API Gateway",
+        width=18,
+        height=17,
         icon=PhosphorIcon.SHIELD_CHECK,
         icon_size=8.5,
         style=Styles.White,
@@ -80,15 +81,15 @@ cluster = d.add(
     xy=(58.0, 8.0),
 )
 w1 = cluster.add(
-    Node((18, 15), "Auth Worker", icon=PhosphorIcon.KEY, icon_size=7.5, card_style=Styles.PrimaryNeutral),
+    Node("Auth Worker", width=18, height=15, icon=PhosphorIcon.KEY, icon_size=7.5, card_style=Styles.PrimaryNeutral),
     xy=(16.0, 52.0),
 )
 w2 = cluster.add(
-    Node((18, 15), "Order Worker", icon=PhosphorIcon.PACKAGE, icon_size=7.5, card_style=Styles.SecondaryNeutral),
+    Node("Order Worker", width=18, height=15, icon=PhosphorIcon.PACKAGE, icon_size=7.5, card_style=Styles.SecondaryNeutral),
     xy=(16.0, 30.0),
 )
 w3 = cluster.add(
-    Node((18, 15), "Audit Logger", icon=PhosphorIcon.FILE_TEXT, icon_size=7.5, card_style=Styles.Neutral),
+    Node("Audit Logger", width=18, height=15, icon=PhosphorIcon.FILE_TEXT, icon_size=7.5, card_style=Styles.Neutral),
     xy=(16.0, 8.0),
 )
 

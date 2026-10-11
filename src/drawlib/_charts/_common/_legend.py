@@ -42,7 +42,8 @@ def draw_legend(
     xy: tuple[float, float],
     text_style: Style,
     orientation: Orientation | Literal["vertical", "horizontal"] = "vertical",
-    swatch_size: tuple[float, float] = (2.4, 1.2),
+    swatch_width: float = 2.4,
+    swatch_height: float = 1.2,
     item_gap: float = 4.0,
     *,
     scale: float = 1.0,
@@ -55,14 +56,15 @@ def draw_legend(
             For horizontal orientation, this is middle-left.
         text_style: Base text style for legend labels.
         orientation: "vertical" or "horizontal". Defaults to "vertical".
-        swatch_size: (width, height) of the color swatch rectangle. Defaults to (2.4, 1.2).
+        swatch_width: Width of the color swatch rectangle. Defaults to 2.4.
+        swatch_height: Height of the color swatch rectangle. Defaults to 1.2.
         item_gap: Spacing between consecutive legend items. Defaults to 4.0.
         scale: Proportional scaling factor around xy. Defaults to 1.0.
     """
     if not items:
         return
 
-    swatch_w, swatch_h = float(swatch_size[0]), float(swatch_size[1])
+    swatch_w, swatch_h = float(swatch_width), float(swatch_height)
     swatch_r = 0.3
     text_offset = 0.8
     start_x, start_y = float(xy[0]), float(xy[1])

@@ -543,7 +543,8 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">node_shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
-    <span class="n">node_size</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span>
+    <span class="n">node_width</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+    <span class="n">node_height</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
     <span class="n">description_placement</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span>
     <span class="n">arrow_type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
     <span class="n">arrow_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
@@ -659,7 +660,7 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 </figure>
 <hr />
 <h2>2. Rectangular Nodes with Outside Descriptions &amp; Line Arrows</h2>
-<p>By setting <code>node_shape=&quot;rectangle&quot;</code> with <code>node_size=(width, height)</code>, <code>description_placement=&quot;outside&quot;</code>, <code>arrow_type=&quot;line&quot;</code>, and <code>arrow_color_mode=&quot;match_source&quot;</code>, you can build architectural state loops where rounded rectangular cards are connected by thin arc lines colored after each source stage, with descriptions radiating outward around the perimeter.</p>
+<p>By setting <code>node_shape=&quot;rectangle&quot;</code> with <code>node_width</code> and <code>node_height</code>, <code>description_placement=&quot;outside&quot;</code>, <code>arrow_type=&quot;line&quot;</code>, and <code>arrow_color_mode=&quot;match_source&quot;</code>, you can build architectural state loops where rounded rectangular cards are connected by thin arc lines colored after each source stage, with descriptions radiating outward around the perimeter.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cycle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -673,7 +674,8 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
     <span class="n">clockwise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">start_angle</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>
     <span class="n">node_shape</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
-    <span class="n">node_size</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">node_width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">node_height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
     <span class="n">description_placement</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span>
     <span class="n">arrow_type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
     <span class="n">arrow_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
@@ -745,10 +747,10 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 </li>
 <li><strong>Equi-Angular Distribution</strong>: Steps are spaced evenly along the orbit circumference of radius <code>R</code>:
 $$\theta_i = \text{start_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$</li>
-<li><strong>Node Shapes &amp; Sizing (<code>node_shape</code>, <code>node_radius</code>, <code>node_size</code>)</strong>:
+<li><strong>Node Shapes &amp; Sizing (<code>node_shape</code>, <code>node_radius</code>, <code>node_width</code>, <code>node_height</code>)</strong>:
 <ul>
 <li><code>&quot;circle&quot;</code> <em>(default)</em>: Circular step nodes sized by <code>node_radius</code> (default <code>8.0</code>).</li>
-<li><code>&quot;rectangle&quot;</code>: Rounded rectangular cards sized by <code>node_size=(width, height)</code> (default <code>(18.0, 10.0)</code>, with default corner radius <code>shape_r=2.0</code> unless overridden on <code>style</code>).</li>
+<li><code>&quot;rectangle&quot;</code>: Rounded rectangular cards sized by <code>node_width</code> and <code>node_height</code> (default <code>18.0</code> and <code>10.0</code>, with default corner radius <code>shape_r=2.0</code> unless overridden on <code>style</code>).</li>
 <li><code>&quot;none&quot;</code>: Floating text labels without a background shape.</li>
 </ul>
 </li>
@@ -784,7 +786,8 @@ $$\theta_i = \text{start_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$</
     <span class="n">start_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">90.0</span><span class="p">,</span>
     <span class="n">node_shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"rectangle"</span><span class="p">,</span> <span class="s2">"none"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"circle"</span><span class="p">,</span>
     <span class="n">node_radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span>
-    <span class="n">node_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">18.0</span><span class="p">,</span>
+    <span class="n">node_height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
     <span class="n">description_placement</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"inside"</span><span class="p">,</span> <span class="s2">"outside"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"inside"</span><span class="p">,</span>
     <span class="n">arrow_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"arc"</span><span class="p">,</span> <span class="s2">"line"</span><span class="p">,</span> <span class="s2">"none"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"arc"</span><span class="p">,</span>
     <span class="n">arrow_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
@@ -858,10 +861,16 @@ $$\theta_i = \text{start_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$</
 <td style="text-align:left">Radius of perimeter nodes when <code>node_shape=&quot;circle&quot;</code>.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>node_size</code></strong></td>
-<td style="text-align:left"><code>tuple[float, float]</code></td>
-<td style="text-align:left"><code>(18.0, 10.0)</code></td>
-<td style="text-align:left"><code>(width, height)</code> of perimeter nodes when <code>node_shape=&quot;rectangle&quot;</code>.</td>
+<td style="text-align:left"><strong><code>node_width</code></strong></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>18.0</code></td>
+<td style="text-align:left">Width of perimeter nodes when <code>node_shape=&quot;rectangle&quot;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>node_height</code></strong></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>10.0</code></td>
+<td style="text-align:left">Height of perimeter nodes when <code>node_shape=&quot;rectangle&quot;</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>description_placement</code></strong></td>

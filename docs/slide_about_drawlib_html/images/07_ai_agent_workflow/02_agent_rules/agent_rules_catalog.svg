@@ -74,13 +74,13 @@ z
    </g>
    <g id="text_3">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(150.583523 225.555039)">1. Core &amp; Visual Discipline</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(148.10046 225.436524)">1. Core &amp; Review Discipline</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(150.93971 234.534039)">• overview (Cartesian 0,0)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(153.848148 234.415524)">• overview &amp; style-guide</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(146.012663 243.505352)">• style-guide (50%+ Neutral)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(143.365601 243.623867)">• review-guide (3-Stage Loop)</text>
     </g>
    </g>
    <g id="patch_5">
@@ -93,13 +93,13 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(468.109962 225.903539)">2. Master API &amp; CLI Index</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(470.202243 225.550555)">2. Master API &amp; Projects</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(456.801009 234.103539)">• api (Complete Symbol Index)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(478.142149 234.644867)">• api &amp; cli Reference</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(464.222649 243.156852)">• cli &amp; project (Scaffolding)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(467.25793 243.623867)">• project-* (4 Archetypes)</text>
     </g>
    </g>
    <g id="patch_6">
@@ -112,13 +112,13 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(157.685491 335.540309)">3. Slides &amp; Animations</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(157.685491 335.597325)">3. Slides &amp; Animations</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(139.587195 343.740309)">• slide-guide (1920x1080 Stage)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(148.871132 343.797325)">• project-slide (1920x1080)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(154.97821 352.948653)">• anim-guide &amp; lib-anim</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(154.97821 352.891637)">• anim-guide &amp; lib-anim</text>
     </g>
    </g>
    <g id="patch_7">

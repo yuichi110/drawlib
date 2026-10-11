@@ -20,14 +20,14 @@ d = ArchitectureDiagram(
     node_card_style=Styles.Neutral,
 )
 vpc = d.add(NodeGroup("Production Cloud VPC", padding=7), (26, 8))
-client = d.add(Node((18, 16), "Web Client", icon=PhosphorIcon.GLOBE), (8, 42))
+client = d.add(Node("Web Client", width=18, height=16, icon=PhosphorIcon.GLOBE), (8, 42))
 gw = vpc.add(
-    Node((20, 16), "API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY,
+    Node("API Gateway", width=20, height=16, icon=GcpIcon.CLOUD_API_GATEWAY,
          card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
     (16, 34),
 )
-sql = vpc.add(Node((20, 16), "Cloud SQL", icon=GcpIcon.CLOUD_SQL), (54, 50))
-bq = vpc.add(Node((20, 16), "BigQuery", icon=GcpIcon.BIGQUERY), (54, 18))
+sql = vpc.add(Node("Cloud SQL", width=20, height=16, icon=GcpIcon.CLOUD_SQL), (54, 50))
+bq = vpc.add(Node("BigQuery", width=20, height=16, icon=GcpIcon.BIGQUERY), (54, 18))
 
 d.connect(client, gw, label="HTTPS")
 gw.fork([sql, bq], at_x=58, padding=1.5)
@@ -68,13 +68,14 @@ vpc = d.add(
     xy=(28.0, 10.0),
 )
 client = d.add(
-    Node((18, 17), "Web Client", icon=PhosphorIcon.GLOBE, icon_size=9.0),
+    Node("Web Client", width=18, height=17, icon=PhosphorIcon.GLOBE, icon_size=9.0),
     xy=(9.0, 42.0),
 )
 gw = vpc.add(
     Node(
-        (20, 17),
         "API Gateway",
+        width=20,
+        height=17,
         icon=GcpIcon.CLOUD_API_GATEWAY,
         icon_size=9.5,
         card_style=Styles.PrimaryFlat,
@@ -83,11 +84,11 @@ gw = vpc.add(
     xy=(15.0, 32.0),
 )
 sql = vpc.add(
-    Node((22, 18), "Cloud SQL\n(Primary)", icon=GcpIcon.CLOUD_SQL, icon_size=9.0, card_style=Styles.SecondaryNeutral),
+    Node("Cloud SQL\n(Primary)", width=22, height=18, icon=GcpIcon.CLOUD_SQL, icon_size=9.0, card_style=Styles.SecondaryNeutral),
     xy=(50.0, 48.0),
 )
 bq = vpc.add(
-    Node((22, 18), "BigQuery\n(Analytics)", icon=GcpIcon.BIGQUERY, icon_size=9.0, card_style=Styles.White),
+    Node("BigQuery\n(Analytics)", width=22, height=18, icon=GcpIcon.BIGQUERY, icon_size=9.0, card_style=Styles.White),
     xy=(50.0, 16.0),
 )
 

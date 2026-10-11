@@ -75,9 +75,9 @@ class TestStateNode:
         with pytest.raises(ValueError, match="Invalid shape"):
             State(name="Bad", shape=cast(Any, "triangle"))
 
-    def test_state_size_shorthand(self) -> None:
-        """Verify size tuple override."""
-        state = State(name="Custom", size=(30.0, 18.0))
+    def test_state_explicit_dimensions(self) -> None:
+        """Verify explicit width and height override."""
+        state = State(name="Custom", width=30.0, height=18.0)
         assert state.width == 30.0
         assert state.height == 18.0
         assert state.effective_width == 30.0

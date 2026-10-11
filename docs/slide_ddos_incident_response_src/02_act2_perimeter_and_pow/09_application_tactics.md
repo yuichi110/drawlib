@@ -38,9 +38,9 @@ d = SequenceDiagram(
     margin=2.0,
 )
 
-bot = d.add(Participant((25, 16), "AI Bot Swarm\nHeadless Client", icon=PhosphorIcon.ROBOT, icon_size=6.0, style=Styles.Accent, card_style=Styles.SecondaryNeutral))
-edge = d.add(Participant((25, 16), "JS Bundle\n(app.min.js)", icon=PhosphorIcon.FILE_JS, icon_size=6.0, card_style=Styles.PrimaryNeutral))
-api = d.add(Participant((25, 16), "Cloud Run API\n(/synthesize)", icon=GcpIcon.CLOUD_RUN, icon_size=6.0, card_style=Styles.White))
+bot = d.add(Participant("AI Bot Swarm\nHeadless Client", width=25, height=16, icon=PhosphorIcon.ROBOT, icon_size=6.0, style=Styles.Accent, card_style=Styles.SecondaryNeutral))
+edge = d.add(Participant("JS Bundle\n(app.min.js)", width=25, height=16, icon=PhosphorIcon.FILE_JS, icon_size=6.0, card_style=Styles.PrimaryNeutral))
+api = d.add(Participant("Cloud Run API\n(/synthesize)", width=25, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=6.0, card_style=Styles.White))
 
 bot.request(api, "POST /synthesize (No Token)")
 api.reply(bot, "403 Forbidden (Missing Header)")

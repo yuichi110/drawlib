@@ -210,6 +210,6 @@ Every chart's `draw()` and `draw_legend()` methods accept temporary spatial over
 - **Radial Charts** (`PieChart`, `RadarChart`):
   `chart.draw(xy=(x, y), *, radius=None, width=None, height=None, scale=1.0)`
 - **Standalone Legend**:
-  `chart.draw_legend(xy=(x, y), text_style=..., orientation="vertical"|"horizontal", swatch_size=(2.4, 1.2), item_gap=4.0, *, scale=1.0)`
+  `chart.draw_legend(xy=(x, y), text_style=..., orientation="vertical"|"horizontal", swatch_width=2.4, swatch_height=1.2, item_gap=4.0, *, scale=1.0)`
 
 Passing `scale != 1.0` scales the entire chart container, axis lines, bars/curves, markers, and typography proportionally without mutating the underlying chart configuration.

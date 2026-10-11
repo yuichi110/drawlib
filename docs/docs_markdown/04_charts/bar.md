@@ -228,7 +228,7 @@ chart = BarChart(
   Returns `(width, height)` of the chart container.
 - **`draw(xy: tuple[float, float] = (0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`**:
   Renders the chart anchored at its bottom-left corner `xy`, with optional one-call dimension overrides and uniform proportional `scale`.
-- **`draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`**:
+- **`draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_width: float = 2.4, swatch_height: float = 1.2, item_gap: float = 4.0, *, scale: float = 1.0) -> None`**:
   Renders the decoupled series legend at `xy`.
 - **Properties**:
   - **`chart.series -> list[Series]`**: Returns a copy of registered `Series` objects.

@@ -71,7 +71,8 @@ class Cycle:
         start_angle: Angle = 90.0,
         node_shape: Literal["circle", "rectangle", "none"] = "circle",
         node_radius: PosFloat = 8.0,
-        node_size: tuple[PosFloat, PosFloat] = (18.0, 10.0),
+        node_width: PosFloat = 18.0,
+        node_height: PosFloat = 10.0,
         description_placement: Literal["inside", "outside"] = "inside",
         arrow_type: Literal["arc", "line", "none"] = "arc",
         arrow_width: PosFloat = 2.0,
@@ -97,7 +98,8 @@ class Cycle:
             start_angle: Angle in degrees for the first node (0 is right, 90 is top). Defaults to 90.0.
             node_shape: Shape of the step nodes ("circle", "rectangle", or "none"). Defaults to "circle".
             node_radius: Radius of nodes when node_shape is "circle". Defaults to 8.0.
-            node_size: Width and height tuple (w, h) when node_shape is "rectangle". Defaults to (18.0, 10.0).
+            node_width: Width of nodes when node_shape is "rectangle". Defaults to 18.0.
+            node_height: Height of nodes when node_shape is "rectangle". Defaults to 10.0.
             description_placement: Placement of description text ("inside" or "outside" node).
                 Defaults to "inside".
             arrow_type: Connecting arrow style ("arc" for curved block arrow, "line" for arc line, "none").
@@ -118,7 +120,8 @@ class Cycle:
         self._start_angle = float(start_angle)
         self._node_shape = node_shape
         self._node_radius = float(node_radius)
-        self._node_size = (float(node_size[0]), float(node_size[1]))
+        self._node_width = float(node_width)
+        self._node_height = float(node_height)
         self._description_placement = description_placement
         self._arrow_type = arrow_type
         self._arrow_width = float(arrow_width)
@@ -289,7 +292,7 @@ class Cycle:
             cx, cy = float(xy[0]), float(xy[1])
         else:
             node_half_extent = (
-                self._node_radius if self._node_shape == "circle" else max(self._node_size[0], self._node_size[1]) / 2.0
+                self._node_radius if self._node_shape == "circle" else max(self._node_width, self._node_height) / 2.0
             )
             extra_margin = 8.0 if self._description_placement == "outside" else 2.0
             offset = orbit_r + node_half_extent + extra_margin
@@ -327,8 +330,8 @@ class Cycle:
                     rect_style = node_style if node_style.shape_r is not None else node_style.patch(shape_r=2.0)
                     canvas_rectangle(
                         xy=(nx, ny),
-                        width=self._node_size[0],
-                        height=self._node_size[1],
+                        width=self._node_width,
+                        height=self._node_height,
                         style=rect_style,
                     )
 
@@ -352,7 +355,7 @@ class Cycle:
         if self._node_shape == "circle":
             node_half_extent = self._node_radius
         elif self._node_shape == "rectangle":
-            node_half_extent = math.hypot(self._node_size[0], self._node_size[1]) / 2.0
+            node_half_extent = math.hypot(self._node_width, self._node_height) / 2.0
         else:
             node_half_extent = 4.0
 
@@ -497,8 +500,8 @@ class Cycle:
                 desc_y = ny - self._node_radius * 0.35
                 desc_size = max(6.0, self._node_radius * 0.7)
             elif self._node_shape == "rectangle":
-                title_y = ny + self._node_size[1] * 0.20
-                desc_y = ny - self._node_size[1] * 0.25
+                title_y = ny + self._node_height * 0.20
+                desc_y = ny - self._node_height * 0.25
                 desc_size = 6.5
             else:
                 title_y = ny + 2.0
@@ -524,7 +527,7 @@ class Cycle:
             canvas_text(xy=(nx, ny), text=item.text, style=t_style)
 
             node_half_extent = (
-                self._node_radius if self._node_shape == "circle" else max(self._node_size[0], self._node_size[1]) / 2.0
+                self._node_radius if self._node_shape == "circle" else max(self._node_width, self._node_height) / 2.0
             )
             rad_offset = node_half_extent + 3.5
             dx = nx + rad_offset * math.cos(ang_rad)

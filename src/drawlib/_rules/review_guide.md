@@ -241,7 +241,7 @@ Scale `text_size` inversely with the enclosing `::: block (x, y) (W_block, H_blo
 
 - **Match Block Aspect Ratio (`setup(width=W_block/10, height=H_block/10)`)**: Ensure canvas `H / W` matches `H_block / W_block` so `object-fit: contain` never shrinks the diagram horizontally.
 - **No `scale < 1.0` in 2-Column Slide Blocks**: Never pass `scale=0.8` to `draw()` in a half-width slide block; reduce node/step count or switch to a wide/full-stage layout instead.
-- **Widen Boxes & Shorten Labels When Raising `text_size`**: Whenever you increase `text_size` (e.g., to `13.5`–`15.5` on 2-column slides), keep node text to **1–3 words per line** and increase `card_size`, `Table` `column_widths`, or `FlowDiagram` node widths by `25%–40%` so larger text never clips.
+- **Widen Boxes & Shorten Labels When Raising `text_size`**: Whenever you increase `text_size` (e.g., to `13.5`–`15.5` on 2-column slides), keep node text to **1–3 words per line** and increase node `width` / `height`, `Table` `column_widths`, or `FlowDiagram` node widths by `25%–40%` so larger text never clips.
 
 ---
 

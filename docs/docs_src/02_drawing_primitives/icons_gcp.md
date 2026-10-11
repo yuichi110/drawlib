@@ -217,13 +217,14 @@ d = ArchitectureDiagram(
 
 vpc = d.add(NodeGroup(title="Production VPC", padding=5.0), xy=(4.0, 4.0))
 lb = vpc.add(
-    Node((25, 18), "Cloud Load\nBalancing", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.5),
+    Node("Cloud Load\nBalancing", width=25, height=18, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.5),
     xy=(12.0, 18.0),
 )
 run = vpc.add(
     Node(
-        (25, 18),
         "Cloud Run\nAPI",
+        width=25,
+        height=18,
         icon=GcpIcon.CLOUD_RUN,
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
@@ -232,8 +233,9 @@ run = vpc.add(
 )
 sql = vpc.add(
     Node(
-        (25, 18),
         "Cloud SQL",
+        width=25,
+        height=18,
         icon=GcpIcon.CLOUD_SQL,
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
@@ -241,7 +243,7 @@ sql = vpc.add(
     xy=(98.0, 28.0),
 )
 gcs = vpc.add(
-    Node((25, 18), "Cloud Storage", icon=GcpIcon.CLOUD_STORAGE, icon_size=7.5),
+    Node("Cloud Storage", width=25, height=18, icon=GcpIcon.CLOUD_STORAGE, icon_size=7.5),
     xy=(98.0, 8.0),
 )
 

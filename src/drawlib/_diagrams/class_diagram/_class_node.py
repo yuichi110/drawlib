@@ -30,7 +30,6 @@ class ClassNode:
         is_abstract: bool = False,
         width: float = 28.0,
         height: float | None = None,
-        size: tuple[float, float] | None = None,
         header_height: float | None = None,
         row_height: float = 3.2,
         style: Style | None = None,
@@ -45,19 +44,14 @@ class ClassNode:
             is_abstract: Whether the class is abstract (renders class name in italic).
             width: Width of the class card (default: 28.0).
             height: Optional fixed height of the class card. If None, auto-calculated from content.
-            size: Optional shorthand tuple (width, height) overriding width and height arguments.
             header_height: Height of the header section. If None, automatically computed based on stereotype.
             row_height: Height of each attribute and method row (default: 3.2).
             style: Optional Style overriding the main box border and body fill.
             header_style: Optional Style overriding the header compartment background and text.
             show: Whether to render this class node.
         """
-        if size is not None:
-            self.width = float(size[0])
-            self.height = float(size[1])
-        else:
-            self.width = float(width)
-            self.height = float(height) if height is not None else None
+        self.width = float(width)
+        self.height = float(height) if height is not None else None
 
         self.name = name
         self.stereotype = stereotype

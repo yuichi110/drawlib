@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drawlib Presentation</title>
+  <link rel="icon" type="image/png" href="_assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -3279,14 +3280,14 @@ z
     <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="s2">"Production Cloud VPC"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Web Client"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">42</span><span class="p">))</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Web Client"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">42</span><span class="p">))</span>
 <span class="n">gw</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Node</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_API_GATEWAY</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_API_GATEWAY</span><span class="p">,</span>
          <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">sql</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">),</span> <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
-<span class="n">bq</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">"BigQuery"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">BIGQUERY</span><span class="p">),</span> <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mi">18</span><span class="p">))</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">),</span> <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="n">bq</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"BigQuery"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">BIGQUERY</span><span class="p">),</span> <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mi">18</span><span class="p">))</span>
 
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">gw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">)</span>
 <span class="n">gw</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">sql</span><span class="p">,</span> <span class="n">bq</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
@@ -16722,7 +16723,7 @@ z
 <ol>
 <li><strong>Card-Centric Coordinates (<code>xy</code> = Card Center)</strong>:
 <ul>
-<li>When you call <code>d.add(Node((w, h), &quot;Label&quot;, icon=...), xy=(x, y))</code>, <code>(x, y)</code> is strictly the <strong>center of the node card</strong> <code>(w, h)</code>.</li>
+<li>When you call <code>d.add(Node(&quot;Label&quot;, width=w, height=h, icon=...), xy=(x, y))</code>, <code>(x, y)</code> is strictly the <strong>center of the node card</strong> <code>(w, h)</code>.</li>
 <li>Multi-line labels fit inside the card without shifting the card's center—so nodes sharing the same <code>y</code> always connect with a razor-straight horizontal line!</li>
 </ul>
 </li>
@@ -17826,7 +17827,7 @@ z
 <ul>
 <li><strong>Participants &amp; Groups</strong>:
 <ul>
-<li><code>d.add(Participant((18, 13), &quot;Name&quot;, icon=GcpIcon.CLOUD_RUN))</code></li>
+<li><code>d.add(Participant(&quot;Name&quot;, width=18, height=13, icon=GcpIcon.CLOUD_RUN))</code></li>
 <li><code>vpc = d.add(ParticipantGroup(title=&quot;Zero-Trust Mesh&quot;, style=Styles.MutedDashed))</code></li>
 </ul>
 </li>
@@ -22660,9 +22661,9 @@ z
 <pre><code class="language-python"><span class="c1"># Build full topology once outside the loop</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="s2">"Cloud VPC"</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">n1</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"1. Edge LB"</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
-<span class="n">n2</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"2. App Tier"</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">n3</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"3. Storage"</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"1. Edge LB"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"2. App Tier"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">n3</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"3. Storage"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"gRPC"</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SQL"</span><span class="p">)</span>
 
@@ -27524,16 +27525,18 @@ z
 <div class="slide-block slide-text-box" style="position: absolute; left: 80.0px; top: 140.0px; width: 740.0px; height: 840.0px; font-size: 20px;">
 <h2>Zero Hallucination via On-Demand Rules</h2>
 <p>Why do AI coding agents struggle with niche libraries? Because their training data is outdated or incomplete. Drawlib solves this by <strong>shipping its complete AI agent manual inside the Python package</strong>:</p>
-<pre><code class="language-bash"><span class="c1"># 1. List all 24+ embedded rule manuals</span>
+<pre><code class="language-bash"><span class="c1"># 1. List all 31 embedded rule manuals</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>list
 
 <span class="c1"># 2. Core orientation &amp; design discipline</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>overview
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>style-guide
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>review-guide
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>api
 
-<span class="c1"># 3. Specialized authoring &amp; module deep-dives</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>slide-guide
+<span class="c1"># 3. Project archetypes &amp; module deep-dives</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-slide
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>anim-guide
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-diagrams
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-charts
@@ -27621,13 +27624,13 @@ z
    </g>
    <g id="text_3">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(150.583523 225.555039)">1. Core &amp; Visual Discipline</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(148.10046 225.436524)">1. Core &amp; Review Discipline</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(150.93971 234.534039)">• overview (Cartesian 0,0)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(153.848148 234.415524)">• overview &amp; style-guide</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(146.012663 243.505352)">• style-guide (50%+ Neutral)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(143.365601 243.623867)">• review-guide (3-Stage Loop)</text>
     </g>
    </g>
    <g id="patch_5">
@@ -27640,13 +27643,13 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(468.109962 225.903539)">2. Master API &amp; CLI Index</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(470.202243 225.550555)">2. Master API &amp; Projects</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(456.801009 234.103539)">• api (Complete Symbol Index)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(478.142149 234.644867)">• api &amp; cli Reference</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(464.222649 243.156852)">• cli &amp; project (Scaffolding)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(467.25793 243.623867)">• project-* (4 Archetypes)</text>
     </g>
    </g>
    <g id="patch_6">
@@ -27659,13 +27662,13 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(157.685491 335.540309)">3. Slides &amp; Animations</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(157.685491 335.597325)">3. Slides &amp; Animations</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(139.587195 343.740309)">• slide-guide (1920x1080 Stage)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(148.871132 343.797325)">• project-slide (1920x1080)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(154.97821 352.948653)">• anim-guide &amp; lib-anim</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(154.97821 352.891637)">• anim-guide &amp; lib-anim</text>
     </g>
    </g>
    <g id="patch_7">

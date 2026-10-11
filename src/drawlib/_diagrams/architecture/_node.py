@@ -35,8 +35,9 @@ class Node:
 
     def __init__(
         self,
-        card_size: tuple[float, float],
         text: str = "",
+        width: float = 20.0,
+        height: float = 16.0,
         icon: IconType = None,
         icon_size: float = 8.0,
         style: Style | None = None,
@@ -47,8 +48,9 @@ class Node:
         """Initialize Node.
 
         Args:
-            card_size: (width, height) dimensions of the node card bounding box.
             text: Label text for this node.
+            width: Width of the node card bounding box. Defaults to 20.0.
+            height: Height of the node card bounding box. Defaults to 16.0.
             icon: Icon enumeration, CustomIcon, Dimage, PIL Image, file path, or drawing function.
             icon_size: Width/size of the icon. Defaults to 8.0.
             style: Optional Style object for the icon or image.
@@ -56,8 +58,9 @@ class Node:
             card_style: Optional Style object for the node card background/border.
             show: Whether to render this node. Defaults to True.
         """
-        self.card_size: tuple[float, float] = (float(card_size[0]), float(card_size[1]))
         self.text = text
+        self.width: float = float(width)
+        self.height: float = float(height)
         self.icon = icon
         self.icon_size = float(icon_size)
         self.style = style
@@ -81,37 +84,37 @@ class Node:
 
     def get_bounds(self) -> tuple[float, float, float, float]:
         """Get visual bounding box [min_x, min_y, max_x, max_y] relative to node center (0, 0)."""
-        half_w = self.card_size[0] / 2.0
-        half_h = self.card_size[1] / 2.0
+        half_w = self.width / 2.0
+        half_h = self.height / 2.0
         return (-half_w, -half_h, half_w, half_h)
 
     def get_size(self) -> tuple[float, float]:
         """Get the overall card bounding box (width, height)."""
-        return self.card_size
+        return (self.width, self.height)
 
     @property
     def left(self) -> tuple[float, float]:
         """Get left anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        return (x - self.card_size[0] / 2.0, y)
+        return (x - self.width / 2.0, y)
 
     @property
     def right(self) -> tuple[float, float]:
         """Get right anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        return (x + self.card_size[0] / 2.0, y)
+        return (x + self.width / 2.0, y)
 
     @property
     def top(self) -> tuple[float, float]:
         """Get top anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        return (x, y + self.card_size[1] / 2.0)
+        return (x, y + self.height / 2.0)
 
     @property
     def bottom(self) -> tuple[float, float]:
         """Get bottom anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        return (x, y - self.card_size[1] / 2.0)
+        return (x, y - self.height / 2.0)
 
     def connect(
         self,
@@ -191,7 +194,7 @@ class Node:
             list[Edge]: Created edges connecting this node to targets via the junction.
         """
         ax, ay = self.get_absolute_xy()
-        jx = float(at_x) if at_x is not None else ax + self.card_size[0]
+        jx = float(at_x) if at_x is not None else ax + self.width
         jy = float(at_y) if at_y is not None else ay
         j = _junction_module.Junction((jx, jy), show=show)
 

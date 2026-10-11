@@ -45,13 +45,14 @@ repo = d.add(
     xy=(6.0, 14.0),
 )
 code_node = repo.add(
-    Node((22, 18), "Python Code\n& Markdown", icon=PhosphorIcon.CODE, icon_size=9.0),
+    Node("Python Code\n& Markdown", width=22, height=18, icon=PhosphorIcon.CODE, icon_size=9.0),
     xy=(16.0, 46.0),
 )
 engine_node = repo.add(
     Node(
-        (22, 18),
         "Drawlib Engine",
+        width=22,
+        height=18,
         icon=PhosphorIcon.CPU,
         icon_size=9.5,
         style=Styles.White,
@@ -62,15 +63,15 @@ engine_node = repo.add(
 )
 
 site_node = d.add(
-    Node((20, 17), "Docs Site", icon=PhosphorIcon.GLOBE, icon_size=9.0, card_style=Styles.SecondaryNeutral),
+    Node("Docs Site", width=20, height=17, icon=PhosphorIcon.GLOBE, icon_size=9.0, card_style=Styles.SecondaryNeutral),
     xy=(78.0, 62.0),
 )
 pdf_node = d.add(
-    Node((20, 17), "Vector PDF", icon=PhosphorIcon.FILE_PDF, icon_size=9.0, card_style=Styles.Neutral),
+    Node("Vector PDF", width=20, height=17, icon=PhosphorIcon.FILE_PDF, icon_size=9.0, card_style=Styles.Neutral),
     xy=(78.0, 38.0),
 )
 slides_node = d.add(
-    Node((20, 17), "16:9 Slides", icon=PhosphorIcon.PRESENTATION_CHART, icon_size=9.0, card_style=Styles.BlueNeutral),
+    Node("16:9 Slides", width=20, height=17, icon=PhosphorIcon.PRESENTATION_CHART, icon_size=9.0, card_style=Styles.BlueNeutral),
     xy=(78.0, 14.0),
 )
 

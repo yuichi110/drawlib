@@ -120,7 +120,8 @@ txt_leaf = Styles.Dark.patch(text_size=7.2)
 mindmap = MindMapNode(
     "Platform Core",
     shape="oval",
-    size=(19, 9),
+    width=19,
+    height=9,
     style=Styles.PrimaryFlat,
     text_style=txt_root,
     line_style=Styles.DarkBold.patch(line_width=1.2),
@@ -132,7 +133,8 @@ mindmap = MindMapNode(
             "Edge Clients",
             branch="left",
             shape="rectangle",
-            size=(15, 6.5),
+            width=15,
+            height=6.5,
             style=Styles.PrimaryNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
@@ -144,7 +146,8 @@ mindmap = MindMapNode(
             "Microservices",
             branch="right",
             shape="rectangle",
-            size=(16, 6.5),
+            width=16,
+            height=6.5,
             style=Styles.SecondaryNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
@@ -156,7 +159,8 @@ mindmap = MindMapNode(
             "Observability",
             branch="top",
             shape="rectangle",
-            size=(16, 6.5),
+            width=16,
+            height=6.5,
             style=Styles.BlueNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[
@@ -168,7 +172,8 @@ mindmap = MindMapNode(
             "Data Stores",
             branch="bottom",
             shape="rectangle",
-            size=(16, 6.5),
+            width=16,
+            height=6.5,
             style=Styles.TealNeutral.patch(shape_r=1.0),
             text_style=txt_branch,
             children=[

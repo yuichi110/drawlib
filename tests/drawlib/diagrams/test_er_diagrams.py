@@ -38,9 +38,9 @@ class TestEntity:
         assert ent.xy == (0.0, 0.0)
         assert ent.center == (0.0, 0.0)
 
-    def test_entity_size_shorthand(self) -> None:
-        """Verify size tuple shorthand."""
-        ent = Entity(name="orders", size=(30.0, 40.0))
+    def test_entity_explicit_dimensions(self) -> None:
+        """Verify explicit width and height parameters."""
+        ent = Entity(name="orders", width=30.0, height=40.0)
         assert ent.width == 30.0
         assert ent.height == 40.0
 

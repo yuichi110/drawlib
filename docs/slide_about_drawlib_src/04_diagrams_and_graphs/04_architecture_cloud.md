@@ -72,8 +72,9 @@ public_subnet = vpc.add(
 )
 lb = public_subnet.add(
     Node(
-        (16, 15),
         "Cloud Load\nBalancing",
+        width=16,
+        height=15,
         icon=GcpIcon.CLOUD_LOAD_BALANCING,
         icon_size=7.0,
     ),
@@ -91,8 +92,9 @@ private_subnet = vpc.add(
 )
 gke1 = private_subnet.add(
     Node(
-        (17, 14),
         "GKE API Pod 1",
+        width=17,
+        height=14,
         icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE,
         icon_size=7.0,
     ),
@@ -100,8 +102,9 @@ gke1 = private_subnet.add(
 )
 gke2 = private_subnet.add(
     Node(
-        (17, 14),
         "GKE API Pod 2",
+        width=17,
+        height=14,
         icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE,
         icon_size=7.0,
     ),
@@ -110,13 +113,14 @@ gke2 = private_subnet.add(
 
 # External Client & Managed Data Tier
 user = d.add(
-    Node((15, 14), "Client User", icon=PhosphorIcon.USER, icon_size=7.0, card_style=Styles.Neutral),
+    Node("Client User", width=15, height=14, icon=PhosphorIcon.USER, icon_size=7.0, card_style=Styles.Neutral),
     xy=(6.0, 35.0),
 )
 db = d.add(
     Node(
-        (18, 15),
         "Cloud SQL\n(PostgreSQL)",
+        width=18,
+        height=15,
         icon=GcpIcon.CLOUD_SQL,
         icon_size=7.0,
         card_style=Styles.Neutral,
@@ -125,8 +129,9 @@ db = d.add(
 )
 storage = d.add(
     Node(
-        (18, 15),
         "Cloud Storage\n(Object Store)",
+        width=18,
+        height=15,
         icon=GcpIcon.CLOUD_STORAGE,
         icon_size=7.0,
         card_style=Styles.Neutral,

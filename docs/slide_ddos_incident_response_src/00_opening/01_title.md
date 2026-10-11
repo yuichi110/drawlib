@@ -33,12 +33,12 @@ d = ArchitectureDiagram(
 
 # Attackers & Legitimate Users on Left
 botnet = d.add(
-    Node((24, 19), "AI Botnet\n300M+ Req/Day", icon=PhosphorIcon.SKULL, icon_size=7.0,
+    Node("AI Botnet\n300M+ Req/Day", width=24, height=19, icon=PhosphorIcon.SKULL, icon_size=7.0,
          style=Styles.Accent, card_style=Styles.SecondaryNeutral),
     xy=(15.0, 56.0),
 )
 users = d.add(
-    Node((24, 19), "Real Users\nBrowser + PoW", icon=PhosphorIcon.USERS, icon_size=7.0,
+    Node("Real Users\nBrowser + PoW", width=24, height=19, icon=PhosphorIcon.USERS, icon_size=7.0,
          style=Styles.Primary, card_style=Styles.PrimaryNeutral),
     xy=(15.0, 22.0),
 )
@@ -51,19 +51,19 @@ edge_group = d.add(
     xy=(36.0, 9.0),
 )
 waf = edge_group.add(
-    Node((24, 19), "5-Layer WAF\nASN / TLS / Rate", icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5,
+    Node("5-Layer WAF\nASN / TLS / Rate", width=24, height=19, icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5,
          style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.PrimaryFlat),
     xy=(15.5, 47.0),
 )
 drop = edge_group.add(
-    Node((24, 15), "100% Bot Drop\n$0 Overages", icon=PhosphorIcon.PROHIBIT, icon_size=6.0,
+    Node("100% Bot Drop\n$0 Overages", width=24, height=15, icon=PhosphorIcon.PROHIBIT, icon_size=6.0,
          style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.AccentFlat),
     xy=(15.5, 16.0),
 )
 
 # Protected Origin on Right
 origin = d.add(
-    Node((23, 21), "Cloud Run\nTTS Origin\n($10/mo)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5,
+    Node("Cloud Run\nTTS Origin\n($10/mo)", width=23, height=21, icon=GcpIcon.CLOUD_RUN, icon_size=7.5,
          card_style=Styles.Neutral),
     xy=(88.5, 47.0),
 )

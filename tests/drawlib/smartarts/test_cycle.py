@@ -203,7 +203,8 @@ class TestCycleRendering:
                 description_style=styles.White,
                 arrow_style=styles.PrimarySolid,
                 node_shape="rectangle",
-                node_size=(20.0, 10.0),
+                node_width=20.0,
+                node_height=10.0,
                 arrow_color_mode="monochrome",
             )
             c.add("Identify", style=styles.PrimarySolid, description="Pinpoint issues")

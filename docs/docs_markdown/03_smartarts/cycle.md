@@ -86,7 +86,8 @@ c_right = Cycle(
     text_style=Styles.DarkBold.patch(text_size=10.0),
     description_style=Styles.Dark.patch(text_size=10.0),
     node_shape="rectangle",
-    node_size=(14.0, 6.2),
+    node_width=14.0,
+    node_height=6.2,
     description_placement="outside",
     arrow_type="line",
     arrow_width=1.6,
@@ -217,7 +218,7 @@ cycle.draw(xy=(57.5, 41.0), radius=24.5)
 
 ## 2. Rectangular Nodes with Outside Descriptions & Line Arrows
 
-By setting `node_shape="rectangle"` with `node_size=(width, height)`, `description_placement="outside"`, `arrow_type="line"`, and `arrow_color_mode="match_source"`, you can build architectural state loops where rounded rectangular cards are connected by thin arc lines colored after each source stage, with descriptions radiating outward around the perimeter.
+By setting `node_shape="rectangle"` with `node_width` and `node_height`, `description_placement="outside"`, `arrow_type="line"`, and `arrow_color_mode="match_source"`, you can build architectural state loops where rounded rectangular cards are connected by thin arc lines colored after each source stage, with descriptions radiating outward around the perimeter.
 
 
 
@@ -235,7 +236,8 @@ auth_cycle = Cycle(
     clockwise=True,
     start_angle=90.0,
     node_shape="rectangle",
-    node_size=(23.0, 9.5),
+    node_width=23.0,
+    node_height=9.5,
     description_placement="outside",
     arrow_type="line",
     arrow_width=2.0,
@@ -309,9 +311,9 @@ save()
   - `align="bottom_left"`: `xy=(x, y)` specifies the **bottom-left corner** of the cycle's outer bounding box (automatically offsetting the orbit center by `radius + node_half_extent + margin`).
 - **Equi-Angular Distribution**: Steps are spaced evenly along the orbit circumference of radius `R`:
   $$\theta_i = \text{start\_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$
-- **Node Shapes & Sizing (`node_shape`, `node_radius`, `node_size`)**:
+- **Node Shapes & Sizing (`node_shape`, `node_radius`, `node_width`, `node_height`)**:
   - `"circle"` *(default)*: Circular step nodes sized by `node_radius` (default `8.0`).
-  - `"rectangle"`: Rounded rectangular cards sized by `node_size=(width, height)` (default `(18.0, 10.0)`, with default corner radius `shape_r=2.0` unless overridden on `style`).
+  - `"rectangle"`: Rounded rectangular cards sized by `node_width` and `node_height` (default `18.0` and `10.0`, with default corner radius `shape_r=2.0` unless overridden on `style`).
   - `"none"`: Floating text labels without a background shape.
 - **Description Placement (`description_placement`)**:
   - `"inside"` *(default)*: Renders both title and description stacked inside the node boundary.
@@ -339,7 +341,8 @@ Cycle(
     start_angle: float = 90.0,
     node_shape: Literal["circle", "rectangle", "none"] = "circle",
     node_radius: float = 8.0,
-    node_size: tuple[float, float] = (18.0, 10.0),
+    node_width: float = 18.0,
+    node_height: float = 10.0,
     description_placement: Literal["inside", "outside"] = "inside",
     arrow_type: Literal["arc", "line", "none"] = "arc",
     arrow_width: float = 2.0,
@@ -365,7 +368,8 @@ Cycle(
 | **`start_angle`** | `float` | `90.0` | Angle in degrees for the first step (`90.0` is top, `0.0` is right). |
 | **`node_shape`** | `Literal["circle", "rectangle", "none"]` | `"circle"` | Shape of perimeter step nodes. |
 | **`node_radius`** | `float` | `8.0` | Radius of perimeter nodes when `node_shape="circle"`. |
-| **`node_size`** | `tuple[float, float]` | `(18.0, 10.0)` | `(width, height)` of perimeter nodes when `node_shape="rectangle"`. |
+| **`node_width`** | `float` | `18.0` | Width of perimeter nodes when `node_shape="rectangle"`. |
+| **`node_height`** | `float` | `10.0` | Height of perimeter nodes when `node_shape="rectangle"`. |
 | **`description_placement`** | `Literal["inside", "outside"]` | `"inside"` | Whether descriptions render inside the node or radially outside. |
 | **`arrow_type`** | `Literal["arc", "line", "none"]` | `"arc"` | Connector type: curved block arrow (`"arc"`), curved line (`"line"`), or `"none"`. |
 | **`arrow_width`** | `float` | `2.0` | Tail thickness (for `"arc"`) or stroke width (for `"line"`). |
