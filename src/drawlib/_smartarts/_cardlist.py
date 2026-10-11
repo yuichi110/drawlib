@@ -396,6 +396,15 @@ class CardList:
             d_style = item.description_style.patch(halign="center", valign="center")
             canvas_text(xy=(cx, desc_y), text=item.description, style=d_style)
 
+    def _validate_badge_styles(self, item: CardListItem) -> None:
+        """Verify that required badge, icon, and badge_text styles are present on item."""
+        if self._badge_shape != "none" and item.badge_style is None:
+            raise ValueError(f"badge_style is required for badge of item '{item.text}'.")
+        if item.icon is not None and item.icon_style is None:
+            raise ValueError(f"icon_style is required for icon of item '{item.text}'.")
+        if bool(item.badge_text and item.badge_text.strip()) and item.badge_text_style is None:
+            raise ValueError(f"badge_text_style is required for badge_text of item '{item.text}'.")
+
     def _draw_badge_and_icon(
         self,
         *,
@@ -405,6 +414,7 @@ class CardList:
         badge_size: float,
     ) -> None:
         """Render the badge shape (circle or rounded_rect) and inner icon/badge_text at (bx, by)."""
+        self._validate_badge_styles(item)
         if self._badge_shape != "none" and item.badge_style is not None:
             if self._badge_shape == "circle":
                 canvas_circle(xy=(bx, by), radius=badge_size / 2.0, style=item.badge_style)
@@ -428,4 +438,5 @@ class CardList:
         elif badge_label is not None and item.badge_text_style is not None:
             b_style = item.badge_text_style.patch(halign="center", valign="center")
             canvas_text(xy=(bx, by), text=badge_label, style=b_style)
+
 

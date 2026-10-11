@@ -18,6 +18,7 @@ from drawlib._smartarts._geomap import GeoMap
 from drawlib._smartarts._gridlayout import GridItem, GridLayout
 from drawlib._smartarts._kpicards import KpiCard, KpiCardItem, KpiCards
 from drawlib._smartarts._mindmap import MindMapNode
+from drawlib._smartarts._panel import Panel
 from drawlib._smartarts._pyramid import Pyramid, PyramidItem
 from drawlib._smartarts._roadmap import Roadmap, RoadmapItem
 from drawlib._smartarts._sourcecode import (
@@ -48,6 +49,7 @@ __all__ = [
     "KpiCardItem",
     "KpiCards",
     "MindMapNode",
+    "Panel",
     "Pyramid",
     "PyramidItem",
     "Roadmap",

@@ -411,6 +411,7 @@ High-level automated components for business and technical concepts. Every state
 | `CardList` | Bottom-Left `(x, y)` | Icon/badge feature & step cards | `c = CardList(...); c.add("Title", "Desc", icon=..., badge_text="1", show=True); c.draw(xy, width, height, scale=1.0)` |
 | `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | KPI metrics, SLA/spec highlight cards | `k = KpiCards(...); k.add("99.99%", "SLA", "Desc", show=True); k.draw(xy, width, height, columns=1, scale=1.0)` |
 | `Roadmap` | Bottom-Left `(x, y)` | Linear timelines, curved agendas, roadmaps | `r = Roadmap(...); r.add("Phase 1", "Sub", badge_text="Q1", show=True); r.draw(xy, width, height, scale=1.0)` |
+| `Panel` | Bottom-Left `(x, y)` | Titled container frames with header bands | `p = Panel("Group", style=..., header_style=..., text_style=...); p.draw(xy, width, height); inner_xy, w, h = p.get_content_box(xy, width, height)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(..., show=True); b.draw(xy, scale=1.0)` |
 | `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., scale=1.0)` |
 | `GeoMap` | Bottom-Left `(x, y)` | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=...)` |

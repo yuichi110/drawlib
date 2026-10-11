@@ -21,8 +21,9 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 14. [Component 12: KpiCards (Metric & Highlight Cards)](#12c-component-12-kpicards-metric--highlight-cards)
 15. [Component 13: CardList (Icon & Badge Feature/Step Cards)](#12d-component-13-cardlist-icon--badge-featurestep-cards)
 16. [Component 14: Roadmap (Timeline & Milestone Roadmaps)](#12e-component-14-roadmap-timeline--milestone-roadmaps)
-17. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
-18. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
+17. [Component 15: Panel (Titled Container Frames & Header Bands)](#12f-component-15-panel-titled-container-frames--header-bands)
+18. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
+19. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
 
 ---
 ## 1. Architectural Overview & Core Concepts
@@ -43,6 +44,7 @@ from drawlib.smartarts import (
     KpiCardItem,
     KpiCards,
     MindMapNode,
+    Panel,
     Pyramid,
     Roadmap,
     RoadmapItem,
@@ -63,7 +65,7 @@ from drawlib.types import Style
 ### 1.2 Coordinate Anchor Conventions
 Understanding anchor points is essential for programmatic generation and positioning:
 - **Top-Left Anchored**: `Table`, `TreeNode`, `BulletPoints`. You specify top-left coordinate `(x, y)`; elements flow rightward and downward.
-- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
+- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
@@ -98,6 +100,7 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 | `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | Vertical stack or multi-column grid | `add(metric, text, description, show=True)`, `draw(xy, width, height, columns=1, scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
 | `CardList` | Bottom-Left `(x, y)` | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
 | `Roadmap` | Bottom-Left `(x, y)` | `"vertical"` (straight/curved) or `"horizontal"` (alternating) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Release timelines, migration roadmaps, incident chronicles |
+| `Panel` | Bottom-Left `(x, y)` | `"filled"`, `"underline"`, `"floating"`, `"window"` header | `draw(xy, width, height, scale=1.0)`, `get_content_box(xy, width, height, padding=...)` | Titled container frames, comparison columns, window panels |
 
 ---
 ## 3. Component 1: Table
@@ -1265,6 +1268,52 @@ save()
 ```
 
 ---
+## 12f. Component 15: Panel (Titled Container Frames & Header Bands)
+
+`Panel` renders a titled container box with a header band (`header_variant="filled" | "underline" | "floating" | "window"`) and provides `get_content_box(xy, width, height, padding=...)` to automatically compute the inner drawable `(inner_xy, inner_width, inner_height)` for nesting other SmartArts, Charts, or Diagrams inside the panel.
+
+### 12f.1 Constructor & Methods
+All displayed elements require an explicit `Style` (passing `description` without `description_style`, `icon` without `icon_style`, or `header_variant="window"` without `dot_styles` raises a `ValueError`):
+
+```python
+p = Panel(
+    text: str,
+    description: str = "",
+    *,
+    style: Style,
+    header_style: Style,
+    text_style: Style,
+    description_style: Style | None = None,
+    icon: Callable[..., Any] | None = None,
+    icon_style: Style | None = None,
+    dot_styles: tuple[Style, Style, Style] | Style | None = None,
+    header_variant: Literal["filled", "underline", "floating", "window"] = "filled",
+    header_height: float = 8.0,
+    header_align: Literal["left", "center"] = "left",
+    show: bool = True,
+)
+
+# Render outer frame & header
+p.draw(
+    xy: tuple[float, float],
+    width: float = 100.0,
+    height: float = 60.0,
+    *,
+    scale: float = 1.0,
+) -> Panel
+
+# Compute inner content bounding box (below header, inset by padding)
+inner_xy, inner_w, inner_h = p.get_content_box(
+    xy: tuple[float, float],
+    width: float = 100.0,
+    height: float = 60.0,
+    *,
+    padding: float | tuple[float, float] = (4.0, 3.0),
+    scale: float = 1.0,
+)
+```
+
+---
 ## 13. Design Patterns & Coordinate Anchor Systems
 
 ### 13.1 Coordinate Normalization Cheat Sheet
@@ -1293,6 +1342,7 @@ top_left_y = bottom_y + H
 | `KpiCards` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `CardList` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `Roadmap` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
+| `Panel` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `MindMapNode` | Root Center `(x, y)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 

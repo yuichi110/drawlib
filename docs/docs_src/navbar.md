@@ -41,6 +41,7 @@
 - [KpiCards](./03_smartarts/kpi_cards.md)
 - [CardList](./03_smartarts/card_list.md)
 - [Roadmap](./03_smartarts/roadmap.md)
+- [Panel](./03_smartarts/panel.md)
 - [BulletPoints](./03_smartarts/bullet_points.md)
 - [SourceCode](./03_smartarts/source_code.md)
 - [GeoMap](./03_smartarts/geomap.md)

@@ -299,6 +299,57 @@ class Roadmap:
 
 ---
 
+### 3.4. Component 4: `Panel` (`src/drawlib/_smartarts/_panel.py`)
+
+複数のセクションや比較カラム、ダッシュボード領域を囲む「ヘッダー帯付きコンテナ枠」を描画し、内部コンテンツ領域の `(inner_xy, inner_width, inner_height)` を自動算出するコンポーネント。表示する要素（`description`, `icon`, `window` の `dot_styles`）には必ず明示的な `Style` 指定を要求し、未指定時は `ValueError` を送出する。
+
+```python
+class Panel:
+    """SmartArt component for rendering titled container panels with header bands."""
+
+    @validate_call
+    def __init__(
+        self,
+        text: str,
+        description: str = "",
+        *,
+        style: Style,
+        header_style: Style,
+        text_style: Style,
+        description_style: Style | None = None,
+        icon: Callable[..., Any] | None = None,
+        icon_style: Style | None = None,
+        dot_styles: tuple[Style, Style, Style] | Style | None = None,
+        header_variant: Literal["filled", "underline", "floating", "window"] = "filled",
+        header_height: PosFloat = 8.0,
+        header_align: Literal["left", "center"] = "left",
+        show: bool = True,
+    ) -> None: ...
+
+    @validate_call
+    def get_content_box(
+        self,
+        xy: Coordinate,
+        width: PosFloat = 100.0,
+        height: PosFloat = 60.0,
+        *,
+        padding: PosFloat | tuple[PosFloat, PosFloat] = (4.0, 3.0),
+        scale: PosFloat = 1.0,
+    ) -> tuple[tuple[float, float], float, float]: ...
+
+    @validate_call
+    def draw(
+        self,
+        xy: Coordinate,
+        width: PosFloat = 100.0,
+        height: PosFloat = 60.0,
+        *,
+        scale: PosFloat = 1.0,
+    ) -> Self: ...
+```
+
+---
+
 ## 4. 関連検討項目：`GeoMap` のユーザビリティ改善案（将来検討）
 
 今回の `GeoMap` ドッグフーディングで判明した以下の2点について、将来的に API 側で改善する場合の設計案を記録する（現時点では `_rules/lib_smartarts.md` および docstring での明記により対応済み）。
