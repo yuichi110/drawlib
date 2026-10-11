@@ -133,7 +133,7 @@ class Roadmap:
             title_style
             if title_style is not None
             else _styles.Styles.DarkBold.patch(
-                text_size=9.6,
+                text_size=10.2,
                 text_color=(15, 23, 42),
                 halign="left",
                 valign="center",
@@ -143,7 +143,7 @@ class Roadmap:
             subtitle_style
             if subtitle_style is not None
             else _styles.Styles.Dark.patch(
-                text_size=8.0,
+                text_size=9.5,
                 text_color=(100, 116, 139),
                 halign="left",
                 valign="center",
@@ -153,7 +153,7 @@ class Roadmap:
         self._badge_text_style: Style = (
             badge_text_style
             if badge_text_style is not None
-            else _styles.Styles.WhiteBold.patch(text_size=8.5, halign="center", valign="center")
+            else _styles.Styles.WhiteBold.patch(text_size=9.5, halign="center", valign="center")
         )
         self._spine_style: Style = (
             spine_style
@@ -444,9 +444,15 @@ class Roadmap:
             style=self._spine_style,
         )
 
-        card_w = max(8.0, (total_w - 8.0 - (num_items - 1) * 2.5) / num_items)
-        x_first = x0 + card_w / 2.0 + 2.5
-        x_last = x0 + total_w - card_w / 2.0 - 4.5
+        base_w = max(8.0, (total_w - 6.0 - (num_items - 1) * 2.5) / num_items)
+        if self._alternating and num_items >= 3:
+            max_alt_w = (2.0 * (total_w - 5.0) - 3.0 * (num_items - 1)) / (num_items + 1)
+            card_w = max(8.0, min(base_w * 1.24, max_alt_w))
+        else:
+            card_w = base_w
+
+        x_first = x0 + card_w / 2.0 + 1.5
+        x_last = x0 + total_w - card_w / 2.0 - 3.5
         step_x = (x_last - x_first) / (num_items - 1) if num_items > 1 else 0.0
 
         for i, item in enumerate(self._items):

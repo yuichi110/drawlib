@@ -127,7 +127,7 @@ class CardList:
             title_style
             if title_style is not None
             else _styles.Styles.DarkBold.patch(
-                text_size=10.2,
+                text_size=10.5,
                 text_color=(15, 23, 42),
                 halign=default_halign,
                 valign="center",
@@ -137,7 +137,7 @@ class CardList:
             description_style
             if description_style is not None
             else _styles.Styles.Dark.patch(
-                text_size=8.5,
+                text_size=9.5,
                 text_color=(100, 116, 139),
                 halign=default_halign,
                 valign="center",
@@ -148,7 +148,7 @@ class CardList:
         self._badge_text_style: Style = (
             badge_text_style
             if badge_text_style is not None
-            else _styles.Styles.WhiteBold.patch(text_size=9.5, halign="center", valign="center")
+            else _styles.Styles.WhiteBold.patch(text_size=9.8, halign="center", valign="center")
         )
         self._badge_palette: tuple[ColorRGB | ColorRGBA, ...] = (
             tuple(badge_palette) if badge_palette is not None else _DEFAULT_BADGE_PALETTE

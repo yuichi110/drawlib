@@ -132,23 +132,30 @@ from drawlib.smartarts import (
     # Primary SmartArt Components
     BoxList,
     BulletPoints,
+    CardList,
     ChevronProcess,
     Cycle,
     GeoMap,
     GridLayout,
+    KpiCard,
+    KpiCards,
     MindMapNode,
     Pyramid,
+    Roadmap,
     SourceCode,
     Table,
     TreeNode,
     # Mutable Item & Style Models
     BoxListItem,
     BulletPointItem,
+    CardListItem,
     ChevronItem,
     CycleCenter,
     CycleItem,
     GridItem,
+    KpiCardItem,
     PyramidItem,
+    RoadmapItem,
     SourceCodeStyles,
     # Function Aliases
     get_source_code_styles,
@@ -170,6 +177,9 @@ from drawlib.smartarts import (
 | **[`GridLayout`](./grid_layout.md)** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add(...) -> GridItem`, `items`, `draw(...)`, `draw_flexible(...)` |
 | **[`Pyramid`](./pyramid.md)** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add(...) -> PyramidItem`, `items`, `draw(...)`, `draw_flexible(...)` |
 | **[`BoxList`](./box_list.md)** | Linear horizontal or vertical card sequences | Directional `(x, y)` | `add(...) -> BoxListItem`, `items`, `draw(..., scale=1.0)` |
+| **[`KpiCards`](./kpi_cards.md)** | Metric highlight cards, SLO/benchmark summaries | Bottom-Left `(x, y)` | `add(...) -> KpiCardItem`, `items`, `draw(xy, width, height, columns=1, scale=1.0)` |
+| **[`CardList`](./card_list.md)** | Icon/badge feature stacks and arrow step cards | Bottom-Left `(x, y)` | `add(...) -> CardListItem`, `items`, `draw(xy, width, height, scale=1.0)` |
+| **[`Roadmap`](./roadmap.md)** | Straight/curved timelines and milestone roadmaps | Bottom-Left `(x, y)` | `add(...) -> RoadmapItem`, `items`, `draw(xy, width, height, scale=1.0)` |
 | **[`BulletPoints`](./bullet_points.md)** | Architectural takeaways, RFC key points, checklists | Top-Left `(x, y)` | `set_indent()`, `set_bullet_style()`, `add(...) -> BulletPointItem`, `items`, `draw(...)` |
 | **[`SourceCode`](./source_code.md)** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `SourceCode.draw(...)` / `sourcecode(...)`, `SourceCode.get_text()`, `SourceCodeStyles.get()` |
 | **[`GeoMap`](./geomap.md)** | Geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) | Bottom-Left `(x, y)` | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()`, `data` |
@@ -183,7 +193,7 @@ from drawlib.smartarts import (
 Understanding anchor conventions is essential when combining multiple SmartArts onto a single canvas:
 - **Top-Left Anchored (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
   You specify the top-left coordinate `(x, y)`. Content flows horizontally to the right (`+x`) and vertically downward (`-y`).
-- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `GeoMap`)**:  
+- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `KpiCards`, `CardList`, `Roadmap`, `GeoMap`)**:  
   You specify the bottom-left coordinate `(x, y)` (for `BoxList` with default `align="left"` or `"bottom"`). The bounding container extends rightward (`+x`) and upward (`+y`).
 - **Center Anchored (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)` (or pass `align="bottom_left"` to `Cycle.draw()`). The diagram expands symmetrically or radially around the center.
@@ -264,7 +274,7 @@ top_left_y = bottom_y + H
 | Component | Input `xy` Meaning | To Align with Top-Left `(X, Y)` | To Align with Bottom-Left `(X, Y)` |
 | :--- | :--- | :--- | :--- |
 | **`Table`**, **`TreeNode`**, **`BulletPoints`**, **`SourceCode`** | Top-Left `(x, y)` | Pass `(X, Y)` directly | Pass `(X, Y + H)` |
-| **`ChevronProcess`**, **`GridLayout`**, **`Pyramid`**, **`GeoMap`** | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
+| **`ChevronProcess`**, **`GridLayout`**, **`Pyramid`**, **`KpiCards`**, **`CardList`**, **`Roadmap`**, **`GeoMap`** | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | **`BoxList`** (`align="left"` or `"bottom"`) | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | **`MindMapNode`** | Root Center `(cx, cy)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
 | **`Cycle`** (`align="center"`) | Orbit Center `(cx, cy)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |

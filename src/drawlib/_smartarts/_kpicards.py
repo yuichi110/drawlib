@@ -134,7 +134,7 @@ class KpiCards:
             description_style
             if description_style is not None
             else _styles.Styles.Dark.patch(
-                text_size=8.8,
+                text_size=9.5,
                 text_color=(100, 116, 139),
                 halign=default_halign,
                 valign="center",
