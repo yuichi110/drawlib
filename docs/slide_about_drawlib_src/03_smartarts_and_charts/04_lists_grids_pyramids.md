@@ -24,7 +24,7 @@ utils.draw_page_number()
 
 ### 3. `Pyramid` — Proportional Tiered Hierarchies
 - Slices a triangular pyramid into an apex triangle and progressive trapezoidal tiers.
-- Supports `align="bottom"` (upright) or `"top"` (inverted funnel) and `order="vertex_to_base"` or `"base_to_vertex"`.
+- Supports `direction="bottom"` (upright) or `"top"` (inverted funnel) and `order="vertex_to_base"` or `"base_to_vertex"`.
 :::
 
 ::: block xy=(800, 140) width=1040 height=840
@@ -111,14 +111,14 @@ pyramid.draw(
     width=44,
     height=53,
     margin=1.4,
-    align="bottom",
+    direction="bottom",
     order="vertex_to_base",
 )
 
 # 3. Bottom Strip: BoxList Status Ribbon across the bottom
 text(
     (4, 15.5),
-    "Regional Cluster Health Ribbon — BoxList(align='left')",
+    "Regional Cluster Health Ribbon — BoxList(direction='left')",
     style=Styles.DarkBold.patch(text_size=8.8, halign="left"),
 )
 ribbon = BoxList(
@@ -129,7 +129,7 @@ ribbon.add("us-east1: 99.99% OK", style=Styles.TealNeutral)
 ribbon.add("europe-west1: 99.98% OK", style=Styles.TealNeutral)
 ribbon.add("asia-northeast1: Primary", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=7.8))
 ribbon.add("us-west1: DR Standby", style=Styles.Neutral)
-ribbon.draw(xy=(4, 7.5), box_width=24.0, box_height=8.5, align="left")
+ribbon.draw(xy=(4, 7.5), box_width=24.0, box_height=8.5, direction="left")
 
 save()
 ```
@@ -139,5 +139,5 @@ save()
 - On this slide, we combine three structural SmartArt components on a single canvas: `GridLayout` on the left, `Pyramid` on the right, and `BoxList` along the bottom ribbon.
 - **Left (`GridLayout`)**: Demonstrates cell spanning in a 4x4 matrix. Remember that `GridLayout` is anchored at the bottom-left `(x, y)` and `row=0` is the bottom-most row ("Multi-Zone Kubernetes Foundation"), while `row=3` is the top-most row ("Edge Ingress"). Middle rows span 1 or 2 columns to represent individual microservices and data stores.
 - **Right (`Pyramid`)**: Models the classic Software Testing Pyramid using `order="vertex_to_base"`: Manual exploratory testing (1%) at the apex, E2E UI tests (9%), Integration & Contract tests (20%), and Automated Unit Tests (70%) anchored at the wide foundation in `Styles.PrimaryFlat`.
-- **Bottom (`BoxList`)**: Shows a horizontal sequence of regional status cards using `align="left"`.
+- **Bottom (`BoxList`)**: Shows a horizontal sequence of regional status cards using `direction="left"`.
 :::

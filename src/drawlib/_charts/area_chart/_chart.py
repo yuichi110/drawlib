@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import validate_call
 
 from drawlib._charts._common._base import draw_with_box_overrides
@@ -151,14 +153,16 @@ class AreaChart(CartesianChartBase):
         *,
         width: float | None = None,
         height: float | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: float = 1.0,
     ) -> None:
-        """Render this area chart onto the canvas anchored at bottom-left coordinate xy.
+        """Render this area chart onto the canvas anchored at coordinate xy.
 
         Args:
-            xy: Base canvas coordinate (x, y) where the bottom-left of the chart is placed.
+            xy: Base canvas coordinate (x, y) (interpreted via align).
             width: Optional temporary width override for this draw call.
             height: Optional temporary height override for this draw call.
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
         draw_with_box_overrides(
@@ -167,5 +171,6 @@ class AreaChart(CartesianChartBase):
             xy,
             width=width,
             height=height,
+            align=align,
             scale=scale,
         )

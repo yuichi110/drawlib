@@ -237,14 +237,21 @@ class GraphLayout:
                 edge.dst_port = (round(edge.dst_port[0] + dx, 2), round(edge.dst_port[1] + dy, 2))
 
     @validate_call
-    def draw(self, *, xy: Coordinate = (0.0, 0.0), scale: PosFloat = 1.0) -> None:
+    def draw(
+        self,
+        xy: Coordinate = (0.0, 0.0),
+        *,
+        align: Literal["bottom_left", "center"] = "bottom_left",
+        scale: PosFloat = 1.0,
+    ) -> None:
         """Render this layout directly onto the active Drawlib canvas.
 
         Args:
-            xy: Placement offset coordinate (x, y) for the layout origin.
+            xy: Placement anchor coordinate (x, y) for the layout (interpreted via align).
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor anchored at xy.
         """
-        render_layout(self, xy=xy, scale=scale)
+        render_layout(self, xy=xy, align=align, scale=scale)
 
     def to_code(self) -> str:
         """Export this layout as standalone executable Drawlib Python source code.

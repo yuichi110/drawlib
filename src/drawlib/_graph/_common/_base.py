@@ -403,27 +403,29 @@ class BaseGraph(ABC):
     @validate_call
     def draw(
         self,
-        *,
         xy: Coordinate = (0.0, 0.0),
+        *,
         width: float | None = None,
         height: float | None = None,
         margin: float = 10.0,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> GraphLayout:
         """Calculate layout and render immediately onto the active Drawlib canvas.
 
         Args:
-            xy: Placement offset coordinate (x, y) for the layout origin.
+            xy: Placement anchor coordinate (x, y) for the layout (interpreted via align).
             width: Target layout width.
             height: Target layout height.
             margin: Outer margin surrounding the diagram.
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor anchored at xy.
 
         Returns:
             The calculated GraphLayout that was rendered.
         """
         layout = self.calc(width=width, height=height, margin=margin)
-        render_layout(layout, xy=xy, scale=scale)
+        render_layout(layout, xy=xy, align=align, scale=scale)
         return layout
 
     def export_code(

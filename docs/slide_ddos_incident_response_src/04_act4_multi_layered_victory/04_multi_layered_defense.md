@@ -16,7 +16,7 @@ setup(width=176, height=81)
 rectangle((88.0, 40.5), width=172, height=77, style=Styles.Neutral.patch(shape_r=2.5))
 text((88.0, 74.0), "5 Orthogonal Defense Layers: Filtering 300M Req/Day Down to 100% Clean Origin Traffic", style=Styles.BlackBold.patch(text_size=14.5))
 
-# Left: Inverted Funnel Pyramid (align="top", order="base_to_vertex")
+# Left: Inverted Funnel Pyramid (direction="top", order="base_to_vertex")
 funnel = Pyramid(
     style=Styles.PrimaryNeutral,
     text_style=Styles.DarkBold.patch(text_size=11.5),
@@ -43,7 +43,7 @@ funnel.add(
     style=Styles.AccentFlat,
     text_style=Styles.WhiteBold.patch(text_size=10.5, xy_shift=(0.0, 1.5)),
 )
-funnel.draw(xy=(6.5, 8.0), width=70.0, height=60.0, margin=1.8, align="top", order="base_to_vertex")
+funnel.draw(xy=(6.5, 8.0), width=70.0, height=60.0, margin=1.8, direction="top", order="base_to_vertex")
 
 # Right: 5 Corresponding Layer Specification Cards aligned vertically with the 5 pyramid tiers
 layers = [

@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 import math
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
@@ -120,37 +121,44 @@ class ChevronProcess:
         width: PosFloat = 90.0,
         height: PosFloat = 12.0,
         item_width: PosFloat | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw the chevron process diagram at the specified location.
 
         Args:
-            xy: Bottom-left coordinate (x, y) of the starting bounding box.
+            xy: Anchor coordinate (x, y) of the bounding box (interpreted via align).
             width: Overall width allocated for the entire process. Used when item_width is None.
             height: Height of each chevron block.
             item_width: Optional explicit width per chevron block. If None, calculated evenly from width.
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
         """
         num_items = len(self._items)
         if num_items == 0:
             return
 
-        x0, y0 = xy
         h = float(height)
-        cy = y0 + h / 2.0
         angle_rad = math.radians(self._corner_angle)
         x_indent = (h / 2.0) / math.tan(angle_rad)
+        total_gaps = (num_items - 1) * self._spacing
 
         # Calculate item_width if not explicitly given
         if item_width is not None:
             w_item = float(item_width)
         else:
-            total_gaps = (num_items - 1) * self._spacing
             # Total width = N * w_item + (N - 1) * spacing + x_indent
             available_w = float(width) - total_gaps - x_indent
             w_item = max(2.0, available_w / num_items)
 
         total_w = w_item + x_indent
+        total_bounding_w = num_items * w_item + total_gaps + x_indent
+        if align == "center":
+            x0 = float(xy[0]) - total_bounding_w / 2.0
+            y0 = float(xy[1]) - h / 2.0
+        else:
+            x0, y0 = float(xy[0]), float(xy[1])
+        cy = y0 + h / 2.0
 
         with transform(origin=xy, scale=scale):
             if not self._flat_left_end:

@@ -105,19 +105,21 @@ class Pyramid:
         width: PosFloat,
         height: PosFloat,
         margin: PosFloat,
-        align: Literal["bottom", "top", "left", "right"] = "bottom",
+        direction: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw smart art pyramid.
 
         Args:
-            xy (Tuple[float, float]): The x and y coordinates of the bottom-left corner of the pyramid.
-            width (float): The width of the pyramid.
-            height (float): The height of the pyramid.
+            xy (Tuple[float, float]): Anchor coordinate of the pyramid (interpreted via align).
+            width (float): The base width of the pyramid.
+            height (float): The altitude height of the pyramid.
             margin (float): The margin between pyramid items.
-            align (str): Alignment of a pyramid.
-            order (str): Item order. "vertex -> base" or "base -> vertex". default is "vertex -> base".
+            direction (str): Orientation direction of the pyramid base ("bottom", "top", "left", or "right").
+            order (str): Item order. "vertex_to_base" or "base_to_vertex". Defaults to "vertex_to_base".
+            align (str): Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
         if len(self._items) == 0:
@@ -132,8 +134,9 @@ class Pyramid:
             width=width,
             item_heights=item_heights,
             margins=margins,
-            align=align,
+            direction=direction,
             order=order,
+            align=align,
             scale=scale,
         )
 
@@ -144,23 +147,25 @@ class Pyramid:
         width: PosFloat,
         item_heights: list[PosFloat],
         margins: list[PosFloat],
-        align: Literal["bottom", "top", "left", "right"] = "bottom",
+        direction: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw smart art pyramid with flexible pyramid item heights.
 
         Args:
-            xy (Tuple[float, float]): The x and y coordinates of the bottom-left corner of the pyramid.
-            width (float): The width of the pyramid.
-            item_heights (float): The height of the each pyramid items.
+            xy (Tuple[float, float]): Anchor coordinate of the pyramid (interpreted via align).
+            width (float): The base width of the pyramid.
+            item_heights (float): The height of each pyramid item.
             margins (float): The margin between pyramid items.
-            align (str): Alignment of a pyramid.
-            order (str): Item order. "vertex -> base" or "base -> vertex". default is "vertex -> base".
+            direction (str): Orientation direction of the pyramid base ("bottom", "top", "left", or "right").
+            order (str): Item order. "vertex_to_base" or "base_to_vertex". Defaults to "vertex_to_base".
+            align (str): Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
-            ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
+            ValueError: If item_heights or margins lengths do not match the number of pyramid items.
         """
         # validate
         if len(self._items) == 0:
@@ -174,15 +179,26 @@ class Pyramid:
 
         items = self._items[::-1] if order == "vertex_to_base" else self._items[::]
 
+        total_altitude = float(sum(item_heights) + sum(margins))
+        if direction in ("bottom", "top"):
+            bbox_w, bbox_h = float(width), total_altitude
+        else:
+            bbox_w, bbox_h = total_altitude, float(width)
+
+        if align == "center":
+            start_xy: Coordinate = (float(xy[0]) - bbox_w / 2.0, float(xy[1]) - bbox_h / 2.0)
+        else:
+            start_xy = (float(xy[0]), float(xy[1]))
+
         with transform(origin=xy, scale=scale):
-            if align == "bottom":
-                self._draw_flexible_bottom(xy, width, item_heights, margins, items)
-            elif align == "top":
-                self._draw_flexible_top(xy, width, item_heights, margins, items)
-            elif align == "left":
-                self._draw_flexible_left(xy, width, item_heights, margins, items)
-            elif align == "right":
-                self._draw_flexible_right(xy, width, item_heights, margins, items)
+            if direction == "bottom":
+                self._draw_flexible_bottom(start_xy, width, item_heights, margins, items)
+            elif direction == "top":
+                self._draw_flexible_top(start_xy, width, item_heights, margins, items)
+            elif direction == "left":
+                self._draw_flexible_left(start_xy, width, item_heights, margins, items)
+            elif direction == "right":
+                self._draw_flexible_right(start_xy, width, item_heights, margins, items)
             else:
                 raise ValueError("Drawlib internal error.")
 

@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Protocol, TypeVar
+from typing import TYPE_CHECKING, Literal, Protocol, TypeVar
 
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._style_utils import resolve_series_color
@@ -41,6 +41,7 @@ def draw_with_box_overrides(
     *,
     width: float | None = None,
     height: float | None = None,
+    align: Literal["bottom_left", "center"] = "bottom_left",
     scale: float = 1.0,
 ) -> None:
     """Execute render_fn with temporary width/height overrides and canvas scale transform."""
@@ -51,8 +52,13 @@ def draw_with_box_overrides(
             setattr(chart, "width", float(width))
         if height is not None:
             setattr(chart, "height", float(height))
+        if align == "center":
+            w, h = getattr(chart, "get_size")()
+            render_xy = (float(xy[0]) - float(w) / 2.0, float(xy[1]) - float(h) / 2.0)
+        else:
+            render_xy = (float(xy[0]), float(xy[1]))
         with canvas.transform(origin=xy, scale=scale):
-            render_fn(chart, xy)
+            render_fn(chart, render_xy)
     finally:
         setattr(chart, "width", orig_w)
         setattr(chart, "height", orig_h)
@@ -234,6 +240,7 @@ class RadialChartMixin(LegendChartMixin):
         radius: float | None = None,
         width: float | None = None,
         height: float | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: float = 1.0,
     ) -> None:
         """Execute render_fn with temporary radius/width/height overrides and scale transform."""
@@ -256,8 +263,13 @@ class RadialChartMixin(LegendChartMixin):
                     candidates.append(max(2.0, self._custom_height - pad - (6.0 if has_title else 0.0)) / 2.0)
                 if candidates:
                     self.radius = min(candidates)
+            if align == "center":
+                w, h = self.get_size()
+                render_xy = (float(xy[0]) - float(w) / 2.0, float(xy[1]) - float(h) / 2.0)
+            else:
+                render_xy = (float(xy[0]), float(xy[1]))
             with canvas.transform(origin=xy, scale=scale):
-                render_fn(self, xy)
+                render_fn(self, render_xy)
         finally:
             self.radius = orig_radius
             self._custom_width, self._custom_height = orig_w, orig_h

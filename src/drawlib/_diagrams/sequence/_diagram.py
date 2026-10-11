@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, overload
+from typing import TYPE_CHECKING, Literal, overload
 
 from pydantic import validate_call
 
@@ -418,12 +418,24 @@ class SequenceDiagram:
         return _renderer_module._compute_diagram_size(self)
 
     @validate_call
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        align: Literal["bottom_left", "center"] = "bottom_left",
+        scale: PosFloat = 1.0,
+    ) -> None:
         """Render the complete sequence diagram onto the active canvas.
 
         Args:
-            xy: Bottom-left placement coordinate on the canvas. Defaults to (0.0, 0.0).
+            xy: Placement anchor coordinate on the canvas (interpreted via align). Defaults to (0.0, 0.0).
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor (> 0) anchored at xy. Defaults to 1.0.
         """
+        if align == "center":
+            dw, dh = self.get_size()
+            base_xy = (float(xy[0]) - dw / 2.0, float(xy[1]) - dh / 2.0)
+        else:
+            base_xy = (float(xy[0]), float(xy[1]))
         with transform(origin=xy, scale=scale):
-            _renderer_module.draw_sequence_diagram(self, xy=xy)
+            _renderer_module.draw_sequence_diagram(self, xy=base_xy)

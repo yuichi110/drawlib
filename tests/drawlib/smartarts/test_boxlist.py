@@ -36,7 +36,7 @@ class TestBoxList:
         save(f"{OUTPUT_DIR}test_boxlist_left.png")
 
     def test_boxlist_horizontal_right(self) -> None:
-        """Verify BoxList drawing with horizontal alignment starting from right."""
+        """Verify BoxList drawing with horizontal direction starting from right."""
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
@@ -44,11 +44,11 @@ class TestBoxList:
         b.add("2")
         b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
         b.add("4")
-        b.draw((90, 10), 8, 6, "right")
+        b.draw((10, 10), 8, 6, direction="right")
         save(f"{OUTPUT_DIR}test_boxlist_right.png")
 
     def test_boxlist_vertical_bottom(self) -> None:
-        """Verify BoxList drawing with vertical alignment starting from bottom."""
+        """Verify BoxList drawing with vertical direction starting from bottom."""
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
@@ -56,11 +56,11 @@ class TestBoxList:
         b.add("2")
         b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
         b.add("4")
-        b.draw((10, 10), 8, 6, "bottom")
+        b.draw((10, 10), 8, 6, direction="bottom")
         save(f"{OUTPUT_DIR}test_boxlist_bottom.png")
 
     def test_boxlist_vertical_top(self) -> None:
-        """Verify BoxList drawing with vertical alignment starting from top."""
+        """Verify BoxList drawing with vertical direction starting from top."""
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
@@ -68,7 +68,8 @@ class TestBoxList:
         b.add("2")
         b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
         b.add("4")
-        b.draw((10, 90), 8, 6, "top")
+        b.draw((10, 10), 8, 6, direction="top")
+        b.draw((50, 50), 8, 6, direction="left", align="center")
         save(f"{OUTPUT_DIR}test_boxlist_top.png")
 
     def test_boxlist_item_operations(self) -> None:

@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, Literal, TypeVar
 
 from pydantic import validate_call
 
@@ -274,12 +274,24 @@ class StateDiagram:
         return (max(w, 10.0), max(h, 10.0))
 
     @validate_call
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        align: Literal["bottom_left", "center"] = "bottom_left",
+        scale: PosFloat = 1.0,
+    ) -> None:
         """Render the complete state diagram onto the canvas anchored at coordinate xy.
 
         Args:
-            xy: Base canvas placement coordinate (x, y).
+            xy: Base canvas placement coordinate (x, y) (interpreted via align).
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor anchored at xy.
         """
+        if align == "center":
+            min_x, min_y, max_x, max_y = self.get_bounds()
+            base_xy = (float(xy[0]) - (min_x + max_x) / 2.0, float(xy[1]) - (min_y + max_y) / 2.0)
+        else:
+            base_xy = (float(xy[0]), float(xy[1]))
         with transform(origin=xy, scale=scale):
-            _renderer_module.draw_state_diagram(self, xy)
+            _renderer_module.draw_state_diagram(self, base_xy)

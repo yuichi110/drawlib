@@ -86,21 +86,21 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 
 | Component | Anchor Point | Layout Direction | Key Methods | Typical Architecture Use Cases |
 | :--- | :--- | :--- | :--- | :--- |
-| `Table` | Top-Left `(x, y)` | Downward & Rightward | `set_style_*()`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Service matrices, SLA comparisons, feature tables |
+| `Table` | Top-Left / Bottom-Left / Center | Downward & Rightward | `set_style_*()`, `draw(..., align="top_left", scale=1.0)`, `draw_flexible(...)` | Service matrices, SLA comparisons, feature tables |
 | `TreeNode` | Top-Left `(x, y)` | Downward tree lines | `add(show=True)`, `register_drawing_item()`, `draw(scale=1.0)` | Monorepo directories, file trees, package layouts |
-| `BoxList` | Directional `(x, y)` | `"left"`, `"right"`, `"bottom"`, `"top"` | `add(show=True)`, `draw(scale=1.0)` | Microservice cards, pipeline stages, status badges |
+| `BoxList` | Bottom-Left / Center | `direction="left" \| "right" \| "bottom" \| "top"` | `add(show=True)`, `draw(..., direction="left", align="bottom_left", scale=1.0)` | Microservice cards, pipeline stages, status badges |
 | `MindMapNode` | Center `(x, y)` | Radial (4 directions) | `add(show=True)`, `draw(branch=..., scale=1.0)` | Architecture overviews, decision trees, org charts |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Horizontal linear | `add(show=True)`, `draw(scale=1.0)` | CI/CD pipelines, ETL workflows, order lifecycles |
-| `Cycle` | Center / Bottom-Left | Radial circular | `add(show=True)`, `set_center(show=True)`, `draw(scale=1.0)` | PDCA DevOps loops, token refresh cycles, state machines |
-| `GridLayout` | Bottom-Left `(x, y)` | Matrix grid cells | `add(show=True)`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Multi-tier architecture layers, dashboard panels |
-| `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add(show=True)`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Defense-in-depth, testing pyramid, memory hierarchies |
+| `ChevronProcess` | Bottom-Left / Center | Horizontal linear | `add(show=True)`, `draw(..., align="bottom_left", scale=1.0)` | CI/CD pipelines, ETL workflows, order lifecycles |
+| `Cycle` | Center / Bottom-Left | Radial circular | `add(show=True)`, `set_center(show=True)`, `draw(..., align="center", scale=1.0)` | PDCA DevOps loops, token refresh cycles, state machines |
+| `GridLayout` | Bottom-Left / Center | Matrix grid cells | `add(show=True)`, `draw(..., align="bottom_left", scale=1.0)`, `draw_flexible(...)` | Multi-tier architecture layers, dashboard panels |
+| `Pyramid` | Bottom-Left / Center | `direction="bottom" \| "top" \| "left" \| "right"` | `add(show=True)`, `draw(..., direction="bottom", align="bottom_left", scale=1.0)`, `draw_flexible(...)` | Defense-in-depth, testing pyramid, memory hierarchies |
 | `BulletPoints` | Top-Left `(x, y)` | Downward list | `add(show=True)`, `set_indent()`, `set_bullet_style()`, `draw(scale=1.0)` | Architecture takeaways, RFC summaries, feature lists |
-| `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw(scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
-| `GeoMap` | Bottom-Left `(x, y)` | Equirectangular vector map | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()` | Multi-region cloud topology, country/city territory maps |
-| `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | Vertical stack or multi-column grid | `add(metric, text, description, show=True)`, `draw(xy, width, height, columns=1, scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
-| `CardList` | Bottom-Left `(x, y)` | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
-| `Roadmap` | Bottom-Left `(x, y)` | `"vertical"` (straight/curved) or `"horizontal"` (alternating) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Release timelines, migration roadmaps, incident chronicles |
-| `Panel` | Bottom-Left `(x, y)` | `"filled"`, `"underline"`, `"floating"`, `"window"` header | `draw(xy, width, height, scale=1.0)`, `get_content_box(xy, width, height, padding=...)` | Titled container frames, comparison columns, window panels |
+| `SourceCode` | Top-Left / Bottom-Left / Center | Vector code block | `draw(..., align="top_left", scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
+| `GeoMap` | Bottom-Left / Center | Equirectangular vector map | `get_areas()`, `set_area_styles()`, `draw(..., align="bottom_left")`, `get_area_xy()`, `lonlat_to_xy()` | Multi-region cloud topology, country/city territory maps |
+| `KpiCards` (`KpiCard`) | Bottom-Left / Center | Vertical stack or multi-column grid | `add(metric, text, description, show=True)`, `draw(xy, width, height, columns=1, align="bottom_left", scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
+| `CardList` | Bottom-Left / Center | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
+| `Roadmap` | Bottom-Left / Center | `"vertical"` (straight/curved) or `"horizontal"` (alternating) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Release timelines, migration roadmaps, incident chronicles |
+| `Panel` | Bottom-Left / Center | `"filled"`, `"underline"`, `"floating"`, `"window"` header | `draw(xy, width, height, align="bottom_left", scale=1.0)`, `get_content_box(xy, width, height, padding=..., align="bottom_left", content_align=None)` | Titled container frames, comparison columns, window panels |
 
 ---
 ## 3. Component 1: Table
@@ -108,11 +108,11 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 `Table` renders 2D tabular data with precise styling control over borders, header cells, even/odd alternating rows, and individual cell coordinates.
 
 ### 3.1 Architecture & Coordinate Mechanics
-- **Anchor**: Top-Left coordinate `xy=(x, y)`. The first row starts at `y`, and subsequent rows move downward (`y - row_height`).
+- **Anchor**: Top-Left coordinate `xy=(x, y)` by default (`align="top_left"`), or `"bottom_left"` / `"center"`. The first row starts at the top edge, and subsequent rows move downward (`y - row_height`).
 - **Data Shape**: 2D list of any serializable values (`list[list[Any]]`).
 - **Sizing Modes**:
-  - `draw(xy, width, height, data, scale=1.0)`: Uniform column widths (`width / cols`) and row heights (`height / rows`), with optional proportional scaling around `xy`.
-  - `draw_flexible(xy, column_widths, row_heights, data, scale=1.0)`: Explicit per-column and per-row sizing, with optional proportional scaling around `xy`.
+  - `draw(xy, width, height, data, *, align="top_left", scale=1.0)`: Uniform column widths (`width / cols`) and row heights (`height / rows`), with optional proportional scaling around `xy`.
+  - `draw_flexible(xy, column_widths, row_heights, data, *, align="top_left", scale=1.0)`: Explicit per-column and per-row sizing, with optional proportional scaling around `xy`.
 
 ### 3.2 Constructor & Style Methods
 ```python
@@ -288,18 +288,18 @@ save()
 
 `BoxList` draws sequential linear blocks or cards with optional individual highlight overrides.
 
-### 5.1 BoxList Architecture & Directional Alignment
-- **Anchor**: Coordinate `xy=(x, y)` marks start point.
-- **Alignment Modes (`align`)**:
-  - `"left"`: Cards sequence toward right (`+x`), `xy` at left edge vertical center.
-  - `"right"`: Cards sequence toward left (`-x`).
-  - `"bottom"`: Cards stack upward (`+y`), `xy` at bottom edge horizontal center.
-  - `"top"`: Cards stack downward (`-y`).
+### 5.1 BoxList Architecture & Layout Direction
+- **Anchor (`align`)**: Coordinate `xy=(x, y)` marks the `"bottom_left"` corner (default) or `"center"` of the overall bounding box across all 4 directions.
+- **Stacking Direction (`direction`)**:
+  - `"left"` (default): Cards sequence from left to right (`+x`).
+  - `"right"`: Cards sequence from right to left (`-x`).
+  - `"bottom"`: Cards stack from bottom to top (`+y`).
+  - `"top"`: Cards stack from top to bottom (`-y`).
 
 ### 5.2 BoxList Methods
 - `BoxList(*, style: Style, text_style: Style)`: Initializes mandatory default box and text styles.
 - `add(text, *, style=None, text_style=None, show=True) -> _BoxListItem`: Adds a card with optional custom style override and returns the mutable item instance.
-- `draw(xy, box_width, box_height, align="left", scale=1.0)`: Renders all cards in specified orientation.
+- `draw(xy, box_width, box_height, direction="left", *, align="bottom_left", scale=1.0)`: Renders all cards in the specified `direction` anchored at `xy` (`"bottom_left"` or `"center"`).
 
 ### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib code=show
@@ -323,12 +323,12 @@ pipeline.add(
 )
 pipeline.add("4. Persistence", style=Styles.SecondaryNeutral)
 pipeline.add("5. Dispatch")
-pipeline.draw(xy=(8, 30), box_width=18, box_height=10, align="left")
+pipeline.draw(xy=(8, 30), box_width=18, box_height=10, direction="left")
 
 status_list = BoxList(style=Styles.NeutralFlat, text_style=Styles.DarkBold.patch(text_size=9))
 for label in ("Cluster A: OK", "Cluster B: OK", "Cluster C: SYNC"):
     status_list.add(label)
-status_list.draw(xy=(8, 5), box_width=25, box_height=6, align="left")
+status_list.draw(xy=(8, 5), box_width=25, box_height=6, direction="left")
 save()
 ```
 
@@ -437,7 +437,7 @@ save()
 `ChevronProcess` draws horizontal, sequential process pipelines consisting of interlocking arrowhead blocks (chevrons). It is the premier component for CI/CD pipelines, fulfillment lifecycles, and phased migrations.
 
 ### 7.1 Geometry & Anchor Mechanics
-- **Anchor**: Bottom-Left coordinate `xy=(x, y)` represents bottom-left boundary of the process diagram.
+- **Anchor**: Bottom-Left coordinate `xy=(x, y)` by default (`align="bottom_left"`), or `"center"` of the process diagram.
 - **Angle Calculation**: Arrowhead indentation is governed by `corner_angle` (degrees between 10.0 and 80.0, default 60.0).
 - **First Chevron**: Setting `flat_left_end=True` replaces the first chevron's left indent with a clean vertical edge (a flat-backed pentagon).
 - **Text Alignment**: Supports primary titles and optional secondary supporting descriptions placed cleanly within the chevron body.
@@ -457,7 +457,7 @@ ChevronProcess(
 
 ### 7.3 Step Management & Drawing
 - `add(text, *, description="", style=None, text_style=None, description_style=None, show=True) -> _ChevronItem`: Adds an individual step with optional style overrides and returns the mutable item instance.
-- `draw(xy, width=90.0, height=12.0, item_width=None, scale=1.0)`:
+- `draw(xy, width=90.0, height=12.0, item_width=None, *, align="bottom_left", scale=1.0)`:
   - `width`: Total bounding width allocated; individual block widths are computed automatically:
     $$\text{item\_width} = \frac{\text{width} - (\text{num\_items} - 1) \cdot \text{spacing} - x_{\text{indent}}}{\text{num\_items}}$$
   - `item_width`: If provided, overrides automatic width distribution.
@@ -596,7 +596,7 @@ save()
 `GridLayout` positions cards and rectangles across a uniform or flexible column/row matrix, supporting cell spanning across multiple columns and rows, custom corner radii, rotated labels, and outer borders.
 
 ### 9.1 Coordinate & Indexing Rules
-- **Anchor**: Coordinate `xy=(x, y)` marks **bottom-left corner** of entire grid.
+- **Anchor**: Coordinate `xy=(x, y)` marks **bottom-left corner** (`align="bottom_left"`) or **center** (`align="center"`) of entire grid.
 - **Row Indexing**: `row_start=0` is **bottom-most row**. Rows increment upward towards row `num_row - 1`.
 - **Column Indexing**: `column_start=0` is **left-most column**. Columns increment rightward towards `num_column - 1`.
 - **Cell Spanning**: A card starting at `position=(col, row)` spans `width` column cells and `height` row cells.
@@ -627,8 +627,8 @@ item = grid.add(
 ```
 
 ### 9.3 Drawing Modes
-- `draw(xy, width, height, margin, outer_style=None, scale=1.0)`: Even column and row dimensions with uniform `margin` gutters between cells and around borders, plus optional proportional `scale`.
-- `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_style=None, scale=1.0)`: Custom widths and heights for each individual column and row, plus optional proportional `scale`.
+- `draw(xy, width, height, margin, outer_style=None, *, align="bottom_left", scale=1.0)`: Even column and row dimensions with uniform `margin` gutters between cells and around borders, plus optional proportional `scale`.
+- `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_style=None, *, align="bottom_left", scale=1.0)`: Custom widths and heights for each individual column and row, plus optional proportional `scale`.
 
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib code=show
@@ -676,9 +676,9 @@ save()
 `Pyramid` renders tiered, hierarchical trapezoids crowned by an apex triangle. It is ideal for visualizing defense-in-depth security, testing pyramids, memory hierarchies, and organizational governance.
 
 ### 10.1 Architecture & Geometry
-- **Anchor**: Bottom-Left coordinate `xy=(x, y)` anchors bounding box.
+- **Anchor (`align`)**: Bottom-Left coordinate `xy=(x, y)` (`align="bottom_left"`, default) or center coordinate (`align="center"`) of the bounding box.
 - **Apex and Slices**: Top-most slice is drawn as a triangle; lower slices are drawn as trapezoids widening progressively toward the base.
-- **Alignments (`align`)**: `"bottom"` (standard upright), `"top"` (inverted funnel), `"left"` (points left), `"right"` (points right).
+- **Orientations (`direction`)**: `"bottom"` (standard upright), `"top"` (inverted funnel), `"left"` (base on left, points right), `"right"` (base on right, points left).
 - **Ordering (`order`)**:
   - `"vertex_to_base"`: First added item is positioned at the apex/vertex; subsequent items move toward the base.
   - `"base_to_vertex"`: First added item is positioned at the wide base; subsequent items move toward the vertex.
@@ -704,9 +704,9 @@ tier = pyramid.add(
 ```
 
 ### 10.3 Drawing APIs
-- `draw(xy, width, height, margin, align="bottom", order="vertex_to_base", scale=1.0)`: Uniform tier heights with optional proportional `scale`:
+- `draw(xy, width, height, margin, direction="bottom", order="vertex_to_base", *, align="bottom_left", scale=1.0)`: Uniform tier heights with optional proportional `scale`:
   $$\text{tier\_height} = \frac{\text{height} - (N - 1) \cdot \text{margin}}{N}$$
-- `draw_flexible(xy, width, item_heights, margins, align="bottom", order="vertex_to_base", scale=1.0)`: Explicit heights per tier with optional proportional `scale`.
+- `draw_flexible(xy, width, item_heights, margins, direction="bottom", order="vertex_to_base", *, align="bottom_left", scale=1.0)`: Explicit heights per tier with optional proportional `scale`.
 
 ### 10.4 Production Example: Software Testing Pyramid
 ```drawlib code=show
@@ -726,7 +726,7 @@ test_pyramid.add(
     text_style=Styles.WhiteBold.patch(text_size=10),
 )
 
-test_pyramid.draw(xy=(15, 10), width=70, height=45, margin=1.5, align="bottom", order="vertex_to_base")
+test_pyramid.draw(xy=(15, 10), width=70, height=45, margin=1.5, direction="bottom", order="vertex_to_base")
 save()
 ```
 
@@ -823,7 +823,7 @@ Unlike stateful SmartArts (`Table`, `TreeNode`), `SourceCode` is stateless: you 
 ### 12.2 Signature
 ```python
 SourceCode.draw(
-    xy: tuple[float, float],           # Top-left corner (x, y) of the code container
+    xy: tuple[float, float],           # Anchor coordinate (x, y) of the code container
     width: float,                      # Total container width
     code: str | None = None,           # Code string to render (or use `file`)
     *,
@@ -831,6 +831,7 @@ SourceCode.draw(
     file: str | None = None,           # Path to code file (alternative to `code`)
     code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
     show_linenum: bool = False,        # Whether to show line numbers in a gutter
+    align: Literal["top_left", "bottom_left", "center"] = "top_left",
     scale: float = 1.0,                # Proportional scaling anchored at xy
 )
 ```
@@ -890,7 +891,7 @@ save()
 `GeoMap` renders vector geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`, or custom GeoJSON files) onto the Drawlib canvas without external GIS dependencies.
 
 ### 12b.1 Geometry, Anchor & Sizing Rules
-- **Anchor**: Coordinate `xy=(x, y)` marks the **Bottom-Left** corner of the map bounding box on the canvas.
+- **Anchor**: Coordinate `xy=(x, y)` marks the **Bottom-Left** (`align="bottom_left"`) or **Center** (`align="center"`) of the map bounding box on the canvas.
 - **Required Dimension (`width` or `height` Must Be Provided)**:
   Although `width` and `height` both default to `None` in the method signature, **at least one of `width` or `height` MUST be passed to `draw()`**. Calling `m.draw()` with both `width=None` and `height=None` raises `ValueError: At least one of 'width' or 'height' must be provided to GeoMap.draw().`
 - **Aspect Ratio & `background_style` Alignment**:
@@ -913,7 +914,7 @@ save()
 m = GeoMap(target, *, area_style=Styles.Neutral, background_style=None, id_key=None, name_key=None)
 m.get_areas() -> list[str]
 m.set_area_styles(areas: list[str], style: Style) -> Self
-m.draw(xy=(0.0, 0.0), width=None, height=None, *, lon_range=None, lat_range=None, scale=1.0) -> Self
+m.draw(xy=(0.0, 0.0), width=None, height=None, *, lon_range=None, lat_range=None, align="bottom_left", scale=1.0) -> Self
 m.get_area_xy(area: str) -> tuple[float, float]
 m.lonlat_to_xy(lon: float, lat: float) -> tuple[float, float]
 ```
@@ -978,7 +979,7 @@ item = kpi.add(
     icon=phosphor.shield_check,
     show=True,
 )
-kpi.draw(xy=(10.0, 10.0), width=90.0, height=56.0, columns=1, scale=1.0)
+kpi.draw(xy=(10.0, 10.0), width=90.0, height=56.0, columns=1, align="bottom_left", scale=1.0)
 ```
 
 ### 12c.2 Production Example: Side-by-Side Stack and 2x2 Grid
@@ -1068,7 +1069,7 @@ item = cl.add(
     icon=phosphor.shield_check,
     show=True,
 )
-cl.draw(xy=(10.0, 10.0), width=90.0, height=56.0, scale=1.0)
+cl.draw(xy=(10.0, 10.0), width=90.0, height=56.0, align="bottom_left", scale=1.0)
 ```
 
 ### 12d.2 Production Example: Vertical Defense Cards & Horizontal Workflow Steps
@@ -1169,7 +1170,7 @@ item = rm.add(
     icon=phosphor.cube,
     show=True,
 )
-rm.draw(xy=(10.0, 10.0), width=90.0, height=60.0, scale=1.0)
+rm.draw(xy=(10.0, 10.0), width=90.0, height=60.0, align="bottom_left", scale=1.0)
 ```
 
 ### 12e.2 Production Example: Vertical Roadmaps & Horizontal Alternating Timeline
@@ -1270,7 +1271,7 @@ save()
 ---
 ## 12f. Component 15: Panel (Titled Container Frames & Header Bands)
 
-`Panel` renders a titled container box with a header band (`header_variant="filled" | "underline" | "floating" | "window"`) and provides `get_content_box(xy, width, height, padding=...)` to automatically compute the inner drawable `(inner_xy, inner_width, inner_height)` for nesting other SmartArts, Charts, or Diagrams inside the panel.
+`Panel` renders a titled container box with a header band (`header_variant="filled" | "underline" | "floating" | "window"`) and provides `get_content_box(xy, width, height, padding=..., align=..., content_align=...)` to automatically compute the inner drawable `(inner_xy, inner_width, inner_height)` for nesting other SmartArts, Charts, or Diagrams inside the panel.
 
 ### 12f.1 Constructor & Methods
 All displayed elements require an explicit `Style` (passing `description` without `description_style`, `icon` without `icon_style`, or `header_variant="window"` without `dot_styles` raises a `ValueError`):
@@ -1299,6 +1300,7 @@ p.draw(
     width: float = 100.0,
     height: float = 60.0,
     *,
+    align: Literal["bottom_left", "center"] = "bottom_left",
     scale: float = 1.0,
 ) -> Panel
 
@@ -1309,6 +1311,8 @@ inner_xy, inner_w, inner_h = p.get_content_box(
     height: float = 60.0,
     *,
     padding: float | tuple[float, float] = (4.0, 3.0),
+    align: Literal["bottom_left", "center"] = "bottom_left",
+    content_align: Literal["bottom_left", "center"] | None = None,
     scale: float = 1.0,
 )
 ```
@@ -1318,7 +1322,7 @@ inner_xy, inner_w, inner_h = p.get_content_box(
 
 ### 13.1 Coordinate Normalization Cheat Sheet
 
-When integrating multiple SmartArts onto a single canvas, harmonize their coordinate origins according to the following formulas:
+When integrating multiple SmartArts onto a single canvas, you can either pass `align="bottom_left"` / `align="center"` directly to `draw()`, or harmonize their coordinate origins according to the following formulas:
 
 ```python
 # Converting between Top-Left, Bottom-Left, and Center anchors:
@@ -1330,21 +1334,13 @@ top_left_x = left_x
 top_left_y = bottom_y + H
 ```
 
-| Component | Input `xy` Meaning | To Align with Canvas Top-Left `(X, Y)` | To Align with Canvas Bottom-Left `(X, Y)` |
+| Component | Default `xy` Meaning | Supported `align` Options | To Align with Canvas Bottom-Left `(X, Y)` |
 | :--- | :--- | :--- | :--- |
-| `Table` | Top-Left `(x, y)` | Pass `(X, Y)` directly | Pass `(X, Y + H)` |
-| `TreeNode` | Top-Left `(x, y)` | Pass `(X, Y)` directly | Pass `(X, Y + H)` |
-| `BulletPoints` | Top-Left `(x, y)` | Pass `(X, Y)` directly | Pass `(X, Y + H)` |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `GridLayout` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `Pyramid` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `GeoMap` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `KpiCards` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `CardList` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `Roadmap` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `Panel` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `MindMapNode` | Root Center `(x, y)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
-| `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
+| `Table`, `SourceCode` | Top-Left `(x, y)` | `"top_left"`, `"bottom_left"`, `"center"` | Pass `align="bottom_left"` or `(X, Y + H)` |
+| `TreeNode`, `BulletPoints` | Top-Left `(x, y)` | *(Fixed Top-Left)* | Pass `(X, Y + H)` |
+| `ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel` | Bottom-Left `(x, y)` | `"bottom_left"`, `"center"` | Pass `(X, Y)` directly |
+| `MindMapNode` | Root Center `(x, y)` | *(Fixed Root Center)* | Pass `(X + W/2, Y + H/2)` |
+| `Cycle` | Orbit Center `(x, y)` | `"center"`, `"bottom_left"` | Pass `align="bottom_left"` or `(X + R, Y + R)` |
 
 ### 13.2 Multi-Component Dashboard Integration Example
 ```drawlib code=show

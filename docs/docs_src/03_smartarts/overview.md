@@ -170,21 +170,21 @@ from drawlib.smartarts import (
 
 | Component | Primary Use Case | Anchor System | Key Methods & Item Models |
 | :--- | :--- | :--- | :--- |
-| **[`ChevronProcess`](./chevron_process.md)** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `add(...) -> ChevronItem`, `items`, `draw(..., scale=1.0)` |
-| **[`Cycle`](./cycle.md)** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` or Bottom-Left | `add(...) -> CycleItem`, `set_center() -> CycleCenter`, `items`, `center`, `draw(...)` |
-| **[`Table`](./table.md)** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `set_style_cell_*()`, `set_style_border()`, `reset_styles()`, `draw(...)`, `draw_flexible(...)` |
+| **[`ChevronProcess`](./chevron_process.md)** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left / Center | `add(...) -> ChevronItem`, `items`, `draw(..., align="bottom_left", scale=1.0)` |
+| **[`Cycle`](./cycle.md)** | PDCA devops loops, circular lifecycles, state loops | Center / Bottom-Left | `add(...) -> CycleItem`, `set_center() -> CycleCenter`, `items`, `center`, `draw(..., align="center")` |
+| **[`Table`](./table.md)** | Service SLAs, specification matrices, DB schemas | Top-Left / Bottom-Left / Center | `set_style_cell_*()`, `set_style_border()`, `reset_styles()`, `draw(..., align="top_left")`, `draw_flexible(...)` |
 | **[`TreeNode`](./tree.md)** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `add(...) -> TreeNode`, `register_drawing_item()`, `set_drawing_item()`, `draw(...)` |
 | **[`MindMapNode`](./mindmap.md)** | Brainstorming nodes, radial feature maps, org trees | Center `(cx, cy)` | `add(...) -> MindMapNode`, `draw(xy, branch="bottom", scale=1.0)` |
-| **[`GridLayout`](./grid_layout.md)** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add(...) -> GridItem`, `items`, `draw(...)`, `draw_flexible(...)` |
-| **[`Pyramid`](./pyramid.md)** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add(...) -> PyramidItem`, `items`, `draw(...)`, `draw_flexible(...)` |
-| **[`BoxList`](./box_list.md)** | Linear horizontal or vertical card sequences | Directional `(x, y)` | `add(...) -> BoxListItem`, `items`, `draw(..., scale=1.0)` |
-| **[`KpiCards`](./kpi_cards.md)** | Metric highlight cards, SLO/benchmark summaries | Bottom-Left `(x, y)` | `add(...) -> KpiCardItem`, `items`, `draw(xy, width, height, columns=1, scale=1.0)` |
-| **[`CardList`](./card_list.md)** | Icon/badge feature stacks and arrow step cards | Bottom-Left `(x, y)` | `add(...) -> CardListItem`, `items`, `draw(xy, width, height, scale=1.0)` |
-| **[`Roadmap`](./roadmap.md)** | Straight/curved timelines and milestone roadmaps | Bottom-Left `(x, y)` | `add(...) -> RoadmapItem`, `items`, `draw(xy, width, height, scale=1.0)` |
-| **[`Panel`](./panel.md)** | Titled container frames with header bands & content box math | Bottom-Left `(x, y)` | `draw(xy, width, height, scale=1.0)`, `get_content_box(xy, width, height, padding=...)` |
+| **[`GridLayout`](./grid_layout.md)** | Layered architectures, dashboard card grids | Bottom-Left / Center | `add(...) -> GridItem`, `items`, `draw(..., align="bottom_left")`, `draw_flexible(...)` |
+| **[`Pyramid`](./pyramid.md)** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left / Center | `add(...) -> PyramidItem`, `items`, `draw(..., direction="bottom", align="bottom_left")`, `draw_flexible(...)` |
+| **[`BoxList`](./box_list.md)** | Linear horizontal or vertical card sequences | Bottom-Left / Center | `add(...) -> BoxListItem`, `items`, `draw(..., direction="left", align="bottom_left", scale=1.0)` |
+| **[`KpiCards`](./kpi_cards.md)** | Metric highlight cards, SLO/benchmark summaries | Bottom-Left / Center | `add(...) -> KpiCardItem`, `items`, `draw(xy, width, height, columns=1, align="bottom_left", scale=1.0)` |
+| **[`CardList`](./card_list.md)** | Icon/badge feature stacks and arrow step cards | Bottom-Left / Center | `add(...) -> CardListItem`, `items`, `draw(xy, width, height, align="bottom_left", scale=1.0)` |
+| **[`Roadmap`](./roadmap.md)** | Straight/curved timelines and milestone roadmaps | Bottom-Left / Center | `add(...) -> RoadmapItem`, `items`, `draw(xy, width, height, align="bottom_left", scale=1.0)` |
+| **[`Panel`](./panel.md)** | Titled container frames with header bands & content box math | Bottom-Left / Center | `draw(xy, width, height, align="bottom_left", scale=1.0)`, `get_content_box(xy, width, height, padding=..., align="bottom_left", content_align=None)` |
 | **[`BulletPoints`](./bullet_points.md)** | Architectural takeaways, RFC key points, checklists | Top-Left `(x, y)` | `set_indent()`, `set_bullet_style()`, `add(...) -> BulletPointItem`, `items`, `draw(...)` |
-| **[`SourceCode`](./source_code.md)** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `SourceCode.draw(...)` / `sourcecode(...)`, `SourceCode.get_text()`, `SourceCodeStyles.get()` |
-| **[`GeoMap`](./geomap.md)** | Geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) | Bottom-Left `(x, y)` | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()`, `data` |
+| **[`SourceCode`](./source_code.md)** | Syntax-highlighted code blocks in diagrams | Top-Left / Bottom-Left / Center | `SourceCode.draw(..., align="top_left")` / `sourcecode(...)`, `SourceCode.get_text()`, `SourceCodeStyles.get()` |
+| **[`GeoMap`](./geomap.md)** | Geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) | Bottom-Left / Center | `get_areas()`, `set_area_styles()`, `draw(..., align="bottom_left")`, `get_area_xy()`, `lonlat_to_xy()`, `data` |
 
 > **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is part of `drawlib.shapes` and is documented in **[Cylinders, Faces & Callouts](../02_drawing_primitives/shapes_domain.md)**.
 
@@ -193,11 +193,11 @@ from drawlib.smartarts import (
 ## 4. Coordinate Anchor & Normalization Cheat Sheet
 
 Understanding anchor conventions is essential when combining multiple SmartArts onto a single canvas:
-- **Top-Left Anchored (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
-  You specify the top-left coordinate `(x, y)`. Content flows horizontally to the right (`+x`) and vertically downward (`-y`).
-- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, `GeoMap`)**:  
-  You specify the bottom-left coordinate `(x, y)` (for `BoxList` with default `align="left"` or `"bottom"`). The bounding container extends rightward (`+x`) and upward (`+y`).
-- **Center Anchored (`Cycle`, `MindMapNode`)**:  
+- **Top-Left Anchored by Default (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
+  You specify the top-left coordinate `(x, y)` (`Table` and `SourceCode` also accept `align="bottom_left"` or `align="center"`). Content flows horizontally to the right (`+x`) and vertically downward (`-y`).
+- **Bottom-Left Anchored by Default (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, `GeoMap`)**:  
+  You specify the bottom-left coordinate `(x, y)` (or pass `align="center"` to anchor by the bounding-box center `(cx, cy)`). The bounding container extends rightward (`+x`) and upward (`+y`).
+- **Center Anchored by Default (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)` (or pass `align="bottom_left"` to `Cycle.draw()`). The diagram expands symmetrically or radially around the center.
 
 ```drawlib code=fold align=center file=smartarts_anchor_systems.png caption="The Three SmartArt Coordinate Anchor Conventions"
@@ -265,7 +265,7 @@ text((107.0, 9.5), "Cycle / MindMapNode", style=Styles.DarkBold.patch(text_size=
 save()
 ```
 
-To align components of size `(W, H)` on the same canvas grid, convert between Top-Left `(left_x, top_left_y)`, Bottom-Left `(left_x, bottom_y)`, and Center `(center_x, center_y)` anchors using:
+To align components of size `(W, H)` on the same canvas grid, either pass `align="bottom_left"` / `align="center"` directly to `draw()`, or convert between Top-Left `(left_x, top_left_y)`, Bottom-Left `(left_x, bottom_y)`, and Center `(center_x, center_y)` anchors using:
 
 ```python
 center_x = left_x + W / 2.0
@@ -273,14 +273,13 @@ center_y = bottom_y + H / 2.0
 top_left_y = bottom_y + H
 ```
 
-| Component | Input `xy` Meaning | To Align with Top-Left `(X, Y)` | To Align with Bottom-Left `(X, Y)` |
+| Component | Default `xy` Meaning | Supported `align` Options | To Align with Bottom-Left `(X, Y)` |
 | :--- | :--- | :--- | :--- |
-| **`Table`**, **`TreeNode`**, **`BulletPoints`**, **`SourceCode`** | Top-Left `(x, y)` | Pass `(X, Y)` directly | Pass `(X, Y + H)` |
-| **`ChevronProcess`**, **`GridLayout`**, **`Pyramid`**, **`KpiCards`**, **`CardList`**, **`Roadmap`**, **`Panel`**, **`GeoMap`** | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| **`BoxList`** (`align="left"` or `"bottom"`) | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| **`MindMapNode`** | Root Center `(cx, cy)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
-| **`Cycle`** (`align="center"`) | Orbit Center `(cx, cy)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
-| **`Cycle`** (`align="bottom_left"`) | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
+| **`Table`**, **`SourceCode`** | Top-Left `(x, y)` | `"top_left"`, `"bottom_left"`, `"center"` | Pass `align="bottom_left"` or `(X, Y + H)` |
+| **`TreeNode`**, **`BulletPoints`** | Top-Left `(x, y)` | *(Fixed Top-Left)* | Pass `(X, Y + H)` |
+| **`ChevronProcess`**, **`GridLayout`**, **`Pyramid`**, **`BoxList`**, **`KpiCards`**, **`CardList`**, **`Roadmap`**, **`Panel`**, **`GeoMap`** | Bottom-Left `(x, y)` | `"bottom_left"`, `"center"` | Pass `(X, Y)` directly |
+| **`MindMapNode`** | Root Center `(cx, cy)` | *(Fixed Root Center)* | Pass `(X + W/2, Y + H/2)` |
+| **`Cycle`** | Orbit Center `(cx, cy)` | `"center"`, `"bottom_left"` | Pass `align="bottom_left"` or `(X + R, Y + R)` |
 
 ---
 

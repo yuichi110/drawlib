@@ -211,3 +211,35 @@ class TestPanelIntegration:
             canvas.save(str(out))
             assert out.exists()
             assert out.stat().st_size > 0
+
+    def test_panel_align_center(self) -> None:
+        """Verify Panel.draw(align='center') and get_content_box(align='center', content_align=...)."""
+        canvas.clear()
+        canvas.setup(width=100, height=100)
+        p = Panel(
+            "Centered Panel",
+            style=Styles.Neutral,
+            header_style=Styles.PrimaryFlat,
+            text_style=Styles.WhiteBold,
+            header_height=10.0,
+        )
+        # align="center" defaults content_align to "center"
+        c_xy, c_w, c_h = p.get_content_box((50, 50), width=60, height=40, padding=4.0, align="center")
+        assert c_xy == pytest.approx((50.0, 45.0))
+        assert c_w == pytest.approx(52.0)
+        assert c_h == pytest.approx(22.0)
+
+        # Explicit content_align="bottom_left" with align="center"
+        bl_xy, bl_w, bl_h = p.get_content_box(
+            (50, 50),
+            width=60,
+            height=40,
+            padding=4.0,
+            align="center",
+            content_align="bottom_left",
+        )
+        assert bl_xy == pytest.approx((24.0, 34.0))
+        assert bl_w == pytest.approx(52.0)
+        assert bl_h == pytest.approx(22.0)
+
+        p.draw((50, 50), width=60, height=40, align="center")

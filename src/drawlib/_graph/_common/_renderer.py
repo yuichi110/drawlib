@@ -129,6 +129,7 @@ def render_layout(
     layout: GraphLayout,
     *,
     xy: tuple[float, float] = (0.0, 0.0),
+    align: Literal["bottom_left", "center"] = "bottom_left",
     scale: float = 1.0,
 ) -> None:
     """Render a computed GraphLayout onto the active Drawlib canvas.
@@ -141,10 +142,17 @@ def render_layout(
 
     Args:
         layout: Complete geometrical graph layout object.
-        xy: Placement offset coordinate (x, y) for the layout origin.
+        xy: Placement anchor coordinate (x, y) for the layout (interpreted via align).
+        align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
         scale: Proportional scale factor anchored at xy.
     """
-    with transform(origin=(0.0, 0.0), scale=scale, translate=xy):
+    if align == "center":
+        tx = float(xy[0]) - float(scale) * (float(layout.width) / 2.0)
+        ty = float(xy[1]) - float(scale) * (float(layout.height) / 2.0)
+        translate = (tx, ty)
+    else:
+        translate = (float(xy[0]), float(xy[1]))
+    with transform(origin=(0.0, 0.0), scale=scale, translate=translate):
         _draw_clusters(layout.clusters)
         _draw_edges(layout.edges, layout.nodes)
         _draw_nodes(layout.nodes)

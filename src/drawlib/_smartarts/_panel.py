@@ -115,32 +115,39 @@ class Panel:
             )
 
     @validate_call
-    def get_content_box(
+    def get_content_box(  # noqa: PLR0913
         self,
         xy: Coordinate,
         width: PosFloat = 100.0,
         height: PosFloat = 60.0,
         *,
         padding: PosFloat | tuple[PosFloat, PosFloat] = (4.0, 3.0),
+        align: Literal["bottom_left", "center"] = "bottom_left",
+        content_align: Literal["bottom_left", "center"] | None = None,
         scale: PosFloat = 1.0,
     ) -> tuple[tuple[float, float], float, float]:
         """Calculate the inner drawable bounding box `(inner_xy, inner_width, inner_height)`.
 
         Args:
-            xy: Bottom-left coordinate (x, y) of the outer panel.
+            xy: Anchor coordinate (x, y) of the outer panel (`"bottom_left"` or `"center"`).
             width: Total width of the outer panel. Defaults to 100.0.
             height: Total height of the outer panel. Defaults to 60.0.
             padding: Inner horizontal and vertical padding as a single float or `(pad_x, pad_y)`
                 tuple. Defaults to `(4.0, 3.0)`.
+            align: Anchor alignment of input `xy` ("bottom_left" or "center").
+                Defaults to "bottom_left".
+            content_align: Anchor alignment of returned `inner_xy` ("bottom_left" or "center").
+                When None, defaults to `align`.
             scale: Proportional scale factor around `xy`. Defaults to 1.0.
 
         Returns:
             tuple[tuple[float, float], float, float]: A tuple `(inner_xy, inner_width, inner_height)`
-            representing the bottom-left coordinate, width, and height of the inner content area.
+            representing the anchor coordinate, width, and height of the inner content area.
         """
-        x0, y0 = float(xy[0]), float(xy[1])
         w = float(width) * float(scale)
         h = float(height) * float(scale)
+        x0 = float(xy[0]) - w / 2.0 if align == "center" else float(xy[0])
+        y0 = float(xy[1]) - h / 2.0 if align == "center" else float(xy[1])
         h_height = min(self.header_height * float(scale), h * 0.45)
 
         if isinstance(padding, tuple):
@@ -150,11 +157,14 @@ class Panel:
             pad_x = float(padding) * float(scale)
             pad_y = float(padding) * float(scale)
 
-        content_x = x0 + pad_x
-        content_y = y0 + pad_y
+        content_x0 = x0 + pad_x
+        content_y0 = y0 + pad_y
         content_w = max(1.0, w - pad_x * 2.0)
         content_h = max(1.0, h - h_height - pad_y * 2.0)
-        return (content_x, content_y), content_w, content_h
+        target_align = content_align if content_align is not None else align
+        if target_align == "center":
+            return (content_x0 + content_w / 2.0, content_y0 + content_h / 2.0), content_w, content_h
+        return (content_x0, content_y0), content_w, content_h
 
     @validate_call
     def draw(
@@ -163,14 +173,17 @@ class Panel:
         width: PosFloat = 100.0,
         height: PosFloat = 60.0,
         *,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> Self:
-        """Render the panel container at bottom-left coordinate `xy`.
+        """Render the panel container at coordinate `xy`.
 
         Args:
-            xy: Bottom-left coordinate (x, y) of the panel bounding box.
+            xy: Anchor coordinate (x, y) of the panel bounding box.
             width: Total width of the panel. Defaults to 100.0.
             height: Total height of the panel. Defaults to 60.0.
+            align: Anchor alignment of `xy` ("bottom_left" or "center").
+                Defaults to "bottom_left".
             scale: Proportional scale factor around `xy`. Defaults to 1.0.
 
         Returns:
@@ -180,9 +193,10 @@ class Panel:
         if not self.show:
             return self
 
-        x0, y0 = float(xy[0]), float(xy[1])
         total_w = float(width)
         total_h = float(height)
+        x0 = float(xy[0]) - total_w / 2.0 if align == "center" else float(xy[0])
+        y0 = float(xy[1]) - total_h / 2.0 if align == "center" else float(xy[1])
         h_height = min(self.header_height, total_h * 0.45)
         body_style = resolve_card_box_style(self.style, total_h, max_r=2.5)
         raw_r = body_style.shape_r

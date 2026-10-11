@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import validate_call
 
 import drawlib._charts.bar_chart._renderer as _renderer_module
@@ -146,14 +148,16 @@ class BarChart(AxisChartMixin):
         *,
         width: float | None = None,
         height: float | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: float = 1.0,
     ) -> None:
-        """Render this bar chart onto the canvas at base coordinate xy (bottom-left).
+        """Render this bar chart onto the canvas at base coordinate xy.
 
         Args:
-            xy: Canvas placement coordinate (x, y) where the bottom-left of the chart is anchored.
+            xy: Canvas placement coordinate (x, y) (interpreted via align).
             width: Optional temporary width override for this draw call.
             height: Optional temporary height override for this draw call.
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
         draw_with_box_overrides(
@@ -162,5 +166,6 @@ class BarChart(AxisChartMixin):
             xy,
             width=width,
             height=height,
+            align=align,
             scale=scale,
         )

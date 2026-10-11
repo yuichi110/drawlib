@@ -281,7 +281,7 @@ rectangle((50, 22), width=80, height=28, style=custom_style, text="Custom Style 
 Always prefer high-level diagrams over manually drawing raw rectangles and connectors. Every diagram and auto-layout graph follows the unified component lifecycle:
 - **Mutable Element References & Visibility (`show`)**: Registration methods (`add()`, `connect()`, `fork()`, `junction()`, `add_lane()`, `request()`, `reply()`, `note()`, `loop()`/`alt()`/`opt()`/`par()`, `node()`, `edge()`, `cluster()`) accept `show: bool = True` and return the mutable element instance. Mutating `.show = False`, `.style`, `.text_style`, or `.text` / `.label` updates rendering on the next `draw()` without shifting the diagram's layout bounds, swimlanes, or sequence timelines.
 - **Automatic Edge & Dangling Junction Hiding**: Hiding a node (`node.show = False`) automatically hides all connected edges (and any dangling `Junction` pass-through stems whose outgoing or incoming branches are all hidden).
-- **Proportional Scaling (`scale`)**: Every diagram supports `diag.draw(xy=(0.0, 0.0), *, scale=1.0)`, uniformly scaling all coordinates, shapes, stroke widths, arrowheads, icons, and font sizes relative to `xy`.
+- **Anchor Alignment (`align`) & Proportional Scaling (`scale`)**: Every diagram supports `diag.draw(xy=(0.0, 0.0), *, align="bottom_left", scale=1.0)`, where `align="bottom_left"` (default) or `align="center"` anchors the diagram's visual bounding box at `xy`, and `scale` uniformly scales all coordinates, shapes, stroke widths, arrowheads, icons, and font sizes relative to `xy`.
 
 ### 7.1 Architecture Diagram (`drawlib.diagrams.architecture`)
 Builds cloud topologies, microservice meshes, VPC boundaries, and icon-annotated infrastructure.
@@ -385,7 +385,7 @@ seq.draw()
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
 
 ### 7.5 Declarative Auto-Layout Graphs (`drawlib.graph`)
-When you want automatic coordinate computation from topological declarations (`node(..., show=True)`, `edge(..., show=True)`, `cluster(..., show=True)`) with support for post-layout tweaking (`calc()` + `offset()`), translation/scaling (`g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)` / `layout.draw(*, xy=(0, 0), scale=1.0)`), or code scaffolding (`export_code()`):
+When you want automatic coordinate computation from topological declarations (`node(..., show=True)`, `edge(..., show=True)`, `cluster(..., show=True)`) with support for post-layout tweaking (`calc()` + `offset()`), translation/alignment/scaling (`g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, align="bottom_left", scale=1.0)` / `layout.draw(*, xy=(0, 0), align="bottom_left", scale=1.0)`), or code scaffolding (`export_code()`):
 - **`ArchitectureGraph`**: 2-level macro/micro container packing and 5-zone compass positioning (`pos="left"|"center"|"right"|"top"|"bottom"`, `parent=...`).
 - **`LayerGraph`**: Sugiyama hierarchical DAG solver with `.tier()` stage pinning.
 - **`TreeGraph`**: Reingold-Tilford compact tree solver with `.child()`.
@@ -396,25 +396,25 @@ When you want automatic coordinate computation from topological declarations (`n
 
 ## 8. SmartArts Structured Components (`drawlib.smartarts`)
 
-High-level automated components for business and technical concepts. Every stateful SmartArt standardizes element registration via `add(..., show=True)` (returning a mutable item instance with `.show`, `.style`, `.text_style`, `.text` evaluated lazily at `draw()` time) and supports proportional scaling via `draw(..., scale=1.0)` / `draw_flexible(..., scale=1.0)`:
+High-level automated components for business and technical concepts. Every stateful SmartArt standardizes element registration via `add(..., show=True)` (returning a mutable item instance with `.show`, `.style`, `.text_style`, `.text` evaluated lazily at `draw()` time), anchor alignment via `align` (`"bottom_left"`, `"center"`, or `"top_left"`), and proportional scaling via `draw(..., scale=1.0)` / `draw_flexible(..., scale=1.0)`:
 
-| Component | Anchor | Typical Use Case | Primary Usage |
+| Component | Default Anchor (`align`) | Typical Use Case | Primary Usage |
 | :--- | :--- | :--- | :--- |
-| `Table` | Top-Left `(x, y)` | Comparison matrix, data schemas | `t = Table(...); t.draw(xy, width, height, data, scale=1.0)` |
+| `Table` | Top-Left (`"top_left" \| "bottom_left" \| "center"`) | Comparison matrix, data schemas | `t = Table(...); t.draw(xy, width, height, data, align="top_left", scale=1.0)` |
 | `TreeNode` | Top-Left `(x, y)` | Directory trees, org charts | `node = TreeNode("Root", ...); node.add("Child", show=True); node.draw(xy, scale=1.0)` |
 | `MindMapNode` | Center `(x, y)` | Radial concept maps | `root = MindMapNode("Topic", ...); root.add("Sub", show=True); root.draw(xy, scale=1.0)` |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `p = ChevronProcess(...); p.add(..., show=True); p.draw(xy, width, height, scale=1.0)` |
-| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `c = Cycle(...); c.add(..., show=True); c.draw(xy, radius, scale=1.0)` |
-| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.add(..., show=True); g.draw(xy, width, height, margin, scale=1.0)` |
-| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.add(..., show=True); p.draw(xy, width, height, margin, scale=1.0)` |
-| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.add(..., show=True); b.draw(xy, box_width, box_height, scale=1.0)` |
-| `CardList` | Bottom-Left `(x, y)` | Icon/badge feature & step cards | `c = CardList(...); c.add("Title", "Desc", icon=..., badge_text="1", show=True); c.draw(xy, width, height, scale=1.0)` |
-| `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | KPI metrics, SLA/spec highlight cards | `k = KpiCards(...); k.add("99.99%", "SLA", "Desc", show=True); k.draw(xy, width, height, columns=1, scale=1.0)` |
-| `Roadmap` | Bottom-Left `(x, y)` | Linear timelines, curved agendas, roadmaps | `r = Roadmap(...); r.add("Phase 1", "Sub", badge_text="Q1", show=True); r.draw(xy, width, height, scale=1.0)` |
-| `Panel` | Bottom-Left `(x, y)` | Titled container frames with header bands | `p = Panel("Group", style=..., header_style=..., text_style=...); p.draw(xy, width, height); inner_xy, w, h = p.get_content_box(xy, width, height)` |
+| `ChevronProcess` | Bottom-Left (`"bottom_left" \| "center"`) | Linear pipelines & phases | `p = ChevronProcess(...); p.add(..., show=True); p.draw(xy, width, height, align="bottom_left", scale=1.0)` |
+| `Cycle` | Center (`"center" \| "bottom_left"`) | Feedback loops, CI/CD cycles | `c = Cycle(...); c.add(..., show=True); c.draw(xy, radius, align="center", scale=1.0)` |
+| `GridLayout` | Bottom-Left (`"bottom_left" \| "center"`) | Component matrices, layer decks | `g = GridLayout(...); g.add(..., show=True); g.draw(xy, width, height, margin, align="bottom_left", scale=1.0)` |
+| `Pyramid` | Bottom-Left (`"bottom_left" \| "center"`) | Tiered hierarchy stacks | `p = Pyramid(...); p.add(..., show=True); p.draw(xy, width, height, margin, direction="bottom", align="bottom_left", scale=1.0)` |
+| `BoxList` | Bottom-Left (`"bottom_left" \| "center"`) | Feature callouts, card stacks | `b = BoxList(...); b.add(..., show=True); b.draw(xy, box_width, box_height, direction="left", align="bottom_left", scale=1.0)` |
+| `CardList` | Bottom-Left (`"bottom_left" \| "center"`) | Icon/badge feature & step cards | `c = CardList(...); c.add("Title", "Desc", icon=..., badge_text="1", show=True); c.draw(xy, width, height, align="bottom_left", scale=1.0)` |
+| `KpiCards` (`KpiCard`) | Bottom-Left (`"bottom_left" \| "center"`) | KPI metrics, SLA/spec highlight cards | `k = KpiCards(...); k.add("99.99%", "SLA", "Desc", show=True); k.draw(xy, width, height, columns=1, align="bottom_left", scale=1.0)` |
+| `Roadmap` | Bottom-Left (`"bottom_left" \| "center"`) | Linear timelines, curved agendas, roadmaps | `r = Roadmap(...); r.add("Phase 1", "Sub", badge_text="Q1", show=True); r.draw(xy, width, height, align="bottom_left", scale=1.0)` |
+| `Panel` | Bottom-Left (`"bottom_left" \| "center"`) | Titled container frames with header bands | `p = Panel("Group", style=..., header_style=..., text_style=...); p.draw(xy, width, height, align="bottom_left"); inner_xy, w, h = p.get_content_box(xy, width, height, align="bottom_left", content_align=None)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(..., show=True); b.draw(xy, scale=1.0)` |
-| `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., scale=1.0)` |
-| `GeoMap` | Bottom-Left `(x, y)` | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=...)` |
+| `SourceCode` | Top-Left (`"top_left" \| "bottom_left" \| "center"`) | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., align="top_left", scale=1.0)` |
+| `GeoMap` | Bottom-Left (`"bottom_left" \| "center"`) | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=..., align="bottom_left")` |
 
 ```drawlib code=show file=smartarts_chevron.png
 from drawlib.canvas import setup
@@ -441,17 +441,17 @@ process.draw((10, 8), width=100, height=18)
 
 Drawlib charts render directly into the unified vector canvas alongside architectural diagrams. Every chart supports:
 - **Element-Level Visibility & Partial Rendering**: Returned elements (`Series`, `Slice`, `Point`, `Task`, `Section`, `Milestone`, `Marker`, `Dependency`) expose mutable `.show: bool = True`, and quantitative elements (`Series`, `Slice`, `Task`) expose `.draw_ratio: float = 1.0` (`0.0` to `1.0`) and `.draw_direction: DrawDirection` (`"bottom_to_top"` or `"left_to_right"`). Axis scales and layout slots remain locked to the full 100% dataset even when elements are hidden or partially drawn.
-- **Spatial Overrides & Uniform Scaling**: `chart.draw(xy, *, width=None, height=None, radius=None, scale=1.0)` and `chart.draw_legend(xy, text_style, ..., scale=1.0)` allow temporary container resizing and uniform proportional scaling around `xy`.
+- **Spatial Overrides, Anchor Alignment & Uniform Scaling**: `chart.draw(xy, *, width=None, height=None, radius=None, align="bottom_left", scale=1.0)` and `chart.draw_legend(xy, text_style, ..., scale=1.0)` allow temporary container resizing, bottom-left or center bounding-box anchoring (`align="bottom_left" | "center"`), and uniform proportional scaling around `xy`.
 
 | Chart Class | Element Factory Methods | `draw()` Spatial Overrides |
 | :--- | :--- | :--- |
-| `BarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction=...) -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
-| `LineChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
-| `AreaChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
-| `ScatterChart` | `add(..., show=True) -> Point`, `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
-| `PieChart` | `add_slice(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Slice` | `draw(xy, *, radius=None, width=None, height=None, scale=1.0)` |
-| `RadarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="bottom_to_top") -> Series` | `draw(xy, *, radius=None, width=None, height=None, scale=1.0)` |
-| `GanttChart` | `add_task(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency` | `draw(xy, *, width=None, height=None, scale=1.0)` |
+| `BarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction=...) -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `LineChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `AreaChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `ScatterChart` | `add(..., show=True) -> Point`, `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `PieChart` | `add_slice(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Slice` | `draw(xy, *, radius=None, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `RadarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="bottom_to_top") -> Series` | `draw(xy, *, radius=None, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `GanttChart` | `add_task(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
 
 ```drawlib code=show file=charts_example.png
 from drawlib.canvas import setup

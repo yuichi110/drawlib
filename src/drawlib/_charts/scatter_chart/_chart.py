@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import validate_call
 
 from drawlib._charts._common._axis import Axis
@@ -194,14 +196,16 @@ class ScatterChart(AxisChartMixin):
         *,
         width: float | None = None,
         height: float | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: float = 1.0,
     ) -> None:
         """Render the scatter chart onto the canvas.
 
         Args:
-            xy: Bottom-left coordinate tuple (x, y) of the chart bounding box. Defaults to (0.0, 0.0).
+            xy: Anchor coordinate (x, y) of the chart bounding box (interpreted via align).
             width: Optional temporary width override for this draw call.
             height: Optional temporary height override for this draw call.
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
         draw_with_box_overrides(
@@ -210,5 +214,6 @@ class ScatterChart(AxisChartMixin):
             xy,
             width=width,
             height=height,
+            align=align,
             scale=scale,
         )

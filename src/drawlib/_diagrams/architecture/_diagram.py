@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 from pydantic import validate_call
 
@@ -206,12 +206,24 @@ class ArchitectureDiagram:
         return (final_w, final_h)
 
     @validate_call
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        align: Literal["bottom_left", "center"] = "bottom_left",
+        scale: PosFloat = 1.0,
+    ) -> None:
         """Render the complete diagram onto the canvas at base coordinate xy.
 
         Args:
-            xy: Base canvas coordinate (x, y) where diagram's bottom-left origin is placed.
+            xy: Base canvas coordinate (x, y) (interpreted via align).
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor (> 0) anchored at xy. Defaults to 1.0.
         """
+        if align == "center":
+            dw, dh = self.get_size()
+            base_xy = (float(xy[0]) - dw / 2.0, float(xy[1]) - dh / 2.0)
+        else:
+            base_xy = (float(xy[0]), float(xy[1]))
         with transform(origin=xy, scale=scale):
-            _renderer_module.draw_diagram(self, xy)
+            _renderer_module.draw_diagram(self, base_xy)

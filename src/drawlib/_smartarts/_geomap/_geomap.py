@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, ClassVar, Self
+from typing import Any, ClassVar, Literal, Self
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path as MplPath
@@ -316,7 +316,7 @@ class GeoMap:
                 canvas._artists.append(PathPatch(mpl_path, **opts))
 
     @validate_call
-    def draw(
+    def draw(  # noqa: PLR0913
         self,
         xy: tuple[float, float] = (0.0, 0.0),
         width: float | None = None,
@@ -324,6 +324,7 @@ class GeoMap:
         *,
         lon_range: tuple[float, float] | None = None,
         lat_range: tuple[float, float] | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: float = 1.0,
     ) -> Self:
         """Render the map onto the active drawlib canvas.
@@ -336,13 +337,14 @@ class GeoMap:
         the box.
 
         Args:
-            xy: Bottom-left coordinate tuple ``(x, y)`` of the map bounding box on the canvas.
+            xy: Anchor coordinate tuple ``(x, y)`` of the map bounding box on the canvas.
             width: Target width of the map bounding box (or ``None`` to auto-calculate from ``height``).
                 At least one of ``width`` or ``height`` must be specified.
             height: Target height of the map bounding box (or ``None`` to auto-calculate from ``width``).
                 At least one of ``width`` or ``height`` must be specified.
             lon_range: Optional ``(min_lon, max_lon)`` viewport range to crop/zoom the map.
             lat_range: Optional ``(min_lat, max_lat)`` viewport range to crop/zoom the map.
+            align: Anchor alignment of ``xy`` ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor applied around ``xy`` (> 0). Defaults to 1.0.
 
         Returns:
@@ -372,6 +374,7 @@ class GeoMap:
             height=height,
             lon_range=eff_lon_range,
             lat_range=eff_lat_range,
+            align=align,
             scale=scale,
         )
         self._last_projection = proj

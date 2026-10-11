@@ -141,7 +141,9 @@ save()
 
 ## 1. Inner Content Box Calculation (`get_content_box`)
 
-When placing another component (`Roadmap`, `CardList`, `KpiCards`, `ChevronProcess`, or `BarChart`) inside a `Panel`, call `panel.get_content_box(xy, width, height, padding=(pad_x, pad_y))` to obtain `(inner_xy, inner_width, inner_height)`. This automatically subtracts `header_height` from the top and insets all four sides by `padding`:
+When placing another component (`Roadmap`, `CardList`, `KpiCards`, `ChevronProcess`, or `BarChart`) inside a `Panel`, call `panel.get_content_box(xy, width, height, padding=(pad_x, pad_y), align=..., content_align=...)` to obtain `(inner_xy, inner_width, inner_height)`. This automatically subtracts `header_height` from the top and insets all four sides by `padding`:
+- **`align: "bottom_left" | "center" = "bottom_left"`**: Matches the `align` passed to `panel.draw(xy, width, height, align=...)`.
+- **`content_align: "bottom_left" | "center" | None = None`**: Controls whether the returned `inner_xy` is the `"bottom_left"` or `"center"` of the inner box. When `None` (default), it inherits `align`—so `get_content_box(..., align="center")` returns the center coordinate ready for `rectangle(inner_xy, ...)` or `inner_component.draw(inner_xy, ..., align="center")`.
 
 ```drawlib code=show align=center file=smartarts_panel_content_box.png caption="Visual Anatomy of Panel.get_content_box(xy, width, height, padding=(6.0, 4.5))"
 from drawlib.canvas import save, setup
@@ -318,5 +320,5 @@ save()
 
 | Method | Signature | Description |
 | :--- | :--- | :--- |
-| **`draw`** | `(xy, width=100.0, height=60.0, *, scale=1.0) -> Self` | Render the panel container at bottom-left coordinate `xy`. |
-| **`get_content_box`** | `(xy, width=100.0, height=60.0, *, padding=(4.0, 3.0), scale=1.0) -> tuple[tuple[float, float], float, float]` | Return `(inner_xy, inner_width, inner_height)` for the inner content area below the header band. |
+| **`draw`** | `(xy, width=100.0, height=60.0, *, align="bottom_left", scale=1.0) -> Self` | Render the panel container at `xy` (`"bottom_left"` or `"center"`). |
+| **`get_content_box`** | `(xy, width=100.0, height=60.0, *, padding=(4.0, 3.0), align="bottom_left", content_align=None, scale=1.0) -> tuple[tuple[float, float], float, float]` | Return `(inner_xy, inner_width, inner_height)` for the inner content area below the header band (`content_align` defaults to `align` when `None`). |

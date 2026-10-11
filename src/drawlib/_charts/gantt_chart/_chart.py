@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import validate_call
 
 from drawlib._charts._common._base import draw_with_box_overrides
@@ -292,14 +294,16 @@ class GanttChart:
         *,
         width: float | None = None,
         height: float | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: float = 1.0,
     ) -> None:
-        """Render this Gantt chart onto the canvas anchored at bottom-left coordinate xy.
+        """Render this Gantt chart onto the canvas anchored at coordinate xy.
 
         Args:
-            xy: Base canvas placement coordinate (x, y) where the bottom-left corner is anchored.
+            xy: Base canvas placement coordinate (x, y) (interpreted via align).
             width: Optional temporary override for chart container width.
             height: Optional temporary override for chart container height.
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Uniform scaling factor applied around xy. Defaults to 1.0.
         """
         draw_with_box_overrides(
@@ -308,5 +312,6 @@ class GanttChart:
             xy,
             width=width,
             height=height,
+            align=align,
             scale=scale,
         )

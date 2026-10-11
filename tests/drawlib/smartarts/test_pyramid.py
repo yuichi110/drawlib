@@ -36,51 +36,51 @@ class TestPyramid:
         save(f"{OUTPUT_DIR}test_pyramid_default.png")
 
     def test_pyramid_align_bottom(self) -> None:
-        """Verify Pyramid drawing aligned bottom."""
+        """Verify Pyramid drawing with direction bottom."""
         clear()
         styles = default_styles
         p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
-        p.draw((10, 10), 30, 30, 2, align="bottom")
-        p.draw((60, 10), 30, 30, 2, align="bottom", order="base_to_vertex")
+        p.draw((10, 10), 30, 30, 2, direction="bottom")
+        p.draw((60, 10), 30, 30, 2, direction="bottom", order="base_to_vertex")
         save(f"{OUTPUT_DIR}test_pyramid_align_bottom.png")
 
     def test_pyramid_align_top(self) -> None:
-        """Verify Pyramid drawing aligned top."""
+        """Verify Pyramid drawing with direction top."""
         clear()
         styles = default_styles
         p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
-        p.draw((10, 10), 30, 30, 2, align="top")
-        p.draw((60, 10), 30, 30, 2, align="top", order="base_to_vertex")
+        p.draw((10, 10), 30, 30, 2, direction="top")
+        p.draw((60, 10), 30, 30, 2, direction="top", order="base_to_vertex")
         save(f"{OUTPUT_DIR}test_pyramid_align_top.png")
 
     def test_pyramid_align_left(self) -> None:
-        """Verify Pyramid drawing aligned left."""
+        """Verify Pyramid drawing with direction left."""
         clear()
         styles = default_styles
         p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
-        p.draw((10, 10), 30, 30, 2, align="left")
-        p.draw((60, 10), 30, 30, 2, align="left", order="base_to_vertex")
+        p.draw((10, 10), 30, 30, 2, direction="left")
+        p.draw((60, 10), 30, 30, 2, direction="left", order="base_to_vertex")
         save(f"{OUTPUT_DIR}test_pyramid_align_left.png")
 
     def test_pyramid_align_right(self) -> None:
-        """Verify Pyramid drawing aligned right."""
+        """Verify Pyramid drawing with direction right and align="center"."""
         clear()
         styles = default_styles
         p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
-        p.draw((10, 10), 30, 30, 2, align="right")
-        p.draw((60, 10), 30, 30, 2, align="right", order="base_to_vertex")
+        p.draw((10, 10), 30, 30, 2, direction="right")
+        p.draw((75, 25), 30, 30, 2, direction="right", order="base_to_vertex", align="center")
         save(f"{OUTPUT_DIR}test_pyramid_align_right.png")
 
     def test_pyramid_missing_style_raises_error(self) -> None:

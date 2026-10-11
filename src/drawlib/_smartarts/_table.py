@@ -275,21 +275,23 @@ class Table:
     # draw
 
     @validate_call
-    def draw(
+    def draw(  # noqa: PLR0913
         self,
         xy: Coordinate,
         width: PosFloat,
         height: PosFloat,
         data: list[list[Any]],
+        align: Literal["top_left", "bottom_left", "center"] = "top_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draws the table with equal-sized cells.
 
         Args:
-            xy (tuple[float, float]): The coordinates where the table should be drawn.
+            xy (tuple[float, float]): Anchor coordinate of the table (interpreted via align).
             width (float): The total width of the table.
             height (float): The total height of the table.
             data (List[List[Any]]): The data to be displayed in the table.
+            align (Literal["top_left", "bottom_left", "center"]): Anchor alignment of xy. Defaults to "top_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
         num_rows = len(data)
@@ -302,27 +304,39 @@ class Table:
             column_widths=column_widths,
             row_heights=row_heights,
             data=data,
+            align=align,
             scale=scale,
         )
 
     @validate_call
-    def draw_flexible(
+    def draw_flexible(  # noqa: PLR0913
         self,
         xy: Coordinate,
         column_widths: list[PosFloat],
         row_heights: list[PosFloat],
         data: list[list[Any]],
+        align: Literal["top_left", "bottom_left", "center"] = "top_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draws the table with flexible cell sizes.
 
         Args:
-            xy (tuple[float, float]): The coordinates where the table should be drawn.
+            xy (tuple[float, float]): Anchor coordinate of the table (interpreted via align).
             column_widths (List[float]): A list of widths for each column.
             row_heights (List[float]): A list of heights for each row.
             data (List[List[Any]]): The data to be displayed in the table.
+            align (Literal["top_left", "bottom_left", "center"]): Anchor alignment of xy. Defaults to "top_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
+        total_w = float(sum(column_widths))
+        total_h = float(sum(row_heights))
+        if align == "center":
+            top_left_xy: Coordinate = (float(xy[0]) - total_w / 2.0, float(xy[1]) + total_h / 2.0)
+        elif align == "bottom_left":
+            top_left_xy = (float(xy[0]), float(xy[1]) + total_h)
+        else:
+            top_left_xy = (float(xy[0]), float(xy[1]))
+
         # create blank matrix
         matrix: list[list[_CellInfo]] = []
         for row_data in data:
@@ -341,7 +355,7 @@ class Table:
 
         # update matrix
         self._update_cell_xy_size(
-            xy,
+            top_left_xy,
             column_widths=column_widths,
             row_heights=row_heights,
             matrix=matrix,
@@ -354,7 +368,7 @@ class Table:
 
             # draw border line
             self._draw_border_lines(
-                xy=xy,
+                xy=top_left_xy,
                 column_widths=column_widths,
                 row_heights=row_heights,
             )

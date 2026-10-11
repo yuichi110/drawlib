@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import contextlib
 import os
-from typing import Any
+from typing import Any, Literal
 
 import pygments
 from pydantic import BaseModel, ConfigDict, validate_call
@@ -499,12 +499,13 @@ class SourceCode:
         file: FilePath | None = None,
         code_lang: str | None = None,
         show_linenum: bool = False,
+        align: Literal["top_left", "bottom_left", "center"] = "top_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw syntax-highlighted source code on the canvas.
 
         Args:
-            xy: Top-left coordinate (x, y) of the code container.
+            xy: Anchor coordinate (x, y) of the code container (interpreted via align).
             width: Total width of the code container.
             code: Source code string to render. (Alternative to `file`).
             styles: Required SourceCodeStyles defining token colors and fonts.
@@ -512,6 +513,7 @@ class SourceCode:
             code_lang: Programming language for highlighting (e.g. 'python', 'json').
                        If None, language is inferred from `file` or code content.
             show_linenum: Whether to display line numbers in a gutter.
+            align: Anchor alignment of xy ("top_left", "bottom_left", or "center"). Defaults to "top_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
@@ -588,11 +590,19 @@ class SourceCode:
             gutter_w = 0.0
 
         box_h = pad_y * 2.0 + num_lines * line_height
+        if align == "center":
+            top_left_x = float(xy[0]) - float(width) / 2.0
+            top_left_y = float(xy[1]) + box_h / 2.0
+        elif align == "bottom_left":
+            top_left_x = float(xy[0])
+            top_left_y = float(xy[1]) + box_h
+        else:
+            top_left_x, top_left_y = float(xy[0]), float(xy[1])
 
         with transform(origin=xy, scale=scale):
             # Draw outer container rectangle
-            cx = xy[0] + width / 2.0
-            cy = xy[1] - box_h / 2.0
+            cx = top_left_x + width / 2.0
+            cy = top_left_y - box_h / 2.0
             rectangle(
                 xy=(cx, cy),
                 width=width,
@@ -604,9 +614,9 @@ class SourceCode:
             if show_linenum:
                 line_num_style = styles.linenum_style.patch(halign="right", valign="center")
                 for i in range(num_lines):
-                    line_y = xy[1] - pad_y - (i + 0.5) * line_height
+                    line_y = top_left_y - pad_y - (i + 0.5) * line_height
                     line_str = f"{i + 1} "
-                    num_x = xy[0] + pad_x + gutter_w
+                    num_x = top_left_x + pad_x + gutter_w
                     text(
                         xy=(num_x, line_y),
                         text=line_str,
@@ -614,9 +624,9 @@ class SourceCode:
                     )
 
             # Draw syntax-highlighted code tokens
-            code_start_x = xy[0] + pad_x + gutter_w + (get_dx(" ", styles.default) if show_linenum else 0.0)
+            code_start_x = top_left_x + pad_x + gutter_w + (get_dx(" ", styles.default) if show_linenum else 0.0)
             for i, line_toks in enumerate(token_lines):
-                line_y = xy[1] - pad_y - (i + 0.5) * line_height
+                line_y = top_left_y - pad_y - (i + 0.5) * line_height
                 token_x = code_start_x
                 for tok_type, tok_val in line_toks:
                     tok_style = cls._map_token_to_style(tok_type, styles)
@@ -704,6 +714,7 @@ def sourcecode(  # noqa: PLR0913
     file: FilePath | None = None,
     code_lang: str | None = None,
     show_linenum: bool = False,
+    align: Literal["top_left", "bottom_left", "center"] = "top_left",
     scale: PosFloat = 1.0,
 ) -> None:
     """Draw syntax-highlighted source code on the canvas.
@@ -711,13 +722,14 @@ def sourcecode(  # noqa: PLR0913
     Function alias for `SourceCode.draw()`.
 
     Args:
-        xy: Top-left coordinate (x, y) of the code container.
+        xy: Anchor coordinate (x, y) of the code container (interpreted via align).
         width: Total width of the code container.
         code: Source code string to render. (Alternative to `file`).
         styles: Required SourceCodeStyles defining token colors and fonts.
         file: Path to a file containing source code. (Alternative to `code`).
         code_lang: Programming language for highlighting (e.g. 'python', 'json').
         show_linenum: Whether to display line numbers.
+        align: Anchor alignment of xy ("top_left", "bottom_left", or "center"). Defaults to "top_left".
         scale: Proportional scale factor around xy. Defaults to 1.0.
     """
     SourceCode.draw(
@@ -728,6 +740,7 @@ def sourcecode(  # noqa: PLR0913
         file=file,
         code_lang=code_lang,
         show_linenum=show_linenum,
+        align=align,
         scale=scale,
     )
 

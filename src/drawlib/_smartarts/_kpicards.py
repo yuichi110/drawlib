@@ -199,23 +199,26 @@ class KpiCards:
         return item
 
     @validate_call
-    def draw(
+    def draw(  # noqa: PLR0913
         self,
         xy: Coordinate,
         width: PosFloat = 90.0,
         height: PosFloat = 60.0,
         *,
         columns: PosInt = 1,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> Self:
         """Draw the KPI cards within the specified bounding box.
 
         Args:
-            xy: Bottom-left coordinate (x, y) of the overall bounding box.
+            xy: Anchor coordinate (x, y) of the overall bounding box.
             width: Total width of the KPI cards grid/stack. Defaults to 90.0.
             height: Total height of the KPI cards grid/stack. Defaults to 60.0.
             columns: Number of grid columns (1 for vertical stack, >=2 for multi-column grid).
                 Defaults to 1.
+            align: Anchor alignment of `xy` ("bottom_left" or "center").
+                Defaults to "bottom_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Returns:
@@ -225,9 +228,10 @@ class KpiCards:
         if num_items == 0:
             return self
 
-        x0, y0 = float(xy[0]), float(xy[1])
         total_w = float(width)
         total_h = float(height)
+        x0 = float(xy[0]) - total_w / 2.0 if align == "center" else float(xy[0])
+        y0 = float(xy[1]) - total_h / 2.0 if align == "center" else float(xy[1])
         cols = int(columns)
         rows = (num_items + cols - 1) // cols
 

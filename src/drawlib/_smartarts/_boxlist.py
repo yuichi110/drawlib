@@ -93,18 +93,36 @@ class BoxList:
         xy: Coordinate,
         box_width: PosFloat,
         box_height: PosFloat,
-        align: Literal["left", "right", "bottom", "top"] = "left",
+        direction: Literal["left", "right", "bottom", "top"] = "left",
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw a list of boxes at the specified location.
 
         Args:
-            xy: The starting point (x, y) to draw the list of boxes.
+            xy: Anchor coordinate (x, y) of the box list bounding box (interpreted via align).
             box_width: The width of each box.
             box_height: The height of each box.
-            align: The alignment of the boxes relative to the starting point.
+            direction: Layout flow direction ("left", "right", "bottom", or "top"). Defaults to "left".
+            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
         """
+        num_items = len(self._list)
+        if num_items == 0:
+            return
+
+        if direction in ("left", "right"):
+            total_w = num_items * float(box_width)
+            total_h = float(box_height)
+        else:
+            total_w = float(box_width)
+            total_h = num_items * float(box_height)
+
+        if align == "center":
+            start_xy: Coordinate = (float(xy[0]) - total_w / 2.0, float(xy[1]) - total_h / 2.0)
+        else:
+            start_xy = (float(xy[0]), float(xy[1]))
+
         default_patched_style = self._style.patch(halign="center", valign="center")
         with transform(origin=xy, scale=scale):
             for is_custom_pass in (False, True):
@@ -117,39 +135,41 @@ class BoxList:
                         continue
 
                     self._draw_cell(
-                        start_xy=xy,
+                        start_xy=start_xy,
                         index=index,
+                        num_items=num_items,
                         text=item.text,
                         box_width=box_width,
                         box_height=box_height,
                         style=patched_style,
                         text_style=item.text_style,
-                        align=align,
+                        direction=direction,
                     )
 
     @staticmethod
-    def _draw_cell(
+    def _draw_cell(  # noqa: PLR0913
         start_xy: Coordinate,
         index: int,
+        num_items: int,
         text: str,
         box_width: PosFloat,
         box_height: PosFloat,
         style: Style,
         text_style: Style,
-        align: Literal["left", "right", "bottom", "top"],
+        direction: Literal["left", "right", "bottom", "top"],
     ) -> None:
-        if align == "left":
+        if direction == "left":
             x = start_xy[0] + box_width * (index + 0.5)
             y = start_xy[1] + box_height / 2
-        elif align == "right":
-            x = start_xy[0] - box_width * (index + 0.5)
+        elif direction == "right":
+            x = start_xy[0] + box_width * (num_items - index - 0.5)
             y = start_xy[1] + box_height / 2
-        elif align == "bottom":
+        elif direction == "bottom":
             x = start_xy[0] + box_width / 2
             y = start_xy[1] + box_height * (index + 0.5)
         else:
             x = start_xy[0] + box_width / 2
-            y = start_xy[1] - box_height * (index + 0.5)
+            y = start_xy[1] + box_height * (num_items - index - 0.5)
 
         rectangle(
             xy=(x, y),

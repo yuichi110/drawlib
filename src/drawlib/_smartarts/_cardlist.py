@@ -218,14 +218,17 @@ class CardList:
         width: PosFloat = 90.0,
         height: PosFloat = 50.0,
         *,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> Self:
         """Draw the card list within the specified bounding box.
 
         Args:
-            xy: Bottom-left coordinate (x, y) of the overall bounding box.
+            xy: Anchor coordinate (x, y) of the overall bounding box.
             width: Total width of the card list. Defaults to 90.0.
             height: Total height of the card list. Defaults to 50.0.
+            align: Anchor alignment of `xy` ("bottom_left" or "center").
+                Defaults to "bottom_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Returns:
@@ -235,9 +238,10 @@ class CardList:
         if num_items == 0:
             return self
 
-        x0, y0 = float(xy[0]), float(xy[1])
         total_w = float(width)
         total_h = float(height)
+        x0 = float(xy[0]) - total_w / 2.0 if align == "center" else float(xy[0])
+        y0 = float(xy[1]) - total_h / 2.0 if align == "center" else float(xy[1])
 
         eff_spacing = max(self._spacing, 4.2) if self._show_arrows else self._spacing
 

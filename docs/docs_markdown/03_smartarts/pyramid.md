@@ -7,7 +7,7 @@ It supports standard upright pyramids, inverted funnels, horizontal orientations
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="pyramid_images/smartarts_pyramid_orientations.png" alt="pyramid_1" />
-  <figcaption class="drawlib-caption">All Four Pyramid Alignments: bottom, top, left, and right</figcaption>
+  <figcaption class="drawlib-caption">All Four Pyramid Directions: bottom, top, left, and right</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -31,15 +31,15 @@ p.add("2", style=Styles.PrimaryNeutral)
 p.add("3", style=Styles.SecondaryNeutral)
 
 panels = [
-    ("bottom", (4.0, 9.5), "align='bottom'\n(Upright)"),
-    ("top", (36.0, 9.5), "align='top'\n(Inverted)"),
-    ("left", (68.0, 9.5), "align='left'\n(Apex Right)"),
-    ("right", (100.0, 9.5), "align='right'\n(Apex Left)"),
+    ("bottom", (4.0, 9.5), "direction='bottom'\n(Upright)"),
+    ("top", (36.0, 9.5), "direction='top'\n(Inverted)"),
+    ("left", (68.0, 9.5), "direction='left'\n(Apex Right)"),
+    ("right", (100.0, 9.5), "direction='right'\n(Apex Left)"),
 ]
 
-for align_val, (px, py), label in panels:
+for dir_val, (px, py), label in panels:
     text((px + 13.0, 41.5), label, style=Styles.BlackBold.patch(text_size=10.0))
-    p.draw(xy=(px, py), width=26.0, height=25.0, margin=1.0, align=align_val, order="vertex_to_base")
+    p.draw(xy=(px, py), width=26.0, height=25.0, margin=1.0, direction=dir_val, order="vertex_to_base")
     circle((px, py), radius=1.0, style=Styles.DangerFlat)
     text((px + 13.0, 4.0), f"xy=({int(px)}, 9.5)", style=Styles.DangerBold.patch(text_size=10.0))
 
@@ -52,9 +52,9 @@ save()
 
 ---
 
-## 1. Upward Hierarchy Pyramid (`align="bottom"`)
+## 1. Upward Hierarchy Pyramid (`direction="bottom"`)
 
-By default (`align="bottom", order="vertex_to_base"`), the first added item is placed at the top apex triangle, and subsequent items form progressively wider trapezoidal tiers toward the base.
+By default (`direction="bottom", order="vertex_to_base"`), the first added item is placed at the top apex triangle, and subsequent items form progressively wider trapezoidal tiers toward the base.
 
 
 
@@ -95,7 +95,7 @@ pyramid.draw(
     width=99,
     height=50,
     margin=1.5,
-    align="bottom",
+    direction="bottom",
     order="vertex_to_base",
 )
 save()
@@ -112,7 +112,7 @@ save()
 
 ## 2. Inverted Conversion Funnel with Custom Tier Heights (`draw_flexible`)
 
-Setting `align="top"` and `order="base_to_vertex"` inverts the pyramid into a top-down funnel where the first item is the wide top intake and the last item is the bottom apex. Using `draw_flexible(...)` lets you assign custom `item_heights` and `margins` to each stage.
+Setting `direction="top"` and `order="base_to_vertex"` inverts the pyramid into a top-down funnel where the first item is the wide top intake and the last item is the bottom apex. Using `draw_flexible(...)` lets you assign custom `item_heights` and `margins` to each stage.
 
 
 
@@ -128,7 +128,7 @@ funnel = Pyramid(
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
-# Added from wide top base to bottom apex when align="top", order="base_to_vertex"
+# Added from wide top base to bottom apex when direction="top", order="base_to_vertex"
 funnel.add("1. Raw Edge Telemetry (100k events/s)", style=Styles.Neutral)
 funnel.add("2. Schema Validation & Deduplication (40k/s)", style=Styles.PrimaryNeutral)
 funnel.add("3. Anomaly Correlation Window (2.5k/s)", style=Styles.SecondaryNeutral)
@@ -143,7 +143,7 @@ funnel.draw_flexible(
     width=99,
     item_heights=[10.0, 11.0, 11.5, 15.0],
     margins=[1.5, 1.5, 1.5],
-    align="top",
+    direction="top",
     order="base_to_vertex",
 )
 save()
@@ -151,7 +151,7 @@ save()
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="pyramid_images/smartarts_pyramid_funnel.png" alt="pyramid_3" />
-  <figcaption class="drawlib-caption">Telemetry Ingestion & Filtering Funnel (align='top' with draw_flexible)</figcaption>
+  <figcaption class="drawlib-caption">Telemetry Ingestion & Filtering Funnel (direction='top' with draw_flexible)</figcaption>
 </figure>
 
 
@@ -162,8 +162,8 @@ save()
 
 As illustrated in the opening diagram at the top of this page:
 
-- **Bottom-Left Anchor `(x, y)`**: The `xy` coordinate passed to `draw()` or `draw_flexible()` specifies the **bottom-left corner** of the pyramid's bounding box.
-- **Alignment (`align`)**:
+- **Anchor Alignment (`align`)**: The `xy` coordinate passed to `draw()` or `draw_flexible()` specifies the **bottom-left corner** (`align="bottom_left"`, default) or **center** (`align="center"`) of the pyramid's bounding box.
+- **Orientation Direction (`direction`)**:
   - `"bottom"` *(default)*: Upright pyramid—wide base at the bottom, apex pointing up.
   - `"top"`: Inverted funnel—wide base at the top, apex pointing down.
   - `"left"`: Horizontal pyramid—wide base on the left, apex pointing right.
@@ -190,8 +190,8 @@ Pyramid(
   Appends a tier to the pyramid and returns a mutable `PyramidItem` (`style`, `text`, `text_style`, `show`). Setting `show=False` hides that tier while preserving its slice geometry so sibling tiers never shift.
 - **`pyramid.items -> list[PyramidItem]`**:
   Returns the list of all registered `PyramidItem` instances (`style: Style`, `text: str`, `text_style: Style`, `show: bool`), allowing deferred mutation before or between `draw()` calls.
-- **`draw(xy: tuple[float, float], width: float, height: float, margin: float, align: Literal["bottom", "top", "left", "right"] = "bottom", order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base", scale: float = 1.0) -> None`**:
-  Renders the pyramid with uniform tier heights separated by `margin`, with optional proportional scaling around `xy`.
-- **`draw_flexible(xy: tuple[float, float], width: float, item_heights: list[float], margins: list[float], align: Literal["bottom", "top", "left", "right"] = "bottom", order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base", scale: float = 1.0) -> None`**:
+- **`draw(xy: tuple[float, float], width: float, height: float, margin: float, direction: Literal["bottom", "top", "left", "right"] = "bottom", order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base", align: Literal["bottom_left", "center"] = "bottom_left", scale: float = 1.0) -> None`**:
+  Renders the pyramid with uniform tier heights separated by `margin`, anchored at `xy` via `align`, with optional proportional scaling around `xy`.
+- **`draw_flexible(xy: tuple[float, float], width: float, item_heights: list[float], margins: list[float], direction: Literal["bottom", "top", "left", "right"] = "bottom", order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base", align: Literal["bottom_left", "center"] = "bottom_left", scale: float = 1.0) -> None`**:
   Renders the pyramid with explicit per-tier heights (`len(item_heights) == len(items)`) and inter-tier margins (`len(margins) == len(items) - 1`). Notice that `item_heights` are ordered from the base toward the vertex.
 

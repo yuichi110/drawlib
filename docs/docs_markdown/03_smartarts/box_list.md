@@ -7,7 +7,7 @@ Custom-styled items are automatically rendered in a second pass so their borders
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="box_list_images/smartarts_boxlist_alignment_geometry.png" alt="box_list_1" />
-  <figcaption class="drawlib-caption">BoxList Directional Alignments (left, right, bottom, top) and Anchor Points</figcaption>
+  <figcaption class="drawlib-caption">BoxList Layout Directions (left, right, bottom, top) and Anchor Points</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -32,39 +32,39 @@ bl.add("1. First", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(t
 bl.add("2. Second", style=Styles.PrimaryNeutral)
 bl.add("3. Third", style=Styles.SecondaryNeutral)
 
-# 1. Top-Left Panel: align="left" (flows +x from bottom-left xy)
+# 1. Top-Left Panel: direction="left" (flows +x from left to right)
 phosphor.arrow_circle_right(xy=(5.0, 48.0), width=3.4, style=Styles.PrimaryFlat)
-text((9.5, 49.7), "align='left' (Flows +x from xy)", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
-bl.draw(xy=(5.0, 35.0), box_width=17.5, box_height=9.5, align="left")
+text((9.5, 49.7), "direction='left' (Flows +x Left -> Right)", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
+bl.draw(xy=(5.0, 35.0), box_width=17.5, box_height=9.5, direction="left")
 line((5.0, 32.0), (57.5, 32.0), arrow_head="->", style=Styles.PrimaryBold)
 circle((5.0, 35.0), radius=1.1, style=Styles.DangerFlat)
 text((5.0, 28.5), "xy=(5, 35)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
-# 2. Bottom-Left Panel: align="right" (flows -x from bottom-right xy)
+# 2. Bottom-Left Panel: direction="right" (flows -x from right to left)
 phosphor.arrow_circle_left(xy=(5.0, 21.0), width=3.4, style=Styles.PrimaryFlat)
-text((9.5, 22.7), "align='right' (Flows -x from xy)", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
-bl.draw(xy=(57.5, 8.5), box_width=17.5, box_height=9.5, align="right")
+text((9.5, 22.7), "direction='right' (Flows -x Right -> Left)", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
+bl.draw(xy=(5.0, 8.5), box_width=17.5, box_height=9.5, direction="right")
 line((57.5, 5.5), (5.0, 5.5), arrow_head="->", style=Styles.PrimaryBold)
-circle((57.5, 8.5), radius=1.1, style=Styles.DangerFlat)
-text((57.5, 2.3), "xy=(57.5, 8.5)", style=Styles.DangerBold.patch(text_size=10.0, halign="right"))
+circle((5.0, 8.5), radius=1.1, style=Styles.DangerFlat)
+text((5.0, 2.3), "xy=(5, 8.5)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
-# 3. Middle Panel: align="bottom" (stacks +y upward from bottom-left xy)
+# 3. Middle Panel: direction="bottom" (stacks +y upward from bottom)
 phosphor.arrow_circle_up(xy=(65.0, 48.0), width=3.4, style=Styles.PrimaryFlat)
-text((69.5, 49.7), "align='bottom'", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
+text((69.5, 49.7), "direction='bottom'", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
 text((65.0, 44.0), "(Stacks +y Up)", style=Styles.Dark.patch(text_size=10.0, halign="left"))
-bl.draw(xy=(65.0, 8.5), box_width=22.0, box_height=10.0, align="bottom")
+bl.draw(xy=(65.0, 8.5), box_width=22.0, box_height=10.0, direction="bottom")
 line((90.0, 8.5), (90.0, 38.5), arrow_head="->", style=Styles.PrimaryBold)
 circle((65.0, 8.5), radius=1.1, style=Styles.DangerFlat)
 text((65.0, 3.5), "xy=(65, 8.5)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
-# 4. Right Panel: align="top" (stacks -y downward from top-left xy)
+# 4. Right Panel: direction="top" (stacks -y downward from top)
 phosphor.arrow_circle_down(xy=(98.0, 48.0), width=3.4, style=Styles.PrimaryFlat)
-text((102.5, 49.7), "align='top'", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
+text((102.5, 49.7), "direction='top'", style=Styles.BlackBold.patch(text_size=10.0, halign="left"))
 text((98.0, 44.0), "(Stacks -y Down)", style=Styles.Dark.patch(text_size=10.0, halign="left"))
-bl.draw(xy=(98.0, 38.5), box_width=22.0, box_height=10.0, align="top")
+bl.draw(xy=(98.0, 8.5), box_width=22.0, box_height=10.0, direction="top")
 line((123.0, 38.5), (123.0, 8.5), arrow_head="->", style=Styles.PrimaryBold)
-circle((98.0, 38.5), radius=1.1, style=Styles.DangerFlat)
-text((98.0, 3.5), "xy=(98, 38.5)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
+circle((98.0, 8.5), radius=1.1, style=Styles.DangerFlat)
+text((98.0, 3.5), "xy=(98, 8.5)", style=Styles.DangerBold.patch(text_size=10.0, halign="left"))
 
 save()
 ```
@@ -75,9 +75,9 @@ save()
 
 ---
 
-## 1. Horizontal Sequence with Highlighted Focal Stage (`align="left"`)
+## 1. Horizontal Sequence with Highlighted Focal Stage (`direction="left"`)
 
-When `align="left"` (the default), boxes flow horizontally to the right (`+x`) starting from `xy=(x, y)`. You can combine multiple `BoxList` instances with arrows or labels to illustrate pipelines and packet structures.
+When `direction="left"` (the default), boxes flow horizontally to the right (`+x`) starting from `xy=(x, y)`. You can combine multiple `BoxList` instances with arrows or labels to illustrate pipelines and packet structures.
 
 
 
@@ -106,7 +106,7 @@ pipeline.add(
 )
 pipeline.add("4. Router", style=Styles.SecondaryNeutral)
 pipeline.add("5. Upstream")
-pipeline.draw(xy=(6, 28), box_width=21.6, box_height=11.5, align="left")
+pipeline.draw(xy=(6, 28), box_width=21.6, box_height=11.5, direction="left")
 
 # 2. Bottom: Contiguous Binary Frame / Memory Layout
 text((6, 19.5), "Frame Wire Layout (Bytes)", style=Styles.DarkBold.patch(text_size=11.0, halign="left"))
@@ -120,7 +120,7 @@ packet.add("Version (1B)")
 packet.add("Flags (1B)")
 packet.add("Payload (4B)", style=Styles.SecondaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.0))
 packet.add("CRC32 (4B)")
-packet.draw(xy=(6, 5.5), box_width=21.6, box_height=9.0, align="left")
+packet.draw(xy=(6, 5.5), box_width=21.6, box_height=9.0, direction="left")
 
 line((60, 27), (60, 16), arrow_head="->", style=Styles.MutedDashed)
 save()
@@ -135,9 +135,9 @@ save()
 
 ---
 
-## 2. Vertical Feature & Layer Stack (`align="bottom"` / `align="top"`)
+## 2. Vertical Feature & Layer Stack (`direction="bottom"` / `direction="top"`)
 
-Using `align="bottom"` stacks boxes vertically upward (`+y`) from `xy`, while `align="top"` stacks boxes downward (`-y`) from `xy`. Patching `shape_r` on the box style creates rounded feature cards.
+Using `direction="bottom"` stacks boxes vertically upward (`+y`) inside the bounding box, while `direction="top"` stacks boxes downward (`-y`) from the top of the bounding box. Patching `shape_r` on the box style creates rounded feature cards.
 
 
 
@@ -149,7 +149,7 @@ from drawlib.text import text
 
 setup(width=118, height=58)
 
-# Left Stack: Bottom-up OS / Runtime Stack (align="bottom")
+# Left Stack: Bottom-up OS / Runtime Stack (direction="bottom")
 text((29, 52), "Runtime Stack (Bottom-Up)", style=Styles.DarkBold.patch(text_size=11.0))
 
 runtime_stack = BoxList(
@@ -164,9 +164,9 @@ runtime_stack.add(
     style=Styles.PrimaryFlat.patch(shape_r=1.2),
     text_style=Styles.WhiteBold.patch(text_size=10.0),
 )
-runtime_stack.draw(xy=(6, 5), box_width=46.0, box_height=10.5, align="bottom")
+runtime_stack.draw(xy=(6, 5), box_width=46.0, box_height=10.5, direction="bottom")
 
-# Right Stack: Top-down Priority Tiers (align="top")
+# Right Stack: Top-down Priority Tiers (direction="top")
 text((89, 52), "SLA Priority Tiers (Top-Down)", style=Styles.DarkBold.patch(text_size=11.0))
 
 sla_tiers = BoxList(
@@ -181,7 +181,7 @@ sla_tiers.add(
 sla_tiers.add("Tier 1: Core Business (99.9%)", style=Styles.PrimaryNeutral.patch(shape_r=1.2))
 sla_tiers.add("Tier 2: Internal Tools (99.5%)", style=Styles.SecondaryNeutral.patch(shape_r=1.2))
 sla_tiers.add("Tier 3: Batch & Best-Effort", style=Styles.Neutral.patch(shape_r=1.2))
-sla_tiers.draw(xy=(66, 47), box_width=46.0, box_height=10.5, align="top")
+sla_tiers.draw(xy=(66, 5), box_width=46.0, box_height=10.5, direction="top")
 save()
 ```
 
@@ -194,15 +194,18 @@ save()
 
 ---
 
-## 3. Directional Alignment & Two-Pass Z-Order
+## 3. Layout Direction, Anchor Alignment & Two-Pass Z-Order
 
 As illustrated in the opening diagram at the top of this page:
 
-- **Directional Alignment (`align`)**:
-  - `"left"` *(default)*: Boxes sequence rightward (`+x`) from `xy=(x, y)` (where `x` is the left edge and `y` is the bottom edge of the row).
-  - `"right"`: Boxes sequence leftward (`-x`) from `xy=(x, y)` (where `x` is the right edge and `y` is the bottom edge of the row).
-  - `"bottom"`: Boxes stack upward (`+y`) from `xy=(x, y)` (where `x` is the left edge and `y` is the bottom edge of the first box).
-  - `"top"`: Boxes stack downward (`-y`) from `xy=(x, y)` (where `x` is the left edge and `y` is the top edge of the first box).
+- **Layout Direction (`direction`)**:
+  - `"left"` *(default)*: Boxes sequence rightward (`+x`) from the left edge of the bounding box.
+  - `"right"`: Boxes sequence leftward (`-x`) from the right edge of the bounding box.
+  - `"bottom"`: Boxes stack upward (`+y`) from the bottom edge of the bounding box.
+  - `"top"`: Boxes stack downward (`-y`) from the top edge of the bounding box.
+- **Anchor Alignment (`align`)**:
+  - `"bottom_left"` *(default)*: `xy` specifies the bottom-left corner of the overall `BoxList` bounding box.
+  - `"center"`: `xy` specifies the center of the overall `BoxList` bounding box.
 - **Two-Pass Highlight Z-Order**: `BoxList.draw()` automatically renders default-styled boxes first and custom-styled boxes second so highlighted borders are never occluded by adjacent neutral boxes.
 
 ---
@@ -223,6 +226,6 @@ BoxList(
   Appends a box item to the sequence and returns a mutable `BoxListItem` (`text`, `style`, `text_style`, `show`). Setting `show=False` hides that box while keeping the positions of all following boxes unchanged.
 - **`boxlist.items -> list[BoxListItem]`**:
   Returns the list of all registered `BoxListItem` instances (`text: str`, `style: Style`, `text_style: Style`, `show: bool`), allowing deferred mutation before or between `draw()` calls.
-- **`draw(xy: tuple[float, float], box_width: float, box_height: float, align: Literal["left", "right", "bottom", "top"] = "left", scale: float = 1.0) -> None`**:
-  Renders the sequence of boxes anchored at `xy`, with optional proportional scaling via `scale`.
+- **`draw(xy: tuple[float, float], box_width: float, box_height: float, direction: Literal["left", "right", "bottom", "top"] = "left", align: Literal["bottom_left", "center"] = "bottom_left", scale: float = 1.0) -> None`**:
+  Renders the sequence of boxes anchored at `xy` (bottom-left or center), with optional proportional scaling via `scale`.
 

@@ -133,7 +133,7 @@ class GeoProjection:
     scale: float
 
     @classmethod
-    def create(
+    def create(  # noqa: PLR0913
         cls,
         *,
         xy: tuple[float, float],
@@ -141,16 +141,18 @@ class GeoProjection:
         height: float | None,
         lon_range: tuple[float, float],
         lat_range: tuple[float, float],
+        align: str = "bottom_left",
         scale: float = 1.0,
     ) -> GeoProjection:
         """Construct a GeoProjection for the given viewport and canvas box.
 
         Args:
-            xy: Bottom-left canvas coordinate (x, y).
+            xy: Anchor canvas coordinate (x, y).
             width: Target box width on canvas (or None to derive from height).
             height: Target box height on canvas (or None to derive from width).
             lon_range: Longitude interval (min_lon, max_lon).
             lat_range: Latitude interval (min_lat, max_lat).
+            align: Anchor alignment of `xy` ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor around xy.
 
         Returns:
@@ -174,10 +176,23 @@ class GeoProjection:
         cos_lat = math.cos(math.radians(eff_lat))
         natural_aspect = (lon_span * cos_lat) / lat_span
 
-        bx, by = float(xy[0]), float(xy[1])
         if width is not None and height is not None:
             box_w = float(width)
             box_h = float(height)
+        elif width is not None:
+            box_w = float(width)
+            box_h = box_w / natural_aspect
+        elif height is not None:
+            box_h = float(height)
+            box_w = box_h * natural_aspect
+        else:
+            raise ValueError("At least one of 'width' or 'height' must be provided to GeoMap.draw().")
+
+        anchor_xy = (float(xy[0]), float(xy[1]))
+        bx = anchor_xy[0] - box_w * 0.5 if align == "center" else anchor_xy[0]
+        by = anchor_xy[1] - box_h * 0.5 if align == "center" else anchor_xy[1]
+
+        if width is not None and height is not None:
             if box_w / box_h > natural_aspect:
                 map_h = box_h
                 map_w = box_h * natural_aspect
@@ -188,16 +203,8 @@ class GeoProjection:
                 map_h = box_w / natural_aspect
                 map_x = bx
                 map_y = by + (box_h - map_h) * 0.5
-        elif width is not None:
-            box_w = float(width)
-            box_h = box_w / natural_aspect
-            map_x, map_y, map_w, map_h = bx, by, box_w, box_h
-        elif height is not None:
-            box_h = float(height)
-            box_w = box_h * natural_aspect
-            map_x, map_y, map_w, map_h = bx, by, box_w, box_h
         else:
-            raise ValueError("At least one of 'width' or 'height' must be provided to GeoMap.draw().")
+            map_x, map_y, map_w, map_h = bx, by, box_w, box_h
 
         return cls(
             min_lon=min_lon,
@@ -213,7 +220,7 @@ class GeoProjection:
             map_y=map_y,
             map_width=map_w,
             map_height=map_h,
-            anchor_xy=(bx, by),
+            anchor_xy=anchor_xy,
             scale=float(scale),
         )
 

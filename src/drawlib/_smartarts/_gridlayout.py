@@ -10,6 +10,8 @@
 
 """GridLayout implementation module."""
 
+from typing import Literal
+
 from pydantic import BaseModel, validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat, PosInt
@@ -131,16 +133,18 @@ class GridLayout:
         height: PosFloat,
         margin: PosFloat,
         outer_style: Style | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw the grid layout.
 
         Args:
-            xy (Tuple[float, float]): The x and y coordinates of the bottom-left corner of the grid.
+            xy (Tuple[float, float]): Anchor coordinate of the grid (interpreted via align).
             width (float): The total width of the grid.
             height (float): The total height of the grid.
             margin (float): The margin between grid items.
             outer_style (Style, optional): The style for the outer grid border.
+            align (Literal["bottom_left", "center"]): Anchor alignment of xy. Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
         if outer_style is None:
@@ -161,6 +165,7 @@ class GridLayout:
             row_heights=row_heights,
             row_margins=row_margins,
             outer_style=outer_style,
+            align=align,
             scale=scale,
         )
 
@@ -173,17 +178,19 @@ class GridLayout:
         row_heights: list[PosFloat],
         row_margins: list[PosFloat],
         outer_style: Style | None = None,
+        align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
 
         Args:
-            xy (Tuple[float, float]): The x and y coordinates of the bottom-left corner of the grid.
+            xy (Tuple[float, float]): Anchor coordinate of the grid (interpreted via align).
             column_widths (List[float]): The widths of each column.
             column_margins (List[float]): The margins between columns.
             row_heights (List[float]): The heights of each row.
             row_margins (List[float]): The margins between rows.
             outer_style (Style, optional): The style for the outer grid border.
+            align (Literal["bottom_left", "center"]): Anchor alignment of xy. Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
@@ -199,21 +206,28 @@ class GridLayout:
         if len(row_margins) != self._num_row + 1:
             raise ValueError('Length of arg "row_margins" does not match to num of rows + 1')
 
+        total_w = float(sum(column_widths) + sum(column_margins))
+        total_h = float(sum(row_heights) + sum(row_margins))
+        if align == "center":
+            start_xy: Coordinate = (float(xy[0]) - total_w / 2.0, float(xy[1]) - total_h / 2.0)
+        else:
+            start_xy = (float(xy[0]), float(xy[1]))
+
         with transform(origin=xy, scale=scale):
             # draw outer rectangle
             if outer_style is not None:
                 outer_style = outer_style.patch(halign="left", valign="bottom")
 
                 rectangle(
-                    xy=xy,
-                    width=sum(column_widths) + sum(column_margins),
-                    height=sum(row_heights) + sum(row_margins),
+                    xy=start_xy,
+                    width=total_w,
+                    height=total_h,
                     style=outer_style,
                 )
 
             # utility
             def get_position(column_index: int, row_index: int) -> Coordinate:
-                x, y = xy
+                x, y = start_xy
                 if column_index == 0:
                     new_x = x + column_margins[0]
                 else:
