@@ -15,6 +15,7 @@ from drawlib._smartarts._chevronprocess import ChevronItem, ChevronProcess
 from drawlib._smartarts._cycle import Cycle, CycleCenter, CycleItem
 from drawlib._smartarts._geomap import GeoMap
 from drawlib._smartarts._gridlayout import GridItem, GridLayout
+from drawlib._smartarts._kpicards import KpiCard, KpiCardItem, KpiCards
 from drawlib._smartarts._mindmap import MindMapNode
 from drawlib._smartarts._pyramid import Pyramid, PyramidItem
 from drawlib._smartarts._sourcecode import (
@@ -39,6 +40,9 @@ __all__ = [
     "GeoMap",
     "GridItem",
     "GridLayout",
+    "KpiCard",
+    "KpiCardItem",
+    "KpiCards",
     "MindMapNode",
     "Pyramid",
     "PyramidItem",

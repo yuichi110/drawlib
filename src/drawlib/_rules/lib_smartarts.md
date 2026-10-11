@@ -18,8 +18,9 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 11. [Component 9: BulletPoints (Formatted Bulleted Lists)](#11-component-9-bulletpoints-formatted-bulleted-lists)
 12. [Component 10: SourceCode (Syntax-Highlighted Code Containers)](#12-component-10-sourcecode-syntax-highlighted-code-containers)
 13. [Component 11: GeoMap (Geographical Vector Maps)](#12b-component-11-geomap-geographical-vector-maps)
-14. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
-15. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
+14. [Component 12: KpiCards (Metric & Highlight Cards)](#12c-component-12-kpicards-metric--highlight-cards)
+15. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
+16. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
 
 ---
 ## 1. Architectural Overview & Core Concepts
@@ -34,6 +35,9 @@ from drawlib.smartarts import (
     Cycle,
     GeoMap,
     GridLayout,
+    KpiCard,
+    KpiCardItem,
+    KpiCards,
     MindMapNode,
     Pyramid,
     SourceCode,
@@ -53,7 +57,7 @@ from drawlib.types import Style
 ### 1.2 Coordinate Anchor Conventions
 Understanding anchor points is essential for programmatic generation and positioning:
 - **Top-Left Anchored**: `Table`, `TreeNode`, `BulletPoints`. You specify top-left coordinate `(x, y)`; elements flow rightward and downward.
-- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
+- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
@@ -64,7 +68,7 @@ Every SmartArt accepts:
 
 ### 1.4 Unified Component Lifecycle (`add()`, `show`, Deferred Mutation & `scale`)
 All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Register via `add()` -> 3. Mutate State -> 4. Render via `draw()`**):
-1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
+1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`, `KpiCards`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
 2. **Layout-Preserving Visibility (`item.show`)**: Every item exposes `item.show: bool = True`. Setting `item.show = False` skips drawing that specific element while **keeping the overall component geometry, item widths, orbit angles, and grid/tree coordinates completely unchanged**.
 3. **Deferred Style & Text Evaluation**: Item attributes (`item.style`, `item.text_style`, `item.text`, `item.description`, etc.) are resolved lazily inside `draw()`. Mutating an item's style or text between `draw()` calls immediately reflects on the next render without reconstructing the component.
 4. **Proportional Scaling (`scale: float = 1.0`)**: Every `draw(...)` and `draw_flexible(...)` method accepts `scale: float = 1.0`. Passing `scale != 1.0` uniformly scales all shapes, margins, corner radii, line widths, and font sizes relative to the anchor coordinate `xy`.
@@ -85,6 +89,7 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 | `BulletPoints` | Top-Left `(x, y)` | Downward list | `add(show=True)`, `set_indent()`, `set_bullet_style()`, `draw(scale=1.0)` | Architecture takeaways, RFC summaries, feature lists |
 | `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw(scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
 | `GeoMap` | Bottom-Left `(x, y)` | Equirectangular vector map | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()` | Multi-region cloud topology, country/city territory maps |
+| `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | Vertical stack or multi-column grid | `add(metric, title, description, show=True)`, `draw(xy, width, height, columns=1, scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
 
 ---
 ## 3. Component 1: Table
@@ -937,6 +942,61 @@ save()
 ```
 
 ---
+## 12c. Component 12: KpiCards (Metric & Highlight Cards)
+
+`KpiCards` (also aliased as `KpiCard`) renders KPI metrics, SLA targets, benchmark numbers, or specification highlights paired with titles, descriptions, optional Phosphor icons, and accent pills/bars in either a vertical stack (`columns=1`) or multi-column grid (`columns=2..N`).
+
+### 12c.1 Constructor & Methods
+```python
+kpi = KpiCards(
+    style=Styles.Neutral,
+    metric_style=None,
+    title_style=None,
+    description_style=None,
+    accent_style=None,
+    accent_palette=None,
+    accent_position="left_pill",   # "left_pill" | "top_bar" | "none"
+    metric_layout="left_column",   # "left_column" | "top_stack"
+    metric_width_ratio=0.28,
+    spacing=3.0,
+)
+item = kpi.add(
+    metric="99.99%",
+    title="High Availability SLA",
+    description="Multi-region active-active failover",
+    icon=phosphor.shield_check,
+    show=True,
+)
+kpi.draw(xy=(10.0, 10.0), width=90.0, height=56.0, columns=1, scale=1.0)
+```
+
+### 12c.2 Production Example: Side-by-Side Stack and 2x2 Grid
+```drawlib code=show
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.smartarts import KpiCards
+
+setup(width=180, height=70)
+
+# 1. Left: Vertical Stack (left_column layout)
+kpi_stack = KpiCards(accent_position="left_pill", metric_layout="left_column", spacing=3.0)
+kpi_stack.add("99.99%", "High Availability SLA", "Multi-region active-active failover")
+kpi_stack.add("< 12ms", "Edge P99 Latency", "Global CDN & Anycast routing", icon=phosphor.lightning)
+kpi_stack.add("Zero-Dep", "Pure Python Core", "No external GUI tools required")
+kpi_stack.draw(xy=(6.0, 7.0), width=82.0, height=56.0, columns=1)
+
+# 2. Right: 2x2 Grid (top_stack layout)
+kpi_grid = KpiCards(accent_position="top_bar", metric_layout="top_stack", spacing=3.5)
+kpi_grid.add("300M+", "Peak RPS", "Botnet flood volume")
+kpi_grid.add("$6,750", "Hourly Cost", "L7 EDoS billing spike")
+kpi_grid.add("4.2 sec", "Auto Mitigation", "BGP Flowspec trigger")
+kpi_grid.add("100%", "Traffic Scrubbed", "Zero customer downtime")
+kpi_grid.draw(xy=(94.0, 7.0), width=80.0, height=56.0, columns=2)
+
+save()
+```
+
+---
 ## 13. Design Patterns & Coordinate Anchor Systems
 
 ### 13.1 Coordinate Normalization Cheat Sheet
@@ -962,6 +1022,7 @@ top_left_y = bottom_y + H
 | `GridLayout` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `Pyramid` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `GeoMap` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
+| `KpiCards` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `MindMapNode` | Root Center `(x, y)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 

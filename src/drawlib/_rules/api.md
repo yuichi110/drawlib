@@ -408,6 +408,7 @@ High-level automated components for business and technical concepts. Every state
 | `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.add(..., show=True); g.draw(xy, width, height, margin, scale=1.0)` |
 | `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.add(..., show=True); p.draw(xy, width, height, margin, scale=1.0)` |
 | `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.add(..., show=True); b.draw(xy, box_width, box_height, scale=1.0)` |
+| `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | KPI metrics, SLA/spec highlight cards | `k = KpiCards(...); k.add("99.99%", "SLA", "Desc", show=True); k.draw(xy, width, height, columns=1, scale=1.0)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(..., show=True); b.draw(xy, scale=1.0)` |
 | `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., scale=1.0)` |
 | `GeoMap` | Bottom-Left `(x, y)` | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=...)` |
