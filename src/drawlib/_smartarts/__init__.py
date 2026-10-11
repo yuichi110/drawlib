@@ -19,6 +19,7 @@ from drawlib._smartarts._gridlayout import GridItem, GridLayout
 from drawlib._smartarts._kpicards import KpiCard, KpiCardItem, KpiCards
 from drawlib._smartarts._mindmap import MindMapNode
 from drawlib._smartarts._pyramid import Pyramid, PyramidItem
+from drawlib._smartarts._roadmap import Roadmap, RoadmapItem
 from drawlib._smartarts._sourcecode import (
     SourceCode,
     SourceCodeStyles,
@@ -49,6 +50,8 @@ __all__ = [
     "MindMapNode",
     "Pyramid",
     "PyramidItem",
+    "Roadmap",
+    "RoadmapItem",
     "SourceCode",
     "SourceCodeStyles",
     "Table",
