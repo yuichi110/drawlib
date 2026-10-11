@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Why Geo-Blocking Failed (2/4): Regional Shift Across Asia
 :::
 
-::: block (80, 140) (680, 810)
+::: block xy=(80, 140) width=680 height=810
 ## Wave 2: Neighboring Asian Proxies
 
 - **Instant Regional Failover (+15m)**
@@ -13,7 +13,7 @@
   Expanded the geo-blacklist across APAC—only to trigger a global rotation within 1 hour.
 :::
 
-::: block (800, 140) (1040, 810)
+::: block xy=(800, 140) width=1040 height=810
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.lines import line_curved
@@ -87,7 +87,7 @@ text((57.5, 9.5), "WAF Rule #2: Block 10+ APAC Regions  ->  Bypassed in 1 Hour!"
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

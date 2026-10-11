@@ -25,7 +25,7 @@ Drawlib treats illustrations as software artifacts governed by the same rigorous
 ### 1.2. Programmatic Layout Patterns
 Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverages arithmetic and loops to compute perfect alignments:
 
-```drawlib show-code
+```drawlib code=show
 # Pattern A: Horizontal linear distribution with computed gaps
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
@@ -52,7 +52,7 @@ for i, name in enumerate(services):
 save()
 ```
 
-```drawlib show-code
+```drawlib code=show
 # Pattern B: Radial / Circular distribution using trigonometry
 import math
 from drawlib.canvas import save, setup
@@ -194,7 +194,7 @@ Drawlib provides built-in geometric math utilities in `drawlib.math` so develope
 - **`get_distance(p1, p2)`**: Calculates the Euclidean distance between two points. Useful for dynamic sizing or threshold checks.
 - **`get_center_and_size(points)`**: Takes a collection of coordinate tuples `[(x1, y1), (x2, y2), ...]` and returns `((center_x, center_y), (width, height))`. This enables dynamic bounding boxes around arbitrary clusters of nodes with zero manual math:
 
-```drawlib show-code file:overview_geometry_helpers.png
+```drawlib code=show file=overview_geometry_helpers.png
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.math import get_center_and_size
@@ -347,7 +347,7 @@ For multi-page documentation sites, `docs_src/navbar.md` defines the navigation 
 In Markdown source files under `docs_src/`, embed illustrations using the ````drawlib```` language fence:
 
 ````markdown
-```drawlib center show-code file:system_architecture.png caption:"System Architecture Overview"
+```drawlib align=center code=show file=system_architecture.png caption="System Architecture Overview"
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.lines import line
@@ -362,10 +362,10 @@ save()
 ````
 
 **Block Header Options & Typography Sizing (`720pt` Canvas Law)**:
-- **Code Visibility**: `hide-code` (default, image only), `show-code` (code + image), `fold-code` (image + collapsed `<details>` dropdown). Always use **`fold-code`** on the **Top Hero diagram (`Lines 5–15`)** so the illustration appears immediately above the fold.
-- **Dimensions & `720pt` Typography Scaling**: Drawlib maps every canvas width to `720pt` (`10 inches`), meaning rendered HTML font size equals $\text{text\_size} \times \frac{\text{Displayed Width}}{720}$. **Omit narrow pixel width caps** (such as `400px` or `600px`) on standard documentation diagrams so figures expand to `100%` of `.drawlib-image`, and set **`text_size >= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5`) so diagram text matches `16px` HTML body prose.
-- **Alignment**: `center`, `left`, `right`.
-- **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`. **Always specify `file:<name>.png`** so blocks are uniquely addressable by name across builds and prevent off-by-one errors from content shifts.
+- **Code Visibility**: `code=hide` (default, image only), `code=show` (code + image), `code=fold` (image + collapsed `<details>` dropdown). Always use **`code=fold`** on the **Top Hero diagram (`Lines 5–15`)** so the illustration appears immediately above the fold.
+- **Dimensions & `720pt` Typography Scaling**: Drawlib maps every canvas width to `720pt` (`10 inches`), meaning rendered HTML font size equals $\text{text\_size} \times \frac{\text{Displayed Width}}{720}$. **Omit narrow pixel width caps** (such as `width=400px` or `width=600px`) on standard documentation diagrams so figures expand to `100%` of `.drawlib-image`, and set **`text_size >= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5`) so diagram text matches `16px` HTML body prose.
+- **Alignment**: `align=center`, `align=left`, `align=right`.
+- **Caption & Filename**: `caption="Figure Title"`, `file=custom_name.png`. **Always specify `file=<name>.png`** so blocks are uniquely addressable by name across builds and prevent off-by-one errors from content shifts.
 
 **Handling `save()` in Embedded Blocks**:
 - **Tolerant Execution Engine**: The build engine automatically captures the canvas and renders the companion image to disk upon block completion. Calling `save()` is optional. If `save()` is explicitly called within an embedded block, the engine treats it safely as a no-op to prevent duplicate file writes or collisions.

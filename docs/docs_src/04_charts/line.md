@@ -6,7 +6,7 @@ The `LineChart` component (`drawlib.charts.line`) visualizes numerical trends ov
 
 ## 1. Overview & Key Modes
 
-```drawlib fold-code center file:linechart_topologies_overview.png caption:"LineChart Modes: Smooth Cubic Spline Interpolation (smooth=True) vs. Straight Polygonal Segments (smooth=False)"
+```drawlib code=fold align=center file=linechart_topologies_overview.png caption="LineChart Modes: Smooth Cubic Spline Interpolation (smooth=True) vs. Straight Polygonal Segments (smooth=False)"
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
@@ -75,7 +75,7 @@ save()
 
 ## 2. Quick Example: Smooth Spline User Growth Trends
 
-```drawlib center show-code file:linechart_user_growth.png caption:"User Growth Trends with LineChart"
+```drawlib align=center code=show file=linechart_user_growth.png caption="User Growth Trends with LineChart"
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
@@ -108,7 +108,7 @@ save()
 
 By combining `smooth=False` (straight segments) with `value_text_style`, per-series `point_shape` (`"square"`, `"circle"`, `"none"`), and distinct `line_style` patterns (`"solid"`, `"dotted"`, `"dashdot"`), you can plot telemetry metrics alongside SLA thresholds:
 
-```drawlib center show-code file:linechart_markers_and_styles.png caption:"Straight Line Segments with Square Vertex Markers, Value Labels, and Dashdot/Dotted Thresholds"
+```drawlib align=center code=show file=linechart_markers_and_styles.png caption="Straight Line Segments with Square Vertex Markers, Value Labels, and Dashdot/Dotted Thresholds"
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles

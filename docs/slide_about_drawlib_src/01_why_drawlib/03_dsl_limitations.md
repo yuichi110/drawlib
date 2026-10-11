@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 130)
+::: block xy=(80, 50) width=1760 height=130
 # Pain Point 2: Text DSL Limitations (Mermaid / PlantUML / Graphviz)
 Why black-box heuristic layout DSLs hit a wall on real-world production architectures.
 :::
 
-::: block (80, 200) (760, 760)
+::: block xy=(80, 200) width=760 height=760
 ### Great for 5 Nodes — Frustrating for 25 Nodes
 
 Text-to-diagram DSLs (`Mermaid`, `PlantUML`, `DOT`) rely on rigid, opaque layout heuristics:
@@ -19,8 +19,8 @@ Text-to-diagram DSLs (`Mermaid`, `PlantUML`, `DOT`) rely on rigid, opaque layout
   - Cannot combine cloud architecture topologies, statistical charts, custom vector shapes, and multi-frame animations on one canvas.
 :::
 
-::: block (880, 190) (960, 780)
-```drawlib file:dsl_limits.svg
+::: block xy=(880, 190) width=960 height=780
+```drawlib file=dsl_limits.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line, line_curved, lines
 from drawlib.shapes import rectangle
@@ -72,8 +72,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

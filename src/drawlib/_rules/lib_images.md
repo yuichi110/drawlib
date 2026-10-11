@@ -102,7 +102,7 @@ image((40, 30), width=25, image=sub_image)
 
 ### 5.1. Architectural Schema with In-Memory Embedded Diagrams
 
-```drawlib fold-code center caption:"Architecture Schema with Embedded Diagram Images"
+```drawlib code=fold align=center caption="Architecture Schema with Embedded Diagram Images"
 from drawlib.canvas import save, setup
 from drawlib.images import get_dimage_from_code, image
 from drawlib.lines import line
@@ -151,7 +151,7 @@ save()
 
 ### 5.2. Image Tinting & Opacity Blending
 
-```drawlib fold-code center caption:"Styling Images with Transparency and Tint"
+```drawlib code=fold align=center caption="Styling Images with Transparency and Tint"
 from drawlib.canvas import save, setup
 from drawlib.images import get_dimage_from_code, image
 from drawlib.shapes import rectangle

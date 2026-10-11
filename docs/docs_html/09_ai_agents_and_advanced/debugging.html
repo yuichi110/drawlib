@@ -693,9 +693,9 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong><code>Missing required 'file:...' option in drawlib code block</code></strong></td>
-<td style="text-align:left">An embedded <code>drawlib</code> block in a <code>doc</code>, <code>site</code>, or <code>slide</code> Markdown file omitted the <code>file:&lt;name&gt;</code> attribute.</td>
-<td style="text-align:left">Add an explicit filename to the opening code fence (e.g. <code>```drawlib fold-code center file:service_arch.png caption:&quot;...&quot;</code>).</td>
+<td style="text-align:left"><strong><code>Missing required 'file=...' option in drawlib code block</code></strong></td>
+<td style="text-align:left">An embedded <code>drawlib</code> block in a <code>doc</code>, <code>site</code>, or <code>slide</code> Markdown file omitted the <code>file=&lt;name&gt;</code> attribute.</td>
+<td style="text-align:left">Add an explicit filename to the opening code fence (e.g. <code>```drawlib code=fold align=center file=service_arch.png caption=&quot;...&quot;</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>Directory build requires &quot;index.md&quot; / &quot;navbar.md&quot;</code></strong></td>
@@ -709,8 +709,8 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>Duplicate output image file detected</code></strong></td>
-<td style="text-align:left">Two embedded blocks in the same Markdown file share the same <code>file:&lt;name&gt;</code>, or two <code>.py</code> scripts in <code>images_src/</code> call <code>save()</code> with the same target path.</td>
-<td style="text-align:left">Assign a unique <code>file:&lt;name&gt;.png</code> to each block or script.</td>
+<td style="text-align:left">Two embedded blocks in the same Markdown file share the same <code>file=&lt;name&gt;</code>, or two <code>.py</code> scripts in <code>images_src/</code> call <code>save()</code> with the same target path.</td>
+<td style="text-align:left">Assign a unique <code>file=&lt;name&gt;.png</code> to each block or script.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>Playwright or Chromium not found</code></strong></td>

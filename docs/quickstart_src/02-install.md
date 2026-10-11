@@ -35,7 +35,7 @@ python3 -m drawlib --version
   ```
 - **Universal Typography**: Drawlib bundles CJK-ready Google Noto Sans and Roboto fonts, ensuring Chinese, Japanese, Korean, and Latin typography renders consistently across Linux, macOS, and Windows without missing glyph boxes (`tofu`).
 
-```drawlib 620px center file:install_toolchain.png caption:"Figure 2.1: Drawlib Environment & Toolchain Architecture"
+```drawlib width=620px align=center file=install_toolchain.png caption="Figure 2.1: Drawlib Environment & Toolchain Architecture"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

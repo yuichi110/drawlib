@@ -4,7 +4,7 @@ The `site` starter template builds a responsive multi-page technical documentati
 
 Drawlib compiles `docs_src/navbar.md` and your Markdown pages into a two-column documentation portal with strict build-time link validation:
 
-```drawlib fold-code center file:project_site_navbar_architecture.png caption:"How navbar.md and Markdown Pages Compile into the Two-Column Documentation Site UI"
+```drawlib code=fold align=center file=project_site_navbar_architecture.png caption="How navbar.md and Markdown Pages Compile into the Two-Column Documentation Site UI"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -108,7 +108,7 @@ drawlib init site my_docs --style google --lang en
 
 ## 2. Directory Layout & Architecture
 
-```drawlib fold-code center file:project_site_directory_tree.png caption:"Directory Structure of a Multi-Page Documentation Website (site) Project"
+```drawlib code=fold align=center file=project_site_directory_tree.png caption="Directory Structure of a Multi-Page Documentation Website (site) Project"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode

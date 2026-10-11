@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Categorical & Trend Charts (`BarChart`, `LineChart`, `AreaChart`)
 :::
 
-::: block (80, 140) (660, 840) compact
+::: block xy=(80, 140) width=660 height=840 compact=true
 ## Cartesian Data Visualization
 
 ### 1. `BarChart` — Grouped, Stacked & Log Scales
@@ -26,8 +26,8 @@ utils.draw_page_number()
 - Shared fluent helpers across all three: `configure_x_axis(...)`, `configure_y_axis(...)`, and standalone `draw_legend(xy, ...)`.
 :::
 
-::: block (780, 140) (1060, 840)
-```drawlib file:bar_line_area.svg
+::: block xy=(780, 140) width=1060 height=840
+```drawlib file=bar_line_area.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.charts.bar import BarChart

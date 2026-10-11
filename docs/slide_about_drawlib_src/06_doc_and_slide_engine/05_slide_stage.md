@@ -1,33 +1,33 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # 16:9 Widescreen Stage Architecture (`1920x1080`)
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Dual Coordinate Systems Working in Harmony
 
 Drawlib slides (`drawlib init slide`) combine pixel-accurate stage containers with Cartesian vector canvases:
 
-1. **Slide Stage (`::: block (x, y) (w, h)`) — Top-Left `(0, 0)`**:
+1. **Slide Stage (`::: block xy=(x, y) width=W height=H`) — Top-Left `(0, 0)`**:
    - Fixed **1920 × 1080** pixel widescreen stage (automatically scaled to fit any browser window or projector).
    - Supports hierarchical chapter folders (`00_opening/`, `01_why_drawlib/`, ...) sorted alphabetically.
 2. **Drawlib Canvas (`setup(width=W, height=H)`) — Bottom-Left `(0, 0)`**:
    - Inside any ```` ```drawlib ```` block, coordinates use standard Cartesian geometry where `(0, 0)` is the bottom-left corner.
 
 ### Golden Aspect-Ratio Rule
-Keep `setup(width=W, height=H)` proportional to the enclosing `::: block` `(w, h)` (typically `w / 10, h / 10`) so inline SVGs fill their containers with zero letterboxing:
-- `::: block (860, 140) (980, 840)` → `setup(width=98, height=84)`
-- `::: block (0, 0) (1920, 1080)` → `setup(width=192, height=108)`
+Keep `setup(width=W, height=H)` proportional to the enclosing `::: block` `width` and `height` (typically `width / 10, height / 10`) so inline SVGs fill their containers with zero letterboxing:
+- `::: block xy=(860, 140) width=980 height=840` → `setup(width=98, height=84)`
+- `::: block xy=(0, 0) width=1920 height=1080` → `setup(width=192, height=108)`
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:slide_stage_blueprint.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=slide_stage_blueprint.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -49,33 +49,33 @@ circle((11, 68.5), radius=1.6, style=Styles.AccentFlat)
 text((11, 71.2), "Stage (0, 0) Top-Left", style=Styles.PrimaryBold.patch(text_size=7.8, halign="left"))
 text((91, 20.8), "(1920, 1080)", style=Styles.MutedBold.patch(text_size=7.8, halign="right"))
 
-# Header Block: (80, 40) (1760, 60)
+# Header Block: xy=(80, 40) width=1760 height=60
 rectangle(
     (51, 64.2),
     width=73.5,
     height=4.2,
     style=Styles.PrimaryNeutral.patch(shape_r=0.8),
-    text="::: block (80, 40) (1760, 60)  —  # Slide Heading Title",
+    text="::: block xy=(80, 40) width=1760 height=60  —  # Slide Heading Title",
     text_style=Styles.DarkBold.patch(text_size=7.8),
 )
 
-# Left Narrative Block: (80, 140) (740, 840)
+# Left Narrative Block: xy=(80, 140) width=740 height=840
 rectangle(
     (30.0, 45.5),
     width=31.0,
     height=29.5,
     style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="::: block (80, 140) (740, 840)\n\nMarkdown Narrative\n• Headings & Bullets\n• Code Snippets\n• Tables & Callouts",
+    text="::: block xy=(80, 140) width=740 height=840\n\nMarkdown Narrative\n• Headings & Bullets\n• Code Snippets\n• Tables & Callouts",
     text_style=Styles.DarkBold.patch(text_size=8.0),
 )
 
-# Right Diagram Block: (860, 140) (980, 840) -> Canvas setup(width=98, height=84)
+# Right Diagram Block: xy=(860, 140) width=980 height=840 -> Canvas setup(width=98, height=84)
 rectangle(
     (67.2, 45.5),
     width=40.5,
     height=29.5,
     style=Styles.PrimaryFlat.patch(shape_r=1.2),
-    text="::: block (860, 140) (980, 840)\n```drawlib file:diagram.svg\nsetup(width=98, height=84)\n\nCartesian Canvas (0, 0) at Bottom-Left!",
+    text="::: block xy=(860, 140) width=980 height=840\n```drawlib file=diagram.svg\nsetup(width=98, height=84)\n\nCartesian Canvas (0, 0) at Bottom-Left!",
     text_style=Styles.WhiteBold.patch(text_size=8.0),
 )
 # Canvas bottom-left origin indicator inside right block
@@ -88,7 +88,7 @@ rectangle(
     width=34.0,
     height=3.2,
     style=Styles.Neutral.patch(shape_r=0.6),
-    text="::: block (80, 1010) (820, 30) — Footer",
+    text="::: block xy=(80, 1010) width=820 height=30 — Footer",
     text_style=Styles.MutedBold.patch(text_size=7.0),
 )
 rectangle(
@@ -114,7 +114,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 6: Documentation & Slide Engine — 16:9 Widescreen Stage Architecture*
 :::
 

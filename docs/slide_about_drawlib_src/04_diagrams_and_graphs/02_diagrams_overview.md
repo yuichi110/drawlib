@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # The 6 Domain Diagram Engines (`drawlib.diagrams`)
 :::
 
-::: block (80, 140) (680, 840) compact
+::: block xy=(80, 140) width=680 height=840 compact=true
 ## Purpose-Built Engines with Shared Architecture
 
 Unlike black-box text-to-diagram tools (PlantUML, Mermaid) that scramble your layout whenever a label changes, `drawlib.diagrams` combines **deterministic coordinate placement** with **intelligent boundary & wire automation**:
@@ -22,8 +22,8 @@ Unlike black-box text-to-diagram tools (PlantUML, Mermaid) that scramble your la
 4. **Uniform `draw(xy, scale=1.0)`**: Scales the entire diagram proportionally around bottom-left `xy`.
 :::
 
-::: block (800, 140) (1040, 840)
-```drawlib file:diagrams_taxonomy.svg
+::: block xy=(800, 140) width=1040 height=840
+```drawlib file=diagrams_taxonomy.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import GridLayout

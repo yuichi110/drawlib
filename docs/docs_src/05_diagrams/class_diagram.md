@@ -6,7 +6,7 @@
 
 ## 1. Overview & Three-Compartment Cards
 
-```drawlib fold-code center file:class_diagram_overview_anatomy.png caption:"Three-Compartment UML Class Cards with Realization and Composition"
+```drawlib code=fold align=center file=class_diagram_overview_anatomy.png caption="Three-Compartment UML Class Cards with Realization and Composition"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -70,7 +70,7 @@ save()
 
 ## 2. Constructor, `ClassNode` & Member Declarations
 
-```drawlib show-code center file:class_diagram_basic_node.png caption:"Basic Class and Interface Nodes"
+```drawlib code=show align=center file=class_diagram_basic_node.png caption="Basic Class and Interface Nodes"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -185,7 +185,7 @@ Relationships between classes are registered at the diagram level via `cd.connec
 | `"association"` | `"associate"` | **Association** | Solid | None (or Open Arrow if `directed=True`) | Structural reference |
 | `"dependency"` | `"depend"` | **Dependency** | Dashed | Open Arrow (at `target`) | Uses-a dependency |
 
-```drawlib show-code center file:class_diagram_relationship_types.png caption:"All Six UML Relationship Types and Marker Styles in ClassDiagram"
+```drawlib code=show align=center file=class_diagram_relationship_types.png caption="All Six UML Relationship Types and Marker Styles in ClassDiagram"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Colors, Styles
@@ -269,7 +269,7 @@ cd.connect(
 
 The following example combines inheritance, composition, and interface dependency:
 
-```drawlib show-code center file:class_diagram_ecommerce_domain.png caption:"E-Commerce Domain Class Hierarchy"
+```drawlib code=show align=center file=class_diagram_ecommerce_domain.png caption="E-Commerce Domain Class Hierarchy"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -327,7 +327,7 @@ save()
 
 Class diagrams excel at illustrating software design patterns such as the Observer pattern:
 
-```drawlib show-code center file:class_diagram_observer_pattern.png caption:"UML Observer Design Pattern"
+```drawlib code=show align=center file=class_diagram_observer_pattern.png caption="UML Observer Design Pattern"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles

@@ -4,7 +4,7 @@ Drawlib's `drawlib.diagrams` module provides a declarative, pure-Python visualiz
 
 All six diagram engines pair domain-specific visual notations with deterministic `(x, y)` coordinate control and a universal `Connectable` routing engine.
 
-```drawlib fold-code center file:diagrams_six_families_hero.png caption:"The Six Coordinate-Controlled Technical Diagram Families in drawlib.diagrams"
+```drawlib code=fold align=center file=diagrams_six_families_hero.png caption="The Six Coordinate-Controlled Technical Diagram Families in drawlib.diagrams"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
@@ -185,7 +185,7 @@ Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque l
 
 All diagram elements (nodes, entities, classes, boundaries, and junctions) implement the `Connectable` protocol:
 
-```drawlib fold-code center file:diagrams_overview_routing_modes.png caption:"Comparison of Orthogonal Z-Bend, Direct Straight, and Curved Arc Routing"
+```drawlib code=fold align=center file=diagrams_overview_routing_modes.png caption="Comparison of Orthogonal Z-Bend, Direct Straight, and Curved Arc Routing"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 from drawlib.diagrams.state import State, StateDiagram
@@ -297,7 +297,7 @@ Understanding how coordinates are anchored across `drawlib.diagrams` ensures cri
   - `d.draw(xy=(x, y), *, scale=1.0)` always anchors the diagram's **bottom-left** origin at `(x, y)` on the canvas.
   - In `ArchitectureDiagram`, `d.add(group, xy=(x, y))` sets the **bottom-left** local origin for `NodeGroup` (when fixed `width` and `height` are specified on `NodeGroup`, the box spans `[x, x + width] × [y, y + height]`; when auto-sized, child coordinates passed to `group.add(child, xy=...)` are relative to `group.xy`).
 
-```drawlib fold-code center file:diagrams_overview_ports_and_origins.png caption:"Attachment Port Sides (top, bottom, left, right) and Node Center vs. NodeGroup Bottom-Left Origins"
+```drawlib code=fold align=center file=diagrams_overview_ports_and_origins.png caption="Attachment Port Sides (top, bottom, left, right) and Node Center vs. NodeGroup Bottom-Left Origins"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.lines import line
@@ -398,7 +398,7 @@ A `Junction` represents a zero-dimension coordinate `(x, y)` on the canvas. It a
 - **Merge Paths**: Combine multiple upstream error or completion paths into a single successor node.
 - **Dynamic Insertion**: Calling `edge.add_point(xy)` converts an intermediate edge coordinate into a reusable `Junction`.
 
-```drawlib show-code center file:diagrams_overview_routing.png caption:"Universal Connection Engine: Hierarchical Groups, Orthogonal Routing, and Bus Fan-Out"
+```drawlib code=show align=center file=diagrams_overview_routing.png caption="Universal Connection Engine: Hierarchical Groups, Orthogonal Routing, and Bus Fan-Out"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles

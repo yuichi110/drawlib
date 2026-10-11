@@ -8,7 +8,7 @@ Drawlib provides over 250 official, multi-color **Google Cloud Platform (GCP)** 
 
 Every GCP service is available as a function `gcp.<service_name>(xy, width, *, style)` (with convenient shorthand aliases `gcp.gce`, `gcp.gke`, `gcp.gcs`, and `gcp.bq`):
 
-```drawlib fold-code center file:icons_gcp_categories.png caption:"Official Google Cloud Architecture Icons Across Core Categories"
+```drawlib code=fold align=center file=icons_gcp_categories.png caption="Official Google Cloud Architecture Icons Across Core Categories"
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.shapes import rectangle
@@ -93,7 +93,7 @@ Because `gcp.<service_name>(xy, width, *, style)` renders normalized 512×512 RG
 | **Embedded Pod / Sub-Node** | `7.0 – 8.0` units | `style=Styles.Primary` inside a compact subnet card |
 | **Decommissioned / Standby Node** | `8.5 – 10.0` units | `style=Styles.Primary.patch(alpha=0.35)` |
 
-```drawlib show-code center file:icons_gcp_sizing_and_styling.png caption:"GCP Icon Sizing Tiers, Opacity (alpha), Background Tint (image_tint_color), and Border Framing (image_border_*)"
+```drawlib code=show align=center file=icons_gcp_sizing_and_styling.png caption="GCP Icon Sizing Tiers, Opacity (alpha), Background Tint (image_tint_color), and Border Framing (image_border_*)"
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.shapes import rectangle
@@ -146,7 +146,7 @@ You can integrate GCP icons into technical illustrations at three levels of abst
 
 ### 3.1. Overlaying GCP Icons on `GridLayout` Matrix Tiers
 
-```drawlib show-code center file:icons_gcp_standalone_grid.png caption:"Overlaying GCP Icons on a GridLayout Tier Matrix"
+```drawlib code=show align=center file=icons_gcp_standalone_grid.png caption="Overlaying GCP Icons on a GridLayout Tier Matrix"
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.smartarts import GridLayout
@@ -198,7 +198,7 @@ save()
 
 When connecting services with routed arrows and VPC/subnet boundary boxes, use **[`ArchitectureDiagram`](../05_diagrams/architecture.md)** with `Node(..., icon=GcpIcon.<SERVICE>)`:
 
-```drawlib show-code center file:icons_gcp_architecture_diagram.png caption:"Mini GCP Topology Using ArchitectureDiagram and GcpIcon"
+```drawlib code=show align=center file=icons_gcp_architecture_diagram.png caption="Mini GCP Topology Using ArchitectureDiagram and GcpIcon"
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 from drawlib.styles import Styles

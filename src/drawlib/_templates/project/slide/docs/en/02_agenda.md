@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Topics Covered
 :::
 
-::: block (80, 140) (700, 840)
+::: block xy=(80, 140) width=700 height=840
 - **Architecture Overview**: Declarative drawing engine
 - **Native Vector Output**: High-DPI & searchable text
 - **Modular Drawing**: Component-based utilities
@@ -10,8 +10,8 @@
 - **Next Steps**: Extensible design workflows
 :::
 
-::: block (820, 140) (1020, 840)
-```drawlib file:agenda.svg
+::: block xy=(820, 140) width=1020 height=840
+```drawlib file=agenda.svg
 from drawlib.canvas import clear, setup
 from utils import draw_curved_agenda
 
@@ -31,6 +31,6 @@ draw_curved_agenda(
 ```
 :::
 
-::: block (80, 1010) (1760, 30) font:14px
+::: block xy=(80, 1010) width=1760 height=30 font_size=14px
 *Drawlib Presentation*
 :::

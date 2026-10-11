@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Relational Schemas & Crow's Foot (`ERDiagram`)
 :::
 
-::: block (80, 140) (640, 840) compact
+::: block xy=(80, 140) width=640 height=840 compact=true
 ## Information Engineering (IE) Database Modeling
 
 `ERDiagram` visualizes physical and logical relational database schemas with strict Crow's Foot cardinality markers and row-aligned foreign key connectors:
@@ -26,8 +26,8 @@ utils.draw_page_number()
   - Passing `start_column="id", end_column="user_id"` attaches the relationship wire directly to the vertical Y-center of those specific table rows!
 :::
 
-::: block (760, 140) (1080, 840)
-```drawlib file:er_schema.svg
+::: block xy=(760, 140) width=1080 height=840
+```drawlib file=er_schema.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.er import Entity, ERDiagram
 from drawlib.styles import Styles

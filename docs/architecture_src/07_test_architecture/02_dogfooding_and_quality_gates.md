@@ -2,7 +2,7 @@
 
 The most rigorous test of an "Illustration as Code" and "Illustrated Documentation as Code" library is using it to build its own production documentation. In the Drawlib repository, six independent documentation projects serve as a live, end-to-end integration test suite.
 
-```drawlib center fold-code file:dogfooding_feedback_loop.png caption:"Repository Dogfooding and Continuous Quality Feedback Loop"
+```drawlib align=center code=fold file=dogfooding_feedback_loop.png caption="Repository Dogfooding and Continuous Quality Feedback Loop"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -78,7 +78,7 @@ The documentation projects in `docs/` cover the four primary architectural arche
 
 Before any code is committed or published, the repository enforces a strict static quality pipeline via `./dcli code-check all`:
 
-```drawlib center fold-code file:static_quality_pipeline.png caption:"Multi-Tiered Static Quality Gate Pipeline"
+```drawlib align=center code=fold file=static_quality_pipeline.png caption="Multi-Tiered Static Quality Gate Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

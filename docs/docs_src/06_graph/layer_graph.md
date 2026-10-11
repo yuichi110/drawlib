@@ -4,7 +4,7 @@
 
 It is the ideal solver for CI/CD pipelines, ETL / data lineage graphs (dbt, Airflow), build dependency graphs, and multi-stage workflows where nodes progress through sequential ranks from left-to-right (`direction="LR"`) or top-to-bottom (`direction="TB"`).
 
-```drawlib fold-code center file:graph_layer_hero.png caption:"LayerGraph Overview: Automatic Sugiyama Topological Ranking and Rank Pinning (layer=int)"
+```drawlib code=fold align=center file=graph_layer_hero.png caption="LayerGraph Overview: Automatic Sugiyama Topological Ranking and Rank Pinning (layer=int)"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.icons import phosphor
@@ -117,7 +117,7 @@ By default, `LayerGraph` assigns each node's rank (`0, 1, 2, ...`) automatically
 
 In this example, `LayerGraph` automatically infers the 4 topological ranks of a data engineering lineage DAG (Sources → Staging → Feature Store / Aggregations → ML Serving) and minimizes edge crossings using barycenter ordering:
 
-```drawlib show-code center file:graph_layer_auto_dag.png caption:"Automatic Topological Ranking and Crossing Minimization in LayerGraph"
+```drawlib code=show align=center file=graph_layer_auto_dag.png caption="Automatic Topological Ranking and Crossing Minimization in LayerGraph"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
@@ -169,7 +169,7 @@ save()
 
 When building a release pipeline or architecture stage diagram where specific nodes must align vertically even if they have different path depths, pin them explicitly via `g.tier(..., layer=...)` or `g.node(..., layer=...)` and wrap parallel stages in `g.cluster(...)`:
 
-```drawlib show-code center file:graph_layer_pinned_pipeline.png caption:"CI/CD Release Pipeline with Explicit Layer Pinning and Stage Clusters"
+```drawlib code=show align=center file=graph_layer_pinned_pipeline.png caption="CI/CD Release Pipeline with Explicit Layer Pinning and Stage Clusters"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
@@ -225,7 +225,7 @@ save()
 
 Switching to `direction="TB"` flows topological layers vertically from top to bottom. Combine `rank_sep` and `node_sep` to control vertical spacing between ranks and horizontal spacing between sibling nodes in the same rank:
 
-```drawlib show-code center file:graph_layer_tb_hierarchy.png caption:"Top-to-Bottom (direction='TB') Sugiyama Ranked DAG Layout"
+```drawlib code=show align=center file=graph_layer_tb_hierarchy.png caption="Top-to-Bottom (direction='TB') Sugiyama Ranked DAG Layout"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles

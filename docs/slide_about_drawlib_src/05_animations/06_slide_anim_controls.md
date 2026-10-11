@@ -1,21 +1,21 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Interactive Slide Animation Controls (`click`, `once`, `pause`)
 :::
 
-::: block (80, 140) (760, 840) font:20px
+::: block xy=(80, 140) width=760 height=840 font_size=20px
 ## Presenter-Driven Keyframe Stepping
 
 In slide decks, you control `<canvas>` animation playback directly from the ```` ```drawlib ```` code fence header—turning multi-frame APNGs into interactive slide builds:
 
 ````markdown
-```drawlib file:step_click_demo.png anim:click loop:once pause:1,2
+```drawlib file=step_click_demo.png anim_trigger=click anim_loop=once anim_pause=(1, 2)
 # 4-frame architectural walkthrough (Frames 0, 1, 2, 3)
 ```
 ````
@@ -32,8 +32,8 @@ In slide decks, you control `<canvas>` animation playback directly from the ````
 - **Keyboard & Click**: Click the diagram, press **`A`**, or click **`▶ Play / Resume Animation`** in Presenter View (`P`) to step through pause points in real time across both screens.
 :::
 
-::: block (880, 140) (960, 840)
-```drawlib file:step_click_demo.png anim:click anim-loop:once anim-pause:1,2
+::: block xy=(880, 140) width=960 height=840
+```drawlib file=step_click_demo.png anim_trigger=click anim_loop=once anim_pause=(1, 2)
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
@@ -131,7 +131,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 5: Multi-Frame Animations — Interactive Slide Playback Controls*
 :::
 

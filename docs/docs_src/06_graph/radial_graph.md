@@ -4,7 +4,7 @@
 
 It is purpose-built for event-driven message meshes, Pub/Sub broker topologies, microservice hub-and-spoke networks, and concentric dependency radars.
 
-```drawlib fold-code center file:graph_radial_hero.png caption:"RadialGraph Overview: Concentric BFS Orbit Rings and Dashed Ring Guides"
+```drawlib code=fold align=center file=graph_radial_hero.png caption="RadialGraph Overview: Concentric BFS Orbit Rings and Dashed Ring Guides"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.icons import phosphor
@@ -137,7 +137,7 @@ g.spoke(
 
 A single-ring `RadialGraph` arranges satellite services evenly around a central broker or API gateway:
 
-```drawlib show-code center file:graph_radial_single_ring.png caption:"Single-Ring Hub-and-Spoke Microservice Mesh Around an Event Broker"
+```drawlib code=show align=center file=graph_radial_single_ring.png caption="Single-Ring Hub-and-Spoke Microservice Mesh Around an Event Broker"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
@@ -182,7 +182,7 @@ save()
 
 By connecting second-hop spokes or explicitly passing `ring=2`, `RadialGraph` constructs multi-ring concentric architectures where inner rings represent core domain services (`ring=1`) and outer rings represent external adapters or storage engines (`ring=2`):
 
-```drawlib show-code center file:graph_radial_multi_ring.png caption:"Multi-Ring Concentric Dependency Radar (Ring 0 Core, Ring 1 Domain, Ring 2 Adapters)"
+```drawlib code=show align=center file=graph_radial_multi_ring.png caption="Multi-Ring Concentric Dependency Radar (Ring 0 Core, Ring 1 Domain, Ring 2 Adapters)"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
@@ -232,7 +232,7 @@ save()
 
 Instead of a full `360.0` degree orbit, you can restrict spokes to a semicircular or quadrant fan using `start_angle` and `angle_range` (along with an explicit `center=(cx, cy)` and `radius_step`):
 
-```drawlib show-code center file:graph_radial_semicircle_fan.png caption:"Semicircular Dependency Fan Using angle_range=180.0 and start_angle=0.0"
+```drawlib code=show align=center file=graph_radial_semicircle_fan.png caption="Semicircular Dependency Fan Using angle_range=180.0 and start_angle=0.0"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles

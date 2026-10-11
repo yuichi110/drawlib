@@ -1,10 +1,10 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # Landscape Comparison Matrix
 How Drawlib bridges the gap between GUI canvases, text DSLs, and low-level plotting libraries.
 :::
 
-::: block (80, 180) (1760, 780)
-```drawlib file:comparison_table.svg
+::: block xy=(80, 180) width=1760 height=780
+```drawlib file=comparison_table.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.smartarts import Table
@@ -117,8 +117,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

@@ -13,7 +13,7 @@ Modern software teams manage code, infrastructure, and CI/CD pipelines as versio
 
 ## Drawlib's Three Architectural Pillars
 
-```drawlib 620px center file:about_pillars.png caption:"Figure 1.1: Drawlib Core Architectural Pillars"
+```drawlib width=620px align=center file=about_pillars.png caption="Figure 1.1: Drawlib Core Architectural Pillars"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

@@ -6,7 +6,7 @@
 
 ## 1. Overview & Topologies
 
-```drawlib center fold-code file:scatterchart_topologies_overview.png caption:"ScatterChart Topologies: Multi-Shape 2D Scatter vs. 3D Bubble Sizing"
+```drawlib align=center code=fold file=scatterchart_topologies_overview.png caption="ScatterChart Topologies: Multi-Shape 2D Scatter vs. 3D Bubble Sizing"
 from drawlib.canvas import save, setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -76,7 +76,7 @@ save()
 
 Combining multi-series runs (`"circle"`, `"square"`, `"triangle"`) with individually annotated reference points (`"rhombus"`) makes system performance comparisons immediately actionable:
 
-```drawlib center show-code file:scatterchart_latency_benchmark.png caption:"Throughput vs p99 Latency Benchmark Across Marker Shapes"
+```drawlib align=center code=show file=scatterchart_latency_benchmark.png caption="Throughput vs p99 Latency Benchmark Across Marker Shapes"
 from drawlib.canvas import save, setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -131,7 +131,7 @@ save()
 
 By providing 3-tuples `(x, y, radius)` in `add_series(data=...)`, each point's radius encodes a 3rd numerical dimension:
 
-```drawlib center show-code file:scatterchart_bubble_plot.png caption:"Compute Workload Multidimensional Bubble Plot"
+```drawlib align=center code=show file=scatterchart_bubble_plot.png caption="Compute Workload Multidimensional Bubble Plot"
 from drawlib.canvas import save, setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles

@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Asymmetric Defense: SHA-256 Proof-of-Work
 :::
 
-::: block (80, 140) (680, 810)
+::: block xy=(80, 140) width=680 height=810
 ## Cryptographic Cost Inversion
 
 - **One-Time Challenge Seed**
@@ -13,7 +13,7 @@
   Server verifies in **O(1)** (`1 hash`), while 1,000 RPS costs the botnet **65M+ hashes/sec**.
 :::
 
-::: block (800, 140) (1040, 810)
+::: block xy=(800, 140) width=1040 height=810
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.diagrams.sequence import GcpIcon, Participant, PhosphorIcon, SequenceDiagram
@@ -56,7 +56,7 @@ d.draw(xy=((115.0 - dw) / 2.0, 4.0))
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

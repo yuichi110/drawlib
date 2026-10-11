@@ -7,7 +7,7 @@ Designed from the ground up for modern software engineering and **autonomous AI 
 > **Note — Built Autonomously with Drawlib & Gemini:**
 > Every page of prose and every illustration in this documentation was authored directly inside this Git repository using **Drawlib** and the **Gemini Coding Agent** (running in the **Antigravity IDE**). Human involvement was limited to high-level prompts—all document structure, technical explanations, and diagram designs were planned, coded, and visually verified autonomously by Gemini.
 
-```drawlib fold-code center file:drawlib_code_to_publication.png caption:"From Code to Publication with Drawlib"
+```drawlib code=fold align=center file=drawlib_code_to_publication.png caption="From Code to Publication with Drawlib"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -77,7 +77,7 @@ Avoid assembling hundreds of primitive shapes by hand. Drawlib provides producti
 - **Data Charts**: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.
 - **Technical Diagrams**: Cloud architectures (`ArchitectureDiagram`), flowcharts (`FlowDiagram`), API sequences (`SequenceDiagram`), UML class diagrams (`ClassDiagram`), ER diagrams (`ERDiagram`), and state machines (`StateDiagram`).
 
-```drawlib fold-code center file:index_high_level_visualizations.png caption:"Drawlib High-Level Visualization Ecosystem"
+```drawlib code=fold align=center file=index_high_level_visualizations.png caption="Drawlib High-Level Visualization Ecosystem"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

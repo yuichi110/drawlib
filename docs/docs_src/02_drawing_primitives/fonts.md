@@ -7,7 +7,7 @@ Instead, `drawlib.fonts` provides **14 curated font classes** backed by open-sou
 
 ## 1. Overview of Built-in Typography
 
-```drawlib fold-code center file:fonts_overview.png caption:"Cross-Platform Western, Monospace, and CJK Font Families in Drawlib"
+```drawlib code=fold align=center file=fonts_overview.png caption="Cross-Platform Western, Monospace, and CJK Font Families in Drawlib"
 from drawlib.canvas import save, setup
 from drawlib.fonts import (
     FontJapanese,
@@ -101,7 +101,7 @@ from drawlib.fonts import (
 
 Use `style.patch(text_font=...)` to apply specific font families and weights (`THIN`, `REGULAR`, `BOLD`) to individual labels or cards:
 
-```drawlib show-code center file:fonts_western_specimen.png caption:"Western Sans-Serif, Serif, and Monospace Font Specimen Catalog"
+```drawlib code=show align=center file=fonts_western_specimen.png caption="Western Sans-Serif, Serif, and Monospace Font Specimen Catalog"
 from drawlib.canvas import save, setup
 from drawlib.fonts import (
     FontMonoSpace,
@@ -152,7 +152,7 @@ save()
 
 Drawlib provides dedicated regional font classes for Japanese (`FontJapanese`), Chinese (`FontChinese`), and Korean (`FontKorean`), as well as `FontArabic`, `FontThai`, and `FontBrahmic`:
 
-```drawlib show-code center file:fonts_cjk_specimen.png caption:"Multilingual CJK Typography Specimen (Japanese, Chinese, Korean)"
+```drawlib code=show align=center file=fonts_cjk_specimen.png caption="Multilingual CJK Typography Specimen (Japanese, Chinese, Korean)"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontChinese, FontJapanese, FontKorean
 from drawlib.shapes import rectangle

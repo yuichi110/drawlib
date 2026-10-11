@@ -2,7 +2,7 @@
 
 Drawlib is engineered from the ground up to be "Agent-First", enabling AI coding assistants (Claude, Cursor, Gemini, Copilot) to generate accurate, publication-ready diagrams autonomously. Once basic instructions are registered, the AI interacts with the Drawlib CLI to inspect rules, test drawings, and output verified code.
 
-```drawlib 640px center file:fig_agent_interaction.png caption:"Figure 6.1: Autonomous Interaction Model between Drawlib and AI Agents"
+```drawlib width=640px align=center file=fig_agent_interaction.png caption="Figure 6.1: Autonomous Interaction Model between Drawlib and AI Agents"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

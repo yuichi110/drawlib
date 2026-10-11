@@ -4,7 +4,7 @@ Technical documentation is only as reliable as its cross-references. In large do
 
 Drawlib enforces link integrity through a **Dual-Layer Validation Pipeline**: a build-time Markdown link linter (`compiler/base.py`) combined with a preflight recursive HTML link crawler (`_http_server/_link_scanner.py`).
 
-```drawlib center fold-code file:link_validator_pipeline.png caption:"Dual-Layer Link & Path Hygiene Validation Pipeline"
+```drawlib align=center code=fold file=link_validator_pipeline.png caption="Dual-Layer Link & Path Hygiene Validation Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -70,7 +70,7 @@ Drawlib validates link hygiene at two complementary stages:
    - Parses compiled `<a href="...">` and `<img src="...">` tags.
    - Verifies that target files exist on disk, anchors (`#section`) resolve to valid DOM IDs, and zero broken links exist across the entire site.
 
-```drawlib center fold-code file:code_masking_technique.png caption:"Line-Preserving Whitespace Masking Algorithm"
+```drawlib align=center code=fold file=code_masking_technique.png caption="Line-Preserving Whitespace Masking Algorithm"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

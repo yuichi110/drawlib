@@ -4,7 +4,7 @@ Drawlib's own visual identity—including its official horizontal brand logo, st
 
 This case study demonstrates the full lifecycle of **"Illustration as Code"** and the autonomous multimodal AI collaboration loop: translating rough design sketches into mathematical Bézier curves, tuning typography with sub-pixel precision, optimizing micro-scale favicon visibility for browser tabs, and integrating the resulting assets directly into the Drawlib project scaffolding engine.
 
-```drawlib fold-code center file:brand_assets_overview.png caption:"Drawlib Official Brand Asset Architecture & Pipeline"
+```drawlib code=fold align=center file=brand_assets_overview.png caption="Drawlib Official Brand Asset Architecture & Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -106,7 +106,7 @@ Below are the 7 official Drawlib brand assets. Each code block is **100% self-co
 
 The master horizontal brand lockup pairs the icon mark on the left with the Poppins Bold wordmark on the right within a $310 \times 100$ canvas space.
 
-```drawlib center file:logo.png caption:"Official Drawlib Logo (Horizontal Lockup - White Background)"
+```drawlib align=center file=logo.png caption="Official Drawlib Logo (Horizontal Lockup - White Background)"
 from drawlib.canvas import canvas, save, setup
 from drawlib.fonts import FontSansSerif
 from drawlib.lines import line, lines, lines_bezier
@@ -193,7 +193,7 @@ save()
 
 For dark headers, hero banners, or navigation bars, the transparent background variant sets `color=Colors.Canvas, alpha=0.0`:
 
-```drawlib center file:logo_transparent.png caption:"Official Drawlib Logo (Horizontal Lockup - Transparent Background)"
+```drawlib align=center file=logo_transparent.png caption="Official Drawlib Logo (Horizontal Lockup - Transparent Background)"
 from drawlib.canvas import canvas, save, setup
 from drawlib.fonts import FontSansSerif
 from drawlib.lines import line, lines, lines_bezier
@@ -284,7 +284,7 @@ save()
 
 The standalone square icon mark ($100 \times 100$ canvas space) is ideal for social profile avatars, GitHub repository icons, and application launcher icons.
 
-```drawlib center file:logo_icon.png caption:"Drawlib Brand Icon Mark (White Background)"
+```drawlib align=center file=logo_icon.png caption="Drawlib Brand Icon Mark (White Background)"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, lines, lines_bezier
 from drawlib.shapes import circle
@@ -338,7 +338,7 @@ save()
 
 Transparent icon mark:
 
-```drawlib center file:logo_icon_transparent.png caption:"Drawlib Brand Icon Mark (Transparent Background)"
+```drawlib align=center file=logo_icon_transparent.png caption="Drawlib Brand Icon Mark (Transparent Background)"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, lines, lines_bezier
 from drawlib.shapes import circle
@@ -396,7 +396,7 @@ save()
 
 Rendered on a compact $210 \times 66$ canvas with four-sided symmetric padding (exact 120px left/right margins and 119px top/bottom margins at 2000px output).
 
-```drawlib center file:logo_text.png caption:"Drawlib Typography Wordmark (White Background)"
+```drawlib align=center file=logo_text.png caption="Drawlib Typography Wordmark (White Background)"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontSansSerif
 from drawlib.shapes import circle
@@ -437,7 +437,7 @@ save()
 
 Transparent wordmark:
 
-```drawlib center file:logo_text_transparent.png caption:"Drawlib Typography Wordmark (Transparent Background)"
+```drawlib align=center file=logo_text_transparent.png caption="Drawlib Typography Wordmark (Transparent Background)"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontSansSerif
 from drawlib.shapes import circle
@@ -489,7 +489,7 @@ To achieve this:
 
 *(Note: Unlike the logos above, the favicon does not require a separate transparent variant because its outer boundary is already transparent by design).*
 
-```drawlib center file:logo_favicon.png caption:"Official Drawlib Favicon (Squircle White Card on Transparent Canvas)"
+```drawlib align=center file=logo_favicon.png caption="Official Drawlib Favicon (Squircle White Card on Transparent Canvas)"
 from drawlib.canvas import canvas, save, setup
 from drawlib.lines import line, lines, lines_bezier
 from drawlib.shapes import circle, rectangle
@@ -590,7 +590,7 @@ To ensure Drawlib's brand assets remain legible, harmonious, and elegant across 
 
 ### 5.1. Dark Full Brand Logo
 
-```drawlib center fold-code file:logo_dark.png caption:"Official Drawlib Full Brand Logo (Dark Background)"
+```drawlib align=center code=fold file=logo_dark.png caption="Official Drawlib Full Brand Logo (Dark Background)"
 from drawlib.canvas import canvas, save, setup
 from drawlib.fonts import FontSansSerif
 from drawlib.lines import line, lines, lines_bezier
@@ -661,7 +661,7 @@ save()
 
 ### 5.2. Dark Full Brand Logo (Transparent)
 
-```drawlib center fold-code file:logo_dark_transparent.png caption:"Official Drawlib Full Brand Logo for Dark Backgrounds (Transparent)"
+```drawlib align=center code=fold file=logo_dark_transparent.png caption="Official Drawlib Full Brand Logo for Dark Backgrounds (Transparent)"
 from drawlib.canvas import canvas, save, setup
 from drawlib.fonts import FontSansSerif
 from drawlib.lines import line, lines, lines_bezier

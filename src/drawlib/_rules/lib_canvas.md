@@ -151,7 +151,7 @@ Renders the canvas in-memory into a Drawlib `Dimage` object without saving to di
 
 ### 4.1. Basic Architecture Diagram with Custom Dimensions
 
-```drawlib fold-code center caption:"Basic Microservices Architecture"
+```drawlib code=fold align=center caption="Basic Microservices Architecture"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -178,7 +178,7 @@ save()
 
 ### 4.2. Transparent Canvas for Embedded Badges
 
-```drawlib fold-code center caption:"Transparent Status Pill"
+```drawlib code=fold align=center caption="Transparent Status Pill"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles

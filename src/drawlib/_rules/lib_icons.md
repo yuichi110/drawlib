@@ -117,7 +117,7 @@ Phosphor provides 5 visual weights for each icon glyph, controlled via `Style(ic
 
 ### 3.3. Code Demonstration of Phosphor Weights
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -157,7 +157,7 @@ Phosphor seamlessly maps Drawlib preset styles into appropriate icon weights and
 - `light`: Triggers `icon_style="light"`.
 - `bold`: Triggers `icon_style="bold"`.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -274,7 +274,7 @@ gcp.<service_name>(
 ) -> None
 ```
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
@@ -353,7 +353,7 @@ halign  │       (x, y) Center Anchor     │ halign
                     valign="bottom"
 ```
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
@@ -381,7 +381,7 @@ save()
 
 The `style.angle` attribute rotates the icon counter-clockwise around its anchor point `xy`:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -418,7 +418,7 @@ Vector icons and raster GCP icons handle color customization differently:
    - **Silhouette Color Mask (`image_tint_color`)**: Replaces the multi-color artwork with a solid flat silhouette mask.
    - **Border Outline (`image_border_color`, `image_border_width`, `image_border_style`)**: Draws an explicit boundary frame around the icon bounding box.
 
-```drawlib show-code file:icons_gcp_styling.png
+```drawlib code=show file=icons_gcp_styling.png
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.styles import Colors, Styles
@@ -476,7 +476,7 @@ In production cloud architecture schemas and workflow diagrams, icons rarely exi
 
 To achieve typographical harmony, place the primary label at an offset of `y - (width / 2) - 3.5` from the icon center:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
@@ -499,7 +499,7 @@ save()
 
 ### 7.3. Pattern 2: Icon Inside Container Card with Status Badge
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.shapes import circle, rectangle
@@ -535,7 +535,7 @@ save()
 
 When documenting multi-step pipelines or authorization handshakes (e.g. OAuth2, SAML), pair icons with sequentially numbered badges indicating the order of operations:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -580,7 +580,7 @@ The following end-to-end examples demonstrate production architectures combining
 
 This architecture features an internet-facing Cloud Armor and Load Balancer tier, scalable Cloud Run microservices, Cloud SQL database storage, Redis caching, and integrated Cloud Monitoring:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
@@ -653,7 +653,7 @@ save()
 
 This schema models an IoT ingestion pipeline using Cloud Pub/Sub, stream processing via Cloud Functions, analytical data warehousing in BigQuery, and BI reporting in Looker:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
@@ -707,7 +707,7 @@ save()
 
 Demonstrating seamless interoperability between on-premise infrastructure (Phosphor vector servers) and Google Cloud Interconnect:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
@@ -757,7 +757,7 @@ save()
 
 This schema illustrates an automated GitOps delivery workflow from source code commit to container deployment in Google Kubernetes Engine:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line

@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Progressive Component Reveal (`.show = False` → `True`)
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Zero Layout Jump Across Keyframes
 
 Every element in `drawlib.smartarts`, `drawlib.diagrams`, and `drawlib.graph` supports a mutable **`.show: bool`** property.
@@ -37,8 +37,8 @@ for step in range(3):
 - **Automatic Edge Hiding**: Hiding a diagram node (`n3.show = False`) automatically hides its incoming/outgoing edges and dangling junctions.
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:progressive_arch_anim.png anim:click anim-loop:once anim-pause:1,2,3
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=progressive_arch_anim.png anim_trigger=click anim_loop=once anim_pause=(1, 2, 3)
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
@@ -128,7 +128,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 5: Multi-Frame Animations — Layout-Preserving Progressive Reveal*
 :::
 

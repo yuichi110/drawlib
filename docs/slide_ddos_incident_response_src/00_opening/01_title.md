@@ -1,4 +1,4 @@
-::: block (110, 220) (860, 640)
+::: block xy=(110, 220) width=860 height=640
 # Surviving a 300M+ Req/Day DDoS & EDoS Attack
 
 ### A Real-World Serverless Postmortem on Google Cloud Run & Edge WAF Architecture
@@ -8,7 +8,7 @@ How an AI-orchestrated botnet pushed a 10-year hobby speech synthesis service fr
 **Incident Postmortem & Cloud Security Case Study** · **2026**
 :::
 
-::: block (980, 140) (840, 780)
+::: block xy=(980, 140) width=840 height=780
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon

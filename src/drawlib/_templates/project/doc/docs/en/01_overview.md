@@ -4,7 +4,7 @@
 
 This chapter provides a high-level overview of the system architecture using Drawlib's core primitive functions.
 
-```drawlib center file:system_overview.png caption:"High-Level System Overview"
+```drawlib align=center file=system_overview.png caption="High-Level System Overview"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle

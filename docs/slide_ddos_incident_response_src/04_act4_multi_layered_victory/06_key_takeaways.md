@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Key Takeaways: 4 Golden Rules for Serverless DDoS Defense
 :::
 
-::: block (80, 140) (1060, 810)
+::: block xy=(80, 140) width=1060 height=810
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
@@ -66,7 +66,7 @@ grid.draw(xy=(5.5, 5.5), width=95.0, height=62.5, margin=2.5)
 ```
 :::
 
-::: block (1180, 140) (660, 810)
+::: block xy=(1180, 140) width=660 height=810
 ```drawlib
 from drawlib.canvas import setup
 import utils
@@ -85,7 +85,7 @@ utils.draw_kpi_cards(
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

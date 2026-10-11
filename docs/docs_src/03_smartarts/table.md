@@ -3,7 +3,7 @@
 The `Table` component renders 2D tabular data, comparison matrices, and database schemas.
 It provides fine-grained styling control over borders, headers, alternating even/odd row backgrounds, and specific cell highlights.
 
-```drawlib fold-code center file:table_hero.png caption:"Overview of Table: Styled Data Grids, Header Bands, and Custom Borders"
+```drawlib code=fold align=center file=table_hero.png caption="Overview of Table: Styled Data Grids, Header Bands, and Custom Borders"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles
@@ -76,7 +76,7 @@ save()
 
 ## 1. Quick Example: Service SLA & Status Matrix
 
-```drawlib show-code center file:table_service_status_matrix.png caption:"Service Status Matrix with Table"
+```drawlib code=show align=center file=table_service_status_matrix.png caption="Service Status Matrix with Table"
 from drawlib.canvas import setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles
@@ -135,7 +135,7 @@ table.draw(xy=(6, 45), width=106, height=40, data=data)
 
 When columns have different content lengths (such as a wide description column next to compact numeric metrics), use `table.draw_flexible(xy, column_widths=[...], row_heights=[...], data=...)`. You can style both the top header row and left row-header column simultaneously with `set_style_cell_headers(...)` (or independently with `set_style_cell_rowheader(...)`), customize per-column text styles (`set_style_cell(..., columns=[...], text_style=Styles.Dark.patch(halign="left"|"right"))`), and place accented divider lines after row 0 (`top2`) and column 0 (`left2`) via `set_style_border(...)`.
 
-```drawlib show-code center file:table_flexible_rowheaders_borders.png caption:"Flexible Column/Row Sizing, Row Headers, and Custom Borders (top2, left2)"
+```drawlib code=show align=center file=table_flexible_rowheaders_borders.png caption="Flexible Column/Row Sizing, Row Headers, and Custom Borders (top2, left2)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles

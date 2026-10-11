@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Project-Wide Consistency with `styles.py` & `utils.py`
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## DRY Presentation Engineering at Scale
 
 Maintaining visual consistency across a 60+ slide deck in GUI tools is tedious and error-prone. Drawlib solves this with two shared Python modules in `slide_src/`:
@@ -30,8 +30,8 @@ Switching a 64-slide presentation from `DefaultStyles` to `GoogleStyles` or `Mon
 - **`utils.draw_kpi_cards(...)` & `utils.draw_curved_agenda(...)`**: Data-driven visual macros callable in 3 lines of Python.
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:shared_helpers.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=shared_helpers.svg
 import utils
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
@@ -108,7 +108,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 6: Documentation & Slide Engine — Project-Wide Consistency (styles.py & utils.py)*
 :::
 

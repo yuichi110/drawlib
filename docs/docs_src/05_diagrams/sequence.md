@@ -6,7 +6,7 @@
 
 ## 1. Overview & Key Concepts
 
-```drawlib fold-code center file:sequence_overview_concepts.png caption:"SequenceDiagram Lifelines, Activation Bars, and Message Semantics"
+```drawlib code=fold align=center file=sequence_overview_concepts.png caption="SequenceDiagram Lifelines, Activation Bars, and Message Semantics"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -173,7 +173,7 @@ client = d.add(Participant("Web Browser", width=22, height=16, icon=PhosphorIcon
 
 The following complete example showcases participant groups, cloud icons, activations, asynchronous dispatches, and a retry loop frame:
 
-```drawlib show-code center file:sequence_distributed_transaction.png caption:"Microservices Distributed Transaction Pipeline"
+```drawlib code=show align=center file=sequence_distributed_transaction.png caption="Microservices Distributed Transaction Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -236,7 +236,7 @@ save()
 
 For real-time bidirectional streams, use `connect()` with `arrow="<->"`:
 
-```drawlib show-code center file:sequence_websocket_telemetry.png caption:"WebSocket Full-Duplex Telemetry Stream"
+```drawlib code=show align=center file=sequence_websocket_telemetry.png caption="WebSocket Full-Duplex Telemetry Stream"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -291,7 +291,7 @@ Frames automatically compute their enclosing bounding box around all enclosed me
 
 The following example demonstrates **self-calls** (`auth.request(auth, ...)`), **sticky notes** (`auth.note(...)` and `d.note(..., over=[...])`), and conditional **`alt` / `else_`** branches:
 
-```drawlib show-code center file:sequence_auth_alt_notes.png caption:"Authentication Flow with Self-Calls, Sticky Notes, and alt/else_ Condition Frames"
+```drawlib code=show align=center file=sequence_auth_alt_notes.png caption="Authentication Flow with Self-Calls, Sticky Notes, and alt/else_ Condition Frames"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles

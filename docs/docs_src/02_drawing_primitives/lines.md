@@ -3,7 +3,7 @@
 Connectors establish communication pathways, data flow directions, and structural relationships between diagram entities.
 The `drawlib.lines` module provides **8 vector connector functions** covering straight lines, smooth circular arcs, quadratic and cubic Bézier curves, multi-point orthogonal (Manhattan) polylines, filleted polylines, compound paths, and elliptical arc connectors:
 
-```drawlib fold-code center file:lines_overview.png caption:"Overview of All 8 Drawlib Line and Curve Connectors"
+```drawlib code=fold align=center file=lines_overview.png caption="Overview of All 8 Drawlib Line and Curve Connectors"
 from drawlib.canvas import save, setup
 from drawlib.lines import (
     line,
@@ -107,7 +107,7 @@ Line stroke appearance and arrowhead geometry are controlled via `Style` attribu
 | `line_arrow_head_scale` | `float` | `20.0` | Physical size multiplier for terminal arrowheads. |
 | `alpha` | `float` | `1.0` | Overall line and arrowhead opacity (`0.0` transparent to `1.0` opaque). |
 
-```drawlib show-code center file:lines_styling_and_arrowheads.png caption:"Dash Patterns (line_style), Filled Triangle Arrowheads (line_arrow_head_fill), and Scale (line_arrow_head_scale)"
+```drawlib code=show align=center file=lines_styling_and_arrowheads.png caption="Dash Patterns (line_style), Filled Triangle Arrowheads (line_arrow_head_fill), and Scale (line_arrow_head_scale)"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -186,7 +186,7 @@ line(
 | `style` | `Style` | *Required* | Line style token (e.g. `Styles.DarkBold`, `Styles.PrimaryBold`). |
 | `arrow_head` | `str` | `""` | Optional arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
-```drawlib show-code center file:lines_straight.png caption:"Straight Lines Across All Four arrow_head Modes and Stroke Styles"
+```drawlib code=show align=center file=lines_straight.png caption="Straight Lines Across All Four arrow_head Modes and Stroke Styles"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -241,7 +241,7 @@ Internally, `line_curved()` uses `ConnectionStyle.Arc3(rad=bend)`, where curvatu
 - **`bend > 0`**: Curves to the **left** of the travel vector `xy1 -> xy2` (bows **downward** when drawing left-to-right from `(15, 22)` to `(85, 22)`).
 - **Request-Response Symmetry Tip**: If you draw a request from `A -> B` and a reply from `B -> A` using the *same* `bend` value, the reversed travel direction automatically bows the two curves in opposite directions to form a clean loop.
 
-```drawlib center show-code file:lines_curved.png caption:"Curved Arc Lines Relative to Travel Direction xy1 -> xy2"
+```drawlib align=center code=show file=lines_curved.png caption="Curved Arc Lines Relative to Travel Direction xy1 -> xy2"
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.styles import Styles
@@ -281,7 +281,7 @@ line_bezier1(
 | `style` | `Style` | *Required* | Line style token. |
 | `arrow_head` | `str` | `""` | Optional arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
-```drawlib center show-code file:lines_bezier1.png caption:"Quadratic Bézier Curve with Control Point"
+```drawlib align=center code=show file=lines_bezier1.png caption="Quadratic Bézier Curve with Control Point"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
@@ -328,7 +328,7 @@ line_bezier2(
 | `style` | `Style` | *Required* | Line style token. |
 | `arrow_head` | `str` | `""` | Optional arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
-```drawlib center show-code file:lines_bezier2.png caption:"Cubic Bézier S-Curve with Two Control Points"
+```drawlib align=center code=show file=lines_bezier2.png caption="Cubic Bézier S-Curve with Two Control Points"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
@@ -378,7 +378,7 @@ In software architectures and circuit schematics, **orthogonal (Manhattan) routi
 ### 4.1. L-Routing (Single 90° Turn)
 Connects two entities horizontally first, then vertically:
 
-```drawlib center show-code file:lines_l_routing.png caption:"Orthogonal L-Routing Between Two Services"
+```drawlib align=center code=show file=lines_l_routing.png caption="Orthogonal L-Routing Between Two Services"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
@@ -396,7 +396,7 @@ save()
 ### 4.2. Z-Routing / Dogleg (Two 90° Turns)
 Connects two offset components across a shared mid-channel $x_{\text{mid}}$:
 
-```drawlib center show-code file:lines_z_routing.png caption:"Orthogonal Z-Routing (Dogleg) Across a Shared Midpoint"
+```drawlib align=center code=show file=lines_z_routing.png caption="Orthogonal Z-Routing (Dogleg) Across a Shared Midpoint"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
@@ -440,7 +440,7 @@ lines_curved(
 > [!TIP]
 > **Fillet Radius Constraint**: Keep the fillet radius smaller than half the shortest segment length ($r < 0.5 \min_i \|P_{i+1} - P_i\|$) so adjacent corner fillets have straight runway segments between them (internally, Drawlib clamps the fillet ratio to `0.5` of each segment).
 
-```drawlib center show-code file:lines_curved_fillet.png caption:"Rounded Manhattan Routing with lines_curved(xys, r)"
+```drawlib align=center code=show file=lines_curved_fillet.png caption="Rounded Manhattan Routing with lines_curved(xys, r)"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.shapes import rectangle
@@ -491,7 +491,7 @@ lines_bezier(
 | **Quadratic Bézier Segment** | `((cp_x, cp_y), (x, y))` | 1-control-point curve to `(x, y)` via `cp` (`Path.CURVE3`). |
 | **Cubic Bézier Segment** | `((cp1_x, cp1_y), (cp2_x, cp2_y), (x, y))` | 2-control-point curve to `(x, y)` via `cp1`, `cp2` (`Path.CURVE4`). |
 
-```drawlib center show-code file:lines_bezier_compound.png caption:"Compound Path Combining Straight, Cubic S-Curve, and Quadratic Segments via lines_bezier()"
+```drawlib align=center code=show file=lines_bezier_compound.png caption="Compound Path Combining Straight, Cubic S-Curve, and Quadratic Segments via lines_bezier()"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_bezier
 from drawlib.shapes import circle, rectangle
@@ -557,7 +557,7 @@ line_arc(
 | `arrow_head` | `str` | `""` | Terminal arrowhead marker (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). |
 | `ccw` | `bool` | `True` | Sweep direction from `angle_start` to `angle_end` (`True` = counter-clockwise, `False` = clockwise). |
 
-```drawlib center show-code file:lines_arc_feedback.png caption:"Self-Loop Retry and Elliptical Feedback Arcs with line_arc()"
+```drawlib align=center code=show file=lines_arc_feedback.png caption="Self-Loop Retry and Elliptical Feedback Arcs with line_arc()"
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_arc
 from drawlib.shapes import rectangle

@@ -92,7 +92,7 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="374.693878" y="147.95381" transform="rotate(-0 374.693878 147.95381)">::: block (80, 40) (1760, 60)  —  # Slide Heading Title</text>
+     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="374.693878" y="147.95381" transform="rotate(-0 374.693878 147.95381)">::: block xy=(80, 40) width=1760 height=60  —  # Slide Heading Title</text>
     </g>
    </g>
    <g id="patch_6">
@@ -110,22 +110,22 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(166.495663 264.649018)">::: block (80, 140) (740, 840)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(135.023163 264.533393)">::: block xy=(80, 140) width=740 height=840</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(220.408163 273.401518)"/>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(220.408163 273.517143)"/>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(180.110038 281.401518)">Markdown Narrative</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(180.110038 281.517143)">Markdown Narrative</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(181.145038 289.401518)">• Headings &amp; Bullets</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(181.145038 289.517143)">• Headings &amp; Bullets</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(189.732538 298.385268)">• Code Snippets</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(189.732538 298.500893)">• Code Snippets</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(184.333163 307.145268)">• Tables &amp; Callouts</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(184.333163 307.260893)">• Tables &amp; Callouts</text>
     </g>
    </g>
    <g id="patch_7">
@@ -143,19 +143,19 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(437.441786 267.984643)">::: block (860, 140) (980, 840)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(405.969286 267.869018)">::: block xy=(860, 140) width=980 height=840</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(438.290536 277.089643)">```drawlib file:diagram.svg</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(437.230536 277.205268)">```drawlib file=diagram.svg</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(439.038661 286.073393)">setup(width=98, height=84)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(439.038661 286.189018)">setup(width=98, height=84)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(493.714286 295.057143)"/>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(493.714286 295.172768)"/>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(417.903036 303.057143)">Cartesian Canvas (0, 0) at Bottom-Left!</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(417.903036 303.172768)">Cartesian Canvas (0, 0) at Bottom-Left!</text>
     </g>
    </g>
    <g id="patch_8">
@@ -191,7 +191,7 @@ z
    </g>
    <g id="text_8">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="231.428571" y="422.575679" transform="rotate(-0 231.428571 422.575679)">::: block (80, 1010) (820, 30) — Footer</text>
+     <text style="font-size: 7px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="231.428571" y="422.474507" transform="rotate(-0 231.428571 422.474507)">::: block xy=(80, 1010) width=820 height=30 — Footer</text>
     </g>
    </g>
    <g id="patch_10">

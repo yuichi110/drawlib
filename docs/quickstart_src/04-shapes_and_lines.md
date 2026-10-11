@@ -6,7 +6,7 @@ Drawlib provides a rich suite of 2D geometric primitives, flexible line connecti
 
 Drawlib includes over 20 shape primitives. Every shape supports direct text embedding, corner radius rounding (`style.shape_r`), rotation (`style.angle`), and full alignment controls (`style.halign`, `style.valign`):
 
-```drawlib 620px center file:shapes_primitives.png caption:"Figure 4.1: Selection of Drawlib Vector Shapes"
+```drawlib width=620px align=center file=shapes_primitives.png caption="Figure 4.1: Selection of Drawlib Vector Shapes"
 from drawlib.canvas import setup
 from drawlib.shapes import chevron, circle, donuts, polygon, rectangle, rhombus
 from drawlib.styles import Styles
@@ -61,7 +61,7 @@ Drawlib provides straight, curved, bezier, and multi-segment chained lines with 
 > [!TIP]
 > **Neutral Connectors Principle**: Always use `Styles.DarkBold` (or `Styles.LightBold` on dark backgrounds) for standard sequential lines and arrows. Reserve colors (`Styles.Primary`, `Styles.Accent`, `Styles.Danger`) strictly for meaningful distinctions, such as primary data flows or error rollbacks.
 
-```drawlib 620px center file:lines_connections.png caption:"Figure 4.2: Connecting Lines, Curvature, and Arrowheads"
+```drawlib width=620px align=center file=lines_connections.png caption="Figure 4.2: Connecting Lines, Curvature, and Arrowheads"
 from drawlib.canvas import setup
 from drawlib.lines import line, line_curved, lines
 from drawlib.shapes import circle

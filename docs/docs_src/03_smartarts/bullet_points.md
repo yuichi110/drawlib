@@ -3,7 +3,7 @@
 The `BulletPoints` component renders multi-level nested bullet lists starting from a top-left anchor `(x, y)`.
 It supports customizable indentation widths, line spacing, per-level shape or icon markers, and layout-preserving visibility toggling.
 
-```drawlib fold-code center file:bullet_points_hero.png caption:"Overview of BulletPoints: Default Multi-Level Markers vs. Custom Icon Checklists"
+```drawlib code=fold align=center file=bullet_points_hero.png caption="Overview of BulletPoints: Default Multi-Level Markers vs. Custom Icon Checklists"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -74,7 +74,7 @@ save()
 
 By default, `indent=0` renders unbulleted section titles, `indent=1` renders filled circle bullets, and `indent=2` renders open outline circle bullets. You can also customize any indentation level's bullet marker using `set_bullet_style(...)`.
 
-```drawlib show-code center file:smartarts_bulletpoints_hierarchy.png caption:"Multi-Level Nested Architecture Requirements with BulletPoints"
+```drawlib code=show align=center file=smartarts_bulletpoints_hierarchy.png caption="Multi-Level Nested Architecture Requirements with BulletPoints"
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import BulletPoints
@@ -128,7 +128,7 @@ save()
 
 By passing Phosphor icon functions (such as `phosphor.check_circle` or `phosphor.arrow_right`) to `set_bullet_style(...)` and placing `BulletPoints` inside rectangular cards, you can create rich release checklists, feature comparison cards, and sprint agendas.
 
-```drawlib show-code center file:smartarts_bulletpoints_checklist_cards.png caption:"Release Readiness Checklist Cards Using BulletPoints and Phosphor Icons"
+```drawlib code=show align=center file=smartarts_bulletpoints_checklist_cards.png caption="Release Readiness Checklist Cards Using BulletPoints and Phosphor Icons"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

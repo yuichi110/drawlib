@@ -6,7 +6,7 @@
 
 ## 1. Overview & Key Modes
 
-```drawlib center fold-code file:areachart_modes_comparison.png caption:"AreaChart Modes: Overlapping Series (overlap) vs. Cumulative Stacked (stack)"
+```drawlib align=center code=fold file=areachart_modes_comparison.png caption="AreaChart Modes: Overlapping Series (overlap) vs. Cumulative Stacked (stack)"
 from drawlib.canvas import save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
@@ -74,7 +74,7 @@ Area charts support two core operational modes:
 
 Stacked area charts (`mode="stack"`) are ideal for displaying aggregate metrics and showing the proportional contribution of each stream over time:
 
-```drawlib center show-code file:area_chart_revenue_streams.png caption:"Cumulative Stacked Revenue Streams"
+```drawlib align=center code=show file=area_chart_revenue_streams.png caption="Cumulative Stacked Revenue Streams"
 from drawlib.canvas import save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
@@ -109,7 +109,7 @@ save()
 
 When comparing independent metrics that share the same scale (such as network ingress and egress traffic), combine `mode="overlap"` and `smooth=True` with per-series `fill_alpha`, `line_style`, and vertex markers (`show_points=True`):
 
-```drawlib center show-code file:area_chart_gateway_traffic.png caption:"Smooth Overlapping Gateway Traffic with Per-Series fill_alpha and line_style"
+```drawlib align=center code=show file=area_chart_gateway_traffic.png caption="Smooth Overlapping Gateway Traffic with Per-Series fill_alpha and line_style"
 from drawlib.canvas import save, setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Colors, Style, Styles

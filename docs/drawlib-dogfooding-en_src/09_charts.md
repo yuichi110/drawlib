@@ -6,7 +6,7 @@
 
 Visualize sprint schedules, milestones, and task dependencies with automated arrow routing:
 
-```drawlib 620px center file:fig_gantt_roadmap.png caption:"Figure 9.1: Core Platform Engineering Roadmap"
+```drawlib width=620px align=center file=fig_gantt_roadmap.png caption="Figure 9.1: Core Platform Engineering Roadmap"
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles

@@ -4,7 +4,7 @@ The `images` starter template (CLI alias: `image`) is designed for generating st
 
 Each project separates editable Python source scripts (`images_src/`) from generated image artifacts (`images/`):
 
-```drawlib fold-code center file:project_image_directory_tree.png caption:"Directory Structure of a Standalone Batch Image (images) Project"
+```drawlib code=fold align=center file=project_image_directory_tree.png caption="Directory Structure of a Standalone Batch Image (images) Project"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
@@ -124,7 +124,7 @@ drawlib init images my_assets -s google -l en
 
 In an `images` project, each `.py` file inside `images_src/` is an independent drawing script. Call `save()` at the end of the script to output the image:
 
-```drawlib show-code center file:project_image_architecture_overview.png caption:"Rendered Output of images_src/architecture_overview.py"
+```drawlib code=show align=center file=project_image_architecture_overview.png caption="Rendered Output of images_src/architecture_overview.py"
 # images_src/architecture_overview.py
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor

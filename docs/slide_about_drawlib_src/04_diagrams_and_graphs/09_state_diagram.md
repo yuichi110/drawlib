@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Finite State Machines & Lifecycles (`StateDiagram`)
 :::
 
-::: block (80, 140) (640, 840) compact
+::: block xy=(80, 140) width=640 height=840 compact=true
 ## UML 2.0 Statecharts & Concurrent Forks
 
 `StateDiagram` models finite state automata, protocol lifecycles, and distributed job orchestrators:
@@ -28,8 +28,8 @@ utils.draw_page_number()
 - `sd.connect(src, dst, event="...", guard="...", action="...", bend=0.25)` automatically formats `event [guard] / action` labels and supports curved arcs (`bend`) and self-loops (`side="top"`).
 :::
 
-::: block (760, 140) (1080, 840)
-```drawlib file:state_lifecycle.svg
+::: block xy=(760, 140) width=1080 height=840
+```drawlib file=state_lifecycle.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.state import (
     ChoiceState,

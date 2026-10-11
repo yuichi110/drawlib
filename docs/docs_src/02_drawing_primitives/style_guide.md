@@ -9,7 +9,7 @@ This guide distills Drawlib's core visual design rules (`uv run drawlib rules sh
 
 When every box in a diagram is painted with a different saturated fill, nothing stands out and the reader experiences immediate visual fatigue. Grounding **50% or more of nodes in calm neutral cards** while reserving saturated fills (`Styles.PrimaryFlat`) for 1–2 focal components establishes instant visual hierarchy:
 
-```drawlib fold-code center file:style_guide_comparison.png caption:"Anti-Pattern (Rainbow Diagram) vs. Best Practice (50%+ Neutral-Grounded Hierarchy)"
+```drawlib code=fold align=center file=style_guide_comparison.png caption="Anti-Pattern (Rainbow Diagram) vs. Best Practice (50%+ Neutral-Grounded Hierarchy)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -125,7 +125,7 @@ Use **`Styles.DarkBold`** (or `Styles.Dark`) for standard workflow and architect
 
 Never guess coordinates one by one from left to right, which causes right-edge compression. Compute node positions with a simple formula so margins and gaps are perfectly symmetrical:
 
-```drawlib show-code center file:style_guide_equidistant.png caption:"Symmetrical Node Distribution Using Equidistant Spacing Formulas"
+```drawlib code=show align=center file=style_guide_equidistant.png caption="Symmetrical Node Distribution Using Equidistant Spacing Formulas"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle

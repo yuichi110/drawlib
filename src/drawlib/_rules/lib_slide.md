@@ -72,8 +72,8 @@ def draw_page_number(
 Then embed it in the bottom-right corner (`(1700, 1010) (140, 30)`) of any slide Markdown file:
 
 ````markdown
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
@@ -163,7 +163,7 @@ When `build_slide()` runs, it performs the following steps automatically:
 1. **Slide Discovery**: Collects and sorts all `.md` / `.markdown` files in `input_dir`, automatically excluding files and subdirectories starting with `_` or `.` (e.g., `_planning.md`, `_drafts/`, `_assets/`) as well as special files (`README.md`, `navbar.md`).
 2. **Slide Context Binding**: Iterates through slides `1..N`, setting `SlideContext(index=idx, total=N)` so `current_slide` resolves accurately inside every ````drawlib```` block.
 3. **Diagram Rendering & Inline SVG Embedding**: Compiles ````drawlib```` blocks into `images/<slide_stem>/` (with SQLite hash caching) and inlines `.svg` diagrams or attaches interactive `<canvas>` players for `.webp` / `.png` animations.
-4. **Speaker Notes & Container Blocks**: Extracts `::: note` blocks into `<aside class="slide-notes" hidden>` and transforms `::: block (x, y) (w, h)` into positioned `<div class="slide-block">` stage elements.
+4. **Speaker Notes & Container Blocks**: Extracts `::: note` blocks into `<aside class="slide-notes" hidden>` and transforms `::: block xy=(x, y) width=W height=H` into positioned `<div class="slide-block">` stage elements.
 5. **Asset Deployment & SVG Font Auto-Bundling**: Copies `_assets/`, `slide.js`, and `style.css` to `output_dir`, and automatically bundles any TTF/OTF text or icon fonts referenced by inline SVGs into `_assets/fonts/` with `@font-face` rules injected into `style.css`.
 
 ---
@@ -174,7 +174,7 @@ When `build_slide()` runs, it performs the following steps automatically:
   ```bash
   uv run drawlib rules show slide-guide
   ```
-- **Slide Project System & Stage Syntax (`project-slide`)**: For `slide_src/` file discovery (`_` prefix and `README.md` exclusion), `1920×1080` stage coordinates, `::: block` / `::: note` syntax, interactive animations (`anim-trigger`, `anim-loop`, `anim-pause`), and Presenter View (`?presenter=1`), run:
+- **Slide Project System & Stage Syntax (`project-slide`)**: For `slide_src/` file discovery (`_` prefix and `README.md` exclusion), `1920×1080` stage coordinates, `::: block` / `::: note` syntax, interactive animations (`anim_trigger`, `anim_loop`, `anim_pause`), and Presenter View (`?presenter=1`), run:
   ```bash
   uv run drawlib rules show project-slide
   ```

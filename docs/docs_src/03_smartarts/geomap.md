@@ -4,7 +4,7 @@ The `GeoMap` component renders vector geographical maps (`GeoMap.World.*`, `GeoM
 
 By combining `GeoMap` with `get_area_xy()` and `lonlat_to_xy()`, you can overlay standard Drawlib shapes, icons, text labels, and curved arrows to build multi-region cloud topology diagrams, regional expansion maps, and territory highlights.
 
-```drawlib fold-code center file:geomap_world_topology.png caption:"Global Multi-Region Topology with World Map"
+```drawlib code=fold align=center file=geomap_world_topology.png caption="Global Multi-Region Topology with World Map"
 from drawlib.canvas import setup
 from drawlib.lines import line_curved
 from drawlib.shapes import circle
@@ -62,7 +62,7 @@ jp_xy = world.get_area_xy("Japan")
 
 You can also initialize any map with `area_style=Styles.Transparent` so unstyled areas are hidden, style only the target countries via `set_area_styles()`, and refine the viewport with `lon_range` and `lat_range`.
 
-```drawlib show-code center file:geomap_east_asia.png caption:"East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)"
+```drawlib code=show align=center file=geomap_east_asia.png caption="East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)"
 from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.smartarts import GeoMap
@@ -108,7 +108,7 @@ Use `GeoMap.Countries.<Country>` for Admin-1 state/province/prefecture maps acro
 
 When `area_style=Styles.Transparent` is used and only a subset of areas is styled via `set_area_styles()` (such as Tokyo's 23 wards excluding Tama and the islands), `GeoMap.draw()` automatically zooms and fits the viewport to the visible areas even without specifying `lon_range` / `lat_range`.
 
-```drawlib show-code center file:geomap_japan_and_tokyo.png caption:"Japan Prefectures Map and Tokyo 23 Wards Map"
+```drawlib code=show align=center file=geomap_japan_and_tokyo.png caption="Japan Prefectures Map and Tokyo 23 Wards Map"
 from drawlib.canvas import setup
 from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import GeoMap
@@ -159,7 +159,7 @@ text((shibuya_xy[0] - 4.5, shibuya_xy[1] - 2.5), "Shibuya", style=Styles.DarkBol
 
 In addition to built-in presets, you can pass any `.geojson` file path (or parsed GeoJSON dictionary) to `GeoMap`. The example below loads custom municipal GeoJSON files from `_assets/geodata/hokkaido.geojson` and `_assets/geodata/okinawa.geojson`.
 
-```drawlib show-code center file:geomap_custom_geojson.png caption:"Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)"
+```drawlib code=show align=center file=geomap_custom_geojson.png caption="Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)"
 from drawlib.canvas import setup
 from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import GeoMap

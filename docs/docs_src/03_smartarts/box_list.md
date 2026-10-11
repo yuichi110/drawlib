@@ -3,7 +3,7 @@
 The `BoxList` component renders contiguous linear sequences of rectangular cards along a horizontal or vertical axis.
 Custom-styled items are automatically rendered in a second pass so their borders cleanly overlay adjacent default boxes—making `BoxList` ideal for memory/packet layouts, stage sequences, and vertical feature stacks.
 
-```drawlib fold-code center file:smartarts_boxlist_alignment_geometry.png caption:"BoxList Directional Alignments (left, right, bottom, top) and Anchor Points"
+```drawlib code=fold align=center file=smartarts_boxlist_alignment_geometry.png caption="BoxList Directional Alignments (left, right, bottom, top) and Anchor Points"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -65,7 +65,7 @@ save()
 
 When `align="left"` (the default), boxes flow horizontally to the right (`+x`) starting from `xy=(x, y)`. You can combine multiple `BoxList` instances with arrows or labels to illustrate pipelines and packet structures.
 
-```drawlib show-code center file:smartarts_boxlist_horizontal.png caption:"Horizontal Pipeline Sequence and Packet Header Layout with BoxList"
+```drawlib code=show align=center file=smartarts_boxlist_horizontal.png caption="Horizontal Pipeline Sequence and Packet Header Layout with BoxList"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.smartarts import BoxList
@@ -116,7 +116,7 @@ save()
 
 Using `align="bottom"` stacks boxes vertically upward (`+y`) from `xy`, while `align="top"` stacks boxes downward (`-y`) from `xy`. Patching `shape_r` on the box style creates rounded feature cards.
 
-```drawlib show-code center file:smartarts_boxlist_vertical_stack.png caption:"Vertical Platform Layer Stacks with BoxList"
+```drawlib code=show align=center file=smartarts_boxlist_vertical_stack.png caption="Vertical Platform Layer Stacks with BoxList"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import BoxList
 from drawlib.styles import Styles

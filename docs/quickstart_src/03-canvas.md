@@ -10,7 +10,7 @@ Unlike traditional web or GUI coordinate systems where `(0, 0)` sits at the top-
 - **X-Axis**: Increases from left to right (`0` to `width`).
 - **Y-Axis**: Increases from bottom to top (`0` to `height`).
 
-```drawlib 620px center file:canvas_coordinates.png caption:"Figure 3.1: Cartesian Coordinate System & Canvas Anchors"
+```drawlib width=620px align=center file=canvas_coordinates.png caption="Figure 3.1: Cartesian Coordinate System & Canvas Anchors"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -65,7 +65,7 @@ Text labels support horizontal (`halign`) and vertical (`valign`) alignment conf
 - **Horizontal Alignment (`halign`)**: `"left"`, `"center"`, `"right"`.
 - **Vertical Alignment (`valign`)**: `"bottom"`, `"center"`, `"top"`.
 
-```drawlib 620px center file:canvas_text_alignment.png caption:"Figure 3.2: Text Alignment Anchors with halign"
+```drawlib width=620px align=center file=canvas_text_alignment.png caption="Figure 3.2: Text Alignment Anchors with halign"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle

@@ -4,7 +4,7 @@
 
 Use `TreeGraph` whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees.
 
-```drawlib fold-code center file:graph_tree_hero.png caption:"TreeGraph Overview: Orthogonal vs. Straight Branch Routing in Balanced Hierarchies"
+```drawlib code=fold align=center file=graph_tree_hero.png caption="TreeGraph Overview: Orthogonal vs. Straight Branch Routing in Balanced Hierarchies"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.icons import phosphor
@@ -128,7 +128,7 @@ g.child(
 
 A top-down (`direction="TB"`) tree is ideal for organizational structures, class taxonomies, and ASTs. Notice how the Buchheim contour solver centers `VP Engineering` over the two division heads and evenly spaces the four leaf teams:
 
-```drawlib show-code center file:graph_tree_tb_hierarchy.png caption:"Top-Down (TB) Engineering Organization Hierarchy with Orthogonal Branches"
+```drawlib code=show align=center file=graph_tree_tb_hierarchy.png caption="Top-Down (TB) Engineering Organization Hierarchy with Orthogonal Branches"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles
@@ -166,7 +166,7 @@ save()
 
 Switching to `direction="LR"` grows the hierarchy horizontally from left to right. This layout works exceptionally well for API request fan-out trees, work breakdown structures (WBS), and file/module trees where labels are wider than they are tall:
 
-```drawlib show-code center file:graph_tree_lr_decomposition.png caption:"Left-to-Right (LR) Query Execution Decomposition Tree"
+```drawlib code=show align=center file=graph_tree_lr_decomposition.png caption="Left-to-Right (LR) Query Execution Decomposition Tree"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles
@@ -204,7 +204,7 @@ save()
 
 When `root=None`, `TreeGraph` automatically identifies all nodes with in-degree `0` and arranges multiple independent trees side-by-side as a balanced forest. Passing `edge_routing="straight"` connects parents to children with direct Euclidean line segments:
 
-```drawlib show-code center file:graph_tree_multi_root_forest.png caption:"Automatic Multi-Root Forest (root=None) with Straight Edge Routing"
+```drawlib code=show align=center file=graph_tree_multi_root_forest.png caption="Automatic Multi-Root Forest (root=None) with Straight Edge Routing"
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.styles import Styles

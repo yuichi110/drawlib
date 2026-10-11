@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # The Attack Onset: Cache-Busting TTS Flood
 :::
 
-::: block (80, 140) (680, 810)
+::: block xy=(80, 140) width=680 height=810
 ## Telemetry & Billing Shock
 
 - **4–5x Weekly Bill Multiplier**
@@ -13,7 +13,7 @@
   Every single request forced a cold DSP audio synthesis cycle.
 :::
 
-::: block (800, 140) (1040, 810)
+::: block xy=(800, 140) width=1040 height=810
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
@@ -70,7 +70,7 @@ pipeline.draw(xy=(6.5, 6.5), width=102.0, height=18.0)
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

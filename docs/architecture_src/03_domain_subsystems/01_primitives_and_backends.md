@@ -4,7 +4,7 @@ Drawlib provides a comprehensive suite of **declarative drawing primitives** (`d
 
 This document details the mapping between public drawing primitives and the underlying Matplotlib backend, font discovery, and icon vector engines.
 
-```drawlib center fold-code file:primitives_architecture.png caption:"Drawing Primitives to Matplotlib Backend Mapping"
+```drawlib align=center code=fold file=primitives_architecture.png caption="Drawing Primitives to Matplotlib Backend Mapping"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -88,7 +88,7 @@ The primitives layer sits directly between `_core/l4_canvas` and the higher-leve
   - Phosphor vector icons and Google Cloud Platform architecture icons.
   - Bitmap image placement with automatic aspect-ratio preservation.
 
-```drawlib center fold-code file:icon_font_subsystem.png caption:"External Fonts & Icon Assets Subsystem"
+```drawlib align=center code=fold file=icon_font_subsystem.png caption="External Fonts & Icon Assets Subsystem"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

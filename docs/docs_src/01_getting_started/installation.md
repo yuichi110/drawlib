@@ -3,7 +3,7 @@
 Drawlib is published on PyPI and can be installed using `uv` (recommended) or standard `pip`.
 This guide covers core package installation, optional headless PDF export dependencies, and offline asset caching.
 
-```drawlib fold-code center file:installation_setup_workflow.png caption:"Three-Step Drawlib Environment Setup Workflow"
+```drawlib code=fold align=center file=installation_setup_workflow.png caption="Three-Step Drawlib Environment Setup Workflow"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
@@ -118,7 +118,7 @@ $ playwright install chromium
 
 To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons), multilingual fonts, and geographic map datasets are downloaded on demand upon first use and cached inside `drawlib/_cached_assets/` (managed via `drawlib cache`). Meanwhile, project-local incremental diagram builds are cached separately in `.drawlib/cache.db`.
 
-```drawlib fold-code center file:installation_two_tier_cache.png caption:"Two-Tier Asset and Incremental Build Cache Architecture"
+```drawlib code=fold align=center file=installation_two_tier_cache.png caption="Two-Tier Asset and Incremental Build Cache Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

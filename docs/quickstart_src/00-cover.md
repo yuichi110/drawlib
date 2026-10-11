@@ -4,7 +4,7 @@
 
 Drawlib is a pure-Python library designed to bridge technical system design, cloud architecture diagrams, quantitative charts, and publication-grade engineering documentation. Instead of maintaining fragile binary drawings or low-level plotting code, Drawlib enables developers and AI agents to express architecture and workflows declaratively in Python.
 
-```drawlib 640px center file:cover_workflow.png caption:"Figure 0.1: Drawlib End-to-End Workflow — Code to Publication"
+```drawlib width=640px align=center file=cover_workflow.png caption="Figure 0.1: Drawlib End-to-End Workflow — Code to Publication"
 from drawlib.canvas import setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line

@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Workflows & Swimlanes (`FlowDiagram`)
 :::
 
-::: block (80, 140) (640, 840) compact
+::: block xy=(80, 140) width=640 height=840 compact=true
 ## ISO 5807 Flowcharts with Cross-Lane Coordinates
 
 `FlowDiagram` models operational workflows, CI/CD release gates, and approval processes across organizational or system swimlanes:
@@ -26,8 +26,8 @@ utils.draw_page_number()
 - **Global Coordinate Plane**: All nodes share the exact same global `(x, y)` canvas space—so placing steps across different lanes at the same `y` coordinate guarantees horizontal alignment!
 :::
 
-::: block (760, 140) (1080, 840)
-```drawlib file:flow_swimlanes.svg
+::: block xy=(760, 140) width=1080 height=840
+```drawlib file=flow_swimlanes.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles

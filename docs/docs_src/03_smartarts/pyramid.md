@@ -3,7 +3,7 @@
 The `Pyramid` component renders tiered hierarchical trapezoids crowned by an apex triangle.
 It supports standard upright pyramids, inverted funnels, horizontal orientations, and custom per-tier heights—making it ideal for software testing pyramids, DIKW knowledge hierarchies, defense-in-depth tiers, and conversion funnels.
 
-```drawlib fold-code center file:smartarts_pyramid_orientations.png caption:"All Four Pyramid Alignments: bottom, top, left, and right"
+```drawlib code=fold align=center file=smartarts_pyramid_orientations.png caption="All Four Pyramid Alignments: bottom, top, left, and right"
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.smartarts import Pyramid
@@ -42,7 +42,7 @@ save()
 
 By default (`align="bottom", order="vertex_to_base"`), the first added item is placed at the top apex triangle, and subsequent items form progressively wider trapezoidal tiers toward the base.
 
-```drawlib show-code center file:smartarts_pyramid_testing.png caption:"Software Testing Pyramid (Upright Hierarchy)"
+```drawlib code=show align=center file=smartarts_pyramid_testing.png caption="Software Testing Pyramid (Upright Hierarchy)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Pyramid
 from drawlib.styles import Styles
@@ -91,7 +91,7 @@ save()
 
 Setting `align="top"` and `order="base_to_vertex"` inverts the pyramid into a top-down funnel where the first item is the wide top intake and the last item is the bottom apex. Using `draw_flexible(...)` lets you assign custom `item_heights` and `margins` to each stage.
 
-```drawlib show-code center file:smartarts_pyramid_funnel.png caption:"Telemetry Ingestion & Filtering Funnel (align='top' with draw_flexible)"
+```drawlib code=show align=center file=smartarts_pyramid_funnel.png caption="Telemetry Ingestion & Filtering Funnel (align='top' with draw_flexible)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Pyramid
 from drawlib.styles import Styles

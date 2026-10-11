@@ -4,7 +4,7 @@ A key strength of modern AI coding assistants equipped with vision tools (such a
 
 Drawlib is engineered specifically to empower this autonomous self-correction loop.
 
-```drawlib fold-code center file:multimodal_feedback_cycle.png caption:"The Autonomous Multimodal AI Visual Self-Correction Loop"
+```drawlib code=fold align=center file=multimodal_feedback_cycle.png caption="The Autonomous Multimodal AI Visual Self-Correction Loop"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, lines
@@ -87,7 +87,7 @@ Using vision inspection tools (such as `view_file` or an image viewer), the agen
 ### Stage 5: Iterative Refinement
 Because the coordinate grid directly reveals the exact `(x, y)` location of every visual defect, the agent can adjust coordinates deterministically (e.g. "Move box X from 45.0 to 52.0 to eliminate overlap") rather than guessing.
 
-```drawlib fold-code center file:multimodal_before_after_comparison.png caption:"Before vs. After Multimodal Self-Correction Using the Coordinate Grid (-g)"
+```drawlib code=fold align=center file=multimodal_before_after_comparison.png caption="Before vs. After Multimodal Self-Correction Using the Coordinate Grid (-g)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, lines

@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Multi-Tier Production Cloud Topology (`GcpIcon` & `PhosphorIcon`)
 :::
 
-::: block (80, 140) (620, 840) compact
+::: block xy=(80, 140) width=620 height=840 compact=true
 ## Official Cloud & Interface Icons Built In
 
 `drawlib.diagrams.architecture` integrates directly with Drawlib's icon ecosystem:
@@ -26,8 +26,8 @@ utils.draw_page_number()
 - Child coordinates inside a `NodeGroup` are local to that group's origin, making subnet refactoring effortless.
 :::
 
-::: block (740, 140) (1100, 840)
-```drawlib file:arch_cloud_vpc.svg
+::: block xy=(740, 140) width=1100 height=840
+```drawlib file=arch_cloud_vpc.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import (
     ArchitectureDiagram,

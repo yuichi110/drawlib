@@ -2,9 +2,9 @@
 
 Drawlib allows you to embed Python drawing scripts directly into Markdown documents using the ````drawlib```` code fence. The builder compiles these blocks into vector images during site or document builds, automatically generating HTML elements, companion image files, and syntax-highlighted code blocks.
 
-Choose from three display modes (`hide-code`, `show-code`, and `fold-code`) to control how source code is presented alongside rendered diagrams:
+Choose from three display modes (`code=hide`, `code=show`, and `code=fold`) to control how source code is presented alongside rendered diagrams:
 
-```drawlib fold-code center file:code_blocks_display_modes.png caption:"Visual Comparison of hide-code, show-code, and fold-code Display Modes"
+```drawlib code=fold align=center file=code_blocks_display_modes.png caption="Visual Comparison of code=hide, code=show, and code=fold Display Modes"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -13,14 +13,14 @@ from drawlib.text import text
 
 setup(width=126, height=54)
 
-# 1. Left Card: hide-code (Default)
+# 1. Left Card: code=hide (Default)
 rectangle((22, 27), width=36, height=46, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle(
     (22, 45.5),
     width=33,
     height=6.2,
     style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="1. hide-code",
+    text="1. code=hide",
     text_style=Styles.DarkBold.patch(text_size=11.0),
 )
 rectangle((22, 30.5), width=32, height=18.5, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
@@ -36,14 +36,14 @@ rectangle(
 )
 text((22, 9.2), "(Code hidden)", style=Styles.Muted.patch(text_size=10.0))
 
-# 2. Center Card: show-code (PrimaryFlat header banner)
+# 2. Center Card: code=show (PrimaryFlat header banner)
 rectangle((63, 27), width=36, height=46, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle(
     (63, 45.5),
     width=33,
     height=6.2,
     style=Styles.PrimaryFlat.patch(shape_r=1.2),
-    text="2. show-code",
+    text="2. code=show",
     text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 rectangle((63, 35.2), width=32, height=11.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
@@ -61,14 +61,14 @@ rectangle(
     text_style=Styles.Dark.patch(text_size=10.0),
 )
 
-# 3. Right Card: fold-code
+# 3. Right Card: code=fold
 rectangle((104, 27), width=36, height=46, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle(
     (104, 45.5),
     width=33,
     height=6.2,
     style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="3. fold-code",
+    text="3. code=fold",
     text_style=Styles.DarkBold.patch(text_size=11.0),
 )
 rectangle((104, 32.8), width=32, height=15.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
@@ -93,9 +93,9 @@ save()
 
 ## 1. Basic Code Fence Syntax
 
-Embedded drawing blocks use the `drawlib` language identifier:
+Embedded drawing blocks use the `drawlib` language identifier with Python keyword-argument style (`key=value`) attributes:
 
-```drawlib center show-code file:code_blocks_service_arch.png caption:"Service Architecture Example"
+```drawlib align=center code=show file=code_blocks_service_arch.png caption="Service Architecture Example"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -112,44 +112,43 @@ save()
 
 ## 2. Header Attributes Reference
 
-Options are specified space-delimited on the opening code fence line (supporting both positional shorthand tokens and `key:value` / `key=value` pairs):
+Options are specified as space-delimited `key=value` pairs on the opening code fence line (quotes are required only when values contain spaces, such as `caption="Service Architecture"`):
 
 ```text
-``` drawlib [DISPLAY_MODE] [WIDTH] [ALIGNMENT] [file:NAME] [caption:"TEXT"] [OPTIONS...]
+``` drawlib file=<name.png> [code=hide|show|fold] [align=left|center|right] [caption="TEXT"] [OPTIONS...]
 ```
 
 *(Note: In authoring, replace the brackets with your desired configuration options without the space after the backticks.)*
 
 ### 2.1 Code Display Modes
 
-| Option / Key-Value | HTML Rendering Behavior | Markdown Rendering Behavior |
+| Key-Value Option | HTML Rendering Behavior | Markdown Rendering Behavior |
 |---|---|---|
-| `hide-code` / `code:hide` *(default)* | Displays image only (`<figure><img ...></figure>`). | Replaces block with standard Markdown image link. |
-| `show-code` / `code:show` | Displays syntax-highlighted code block followed immediately by the image. | Renders code block followed by image link. |
-| `fold-code` / `code:fold` | Displays image followed by a collapsible dropdown (`<details><summary>Source Code</summary>...</details>`). | Displays image followed by collapsed details dropdown. |
+| `code=hide` *(default)* | Displays image only (`<figure><img ...></figure>`). | Replaces block with standard Markdown image link. |
+| `code=show` | Displays syntax-highlighted code block followed immediately by the image. | Renders code block followed by image link. |
+| `code=fold` | Displays image followed by a collapsible dropdown (`<details><summary>Source Code</summary>...</details>`). | Displays image followed by collapsed details dropdown. |
 
 ### 2.2 Complete Fence Attributes Reference
 
 | Category | Attribute Syntax | Default | Description |
 |---|---|---|---|
-| **Filename** | `file:<name.png>` | *(Required in docs)* | Explicit output filename in `<doc_stem>_images/<name.png>` (or `images/<slide_stem>/<name>` in slides). |
-| **Image Format** | `format:<fmt>`, `fmt:<fmt>` | `png` (`svg` in slides) | Output image format (`png`, `webp`, `svg`, `apng`) if not inferred from `file:` extension. |
-| **Width** | `650px`, `80%`, `width:650px`, `w:80%` | `None` (natural size) | CSS display width (`px`, `%`, `rem`, `vw`, or bare number → `px`). |
-| **Height** | `height:400px`, `h:300` | `None` | Optional CSS display height override. |
-| **Alignment** | `center`, `left`, `right`, `align:center`, `a:left` | `center` | Horizontal figure alignment on the page (`left`, `center`, `right`). |
-| **Caption** | `caption:"Text"` or `caption:'Text'` | `None` | Wraps the figure in semantic `<figure>` and `<figcaption>` elements. |
-| **CSS Class** | `class:hero-fig`, `css_class:"card shadow"` | `None` | Appends custom CSS classes to the figure wrapper. |
-| **Cache Control** | `no-cache`, `cache:false` | `False` | Forces this specific block to re-execute on every build, bypassing `.drawlib/cache.db`. |
-| **Slide Stage Placement** | `slot:<name>`, `xy:(x,y)` / `pos:(x,y)`, `size:(w,h)` / `dim:(w,h)`, `z:<int>` / `z-index:<int>` | `None` | Stage slot, explicit `(x, y)` pixel position, `(w, h)` pixel size, and `z-index` layer depth for 16:9 slides. |
-| **Slide Animation Controls** | `anim-trigger:auto\|click`, `anim-loop:once\|infinite`, `anim-pause:2,4` | `auto`, `infinite`, `[]` | Controls interactive `<canvas>` animation playback in HTML slide decks (see [Slide Deck Project Guide](./project_slide.md)). |
+| **Filename** | `file=<name.png>` | *(Required in docs)* | Explicit output filename in `<doc_stem>_images/<name.png>` (or `images/<slide_stem>/<name>` in slides). |
+| **Image Format** | `format=<fmt>` | `png` (`svg` in slides) | Output image format (`png`, `webp`, `svg`, `apng`) if not inferred from `file=` extension. |
+| **Width** | `width=650px`, `width=80%` | `None` (natural size) | CSS display width (`px`, `%`, `rem`, `vw`, or bare number → `px`). |
+| **Height** | `height=400px` | `None` | Optional CSS display height override. |
+| **Alignment** | `align=center`, `align=left`, `align=right` | `center` | Horizontal figure alignment on the page (`left`, `center`, `right`). |
+| **Caption** | `caption="Text"` or `caption='Text'` | `None` | Wraps the figure in semantic `<figure>` and `<figcaption>` elements. |
+| **CSS Class** | `class=hero-fig`, `class="card shadow"` | `None` | Appends custom CSS classes to the figure wrapper. |
+| **Cache Control** | `no_cache=true` | `False` | Forces this specific block to re-execute on every build, bypassing `.drawlib/cache.db`. |
+| **Slide Animation Controls** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` | `auto`, `infinite`, `()` | Controls interactive `<canvas>` animation playback in HTML slide decks (see [Slide Deck Project Guide](./project_slide.md)). |
 
 > [!TIP]
 > **Best Practice for AI & Automation**:
-> Always specify an explicit `file:<name>.png` attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via `drawlib show <file.md> <image_name.png>`.
+> Always specify an explicit `file=<name>.png` attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via `drawlib show <file.md> <image_name.png>`.
 
 > [!NOTE]
 > **Animations in Code Blocks (APNG & WebP)**:
-> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the `file:` extension (`.png`, `.apng`, or `.webp`). See [Animations Overview (APNG & WebP)](../07_animations/overview.md) for full details.
+> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the `file=` extension (`.png`, `.apng`, or `.webp`). See [Animations Overview (APNG & WebP)](../07_animations/overview.md) for full details.
 
 ### 2.3 HTML `<script type="text/drawlib">` Alternative Syntax
 When authoring raw `.html` documents instead of `.md` files, you can embed Drawlib blocks using `<script type="text/drawlib">` tags with standard HTML attributes (`width="600px"`, `align="center"`, `file="arch.png"`, `caption="Architecture"`, `code="fold"`).

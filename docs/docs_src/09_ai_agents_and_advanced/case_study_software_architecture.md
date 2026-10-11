@@ -6,7 +6,7 @@ Drawlib's own official architectural specification—documented across **21 comp
 
 This case study outlines the methodology used to author, audit, and maintain production-grade software architecture specifications using **"Architecture Documentation as Code"**, the **3-Step Pedagogical Paradigm**, and **Multi-Agent Codebase Auditing**.
 
-```drawlib fold-code center file:architecture_doc_as_code_lifecycle.png caption:"The 5-Stage Architecture Documentation as Code Lifecycle"
+```drawlib code=fold align=center file=architecture_doc_as_code_lifecycle.png caption="The 5-Stage Architecture Documentation as Code Lifecycle"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -74,7 +74,7 @@ Drawlib solves these problems by treating architecture documentation as version-
 
 Technical documentation is often either too abstract (hand-wavy high-level overviews) or too dense (unexplained code dumps). To ensure maximum clarity and cognitive retention across all 21 architectural chapters, Drawlib establishes the **3-Step Pedagogical Paradigm**:
 
-```drawlib fold-code center file:pedagogical_3step_framework.png caption:"The 3-Step Pedagogical Architecture Framework"
+```drawlib code=fold align=center file=pedagogical_3step_framework.png caption="The 3-Step Pedagogical Architecture Framework"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -156,7 +156,7 @@ save()
 
 Technical architecture requires diverse visual notations depending on the engineering perspective. Rather than forcing all diagrams into generic flowchart shapes, Drawlib provides specialized high-level diagramming modules:
 
-```drawlib fold-code center file:architecture_diagram_taxonomy.png caption:"Drawlib Architectural Diagram Taxonomy for Software Systems"
+```drawlib code=fold align=center file=architecture_diagram_taxonomy.png caption="Drawlib Architectural Diagram Taxonomy for Software Systems"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -271,7 +271,7 @@ To prevent the published PyPI wheel from bloating with hundreds of megabytes of 
 
 The most transformative aspect of authoring architecture as code is the **Multi-Agent Verification Loop**. Rather than relying on a single human architect to manually verify dozens of pages against thousands of lines of code, Drawlib employs concurrent subagents:
 
-```drawlib fold-code center file:multi_agent_verification_loop.png caption:"The Multi-Agent Codebase Auditing & Autonomous Self-Healing Loop"
+```drawlib code=fold align=center file=multi_agent_verification_loop.png caption="The Multi-Agent Codebase Auditing & Autonomous Self-Healing Loop"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

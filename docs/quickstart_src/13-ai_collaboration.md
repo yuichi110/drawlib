@@ -12,7 +12,7 @@ Drawlib was purposefully architected for the era of **AI Pair Programming** and 
 
 Every AI coding agent generating Drawlib illustrations should follow this 5-stage self-correction cycle:
 
-```drawlib 640px center file:ai_feedback_loop.png caption:"Figure 13.1: The Autonomous AI Drawing & Self-Correction Feedback Loop"
+```drawlib width=640px align=center file=ai_feedback_loop.png caption="Figure 13.1: The Autonomous AI Drawing & Self-Correction Feedback Loop"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, line_curved

@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # The 5 Specialized Graph Layout Solvers
 :::
 
-::: block (80, 140) (640, 840) compact
+::: block xy=(80, 140) width=640 height=840 compact=true
 ## Choosing the Right Solver for Your Topology
 
 Instead of forcing one generic algorithm onto every graph, `drawlib.graph` provides **5 domain-tuned layout solvers** sharing the `BaseGraph` API:
@@ -27,8 +27,8 @@ Instead of forcing one generic algorithm onto every graph, `drawlib.graph` provi
    - Places cells at `(row, col)` with `.cluster_row()` / `.cluster_column()` and routes non-adjacent edges through inter-cell channels.
 :::
 
-::: block (760, 140) (1080, 840)
-```drawlib file:graph_solvers_compare.svg
+::: block xy=(760, 140) width=1080 height=840
+```drawlib file=graph_solvers_compare.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.graph import (
     ArchitectureGraph,

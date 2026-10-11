@@ -127,7 +127,7 @@ halign  │     (x, y) anchor point      │  halign
 | `"center"` | `"top"` | Text hangs downward from `y`; centered horizontally. | Captions placed directly underneath shapes or icons. |
 
 ### 3.2. Alignment Code Example
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.fonts import Font
 from drawlib.shapes import circle
@@ -176,7 +176,7 @@ Preset styles provide pre-configured typography, weight, and color:
   - `Styles.Red`, `Styles.RedBold`: Red typography.
   - `Styles.Muted`, `Styles.MutedBold`: Muted gray typography.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.text import text
 from drawlib.styles import Styles
@@ -213,7 +213,7 @@ Drawlib can automatically render a padded background rectangle behind the text b
 - **`text_bg_line_width` (float)**: Border stroke width (set to `0` for borderless background).
 - **`text_bg_line_style` (str)**: Border line pattern (`"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`).
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.fonts import FontSerif
@@ -311,7 +311,7 @@ text((50, 25), "Corporate Brand Typography", style=custom_style)
   - With `halign="left"`, all lines align flush to the left boundary.
   - With `halign="right"`, all lines align flush to the right boundary.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.text import text
 from drawlib.styles import Styles
@@ -335,7 +335,7 @@ save()
 
 The `style.angle` attribute rotates text counter-clockwise around the specified anchor coordinate `xy`.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.text import text
 from drawlib.styles import Styles
@@ -358,7 +358,7 @@ save()
 In Drawlib, you rarely need to call `text()` manually to place labels inside boxes or circles.  
 All shape functions (`rectangle`, `circle`, `donuts`, `chevron`, `polygon`, etc.) accept direct text attributes:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles

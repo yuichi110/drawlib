@@ -6,7 +6,7 @@
 
 ## 1. Overview & Structural Hierarchy
 
-```drawlib center fold-code file:gantt_chart_anatomy.png caption:"Structural Anatomy of a Drawlib GanttChart"
+```drawlib align=center code=fold file=gantt_chart_anatomy.png caption="Structural Anatomy of a Drawlib GanttChart"
 from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.lines import line
@@ -90,7 +90,7 @@ save()
 
 The following example demonstrates sections, tasks with completion progress indicators, milestones, orthogonal dependency routing, and a vertical `"Today"` marker:
 
-```drawlib center show-code file:gantt_chart_roadmap.png caption:"Engineering Release Roadmap with Dependencies"
+```drawlib align=center code=show file=gantt_chart_roadmap.png caption="Engineering Release Roadmap with Dependencies"
 from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles
@@ -160,7 +160,7 @@ In `GanttChart`, time coordinates (`start`, `end`, `at`) can be specified either
 1. **Column Name String**: Matches an exact string in `columns` (`start="Apr"` resolves to the left edge of the `"Apr"` column, `end="Apr"` resolves to the right edge of `"Apr"`, and `at="Jun"` resolves to the midpoint of `"Jun"`).
 2. **Floating-Point Offset**: `0.0` is the left edge of column `0`, `1.0` is the boundary between column `0` and column `1`, `1.5` is the midpoint of column `1`, etc.
 
-```drawlib center show-code file:gantt_chart_sprint_schedule.png caption:"Agile Sprint Schedule with Per-Task Progress Styling"
+```drawlib align=center code=show file=gantt_chart_sprint_schedule.png caption="Agile Sprint Schedule with Per-Task Progress Styling"
 from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles

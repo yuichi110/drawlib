@@ -3,7 +3,7 @@
 The `Cycle` component draws circular, repeating process diagrams and continuous feedback loops. 
 It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, incident response loops, and token refresh mechanisms.
 
-```drawlib fold-code center file:cycle_hero.png caption:"Overview of Cycle: Circular Node Orbits and Rectangular Card Loops"
+```drawlib code=fold align=center file=cycle_hero.png caption="Overview of Cycle: Circular Node Orbits and Rectangular Card Loops"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.smartarts import Cycle
@@ -130,7 +130,7 @@ save()
 
 ## 1. Quick Example: Agile Development Cycle
 
-```drawlib show-code center file:cycle_agile_lifecycle.png caption:"Continuous Agile Lifecycle with Cycle"
+```drawlib code=show align=center file=cycle_agile_lifecycle.png caption="Continuous Agile Lifecycle with Cycle"
 from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
 from drawlib.styles import Styles
@@ -197,7 +197,7 @@ cycle.draw(xy=(57.5, 41.0), radius=24.5)
 
 By setting `node_shape="rectangle"` with `node_width` and `node_height`, `description_placement="outside"`, `arrow_type="line"`, and `arrow_color_mode="match_source"`, you can build architectural state loops where rounded rectangular cards are connected by thin arc lines colored after each source stage, with descriptions radiating outward around the perimeter.
 
-```drawlib show-code center file:cycle_rectangular_outside.png caption:"Rectangular Cycle with Outside Descriptions (node_shape='rectangle', arrow_type='line', arrow_color_mode='match_source')"
+```drawlib code=show align=center file=cycle_rectangular_outside.png caption="Rectangular Cycle with Outside Descriptions (node_shape='rectangle', arrow_type='line', arrow_color_mode='match_source')"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Cycle
 from drawlib.styles import Styles

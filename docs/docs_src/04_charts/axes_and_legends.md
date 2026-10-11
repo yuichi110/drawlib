@@ -4,7 +4,7 @@ All Cartesian charts (`BarChart`, `LineChart`, `AreaChart`, `ScatterChart`) and 
 
 Every visual axis element follows Drawlib's presence-based styling model, giving you independent control over domain bounds, gridlines, tick formatters, and legend coordinates.
 
-```drawlib fold-code center file:charts_axes_and_legends_hero.png caption:"Anatomy of Drawlib Chart Axes, Gridlines, Tick Formatters, and Decoupled Legends"
+```drawlib code=fold align=center file=charts_axes_and_legends_hero.png caption="Anatomy of Drawlib Chart Axes, Gridlines, Tick Formatters, and Decoupled Legends"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.lines import line
@@ -77,7 +77,7 @@ save()
 
 Cartesian charts expose `chart.configure_x_axis(...)` and `chart.configure_y_axis(...)` (backed by the `Axis` model) to customize domain bounds (`min_value`, `max_value`), explicit ticks (`ticks` or `tick_step`), format strings or callables (`format`), unit suffixes (`unit`), and axis titles (`label`).
 
-```drawlib center show-code file:charts_axes_formatting.png caption:"Custom Axis Bounds, Tick Steps, Format Specifiers, and Units"
+```drawlib align=center code=show file=charts_axes_formatting.png caption="Custom Axis Bounds, Tick Steps, Format Specifiers, and Units"
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
@@ -143,7 +143,7 @@ Each `Axis` supports two scaling engines via `scale`:
 - **`scale="linear"` *(default)***: Uses the **Nice Numbers algorithm** to automatically select human-readable step intervals ($1, 2, 5 \times 10^k$) across the data range when `tick_step` and `ticks` are omitted.
 - **`scale="log"`**: Maps positive values onto a base-10 logarithmic axis ($\log_{10}$). Bounds automatically snap to powers of 10 ($10^0, 10^1, 10^2, \dots$), and intermediate ticks ($1, 2, 5 \times 10^k$) are generated automatically when the span covers $\le 2$ orders of magnitude.
 
-```drawlib center show-code file:charts_axes_log_scale.png caption:"Logarithmic Y-Axis Scale (scale='log') Across Storage Hierarchy Latencies"
+```drawlib align=center code=show file=charts_axes_log_scale.png caption="Logarithmic Y-Axis Scale (scale='log') Across Storage Hierarchy Latencies"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -181,7 +181,7 @@ save()
 
 Instead of hardcoding legends inside a rigid chart box, Drawlib decouples legend rendering via `chart.draw_legend(...)`. You can place horizontal or vertical legends anywhere on the canvas, customize `swatch_width`, `swatch_height`, and `item_gap`, and query `chart.get_size() -> (width, height)` to align legends or surrounding cards relative to the chart's dimensions.
 
-```drawlib center show-code file:charts_legends_and_sizing.png caption:"Decoupled Horizontal and Vertical Legends with Custom Swatches and get_size() Alignment"
+```drawlib align=center code=show file=charts_legends_and_sizing.png caption="Decoupled Horizontal and Vertical Legends with Custom Swatches and get_size() Alignment"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.shapes import rectangle

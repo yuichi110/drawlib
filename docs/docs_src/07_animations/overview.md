@@ -3,7 +3,7 @@
 Drawlib provides native support for generating multi-frame animations in both **Animated Portable Network Graphics (APNG)** and **Animated WebP** formats.  
 Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations, data visualizations, and interactive walkthroughs using declarative Python code.
 
-```drawlib fold-code center file:animation_step_architecture.png caption:"Step-by-Step Architecture Reveal"
+```drawlib code=fold align=center file=animation_step_architecture.png caption="Step-by-Step Architecture Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
@@ -188,7 +188,7 @@ When animating technical illustrations, **prefer `clear=True` (default per-frame
 | **Technical Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, etc.) | **Pattern B: Pre-Build & Mutate**<br>Build topology once outside the loop, then mutate `.show` (auto-hides incident edges and dangling `Junction` wires), `.style`, `.text_style`, or `.set_label()` and call `draw(xy, scale)` in each frame. | [Animating Technical Diagrams](./diagrams.md) |
 | **Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, etc.) | **Pattern B: Pre-Build & Mutate**<br>`g.calc()` solves coordinates across the full topology regardless of `show=False`; mutate `node.show`, `cluster.show`, or `edge.style` and call `g.draw()`, or animate packets along `edge_layout.points`. | [Animating Auto-Layout Graphs](./graphs.md) |
 
-```drawlib fold-code center file:anim_overview_patterns_workflow.png caption:"Pattern A (In-Frame Build) vs. Pattern B (Pre-Build Outside Loop & Mutate Inside Frame)"
+```drawlib code=fold align=center file=anim_overview_patterns_workflow.png caption="Pattern A (In-Frame Build) vs. Pattern B (Pre-Build Outside Loop & Mutate Inside Frame)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -269,7 +269,7 @@ save()
 In 16:9 presentation slide decks (`drawlib init slide`), animated `.png` (APNG) and `.webp` blocks can be controlled interactively via `<canvas>` playback options on the ````drawlib```` fence:
 
 ````markdown
-```drawlib file:pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
 from drawlib.anim import Animation
 ...
 ```
@@ -281,7 +281,7 @@ from drawlib.anim import Animation
 | **`anim-loop`** | `once` \| `infinite` | `infinite` (`once` when `anim-pause` is set) | `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously. |
 | **`anim-pause`** | Comma-separated 0-based frame indices (e.g. `2,4`) | `None` | Pauses playback (`PAUSED`) immediately upon rendering each listed frame index. Clicking the diagram resumes playback from `frame + 1` until the next pause point or end. |
 
-```drawlib fold-code center file:anim_overview_slide_playback_states.png caption:"Interactive Slide Animation Playback State Machine (READY, PLAYING, PAUSED, ENDED)"
+```drawlib code=fold align=center file=anim_overview_slide_playback_states.png caption="Interactive Slide Animation Playback State Machine (READY, PLAYING, PAUSED, ENDED)"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.state import InitialState, State, StateDiagram
 from drawlib.styles import Styles

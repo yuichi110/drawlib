@@ -4,7 +4,7 @@
 
 Unlike generic DAG solvers that flatten nested groups or scramble boundary boxes, `ArchitectureGraph` solves layouts in two hierarchical phases: packing internal nodes and child clusters inside parent containers (**Micro Layout**), then arranging top-level containers across a **5-zone compass** (`pos="left" | "center" | "right" | "top" | "bottom"`) with orthogonal highway routing (**Macro Layout**).
 
-```drawlib fold-code center file:graph_arch_compass_zones.png caption:"ArchitectureGraph 5-Zone Compass Layout (top, left, center, right, bottom) and Nested Sub-Clusters"
+```drawlib code=fold align=center file=graph_arch_compass_zones.png caption="ArchitectureGraph 5-Zone Compass Layout (top, left, center, right, bottom) and Nested Sub-Clusters"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.icons import phosphor
@@ -123,7 +123,7 @@ You can organize nodes into single-level or nested two-level containers using `g
 
 The following example builds a complete cloud architecture featuring an external client zone (`pos="left"`), a central production VPC (`pos="center"`) with nested Compute and Data tiers (`parent="prod_vpc"`, `order=1, 2`), and an observability zone (`pos="bottom"`):
 
-```drawlib show-code center file:graph_arch_multi_tier_vpc.png caption:"Multi-Tier Cloud VPC Topology with Nested Clusters and 5-Zone Compass Placement"
+```drawlib code=show align=center file=graph_arch_multi_tier_vpc.png caption="Multi-Tier Cloud VPC Topology with Nested Clusters and 5-Zone Compass Placement"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
@@ -189,7 +189,7 @@ save()
 
 When an automatically calculated topology needs a subtle visual adjustment—or when you want to attach custom [`drawlib.shapes`](../02_drawing_primitives/shapes_basic.md) badges at exact node coordinates—call `layout = g.calc()`, apply `layout.offset(node_id, dx=..., dy=...)`, and then render via `layout.draw()`:
 
-```drawlib show-code center file:graph_arch_calc_offset.png caption:"Fine-Tuning ArchitectureGraph Coordinates with calc() and layout.offset()"
+```drawlib code=show align=center file=graph_arch_calc_offset.png caption="Fine-Tuning ArchitectureGraph Coordinates with calc() and layout.offset()"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.shapes import rectangle

@@ -3,7 +3,7 @@
 The `SourceCode` component renders syntax-highlighted source code snippets directly onto the Drawlib canvas as crisp vector shapes and typography powered by Pygments.
 It supports built-in syntax themes, optional line-number gutters, CJK monospace fonts, and custom token color overrides.
 
-```drawlib fold-code center file:source_code_hero.png caption:"Overview of SourceCode: Built-In Syntax Themes (default, google, dark, monochrome)"
+```drawlib code=fold align=center file=source_code_hero.png caption="Overview of SourceCode: Built-In Syntax Themes (default, google, dark, monochrome)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import SourceCode, SourceCodeStyles
 from drawlib.styles import Styles
@@ -45,7 +45,7 @@ save()
 
 `SourceCode.draw(...)` (or its function alias `sourcecode(...)`) renders a syntax-highlighted code block anchored at its **top-left corner `xy=(x, y)`**. You configure token colors, container styles, font size, and CJK language fonts using `SourceCodeStyles.get(...)`.
 
-```drawlib show-code center file:smartarts_sourcecode_themes.png caption:"Syntax-Highlighted Python and YAML Blocks with Line Numbers"
+```drawlib code=show align=center file=smartarts_sourcecode_themes.png caption="Syntax-Highlighted Python and YAML Blocks with Line Numbers"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import SourceCode, SourceCodeStyles
 from drawlib.styles import Styles
@@ -112,7 +112,7 @@ save()
 
 Because `SourceCode.draw()` renders directly onto the shared vector canvas, you can combine code containers with callout bubbles (`bubblespeech`), architecture nodes, and arrows to create annotated code walkthroughs.
 
-```drawlib show-code center file:smartarts_sourcecode_annotated.png caption:"Annotated SourceCode Walkthrough with Callout Bubbles and Architecture Target"
+```drawlib code=show align=center file=smartarts_sourcecode_annotated.png caption="Annotated SourceCode Walkthrough with Callout Bubbles and Architecture Target"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import bubblespeech, cylinder, rectangle

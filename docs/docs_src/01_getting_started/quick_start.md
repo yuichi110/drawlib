@@ -9,7 +9,7 @@ You can author diagrams either as **standalone Python scripts** (`.py`) or as **
 
 Every Drawlib illustration follows a clean, predictable lifecycle:
 
-```drawlib fold-code center file:quickstart_five_step_workflow.png caption:"The Standard 5-Step Drawlib Drawing Workflow"
+```drawlib code=fold align=center file=quickstart_five_step_workflow.png caption="The Standard 5-Step Drawlib Drawing Workflow"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
@@ -130,7 +130,7 @@ Inside any Markdown document (such as `doc.md` in a `doc` or `site` project), si
 
 Here is our primary service flow:
 
-```drawlib center file:client_server_communication.png caption:"Client-Server REST Communication"
+```drawlib align=center file=client_server_communication.png caption="Client-Server REST Communication"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
@@ -157,7 +157,7 @@ $ uv run drawlib show doc.md client_server_communication.png -g -o .drawlib/scra
 
 When compiled with `drawlib build html` or `drawlib build markdown`, the code fence is executed and replaced with the rendered image:
 
-```drawlib fold-code center file:client_server_communication_styled.png caption:"Client-Server REST Communication"
+```drawlib code=fold align=center file=client_server_communication_styled.png caption="Client-Server REST Communication"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line

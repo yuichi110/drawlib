@@ -26,7 +26,7 @@ To maintain high contrast and prevent visual clutter:
 - **Neutral Typography**: Text on light backgrounds should always use `Styles.Dark` or `Styles.DarkBold`. On dark fills, use `Styles.WhiteBold` or `Styles.Light`. Avoid coloring body text with `Styles.Primary` or `Styles.Secondary` arbitrarily.
 - **Neutral Connectors**: Connecting lines and flow arrows default to `Styles.DarkBold`. Reserve accent colors (`Styles.Primary`, `Styles.Danger`) strictly for meaningful architectural emphasis or error loops.
 
-```drawlib 640px center file:styles_semantic_roles.png caption:"Figure 5.1: The 6 Semantic Roles Across Core Style Variants"
+```drawlib width=640px align=center file=styles_semantic_roles.png caption="Figure 5.1: The 6 Semantic Roles Across Core Style Variants"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -77,7 +77,7 @@ Typography is a critical component of professional technical diagrams. Drawlib p
 - **`FontMonoSpace`**: Roboto Mono for code blocks, URLs, and JSON keys.
 - **`FontFile(path)`**: Custom TrueType/OpenType font files.
 
-```drawlib 620px center file:styles_typography.png caption:"Figure 5.2: Typography Hierarchy & Font Families"
+```drawlib width=620px align=center file=styles_typography.png caption="Figure 5.2: Typography Hierarchy & Font Families"
 from drawlib.canvas import setup
 from drawlib.fonts import Font, FontMonoSpace, FontRoboto
 from drawlib.shapes import rectangle

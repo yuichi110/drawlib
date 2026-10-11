@@ -4,7 +4,7 @@ Visualizing microservices topologies, data pipelines, and cluster networks manua
 
 To solve this, Drawlib includes `drawlib.graph`: a **pure-Python declarative graph auto-layout engine** that calculates topological coordinates, nested cluster boundaries, and edge routing in-memory without external dependencies.
 
-```drawlib center fold-code file:graph_layout_pipeline.png caption:"Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)"
+```drawlib align=center code=fold file=graph_layout_pipeline.png caption="Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -119,7 +119,7 @@ Traditional graph algorithms (like standard Sugiyama layering or force-directed 
 
 A standout architectural capability of `drawlib.graph` is **automatic recursive cluster boundary expansion**:
 
-```drawlib center fold-code file:graph_cluster_boundaries.png caption:"Hierarchical Nested Cluster Bounding Box Calculation"
+```drawlib align=center code=fold file=graph_cluster_boundaries.png caption="Hierarchical Nested Cluster Bounding Box Calculation"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

@@ -6,7 +6,7 @@ The `drawlib.shapes` module provides declarative geometric primitives with built
 
 ## 1. Overview of Basic & Radial Shapes
 
-```drawlib fold-code center file:shapes_basic_overview.png caption:"Overview of Basic Rectangular and Radial Shapes"
+```drawlib code=fold align=center file=shapes_basic_overview.png caption="Overview of Basic Rectangular and Radial Shapes"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, rectangle, wedge
 from drawlib.styles import Styles
@@ -93,7 +93,7 @@ All basic and radial shape functions share a consistent parameter and styling co
 - **Per-Corner Rounding**: Pass a 4-tuple `(bottom_left, top_left, top_right, bottom_right)` to round specific corners (ideal for tabs, headers, and split cards).
 - **Rotation & Text Offset**: Patch `angle` on `style` to rotate the card, and `xy_shift` or `angle` on `text_style` to fine-tune the label.
 
-```drawlib show-code center file:shapes_basic_rectangle.png caption:"Sharp, Uniform Rounded, and Per-Corner Rounded Rectangles"
+```drawlib code=show align=center file=shapes_basic_rectangle.png caption="Sharp, Uniform Rounded, and Per-Corner Rounded Rectangles"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -141,7 +141,7 @@ save()
 - **`ellipse(xy, width, height, *, style, text="", text_style=None)`**: Oval bounded by horizontal `width` and vertical `height` (supports rotation via `style.patch(angle=...)`).
 - **`donuts(xy, radius, *, style, width=None, text="", text_style=None)`**: Concentric ring with outer `radius` and ring wall thickness `width` (so the hollow inner radius equals `radius - width`).
 
-```drawlib show-code center file:shapes_basic_circle_ellipse_donuts.png caption:"Circle, Ellipse, and Annular Donuts"
+```drawlib code=show align=center file=shapes_basic_circle_ellipse_donuts.png caption="Circle, Ellipse, and Annular Donuts"
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, donuts, ellipse
 from drawlib.styles import Styles
@@ -190,7 +190,7 @@ All angular primitives measure `angle_start` and `angle_end` in **degrees counte
 - **`fan(xy, radius, *, style, angle_start=0, angle_end=180, text="", text_style=None)`**: Draws a filled pie sector connecting the center apex `xy` to the outer circular arc from `angle_start` to `angle_end`.
 - **`arc(xy, width, height, *, style, angle_start=0.0, angle_end=360.0, text="", text_style=None)`**: Draws an open, unfilled elliptical stroke along the perimeter between `angle_start` to `angle_end`.
 
-```drawlib show-code center file:shapes_basic_sectors_and_arcs.png caption:"Angular Ring Wedge, Pie Fan, and Elliptical Arc"
+```drawlib code=show align=center file=shapes_basic_sectors_and_arcs.png caption="Angular Ring Wedge, Pie Fan, and Elliptical Arc"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arc, fan, wedge
 from drawlib.styles import Styles

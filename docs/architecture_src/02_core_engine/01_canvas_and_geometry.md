@@ -4,7 +4,7 @@ At the heart of Drawlib lies the **Canvas Engine** (`_core/l4_canvas`), which ab
 
 This document details the Cartesian virtual geometry model, anchor point conventions, and the Canvas lifecycle state machine.
 
-```drawlib center fold-code file:canvas_lifecycle_state_machine.png caption:"Canvas Lifecycle State Machine"
+```drawlib align=center code=fold file=canvas_lifecycle_state_machine.png caption="Canvas Lifecycle State Machine"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -61,7 +61,7 @@ Drawlib uses a standard **Cartesian coordinate system**:
 - `+Y` extends vertically **upward** (`0` → `H`).
 - Rotations are standard counter-clockwise angles ($0^\circ$ points East, $90^\circ$ points North).
 
-```drawlib center fold-code file:cartesian_coordinate_space.png caption:"Cartesian Coordinate System & Component Anchors"
+```drawlib align=center code=fold file=cartesian_coordinate_space.png caption="Cartesian Coordinate System & Component Anchors"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -136,7 +136,7 @@ A key architectural design in Drawlib is the clean separation of anchor semantic
 ### 3.1. Cooperative Diamond Inheritance Hierarchy
 The terminal `Canvas` class (`_core/l4_canvas/canvas.py`) does not implement all drawing operations directly. Instead, it is composed via Python multiple inheritance across seven feature mixin classes rooted in `CanvasBase`:
 
-```drawlib center fold-code file:canvas_inheritance_hierarchy.png caption:"L4 Canvas Cooperative Diamond Inheritance Hierarchy"
+```drawlib align=center code=fold file=canvas_inheritance_hierarchy.png caption="L4 Canvas Cooperative Diamond Inheritance Hierarchy"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles

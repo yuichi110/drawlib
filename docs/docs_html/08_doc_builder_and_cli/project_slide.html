@@ -704,13 +704,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong>Excluding Non-Slide Files (<code>_</code> Prefix)</strong>: Prefix any planning notes, outlines, or draft files/folders with an underscore <code>_</code> (e.g., <code>_planning.md</code>, <code>_drafts/</code>) to exclude them from slide compilation.</li>
 <li><strong>Special Excluded Files</strong>: <code>README.md</code> and <code>navbar.md</code> are also automatically excluded from the slide deck.</li>
 </ul>
-<p>Use <code>::: block (x, y) (w, h)</code> containers alongside standard Markdown and helper components from <code>utils.py</code> (see <a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a> for the complete stage coordinate reference, layout templates, and <code>drawlib.slide</code> API):</p>
-<pre><code class="language-markdown">::: block (80, 40) (1760, 60)
+<p>Use <code>::: block xy=(x, y) width=W height=H</code> containers alongside standard Markdown and helper components from <code>utils.py</code> (see <a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a> for the complete stage coordinate reference, layout templates, and <code>drawlib.slide</code> API):</p>
+<pre><code class="language-markdown">::: block xy=(80, 40) width=1760 height=60
 <span class="gh"># Architecture Overview</span>
 :::
 
-::: block (80, 140) (1760, 840)
-<span class="sb">```drawlib</span><span class="w"> </span>file:arch_flow.svg
+::: block xy=(80, 140) width=1760 height=840
+<span class="sb">```drawlib</span><span class="w"> </span>file=arch_flow.svg
 <span class="s">from drawlib.canvas import clear, save, setup</span>
 <span class="s">from drawlib.shapes import rectangle</span>
 <span class="s">from drawlib.lines import line</span>
@@ -759,7 +759,7 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong>Direct Presenter URL (<code>?presenter=1</code>)</strong>: Appending <code>?presenter=1#1</code> launches the window directly in Presenter View mode, synchronizing slide changes and animation playback across windows via <code>BroadcastChannel</code> / <code>localStorage</code>.</li>
 </ul>
 <h3>Speaker Notes (<code>::: note</code>) &amp; Presenter View:</h3>
-<p>Add speaker notes to any slide using <code>::: note</code> (or <code>::: notes</code>) blocks. If a slide contains multiple <code>::: note</code> blocks, they are automatically joined with a blank line (<code>\n\n</code>) and rendered as Markdown in <strong>Presenter View</strong> (while remaining completely hidden on the main presentation screen and in PDF exports):</p>
+<p>Add speaker notes to any slide using <code>::: note</code> blocks. If a slide contains multiple <code>::: note</code> blocks, they are automatically joined with a blank line (<code>\n\n</code>) and rendered as Markdown in <strong>Presenter View</strong> (while remaining completely hidden on the main presentation screen and in PDF exports):</p>
 <pre><code class="language-markdown">::: note
 <span class="gs">**Key Talking Points**</span>:
 <span class="k">-</span><span class="w"> </span>Emphasize single source of truth in Git.
@@ -773,15 +773,15 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong>Right Middle (Control Bar)</strong>: <code>◀ Prev</code> / <code>Next ▶</code> navigation, <strong><code>▶ Play Animation</code> button</strong> (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (<code>00:00</code>).</li>
 <li><strong>Right Bottom (Speaker Notes)</strong>: Compiled speaker notes with <code>A-</code> / <code>A+</code> font-size controls.</li>
 </ul>
-<h3>Interactive Animation Playback (<code>anim-trigger</code>, <code>anim-loop</code>, <code>anim-pause</code>):</h3>
+<h3>Interactive Animation Playback (<code>anim_trigger</code>, <code>anim_loop</code>, <code>anim_pause</code>):</h3>
 <p>When embedding APNG (<code>.png</code> / <code>.apng</code>) or Animated WebP (<code>.webp</code>) diagrams inside slides, you can attach playback control attributes to the <code>drawlib</code> code fence:</p>
-<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file:workflow.webp anim-trigger:click anim-loop:once anim-pause:2,4
+<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
 <span class="sb">```</span>
 </code></pre>
 <ul>
-<li><strong><code>anim-trigger:click</code></strong> (<code>auto</code> | <code>click</code>): Holds on Frame 0 until clicked by the presenter.</li>
-<li><strong><code>anim-loop:once</code></strong> (<code>once</code> | <code>infinite</code>): Stops on the final frame (<code>ENDED</code>); clicking again replays from Frame 0.</li>
-<li><strong><code>anim-pause:2,4</code></strong>: Pauses at 0-based frame indices <code>2</code> and <code>4</code> (<code>PAUSED</code>); clicking resumes to the next step.</li>
+<li><strong><code>anim_trigger=click</code></strong> (<code>auto</code> | <code>click</code>): Holds on Frame 0 until clicked by the presenter.</li>
+<li><strong><code>anim_loop=once</code></strong> (<code>once</code> | <code>infinite</code>): Stops on the final frame (<code>ENDED</code>); clicking again replays from Frame 0.</li>
+<li><strong><code>anim_pause=(2, 4)</code></strong>: Pauses at 0-based frame indices <code>2</code> and <code>4</code> (<code>PAUSED</code>); clicking resumes to the next step.</li>
 <li><strong>Vector PDF Export (<code>build_pdf.sh</code>)</strong>: Automatically renders Frame 0 onto the slide without the interactive play badge.</li>
 </ul>
 

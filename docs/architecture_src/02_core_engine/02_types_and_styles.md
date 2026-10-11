@@ -4,7 +4,7 @@ A scalable illustration engine requires rock-solid type safety. In traditional p
 
 Drawlib eliminates this fragility through a **strongly-typed, composite style architecture** (`_core/l2_types` and `_core/l3_styles`), featuring immutable design tokens and guarded validation.
 
-```drawlib center fold-code file:style_catalog_architecture.png caption:"L3 Unified Style Model & Preset Catalog Architecture"
+```drawlib align=center code=fold file=style_catalog_architecture.png caption="L3 Unified Style Model & Preset Catalog Architecture"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -77,7 +77,7 @@ To customize an existing style without side effects, Drawlib uses a **Copy-on-Wr
 - `.patch(other=None, **kwargs)` clones the underlying model, applies overrides with full Pydantic validation, and returns a new frozen `Style` instance.
 - The original design token remains 100% pristine.
 
-```drawlib center fold-code file:style_patching_flow.png caption:"Immutable Style Mutation Pattern (.patch())"
+```drawlib align=center code=fold file=style_patching_flow.png caption="Immutable Style Mutation Pattern (.patch())"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

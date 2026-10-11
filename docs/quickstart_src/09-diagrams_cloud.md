@@ -11,7 +11,7 @@ Cloud architecture diagrams follow a standard hierarchy:
 3. **Managed Services & Workloads**: High-level icons from `drawlib.icons.gcp` or `drawlib.icons.phosphor`.
 4. **Data Flows & Protocols**: Directional connectors with protocol labels (`HTTPS`, `gRPC`, `SQL`).
 
-```drawlib 640px center file:diagrams_gcp.png caption:"Figure 9.1: Serverless Cloud Event-Driven Architecture on GCP"
+```drawlib width=640px align=center file=diagrams_gcp.png caption="Figure 9.1: Serverless Cloud Event-Driven Architecture on GCP"
 from drawlib.canvas import setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line

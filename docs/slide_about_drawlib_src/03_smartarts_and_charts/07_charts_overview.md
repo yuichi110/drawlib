@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Quantitative Charts Overview (`drawlib.charts`)
 :::
 
-::: block (80, 140) (680, 840) compact
+::: block xy=(80, 140) width=680 height=840 compact=true
 ## Why Built-In Vector Charts Beat External Plotting Tools
 
 Traditional workflows force you to plot charts in Matplotlib/Excel, export PNGs, and paste them next to architecture diagrams—resulting in mismatched fonts, blurry raster scaling, and broken visual alignment.
@@ -22,8 +22,8 @@ Traditional workflows force you to plot charts in Matplotlib/Excel, export PNGs,
 4. **Animation-Ready (`show` & `draw_ratio`)**: Toggle `series.show = False` without rescaling axes, or animate `draw_ratio` (`0.0 -> 1.0`) along `"bottom_to_top"` or `"left_to_right"`.
 :::
 
-::: block (800, 140) (1040, 840)
-```drawlib file:charts_coexistence.svg
+::: block xy=(800, 140) width=1040 height=840
+```drawlib file=charts_coexistence.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.charts.pie import PieChart

@@ -68,7 +68,7 @@ Never manually assemble diagrams out of dozens of primitive rectangles and lines
 In technical documentation (`docs_src/`), embed diagrams directly within markdown files using the ````drawlib```` code fence:
 
 ````markdown
-```drawlib center fold-code file:service_architecture.png caption:"Service Architecture"
+```drawlib align=center code=fold file=service_architecture.png caption="Service Architecture"
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.shapes import rectangle
@@ -78,8 +78,8 @@ rectangle((50, 20), width=60, height=20, style=Styles.Neutral, text="Service")
 save()
 ```
 ````
-- **Top Hero & Visual Density**: Place a **Top Hero diagram at Lines 5–15** (right after `# Title` and lead paragraph) using `fold-code` so the visual is immediately visible above the fold. Include **`2+` diagrams per page**, pairing icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`).
-- **Attributes & `720pt` Typography Sizing**: Always specify `file:<name>.png` and `caption:"..."`. Omit narrow pixel widths (`500px`, `600px`) so the image fills `100%` of `.drawlib-image`, and keep in-image `text_size >= 10.0` (standard `10.5`–`12.0`, headers `12.0`–`14.0`, floor `9.5`) so rendered labels ($\text{text\_size} \times \text{Width} / 720$) match `16px` HTML body text.
+- **Top Hero & Visual Density**: Place a **Top Hero diagram at Lines 5–15** (right after `# Title` and lead paragraph) using `code=fold` so the visual is immediately visible above the fold. Include **`2+` diagrams per page**, pairing icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`).
+- **Attributes & `720pt` Typography Sizing**: Always specify `file=<name>.png` and `caption="..."`. Omit narrow pixel widths (`width=500px`, `width=600px`) so the image fills `100%` of `.drawlib-image`, and keep in-image `text_size >= 10.0` (standard `10.5`–`12.0`, headers `12.0`–`14.0`, floor `9.5`) so rendered labels ($\text{text\_size} \times \text{Width} / 720$) match `16px` HTML body text.
 - **Source of Truth**: Always edit `<base>_src/` (e.g. `docs_src/`). Never manually edit generated output directories (`docs/`, `docs_html/`).
 - **No Absolute Paths or file:// URLs (Relative Links Only)**: Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs/*_src/**/*.md`). All links must use relative paths (e.g. `../foo.md`) or inline code format. While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable IDE navigation, repository documentation files published on the web or GitHub must never contain `file:///` or machine-specific absolute paths.
 - **Incremental Build Cache (`.drawlib/cache.db`)**: `drawlib build` and `drawlib show` cache rendered images by hashing the code block, `styles.py`, `utils.py`, and referenced local assets (`_assets/`). If you edit an external imported Python module outside `styles.py`/`utils.py`, pass `--no-cache` or run `uv run drawlib cache clear --images` to force re-rendering.
@@ -90,7 +90,7 @@ save()
 ## 5. Autonomous 3-Stage Review & Self-Correction Loop
 
 Never deliver unverified diagrams or documentation. Always execute this 3-stage verification loop (details: `uv run drawlib rules show review-guide`):
-1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` fence caps, `text_size >= 10.0`, and accurate coordinate anchors (`shapes`/`text`/`icons` = **Center `(cx, cy)`** vs. `SmartArts`/`Charts`/`Diagrams`/`Graphs` = **Bottom-Left `(x0, y0)`**).
+1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` fence caps, `text_size >= 10.0`, and accurate coordinate anchors (`shapes`/`text`/`icons` = **Center `(cx, cy)`** vs. `SmartArts`/`Charts`/`Diagrams`/`Graphs` = **Bottom-Left `(x0, y0)`**).
 2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export each diagram with the 10-unit/5-unit coordinate grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/preview.png`) and inspect via `view_file` to fix text clipping, arrow routing, margins (`>= 4–6` units), and `50%+` neutral balance in 1 shot.
 3. **Stage 3 — Macro-Page Browser HTML Review**: Build HTML (`./build.sh`), verify zero broken links (`uv run drawlib serve docs_html/ --check`), and inspect a `1280×920` headless browser screenshot of `docs_html/*.html` via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font size parity.
 

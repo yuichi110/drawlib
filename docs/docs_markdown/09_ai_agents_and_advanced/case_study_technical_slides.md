@@ -225,7 +225,7 @@ save()
 ### 3.2. Step 5: Autonomous AI Self-Review & Block-Width Typography Math
 After generating the initial slides, the AI agent runs an autonomous multimodal review (`uv run drawlib rules show review-guide`).
 
-A critical insight discovered and codified during this case study is the **Block-Width-Aware Slide Typography Standard**. Because Drawlib exports every figure at a base physical width of `10 inches = 720pt` (`setup(width=W, height=H)` only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the `::: block (X, Y) (Width, Height)` container where the image is placed:
+A critical insight discovered and codified during this case study is the **Block-Width-Aware Slide Typography Standard**. Because Drawlib exports every figure at a base physical width of `10 inches = 720pt` (`setup(width=W, height=H)` only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the `::: block xy=(X, Y) width=Width height=Height` container where the image is placed:
 
 $$\text{Rendered Slide Font Size (px)} = \text{text\_size} \times \frac{\text{Block Width (px)}}{720}$$
 

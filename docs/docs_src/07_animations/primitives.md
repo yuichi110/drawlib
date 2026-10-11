@@ -2,7 +2,7 @@
 
 Low-level drawing primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`) are stateless functions that draw directly onto the canvas. To animate them, use **Pattern A (In-Frame Build)** with `clear=True` (the default of `with anim.frame():`), computing per-frame coordinates, sizes, or styles inside a loop.
 
-```drawlib fold-code center file:anim_primitives_hero.png format:webp caption:"Multi-Frame Primitive Animation: Trajectory Motion, Color Fade, and Dynamic Scaling"
+```drawlib code=fold align=center file=anim_primitives_hero.png format=webp caption="Multi-Frame Primitive Animation: Trajectory Motion, Color Fade, and Dynamic Scaling"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
@@ -101,7 +101,7 @@ from drawlib.math import (
 ### Animating a Growing Block Arrow (`arrow`)
 By iterating over intermediate tip coordinates from `start_xy` to `end_xy`, you can smoothly grow a block arrow across frames:
 
-```drawlib center show-code file:anim_primitives_growing_arrow.png caption:"Growing Block Arrow with get_intermediate_points()"
+```drawlib align=center code=show file=anim_primitives_growing_arrow.png caption="Growing Block Arrow with get_intermediate_points()"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.math import get_intermediate_points
@@ -141,7 +141,7 @@ save()
 ### Animating a Growing U-Shaped Polyline Arrow (`get_intermediate_paths` & `get_intermediate_path_point`)
 For L-shaped or U-shaped routes, `get_intermediate_paths(u_path, num=..., include_ends=True)` generates progressive partial polylines that preserve all corners passed so far, while `get_intermediate_path_point(u_path)` computes the true midpoint along the trajectory:
 
-```drawlib center show-code file:anim_primitives_growing_u_arrow.png caption:"Growing U-Shaped Arrow and Trajectory Midpoint Label"
+```drawlib align=center code=show file=anim_primitives_growing_u_arrow.png caption="Growing U-Shaped Arrow and Trajectory Midpoint Label"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
@@ -187,7 +187,7 @@ The same interpolation functions apply directly to primitive line connectors in 
 - **Straight `line(start_xy, tip_xy, arrow_head="->")`**: Iterate `tip_xy` over `[*get_intermediate_points(start_xy, end_xy, num=5), end_xy]` so the line and its `"->"` arrowhead extend smoothly toward the target.
 - **Multi-segment `lines(sub_xys, arrow_head="->")` or `lines_curved(sub_xys, r=..., arrow_head="->")`**: Iterate `sub_xys` over `get_intermediate_paths(full_path, num=8, include_ends=True)` to draw an orthogonal or rounded-corner connector progressively around bends:
 
-```drawlib show-code center file:anim_primitives_progressive_lines.png format:webp caption:"Progressively Extending Straight and Curved Polylines Across Frames"
+```drawlib code=show align=center file=anim_primitives_progressive_lines.png format=webp caption="Progressively Extending Straight and Curved Polylines Across Frames"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line, lines_curved
@@ -223,7 +223,7 @@ save()
 
 ### Animating a Moving Packet Along a Line
 
-```drawlib center show-code file:anim_primitives_packet.png caption:"Packet Transmission Between Services"
+```drawlib align=center code=show file=anim_primitives_packet.png caption="Packet Transmission Between Services"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line
@@ -275,7 +275,7 @@ Both functions accept any `ColorType` (`Color` instance, `(R, G, B)` / `(R, G, B
 ### Animating Style Fades with `Style.patch()`
 Generate the color sequence once before the loop with `include_ends=True`, and apply each frame's color via `.patch(shape_fill_color=bg)`:
 
-```drawlib center show-code file:anim_primitives_color_fade.png caption:"Smooth Color Interpolation with get_intermediate_colors()"
+```drawlib align=center code=show file=anim_primitives_color_fade.png caption="Smooth Color Interpolation with get_intermediate_colors()"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
@@ -308,7 +308,7 @@ save()
 
 You can combine coordinate interpolation (`get_intermediate_points()`), dynamic geometric scaling (`width`, `height`, `radius`), rotation (`Style.patch(angle=...)`), and smooth color transitions (`get_intermediate_colors()`) in multi-phase animations—for example, moving and rotating a payload token across a link, and then pulsing (`width`/`height` scale) and fading the receiver node into its active state:
 
-```drawlib center show-code file:anim_primitives_combined.png caption:"Combining Motion, Rotation (angle), Scaling (width/height), and Color Transition"
+```drawlib align=center code=show file=anim_primitives_combined.png caption="Combining Motion, Rotation (angle), Scaling (width/height), and Color Transition"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line

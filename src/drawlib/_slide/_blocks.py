@@ -12,24 +12,24 @@
 from __future__ import annotations
 
 import re
-import shlex
 from typing import Final, Optional
 
 from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
+from drawlib._builder.doc_builder.processor.options import tokenize_kv_pairs
 
 PATTERN_CONTAINER_BOX: Final[re.Pattern[str]] = re.compile(
-    r"(?:\n|^)[ \t]*:::+[ \t]*(?:block|box)(?:\s+([^\n]*))?\n(.*?)\n[ \t]*:::+",
+    r"(?:\n|^)[ \t]*:::+[ \t]*block(?:\s+([^\n]*))?\n(.*?)\n[ \t]*:::+",
     re.DOTALL,
 )
 
 PATTERN_SLIDE_NOTE: Final[re.Pattern[str]] = re.compile(
-    r"(?:\n|^)[ \t]*:::+[ \t]*notes?(?:[ \t]+[^\n]*)?\n(.*?)\n[ \t]*:::+",
+    r"(?:\n|^)[ \t]*:::+[ \t]*note(?:[ \t]+[^\n]*)?\n(.*?)\n[ \t]*:::+",
     re.DOTALL | re.IGNORECASE,
 )
 
 
 def extract_slide_notes(text: str) -> tuple[str, str]:
-    r"""Extract ::: note / ::: notes blocks from slide Markdown and render them to HTML.
+    r"""Extract ::: note blocks from slide Markdown and render them to HTML.
 
     Multiple note blocks in the same slide are joined with a blank line ('\n\n')
     before converting Markdown to HTML.
@@ -56,36 +56,6 @@ def extract_slide_notes(text: str) -> tuple[str, str]:
     combined_notes_md = "\n\n".join(note_chunks)
     rendered_notes_html = parse_markdown_to_html(combined_notes_md).strip()
     return cleaned_md, rendered_notes_html
-
-
-def parse_box_coordinates(
-    header_opts: str,
-) -> tuple[Optional[float], Optional[float], Optional[float], Optional[float], str]:
-    """Extract (x, y) and (w, h) bounding box coordinates from container options.
-
-    Args:
-        header_opts: Raw header options string from ::: box.
-
-    Returns:
-        tuple[Optional[float], Optional[float], Optional[float], Optional[float], str]:
-            (x, y, w, h, remaining_options_string).
-    """
-    x: Optional[float] = None
-    y: Optional[float] = None
-    w: Optional[float] = None
-    h: Optional[float] = None
-
-    tuple_pattern = r"\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)"
-    tuple_matches = list(re.finditer(tuple_pattern, header_opts))
-    if len(tuple_matches) >= 1:
-        x = float(tuple_matches[0].group(1))
-        y = float(tuple_matches[0].group(2))
-    if len(tuple_matches) >= 2:
-        w = float(tuple_matches[1].group(1))
-        h = float(tuple_matches[1].group(2))
-
-    cleaned_opts = re.sub(tuple_pattern, " ", header_opts).strip()
-    return x, y, w, h, cleaned_opts
 
 
 def build_box_styles(
@@ -135,95 +105,93 @@ def build_box_styles(
     return styles
 
 
-def handle_keyed_box_token(
-    k: str,
-    v: str,
-    extra_class: list[str],
-    custom_styles: list[str],
-) -> tuple[Optional[str], Optional[int], Optional[str]]:
-    """Handle a key:value token for box options."""
-    k_lower = k.lower()
-    if k_lower in {"font", "font-size", "fontsize", "fs"}:
-        return v, None, None
-    elif k_lower in {"z", "z_index", "z-index"}:
-        try:
-            return None, int(v), None
-        except ValueError:
-            return None, None, None
-    elif k_lower in {"align", "text-align"}:
-        return None, None, v.lower()
-    elif k_lower in {"class", "css_class"}:
-        extra_class.extend(v.split())
-    elif k_lower in {"style", "css"}:
-        custom_styles.append(v)
-    return None, None, None
+def _parse_xy_tuple(val_clean: str) -> Optional[tuple[float, float]]:
+    """Parse an '(x, y)' string into a float pair."""
+    try:
+        coords = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
+        if len(coords) == 2:
+            return coords[0], coords[1]
+    except ValueError:
+        pass
+    return None
 
 
-def handle_pos_box_token(arg: str) -> tuple[Optional[str], bool, Optional[str]]:
-    """Handle standalone keyword argument without key prefix."""
-    kw_lower = arg.lower()
-    if kw_lower == "compact":
-        return None, True, None
-    elif kw_lower in {"center", "left", "right"}:
-        return None, False, kw_lower
-    elif re.match(r"^\d+(px|rem|em|%)$", kw_lower):
-        return arg, False, None
-    return None, False, None
+def _parse_px_float(val_clean: str) -> Optional[float]:
+    """Parse a numeric or '<num>px' string into a float."""
+    try:
+        num_str = val_clean[:-2].strip() if val_clean.lower().endswith("px") else val_clean
+        return float(num_str)
+    except ValueError:
+        return None
 
 
-def parse_box_tokens(
-    cleaned_opts: str,
-) -> tuple[Optional[str], bool, Optional[str], Optional[int], list[str], list[str]]:
-    """Parse key:value tokens for a ::: box container.
+def _parse_bool_flag(val_clean: str, current: bool) -> bool:
+    """Parse a boolean option string ('true'/'false')."""
+    val_cp = val_clean.lower()
+    if val_cp in {"true", "1", "yes", "on"}:
+        return True
+    if val_cp in {"false", "0", "no", "off"}:
+        return False
+    return current
+
+
+def _parse_int_opt(val_clean: str) -> Optional[int]:
+    """Parse an integer option string safely."""
+    try:
+        return int(val_clean)
+    except ValueError:
+        return None
+
+
+def parse_box_options(
+    header_opts: str,
+) -> tuple[
+    Optional[float],
+    Optional[float],
+    Optional[float],
+    Optional[float],
+    Optional[str],
+    bool,
+    Optional[str],
+    Optional[int],
+    list[str],
+    list[str],
+]:
+    """Parse key=value options for a ::: block container.
 
     Args:
-        cleaned_opts: Options string stripped of coordinate tuples.
+        header_opts: Raw header options string from ::: block.
 
     Returns:
-        tuple: (font_size, compact, align, z_index, extra_classes, custom_styles).
+        tuple: (x, y, w, h, font_size, compact, align, z_index, extra_classes, custom_styles).
     """
-    font_size: Optional[str] = None
-    compact: bool = False
-    align: Optional[str] = None
-    z_index: Optional[int] = None
+    kv = dict(tokenize_kv_pairs(header_opts))
+    xy_pair = _parse_xy_tuple(kv["xy"]) if "xy" in kv else None
+    x, y = xy_pair if xy_pair is not None else (None, None)
+    w = _parse_px_float(kv["width"]) if "width" in kv else None
+    h = _parse_px_float(kv["height"]) if "height" in kv else None
+    font_size = kv.get("font_size") or None
+    compact = _parse_bool_flag(kv["compact"], False) if "compact" in kv else False
+    align_val = kv.get("align", "").lower()
+    align = align_val if align_val in {"left", "center", "right"} else None
+    z_index = _parse_int_opt(kv["z_index"]) if "z_index" in kv else None
+
     extra_class: list[str] = []
     custom_styles: list[str] = []
+    for key_lower, val_clean in tokenize_kv_pairs(header_opts):
+        if key_lower in {"class", "css_class"}:
+            extra_class.extend(val_clean.split())
+        elif key_lower == "style" and val_clean:
+            custom_styles.append(val_clean)
 
-    try:
-        tokens = shlex.split(cleaned_opts, posix=True)
-    except ValueError:
-        tokens = cleaned_opts.split()
-
-    for token in tokens:
-        if ":" in token or "=" in token:
-            sep = ":" if ":" in token else "="
-            k, v = token.split(sep, 1)
-            v_clean = v.strip().strip('"').strip("'")
-            fs, z, al = handle_keyed_box_token(k.strip(), v_clean, extra_class, custom_styles)
-            if fs:
-                font_size = fs
-            if z is not None:
-                z_index = z
-            if al:
-                align = al
-        else:
-            v_clean = token.strip().strip('"').strip("'")
-            fs, cp, al = handle_pos_box_token(v_clean)
-            if fs:
-                font_size = fs
-            if cp:
-                compact = True
-            if al:
-                align = al
-
-    return font_size, compact, align, z_index, extra_class, custom_styles
+    return x, y, w, h, font_size, compact, align, z_index, extra_class, custom_styles
 
 
 def process_container_blocks(text: str) -> str:
-    """Parse and convert ::: box ... ::: container syntax to positioned text box <div> elements.
+    """Parse and convert ::: block ... ::: container syntax to positioned text box <div> elements.
 
     Args:
-        text: Markdown text with potential ::: box blocks.
+        text: Markdown text with potential ::: block containers.
 
     Returns:
         str: Transformed text with HTML container markup.
@@ -233,8 +201,7 @@ def process_container_blocks(text: str) -> str:
         header_opts = (match.group(1) or "").strip()
         content = match.group(2).strip()
 
-        x, y, w, h, cleaned_opts = parse_box_coordinates(header_opts)
-        font_size, compact, align, z_index, extra_class, custom_styles = parse_box_tokens(cleaned_opts)
+        x, y, w, h, font_size, compact, align, z_index, extra_class, custom_styles = parse_box_options(header_opts)
         styles = build_box_styles(x, y, w, h, font_size, align, z_index, custom_styles)
 
         classes = ["slide-block", "slide-text-box"]

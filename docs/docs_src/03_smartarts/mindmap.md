@@ -3,7 +3,7 @@
 The `MindMapNode` component renders multi-directional, radial mindmaps and hierarchical feature maps centered around a central root topic. 
 Branches can project to the left, right, top, or bottom, with automatic elbow connector routing.
 
-```drawlib fold-code center file:mindmap_hero.png caption:"Overview of MindMapNode: Multi-Directional Radial Branching (left, right, top, bottom)"
+```drawlib code=fold align=center file=mindmap_hero.png caption="Overview of MindMapNode: Multi-Directional Radial Branching (left, right, top, bottom)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import MindMapNode
 from drawlib.styles import Styles
@@ -81,7 +81,7 @@ save()
 
 ## 1. Quick Example: Architecture Topology Map
 
-```drawlib show-code center file:mindmap_system_breakdown.png caption:"System Architecture Breakdown with MindMap"
+```drawlib code=show align=center file=mindmap_system_breakdown.png caption="System Architecture Breakdown with MindMap"
 from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
 from drawlib.styles import Styles
@@ -128,7 +128,7 @@ root.draw(xy=(62, 20))
 
 Instead of passing nested `children=[...]` lists to the constructor, you can construct mindmaps and organization trees imperatively with `parent.add(text, ...) -> MindMapNode`. When calling `root.draw(xy, branch="bottom")`, all branches default to flowing top-down (`-y`). You can also fine-tune any node's placement relative to its auto-calculated position using `xy_shift=(dx, dy)`.
 
-```drawlib show-code center file:mindmap_imperative_topdown.png caption:"Imperative MindMapNode Construction with Top-Down Branching (branch='bottom') and xy_shift"
+```drawlib code=show align=center file=mindmap_imperative_topdown.png caption="Imperative MindMapNode Construction with Top-Down Branching (branch='bottom') and xy_shift"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import MindMapNode
 from drawlib.styles import Styles

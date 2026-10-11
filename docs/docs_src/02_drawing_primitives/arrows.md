@@ -3,7 +3,7 @@
 In addition to line connectors (`drawlib.lines`), Drawlib provides six **directed block arrow primitives** in `drawlib.shapes`. 
 Block arrows are closed 2D polygons with customizable tail widths, arrowhead dimensions, and corner rounding. They are widely used for data pipelines, architectural flows, and process stages.
 
-```drawlib fold-code center file:arrow_overview.png caption:"Overview of Drawlib Block Arrow Primitives"
+```drawlib code=fold align=center file=arrow_overview.png caption="Overview of Drawlib Block Arrow Primitives"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, chevron, rectangle
 from drawlib.styles import Styles
@@ -86,7 +86,7 @@ arrow(
 | `text` | `str` | `""` | Embedded label centered and auto-rotated along the arrow shaft. |
 | `text_style` | `Style \| None` | `None` | Optional typography style override for `text`. |
 
-```drawlib show-code center file:arrow_straight.png caption:"Straight Block Arrow with Dimensional Anatomy"
+```drawlib code=show align=center file=arrow_straight.png caption="Straight Block Arrow with Dimensional Anatomy"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle
@@ -167,7 +167,7 @@ chevron(
 | `style` | `Style` | *Required* | Fill, stroke, rotation (`style.angle`), and vertex rounding (`style.shape_r` as a scalar `float` or 6-tuple of per-vertex radii). |
 | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Centered text label and optional typography override. |
 
-```drawlib show-code center file:arrow_chevron.png caption:"Sequential Process Chevron"
+```drawlib code=show align=center file=arrow_chevron.png caption="Sequential Process Chevron"
 from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.styles import Styles
@@ -189,7 +189,7 @@ save()
 
 All directed block arrows (`arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`) support `head="->"`, `head="<-"`, and `head="<->"`, while `chevron()` supports horizontal reversal via `mirror=True`:
 
-```drawlib show-code center file:arrow_heads_and_mirror.png caption:"Arrowhead Directions (head='->', '<-', '<->') and Mirrored Chevrons (mirror=True)"
+```drawlib code=show align=center file=arrow_heads_and_mirror.png caption="Arrowhead Directions (head='->', '<-', '<->') and Mirrored Chevrons (mirror=True)"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, chevron
 from drawlib.styles import Styles
@@ -244,7 +244,7 @@ arrow_l(
 | `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction (`"->"`, `"<-"`, or `"<->"`). |
 | `style` | `Style` | *Required* | Fill, stroke, rotation (`style.angle`), and elbow rounding radius (`style.shape_r` as a scalar `float` or 1-tuple). |
 
-```drawlib show-code center file:arrow_l.png caption:"Right-Angled Corner Arrow"
+```drawlib code=show align=center file=arrow_l.png caption="Right-Angled Corner Arrow"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow_l
 from drawlib.styles import Styles
@@ -289,7 +289,7 @@ arrow_u(
 | `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction (`"->"`, `"<-"`, or `"<->"`). |
 | `style` | `Style` | *Required* | Fill, stroke, rotation (`style.angle`), and turn rounding radius (`style.shape_r` as a scalar `float` or 2-tuple `(r1, r2)` for the two corners). |
 
-```drawlib show-code center file:arrow_u.png caption:"180-Degree U-Turn Arrow"
+```drawlib code=show align=center file=arrow_u.png caption="180-Degree U-Turn Arrow"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow_u
 from drawlib.styles import Styles
@@ -344,7 +344,7 @@ arrow_arc(
 | `angle_start` / `angle_end` | `float` | `0` / `180` | Starting and ending angles in degrees counterclockwise (CCW). |
 | `style` | `Style` | *Required* | Fill, stroke, and whole-arc rotation (`style.angle`). |
 
-```drawlib show-code center file:arrow_arc.png caption:"Circular Arc Arrow"
+```drawlib code=show align=center file=arrow_arc.png caption="Circular Arc Arrow"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow_arc
 from drawlib.styles import Styles
@@ -388,7 +388,7 @@ arrow_polyline(
 | `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction (`"->"`, `"<-"`, or `"<->"`). |
 | `style` | `Style` | *Required* | Fill, stroke, and joint corner rounding (`style.shape_r` as a scalar `float` or a `(len(xys) - 2)`-tuple of per-joint radii). |
 
-```drawlib show-code center file:arrow_polyline.png caption:"Multi-Point Polyline Arrow"
+```drawlib code=show align=center file=arrow_polyline.png caption="Multi-Point Polyline Arrow"
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow_polyline
 from drawlib.styles import Styles

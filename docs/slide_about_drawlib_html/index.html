@@ -23975,16 +23975,16 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(161.491144 414.75298)">3. slide  (slide_src/)</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(161.491144 414.671683)">3. slide  (slide_src/)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(125.273723 424.058449)">• 16:9 Widescreen Stage (1920x1080)</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(125.273723 423.977152)">• 16:9 Widescreen Stage (1920x1080)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(139.115019 433.71598)">• ::: block (x, y) (w, h) + ::: note</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(104.202379 433.634683)">• ::: block xy=(x, y) width=W height=H + ::: note</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(123.989098 443.210918)">• Outputs: slide/index.html, slide.pdf</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(123.989098 443.292215)">• Outputs: slide/index.html, slide.pdf</text>
     </g>
    </g>
    <g id="patch_7">
@@ -25003,7 +25003,7 @@ z
 <h2>Dual Coordinate Systems Working in Harmony</h2>
 <p>Drawlib slides (<code>drawlib init slide</code>) combine pixel-accurate stage containers with Cartesian vector canvases:</p>
 <ol>
-<li><strong>Slide Stage (<code>::: block (x, y) (w, h)</code>) — Top-Left <code>(0, 0)</code></strong>:
+<li><strong>Slide Stage (<code>::: block xy=(x, y) width=W height=H</code>) — Top-Left <code>(0, 0)</code></strong>:
 <ul>
 <li>Fixed <strong>1920 × 1080</strong> pixel widescreen stage (automatically scaled to fit any browser window or projector).</li>
 <li>Supports hierarchical chapter folders (<code>00_opening/</code>, <code>01_why_drawlib/</code>, ...) sorted alphabetically.</li>
@@ -25016,10 +25016,10 @@ z
 </li>
 </ol>
 <h3>Golden Aspect-Ratio Rule</h3>
-<p>Keep <code>setup(width=W, height=H)</code> proportional to the enclosing <code>::: block</code> <code>(w, h)</code> (typically <code>w / 10, h / 10</code>) so inline SVGs fill their containers with zero letterboxing:</p>
+<p>Keep <code>setup(width=W, height=H)</code> proportional to the enclosing <code>::: block</code> <code>width</code> and <code>height</code> (typically <code>width / 10, height / 10</code>) so inline SVGs fill their containers with zero letterboxing:</p>
 <ul>
-<li><code>::: block (860, 140) (980, 840)</code> → <code>setup(width=98, height=84)</code></li>
-<li><code>::: block (0, 0) (1920, 1080)</code> → <code>setup(width=192, height=108)</code></li>
+<li><code>::: block xy=(860, 140) width=980 height=840</code> → <code>setup(width=98, height=84)</code></li>
+<li><code>::: block xy=(0, 0) width=1920 height=1080</code> → <code>setup(width=192, height=108)</code></li>
 </ul>
 
 </div>
@@ -25118,7 +25118,7 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="374.693878" y="147.95381" transform="rotate(-0 374.693878 147.95381)">::: block (80, 40) (1760, 60)  —  # Slide Heading Title</text>
+     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="374.693878" y="147.95381" transform="rotate(-0 374.693878 147.95381)">::: block xy=(80, 40) width=1760 height=60  —  # Slide Heading Title</text>
     </g>
    </g>
    <g id="patch_6">
@@ -25136,22 +25136,22 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(166.495663 264.649018)">::: block (80, 140) (740, 840)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(135.023163 264.533393)">::: block xy=(80, 140) width=740 height=840</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(220.408163 273.401518)"/>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(220.408163 273.517143)"/>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(180.110038 281.401518)">Markdown Narrative</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(180.110038 281.517143)">Markdown Narrative</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(181.145038 289.401518)">• Headings &amp; Bullets</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(181.145038 289.517143)">• Headings &amp; Bullets</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(189.732538 298.385268)">• Code Snippets</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(189.732538 298.500893)">• Code Snippets</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(184.333163 307.145268)">• Tables &amp; Callouts</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(184.333163 307.260893)">• Tables &amp; Callouts</text>
     </g>
    </g>
    <g id="patch_7">
@@ -25169,19 +25169,19 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(437.441786 267.984643)">::: block (860, 140) (980, 840)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(405.969286 267.869018)">::: block xy=(860, 140) width=980 height=840</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(438.290536 277.089643)">```drawlib file:diagram.svg</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(437.230536 277.205268)">```drawlib file=diagram.svg</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(439.038661 286.073393)">setup(width=98, height=84)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(439.038661 286.189018)">setup(width=98, height=84)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(493.714286 295.057143)"/>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(493.714286 295.172768)"/>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(417.903036 303.057143)">Cartesian Canvas (0, 0) at Bottom-Left!</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(417.903036 303.172768)">Cartesian Canvas (0, 0) at Bottom-Left!</text>
     </g>
    </g>
    <g id="patch_8">
@@ -25217,7 +25217,7 @@ z
    </g>
    <g id="text_8">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="231.428571" y="422.575679" transform="rotate(-0 231.428571 422.575679)">::: block (80, 1010) (820, 30) — Footer</text>
+     <text style="font-size: 7px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="231.428571" y="422.474507" transform="rotate(-0 231.428571 422.474507)">::: block xy=(80, 1010) width=820 height=30 — Footer</text>
     </g>
    </g>
    <g id="patch_10">
@@ -25341,12 +25341,12 @@ z
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 80.0px; top: 140.0px; width: 760.0px; height: 820.0px; font-size: 20px; z-index: 10;">
 <h2>Breaking Free from Rigid Slide Templates</h2>
-<p>Traditional Markdown-to-slide tools lock you into centered bullet lists. Drawlib gives you <strong>absolute pixel coordinates</strong> plus <strong><code>z:&lt;layer&gt;</code></strong> stacking:</p>
+<p>Traditional Markdown-to-slide tools lock you into centered bullet lists. Drawlib gives you <strong>absolute pixel coordinates</strong> plus <strong><code>z_index=&lt;layer&gt;</code></strong> stacking:</p>
 <pre><code class="language-markdown">&lt;!-- Layer 1: Right-half full-bleed diagram (Y: 0..1080) --&gt;
 </code></pre>
 
 </div>
- block (920, 0) (1000, 1080) z:2
+ block xy=(920, 0) width=1000 height=1080 z_index=2
 
 <figure class="drawlib-image">
   <svg class="slide-vector-graphic" style="width: 100%; height: 100%; object-fit: contain;" xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="777.6pt" viewBox="0 0 720 777.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -25384,16 +25384,16 @@ z
 
 <!-- Layer 2: Floating glass callout box overlapping the seam! -->
 <div class="slide-block slide-text-box" style="position: absolute; left: 780.0px; top: 760.0px; width: 460.0px; height: 150.0px; z-index: 15; background: ...;">
-<p><strong>Floating Callout (<code>::: box ... z:15</code>)</strong></p>
+<p><strong>Floating Callout (<code>::: block ... z_index=15</code>)</strong></p>
 
 </div>
 
 ````
 
 ### Container Options Cheat Sheet
-- **`z:1` .. `z:20`**: Explicit `z-index` stacking order across overlapping blocks.
-- **`::: box` & `style:"..."`**: Apply custom CSS backgrounds, shadows, or glassmorphism cards directly over vector diagrams.
-- **`compact` & `font:18px`**: Fine-tune typography density per container.
+- **`z_index=1` .. `z_index=20`**: Explicit `z-index` stacking order across overlapping blocks.
+- **`::: block` & `style="..."`**: Apply custom CSS backgrounds, shadows, or glassmorphism cards directly over vector diagrams.
+- **`compact=true` & `font_size=18px`**: Fine-tune typography density per container.
 :::
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 920.0px; top: 0.0px; width: 1000.0px; height: 1080.0px; z-index: 2;">
@@ -25443,7 +25443,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="374.4" y="67.825898" transform="rotate(-0 374.4 67.825898)">Right-Half Full-Bleed Canvas  —  ::: block (920, 0) (1000, 1080) z:2</text>
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="374.4" y="67.825898" transform="rotate(-0 374.4 67.825898)">Right-Half Full-Bleed Canvas  —  ::: block xy=(920, 0) width=1000 height=1080 z_index=2</text>
     </g>
    </g>
    <g id="patch_4">
@@ -25461,7 +25461,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="115.2" y="182.787734" transform="rotate(-0 115.2 182.787734)">Layer z:1 — Base Architecture Canvas</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="115.2" y="182.787734" transform="rotate(-0 115.2 182.787734)">Layer z_index=1 — Base Architecture Canvas</text>
     </g>
    </g>
    <g id="patch_5">
@@ -25524,7 +25524,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="208.8" y="384.307383" transform="rotate(-0 208.8 384.307383)">Layer z:5 — Overlapping Telemetry Overlay</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="208.8" y="384.307383" transform="rotate(-0 208.8 384.307383)">Layer z_index=5 — Overlapping Telemetry Overlay</text>
     </g>
    </g>
    <g id="patch_9">
@@ -25584,7 +25584,7 @@ z
    </g>
    <g id="text_8">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="273.6" y="622.05" transform="rotate(-0 273.6 622.05)">z:15</text>
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="273.6" y="622.05" transform="rotate(-0 273.6 622.05)">z=15</text>
     </g>
    </g>
    <g id="patch_12">
@@ -25598,7 +25598,7 @@ L 241.204915 623.2
    </g>
    <g id="text_9">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="309.6" y="621.987734" transform="rotate(-0 309.6 621.987734)">Live HTML ::: box (z:15) overlaps across X=920 boundary!</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="309.6" y="621.987734" transform="rotate(-0 309.6 621.987734)">Live HTML ::: block (z_index=15) overlaps across X=920 boundary!</text>
     </g>
    </g>
   </g>
@@ -25614,7 +25614,7 @@ L 241.204915 623.2
 
 
 <div class="slide-block slide-text-box compact" style="position: absolute; left: 760.0px; top: 740.0px; width: 520.0px; height: 165.0px; font-size: 17px; z-index: 15; background: rgba(15, 23, 42, 0.94); color: #f8fafc; padding: 20px 26px; border-radius: 16px; border: 2px solid #6366f1; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);">
-<p><strong>Live Floating Overlay (<code>::: box (760, 740) (520, 165) z:15</code>)</strong></p>
+<p><strong>Live Floating Overlay (<code>::: block xy=(760, 740) width=520 height=165 z_index=15</code>)</strong></p>
 <ul>
 <li>Bridges the left Markdown column (<code>X: 80..840</code>) and right full-bleed SVG (<code>X: 920..1920</code>).</li>
 <li>Styled with inline CSS (<code>rgba</code> slate background, indigo border, and drop shadow).</li>
@@ -25630,8 +25630,8 @@ L 241.204915 623.2
       </div>
       <aside class="slide-notes" hidden>
 <ul>
-<li>Look at the right half of this slide: the SVG diagram (<code>::: block (920, 0) (1000, 1080) z:2</code>) bleeds all the way from <code>Y=0</code> at the top edge to <code>Y=1080</code> at the bottom edge.</li>
-<li>And look at the dark indigo card near the bottom center: that is a real <code>::: box (760, 740) (520, 165) z:15</code> HTML container floating right across the seam between the left text column and the right full-bleed SVG canvas!</li>
+<li>Look at the right half of this slide: the SVG diagram (<code>::: block xy=(920, 0) width=1000 height=1080 z_index=2</code>) bleeds all the way from <code>Y=0</code> at the top edge to <code>Y=1080</code> at the bottom edge.</li>
+<li>And look at the dark indigo card near the bottom center: that is a real <code>::: block xy=(760, 740) width=520 height=165 z_index=15</code> HTML container floating right across the seam between the left text column and the right full-bleed SVG canvas!</li>
 </ul>
       </aside>
     </section>
@@ -25740,7 +25740,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ffffff" x="30" y="30.327" transform="rotate(-0 30 30.327)">Full-Canvas Pure Stage  —  ::: block (0, 0) (1920, 1080)  +  setup(width=192, height=108)</text>
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ffffff" x="30" y="30.327" transform="rotate(-0 30 30.327)">Full-Canvas Pure Stage  —  ::: block xy=(0, 0) width=1920 height=1080  +  setup(width=192, height=108)</text>
     </g>
    </g>
    <g id="text_2">
@@ -26210,7 +26210,7 @@ L 356.704915 302.125
    </g>
    <g id="text_36">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="30" y="390.708" transform="rotate(-0 30 390.708)">Chapter 6: Documentation &amp; Slide Engine — Full-Canvas Pure Stage (::: block (0, 0) (1920, 1080))</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="30" y="390.708" transform="rotate(-0 30 390.708)">Chapter 6: Documentation &amp; Slide Engine — Full-Canvas Pure Stage (::: block xy=(0, 0) width=1920 height=1080)</text>
     </g>
    </g>
   </g>
@@ -26226,7 +26226,7 @@ L 356.704915 302.125
       </div>
       <aside class="slide-notes" hidden>
 <ul>
-<li>This entire slide is rendered from a single <code>::: block (0, 0) (1920, 1080)</code> container with <code>setup(width=192.0, height=108.0)</code>.</li>
+<li>This entire slide is rendered from a single <code>::: block xy=(0, 0) width=1920 height=1080</code> container with <code>setup(width=192.0, height=108.0)</code>.</li>
 <li>Because <code>ArchitectureDiagram</code>, <code>BarChart</code>, primitive cards, and <code>current_slide.text</code> all share the same Drawlib canvas, you can draw arrows directly between an architecture diagram on the left and a chart or KPI panel on the right!</li>
 </ul>
       </aside>

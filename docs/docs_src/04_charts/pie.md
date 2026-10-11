@@ -6,7 +6,7 @@
 
 ## 1. Overview & Topologies
 
-```drawlib center fold-code file:piechart_topologies_overview.png caption:"Standard Solid Pie Chart vs. Donut Chart with Center KPI"
+```drawlib align=center code=fold file=piechart_topologies_overview.png caption="Standard Solid Pie Chart vs. Donut Chart with Center KPI"
 from drawlib.canvas import save, setup
 from drawlib.charts.pie import PieChart
 from drawlib.lines import line
@@ -73,7 +73,7 @@ save()
 
 Donut charts are ideal for executive dashboards. Ground supporting slices in calm neutral tokens (`Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.Neutral`) while reserving `Styles.PrimaryFlat` for the primary focal slice:
 
-```drawlib center show-code file:piechart_revenue_donut.png caption:"Revenue Contribution Donut Chart"
+```drawlib align=center code=show file=piechart_revenue_donut.png caption="Revenue Contribution Donut Chart"
 from drawlib.canvas import save, setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
@@ -105,7 +105,7 @@ save()
 
 Setting `explode > 0.0` radially displaces a slice away from the center origin. Here we also pass a callable `value_format` and include a minor $3\%$ slice whose inline label is automatically suppressed by the `< 4%` threshold rule while remaining visible in the legend:
 
-```drawlib center show-code file:piechart_budget_exploded.png caption:"Budget Allocation with Exploded Hero Slice and Callable Formatter"
+```drawlib align=center code=show file=piechart_budget_exploded.png caption="Budget Allocation with Exploded Hero Slice and Callable Formatter"
 from drawlib.canvas import save, setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles

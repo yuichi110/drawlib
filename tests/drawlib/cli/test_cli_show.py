@@ -95,11 +95,11 @@ def test_cli_show_markdown_list_blocks(tmp_path: Path) -> None:
     doc.write_text(
         """# Sample Document
 
-```drawlib file:first.png
+```drawlib file=first.png
 circle((30, 30), radius=10, style=styles.Primary)
 ```
 
-```drawlib file:second.png
+```drawlib file=second.png
 rectangle((50, 50), width=20, height=20, style=styles.Primary)
 ```
 """,

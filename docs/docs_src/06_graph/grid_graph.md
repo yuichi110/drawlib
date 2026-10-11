@@ -4,7 +4,7 @@
 
 Use `GridGraph` when you want tabular alignment across rows and columns—such as multi-tier service matrices, state grids, periodic/catalog topologies, or grid-aligned component architectures.
 
-```drawlib fold-code center file:graph_grid_hero.png caption:"GridGraph Overview: 2D Matrix Cell Placement and Smart Inter-Channel Edge Routing"
+```drawlib code=fold align=center file=graph_grid_hero.png caption="GridGraph Overview: 2D Matrix Cell Placement and Smart Inter-Channel Edge Routing"
 from drawlib.canvas import save, setup
 from drawlib.graph import GridGraph
 from drawlib.icons import phosphor
@@ -118,7 +118,7 @@ g = GridGraph(
 
 By pinning nodes to explicit `(row, col)` coordinates and grouping rows with `g.cluster_row(...)`, you can model layered client/service/storage matrices where cross-column edges route cleanly around neighboring cells:
 
-```drawlib show-code center file:graph_grid_explicit_matrix.png caption:"Explicit (row, col) Service Matrix with Row Clusters and Smart Channel Routing"
+```drawlib code=show align=center file=graph_grid_explicit_matrix.png caption="Explicit (row, col) Service Matrix with Row Clusters and Smart Channel Routing"
 from drawlib.canvas import save, setup
 from drawlib.graph import GridGraph
 from drawlib.styles import Styles
@@ -175,7 +175,7 @@ save()
 
 When you omit `row` and `col` on `g.node()` or `g.cell()`, `GridGraph` automatically streams nodes into successive grid cells in `"row-major"` (left-to-right, top-to-bottom) or `"column-major"` (top-to-bottom, left-to-right) order:
 
-```drawlib show-code center file:graph_grid_auto_flow.png caption:"Auto-Flow 3-Column Grid Topology with Column Clusters"
+```drawlib code=show align=center file=graph_grid_auto_flow.png caption="Auto-Flow 3-Column Grid Topology with Column Clusters"
 from drawlib.canvas import save, setup
 from drawlib.graph import GridGraph
 from drawlib.styles import Styles

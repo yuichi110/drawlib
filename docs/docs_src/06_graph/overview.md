@@ -4,7 +4,7 @@
 
 Instead of manually computing `(x, y)` coordinates for every vertex and container when drafting a complex topology, you declare **structural relationships**—nodes, edges, and clusters—and let Drawlib's pure-Python layout algorithms calculate clean coordinates, container bounding boxes, and orthogonal or radial edge routes automatically.
 
-```drawlib fold-code center file:graph_five_solvers_hero.png caption:"The Five Specialized Auto-Layout Solvers in drawlib.graph"
+```drawlib code=fold align=center file=graph_five_solvers_hero.png caption="The Five Specialized Auto-Layout Solvers in drawlib.graph"
 import math
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
@@ -97,7 +97,7 @@ save()
 
 ## 1. Why Declarative Auto-Layout Graphs? (`drawlib.graph` vs. `drawlib.diagrams`)
 
-```drawlib show-code center file:graph_overview_workflow.png caption:"Declarative Cloud Architecture Layout Computed Automatically by ArchitectureGraph"
+```drawlib code=show align=center file=graph_overview_workflow.png caption="Declarative Cloud Architecture Layout Computed Automatically by ArchitectureGraph"
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.icons import phosphor
@@ -285,7 +285,7 @@ Groups a list of nodes inside a labeled boundary rectangle (defaulting to `Style
 
 `drawlib.graph` supports a progressive three-stage workflow:
 
-```drawlib fold-code center file:graph_overview_lifecycle_stages.png caption:"Three Progressive Workflows in drawlib.graph: Auto-Draw, Calculate & Offset, and Export Standalone Code"
+```drawlib code=fold align=center file=graph_overview_lifecycle_stages.png caption="Three Progressive Workflows in drawlib.graph: Auto-Draw, Calculate & Offset, and Export Standalone Code"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, lines
@@ -354,7 +354,7 @@ save()
 4. **Export Editable Primitive Code (`g.export_code(*, width=None, height=None, margin=10.0) -> str` or `layout.to_code() -> str`)**:
    - Generates a complete, self-contained Drawlib Python script using `setup()`, `rectangle()`, `circle()`, `line()`, and `save()` with all solved coordinates baked in as semantic variables (`api_xy = (85.0, 62.0)`).
 
-```drawlib show-code center file:graph_overview_offset_overlay.png caption:"Calculating Layout with calc(), Shifting a Node with offset(), and Attaching a Speech Callout"
+```drawlib code=show align=center file=graph_overview_offset_overlay.png caption="Calculating Layout with calc(), Shifting a Node with offset(), and Attaching a Speech Callout"
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.shapes import bubblespeech

@@ -6,7 +6,7 @@ Drawlib bundles the complete **Phosphor Icons** (<https://phosphoricons.com>) ve
 
 ## 1. Overview of Phosphor Vector Icons
 
-```drawlib fold-code center file:icons_phosphor_overview.png caption:"Phosphor Vector Icons Paired with Calm Neutral Cards"
+```drawlib code=fold align=center file=icons_phosphor_overview.png caption="Phosphor Vector Icons Paired with Calm Neutral Cards"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -76,7 +76,7 @@ Phosphor vector icons support 5 typographic weights controlled via `style.patch(
 - **`"bold"`**: Prominent heavy stroke for primary gateways and services.
 - **`"fill"`**: Solid filled silhouette for active states, badges, and alerts.
 
-```drawlib show-code center file:icons_phosphor_weights.png caption:"The Five Phosphor Typographic Weights"
+```drawlib code=show align=center file=icons_phosphor_weights.png caption="The Five Phosphor Typographic Weights"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -103,7 +103,7 @@ save()
 
 Because Phosphor icons are rendered as vector glyphs, you can tint them with any preset theme style (`Styles.PrimaryBold`, `Styles.SecondaryBold`, `Styles.DarkBold`, `Styles.WhiteBold`), rotate them via `angle`, or fade them via `alpha`:
 
-```drawlib show-code center file:icons_phosphor_styling.png caption:"Semantic Coloring, Rotation (angle), and Opacity (alpha)"
+```drawlib code=show align=center file=icons_phosphor_styling.png caption="Semantic Coloring, Rotation (angle), and Opacity (alpha)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -141,7 +141,7 @@ save()
 
 In architectural diagrams and pipelines, pair Phosphor icons with neutral container cards (`rectangle`) and circular corner badges (`circle`):
 
-```drawlib show-code center file:icons_phosphor_cards.png caption:"Pairing Phosphor Icons with Service Cards and Corner Badges"
+```drawlib code=show align=center file=icons_phosphor_cards.png caption="Pairing Phosphor Icons with Service Cards and Corner Badges"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

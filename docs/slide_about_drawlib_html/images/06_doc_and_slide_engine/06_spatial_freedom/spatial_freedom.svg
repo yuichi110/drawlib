@@ -46,7 +46,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="374.4" y="67.825898" transform="rotate(-0 374.4 67.825898)">Right-Half Full-Bleed Canvas  —  ::: block (920, 0) (1000, 1080) z:2</text>
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="374.4" y="67.825898" transform="rotate(-0 374.4 67.825898)">Right-Half Full-Bleed Canvas  —  ::: block xy=(920, 0) width=1000 height=1080 z_index=2</text>
     </g>
    </g>
    <g id="patch_4">
@@ -64,7 +64,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="115.2" y="182.787734" transform="rotate(-0 115.2 182.787734)">Layer z:1 — Base Architecture Canvas</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="115.2" y="182.787734" transform="rotate(-0 115.2 182.787734)">Layer z_index=1 — Base Architecture Canvas</text>
     </g>
    </g>
    <g id="patch_5">
@@ -127,7 +127,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="208.8" y="384.307383" transform="rotate(-0 208.8 384.307383)">Layer z:5 — Overlapping Telemetry Overlay</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="208.8" y="384.307383" transform="rotate(-0 208.8 384.307383)">Layer z_index=5 — Overlapping Telemetry Overlay</text>
     </g>
    </g>
    <g id="patch_9">
@@ -187,7 +187,7 @@ z
    </g>
    <g id="text_8">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="273.6" y="622.05" transform="rotate(-0 273.6 622.05)">z:15</text>
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="273.6" y="622.05" transform="rotate(-0 273.6 622.05)">z=15</text>
     </g>
    </g>
    <g id="patch_12">
@@ -201,7 +201,7 @@ L 241.204915 623.2
    </g>
    <g id="text_9">
     <g clip-path="url(#pdee41fac02)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="309.6" y="621.987734" transform="rotate(-0 309.6 621.987734)">Live HTML ::: box (z:15) overlaps across X=920 boundary!</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="309.6" y="621.987734" transform="rotate(-0 309.6 621.987734)">Live HTML ::: block (z_index=15) overlaps across X=920 boundary!</text>
     </g>
    </g>
   </g>

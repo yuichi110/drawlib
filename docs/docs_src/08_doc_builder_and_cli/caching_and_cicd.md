@@ -2,7 +2,7 @@
 
 Drawlib uses a **two-tier caching architecture** to make local iterative builds instantaneous and CI/CD pipelines deterministic, fast, and offline-capable:
 
-```drawlib fold-code center file:caching_two_tier_architecture.png caption:"Drawlib Two-Tier Caching Architecture and CI/CD Pipeline"
+```drawlib code=fold align=center file=caching_two_tier_architecture.png caption="Drawlib Two-Tier Caching Architecture and CI/CD Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -74,7 +74,7 @@ Before executing any embedded ````drawlib```` block or standalone `.py` script, 
 
 If the digest matches an entry in `.drawlib/cache.db`, Drawlib restores the rendered image binary directly from SQLite in **< 1 ms** without invoking Python or Matplotlib.
 
-```drawlib fold-code center file:caching_sha256_lookup_flow.png caption:"Incremental Build Cache SHA-256 Digest Computation and Hit/Miss Workflow"
+```drawlib code=fold align=center file=caching_sha256_lookup_flow.png caption="Incremental Build Cache SHA-256 Digest Computation and Hit/Miss Workflow"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

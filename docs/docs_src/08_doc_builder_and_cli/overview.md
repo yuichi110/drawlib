@@ -2,7 +2,7 @@
 
 Drawlib unifies technical documentation and architectural illustrations under a single **"Illustrated Documentation as Code"** pipeline. Instead of managing out-of-sync vector files, manually exporting diagrams from third-party tools, or checking in opaque binary assets, you author declarative Python drawing blocks directly inside standard Markdown documents.
 
-```drawlib fold-code center file:doc_builder_overview_pipeline.png caption:"The Drawlib Documentation Compilation Pipeline and Publishing Targets"
+```drawlib code=fold align=center file=doc_builder_overview_pipeline.png caption="The Drawlib Documentation Compilation Pipeline and Publishing Targets"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -109,7 +109,7 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 | **`slide`** | `slide_src/` | `slide_html/`, `slide.pdf`, `slide_images/` | 16:9 presentation slide decks (interactive web deck + printable vector PDF). |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
-```drawlib fold-code center file:doc_builder_four_templates_matrix.png caption:"Overview of the Four Drawlib Project Starter Templates and Their Outputs"
+```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Overview of the Four Drawlib Project Starter Templates and Their Outputs"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

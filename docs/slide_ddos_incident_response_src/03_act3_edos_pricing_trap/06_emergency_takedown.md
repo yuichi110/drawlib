@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Midnight Emergency: Tearing Down GCLB & Choosing a Flat-Rate WAF
 :::
 
-::: block (80, 140) (1760, 810)
+::: block xy=(80, 140) width=1760 height=810
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
@@ -65,7 +65,7 @@ table.draw_flexible(xy=(6.0, 36.5), column_widths=[40.0, 26.0, 34.0, 29.0, 35.0]
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

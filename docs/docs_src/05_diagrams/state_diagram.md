@@ -6,7 +6,7 @@
 
 ## 1. Overview & Action Compartments
 
-```drawlib fold-code center file:state_overview_anatomy.png caption:"StateDiagram Anatomy: Initial State, Action Compartments, and Bidirectional Arcs"
+```drawlib code=fold align=center file=state_overview_anatomy.png caption="StateDiagram Anatomy: Initial State, Action Compartments, and Bidirectional Arcs"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.state import InitialState, State, StateDiagram
 from drawlib.styles import Styles
@@ -180,7 +180,7 @@ sd.connect(init, active, event="login", guard="token_valid", action="init_sessio
 
 The following complete example showcases pseudo-states, choice diamonds, action compartments, a self-loop, and curved return transitions:
 
-```drawlib show-code center file:state_user_session_lifecycle.png caption:"User Session Lifecycle State Machine"
+```drawlib code=show align=center file=state_user_session_lifecycle.png caption="User Session Lifecycle State Machine"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
@@ -248,7 +248,7 @@ save()
 
 Use `ForkJoinState` to represent concurrent parallel threads:
 
-```drawlib show-code center file:state_concurrent_task_sync.png caption:"Concurrent Task Synchronization with Fork and Join"
+```drawlib code=show align=center file=state_concurrent_task_sync.png caption="Concurrent Task Synchronization with Fork and Join"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.state import FinalState, ForkJoinState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
@@ -287,7 +287,7 @@ save()
 
 Beyond UML `"box"` cards, `State` supports `"text_only"` (borderless entry/label nodes), `"circle"` (standard automaton states), `"oval"` (capsule states), and `"double_circle"` (accepting states), along with diagonal anchor sides (`"top_right"`, `"bottom_left"`, etc.):
 
-```drawlib show-code center file:state_automaton_shapes.png caption:"Finite Automaton Showcasing text_only, circle, oval, and double_circle State Shapes"
+```drawlib code=show align=center file=state_automaton_shapes.png caption="Finite Automaton Showcasing text_only, circle, oval, and double_circle State Shapes"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.state import State, StateDiagram
 from drawlib.styles import Styles

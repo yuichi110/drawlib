@@ -4,7 +4,7 @@ While the `drawlib` CLI provides terminal commands for common workflows, Drawlib
 
 The `drawlib.tools` facade organizes programmatic automation into six core subsystems:
 
-```drawlib fold-code center file:programmatic_api_tools_overview.png caption:"Architecture of the drawlib.tools Programmatic Automation API"
+```drawlib code=fold align=center file=programmatic_api_tools_overview.png caption="Architecture of the drawlib.tools Programmatic Automation API"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -209,7 +209,7 @@ Drawlib can capture canvases directly into in-memory `Dimage` objects (`from dra
 - **`get_dimage()` (`from drawlib.canvas import get_dimage`)**: Captures the currently active canvas into a `Dimage` instance (`dimage.get_image_size()`, `dimage.get_pil_image()`, `dimage.trim()`, `dimage.sepia()`, `dimage.save(...)`).
 - **`get_dimage_from_code(code)` (`from drawlib.images import get_dimage_from_code`)**: Executes a self-contained Python drawing snippet in an isolated sandbox and returns the rendered `Dimage` in memory:
 
-```drawlib show-code center file:programmatic_api_in_memory_dimage.png caption:"Generating an In-Memory Dimage via get_dimage_from_code() and Compositing onto Canvas"
+```drawlib code=show align=center file=programmatic_api_in_memory_dimage.png caption="Generating an In-Memory Dimage via get_dimage_from_code() and Compositing onto Canvas"
 from drawlib.canvas import get_dimage, save, setup
 from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image

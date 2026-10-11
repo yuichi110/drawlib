@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Animation Architecture (`drawlib.anim.Animation`)
 :::
 
-::: block (80, 140) (760, 840) font:20px
+::: block xy=(80, 140) width=760 height=840 font_size=20px
 ## Declarative Frame Context Manager
 
 Drawlib compiles multi-frame **APNG (`.png`)** and **Animated WebP (`.webp`)** directly from pure Python loops—with zero external video encoders required.
@@ -38,8 +38,8 @@ save("motion.png")  # APNG or Animated WebP
 - **Poster Frame Compatibility**: Frame 0 serves as the static fallback for GitHub Markdown and vector PDF exports.
 :::
 
-::: block (880, 140) (960, 840)
-```drawlib file:anim_pipeline.svg
+::: block xy=(880, 140) width=960 height=840
+```drawlib file=anim_pipeline.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -117,7 +117,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 5: Multi-Frame Animations — Animation Context Manager & Encoding*
 :::
 

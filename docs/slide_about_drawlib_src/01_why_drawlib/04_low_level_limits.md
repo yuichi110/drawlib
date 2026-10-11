@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 130)
+::: block xy=(80, 50) width=1760 height=130
 # Pain Point 3: Raw SVG & Matplotlib Boilerplate
 Why general-purpose plotting libraries and raw vector XML are too low-level for architecture diagrams.
 :::
 
-::: block (80, 200) (760, 760)
+::: block xy=(80, 200) width=760 height=760
 ### The Low-Level Productivity Trap
 
 When engineers outgrow text DSLs, they sometimes reach for raw `<svg>` templates or Python's `matplotlib.patches`:
@@ -16,8 +16,8 @@ When engineers outgrow text DSLs, they sometimes reach for raw `<svg>` templates
   - Plotting libraries know about scatter plots and histograms, not **VPC NodeGroups, UML Class relationships, Sequence lifelines, ER Crow's foot notation, or Phosphor/GCP icons**.
 :::
 
-::: block (880, 190) (960, 780)
-```drawlib file:low_level_limits.svg
+::: block xy=(880, 190) width=960 height=780
+```drawlib file=low_level_limits.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -67,8 +67,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

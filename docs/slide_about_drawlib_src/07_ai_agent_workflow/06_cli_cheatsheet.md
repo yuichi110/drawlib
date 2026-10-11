@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Complete CLI & Workflow Cheat Sheet
 :::
 
-::: block (80, 140) (680, 840) font:19px
+::: block xy=(80, 140) width=680 height=840 font_size=19px
 ## One Unified CLI (`drawlib`)
 
 From initial project scaffolding to headless visual inspection and vector PDF publishing, every workflow is accessible through `uv run drawlib`:
@@ -41,8 +41,8 @@ uv run drawlib build slide slide_src/ -o slide/
 ```
 :::
 
-::: block (780, 140) (1060, 840)
-```drawlib file:cli_reference_table.svg
+::: block xy=(780, 140) width=1060 height=840
+```drawlib file=cli_reference_table.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import Table
@@ -100,7 +100,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 7: AI Agent Workflow & Ecosystem — Complete CLI Cheat Sheet*
 :::
 

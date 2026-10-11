@@ -118,16 +118,16 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(161.491144 414.75298)">3. slide  (slide_src/)</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(161.491144 414.671683)">3. slide  (slide_src/)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(125.273723 424.058449)">• 16:9 Widescreen Stage (1920x1080)</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(125.273723 423.977152)">• 16:9 Widescreen Stage (1920x1080)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(139.115019 433.71598)">• ::: block (x, y) (w, h) + ::: note</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(104.202379 433.634683)">• ::: block xy=(x, y) width=W height=H + ::: note</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(123.989098 443.210918)">• Outputs: slide/index.html, slide.pdf</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(123.989098 443.292215)">• Outputs: slide/index.html, slide.pdf</text>
     </g>
    </g>
    <g id="patch_7">

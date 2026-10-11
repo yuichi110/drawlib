@@ -167,7 +167,7 @@ class TestSlideCompiler:
         src_dir.mkdir()
 
         (src_dir / "01_title.md").write_text(
-            """::: block (160, 240) (1600, 600)
+            """::: block xy=(160, 240) width=1600 height=600
 # Drawlib Test Deck
 ## Presentation as Code
 :::
@@ -178,17 +178,17 @@ class TestSlideCompiler:
         (src_dir / "utils.py").write_text(_SLIDE_UTILS_PATH.read_text(encoding="utf-8"), encoding="utf-8")
 
         (src_dir / "02_agenda.md").write_text(
-            """::: block (80, 40) (1760, 60)
+            """::: block xy=(80, 40) width=1760 height=60
 # Presentation Agenda
 :::
 
-::: block (80, 140) (700, 840)
+::: block xy=(80, 140) width=700 height=840
 # Topics
 - Key milestones
 :::
 
-::: block (820, 140) (1040, 860)
-```drawlib file:agenda.svg
+::: block xy=(820, 140) width=1040 height=860
+```drawlib file=agenda.svg
 from drawlib.canvas import setup, clear
 from utils import draw_curved_agenda
 
@@ -209,19 +209,19 @@ draw_curved_agenda(
         )
 
         (src_dir / "03_features.md").write_text(
-            """::: block (80, 40) (1760, 60)
+            """::: block xy=(80, 40) width=1760 height=60
 # Features
 :::
 
-::: block (80, 140) (740, 840)
+::: block xy=(80, 140) width=740 height=840
 # Declarative Illustrations
 
 - Pure Python code
 - Native SVG text elements
 :::
 
-::: block (880, 140) (960, 840)
-```drawlib file:diag.svg
+::: block xy=(880, 140) width=960 height=840
+```drawlib file=diag.svg
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.slide import current_slide
@@ -282,8 +282,8 @@ text((50, 10), current_slide.text, style=Styles.Dark)
         src_dir.mkdir()
 
         (src_dir / "01_canvas.md").write_text(
-            """::: block (0, 0) (1920, 1080)
-```drawlib file:hero.svg
+            """::: block xy=(0, 0) width=1920 height=1080
+```drawlib file=hero.svg
 from drawlib.canvas import setup, clear
 from drawlib.shapes import rectangle
 from drawlib.slide import current_slide
@@ -318,13 +318,13 @@ text((96, 20), current_slide.text, style=Styles.White)
         src_dir.mkdir()
 
         (src_dir / "01_boxes.md").write_text(
-            """::: block (80, 140) (740, 480) font:21px compact z:10
+            """::: block xy=(80, 140) width=740 height=480 font_size=21px compact=true z_index=10
 # Ingress Controller
 - **TLS**: Terminated at edge
 - **Routing**: Path-based dispatch
 :::
 
-::: block (80, 660) (740, 320) align:center
+::: block xy=(80, 660) width=740 height=320 align=center
 > Note: Zero-trust network policy active.
 :::
 """,
@@ -348,7 +348,7 @@ text((96, 20), current_slide.text, style=Styles.White)
         src_dir.mkdir()
 
         (src_dir / "01_clean.md").write_text(
-            """::: block (80, 140) (800, 400)
+            """::: block xy=(80, 140) width=800 height=400
 # Clean Slide Without Chrome
 - Focused content only
 :::
@@ -370,8 +370,12 @@ text((96, 20), current_slide.text, style=Styles.White)
         out_dir = tmp_path / "slide"
         src_dir.mkdir()
 
+        block_header = (
+            '::: block xy=(80, 140) width=740 height=840 font_size=20px '
+            'compact=true style="transform: translateY(-25px);"'
+        )
         (src_dir / "01_options.md").write_text(
-            """::: block (80, 140) (740, 840) font:20px compact style:"transform: translateY(-25px);"
+            f"""{block_header}
 # Title Inside Block
 - Point 1
 - Point 2
@@ -402,7 +406,7 @@ text((96, 20), current_slide.text, style=Styles.White)
         (old_images / "legacy.svg").write_text("<svg>legacy</svg>", encoding="utf-8")
 
         (src_dir / "01_slide.md").write_text(
-            """::: block (80, 140) (800, 400)
+            """::: block xy=(80, 140) width=800 height=400
 # Fresh Slide
 :::
 """,
@@ -427,7 +431,7 @@ class TestSlideCli:
         src_dir.mkdir()
 
         (src_dir / "01_title.md").write_text(
-            """::: block (160, 240) (1600, 600)
+            """::: block xy=(160, 240) width=1600 height=600
 # CLI Slide Test
 :::
 """,
@@ -531,7 +535,7 @@ class TestSlideCli:
 
         (src_dir / "01_title.md").write_text(
             """
-::: block (100, 100) (400, 400)
+::: block xy=(100, 100) width=400 height=400
 ![Logo](_assets/logo.png)
 :::
 """,
@@ -552,8 +556,8 @@ class TestSlideCli:
         src_dir.mkdir()
 
         page_block = """
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 from drawlib.canvas import clear, setup
 from drawlib.slide import current_slide
 from drawlib.text import text
@@ -587,8 +591,8 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         src_dir.mkdir()
 
         page_block = """
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 from drawlib.canvas import clear, setup
 from drawlib.slide import current_slide
 from drawlib.text import text
@@ -624,8 +628,8 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         src_dir.mkdir()
 
         (src_dir / "01_anim.md").write_text(
-            """::: block (80, 140) (800, 500)
-```drawlib file:flow anim-trigger:click anim-loop:once anim-pause:2,4
+            """::: block xy=(80, 140) width=800 height=500
+```drawlib file=flow anim_trigger=click anim_loop=once anim_pause=(2, 4)
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
@@ -641,8 +645,8 @@ save()
 ```
 :::
 
-::: block (920, 140) (800, 500)
-```drawlib file:static_box.png
+::: block xy=(920, 140) width=800 height=500
+```drawlib file=static_box.png
 from drawlib.canvas import clear, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -679,8 +683,8 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
         assert '<img src="images/01_anim/static_box.png"' in html_content
 
     def test_extract_slide_notes_single_and_multiple(self) -> None:
-        """Verify extract_slide_notes extracts ::: note / ::: notes and joins multiple blocks with a blank line."""
-        raw = """::: block (80, 40) (1760, 60)
+        """Verify extract_slide_notes extracts ::: note and joins multiple blocks with a blank line."""
+        raw = """::: block xy=(80, 40) width=1760 height=60
 # Slide Title
 :::
 
@@ -688,7 +692,7 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
 First speaker note paragraph.
 :::
 
-::: notes
+::: note
 Second speaker note with **bold** text.
 :::
 """
@@ -706,7 +710,7 @@ Second speaker note with **bold** text.
         src_dir.mkdir()
 
         (src_dir / "01_with_notes.md").write_text(
-            """::: block (80, 40) (1760, 60)
+            """::: block xy=(80, 40) width=1760 height=60
 # Slide With Notes
 :::
 
@@ -723,7 +727,7 @@ Note block one.
         )
 
         (src_dir / "02_no_notes.md").write_text(
-            """::: block (80, 40) (1760, 60)
+            """::: block xy=(80, 40) width=1760 height=60
 # Slide Without Notes
 :::
 """,
@@ -751,8 +755,8 @@ Note block one.
         ).as_posix()
 
         (src_dir / "01_fonts.md").write_text(
-            f"""::: block (80, 40) (1760, 900)
-```drawlib file:fonts_demo.svg
+            f"""::: block xy=(80, 40) width=1760 height=900
+```drawlib file=fonts_demo.svg
 from drawlib.canvas import setup, clear
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.icons import phosphor
@@ -835,12 +839,12 @@ def draw_page_number():
         ch0.mkdir()
         ch1.mkdir()
 
-        slide_tpl = """::: block (80, 140) (1760, 840)
+        slide_tpl = """::: block xy=(80, 140) width=1760 height=840
 # {title}
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

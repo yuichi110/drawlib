@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Presenter View, Overview Grid & Standalone Portability
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Built for Live Stage Delivery & Offline Sharing
 
 Compiled Drawlib slide decks (`slide_html/`) include a zero-dependency presentation runtime (`slide.js`) and self-contained assets:
@@ -27,8 +27,8 @@ Compiled Drawlib slide decks (`slide_html/`) include a zero-dependency presentat
 - **Double-Click Ready**: Zip and share the output folder—anyone can open `index.html` directly from disk (`file://`) or print to `slide.pdf`.
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:presenter_features.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=presenter_features.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -99,7 +99,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 6: Documentation & Slide Engine — Presenter View, Font Bundling & Portability*
 :::
 

@@ -4,7 +4,7 @@ The core engine enabling **"Illustrated Documentation as Code"** is Drawlib's do
 
 This document details the tokenization lifecycle, code fence option parsing, and sandbox execution mechanics.
 
-```drawlib center fold-code file:compiler_pipeline_flow.png caption:"Document Compilation Pipeline Architecture"
+```drawlib align=center code=fold file=compiler_pipeline_flow.png caption="Document Compilation Pipeline Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -79,7 +79,7 @@ Stage C: Downstream GFM AST Parsing (markdown-it-py)
 
 The document builder subsystem (`_builder/doc_builder/`) decomposes responsibilities into dedicated Pydantic configuration models, processing engines, and format exporters:
 
-```drawlib center fold-code file:doc_builder_architecture.png caption:"doc_builder Compilation Pipeline & Exporter Architecture"
+```drawlib align=center code=fold file=doc_builder_architecture.png caption="doc_builder Compilation Pipeline & Exporter Architecture"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -146,7 +146,7 @@ save()
 ### Code Fence Attribute Parser
 Drawlib code fences support declarative metadata options on the opening line:
 
-```drawlib center fold-code file:fence_attribute_parsing.png caption:"Code Fence Token Extraction & Options Parsing"
+```drawlib align=center code=fold file=fence_attribute_parsing.png caption="Code Fence Token Extraction & Options Parsing"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -168,7 +168,7 @@ rectangle((70, 39), width=126, height=9, style=Styles.PrimaryFlat.patch(shape_r=
 phosphor.code((14, 39), width=4.0, style=Styles.WhiteBold)
 text(
     (72, 39),
-    '```drawlib center fold-code file:arch.png caption:"Architecture Diagram"',
+    '```drawlib align=center code=fold file=arch.png caption="Architecture Diagram"',
     style=Styles.WhiteBold.patch(text_size=9.2),
 )
 
@@ -177,7 +177,7 @@ line((70, 34.5), (70, 27.5), arrow_head="->", style=Styles.DarkBold)
 # Bottom: 4 Parsed Attributes
 attributes = [
     (18.5, "align='center'", "CSS flexbox\ncenter alignment", phosphor.align_center_horizontal, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52.5, "fold_code=True", "<details> tag\ncollapsible code", phosphor.caret_down, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (52.5, "code='fold'", "<details> tag\ncollapsible code", phosphor.caret_down, Styles.SecondaryNeutral, Styles.SecondaryBold),
     (86.5, "file='arch.png'", "Explicit target\noutput asset name", phosphor.image, Styles.Neutral, Styles.DarkBold),
     (120.5, "caption='...'", "<figcaption> text\nbelow image", phosphor.chat_centered_text, Styles.PrimaryNeutral, Styles.PrimaryBold),
 ]
@@ -192,10 +192,10 @@ save()
 ```
 
 ### Supported Header Options
-- **`file:<name>.<ext>`**: Specifies the output filename (e.g. `file:pipeline.png` or `file:diagram.svg`). If omitted, Drawlib generates an automatic deterministic hash name.
-- **`fold-code` / `no-code`**: Controls code visibility. `fold-code` wraps Python source in an interactive HTML `<details>` disclosure toggle; `no-code` suppresses source display completely.
-- **`center` / `left` / `right`**: Controls container alignment via CSS flexbox.
-- **`caption:"..."`**: Renders an accessible, semantic `<figcaption>` beneath the illustration.
+- **`file=<name>.<ext>`**: Specifies the output filename (e.g. `file=pipeline.png` or `file=diagram.svg`). If omitted, Drawlib generates an automatic deterministic hash name.
+- **`code=fold` / `code=show` / `code=hide`**: Controls code visibility. `code=fold` wraps Python source in an interactive HTML `<details>` disclosure toggle; `code=hide` suppresses source display completely.
+- **`align=center` / `align=left` / `align=right`**: Controls container alignment via CSS flexbox.
+- **`caption="..."`**: Renders an accessible, semantic `<figcaption>` beneath the illustration.
 
 ---
 

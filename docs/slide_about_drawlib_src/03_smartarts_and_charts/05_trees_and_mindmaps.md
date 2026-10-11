@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Hierarchies & Brainstorming (`TreeNode` & `MindMapNode`)
 :::
 
-::: block (80, 140) (660, 840) compact
+::: block xy=(80, 140) width=660 height=840 compact=true
 ## Two Complementary Tree Engines
 
 ### 1. `TreeNode` — Directory & Package Hierarchies
@@ -24,8 +24,8 @@ utils.draw_page_number()
 - **Flexible Node Shapes**: Mix `"oval"`, `"rectangle"`, and borderless `"none"` leaf labels.
 :::
 
-::: block (780, 140) (1060, 840)
-```drawlib file:trees_and_mindmaps.svg
+::: block xy=(780, 140) width=1060 height=840
+```drawlib file=trees_and_mindmaps.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

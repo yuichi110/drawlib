@@ -22,7 +22,7 @@ Never place elements flush against the edges of the canvas. Maintain at least a 
 
 Avoid arbitrary rainbow palettes. Use colors intentionally to communicate architectural roles:
 
-```drawlib 640px center file:matrix.png caption:"Figure 15.1: Architectural Design Best Practices Matrix"
+```drawlib width=640px align=center file=matrix.png caption="Figure 15.1: Architectural Design Best Practices Matrix"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

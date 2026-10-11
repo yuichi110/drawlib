@@ -24,7 +24,7 @@
 
 `ChevronProcess` creates connected pipeline chevrons with automatic text and description formatting:
 
-```drawlib 640px center file:smartarts_cicd.png caption:"Figure 7.1: Automated CI/CD Pipeline via ChevronProcess"
+```drawlib width=640px align=center file=smartarts_cicd.png caption="Figure 7.1: Automated CI/CD Pipeline via ChevronProcess"
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -52,7 +52,7 @@ pipeline.draw(xy=(10, 8), width=100, height=20)
 
 The `Table` component draws structured tabular data with configurable headers, alternating row colors, and border separators:
 
-```drawlib 640px center file:smartarts_sla_table.png caption:"Figure 7.2: Microservice SLA & Metric Table"
+```drawlib width=640px align=center file=smartarts_sla_table.png caption="Figure 7.2: Microservice SLA & Metric Table"
 from drawlib.canvas import setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles

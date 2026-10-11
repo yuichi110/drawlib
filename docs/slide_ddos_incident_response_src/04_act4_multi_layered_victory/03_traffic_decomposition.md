@@ -1,13 +1,13 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Traffic Forensics: Decomposing the Two Botnet Fleets
 :::
 
-::: block (80, 130) (1760, 170)
+::: block xy=(80, 130) width=1760 height=170
 - **Log Forensics Breakthrough**: Inspecting Cloudflare request logs by **ASN**, **HTTP Protocol Version**, and **User-Agent** revealed the attack was actually **two distinct botnet fleets**.
 - **Protocol Mismatch Tell**: Fleet B spoofed modern Chrome/Safari User-Agents (`Chrome/134`), but its proxy software spoke **HTTP/1.1** (real browsers always negotiate **HTTP/2 or HTTP/3**!).
 :::
 
-::: block (80, 320) (1760, 630)
+::: block xy=(80, 320) width=1760 height=630
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
@@ -71,7 +71,7 @@ table.draw_flexible(xy=(69.5, 51.0), column_widths=[19.0, 26.5, 30.5, 26.0], row
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

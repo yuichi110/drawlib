@@ -4,7 +4,7 @@ In addition to technical documents (`doc`) and multi-page documentation websites
 
 Without relying on drag-and-drop GUI software like PowerPoint or Google Slides, you can author, version-control, and publish conference-ready slide decks directly using Markdown and declarative Python drawing code.
 
-```drawlib 650px center file:fig_slide_layout.png caption:"Figure 12.1: Drawlib Slide Generation Architecture and Dual Outputs"
+```drawlib width=650px align=center file=fig_slide_layout.png caption="Figure 12.1: Drawlib Slide Generation Architecture and Dual Outputs"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -105,7 +105,7 @@ Drawlib slide decks use an intuitive **"One Markdown File = One Slide"** convent
 
 <div class="subtitle">Stepwise Migration to an Event-Driven Topology</div>
 
-```drawlib 1400px center file:arch_slide.png
+```drawlib width=1400px align=center file=arch_slide.png
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

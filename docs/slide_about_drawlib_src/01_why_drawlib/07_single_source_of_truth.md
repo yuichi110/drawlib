@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 130)
+::: block xy=(80, 50) width=1760 height=130
 # Single Source of Truth (SoT) in Git
 Code, diagrams, and prose evolve together in atomic Pull Requests and compile deterministically.
 :::
 
-::: block (80, 190) (720, 770)
+::: block xy=(80, 190) width=720 height=770
 ### Software Engineering Rigor for Documentation
 
 1. **Atomic Pull Requests**
@@ -17,8 +17,8 @@ Code, diagrams, and prose evolve together in atomic Pull Requests and compile de
    - Unchanged diagrams are restored from `.drawlib/cache.db` in **< 1ms**, making incremental rebuilds instantaneous.
 :::
 
-::: block (840, 180) (1000, 780)
-```drawlib file:sot_workflow.svg
+::: block xy=(840, 180) width=1000 height=780
+```drawlib file=sot_workflow.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.smartarts import ChevronProcess
@@ -96,8 +96,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

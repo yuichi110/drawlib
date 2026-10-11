@@ -3,7 +3,7 @@
 The `ChevronProcess` component draws horizontal, sequential process pipelines consisting of interlocking arrowhead blocks (chevrons). 
 It is the premier component for CI/CD delivery pipelines, phased development milestones, fulfillment lifecycles, and multi-step workflows.
 
-```drawlib fold-code center file:chevron_process_hero.png caption:"Overview of ChevronProcess: Standard Flat-Start vs. Indented Multi-Line Pipelines"
+```drawlib code=fold align=center file=chevron_process_hero.png caption="Overview of ChevronProcess: Standard Flat-Start vs. Indented Multi-Line Pipelines"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import ChevronProcess
@@ -65,7 +65,7 @@ save()
 
 ## 1. Quick Example: CI/CD Pipeline
 
-```drawlib show-code center file:chevron_process_cd_pipeline.png caption:"Continuous Delivery Pipeline with ChevronProcess"
+```drawlib code=show align=center file=chevron_process_cd_pipeline.png caption="Continuous Delivery Pipeline with ChevronProcess"
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -101,7 +101,7 @@ pipeline.draw(xy=(5, 8), width=118.0, height=18.0)
 
 Setting `flat_left_end=False` (the default) renders every stage—including the first—as a classic indented chevron, while passing an explicit `item_width` to `draw(...)` gives every stage an exact fixed body width instead of auto-dividing a bounding container width. You can also adjust `corner_angle` (valid range: `10.0` to `80.0` degrees) to control arrowhead sharpness, and mutate returned `ChevronItem` instances before drawing.
 
-```drawlib show-code center file:chevron_process_custom_angle_width.png caption:"Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0, explicit item_width)"
+```drawlib code=show align=center file=chevron_process_custom_angle_width.png caption="Classic Indented Chevrons (flat_left_end=False, corner_angle=45.0, explicit item_width)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles

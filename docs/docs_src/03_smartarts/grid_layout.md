@@ -3,7 +3,7 @@
 The `GridLayout` component positions cards and rectangular blocks across a uniform or flexible column/row matrix.
 It supports multi-column and multi-row cell spanning, outer container borders, and proportional scaling—making it ideal for layered system architectures, service matrices, and executive dashboard layouts.
 
-```drawlib fold-code center file:smartarts_gridlayout_indexing_geometry.png caption:"GridLayout Bottom-Up (col, row) Matrix Indexing and Multi-Cell Spanning"
+```drawlib code=fold align=center file=smartarts_gridlayout_indexing_geometry.png caption="GridLayout Bottom-Up (col, row) Matrix Indexing and Multi-Cell Spanning"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -71,7 +71,7 @@ save()
 
 In standard mode (`grid.draw(...)`), `GridLayout` divides the total `width` and `height` evenly across `num_column` columns and `num_row` rows with a uniform `margin` gutter between cells. If `outer_style` is provided, an outer container frame is drawn with an inner margin around the perimeter.
 
-```drawlib show-code center file:smartarts_gridlayout_architecture.png caption:"Multi-Tier Cloud Architecture with GridLayout Cell Spanning"
+```drawlib code=show align=center file=smartarts_gridlayout_architecture.png caption="Multi-Tier Cloud Architecture with GridLayout Cell Spanning"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import GridLayout
 from drawlib.styles import Styles
@@ -130,7 +130,7 @@ save()
 
 When columns or rows require asymmetric proportions (such as a narrow sidebar next to a wide content area, or a compact header row), use `grid.draw_flexible(...)` with explicit `column_widths`, `column_margins`, `row_heights`, and `row_margins`. Because the cell positions are deterministic from `xy`, you can also overlay standard icons and shapes inside any cell.
 
-```drawlib show-code center file:smartarts_gridlayout_flexible_icons.png caption:"Flexible Dashboard Grid with Custom Column/Row Proportions and Icon Overlays"
+```drawlib code=show align=center file=smartarts_gridlayout_flexible_icons.png caption="Flexible Dashboard Grid with Custom Column/Row Proportions and Icon Overlays"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import GridLayout

@@ -3,7 +3,7 @@
 Drawlib allows embedding external bitmap and vector images directly into your illustrations.
 You can combine raster graphics (company logos, cloud service icons, application screenshots) with vector shapes and annotations, or manipulate graphics programmatically using the immutable in-memory **`Dimage`** model:
 
-```drawlib fold-code center file:images_overview.png caption:"Embedding External Assets and In-Memory Dimages"
+```drawlib code=fold align=center file=images_overview.png caption="Embedding External Assets and In-Memory Dimages"
 from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.shapes import rectangle
@@ -86,7 +86,7 @@ When passing `style=` to `image()`, you can configure both image-specific `image
 ### 2.2. Anchor Alignment & Rotation Example
 By default, `(x, y)` anchors the geometric center of the image. You can shift the anchor to the bottom-left corner via `style.patch(halign="left", valign="bottom")`, or rotate a center-anchored image via `style.patch(angle=...)`:
 
-```drawlib show-code center file:images_anchor_and_rotation.png caption:"Center Anchor vs. Bottom-Left Anchor and Image Rotation"
+```drawlib code=show align=center file=images_anchor_and_rotation.png caption="Center Anchor vs. Bottom-Left Anchor and Image Rotation"
 from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.shapes import circle, rectangle
@@ -192,7 +192,7 @@ processed = dimg.mirror().grayscale().brightness(1.1)
 
 ### 3.5. Visual Showcase: `Dimage` Geometry, Filters & Border Styling
 
-```drawlib show-code center file:images_dimage_pipeline.png caption:"Dimage Geometry (crop, mirror, flip), Filter Pipelines, and Style.patch(image_border_*)"
+```drawlib code=show align=center file=images_dimage_pipeline.png caption="Dimage Geometry (crop, mirror, flip), Filter Pipelines, and Style.patch(image_border_*)"
 from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.shapes import rectangle
@@ -257,7 +257,7 @@ get_dimage_from_code(
 - **Clean Process Boundary**: `get_dimage_from_code()` runs `code` inside an isolated `multiprocessing.Process` worker so the parent script's active canvas dimensions, artists, `Styles`, and Matplotlib global state remain completely untouched.
 - **Automatic `save()` Interception**: Any `save()` calls inside `code` are automatically intercepted as no-ops in the worker process, preventing stray files from being written to disk before the rendered canvas is returned over an IPC pipe as a `Dimage`.
 
-```drawlib show-code center file:image_get_dimage_from_code.png caption:"Dynamic Sub-Diagram Rendering via get_dimage_from_code"
+```drawlib code=show align=center file=image_get_dimage_from_code.png caption="Dynamic Sub-Diagram Rendering via get_dimage_from_code"
 from drawlib.canvas import save, setup
 from drawlib.images import get_dimage_from_code, image
 from drawlib.shapes import rectangle

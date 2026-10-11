@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # Cartesian Canvas & Coordinate System (`drawlib.canvas`)
 An intuitive, resolution-independent 2D mathematical coordinate space with `(0, 0)` at the bottom-left.
 :::
 
-::: block (80, 190) (760, 770) compact
+::: block xy=(80, 190) width=760 height=770 compact=true
 ### 1. Canvas Lifecycle
 
 ```python
@@ -27,8 +27,8 @@ save("diagram.svg")
 - **10–15% Safe Perimeter Margin**: Keep outer margins clear so labels and arrowheads never clip.
 :::
 
-::: block (880, 180) (960, 780)
-```drawlib file:cartesian_canvas.svg
+::: block xy=(880, 180) width=960 height=780
+```drawlib file=cartesian_canvas.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -83,8 +83,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

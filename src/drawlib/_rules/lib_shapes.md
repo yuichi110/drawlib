@@ -290,7 +290,7 @@ def circle(
 - `style.angle` does not alter the appearance of a symmetric circle, but rotates embedded text around the center point.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -355,7 +355,7 @@ def donuts(
 - Center text is positioned in the hollow central core.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -417,7 +417,7 @@ def ellipse(
 - Widely used for database entities (ER diagrams), start/end states in flowcharts, and distributed cache clusters.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -487,7 +487,7 @@ def wedge(
 - Ideal for custom gauge meters, donut chart slices, and progress wheels.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -556,7 +556,7 @@ def fan(
 - Perfect for radar vision cones, camera field-of-view indicators, and pie chart segments.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -624,7 +624,7 @@ def arc(
 - Set `line_width` to control thickness; set `line_style="dashed"` or `"dotted"` for trajectories.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -697,7 +697,7 @@ def cylinder(
 - Setting `disks=3` divides the cylinder body into 3 stacked storage tiers.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import cylinder
 from drawlib.styles import Styles
@@ -743,7 +743,7 @@ def face(
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import face
 from drawlib.styles import Styles
@@ -808,7 +808,7 @@ def rectangle(
 - Fundamental building block for system architecture diagrams, UI cards, and network topologies.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import rectangle
@@ -875,7 +875,7 @@ def parallelogram(
 - Standard flowchart symbol for Input / Output operations and streaming event topics.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import parallelogram
@@ -940,7 +940,7 @@ def rhombus(
 - Canonical decision block in flowchart logic diagrams and condition branch points.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import rhombus
@@ -1016,7 +1016,7 @@ def trapezoid(
 - Used extensively in neural network architecture diagrams to represent pooling or dimensionality reduction layers.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import trapezoid
@@ -1090,7 +1090,7 @@ def triangle(
 - Set `topvertex_x=0` for a left-facing right triangle; set `topvertex_x=width` for a right-facing right triangle.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import triangle
@@ -1151,7 +1151,7 @@ def regularpolygon(
 - $N=3$ (equilateral triangle), $N=5$ (pentagon), $N=6$ (hexagon / Kubernetes pod), $N=8$ (octagon / stop sign).
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1211,7 +1211,7 @@ def polygon(
 - **Important**: `polygon` ignores `style.angle` and `halign`/`valign`. Vertex coordinates directly dictate orientation and position.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1275,7 +1275,7 @@ def star(
 - Strict validation: `radius_ext > radius_int` (raises `ValueError` otherwise).
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1349,7 +1349,7 @@ def bubblespeech(
 - `tail_vertex_xy` is an absolute coordinate pointing to any external point (e.g. a server node or database).
 
 #### Code Example
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import bubblespeech, rectangle
 from drawlib.styles import Styles
@@ -1416,7 +1416,7 @@ def shape(
 - **Cubic Bezier**: `((cp1_x, cp1_y), (cp2_x, cp2_y), (end_x, end_y))` with two control points.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import shape
@@ -1520,7 +1520,7 @@ def arrow(
 - `text` is rendered directly along the shaft, automatically rotated parallel to the arrow vector.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1585,7 +1585,7 @@ def arrow_l(
 > **Important**: `arrow_l` **does not accept `text`**. Place external `drawlib.text.text()` labels next to the elbow.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1652,7 +1652,7 @@ def arrow_u(
 > **Important**: `arrow_u` **does not accept `text`**.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1724,7 +1724,7 @@ def arrow_arc(
 | `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotational shift). |
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1786,7 +1786,7 @@ def arrow_polyline(
 > **Important**: `arrow_polyline` **does not accept `text`**.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
@@ -1858,7 +1858,7 @@ def chevron(
 - Centered at `xy`. Rear notch depth and forward point apex match, allowing multiple chevrons to tessellate horizontally into pipeline stages.
 
 #### Code Examples
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.types import Style
@@ -1882,7 +1882,7 @@ save()
 
 This pattern illustrates a secure multi-tier virtual private cloud containing public and private subnets, an internet gateway, compute clusters, and a managed database.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, circle, ellipse, rectangle
 from drawlib.styles import Styles
@@ -1998,7 +1998,7 @@ save()
 
 Demonstrates message publishers, Kafka message topic queues, consumer groups, and dead-letter queues (DLQ).
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, donuts, parallelogram, rectangle
 from drawlib.styles import Styles
@@ -2074,7 +2074,7 @@ save()
 
 Demonstrates convolution, pooling, batch normalization, and skip residual connections in machine learning architectures.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, arrow_polyline, circle, rectangle, trapezoid
 from drawlib.styles import Styles
@@ -2166,7 +2166,7 @@ save()
 
 Constructs a standard UML state chart featuring initial pseudo-states, rounded composite states, guard conditions, and terminal states.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
 from drawlib.styles import Styles
@@ -2241,7 +2241,7 @@ save()
 
 Demonstrates how human designers and AI coding agents can construct crisp application user interfaces, modals, and KPI telemetry cards using Drawlib primitives.
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import arc, circle, rectangle
 from drawlib.styles import Styles

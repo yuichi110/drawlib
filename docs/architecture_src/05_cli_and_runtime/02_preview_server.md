@@ -4,7 +4,7 @@ Developing documentation requires rapid feedback. If testing a layout change req
 
 Drawlib includes a lightweight, built-in HTTP server (`_http_server/`) and asset distribution toolset (`drawlib cache`) to provide **instant zero-dependency local previewing** and **air-gapped asset management**.
 
-```drawlib center fold-code file:preview_server_architecture.png caption:"Local Preview Server & Request Handling Architecture"
+```drawlib align=center code=fold file=preview_server_architecture.png caption="Local Preview Server & Request Handling Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -88,7 +88,7 @@ The preview server implements several specialized architectural capabilities:
    - **Forbidden Path Scanner**: Scans for accidental leaks of local filesystem paths, immediately flagging URIs starting with `/usr/`, `/home/`, `/private/`, `/tmp/`, Windows drive letters (`^[A-Za-z]:[\\/]`), or `file://`.
    - Exits with `0` (clean) or `1` (broken/forbidden links found).
 
-```drawlib center fold-code file:asset_distribution_architecture.png caption:"Release Asset Distribution & Offline Cache Sync Pipeline"
+```drawlib align=center code=fold file=asset_distribution_architecture.png caption="Release Asset Distribution & Offline Cache Sync Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

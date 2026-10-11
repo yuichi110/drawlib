@@ -1,4 +1,4 @@
-::: block (0, 0) (1920, 1080)
+::: block xy=(0, 0) width=1920 height=1080
 ```drawlib
 import utils
 

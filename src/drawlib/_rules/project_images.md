@@ -44,7 +44,7 @@ rm -f images_src/sample1.py images_src/sample2.py
         └── vpc_peering.png
 ```
 
-```drawlib center fold-code file:project_images_pipeline.png caption:"Standalone Images Project Architecture & Grid Review Loop"
+```drawlib align=center code=fold file=project_images_pipeline.png caption="Standalone Images Project Architecture & Grid Review Loop"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

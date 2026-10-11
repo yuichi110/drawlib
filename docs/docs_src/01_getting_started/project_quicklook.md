@@ -8,7 +8,7 @@ Drawlib is not only a drawing library—it is a **complete documentation compile
 
 Instead of writing documentation in static wikis and manually copying and pasting PNG screenshots, Drawlib establishes a clean, repeatable build pipeline:
 
-```drawlib fold-code center file:doc_build_pipeline.png caption:"Drawlib Documentation Build Pipeline"
+```drawlib code=fold align=center file=doc_build_pipeline.png caption="Drawlib Documentation Build Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -79,7 +79,7 @@ Drawlib supports four starter project types:
 - **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
-```drawlib fold-code center file:project_scaffolding_types.png caption:"The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
+```drawlib code=fold align=center file=project_scaffolding_types.png caption="The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

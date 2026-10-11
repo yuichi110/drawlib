@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # Lines, Polylines & Bezier Curves (`drawlib.lines`)
 Precision 1D vector connectors with straight, orthogonal, filleted, arc, and polynomial Bezier routing.
 :::
 
-::: block (80, 190) (780, 770) compact
+::: block xy=(80, 190) width=780 height=770 compact=true
 ### 7 Connector Primitives & Arrowheads
 
 ```python
@@ -35,8 +35,8 @@ line_bezier2((55, 10), (90, 24), cp1=(72, 10), cp2=(72, 24),
 - **Filled vs. Stick Heads**: Customize via `style.patch(line_arrow_head_fill=True, line_arrow_head_scale=22)`.
 :::
 
-::: block (900, 180) (940, 780)
-```drawlib file:lines_showcase.svg
+::: block xy=(900, 180) width=940 height=780
+```drawlib file=lines_showcase.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import (
     line,
@@ -94,8 +94,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

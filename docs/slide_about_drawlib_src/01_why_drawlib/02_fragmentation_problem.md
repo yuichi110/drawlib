@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 130)
+::: block xy=(80, 50) width=1760 height=130
 # Pain Point 1: The Tool Fragmentation Problem
 Why traditional technical documentation inevitably drifts out of sync with reality.
 :::
 
-::: block (80, 200) (760, 760)
+::: block xy=(80, 200) width=760 height=760
 ### Three Disconnected Silos
 
 1. **Source Code in Git (`src/`)**
@@ -21,8 +21,8 @@ Why traditional technical documentation inevitably drifts out of sync with reali
 - Under deadline pressure, engineers skip the manual handoffs—leaving architecture diagrams **months or years out of date**.
 :::
 
-::: block (880, 190) (960, 780)
-```drawlib file:fragmentation.svg
+::: block xy=(880, 190) width=960 height=780
+```drawlib file=fragmentation.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, line_curved
@@ -96,8 +96,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

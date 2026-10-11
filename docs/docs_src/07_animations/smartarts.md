@@ -2,7 +2,7 @@
 
 All item-based SmartArt components (`ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `BulletPoints`, `TreeNode`, `MindMapNode`) follow the unified **Pre-Build & Mutate** lifecycle:
 
-```drawlib fold-code center file:anim_smartarts_hero.png format:webp caption:"SmartArt Animation Overview: Progressive Reveal and Active Highlighting Without Layout Jumping"
+```drawlib code=fold align=center file=anim_smartarts_hero.png format=webp caption="SmartArt Animation Overview: Progressive Reveal and Active Highlighting Without Layout Jumping"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import BoxList, ChevronProcess
@@ -86,7 +86,7 @@ When `item.show = False` on any SmartArt item:
 
 Build a `ChevronProcess` or `Cycle` once outside the loop, keep the list of returned `ChevronItem` or `CycleItem` objects (plus `cycle.center` (`CycleCenter`) for radial cycles), and mutate `.show`, `.style`, and `.text_style` across frames. In `Cycle`, hidden steps (`item.show = False`) preserve their angular orbit positions and automatically hide their outgoing connecting arrows:
 
-```drawlib center show-code file:anim_smartarts_chevron.png caption:"Step-by-Step Pipeline Reveal with Active Stage Highlight"
+```drawlib align=center code=show file=anim_smartarts_chevron.png caption="Step-by-Step Pipeline Reveal with Active Stage Highlight"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
@@ -123,7 +123,7 @@ save()
 
 Similarly, for `Cycle`:
 
-```drawlib show-code center file:anim_smartarts_cycle.png format:webp caption:"Progressive Step Reveal and Active Highlighting on a Cycle SmartArt"
+```drawlib code=show align=center file=anim_smartarts_cycle.png format=webp caption="Progressive Step Reveal and Active Highlighting on a Cycle SmartArt"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Cycle
@@ -173,7 +173,7 @@ save()
 
 In `GridLayout`, `grid.add((col, row), width, height, ...)` returns a mutable `GridItem` (`cell.show`, `cell.style`, `cell.text_style`). In `Table`, call `table.reset_styles()` and `table.set_style_cell(..., rows=[active_row])` before `table.draw(xy, width, height, data)` to sweep row highlights down a matrix:
 
-```drawlib center show-code file:anim_smartarts_table.png caption:"Table Row Highlight Sweep Across Frames"
+```drawlib align=center code=show file=anim_smartarts_table.png caption="Table Row Highlight Sweep Across Frames"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Table
@@ -218,7 +218,7 @@ save()
 For `TreeNode` and `MindMapNode`, instantiate the hierarchy **once outside the loop** and mutate `.show` across frames before calling `root.draw(xy=..., scale=1.0)`:
 - Setting `child.show = False` hides the child label, the incoming branch line from its parent, and its entire subtree, while preserving the exact vertical Y-coordinates of all subsequent sibling nodes:
 
-```drawlib center show-code file:anim_smartarts_tree.png caption:"Progressive TreeNode Hierarchy Reveal"
+```drawlib align=center code=show file=anim_smartarts_tree.png caption="Progressive TreeNode Hierarchy Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor

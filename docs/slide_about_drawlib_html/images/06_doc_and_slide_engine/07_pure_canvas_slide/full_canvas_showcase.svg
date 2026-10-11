@@ -54,7 +54,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ffffff" x="30" y="30.327" transform="rotate(-0 30 30.327)">Full-Canvas Pure Stage  —  ::: block (0, 0) (1920, 1080)  +  setup(width=192, height=108)</text>
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ffffff" x="30" y="30.327" transform="rotate(-0 30 30.327)">Full-Canvas Pure Stage  —  ::: block xy=(0, 0) width=1920 height=1080  +  setup(width=192, height=108)</text>
     </g>
    </g>
    <g id="text_2">
@@ -524,7 +524,7 @@ L 356.704915 302.125
    </g>
    <g id="text_36">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="30" y="390.708" transform="rotate(-0 30 390.708)">Chapter 6: Documentation &amp; Slide Engine — Full-Canvas Pure Stage (::: block (0, 0) (1920, 1080))</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="30" y="390.708" transform="rotate(-0 30 390.708)">Chapter 6: Documentation &amp; Slide Engine — Full-Canvas Pure Stage (::: block xy=(0, 0) width=1920 height=1080)</text>
     </g>
    </g>
   </g>

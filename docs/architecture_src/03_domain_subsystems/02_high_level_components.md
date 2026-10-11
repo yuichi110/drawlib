@@ -4,7 +4,7 @@ Manual assembly of technical diagrams from raw primitives (`rectangle`, `line`, 
 
 Drawlib addresses this complexity through three specialized **high-level component families**: **SmartArts**, **Charts**, and **Diagrams**.
 
-```drawlib center fold-code file:high_level_components_trio.png caption:"The Three High-Level Component Families"
+```drawlib align=center code=fold file=high_level_components_trio.png caption="The Three High-Level Component Families"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -81,7 +81,7 @@ Unlike heavy scientific plotting packages that generate axes and tick marks acro
 
 The container classes follow a strict object-oriented mixin inheritance tree:
 
-```drawlib center fold-code file:charts_mixin_hierarchy.png caption:"drawlib.charts OOP Mixin Hierarchy & Triad Architecture"
+```drawlib align=center code=fold file=charts_mixin_hierarchy.png caption="drawlib.charts OOP Mixin Hierarchy & Triad Architecture"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -145,7 +145,7 @@ save()
 #### Coordinate Normalization Pipeline
 Data arrays are mapped directly into Cartesian canvas units:
 
-```drawlib center fold-code file:chart_coordinate_mapping.png caption:"Data Space to Canvas Coordinate Normalization"
+```drawlib align=center code=fold file=chart_coordinate_mapping.png caption="Data Space to Canvas Coordinate Normalization"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

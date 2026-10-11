@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Architecture
 :::
 
-::: block (80, 140) (740, 840) font:22px
+::: block xy=(80, 140) width=740 height=840 font_size=22px
 ## Scalable Microservices in Code
 
 - **Declarative Python**: Pure code, version-controlled with clean git diffs
@@ -10,8 +10,8 @@
 - **Interactive Deck**: Fullscreen, keyboard shortcuts, overview modal
 :::
 
-::: block (860, 140) (980, 840) z:5
-```drawlib file:microservices.svg
+::: block xy=(860, 140) width=980 height=840 z_index=5
+```drawlib file=microservices.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -26,6 +26,6 @@ save()
 ```
 :::
 
-::: block (80, 1010) (1760, 30) font:14px
+::: block xy=(80, 1010) width=1760 height=30 font_size=14px
 *Drawlib Presentation*
 :::

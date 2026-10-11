@@ -297,7 +297,7 @@ save()
 In 16:9 presentation slide decks (`drawlib init slide`), animated `.png` (APNG) and `.webp` blocks can be controlled interactively via `<canvas>` playback options on the ````drawlib```` fence:
 
 ````markdown
-```drawlib file:pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
 from drawlib.anim import Animation
 ...
 ```

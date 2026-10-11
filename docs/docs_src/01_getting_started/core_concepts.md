@@ -8,7 +8,7 @@ To create clean, professional illustrations with Drawlib, it is important to und
 
 Drawlib uses a standard **mathematical Cartesian coordinate system** where the origin `(0, 0)` is fixed at the bottom-left corner of the canvas:
 
-```drawlib fold-code center file:cartesian_coordinate_system.png caption:"Drawlib Cartesian Coordinate System"
+```drawlib code=fold align=center file=cartesian_coordinate_system.png caption="Drawlib Cartesian Coordinate System"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -57,7 +57,7 @@ Across Drawlib's components, coordinates follow four consistent anchoring models
 4. **Vertex / Endpoint Coordinates**:  
    `polygon(xys)`, `arrow(xy1, xy2)`, `arrow_polyline(xys)`, `line(xy1, xy2)`, and `lines(xys)`.
 
-```drawlib fold-code center file:core_concepts_four_anchor_categories.png caption:"The Four Coordinate Anchor Conventions in Drawlib"
+```drawlib code=fold align=center file=core_concepts_four_anchor_categories.png caption="The Four Coordinate Anchor Conventions in Drawlib"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
@@ -143,7 +143,7 @@ A common mistake when generating diagrams is placing elements too close to the c
   4. **Layer 4 — Callouts / Badges**: Floating protocol badges, status indicators, and speech callouts (`bubblespeech`, `text`).
 - **Dynamic Bounding Boxes with `drawlib.math.get_center_and_size()`**: Instead of manually calculating container centers and dimensions around a group of nodes, pass their coordinate list to `get_center_and_size(points)` to obtain `((center_x, center_y), (width, height))` automatically.
 
-```drawlib fold-code center file:core_concepts_z_order_and_margins.png caption:"5%–10% Perimeter Margin Safe Zone and 4-Layer Back-to-Front Z-Order"
+```drawlib code=fold align=center file=core_concepts_z_order_and_margins.png caption="5%–10% Perimeter Margin Safe Zone and 4-Layer Back-to-Front Z-Order"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -214,7 +214,7 @@ Professional illustrations maintain visual clarity by structuring colors around 
 > - **Use `Styles.MutedDashed` or `Styles.Muted`** for boundary containers, VPCs, and clusters.
 > - **Use `Styles.DarkBold` or `Styles.DarkFlat`** for clean, neutral connection lines.
 
-```drawlib fold-code center file:seven_color_semantic_system.png caption:"The Semantic Color System"
+```drawlib code=fold align=center file=seven_color_semantic_system.png caption="The Semantic Color System"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles

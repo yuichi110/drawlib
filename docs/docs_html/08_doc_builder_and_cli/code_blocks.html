@@ -464,10 +464,10 @@
             <main class="main-content">
                 <h1>Embedded Code Blocks (<code>drawlib</code>)</h1>
 <p>Drawlib allows you to embed Python drawing scripts directly into Markdown documents using the <code>drawlib</code> code fence. The builder compiles these blocks into vector images during site or document builds, automatically generating HTML elements, companion image files, and syntax-highlighted code blocks.</p>
-<p>Choose from three display modes (<code>hide-code</code>, <code>show-code</code>, and <code>fold-code</code>) to control how source code is presented alongside rendered diagrams:</p>
+<p>Choose from three display modes (<code>code=hide</code>, <code>code=show</code>, and <code>code=fold</code>) to control how source code is presented alongside rendered diagrams:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="code_blocks_images/code_blocks_display_modes.png" alt="code_blocks_1" />
-  <figcaption class="drawlib-caption">Visual Comparison of hide-code, show-code, and fold-code Display Modes</figcaption>
+  <figcaption class="drawlib-caption">Visual Comparison of code=hide, code=show, and code=fold Display Modes</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -479,14 +479,14 @@
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
 
-<span class="c1"># 1. Left Card: hide-code (Default)</span>
+<span class="c1"># 1. Left Card: code=hide (Default)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"1. hide-code"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"1. code=hide"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
@@ -502,14 +502,14 @@
 <span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">),</span> <span class="s2">"(Code hidden)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="c1"># 2. Center Card: show-code (PrimaryFlat header banner)</span>
+<span class="c1"># 2. Center Card: code=show (PrimaryFlat header banner)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"2. show-code"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"2. code=show"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
@@ -527,14 +527,14 @@
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 3. Right Card: fold-code</span>
+<span class="c1"># 3. Right Card: code=fold</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"3. fold-code"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"3. code=fold"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
@@ -557,7 +557,7 @@
 </details>
 <hr />
 <h2>1. Basic Code Fence Syntax</h2>
-<p>Embedded drawing blocks use the <code>drawlib</code> language identifier:</p>
+<p>Embedded drawing blocks use the <code>drawlib</code> language identifier with Python keyword-argument style (<code>key=value</code>) attributes:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
@@ -575,32 +575,32 @@
 </figure>
 <hr />
 <h2>2. Header Attributes Reference</h2>
-<p>Options are specified space-delimited on the opening code fence line (supporting both positional shorthand tokens and <code>key:value</code> / <code>key=value</code> pairs):</p>
-<pre><code class="language-text">``` drawlib [DISPLAY_MODE] [WIDTH] [ALIGNMENT] [file:NAME] [caption:"TEXT"] [OPTIONS...]
+<p>Options are specified as space-delimited <code>key=value</code> pairs on the opening code fence line (quotes are required only when values contain spaces, such as <code>caption=&quot;Service Architecture&quot;</code>):</p>
+<pre><code class="language-text">``` drawlib file=&lt;name.png&gt; [code=hide|show|fold] [align=left|center|right] [caption="TEXT"] [OPTIONS...]
 </code></pre>
 <p><em>(Note: In authoring, replace the brackets with your desired configuration options without the space after the backticks.)</em></p>
 <h3>2.1 Code Display Modes</h3>
 <table>
 <thead>
 <tr>
-<th>Option / Key-Value</th>
+<th>Key-Value Option</th>
 <th>HTML Rendering Behavior</th>
 <th>Markdown Rendering Behavior</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>hide-code</code> / <code>code:hide</code> <em>(default)</em></td>
+<td><code>code=hide</code> <em>(default)</em></td>
 <td>Displays image only (<code>&lt;figure&gt;&lt;img ...&gt;&lt;/figure&gt;</code>).</td>
 <td>Replaces block with standard Markdown image link.</td>
 </tr>
 <tr>
-<td><code>show-code</code> / <code>code:show</code></td>
+<td><code>code=show</code></td>
 <td>Displays syntax-highlighted code block followed immediately by the image.</td>
 <td>Renders code block followed by image link.</td>
 </tr>
 <tr>
-<td><code>fold-code</code> / <code>code:fold</code></td>
+<td><code>code=fold</code></td>
 <td>Displays image followed by a collapsible dropdown (<code>&lt;details&gt;&lt;summary&gt;Source Code&lt;/summary&gt;...&lt;/details&gt;</code>).</td>
 <td>Displays image followed by collapsed details dropdown.</td>
 </tr>
@@ -619,62 +619,56 @@
 <tbody>
 <tr>
 <td><strong>Filename</strong></td>
-<td><code>file:&lt;name.png&gt;</code></td>
+<td><code>file=&lt;name.png&gt;</code></td>
 <td><em>(Required in docs)</em></td>
 <td>Explicit output filename in <code>&lt;doc_stem&gt;_images/&lt;name.png&gt;</code> (or <code>images/&lt;slide_stem&gt;/&lt;name&gt;</code> in slides).</td>
 </tr>
 <tr>
 <td><strong>Image Format</strong></td>
-<td><code>format:&lt;fmt&gt;</code>, <code>fmt:&lt;fmt&gt;</code></td>
+<td><code>format=&lt;fmt&gt;</code></td>
 <td><code>png</code> (<code>svg</code> in slides)</td>
-<td>Output image format (<code>png</code>, <code>webp</code>, <code>svg</code>, <code>apng</code>) if not inferred from <code>file:</code> extension.</td>
+<td>Output image format (<code>png</code>, <code>webp</code>, <code>svg</code>, <code>apng</code>) if not inferred from <code>file=</code> extension.</td>
 </tr>
 <tr>
 <td><strong>Width</strong></td>
-<td><code>650px</code>, <code>80%</code>, <code>width:650px</code>, <code>w:80%</code></td>
+<td><code>width=650px</code>, <code>width=80%</code></td>
 <td><code>None</code> (natural size)</td>
 <td>CSS display width (<code>px</code>, <code>%</code>, <code>rem</code>, <code>vw</code>, or bare number → <code>px</code>).</td>
 </tr>
 <tr>
 <td><strong>Height</strong></td>
-<td><code>height:400px</code>, <code>h:300</code></td>
+<td><code>height=400px</code></td>
 <td><code>None</code></td>
 <td>Optional CSS display height override.</td>
 </tr>
 <tr>
 <td><strong>Alignment</strong></td>
-<td><code>center</code>, <code>left</code>, <code>right</code>, <code>align:center</code>, <code>a:left</code></td>
+<td><code>align=center</code>, <code>align=left</code>, <code>align=right</code></td>
 <td><code>center</code></td>
 <td>Horizontal figure alignment on the page (<code>left</code>, <code>center</code>, <code>right</code>).</td>
 </tr>
 <tr>
 <td><strong>Caption</strong></td>
-<td><code>caption:&quot;Text&quot;</code> or <code>caption:'Text'</code></td>
+<td><code>caption=&quot;Text&quot;</code> or <code>caption='Text'</code></td>
 <td><code>None</code></td>
 <td>Wraps the figure in semantic <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements.</td>
 </tr>
 <tr>
 <td><strong>CSS Class</strong></td>
-<td><code>class:hero-fig</code>, <code>css_class:&quot;card shadow&quot;</code></td>
+<td><code>class=hero-fig</code>, <code>class=&quot;card shadow&quot;</code></td>
 <td><code>None</code></td>
 <td>Appends custom CSS classes to the figure wrapper.</td>
 </tr>
 <tr>
 <td><strong>Cache Control</strong></td>
-<td><code>no-cache</code>, <code>cache:false</code></td>
+<td><code>no_cache=true</code></td>
 <td><code>False</code></td>
 <td>Forces this specific block to re-execute on every build, bypassing <code>.drawlib/cache.db</code>.</td>
 </tr>
 <tr>
-<td><strong>Slide Stage Placement</strong></td>
-<td><code>slot:&lt;name&gt;</code>, <code>xy:(x,y)</code> / <code>pos:(x,y)</code>, <code>size:(w,h)</code> / <code>dim:(w,h)</code>, <code>z:&lt;int&gt;</code> / <code>z-index:&lt;int&gt;</code></td>
-<td><code>None</code></td>
-<td>Stage slot, explicit <code>(x, y)</code> pixel position, <code>(w, h)</code> pixel size, and <code>z-index</code> layer depth for 16:9 slides.</td>
-</tr>
-<tr>
 <td><strong>Slide Animation Controls</strong></td>
-<td><code>anim-trigger:auto|click</code>, <code>anim-loop:once|infinite</code>, <code>anim-pause:2,4</code></td>
-<td><code>auto</code>, <code>infinite</code>, <code>[]</code></td>
+<td><code>anim_trigger=auto|click</code>, <code>anim_loop=once|infinite</code>, <code>anim_pause=(2, 4)</code></td>
+<td><code>auto</code>, <code>infinite</code>, <code>()</code></td>
 <td>Controls interactive <code>&lt;canvas&gt;</code> animation playback in HTML slide decks (see <a href="./project_slide.html">Slide Deck Project Guide</a>).</td>
 </tr>
 </tbody>
@@ -682,12 +676,12 @@
 <blockquote>
 <p>[!TIP]
 <strong>Best Practice for AI &amp; Automation</strong>:
-Always specify an explicit <code>file:&lt;name&gt;.png</code> attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via <code>drawlib show &lt;file.md&gt; &lt;image_name.png&gt;</code>.</p>
+Always specify an explicit <code>file=&lt;name&gt;.png</code> attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via <code>drawlib show &lt;file.md&gt; &lt;image_name.png&gt;</code>.</p>
 </blockquote>
 <blockquote>
 <p>[!NOTE]
 <strong>Animations in Code Blocks (APNG &amp; WebP)</strong>:
-Embedded <code>drawlib</code> blocks fully support generating multi-frame animated illustrations using <code>from drawlib.anim import Animation</code>. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the <code>file:</code> extension (<code>.png</code>, <code>.apng</code>, or <code>.webp</code>). See <a href="../07_animations/overview.html">Animations Overview (APNG &amp; WebP)</a> for full details.</p>
+Embedded <code>drawlib</code> blocks fully support generating multi-frame animated illustrations using <code>from drawlib.anim import Animation</code>. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the <code>file=</code> extension (<code>.png</code>, <code>.apng</code>, or <code>.webp</code>). See <a href="../07_animations/overview.html">Animations Overview (APNG &amp; WebP)</a> for full details.</p>
 </blockquote>
 <h3>2.3 HTML <code>&lt;script type=&quot;text/drawlib&quot;&gt;</code> Alternative Syntax</h3>
 <p>When authoring raw <code>.html</code> documents instead of <code>.md</code> files, you can embed Drawlib blocks using <code>&lt;script type=&quot;text/drawlib&quot;&gt;</code> tags with standard HTML attributes (<code>width=&quot;600px&quot;</code>, <code>align=&quot;center&quot;</code>, <code>file=&quot;arch.png&quot;</code>, <code>caption=&quot;Architecture&quot;</code>, <code>code=&quot;fold&quot;</code>).</p>

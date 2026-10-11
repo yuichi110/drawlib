@@ -4,7 +4,7 @@ A command-line interface serves as the primary bridge between developers, automa
 
 Drawlib's CLI (`_cli/`) is built on **Typer + Rich**, providing a unified, type-safe command hierarchy with explicit exit code contracts and interactive visual diagnostics.
 
-```drawlib center fold-code file:cli_command_hierarchy.png caption:"Unified Typer CLI Command Hierarchy"
+```drawlib align=center code=fold file=cli_command_hierarchy.png caption="Unified Typer CLI Command Hierarchy"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -76,7 +76,7 @@ Drawlib exposes six primary command groups:
 
 In CI/CD environments (GitHub Actions, GitLab CI, pre-commit hooks), exit codes are the universal contract determining pipeline success or failure:
 
-```drawlib center fold-code file:cli_exit_codes.png caption:"CLI Exit Code Contracts for CI/CD Pipelines"
+```drawlib align=center code=fold file=cli_exit_codes.png caption="CLI Exit Code Contracts for CI/CD Pipelines"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

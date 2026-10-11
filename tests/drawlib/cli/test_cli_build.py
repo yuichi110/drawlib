@@ -46,7 +46,7 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
     (src_dir / "index.md").write_text(
         """# Main Index
 
-```drawlib file:circle.png
+```drawlib file=circle.png
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 circle((50, 50), radius=20, style=Styles.Primary)
@@ -101,7 +101,7 @@ def test_cli_build_html_webp_format(tmp_path) -> None:
     (src_dir / "index.md").write_text(
         """# WebP Test
 
-```drawlib file:circle.webp
+```drawlib file=circle.webp
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -138,7 +138,7 @@ def test_cli_build_markdown_directory(tmp_path) -> None:
     (src_dir / "doc.md").write_text(
         """# Markdown Output
 
-```drawlib file:circle.png
+```drawlib file=circle.png
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -377,7 +377,7 @@ def test_cli_build_image_from_markdown(tmp_path) -> None:
 
 Here is an architectural diagram:
 
-```drawlib file:arch.png
+```drawlib file=arch.png
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 rectangle((50, 50), width=40, height=20, style=Styles.Primary)

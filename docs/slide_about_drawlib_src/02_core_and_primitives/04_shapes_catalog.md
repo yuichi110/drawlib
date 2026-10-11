@@ -1,10 +1,10 @@
-::: block (80, 45) (1760, 110)
+::: block xy=(80, 45) width=1760 height=110
 # 23 Geometric Primitives (`drawlib.shapes`)
 A rich vocabulary of vector shapes—all supporting `style` (including rotation `style.angle`), `text`, and `text_style`.
 :::
 
-::: block (80, 165) (1760, 810)
-```drawlib file:shapes_catalog.svg
+::: block xy=(80, 165) width=1760 height=810
+```drawlib file=shapes_catalog.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import (
     bubblespeech,
@@ -109,8 +109,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

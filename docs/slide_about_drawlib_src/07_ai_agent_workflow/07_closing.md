@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Start Drawing & Presenting as Code
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Unify Your Code, Diagrams, Docs & Slides
 
 Stop context-switching between Git, GUI drawing tools, wikis, and slide editors. Bring your entire visual communication stack into version-controlled Python and Markdown.
@@ -33,8 +33,8 @@ drawlib init slide my_deck -s default
 - **Explore & Contribute**: `https://github.com/yuichi110/drawlib`
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:closing_hero.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=closing_hero.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -120,7 +120,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 7: AI Agent Workflow & Ecosystem — Thank You & Getting Started*
 :::
 

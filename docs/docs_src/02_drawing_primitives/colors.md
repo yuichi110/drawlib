@@ -6,7 +6,7 @@ Drawlib represents colors through an immutable RGBA **`Color`** model backed by 
 
 ## 1. Overview of Semantic Color Roles & Shade Tiers
 
-```drawlib fold-code center file:colors_overview.png caption:"Drawlib 7 Semantic Color Roles and 6-Tone Shade Ramps"
+```drawlib code=fold align=center file=colors_overview.png caption="Drawlib 7 Semantic Color Roles and 6-Tone Shade Ramps"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
@@ -48,7 +48,7 @@ save()
 
 All color constants in Drawlib are instances of `Color` (imported from `drawlib.styles` or `drawlib.preset_colors`). `Color` is an immutable RGBA model that also behaves like a 4-tuple `(r, g, b, alpha)`:
 
-```drawlib show-code center file:colors_alpha_and_hex.png caption:"Constructing Custom RGB/Hex Colors and Alpha Opacity Layering"
+```drawlib code=show align=center file=colors_alpha_and_hex.png caption="Constructing Custom RGB/Hex Colors and Alpha Opacity Layering"
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Color
 from drawlib.shapes import rectangle
@@ -147,7 +147,7 @@ Within `DefaultColors` and `GoogleColors`, every semantic role (`Primary`, `Seco
 | **Tone `6` (Darkest Shade)** | `Colors.Primary6`, `Colors.Blue6` | High-contrast text inside tinted neutral cards. |
 | **Surface & Charcoal** | `Colors.Canvas`, `Colors.Light` (`White`), `Colors.Dark` (`Gray7`), `Colors.Gray1`..`Gray8`, `Colors.Black` | Canvas background, card surfaces, borders, and body charcoal text. |
 
-```drawlib fold-code center file:colors_chromatic_and_surface_swatches.png caption:"8 Chromatic Hue Families (Tiers 1–6) and Grayscale Surface Ramp"
+```drawlib code=fold align=center file=colors_chromatic_and_surface_swatches.png caption="8 Chromatic Hue Families (Tiers 1–6) and Grayscale Surface Ramp"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
@@ -202,7 +202,7 @@ save()
 - **`MonochromeColors`**: 10-step pure grayscale ramp (`White`, `Gray1`..`Gray8`, `Black`) for print and academic publications.
 - **`CssColors`**: All 140 W3C CSS named colors (`CssColors.AliceBlue`, `CssColors.CornflowerBlue`, `CssColors.DarkSlateGray`, etc.).
 
-```drawlib show-code center file:colors_theme_palettes.png caption:"Swatches of DefaultColors, GoogleColors, and MonochromeColors"
+```drawlib code=show align=center file=colors_theme_palettes.png caption="Swatches of DefaultColors, GoogleColors, and MonochromeColors"
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import DefaultColors, GoogleColors, MonochromeColors
 from drawlib.shapes import rectangle
@@ -244,7 +244,7 @@ When building heatmaps, multi-stage pipelines, or smooth animation transitions, 
 - **`get_intermediate_color(color1, color2) -> Color`**: Returns the exact 50% midpoint `Color` between `color1` and `color2`.
 - **`get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -> list[Color]`**: Divides the linear RGBA transition from `color1` to `color2` into `num + 1` equal intervals and returns `num` interior colors (or `num + 2` colors including both endpoints when `include_ends=True`).
 
-```drawlib show-code center file:colors_interpolation.png caption:"Smooth Color Gradient Generated with get_intermediate_colors()"
+```drawlib code=show align=center file=colors_interpolation.png caption="Smooth Color Gradient Generated with get_intermediate_colors()"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles, get_intermediate_colors

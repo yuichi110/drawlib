@@ -39,7 +39,7 @@ def extract_code_blocks(
         List[ExtractedBlockInfo]: List of extracted code block information objects.
 
     Raises:
-        ValueError: If require_file is True and any block lacks a 'file:<filename.ext>' option.
+        ValueError: If require_file is True and any block lacks a 'file=<filename.ext>' option.
     """
     blocks: List[ExtractedBlockInfo] = []
 
@@ -59,7 +59,7 @@ def extract_code_blocks(
             else:
                 if require_file:
                     raise ValueError(
-                        f"Missing required 'file:<filename.ext>' option in drawlib code block at line {start_line}. "
+                        f"Missing required 'file=<filename.ext>' option in drawlib code block at line {start_line}. "
                         'Example: <script type="text/drawlib" file="my_diagram.png">'
                     )
                 fn = f"{idx}.{ext}"
@@ -101,8 +101,8 @@ def extract_code_blocks(
             else:
                 if require_file:
                     raise ValueError(
-                        f"Missing required 'file:<filename.ext>' option in drawlib code block at line {start_line}. "
-                        "Example: ```drawlib file:my_diagram.png"
+                        f"Missing required 'file=<filename.ext>' option in drawlib code block at line {start_line}. "
+                        "Example: ```drawlib file=my_diagram.png"
                     )
                 fn = f"{block_index}.{ext}"
 

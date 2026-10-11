@@ -7,7 +7,7 @@ Drawlib provides horizontal text, vertical East Asian (CJK) text, arbitrary rota
 
 ## 1. Overview of Text Rendering
 
-```drawlib fold-code center file:text_overview.png caption:"Overview of Text Alignment, Rotation, Badges, and Vertical Typography"
+```drawlib code=fold align=center file=text_overview.png caption="Overview of Text Alignment, Rotation, Badges, and Vertical Typography"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -70,7 +70,7 @@ text(
 
 Renders East Asian characters (Japanese, Chinese) in traditional top-to-bottom vertical layout by stacking glyphs along a vertical centerline (`halign="center"`):
 
-```drawlib show-code center file:text_vertical.png caption:"Vertical Japanese Typography with text_vertical()"
+```drawlib code=show align=center file=text_vertical.png caption="Vertical Japanese Typography with text_vertical()"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -123,7 +123,7 @@ By default, `text()` centers the text bounding box horizontally (`halign="center
 - **`valign="center"`** *(default)*: Text is vertically centered on `y`.
 - **`valign="bottom"`**: Bottom baseline of the text sits above `y`.
 
-```drawlib show-code center file:text_alignment.png caption:"Horizontal and Vertical Anchor Alignment Combinations"
+```drawlib code=show align=center file=text_alignment.png caption="Horizontal and Vertical Anchor Alignment Combinations"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
@@ -162,7 +162,7 @@ save()
 
 Insert `\n` to break strings into multiple lines. Use `text_line_spacing` on `Style` to control vertical rhythm (default multiplier is `1.2`):
 
-```drawlib show-code center file:text_line_spacing.png caption:"Multi-Line Text Formatting and Line Spacing Control"
+```drawlib code=show align=center file=text_line_spacing.png caption="Multi-Line Text Formatting and Line Spacing Control"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -201,7 +201,7 @@ save()
 - **Rotation (`angle`)**: Rotates the text counter-clockwise in degrees around `xy`.
 - **Background Badges (`text_bg_fill_color`, `text_bg_line_color`, `text_bg_line_width`, `text_bg_line_style`)**: Draws a padded rectangular pill behind the text—ideal for placing protocol or latency callouts directly over connector lines without the line cutting through glyphs.
 
-```drawlib show-code center file:text_rotation_and_badges.png caption:"Rotated Axis Labels and Padded Background Badges"
+```drawlib code=show align=center file=text_rotation_and_badges.png caption="Rotated Axis Labels and Padded Background Badges"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -242,7 +242,7 @@ Every shape primitive in `drawlib.shapes` (`rectangle`, `circle`, `cylinder`, `r
 - **Offsetting Embedded Labels (`xy_shift` / `xy_abs_shift`)**: Patch `xy_shift=(dx, dy)` on `text_style` to nudge the label relative to the shape's center (for example, pushing a title toward the top of a container card).
 - **Independent Label Angle (`angle` / `text_flip`)**: Embedded text rotates with the shape by default; set `angle` or `text_flip=True` on `text_style` to override the label orientation.
 
-```drawlib show-code center file:text_embedded_shapes.png caption:"Embedded Shape Text with Automatic Contrast, xy_shift, and Angle Override"
+```drawlib code=show align=center file=text_embedded_shapes.png caption="Embedded Shape Text with Automatic Contrast, xy_shift, and Angle Override"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles

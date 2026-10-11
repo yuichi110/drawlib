@@ -4,7 +4,7 @@ A drawing library faces severe architectural challenges: complex geometry transf
 
 To ensure long-term maintainability, Drawlib enforces a strict **Unidirectional Layered Architecture** across its core drawing engine and domain subsystems.
 
-```drawlib center fold-code file:layer_hierarchy_stack.png caption:"Drawlib Strict Layered Architecture Stack"
+```drawlib align=center code=fold file=layer_hierarchy_stack.png caption="Drawlib Strict Layered Architecture Stack"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -73,7 +73,7 @@ Drawlib decomposes drawing mechanics into six discrete horizontal layers:
 | **L2 Types** | `_core/l2_types` | Functional coordinate primitives (`Coordinate`, `Coordinates`), Pydantic field bounds, enums. | L3 Services, L4 Canvas, Domain |
 | **L1 Core** | `_core/l1_core` | Core runtime settings (`dutil_settings`), logging, path utilities, static asset directory constants. | All higher layers |
 
-```drawlib center fold-code file:layer_dependency_rules.png caption:"Layer Dependency Rules: Allowed vs. Forbidden Imports"
+```drawlib align=center code=fold file=layer_dependency_rules.png caption="Layer Dependency Rules: Allowed vs. Forbidden Imports"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

@@ -2,7 +2,7 @@
 
 Drawlib は、AI コーディングアシスタント（Claude, Cursor, Gemini, Copilot）が自律的かつ正確に作図を行えるよう「Agent-First」で設計されています。エージェントに基本 instruction を登録した後は、AI が Drawlib CLI と自律的に対話して必要な機能を調査し、検証済みの図解ドキュメントを出力します。
 
-```drawlib 640px center file:fig_agent_interaction.png caption:"図 6.1: Drawlib と AI Agent の自律対話・ドキュメント出力モデル"
+```drawlib width=640px align=center file=fig_agent_interaction.png caption="図 6.1: Drawlib と AI Agent の自律対話・ドキュメント出力モデル"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

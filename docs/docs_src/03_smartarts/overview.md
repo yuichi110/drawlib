@@ -7,7 +7,7 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 
 ## 1. What SmartArts Can Do
 
-```drawlib fold-code center file:smartarts_showcase.png caption:"SmartArts High-Level Component Showcase"
+```drawlib code=fold align=center file=smartarts_showcase.png caption="SmartArts High-Level Component Showcase"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -188,7 +188,7 @@ Understanding anchor conventions is essential when combining multiple SmartArts 
 - **Center Anchored (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)` (or pass `align="bottom_left"` to `Cycle.draw()`). The diagram expands symmetrically or radially around the center.
 
-```drawlib fold-code center file:smartarts_anchor_systems.png caption:"The Three SmartArt Coordinate Anchor Conventions"
+```drawlib code=fold align=center file=smartarts_anchor_systems.png caption="The Three SmartArt Coordinate Anchor Conventions"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -280,7 +280,7 @@ Stateful SmartArt components follow a unified **4-phase deferred mutation lifecy
 2. **Register Content (`add(..., show: bool = True)`)**: Populate stages, cells, tiers, cards, or child nodes. Every `.add(...)` call returns a **mutable item instance** (`ChevronItem`, `CycleItem`, `GridItem`, `PyramidItem`, `BoxListItem`, `BulletPointItem`, `TreeNode`, or `MindMapNode`), and all registered items remain accessible via `.items` (or `.children` for trees/mindmaps, and `.center` for `CycleCenter`).
 3. **Mutate Before or Between `draw()` Calls**: Because item attributes (`.style`, `.text_style`, `.text`, `.description`, `.show`) are evaluated lazily inside `draw()`, you can mutate any item's style, label, or visibility before calling `draw()`—or between multiple `draw()` frames (such as step-by-step animations or multi-state diagrams) without reconstructing the component:
 
-```drawlib show-code center file:smartarts_deferred_mutation_lifecycle.png caption:"Deferred Item Mutation: Hiding a Stage Without Shifting Sibling Coordinates"
+```drawlib code=show align=center file=smartarts_deferred_mutation_lifecycle.png caption="Deferred Item Mutation: Hiding a Stage Without Shifting Sibling Coordinates"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles

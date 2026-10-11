@@ -2,7 +2,7 @@
 
 All 7 chart classes in `drawlib.charts` (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`) follow the **Pre-Build & Mutate** lifecycle:
 
-```drawlib fold-code center file:anim_charts_hero.png format:webp caption:"Chart Animation Overview: Locked Axes with Progressive Spatial Growth (draw_ratio)"
+```drawlib code=fold align=center file=anim_charts_hero.png format=webp caption="Chart Animation Overview: Locked Axes with Progressive Spatial Growth (draw_ratio)"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
@@ -62,7 +62,7 @@ save()
 
 Because Drawlib computes automatic axis bounds (`min_value`, `max_value`, `tick_step`), pie proportions, and Gantt row heights across **all registered elements regardless of `show=False`**, toggling `s.show = True` across frames reveals series one by one without ever shifting or rescaling the chart axes:
 
-```drawlib center show-code file:anim_charts_series_reveal.png caption:"Progressive Multi-Series LineChart Reveal with Locked Y-Axis"
+```drawlib align=center code=show file=anim_charts_series_reveal.png caption="Progressive Multi-Series LineChart Reveal with Locked Y-Axis"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.line import LineChart
@@ -111,7 +111,7 @@ Every `Series`, `Slice`, and `Task` supports built-in partial spatial rendering 
 - **`RadarChart`**: `"bottom_to_top"` *(default)* expands the polygon radially from the center; `"left_to_right"` sweeps spoke-by-spoke.
 - **`GanttChart`**: `"left_to_right"` *(default)* extends task bars horizontally from `start` toward `end`; `"bottom_to_top"` grows task bars vertically from their bottom edge.
 
-```drawlib center show-code file:anim_charts_bar_growth.png caption:"Smooth BarChart Growth via s.draw_ratio"
+```drawlib align=center code=show file=anim_charts_bar_growth.png caption="Smooth BarChart Growth via s.draw_ratio"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
@@ -159,7 +159,7 @@ In `GanttChart`, every registration method returns a mutable model object:
 
 Mutating `task.show` and `task.draw_ratio` reveals and extends task bars along the timeline while keeping all row lanes and column headers fixed:
 
-```drawlib center show-code file:anim_charts_gantt_reveal.png caption:"GanttChart Progressive Task Schedule Reveal"
+```drawlib align=center code=show file=anim_charts_gantt_reveal.png caption="GanttChart Progressive Task Schedule Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart

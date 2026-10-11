@@ -1,12 +1,12 @@
-::: block (1700, 1010) (140, 30) z:10
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30 z_index=10
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (0, 0) (1920, 1080)
-```drawlib file:full_canvas_showcase.svg
+::: block xy=(0, 0) width=1920 height=1080
+```drawlib file=full_canvas_showcase.svg
 import utils
 from drawlib.canvas import clear, save, setup
 from drawlib.charts.bar import BarChart
@@ -43,7 +43,7 @@ rectangle(
 )
 text(
     (8.0, 101.0),
-    "Full-Canvas Pure Stage  —  ::: block (0, 0) (1920, 1080)  +  setup(width=192, height=108)",
+    "Full-Canvas Pure Stage  —  ::: block xy=(0, 0) width=1920 height=1080  +  setup(width=192, height=108)",
     style=Styles.WhiteBold.patch(text_size=12.8, halign="left"),
 )
 text(
@@ -129,7 +129,7 @@ line((94.0, 28.5), (98.0, 28.5), arrow_head="->", style=Styles.PrimaryBold)
 # 6. Bottom Footer Strip drawn directly on canvas
 text(
     (8.0, 4.5),
-    "Chapter 6: Documentation & Slide Engine — Full-Canvas Pure Stage (::: block (0, 0) (1920, 1080))",
+    "Chapter 6: Documentation & Slide Engine — Full-Canvas Pure Stage (::: block xy=(0, 0) width=1920 height=1080)",
     style=Styles.Muted.patch(text_size=8.2, halign="left"),
 )
 
@@ -138,6 +138,6 @@ save()
 :::
 
 ::: note
-- This entire slide is rendered from a single `::: block (0, 0) (1920, 1080)` container with `setup(width=192.0, height=108.0)`.
+- This entire slide is rendered from a single `::: block xy=(0, 0) width=1920 height=1080` container with `setup(width=192.0, height=108.0)`.
 - Because `ArchitectureDiagram`, `BarChart`, primitive cards, and `current_slide.text` all share the same Drawlib canvas, you can draw arrows directly between an architecture diagram on the left and a chart or KPI panel on the right!
 :::

@@ -44,7 +44,7 @@ When authoring **"Illustration as Code"** and **"Illustrated Documentation as Co
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-```drawlib center fold-code file:review_loop_pipeline.png caption:"Drawlib 3-Stage Autonomous Review & Self-Correction Pipeline"
+```drawlib align=center code=fold file=review_loop_pipeline.png caption="Drawlib 3-Stage Autonomous Review & Self-Correction Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -231,7 +231,7 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \text{scale} \ti
 In **16:9 Slide Decks (`project-slide` / `slide-guide`)**, the stage is **`1920px × 1080px`** and Markdown body text inside `::: block` is **`26px`** (`h2` is `34px`, `h1` is `52px`).
 > **CRITICAL SLIDE REVIEW RULE**: Checking only for "zero overlapping text" is **not sufficient** on slides! A diagram with `text_size = 9.5` inside a `1000px`-wide 2-column block renders at **`~13px`** on the `1920×1080` stage—half the size of the `26px` Markdown bullets beside it! Always compare in-diagram text height directly against adjacent `26px` slide prose when reviewing the compiled PDF (`slide.pdf`) or HTML stage (`slide_html/index.html`).
 
-Scale `text_size` inversely with the enclosing `::: block (x, y) (W_block, H_block)` width so rendered diagram labels stay **`>= 18px–24px`** on the `1920×1080` stage:
+Scale `text_size` inversely with the enclosing `::: block xy=(x, y) width=W_block height=H_block` width so rendered diagram labels stay **`>= 18px–24px`** on the `1920×1080` stage:
 
 | Slide `::: block` Layout | Block Width $W_{\text{block}}$ | Scale (`px/pt`) | Mandatory `text_size` (Nodes / Axes / Tables) | Mandatory `text_size` (Titles) | Rendered Size on `1920×1080` Stage |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -249,7 +249,7 @@ Scale `text_size` inversely with the enclosing `::: block (x, y) (W_block, H_blo
 
 Every documentation page must hook the reader visually at first glance:
 1. **Top Hero Position (`Lines 5–15`)**: Place the first ```` ```drawlib ```` block immediately after `# Page Title` and a concise 1–2 sentence executive summary.
-2. **Collapsed Source Code (`fold-code`)**: Always use `fold-code` on the Top Hero diagram (or `hide-code` on landing pages). Putting a 50-line `show-code` block at the top of a page pushes the rendered diagram completely off-screen.
+2. **Collapsed Source Code (`code=fold`)**: Always use `code=fold` on the Top Hero diagram (or `code=hide` on landing pages). Putting a 50-line `code=show` block at the top of a page pushes the rendered diagram completely off-screen.
 3. **High-Level Component + Icon Synergy**: Top Hero diagrams should combine official iconography (`phosphor.*`, `gcp.*`, `font_icon`) with high-level layout components (`SmartArts`, `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ArchitectureGraph`, `BarChart`, etc.) rather than plain geometric boxes.
 
 ---

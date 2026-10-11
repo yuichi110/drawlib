@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Data Matrices & Embedded Code (`Table` & `SourceCode`)
 :::
 
-::: block (80, 140) (680, 840) compact
+::: block xy=(80, 140) width=680 height=840 compact=true
 ## Tabular Precision & Vector Syntax Highlighting
 
 ### 1. `Table` — Fine-Grained Matrix Styling
@@ -25,8 +25,8 @@ utils.draw_page_number()
 - Built-in themes (`"dark"`, `"monokai"`, `"default"`, `"google"`, `"monochrome"`) and CJK-aware monospace fonts (`font_lang="en" | "ja"`).
 :::
 
-::: block (800, 140) (1040, 840)
-```drawlib file:tables_and_code.svg
+::: block xy=(800, 140) width=1040 height=840
+```drawlib file=tables_and_code.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import rectangle

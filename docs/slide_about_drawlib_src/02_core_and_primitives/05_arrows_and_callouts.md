@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # Block Arrows & Callouts (`arrow`, `arrow_l`, `arrow_u`, `arrow_arc`)
 2D filled planar block arrows and speech callouts for prominent phase transitions and annotations.
 :::
 
-::: block (80, 190) (780, 770) compact
+::: block xy=(80, 190) width=780 height=770 compact=true
 ### 5 Directed Block Arrows + Speech Callouts
 
 ```python
@@ -33,8 +33,8 @@ arrow_polyline([(52, 10), (66, 10), (66, 22), (88, 22)],
 - **Note**: `arrow()` supports embedded `text`; for `arrow_l`, `arrow_u`, `arrow_arc`, and `arrow_polyline`, place external `text()` labels alongside the shaft.
 :::
 
-::: block (900, 180) (940, 780)
-```drawlib file:block_arrows.svg
+::: block xy=(900, 180) width=940 height=780
+```drawlib file=block_arrows.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import (
     arrow,
@@ -129,8 +129,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

@@ -1,10 +1,10 @@
-::: block (80, 60) (1760, 140)
+::: block xy=(80, 60) width=1760 height=140
 # Presentation Roadmap
 A comprehensive 7-chapter tour from the philosophy of Illustration as Code to high-level diagrams, animations, and AI workflows.
 :::
 
-::: block (80, 210) (960, 760)
-```drawlib file:agenda.svg
+::: block xy=(80, 210) width=960 height=760
+```drawlib file=agenda.svg
 from drawlib.canvas import clear, save, setup
 import utils
 
@@ -28,7 +28,7 @@ save()
 ```
 :::
 
-::: block (1080, 240) (760, 680)
+::: block xy=(1080, 240) width=760 height=680
 ### Live Dogfooding in Action
 
 This 60-slide presentation is **100% authored and compiled with Drawlib**:
@@ -40,8 +40,8 @@ This 60-slide presentation is **100% authored and compiled with Drawlib**:
 - **Dual Output**: Compiled into both an interactive HTML5 web deck and a 1920×1080 vector PDF
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

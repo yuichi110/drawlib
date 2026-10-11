@@ -4,7 +4,7 @@ The `canvas` is the foundational drawing surface of Drawlib.
 Under the "Illustration as Code" paradigm, canvas dimensions, resolution, background coloring, coordinate grids, and export formats are managed entirely through declarative Python function calls.
 Drawlib maintains an active canvas singleton where drawing functions register visual elements before the canvas is saved or rendered:
 
-```drawlib fold-code center file:canvas_lifecycle_model.png caption:"The Drawlib Canvas Lifecycle Model"
+```drawlib code=fold align=center file=canvas_lifecycle_model.png caption="The Drawlib Canvas Lifecycle Model"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import lines_curved
@@ -93,7 +93,7 @@ Drawlib uses a mathematical Cartesian coordinate system:
 - **Y-Axis**: Increases vertically upwards (`0` to `height`).
 - **Center-Based Anchoring**: Coordinates `(x, y)` for shapes, text, and icons refer to their **exact geometric center** by default.
 
-```drawlib show-code center file:canvas_configuration_grid.png caption:"Custom Canvas Configuration with Grid"
+```drawlib code=show align=center file=canvas_configuration_grid.png caption="Custom Canvas Configuration with Grid"
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors, Styles
@@ -199,7 +199,7 @@ with canvas.transform(
 - **`scale`**: Positive proportional scale factor (`> 0`, defaults to `1.0`). Scales geometry, stroke widths, arrowheads, and font sizes together.
 - **`translate`**: Additional `(dx, dy)` translation offset applied in canvas units (defaults to `(0.0, 0.0)`).
 
-```drawlib show-code center file:canvas_transform_context.png caption:"Local Coordinate Scaling and Translation with canvas.transform()"
+```drawlib code=show align=center file=canvas_transform_context.png caption="Local Coordinate Scaling and Translation with canvas.transform()"
 from drawlib.canvas import canvas, save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle

@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Agenda & Incident Executive Summary
 :::
 
-::: block (80, 150) (1020, 810)
+::: block xy=(80, 150) width=1020 height=810
 ```drawlib
 from drawlib.canvas import setup
 import utils
@@ -21,7 +21,7 @@ utils.draw_curved_agenda(
 ```
 :::
 
-::: block (1140, 150) (700, 810)
+::: block xy=(1140, 150) width=700 height=810
 ```drawlib
 from drawlib.canvas import setup
 import utils
@@ -40,7 +40,7 @@ utils.draw_kpi_cards(
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

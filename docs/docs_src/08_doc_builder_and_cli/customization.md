@@ -4,7 +4,7 @@ Drawlib is designed to integrate seamlessly into corporate design languages and 
 
 A single theme preset (`--style <preset>`) synchronizes both your document CSS (`style.css`) and your diagram design tokens (`styles.py`):
 
-```drawlib fold-code center file:customization_unified_theming.png caption:"Unified Theme Architecture: Synchronizing Document CSS (style.css) and Diagram Tokens (styles.py)"
+```drawlib code=fold align=center file=customization_unified_theming.png caption="Unified Theme Architecture: Synchronizing Document CSS (style.css) and Diagram Tokens (styles.py)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -198,7 +198,7 @@ When scaffolding projects using `drawlib init <type> --style google` (or `monoch
 
 For reusable composite drawing elements (such as specialized server racks, status badges, or complex icons), author custom functions in `utils.py`:
 
-```drawlib show-code center file:customization_utils_server_nodes.png caption:"Reusable Composite Server Node Helper Defined in utils.py"
+```drawlib code=show align=center file=customization_utils_server_nodes.png caption="Reusable Composite Server Node Helper Defined in utils.py"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle

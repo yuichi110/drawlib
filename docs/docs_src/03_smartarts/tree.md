@@ -3,7 +3,7 @@
 The `TreeNode` component renders hierarchical tree structures, such as codebase directory trees, organizational hierarchy charts, and taxonomy categorizations. 
 It automates vertical branch alignment, indentation levels, and tree connector lines.
 
-```drawlib fold-code center file:tree_hero.png caption:"Overview of TreeNode: Declarative Hierarchy and Icon/Badge Annotations"
+```drawlib code=fold align=center file=tree_hero.png caption="Overview of TreeNode: Declarative Hierarchy and Icon/Badge Annotations"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -88,7 +88,7 @@ save()
 
 ## 1. Quick Example: Project Directory Hierarchy
 
-```drawlib show-code center file:tree_project_structure.png caption:"Project File Structure with TreeNode"
+```drawlib code=show align=center file=tree_project_structure.png caption="Project File Structure with TreeNode"
 from drawlib.canvas import setup
 from drawlib.smartarts import TreeNode
 from drawlib.icons import phosphor
@@ -131,7 +131,7 @@ root.draw(xy=(8, 37))
 
 Instead of nesting `children=[...]` inside the constructor, you can build trees imperatively using `parent.add(text, ...) -> TreeNode`. Any style or margin parameter specified on an intermediate node automatically **cascades down to its subtree** unless overridden again. You can also register status badges or icons with `location="after"` (where `padding_width` specifies the horizontal offset from the node's left `x` coordinate to the badge).
 
-```drawlib show-code center file:tree_imperative_badges.png caption:"Imperative TreeNode Construction with Cascading Subtree Overrides and 'after' Status Badges"
+```drawlib code=show align=center file=tree_imperative_badges.png caption="Imperative TreeNode Construction with Cascading Subtree Overrides and 'after' Status Badges"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

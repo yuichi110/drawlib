@@ -7,7 +7,7 @@ Drawlib solves this with a **unified design token system** in `drawlib.styles` a
 
 ## 1. Overview of Semantic Styles & Variants
 
-```drawlib fold-code center file:styles_overview.png caption:"Overview of Semantic Style Tokens and Orthogonal Variants"
+```drawlib code=fold align=center file=styles_overview.png caption="Overview of Semantic Style Tokens and Orthogonal Variants"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -64,7 +64,7 @@ Styles = GoogleStyles().patch_font(
 )
 ```
 
-```drawlib fold-code center file:styles_centralized_architecture.png caption:"Centralized styles.py Theme and Token Architecture"
+```drawlib code=fold align=center file=styles_centralized_architecture.png caption="Centralized styles.py Theme and Token Architecture"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -139,7 +139,7 @@ Rather than fragmenting styling across separate `ShapeStyle`, `LineStyle`, `Text
 
 `Style` instances are frozen Pydantic models (similar to frozen dataclasses with `dataclasses.replace`). To customize a preset token without mutating global state, call `.patch()`:
 
-```drawlib show-code center file:styles_unified_token_domains.png caption:"Deriving Custom Styles with .patch() Without Mutating Presets"
+```drawlib code=show align=center file=styles_unified_token_domains.png caption="Deriving Custom Styles with .patch() Without Mutating Presets"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -205,7 +205,7 @@ Every semantic role (`Primary`, `Secondary`, `Accent`, `Warning`, `Danger`, `Suc
 | **`<Role>Dashed` (`Bold` / `Thin`)** | `Styles.MutedDashed` | Transparent | Role color (`1.5`) | `"dashed"` | VPC / cluster boundary |
 | **`<Role>Dotted` (`Bold` / `Thin`)** | `Styles.WarningDotted` | Transparent | Role color (`1.5`) | `"dotted"` | Ephemeral / fallback link |
 
-```drawlib show-code center file:styles_variant_matrix.png caption:"Visual Matrix of Drawlib Style Variants (Neutral, Flat, Bordered, Solid, Dashed, Dotted)"
+```drawlib code=show align=center file=styles_variant_matrix.png caption="Visual Matrix of Drawlib Style Variants (Neutral, Flat, Bordered, Solid, Dashed, Dotted)"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -250,7 +250,7 @@ Drawlib ships with **9 preset style classes** across three design families in `d
 | **`GoogleStyles`** | `google` | Google Workspace & Slides Material palette (Google Blue, Purple, Orange, Green, Red, Yellow). |
 | **`MonochromeStyles`** | `monochrome` | High-contrast grayscale catalog (`Primary`, `Secondary`, `Accent`, `Neutral`, `Muted`) for academic papers, patents, and print. |
 
-```drawlib show-code center file:styles_theme_comparison.png caption:"Side-by-Side Comparison of DefaultStyles, GoogleStyles, and MonochromeStyles"
+```drawlib code=show align=center file=styles_theme_comparison.png caption="Side-by-Side Comparison of DefaultStyles, GoogleStyles, and MonochromeStyles"
 from drawlib.canvas import save, setup
 from drawlib.preset_styles import DefaultStyles, GoogleStyles, MonochromeStyles
 from drawlib.shapes import rectangle

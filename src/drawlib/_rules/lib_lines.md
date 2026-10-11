@@ -114,7 +114,7 @@ When computing line endpoints programmatically:
 - **Direct Edge Connectors**: Shortest-distance vectors between adjacent shapes. When connecting rectangular nodes, calculate anchors at the center of the facing edges rather than shape centers to prevent lines from showing underneath transparent fills.
 
 ### 2.4. Code Example: Multi-Tier Architectural Dividers & Direct Edges
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -201,7 +201,7 @@ When two architectural services exchange synchronous requests and responses, str
 Because the travel direction is reversed in the second call, both lines bow outward in opposite directions, creating a clean symmetrical ellipse with space for labels in between.
 
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
@@ -329,7 +329,7 @@ $$\text{cp1} = \left(x_1 + \frac{\Delta x}{2}, y_1\right), \quad \text{cp2} = \l
 ```
 
 ### 4.3. Code Example: ETL Pipeline S-Curves and Rounded Transitions
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line_bezier1, line_bezier2
 from drawlib.shapes import rectangle
@@ -421,7 +421,7 @@ Routes around an intermediate obstacle:
 ```
 
 ### 5.4. Code Example: Orthogonal Bus Architecture
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
@@ -520,7 +520,7 @@ The elements of `path_points` determine the segment type dynamically:
 3. `((cp1_x, cp1_y), (cp2_x, cp2_y), (x, y))`: **Cubic Bézier segment** (`Path.CURVE4`) to `(x, y)` with control points `cp1` and `cp2`.
 
 ### 6.3. Code Example: Filleted Circuit Tracks and Mixed Bézier Paths
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved, lines_bezier
 from drawlib.shapes import circle
@@ -610,7 +610,7 @@ Angles in Drawlib adhere to standard Cartesian trigonometry:
 Internally, `LineArcHelper` subdivides large angular sweeps into sub-arcs of $\le 90^\circ$ and approximates each segment using cubic Bézier splines (`bezier_ellipse_arc_approximation`). This guarantees high precision without raster distortion.
 
 ### 7.4. Code Example: Cyclic Feedback & Self-Loop Retry Arcs
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_arc
 from drawlib.shapes import rectangle
@@ -686,7 +686,7 @@ Arrowheads inherit their color and transparency from the line stroke, but their 
 On curved lines (`line_curved`, `line_bezier1`, `line_bezier2`, `line_arc`, `lines_curved`), Drawlib calculates the derivative tangent vector at the exact terminal point. The arrowhead rotates automatically to align seamlessly with the incoming trajectory.
 
 ### 8.4. Code Example: Arrowhead Style & Scale Gallery
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.styles import Styles
@@ -785,7 +785,7 @@ Aligning visual stroke properties with architectural meanings makes diagrams ins
 | **Dashdot Bold** | `─·─·─·` | Cross-Boundary Network Transit | VPC peering, transit gateways, DMZ firewalls, Internet hops. |
 
 ### 9.5. Code Example: Multi-Protocol Network Styling
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.styles import Colors, Styles
@@ -855,7 +855,7 @@ $$\theta = \operatorname{atan2}(y_2 - y_1, x_2 - x_1) \times \frac{180}{\pi}$$
 > ```
 
 ### 10.4. Code Example: Reusable Labeled Connector with Badges
-```drawlib show-code file:lines_labeled_connector.png
+```drawlib code=show file=lines_labeled_connector.png
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -903,7 +903,7 @@ Real-world technical architecture diagrams demand sophisticated routing patterns
 
 ### 11.1. Pattern 1: API Gateway Fan-Out (Dogleg Routing)
 Route horizontally to an alignment trunk, then step vertically into each target's horizontal entry lane:
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
@@ -921,7 +921,7 @@ save()
 
 ### 11.2. Pattern 2: Circuit Routing & High-Density Parallel Bus Trunks
 Parallel lines maintain uniform separation and turn corners in synchronized lockstep:
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.styles import Styles
@@ -939,7 +939,7 @@ save()
 
 ### 11.3. Pattern 3: Event-Driven Publish/Subscribe Backbone
 A central message queue or event streaming log acts as an orthogonal trunk:
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
@@ -961,7 +961,7 @@ save()
 
 ### 11.4. Pattern 4: Cross-VPC Peering & Boundary Traversals
 Security zones and perimeter firewalls traversed by distinct cross-boundary links:
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -1036,7 +1036,7 @@ def route_around_obstacle(
 ```
 
 ### 12.3. Code Example: Algorithmic Obstacle Avoidance in Action
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.shapes import rectangle

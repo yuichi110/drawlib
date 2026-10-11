@@ -1,7 +1,7 @@
 # Cylinders, Faces & Callouts
 
 Beyond standard geometric primitives, `drawlib.shapes` includes three expressive domain shapes for technical architecture and storytelling diagrams:
-```drawlib fold-code center file:shapes_domain_overview.png caption:"Combining Actor Faces, 3D Database Cylinders, and Speech Callouts"
+```drawlib code=fold align=center file=shapes_domain_overview.png caption="Combining Actor Faces, 3D Database Cylinders, and Speech Callouts"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import bubblespeech, cylinder, face
@@ -79,7 +79,7 @@ cylinder(
 | `style` | `Style` | *Required* | Shape fill and stroke style. Set `style.patch(angle=-90)` for horizontal FIFO queues/pipes. |
 | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Centered text label and optional typography override. |
 
-```drawlib show-code center file:shapes_domain_cylinder.png caption:"Single Cylinder, 3-Disk Database Stack, and Horizontal Queue"
+```drawlib code=show align=center file=shapes_domain_cylinder.png caption="Single Cylinder, 3-Disk Database Stack, and Horizontal Queue"
 from drawlib.canvas import save, setup
 from drawlib.shapes import cylinder
 from drawlib.styles import Styles
@@ -134,7 +134,7 @@ face(
 - **`mood`**: Selects the mouth and eyebrow geometry (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`).
 - **Automatic Feature Contrast**: Eyes, eyebrows, and mouth automatically use `style.shape_line_color` on outlined cards, or high-contrast `text_color` / white on borderless flat styles (`Styles.PrimaryFlat`).
 
-```drawlib show-code center file:shapes_domain_face.png caption:"The Five Facial Moods in drawlib.shapes.face"
+```drawlib code=show align=center file=shapes_domain_face.png caption="The Five Facial Moods in drawlib.shapes.face"
 from drawlib.canvas import save, setup
 from drawlib.shapes import face
 from drawlib.styles import Styles
@@ -190,7 +190,7 @@ bubblespeech(
 | `tail_vertex_xy` | `tuple[float, float]` | Absolute canvas coordinate `(x, y)` where the tip of the tail points. |
 | `style` / `text` / `text_style` | `Style` / `str` / `Style \| None` | Bubble fill/stroke style and centered annotation text. Note: `bubblespeech` ignores `style.shape_r`, `style.angle`, and `style.halign`/`valign`. |
 
-```drawlib show-code center file:shapes_domain_bubblespeech.png caption:"Speech Bubble Callouts with Bottom-Left Anchor xy and Pointer Tail Vertex"
+```drawlib code=show align=center file=shapes_domain_bubblespeech.png caption="Speech Bubble Callouts with Bottom-Left Anchor xy and Pointer Tail Vertex"
 from drawlib.canvas import save, setup
 from drawlib.shapes import bubblespeech, circle, rectangle
 from drawlib.styles import Styles

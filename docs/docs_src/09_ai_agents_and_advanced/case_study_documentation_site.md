@@ -6,7 +6,7 @@ Drawlib's own official documentation—spanning **79 HTML pages, over 6,900 cros
 
 This case study outlines the practical 5-phase methodology used to architect, author, refine, and continuously maintain this large-scale documentation site using **"Illustrated Documentation as Code"** and **AI dogfooding**.
 
-```drawlib fold-code center file:doc_site_lifecycle.png caption:"The 5-Phase Human-AI Collaborative Documentation Architecture & Lifecycle"
+```drawlib code=fold align=center file=doc_site_lifecycle.png caption="The 5-Phase Human-AI Collaborative Documentation Architecture & Lifecycle"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -75,7 +75,7 @@ Drawlib eliminates this fragmentation by treating technical diagrams and prose a
 
 When bootstrapping a comprehensive documentation site, developers often make the mistake of attempting to draw perfect, pixel-aligned diagrams on day one. In reality, **premature aesthetic polish during architectural discovery is extremely wasteful**.
 
-```drawlib fold-code center file:draft_vs_refined_evolution.png caption:"Evolutionary Strategy: Structure & Prose First, Visual Polish Second"
+```drawlib code=fold align=center file=draft_vs_refined_evolution.png caption="Evolutionary Strategy: Structure & Prose First, Visual Polish Second"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -162,7 +162,7 @@ Placeholder boxes were replaced with tailored high-level Drawlib components:
 ### 3.2. The "Top Hero" Eye-Catcher Standard
 To maximize reader engagement and visual retention, the documentation established the **Top Hero Rule**:
 1. **Placement at Lines 5–15**: Every documentation page features a prominent Top Hero illustration immediately below `# Title` and the introductory lead sentence.
-2. **`fold-code` Fencing**: By marking code fences with ````drawlib fold-code center file:<name>.png caption:"..."````, the rendered image appears prominently above the fold, while the Python drawing source code is collapsed by default into an expandable `<details>` block.
+2. **`code=fold` Fencing**: By marking code fences with ````drawlib code=fold align=center file=<name>.png caption="..."````, the rendered image appears prominently above the fold, while the Python drawing source code is collapsed by default into an expandable `<details>` block.
 3. **Visual Density**: Each page includes at least **2+ diagrams**, ensuring complex ideas are explained both textually and diagrammatically.
 
 ### 3.3. 720pt Typography Math
@@ -196,7 +196,7 @@ Rather than delivering uninspected code, the agent was mandated to run an autono
 
 A major triumph of this architecture is how documentation updates are seamlessly tied to feature development.
 
-```drawlib fold-code center file:dogfooding_development_cycle.png caption:"The Continuous Dogfooding Loop: Code, Rules & Living Documentation"
+```drawlib code=fold align=center file=dogfooding_development_cycle.png caption="The Continuous Dogfooding Loop: Code, Rules & Living Documentation"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, lines
@@ -269,7 +269,7 @@ Because Drawlib's documentation is compiled directly from the live Python source
 
 In the final phase of site polish, the team focused on enterprise-grade brand identity, accessibility, and UI customization.
 
-```drawlib fold-code center file:ui_customization_and_template_feedback.png caption:"Upstream Feedback: From Site Customization to Core Scaffolding Templates"
+```drawlib code=fold align=center file=ui_customization_and_template_feedback.png caption="Upstream Feedback: From Site Customization to Core Scaffolding Templates"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

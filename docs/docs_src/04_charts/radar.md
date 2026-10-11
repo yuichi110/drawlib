@@ -6,7 +6,7 @@
 
 ## 1. Overview & Radial Geometry
 
-```drawlib center fold-code file:radarchart_geometry_overview.png caption:"RadarChart Radial Geometry: Polygon vs. Circular Contours"
+```drawlib align=center code=fold file=radarchart_geometry_overview.png caption="RadarChart Radial Geometry: Polygon vs. Circular Contours"
 from drawlib.canvas import save, setup
 from drawlib.charts.radar import RadarChart
 from drawlib.lines import line
@@ -86,7 +86,7 @@ save()
 
 Polygonal gridlines (`grid_shape="polygon"`) align with radial spokes, making it easy to compare architectural trade-offs across non-functional requirements:
 
-```drawlib center show-code file:radarchart_non_functional.png caption:"System Architecture Non-Functional Analysis"
+```drawlib align=center code=show file=radarchart_non_functional.png caption="System Architecture Non-Functional Analysis"
 from drawlib.canvas import save, setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
@@ -129,7 +129,7 @@ save()
 
 Using `grid_shape="circle"` with `scale_text_style` and `configure_axis(...)` renders smooth concentric rings with numeric scale labels:
 
-```drawlib center show-code file:radarchart_feature_matrix.png caption:"Device Feature Matrix with Circular Contours"
+```drawlib align=center code=show file=radarchart_feature_matrix.png caption="Device Feature Matrix with Circular Contours"
 from drawlib.canvas import save, setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles

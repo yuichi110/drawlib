@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 130)
+::: block xy=(80, 50) width=1760 height=130
 # Designed for Both Humans and AI Coding Agents
 Why pure Python + multimodal visual inspection unlocks autonomous documentation engineering.
 :::
 
-::: block (80, 200) (760, 760)
+::: block xy=(80, 200) width=760 height=760
 ### Python is the Native Lingua Franca of LLMs
 
 - **Zero Proprietary Syntax Friction**
@@ -17,8 +17,8 @@ Why pure Python + multimodal visual inspection unlocks autonomous documentation 
   4. **Self-Repair**: Adjust coordinates or styles until the visual output is publication-grade.
 :::
 
-::: block (880, 190) (960, 780)
-```drawlib file:human_ai_synergy.svg
+::: block xy=(880, 190) width=960 height=780
+```drawlib file=human_ai_synergy.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -89,8 +89,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

@@ -4,7 +4,7 @@ Drawlib is built from the ground up as a pure-Python, headless illustration and 
 
 This document details the high-level system execution flow, package boundaries, and core design principles governing Drawlib's implementation.
 
-```drawlib center fold-code file:system_architecture_pipeline.png caption:"End-to-End System Execution Pipeline"
+```drawlib align=center code=fold file=system_architecture_pipeline.png caption="End-to-End System Execution Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -76,7 +76,7 @@ Instead of maintaining diagrams and documentation in disconnected repositories, 
 
 Drawlib's codebase (`src/drawlib/`) strictly isolates user-facing public interfaces from internal rendering mechanics, layout algorithms, and build tooling:
 
-```drawlib center fold-code file:package_boundaries.png caption:"Drawlib Package Architecture & Internal Subsystems"
+```drawlib align=center code=fold file=package_boundaries.png caption="Drawlib Package Architecture & Internal Subsystems"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

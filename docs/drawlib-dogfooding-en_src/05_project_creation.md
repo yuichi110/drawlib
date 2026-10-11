@@ -19,7 +19,7 @@ Create a Google-style document project in one command:
 uv run drawlib init doc report -l en -s google
 ```
 
-```drawlib 640px center file:fig_project_lifecycle.png caption:"Figure 5.1: Project Lifecycle from Scaffolding to Final Artifact"
+```drawlib width=640px align=center file=fig_project_lifecycle.png caption="Figure 5.1: Project Lifecycle from Scaffolding to Final Artifact"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

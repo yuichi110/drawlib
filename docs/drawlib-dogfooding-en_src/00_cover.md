@@ -2,7 +2,7 @@
 
 Illustrated Documentation as Code in the AI Era
 
-```drawlib 640px center file:fig_cover_autonomous_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
+```drawlib width=640px align=center file=fig_cover_autonomous_loop.png caption="Autonomous AI Visual Self-Correction Loop"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Radial & Relational Charts (`PieChart`, `RadarChart`, `ScatterChart`)
 :::
 
-::: block (80, 140) (660, 840) compact
+::: block xy=(80, 140) width=660 height=840 compact=true
 ## Proportions, Trade-Offs & Correlations
 
 ### 1. `PieChart` — Solid Pies & KPI Donuts
@@ -26,8 +26,8 @@ utils.draw_page_number()
 - Combine named `add_series(...)` clusters with individually labeled benchmark points via `chart.add(xy, label=...)`.
 :::
 
-::: block (780, 140) (1060, 840)
-```drawlib file:pie_radar_scatter.svg
+::: block xy=(780, 140) width=1060 height=840
+```drawlib file=pie_radar_scatter.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.charts.pie import PieChart
 from drawlib.charts.radar import RadarChart

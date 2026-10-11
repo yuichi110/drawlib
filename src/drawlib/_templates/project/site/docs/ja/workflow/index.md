@@ -4,7 +4,7 @@
 
 ## 処理フロー
 
-```drawlib center file:workflow_lifecycle.png caption:"処理ライフサイクルフロー"
+```drawlib align=center file=workflow_lifecycle.png caption="処理ライフサイクルフロー"
 from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles

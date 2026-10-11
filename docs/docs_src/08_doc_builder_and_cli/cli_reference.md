@@ -2,7 +2,7 @@
 
 Drawlib provides a unified Command Line Interface (`drawlib`) for compiling documentation, extracting standalone visual diagrams, managing cache assets, validating links, and inspecting built-in design systems.
 
-```drawlib fold-code center file:cli_command_taxonomy.png caption:"The Nine Drawlib CLI Subcommands Organized by Workflow Stage"
+```drawlib code=fold align=center file=cli_command_taxonomy.png caption="The Nine Drawlib CLI Subcommands Organized by Workflow Stage"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -103,7 +103,7 @@ Global flags apply before any top-level command (`drawlib [GLOBAL_OPTIONS] COMMA
 
 ## 3. Compilation Subsystem (`drawlib build`)
 
-```drawlib fold-code center file:cli_build_and_show_targets.png caption:"Interactive Single-Diagram Preview (drawlib show) vs. Full Project Compilation (drawlib build)"
+```drawlib code=fold align=center file=cli_build_and_show_targets.png caption="Interactive Single-Diagram Preview (drawlib show) vs. Full Project Compilation (drawlib build)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

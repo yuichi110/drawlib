@@ -130,7 +130,7 @@ table = Table(
   - `between_rows`: Horizontal separator lines between inner data rows.
 
 ### 3.3 Production Example: Microservice SLA & Availability Table
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.smartarts import Table
@@ -215,7 +215,7 @@ Register icon functions (e.g. Phosphor icons) before or after node text:
 - `node.set_drawing_item(name)`: Links a node instance to the registered drawing item.
 
 ### 4.4 Production Example: Monorepo Project Structure
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.preset_colors import CssColors
@@ -286,7 +286,7 @@ save()
 - `draw(xy, box_width, box_height, align="left", scale=1.0)`: Renders all cards in specified orientation.
 
 ### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.smartarts import BoxList
 from drawlib.styles import Styles
@@ -356,7 +356,7 @@ MindMapNode(
 - Cascading: Children automatically inherit unassigned style, width/height, shape, margins, and line styles from parent nodes. Root requires `style`, `text_style`, and `line_style`.
 
 ### 6.4 Production Example: Multi-Directional Architecture Overview
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.smartarts import MindMapNode
 from drawlib.styles import Styles
@@ -447,7 +447,7 @@ ChevronProcess(
   - `item_width`: If provided, overrides automatic width distribution.
 
 ### 7.4 Production Example: Cloud CI/CD Deployment Pipeline
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -527,7 +527,7 @@ Cycle(
 - `draw(xy, radius=35.0, align="center", scale=1.0)`: Renders the circular cycle anchored at `xy` with orbit radius `radius` and optional proportional `scale`.
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.smartarts import Cycle
@@ -615,7 +615,7 @@ item = grid.add(
 - `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_style=None, scale=1.0)`: Custom widths and heights for each individual column and row, plus optional proportional `scale`.
 
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.smartarts import GridLayout
 from drawlib.styles import Styles
@@ -693,7 +693,7 @@ tier = pyramid.add(
 - `draw_flexible(xy, width, item_heights, margins, align="bottom", order="vertex_to_base", scale=1.0)`: Explicit heights per tier with optional proportional `scale`.
 
 ### 10.4 Production Example: Software Testing Pyramid
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.smartarts import Pyramid
 from drawlib.styles import Styles
@@ -743,7 +743,7 @@ BulletPoints(
 - `draw(xy: tuple[float, float], scale: float = 1.0)`: Renders bullet points starting from `xy` with optional proportional `scale`.
 
 ### 11.3 Production Example: Architecture Decision RFC Summary
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.preset_colors import CssColors
@@ -827,7 +827,7 @@ custom = styles.patch(keyword=Styles.PrimaryBold, comment=Styles.MutedItalic)
 ```
 
 ### 12.4 Production Example: Embedded Configuration Block
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import SourceCode, SourceCodeStyles
@@ -903,7 +903,7 @@ m.lonlat_to_xy(lon: float, lat: float) -> tuple[float, float]
 ```
 
 ### 12b.4 Production Example: Regional Map with Curved Trajectories & Pin Overlays
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
@@ -966,7 +966,7 @@ top_left_y = bottom_y + H
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 
 ### 13.2 Multi-Component Dashboard Integration Example
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess, SourceCode, SourceCodeStyles, Table
 from drawlib.styles import Styles

@@ -97,7 +97,7 @@ The canvas operates in a Cartesian coordinate space with the origin `(0, 0)` loc
 | `get_dimage()` | None | Returns the current canvas as an in-memory `Dimage` object. |
 | `canvas` | Singleton | Global canvas context object. |
 
-```drawlib show-code file:canvas_lifecycle.png
+```drawlib code=show file=canvas_lifecycle.png
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -143,7 +143,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `bubblespeech(xy, width, height, tail_edge, ...)` | `tail_edge, tail_start_ratio, tail_end_ratio, tail_vertex_xy` | Rectangular speech bubble with pointer tail. |
 | `shape(xy, path_points, ...)` | `path_points: list[...]` | Custom path shape. |
 
-```drawlib show-code file:shapes_primitives.png
+```drawlib code=show file=shapes_primitives.png
 from drawlib.canvas import setup
 from drawlib.shapes import chevron, circle, rectangle, star
 from drawlib.styles import Styles
@@ -173,7 +173,7 @@ Lines connect coordinates and support arrowheads: `"-"` (none), `"->"` (forward)
 | `lines_bezier(xy, path_points, ...)`| `(xy, path_points, *, style, arrow_head="")` | Chained multi-segment Bezier spline. |
 | `line_arc(xy, width, height, ...)`| `(xy, width, height, *, style, angle_start=0, angle_end=180, ...)` | Elliptical arc segment line. |
 
-```drawlib show-code file:lines_connectors.png
+```drawlib code=show file=lines_connectors.png
 from drawlib.canvas import setup
 from drawlib.lines import line, line_curved, lines
 from drawlib.styles import Styles
@@ -205,7 +205,7 @@ Renders single-line or multi-line strings with explicit anchor alignments and ro
 - **`style.valign` Options**: `"bottom"`, `"center"`, `"top"`
 - **`style.text_line_spacing`**: `float | None` (line spacing multiplier for multi-line strings `\n`, e.g. `1.6` or `2.0`; defaults to `None` which uses `1.2`)
 
-```drawlib show-code file:text_typography.png
+```drawlib code=show file=text_typography.png
 from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.text import text, text_vertical
@@ -255,7 +255,7 @@ Styles are systematically constructed as `<color>_<variant>`:
 - **`get_intermediate_color(color1, color2) -> Color`**: Returns the 50% midpoint `Color` between `color1` and `color2`.
 - **`get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -> list[Color]`**: Returns `num` evenly spaced intermediate `Color` instances between `color1` and `color2` (or `num + 2` including both endpoints when `include_ends=True`).
 
-```drawlib show-code file:custom_style.png
+```drawlib code=show file=custom_style.png
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.types import Color, Style
@@ -286,7 +286,7 @@ Always prefer high-level diagrams over manually drawing raw rectangles and conne
 ### 7.1 Architecture Diagram (`drawlib.diagrams.architecture`)
 Builds cloud topologies, microservice meshes, VPC boundaries, and icon-annotated infrastructure.
 
-```drawlib show-code file:diagram_architecture.png
+```drawlib code=show file=diagram_architecture.png
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -328,7 +328,7 @@ diag.draw()
 ### 7.2 Flow Diagram (`drawlib.diagrams.flow`)
 Constructs ISO 5807 flowcharts with decision gates, processes, start/stop terminals, and cross-lane routing.
 
-```drawlib show-code file:diagram_flow.png
+```drawlib code=show file=diagram_flow.png
 from drawlib.canvas import setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
@@ -354,7 +354,7 @@ flow.draw()
 ### 7.3 Sequence Diagram (`drawlib.diagrams.sequence`)
 Generates lifelines, synchronous/asynchronous request-response messages, activations, and note boxes.
 
-```drawlib show-code file:diagram_sequence.png
+```drawlib code=show file=diagram_sequence.png
 from drawlib.canvas import setup
 from drawlib.diagrams.sequence import Participant, SequenceDiagram
 from drawlib.styles import Styles
@@ -412,7 +412,7 @@ High-level automated components for business and technical concepts. Every state
 | `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., scale=1.0)` |
 | `GeoMap` | Bottom-Left `(x, y)` | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=...)` |
 
-```drawlib show-code file:smartarts_chevron.png
+```drawlib code=show file=smartarts_chevron.png
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -449,7 +449,7 @@ Drawlib charts render directly into the unified vector canvas alongside architec
 | `RadarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="bottom_to_top") -> Series` | `draw(xy, *, radius=None, width=None, height=None, scale=1.0)` |
 | `GanttChart` | `add_task(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency` | `draw(xy, *, width=None, height=None, scale=1.0)` |
 
-```drawlib show-code file:charts_example.png
+```drawlib code=show file=charts_example.png
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.charts.pie import PieChart
@@ -483,7 +483,7 @@ pie.draw((104, 26))
 ### 10.1 Icons
 Drawlib integrates Phosphor vector icons and Google Cloud official architecture icons:
 
-```drawlib show-code file:icons_example.png
+```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup
 from drawlib.icons import gcp, phosphor
 from drawlib.styles import Styles
@@ -500,7 +500,7 @@ gcp.compute_engine((70, 20), width=16, style=Styles.PrimaryFlat)
 ### 10.2 Images & Dimage
 Embed bitmap/vector images from `_assets/` or manipulate them in memory with `Dimage`:
 
-```drawlib show-code file:images_example.png
+```drawlib code=show file=images_example.png
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.shapes import rectangle
@@ -521,7 +521,7 @@ image((68, 22), width=24, image=Dimage("_assets/linux.png").grayscale())
 ### 10.3 Custom Typography & Fonts (`drawlib.fonts`)
 Embed custom local TTF/OTF font files with `FontFile` or use universal typography presets:
 
-```drawlib show-code file:fonts_example.png
+```drawlib code=show file=fonts_example.png
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.shapes import rectangle

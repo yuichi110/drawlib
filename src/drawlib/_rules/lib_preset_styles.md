@@ -186,7 +186,7 @@ Specially designed for printed engineering manuals, formal academic papers, pate
   - `PrimarySolid`: Transparent fill, black border (width 1.5).
   - `PrimaryDashed`: Transparent fill, black dashed border (width 1.5).
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_styles import MonochromeStyles
 from drawlib.shapes import rectangle
@@ -358,7 +358,7 @@ Every preset style follows a deterministic, composable PascalCase naming structu
 
 ### 5.3. Code Demonstration of Variations
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -471,7 +471,7 @@ In enterprise projects and client presentations, you often need custom color pal
 
 You can construct a one-off `BaseStyles` instance directly with custom `Style` objects:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Color
 from drawlib.shapes import circle, rectangle
@@ -611,7 +611,7 @@ To understand the power of preset styling, consider realistic diagrams combining
 
 The following diagram demonstrates how neutral cards and a single hero gateway distinguish user ingress, routing, processing, and persistence without rainbow chaos:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -672,7 +672,7 @@ save()
 
 Preset styles make state transitions intuitive while keeping the diagram calm and readable:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -721,7 +721,7 @@ save()
 
 Multi-element architectures frequently utilize the **Medallion Pattern** (Raw Ingestion -> Bronze -> Silver -> Gold -> Analytics). Using calm neutral cards with a single hero Gold analytical mart keeps the pipeline clean and legible:
 
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -894,7 +894,7 @@ Popular Default Colors:
 
 ### 11.3. Essential Code Snippets
 
-```drawlib show-code
+```drawlib code=show
 # Standard imports
 from drawlib.canvas import save, setup
 from drawlib.preset_styles import DefaultStyles, MonochromeStyles

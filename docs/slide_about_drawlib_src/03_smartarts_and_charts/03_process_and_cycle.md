@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Pipelines & Feedback Loops (`ChevronProcess` & `Cycle`)
 :::
 
-::: block (80, 140) (720, 840) compact
+::: block xy=(80, 140) width=720 height=840 compact=true
 ## Linear Stages vs. Continuous Iterations
 
 ### 1. `ChevronProcess` — Phased Pipelines
@@ -24,8 +24,8 @@ utils.draw_page_number()
 - **Central Command Hub**: Calling `cycle.set_center(...)` places a central hub node inside the orbit for radial governance or SRE command loops.
 :::
 
-::: block (840, 140) (1000, 840)
-```drawlib file:process_and_cycle.svg
+::: block xy=(840, 140) width=1000 height=840
+```drawlib file=process_and_cycle.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import ChevronProcess, Cycle

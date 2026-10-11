@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Declarative Auto-Layout + Fine-Tuning (`drawlib.graph`)
 :::
 
-::: block (80, 140) (660, 840) compact
+::: block xy=(80, 140) width=660 height=840 compact=true
 ## Bridging Auto-Layout and Manual Control
 
 Manual `(x, y)` coordinates give total precision, but when a graph topology changes frequently, you want automatic layout—**without getting trapped in a rigid black box like Graphviz**.
@@ -26,8 +26,8 @@ Manual `(x, y)` coordinates give total precision, but when a graph topology chan
    - Generates clean, self-contained `drawlib.shapes` + `drawlib.lines` Python code with all computed coordinates baked in.
 :::
 
-::: block (780, 140) (1060, 840)
-```drawlib file:graph_workflow.svg
+::: block xy=(780, 140) width=1060 height=840
+```drawlib file=graph_workflow.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.graph import LayerGraph
 from drawlib.shapes import bubblespeech, rectangle

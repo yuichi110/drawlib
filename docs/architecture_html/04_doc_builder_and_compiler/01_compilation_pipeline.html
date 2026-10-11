@@ -367,7 +367,7 @@
 <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span>
-    <span class="s1">'```drawlib center fold-code file:arch.png caption:"Architecture Diagram"'</span><span class="p">,</span>
+    <span class="s1">'```drawlib align=center code=fold file=arch.png caption="Architecture Diagram"'</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">),</span>
 <span class="p">)</span>
 
@@ -376,7 +376,7 @@
 <span class="c1"># Bottom: 4 Parsed Attributes</span>
 <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"align='center'"</span><span class="p">,</span> <span class="s2">"CSS flexbox</span><span class="se">\n</span><span class="s2">center alignment"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">align_center_horizontal</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"fold_code=True"</span><span class="p">,</span> <span class="s2">"&lt;details&gt; tag</span><span class="se">\n</span><span class="s2">collapsible code"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">caret_down</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"code='fold'"</span><span class="p">,</span> <span class="s2">"&lt;details&gt; tag</span><span class="se">\n</span><span class="s2">collapsible code"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">caret_down</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"file='arch.png'"</span><span class="p">,</span> <span class="s2">"Explicit target</span><span class="se">\n</span><span class="s2">output asset name"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"caption='...'"</span><span class="p">,</span> <span class="s2">"&lt;figcaption&gt; text</span><span class="se">\n</span><span class="s2">below image"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chat_centered_text</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
 <span class="p">]</span>
@@ -392,10 +392,10 @@
 </details>
 <h3>Supported Header Options</h3>
 <ul>
-<li><strong><code>file:&lt;name&gt;.&lt;ext&gt;</code></strong>: Specifies the output filename (e.g. <code>file:pipeline.png</code> or <code>file:diagram.svg</code>). If omitted, Drawlib generates an automatic deterministic hash name.</li>
-<li><strong><code>fold-code</code> / <code>no-code</code></strong>: Controls code visibility. <code>fold-code</code> wraps Python source in an interactive HTML <code>&lt;details&gt;</code> disclosure toggle; <code>no-code</code> suppresses source display completely.</li>
-<li><strong><code>center</code> / <code>left</code> / <code>right</code></strong>: Controls container alignment via CSS flexbox.</li>
-<li><strong><code>caption:&quot;...&quot;</code></strong>: Renders an accessible, semantic <code>&lt;figcaption&gt;</code> beneath the illustration.</li>
+<li><strong><code>file=&lt;name&gt;.&lt;ext&gt;</code></strong>: Specifies the output filename (e.g. <code>file=pipeline.png</code> or <code>file=diagram.svg</code>). If omitted, Drawlib generates an automatic deterministic hash name.</li>
+<li><strong><code>code=fold</code> / <code>code=show</code> / <code>code=hide</code></strong>: Controls code visibility. <code>code=fold</code> wraps Python source in an interactive HTML <code>&lt;details&gt;</code> disclosure toggle; <code>code=hide</code> suppresses source display completely.</li>
+<li><strong><code>align=center</code> / <code>align=left</code> / <code>align=right</code></strong>: Controls container alignment via CSS flexbox.</li>
+<li><strong><code>caption=&quot;...&quot;</code></strong>: Renders an accessible, semantic <code>&lt;figcaption&gt;</code> beneath the illustration.</li>
 </ul>
 <hr />
 <h2>3. Details: Sandboxed Execution &amp; Error Reporting</h2>

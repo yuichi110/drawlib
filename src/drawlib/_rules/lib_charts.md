@@ -207,7 +207,7 @@ All charts follow Drawlib's unified 4-phase component lifecycle (**1. Instantiat
 ### 3.4 Production Examples
 
 #### Example 3.4.1: Vertical Grouped Bar Chart with Value Labels
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -238,7 +238,7 @@ chart.draw_legend(xy=(25.0, 68.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 3.4.2: Horizontal Stacked Bar Chart with Resource Breakdown
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -270,7 +270,7 @@ chart.draw_legend(xy=(83.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 3.4.3: Logarithmic Scale Latency Benchmark
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -341,7 +341,7 @@ chart.draw(xy=(10.0, 10.0))
 ### 4.4 Production Examples
 
 #### Example 4.4.1: Multi-Series Active Users Comparison
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
@@ -368,7 +368,7 @@ chart.draw_legend(xy=(25.0, 68.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 4.4.2: Smooth Spline CPU Load with Custom Markers
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
@@ -444,7 +444,7 @@ chart.draw(xy=(10.0, 12.0))
 ### 5.4 Production Examples
 
 #### Example 5.4.1: Cumulative Stacked Revenue Streams
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
@@ -472,7 +472,7 @@ chart.draw_legend(xy=(25.0, 68.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 5.4.2: Overlapping Network Bandwidth with Custom Alpha
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
@@ -548,7 +548,7 @@ chart.draw(xy=(10.0, 12.0))
 ### 6.4 Production Examples
 
 #### Example 6.4.1: Donut Chart with Center Metric
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
@@ -573,7 +573,7 @@ chart.draw_legend(xy=(66.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 6.4.2: Exploded Slice Allocation
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
@@ -648,7 +648,7 @@ chart.draw_legend(xy=(68.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0),
 ### 7.4 Production Examples
 
 #### Example 7.4.1: Software Architecture Non-Functional Attributes
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
@@ -677,7 +677,7 @@ chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 7.4.2: Circular Grid Product Evaluation
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
@@ -747,7 +747,7 @@ chart.draw_legend(xy=(24.0, 10.0), text_style=Styles.Muted.patch(text_size=9.0),
 ### 8.4 Production Examples
 
 #### Example 8.4.1: Benchmark Scatter with Labeled Baseline Points
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -787,7 +787,7 @@ chart.draw_legend(xy=(35.0, 56.0), text_style=Styles.Muted.patch(text_size=9.0),
 ```
 
 #### Example 8.4.2: Multidimensional Cloud Cost Bubble Chart
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -875,7 +875,7 @@ Data models include `Task` (`show`, `draw_ratio`, `draw_direction`), `Section` (
 ### 9.4 Production Examples
 
 #### Example 9.4.1: Engineering Release Roadmap with Dependencies
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles
@@ -918,7 +918,7 @@ chart.draw(xy=(8.0, 10.0))
 ```
 
 #### Example 9.4.2: Agile Sprint Schedule with Custom Task Colors
-```drawlib show-code
+```drawlib code=show
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles

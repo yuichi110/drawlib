@@ -1,9 +1,9 @@
-::: block (80, 60) (1760, 150)
+::: block xy=(80, 60) width=1760 height=150
 # What is Drawlib?
 A declarative, pure-Python graphics and documentation engine that treats architectural diagrams, quantitative charts, animations, and technical documents as first-class software artifacts.
 :::
 
-::: block (80, 230) (760, 720)
+::: block xy=(80, 230) width=760 height=720
 ### 1. Pure-Python Declarative API
 - Write expressive Python (`>=3.11`) using variables, loops, type-checked models, and reusable project helpers (`styles.py` & `utils.py`).
 - No opaque Graphviz/Java binaries, no fragile XML/SVG hand-editing, and no 200-line `matplotlib` patch boilerplate.
@@ -15,8 +15,8 @@ A declarative, pure-Python graphics and documentation engine that treats archite
 - Ships with an embedded **On-Demand Rules Catalog** (`drawlib rules show`) and headless coordinate-grid preview (`drawlib show -g`), enabling AI coding agents to write, inspect, and self-heal visual diagrams autonomously.
 :::
 
-::: block (880, 220) (960, 740)
-```drawlib file:exec_kpi.svg
+::: block xy=(880, 220) width=960 height=740
+```drawlib file=exec_kpi.svg
 from drawlib.canvas import clear, save, setup
 import utils
 
@@ -53,8 +53,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

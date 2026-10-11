@@ -58,7 +58,7 @@ Drawlib features 4 project starter templates tailored to distinct authoring and 
 | **`site`** | `docs_src/**/*.md`<br>+ `navbar.md` | `docs_html/` (Multi-page site)<br>`docs_markdown/` (GitHub MD)<br>`docs_images/` (Extracted PNGs) | User wants a **multi-page documentation website** with a persistent navigation sidebar (portals, guides, wikis). | `project-site` |
 | **`slide`** | `slide_src/*.md` | `slide_html/index.html` (Deck)<br>`slide.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs) | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, and Presenter View. | `project-slide` |
 
-```drawlib center fold-code file:project_archetypes_overview.png caption:"Drawlib's Four Project Archetypes & Compilation Deliverables"
+```drawlib align=center code=fold file=project_archetypes_overview.png caption="Drawlib's Four Project Archetypes & Compilation Deliverables"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

@@ -90,7 +90,7 @@ Drawlib presets organize styles into semantic roles with 13 orthogonal visual va
 The following embedded Markdown block illustrates the 50%+ neutral-grounded semantic system (anchoring the hero service in `Styles.PrimaryFlat` while grounding supporting nodes in calm neutral/tinted-neutral cards):
 
 ````markdown
-```drawlib center caption:"Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
+```drawlib align=center caption="Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -192,7 +192,7 @@ Align node center coordinates `(x, y)` to clean increments:
 ### 5.4 Equidistant Spacing via Formulas (Preventing Right-Edge Crowding)
 Never guess or hardcode absolute coordinates one by one from left to right. When placing a sequence of $N$ nodes across a canvas, **always calculate the gap dynamically** using Python math to ensure exact bilateral symmetry:
 
-```drawlib show-code center file:style_equidistant_spacing.png caption:"Dynamic Equidistant Spacing via Formulas"
+```drawlib code=show align=center file=style_equidistant_spacing.png caption="Dynamic Equidistant Spacing via Formulas"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -235,7 +235,7 @@ Never use opaque list indexing (`points[0]`, `a[1]`) or scatter magic literal tu
 2. **Self-Documenting Connections**: Connecting lines read clearly (`line(client_xy, gateway_xy)`), eliminating guesswork and AI hallucinations.
 3. **Clean Separation of Concerns**: Divides drawing code into (1) Layout Geometry, (2) Node Rendering, and (3) Connectors.
 
-```drawlib show-code center file:style_semantic_coordinates.png caption:"Semantic Coordinate Variables Architecture"
+```drawlib code=show align=center file=style_semantic_coordinates.png caption="Semantic Coordinate Variables Architecture"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle

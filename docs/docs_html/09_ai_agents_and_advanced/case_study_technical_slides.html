@@ -709,7 +709,7 @@
 </details>
 <h3>3.2. Step 5: Autonomous AI Self-Review &amp; Block-Width Typography Math</h3>
 <p>After generating the initial slides, the AI agent runs an autonomous multimodal review (<code>uv run drawlib rules show review-guide</code>).</p>
-<p>A critical insight discovered and codified during this case study is the <strong>Block-Width-Aware Slide Typography Standard</strong>. Because Drawlib exports every figure at a base physical width of <code>10 inches = 720pt</code> (<code>setup(width=W, height=H)</code> only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the <code>::: block (X, Y) (Width, Height)</code> container where the image is placed:</p>
+<p>A critical insight discovered and codified during this case study is the <strong>Block-Width-Aware Slide Typography Standard</strong>. Because Drawlib exports every figure at a base physical width of <code>10 inches = 720pt</code> (<code>setup(width=W, height=H)</code> only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the <code>::: block xy=(X, Y) width=Width height=Height</code> container where the image is placed:</p>
 <p>$$\text{Rendered Slide Font Size (px)} = \text{text_size} \times \frac{\text{Block Width (px)}}{720}$$</p>
 <p>To ensure diagram labels never look tiny next to <code>26px</code> slide body prose on a <code>1920×1080</code> stage, the AI agent enforces minimum <code>text_size</code> thresholds based on block width:</p>
 <table>

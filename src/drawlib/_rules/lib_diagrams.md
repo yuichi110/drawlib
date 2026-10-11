@@ -211,7 +211,7 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 ### 3.3 Production Examples
 
 #### Example 3.3.1: Multi-Tier Cloud VPC Network
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -255,7 +255,7 @@ d.draw(xy=(4.0, 4.0))
 ```
 
 #### Example 3.3.2: Event-Driven Kafka Streaming Mesh
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -343,7 +343,7 @@ In `FlowDiagram`, swimlanes provide a structured visual background and column/ro
 ### 4.5 Production Examples
 
 #### Example 4.5.1: Cross-Functional Expense Approval Flow
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
@@ -393,7 +393,7 @@ flow.draw(xy=(5.0, 5.0))
 ```
 
 #### Example 4.5.2: Horizontal Warehouse Order Processing
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
@@ -482,7 +482,7 @@ Indented Python `with` statements naturally structure condition frames in the di
 ### 5.3 Production Examples
 
 #### Example 5.3.1: Microservices Order Processing Pipeline
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -539,7 +539,7 @@ d.draw(xy=(5.0, 3.0))
 ```
 
 #### Example 5.3.2: Bidirectional WebSocket Protocol Stream
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -629,7 +629,7 @@ d.draw(xy=(5.0, 5.0))
 ### 6.4 Production Examples
 
 #### Example 6.4.1: Session Lifecycle State Machine
-```drawlib show-code file:diagram_state_lifecycle.png
+```drawlib code=show file=diagram_state_lifecycle.png
 from drawlib import canvas
 from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
@@ -691,7 +691,7 @@ sd.draw(xy=(0.0, 0.0))
 ```
 
 #### Example 6.4.2: Concurrent Task Synchronization with Fork and Join
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.state import FinalState, ForkJoinState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
@@ -776,7 +776,7 @@ Relationships between classes are registered cleanly at the diagram level via `c
 ### 7.4 Production Examples
 
 #### Example 7.4.1: E-Commerce Domain Model
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -828,7 +828,7 @@ cd.draw(xy=(0.0, 0.0))
 ```
 
 #### Example 7.4.2: Observer Design Pattern Implementation
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.styles import Styles
@@ -941,7 +941,7 @@ rel = users.connect(
 ### 8.5 Production Examples
 
 #### Example 8.5.1: Core E-Commerce Relational Schema
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
@@ -997,7 +997,7 @@ erd.draw(xy=(0.0, 0.0))
 ```
 
 #### Example 8.5.2: Multi-Tenant RBAC Security Schema
-```drawlib show-code
+```drawlib code=show
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles

@@ -4,7 +4,7 @@ Drawlib is a pure-Python library engineered around the dual paradigms of **"Illu
 
 It empowers human developers, system architects, and **autonomous AI coding agents** to design, version-control, and publish clean architectural schemas, workflow charts, and entire multi-page technical documentation websites directly from declarative Python code.
 
-```drawlib fold-code center file:overview_paradigm_shift.png caption:"Legacy Diagramming Approaches vs. Drawlib Illustration as Code"
+```drawlib code=fold align=center file=overview_paradigm_shift.png caption="Legacy Diagramming Approaches vs. Drawlib Illustration as Code"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -121,7 +121,7 @@ Large Language Models (LLMs) and AI coding agents (such as Claude Code, Cursor, 
 
 Drawlib is structured into four cohesive layers, ensuring both low-level flexibility and high-level productivity:
 
-```drawlib fold-code center file:drawlib_layered_architecture.png caption:"Drawlib Layered Architecture"
+```drawlib code=fold align=center file=drawlib_layered_architecture.png caption="Drawlib Layered Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

@@ -19,7 +19,7 @@
 
 ## 8.2 Release Pipeline and Feature Matrix Example
 
-```drawlib 620px center file:fig_smartarts_sample.png caption:"Figure 8.1: Release Pipeline and Feature Comparison Matrix"
+```drawlib width=620px align=center file=fig_smartarts_sample.png caption="Figure 8.1: Release Pipeline and Feature Comparison Matrix"
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess, Table
 from drawlib.styles import Styles

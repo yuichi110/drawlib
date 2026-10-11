@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # Visual Debugging with Coordinate Grid (`grid=True` / `-g`)
 Inspect exact coordinates and verify margins without touching production code.
 :::
 
-::: block (80, 190) (760, 770) compact
+::: block xy=(80, 190) width=760 height=770 compact=true
 ### Two Ways to Enable the Coordinate Grid
 
 1. **CLI Flag (`-g` / `--grid`) — Recommended**
@@ -29,8 +29,8 @@ Inspect exact coordinates and verify margins without touching production code.
 - **Multimodal AI Anchor**: Allows AI coding agents to read exact `(x, y)` coordinates directly from the rendered image.
 :::
 
-::: block (880, 180) (960, 780)
-```drawlib file:grid_preview.svg
+::: block xy=(880, 180) width=960 height=780
+```drawlib file=grid_preview.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import cylinder, rectangle
@@ -87,8 +87,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

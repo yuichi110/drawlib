@@ -2,7 +2,7 @@
 
 Drawlib v0.3 is engineered from the ground up for **autonomous AI coding agents** (such as Claude Code, Cursor, Gemini, and GitHub Copilot). Instead of requiring human engineers to manually craft technical specifications and draw architecture diagrams, Drawlib makes it possible to delegate the **entire documentation lifecycle** to AI agents.
 
-```drawlib fold-code center file:agent_collaboration_model.png caption:"Drawlib & AI Agent Autonomous Interaction Model"
+```drawlib code=fold align=center file=agent_collaboration_model.png caption="Drawlib & AI Agent Autonomous Interaction Model"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -156,7 +156,7 @@ Ensure your agent knows how to query on-demand rule topics and preview drawings 
 
 Teach your agent to follow Drawlib's autonomous self-correction loop when creating diagrams:
 
-```drawlib fold-code center file:ai_feedback_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
+```drawlib code=fold align=center file=ai_feedback_loop.png caption="Autonomous AI Visual Self-Correction Loop"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

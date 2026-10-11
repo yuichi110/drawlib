@@ -289,14 +289,14 @@ def build_slide(
             ctx_token = set_slide_context(index=idx, total=total_slides)
             try:
                 content_without_notes, notes_html = extract_slide_notes(raw_content)
-                # If no ::: block or ::: box is in content_without_notes, auto-wrap in default stage block
+                # If no ::: block is in content_without_notes, auto-wrap in default stage block
                 text_to_search = (
                     "\n" + content_without_notes
                     if not content_without_notes.startswith("\n")
                     else content_without_notes
                 )
                 if not PATTERN_CONTAINER_BOX.search(text_to_search):
-                    text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
+                    text_to_search = f"::: block xy=(80, 140) width=1760 height=840\n{text_to_search.strip()}\n:::"
 
                 t_drawlib = _process_drawlib_blocks(
                     text_to_search,

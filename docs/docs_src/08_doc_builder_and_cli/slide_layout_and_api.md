@@ -2,7 +2,7 @@
 
 When authoring 16:9 widescreen presentation decks (`drawlib init slide`), Drawlib provides a precision **1920 × 1080 pixel virtual stage** (`::: block`, `::: note`), built-in layout patterns, inline vector SVG font bundling, and the programmatic [`drawlib.slide`](../09_ai_agents_and_advanced/programmatic_api.md) Python runtime API (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`). *(For initializing and building a slide deck project, see [Slide Deck Project Guide](./project_slide.md).)*
 
-```drawlib fold-code center file:slide_stage_layout_zones.png caption:"1920x1080 Virtual Slide Stage Zones and ::: block (x, y) (w, h) Layout Grid"
+```drawlib code=fold align=center file=slide_stage_layout_zones.png caption="1920x1080 Virtual Slide Stage Zones and ::: block xy=(x, y) width=W height=H Layout Grid"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -16,28 +16,28 @@ rectangle((64, 35.5), width=122, height=65, style=Styles.MutedDashed.patch(shape
 text((6, 70.5), "(0, 0) Top-Left Stage Origin", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
 text((122, 70.5), "1920 x 1080 px Stage (16:9)", style=Styles.Muted.patch(text_size=10.5, halign="right"))
 
-# Header Zone: ::: block (80, 40) (1760, 60)
+# Header Zone: ::: block xy=(80, 40) width=1760 height=60
 rectangle((64, 61.5), width=114, height=8.0, style=Styles.PrimaryFlat.patch(shape_r=1.5))
 phosphor.layout((13.5, 61.5), width=4.4, style=Styles.WhiteBold)
-text((67.0, 61.5), "Header Block — ::: block (80, 40) (1760, 60)", style=Styles.WhiteBold.patch(text_size=10.8))
+text((67.0, 61.5), "Header Block — ::: block xy=(80, 40) width=1760 height=60", style=Styles.WhiteBold.patch(text_size=10.8))
 
-# Left Narrative Column: ::: block (80, 140) (740, 840)
+# Left Narrative Column: ::: block xy=(80, 140) width=740 height=840
 rectangle((31.5, 35.0), width=49, height=40, style=Styles.Neutral.patch(shape_r=1.5))
 phosphor.columns((14.5, 48.5), width=4.4, style=Styles.PrimaryBold)
 text((35.0, 48.5), "Left Narrative", style=Styles.DarkBold.patch(text_size=10.8))
 text(
     (31.5, 31.0),
-    "::: block (80, 140) (740, 840)\n\n• Headings & bullets\n• Tables & code\n• Styled cards",
+    "::: block xy=(80, 140) width=740 height=840\n\n• Headings & bullets\n• Tables & code\n• Styled cards",
     style=Styles.Dark.patch(text_size=10.0),
 )
 
-# Right Diagram Column: ::: block (860, 140) (980, 840)
+# Right Diagram Column: ::: block xy=(860, 140) width=980 height=840
 rectangle((90.0, 35.0), width=62, height=40, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
 phosphor.squares_four((66.5, 48.5), width=4.4, style=Styles.PrimaryBold)
 text((93.5, 48.5), "Right Diagram Block", style=Styles.DarkBold.patch(text_size=10.8))
 text(
     (90.0, 31.0),
-    "::: block (860, 140) (980, 840)\n\n```drawlib file:arch.svg\nsetup(width=98, height=84)\n(0, 0) Bottom-Left Canvas",
+    "::: block xy=(860, 140) width=980 height=840\n\n```drawlib file=arch.svg\nsetup(width=98, height=84)\n(0, 0) Bottom-Left Canvas",
     style=Styles.DarkBold.patch(text_size=10.0),
 )
 
@@ -47,7 +47,7 @@ rectangle(
     width=74,
     height=6.5,
     style=Styles.SecondaryNeutral.patch(shape_r=1.0),
-    text="Footer — ::: block (80, 1010) (820, 30)",
+    text="Footer — ::: block xy=(80, 1010) width=820 height=30",
     text_style=Styles.Dark.patch(text_size=10.0),
 )
 rectangle(
@@ -68,60 +68,58 @@ save()
 
 Two coordinate systems work together on every slide:
 
-1. **Slide Stage (`::: block (x, y) (w, h)`) — Top-Left Origin `(0, 0)`**:
+1. **Slide Stage (`::: block xy=(x, y) width=W height=H`) — Top-Left Origin `(0, 0)`**:
    - Every slide renders on a fixed **1920 × 1080 pixel** widescreen stage (16:9 aspect ratio) that automatically scales to fit the browser viewport or PDF page.
    - Container blocks (`::: block`) are positioned in CSS stage pixels where **`(0, 0)` is the top-left corner**:
      - `x` increases rightward (`0` → `1920`).
      - `y` increases downward (`0` → `1080`).
-   - **Standard Safe Content Zone**: Keep primary text and diagrams inside `x: 80..1840` (`w: 1760`) and `y: 140..980` (`h: 840`), reserving `y: 40..100` for the slide header and `y: 1010..1040` for the footer and page counter.
+   - **Standard Safe Content Zone**: Keep primary text and diagrams inside `x: 80..1840` (`width=1760`) and `y: 140..980` (`height=840`), reserving `y: 40..100` for the slide header and `y: 1010..1040` for the footer and page counter.
 2. **Drawlib Canvas (````drawlib```` Python block) — Bottom-Left Origin `(0, 0)`**:
    - Inside any ````drawlib```` code block, `setup(width=W, height=H)` defines a mathematical Cartesian canvas where **`(0, 0)` is the bottom-left corner**:
      - `x` increases rightward (`0` → `W`).
      - `y` increases upward (`0` → `H`).
 
-### 1.1. Golden Rule: Match `setup(width, height)` Aspect Ratio to Block `(w, h)`
-Always set `setup(width=W, height=H)` proportional to the enclosing `::: block (x, y) (w, h)` pixel dimensions (typically dividing pixel width and height by `10` or `20`):
+### 1.1. Golden Rule: Match `setup(width, height)` Aspect Ratio to Block `width` & `height`
+Always set `setup(width=W, height=H)` proportional to the enclosing `::: block xy=(x, y) width=W height=H` pixel dimensions (typically dividing pixel width and height by `10` or `20`):
 
-| Enclosing `::: block` Size `(w, h)` | Recommended `setup(width, height)` | Aspect Ratio |
+| Enclosing `::: block` Dimensions | Recommended `setup(width, height)` | Aspect Ratio |
 | :--- | :--- | :--- |
-| `(980, 840)` *(Right diagram column)* | `setup(width=98, height=84)` | `98 : 84` |
-| `(1020, 840)` *(Wide right column)* | `setup(width=102, height=84)` | `102 : 84` |
-| `(1760, 840)` *(Full-width content area)* | `setup(width=176, height=84)` | `176 : 84` |
-| `(980, 1080)` *(Right half full-bleed)* | `setup(width=98, height=108)` | `98 : 108` |
-| `(1920, 1080)` *(Full-canvas hero slide)* | `setup(width=192, height=108)` | `16 : 9` |
+| `width=980 height=840` *(Right diagram column)* | `setup(width=98, height=84)` | `98 : 84` |
+| `width=1020 height=840` *(Wide right column)* | `setup(width=102, height=84)` | `102 : 84` |
+| `width=1760 height=840` *(Full-width content area)* | `setup(width=176, height=84)` | `176 : 84` |
+| `width=980 height=1080` *(Right half full-bleed)* | `setup(width=98, height=108)` | `98 : 108` |
+| `width=1920 height=1080` *(Full-canvas hero slide)* | `setup(width=192, height=108)` | `16 : 9` |
 
 ---
 
 ## 2. Stage Container Block Syntax (`::: block` & `::: note`)
 
-Slide Markdown files use pure Markdown without YAML frontmatter (`---`). Every visual element on a slide is placed inside one or more `::: block` (or alias `::: box`) containers:
+Slide Markdown files use pure Markdown without YAML frontmatter (`---`). Every visual element on a slide is placed inside one or more `::: block` containers using Python keyword-argument style (`key=value`):
 
 ````markdown
-::: block (x, y) (w, h) [options...]
+::: block xy=(x, y) width=W height=H [options...]
 <Markdown content or ```drawlib code fence>
 :::
 ````
 
-If a slide file contains no `::: block` tags at all, Drawlib automatically wraps the slide content in the default content zone `::: block (80, 140) (1760, 840)`. Similarly, if `(x, y)` or `(w, h)` are omitted on a `::: block` header, they default to `(80, 140)` and `(1760, 840)`.
+If a slide file contains no `::: block` tags at all, Drawlib automatically wraps the slide content in the default content zone `::: block xy=(80, 140) width=1760 height=840`. Similarly, if `xy`, `width`, or `height` are omitted on a `::: block` header, they default to `xy=(80, 140)`, `width=1760`, and `height=840`.
 
 ### 2.1. Complete `::: block` Options Reference
 
-| Option Token | Syntax Examples | Compiled CSS / Behavior |
+| Option Key | Syntax Examples | Compiled CSS / Behavior |
 | :--- | :--- | :--- |
-| **Position `(x, y)`** | `(80, 140)`, `(0, 0)` | `position: absolute; left: 80px; top: 140px;` |
-| **Dimensions `(w, h)`** | `(740, 840)`, `(1920, 1080)` | `width: 740px; height: 840px;` |
-| **Font Size** | `font:22px`, `font-size:20px`, `fontsize:1.2rem`, `fs:18`, or bare `20px` | `font-size: 22px;` (bare numbers automatically append `px`). |
-| **Compact Density** | `compact` | Adds `.compact` class to `<div class="slide-block slide-text-box compact">` for tighter line-height and list spacing. |
-| **Text Alignment** | `left`, `center`, `right`, or `align:center` | `text-align: center;` |
-| **Layer Depth (`z-index`)** | `z:5`, `z-index:10`, `z_index:1` | `z-index: 5;` — controls foreground/background stacking when blocks overlap. |
-| **Custom CSS Classes** | `class:"card panel accent border shadow"` | Appends custom utility or theme classes (`card`, `panel`, `accent`, `transparent`, `border`, `shadow`, `middle`, etc.) to the container `<div>`. |
-| **Inline CSS Styles** | `style:"padding: 24px; background: #f8fafc; border-radius: 12px"` | Appends custom inline CSS rules (`padding`, `background`, `border`, etc.) to the container `<div>`. |
+| **Position (`xy`)** | `xy=(80, 140)`, `xy=(0, 0)` | `position: absolute; left: 80px; top: 140px;` |
+| **Dimensions (`width`, `height`)** | `width=740 height=840`, `width=1920 height=1080` | `width: 740px; height: 840px;` |
+| **Font Size (`font_size`)** | `font_size=22px`, `font_size=1.2rem`, `font_size=18` | `font-size: 22px;` (bare numbers automatically append `px`). |
+| **Compact Density (`compact`)** | `compact=true` | Adds `.compact` class to `<div class="slide-block slide-text-box compact">` for tighter line-height and list spacing. |
+| **Text Alignment (`align`)** | `align=left`, `align=center`, `align=right` | `text-align: center;` |
+| **Layer Depth (`z_index`)** | `z_index=5`, `z_index=10` | `z-index: 5;` — controls foreground/background stacking when blocks overlap. |
+| **Custom CSS Classes (`class`)** | `class="card panel accent border shadow"`, `class=card` | Appends custom utility or theme classes (`card`, `panel`, `accent`, `transparent`, `border`, `shadow`, `middle`, etc.) to the container `<div>`. |
+| **Inline CSS Styles (`style`)** | `style="padding: 24px; background: #f8fafc; border-radius: 12px"` | Appends custom inline CSS rules (`padding`, `background`, `border`, etc.) to the container `<div>`. |
 
-*(Both `key:value` and `key=value` syntaxes are supported for keyed options.)*
+### 2.2. Speaker Notes (`::: note`)
 
-### 2.2. Speaker Notes (`::: note` / `::: notes`)
-
-Add presenter notes anywhere inside a slide Markdown file using `::: note` (or `::: notes`). Speaker notes are stripped from the visible slide stage and compiled into `<aside class="slide-notes" hidden>` for the synchronized dual-window **Presenter View** (`P` or `S` key):
+Add presenter notes anywhere inside a slide Markdown file using `::: note`. Speaker notes are stripped from the visible slide stage and compiled into `<aside class="slide-notes" hidden>` for the synchronized dual-window **Presenter View** (`P` or `S` key):
 
 ````markdown
 ::: note
@@ -134,7 +132,7 @@ Add presenter notes anywhere inside a slide Markdown file using `::: note` (or `
 
 ## 3. Built-In Slide Layout Patterns & Templates
 
-```drawlib fold-code center file:slide_builtin_layout_templates.png caption:"Visual Comparison of the Four Built-In 16:9 Slide Layout Templates"
+```drawlib code=fold align=center file=slide_builtin_layout_templates.png caption="Visual Comparison of the Four Built-In 16:9 Slide Layout Templates"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -226,7 +224,7 @@ save()
 Places the main title, subtitle, and speaker metadata on the left and a hero illustration or logo on the right:
 
 ````markdown
-::: block (160, 240) (1160, 600)
+::: block xy=(160, 240) width=1160 height=600
 # Presentation Title
 ## Subtitle or Core Value Proposition
 
@@ -238,7 +236,7 @@ Brief one-line summary of the presentation topic
 *October 2026*
 :::
 
-::: block (1360, 260) (400, 480)
+::: block xy=(1360, 260) width=400 height=480
 ![Hero Logo](_assets/logo.png)
 :::
 ````
@@ -247,7 +245,7 @@ Brief one-line summary of the presentation topic
 Centers a bold section header or closing call-to-action across the middle of the stage (`(160, 360) (1600, 360) center`), or uses a full-bleed `(0, 0) (1920, 1080)` vector background canvas:
 
 ````markdown
-::: block (160, 360) (1600, 360) center
+::: block xy=(160, 360) width=1600 height=360 align=center
 # Part 2: Distributed Storage Engine
 ## Consensus, Replication & Recovery Workflows
 :::
@@ -257,18 +255,18 @@ Centers a bold section header or closing call-to-action across the middle of the
 Combines a standard header (`(80, 40) (1760, 60)`), footer (`(80, 1010) (820, 30)`), page counter (`(1700, 1010) (140, 30)`), left narrative column (`(80, 140) (740, 840)`), and right diagram column (`(860, 140) (980, 840)`):
 
 ````markdown
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Cloud Microservices Topology
 :::
 
-::: block (80, 140) (740, 840)
+::: block xy=(80, 140) width=740 height=840
 ## Key Architectural Decisions
 
 - **API Gateway**: Centralized TLS termination and rate limiting
@@ -276,8 +274,8 @@ utils.draw_page_number()
 - **Event Streaming**: Asynchronous decoupling via Pub/Sub
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:arch_topology.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=arch_topology.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -289,13 +287,13 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Deck Footer / Presentation Title*
 :::
 ````
 
-### 3.4. Full-Canvas Hero Slide (`(0, 0) (1920, 1080)`)
-Use a single `(0, 0) (1920, 1080)` block with `setup(width=192, height=108)` and `z:10` overlays when you want to draw the entire 16:9 slide as a unified vector canvas.
+### 3.4. Full-Canvas Hero Slide (`xy=(0, 0) width=1920 height=1080`)
+Use a single `xy=(0, 0) width=1920 height=1080` block with `setup(width=192, height=108)` and `z_index=10` overlays when you want to draw the entire 16:9 slide as a unified vector canvas.
 
 ---
 
@@ -303,8 +301,8 @@ Use a single `(0, 0) (1920, 1080)` block with `setup(width=192, height=108)` and
 
 | Output Format | Fence Syntax | How It Renders in `slide_html/` and `slide.pdf` |
 | :--- | :--- | :--- |
-| **Inline Vector SVG** *(default for static diagrams)* | ```` ```drawlib file:diagram.svg ```` | Inlined directly as `<div class="slide-svg-container"><svg>...</svg></div>`. Provides infinite vector sharpness at any zoom level and full `Ctrl+F` text searchability. Automatically bundles any referenced Drawlib `.ttf`/`.otf` text and icon fonts into `_assets/fonts/` with `@font-face` rules injected into `style.css`. |
-| **Interactive `<canvas>` Animation** *(default when `Animation()` is used)* | ```` ```drawlib file:flow.png anim-trigger:click anim-loop:once anim-pause:2,4 ```` | Encodes the APNG (`.png`) or Animated WebP (`.webp`) payload as Base64 inside an interactive `<canvas class="drawlib-anim-canvas">` player so playback works seamlessly over both `http://` and `file://`. In PDF export (`build_pdf.sh`), Frame 0 is rendered cleanly as a static poster image. |
+| **Inline Vector SVG** *(default for static diagrams)* | ```` ```drawlib file=diagram.svg ```` | Inlined directly as `<div class="slide-svg-container"><svg>...</svg></div>`. Provides infinite vector sharpness at any zoom level and full `Ctrl+F` text searchability. Automatically bundles any referenced Drawlib `.ttf`/`.otf` text and icon fonts into `_assets/fonts/` with `@font-face` rules injected into `style.css`. |
+| **Interactive `<canvas>` Animation** *(default when `Animation()` is used)* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) ```` | Encodes the APNG (`.png`) or Animated WebP (`.webp`) payload as Base64 inside an interactive `<canvas class="drawlib-anim-canvas">` player so playback works seamlessly over both `http://` and `file://`. In PDF export (`build_pdf.sh`), Frame 0 is rendered cleanly as a static poster image. |
 
 ---
 

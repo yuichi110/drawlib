@@ -8,7 +8,7 @@ Diagrams communicate faster when accompanied by standard iconography and project
 
 Every icon is a pure Python function accepting `xy`, `width`, and `style` (including `style.angle` for rotation):
 
-```drawlib 620px center file:icons_phosphor.png caption:"Figure 6.1: Vector Iconography from Phosphor"
+```drawlib width=620px align=center file=icons_phosphor.png caption="Figure 6.1: Vector Iconography from Phosphor"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -35,7 +35,7 @@ for x, fn, label, st in icons_list:
 
 For cloud infrastructure and microservice topologies, Drawlib includes 250+ official Google Cloud icons:
 
-```drawlib 620px center file:icons_gcp.png caption:"Figure 6.2: Official Google Cloud Service Architecture Icons"
+```drawlib width=620px align=center file=icons_gcp.png caption="Figure 6.2: Official Google Cloud Service Architecture Icons"
 from drawlib.canvas import setup
 from drawlib.icons import gcp
 from drawlib.lines import line

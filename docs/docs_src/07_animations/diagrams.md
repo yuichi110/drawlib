@@ -2,7 +2,7 @@
 
 All 6 coordinate-controlled diagram engines in [`drawlib.diagrams`](../05_diagrams/overview.md) (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, and `ERDiagram`) follow **Pattern B (Pre-Build & Mutate)**:
 
-```drawlib fold-code center file:anim_diagrams_hero.png format:webp caption:"Technical Diagram Animation: Step-by-Step Node, Container, and Edge Walkthrough"
+```drawlib code=fold align=center file=anim_diagrams_hero.png format=webp caption="Technical Diagram Animation: Step-by-Step Node, Container, and Edge Walkthrough"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
@@ -115,7 +115,7 @@ save()
 
 By combining `node.show` (which automatically reveals incident edges and `Junction` fan-out stems only when targets become visible), `node.style`, and `edge.style` mutation, you can animate a request flowing through a pipeline step by step while preserving the **50%+ Neutral** color discipline:
 
-```drawlib center show-code file:anim_diagrams_flow_ratio.png caption:"FlowDiagram Walkthrough with Automatic Edge/Junction Reveal and Active-Path Highlighting"
+```drawlib align=center code=show file=anim_diagrams_flow_ratio.png caption="FlowDiagram Walkthrough with Automatic Edge/Junction Reveal and Active-Path Highlighting"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
@@ -192,7 +192,7 @@ save()
 
 Every diagram's `draw(xy=(x, y), *, scale=s)` method shifts the diagram origin to `(x, y)` and multiplies all coordinates, box sizes, line widths, and font sizes by `scale`. In `SequenceDiagram`, participant lifelines and vertical timeline spacing remain 100% locked across frames even when later `Message`, `Block` (`loop`, `alt`, `opt`, `par`), or `Note` objects have `show=False`:
 
-```drawlib center show-code file:anim_diagrams_pan_zoom.png caption:"Sliding, Scaling, and Revealing a SequenceDiagram via draw(xy, scale) and .show / .set_style()"
+```drawlib align=center code=show file=anim_diagrams_pan_zoom.png caption="Sliding, Scaling, and Revealing a SequenceDiagram via draw(xy, scale) and .show / .set_style()"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.diagrams.sequence import Participant, SequenceDiagram
@@ -248,7 +248,7 @@ save()
 - **`StateDiagram`**: Toggle `state.show` / `note.show` and mutate `state.style` and `transition.style` to walk through state machine lifecycles while keeping all states anchored at their exact coordinates.
 - **`ClassDiagram` & `ERDiagram`**: Reveal domain classes or database tables progressively by toggling `cls.show` or `entity.show` (which automatically reveals their UML or Crow's Foot `Relationship` lines as both endpoints become visible) and highlighting `rel.style = Styles.PrimaryBold`.
 
-```drawlib show-code center file:anim_diagrams_architecture_fork.png format:webp caption:"ArchitectureDiagram Tier-by-Tier Container Reveal and Automatic Junction Fan-Out Hiding"
+```drawlib code=show align=center file=anim_diagrams_architecture_fork.png format=webp caption="ArchitectureDiagram Tier-by-Tier Container Reveal and Automatic Junction Fan-Out Hiding"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon

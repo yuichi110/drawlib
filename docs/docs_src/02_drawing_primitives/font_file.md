@@ -2,7 +2,7 @@
 
 While Drawlib ships with 13 curated cross-platform font families (`Font`, `FontRoboto`, `FontJapanese`, etc.), organizations and design teams frequently need to render diagrams using **corporate brand typefaces, display fonts, or local `.ttf` / `.otf` assets**. `FontFile` lets you load any TrueType or OpenType font file directly from your project's `_assets/` directory and apply it to individual labels, shapes, or your entire project theme.
 
-```drawlib fold-code center file:font_file_hero.png caption:"Loading a Custom TrueType Font (_assets/avenger/regular.ttf) with FontFile"
+```drawlib code=fold align=center file=font_file_hero.png caption="Loading a Custom TrueType Font (_assets/avenger/regular.ttf) with FontFile"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontFile, FontMonoSpace, FontRoboto
 from drawlib.icons import phosphor
@@ -119,7 +119,7 @@ Pass a `FontFile` instance to `style.patch(text_font=...)` on any `text()` call,
 
 The example below loads `_assets/avenger/regular.ttf` and pairs it as a display typeface alongside `FontRoboto` and `FontMonoSpace`:
 
-```drawlib show-code center file:font_file_specimen_and_shapes.png caption:"Applying FontFile (_assets/avenger/regular.ttf) to Text Banners and Shape Cards"
+```drawlib code=show align=center file=font_file_specimen_and_shapes.png caption="Applying FontFile (_assets/avenger/regular.ttf) to Text Banners and Shape Cards"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontFile, FontMonoSpace, FontRoboto
 from drawlib.icons import phosphor
@@ -189,7 +189,7 @@ Instead of patching `text_font` on every shape, call `Styles.patch_font()` to cr
 - **Display Headers + Standard Body**: Pass `bold=avenger` while keeping `regular=FontRoboto.ROBOTO_REGULAR` so component titles (`*Bold` styles) render in your custom display typeface while descriptions remain clean and readable.
 - **Full Custom Brand Family**: Pass `regular=FontFile("..."), bold=FontFile("..."), thin=FontFile("...")` in `styles.py` to switch every preset style token across the entire project.
 
-```drawlib show-code center file:font_file_global_patch_smartarts.png caption:"Using Styles.patch_font() with FontFile Across SmartArt Components"
+```drawlib code=show align=center file=font_file_global_patch_smartarts.png caption="Using Styles.patch_font() with FontFile Across SmartArt Components"
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.smartarts import BoxList, ChevronProcess

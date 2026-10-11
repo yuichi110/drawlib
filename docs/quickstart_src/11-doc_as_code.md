@@ -11,7 +11,7 @@ Write diagrams inline within Markdown using the ````drawlib```` tag:
 
 The following diagram illustrates our microservice communication topology:
 
-```drawlib 600px center file:event_microservices.png caption:"Figure 1.1: Event-Driven Order Processing"
+```drawlib width=600px align=center file=event_microservices.png caption="Figure 1.1: Event-Driven Order Processing"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -24,7 +24,7 @@ line((40, 20), (60, 20), arrow_head="->", style=Styles.DarkBold)
 ```
 ````
 
-```drawlib 600px center file:doc_code_inline_block.png caption:"Figure 11.1: Embedded Drawlib Block Rendered Inline"
+```drawlib width=600px align=center file=doc_code_inline_block.png caption="Figure 11.1: Embedded Drawlib Block Rendered Inline"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle

@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # SmartArts Architecture & Unified Lifecycle
 :::
 
-::: block (80, 140) (760, 840) compact
+::: block xy=(80, 140) width=760 height=840 compact=true
 ## 10 High-Level Structured Components (`drawlib.smartarts`)
 
 Instead of manually calculating polygon vertices and text offsets, `drawlib.smartarts` automates layout geometry for **10 essential diagram patterns**:
@@ -29,8 +29,8 @@ Instead of manually calculating polygon vertices and text offsets, `drawlib.smar
 4. **Render (`draw(xy, scale=1.0)`)**: Uniformly scales shapes, strokes, and fonts around `xy`.
 :::
 
-::: block (880, 140) (960, 840)
-```drawlib file:smartarts_overview.svg
+::: block xy=(880, 140) width=960 height=840
+```drawlib file=smartarts_overview.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import (

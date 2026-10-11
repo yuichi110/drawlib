@@ -4,7 +4,7 @@ Drawlib provides geometric and mathematical calculation utilities to streamline 
 
 The `drawlib.math` module provides four core geometric capabilities for algorithmic layouts and animations:
 
-```drawlib fold-code center file:math_capabilities_hero.png caption:"Overview of drawlib.math: Dynamic Bounding Boxes, Path Interpolation, Radial Orbits, and Orthogonal Routing"
+```drawlib code=fold align=center file=math_capabilities_hero.png caption="Overview of drawlib.math: Dynamic Bounding Boxes, Path Interpolation, Radial Orbits, and Orthogonal Routing"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, lines
@@ -182,7 +182,7 @@ Computes trajectory-aware intermediate points and progressive prefix sub-paths a
 ### 2.7 Orthogonal Waypoint Routing (`compute_orthogonal_path`)
 Computes right-angled (`"orthogonal"`) or straight (`"direct"`) polyline waypoints connecting two anchor coordinates given their exit/entry boundary sides (`"left"`, `"right"`, `"top"`, `"bottom"`):
 
-```drawlib show-code center file:math_orthogonal_routing.png caption:"Orthogonal Z-Bend Waypoint Routing Computed by compute_orthogonal_path()"
+```drawlib code=show align=center file=math_orthogonal_routing.png caption="Orthogonal Z-Bend Waypoint Routing Computed by compute_orthogonal_path()"
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.math import compute_orthogonal_path
@@ -237,7 +237,7 @@ save()
 
 Using `get_center_and_size()`, you can calculate the exact boundary of a cluster of service nodes and draw an encompassing card behind them:
 
-```drawlib center show-code file:math_dynamic_grouping_box.png caption:"Automated Grouping Box via get_center_and_size()"
+```drawlib align=center code=show file=math_dynamic_grouping_box.png caption="Automated Grouping Box via get_center_and_size()"
 from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
@@ -275,7 +275,7 @@ save()
 
 To distribute $N$ worker nodes symmetrically around a central hub:
 
-```drawlib center show-code file:math_radial_distribution.png caption:"Radial Topology with Polar Math Distribution"
+```drawlib align=center code=show file=math_radial_distribution.png caption="Radial Topology with Polar Math Distribution"
 import math
 from drawlib.canvas import save, setup
 from drawlib.lines import line
@@ -312,7 +312,7 @@ save()
 
 Align text labels parallel to angled lines using `get_angle()`:
 
-```drawlib show-code center file:math_slanted_line_text.png caption:"Parallel Text on Angled Line"
+```drawlib code=show align=center file=math_slanted_line_text.png caption="Parallel Text on Angled Line"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle

@@ -2,7 +2,7 @@
 
 Drawlib provides thousands of vector icons (Phosphor) and cloud architecture icons (Google Cloud Platform). Rather than maintaining thousands of function definitions manually, Drawlib uses automated code generation and external binary asset packaging.
 
-```drawlib center fold-code file:codegen_pipeline_architecture.png caption:"Automated Icon Code Generation Pipeline"
+```drawlib align=center code=fold file=codegen_pipeline_architecture.png caption="Automated Icon Code Generation Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -66,7 +66,7 @@ Drawlib solves this by treating icons as **generated artifacts**:
 
 To maintain a lightweight Python package while providing gigabytes of optional fonts, cloud icons, and geographic maps, Drawlib implements a **Decoupled Three-Tier Release Architecture**:
 
-```drawlib center fold-code file:release_asset_lifecycle_architecture.png caption:"Decoupled Three-Tier Release Architecture: Code Release, GitHub Releases CDN, and Runtime Resolution"
+```drawlib align=center code=fold file=release_asset_lifecycle_architecture.png caption="Decoupled Three-Tier Release Architecture: Code Release, GitHub Releases CDN, and Runtime Resolution"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

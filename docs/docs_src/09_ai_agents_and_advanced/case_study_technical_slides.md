@@ -6,7 +6,7 @@ Drawlib's **Slide Deck Project (`slide`)** transforms presentation authoring int
 
 This case study documents the real-world **9-step iterative workflow** used to build **"Surviving a 300M+ Req/Day DDoS & EDoS Attack"**—a 27-slide serverless security postmortem deck (`docs/slide_ddos_incident_response_src/`) featuring cloud architecture diagrams, sequence protocols, data charts, 5-step adaptation cycles, and multi-wave geographic attack maps (`GeoMap`).
 
-```drawlib fold-code center file:case_study_slide_9step_workflow.png caption:"The 9-Step Human-AI Collaborative Slide Authoring Lifecycle"
+```drawlib code=fold align=center file=case_study_slide_9step_workflow.png caption="The 9-Step Human-AI Collaborative Slide Authoring Lifecycle"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, lines
@@ -139,7 +139,7 @@ A common failure mode in technical presentations is cramming full paragraphs of 
 
 To prevent this, Drawlib codifies the **Dual-Layer Presentation Principle** (`uv run drawlib rules show slide-guide`):
 
-```drawlib fold-code center file:case_study_slide_dual_layer.png caption:"Dual-Layer Slide Architecture: Visual Stage (::: block) vs. Presenter Notes (::: note)"
+```drawlib code=fold align=center file=case_study_slide_dual_layer.png caption="Dual-Layer Slide Architecture: Visual Stage (::: block) vs. Presenter Notes (::: note)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -197,7 +197,7 @@ save()
 ### 3.2. Step 5: Autonomous AI Self-Review & Block-Width Typography Math
 After generating the initial slides, the AI agent runs an autonomous multimodal review (`uv run drawlib rules show review-guide`).
 
-A critical insight discovered and codified during this case study is the **Block-Width-Aware Slide Typography Standard**. Because Drawlib exports every figure at a base physical width of `10 inches = 720pt` (`setup(width=W, height=H)` only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the `::: block (X, Y) (Width, Height)` container where the image is placed:
+A critical insight discovered and codified during this case study is the **Block-Width-Aware Slide Typography Standard**. Because Drawlib exports every figure at a base physical width of `10 inches = 720pt` (`setup(width=W, height=H)` only changes coordinate grid units), the final on-slide pixel size of any diagram label depends on the width of the `::: block xy=(X, Y) width=Width height=Height` container where the image is placed:
 
 $$\text{Rendered Slide Font Size (px)} = \text{text\_size} \times \frac{\text{Block Width (px)}}{720}$$
 
@@ -217,7 +217,7 @@ By inspecting the compiled PDF pages via `view_file`, the agent automatically de
 
 Once the AI agent completes its initial self-corrected build, the human author reviews the deck and guides high-level structural and visual improvements. In the DDoS postmortem project, three key iterations transformed the deck from a good draft into a compelling narrative:
 
-```drawlib fold-code center file:case_study_slide_iterative_evolution.png caption:"Three High-Impact Refinements Driven by Human Review (Steps 6–8)"
+```drawlib code=fold align=center file=case_study_slide_iterative_evolution.png caption="Three High-Impact Refinements Driven by Human Review (Steps 6–8)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

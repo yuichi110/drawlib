@@ -144,7 +144,7 @@ Inside any Markdown document (such as `doc.md` in a `doc` or `site` project), si
 
 Here is our primary service flow:
 
-```drawlib center file:client_server_communication.png caption:"Client-Server REST Communication"
+```drawlib align=center file=client_server_communication.png caption="Client-Server REST Communication"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line

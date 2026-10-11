@@ -190,7 +190,7 @@ Placeholder boxes were replaced with tailored high-level Drawlib components:
 ### 3.2. The "Top Hero" Eye-Catcher Standard
 To maximize reader engagement and visual retention, the documentation established the **Top Hero Rule**:
 1. **Placement at Lines 5–15**: Every documentation page features a prominent Top Hero illustration immediately below `# Title` and the introductory lead sentence.
-2. **`fold-code` Fencing**: By marking code fences with ````drawlib fold-code center file:<name>.png caption:"..."````, the rendered image appears prominently above the fold, while the Python drawing source code is collapsed by default into an expandable `<details>` block.
+2. **`code=fold` Fencing**: By marking code fences with ````drawlib code=fold align=center file=<name>.png caption="..."````, the rendered image appears prominently above the fold, while the Python drawing source code is collapsed by default into an expandable `<details>` block.
 3. **Visual Density**: Each page includes at least **2+ diagrams**, ensuring complex ideas are explained both textually and diagrammatically.
 
 ### 3.3. 720pt Typography Math

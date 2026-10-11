@@ -6,7 +6,7 @@
 
 Easily define boundary groups (`NodeGroup`), cloud service nodes (`Node`), and orthogonal routing connections:
 
-```drawlib 640px center file:fig_architecture_diagram.png caption:"Figure 10.1: Cloud Microservices Architecture Topology"
+```drawlib width=640px align=center file=fig_architecture_diagram.png caption="Figure 10.1: Cloud Microservices Architecture Topology"
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -54,7 +54,7 @@ When drafting complex architectures or data workflows from scratch, calculating 
 
 Drawlib provides a Pure-Python declarative graph layout engine via `drawlib.graph`. Without requiring external binaries (like Graphviz), it computes tidy orthogonal routes and nested cluster bounds automatically:
 
-```drawlib 640px center file:fig_architecture_graph.png caption:"Figure 10.2: Auto-Layout and Cluster Packing with ArchitectureGraph"
+```drawlib width=640px align=center file=fig_architecture_graph.png caption="Figure 10.2: Auto-Layout and Cluster Packing with ArchitectureGraph"
 from drawlib.canvas import setup
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles

@@ -6,7 +6,7 @@
 
 ## 1. Overview & Key Concepts
 
-```drawlib fold-code center file:architecture_overview_concepts.png caption:"Nested NodeGroups (VPC & Subnets) and Cross-Boundary Connections"
+```drawlib code=fold align=center file=architecture_overview_concepts.png caption="Nested NodeGroups (VPC & Subnets) and Cross-Boundary Connections"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 from drawlib.styles import Styles
@@ -181,7 +181,7 @@ Edge(
 
 The following complete example demonstrates public and private subnets, load balancing, GKE pods, Cloud SQL, and external users:
 
-```drawlib show-code center file:architecture_cloud_vpc_topology.png caption:"Production Multi-Tier Cloud VPC Topology"
+```drawlib code=show align=center file=architecture_cloud_vpc_topology.png caption="Production Multi-Tier Cloud VPC Topology"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -260,7 +260,7 @@ save()
 
 You can also use general architecture icons from `PhosphorIcon` to model messaging queues, Kafka clusters, and analytics engines:
 
-```drawlib show-code center file:architecture_event_message_streaming.png caption:"Event-Driven Message Streaming Topology"
+```drawlib code=show align=center file=architecture_event_message_streaming.png caption="Event-Driven Message Streaming Topology"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles

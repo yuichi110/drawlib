@@ -2,7 +2,7 @@
 
 Drawlib was built from the ground up for the era of AI-assisted engineering. Instead of asking Large Language Models (LLMs) to construct thousands of lines of fragile SVG path strings or brittle Matplotlib code, Drawlib gives AI agents a clean, high-level, declarative Python vocabulary designed for zero-shot architectural visualization.
 
-```drawlib fold-code center file:ai_agent_project_first_workflow.png caption:"The Four Core Rules for Autonomous AI Coding Agents Using Drawlib"
+```drawlib code=fold align=center file=ai_agent_project_first_workflow.png caption="The Four Core Rules for Autonomous AI Coding Agents Using Drawlib"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -109,7 +109,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 
 Instead of pasting entire documentation manuals into prompts, train your agent to query `drawlib rules` on demand. Drawlib ships with **31 modular rule manuals** (12 general guidelines + 19 library module specifications):
 
-```drawlib fold-code center file:ai_agent_on_demand_rules_architecture.png caption:"On-Demand Rule Retrieval Workflow for AI Coding Agents"
+```drawlib code=fold align=center file=ai_agent_on_demand_rules_architecture.png caption="On-Demand Rule Retrieval Workflow for AI Coding Agents"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

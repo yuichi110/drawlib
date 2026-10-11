@@ -1,5 +1,5 @@
-::: block (0, 0) (1920, 1080)
-```drawlib file:divider.svg
+::: block xy=(0, 0) width=1920 height=1080
+```drawlib file=divider.svg
 import utils
 
 utils.draw_chapter_divider(

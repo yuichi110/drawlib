@@ -11,7 +11,7 @@ Drawlib enforces a clean, predictable project structure for all documentation an
 | **`slide`** | `drawlib init slide` | 16:9 presentation slide deck (web & vector PDF) | `slide_src/` -> `slide/index.html` & `slide.pdf` |
 | **`images`** | `drawlib init images` | Standalone Python drawing batch scripts | `images_src/` -> `images/` |
 
-```drawlib 640px center file:project_templates.png caption:"Figure 14.1: The Four Standard Drawlib Project Templates"
+```drawlib width=640px align=center file=project_templates.png caption="Figure 14.1: The Four Standard Drawlib Project Templates"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle

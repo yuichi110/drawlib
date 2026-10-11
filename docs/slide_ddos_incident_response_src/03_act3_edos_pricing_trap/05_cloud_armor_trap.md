@@ -1,8 +1,8 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # The Cloud Armor Trap: 99.9% Blocked, $6,750/mo Bill
 :::
 
-::: block (80, 140) (680, 810)
+::: block xy=(80, 140) width=680 height=810
 ```drawlib
 from drawlib.canvas import setup
 import utils
@@ -21,7 +21,7 @@ utils.draw_kpi_cards(
 ```
 :::
 
-::: block (800, 140) (1040, 810)
+::: block xy=(800, 140) width=1040 height=810
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
@@ -79,7 +79,7 @@ table.draw_flexible(xy=(5.5, 26.0), column_widths=[31.0, 30.0, 23.0, 20.0], row_
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

@@ -12,7 +12,7 @@ Drawlib is built on four pillars:
 
 ## 2.2 Traditional Approach vs. Drawlib
 
-```drawlib 640px center file:fig_solution_comparison.png caption:"Figure 2.1: Comparing Traditional Manual Drawing with Drawlib"
+```drawlib width=640px align=center file=fig_solution_comparison.png caption="Figure 2.1: Comparing Traditional Manual Drawing with Drawlib"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

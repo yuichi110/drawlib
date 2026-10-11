@@ -831,7 +831,7 @@ Any <code>drawlib</code> block that initializes <code>Animation()</code> automat
 <hr />
 <h2>7. Interactive Playback Control in Presentation Slides (<code>slide</code>)</h2>
 <p>In 16:9 presentation slide decks (<code>drawlib init slide</code>), animated <code>.png</code> (APNG) and <code>.webp</code> blocks can be controlled interactively via <code>&lt;canvas&gt;</code> playback options on the <code>drawlib</code> fence:</p>
-<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file:pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
 <span class="s">from drawlib.anim import Animation</span>
 <span class="s">...</span>
 <span class="sb">```</span>

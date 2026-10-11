@@ -2,7 +2,7 @@
 
 All 5 declarative auto-layout graph solvers in [`drawlib.graph`](../06_graph/overview.md) (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, and `GridGraph`) follow **Pattern B (Pre-Build & Mutate)**:
 
-```drawlib fold-code center file:anim_graphs_hero.png format:webp caption:"Auto-Layout Graph Animation: 100% Locked Node Coordinates Across Progressive Reveal Frames"
+```drawlib code=fold align=center file=anim_graphs_hero.png format=webp caption="Auto-Layout Graph Animation: 100% Locked Node Coordinates Across Progressive Reveal Frames"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
@@ -110,7 +110,7 @@ Drawlib eliminates layout jumping by separating **layout solving (`g.calc()`)** 
 
 In `LayerGraph`, `g.node(id, label, ...)` returns a mutable `Node` declaration. Toggling `node.show = (i <= step)` and updating `node.style` inside the frame loop reveals each pipeline rank sequentially while keeping the horizontal layout locked:
 
-```drawlib center show-code file:anim_diagrams_graph_layers.png caption:"Auto-Layout LayerGraph Step-by-Step Reveal"
+```drawlib align=center code=show file=anim_diagrams_graph_layers.png caption="Auto-Layout LayerGraph Step-by-Step Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
@@ -156,7 +156,7 @@ save()
 
 In `ArchitectureGraph`, you can combine `cluster.show`, `node.show`, `node.style`, and `edge.style` to reveal cloud zones and highlight active request routing step by step across nested VPC tiers:
 
-```drawlib center show-code file:anim_graphs_architecture_reveal.png caption:"ArchitectureGraph Progressive Cluster, Node, and Edge Reveal"
+```drawlib align=center code=show file=anim_graphs_architecture_reveal.png caption="ArchitectureGraph Progressive Cluster, Node, and Edge Reveal"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.graph import ArchitectureGraph
@@ -234,7 +234,7 @@ Calling `layout = g.calc(width=None, height=None, margin=10.0)` **once** before 
 - Every `EdgeLayout` in `layout.edges` exposes `edge_layout.points: list[tuple[float, float]]` (`[src_port, *waypoints, dst_port]`), representing the complete auto-routed polyline trajectory.
 - Pass `edge_layout.points` to `get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)` (or `get_intermediate_paths()`) to animate a data packet (`circle`) traveling smoothly along an auto-routed graph edge while calling `layout.draw(*, xy=(0, 0), scale=1.0)` on each frame:
 
-```drawlib center show-code file:anim_graphs_edge_packet.png caption:"Animating a Data Packet Along an Auto-Routed Graph Edge via layout = g.calc() and edge_layout.points"
+```drawlib align=center code=show file=anim_graphs_edge_packet.png caption="Animating a Data Packet Along an Auto-Routed Graph Edge via layout = g.calc() and edge_layout.points"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph

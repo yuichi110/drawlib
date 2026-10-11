@@ -2,7 +2,7 @@
 
 Testing a 2D drawing and documentation engine presents unique challenges: graphics must be thoroughly validated across operating systems without opening interactive windows, and without relying on fragile pixel-by-pixel bitmap comparisons.
 
-```drawlib center fold-code file:test_hierarchy_and_mirroring.png caption:"1:1 Mirroring Test Suite Hierarchy"
+```drawlib align=center code=fold file=test_hierarchy_and_mirroring.png caption="1:1 Mirroring Test Suite Hierarchy"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -84,7 +84,7 @@ Drawlib resolves this with a **Dual-Verification Architecture**:
 
 The test suite is organized into two primary sub-packages, separated from the production distribution:
 
-```drawlib center fold-code file:headless_graphics_test_pipeline.png caption:"Headless Graphics Testing and Patch Assertion Mechanics"
+```drawlib align=center code=fold file=headless_graphics_test_pipeline.png caption="Headless Graphics Testing and Patch Assertion Mechanics"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

@@ -182,7 +182,7 @@ def test_build_markdown_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest
     md_file = src_dir / "sample.md"
     md_file.write_text(
         """# Sample
-```drawlib file:cached_circle.png
+```drawlib file=cached_circle.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), 20, style=Styles.Primary)

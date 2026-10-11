@@ -12,7 +12,7 @@ Drawlib は、数学的な **直交座標系（デカルト座標系）** を採
 
 22 種類の図形プリミティブ（四角形、円、楕円、扇形、ドーナツ、矢印ポリゴン、星型など）が用意されています。
 
-```drawlib 600px center file:fig_basic_drawing.png caption:"図 7.1: 基本図形・矢印・アイコンを組み合わせたサービス連携図"
+```drawlib width=600px align=center file=fig_basic_drawing.png caption="図 7.1: 基本図形・矢印・アイコンを組み合わせたサービス連携図"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

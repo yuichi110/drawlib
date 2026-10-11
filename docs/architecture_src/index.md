@@ -4,7 +4,7 @@ Drawlib is a pure-Python library and toolset designed for **"Illustration as Cod
 
 This specification document provides a comprehensive technical breakdown of Drawlib's internal architecture, package design, layered drawing subsystems, compiler pipeline, and runtime tooling.
 
-```drawlib center fold-code file:system_architecture_at_a_glance.png caption:"Drawlib System Architecture at a Glance"
+```drawlib align=center code=fold file=system_architecture_at_a_glance.png caption="Drawlib System Architecture at a Glance"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -88,7 +88,7 @@ Drawlib solves this architectural challenge through three foundational tenets:
 
 Drawlib's codebase (`src/drawlib/`) and engineering environment are structured into seven distinct architectural pillars, decoupling low-level graphics backends from high-level diagram abstractions, document compilers, developer toolsets, and continuous quality verification:
 
-```drawlib center fold-code file:seven_architectural_pillars.png caption:"The Seven Architectural Pillars of the Drawlib Ecosystem"
+```drawlib align=center code=fold file=seven_architectural_pillars.png caption="The Seven Architectural Pillars of the Drawlib Ecosystem"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

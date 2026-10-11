@@ -313,7 +313,7 @@ save("graph_layer_steps.png")
 When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` presentation project (`drawlib build slide`), use code-fence options to control interactive `<canvas>` playback in `slide.js`:
 
 ````markdown
-```drawlib file:pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
 ```
 ````
 

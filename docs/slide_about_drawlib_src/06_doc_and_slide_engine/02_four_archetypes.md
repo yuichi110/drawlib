@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Four Project Archetypes (`drawlib init`)
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Zero-Config Project Scaffolding
 
 Never assemble documentation directories or build scripts manually. `drawlib init` scaffolds production-ready project structures with synchronized themes (`styles.py` + `style.css`) and modular `build_*.sh` scripts:
@@ -33,8 +33,8 @@ uv run drawlib init image -s monochrome
 - **Deterministic Outputs**: `./<target>_src/build.sh` compiles `<target>_html/`, `<target>.pdf`, `<target>_markdown/`, and `<target>_images/`.
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:four_archetypes.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=four_archetypes.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -87,7 +87,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.BlueNeutral,
-    text="3. slide  (slide_src/)\n• 16:9 Widescreen Stage (1920x1080)\n• ::: block (x, y) (w, h) + ::: note\n• Outputs: slide/index.html, slide.pdf",
+    text="3. slide  (slide_src/)\n• 16:9 Widescreen Stage (1920x1080)\n• ::: block xy=(x, y) width=W height=H + ::: note\n• Outputs: slide/index.html, slide.pdf",
     text_style=Styles.DarkBold.patch(text_size=8.6),
 )
 grid.add(
@@ -115,7 +115,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 6: Documentation & Slide Engine — Four Project Archetypes*
 :::
 

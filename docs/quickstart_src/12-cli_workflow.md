@@ -14,7 +14,7 @@ Drawlib provides a unified command-line interface (`drawlib`) that automates rap
 | **`serve`** | `drawlib serve <dir> [-p 8000] [--check]` | Launches a local HTTP preview server and verifies internal links and assets. |
 | **`cache`** | `drawlib cache list / clear [--images]` | Inspects or clears the SQLite build cache. |
 
-```drawlib 640px center file:cli_pipeline.png caption:"Figure 12.1: Unified Drawlib CLI Build & Preview Pipeline"
+```drawlib width=640px align=center file=cli_pipeline.png caption="Figure 12.1: Unified Drawlib CLI Build & Preview Pipeline"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

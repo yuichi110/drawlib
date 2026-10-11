@@ -4,7 +4,7 @@ Drawlib は、技術文書（`doc`）やWebサイト（`site`）だけでなく�
 
 PowerPoint や Google Slides などの GUI ツールを使わずに、Markdown と Python 作図コードだけで、学会発表・カンファレンス・社内勉強会向けの美しいスライドデッキをコード管理できます。
 
-```drawlib 650px center file:fig_slide_layout.png caption:"図 12.1: Drawlib スライド生成アーキテクチャとデュアル出力"
+```drawlib width=650px align=center file=fig_slide_layout.png caption="図 12.1: Drawlib スライド生成アーキテクチャとデュアル出力"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -105,7 +105,7 @@ Drawlib のスライドは、**「1 つの Markdown ファイル ＝ 1 つのス
 
 <div class="subtitle">イベント駆動型アーキテクチャへの段階的移行計画</div>
 
-```drawlib 1400px center file:arch_slide.png
+```drawlib width=1400px align=center file=arch_slide.png
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

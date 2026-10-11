@@ -12,7 +12,7 @@ Drawlib のアプローチはシンプルです:
 
 ## 2.2 従来のアプローチとの比較
 
-```drawlib 640px center file:fig_solution_comparison.png caption:"図 2.1: 従来の手動管理と Drawlib アプローチの比較"
+```drawlib width=640px align=center file=fig_solution_comparison.png caption="図 2.1: 従来の手動管理と Drawlib アプローチの比較"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

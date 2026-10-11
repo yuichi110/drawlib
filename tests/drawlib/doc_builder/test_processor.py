@@ -51,7 +51,7 @@ def test_block_processor_markdown_replacement(tmp_path) -> None:
 
 Hello World
 
-```drawlib file:diag.png
+```drawlib file=diag.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -109,7 +109,7 @@ def draw_my_node(label: str) -> None:
     processor = DrawlibBlockProcessor(utils_path=str(utils_file))
 
     md_input = """
-```drawlib file:node.webp
+```drawlib file=node.webp
 draw_my_node("Configured Node")
 ```
 """
@@ -132,7 +132,7 @@ def test_block_processor_ignore_explicit_save(tmp_path) -> None:
 
     ignored_file = tmp_path / "should_not_be_created.png"
     md_input = f"""
-```drawlib file:save_diag.png
+```drawlib file=save_diag.png
 from drawlib.canvas import save
 from drawlib.styles import Styles
 from drawlib.shapes import circle
@@ -148,25 +148,25 @@ save(r"{ignored_file}")
 
 
 def test_block_processor_space_separated_options(tmp_path) -> None:
-    """Test parsing space-separated key:value and shorthand block options."""
+    """Test parsing space-separated key=value block options."""
     out_dir = tmp_path / "out"
     out_dir.mkdir()
     processor = DrawlibBlockProcessor()
 
-    opts1 = parse_block_info("400px center format:webp caption:'My Chart'")
+    opts1 = parse_block_info("width=400px align=center format=webp caption='My Chart'")
     assert opts1.width == "400px"
     assert opts1.align == "center"
     assert opts1.format == "webp"
     assert opts1.caption == "My Chart"
 
-    opts2 = parse_block_info("w:500 h:300 align:right class:hero-img")
+    opts2 = parse_block_info("width=500 height=300 align=right class=hero-img")
     assert opts2.width == "500px"
     assert opts2.height == "300px"
     assert opts2.align == "right"
     assert opts2.css_class == "hero-img"
 
     md_input = """
-```drawlib file:arch.png 400px center caption:"System Architecture"
+```drawlib file=arch.png width=400px align=center caption="System Architecture"
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -187,7 +187,7 @@ def test_block_processor_code_visibility_modes(tmp_path) -> None:
 
     # 1. Default (no option) -> hide code
     md_default = """
-```drawlib file:default.png
+```drawlib file=default.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -198,9 +198,9 @@ circle((50, 50), radius=10, style=Styles.Primary)
     assert "details" not in res_default
     assert 'src="default_doc_images/default.png"' in res_default
 
-    # 2. show-code -> show code block followed by image
+    # 2. code=show -> show code block followed by image
     md_show = """
-```drawlib file:show.png show-code
+```drawlib file=show.png code=show
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -219,9 +219,9 @@ circle((50, 50), radius=10, style=Styles.Primary)
     # Python code comes before image
     assert res_show.find("```python") < res_show.find("show_doc_images/show.png")
 
-    # 3. fold-code -> image followed by details tag
+    # 3. code=fold -> image followed by details tag
     md_fold = """
-```drawlib file:fold.png fold-code
+```drawlib file=fold.png code=fold
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -235,7 +235,7 @@ circle((50, 50), radius=10, style=Styles.Primary)
     # Image comes before details
     assert res_fold.find("fold_doc_images/fold.png") < res_fold.find("<details")
 
-    # 4. HTML script tag fold-code and show-code
+    # 4. HTML script tag code="fold" and code="show"
     html_input = """
 <script type="text/drawlib" code="fold" file="fold_img.png">
 from drawlib.shapes import circle
@@ -271,18 +271,16 @@ circle((50, 50), radius=10, style=Styles.Primary)
 def test_block_processor_code_options_parsing() -> None:
     """Test parsing code options in parse_block_info."""
     assert parse_block_info("").code == "hide"
-    assert parse_block_info("400px center").code == "hide"
-    assert parse_block_info("show-code").code == "show"
-    assert parse_block_info("show_code").code == "show"
-    assert parse_block_info("code:show").code == "show"
+    assert parse_block_info("width=400px align=center").code == "hide"
     assert parse_block_info("code=show").code == "show"
-    assert parse_block_info("fold-code").code == "fold"
-    assert parse_block_info("fold_code").code == "fold"
-    assert parse_block_info("code:fold").code == "fold"
+    assert parse_block_info('code="show"').code == "show"
     assert parse_block_info("code=fold").code == "fold"
-    assert parse_block_info("hide-code").code == "hide"
-    assert parse_block_info("code:hide").code == "hide"
-    assert parse_block_info("500px fold-code center").code == "fold"
+    assert parse_block_info('code="fold"').code == "fold"
+    assert parse_block_info("code=hide").code == "hide"
+    assert parse_block_info("width=500px code=fold align=center").code == "fold"
+    # Legacy positional shorthands are ignored
+    assert parse_block_info("show-code").code == "hide"
+    assert parse_block_info("fold-code").code == "hide"
 
 
 def test_nested_drawlib_in_outer_code_fence_not_compiled(tmp_path) -> None:
@@ -296,7 +294,7 @@ def test_nested_drawlib_in_outer_code_fence_not_compiled(tmp_path) -> None:
 Here is how to write a diagram in Drawlib:
 
 ````markdown
-```drawlib 400px center
+```drawlib width=400px align=center
 circle((50, 50), radius=10, style=Styles.Primary)
 ```
 ````
@@ -329,7 +327,7 @@ circle((0, 0), radius=5)
 ````
 
 Actual diagram:
-```drawlib file:mixed_circle.png
+```drawlib file=mixed_circle.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.Primary)
@@ -379,7 +377,7 @@ circle((20, 20), radius=5)
 
 
 def test_block_processor_require_file_validation(tmp_path) -> None:
-    """Test that missing file:<name> raises ValueError by default and works when require_file=False."""
+    """Test that missing file=<name> raises ValueError by default and works when require_file=False."""
     out_dir = tmp_path / "out"
     out_dir.mkdir()
 
@@ -392,11 +390,11 @@ from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """
-    with pytest.raises(ValueError, match="Missing required 'file:<filename.ext>' option"):
+    with pytest.raises(ValueError, match="Missing required 'file=<filename.ext>' option"):
         processor.process_markdown(bad_md, doc_base_name="bad", output_dir=str(out_dir))
 
     # 2. extract_code_blocks with require_file=True also raises ValueError
-    with pytest.raises(ValueError, match="Missing required 'file:<filename.ext>' option"):
+    with pytest.raises(ValueError, match="Missing required 'file=<filename.ext>' option"):
         extract_code_blocks(bad_md, is_html=False, require_file=True)
 
     # 3. require_file=False allows auto-indexing
@@ -407,17 +405,18 @@ circle((50, 50), radius=10, style=Styles.Primary)
 
 
 def test_parse_block_info_no_cache() -> None:
-    """Verify parse_block_info correctly handles no-cache and cache options."""
-    assert parse_block_info("file:foo.png no-cache").no_cache is True
-    assert parse_block_info("file:foo.png no_cache").no_cache is True
-    assert parse_block_info("file:foo.png nocache").no_cache is True
-    assert parse_block_info("file:foo.png cache:false").no_cache is True
-    assert parse_block_info("file:foo.png cache:0").no_cache is True
-    assert parse_block_info("file:foo.png cache:off").no_cache is True
-    assert parse_block_info("file:foo.png no-cache:true").no_cache is True
-    assert parse_block_info("file:foo.png no-cache:false").no_cache is False
-    assert parse_block_info("file:foo.png cache:true").no_cache is False
-    assert parse_block_info("file:foo.png").no_cache is False
+    """Verify parse_block_info correctly handles no_cache option."""
+    assert parse_block_info("file=foo.png no_cache=true").no_cache is True
+    assert parse_block_info("file=foo.png no_cache=1").no_cache is True
+    assert parse_block_info("file=foo.png no_cache=yes").no_cache is True
+    assert parse_block_info("file=foo.png no_cache=on").no_cache is True
+    assert parse_block_info("file=foo.png no_cache=false").no_cache is False
+    assert parse_block_info("file=foo.png no_cache=0").no_cache is False
+    assert parse_block_info("file=foo.png no_cache=no").no_cache is False
+    assert parse_block_info("file=foo.png no_cache=off").no_cache is False
+    assert parse_block_info("file=foo.png").no_cache is False
+    # Legacy flags ignored
+    assert parse_block_info("file=foo.png no-cache").no_cache is False
 
 
 def test_block_processor_honors_no_cache(tmp_path) -> None:
@@ -439,25 +438,25 @@ def test_block_processor_honors_no_cache(tmp_path) -> None:
 
 
 def test_parse_block_info_anim_options() -> None:
-    """Verify parse_block_info parses anim-trigger, anim-loop, and anim-pause options."""
-    default_opts = parse_block_info("file:flow.png")
+    """Verify parse_block_info parses anim_trigger, anim_loop, and anim_pause options."""
+    default_opts = parse_block_info("file=flow.png")
     assert default_opts.anim_trigger is None
     assert default_opts.anim_loop is None
     assert default_opts.anim_pause is None
 
-    opts1 = parse_block_info("file:flow.png anim-trigger:click anim-loop:once anim-pause:2,4")
+    opts1 = parse_block_info("file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4)")
     assert opts1.anim_trigger == "click"
     assert opts1.anim_loop == "once"
     assert opts1.anim_pause == [2, 4]
 
-    opts2 = parse_block_info("file:flow.apng format:apng anim_trigger:auto anim_loop:infinite anim_pause:4,9,0,4")
+    opts2 = parse_block_info("file=flow.apng format=apng anim_trigger=auto anim_loop=infinite anim_pause=(4, 9, 0, 4)")
     assert opts2.file == "flow.apng"
     assert opts2.format == "apng"
     assert opts2.anim_trigger == "auto"
     assert opts2.anim_loop == "infinite"
     assert opts2.anim_pause == [4, 9]
 
-    opts_shorthand = parse_block_info("file:flow.webp anim:click loop:once pause:1,3,5")
-    assert opts_shorthand.anim_trigger == "click"
-    assert opts_shorthand.anim_loop == "once"
-    assert opts_shorthand.anim_pause == [1, 3, 5]
+    opts3 = parse_block_info("file=flow.webp anim_trigger=click anim_loop=once anim_pause=3")
+    assert opts3.anim_trigger == "click"
+    assert opts3.anim_loop == "once"
+    assert opts3.anim_pause == [3]

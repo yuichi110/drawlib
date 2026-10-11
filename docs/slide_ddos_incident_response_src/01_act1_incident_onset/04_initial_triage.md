@@ -1,13 +1,13 @@
-::: block (80, 40) (1760, 70)
+::: block xy=(80, 40) width=1760 height=70
 # Initial Triage: Origin Clamping vs. Edge Filtering
 :::
 
-::: block (80, 130) (1760, 170)
+::: block xy=(80, 130) width=1760 height=170
 - **Tactic A (`max-instances=1` + App Rate Limit)**: Caps runaway Cloud bill immediately, but **starves legitimate users (504 Gateway Timeout)** as bots fill the queue.
 - **Tactic B (Dedicated Edge WAF Layer)**: Drops malicious floods at the **Anycast POP (403 Forbidden)** so only clean traffic reaches the Cloud Run container.
 :::
 
-::: block (80, 320) (1760, 630)
+::: block xy=(80, 320) width=1760 height=630
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
@@ -82,7 +82,7 @@ flow.draw(xy=(2.0, 2.0))
 ```
 :::
 
-::: block (1720, 995) (140, 30)
+::: block xy=(1720, 995) width=140 height=30
 ```drawlib
 import utils
 utils.draw_page_number()

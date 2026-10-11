@@ -4,7 +4,7 @@ The `doc` starter template is designed for authoring linear technical documents 
 
 By unifying single-page specs and multi-chapter reports into a single archetype, Drawlib allows you to compile **HTML, PDF, Markdown, and standalone images** from the same Markdown source files.
 
-```drawlib fold-code center file:project_doc_chapter_merge_and_toc.png caption:"Lexicographical Chapter Merging and Automatic Table of Contents (--toc) Injection"
+```drawlib code=fold align=center file=project_doc_chapter_merge_and_toc.png caption="Lexicographical Chapter Merging and Automatic Table of Contents (--toc) Injection"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -113,7 +113,7 @@ drawlib init doc my_report -s google -l en
 
 ## 2. Directory Layout & Anatomy
 
-```drawlib fold-code center file:project_doc_directory_tree.png caption:"Directory Structure of a Linear Document (doc) Project"
+```drawlib code=fold align=center file=project_doc_directory_tree.png caption="Directory Structure of a Linear Document (doc) Project"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode

@@ -6,7 +6,7 @@
 
 ## 1. Overview & Standard Symbols
 
-```drawlib fold-code center file:flow_standard_symbols.png caption:"ISO 5807 Flowchart Symbol Classes in FlowDiagram"
+```drawlib code=fold align=center file=flow_standard_symbols.png caption="ISO 5807 Flowchart Symbol Classes in FlowDiagram"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 from drawlib.shapes import circle
@@ -167,7 +167,7 @@ All nodes share a single global canvas coordinate system (`flow.add(node, xy=(cx
 
 The following example illustrates a multi-department expense reimbursement process across three vertical swimlanes:
 
-```drawlib show-code center file:flow_approval_workflow.png caption:"Cross-Department Reimbursement Approval Workflow"
+```drawlib code=show align=center file=flow_approval_workflow.png caption="Cross-Department Reimbursement Approval Workflow"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
@@ -230,7 +230,7 @@ save()
 
 By specifying `lane_orientation="horizontal"`, lanes are laid out as stacked horizontal bands:
 
-```drawlib show-code center file:flow_fulfillment_pipeline.png caption:"Fulfillment Logistics Horizontal Pipeline"
+```drawlib code=show align=center file=flow_fulfillment_pipeline.png caption="Fulfillment Logistics Horizontal Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles

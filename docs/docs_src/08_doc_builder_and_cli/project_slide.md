@@ -4,7 +4,7 @@ The `slide` starter template creates 16:9 presentation slide decks with rich arc
 
 Drawlib compiles your slide deck into both an **interactive HTML web presentation** and a **1-slide-per-page vector PDF**, perfectly sized for conferences, client briefings, and team reviews.
 
-```drawlib fold-code center file:slide_presenter_view_layout.png caption:"Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization"
+```drawlib code=fold align=center file=slide_presenter_view_layout.png caption="Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -104,7 +104,7 @@ drawlib init slide my_deck -s google -l en
 
 ## 2. Directory Layout & Anatomy
 
-```drawlib fold-code center file:project_slide_directory_tree.png caption:"Directory Structure of a 16:9 Presentation Slide Deck (slide) Project"
+```drawlib code=fold align=center file=project_slide_directory_tree.png caption="Directory Structure of a 16:9 Presentation Slide Deck (slide) Project"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
@@ -220,15 +220,15 @@ Each Markdown file in `slide_src/` (and any nested chapter subdirectories such a
 - **Excluding Non-Slide Files (`_` Prefix)**: Prefix any planning notes, outlines, or draft files/folders with an underscore `_` (e.g., `_planning.md`, `_drafts/`) to exclude them from slide compilation.
 - **Special Excluded Files**: `README.md` and `navbar.md` are also automatically excluded from the slide deck.
 
-Use `::: block (x, y) (w, h)` containers alongside standard Markdown and helper components from `utils.py` (see [Slide Stage Layout & API](./slide_layout_and_api.md) for the complete stage coordinate reference, layout templates, and `drawlib.slide` API):
+Use `::: block xy=(x, y) width=W height=H` containers alongside standard Markdown and helper components from `utils.py` (see [Slide Stage Layout & API](./slide_layout_and_api.md) for the complete stage coordinate reference, layout templates, and `drawlib.slide` API):
 
 ````markdown
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Architecture Overview
 :::
 
-::: block (80, 140) (1760, 840)
-```drawlib file:arch_flow.svg
+::: block xy=(80, 140) width=1760 height=840
+```drawlib file=arch_flow.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -286,7 +286,7 @@ uv run drawlib serve slide_html/
 - **Direct Presenter URL (`?presenter=1`)**: Appending `?presenter=1#1` launches the window directly in Presenter View mode, synchronizing slide changes and animation playback across windows via `BroadcastChannel` / `localStorage`.
 
 ### Speaker Notes (`::: note`) & Presenter View:
-Add speaker notes to any slide using `::: note` (or `::: notes`) blocks. If a slide contains multiple `::: note` blocks, they are automatically joined with a blank line (`\n\n`) and rendered as Markdown in **Presenter View** (while remaining completely hidden on the main presentation screen and in PDF exports):
+Add speaker notes to any slide using `::: note` blocks. If a slide contains multiple `::: note` blocks, they are automatically joined with a blank line (`\n\n`) and rendered as Markdown in **Presenter View** (while remaining completely hidden on the main presentation screen and in PDF exports):
 
 ```markdown
 ::: note
@@ -302,16 +302,16 @@ Pressing **`P`** or **`S`** (or clicking the `🗒` button in the bottom-right c
 - **Right Middle (Control Bar)**: `◀ Prev` / `Next ▶` navigation, **`▶ Play Animation` button** (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (`00:00`).
 - **Right Bottom (Speaker Notes)**: Compiled speaker notes with `A-` / `A+` font-size controls.
 
-### Interactive Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`):
+### Interactive Animation Playback (`anim_trigger`, `anim_loop`, `anim_pause`):
 When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams inside slides, you can attach playback control attributes to the ````drawlib```` code fence:
 
 ````markdown
-```drawlib file:workflow.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
 ```
 ````
 
-- **`anim-trigger:click`** (`auto` | `click`): Holds on Frame 0 until clicked by the presenter.
-- **`anim-loop:once`** (`once` | `infinite`): Stops on the final frame (`ENDED`); clicking again replays from Frame 0.
-- **`anim-pause:2,4`**: Pauses at 0-based frame indices `2` and `4` (`PAUSED`); clicking resumes to the next step.
+- **`anim_trigger=click`** (`auto` | `click`): Holds on Frame 0 until clicked by the presenter.
+- **`anim_loop=once`** (`once` | `infinite`): Stops on the final frame (`ENDED`); clicking again replays from Frame 0.
+- **`anim_pause=(2, 4)`**: Pauses at 0-based frame indices `2` and `4` (`PAUSED`); clicking resumes to the next step.
 - **Vector PDF Export (`build_pdf.sh`)**: Automatically renders Frame 0 onto the slide without the interactive play badge.
 

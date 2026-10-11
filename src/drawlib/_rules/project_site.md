@@ -52,7 +52,7 @@ uv run drawlib init site docs -s default
 └── docs_images/               # [GENERATED] Extracted diagram PNG/WebP images
 ```
 
-```drawlib center fold-code file:project_site_architecture.png caption:"Multi-Page Documentation Website (docs_src/) Architecture & Above-the-Fold Page Layout"
+```drawlib align=center code=fold file=project_site_architecture.png caption="Multi-Page Documentation Website (docs_src/) Architecture & Above-the-Fold Page Layout"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -156,7 +156,7 @@ When a reader opens any page in `docs_html/` at a standard desktop viewport (`12
 
 The Authentication Gateway terminates external TLS traffic, validates OAuth 2.0 / OIDC tokens, and enforces role-based access control (RBAC) across internal microservices.
 
-```drawlib center fold-code file:auth_gateway_hero.png caption:"Authentication Gateway & mTLS Service Mesh Topology"
+```drawlib align=center code=fold file=auth_gateway_hero.png caption="Authentication Gateway & mTLS Service Mesh Topology"
 from drawlib.canvas import save, setup
 ...
 save()

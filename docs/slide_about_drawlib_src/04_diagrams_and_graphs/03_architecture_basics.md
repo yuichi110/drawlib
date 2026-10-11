@@ -1,16 +1,16 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # `ArchitectureDiagram` Fundamentals: Icons, Groups & Forks
 :::
 
-::: block (80, 140) (680, 840) compact
+::: block xy=(80, 140) width=680 height=840 compact=true
 ## Why `ArchitectureDiagram` Wires Never Kink
 
 In naive diagramming tools, adding a 2-line label underneath an icon shifts the node's bounding center downward, causing horizontal arrows between aligned icons to develop ugly Z-bends.
@@ -25,8 +25,8 @@ In naive diagramming tools, adding a 2-line label underneath an icon shifts the 
    - `lb.fork([svc1, svc2, svc3], at_x=55.0, padding=2.0)` creates a clean vertical distribution bus at `at_x` with orthogonal taps into every target node.
 :::
 
-::: block (800, 140) (1040, 840)
-```drawlib file:arch_fundamentals.svg
+::: block xy=(800, 140) width=1040 height=840
+```drawlib file=arch_fundamentals.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import (
     ArchitectureDiagram,

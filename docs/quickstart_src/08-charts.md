@@ -12,7 +12,7 @@
 
 ## Grouped Bar Chart Example
 
-```drawlib 640px center file:charts_barchart.png caption:"Figure 8.1: Declarative Grouped BarChart"
+```drawlib width=640px align=center file=charts_barchart.png caption="Figure 8.1: Declarative Grouped BarChart"
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -40,7 +40,7 @@ chart.draw(xy=(15.0, 6.0))
 
 ## Multi-Series Line Chart Example
 
-```drawlib 640px center file:charts_linechart.png caption:"Figure 8.2: Service Throughput & Error Rate LineChart"
+```drawlib width=640px align=center file=charts_linechart.png caption="Figure 8.2: Service Throughput & Error Rate LineChart"
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles

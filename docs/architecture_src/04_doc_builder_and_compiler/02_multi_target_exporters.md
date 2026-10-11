@@ -4,7 +4,7 @@ A core requirement of enterprise technical documentation is multi-format versati
 
 Drawlib's document builder (`_builder/doc_builder/`) provides **Multi-Target Compilation**: a single source Markdown directory (`*_src/`) compiles simultaneously into an interactive web portal (`*_html/`), clean GitHub Flavored Markdown (`*_markdown/`), and a print-ready vector PDF (`*.pdf`).
 
-```drawlib center fold-code file:multi_target_exporters.png caption:"Multi-Target Document Compilation Architecture"
+```drawlib align=center code=fold file=multi_target_exporters.png caption="Multi-Target Document Compilation Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -71,7 +71,7 @@ Drawlib eliminates this fragmentation by executing drawing code blocks once and 
 
 The HTML exporter (`compiler/html.py`) combines Jinja2 HTML templates (`template.html`) and responsive CSS variables (`style.css`):
 
-```drawlib center fold-code file:theme_tokens_and_modes.png caption:"Dual-Theme CSS Variable Design Architecture"
+```drawlib align=center code=fold file=theme_tokens_and_modes.png caption="Dual-Theme CSS Variable Design Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

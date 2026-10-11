@@ -150,7 +150,7 @@ print(c.hex)   # '#1f1fff80'
 
 ### 5.1. Multi-Tier Architecture with Curated Palettes
 
-```drawlib fold-code center caption:"Color Palette Applied to Multi-Tier Architecture"
+```drawlib code=fold align=center caption="Color Palette Applied to Multi-Tier Architecture"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -184,7 +184,7 @@ save()
 
 ### 5.2. Monochrome Print-Ready Diagram
 
-```drawlib fold-code center caption:"Monochrome Architectural Print Layout"
+```drawlib code=fold align=center caption="Monochrome Architectural Print Layout"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.preset_colors import MonochromeColors

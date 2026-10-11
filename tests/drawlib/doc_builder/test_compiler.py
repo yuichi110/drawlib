@@ -80,7 +80,7 @@ def _setup_template_and_css(directory) -> None:
 def test_detect_document_type(tmp_path) -> None:
     """Test auto-detection of the 4 document input types."""
     md_dl = tmp_path / "doc_dl.md"
-    md_dl.write_text("# Doc\n```drawlib file:c.png\ncircle((50,50), 10)\n```\n", encoding="utf-8")
+    md_dl.write_text("# Doc\n```drawlib file=c.png\ncircle((50,50), 10)\n```\n", encoding="utf-8")
     info1 = detect_document_type(str(md_dl))
     assert info1.doc_type == "markdown_drawlib"
     assert info1.has_drawlib is True
@@ -108,7 +108,7 @@ def test_detect_document_type(tmp_path) -> None:
 
     md_nested = tmp_path / "doc_nested.md"
     md_nested.write_text(
-        "# Meta Doc\n\n````markdown\n```drawlib file:c.png\ncircle((50,50), 10)\n```\n````\n",
+        "# Meta Doc\n\n````markdown\n```drawlib file=c.png\ncircle((50,50), 10)\n```\n````\n",
         encoding="utf-8",
     )
     info5 = detect_document_type(str(md_nested))
@@ -139,7 +139,7 @@ def test_build_html_markdown_with_external_css(tmp_path) -> None:
     input_md.write_text(
         """# Architecture
 
-```drawlib file:arch.png
+```drawlib file=arch.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.Primary, text="Core Engine")
@@ -176,7 +176,7 @@ def test_build_html_webp_format(tmp_path) -> None:
     input_md.write_text(
         """# WebP Test
 
-```drawlib file:circle.webp
+```drawlib file=circle.webp
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.Primary)
@@ -262,7 +262,7 @@ def test_build_markdown_format(tmp_path) -> None:
     (src_dir / "index.md").write_text(
         """# Rendered MD Test
 
-```drawlib file:line.png
+```drawlib file=line.png
 from drawlib.lines import line
 from drawlib.styles import Styles
 line((0, 0), (100, 100), style=Styles.Primary)
@@ -353,7 +353,7 @@ def test_build_pdf_multi_document_merge(tmp_path) -> None:
     doc1.write_text(
         """# Introduction
 
-```drawlib file:circle.png
+```drawlib file=circle.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=15, style=Styles.Primary)
@@ -588,8 +588,8 @@ def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
     _setup_template_and_css(src_dir)
     doc = src_dir / "index.md"
     doc.write_text(
-        "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10, style=Styles.Primary)\n```\n"
-        "```drawlib file:same.png\ncircle((50, 50), 20, style=Styles.Primary)\n```\n",
+        "# Guide\n```drawlib file=same.png\ncircle((50, 50), 10, style=Styles.Primary)\n```\n"
+        "```drawlib file=same.png\ncircle((50, 50), 20, style=Styles.Primary)\n```\n",
         encoding="utf-8",
     )
     (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")

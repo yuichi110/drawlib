@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # Standardized Icons & Image Processing (`drawlib.icons`, `drawlib.images`)
 1,500+ Phosphor vector glyphs, 250+ official GCP cloud icons, and in-memory `Dimage` transformations.
 :::
 
-::: block (80, 190) (780, 770) compact
+::: block xy=(80, 190) width=780 height=770 compact=true
 ### 1. Dual Icon Engine (`phosphor` & `gcp`)
 
 ```python
@@ -30,8 +30,8 @@ image((65, 15), width=16, image=Dimage("_assets/linux.png").grayscale())
 ```
 :::
 
-::: block (900, 180) (940, 780)
-```drawlib file:icons_showcase.svg
+::: block xy=(900, 180) width=940 height=780
+```drawlib file=icons_showcase.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.images import Dimage, image
@@ -89,8 +89,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

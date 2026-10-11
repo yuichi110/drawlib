@@ -6,7 +6,7 @@
 
 ## 1. Overview & Crow's Foot Notation
 
-```drawlib fold-code center file:er_overview_anatomy.png caption:"Entity-Relationship Tables with Row-Anchored Crow's Foot Notation"
+```drawlib code=fold align=center file=er_overview_anatomy.png caption="Entity-Relationship Tables with Row-Anchored Crow's Foot Notation"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
@@ -51,7 +51,7 @@ save()
 
 ## 2. Constructor & Entity Definition
 
-```drawlib show-code center file:er_basic_entity.png caption:"Basic Entity Table"
+```drawlib code=show align=center file=er_basic_entity.png caption="Basic Entity Table"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
@@ -162,7 +162,7 @@ entity.add_columns(
 | `"0..1:*"` | Zero or One (circle + bar) | Zero or Many (circle + crow's foot) | Optional Parent One-to-Many |
 | `"*:*"` | Zero or Many (circle + crow's foot) | Zero or Many (circle + crow's foot) | Many-to-Many |
 
-```drawlib show-code center file:er_cardinality_notations.png caption:"All Seven Crow's Foot Cardinality Notations in ERDiagram"
+```drawlib code=show align=center file=er_cardinality_notations.png caption="All Seven Crow's Foot Cardinality Notations in ERDiagram"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Colors, Styles
@@ -210,7 +210,7 @@ save()
 
 The following four-table schema (`users`, `orders`, `order_items`, and `products`) anchors every relationship directly to its primary and foreign key rows:
 
-```drawlib show-code center file:er_ecommerce_schema.png caption:"E-Commerce Relational Database Schema"
+```drawlib code=show align=center file=er_ecommerce_schema.png caption="E-Commerce Relational Database Schema"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles

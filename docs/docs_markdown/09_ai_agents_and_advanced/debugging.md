@@ -248,8 +248,8 @@ Drawlib scans all compiled HTML pages and verifies:
 
 | Error Message | Root Cause | Solution |
 | :--- | :--- | :--- |
-| **`Missing required 'file:...' option in drawlib code block`** | An embedded ````drawlib```` block in a `doc`, `site`, or `slide` Markdown file omitted the `file:<name>` attribute. | Add an explicit filename to the opening code fence (e.g. ```` ```drawlib fold-code center file:service_arch.png caption:"..." ````). |
+| **`Missing required 'file=...' option in drawlib code block`** | An embedded ````drawlib```` block in a `doc`, `site`, or `slide` Markdown file omitted the `file=<name>` attribute. | Add an explicit filename to the opening code fence (e.g. ```` ```drawlib code=fold align=center file=service_arch.png caption="..." ````). |
 | **`Directory build requires "index.md" / "navbar.md"`** | Running `drawlib build html` on a `site` directory missing mandatory root files, or missing `template.html` / `style.css`. | Ensure `index.md`, `navbar.md`, `template.html`, and `style.css` exist in `docs_src/`, or scaffold with `drawlib init site`. |
 | **`Refusing to overwrite input source directory / file`** | The `-o` output path points to the exact same path as the source input (`src_abs == dest_abs`). | Specify a separate output directory (e.g. `drawlib build markdown docs_src/ -o docs_markdown/`). |
-| **`Duplicate output image file detected`** | Two embedded blocks in the same Markdown file share the same `file:<name>`, or two `.py` scripts in `images_src/` call `save()` with the same target path. | Assign a unique `file:<name>.png` to each block or script. |
+| **`Duplicate output image file detected`** | Two embedded blocks in the same Markdown file share the same `file=<name>`, or two `.py` scripts in `images_src/` call `save()` with the same target path. | Assign a unique `file=<name>.png` to each block or script. |
 | **`Playwright or Chromium not found`** | Running `drawlib build pdf` without Playwright or the headless Chromium binary installed. | Run `uv add "drawlib[pdf]"` (or `pip install "drawlib[pdf]"`) followed by `uv run playwright install chromium`. |

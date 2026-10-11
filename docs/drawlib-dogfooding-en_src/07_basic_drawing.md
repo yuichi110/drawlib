@@ -12,7 +12,7 @@ Drawlib uses a standard **Cartesian coordinate space**:
 
 Over 22 shape primitives (rectangles, circles, ellipses, wedges, donuts, block arrows, stars) are built-in:
 
-```drawlib 600px center file:fig_basic_drawing.png caption:"Figure 7.1: Service Architecture Built with Shapes, Lines, and Icons"
+```drawlib width=600px align=center file=fig_basic_drawing.png caption="Figure 7.1: Service Architecture Built with Shapes, Lines, and Icons"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

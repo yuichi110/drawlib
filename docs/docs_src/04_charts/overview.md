@@ -4,7 +4,7 @@ The `drawlib.charts` module provides a declarative, pure-Python data visualizati
 
 All seven chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
 
-```drawlib fold-code center file:charts_ecosystem_hero.png caption:"Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas"
+```drawlib code=fold align=center file=charts_ecosystem_hero.png caption="Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.charts.pie import PieChart
@@ -90,7 +90,7 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
 - **Deterministic Layouts**: All margins, tick spaces, and plot boxes are mathematically computed from explicit canvas dimensions (`width`, `height`).
 - **Consistent Visual Theming & Style Presence**: Charts follow the "style-as-presence" philosophy. If an element has a style, it is drawn; if omitted (`None`), no fallback element or unwanted default grid/background is rendered. Legends are decoupled and rendered explicitly via `chart.draw_legend(...)`.
 
-```drawlib center show-code file:barchart_multi_series.png caption:"Declarative Multi-Series Bar Chart"
+```drawlib align=center code=show file=barchart_multi_series.png caption="Declarative Multi-Series Bar Chart"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -223,7 +223,7 @@ Every element registration method (`add_series`, `add_slice`, `add`, `add_task`,
 ### 3. Spatial Overrides & Proportional Scaling (`scale`)
 Every `draw()` call accepts optional temporary layout overrides (`width`, `height`, and `radius` on `PieChart`/`RadarChart`) as well as `scale: float = 1.0` (also supported on `draw_legend()`). Passing `scale != 1.0` scales the entire chart—including plot geometry, stroke widths, point markers, and font sizes—proportionally from `xy`:
 
-```drawlib center show-code file:charts_lifecycle_partial_scale.png caption:"Partial Spatial Rendering (draw_ratio) and Proportional Scaling (scale)"
+```drawlib align=center code=show file=charts_lifecycle_partial_scale.png caption="Partial Spatial Rendering (draw_ratio) and Proportional Scaling (scale)"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.charts.line import LineChart

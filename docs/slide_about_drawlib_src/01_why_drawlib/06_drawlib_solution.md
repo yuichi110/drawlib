@@ -1,9 +1,9 @@
-::: block (80, 50) (1760, 120)
+::: block xy=(80, 50) width=1760 height=120
 # The Drawlib Solution: Declarative Python Architecture
 Write clean, type-checked Python on the left—get publication-grade vector diagrams on the right.
 :::
 
-::: block (80, 190) (800, 770) compact
+::: block xy=(80, 190) width=800 height=770 compact=true
 ### 15 Lines of Declarative Python
 
 ```python
@@ -38,8 +38,8 @@ d.draw()
 - **Smart Orthogonal Edges**: `.connect()` and `.fork()` clip cleanly at node boundaries.
 :::
 
-::: block (920, 180) (920, 780)
-```drawlib file:solution_demo.svg
+::: block xy=(920, 180) width=920 height=780
+```drawlib file=solution_demo.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import (
     ArchitectureDiagram,
@@ -100,8 +100,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

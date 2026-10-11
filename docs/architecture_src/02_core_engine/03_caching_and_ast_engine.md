@@ -4,7 +4,7 @@ A major friction point with "Documentation as Code" is compilation speed. If com
 
 Drawlib solves this via a **cryptographic caching engine** (`_builder/_common/cache.py`) backed by an embedded SQLite database (`.drawlib/cache.db`), reducing incremental rebuild times to **< 1ms per diagram**.
 
-```drawlib center fold-code file:caching_decision_flow.png caption:"Cryptographic AST & SQLite Cache Decision Pipeline"
+```drawlib align=center code=fold file=caching_decision_flow.png caption="Cryptographic AST & SQLite Cache Decision Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -54,7 +54,7 @@ Traditional build tools (like `make` or file mtime watchers) rely on filesystem 
 ### The Drawlib Solution: Multi-Factor Composite Hashing
 Drawlib ignores filesystem timestamps entirely. Instead, it computes a **cryptographic SHA-256 composite hash** for every diagram block based on its true dependency tree:
 
-```drawlib center fold-code file:composite_hash_inputs.png caption:"Composition of the Cryptographic Cache Key"
+```drawlib align=center code=fold file=composite_hash_inputs.png caption="Composition of the Cryptographic Cache Key"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

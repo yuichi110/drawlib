@@ -2,7 +2,7 @@
 
 The Drawlib repository avoids fragmented bash scripts, undocumented flags, and manual multi-tool handoffs by consolidating all engineering operations into a single custom CLI: `./dcli`.
 
-```drawlib center fold-code file:dcli_toolset_orchestration.png caption:"./dcli Unified Orchestrator Architecture"
+```drawlib align=center code=fold file=dcli_toolset_orchestration.png caption="./dcli Unified Orchestrator Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -79,7 +79,7 @@ When these operations are implemented as ad-hoc shell scripts or bare terminal c
 
 Within Drawlib's repository structure, `./dcli` acts as the root operational interface, sitting alongside `src/drawlib/`, `tests/`, and `docs/`:
 
-```drawlib center fold-code file:dcli_command_dispatch_flow.png caption:"./dcli Command Dispatch and Execution Lifecycle"
+```drawlib align=center code=fold file=dcli_command_dispatch_flow.png caption="./dcli Command Dispatch and Execution Lifecycle"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

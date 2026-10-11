@@ -2,7 +2,7 @@
 
 Releasing a production library requires rigorous verification to ensure that published packages install cleanly, lack hidden local dependencies, and function in completely isolated environments.
 
-```drawlib center fold-code file:release_lifecycle_pipeline.png caption:"PyPI Release and Clean-Room Verification Lifecycle"
+```drawlib align=center code=fold file=release_lifecycle_pipeline.png caption="PyPI Release and Clean-Room Verification Lifecycle"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -60,7 +60,7 @@ Drawlib eliminates these risks through two foundational tooling modules:
 
 The release tooling acts as the quality firewall between local code repositories and public distribution channels:
 
-```drawlib center fold-code file:docker_container_matrix.png caption:"Drawlib Docker Container Variants and Layering"
+```drawlib align=center code=fold file=docker_container_matrix.png caption="Drawlib Docker Container Variants and Layering"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

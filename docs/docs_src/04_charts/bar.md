@@ -6,7 +6,7 @@ The `BarChart` component (`drawlib.charts.bar`) renders vertical columns or hori
 
 ## 1. Overview & Topologies
 
-```drawlib fold-code center file:barchart_topologies_overview.png caption:"BarChart Topologies: Grouped Vertical Bars (bar_mode='group') vs. Stacked Horizontal Bars (bar_mode='stack')"
+```drawlib code=fold align=center file=barchart_topologies_overview.png caption="BarChart Topologies: Grouped Vertical Bars (bar_mode='group') vs. Stacked Horizontal Bars (bar_mode='stack')"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -71,7 +71,7 @@ save()
 
 ## 2. Quick Example: Vertical Grouped Resource Allocation
 
-```drawlib center show-code file:barchart_resource_allocation.png caption:"Grouped Vertical Resource Allocation with BarChart (bar_mode='group')"
+```drawlib align=center code=show file=barchart_resource_allocation.png caption="Grouped Vertical Resource Allocation with BarChart (bar_mode='group')"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
@@ -105,7 +105,7 @@ save()
 
 Setting `orientation="horizontal"` rotates the category axis to the left Y-axis and the numerical value axis to the bottom X-axis. Combine `value_format` with `configure_x_axis(min_value=0, max_value=100, tick_step=20, unit="%")` to build clean utilization and benchmark breakdowns:
 
-```drawlib center show-code file:barchart_horizontal_utilization.png caption:"Horizontal Stacked Resource Utilization with Custom X-Axis Ticks"
+```drawlib align=center code=show file=barchart_horizontal_utilization.png caption="Horizontal Stacked Resource Utilization with Custom X-Axis Ticks"
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles

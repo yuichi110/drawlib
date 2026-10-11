@@ -1,15 +1,15 @@
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Autonomous Visual Self-Healing Loop
 :::
 
-::: block (80, 140) (740, 840) font:20px
+::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Closing the Loop with Multimodal Vision
 
 Code that runs without syntax errors can still produce overlapping labels or cramped margins. Drawlib pairs **headless coordinate-grid rendering (`-g`)** with **multimodal agent vision (`view_file`)**:
@@ -29,8 +29,8 @@ uv run drawlib show docs_src/arch.md service_arch.png \
 6. **Commit Source of Truth**: Check clean Markdown + Python into Git.
 :::
 
-::: block (860, 140) (980, 840)
-```drawlib file:self_healing_cycle.svg
+::: block xy=(860, 140) width=980 height=840
+```drawlib file=self_healing_cycle.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import Cycle
@@ -111,7 +111,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *Chapter 7: AI Agent Workflow & Ecosystem — Autonomous Visual Self-Healing Loop*
 :::
 

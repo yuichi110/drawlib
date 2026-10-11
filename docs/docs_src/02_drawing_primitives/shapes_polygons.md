@@ -6,7 +6,7 @@ In addition to basic rectangles and circles, `drawlib.shapes` provides planar po
 
 ## 1. Overview of Polygons & Custom Paths
 
-```drawlib fold-code center file:shapes_polygons_overview.png caption:"Overview of Polygons and Custom Path Primitives"
+```drawlib code=fold align=center file=shapes_polygons_overview.png caption="Overview of Polygons and Custom Path Primitives"
 from drawlib.canvas import save, setup
 from drawlib.shapes import (
     parallelogram,
@@ -79,7 +79,7 @@ All planar quadrilateral and triangle primitives support corner rounding via `st
 | **`trapezoid`** | `trapezoid(xy, height, bottomedge_width, topedge_width, topedge_x=None, *, style, text="", text_style=None)` | Funnels, neural network pooling layers (`topedge_x=None` centers the top edge symmetrically; `shape_r`: `float` or 4-tuple). |
 | **`triangle`** | `triangle(xy, width, height, topvertex_x=None, *, style, text="", text_style=None)` | Warning badges, tree apexes, right-angled ramps (`topvertex_x=None` defaults to `width / 2`; `shape_r`: `float` or 3-tuple). |
 
-```drawlib show-code center file:shapes_polygons_planar.png caption:"Parallelogram, Rhombus, Trapezoid, and Triangle"
+```drawlib code=show align=center file=shapes_polygons_planar.png caption="Parallelogram, Rhombus, Trapezoid, and Triangle"
 from drawlib.canvas import save, setup
 from drawlib.shapes import parallelogram, rhombus, trapezoid, triangle
 from drawlib.styles import Styles
@@ -141,7 +141,7 @@ save()
 - **`regularpolygon(xy, num_vertex, radius, *, style, text="", text_style=None)`**: Draws an equilateral $N$-sided polygon circumscribed inside `radius`. Set `style.patch(shape_r=...)` (a scalar `float` or a `num_vertex`-tuple of per-vertex radii) to round vertices, or `style.patch(angle=...)` to rotate.
 - **`star(xy, num_vertex, radius_ext, radius_int, *, style, text="", text_style=None)`**: Draws a symmetric $N$-pointed star alternating between outer peak radius `radius_ext` and inner valley radius `radius_int` (`radius_ext > radius_int`). Also supports corner rounding via `style.patch(shape_r=...)` (either a uniform `float` or a `(2 * num_vertex)`-tuple of alternating outer/inner vertex radii).
 
-```drawlib show-code center file:shapes_polygons_regular_and_star.png caption:"Regular Polygons and Stars with Optional Corner Rounding"
+```drawlib code=show align=center file=shapes_polygons_regular_and_star.png caption="Regular Polygons and Stars with Optional Corner Rounding"
 from drawlib.canvas import save, setup
 from drawlib.shapes import regularpolygon, star
 from drawlib.styles import Styles
@@ -204,7 +204,7 @@ save()
 - **Corner Rounding (`style.shape_r`)**: Pass a single float to round all vertices equally, or a tuple of radii `(r1, r2, ..., rN)` matching `len(xys)` to round individual vertices selectively.
 - **Centroid Label**: Embedded `text` is automatically placed at the bounding-box center of `xys`.
 
-```drawlib show-code center file:shapes_polygons_custom_polygon.png caption:"Custom Coordinate Polygons with Uniform and Per-Vertex Rounding"
+```drawlib code=show align=center file=shapes_polygons_custom_polygon.png caption="Custom Coordinate Polygons with Uniform and Per-Vertex Rounding"
 from drawlib.canvas import save, setup
 from drawlib.shapes import polygon
 from drawlib.styles import Styles
@@ -254,7 +254,7 @@ shape(
 - **Cubic Bézier Segment**: `((cp1_x, cp1_y), (cp2_x, cp2_y), (end_x, end_y))` uses two control points for smooth S-curves and waves.
 - **`is_default_center`**: Controls fallback alignment when `style.halign` or `style.valign` is `None`. All preset `Styles.*` explicitly set `halign="center", valign="center"`, centering the path's bounding box at `xy`. When using a raw `Style()` with `halign=None, valign=None`, `is_default_center=False` (default) anchors the bounding box's bottom-left corner at `xy`, whereas `is_default_center=True` centers the bounding box at `xy`.
 
-```drawlib show-code center file:shapes_polygons_custom_shape.png caption:"Custom Vector Shapes Using Straight and Cubic Bézier Path Points"
+```drawlib code=show align=center file=shapes_polygons_custom_shape.png caption="Custom Vector Shapes Using Straight and Cubic Bézier Path Points"
 from drawlib.canvas import save, setup
 from drawlib.shapes import shape
 from drawlib.styles import Styles

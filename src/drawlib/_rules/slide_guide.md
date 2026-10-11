@@ -20,7 +20,7 @@ Drawlib enforces a strict **Dual-Layer Separation Principle**:
    - **Offload Complexity to `::: note`**: Whenever you need to explain *why* an architecture works, detailed incident timelines, edge cases, or exact formulas, write that explanation inside `::: note` instead of crowding `::: block`.
    - **Dual Benefit**: During live delivery, `::: note` renders cleanly in **Presenter View (`?presenter=1`, `P` / `S` key)** while staying hidden from the audience screen and vector PDF (`slide.pdf`). In Git, anyone reading the `.md` source file gets a complete, self-contained technical document.
 
-```drawlib center fold-code file:slide_guide_dual_layer.png caption:"Dual-Layer Slide Principle: Visual-First Audience Stage (::: block) + Deep Explanation in Speaker Notes (::: note)"
+```drawlib align=center code=fold file=slide_guide_dual_layer.png caption="Dual-Layer Slide Principle: Visual-First Audience Stage (::: block) + Deep Explanation in Speaker Notes (::: note)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -79,18 +79,18 @@ save()
 ### Example: Authoring a Complex Technical Slide Correctly
 
 ````markdown
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```
 :::
 
-::: block (80, 40) (1760, 60)
+::: block xy=(80, 40) width=1760 height=60
 # Why L7 DDoS Bypasses Traditional Firewalls
 :::
 
-::: block (80, 140) (720, 820)
+::: block xy=(80, 140) width=720 height=820
 ## Key Threat Characteristics
 
 - **Valid TLS Handshake**: Indistinguishable from normal users at L3/L4
@@ -99,8 +99,8 @@ utils.draw_page_number()
 - **Mitigation**: Edge behavioral WAF + adaptive rate limiting
 :::
 
-::: block (840, 140) (1000, 820)
-```drawlib file:l7_attack_arch.svg
+::: block xy=(840, 140) width=1000 height=820
+```drawlib file=l7_attack_arch.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.icons import phosphor
 from drawlib.styles import Styles
@@ -116,7 +116,7 @@ save()
 ```
 :::
 
-::: block (80, 1010) (820, 30) font:14px
+::: block xy=(80, 1010) width=820 height=30 font_size=14px
 *DDoS Incident Response Playbook*
 :::
 
@@ -136,7 +136,7 @@ save()
 
 A presentation deck is a visual story, not a flat dump of topical pages. Every deck must follow a clear narrative arc with four mandatory structural slide types:
 
-```drawlib center fold-code file:slide_guide_deck_arc.png caption:"Mandatory 4-Part Presentation Deck Narrative Arc"
+```drawlib align=center code=fold file=slide_guide_deck_arc.png caption="Mandatory 4-Part Presentation Deck Narrative Arc"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -245,7 +245,7 @@ Repeating the exact same `Left Text (740px) + Right Diagram (980px)` split acros
 
 ### 5.1. Calibrating In-Diagram `text_size` for 1920×1080 Slides (Block-Width Math)
 
-Drawlib's rendering engine normalizes the full canvas width `setup(width=W, height=H)` to **`10 inches = 720 points`** (`720 × H/W pt` tall), and CSS fits the image into `::: block (x, y) (W_block, H_block)` via `object-fit: contain`. Therefore, the actual rendered font size on the **`1920×1080` slide stage** is:
+Drawlib's rendering engine normalizes the full canvas width `setup(width=W, height=H)` to **`10 inches = 720 points`** (`720 × H/W pt` tall), and CSS fits the image into `::: block xy=(x, y) width=W_block height=H_block` via `object-fit: contain`. Therefore, the actual rendered font size on the **`1920×1080` slide stage** is:
 
 $$\text{Rendered Slide Font Size (px)} = \text{text\_size} \times \text{scale} \times \min\!\left(\frac{W_{\text{block}}}{720},\; \frac{H_{\text{block}}}{720 \times (H / W)}\right)$$
 
@@ -261,7 +261,7 @@ Always calibrate `text_size` according to the enclosing **`::: block` width ($W_
 | **Two-Column Split (Right Diagram)**| `960px` – `1040px` | `~1.33 – 1.44 px/pt` | **`13.5` – `15.5`** *(floor `12.5`)* | **`16.0` – `18.5`** | **`18px` – `22px`** *(clear & legible)* |
 | **Narrow Column (KPI Cards, etc.)** | `660px` – `760px` | `~0.95 – 1.05 px/pt` | **`14.0` – `17.0`** *(KPI value `22.0+`)*| **`18.0` – `20.0`** | **`14px` – `24px`** *(never microscopic)* |
 
-- **Match Canvas Aspect Ratio (`1:10` Rule)**: Always set `setup(width=W_block / 10, height=H_block / 10)` (e.g., `setup(width=104, height=81)` for `::: block (800, 140) (1040, 810)`). If $H / W > H_{\text{block}} / W_{\text{block}}$, `object-fit: contain` will letterbox the image horizontally and shrink all fonts!
+- **Match Canvas Aspect Ratio (`1:10` Rule)**: Always set `setup(width=W_block / 10, height=H_block / 10)` (e.g., `setup(width=104, height=81)` for `::: block xy=(800, 140) width=1040 height=810`). If $H / W > H_{\text{block}} / W_{\text{block}}$, `object-fit: contain` will letterbox the image horizontally and shrink all fonts!
 - **Never Shrink 2-Column Diagrams with `scale < 1.0`**: Passing `d.draw(..., scale=0.8)` inside a 2-column block compounds font shrinkage. Instead, reduce the number of steps/nodes, tighten `step_y` / `padding`, or switch to a **Full-Stage** or **Top-Bottom Wide** block.
 - **Shorten In-Node Labels & Widen Cards**: When using `text_size = 13.5–15.5` in 2-column diagrams, keep node labels to **1–3 punchy words per line** and increase node `width` / `height` or `column_widths` so larger text never clips.
 

@@ -6,7 +6,7 @@
 
 In a `SequenceDiagram`, participants and lifelines are defined as Python objects. Interactions use clear methods (`request()`, `reply()`, `note()`) with automatic timeline layout:
 
-```drawlib 640px center file:diagrams_sequence.png caption:"Figure 10.1: Declarative Sequence Diagram with Phosphor Icons"
+```drawlib width=640px align=center file=diagrams_sequence.png caption="Figure 10.1: Declarative Sequence Diagram with Phosphor Icons"
 from drawlib.canvas import setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -52,7 +52,7 @@ d.draw(xy=(4.0, 2.0))
 
 `FlowDiagram` models logical branching, decision criteria, and workflow stages without manual line coordinate calculations:
 
-```drawlib 640px center file:diagrams_auth_flow.png caption:"Figure 10.2: Request Authentication Flow with Branching Logic"
+```drawlib width=640px align=center file=diagrams_auth_flow.png caption="Figure 10.2: Request Authentication Flow with Branching Logic"
 from drawlib.canvas import setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles

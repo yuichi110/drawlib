@@ -1,4 +1,4 @@
-::: block (110, 200) (860, 680)
+::: block xy=(110, 200) width=860 height=680
 # Drawlib
 ## Illustration & Illustrated Documentation as Code
 
@@ -16,8 +16,8 @@ Unify **declarative Python diagrams**, **technical documentation**, **vector PDF
 *Pure Python (`>=3.11`) • Apache 2.0 License*
 :::
 
-::: block (980, 140) (840, 780)
-```drawlib file:title_hero.svg
+::: block xy=(980, 140) width=840 height=780
+```drawlib file=title_hero.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -83,8 +83,8 @@ save()
 ```
 :::
 
-::: block (1700, 1010) (140, 30)
-```drawlib file:page.svg
+::: block xy=(1700, 1010) width=140 height=30
+```drawlib file=page.svg
 import utils
 utils.draw_page_number()
 ```

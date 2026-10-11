@@ -18,6 +18,48 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel
 
+_QUOTE_OR_PAREN_RE = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|(\([^()]*\))')
+_VALID_KEY_RE = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*$")
+
+
+def _collapse_unquoted_parens(match: re.Match[str]) -> str:
+    """Remove whitespace inside unquoted parentheses so shlex treats tuples as single tokens."""
+    if match.group(1) is not None:
+        return re.sub(r"\s+", "", match.group(1))
+    return match.group(0)
+
+
+def tokenize_kv_pairs(info_str: str) -> list[tuple[str, str]]:
+    """Parse space-separated key=value tokens while preserving whitespace in quotes and tuples.
+
+    Args:
+        info_str (str): Raw header option string.
+
+    Returns:
+        list[tuple[str, str]]: List of (key_lower, cleaned_value) pairs.
+    """
+    info = info_str.strip()
+    if not info:
+        return []
+
+    normalized = _QUOTE_OR_PAREN_RE.sub(_collapse_unquoted_parens, info)
+    try:
+        tokens = shlex.split(normalized, posix=True)
+    except ValueError:
+        tokens = normalized.split()
+
+    pairs: list[tuple[str, str]] = []
+    for token in tokens:
+        if "=" not in token:
+            continue
+        key, val = token.split("=", 1)
+        key_clean = key.strip()
+        if not _VALID_KEY_RE.match(key_clean):
+            continue
+        val_clean = val.strip().strip('"').strip("'")
+        pairs.append((key_clean.lower(), val_clean))
+    return pairs
+
 
 class DrawlibBlockOptions(BaseModel):
     """Parsed options from ```drawlib header line or <script type='text/drawlib'> attributes."""
@@ -30,10 +72,6 @@ class DrawlibBlockOptions(BaseModel):
     css_class: Optional[str] = None
     file: Optional[str] = None
     code: Literal["hide", "show", "fold"] = "hide"
-    slot: Optional[str] = None
-    xy: Optional[tuple[float, float]] = None
-    size: Optional[tuple[float, float]] = None
-    z_index: Optional[int] = None
     no_cache: bool = False
     anim_trigger: Optional[Literal["auto", "click"]] = None
     anim_loop: Optional[Literal["once", "infinite"]] = None
@@ -52,7 +90,7 @@ class ExtractedBlockInfo(BaseModel):
 
 
 def parse_block_info(info_str: str) -> DrawlibBlockOptions:
-    """Parse space-separated key:value / key=value and shorthand options from header line or tag attributes.
+    """Parse space-separated key=value options from header line or tag attributes.
 
     Args:
         info_str (str): Info string following ```drawlib or <script type='text/drawlib'> attributes.
@@ -61,62 +99,7 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
         DrawlibBlockOptions: Parsed options object.
     """
     options = DrawlibBlockOptions()
-    info = info_str.strip()
-    if not info:
-        return options
-
-    # 1. Pre-process explicit xy: (...) / pos: (...) and size: (...) / dim: (...) and anim-pause
-    xy_m = re.search(r"(?:xy|pos|position):\s*\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)", info, re.I)
-    if xy_m:
-        options.xy = (float(xy_m.group(1)), float(xy_m.group(2)))
-        info = info[: xy_m.start()] + " " + info[xy_m.end() :]
-
-    size_m = re.search(r"(?:size|dim|dimensions):\s*\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)", info, re.I)
-    if size_m:
-        options.size = (float(size_m.group(1)), float(size_m.group(2)))
-        info = info[: size_m.start()] + " " + info[size_m.end() :]
-
-    pause_m = re.search(
-        r"(?:anim[-_])?pause[=:]\s*[\(\[]?\s*([0-9]+(?:\s*,\s*[0-9]+)*)\s*[\)\]]?",
-        info,
-        re.I,
-    )
-    if pause_m:
-        raw_pauses = [
-            int(p.strip())
-            for p in pause_m.group(1).split(",")
-            if p.strip().isdigit() and int(p.strip()) > 0
-        ]
-        if raw_pauses:
-            options.anim_pause = sorted(set(raw_pauses))
-        info = info[: pause_m.start()] + " " + info[pause_m.end() :]
-
-    # 2. Pre-process standalone tuple shorthands: (x, y) and (w, h)
-    tuple_pattern = r"\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)"
-    tuple_matches = list(re.finditer(tuple_pattern, info))
-    if tuple_matches:
-        if options.xy is None and len(tuple_matches) >= 1:
-            options.xy = (float(tuple_matches[0].group(1)), float(tuple_matches[0].group(2)))
-        if options.size is None and len(tuple_matches) >= 2:
-            options.size = (float(tuple_matches[1].group(1)), float(tuple_matches[1].group(2)))
-        info = re.sub(tuple_pattern, " ", info)
-
-    try:
-        tokens = shlex.split(info, posix=True)
-    except ValueError:
-        tokens = info.split()
-
-    for token in tokens:
-        if ":" in token:
-            key, val = token.split(":", 1)
-        elif "=" in token:
-            key, val = token.split("=", 1)
-        else:
-            key, val = "", token
-
-        key_lower = key.strip().lower()
-        val_clean = val.strip().strip('"').strip("'")
-
+    for key_lower, val_clean in tokenize_kv_pairs(info_str):
         if key_lower == "type":
             continue
         elif key_lower == "code":
@@ -127,65 +110,48 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.code = "fold"
             elif val_code == "hide":
                 options.code = "hide"
-        elif key_lower in {"width", "w"}:
-            options.width = (
-                val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
-            )
-        elif key_lower in {"height", "h"}:
-            options.height = (
-                val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
-            )
-        elif key_lower in {"align", "a"}:
+        elif key_lower == "width":
+            if val_clean:
+                options.width = (
+                    val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
+                )
+        elif key_lower == "height":
+            if val_clean:
+                options.height = (
+                    val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
+                )
+        elif key_lower == "align":
             if val_clean.lower() in {"left", "center", "right"}:
                 options.align = val_clean.lower()
-        elif key_lower in {"format", "fmt"}:
+        elif key_lower == "format":
             fmt = val_clean.lower()
             if fmt in {"png", "webp", "svg", "apng"}:
                 options.format = fmt
-        elif key_lower in {"slot", "s"}:
-            options.slot = val_clean.lower()
-        elif key_lower in {"xy", "pos", "position"}:
-            try:
-                coords = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
-                if len(coords) == 2:
-                    options.xy = (coords[0], coords[1])
-            except ValueError:
-                pass
-        elif key_lower in {"size", "dim", "dimensions"}:
-            try:
-                dims = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
-                if len(dims) == 2:
-                    options.size = (dims[0], dims[1])
-            except ValueError:
-                pass
         elif key_lower == "caption":
             options.caption = val_clean
         elif key_lower in {"class", "css_class"}:
             options.css_class = val_clean
         elif key_lower == "file":
             options.file = val_clean
-        elif key_lower in {"cache", "caching"}:
-            options.no_cache = val_clean.lower() in {"false", "0", "no", "off"}
-        elif key_lower in {"no-cache", "no_cache", "nocache"}:
-            options.no_cache = val_clean.lower() not in {"false", "0", "no", "off"}
-        elif key_lower in {"z", "z_index", "z-index"}:
-            try:
-                options.z_index = int(val_clean)
-            except ValueError:
-                pass
-        elif key_lower in {"anim-trigger", "anim_trigger", "anim"}:
+        elif key_lower == "no_cache":
+            val_nc = val_clean.lower()
+            if val_nc in {"true", "1", "yes", "on"}:
+                options.no_cache = True
+            elif val_nc in {"false", "0", "no", "off"}:
+                options.no_cache = False
+        elif key_lower == "anim_trigger":
             val_trig = val_clean.lower()
-            if val_trig in {"click", "manual"}:
+            if val_trig == "click":
                 options.anim_trigger = "click"
             elif val_trig == "auto":
                 options.anim_trigger = "auto"
-        elif key_lower in {"anim-loop", "anim_loop", "loop"}:
+        elif key_lower == "anim_loop":
             val_loop = val_clean.lower()
-            if val_loop in {"once", "1", "false", "no"}:
+            if val_loop == "once":
                 options.anim_loop = "once"
-            elif val_loop in {"infinite", "loop", "0", "true", "yes"}:
+            elif val_loop == "infinite":
                 options.anim_loop = "infinite"
-        elif key_lower in {"anim-pause", "anim_pause", "pause"}:
+        elif key_lower == "anim_pause":
             pauses: list[int] = []
             for part in val_clean.strip("()[]").split(","):
                 part_s = part.strip()
@@ -199,25 +165,6 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                     pass
             if pauses:
                 options.anim_pause = sorted(set(pauses))
-        elif not key_lower:
-            val_lower = val_clean.lower()
-            if val_lower in {"no-cache", "no_cache", "nocache"}:
-                options.no_cache = True
-            elif val_lower in {"show-code", "show_code"}:
-                options.code = "show"
-            elif val_lower in {"fold-code", "fold_code"}:
-                options.code = "fold"
-            elif val_lower in {"hide-code", "hide_code"}:
-                options.code = "hide"
-            elif val_lower in {"left", "center", "right"}:
-                options.align = val_lower
-            elif val_lower in {"png", "webp", "svg", "apng"}:
-                options.format = val_lower
-            elif val_lower.startswith("slot:"):
-                options.slot = val_lower[5:].strip()
-            elif re.match(r"^\d+(px|%)$", val_lower) or val_lower.isdigit():
-                has_unit = val_lower.endswith("px") or val_lower.endswith("%")
-                options.width = val_clean if has_unit else f"{val_clean}px"
 
     return options
 
@@ -266,8 +213,8 @@ def resolve_block_image_paths(
     else:
         if require_file:
             raise ValueError(
-                f"Missing required 'file:<filename.ext>' option in drawlib code block at line {line_number}. "
-                "Example: ```drawlib file:my_diagram.png"
+                f"Missing required 'file=<filename.ext>' option in drawlib code block at line {line_number}. "
+                "Example: ```drawlib file=my_diagram.png"
             )
         img_name = f"{block_counter}.{ext}"
         rel_img_path = f"{doc_base_name}_images/{img_name}"
