@@ -11,26 +11,20 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Callable
 from typing import Any, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib import styles as _styles
-from drawlib._core.l2_types import ColorRGB, ColorRGBA, Coordinate, PosFloat, PosInt
+from drawlib._core.l2_types import Coordinate, PosFloat, PosInt
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
 from drawlib._core.l4_canvas import transform
-
-_DEFAULT_ACCENT_PALETTE: tuple[ColorRGB | ColorRGBA, ...] = (
-    (37, 99, 235),
-    (16, 185, 129),
-    (245, 158, 11),
-    (124, 58, 237),
-    (220, 38, 38),
-    (13, 148, 136),
+from drawlib._smartarts._common import (
+    draw_card_title_and_description,
+    resolve_card_box_style,
 )
 
 
@@ -39,12 +33,12 @@ class KpiCardItem(BaseModel):
 
     Attributes:
         metric: Primary highlighted metric value or short callout label (e.g. "99.99%", "<50ms").
-        title: Bold card title text.
+        text: Primary card title text.
         description: Optional supporting description text.
         style: Card background rectangle style.
         metric_style: Text style for the primary metric value.
-        title_style: Text style for the card title.
-        description_style: Text style for the card description.
+        text_style: Text style for the card title.
+        description_style: Optional text style for the card description.
         accent_style: Optional style for the card's accent pill or top bar.
         icon: Optional icon drawing callable (e.g. from drawlib.icons.phosphor).
         icon_style: Optional style passed to the icon callable.
@@ -54,12 +48,12 @@ class KpiCardItem(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     metric: str
-    title: str
+    text: str
     description: str = ""
     style: Style
     metric_style: Style
-    title_style: Style
-    description_style: Style
+    text_style: Style
+    description_style: Style | None = None
     accent_style: Style | None = None
     icon: Callable[..., Any] | None = None
     icon_style: Style | None = None
@@ -73,77 +67,47 @@ class KpiCards:
     def __init__(  # noqa: PLR0913
         self,
         *,
-        style: Style | None = None,
-        metric_style: Style | None = None,
-        title_style: Style | None = None,
+        style: Style,
+        metric_style: Style,
+        text_style: Style,
         description_style: Style | None = None,
         accent_style: Style | None = None,
-        accent_palette: Sequence[ColorRGB | ColorRGBA] | None = None,
+        icon_style: Style | None = None,
         accent_position: Literal["left_pill", "top_bar", "none"] = "left_pill",
         metric_layout: Literal["left_column", "top_stack"] = "left_column",
         metric_width_ratio: float = 0.28,
-        spacing: float = 3.0,
+        spacing: PosFloat = 3.0,
     ) -> None:
-        """Initialize KpiCards.
+        """Initialize KpiCards with explicit default styles.
 
         Args:
-            style: Default background card style. Defaults to Styles.Neutral with rounded corners.
-            metric_style: Default text style for the metric value. If None, uses bold text colored
-                with each card's accent color.
-            title_style: Default text style for the card title. Defaults to Styles.DarkBold.
-            description_style: Default text style for the card description. Defaults to muted Dark text.
-            accent_style: Optional uniform style for the accent indicator. If None, cycles through
-                accent_palette automatically.
-            accent_palette: Sequence of RGB/RGBA color tuples cycled per card when accent_style is None.
+            style: Default background card style.
+            metric_style: Default text style for the primary metric value.
+            text_style: Default text style for the primary card title.
+            description_style: Default text style for the supporting description text.
+            accent_style: Default style for the card accent indicator ("left_pill" or "top_bar").
+            icon_style: Default style passed to icon callables.
             accent_position: Placement of the accent indicator ("left_pill", "top_bar", or "none").
+                Defaults to "left_pill".
             metric_layout: Internal card layout mode ("left_column" for side-by-side metric and text,
                 or "top_stack" for vertically stacked metric, title, and description).
+                Defaults to "left_column".
             metric_width_ratio: Fraction of card width allocated to the left metric column when
                 metric_layout="left_column" (must be between 0.1 and 0.7). Defaults to 0.28.
-            spacing: Gap in canvas units between adjacent cards (must be >= 0.0). Defaults to 3.0.
+            spacing: Gap in canvas units between adjacent cards. Defaults to 3.0.
 
         Raises:
-            ValueError: If metric_width_ratio is outside [0.1, 0.7], spacing < 0, or accent_palette is empty.
+            ValueError: If metric_width_ratio is outside [0.1, 0.7].
         """
         if not 0.1 <= metric_width_ratio <= 0.7:
             raise ValueError("metric_width_ratio must be between 0.1 and 0.7.")
-        if spacing < 0.0:
-            raise ValueError("spacing must be >= 0.0.")
-        if accent_palette is not None and len(accent_palette) == 0:
-            raise ValueError("accent_palette must not be empty when provided.")
 
-        default_card_style = _styles.Styles.Neutral
-        if default_card_style.shape_r is None:
-            default_card_style = default_card_style.patch(shape_r=2.5)
-
-        default_halign: Literal["left", "center"] = "left" if metric_layout == "left_column" else "center"
-
-        self._style: Style = style if style is not None else default_card_style
-        self._metric_style: Style | None = metric_style
-        self._title_style: Style = (
-            title_style
-            if title_style is not None
-            else _styles.Styles.DarkBold.patch(
-                text_size=10.5,
-                text_color=(15, 23, 42),
-                halign=default_halign,
-                valign="center",
-            )
-        )
-        self._description_style: Style = (
-            description_style
-            if description_style is not None
-            else _styles.Styles.Dark.patch(
-                text_size=9.5,
-                text_color=(100, 116, 139),
-                halign=default_halign,
-                valign="center",
-            )
-        )
+        self._style: Style = style
+        self._metric_style: Style = metric_style
+        self._text_style: Style = text_style
+        self._description_style: Style | None = description_style
         self._accent_style: Style | None = accent_style
-        self._accent_palette: tuple[ColorRGB | ColorRGBA, ...] = (
-            tuple(accent_palette) if accent_palette is not None else _DEFAULT_ACCENT_PALETTE
-        )
+        self._icon_style: Style | None = icon_style
         self._accent_position: Literal["left_pill", "top_bar", "none"] = accent_position
         self._metric_layout: Literal["left_column", "top_stack"] = metric_layout
         self._metric_width_ratio: float = float(metric_width_ratio)
@@ -159,12 +123,12 @@ class KpiCards:
     def add(  # noqa: PLR0913
         self,
         metric: str,
-        title: str,
+        text: str,
         description: str = "",
         *,
         style: Style | None = None,
         metric_style: Style | None = None,
-        title_style: Style | None = None,
+        text_style: Style | None = None,
         description_style: Style | None = None,
         accent_style: Style | None = None,
         icon: Callable[..., Any] | None = None,
@@ -175,69 +139,60 @@ class KpiCards:
 
         Args:
             metric: Highlighted metric string or key value (e.g. "300M+", "99.99%", "<50ms").
-            title: Primary card title text.
-            description: Supporting description text. Defaults to "".
-            style: Custom background style for this card.
-            metric_style: Custom text style for this card's metric value.
-            title_style: Custom text style for this card's title.
+            text: Primary card title text.
+            description: Optional supporting description text. Defaults to "".
+            style: Custom background style for this card. If None, default style is used.
+            metric_style: Custom text style for this card's metric value. If None, default metric_style is used.
+            text_style: Custom text style for this card's title. If None, default text_style is used.
             description_style: Custom text style for this card's description.
+                If None, default description_style is used.
             accent_style: Custom style for this card's accent pill or top bar.
+                If None, default accent_style is used.
             icon: Optional icon drawing function (e.g. phosphor.shield_check).
-            icon_style: Optional style for the icon.
+            icon_style: Optional style for the icon. If None, default icon_style is used.
             show: Whether to render this card item. Defaults to True.
 
         Returns:
             KpiCardItem: The created mutable KPI card item instance.
+
+        Raises:
+            ValueError: If required optional styles (description_style, accent_style, icon_style)
+                are missing when their corresponding features are used.
         """
-        idx = len(self._items)
-        palette_color = self._accent_palette[idx % len(self._accent_palette)]
+        effective_style = style if style is not None else self._style
+        effective_metric_style = metric_style if metric_style is not None else self._metric_style
+        effective_text_style = text_style if text_style is not None else self._text_style
+        effective_desc_style = description_style if description_style is not None else self._description_style
+        effective_accent_style = accent_style if accent_style is not None else self._accent_style
+        effective_icon_style = icon_style if icon_style is not None else self._icon_style
 
-        if accent_style is not None:
-            resolved_accent_style = accent_style
-        elif self._accent_style is not None:
-            resolved_accent_style = self._accent_style
-        else:
-            resolved_accent_style = Style(
-                shape_fill_color=palette_color,
-                shape_line_color=palette_color,
-                shape_line_width=0.0,
+        if bool(description.strip()) and effective_desc_style is None:
+            raise ValueError(
+                "Neither default 'description_style' nor item 'description_style' was provided "
+                f"for description of item '{text}'."
             )
-
-        accent_color = resolved_accent_style.shape_fill_color or palette_color
-        default_halign: Literal["left", "center"] = "left" if self._metric_layout == "left_column" else "center"
-
-        if metric_style is not None:
-            resolved_metric_style = metric_style
-        elif self._metric_style is not None:
-            resolved_metric_style = self._metric_style
-        else:
-            resolved_metric_style = _styles.Styles.PrimaryBold.patch(
-                text_size=13.5,
-                text_color=accent_color,
-                halign=default_halign,
-                valign="center",
+        if self._accent_position != "none" and effective_accent_style is None:
+            raise ValueError(
+                "Neither default 'accent_style' nor item 'accent_style' was provided "
+                f"when accent_position='{self._accent_position}' for item '{text}'."
             )
-
-        resolved_style = style if style is not None else self._style
-        resolved_title_style = title_style if title_style is not None else self._title_style
-        resolved_desc_style = description_style if description_style is not None else self._description_style
-        resolved_icon_style = (
-            icon_style
-            if icon_style is not None
-            else _styles.Styles.Primary.patch(icon_color=accent_color)
-        )
+        if icon is not None and effective_icon_style is None:
+            raise ValueError(
+                "Neither default 'icon_style' nor item 'icon_style' was provided "
+                f"for icon of item '{text}'."
+            )
 
         item = KpiCardItem(
             metric=metric,
-            title=title,
+            text=text,
             description=description,
-            style=resolved_style,
-            metric_style=resolved_metric_style,
-            title_style=resolved_title_style,
-            description_style=resolved_desc_style,
-            accent_style=resolved_accent_style,
+            style=effective_style,
+            metric_style=effective_metric_style,
+            text_style=effective_text_style,
+            description_style=effective_desc_style,
+            accent_style=effective_accent_style,
             icon=icon,
-            icon_style=resolved_icon_style,
+            icon_style=effective_icon_style,
             show=show,
         )
         self._items.append(item)
@@ -306,13 +261,9 @@ class KpiCards:
         x_left = cx - card_w / 2.0
         y_top = cy + card_h / 2.0
 
-        card_style = item.style
-        if card_style.shape_r is None:
-            card_style = card_style.patch(shape_r=min(2.5, card_h * 0.18))
-
+        card_style = resolve_card_box_style(item.style, card_h, max_r=2.5)
         canvas_rectangle(xy=(cx, cy), width=card_w, height=card_h, style=card_style)
 
-        # Draw accent pill or top bar
         if self._accent_position == "left_pill" and item.accent_style is not None:
             pill_w = max(1.0, min(2.0, card_w * 0.022))
             pill_h = card_h * 0.68
@@ -362,37 +313,38 @@ class KpiCards:
         metric_x = x_left + pill_offset + card_w * 0.012
 
         if item.icon is not None:
+            if item.icon_style is None:
+                raise ValueError(f"icon_style is required for icon of item '{item.text}'.")
             icon_w = min(card_h * 0.28, metric_zone_w * 0.18, 3.8)
             icon_cx = metric_x + icon_w / 2.0
-            icon_style = item.icon_style or _styles.Styles.Primary
-            item.icon((icon_cx, cy), width=icon_w, style=icon_style)
+            item.icon((icon_cx, cy), width=icon_w, style=item.icon_style)
             metric_x = icon_cx + icon_w / 2.0 + card_w * 0.014
 
         m_style = item.metric_style.patch(halign="left", valign="center")
         canvas_text(xy=(metric_x, cy), text=item.metric, style=m_style)
 
-        # Subtle vertical divider between metric column and title/description column
+        # Subtle vertical divider derived from card border color
         div_x = x_left + metric_zone_w
-        div_color = item.style.shape_line_color or (226, 232, 240)
-        canvas_line(
-            xy1=(div_x, cy - card_h * 0.32),
-            xy2=(div_x, cy + card_h * 0.32),
-            style=Style(line_color=div_color, line_width=0.8),
-        )
+        div_color = item.style.shape_line_color
+        if div_color is not None:
+            div_width = max(0.6, (item.style.shape_line_width or 1.2) * 0.65)
+            canvas_line(
+                xy1=(div_x, cy - card_h * 0.32),
+                xy2=(div_x, cy + card_h * 0.32),
+                style=Style(line_color=div_color, line_width=div_width),
+            )
 
         text_x = div_x + card_w * 0.035
-        has_desc = bool(item.description.strip())
-
-        t_style = item.title_style.patch(halign="left", valign="center")
-
-        if has_desc:
-            title_y = cy + card_h * 0.18
-            desc_y = cy - card_h * 0.18
-            d_style = item.description_style.patch(halign="left", valign="center")
-            canvas_text(xy=(text_x, title_y), text=item.title, style=t_style)
-            canvas_text(xy=(text_x, desc_y), text=item.description, style=d_style)
-        else:
-            canvas_text(xy=(text_x, cy), text=item.title, style=t_style)
+        draw_card_title_and_description(
+            text_x=text_x,
+            cy=cy,
+            card_h=card_h,
+            text=item.text,
+            description=item.description,
+            text_style=item.text_style,
+            description_style=item.description_style,
+            halign="left",
+        )
 
     @staticmethod
     def _draw_top_stack_layout(
@@ -417,19 +369,25 @@ class KpiCards:
 
         metric_cx = cx
         if item.icon is not None:
+            if item.icon_style is None:
+                raise ValueError(f"icon_style is required for icon of item '{item.text}'.")
             icon_w = min(card_h * 0.28, card_w * 0.18, 4.8)
             icon_cx = cx - card_w * 0.22
-            icon_style = item.icon_style or _styles.Styles.Primary
-            item.icon((icon_cx, metric_y), width=icon_w, style=icon_style)
+            item.icon((icon_cx, metric_y), width=icon_w, style=item.icon_style)
             metric_cx = cx + icon_w * 0.35
 
         m_style = item.metric_style.patch(halign="center", valign="center")
-        t_style = item.title_style.patch(halign="center", valign="center")
+        t_style = item.text_style.patch(halign="center", valign="center")
 
         canvas_text(xy=(metric_cx, metric_y), text=item.metric, style=m_style)
-        canvas_text(xy=(cx, title_y), text=item.title, style=t_style)
+        canvas_text(xy=(cx, title_y), text=item.text, style=t_style)
 
         if has_desc:
+            if item.description_style is None:
+                raise ValueError(
+                    "Neither default 'description_style' nor item 'description_style' was provided "
+                    f"for description of item '{item.text}'."
+                )
             d_style = item.description_style.patch(halign="center", valign="center")
             canvas_text(xy=(cx, desc_y), text=item.description, style=d_style)
 

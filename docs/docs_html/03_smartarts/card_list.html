@@ -475,7 +475,7 @@
             </header>
             <main class="main-content">
                 <h1>CardList</h1>
-<p>The <code>CardList</code> component renders vertical stacks (<code>direction=&quot;vertical&quot;</code>) or horizontal step sequences (<code>direction=&quot;horizontal&quot;</code>) of rich cards equipped with circular or rounded-rectangle badges (<code>badge_shape</code>), vector icons (<code>icon</code>), numbered or text badge labels (<code>badge_text</code>), multi-line descriptions, and optional inter-card connecting arrows (<code>show_arrows=True</code>).
+<p>The <code>CardList</code> component renders vertical stacks (<code>direction=&quot;vertical&quot;</code>) or horizontal step sequences (<code>direction=&quot;horizontal&quot;</code>) of rich cards equipped with circular or rounded-rectangle badges (<code>badge_shape</code>), vector icons (<code>icon</code>), numbered or text badge labels (<code>badge_text</code>), card titles (<code>text</code>), multi-line descriptions (<code>description</code>), and optional inter-card connecting arrows (<code>show_arrows=True</code>).
 Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguous single-label boxes) or <a href="./kpi_cards.html"><code>KpiCards</code></a> (which highlights large numeric metrics), <code>CardList</code> is purpose-built for <strong>feature catalogs, defense-in-depth layer explanations, and multi-step engineering workflows</strong>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="card_list_images/smartarts_cardlist_hero.png" alt="card_list_1" />
@@ -501,11 +501,25 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 <span class="n">text</span><span class="p">((</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"1. Vertical Stack (direction='vertical')"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">cl_v</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
     <span class="n">badge_shape</span><span class="o">=</span><span class="s2">"rounded_rect"</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">cl_v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Edge Anycast Scrubbing"</span><span class="p">,</span> <span class="s2">"Drop volumetric UDP/SYN floods"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L1"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">)</span>
+<span class="n">cl_v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Edge Anycast Scrubbing"</span><span class="p">,</span>
+    <span class="s2">"Drop volumetric UDP/SYN floods"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L1"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">cl_v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"WAF Rate Limiting"</span><span class="p">,</span> <span class="s2">"Throttle suspicious ASN &amp; JA3"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L2"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">funnel</span><span class="p">)</span>
 <span class="n">cl_v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Origin Zero-Trust mTLS"</span><span class="p">,</span> <span class="s2">"Verify workload identity"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L3"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">)</span>
 <span class="n">cl_v</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">55.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">40.0</span><span class="p">)</span>
@@ -518,14 +532,26 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 <span class="n">text</span><span class="p">((</span><span class="mf">73.0</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"2. Horizontal Steps (show_arrows=True)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">cl_h</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
     <span class="n">badge_shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
     <span class="n">show_arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">cl_h</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Code"</span><span class="p">,</span> <span class="s2">"Python API</span><span class="se">\n</span><span class="s2">in Markdown"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
 <span class="n">cl_h</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Build"</span><span class="p">,</span> <span class="s2">"Headless SVG</span><span class="se">\n</span><span class="s2">&amp; HTML build"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">gear</span><span class="p">)</span>
-<span class="n">cl_h</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Review"</span><span class="p">,</span> <span class="s2">"Grid check &amp;</span><span class="se">\n</span><span class="s2">self-healing"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">)</span>
+<span class="n">cl_h</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Review"</span><span class="p">,</span>
+    <span class="s2">"Grid check &amp;</span><span class="se">\n</span><span class="s2">self-healing"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">cl_h</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">68.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">35.0</span><span class="p">)</span>
 
 <span class="n">circle</span><span class="p">((</span><span class="mf">68.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
@@ -536,7 +562,7 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 </details>
 <hr />
 <h2>1. Vertical Feature &amp; Defense-in-Depth Cards (<code>direction=&quot;vertical&quot;</code>)</h2>
-<p>In <code>direction=&quot;vertical&quot;</code> (the default), cards are ordered <strong>top-to-bottom</strong> inside the <code>(width, height)</code> bounding box. Each card displays a left-side badge (<code>badge_shape=&quot;rounded_rect&quot;</code> or <code>&quot;circle&quot;</code>), followed by a bold <code>title</code> and multi-line <code>description</code>. When both <code>icon</code> and <code>badge_text</code> are provided on a vertical card, the icon is rendered inside the left badge while a secondary pill tag displays <code>badge_text</code> on the right side of the card.</p>
+<p>In <code>direction=&quot;vertical&quot;</code> (the default), cards are ordered <strong>top-to-bottom</strong> inside the <code>(width, height)</code> bounding box. Each card displays a left-side badge (<code>badge_shape=&quot;rounded_rect&quot;</code> or <code>&quot;circle&quot;</code>), followed by a bold card title (<code>text</code>) and multi-line <code>description</code>.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">CardList</span>
@@ -548,28 +574,37 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 <span class="n">text</span><span class="p">((</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"Zero-Trust Cloud Security — 3-Layer Defense Controls"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">layers</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">badge_shape</span><span class="o">=</span><span class="s2">"rounded_rect"</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Layer 1: Global Anycast Edge &amp; DDoS Protection"</span><span class="p">,</span>
     <span class="s2">"Absorbs L3/L4 volumetric floods across 48 PoPs before traffic reaches regional VPCs"</span><span class="p">,</span>
-    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"EDGE"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L1"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">globe_hemisphere_east</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Layer 2: Identity-Aware Proxy &amp; WAF Policy Engine"</span><span class="p">,</span>
     <span class="s2">"Enforces OIDC device posture, rate limiting, and OWASP Top-10 signature inspection"</span><span class="p">,</span>
-    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"PROXY"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L2"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Layer 3: SPIFFE/SPIRE Service Mesh &amp; Envelope KMS"</span><span class="p">,</span>
     <span class="s2">"Short-lived X.509 mTLS workload certificates with hardware-backed key rotation"</span><span class="p">,</span>
-    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"MESH"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"L3"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">layers</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">108.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">44.0</span><span class="p">)</span>
 
@@ -581,7 +616,7 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 </figure>
 <hr />
 <h2>2. Horizontal Step Sequence with Connecting Arrows (<code>direction=&quot;horizontal&quot;</code>)</h2>
-<p>Setting <code>direction=&quot;horizontal&quot;</code> arranges cards <strong>left-to-right</strong>, placing the badge/icon centered in the upper zone of each card with the title and description stacked below. Enabling <code>show_arrows=True</code> automatically draws connecting arrows (<code>-&gt;</code>) between adjacent cards across the <code>spacing</code> gap.</p>
+<p>Setting <code>direction=&quot;horizontal&quot;</code> arranges cards <strong>left-to-right</strong>, placing the badge/icon centered in the upper zone of each card with the title (<code>text</code>) and <code>description</code> stacked below. Enabling <code>show_arrows=True</code> (with <code>arrow_style</code>) draws connecting arrows (<code>-&gt;</code>) between adjacent cards across the <code>spacing</code> gap.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">CardList</span>
@@ -593,9 +628,15 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 <span class="n">text</span><span class="p">((</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="s2">"Autonomous Illustrated Documentation Pipeline"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">workflow</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">badge_shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
     <span class="n">show_arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">arrow_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -613,6 +654,8 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
     <span class="s2">"Inspect -g grid</span><span class="se">\n</span><span class="s2">&amp; self-heal"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">magnifying_glass</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"4. Publish"</span><span class="p">,</span>
@@ -633,16 +676,16 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 <li><strong>Bottom-Left Anchor (<code>xy</code>)</strong>: <code>CardList.draw(xy=(x, y), width=W, height=H)</code> places the bottom-left corner of the bounding box at <code>(x, y)</code> and extends <code>W</code> units rightward (<code>+x</code>) and <code>H</code> units upward (<code>+y</code>).</li>
 <li><strong>Badge Shapes (<code>badge_shape</code>)</strong>:
 <ul>
-<li><code>&quot;rounded_rect&quot;</code> <em>(default)</em>: Draws a rounded square badge container with subtle corner rounding.</li>
-<li><code>&quot;circle&quot;</code>: Draws a circular badge container.</li>
-<li><code>&quot;none&quot;</code>: Draws no badge background shape and renders the icon or badge text directly in the accent palette color.</li>
+<li><code>&quot;rounded_rect&quot;</code> <em>(default)</em>: Draws a rounded square badge container with subtle corner rounding (<code>badge_style</code> required).</li>
+<li><code>&quot;circle&quot;</code>: Draws a circular badge container (<code>badge_style</code> required).</li>
+<li><code>&quot;none&quot;</code>: Draws no badge background shape and renders <code>icon</code> or <code>badge_text</code> directly.</li>
 </ul>
 </li>
-<li><strong>Automatic Badge Content Fallback</strong>:
+<li><strong>Badge Content Rules</strong>:
 <ul>
-<li>If <code>icon</code> is provided, the vector icon is centered inside the badge.</li>
-<li>If <code>icon</code> is omitted and <code>badge_text</code> is provided, <code>badge_text</code> is centered inside the badge.</li>
-<li>If both <code>icon</code> and <code>badge_text</code> are omitted, <code>CardList</code> automatically numbers the badges <code>&quot;1&quot;</code>, <code>&quot;2&quot;</code>, <code>&quot;3&quot;</code>, etc.</li>
+<li>If <code>icon</code> is provided, the vector icon is rendered using <code>icon_style</code>.</li>
+<li>If <code>badge_text</code> is provided, the badge label is rendered using <code>badge_text_style</code>.</li>
+<li>If both <code>icon</code> and <code>badge_text</code> are provided, the icon is rendered in the upper portion of the badge and <code>badge_text</code> is rendered below it inside the badge.</li>
 </ul>
 </li>
 </ul>
@@ -651,13 +694,12 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 <h3>Constructor</h3>
 <pre><code class="language-python"><span class="n">CardList</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">description_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">badge_shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"rounded_rect"</span><span class="p">,</span> <span class="s2">"none"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rounded_rect"</span><span class="p">,</span>
     <span class="n">badge_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">badge_text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">badge_palette</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ColorRGB</span> <span class="o">|</span> <span class="n">ColorRGBA</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">icon_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">direction</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"vertical"</span><span class="p">,</span> <span class="s2">"horizontal"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">spacing</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
@@ -667,8 +709,8 @@ Unlike <a href="./box_list.html"><code>BoxList</code></a> (which draws contiguou
 </code></pre>
 <h3>Methods &amp; Properties</h3>
 <ul>
-<li><strong><code>add(title: str, description: str = &quot;&quot;, *, badge_text: str | None = None, icon: Callable | None = None, style: Style | None = None, title_style: Style | None = None, description_style: Style | None = None, badge_style: Style | None = None, badge_text_style: Style | None = None, icon_style: Style | None = None, show: bool = True) -&gt; CardListItem</code></strong>:
-Appends a card item and returns a mutable <code>CardListItem</code>. Setting <code>item.show = False</code> hides that card (and any adjacent arrow) while preserving the coordinates of all sibling cards.</li>
+<li><strong><code>add(text: str, description: str = &quot;&quot;, *, badge_text: str | None = None, icon: Callable | None = None, style: Style | None = None, text_style: Style | None = None, description_style: Style | None = None, badge_style: Style | None = None, badge_text_style: Style | None = None, icon_style: Style | None = None, show: bool = True) -&gt; CardListItem</code></strong>:
+Appends a card item (<code>text</code> is the primary card title) and returns a mutable <code>CardListItem</code>. Setting <code>item.show = False</code> hides that card (and any adjacent arrow) while preserving the coordinates of all sibling cards.</li>
 <li><strong><code>cardlist.items -&gt; list[CardListItem]</code></strong>:
 Returns the list of registered <code>CardListItem</code> instances for deferred mutation.</li>
 <li><strong><code>draw(xy: tuple[float, float], width: float = 100.0, height: float = 60.0, *, scale: float = 1.0) -&gt; Self</code></strong>:

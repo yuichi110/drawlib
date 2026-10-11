@@ -55,21 +55,22 @@
 
 ### 3.1. Component 1: `KpiCards` (`src/drawlib/_smartarts/_kpicards.py`)
 
-大きなメトリクス数値（例：`300M+`, `$6,750`, `<50ms`, `99.9%`）とタイトル・補足説明文・アイコンを組み合わせた KPI カードを、縦スタック・横一列・グリッド（例：2×2）で自動整列するコンポーネント。
+大きなメトリクス数値（例：`300M+`, `$6,750`, `<50ms`, `99.9%`）とタイトル（`text`）・補足説明文（`description`）・アイコンを組み合わせた KPI カードを、縦スタック・横一列・グリッド（例：2×2）で自動整列するコンポーネント。
+既存の `ChevronProcess` や `Cycle` と同様、コンストラクタでデフォルトの `Style` を必須引数として受け取り、個別要素の `add()` で任意に上書きする明示的スタイル設計を採用する（暗黙の色プールやハードコードされたRGB解決は行わない）。
 
 #### 3.1.1. データモデル & クラスシグネチャ
 ```python
 class KpiCardItem(BaseModel):
     """Mutable item model for a single KPI card."""
     metric: str
-    title: str
+    text: str
     description: str = ""
     style: Style
     metric_style: Style
-    title_style: Style
-    description_style: Style
+    text_style: Style
+    description_style: Style | None = None
     accent_style: Style | None = None
-    icon: Callable[..., None] | None = None
+    icon: Callable[..., Any] | None = None
     icon_style: Style | None = None
     show: bool = True
 
@@ -81,31 +82,31 @@ class KpiCards:
     def __init__(
         self,
         *,
-        style: Style = Styles.Neutral,
-        metric_style: Style | None = None,
-        title_style: Style | None = None,
+        style: Style,
+        metric_style: Style,
+        text_style: Style,
         description_style: Style | None = None,
         accent_style: Style | None = None,
-        accent_palette: Sequence[Color | tuple[int, int, int]] | None = None,
+        icon_style: Style | None = None,
         accent_position: Literal["left_pill", "top_bar", "none"] = "left_pill",
         metric_layout: Literal["left_column", "top_stack"] = "left_column",
         metric_width_ratio: float = 0.28,
-        spacing: float = 3.0,
+        spacing: PosFloat = 3.0,
     ) -> None: ...
 
     @validate_call
     def add(
         self,
         metric: str,
-        title: str,
+        text: str,
         description: str = "",
         *,
         style: Style | None = None,
         metric_style: Style | None = None,
-        title_style: Style | None = None,
+        text_style: Style | None = None,
         description_style: Style | None = None,
         accent_style: Style | None = None,
-        icon: Callable[..., None] | None = None,
+        icon: Callable[..., Any] | None = None,
         icon_style: Style | None = None,
         show: bool = True,
     ) -> KpiCardItem: ...
@@ -114,10 +115,10 @@ class KpiCards:
     def draw(
         self,
         xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
+        width: PosFloat = 100.0,
+        height: PosFloat = 60.0,
         *,
-        columns: int = 1,
+        columns: PosInt = 1,
         scale: PosFloat = 1.0,
     ) -> Self: ...
 ```
@@ -129,29 +130,29 @@ class KpiCards:
   - `columns=N`（横並び）または `columns=2`（2×2 グリッド）：指定された `width × height` を `columns` 列 $\times \lceil N / \text{columns} \rceil$ 行に自動分割して配置。
 - **カード内部の2つのレイアウトモード (`metric_layout`)**:
   1. `"left_column"`（縦積みカード向けデフォルト）：
-     - 左端 `x_left + card_w * 0.025` にアクセントピル（`accent_position="left_pill"`）を描画。
-     - 左側領域（`card_w * metric_width_ratio`、デフォルト `28%`〜`30%`）に `metric` を大きく描画。
-     - 右側領域（`x_left + card_w * metric_width_ratio` 以降）の上段に `title`、下段に `description` を左揃えで描画。
+     - 左端にアクセントピル（`accent_position="left_pill"`）を描画。
+     - 左側領域（`card_w * metric_width_ratio`、デフォルト `28%`）に `metric` を大きく描画。
+     - 右側領域の上段にカードタイトル（`text`）、下段に `description` を左揃えで描画。
   2. `"top_stack"`（横並び・2×2グリッド向け）：
-     - カード上段に `metric`（および任意の `icon`）、中段に `title`、下段に `description` を中央揃えまたは左揃えで配置。
+     - カード上段に `metric`（および任意の `icon`）、中段に `text`、下段に `description` を中央揃えで配置。
 
 ---
 
 ### 3.2. Component 2: `CardList` (`src/drawlib/_smartarts/_cardlist.py`)
 
-「アイコンバッジまたは番号バッジ ＋ 太字タイトル ＋ 補足説明文（1〜複数行）」を持つリッチなカードを、縦または横に等間隔で整列し、オプションでカード間に矢印（`->`）を描画する汎用コンポーネント。
+「アイコンバッジまたは番号バッジ ＋ タイトル（`text`） ＋ 補足説明文（`description`、1〜複数行）」を持つリッチなカードを、縦または横に等間隔で整列し、オプションでカード間に矢印（`->`）を描画する汎用コンポーネント。
 
 #### 3.2.1. データモデル & クラスシグネチャ
 ```python
 class CardListItem(BaseModel):
     """Mutable item model for a single rich card in CardList."""
-    title: str
+    text: str
     description: str = ""
     badge_text: str | None = None
-    icon: Callable[..., None] | None = None
+    icon: Callable[..., Any] | None = None
     style: Style
-    title_style: Style
-    description_style: Style
+    text_style: Style
+    description_style: Style | None = None
     badge_style: Style | None = None
     badge_text_style: Style | None = None
     icon_style: Style | None = None
@@ -165,15 +166,15 @@ class CardList:
     def __init__(
         self,
         *,
-        style: Style = Styles.White,
-        title_style: Style | None = None,
+        style: Style,
+        text_style: Style,
         description_style: Style | None = None,
         badge_shape: Literal["circle", "rounded_rect", "none"] = "rounded_rect",
         badge_style: Style | None = None,
         badge_text_style: Style | None = None,
         icon_style: Style | None = None,
         direction: Literal["vertical", "horizontal"] = "vertical",
-        spacing: float = 2.5,
+        spacing: PosFloat = 2.5,
         show_arrows: bool = False,
         arrow_style: Style | None = None,
     ) -> None: ...
@@ -181,13 +182,13 @@ class CardList:
     @validate_call
     def add(
         self,
-        title: str,
+        text: str,
         description: str = "",
         *,
         badge_text: str | None = None,
-        icon: Callable[..., None] | None = None,
+        icon: Callable[..., Any] | None = None,
         style: Style | None = None,
-        title_style: Style | None = None,
+        text_style: Style | None = None,
         description_style: Style | None = None,
         badge_style: Style | None = None,
         badge_text_style: Style | None = None,
@@ -199,8 +200,8 @@ class CardList:
     def draw(
         self,
         xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
+        width: PosFloat = 100.0,
+        height: PosFloat = 60.0,
         *,
         scale: PosFloat = 1.0,
     ) -> Self: ...
@@ -209,12 +210,12 @@ class CardList:
 #### 3.2.2. レイアウト・ジオメトリ仕様
 - **アンカー (`xy`)**: バウンディングボックス全体の **左下座標 `(x0, y0)`**。
 - **`direction="vertical"`（縦スタック）**:
-  - 上から下へカードを配置。各カードの左側に `badge_shape`（丸バッジまたは角丸正方形バッジ）を配置し、`icon` が指定されていればアイコンを、`badge_text` が指定されていればテキスト（例：`"1"`, `"1.1"`, `"L1"`）を描画。
-  - 右側に `title`（上段）と `description`（下段、`\n` による複数行対応）を左揃えで配置。
+  - 上から下へカードを配置。各カードの左側に `badge_shape`（丸バッジまたは角丸正方形バッジ）を配置し、`icon` や `badge_text` を描画。
+  - 右側にタイトル `text`（上段）と `description`（下段、`\n` による複数行対応）を左揃えで配置。
   - `show_arrows=True` の場合、上下のカード間に下向き矢印（`->`）を描画。
 - **`direction="horizontal"`（横並びステップ）**:
-  - 左から右へカードを配置。各カードの上部にアイコン／バッジ、中段に `title`、下段に `description` を中央揃えで配置。
-  - `show_arrows=True` の場合、隣接カード間に右向き矢印（`->`）を自動描画（ドキュメントの Top Hero 5段階ライフサイクル図などを数行で記述可能になる）。
+  - 左から右へカードを配置。各カードの上部にアイコン／バッジ、中段に `text`、下段に `description` を中央揃えで配置。
+  - `show_arrows=True` の場合、隣接カード間に右向き矢印（`->`）を描画。
 
 ---
 
@@ -226,15 +227,16 @@ class CardList:
 ```python
 class RoadmapItem(BaseModel):
     """Mutable item model for a single milestone/phase node in Roadmap."""
-    title: str
-    subtitle: str = ""
+    text: str
+    description: str = ""
     badge_text: str | None = None
-    icon: Callable[..., None] | None = None
-    card_style: Style
-    title_style: Style
-    subtitle_style: Style
+    icon: Callable[..., Any] | None = None
+    style: Style
+    text_style: Style
+    description_style: Style | None = None
     badge_style: Style
     badge_text_style: Style
+    icon_style: Style | None = None
     show: bool = True
 
 
@@ -245,32 +247,34 @@ class Roadmap:
     def __init__(
         self,
         *,
+        style: Style,
+        text_style: Style,
+        spine_style: Style,
+        badge_style: Style,
+        badge_text_style: Style,
+        description_style: Style | None = None,
+        icon_style: Style | None = None,
         direction: Literal["vertical", "horizontal"] = "vertical",
-        card_style: Style | None = None,
-        title_style: Style | None = None,
-        subtitle_style: Style | None = None,
-        badge_style: Style | None = None,
-        badge_text_style: Style | None = None,
-        spine_style: Style | None = None,
-        badge_palette: Sequence[Color | tuple[int, int, int]] | None = None,
         curve_bend: float = 0.0,
         card_shape: Literal["pill", "rounded_rect"] = "rounded_rect",
         alternating: bool = False,
+        spacing: PosFloat = 2.5,
     ) -> None: ...
 
     @validate_call
     def add(
         self,
-        title: str,
-        subtitle: str = "",
+        text: str,
+        description: str = "",
         *,
         badge_text: str | None = None,
-        icon: Callable[..., None] | None = None,
-        card_style: Style | None = None,
-        title_style: Style | None = None,
-        subtitle_style: Style | None = None,
+        icon: Callable[..., Any] | None = None,
+        style: Style | None = None,
+        text_style: Style | None = None,
+        description_style: Style | None = None,
         badge_style: Style | None = None,
         badge_text_style: Style | None = None,
+        icon_style: Style | None = None,
         show: bool = True,
     ) -> RoadmapItem: ...
 
@@ -278,8 +282,8 @@ class Roadmap:
     def draw(
         self,
         xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
+        width: PosFloat = 100.0,
+        height: PosFloat = 60.0,
         *,
         scale: PosFloat = 1.0,
     ) -> Self: ...
@@ -288,8 +292,8 @@ class Roadmap:
 #### 3.3.2. レイアウト・ジオメトリ仕様
 - **アンカー (`xy`)**: バウンディングボックス全体の **左下座標 `(x0, y0)`**。
 - **`direction="vertical"`（垂直タイムライン／曲線アジェンダ）**:
-  - `curve_bend == 0.0`（デフォルト）：垂直な直線スパインを描画し、インシデントタイムラインやリリース履歴（例：`badge_text="0h"`, `"+15m"`, `"+1h"`, `"+4h"`）として右側にカードを整列配置する。
-  - `curve_bend > 0`（例：`0.12`）：二次ベジェ曲線 `line_bezier1` で滑らかな右凸アークを描画し、曲線上にバッジとピル型カードを配置する（`drawlib.slide.draw_curved_agenda` の内部エンジンとしても利用可能）。
+  - `curve_bend == 0.0`（デフォルト）：垂直な直線スパインを描画し、インシデントタイムラインやリリース履歴として右側にカードを整列配置する。
+  - `curve_bend > 0`（例：`0.22`）：二次ベジェ曲線 `line_bezier1` で滑らかな右凸アークを描画し、曲線上にバッジとピル型カードを配置する。
 - **`direction="horizontal"`（水平ロードマップ）**:
   - 左から右への水平タイムライン軸を描画し、各マイルストーンマーカーの上下交互（`alternating=True`）または片側にフェーズカードを配置する。
 

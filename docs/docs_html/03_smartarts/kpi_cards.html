@@ -475,7 +475,7 @@
             </header>
             <main class="main-content">
                 <h1>KpiCards</h1>
-<p>The <code>KpiCards</code> component (also aliased as <code>KpiCard</code>) renders metric highlight cards that pair a prominent headline number or status token (<code>metric</code>) with a structured <code>title</code>, <code>description</code>, optional vector <code>icon</code>, and color-coded accent indicator (<code>&quot;left_pill&quot;</code>, <code>&quot;top_bar&quot;</code>, or <code>&quot;none&quot;</code>).
+<p>The <code>KpiCards</code> component (also aliased as <code>KpiCard</code>) renders metric highlight cards that pair a prominent headline number or status token (<code>metric</code>) with a structured card title (<code>text</code>), supporting <code>description</code>, optional vector <code>icon</code>, and accent indicator (<code>&quot;left_pill&quot;</code>, <code>&quot;top_bar&quot;</code>, or <code>&quot;none&quot;</code>).
 It supports both vertical stacks (<code>columns=1</code>) and multi-column dashboard grids (<code>columns=2..N</code>), making it ideal for SLA targets, benchmark summaries, and executive KPI overviews.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="kpi_cards_images/smartarts_kpicards_hero.png" alt="kpi_cards_1" />
@@ -501,13 +501,27 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 <span class="n">text</span><span class="p">((</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"1. Left-Column Stack (columns=1)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">kpi_stack</span> <span class="o">=</span> <span class="n">KpiCards</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">accent_position</span><span class="o">=</span><span class="s2">"left_pill"</span><span class="p">,</span>
     <span class="n">metric_layout</span><span class="o">=</span><span class="s2">"left_column"</span><span class="p">,</span>
     <span class="n">metric_width_ratio</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">kpi_stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"99.99%"</span><span class="p">,</span> <span class="s2">"Global Availability"</span><span class="p">,</span> <span class="s2">"Multi-region failover"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">)</span>
-<span class="n">kpi_stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"11.4ms"</span><span class="p">,</span> <span class="s2">"Edge P99 Latency"</span><span class="p">,</span> <span class="s2">"Anycast POP routing"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">)</span>
+<span class="n">kpi_stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"11.4ms"</span><span class="p">,</span>
+    <span class="s2">"Edge P99 Latency"</span><span class="p">,</span>
+    <span class="s2">"Anycast POP routing"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">kpi_stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"0 RPO"</span><span class="p">,</span> <span class="s2">"Sync Replication"</span><span class="p">,</span> <span class="s2">"Raft consensus quorum"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
 <span class="n">kpi_stack</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -519,13 +533,24 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 <span class="n">text</span><span class="p">((</span><span class="mf">72.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"2. Top-Stack Grid (columns=2)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">kpi_grid</span> <span class="o">=</span> <span class="n">KpiCards</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">16.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">accent_position</span><span class="o">=</span><span class="s2">"top_bar"</span><span class="p">,</span>
     <span class="n">metric_layout</span><span class="o">=</span><span class="s2">"top_stack"</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">kpi_grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2.4M"</span><span class="p">,</span> <span class="s2">"Peak RPS"</span><span class="p">,</span> <span class="s2">"Edge throughput"</span><span class="p">)</span>
-<span class="n">kpi_grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"-42%"</span><span class="p">,</span> <span class="s2">"Infra Cost"</span><span class="p">,</span> <span class="s2">"Spot autoscaling"</span><span class="p">)</span>
-<span class="n">kpi_grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4.2s"</span><span class="p">,</span> <span class="s2">"Cold Start"</span><span class="p">,</span> <span class="s2">" Snapshot restore"</span><span class="p">)</span>
+<span class="n">kpi_grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"-42%"</span><span class="p">,</span>
+    <span class="s2">"Infra Cost"</span><span class="p">,</span>
+    <span class="s2">"Spot autoscaling"</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">16.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">kpi_grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4.2s"</span><span class="p">,</span> <span class="s2">"Cold Start"</span><span class="p">,</span> <span class="s2">"Snapshot restore"</span><span class="p">)</span>
 <span class="n">kpi_grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"100%"</span><span class="p">,</span> <span class="s2">"TLS 1.3"</span><span class="p">,</span> <span class="s2">"Zero-trust mTLS"</span><span class="p">)</span>
 <span class="n">kpi_grid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">68.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">57.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
@@ -537,7 +562,7 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 </details>
 <hr />
 <h2>1. Vertical Metric Stack with Left-Column Layout (<code>metric_layout=&quot;left_column&quot;</code>)</h2>
-<p>When <code>metric_layout=&quot;left_column&quot;</code> (the default), each card reserves its left column (<code>metric_width_ratio</code>) for the large headline metric and places the <code>title</code> and <code>description</code> on the right, with an optional vector <code>icon</code> anchored on the far right of the card.</p>
+<p>When <code>metric_layout=&quot;left_column&quot;</code> (the default), each card reserves its left column (<code>metric_width_ratio</code>) for the large headline metric and places the card title (<code>text</code>) and <code>description</code> on the right, with an optional vector <code>icon</code> anchored on the far right of the card.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">KpiCards</span>
@@ -550,6 +575,11 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 
 <span class="n">slo_cards</span> <span class="o">=</span> <span class="n">KpiCards</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">16.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">accent_position</span><span class="o">=</span><span class="s2">"left_pill"</span><span class="p">,</span>
     <span class="n">metric_layout</span><span class="o">=</span><span class="s2">"left_column"</span><span class="p">,</span>
     <span class="n">metric_width_ratio</span><span class="o">=</span><span class="mf">0.28</span><span class="p">,</span>
@@ -566,6 +596,9 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
     <span class="s2">"Fraud Scoring Latency (P99)"</span><span class="p">,</span>
     <span class="s2">"In-memory feature store with gRPC streaming"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">16.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">slo_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"PCI-DSS"</span><span class="p">,</span>
@@ -583,7 +616,7 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 </figure>
 <hr />
 <h2>2. Multi-Column Dashboard Grid &amp; Custom Highlighting (<code>columns=2..N</code>)</h2>
-<p>Combining <code>metric_layout=&quot;top_stack&quot;</code> and <code>accent_position=&quot;top_bar&quot;</code> with <code>columns &gt;= 2</code> arranges cards into a multi-column row-major grid. You can also override <code>style</code>, <code>metric_style</code>, or <code>accent_style</code> on individual items (or mutate <code>kpi.items[i]</code> after registration) to highlight specific focal metrics.</p>
+<p>Combining <code>metric_layout=&quot;top_stack&quot;</code> and <code>accent_position=&quot;top_bar&quot;</code> with <code>columns &gt;= 2</code> arranges cards into a multi-column row-major grid. You can override <code>style</code>, <code>metric_style</code>, <code>text_style</code>, or <code>accent_style</code> on individual items (or mutate <code>kpi.items[i]</code> after registration) to highlight specific focal metrics.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">KpiCards</span>
@@ -596,11 +629,24 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">KpiCards</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">accent_position</span><span class="o">=</span><span class="s2">"top_bar"</span><span class="p">,</span>
     <span class="n">metric_layout</span><span class="o">=</span><span class="s2">"top_stack"</span><span class="p">,</span>
     <span class="n">spacing</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"310 Gbps"</span><span class="p">,</span> <span class="s2">"Peak Attack Volume"</span><span class="p">,</span> <span class="s2">"UDP &amp; SYN reflection"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">warning</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"310 Gbps"</span><span class="p">,</span>
+    <span class="s2">"Peak Attack Volume"</span><span class="p">,</span>
+    <span class="s2">"UDP &amp; SYN reflection"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4.2 sec"</span><span class="p">,</span> <span class="s2">"Time to Mitigate"</span><span class="p">,</span> <span class="s2">"Automated BGP Flowspec"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">)</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"0 Drops"</span><span class="p">,</span>
@@ -609,7 +655,7 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"48 POPs"</span><span class="p">,</span> <span class="s2">"Scrubbing Centers"</span><span class="p">,</span> <span class="s2">"Anycast edge absorption"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">Broadcast</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">phosphor</span><span class="p">,</span> <span class="s2">"Broadcast"</span><span class="p">)</span> <span class="k">else</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"48 POPs"</span><span class="p">,</span> <span class="s2">"Scrubbing Centers"</span><span class="p">,</span> <span class="s2">"Anycast edge absorption"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">)</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"$0.00"</span><span class="p">,</span> <span class="s2">"Overage Billing"</span><span class="p">,</span> <span class="s2">"Protected by EDoS shield"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">currency_dollar</span><span class="p">)</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"14 Rules"</span><span class="p">,</span> <span class="s2">"New WAF Signatures"</span><span class="p">,</span> <span class="s2">"JA3 &amp; ASN rate fingerprints"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">funnel</span><span class="p">)</span>
 
@@ -628,15 +674,15 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 <li><strong>Row-Major Grid Ordering</strong>: When <code>columns &gt; 1</code>, items are placed from <strong>top row to bottom row, left to right</strong>, so <code>items[0]</code> appears at the top-left of the bounding box.</li>
 <li><strong>Accent Positions (<code>accent_position</code>)</strong>:
 <ul>
-<li><code>&quot;left_pill&quot;</code> <em>(default)</em>: Draws a vertical rounded accent bar inside the left edge of each card.</li>
-<li><code>&quot;top_bar&quot;</code>: Draws a horizontal accent bar along the top edge of each card.</li>
+<li><code>&quot;left_pill&quot;</code> <em>(default)</em>: Draws a vertical rounded accent bar inside the left edge of each card (<code>accent_style</code> required).</li>
+<li><code>&quot;top_bar&quot;</code>: Draws a horizontal accent bar along the top edge of each card (<code>accent_style</code> required).</li>
 <li><code>&quot;none&quot;</code>: Omits the accent bar for a clean border-only card.</li>
 </ul>
 </li>
 <li><strong>Metric Layouts (<code>metric_layout</code>)</strong>:
 <ul>
 <li><code>&quot;left_column&quot;</code> <em>(default)</em>: Splits each card horizontally into a left metric zone (<code>metric_width_ratio</code>, default <code>0.28</code>) and a right title/description/icon zone. Best for <code>columns=1</code> or wide <code>columns=2</code> layouts.</li>
-<li><code>&quot;top_stack&quot;</code>: Stacks the large metric centered in the upper half of the card with the title and description centered below. Best for compact multi-column grids (<code>columns=2</code> or <code>3</code>).</li>
+<li><code>&quot;top_stack&quot;</code>: Stacks the large metric centered in the upper half of the card with the title (<code>text</code>) and <code>description</code> centered below. Best for compact multi-column grids (<code>columns=2</code> or <code>3</code>).</li>
 </ul>
 </li>
 </ul>
@@ -645,12 +691,12 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 <h3>Constructor</h3>
 <pre><code class="language-python"><span class="n">KpiCards</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">metric_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">metric_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">description_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">accent_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">accent_palette</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ColorRGB</span> <span class="o">|</span> <span class="n">ColorRGBA</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">accent_position</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"left_pill"</span><span class="p">,</span> <span class="s2">"top_bar"</span><span class="p">,</span> <span class="s2">"none"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left_pill"</span><span class="p">,</span>
     <span class="n">metric_layout</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"left_column"</span><span class="p">,</span> <span class="s2">"top_stack"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left_column"</span><span class="p">,</span>
     <span class="n">metric_width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.28</span><span class="p">,</span>
@@ -660,8 +706,8 @@ It supports both vertical stacks (<code>columns=1</code>) and multi-column dashb
 <p><em>(Alias: <code>KpiCard</code> is exported from <code>drawlib.smartarts</code> as an alias for <code>KpiCards</code>.)</em></p>
 <h3>Methods &amp; Properties</h3>
 <ul>
-<li><strong><code>add(metric: str, title: str, description: str = &quot;&quot;, *, icon: Callable | None = None, style: Style | None = None, metric_style: Style | None = None, title_style: Style | None = None, description_style: Style | None = None, accent_style: Style | None = None, icon_style: Style | None = None, show: bool = True) -&gt; KpiCardItem</code></strong>:
-Registers a metric card item and returns a mutable <code>KpiCardItem</code>. Setting <code>item.show = False</code> skips rendering that card while keeping all other cards' grid positions and dimensions fixed.</li>
+<li><strong><code>add(metric: str, text: str, description: str = &quot;&quot;, *, style: Style | None = None, metric_style: Style | None = None, text_style: Style | None = None, description_style: Style | None = None, accent_style: Style | None = None, icon: Callable | None = None, icon_style: Style | None = None, show: bool = True) -&gt; KpiCardItem</code></strong>:
+Registers a metric card item (<code>text</code> is the primary card title) and returns a mutable <code>KpiCardItem</code>. Setting <code>item.show = False</code> skips rendering that card while keeping all other cards' grid positions and dimensions fixed.</li>
 <li><strong><code>kpicards.items -&gt; list[KpiCardItem]</code></strong>:
 Returns the list of registered <code>KpiCardItem</code> instances for deferred style/text/visibility mutation.</li>
 <li><strong><code>draw(xy: tuple[float, float], width: float = 100.0, height: float = 60.0, *, columns: int = 1, scale: float = 1.0) -&gt; Self</code></strong>:

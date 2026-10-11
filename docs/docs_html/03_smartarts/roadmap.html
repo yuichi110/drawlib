@@ -476,7 +476,7 @@
             <main class="main-content">
                 <h1>Roadmap</h1>
 <p>The <code>Roadmap</code> component renders chronological timelines, agenda sequences, and phased engineering roadmaps along a vertical or horizontal spine.
-Each milestone pairs a spine badge (<code>badge_text</code>) and connector line with a rounded-rectangle or pill-shaped card (<code>card_shape=&quot;rounded_rect&quot; | &quot;pill&quot;</code>) containing a <code>title</code>, <code>subtitle</code>, and optional vector <code>icon</code>.</p>
+Each milestone pairs a spine badge (<code>badge_text</code>) and connector line with a rounded-rectangle or pill-shaped card (<code>card_shape=&quot;rounded_rect&quot; | &quot;pill&quot;</code>) containing a milestone title (<code>text</code>), supporting <code>description</code>, and optional vector <code>icon</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="roadmap_images/smartarts_roadmap_hero.png" alt="roadmap_1" />
   <figcaption class="drawlib-caption">Roadmap Spine Modes: Straight Vertical Timeline (curve_bend=0.0) vs. Curved Pill Agenda (curve_bend=0.22)</figcaption>
@@ -501,13 +501,35 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 <span class="n">text</span><span class="p">((</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">),</span> <span class="s2">"1. Straight Spine (curve_bend=0.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">rm_straight</span> <span class="o">=</span> <span class="n">Roadmap</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">spine_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">curve_bend</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">card_shape</span><span class="o">=</span><span class="s2">"rounded_rect"</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">rm_straight</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"T+00m: Alert Triggered"</span><span class="p">,</span> <span class="s2">"SYN flood hits 180 Gbps"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">warning</span><span class="p">)</span>
+<span class="n">rm_straight</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"T+00m: Alert Triggered"</span><span class="p">,</span>
+    <span class="s2">"SYN flood hits 180 Gbps"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">rm_straight</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"T+02m: BGP Scrubbing"</span><span class="p">,</span> <span class="s2">"Anycast diversion active"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">)</span>
-<span class="n">rm_straight</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"T+07m: SLA Restored"</span><span class="p">,</span> <span class="s2">"Origin P99 at 11.4ms"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">)</span>
+<span class="n">rm_straight</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"T+07m: SLA Restored"</span><span class="p">,</span>
+    <span class="s2">"Origin P99 at 11.4ms"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"3"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="n">rm_straight</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">55.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">)</span>
 
 <span class="n">circle</span><span class="p">((</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
@@ -518,11 +540,25 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 <span class="n">text</span><span class="p">((</span><span class="mf">73.0</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">),</span> <span class="s2">"2. Curved Pill Agenda (curve_bend=0.22)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">rm_curved</span> <span class="o">=</span> <span class="n">Roadmap</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">spine_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">curve_bend</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
     <span class="n">card_shape</span><span class="o">=</span><span class="s2">"pill"</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">rm_curved</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"01. Core Engine"</span><span class="p">,</span> <span class="s2">"Vector canvas &amp; themes"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"01"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">)</span>
+<span class="n">rm_curved</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"01. Core Engine"</span><span class="p">,</span>
+    <span class="s2">"Vector canvas &amp; themes"</span><span class="p">,</span>
+    <span class="n">badge_text</span><span class="o">=</span><span class="s2">"01"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="n">rm_curved</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"02. AI Agent CLI"</span><span class="p">,</span> <span class="s2">"Headless build &amp; grid review"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"02"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">robot</span><span class="p">)</span>
 <span class="n">rm_curved</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"03. Cloud &amp; GeoMap"</span><span class="p">,</span> <span class="s2">"GCP icons &amp; 215 maps"</span><span class="p">,</span> <span class="n">badge_text</span><span class="o">=</span><span class="s2">"03"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">globe_hemisphere_east</span><span class="p">)</span>
 <span class="n">rm_curved</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">68.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">)</span>
@@ -547,6 +583,13 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 <span class="n">text</span><span class="p">((</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"Zero-Downtime Sharded Database Migration — Execution Timeline"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">migration</span> <span class="o">=</span> <span class="n">Roadmap</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">spine_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">curve_bend</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">card_shape</span><span class="o">=</span><span class="s2">"rounded_rect"</span><span class="p">,</span>
@@ -568,7 +611,9 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
     <span class="s2">"Flip primary routing in Consul (&lt; 50ms drain) and archive legacy replica"</span><span class="p">,</span>
     <span class="n">badge_text</span><span class="o">=</span><span class="s2">"P3"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span>
-    <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">migration</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">108.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">44.0</span><span class="p">)</span>
 
@@ -580,7 +625,7 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 </figure>
 <hr />
 <h2>2. Horizontal Alternating Milestone Roadmap (<code>direction=&quot;horizontal&quot;</code>)</h2>
-<p>When <code>direction=&quot;horizontal&quot;</code>, the spine runs <strong>left-to-right</strong> with a rightward arrowhead. Setting <code>alternating=True</code> places even-indexed milestone cards (<code>0, 2, 4...</code>) <strong>above</strong> the horizontal spine and odd-indexed cards (<code>1, 3, 5...</code>) <strong>below</strong> the spine, allowing longer titles and subtitles without horizontal crowding.</p>
+<p>When <code>direction=&quot;horizontal&quot;</code>, the spine runs <strong>left-to-right</strong> with a rightward arrowhead. Setting <code>alternating=True</code> places even-indexed milestone cards (<code>0, 2, 4...</code>) <strong>above</strong> the horizontal spine and odd-indexed cards (<code>1, 3, 5...</code>) <strong>below</strong> the spine, allowing longer milestone titles (<code>text</code>) and descriptions (<code>description</code>) without horizontal crowding.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadmap</span>
@@ -592,6 +637,13 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 <span class="n">text</span><span class="p">((</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">50.5</span><span class="p">),</span> <span class="s2">"2026 Platform Engineering &amp; Reliability Roadmap (Horizontal Alternating)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
 <span class="n">quarters</span> <span class="o">=</span> <span class="n">Roadmap</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">spine_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
     <span class="n">alternating</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">card_shape</span><span class="o">=</span><span class="s2">"rounded_rect"</span><span class="p">,</span>
@@ -613,7 +665,9 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
     <span class="s2">"Anycast Workers &amp;</span><span class="se">\n</span><span class="s2">regional KV cache"</span><span class="p">,</span>
     <span class="n">badge_text</span><span class="o">=</span><span class="s2">"Q3"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span>
-    <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">quarters</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"Q4: Autonomous DR"</span><span class="p">,</span>
@@ -647,7 +701,7 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 </li>
 <li><strong>Card Shapes (<code>card_shape</code>)</strong>:
 <ul>
-<li><code>&quot;rounded_rect&quot;</code> <em>(default)</em>: Standard rounded rectangle card (<code>shape_r=2.0</code>) with a left accent stripe matching the milestone badge color.</li>
+<li><code>&quot;rounded_rect&quot;</code> <em>(default)</em>: Standard rounded rectangle card (<code>shape_r=2.0</code>) with a left accent stripe matching the milestone <code>badge_style</code>.</li>
 <li><code>&quot;pill&quot;</code>: Stadium/capsule card (<code>shape_r = card_height / 2</code>) ideal for curved agenda layouts.</li>
 </ul>
 </li>
@@ -657,23 +711,24 @@ Each milestone pairs a spine badge (<code>badge_text</code>) and connector line 
 <h3>Constructor</h3>
 <pre><code class="language-python"><span class="n">Roadmap</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">spine_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">badge_text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">description_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">direction</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"vertical"</span><span class="p">,</span> <span class="s2">"horizontal"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"vertical"</span><span class="p">,</span>
-    <span class="n">card_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">title_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">subtitle_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">badge_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">badge_text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">spine_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">badge_palette</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ColorRGB</span> <span class="o">|</span> <span class="n">ColorRGBA</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">curve_bend</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">card_shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"pill"</span><span class="p">,</span> <span class="s2">"rounded_rect"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rounded_rect"</span><span class="p">,</span>
     <span class="n">alternating</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <h3>Methods &amp; Properties</h3>
 <ul>
-<li><strong><code>add(title: str, subtitle: str = &quot;&quot;, *, description: str | None = None, badge_text: str | None = None, icon: Callable | None = None, card_style: Style | None = None, title_style: Style | None = None, subtitle_style: Style | None = None, badge_style: Style | None = None, badge_text_style: Style | None = None, icon_style: Style | None = None, show: bool = True) -&gt; RoadmapItem</code></strong>:
-Appends a milestone item and returns a mutable <code>RoadmapItem</code>. Setting <code>item.show = False</code> hides that milestone's badge, connector, and card while keeping the spine and all remaining milestones at their exact positions.</li>
+<li><strong><code>add(text: str, description: str = &quot;&quot;, *, badge_text: str | None = None, icon: Callable | None = None, style: Style | None = None, text_style: Style | None = None, description_style: Style | None = None, badge_style: Style | None = None, badge_text_style: Style | None = None, icon_style: Style | None = None, show: bool = True) -&gt; RoadmapItem</code></strong>:
+Appends a milestone item (<code>text</code> is the primary milestone title, <code>description</code> is the supporting subtitle/description) and returns a mutable <code>RoadmapItem</code>. Setting <code>item.show = False</code> hides that milestone's badge, connector, and card while keeping the spine and all remaining milestones at their exact positions.</li>
 <li><strong><code>roadmap.items -&gt; list[RoadmapItem]</code></strong>:
 Returns the list of registered <code>RoadmapItem</code> instances for deferred mutation.</li>
 <li><strong><code>draw(xy: tuple[float, float], width: float = 100.0, height: float = 60.0, *, scale: float = 1.0) -&gt; Self</code></strong>:

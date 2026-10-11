@@ -95,9 +95,9 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 | `BulletPoints` | Top-Left `(x, y)` | Downward list | `add(show=True)`, `set_indent()`, `set_bullet_style()`, `draw(scale=1.0)` | Architecture takeaways, RFC summaries, feature lists |
 | `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw(scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
 | `GeoMap` | Bottom-Left `(x, y)` | Equirectangular vector map | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()` | Multi-region cloud topology, country/city territory maps |
-| `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | Vertical stack or multi-column grid | `add(metric, title, description, show=True)`, `draw(xy, width, height, columns=1, scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
-| `CardList` | Bottom-Left `(x, y)` | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(title, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
-| `Roadmap` | Bottom-Left `(x, y)` | `"vertical"` (straight/curved) or `"horizontal"` (alternating) | `add(title, subtitle, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Release timelines, migration roadmaps, incident chronicles |
+| `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | Vertical stack or multi-column grid | `add(metric, text, description, show=True)`, `draw(xy, width, height, columns=1, scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
+| `CardList` | Bottom-Left `(x, y)` | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
+| `Roadmap` | Bottom-Left `(x, y)` | `"vertical"` (straight/curved) or `"horizontal"` (alternating) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Release timelines, migration roadmaps, incident chronicles |
 
 ---
 ## 3. Component 1: Table
@@ -952,17 +952,17 @@ save()
 ---
 ## 12c. Component 12: KpiCards (Metric & Highlight Cards)
 
-`KpiCards` (also aliased as `KpiCard`) renders KPI metrics, SLA targets, benchmark numbers, or specification highlights paired with titles, descriptions, optional Phosphor icons, and accent pills/bars in either a vertical stack (`columns=1`) or multi-column grid (`columns=2..N`).
+`KpiCards` (also aliased as `KpiCard`) renders KPI metrics, SLA targets, benchmark numbers, or specification highlights paired with titles (`text`), descriptions (`description`), optional Phosphor icons, and accent pills/bars in either a vertical stack (`columns=1`) or multi-column grid (`columns=2..N`).
 
 ### 12c.1 Constructor & Methods
 ```python
 kpi = KpiCards(
     style=Styles.Neutral,
-    metric_style=None,
-    title_style=None,
-    description_style=None,
-    accent_style=None,
-    accent_palette=None,
+    metric_style=Styles.PrimaryBold.patch(text_size=18.0),
+    text_style=Styles.DarkBold.patch(text_size=12.0),
+    description_style=Styles.Muted.patch(text_size=10.5),
+    accent_style=Styles.PrimaryFlat,
+    icon_style=Styles.PrimaryBold,
     accent_position="left_pill",   # "left_pill" | "top_bar" | "none"
     metric_layout="left_column",   # "left_column" | "top_stack"
     metric_width_ratio=0.28,
@@ -970,7 +970,7 @@ kpi = KpiCards(
 )
 item = kpi.add(
     metric="99.99%",
-    title="High Availability SLA",
+    text="High Availability SLA",
     description="Multi-region active-active failover",
     icon=phosphor.shield_check,
     show=True,
@@ -983,20 +983,54 @@ kpi.draw(xy=(10.0, 10.0), width=90.0, height=56.0, columns=1, scale=1.0)
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import KpiCards
+from drawlib.styles import Styles
 
 setup(width=180, height=70)
 
 # 1. Left: Vertical Stack (left_column layout)
-kpi_stack = KpiCards(accent_position="left_pill", metric_layout="left_column", spacing=3.0)
+kpi_stack = KpiCards(
+    style=Styles.Neutral,
+    metric_style=Styles.PrimaryBold.patch(text_size=18.0),
+    text_style=Styles.DarkBold.patch(text_size=12.0),
+    description_style=Styles.Muted.patch(text_size=10.5),
+    accent_style=Styles.PrimaryFlat,
+    icon_style=Styles.PrimaryBold,
+    accent_position="left_pill",
+    metric_layout="left_column",
+    spacing=3.0,
+)
 kpi_stack.add("99.99%", "High Availability SLA", "Multi-region active-active failover")
-kpi_stack.add("< 12ms", "Edge P99 Latency", "Global CDN & Anycast routing", icon=phosphor.lightning)
+kpi_stack.add(
+    "< 12ms",
+    "Edge P99 Latency",
+    "Global CDN & Anycast routing",
+    icon=phosphor.lightning,
+    metric_style=Styles.AccentBold.patch(text_size=18.0),
+    accent_style=Styles.AccentFlat,
+    icon_style=Styles.AccentBold,
+)
 kpi_stack.add("Zero-Dep", "Pure Python Core", "No external GUI tools required")
 kpi_stack.draw(xy=(6.0, 7.0), width=82.0, height=56.0, columns=1)
 
 # 2. Right: 2x2 Grid (top_stack layout)
-kpi_grid = KpiCards(accent_position="top_bar", metric_layout="top_stack", spacing=3.5)
+kpi_grid = KpiCards(
+    style=Styles.Neutral,
+    metric_style=Styles.PrimaryBold.patch(text_size=18.0),
+    text_style=Styles.DarkBold.patch(text_size=11.5),
+    description_style=Styles.Muted.patch(text_size=10.0),
+    accent_style=Styles.PrimaryFlat,
+    accent_position="top_bar",
+    metric_layout="top_stack",
+    spacing=3.5,
+)
 kpi_grid.add("300M+", "Peak RPS", "Botnet flood volume")
-kpi_grid.add("$6,750", "Hourly Cost", "L7 EDoS billing spike")
+kpi_grid.add(
+    "$6,750",
+    "Hourly Cost",
+    "L7 EDoS billing spike",
+    metric_style=Styles.AccentBold.patch(text_size=18.0),
+    accent_style=Styles.AccentFlat,
+)
 kpi_grid.add("4.2 sec", "Auto Mitigation", "BGP Flowspec trigger")
 kpi_grid.add("100%", "Traffic Scrubbed", "Zero customer downtime")
 kpi_grid.draw(xy=(94.0, 7.0), width=80.0, height=56.0, columns=2)
@@ -1013,20 +1047,19 @@ save()
 ```python
 cl = CardList(
     style=Styles.Neutral,
-    title_style=None,
-    description_style=None,
+    text_style=Styles.DarkBold.patch(text_size=12.0),
+    description_style=Styles.Muted.patch(text_size=10.5),
     badge_shape="rounded_rect",   # "rounded_rect" | "circle" | "none"
-    badge_style=None,
-    badge_text_style=None,
-    badge_palette=None,
-    icon_style=None,
+    badge_style=Styles.PrimaryNeutral,
+    badge_text_style=Styles.PrimaryBold.patch(text_size=11.0),
+    icon_style=Styles.PrimaryBold,
     direction="vertical",         # "vertical" | "horizontal"
     spacing=2.5,
     show_arrows=False,
     arrow_style=None,
 )
 item = cl.add(
-    title="Edge Anycast Scrubbing",
+    text="Edge Anycast Scrubbing",
     description="Drop volumetric UDP/SYN floods at POPs",
     badge_text="L1",
     icon=phosphor.shield_check,
@@ -1040,16 +1073,30 @@ cl.draw(xy=(10.0, 10.0), width=90.0, height=56.0, scale=1.0)
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import CardList
+from drawlib.styles import Styles
 
 setup(width=185, height=70)
 
 # 1. Left: Vertical Feature Stack with Icon + Text Badges
-cl_v = CardList(direction="vertical", badge_shape="rounded_rect", spacing=3.0)
+cl_v = CardList(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.5),
+    description_style=Styles.Muted.patch(text_size=10.0),
+    badge_shape="rounded_rect",
+    badge_style=Styles.PrimaryNeutral,
+    badge_text_style=Styles.PrimaryBold.patch(text_size=10.0),
+    icon_style=Styles.PrimaryBold,
+    direction="vertical",
+    spacing=3.0,
+)
 cl_v.add(
     "Edge Anycast Scrubbing",
     "Drop volumetric UDP/SYN floods at POPs",
     badge_text="L1",
     icon=phosphor.shield_check,
+    badge_style=Styles.PrimaryFlat,
+    badge_text_style=Styles.WhiteBold.patch(text_size=10.0),
+    icon_style=Styles.WhiteBold,
 )
 cl_v.add(
     "Cloud Armor Rate Limiting",
@@ -1066,10 +1113,27 @@ cl_v.add(
 cl_v.draw(xy=(6.0, 7.0), width=83.0, height=56.0)
 
 # 2. Right: Horizontal Step Sequence with Connecting Arrows
-cl_h = CardList(direction="horizontal", badge_shape="circle", show_arrows=True, spacing=4.5)
+cl_h = CardList(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.5),
+    description_style=Styles.Muted.patch(text_size=10.0),
+    badge_shape="circle",
+    badge_style=Styles.PrimaryNeutral,
+    icon_style=Styles.PrimaryBold,
+    direction="horizontal",
+    show_arrows=True,
+    arrow_style=Styles.Dark,
+    spacing=4.5,
+)
 cl_h.add("1. Write Code", "Python API\nin Markdown", icon=phosphor.code)
 cl_h.add("2. Build Docs", "Headless SVG\n& HTML build", icon=phosphor.gear)
-cl_h.add("3. AI Review", "Grid check &\nself-healing", icon=phosphor.eye)
+cl_h.add(
+    "3. AI Review",
+    "Grid check &\nself-healing",
+    icon=phosphor.eye,
+    badge_style=Styles.PrimaryFlat,
+    icon_style=Styles.WhiteBold,
+)
 cl_h.draw(xy=(96.0, 12.0), width=83.0, height=46.0)
 
 save()
@@ -1078,26 +1142,26 @@ save()
 ---
 ## 12e. Component 14: Roadmap (Timeline & Milestone Roadmaps)
 
-`Roadmap` renders chronological milestone timelines, release roadmaps, migration phases, or incident chronicles along a straight or curved Bezier spine (`direction="vertical" | "horizontal"`), pairing spine badges with detailed rounded-rect or pill cards (`card_shape="rounded_rect" | "pill"`) containing titles, subtitles, and optional Phosphor icons.
+`Roadmap` renders chronological milestone timelines, release roadmaps, migration phases, or incident chronicles along a straight or curved Bezier spine (`direction="vertical" | "horizontal"`), pairing spine badges with detailed rounded-rect or pill cards (`card_shape="rounded_rect" | "pill"`) containing titles (`text`), descriptions/subtitles (`description`), and optional Phosphor icons.
 
 ### 12e.1 Constructor & Methods
 ```python
 rm = Roadmap(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.5),
+    description_style=Styles.Muted.patch(text_size=10.0),
+    spine_style=Styles.DarkBold,
+    badge_style=Styles.SecondaryNeutral,
+    badge_text_style=Styles.DarkBold.patch(text_size=10.5),
+    icon_style=Styles.PrimaryBold,
     direction="vertical",         # "vertical" | "horizontal"
-    card_style=Styles.Neutral,
-    title_style=None,
-    subtitle_style=None,
-    badge_style=None,
-    badge_text_style=None,
-    spine_style=None,
-    badge_palette=None,
     curve_bend=0.0,               # -0.5..0.5 Bezier bend for vertical spine (0.0 = straight arrow)
     card_shape="rounded_rect",    # "rounded_rect" | "pill"
     alternating=False,            # True alternates cards above/below spine (horizontal mode)
 )
 item = rm.add(
-    title="Foundation & Core Engine",
-    subtitle="Pure-Python vector canvas & 10+ SmartArts",
+    text="Foundation & Core Engine",
+    description="Pure-Python vector canvas & 10+ SmartArts",
     badge_text="Q1",
     icon=phosphor.cube,
     show=True,
@@ -1110,29 +1174,91 @@ rm.draw(xy=(10.0, 10.0), width=90.0, height=60.0, scale=1.0)
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import Roadmap
+from drawlib.styles import Styles
 
 setup(width=185, height=110)
 
 # 1. Top-Left: Vertical Straight Spine
-rm_v1 = Roadmap(direction="vertical", curve_bend=0.0, card_shape="rounded_rect")
-rm_v1.add("Foundation & Core Engine", "Pure-Python vector canvas & themes", badge_text="Q1", icon=phosphor.cube)
+rm_v1 = Roadmap(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Muted.patch(text_size=9.5),
+    spine_style=Styles.DarkBold,
+    badge_style=Styles.SecondaryNeutral,
+    badge_text_style=Styles.DarkBold.patch(text_size=10.0),
+    icon_style=Styles.PrimaryBold,
+    direction="vertical",
+    curve_bend=0.0,
+    card_shape="rounded_rect",
+)
+rm_v1.add(
+    "Foundation & Core Engine",
+    "Pure-Python vector canvas & themes",
+    badge_text="Q1",
+    icon=phosphor.cube,
+    badge_style=Styles.PrimaryFlat,
+    badge_text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
 rm_v1.add("AI Agent Rules & CLI", "Headless HTML/PDF build & grid review", badge_text="Q2", icon=phosphor.robot)
 rm_v1.add("Enterprise Cloud & GeoMap", "GCP diagrams & 215 country maps", badge_text="Q3", icon=phosphor.globe_hemisphere_east)
 rm_v1.draw(xy=(6.0, 48.0), width=84.0, height=56.0)
 
 # 2. Top-Right: Vertical Curved Spine (Pill Cards)
-rm_v2 = Roadmap(direction="vertical", curve_bend=0.22, card_shape="pill")
-rm_v2.add("1. Edge Anomaly Detected", "SYN/UDP flood hits 180 Gbps at Tokyo POP", badge_text="01", icon=phosphor.warning)
+rm_v2 = Roadmap(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Muted.patch(text_size=9.5),
+    spine_style=Styles.DarkBold,
+    badge_style=Styles.SecondaryNeutral,
+    badge_text_style=Styles.DarkBold.patch(text_size=10.0),
+    icon_style=Styles.PrimaryBold,
+    direction="vertical",
+    curve_bend=0.22,
+    card_shape="pill",
+)
+rm_v2.add(
+    "1. Edge Anomaly Detected",
+    "SYN/UDP flood hits 180 Gbps at Tokyo POP",
+    badge_text="01",
+    icon=phosphor.warning,
+    badge_style=Styles.AccentFlat,
+    badge_text_style=Styles.WhiteBold.patch(text_size=10.0),
+    icon_style=Styles.AccentBold,
+)
 rm_v2.add("2. Anycast Scrubbing Active", "Malicious ASN traffic diverted to scrubbing", badge_text="02", icon=phosphor.shield_check)
-rm_v2.add("3. Service Fully Restored", "Origin P99 latency stabilized at 11.4ms", badge_text="03", icon=phosphor.check_circle)
+rm_v2.add(
+    "3. Service Fully Restored",
+    "Origin P99 latency stabilized at 11.4ms",
+    badge_text="03",
+    icon=phosphor.check_circle,
+    badge_style=Styles.PrimaryFlat,
+    badge_text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
 rm_v2.draw(xy=(96.0, 48.0), width=83.0, height=56.0)
 
 # 3. Bottom: Horizontal Alternating Timeline
-rm_h = Roadmap(direction="horizontal", alternating=True)
+rm_h = Roadmap(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Muted.patch(text_size=9.5),
+    spine_style=Styles.DarkBold,
+    badge_style=Styles.SecondaryNeutral,
+    badge_text_style=Styles.DarkBold.patch(text_size=10.0),
+    icon_style=Styles.PrimaryBold,
+    direction="horizontal",
+    alternating=True,
+)
 rm_h.add("Audit & Discovery", "Map legacy Visio diagrams", badge_text="P1", icon=phosphor.magnifying_glass)
 rm_h.add("Scaffold Repo", "Run drawlib init site", badge_text="P2", icon=phosphor.folder_open)
 rm_h.add("CI/CD Pipeline", "Automate build & checks", badge_text="P3", icon=phosphor.git_branch)
-rm_h.add("Production Launch", "Publish HTML & A4 PDF", badge_text="P4", icon=phosphor.rocket_launch)
+rm_h.add(
+    "Production Launch",
+    "Publish HTML & A4 PDF",
+    badge_text="P4",
+    icon=phosphor.rocket_launch,
+    badge_style=Styles.PrimaryFlat,
+    badge_text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
 rm_h.draw(xy=(6.0, 5.0), width=173.0, height=38.0)
 
 save()

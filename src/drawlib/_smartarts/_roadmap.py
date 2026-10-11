@@ -11,70 +11,51 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Callable
 from typing import Any, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib import styles as _styles
-from drawlib._core.l2_types import ColorRGB, ColorRGBA, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import line_bezier1 as canvas_line_bezier1
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
-from drawlib._core.l4_canvas import text as canvas_text
 from drawlib._core.l4_canvas import transform
-
-_DEFAULT_ROADMAP_PALETTE: tuple[ColorRGB | ColorRGBA, ...] = (
-    (37, 99, 235),
-    (13, 148, 136),
-    (245, 158, 11),
-    (124, 58, 237),
-    (220, 38, 38),
-    (16, 185, 129),
-)
+from drawlib._smartarts._common import draw_card_title_and_description
 
 
 class RoadmapItem(BaseModel):
     """Mutable item model for a single milestone or phase node in Roadmap.
 
     Attributes:
-        title: Primary milestone or phase title text.
-        subtitle: Supporting subtitle or description text.
+        text: Primary milestone or phase title text.
+        description: Optional supporting description or subtitle text.
         badge_text: Short label displayed on the spine badge (e.g. "1", "Q1", "T+0m").
         icon: Optional icon drawing callable displayed inside the milestone card.
-        card_style: Style for the milestone card container.
-        title_style: Text style for the milestone title.
-        subtitle_style: Text style for the milestone subtitle.
+        style: Style for the milestone card container.
+        text_style: Text style for the milestone title.
+        description_style: Optional text style for the milestone description.
         badge_style: Style for the milestone badge on the spine.
         badge_text_style: Text style for the badge label.
-        icon_style: Style passed to the icon callable.
+        icon_style: Optional style passed to the icon callable.
         show: Whether to render this milestone item while preserving timeline geometry.
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    title: str
-    subtitle: str = ""
+    text: str
+    description: str = ""
     badge_text: str | None = None
     icon: Callable[..., Any] | None = None
-    card_style: Style
-    title_style: Style
-    subtitle_style: Style
+    style: Style
+    text_style: Style
+    description_style: Style | None = None
     badge_style: Style
     badge_text_style: Style
-    icon_style: Style
+    icon_style: Style | None = None
     show: bool = True
-
-    @property
-    def description(self) -> str:
-        """Alias for subtitle."""
-        return self.subtitle
-
-    @description.setter
-    def description(self, value: str) -> None:
-        self.subtitle = value
 
 
 class Roadmap:
@@ -84,88 +65,56 @@ class Roadmap:
     def __init__(  # noqa: PLR0913
         self,
         *,
+        style: Style,
+        text_style: Style,
+        spine_style: Style,
+        badge_style: Style,
+        badge_text_style: Style,
+        description_style: Style | None = None,
+        icon_style: Style | None = None,
         direction: Literal["vertical", "horizontal"] = "vertical",
-        card_style: Style | None = None,
-        title_style: Style | None = None,
-        subtitle_style: Style | None = None,
-        badge_style: Style | None = None,
-        badge_text_style: Style | None = None,
-        spine_style: Style | None = None,
-        badge_palette: Sequence[ColorRGB | ColorRGBA] | None = None,
         curve_bend: float = 0.0,
         card_shape: Literal["pill", "rounded_rect"] = "rounded_rect",
         alternating: bool = False,
+        spacing: PosFloat = 2.5,
     ) -> None:
-        """Initialize Roadmap.
+        """Initialize Roadmap with explicit default styles.
 
         Args:
+            style: Default style for milestone card containers.
+            text_style: Default text style for milestone titles.
+            spine_style: Line style for the timeline/roadmap spine.
+            badge_style: Default style for spine milestone badges.
+            badge_text_style: Default text style for spine badge labels.
+            description_style: Default text style for milestone descriptions/subtitles.
+            icon_style: Default style passed to milestone card icons.
             direction: Spine orientation ("vertical" for top-to-bottom timeline/agenda,
                 "horizontal" for left-to-right milestone roadmap). Defaults to "vertical".
-            card_style: Default style for milestone cards. Defaults to Styles.Neutral.
-            title_style: Default text style for milestone titles. Defaults to Styles.DarkBold.
-            subtitle_style: Default text style for milestone subtitles. Defaults to muted Dark text.
-            badge_style: Optional uniform style for spine badges. If None, cycles through
-                badge_palette automatically.
-            badge_text_style: Default text style for spine badge labels. Defaults to Styles.WhiteBold.
-            spine_style: Line style for the timeline/roadmap spine.
-            badge_palette: Sequence of RGB/RGBA color tuples cycled per milestone when badge_style is None.
             curve_bend: Quadratic Bezier bend ratio for vertical roadmaps (between -0.5 and 0.5;
                 0.0 renders a straight spine with an arrowhead). Defaults to 0.0.
             card_shape: Shape of milestone cards ("rounded_rect" or "pill"). Defaults to "rounded_rect".
             alternating: Whether horizontal roadmap cards alternate above and below the spine.
                 Defaults to False.
+            spacing: Gap in canvas units between adjacent milestone cards. Defaults to 2.5.
 
         Raises:
-            ValueError: If curve_bend is outside [-0.5, 0.5] or badge_palette is empty when provided.
+            ValueError: If curve_bend is outside [-0.5, 0.5].
         """
         if not -0.5 <= curve_bend <= 0.5:
             raise ValueError("curve_bend must be between -0.5 and 0.5.")
-        if badge_palette is not None and len(badge_palette) == 0:
-            raise ValueError("badge_palette must not be empty when provided.")
 
-        default_card_style = _styles.Styles.Neutral
-        if default_card_style.shape_r is None:
-            default_card_style = default_card_style.patch(shape_r=2.0)
-
+        self._style: Style = style
+        self._text_style: Style = text_style
+        self._spine_style: Style = spine_style
+        self._badge_style: Style = badge_style
+        self._badge_text_style: Style = badge_text_style
+        self._description_style: Style | None = description_style
+        self._icon_style: Style | None = icon_style
         self._direction: Literal["vertical", "horizontal"] = direction
-        self._card_style: Style = card_style if card_style is not None else default_card_style
-        self._title_style: Style = (
-            title_style
-            if title_style is not None
-            else _styles.Styles.DarkBold.patch(
-                text_size=10.2,
-                text_color=(15, 23, 42),
-                halign="left",
-                valign="center",
-            )
-        )
-        self._subtitle_style: Style = (
-            subtitle_style
-            if subtitle_style is not None
-            else _styles.Styles.Dark.patch(
-                text_size=9.5,
-                text_color=(100, 116, 139),
-                halign="left",
-                valign="center",
-            )
-        )
-        self._badge_style: Style | None = badge_style
-        self._badge_text_style: Style = (
-            badge_text_style
-            if badge_text_style is not None
-            else _styles.Styles.WhiteBold.patch(text_size=9.5, halign="center", valign="center")
-        )
-        self._spine_style: Style = (
-            spine_style
-            if spine_style is not None
-            else Style(line_color=(148, 163, 184), line_width=2.5)
-        )
-        self._badge_palette: tuple[ColorRGB | ColorRGBA, ...] = (
-            tuple(badge_palette) if badge_palette is not None else _DEFAULT_ROADMAP_PALETTE
-        )
         self._curve_bend: float = float(curve_bend)
         self._card_shape: Literal["pill", "rounded_rect"] = card_shape
         self._alternating: bool = bool(alternating)
+        self._spacing: float = float(spacing)
         self._items: list[RoadmapItem] = []
 
     @property
@@ -176,15 +125,14 @@ class Roadmap:
     @validate_call
     def add(  # noqa: PLR0913
         self,
-        title: str,
-        subtitle: str = "",
+        text: str,
+        description: str = "",
         *,
-        description: str | None = None,
         badge_text: str | None = None,
         icon: Callable[..., Any] | None = None,
-        card_style: Style | None = None,
-        title_style: Style | None = None,
-        subtitle_style: Style | None = None,
+        style: Style | None = None,
+        text_style: Style | None = None,
+        description_style: Style | None = None,
         badge_style: Style | None = None,
         badge_text_style: Style | None = None,
         icon_style: Style | None = None,
@@ -193,55 +141,58 @@ class Roadmap:
         """Add a milestone or phase item to the roadmap.
 
         Args:
-            title: Primary milestone or phase title text.
-            subtitle: Supporting subtitle or description text. Defaults to "".
-            description: Optional alias for subtitle.
+            text: Primary milestone or phase title text.
+            description: Supporting description or subtitle text. Defaults to "".
             badge_text: Optional short label on the spine badge (defaults to "1", "2", ... if None).
             icon: Optional icon drawing function displayed inside the milestone card.
-            card_style: Custom style for this milestone's card container.
-            title_style: Custom text style for this milestone's title.
-            subtitle_style: Custom text style for this milestone's subtitle.
-            badge_style: Custom style for this milestone's spine badge.
+            style: Custom style for this milestone's card container. If None, default style is used.
+            text_style: Custom text style for this milestone's title. If None, default text_style is used.
+            description_style: Custom text style for this milestone's description.
+                If None, default description_style is used.
+            badge_style: Custom style for this milestone's spine badge. If None, default badge_style is used.
             badge_text_style: Custom text style for this milestone's badge label.
-            icon_style: Custom style for this milestone's icon.
+                If None, default badge_text_style is used.
+            icon_style: Custom style for this milestone's icon. If None, default icon_style is used.
             show: Whether to render this milestone item. Defaults to True.
 
         Returns:
             RoadmapItem: The created mutable roadmap item instance.
+
+        Raises:
+            ValueError: If description or icon is provided without a corresponding style.
         """
         idx = len(self._items)
-        palette_color = self._badge_palette[idx % len(self._badge_palette)]
+        effective_style = style if style is not None else self._style
+        effective_text_style = text_style if text_style is not None else self._text_style
+        effective_desc_style = description_style if description_style is not None else self._description_style
+        effective_badge_style = badge_style if badge_style is not None else self._badge_style
+        effective_badge_text_style = badge_text_style if badge_text_style is not None else self._badge_text_style
+        effective_icon_style = icon_style if icon_style is not None else self._icon_style
 
-        if badge_style is not None:
-            resolved_badge_style = badge_style
-        elif self._badge_style is not None:
-            resolved_badge_style = self._badge_style
-        else:
-            resolved_badge_style = Style(
-                shape_fill_color=palette_color,
-                shape_line_color=palette_color,
-                shape_line_width=0.0,
+        if bool(description.strip()) and effective_desc_style is None:
+            raise ValueError(
+                "Neither default 'description_style' nor item 'description_style' was provided "
+                f"for description of item '{text}'."
+            )
+        if icon is not None and effective_icon_style is None:
+            raise ValueError(
+                "Neither default 'icon_style' nor item 'icon_style' was provided "
+                f"for icon of item '{text}'."
             )
 
-        badge_color = resolved_badge_style.shape_fill_color or palette_color
-        resolved_sub = description if description is not None else subtitle
         resolved_badge_text = badge_text if badge_text is not None else str(idx + 1)
 
         item = RoadmapItem(
-            title=title,
-            subtitle=resolved_sub,
+            text=text,
+            description=description,
             badge_text=resolved_badge_text,
             icon=icon,
-            card_style=card_style if card_style is not None else self._card_style,
-            title_style=title_style if title_style is not None else self._title_style,
-            subtitle_style=subtitle_style if subtitle_style is not None else self._subtitle_style,
-            badge_style=resolved_badge_style,
-            badge_text_style=badge_text_style if badge_text_style is not None else self._badge_text_style,
-            icon_style=(
-                icon_style
-                if icon_style is not None
-                else _styles.Styles.Primary.patch(icon_color=badge_color)
-            ),
+            style=effective_style,
+            text_style=effective_text_style,
+            description_style=effective_desc_style,
+            badge_style=effective_badge_style,
+            badge_text_style=effective_badge_text_style,
+            icon_style=effective_icon_style,
             show=show,
         )
         self._items.append(item)
@@ -298,7 +249,8 @@ class Roadmap:
         max_badge_len = max((len(it.badge_text or "") for it in self._items), default=1)
         is_wide_badge = max_badge_len >= 3
 
-        card_h = min(13.0, max(5.5, (total_h - 6.0) / max(num_items * 1.25, 1.0)))
+        avail_h = total_h - 6.0 - max(0, num_items - 1) * self._spacing
+        card_h = min(13.0, max(5.5, avail_h / max(num_items, 1)))
         badge_h = min(6.0, card_h * 0.56)
         badge_w = max(badge_h, min(13.0, total_w * 0.14)) if is_wide_badge else badge_h
 
@@ -326,11 +278,10 @@ class Roadmap:
                 continue
 
             yi = y_first - i * step_y if num_items > 1 else y0 + total_h / 2.0
-            tick_color = item.badge_style.shape_fill_color or (148, 163, 184)
             canvas_line(
                 xy1=(spine_x, yi),
                 xy2=(card_left, yi),
-                style=Style(line_color=tick_color, line_width=1.8),
+                style=self._spine_style,
             )
 
             if is_wide_badge:
@@ -380,7 +331,8 @@ class Roadmap:
             style=self._spine_style,
         )
 
-        card_h = min(12.0, max(5.5, (total_h * 0.84) / max(num_items * 1.25, 1.0)))
+        avail_h = total_h * 0.84 - max(0, num_items - 1) * self._spacing
+        card_h = min(12.0, max(5.5, avail_h / max(num_items, 1)))
         r_badge = min(3.4, card_h * 0.34)
 
         for i, item in enumerate(self._items):
@@ -444,9 +396,9 @@ class Roadmap:
             style=self._spine_style,
         )
 
-        base_w = max(8.0, (total_w - 6.0 - (num_items - 1) * 2.5) / num_items)
+        base_w = max(8.0, (total_w - 6.0 - (num_items - 1) * self._spacing) / num_items)
         if self._alternating and num_items >= 3:
-            max_alt_w = (2.0 * (total_w - 5.0) - 3.0 * (num_items - 1)) / (num_items + 1)
+            max_alt_w = (2.0 * (total_w - 5.0) - self._spacing * (num_items - 1)) / (num_items + 1)
             card_w = max(8.0, min(base_w * 1.24, max_alt_w))
         else:
             card_w = base_w
@@ -464,20 +416,16 @@ class Roadmap:
             cy_card = cy_top if is_top else cy_bot
             y_stem_end = cy_card - card_h / 2.0 if is_top else cy_card + card_h / 2.0
 
-            tick_color = item.badge_style.shape_fill_color or (148, 163, 184)
             canvas_line(
                 xy1=(xi, y_spine),
                 xy2=(xi, y_stem_end),
-                style=Style(line_color=tick_color, line_width=1.8),
+                style=self._spine_style,
             )
 
             canvas_circle(
                 xy=(xi, y_spine),
                 radius=r_badge,
-                style=item.badge_style.patch(
-                    shape_line_color=(255, 255, 255),
-                    shape_line_width=1.3,
-                ),
+                style=item.badge_style,
                 text=item.badge_text or "",
                 text_style=item.badge_text_style.patch(halign="center", valign="center"),
             )
@@ -499,9 +447,13 @@ class Roadmap:
         card_w: float,
         card_h: float,
     ) -> None:
-        """Render a milestone card box and its optional icon, title, and subtitle."""
-        shape_r = card_h / 2.0 if self._card_shape == "pill" else min(2.2, card_h * 0.18)
-        c_style = item.card_style.patch(shape_r=shape_r)
+        """Render a milestone card box and its optional icon, title, and description."""
+        if self._card_shape == "pill":
+            c_style = item.style.patch(shape_r=card_h / 2.0)
+        elif item.style.shape_r is None:
+            c_style = item.style.patch(shape_r=min(2.2, card_h * 0.18))
+        else:
+            c_style = item.style
         canvas_rectangle(xy=(cx, cy), width=card_w, height=card_h, style=c_style)
 
         x_left = cx - card_w / 2.0
@@ -509,19 +461,20 @@ class Roadmap:
         text_x = x_left + pad_x
 
         if item.icon is not None:
+            if item.icon_style is None:
+                raise ValueError(f"icon_style is required for icon of item '{item.text}'.")
             icon_w = min(card_h * 0.36, card_w * 0.14, 4.2)
             icon_cx = text_x + icon_w / 2.0
             item.icon((icon_cx, cy), width=icon_w, style=item.icon_style)
             text_x = icon_cx + icon_w / 2.0 + max(1.6, card_w * 0.03)
 
-        has_sub = bool(item.subtitle.strip())
-        t_style = item.title_style.patch(halign="left", valign="center")
-
-        if has_sub:
-            title_y = cy + card_h * 0.18
-            sub_y = cy - card_h * 0.18
-            s_style = item.subtitle_style.patch(halign="left", valign="center")
-            canvas_text(xy=(text_x, title_y), text=item.title, style=t_style)
-            canvas_text(xy=(text_x, sub_y), text=item.subtitle, style=s_style)
-        else:
-            canvas_text(xy=(text_x, cy), text=item.title, style=t_style)
+        draw_card_title_and_description(
+            text_x=text_x,
+            cy=cy,
+            card_h=card_h,
+            text=item.text,
+            description=item.description,
+            text_style=item.text_style,
+            description_style=item.description_style,
+            halign="left",
+        )
