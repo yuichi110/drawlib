@@ -1,242 +1,160 @@
 # Drawlib Slide ステージヘルパー拡張計画書 (`drawlib.slide`)
-(DRAWLIB SLIDE HELPERS EXPANSION PLAN)
+(DRAWLIB SLIDE HELPERS EXPANSION PLAN — REVISED v2)
 
-- **作成日**: 2026-10-10
+- **作成日**: 2026-10-10（2026-10-11 SmartArts 拡充およびセクションヘッダー複数パターン対応に伴い改訂）
 - **対象バージョン**: Drawlib 次期マイナーリリース (`v0.3.x` / `v0.4.x`)
-- **関連計画書**: [`.agents/plans/SMARTARTS_EXPANSION_PLAN.md`](file:///usr/local/google/home/yuichiito/git_github/drawlib/.agents/plans/SMARTARTS_EXPANSION_PLAN.md)（汎用図解コンポーネント `KpiCards`, `CardList`, `Roadmap` の `drawlib.smartarts` 拡張計画）
+- **関連計画書**: [`.agents/plans/SMARTARTS_EXPANSION_PLAN.md`](file:///usr/local/google/home/yuichiito/git_github/drawlib/.agents/plans/SMARTARTS_EXPANSION_PLAN.md)（実装完了：`KpiCards`, `CardList`, `Roadmap`, `Panel`）
 - **対象モジュール**:
-  - `src/drawlib/slide.py` (公開ファサード: スライド描画ヘルパー関数群をエクスポート)
-  - `src/drawlib/_slide/helpers.py` (新規: スライド専用ステージ描画ヘルパーの実装)
-  - `src/drawlib/_templates/project/slide/utils/` (`default.py.template`, `google.py.template`, `monochrome.py.template` の重複解消とスリム化)
+  - `src/drawlib/slide.py` (公開ファサード: `draw_page_number`, `draw_section_header` をエクスポート)
+  - `src/drawlib/_slide/helpers.py` (新規: スライド専用ステージ・ページ描画ヘルパーの実装)
+  - `src/drawlib/_templates/_project.py` & `src/drawlib/_templates/project/slide/` (重複していた `utils/*.py.template` 3ファイル約1,600行の整理と `Roadmap` / `drawlib.slide` への移行)
   - `src/drawlib/_rules/lib_slide.md`, `project_slide.md`, `slide_guide.md`, `api.md` (AIエージェント向けルールの更新)
-  - `tests/drawlib/slide/` (単体テストの追加)
+  - `docs/` (`slide_about_drawlib_src/`, `slide_ddos_incident_response_src/`, `docs_src/` のドッグフーディング更新)
+  - `tests/drawlib/slide/` (単体テストの追加・更新)
 
 ---
 
-## 1. エグゼクティブサマリー & 背景 (Executive Summary & Background)
+## 1. 改訂の背景と基本方針 (Background & Core Decisions)
 
-### 1.1. 現状の課題
-現在、`drawlib.slide` モジュール（`src/drawlib/slide.py`）にはランタイム状態管理とビルド関数（`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`）のみが定義されており、**スライド固有の描画ヘルパー関数は1つも含まれていない**。
+### 1.1. これまでの合意事項まとめ
+1. **`drawlib.slide` に収録する関数を2つに厳選（スリム案）**:
+   - **`draw_page_number()`**: スライド右下のページ番号（`current_slide.text` / `format`）を透過背景（`14×3`, `alpha=0.0`）で描画。
+   - **`draw_section_header()`**: 16:9 フルブリード（`192×108`）のセクションヘッダーページ（`01_section.md`）を一括描画。
+   - ※アジェンダ曲線・KPIカード・フェーズ進行バー・コールアウト枠などの汎用図解は、実装済みの `drawlib.smartarts`（`Roadmap`, `KpiCards`, `CardList`, `ChevronProcess`, `Panel`）に統一し、`drawlib.slide` には重複実装しない。
+2. **命名は一般的なスライド用語である `| パターン名 (`variant`) | 視覚構造・特徴 (`192.0 × 108.0` キャンバス) | `topics` 指定時の描画方法 | 最適なユースケース |
+| :--- | :--- | :--- | :--- |
+| **`"split"`**<br>*(デフォルト・左右分割型)* | 左パネル (`w=72`, `DarkFlat`) に大きなセクション番号 (`01`) と進行ドット、境界に `PrimaryFlat` 縦バー、右パネル (`w=120`, `Neutral`) にタイトル・サブタイトルを配置。 | 右パネル下半分の領域に **`CardList(direction="vertical", badge_shape="circle")`** でトピックカードを縦積み描画（未指定時は右パネル上下中央にタイトルを配置）。 | 章ごとに3〜5個の具体的なトピックを予告したい長編・技術解説デッキ。 |
+| **`"centered"`**<br>*(中央集中・キーノート型)* | 全面ニュートラル背景（＋上端アクセントバー・コーナー装飾）の中央に、パートバッジピル・大見出し `title`・`subtitle` を堂々と中央揃え配置。 | 下段領域に **`CardList(direction="horizontal", badge_shape="circle")`** でトピックカードを横一列に整列（未指定時は画面ど真ん中にタイトル群を大きく配置）。 | カンファレンス登壇（Keynote 風）、エグゼクティブサマリー、トピック一覧なしのシンプルな場面転換。 |
+| **`"banner"`**<br>*(ワイド横断バンド型)* | 画面上〜中段を横断するワイドな `DarkFlat` の帯の中に角丸 `PrimaryFlat` 番号ボックスと白抜き大見出し `title`・`subtitle` を配置し、下半分を明るいワークスペースにする。 | 下半分の広い領域（`w=164`）に **`CardList(direction="horizontal", badge_shape="rounded_rect", show_arrows=False)`** でトピックカードを横並び（矢印なし）で展開。 | 章内の複数トピックやサブテーマをワイドに横並びで見せたいとき。 |
+| **`"minimal"`**<br>*(左アクセント・エディトリアル型)* | ベタ塗りダークパネルを使わず、全面クリーンな `Neutral` 背景の左端に `PrimaryFlat` アクセントピルと `"SECTION 01"` バッジを配し、左揃えでモダンに構成。 | タイトル下部の領域に **`CardList(direction="vertical", badge_shape="rounded_rect")`** をワイドに配置。 | 設計書・RFC 風のクリーンなスライドや、**`MonochromeStyles`・PDF 印刷時**に大面積の黒ベタ塗りを避けたいとき。 |
 
-その代わり、`drawlib init slide` 実行時に生成されるテンプレート [`src/drawlib/_templates/project/slide/utils/`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_templates/project/slide/utils/default.py.template)（`default.py.template`, `google.py.template`, `monochrome.py.template`）に、約536行×3ファイル（計1,600行超）のスライド描画コードがハードコードされて各プロジェクトの `utils.py` にコピーされている。これには以下の問題がある。
+### 2.2. 全パターン共通のスマート挙動・デフォルトスタイル
+1. **`topics` の有無による自動レイアウト調整**:
+   - `topics` が渡された場合：タイトル・サブタイトルを上段に寄せ、下段（または右パネル下段）に `CardList` を配置。
+   - `topics` が空 `()` の場合：タイトル・サブタイトル・セクション番号のグループを垂直方向の中央付近へ自動シフトし、余白が間延びしない引き締まった扉ページにする。
+2. **`topics` 要素の柔軟な型サポート**:
+   - `Sequence[str | tuple[str, str]]` を受け付け、`["トピックA", "トピックB"]` のような1行文字列リストだけでなく、`[("トピックA", "補足説明..."), ("トピックB", "補足説明...")]` のような2段カードもそのまま `CardList` で描画できる。
+3. **控えめで洗練されたカード枠線・区切り線**:
+   - トピックカードのデフォルトスタイル（`topic_card_style`）には `Styles.White.patch(shape_line_color=Colors.Gray3, shape_line_width=0.9)` を用い、水平区切り線（`line_style`）には `Styles.Neutral.patch(line_color=Colors.Gray3, line_width=1.0)` を用いることで、重苦しい黒枠にならずモダンなUIカードとして描画する。
+4. **`total_sections` の任意化 (`total_sections: int = 0`)**:
+   - `total_sections > 0` のときは進行インジケータードット（`1..total_sections`）と `"Part {section_num} of {total_sections}"` バッジを自動描画。
+   - `total_sections == 0`（デフォルト）のときは進行ドットを省略し、全体の章数を数えなくても `draw_section_header(1, "Introduction")` の最小引数だけで呼び出せる。��トピックを予告したい長編・技術解説デッキ。 |
+| **`"centered"`**<br>*(中央集中・キーノート型)* | 全面ニュートラル背景（＋控えめな上下アクセントライン／コーナー装飾）の中央に、パートバッジ・大きなセクション番号・大見出し `title`・`subtitle` を堂々と中央揃え配置。 | 下段領域に **`CardList(direction="horizontal", badge_shape="rounded_rect")`** でトピックカードを横一列に整列（未指定時は画面ど真ん中にタイトル群を大きく配置）。 | カンファレンス登壇（Keynote 風）、エグゼクティブサマリー、トピック一覧なしのシンプルな場面転換。 |
+| **`"banner"`**<br>*(ワイド横断バンド型)* | 画面上〜中段を横断するワイドな `PrimaryFlat`（または `DarkFlat`）の帯の中に番号バッジと白抜き大見出し `title`・`subtitle` を配置し、下半分を明るいワークスペースにする。 | 下半分の広い領域（`w=168`）に **`CardList(direction="horizontal", show_arrows=True)`** または縦スタックでトピックを大きく展開。 | 章内のストーリーの流れ（Step 1 → Step 2 → Step 3）をワイドに見せたいとき。 |
+| **`"minimal"`**<br>*(左アクセント・エディトリアル型)* | ベタ塗りダークパネルを使わず、全面クリーンな `Neutral` / `White` 背景の左端に太い `PrimaryFlat` アクセントピルと大きな `"SECTION 01"` タイポグラフィを配し、左揃えでモダンに構成。 | タイトル下部の領域に **`CardList(direction="vertical", badge_shape="rounded_rect")`** をワイドに配置。 | 設計書・RFC 風のクリーンなスライドや、**`MonochromeStyles`・PDF 印刷時**に大面積の黒ベタ塗りを避けたいとき。 |
 
-1. **3つのテンプレートファイル間の大規模なコード重複（1,600行超）**:
-   - `default.py.template`, `google.py.template`, `monochrome.py.template` の違いは先頭の4色パレット定数（`_DEFAULT_PALETTE`, `_GOOGLE_PALETTE`, `_MONOCHROME_PALETTE`）と左パネルの背景色のみで、残りの約520行の座標計算・描画ロジックは完全に同一である。
-   - 本来、テーマカラーは `styles.py` の `Styles`（`Styles.Primary`, `Styles.Secondary`, `Styles.Accent`, `Styles.Highlight`, `Styles.Neutral` 等）から動的に取得できるため、ライブラリ関数化すれば3ファイルに分ける必要自体がなくなる。
-2. **ユーザーの `utils.py` が初期状態で500行超になり見通しが悪い**:
-   - 本来プロジェクト固有のヘルパーを書くための `utils.py` が、最初から536行のテンプレートコードで埋め尽くされており、ユーザーがどこを触るべきか分かりにくい。
-3. **実戦スライドで頻出するステージ演出パターンの未収録**:
-   - `docs/slide_about_drawlib_src/` や `docs/slide_ddos_incident_response_src/` の作成を通じて、既存の `draw_page_number` / `draw_chapter_divider` / `draw_curved_agenda` に加え、**「複数スライドにまたがる上部フェーズ／Wave進行バー (`draw_phase_bar`)」** や **「スライド下部の1行結論コールアウトバー (`draw_takeaway_banner`)」** が技術プレゼンで非常に高い頻度で使われることが判明した。
-
-### 1.2. 解決方針：`drawlib.slide` へのスライド専用ヘルパー集約
-- **スライド固有のステージ演出・ページ構成ヘルパー**を `drawlib.slide`（内部実装 `src/drawlib/_slide/helpers.py`）に公式関数として収録する。
-- 既存の `Styles` プリセット（`Styles.Primary`, `Styles.Secondary`, `Styles.Accent`, `Styles.Highlight` 等）からカラーパレットを自動解決する仕組みにすることで、`styles.py` のテーマ切り替えに完全連動させる。
-- スライドプロジェクトの `utils.py` テンプレートは、`drawlib.slide`（および `drawlib.smartarts`）への薄い委譲ラッパー（後方互換用）＋ユーザー向けサンプルのみの数十行のクリーンなファイルへと劇的にスリム化する。
-
----
-
-## 2. `drawlib.slide` に追加するヘルパー関数一覧
-
-| 関数名 | 種別 | 役割 | キャンバス初期化 (`clear` + `setup`) |
-| :--- | :---: | :--- | :---: |
-| **`draw_page_number()`** | 既存昇格 | スライド右下のページ番号 (`current_slide.text`) を透過背景で描画 | 自動実行 (`auto_setup=True`) |
-| **`draw_chapter_divider()`** | 既存昇格 | 16:9 フルブリード (`192×108`) の章扉スライド（左パネル・章番号・進行ドット・右トピック一覧・右下ページ番号）を一括描画 | 自動実行 (`auto_setup=True`) |
-| **`draw_curved_agenda()`** | 既存昇格 | アジェンダスライド用のベジェ曲線＋番号バッジ＋ピル型トピック一覧を描画 | 任意 (`auto_setup=False` 既定) |
-| **`draw_phase_bar()`** | **新規** | 連続スライド（Wave 1〜4 や Step 1〜5）の上部に配置する横長フェーズ進行インジケーターバーを描画 | 任意 (`auto_setup=False` 既定) |
-| **`draw_takeaway_banner()`** | **新規** | スライド下部に配置する Key Takeaway / 結論サマリーバー（アクセントピルまたはアイコン＋太字メッセージ）を描画 | 任意 (`auto_setup=False` 既定) |
-
-*(※従来 `utils.py` にあった `draw_kpi_cards` は、スライド以外のドキュメントでも汎用的に使えるため [`SMARTARTS_EXPANSION_PLAN.md`](file:///usr/local/google/home/yuichiito/git_github/drawlib/.agents/plans/SMARTARTS_EXPANSION_PLAN.md) の `drawlib.smartarts.KpiCards` として実装し、`drawlib.slide` または `utils.py` からはそのラッパーとして呼び出す。)*
+### 2.2. 全パターン共通のスマート挙動
+1. **`topics` の有無による自動レイアウト調整**:
+   - `topics` が渡された場合：タイトル・サブタイトルを上段に寄せ、下段（または右パネル下段）に `CardList` を配置。
+   - `topics` が空 `()` の場合：タイトル・サブタイトル・セクション番号のグループを垂直方向の中央付近へ自動シフトし、余白が間延びしない引き締まった扉ページにする。
+2. **`topics` 要素の柔軟な型サポート**:
+   - `Sequence[str | tuple[str, str]]` を受け付け、`["トピックA", "トピックB"]` のような1行文字列リストだけでなく、`[("トピックA", "補足説明..."), ("トピックB", "補足説明...")]` のような2段カードもそのまま `CardList` で描画できる。
+3. **`total_sections` の任意化 (`total_sections: int = 0`)**:
+   - `total_sections > 0` のときは進行インジケータードット（`1..total_sections`）と `"Part {section_num} of {total_sections}"` バッジを自動描画。
+   - `total_sections == 0`（デフォルト）のときは進行ドットを省略し、全体の章数を数えなくても `draw_section_header(1, "Introduction")` の最小引数だけで呼び出せる。
 
 ---
 
 ## 3. 各ヘルパー関数の詳細 API 設計 (`src/drawlib/_slide/helpers.py`)
 
-### 3.1. テーマパレット自動解決ヘルパー (`_resolve_slide_palette`)
-ハードコードされた `_DEFAULT_PALETTE` 等を廃止し、現在アクティブな `Styles` から4色のアクセントパレットを動的に抽出する：
-```python
-def _resolve_slide_palette(
-    colors: Sequence[tuple[int, int, int]] | None = None,
-) -> list[tuple[int, int, int]]:
-    """Resolve 4-color slide accent palette from explicit colors or active Styles."""
-    if colors:
-        return list(colors)
-    return [
-        Styles.PrimaryFlat.shape_fill_color[:3],
-        Styles.SecondaryFlat.shape_fill_color[:3],
-        Styles.AccentFlat.shape_fill_color[:3],
-        Styles.HighlightFlat.shape_fill_color[:3],
-    ]
-```
-これにより、`styles.py` が `default` / `google` / `monochrome` のどれであっても、自動的にそのテーマのカラートークンで描画される。
-
----
-
-### 3.2. `draw_page_number`
-スライド右下のページカウンター（`::: block (1700, 1010) (140, 30)` 向け）を1行で描画する関数。
+### 3.1. `draw_page_number`
+スライド右下のページカウンター（`::: block xy=(1700, 1010) width=140 height=30` 向け）を描画する関数。
 
 ```python
 @validate_call
 def draw_page_number(
-    width: float = 14.0,
-    height: float = 3.0,
+    width: PosFloat = 14.0,
+    height: PosFloat = 3.0,
     *,
     template: str = "{index} / {total}",
     style: Style | None = None,
     auto_setup: bool = True,
 ) -> None:
-    """Draw a standardized slide page number badge using current_slide."""
-```
-- **動作仕様**:
-  - `auto_setup=True`（デフォルト）のとき、`clear()` および `setup(width=width, height=height, alpha=0.0)` を自動実行し、中央 `(width / 2, height / 2)` に `current_slide.format(template)` を描画する。
-  - スライド Markdown 内では `from drawlib.slide import draw_page_number; draw_page_number()` の2行だけで完結する（`save()` は `build_slide` が自動補完）。
-
----
-
-### 3.3. `draw_chapter_divider`
-16:9 フルブリード（`::: block (0, 0) (1920, 1080)` 向け、`192.0 × 108.0` キャンバス）の章扉スライドを一括描画する関数。
-
-```python
-@validate_call
-def draw_chapter_divider(
-    chapter_num: int,
-    title: str,
-    subtitle: str = "",
-    topics: Sequence[str] = (),
-    total_chapters: int = 4,
-    *,
-    chapter_label: str = "CHAPTER",
-    part_label_template: str = "Part {chapter_num} of {total_chapters}",
-    accent_color: tuple[int, int, int] | None = None,
-    show_page_number: bool = True,
-    auto_setup: bool = True,
-) -> None:
-    """Draw a full-bleed 16:9 chapter divider slide (192.0 x 108.0 canvas)."""
-```
-- **改善ポイント**:
-  - `chapter_label`（例：`"CHAPTER"`, `"ACT"`, `"PHASE"`）や `part_label_template` をカスタマイズ可能にし、今回の DDoS スライド（`"ACT 02"` 等）でも関数をフォークせずにそのまま使えるようにする。
-  - 右パネルの `topics` 一覧描画は、`SMARTARTS_EXPANSION_PLAN.md` の `CardList` を内部利用してクリーンに描画する。
-
----
-
-### 3.4. `draw_curved_agenda`
-アジェンダページ向けに、左側のベジェ曲線アークに沿って番号バッジとピル型カードを配置する関数。
-
-```python
-@validate_call
-def draw_curved_agenda(
-    items: Sequence[str | tuple[str, str]],
-    width: float = 104.0,
-    height: float = 86.0,
-    *,
-    xy: tuple[float, float] = (0.0, 0.0),
-    accent_bar: bool = True,
-    colors: Sequence[tuple[int, int, int]] | None = None,
-    active_index: int | None = None,
-) -> None:
-    """Draw a curved agenda diagram with numbered badges and pill containers."""
-```
-- **改善ポイント**:
-  - **`active_index: int | None = None`（1-based）の追加**: 指定された章番号のみをハイライト表示し、他の項目を薄いグレー（dimmed）で描画するオプションを追加する。これにより、プレゼン途中の「現在地ハイライト付きアジェンダスライド」も1引数で表現可能になる。
-
----
-
-### 3.5. `draw_phase_bar` *(新規)*
-今回の DDoS スライドの GeoMap 4連続スライド（Wave 1: China → Wave 2: Asia → Wave 3: World → Wave 4: Japan）で大活躍した、**スライド上部の横長ステップ／フェーズ進行バー**を1関数で描画するヘルパー。
-
-```python
-@validate_call
-def draw_phase_bar(
-    phases: Sequence[str | tuple[str, str]],
-    active_phase: int,
-    *,
-    xy: tuple[float, float] = (2.0, 74.0),
-    width: float = 172.0,
-    height: float = 8.0,
-    active_style: Style | None = None,
-    completed_style: Style | None = None,
-    upcoming_style: Style | None = None,
-    show_connectors: bool = True,
-) -> None:
-    """Draw a horizontal multi-slide phase/wave progress bar highlighting the active step.
+    """Draw a standardized slide page number badge using current_slide.
 
     Args:
-        phases: Sequence of phase titles or (badge_label, title) tuples.
-        active_phase: 1-based index of the currently active phase on this slide.
-        xy: Bottom-left coordinate (x0, y0) of the phase bar.
-        width: Total width of the phase bar.
-        height: Height of the phase bar.
-        active_style: Style for the active phase pill (defaults to Styles.AccentFlat or PrimaryFlat).
-        completed_style: Style for already completed phases (defaults to Styles.PrimaryNeutral).
-        upcoming_style: Style for future phases (defaults to dimmed Styles.Neutral).
-        show_connectors: Whether to draw connecting arrows ('->') between phase pills.
+        width: Canvas width in coordinate units. Defaults to 14.0.
+        height: Canvas height in coordinate units. Defaults to 3.0.
+        template: Format string with `{index}` and `{total}` placeholders.
+            Defaults to "{index} / {total}".
+        style: Text style for the page counter. Defaults to `Styles.Muted.patch(text_size=65.0)`.
+        auto_setup: Whether to call `clear()` and `setup(width=width, height=height, alpha=0.0)`
+            automatically before drawing. Defaults to True.
     """
 ```
-- **ユースケース**:
-  - 複数枚のスライドにまたがって1つのストーリー（Wave 1〜4、Step 1〜5、Before / During / After）を展開する際、聴衆に「今どの段階を見ているか」を一目で伝える上部ナビゲーションバーとして利用する。
 
 ---
 
-### 3.6. `draw_takeaway_banner` *(新規)*
-技術スライドの最下部（例：`y = 2.0〜10.0`）に配置する **Key Takeaway / 結論コールアウトバー** を描画するヘルパー。
+### 3.2. `draw_section_header`
+16:9 フルブリード（`::: block xy=(0, 0) width=1920 height=1080` 向け、`192.0 × 108.0` キャンバス）のセクションヘッダーページを一括描画する関数。
 
 ```python
 @validate_call
-def draw_takeaway_banner(
+def draw_section_header(  # noqa: PLR0913
+    section_num: PosInt,
     title: str,
     subtitle: str = "",
+    topics: Sequence[str | tuple[str, str]] = (),
+    total_sections: int = 0,
     *,
-    xy: tuple[float, float] = (2.0, 2.0),
-    width: float = 172.0,
-    height: float = 9.5,
-    badge_label: str = "KEY TAKEAWAY",
-    icon: Callable[..., None] | None = None,
-    style: Style | None = None,
-    accent_style: Style | None = None,
+    variant: Literal["split", "centered", "banner", "minimal"] = "split",
+    section_label: str = "SECTION",
+    badge_text: str | None = None,
+    show_page_number: bool = True,
+    show_decorations: bool = True,
+    auto_setup: bool = True,
+    left_panel_style: Style | None = None,
+    right_panel_style: Style | None = None,
+    divider_bar_style: Style | None = None,
+    decoration_style: Style | None = None,
+    section_label_style: Style | None = None,
+    section_num_style: Style | None = None,
+    active_dot_style: Style | None = None,
+    completed_dot_style: Style | None = None,
+    upcoming_dot_style: Style | None = None,
+    badge_style: Style | None = None,
+    badge_text_style: Style | None = None,
+    title_style: Style | None = None,
+    subtitle_style: Style | None = None,
+    line_style: Style | None = None,
+    topic_card_style: Style | None = None,
+    topic_text_style: Style | None = None,
+    topic_description_style: Style | None = None,
+    topic_badge_style: Style | None = None,
+    topic_badge_text_style: Style | None = None,
+    page_number_style: Style | None = None,
 ) -> None:
-    """Draw a full-width bottom takeaway/conclusion callout banner on a slide."""
+    """Draw a full-bleed 16:9 section header slide (192.0 x 108.0 canvas)."""
 ```
-- **動作仕様**:
-  - 左端にアクセントピル＋バッジラベル（例：`"KEY TAKEAWAY"`, `"INSIGHT"`, `"RESULT"`）または Phosphor アイコンを配置し、中央〜右側に太字の `title` と補足 `subtitle` を高コントラストで描画する。
 
 ---
 
-## 4. スライドテンプレート (`_templates/project/slide/utils/`) のスリム化計画
+## 4. テンプレートおよび既存スライドの整理計画
 
-上記のヘルパーを `drawlib.slide`（および `KpiCards` を `drawlib.smartarts`）に収録した後、[`src/drawlib/_templates/project/slide/utils/`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_templates/project/slide/utils/default.py.template) の3ファイル（計1,600行）は以下のように約40行の薄いモジュールに統一できる：
+### 4.1. スライド用 `utils.py` テンプレートの重複解消
+- [`src/drawlib/_templates/project/slide/utils/`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_templates/project/slide/utils/default.py.template) にある `default.py.template`, `google.py.template`, `monochrome.py.template`（約536行×3ファイル＝1,600行超）を削除し、`_shared/utils.py` に統一する。
+- [`src/drawlib/_templates/_project.py`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_templates/_project.py) の `_validate_slide_style` / `_deploy_slide_utils` を廃止し、`default-dark`, `google-dark`, `github`, `minimal` 等の全 CSS テーマで `drawlib init slide -s <theme>` が動作するようにする。
+- スターターテンプレートの `02_agenda.md`（`en` / `ja`）は、`drawlib.smartarts.Roadmap` と `drawlib.slide.draw_page_number` を使うコードに更新する。
 
-```python
-"""Slide drawing utilities and project-specific presentation helpers."""
-
-from __future__ import annotations
-
-from drawlib.slide import (
-    draw_chapter_divider,
-    draw_curved_agenda,
-    draw_page_number,
-    draw_phase_bar,
-    draw_takeaway_banner,
-)
-
-__all__ = [
-    "draw_chapter_divider",
-    "draw_curved_agenda",
-    "draw_page_number",
-    "draw_phase_bar",
-    "draw_takeaway_banner",
-]
-```
-- 既存のサンプルスライドやプロジェクトで `utils.draw_page_number()` や `utils.draw_chapter_divider()` を呼んでいるコードも**100%後方互換でそのまま動作**しつつ、新規スライドでは `from drawlib.slide import draw_page_number` と直接インポートすることも可能になる。
+### 4.2. ドッグフーディング・スライドデッキの更新
+- `docs/slide_about_drawlib_src/` および `docs/slide_ddos_incident_response_src/` において：
+  - `01_section.md` を `from drawlib.slide import draw_section_header` に移行。
+  - 各スライドのページ番号を `from drawlib.slide import draw_page_number` に移行。
+  - アジェンダスライドの `draw_curved_agenda` を `Roadmap` に移行。
+  - KPI スライドの `draw_kpi_cards` を `KpiCards` に移行。
+  - 両プロジェクトの `utils.py` から約450行の重複コードを削除しスリム化する。
 
 ---
 
-## 5. 実装フェーズと検証計画 (Implementation & Verification Roadmap)
+## 5. 実装・検証ステップ (Implementation Roadmap)
 
-1. **Phase 1: `src/drawlib/_slide/helpers.py` の実装とエクスポート**:
-   - `draw_page_number`, `draw_chapter_divider`, `draw_curved_agenda`, `draw_phase_bar`, `draw_takeaway_banner` を実装し、`src/drawlib/_slide/__init__.py` と `src/drawlib/slide.py` から公開する。
-2. **Phase 2: 単体テストの追加**:
-   - `tests/drawlib/slide/test_helpers.py` を作成し、`SlideContext` 下での `draw_page_number` 動作、各テーマスタイル下での `draw_chapter_divider` / `draw_curved_agenda` / `draw_phase_bar` / `draw_takeaway_banner` の描画を検証する。
-3. **Phase 3: スライドテンプレートと内部ルールの更新**:
-   - `src/drawlib/_templates/project/slide/utils/` の重複コードを `drawlib.slide` 委譲に置き換える。
-   - `src/drawlib/_rules/lib_slide.md` および `slide_guide.md` に新ヘルパー関数の使い方を追記する。
-4. **Phase 4: ドッグフーディング検証**:
-   - `./dcli docs build slide` を実行し、既存スライドデッキが視覚的退行なくビルドされることを確認する。
+1. **Step 1: `src/drawlib/_slide/helpers.py` の実装と公開エクスポート**
+   - `draw_page_number` および複数パターン対応の `draw_section_header` を実装し、`src/drawlib/_slide/__init__.py` と `src/drawlib/slide.py` からエクスポートする。
+2. **Step 2: テンプレート (`_templates/`) の刷新**
+   - `src/drawlib/_templates/project/slide/utils/` の重複3ファイルを廃止し、`_project.py` と `slide/docs/{en,ja}/` を更新する。
+3. **Step 3: 単体テストの追加・更新 (`tests/drawlib/slide/`)**
+   - `draw_page_number` と `draw_section_header`（各 `variant`・オプション）の単体テストを追加し、`test_slide.py` を更新する。
+   - `./dcli code-check all` および `./dcli test target slide`、`./dcli test target cli` をパスさせる。
+4. **Step 4: ルール・ドキュメント・ドッグフーディングスライドの更新と視覚レビュー**
+   - `src/drawlib/_rules/` (`lib_slide.md`, `project_slide.md`, `slide_guide.md`, `api.md`) および `docs/docs_src/08_doc_builder_and_cli/slide_layout_and_api.md` を更新する。
+   - `docs/slide_about_drawlib_src/` と `docs/slide_ddos_incident_response_src/` を更新してビルド・視覚レビューを行う。
