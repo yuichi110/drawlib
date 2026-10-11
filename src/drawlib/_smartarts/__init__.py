@@ -11,6 +11,7 @@
 
 from drawlib._smartarts._boxlist import BoxList, BoxListItem
 from drawlib._smartarts._bulletpoints import BulletPointItem, BulletPoints
+from drawlib._smartarts._cardlist import CardList, CardListItem
 from drawlib._smartarts._chevronprocess import ChevronItem, ChevronProcess
 from drawlib._smartarts._cycle import Cycle, CycleCenter, CycleItem
 from drawlib._smartarts._geomap import GeoMap
@@ -32,6 +33,8 @@ __all__ = [
     "BoxListItem",
     "BulletPointItem",
     "BulletPoints",
+    "CardList",
+    "CardListItem",
     "ChevronItem",
     "ChevronProcess",
     "Cycle",

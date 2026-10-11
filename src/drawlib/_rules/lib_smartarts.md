@@ -19,8 +19,9 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 12. [Component 10: SourceCode (Syntax-Highlighted Code Containers)](#12-component-10-sourcecode-syntax-highlighted-code-containers)
 13. [Component 11: GeoMap (Geographical Vector Maps)](#12b-component-11-geomap-geographical-vector-maps)
 14. [Component 12: KpiCards (Metric & Highlight Cards)](#12c-component-12-kpicards-metric--highlight-cards)
-15. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
-16. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
+15. [Component 13: CardList (Icon & Badge Feature/Step Cards)](#12d-component-13-cardlist-icon--badge-featurestep-cards)
+16. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
+17. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
 
 ---
 ## 1. Architectural Overview & Core Concepts
@@ -31,6 +32,8 @@ All SmartArts classes and helper functions are exported directly from `drawlib.s
 from drawlib.smartarts import (
     BoxList,
     BulletPoints,
+    CardList,
+    CardListItem,
     ChevronProcess,
     Cycle,
     GeoMap,
@@ -57,7 +60,7 @@ from drawlib.types import Style
 ### 1.2 Coordinate Anchor Conventions
 Understanding anchor points is essential for programmatic generation and positioning:
 - **Top-Left Anchored**: `Table`, `TreeNode`, `BulletPoints`. You specify top-left coordinate `(x, y)`; elements flow rightward and downward.
-- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
+- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`, `CardList`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
@@ -68,7 +71,7 @@ Every SmartArt accepts:
 
 ### 1.4 Unified Component Lifecycle (`add()`, `show`, Deferred Mutation & `scale`)
 All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Register via `add()` -> 3. Mutate State -> 4. Render via `draw()`**):
-1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`, `KpiCards`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
+1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `CardList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`, `KpiCards`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
 2. **Layout-Preserving Visibility (`item.show`)**: Every item exposes `item.show: bool = True`. Setting `item.show = False` skips drawing that specific element while **keeping the overall component geometry, item widths, orbit angles, and grid/tree coordinates completely unchanged**.
 3. **Deferred Style & Text Evaluation**: Item attributes (`item.style`, `item.text_style`, `item.text`, `item.description`, etc.) are resolved lazily inside `draw()`. Mutating an item's style or text between `draw()` calls immediately reflects on the next render without reconstructing the component.
 4. **Proportional Scaling (`scale: float = 1.0`)**: Every `draw(...)` and `draw_flexible(...)` method accepts `scale: float = 1.0`. Passing `scale != 1.0` uniformly scales all shapes, margins, corner radii, line widths, and font sizes relative to the anchor coordinate `xy`.
@@ -90,6 +93,7 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 | `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw(scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
 | `GeoMap` | Bottom-Left `(x, y)` | Equirectangular vector map | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()` | Multi-region cloud topology, country/city territory maps |
 | `KpiCards` (`KpiCard`) | Bottom-Left `(x, y)` | Vertical stack or multi-column grid | `add(metric, title, description, show=True)`, `draw(xy, width, height, columns=1, scale=1.0)` | SLA/latency metrics, executive summary KPIs, spec highlights |
+| `CardList` | Bottom-Left `(x, y)` | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(title, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
 
 ---
 ## 3. Component 1: Table
@@ -997,6 +1001,77 @@ save()
 ```
 
 ---
+## 12d. Component 13: CardList (Icon & Badge Feature/Step Cards)
+
+`CardList` renders vertical stacks (`direction="vertical"`) or horizontal step sequences (`direction="horizontal"`) of rich cards equipped with circular or rounded-rectangle badges (`badge_shape="rounded_rect" | "circle" | "none"`), Phosphor icons, numbered/labeled badges, multi-line descriptions, and optional connecting arrows (`show_arrows=True`).
+
+### 12d.1 Constructor & Methods
+```python
+cl = CardList(
+    style=Styles.Neutral,
+    title_style=None,
+    description_style=None,
+    badge_shape="rounded_rect",   # "rounded_rect" | "circle" | "none"
+    badge_style=None,
+    badge_text_style=None,
+    badge_palette=None,
+    icon_style=None,
+    direction="vertical",         # "vertical" | "horizontal"
+    spacing=2.5,
+    show_arrows=False,
+    arrow_style=None,
+)
+item = cl.add(
+    title="Edge Anycast Scrubbing",
+    description="Drop volumetric UDP/SYN floods at POPs",
+    badge_text="L1",
+    icon=phosphor.shield_check,
+    show=True,
+)
+cl.draw(xy=(10.0, 10.0), width=90.0, height=56.0, scale=1.0)
+```
+
+### 12d.2 Production Example: Vertical Defense Cards & Horizontal Workflow Steps
+```drawlib code=show
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.smartarts import CardList
+
+setup(width=185, height=70)
+
+# 1. Left: Vertical Feature Stack with Icon + Text Badges
+cl_v = CardList(direction="vertical", badge_shape="rounded_rect", spacing=3.0)
+cl_v.add(
+    "Edge Anycast Scrubbing",
+    "Drop volumetric UDP/SYN floods at POPs",
+    badge_text="L1",
+    icon=phosphor.shield_check,
+)
+cl_v.add(
+    "Cloud Armor Rate Limiting",
+    "Throttle suspicious ASN & JA3 fingerprints",
+    badge_text="L2",
+    icon=phosphor.funnel,
+)
+cl_v.add(
+    "Origin Zero-Trust mTLS",
+    "Verify cryptographic workload identity",
+    badge_text="L3",
+    icon=phosphor.lock_key,
+)
+cl_v.draw(xy=(6.0, 7.0), width=83.0, height=56.0)
+
+# 2. Right: Horizontal Step Sequence with Connecting Arrows
+cl_h = CardList(direction="horizontal", badge_shape="circle", show_arrows=True, spacing=4.5)
+cl_h.add("1. Write Code", "Python API\nin Markdown", icon=phosphor.code)
+cl_h.add("2. Build Docs", "Headless SVG\n& HTML build", icon=phosphor.gear)
+cl_h.add("3. AI Review", "Grid check &\nself-healing", icon=phosphor.eye)
+cl_h.draw(xy=(96.0, 12.0), width=83.0, height=46.0)
+
+save()
+```
+
+---
 ## 13. Design Patterns & Coordinate Anchor Systems
 
 ### 13.1 Coordinate Normalization Cheat Sheet
@@ -1023,6 +1098,7 @@ top_left_y = bottom_y + H
 | `Pyramid` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `GeoMap` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `KpiCards` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
+| `CardList` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `MindMapNode` | Root Center `(x, y)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 
