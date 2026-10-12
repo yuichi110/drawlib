@@ -115,6 +115,20 @@ BraceDirection = Annotated[
     Literal["left", "right", "top", "bottom"],
     BeforeValidator(_normalize_str),
 ]
+DocumentVariant = Annotated[
+    Literal[
+        "wave",
+        "standard",
+        "folded",
+        "page",
+        "note",
+        "double_wave",
+        "snippet",
+        "folded_wave",
+        "report",
+    ],
+    BeforeValidator(_normalize_str),
+]
 IconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
     BeforeValidator(_normalize_str),
@@ -136,6 +150,7 @@ __all__ = [
     "BraceDirection",
     "BraceSymbol",
     "CloudVariant",
+    "DocumentVariant",
     "FaceMood",
     "HAlign",
     "IconStyle",

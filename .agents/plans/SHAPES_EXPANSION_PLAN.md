@@ -46,8 +46,8 @@
 | **完了 (Phase 1)** | **`math_symbol`** | `_polygon.py` | スライド・概念図の数式演算子ブロック（`+`, `-`, `×`, `÷`, `=`, `≠`） | **実装済** |
 | **完了 (Phase 2)** | **`cloud`** | `_basic.py` | クラウド境界・単体ノード（4種の `variant`: `"standard"`, `"flat"`, `"fluffy"`, `"simple"` ＋ `bump_ratio`） | **実装済** |
 | **完了 (Phase 2)** | **`brace`** | `_basic.py` | 括弧図形（`{}` 中括弧 / `[]` 角括弧 / `()` 丸括弧、上下左右4方向、`tip_ratio` / `tip_position_ratio`、`style.line_width` 太さ制御） | **実装済** |
-| **Phase 2 (Tier 1)** | **`cube`** | `_basic.py` | 3D直方体・コンテナ・ノード・ブロック（`cylinder` の相棒、3面自動明度シェーディング） | 計画中 |
-| **Phase 2 (Tier 1)** | **`document`** | `_basic.py` | フローチャートの波底ドキュメント記号（`stacked: int = 1` で複数書類の重ね合わせに対応） | 計画中 |
+| **完了 (Phase 2)** | **`cube`** | `_basic.py` | 3D直方体・コンテナ・ノード・ブロック（`cylinder` の相棒、3面自動明度シェーディング） | **実装済** |
+| **完了 (Phase 2)** | **`document`** | `_basic.py` | ドキュメント・ファイル記号（4種の `variant`: `"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"` ＋ `stacked: int = 1` 複数重ね対応） | **実装済** |
 | **Phase 3 (Tier 2)** | **`shield`** | `_polygon.py` | セキュリティ・WAF・認証（IAM/Auth）・ガードレールの盾型プリミティブ | 検討候補 |
 | **Phase 3 (Tier 2)** | **`hexagon`** | `_polygon.py` | `width`, `height` を自由指定できる横長六角形（フローチャート準備記号・サービスバッジ） | 検討候補 |
 | **Phase 3 (Tier 2)** | **`tag`** | `_polygon.py` | 片側が切り欠かれ丸穴が空いたラベル／タグ形状（バージョン表記・メタデータバッジ） | 検討候補 |
@@ -245,44 +245,78 @@ def brace(
 ---
 
 ### 3.5. `cube`（3Dキューブ / 直方体）— 【Phase 2】
-- **シグネチャ案**:
+- **シグネチャ**:
   ```python
+  @validate_call
   def cube(
+      self,
       xy: Coordinate,
       width: PosFloat,
       height: PosFloat,
       *,
-      depth_ratio: Ratio = 0.28,
-      depth_angle: Angle90 = 35.0,
+      depth_ratio: Ratio | None = None,
       style: Style,
       text: str = "",
       text_style: Style | None = None,
   ) -> None:
   ```
 - **設計ポイント**:
-  - 既存の [`cylinder`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_core/l4_canvas/_shapes/_basic.py#L672-L887) と同じ思想で、`style.shape_fill_color` から **前面（ベース色）・上面（+25% 明度）・右側面（-18% 暗度）** を自動算出。
-  - `text` は前面（フロントフェイス）の中央に自動配置することで、立体感を損なわずにラベルを表示できる。
+  - 外寸が `(width, height)` のバウンディングボックスに厳密に収まる3D直方体。
+  - `depth_ratio`（`None` 時は `0.25`）で `min(width, height)` に対する奥行き幅を制御。
+  - 既存の [`cylinder`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_core/l4_canvas/_shapes/_basic.py#L676-L892) と同じ思想で、`style.shape_fill_color` から **前面（ベース色）・上面（明度アップ）・右側面（明度ダウン）** を自動算出。
+  - 3面の塗りと外周＋Y字稜線のストロークパスを分離して描画することで、`Dashed` / `Dotted` スタイルでも共有辺の破線が二重に重ならない。
+  - `text` は前面（フロントフェイス）の中央に自動配置することで、立体稜線と重ならずにラベルを表示できる。
 
 ---
 
-### 3.6. `document`（波底ドキュメント / 書類）— 【Phase 2】
-- **シグネチャ案**:
-  ```python
-  def document(
-      xy: Coordinate,
-      width: PosFloat,
-      height: PosFloat,
-      *,
-      stacked: PosInt = 1,
-      wave_ratio: Ratio = 0.14,
-      style: Style,
-      text: str = "",
-      text_style: Style | None = None,
-  ) -> None:
-  ```
-- **設計ポイント**:
-  - 上辺・左右辺が直線、下辺が滑らかな3次ベジェS字波線で構成されるフローチャート標準の「書類」図形。
-  - `stacked > 1`（例: `stacked=3`）のときは、背後に少しずつオフセットした書類レイヤーを重ねて描画し、「複数ファイル／バッチドキュメント群」を1関数で表現可能にする。
+### 3.6. `document`（ドキュメント / ファイル / 書類）— 【Phase 2】
+
+フローチャートの波底書類（`"wave"`）、右上角折れファイル／ノート（`"folded"`）、上下波線の抜粋／ログ断片（`"double_wave"`）、角折れ＋波底レポート（`"folded_wave"`）の4種の `variant` と、複数枚重ね（`stacked: PosInt = 1`）に対応する。
+
+#### 3.6.1. シグネチャ & 型定義
+```python
+DocumentVariant = Annotated[
+    str,
+    BeforeValidator(_normalize_str),
+    Literal[
+        "wave", "standard",
+        "folded", "page", "note",
+        "double_wave", "snippet",
+        "folded_wave", "report",
+    ],
+]
+
+@validate_call
+def document(
+    self,
+    xy: Coordinate,
+    width: PosFloat,
+    height: PosFloat,
+    *,
+    variant: DocumentVariant = "wave",
+    stacked: PosInt = 1,
+    wave_ratio: Ratio | None = None,
+    fold_ratio: Ratio | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+```
+
+#### 3.6.2. `variant` とパラメータ仕様
+| `variant` 値（エイリアス） | 形状の特徴 | 主な用途 |
+| :--- | :--- | :--- |
+| **`"wave"`** (`"standard"`) *(デフォルト)* | 上辺・左右が直線で、**下辺がS字の3次ベジェ波線** | フローチャートの標準「書類・帳票・出力レポート」記号 |
+| **`"folded"`** (`"page"`, `"note"`) | 長方形の**右上の角が内側に折れ曲がった（ドッグイヤー）**形状（折り返しフラップは自動シェーディング） | 設定ファイル（YAML/JSON）、ソースファイル、PDF/Markdown文書、UMLノート |
+| **`"double_wave"`** (`"snippet"`) | **上辺と下辺の両方がS字の波線**になっている形状 | 連続ログファイル（Access Logs）、ストリームデータ断片、長文の一部抜粋 |
+| **`"folded_wave"`** (`"report"`) | **右上のドッグイヤー（角折れ）＋ 下辺のS字波線**の組み合わせ | ファイル感と複数ページ／継続レポート感の両方を備えたドキュメント |
+
+- **`stacked: PosInt = 1`**:
+  - `stacked > 1`（例: `stacked=3`）のときは、全体の `(width, height)` バウンディングボックス内に収まるよう右上奥へ向かって `stacked` 枚のシートを重ねて描画する（全 `variant` で利用可能）。
+- **`wave_ratio: Ratio | None = None`**:
+  - シート高さに対する波の深さ比率（デフォルト `0.15`、`"wave"`, `"double_wave"`, `"folded_wave"` で有効）。
+- **`fold_ratio: Ratio | None = None`**:
+  - シート短辺 `min(sheet_w, sheet_h)` に対する右上角折れサイズ比率（デフォルト `0.24`、`"folded"`, `"folded_wave"` で有効）。
 
 ---
 
@@ -295,3 +329,4 @@ def brace(
    - Ruff lint/format（循環的複雑度 `C901 <= 10` を含む）、Ty 型チェック、`@validate_call` docstring チェックの完全パス。
 3. **ルール＆ドキュメント更新・視覚確認**:
    - `src/drawlib/_rules/api.md`, `src/drawlib/_rules/lib_shapes.md`, `docs/docs_src/02_drawing_primitives/` を更新し、`./dcli docs build site` および `view_file` で実際のレンダリング画像を視覚レビューする。
+

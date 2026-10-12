@@ -15,7 +15,7 @@
 - [Canvas & Coordinates](./02_drawing_primitives/canvas.md)
 - [Basic & Radial Shapes](./02_drawing_primitives/shapes_basic.md)
 - [Polygons & Custom Paths](./02_drawing_primitives/shapes_polygons.md)
-- [Cylinders, Clouds, Braces & Callouts](./02_drawing_primitives/shapes_domain.md)
+- [Cylinders, Cubes, Clouds & Callouts](./02_drawing_primitives/shapes_domain.md)
 - [Block Arrows](./02_drawing_primitives/arrows.md)
 - [Lines & Connectors](./02_drawing_primitives/lines.md)
 - [Text & Typography](./02_drawing_primitives/text.md)

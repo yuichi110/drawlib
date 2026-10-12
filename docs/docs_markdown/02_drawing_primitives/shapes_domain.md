@@ -1,11 +1,11 @@
-# Cylinders, Clouds, Braces & Callouts
+# Cylinders, Cubes, Documents, Clouds & Braces
 
-Beyond standard geometric primitives, `drawlib.shapes` includes five expressive domain and annotation shapes (`cylinder`, `cloud`, `brace`, `face`, and `bubblespeech`) for technical architecture and storytelling diagrams:
+Beyond standard geometric primitives, `drawlib.shapes` includes seven expressive 3D, domain, and annotation shapes (`cylinder`, `cube`, `document`, `cloud`, `brace`, `face`, and `bubblespeech`) for technical architecture and storytelling diagrams:
 
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_overview.png" alt="shapes_domain_1" />
-  <figcaption class="drawlib-caption">Combining Actor Faces, Cloud Boundaries, 3D Cylinders, Braces, and Speech Callouts</figcaption>
+  <figcaption class="drawlib-caption">Combining Actor Faces, Cloud Gateways, 3D Cubes & Cylinders, Documents, Braces, and Callouts</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -14,71 +14,82 @@ Beyond standard geometric primitives, `drawlib.shapes` includes five expressive 
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.shapes import brace, bubblespeech, cloud, cylinder, face
+from drawlib.shapes import brace, bubblespeech, cloud, cube, cylinder, document, face
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=126, height=56)
+setup(width=132, height=62)
 
 # 1. User Actor Face
-face((15, 29), radius=9, style=Styles.Neutral, mood="smile")
-text((15, 14), "SRE Operator", style=Styles.DarkBold.patch(text_size=10.5))
+face((13, 33), radius=8.5, style=Styles.Neutral, mood="smile")
+text((13, 18), "Developer", style=Styles.DarkBold.patch(text_size=10.0))
 
 # 2. Cloud Gateway Node
 cloud(
-    (46, 29),
-    width=28,
-    height=18,
+    (41, 33),
+    width=25,
+    height=17,
     variant="flat",
     style=Styles.PrimaryNeutral,
     text="Cloud\nGateway",
-    text_style=Styles.DarkBold.patch(text_size=10.5),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
-# 3. 3-Disk Primary & Replica Database Cylinders
-cylinder(
-    (80, 39),
+# 3. 3D Worker Cube & 2-Disk Database Cylinder
+cube(
+    (73, 45),
     width=22,
-    height=18,
-    disks=2,
+    height=17,
+    depth_ratio=0.25,
     style=Styles.PrimaryFlat,
-    text="Primary DB",
+    text="Worker\nPod",
     text_style=Styles.WhiteBold.patch(text_size=10.0),
 )
 cylinder(
-    (80, 17),
-    width=22,
-    height=18,
+    (73, 19),
+    width=21,
+    height=17,
     disks=2,
     style=Styles.Neutral,
-    text="Replica DB",
+    text="State DB",
     text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
-# 4. Curly Brace grouping the Database Tier + Callout Speech Bubble
+# 4. Curly Brace + Stacked Audit Documents & Callout Bubble
 brace(
-    (95.5, 28),
-    width=4.5,
-    height=38,
+    (88.5, 32),
+    width=4.2,
+    height=40,
     symbol="}",
     style=Styles.PrimaryBold.patch(line_width=2.2),
 )
-bubblespeech(
-    xy=(100, 19),
-    width=23,
-    height=18,
-    tail_edge="left",
-    tail_start_ratio=0.35,
-    tail_end_ratio=0.65,
-    tail_vertex_xy=(98, 28),
+document(
+    (109, 44),
+    width=22,
+    height=19,
+    variant="folded_wave",
+    stacked=3,
     style=Styles.SecondaryNeutral,
-    text="HA Storage\nCluster",
+    text="Audit\nReports",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+bubblespeech(
+    xy=(96, 10),
+    width=28,
+    height=15,
+    tail_edge="left",
+    tail_start_ratio=0.40,
+    tail_end_ratio=0.70,
+    tail_vertex_xy=(91, 23),
+    style=Styles.Neutral,
+    text="Auto-Archived",
     text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
-line((26, 29), (31, 29), arrow_head="->", style=Styles.DarkBold)
-line((61, 33), (68, 38), arrow_head="->", style=Styles.DarkBold)
-line((61, 25), (68, 18), arrow_head="->", style=Styles.DarkBold)
+line((23, 33), (27.5, 33), arrow_head="->", style=Styles.DarkBold)
+line((54.5, 37), (61, 44), arrow_head="->", style=Styles.DarkBold)
+line((54.5, 29), (61, 20), arrow_head="->", style=Styles.DarkBold)
+line((92, 36), (97, 43), arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -92,6 +103,8 @@ save()
 ## 1. Overview of Domain Shapes
 
 - **`cylinder`**: 3D shaded storage cylinders and multi-disk database stacks.
+- **`cube`**: 3D shaded cubes, containers, blocks, and infrastructure nodes.
+- **`document`**: Wavy-bottom and folded-corner documents (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`) with multi-sheet stacking (`stacked`).
 - **`face`**: Expressive user/actor personas and operational status faces.
 - **`bubblespeech`**: Callout speech bubbles with directional pointer tails.
 - **`cloud`**: Cloud nodes and VPC/SaaS boundary enclosures (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`).
@@ -169,7 +182,136 @@ save()
 
 ---
 
-## 3. Expressive Actor & Status Faces (`face`)
+## 3. 3D Cubes & Rectangular Blocks (`cube`)
+
+Complementing `cylinder`, `cube` renders an oblique 3D box strictly within the `(width, height)` bounding box centered at `xy`. It automatically shades the three visible faces from `style.shape_fill_color` (front face = base fill, top face = lightened, right side face = darkened) and centers embedded `text` cleanly on the front face:
+
+```python
+cube(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    depth_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the outer cube bounding box. |
+| `width` / `height` | `float` | *Required* | Exact outer horizontal width and vertical height (`> 0`). |
+| `depth_ratio` | `float \| None` | `None` | 3D depth fraction in `(0.0, 1.0)` relative to `min(width, height)` (defaults to `0.25`). |
+| `style` / `text` / `text_style` | `Style` / `str` / `Style \| None` | *Required* | Fill/stroke style (supports `Dashed` outlines and `angle` rotation) and front-face label. |
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import cube
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=126, height=48)
+
+# 1. Standard Flat Cube
+cube((20, 27), width=24, height=24, style=Styles.PrimaryFlat, text="Pod A", text_style=Styles.WhiteBold.patch(text_size=11.0))
+text((20, 9), "PrimaryFlat", style=Styles.DarkBold.patch(text_size=10.0))
+
+# 2. Outlined Neutral Cube
+cube((52, 27), width=24, height=24, style=Styles.PrimaryNeutral, text="Node B", text_style=Styles.DarkBold.patch(text_size=11.0))
+text((52, 9), "PrimaryNeutral", style=Styles.DarkBold.patch(text_size=10.0))
+
+# 3. Wide 3D Hardware Appliance Block (depth_ratio=0.22)
+cube((86, 27), width=30, height=20, depth_ratio=0.22, style=Styles.SecondaryNeutral, text="Appliance", text_style=Styles.DarkBold.patch(text_size=10.5))
+text((86, 9), "Wide Block (30x20)", style=Styles.DarkBold.patch(text_size=10.0))
+
+# 4. Deep Cube (depth_ratio=0.38, dashed)
+cube((114, 27), width=18, height=24, depth_ratio=0.38, style=Styles.Neutral.patch(shape_line_style="dashed"), text="VM", text_style=Styles.DarkBold.patch(text_size=10.5))
+text((114, 9), "depth_ratio=0.38", style=Styles.DarkBold.patch(text_size=10.0))
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_cube.png" alt="shapes_domain_3" />
+  <figcaption class="drawlib-caption">3D Cubes and Rectangular Blocks with Automatic 3-Face Shading and Depth Ratio Control</figcaption>
+</figure>
+
+
+
+---
+
+## 4. Documents, Files & Multi-Sheet Stacks (`document`)
+
+For flowchart output steps, source/config files, log snippets, and batch report stacks, `document` supports four silhouette variants (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`) and multi-sheet stacking (`stacked >= 1`):
+
+```python
+document(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    variant: Literal[
+        "wave", "standard",
+        "folded", "page", "note",
+        "double_wave", "snippet",
+        "folded_wave", "report",
+    ] = "wave",
+    stacked: int = 1,
+    wave_ratio: float | None = None,
+    fold_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the outer document bounding box. |
+| `width` / `height` | `float` | *Required* | Outer horizontal width and vertical height (`> 0`). |
+| `variant` | `DocumentVariant` | `"wave"` | `"wave"` / `"standard"` (wavy bottom), `"folded"` / `"page"` / `"note"` (top-right dog-ear fold), `"double_wave"` / `"snippet"` (top & bottom waves), or `"folded_wave"` / `"report"` (corner fold + wavy bottom). |
+| `stacked` | `int` | `1` | Number of cascaded document sheets (`>= 1`). Back sheets are automatically lightened. |
+| `wave_ratio` / `fold_ratio` | `float \| None` | `None` | Wave amplitude ratio (default `0.14`) and corner fold ratio (default `0.24`) in `(0.0, 1.0)`. |
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import document
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=50)
+
+items = [
+    ("wave", 1, "Invoice", 16, Styles.PrimaryFlat, Styles.WhiteBold.patch(text_size=10.5), 'variant="wave"'),
+    ("folded", 1, "config.yaml", 42, Styles.PrimaryNeutral, Styles.DarkBold.patch(text_size=10.0), 'variant="folded"'),
+    ("double_wave", 1, "access.log", 68, Styles.SecondaryNeutral, Styles.DarkBold.patch(text_size=10.0), 'variant="double_wave"'),
+    ("folded_wave", 1, "Audit\nReport", 93, Styles.Neutral, Styles.DarkBold.patch(text_size=10.0), 'variant="folded_wave"'),
+    ("folded", 3, "Docs\n(x3)", 116, Styles.PrimaryNeutral, Styles.DarkBold.patch(text_size=10.0), "stacked=3"),
+]
+
+for var, stk, lbl, cx, st, tst, cap in items:
+    document((cx, 28), width=20, height=25, variant=var, stacked=stk, style=st, text=lbl, text_style=tst)
+    text((cx, 9), cap, style=Styles.DarkBold.patch(text_size=9.5))
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_document.png" alt="shapes_domain_4" />
+  <figcaption class="drawlib-caption">Four Document Variants and Multi-Sheet Stacking (stacked=3)</figcaption>
+</figure>
+
+
+
+---
+
+## 5. Expressive Actor & Status Faces (`face`)
 
 For user personas, customer journey maps, and system health indicators, `face` renders a circular face with eyes, eyebrows, and five built-in facial expressions (`mood`):
 
@@ -215,7 +357,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_3" />
+  <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_5" />
   <figcaption class="drawlib-caption">The Five Facial Moods in drawlib.shapes.face</figcaption>
 </figure>
 
@@ -223,7 +365,7 @@ save()
 
 ---
 
-## 4. Callout Speech Bubbles (`bubblespeech`)
+## 6. Callout Speech Bubbles (`bubblespeech`)
 
 `bubblespeech` draws a rectangular callout box with an integrated triangular pointer tail that originates from any of the four edges (`"left"`, `"top"`, `"right"`, `"bottom"`) and points to an exact target coordinate `tail_vertex_xy`:
 
@@ -306,7 +448,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_bubblespeech.png" alt="shapes_domain_4" />
+  <img src="shapes_domain_images/shapes_domain_bubblespeech.png" alt="shapes_domain_6" />
   <figcaption class="drawlib-caption">Speech Bubble Callouts with Bottom-Left Anchor xy and Pointer Tail Vertex</figcaption>
 </figure>
 
@@ -314,7 +456,7 @@ save()
 
 ---
 
-## 5. Cloud Nodes & Boundaries (`cloud`)
+## 7. Cloud Nodes & Boundaries (`cloud`)
 
 `cloud` renders a smooth cubic-Bézier cloud silhouette scaled to fit its exact `(width, height)` bounding box centered at `xy`:
 
@@ -365,7 +507,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_cloud.png" alt="shapes_domain_5" />
+  <img src="shapes_domain_images/shapes_domain_cloud.png" alt="shapes_domain_7" />
   <figcaption class="drawlib-caption">Four Cloud Variants (standard, flat, fluffy, simple) in drawlib.shapes.cloud</figcaption>
 </figure>
 
@@ -373,7 +515,7 @@ save()
 
 ---
 
-## 6. Grouping Braces & Brackets (`brace`)
+## 8. Grouping Braces & Brackets (`brace`)
 
 `brace` renders a curly (`{`, `}`), square (`[`, `]`), or round (`(`, `)`) grouping bracket in any of four directions (`"left"`, `"right"`, `"top"`, `"bottom"`), with stroke thickness controlled via `style.line_width`:
 
@@ -445,7 +587,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_brace.png" alt="shapes_domain_6" />
+  <img src="shapes_domain_images/shapes_domain_brace.png" alt="shapes_domain_8" />
   <figcaption class="drawlib-caption">Curly, Square, and Round Braces with Directions and Line Width Control</figcaption>
 </figure>
 

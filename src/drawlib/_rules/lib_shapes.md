@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 28 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 30 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -14,7 +14,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [1.5 Rotation Coordinate Mathematics](#15-rotation-coordinate-mathematics)
   - [1.6 The Unified Styling System (`Style`)](#16-the-unified-styling-system-style)
   - [1.7 Embedded Text Rendering & Micro-Offsets (`text_style`)](#17-embedded-text-rendering--micro-offsets-text_style)
-- [2. Circle-like Shapes](#2-circle-like-shapes)
+- [2. Circle-like & Domain Shapes](#2-circle-like-shapes)
   - [2.1 `circle`](#21-circle)
   - [2.2 `donuts`](#22-donuts)
   - [2.3 `ellipse`](#23-ellipse)
@@ -25,6 +25,8 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [2.8 `face`](#28-face)
   - [2.9 `cloud`](#29-cloud)
   - [2.10 `brace`](#210-brace)
+  - [2.11 `cube`](#211-cube)
+  - [2.12 `document`](#212-document)
 - [3. Polygon & Planar Geometric Primitives](#3-polygon--planar-geometric-primitives)
   - [3.1 `rectangle`](#31-rectangle)
   - [3.2 `parallelogram`](#32-parallelogram)
@@ -62,7 +64,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 28 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 30 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -77,7 +79,9 @@ from drawlib.shapes import (
     chevron,
     circle,
     cloud,
+    cube,
     cylinder,
+    document,
     donuts,
     ellipse,
     face,
@@ -129,7 +133,7 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `cloud`, `brace`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `math_symbol`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `circle`, `cylinder`, `cube`, `document`, `donuts`, `ellipse`, `face`, `cloud`, `brace`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `math_symbol`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
    - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
@@ -835,6 +839,81 @@ def brace(
 | `tip_position_ratio` | `float \| None` | `None` | Center tip position along the span in `(0.0, 1.0)` for curly braces (defaults to `0.50`). |
 | `style` | `Style` | *Required* | Stroke style (`line_width` or `shape_line_width` controls thickness; `shape_r` rounds `"square"` bracket corners). |
 | `text` | `str` | `""` | Centered text label. |
+| `text_style` | `Style \| None` | `None` | Text formatting style. |
+
+---
+
+### 2.11 `cube`
+
+Draws a 3D isometric-style cube or rectangular block strictly fitted inside `(width, height)`, with automatic 3-face shading (front face = base fill, top face = lightened, right side face = darkened) and text centered on the front face.
+
+#### Signature
+```python
+def cube(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    depth_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the outer cube bounding box. |
+| `width` | `float` | *Required* | Outer horizontal width ($> 0$). |
+| `height` | `float` | *Required* | Outer vertical height ($> 0$). |
+| `depth_ratio` | `float \| None` | `None` | 3D depth fraction in `(0.0, 1.0)` relative to `min(width, height)` (defaults to `0.25`). |
+| `style` | `Style` | *Required* | Shape fill and stroke style (supports `angle` for rotation). |
+| `text` | `str` | `""` | Text centered on the front face of the cube. |
+| `text_style` | `Style \| None` | `None` | Text formatting style. |
+
+---
+
+### 2.12 `document`
+
+Draws a single or multi-sheet stacked document shape with configurable edge variants (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`).
+
+#### Signature
+```python
+def document(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    variant: Literal[
+        "wave", "standard",
+        "folded", "page", "note",
+        "double_wave", "snippet",
+        "folded_wave", "report",
+    ] = "wave",
+    stacked: int = 1,
+    wave_ratio: float | None = None,
+    fold_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the document bounding box. |
+| `width` | `float` | *Required* | Outer horizontal width ($> 0$). |
+| `height` | `float` | *Required* | Outer vertical height ($> 0$). |
+| `variant` | `str` | `"wave"` | Silhouette variant: `"wave"` (`"standard"`), `"folded"` (`"page"`, `"note"`), `"double_wave"` (`"snippet"`), or `"folded_wave"` (`"report"`). |
+| `stacked` | `int` | `1` | Number of cascaded document sheets ($\ge 1$). |
+| `wave_ratio` | `float \| None` | `None` | Wave amplitude ratio in `(0.0, 1.0)` relative to sheet height (defaults to `0.14`). |
+| `fold_ratio` | `float \| None` | `None` | Top-right dog-ear corner fold ratio in `(0.0, 1.0)` relative to `min(sheet_w, sheet_h)` (defaults to `0.24`). |
+| `style` | `Style` | *Required* | Shape fill and stroke style (supports `angle` for rotation). |
+| `text` | `str` | `""` | Text centered on the front document sheet. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 ---
@@ -2529,6 +2608,8 @@ save()
 | `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | Ignored | Yes | Yes | No |
 | `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | Ignored | Yes | Yes | No |
 | `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | Ignored | Yes | Yes | No |
+| `cube`   | Center `(x, y)` | `width`, `height`, `depth_ratio` | Ignored | Yes | Yes | No |
+| `document` | Center `(x, y)` | `width`, `height`, `variant`, `stacked` | Ignored | Yes | Yes | No |
 | `face`   | Center `(x, y)` | `radius`, `mood` | Ignored | Yes | Yes | No |
 | `cloud`  | Center `(x, y)` | `width`, `height`, `variant`, `bump_ratio` | Ignored | Yes | Yes | No |
 | `brace`  | Center `(x, y)` | `width`, `height`, `symbol`, `direction` | **Yes** (scalar, `"square"`) | Yes | Yes | No |

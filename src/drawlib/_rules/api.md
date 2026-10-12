@@ -19,9 +19,9 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 # 3. Drawing Primitives
 from drawlib.shapes import (
     arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, brace, bubblespeech,
-    chevron, circle, cloud, cylinder, donuts, ellipse, face, fan, gear, math_symbol,
-    parallelogram, polygon, rectangle, regularpolygon, rhombus, shape, star,
-    trapezoid, triangle, wedge,
+    chevron, circle, cloud, cube, cylinder, document, donuts, ellipse, face, fan,
+    gear, math_symbol, parallelogram, polygon, rectangle, regularpolygon, rhombus,
+    shape, star, trapezoid, triangle, wedge,
 )
 from drawlib.lines import (
     line, line_arc, line_bezier1, line_bezier2, line_curved,
@@ -122,6 +122,8 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `rectangle(xy, width, height, ...)` | `width, height: float` | Rectangle or rounded rectangle (via `style.shape_r`). |
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
 | `cylinder(xy, width, height, ...)` | `disks: int = 1` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
+| `cube(xy, width, height, ...)` | `depth_ratio: float \| None = None` | 3D cube / rectangular block with 3-face automatic shading centered at `xy`. |
+| `document(xy, width, height, ...)` | `variant: str = "wave"` (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`), `stacked: int = 1`, `wave_ratio=None`, `fold_ratio=None` | Wavy-bottom or folded-corner document / multi-sheet stack centered at `xy`. |
 | `face(xy, radius, ...)` | `mood: str = "smile"` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) centered at `xy`. |
 | `cloud(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`), `bump_ratio=None` | Cloud node or VPC/SaaS boundary enclosure centered at `xy`. |
 | `brace(xy, width, height, ...)` | `symbol: str = "{"` (`"{"`, `"}"`, `"["`, `"]"`, `"("`, `")"`), `direction=None`, `tip_ratio=None`, `tip_position_ratio=None` | Curly, square, or round grouping bracket/brace (stroke thickness controlled via `style.line_width`). |

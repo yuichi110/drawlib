@@ -31,6 +31,7 @@ from drawlib._core.l2_types import (
     CloudVariant,
     Coordinate,
     Coordinates,
+    DocumentVariant,
     FaceMood,
     NumVertex,
     PathPoints,
@@ -1118,6 +1119,146 @@ class CanvasShapeBasicFeature(CanvasBase):
                 )
             )
 
+    @validate_call
+    def cube(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        depth_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a 3D cube or rectangular box shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Outer width of the cube bounding box.
+            height: Outer height of the cube bounding box.
+            depth_ratio: Optional 3D depth fraction in (0.0, 1.0) relative to min(width, height).
+            style: Style object (required).
+            text: Text to display on the front face of the cube.
+            text_style: Style object for text.
+
+        Raises:
+            ValueError: If width, height, or depth_ratio are out of valid bounds.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        if width <= 0.0 or height <= 0.0:
+            raise ValueError("width and height must be positive.")
+        if depth_ratio is not None and not (0.0 < depth_ratio < 1.0):
+            raise ValueError("depth_ratio must be strictly between 0.0 and 1.0.")
+
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+
+        patches, text_xy = _build_cube_patches(
+            xy=xy,
+            width=width,
+            height=height,
+            depth_ratio=depth_ratio,
+            angle=angle,
+            style=style,
+        )
+        self._artists.extend(patches)
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def document(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: DocumentVariant = "wave",
+        stacked: PosInt = 1,
+        wave_ratio: Ratio | None = None,
+        fold_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a wavy-bottom or folded-corner document shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Outer width of the document bounding box.
+            height: Outer height of the document bounding box.
+            variant: Document silhouette ("wave", "standard", "folded", "page", "note",
+                "double_wave", "snippet", "folded_wave", "report").
+            stacked: Number of stacked document sheets (default is 1).
+            wave_ratio: Optional wave amplitude ratio in (0.0, 1.0).
+            fold_ratio: Optional top-right corner fold size ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display on the front document sheet.
+            text_style: Style object for text.
+
+        Raises:
+            ValueError: If dimensions, stacked count, or ratios are out of valid bounds.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        if width <= 0.0 or height <= 0.0:
+            raise ValueError("width and height must be positive.")
+        if stacked < 1:
+            raise ValueError("stacked must be >= 1.")
+        if wave_ratio is not None and not (0.0 < wave_ratio < 1.0):
+            raise ValueError("wave_ratio must be strictly between 0.0 and 1.0.")
+        if fold_ratio is not None and not (0.0 < fold_ratio < 1.0):
+            raise ValueError("fold_ratio must be strictly between 0.0 and 1.0.")
+
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+
+        patches, text_xy = _build_document_patches(
+            xy=xy,
+            width=width,
+            height=height,
+            variant=variant,
+            stacked=stacked,
+            wave_ratio=wave_ratio,
+            fold_ratio=fold_ratio,
+            angle=angle,
+            style=style,
+        )
+        self._artists.extend(patches)
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
 
 def _get_face_colors(
     style: Style,
@@ -1689,6 +1830,390 @@ def _build_brace_path(
         transformed.append((rx, ry))
 
     return Path(transformed, codes)
+
+
+def _get_cube_face_fills(
+    style: Style,
+) -> tuple[
+    tuple[float, float, float, float] | str,
+    tuple[float, float, float, float] | str,
+    tuple[float, float, float, float] | str,
+]:
+    """Derive front, top, and right-side face fills from a shape Style."""
+    if style.shape_fill_color is None:
+        return "none", "none", "none"
+
+    raw = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+    if raw[3] <= 0.0:
+        return "none", "none", "none"
+
+    lum = 0.299 * raw[0] + 0.587 * raw[1] + 0.114 * raw[2]
+    top_lift = 0.55 if lum > 0.85 else 0.28
+    side_mul = 0.92 if lum > 0.85 else 0.82
+    top_fill = (
+        min(1.0, raw[0] + (1.0 - raw[0]) * top_lift),
+        min(1.0, raw[1] + (1.0 - raw[1]) * top_lift),
+        min(1.0, raw[2] + (1.0 - raw[2]) * top_lift),
+        raw[3],
+    )
+    side_fill = (
+        raw[0] * side_mul,
+        raw[1] * side_mul,
+        raw[2] * side_mul,
+        raw[3],
+    )
+    return raw, top_fill, side_fill
+
+
+def _build_cube_patches(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    depth_ratio: float | None,
+    angle: float,
+    style: Style,
+) -> tuple[list[PathPatch], tuple[float, float]]:
+    """Build 3D cube face and outline patches and return (patches, front_face_text_xy)."""
+    cx, cy = xy
+    dr = 0.25 if depth_ratio is None else depth_ratio
+    base_d = min(width, height) * dr
+    dx = min(base_d, width * 0.48)
+    dy = min(base_d * 0.82, height * 0.48)
+
+    hw = width / 2.0
+    hh = height / 2.0
+    fx0, fx1 = -hw, hw - dx
+    fy0, fy1 = -hh, hh - dy
+
+    rad = math.radians(angle)
+    cos_a = math.cos(rad)
+    sin_a = math.sin(rad)
+
+    def xform(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
+        return [(cx + vx * cos_a - vy * sin_a, cy + vx * sin_a + vy * cos_a) for vx, vy in pts]
+
+    front_pts = [(fx0, fy0), (fx1, fy0), (fx1, fy1), (fx0, fy1), (fx0, fy0)]
+    top_pts = [(fx0, fy1), (fx1, fy1), (hw, hh), (fx0 + dx, hh), (fx0, fy1)]
+    side_pts = [(fx1, fy0), (hw, -hh + dy), (hw, hh), (fx1, fy1), (fx1, fy0)]
+    codes_quad: list[Any] = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY]
+
+    front_fill, top_fill, side_fill = _get_cube_face_fills(style)
+    patches: list[PathPatch] = [
+        PathPatch(
+            Path(vertices=xform(pts), codes=codes_quad),
+            facecolor=fill,
+            edgecolor="none",
+            linewidth=0,
+            zorder=1,
+        )
+        for pts, fill in ((top_pts, top_fill), (side_pts, side_fill), (front_pts, front_fill))
+    ]
+
+    line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
+    if style.shape_line_color is not None and line_w > 0:
+        stroke_color = ColorUtil.get_mplot_rgba(style.shape_line_color, alpha=style.alpha)
+        if stroke_color[3] > 0.0:
+            line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
+            outer_pts = [
+                (fx0, fy0),
+                (fx1, fy0),
+                (hw, -hh + dy),
+                (hw, hh),
+                (fx0 + dx, hh),
+                (fx0, fy1),
+                (fx0, fy0),
+                (fx0, fy1),
+                (fx1, fy1),
+                (fx1, fy0),
+                (fx1, fy1),
+                (hw, hh),
+            ]
+            outer_codes: list[Any] = [
+                Path.MOVETO,
+                Path.LINETO,
+                Path.LINETO,
+                Path.LINETO,
+                Path.LINETO,
+                Path.LINETO,
+                Path.CLOSEPOLY,
+                Path.MOVETO,
+                Path.LINETO,
+                Path.LINETO,
+                Path.MOVETO,
+                Path.LINETO,
+            ]
+            patches.append(
+                PathPatch(
+                    Path(vertices=xform(outer_pts), codes=outer_codes),
+                    facecolor="none",
+                    edgecolor=stroke_color,
+                    linewidth=line_w,
+                    linestyle=line_style,
+                    joinstyle="round",
+                    capstyle="round",
+                    zorder=1,
+                )
+            )
+
+    fcx_local = 0.5 * (fx0 + fx1)
+    fcy_local = 0.5 * (fy0 + fy1)
+    text_xy = (
+        cx + fcx_local * cos_a - fcy_local * sin_a,
+        cy + fcx_local * sin_a + fcy_local * cos_a,
+    )
+    return patches, text_xy
+
+
+def _build_document_sheet_paths(
+    x0: float,
+    y0: float,
+    w: float,
+    h: float,
+    variant: str,
+    wave_h: float,
+    fold_s: float,
+    cx: float,
+    cy: float,
+    cos_a: float,
+    sin_a: float,
+) -> tuple[Path, Path | None, Path]:
+    """Build rotated (body_fill_path, flap_fill_path, stroke_path) for one document sheet."""
+
+    def xform(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
+        return [(cx + vx * cos_a - vy * sin_a, cy + vx * sin_a + vy * cos_a) for vx, vy in pts]
+
+    has_bottom_wave = variant in ("wave", "standard", "double_wave", "snippet", "folded_wave", "report")
+    has_top_wave = variant in ("double_wave", "snippet")
+    has_fold = variant in ("folded", "page", "note", "folded_wave", "report")
+
+    x1 = x0 + w
+    xm = x0 + w * 0.5
+    y1 = y0 + h
+
+    yt_base = y1 - 0.5 * wave_h if has_top_wave else y1
+    verts: list[tuple[float, float]] = [(x0, yt_base)]
+    codes: list[Any] = [Path.MOVETO]
+
+    if has_bottom_wave:
+        yb_base = y0 + 0.5 * wave_h
+        db = (2.0 / 3.0) * wave_h
+        verts.extend([
+            (x0, yb_base),
+            (x0 + w * 0.16, yb_base - db),
+            (x0 + w * 0.34, yb_base - db),
+            (xm, yb_base),
+            (x0 + w * 0.66, yb_base + db),
+            (x0 + w * 0.84, yb_base + db),
+            (x1, yb_base),
+        ])
+        codes.extend([Path.LINETO] + [Path.CURVE4] * 6)
+    else:
+        verts.extend([(x0, y0), (x1, y0)])
+        codes.extend([Path.LINETO, Path.LINETO])
+
+    if has_fold:
+        verts.extend([(x1, y1 - fold_s), (x1 - fold_s, y1), (x0, y1)])
+        codes.extend([Path.LINETO, Path.LINETO, Path.CLOSEPOLY])
+    elif has_top_wave:
+        dt = (2.0 / 3.0) * wave_h
+        verts.extend([
+            (x1, yt_base),
+            (x0 + w * 0.84, yt_base + dt),
+            (x0 + w * 0.66, yt_base + dt),
+            (xm, yt_base),
+            (x0 + w * 0.34, yt_base - dt),
+            (x0 + w * 0.16, yt_base - dt),
+            (x0, yt_base),
+            (x0, yt_base),
+        ])
+        codes.extend([Path.LINETO] + [Path.CURVE4] * 6 + [Path.CLOSEPOLY])
+    else:
+        verts.extend([(x1, y1), (x0, y1)])
+        codes.extend([Path.LINETO, Path.CLOSEPOLY])
+
+    body_path = Path(vertices=xform(verts), codes=codes)
+    flap_path: Path | None = None
+    stroke_verts = list(verts)
+    stroke_codes = list(codes)
+
+    if has_fold:
+        flap_verts = [
+            (x1 - fold_s, y1),
+            (x1 - fold_s, y1 - fold_s),
+            (x1, y1 - fold_s),
+            (x1 - fold_s, y1),
+        ]
+        flap_codes: list[Any] = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY]
+        flap_path = Path(vertices=xform(flap_verts), codes=flap_codes)
+        stroke_verts.extend([
+            (x1 - fold_s, y1),
+            (x1 - fold_s, y1 - fold_s),
+            (x1, y1 - fold_s),
+        ])
+        stroke_codes.extend([Path.MOVETO, Path.LINETO, Path.LINETO])
+
+    return body_path, flap_path, Path(vertices=xform(stroke_verts), codes=stroke_codes)
+
+
+def _get_document_sheet_fills(
+    raw_fill: tuple[float, float, float, float] | None,
+    idx: int,
+) -> tuple[tuple[float, float, float, float] | str, tuple[float, float, float, float] | str]:
+    """Compute body fill and folded flap fill for a document sheet at stack index idx."""
+    if raw_fill is None or raw_fill[3] <= 0.0:
+        return "none", "none"
+
+    factor = 0.14 * idx
+    fill_c = (
+        min(1.0, raw_fill[0] + (1.0 - raw_fill[0]) * factor),
+        min(1.0, raw_fill[1] + (1.0 - raw_fill[1]) * factor),
+        min(1.0, raw_fill[2] + (1.0 - raw_fill[2]) * factor),
+        raw_fill[3],
+    )
+    lum = 0.299 * fill_c[0] + 0.587 * fill_c[1] + 0.114 * fill_c[2]
+    flap_mul = 0.90 if lum > 0.85 else 0.80
+    flap_c = (
+        fill_c[0] * flap_mul,
+        fill_c[1] * flap_mul,
+        fill_c[2] * flap_mul,
+        fill_c[3],
+    )
+    return fill_c, flap_c
+
+
+def _get_document_text_center(
+    cx: float,
+    cy: float,
+    hw: float,
+    hh: float,
+    sheet_w: float,
+    sheet_h: float,
+    wave_h: float,
+    fold_s: float,
+    variant: str,
+    cos_a: float,
+    sin_a: float,
+) -> tuple[float, float]:
+    """Calculate optical center on the front document sheet for embedded text."""
+    fcx_local = -hw + sheet_w / 2.0
+    if variant in ("wave", "standard"):
+        fcy_local = -hh + wave_h * 0.50 + (sheet_h - wave_h * 0.50) / 2.0
+    elif variant in ("folded_wave", "report"):
+        fcy_local = -hh + wave_h * 0.45 + (sheet_h - wave_h * 0.45 - fold_s * 0.25) / 2.0
+    elif variant in ("folded", "page", "note"):
+        fcy_local = -hh + (sheet_h - fold_s * 0.20) / 2.0
+    else:
+        fcy_local = -hh + sheet_h / 2.0
+    return (
+        cx + fcx_local * cos_a - fcy_local * sin_a,
+        cy + fcx_local * sin_a + fcy_local * cos_a,
+    )
+
+
+def _build_document_patches(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    variant: str,
+    stacked: int,
+    wave_ratio: float | None,
+    fold_ratio: float | None,
+    angle: float,
+    style: Style,
+) -> tuple[list[PathPatch], tuple[float, float]]:
+    """Build document sheet patches (supporting stacked sheets and variants) and return (patches, text_xy)."""
+    cx, cy = xy
+    wr = 0.14 if wave_ratio is None else wave_ratio
+    fr = 0.24 if fold_ratio is None else fold_ratio
+
+    rad = math.radians(angle)
+    cos_a = math.cos(rad)
+    sin_a = math.sin(rad)
+
+    n = max(1, stacked)
+    step_x = 0.0 if n == 1 else min(width * 0.075, 2.2)
+    step_y = 0.0 if n == 1 else min(height * 0.075, 2.2)
+    sheet_w = width - step_x * (n - 1)
+    sheet_h = height - step_y * (n - 1)
+    wave_h = sheet_h * wr
+    fold_s = min(sheet_w, sheet_h) * fr
+
+    line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
+    stroke_rgba = (
+        ColorUtil.get_mplot_rgba(style.shape_line_color, alpha=style.alpha)
+        if style.shape_line_color is not None and line_w > 0
+        else None
+    )
+    has_stroke = stroke_rgba is not None and stroke_rgba[3] > 0.0
+    line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
+    raw_fill = (
+        ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+        if style.shape_fill_color is not None
+        else None
+    )
+
+    hw = width / 2.0
+    hh = height / 2.0
+    patches: list[PathPatch] = []
+
+    for idx in range(n - 1, -1, -1):
+        body_p, flap_p, stroke_p = _build_document_sheet_paths(
+            -hw + idx * step_x,
+            -hh + idx * step_y,
+            sheet_w,
+            sheet_h,
+            variant,
+            wave_h,
+            fold_s,
+            cx,
+            cy,
+            cos_a,
+            sin_a,
+        )
+        fill_c, flap_c = _get_document_sheet_fills(raw_fill, idx)
+        patches.append(
+            PathPatch(
+                body_p,
+                facecolor=fill_c,
+                edgecolor="none",
+                linewidth=0,
+                zorder=1,
+            )
+        )
+        if flap_p is not None and flap_c != "none":
+            patches.append(
+                PathPatch(
+                    flap_p,
+                    facecolor=flap_c,
+                    edgecolor="none",
+                    linewidth=0,
+                    zorder=1,
+                )
+            )
+
+        needs_sep = (n > 1 or flap_p is not None) and fill_c != "none"
+        edge_c: tuple[float, float, float, float] | str = (
+            stroke_rgba if (has_stroke and stroke_rgba is not None) else ("#ffffff" if needs_sep else "none")
+        )
+        edge_w = line_w if has_stroke else (1.0 if needs_sep else 0.0)
+        if edge_c != "none" and edge_w > 0:
+            patches.append(
+                PathPatch(
+                    stroke_p,
+                    facecolor="none",
+                    edgecolor=edge_c,
+                    linewidth=edge_w,
+                    linestyle=line_style,
+                    joinstyle="round",
+                    capstyle="round",
+                    zorder=1,
+                )
+            )
+
+    text_xy = _get_document_text_center(
+        cx, cy, hw, hh, sheet_w, sheet_h, wave_h, fold_s, variant, cos_a, sin_a
+    )
+    return patches, text_xy
 
 
 __all__ = ["CanvasShapeBasicFeature"]
