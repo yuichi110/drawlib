@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 25 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 26 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -33,7 +33,8 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [3.7 `polygon`](#37-polygon)
   - [3.8 `star`](#38-star)
   - [3.9 `gear`](#39-gear)
-  - [3.10 `bubblespeech`](#310-bubblespeech)
+  - [3.10 `math_symbol`](#310-math_symbol)
+  - [3.11 `bubblespeech`](#311-bubblespeech)
 - [4. Custom Path & Vector Construction](#4-custom-path--vector-construction)
   - [4.1 `shape`](#41-shape)
 - [5. Directed Block Arrow Shapes](#5-directed-block-arrow-shapes)
@@ -59,7 +60,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 25 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 26 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -78,6 +79,7 @@ from drawlib.shapes import (
     face,
     fan,
     gear,
+    math_symbol,
     parallelogram,
     polygon,
     rectangle,
@@ -123,7 +125,7 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `math_symbol`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
    - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
@@ -1377,7 +1379,63 @@ save()
 
 ---
 
-### 3.10 `bubblespeech`
+### 3.10 `math_symbol`
+
+Draws a mathematical operator symbol (`+`, `-`, `×`, `÷`, `=`, `≠`) as a filled, bordered geometric shape for visual equations (`Card A + Card B = Result`).
+
+#### Signature
+```python
+def math_symbol(
+    xy: tuple[float, float],
+    symbol: Literal[
+        "+", "-", "−", "*", "x", "×", "/", "÷", "=", "!=", "≠",
+        "plus", "minus", "multiply", "divide", "equal", "not_equal",
+    ],
+    width: float,
+    height: float | None = None,
+    *,
+    thickness_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
+| `symbol` | `str` | *Required* | Operator symbol (`"+"`, `"-"`, `"*"`, `"x"`, `"×"`, `"/"`, `"÷"`, `"="`, `"!="`, `"≠"`, or word aliases `"plus"`, `"minus"`, `"multiply"`, `"divide"`, `"equal"`, `"not_equal"`). |
+| `width` | `float` | *Required* | Horizontal width of the symbol bounding box ($> 0$). |
+| `height` | `float \| None` | `None` | Vertical height of the symbol bounding box (defaults to `width` when `None`). |
+| `thickness_ratio` | `float \| None` | `None` | Bar thickness ratio relative to `min(width, height)` in `(0.0, 1.0)`. Defaults to `0.28` when `None`. |
+| `style` | `Style` | *Required* | Fill and stroke style (supports `angle` for rotation and `shape_r` for corner rounding). |
+| `text` | `str` | `""` | Text label at center. |
+| `text_style` | `Style \| None` | `None` | Text styling parameters. |
+
+#### Geometric & Alignment Mechanics
+- Intersecting symbols (`+`, `×`, `≠`) are constructed as a single unified outer contour without internal crossing lines, while multi-part symbols (`=`, `÷`) are rendered as a compound `PathPatch`.
+- `style.shape_r` (scalar) rounds the corners of all polygonal bar components.
+
+#### Code Examples
+```drawlib code=show
+from drawlib.canvas import save, setup
+from drawlib.shapes import math_symbol
+from drawlib.styles import Styles
+
+setup(width=110, height=34)
+
+for idx, sym in enumerate(("+", "-", "×", "÷", "=", "≠")):
+    st = Styles.PrimaryFlat if sym in ("+", "=") else Styles.SecondaryNeutral
+    math_symbol((14 + idx * 16.5, 17), symbol=sym, width=11, style=st.patch(shape_r=0.5))
+
+save()
+```
+
+---
+
+### 3.11 `bubblespeech`
 
 Draws an irregular speech bubble or callout box with a triangular pointer tail, designed for comic dialogue, system callouts, and migration notes.
 
@@ -2405,6 +2463,7 @@ save()
 | `polygon` | Vertices `xys` | `xys: list[tuple[float, float]]` | **Yes** (scalar or N-tuple) | **No** | Yes | **Yes** |
 | `star` | Center `(x, y)` | `num_vertex`, `radius_ext`, `radius_int` | **Yes** (scalar or 2N-tuple) | Yes | Yes | No |
 | `gear` | Center `(x, y)` | `num_teeth`, `radius_ext`, `radius_int`, `hole_radius` | **Yes** (scalar or 4N-tuple) | Yes | Yes | No |
+| `math_symbol` | Center `(x, y)` | `symbol`, `width`, `height`, `thickness_ratio` | **Yes** (scalar) | Yes | Yes | No |
 | `shape` | Center `(x, y)` | `path_points` | Via Bezier | Yes | Yes | No |
 | `arrow` | Endpoints `xy1, xy2` | `tail_width`, `head_width`, `head_length` | Ignored | Auto ($\Delta xy$) | Yes | **Yes** |
 | `arrow_polyline` | Vertices `xys` | `tail_width`, `head_width`, `head_length` | **Yes** (scalar or (N-2)-tuple) | Path-driven | **No** | **Yes** |

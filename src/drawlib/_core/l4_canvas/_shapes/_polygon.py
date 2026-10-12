@@ -20,6 +20,7 @@ from drawlib._core.l2_types import (
     Angle,
     Angle90,
     Coordinate,
+    MathSymbol,
     NumVertex,
     PathPoints,
     PosFloat,
@@ -141,6 +142,195 @@ def _build_gear_outer_path_points(
         path_points.append((cx + radius_int * math.cos(a4), cy + radius_int * math.sin(a4)))
         path_points.append(_gear_arc_bezier_segment(radius_int, a4, next_a1, cx, cy))
     return path_points
+
+
+def _build_ccw_circle_path(cx: float, cy: float, radius: float) -> Path:
+    """Build a counter-clockwise circular Matplotlib Path for solid dots."""
+    r = radius
+    kappa = 0.5522847498307936
+    k = r * kappa
+    verts: list[Coordinate] = [
+        (cx + r, cy),
+        (cx + r, cy + k),
+        (cx + k, cy + r),
+        (cx, cy + r),
+        (cx - k, cy + r),
+        (cx - r, cy + k),
+        (cx - r, cy),
+        (cx - r, cy - k),
+        (cx - k, cy - r),
+        (cx, cy - r),
+        (cx + k, cy - r),
+        (cx + r, cy - k),
+        (cx + r, cy),
+        (cx + r, cy),
+    ]
+    codes = [
+        Path.MOVETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CLOSEPOLY,
+    ]
+    return Path(vertices=verts, codes=codes)
+
+
+def _build_not_equal_polygon(hw: float, hh: float, ht: float) -> list[Coordinate]:
+    """Build a single unified 20-vertex polygon for the not-equal (≠) symbol without internal seams."""
+    bh = min(ht * 0.85, hh * 0.24)
+    y_mid = min(hh * 0.42, max(bh * 1.6, hh * 0.36))
+    y1 = y_mid - bh
+    y2 = y_mid + bh
+    sw = min(ht * 0.85, hw * 0.28)
+    ks = min(0.32, (hw - sw) / max(hh, 1e-6) * 0.55)
+
+    def xl(y_val: float) -> float:
+        return ks * y_val - sw
+
+    def xr(y_val: float) -> float:
+        return ks * y_val + sw
+
+    return [
+        (xr(hh), hh),
+        (xl(hh), hh),
+        (xl(y2), y2),
+        (-hw, y2),
+        (-hw, y1),
+        (xl(y1), y1),
+        (xl(-y1), -y1),
+        (-hw, -y1),
+        (-hw, -y2),
+        (xl(-y2), -y2),
+        (xl(-hh), -hh),
+        (xr(-hh), -hh),
+        (xr(-y2), -y2),
+        (hw, -y2),
+        (hw, -y1),
+        (xr(-y1), -y1),
+        (xr(y1), y1),
+        (hw, y1),
+        (hw, y2),
+        (xr(y2), y2),
+    ]
+
+
+def _build_math_symbol_components(
+    symbol: str,
+    width: float,
+    height: float,
+    t_ratio: float,
+) -> tuple[list[list[Coordinate]], list[tuple[Coordinate, float]]]:
+    """Return local polygon vertex lists and circular dot specs for a math symbol."""
+    s = min(width, height)
+    t = t_ratio * s
+    hw = width / 2.0
+    hh = height / 2.0
+    ht = t / 2.0
+
+    if symbol in {"+", "plus"}:
+        hx = min(ht, hw * 0.85)
+        hy = min(ht, hh * 0.85)
+        poly = [
+            (hx, hy),
+            (hx, hh),
+            (-hx, hh),
+            (-hx, hy),
+            (-hw, hy),
+            (-hw, -hy),
+            (-hx, -hy),
+            (-hx, -hh),
+            (hx, -hh),
+            (hx, -hy),
+            (hw, -hy),
+            (hw, hy),
+        ]
+        return [poly], []
+
+    if symbol in {"-", "−", "minus"}:
+        hy = min(ht, hh * 0.85)
+        return [[(-hw, -hy), (hw, -hy), (hw, hy), (-hw, hy)]], []
+
+    if symbol in {"*", "x", "×", "multiply"}:
+        hs = s / 2.0
+        ht_s = min(ht, hs * 0.72)
+        arm = max(ht_s * 1.15, hs * 1.0)
+        base_cross = [
+            (ht_s, ht_s),
+            (ht_s, arm),
+            (-ht_s, arm),
+            (-ht_s, ht_s),
+            (-arm, ht_s),
+            (-arm, -ht_s),
+            (-ht_s, -ht_s),
+            (-ht_s, -arm),
+            (ht_s, -arm),
+            (ht_s, -ht_s),
+            (arm, -ht_s),
+            (arm, ht_s),
+        ]
+        scale_x = width / s
+        scale_y = height / s
+        rotated: list[Coordinate] = []
+        for px, py in base_cross:
+            rx, ry = rotate_point((px, py), angle=45.0)
+            rotated.append((rx * scale_x, ry * scale_y))
+        return [rotated], []
+
+    if symbol in {"=", "equal"}:
+        bh = min(ht * 0.85, hh * 0.36)
+        y_off = min(hh - bh, max(bh * 1.45, hh * 0.44))
+        top_bar = [(-hw, y_off - bh), (hw, y_off - bh), (hw, y_off + bh), (-hw, y_off + bh)]
+        bot_bar = [(-hw, -y_off - bh), (hw, -y_off - bh), (hw, -y_off + bh), (-hw, -y_off + bh)]
+        return [top_bar, bot_bar], []
+
+    if symbol in {"/", "÷", "divide"}:
+        bh = min(ht * 0.82, hh * 0.25)
+        bar = [(-hw, -bh), (hw, -bh), (hw, bh), (-hw, bh)]
+        r_dot = min(bh * 1.25, (hh - bh) * 0.42)
+        y_dot = min(hh - r_dot, max(bh + r_dot * 1.35, hh * 0.60))
+        return [bar], [((0.0, y_dot), r_dot), ((0.0, -y_dot), r_dot)]
+
+    return [_build_not_equal_polygon(hw, hh, ht)], []
+
+
+def _build_math_symbol_path(
+    cx: float,
+    cy: float,
+    symbol: str,
+    width: float,
+    height: float,
+    t_ratio: float,
+    angle: float,
+    shape_r: float | tuple[float, ...] | None,
+) -> Path:
+    """Construct the world-space Matplotlib Path for a math_symbol."""
+    polygons_local, dots_local = _build_math_symbol_components(symbol, width, height, t_ratio)
+    sub_paths: list[Path] = []
+
+    for poly in polygons_local:
+        verts_world: list[Coordinate] = []
+        for pt in poly:
+            rx, ry = rotate_point(pt, angle=angle)
+            verts_world.append((rx + cx, ry + cy))
+        path_points = ShapeUtil.round_polygon_points(verts_world, shape_r)
+        sub_paths.append(ShapeUtil.build_matplotlib_path(path_points))
+
+    for dot_xy, dot_r in dots_local:
+        rx, ry = rotate_point(dot_xy, angle=angle)
+        sub_paths.append(_build_ccw_circle_path(rx + cx, ry + cy, dot_r))
+
+    if len(sub_paths) == 1:
+        return sub_paths[0]
+    return Path.make_compound_path(*sub_paths)
 
 
 class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
@@ -566,6 +756,87 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             path = Path.make_compound_path(outer_path, hole_path)
         else:
             path = outer_path
+
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=(cx, cy),
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def math_symbol(
+        self,
+        xy: Coordinate,
+        symbol: MathSymbol,
+        width: PosFloat,
+        height: PosFloat | None = None,
+        *,
+        thickness_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a mathematical operator symbol shape (+, -, ×, ÷, =, ≠) on the canvas.
+
+        Args:
+            xy: Center coordinate tuple (x, y).
+            symbol: Operator symbol ("+", "-", "*", "x", "×", "/", "÷", "=", "!=", "≠").
+            width: Horizontal width of the symbol bounding box.
+            height: Vertical height of the symbol bounding box (defaults to width when None).
+            thickness_ratio: Bar thickness ratio relative to min(width, height).
+                Defaults to 0.28 when None.
+            style: Style object.
+            text: Text to display inside shape.
+            text_style: Style object for text or None.
+
+        Raises:
+            ValueError: If width, height, or thickness_ratio are out of valid bounds.
+        """
+        style, text_style = ShapeUtil.format_styles(
+            style,
+            text_style,
+        )
+        angle: Angle = style.angle if style.angle is not None else 0.0
+
+        eff_height = width if height is None else height
+        if width <= 0.0 or eff_height <= 0.0:
+            raise ValueError("width and height must be positive.")
+
+        t_ratio = 0.28 if thickness_ratio is None else float(thickness_ratio)
+        if not (0.0 < t_ratio < 1.0):
+            raise ValueError("thickness_ratio must be strictly between 0.0 and 1.0.")
+
+        x, y = xy
+        xy_shifted = (x - width / 2.0, y - eff_height / 2.0)
+        ((x, y), style) = ShapeUtil.apply_alignment(
+            xy_shifted,
+            width,
+            eff_height,
+            angle,
+            style,
+            is_default_center=True,
+        )
+        cx = x + width / 2.0
+        cy = y + eff_height / 2.0
+
+        path = _build_math_symbol_path(
+            cx=cx,
+            cy=cy,
+            symbol=symbol,
+            width=width,
+            height=eff_height,
+            t_ratio=t_ratio,
+            angle=angle,
+            shape_r=style.shape_r,
+        )
 
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(PathPatch(path=path, **options))

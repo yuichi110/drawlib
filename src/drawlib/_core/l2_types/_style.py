@@ -68,6 +68,28 @@ FaceMood = Annotated[
     Literal["smile", "neutral", "sad", "angry", "surprised"],
     BeforeValidator(_normalize_str),
 ]
+MathSymbol = Annotated[
+    Literal[
+        "+",
+        "-",
+        "−",
+        "*",
+        "x",
+        "×",
+        "/",
+        "÷",
+        "=",
+        "!=",
+        "≠",
+        "plus",
+        "minus",
+        "multiply",
+        "divide",
+        "equal",
+        "not_equal",
+    ],
+    BeforeValidator(_normalize_str),
+]
 IconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
     BeforeValidator(_normalize_str),
@@ -90,6 +112,7 @@ __all__ = [
     "HAlign",
     "IconStyle",
     "LineStyle",
+    "MathSymbol",
     "ShapeRadius",
     "Size",
     "TailEdge",

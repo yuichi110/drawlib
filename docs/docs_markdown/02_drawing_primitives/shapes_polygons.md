@@ -1,6 +1,6 @@
 # Polygons & Custom Paths
 
-In addition to basic rectangles and circles, `drawlib.shapes` provides planar polygons (`parallelogram`, `rhombus`, `trapezoid`, `triangle`), radial equilateral shapes (`regularpolygon`, `star`, `gear`), arbitrary coordinate polygons (`polygon`), and a low-level Bézier vector path builder (`shape`).
+In addition to basic rectangles and circles, `drawlib.shapes` provides planar polygons (`parallelogram`, `rhombus`, `trapezoid`, `triangle`), radial equilateral shapes (`regularpolygon`, `star`, `gear`), mathematical operator symbols (`math_symbol`), arbitrary coordinate polygons (`polygon`), and a low-level Bézier vector path builder (`shape`).
 
 ---
 
@@ -229,7 +229,59 @@ save()
 
 ---
 
-## 4. Arbitrary Vertex Polygons (`polygon`)
+## 4. Mathematical Operator Symbols (`math_symbol`)
+
+`math_symbol(xy, symbol, width, height=None, *, thickness_ratio=None, style, text="", text_style=None)` renders mathematical operator symbols (`"+"`, `"-"`, `"×"`, `"÷"`, `"="`, `"≠"`) as filled, bordered geometric shapes for visual formulas (`Card A + Card B = Result`).
+
+- **Supported Symbols**: `"+"` (`"plus"`), `"-"` (`"−"`, `"minus"`), `"*"` (`"x"`, `"×"`, `"multiply"`), `"/"` (`"÷"`, `"divide"`), `"="` (`"equal"`), `"!="` (`"≠"`, `"not_equal"`).
+- **Dimensions & Bar Thickness**: `height` defaults to `width` when `None`. `thickness_ratio` controls the bar thickness relative to `min(width, height)` (defaults to `0.28`).
+- **Unified Contours & Corner Rounding**: Intersecting bars (`+`, `×`, `≠`) are constructed as a single unified outer contour with no internal crossing strokes, and `style.patch(shape_r=...)` rounds the bar corners smoothly.
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import math_symbol, rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=120, height=56)
+
+# Row 1: All 6 symbols (+, -, ×, ÷, =, ≠)
+symbols = [
+    ("+", 'symbol="+"', Styles.PrimaryFlat),
+    ("-", 'symbol="-"', Styles.SecondaryNeutral),
+    ("×", 'symbol="×"', Styles.PrimaryNeutral),
+    ("÷", 'symbol="÷"', Styles.SecondaryNeutral),
+    ("=", 'symbol="="', Styles.PrimaryFlat),
+    ("≠", 'symbol="≠"', Styles.AccentFlat),
+]
+
+for idx, (sym, label, st) in enumerate(symbols):
+    cx = 12 + idx * 19.2
+    math_symbol((cx, 40), symbol=sym, width=12.5, style=st.patch(shape_r=0.5))
+    text((cx, 28.5), label, style=Styles.DarkBold.patch(text_size=10.0))
+
+# Row 2: Visual equation layout (Card + Card = Result Card)
+rectangle((24, 13), width=28, height=13, style=Styles.PrimaryNeutral.patch(shape_r=2), text="Latency", text_style=Styles.DarkBold.patch(text_size=10.5))
+math_symbol((46, 13), symbol="+", width=7.5, thickness_ratio=0.30, style=Styles.SecondaryFlat.patch(shape_r=0.4))
+rectangle((68, 13), width=28, height=13, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Jitter", text_style=Styles.DarkBold.patch(text_size=10.5))
+math_symbol((90, 13), symbol="=", width=7.5, thickness_ratio=0.28, style=Styles.SecondaryFlat.patch(shape_r=0.4))
+rectangle((108, 13), width=20, height=13, style=Styles.PrimaryFlat.patch(shape_r=2), text="SLA", text_style=Styles.WhiteBold.patch(text_size=10.5))
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_polygons_images/shapes_polygons_math_symbol.png" alt="shapes_polygons_4" />
+  <figcaption class="drawlib-caption">Mathematical Operator Symbols (+, -, ×, ÷, =, ≠) and Visual Equation Layout</figcaption>
+</figure>
+
+
+
+---
+
+## 5. Arbitrary Vertex Polygons (`polygon`)
 
 `polygon(xys, *, style, text="", text_style=None)` constructs a closed polygon directly from a list of canvas vertex coordinates `xys=[(x1, y1), (x2, y2), ...]`.
 
@@ -265,7 +317,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_4" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_5" />
   <figcaption class="drawlib-caption">Custom Coordinate Polygons with Uniform and Per-Vertex Rounding</figcaption>
 </figure>
 
@@ -273,7 +325,7 @@ save()
 
 ---
 
-## 5. Custom Vector & Bézier Path Builder (`shape`)
+## 6. Custom Vector & Bézier Path Builder (`shape`)
 
 For custom icons, shields, waves, or irregular components that need relative positioning, rotation, and Bézier curves, use `shape()`:
 
@@ -340,7 +392,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_5" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_6" />
   <figcaption class="drawlib-caption">Custom Vector Shapes Using Straight and Cubic Bézier Path Points</figcaption>
 </figure>
 

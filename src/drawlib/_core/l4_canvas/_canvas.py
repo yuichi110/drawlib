@@ -432,6 +432,7 @@ parallelogram = canvas.parallelogram
 triangle = canvas.triangle
 star = canvas.star
 gear = canvas.gear
+math_symbol = canvas.math_symbol
 chevron = canvas.chevron
 bubblespeech = canvas.bubblespeech
 

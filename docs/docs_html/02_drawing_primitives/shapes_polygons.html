@@ -479,7 +479,7 @@
             </header>
             <main class="main-content">
                 <h1>Polygons &amp; Custom Paths</h1>
-<p>In addition to basic rectangles and circles, <code>drawlib.shapes</code> provides planar polygons (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>), radial equilateral shapes (<code>regularpolygon</code>, <code>star</code>, <code>gear</code>), arbitrary coordinate polygons (<code>polygon</code>), and a low-level Bézier vector path builder (<code>shape</code>).</p>
+<p>In addition to basic rectangles and circles, <code>drawlib.shapes</code> provides planar polygons (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>), radial equilateral shapes (<code>regularpolygon</code>, <code>star</code>, <code>gear</code>), mathematical operator symbols (<code>math_symbol</code>), arbitrary coordinate polygons (<code>polygon</code>), and a low-level Bézier vector path builder (<code>shape</code>).</p>
 <hr />
 <h2>1. Overview of Polygons &amp; Custom Paths</h2>
 <figure class="drawlib-image" style="text-align: center;">
@@ -701,7 +701,50 @@
   <figcaption class="drawlib-caption">Regular Polygons, Stars, and Gears with Optional Corner Rounding and Center Holes</figcaption>
 </figure>
 <hr />
-<h2>4. Arbitrary Vertex Polygons (<code>polygon</code>)</h2>
+<h2>4. Mathematical Operator Symbols (<code>math_symbol</code>)</h2>
+<p><code>math_symbol(xy, symbol, width, height=None, *, thickness_ratio=None, style, text=&quot;&quot;, text_style=None)</code> renders mathematical operator symbols (<code>&quot;+&quot;</code>, <code>&quot;-&quot;</code>, <code>&quot;×&quot;</code>, <code>&quot;÷&quot;</code>, <code>&quot;=&quot;</code>, <code>&quot;≠&quot;</code>) as filled, bordered geometric shapes for visual formulas (<code>Card A + Card B = Result</code>).</p>
+<ul>
+<li><strong>Supported Symbols</strong>: <code>&quot;+&quot;</code> (<code>&quot;plus&quot;</code>), <code>&quot;-&quot;</code> (<code>&quot;−&quot;</code>, <code>&quot;minus&quot;</code>), <code>&quot;*&quot;</code> (<code>&quot;x&quot;</code>, <code>&quot;×&quot;</code>, <code>&quot;multiply&quot;</code>), <code>&quot;/&quot;</code> (<code>&quot;÷&quot;</code>, <code>&quot;divide&quot;</code>), <code>&quot;=&quot;</code> (<code>&quot;equal&quot;</code>), <code>&quot;!=&quot;</code> (<code>&quot;≠&quot;</code>, <code>&quot;not_equal&quot;</code>).</li>
+<li><strong>Dimensions &amp; Bar Thickness</strong>: <code>height</code> defaults to <code>width</code> when <code>None</code>. <code>thickness_ratio</code> controls the bar thickness relative to <code>min(width, height)</code> (defaults to <code>0.28</code>).</li>
+<li><strong>Unified Contours &amp; Corner Rounding</strong>: Intersecting bars (<code>+</code>, <code>×</code>, <code>≠</code>) are constructed as a single unified outer contour with no internal crossing strokes, and <code>style.patch(shape_r=...)</code> rounds the bar corners smoothly.</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">math_symbol</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># Row 1: All 6 symbols (+, -, ×, ÷, =, ≠)</span>
+<span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"+"</span><span class="p">,</span> <span class="s1">'symbol="+"'</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s1">'symbol="-"'</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"×"</span><span class="p">,</span> <span class="s1">'symbol="×"'</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"÷"</span><span class="p">,</span> <span class="s1">'symbol="÷"'</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"="</span><span class="p">,</span> <span class="s1">'symbol="="'</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"≠"</span><span class="p">,</span> <span class="s1">'symbol="≠"'</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbols</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">19.2</span>
+    <span class="n">math_symbol</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Row 2: Visual equation layout (Card + Card = Result Card)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Latency"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">math_symbol</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"+"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">thickness_ratio</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">68</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Jitter"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">math_symbol</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"="</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">thickness_ratio</span><span class="o">=</span><span class="mf">0.28</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">108</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"SLA"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_polygons_images/shapes_polygons_math_symbol.png" alt="shapes_polygons_4" />
+  <figcaption class="drawlib-caption">Mathematical Operator Symbols (+, -, ×, ÷, =, ≠) and Visual Equation Layout</figcaption>
+</figure>
+<hr />
+<h2>5. Arbitrary Vertex Polygons (<code>polygon</code>)</h2>
 <p><code>polygon(xys, *, style, text=&quot;&quot;, text_style=None)</code> constructs a closed polygon directly from a list of canvas vertex coordinates <code>xys=[(x1, y1), (x2, y2), ...]</code>.</p>
 <ul>
 <li><strong>Corner Rounding (<code>style.shape_r</code>)</strong>: Pass a single float to round all vertices equally, or a tuple of radii <code>(r1, r2, ..., rN)</code> matching <code>len(xys)</code> to round individual vertices selectively.</li>
@@ -732,11 +775,11 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_4" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_5" />
   <figcaption class="drawlib-caption">Custom Coordinate Polygons with Uniform and Per-Vertex Rounding</figcaption>
 </figure>
 <hr />
-<h2>5. Custom Vector &amp; Bézier Path Builder (<code>shape</code>)</h2>
+<h2>6. Custom Vector &amp; Bézier Path Builder (<code>shape</code>)</h2>
 <p>For custom icons, shields, waves, or irregular components that need relative positioning, rotation, and Bézier curves, use <code>shape()</code>:</p>
 <pre><code class="language-python"><span class="n">shape</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
@@ -796,7 +839,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_5" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_6" />
   <figcaption class="drawlib-caption">Custom Vector Shapes Using Straight and Cubic Bézier Path Points</figcaption>
 </figure>
 
