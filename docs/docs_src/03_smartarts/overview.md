@@ -186,7 +186,7 @@ from drawlib.smartarts import (
 | **[`SourceCode`](./source_code.md)** | Syntax-highlighted code blocks in diagrams | Top-Left / Bottom-Left / Center | `SourceCode.draw(..., align="top_left")` / `sourcecode(...)`, `SourceCode.get_text()`, `SourceCodeStyles.get()` |
 | **[`GeoMap`](./geomap.md)** | Geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) | Bottom-Left / Center | `get_areas()`, `set_area_styles()`, `draw(..., align="bottom_left")`, `get_area_xy()`, `lonlat_to_xy()`, `data` |
 
-> **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is part of `drawlib.shapes` and is documented in **[Cylinders, Clouds, Braces & Callouts](../02_drawing_primitives/shapes_domain.md)**.
+> **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is part of `drawlib.shapes` and is documented in **[Cylinders, Cubes, Clouds & Callouts](../02_drawing_primitives/shapes_domain.md)**.
 
 ---
 

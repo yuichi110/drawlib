@@ -570,15 +570,60 @@
 </details>
 <hr />
 <h2>1. Overview of Domain Shapes</h2>
-<ul>
-<li><strong><code>cylinder</code></strong>: 3D shaded storage cylinders and multi-disk database stacks.</li>
-<li><strong><code>cube</code></strong>: 3D shaded cubes, containers, blocks, and infrastructure nodes.</li>
-<li><strong><code>document</code></strong>: Wavy-bottom and folded-corner documents (<code>&quot;wave&quot;</code>, <code>&quot;folded&quot;</code>, <code>&quot;double_wave&quot;</code>, <code>&quot;folded_wave&quot;</code>) with multi-sheet stacking (<code>stacked</code>).</li>
-<li><strong><code>face</code></strong>: Expressive user/actor personas and operational status faces.</li>
-<li><strong><code>bubblespeech</code></strong>: Callout speech bubbles with directional pointer tails.</li>
-<li><strong><code>cloud</code></strong>: Cloud nodes and VPC/SaaS boundary enclosures (<code>&quot;standard&quot;</code>, <code>&quot;flat&quot;</code>, <code>&quot;fluffy&quot;</code>, <code>&quot;simple&quot;</code>).</li>
-<li><strong><code>brace</code></strong>: Grouping brackets and braces (<code>{</code>, <code>}</code>, <code>[</code>, <code>]</code>, <code>(</code>, <code>)</code>) in 4 directions (<code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>).</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Default Anchor</th>
+<th style="text-align:left">Primary Role</th>
+<th style="text-align:left">Key Variant / Geometry Arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>cylinder</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">3D storage cylinders &amp; multi-disk database stacks</td>
+<td style="text-align:left"><code>disks: int = 1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cube</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">3D shaded cubes, containers, &amp; hardware blocks</td>
+<td style="text-align:left"><code>depth_ratio: float | None = None</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>document</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Single or stacked document/file/log cards</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;wave&quot;</code>, <code>&quot;folded&quot;</code>, <code>&quot;double_wave&quot;</code>, <code>&quot;folded_wave&quot;</code>), <code>stacked: int = 1</code>, <code>wave_ratio</code>, <code>fold_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>face</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Expressive user/actor personas &amp; status indicators</td>
+<td style="text-align:left"><code>mood</code> (<code>&quot;smile&quot;</code>, <code>&quot;neutral&quot;</code>, <code>&quot;surprised&quot;</code>, <code>&quot;sad&quot;</code>, <code>&quot;angry&quot;</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>bubblespeech</code></strong></td>
+<td style="text-align:left">Bottom-Left <code>(x0, y0)</code></td>
+<td style="text-align:left">Callout speech bubbles with directional pointer tails</td>
+<td style="text-align:left"><code>tail_edge</code> (<code>&quot;left&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>), <code>tail_start_ratio</code>, <code>tail_end_ratio</code>, <code>tail_vertex_xy</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cloud</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Cloud service nodes &amp; VPC/WAN boundary enclosures</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;standard&quot;</code>, <code>&quot;flat&quot;</code>, <code>&quot;fluffy&quot;</code>, <code>&quot;simple&quot;</code>), <code>bump_ratio: float | None = None</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>brace</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Curly, square, &amp; round grouping brackets/braces</td>
+<td style="text-align:left"><code>symbol</code> (<code>&quot;{&quot;</code>, <code>&quot;}&quot;</code>, <code>&quot;[&quot;</code>, <code>&quot;]&quot;</code>, <code>&quot;(&quot;</code>, <code>&quot;)&quot;</code>), <code>direction</code> (<code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>), <code>tip_ratio</code>, <code>tip_position_ratio</code></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2>2. 3D Cylinders &amp; Database Stacks (<code>cylinder</code>)</h2>
 <p>For relational databases, object storage buckets, disk arrays, and message queues, <code>cylinder</code> renders a 3D cylindrical container with an automatically lightened elliptical top cap:</p>
@@ -593,6 +638,7 @@
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
+<h3>Parameter Reference</h3>
 <table>
 <thead>
 <tr>
@@ -607,25 +653,31 @@
 <td style="text-align:left"><code>xy</code></td>
 <td style="text-align:left"><code>tuple[float, float]</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Center coordinate <code>(x, y)</code> of the cylinder.</td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the outer cylinder bounding box.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Total horizontal width and vertical height (<code>&gt; 0</code>).</td>
+<td style="text-align:left">Total horizontal width of the cylinder (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Total vertical height of the cylinder, including top and bottom elliptical caps (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>disks</code></td>
 <td style="text-align:left"><code>int</code></td>
 <td style="text-align:left"><code>1</code></td>
-<td style="text-align:left">Number of stacked disk tiers (<code>&gt;= 1</code>). Values <code>2</code> or <code>3+</code> add curved divider seams.</td>
+<td style="text-align:left">Number of stacked storage disk tiers (<code>&gt;= 1</code>). When <code>disks &gt;= 2</code>, curved horizontal divider seams are drawn along the cylinder body to represent multi-platter database storage.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style</code></td>
 <td style="text-align:left"><code>Style</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Shape fill and stroke style. Set <code>style.patch(angle=-90)</code> for horizontal FIFO queues/pipes.</td>
+<td style="text-align:left">Shape fill and border style. The top elliptical cap is automatically lightened from <code>style.shape_fill_color</code>. Set <code>style.patch(angle=-90)</code> to rotate the cylinder horizontally for FIFO message queues or pipelines.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>text</code> / <code>text_style</code></td>
@@ -673,7 +725,7 @@
 </figure>
 <hr />
 <h2>3. 3D Cubes &amp; Rectangular Blocks (<code>cube</code>)</h2>
-<p>Complementing <code>cylinder</code>, <code>cube</code> renders an oblique 3D box strictly within the <code>(width, height)</code> bounding box centered at <code>xy</code>. It automatically shades the three visible faces from <code>style.shape_fill_color</code> (front face = base fill, top face = lightened, right side face = darkened) and centers embedded <code>text</code> cleanly on the front face:</p>
+<p>Complementing <code>cylinder</code>, <code>cube</code> renders an oblique 3D cube or rectangular box strictly fitted within the <code>(width, height)</code> bounding box centered at <code>xy</code>:</p>
 <pre><code class="language-python"><span class="n">cube</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -685,6 +737,7 @@
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
+<h3>Parameter Reference</h3>
 <table>
 <thead>
 <tr>
@@ -699,28 +752,51 @@
 <td style="text-align:left"><code>xy</code></td>
 <td style="text-align:left"><code>tuple[float, float]</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Center coordinate <code>(x, y)</code> of the outer cube bounding box.</td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the outer 3D bounding box.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Exact outer horizontal width and vertical height (<code>&gt; 0</code>).</td>
+<td style="text-align:left">Exact outer horizontal width of the 3D box, including the right-side oblique projection (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Exact outer vertical height of the 3D box, including the top-face oblique projection (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>depth_ratio</code></td>
 <td style="text-align:left"><code>float | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">3D depth fraction in <code>(0.0, 1.0)</code> relative to <code>min(width, height)</code> (defaults to <code>0.25</code>).</td>
+<td style="text-align:left">3D oblique depth fraction in <code>(0.0, 1.0)</code> relative to <code>min(width, height)</code>. Defaults to <code>0.25</code> when <code>None</code>. Smaller values (<code>0.15</code>) produce a shallow 3D card; larger values (<code>0.40</code>) produce a deep isometric block.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>style</code> / <code>text</code> / <code>text_style</code></td>
-<td style="text-align:left"><code>Style</code> / <code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Fill/stroke style (supports <code>Dashed</code> outlines and <code>angle</code> rotation) and front-face label.</td>
+<td style="text-align:left">Fill, border (<code>shape_line_color</code>, <code>shape_line_width</code>, <code>shape_line_style</code>), and rotation (<code>angle</code>) style.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Label automatically centered on the <strong>front face</strong> (rather than the outer bounding box) so text never collides with the 3D seam lines.</td>
 </tr>
 </tbody>
 </table>
+<h3>3-Face Automatic Shading &amp; Stroke Mechanics</h3>
+<ul>
+<li><strong>Automatic Face Shading</strong>: From <code>style.shape_fill_color</code>, Drawlib automatically computes three distinct face shades:
+<ol>
+<li><strong>Front Face</strong>: Base <code>style.shape_fill_color</code>.</li>
+<li><strong>Top Face</strong>: Lightened toward white (<code>+28%</code> on standard fills, <code>+55%</code> on high-luminance neutral fills) to simulate overhead lighting.</li>
+<li><strong>Right Side Face</strong>: Darkened (<code>×0.82</code> on standard fills, <code>×0.92</code> on neutral fills) to create natural depth shadow.</li>
+</ol>
+</li>
+<li><strong>Unified Stroke Path</strong>: The outer perimeter and the three internal Y-seams are drawn in a single unified <code>PathPatch</code>, ensuring that <code>Dashed</code> or <code>Dotted</code> line styles never double-overlap on shared edges.</li>
+</ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">cube</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -728,31 +804,31 @@
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
 
-<span class="c1"># 1. Standard Flat Cube</span>
-<span class="n">cube</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Pod A"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"PrimaryFlat"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="c1"># 1. Standard Flat Cube (depth_ratio=0.25 default)</span>
+<span class="n">cube</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Pod A"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"depth_ratio=0.25 (Flat)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="c1"># 2. Outlined Neutral Cube</span>
-<span class="n">cube</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Node B"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"PrimaryNeutral"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="c1"># 2. Shallow 3D Block (depth_ratio=0.15)</span>
+<span class="n">cube</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">depth_ratio</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Shallow"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"depth_ratio=0.15"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="c1"># 3. Wide 3D Hardware Appliance Block (depth_ratio=0.22)</span>
-<span class="n">cube</span><span class="p">((</span><span class="mi">86</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">depth_ratio</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Appliance"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">86</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"Wide Block (30x20)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="c1"># 3. Deep 3D Cube (depth_ratio=0.40)</span>
+<span class="n">cube</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">depth_ratio</span><span class="o">=</span><span class="mf">0.40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Deep"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"depth_ratio=0.40"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="c1"># 4. Deep Cube (depth_ratio=0.38, dashed)</span>
-<span class="n">cube</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">depth_ratio</span><span class="o">=</span><span class="mf">0.38</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"VM"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"depth_ratio=0.38"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="c1"># 4. Wide Hardware Appliance Block (30x19, dashed)</span>
+<span class="n">cube</span><span class="p">((</span><span class="mi">111</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">depth_ratio</span><span class="o">=</span><span class="mf">0.24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Appliance"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">111</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">"Wide Block (Dashed)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_cube.png" alt="shapes_domain_3" />
-  <figcaption class="drawlib-caption">3D Cubes and Rectangular Blocks with Automatic 3-Face Shading and Depth Ratio Control</figcaption>
+  <figcaption class="drawlib-caption">3D Cubes and Rectangular Blocks Across Styles and depth_ratio Values</figcaption>
 </figure>
 <hr />
 <h2>4. Documents, Files &amp; Multi-Sheet Stacks (<code>document</code>)</h2>
-<p>For flowchart output steps, source/config files, log snippets, and batch report stacks, <code>document</code> supports four silhouette variants (<code>&quot;wave&quot;</code>, <code>&quot;folded&quot;</code>, <code>&quot;double_wave&quot;</code>, <code>&quot;folded_wave&quot;</code>) and multi-sheet stacking (<code>stacked &gt;= 1</code>):</p>
+<p>For flowchart output steps, configuration/source files, log stream snippets, and multi-page report stacks, <code>document</code> provides four <code>variant</code> silhouettes and multi-sheet cascading (<code>stacked &gt;= 1</code>):</p>
 <pre><code class="language-python"><span class="n">document</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -772,6 +848,7 @@
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
+<h3>Parameter Reference</h3>
 <table>
 <thead>
 <tr>
@@ -786,31 +863,102 @@
 <td style="text-align:left"><code>xy</code></td>
 <td style="text-align:left"><code>tuple[float, float]</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Center coordinate <code>(x, y)</code> of the outer document bounding box.</td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the outer document bounding box (including all stacked sheets).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Outer horizontal width and vertical height (<code>&gt; 0</code>).</td>
+<td style="text-align:left">Total horizontal width of the document bounding box (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Total vertical height of the document bounding box (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>variant</code></td>
 <td style="text-align:left"><code>DocumentVariant</code></td>
 <td style="text-align:left"><code>&quot;wave&quot;</code></td>
-<td style="text-align:left"><code>&quot;wave&quot;</code> / <code>&quot;standard&quot;</code> (wavy bottom), <code>&quot;folded&quot;</code> / <code>&quot;page&quot;</code> / <code>&quot;note&quot;</code> (top-right dog-ear fold), <code>&quot;double_wave&quot;</code> / <code>&quot;snippet&quot;</code> (top &amp; bottom waves), or <code>&quot;folded_wave&quot;</code> / <code>&quot;report&quot;</code> (corner fold + wavy bottom).</td>
+<td style="text-align:left">Silhouette style of the document sheet (see <strong>Document <code>variant</code> Reference</strong> below).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>stacked</code></td>
 <td style="text-align:left"><code>int</code></td>
 <td style="text-align:left"><code>1</code></td>
-<td style="text-align:left">Number of cascaded document sheets (<code>&gt;= 1</code>). Back sheets are automatically lightened.</td>
+<td style="text-align:left">Number of overlapping document sheets (<code>&gt;= 1</code>). When <code>stacked &gt; 1</code> (e.g. <code>2</code> or <code>3</code>), sheets cascade from back-top-right to front-bottom-left inside <code>(width, height)</code>, with background sheets automatically lightened.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>wave_ratio</code> / <code>fold_ratio</code></td>
+<td style="text-align:left"><code>wave_ratio</code></td>
 <td style="text-align:left"><code>float | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Wave amplitude ratio (default <code>0.14</code>) and corner fold ratio (default <code>0.24</code>) in <code>(0.0, 1.0)</code>.</td>
+<td style="text-align:left">Wave peak-to-trough amplitude fraction in <code>(0.0, 1.0)</code> relative to sheet height. Defaults to <code>0.14</code>. Effective on <code>&quot;wave&quot;</code>, <code>&quot;double_wave&quot;</code>, and <code>&quot;folded_wave&quot;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fold_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Top-right dog-ear corner fold size fraction in <code>(0.0, 1.0)</code> relative to <code>min(sheet_w, sheet_h)</code>. Defaults to <code>0.24</code>. Effective on <code>&quot;folded&quot;</code> and <code>&quot;folded_wave&quot;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Fill, border, and rotation (<code>angle</code>) style. On folded variants, the triangular corner flap is automatically darkened for 3D contrast.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Text label optically centered on the <strong>front-most sheet</strong> (automatically shifted away from bottom waves and top-right corner folds).</td>
+</tr>
+</tbody>
+</table>
+<h3>Document <code>variant</code> Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>variant</code></th>
+<th style="text-align:left">Accepted Aliases</th>
+<th style="text-align:left">Top Edge</th>
+<th style="text-align:left">Bottom Edge</th>
+<th style="text-align:left">Active Ratio Args</th>
+<th style="text-align:left">Typical Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>&quot;wave&quot;</code></strong> <em>(default)</em></td>
+<td style="text-align:left"><code>&quot;standard&quot;</code></td>
+<td style="text-align:left">Straight</td>
+<td style="text-align:left">Cubic-Bézier S-wave</td>
+<td style="text-align:left"><code>wave_ratio</code></td>
+<td style="text-align:left">Classic ISO flowchart document/printout symbol, invoices, generated artifacts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;folded&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;page&quot;</code>, <code>&quot;note&quot;</code></td>
+<td style="text-align:left">Top-right dog-ear fold</td>
+<td style="text-align:left">Straight</td>
+<td style="text-align:left"><code>fold_ratio</code></td>
+<td style="text-align:left">Configuration files (<code>config.yaml</code>), source code files, Markdown/PDF pages, UML notes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;double_wave&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;snippet&quot;</code></td>
+<td style="text-align:left">Cubic-Bézier S-wave</td>
+<td style="text-align:left">Cubic-Bézier S-wave</td>
+<td style="text-align:left"><code>wave_ratio</code></td>
+<td style="text-align:left">Continuous log streams (<code>access.log</code>), truncated text excerpts, data stream chunks.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;folded_wave&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;report&quot;</code></td>
+<td style="text-align:left">Top-right dog-ear fold</td>
+<td style="text-align:left">Cubic-Bézier S-wave</td>
+<td style="text-align:left"><code>wave_ratio</code>, <code>fold_ratio</code></td>
+<td style="text-align:left">Multi-page technical reports, specifications, and audit logs combining file and wave cues.</td>
 </tr>
 </tbody>
 </table>
@@ -819,25 +967,37 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
 
-<span class="n">items</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"wave"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Invoice"</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span> <span class="s1">'variant="wave"'</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"folded"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"config.yaml"</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s1">'variant="folded"'</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"double_wave"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"access.log"</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s1">'variant="double_wave"'</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"folded_wave"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Audit</span><span class="se">\n</span><span class="s2">Report"</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s1">'variant="folded_wave"'</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"folded"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Docs</span><span class="se">\n</span><span class="s2">(x3)"</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s2">"stacked=3"</span><span class="p">),</span>
+<span class="c1"># Row 1: The 4 Document Variants (stacked=1)</span>
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"wave"</span><span class="p">,</span> <span class="s2">"Invoice"</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span> <span class="s1">'variant="wave"'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"folded"</span><span class="p">,</span> <span class="s2">"config.yaml"</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s1">'variant="folded"'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"double_wave"</span><span class="p">,</span> <span class="s2">"access.log"</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s1">'variant="double_wave"'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"folded_wave"</span><span class="p">,</span> <span class="s2">"Audit</span><span class="se">\n</span><span class="s2">Report"</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="s1">'variant="folded_wave"'</span><span class="p">),</span>
 <span class="p">]</span>
+<span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span><span class="p">,</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">row1</span><span class="p">:</span>
+    <span class="n">document</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">59</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">cap</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">stk</span><span class="p">,</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span><span class="p">,</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-    <span class="n">document</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">stk</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">cap</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="c1"># Row 2: Multi-sheet stacking (stacked=3) and wave_ratio / fold_ratio customization</span>
+<span class="n">document</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"wave"</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Batch</span><span class="se">\n</span><span class="s2">(x3)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s1">'wave, stacked=3'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">document</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"folded"</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Pages</span><span class="se">\n</span><span class="s2">(x3)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s1">'folded, stacked=3'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">document</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"wave"</span><span class="p">,</span> <span class="n">wave_ratio</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Deep</span><span class="se">\n</span><span class="s2">Wave"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s2">"wave_ratio=0.25"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">document</span><span class="p">((</span><span class="mi">110</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"folded"</span><span class="p">,</span> <span class="n">fold_ratio</span><span class="o">=</span><span class="mf">0.36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Large</span><span class="se">\n</span><span class="s2">Fold"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">110</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s2">"fold_ratio=0.36"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_document.png" alt="shapes_domain_4" />
-  <figcaption class="drawlib-caption">Four Document Variants and Multi-Sheet Stacking (stacked=3)</figcaption>
+  <figcaption class="drawlib-caption">The Four Document Variants (Row 1) and Multi-Sheet Stacking & Ratio Customizations (Row 2)</figcaption>
 </figure>
 <hr />
 <h2>5. Expressive Actor &amp; Status Faces (<code>face</code>)</h2>
@@ -852,10 +1012,49 @@
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
-<ul>
-<li><strong><code>mood</code></strong>: Selects the mouth and eyebrow geometry (<code>&quot;smile&quot;</code>, <code>&quot;neutral&quot;</code>, <code>&quot;sad&quot;</code>, <code>&quot;angry&quot;</code>, or <code>&quot;surprised&quot;</code>).</li>
-<li><strong>Automatic Feature Contrast</strong>: Eyes, eyebrows, and mouth automatically use <code>style.shape_line_color</code> on outlined cards, or high-contrast <code>text_color</code> / white on borderless flat styles (<code>Styles.PrimaryFlat</code>).</li>
-</ul>
+<h3>Parameter Reference &amp; <code>mood</code> Variants</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the circular face.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>radius</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer radius of the face circle (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>mood</code></td>
+<td style="text-align:left"><code>FaceMood</code></td>
+<td style="text-align:left"><code>&quot;smile&quot;</code></td>
+<td style="text-align:left">Facial expression variant (case-insensitive):<br>• <strong><code>&quot;smile&quot;</code></strong>: Upward cubic-Bézier smile curve.<br>• <strong><code>&quot;neutral&quot;</code></strong>: Straight horizontal mouth line.<br>• <strong><code>&quot;surprised&quot;</code></strong>: Elliptical open <code>'O'</code> mouth.<br>• <strong><code>&quot;sad&quot;</code></strong>: Downward cubic-Bézier frown curve.<br>• <strong><code>&quot;angry&quot;</code></strong>: Downward frown curve plus inward-slanted eyebrows.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Face fill, outline, and rotation (<code>angle</code>). Eyes, eyebrows, and mouth automatically use <code>style.shape_line_color</code> when a border is present, or high-contrast <code>text_color</code>/white on flat borderless styles (<code>Styles.PrimaryFlat</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Optional text label and typography style.</td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">face</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -874,7 +1073,7 @@
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">mood_name</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">moods</span><span class="p">):</span>
     <span class="n">cx</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">22</span>
     <span class="n">face</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">mood</span><span class="o">=</span><span class="n">mood_name</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">mood_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'mood="</span><span class="si">{</span><span class="n">mood_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -899,6 +1098,7 @@
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
+<h3>Parameter Reference</h3>
 <table>
 <thead>
 <tr>
@@ -926,17 +1126,17 @@
 <tr>
 <td style="text-align:left"><code>tail_start_ratio</code></td>
 <td style="text-align:left"><code>float</code></td>
-<td style="text-align:left">Start position along <code>tail_edge</code> in <code>[0.0, 1.0]</code> (<code>&lt; tail_end_ratio</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>tail_end_ratio</code></td>
-<td style="text-align:left"><code>float</code></td>
-<td style="text-align:left">End position along <code>tail_edge</code> in <code>[0.0, 1.0]</code> (<code>&gt; tail_start_ratio</code>).</td>
+<td style="text-align:left">Start attachment position along <code>tail_edge</code> in <code>[0.0, 1.0]</code> (measured from bottom-to-top for <code>&quot;left&quot;</code>/<code>&quot;right&quot;</code>, or left-to-right for <code>&quot;top&quot;</code>/<code>&quot;bottom&quot;</code>). Must be <code>&lt; tail_end_ratio</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>tail_vertex_xy</code></td>
 <td style="text-align:left"><code>tuple[float, float]</code></td>
-<td style="text-align:left">Absolute canvas coordinate <code>(x, y)</code> where the tip of the tail points.</td>
+<td style="text-align:left">Absolute canvas coordinate <code>(x, y)</code> where the tip of the pointer tail points (must lie outside the bubble body).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tail_end_ratio</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left">End attachment position along <code>tail_edge</code> in <code>[0.0, 1.0]</code>. Must be <code>&gt; tail_start_ratio</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style</code> / <code>text</code> / <code>text_style</code></td>
@@ -999,19 +1199,25 @@
 </figure>
 <hr />
 <h2>7. Cloud Nodes &amp; Boundaries (<code>cloud</code>)</h2>
-<p><code>cloud</code> renders a smooth cubic-Bézier cloud silhouette scaled to fit its exact <code>(width, height)</code> bounding box centered at <code>xy</code>:</p>
+<p><code>cloud</code> renders a smooth cubic-Bézier cloud silhouette normalized to fit its exact <code>(width, height)</code> bounding box centered at <code>xy</code>:</p>
 <pre><code class="language-python"><span class="n">cloud</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">variant</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"standard"</span><span class="p">,</span> <span class="s2">"flat"</span><span class="p">,</span> <span class="s2">"flat_bottom"</span><span class="p">,</span> <span class="s2">"fluffy"</span><span class="p">,</span> <span class="s2">"dense"</span><span class="p">,</span> <span class="s2">"simple"</span><span class="p">,</span> <span class="s2">"minimal"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"standard"</span><span class="p">,</span>
+    <span class="n">variant</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">"standard"</span><span class="p">,</span>
+        <span class="s2">"flat"</span><span class="p">,</span> <span class="s2">"flat_bottom"</span><span class="p">,</span>
+        <span class="s2">"fluffy"</span><span class="p">,</span> <span class="s2">"dense"</span><span class="p">,</span>
+        <span class="s2">"simple"</span><span class="p">,</span> <span class="s2">"minimal"</span><span class="p">,</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">"standard"</span><span class="p">,</span>
     <span class="n">bump_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
+<h3>Parameter Reference</h3>
 <table>
 <thead>
 <tr>
@@ -1029,54 +1235,121 @@
 <td style="text-align:left">Center coordinate <code>(x, y)</code> of the cloud bounding box.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Exact outer horizontal width and vertical height (<code>&gt; 0</code>).</td>
+<td style="text-align:left">Exact outer horizontal width of the cloud (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Exact outer vertical height of the cloud (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>variant</code></td>
 <td style="text-align:left"><code>CloudVariant</code></td>
 <td style="text-align:left"><code>&quot;standard&quot;</code></td>
-<td style="text-align:left"><code>&quot;standard&quot;</code> (8-bump natural cloud), <code>&quot;flat&quot;</code> / <code>&quot;flat_bottom&quot;</code> (flat base + upper domes), <code>&quot;fluffy&quot;</code> / <code>&quot;dense&quot;</code> (12-bump boundary), or <code>&quot;simple&quot;</code> / <code>&quot;minimal&quot;</code> (6-bump compact icon).</td>
+<td style="text-align:left">Cloud silhouette style (see <strong>Cloud <code>variant</code> Reference</strong> below).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>bump_ratio</code></td>
 <td style="text-align:left"><code>float | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Outward bulge depth ratio in <code>(0.0, 1.0)</code>. Defaults to variant-specific optimum when <code>None</code>.</td>
+<td style="text-align:left">Outward lobe bulge depth ratio in <code>(0.0, 1.0)</code>. When <code>None</code>, uses the optimal default for the selected <code>variant</code> (<code>0.20</code>–<code>0.24</code>). Lower values (<code>0.12</code>) create a subtle, shallow cloud; higher values (<code>0.34</code>) create deep, pronounced lobes.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>style</code> / <code>text</code> / <code>text_style</code></td>
-<td style="text-align:left"><code>Style</code> / <code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Fill/stroke style (including <code>Dashed</code> for VPC/SaaS boundaries and <code>angle</code> for rotation) and centered label.</td>
+<td style="text-align:left">Fill, border (<code>Dashed</code> is ideal for VPC/subnet enclosures), and rotation (<code>angle</code>) style.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Centered text label and optional typography override.</td>
+</tr>
+</tbody>
+</table>
+<h3>Cloud <code>variant</code> Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>variant</code></th>
+<th style="text-align:left">Accepted Aliases</th>
+<th style="text-align:left">Lobe Structure</th>
+<th style="text-align:center">Default <code>bump_ratio</code></th>
+<th style="text-align:left">Typical Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>&quot;standard&quot;</code></strong> <em>(default)</em></td>
+<td style="text-align:left">—</td>
+<td style="text-align:left">8 asymmetric lobes around the full perimeter</td>
+<td style="text-align:center"><code>0.22</code></td>
+<td style="text-align:left">General-purpose &quot;Internet&quot;, SaaS, or external network nodes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;flat&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;flat_bottom&quot;</code></td>
+<td style="text-align:left">Flat horizontal base + 4 upper domes</td>
+<td style="text-align:center"><code>0.24</code></td>
+<td style="text-align:left">Standalone cloud service cards and gateway nodes with strong visual grounding for internal text/icons.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;fluffy&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;dense&quot;</code></td>
+<td style="text-align:left">12 fine lobes around the full perimeter</td>
+<td style="text-align:center"><code>0.20</code></td>
+<td style="text-align:left">Large VPC, WAN, or multi-node cluster boundary enclosures (especially with <code>shape_line_style=&quot;dashed&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;simple&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;minimal&quot;</code></td>
+<td style="text-align:left">6 wide, symmetric lobes</td>
+<td style="text-align:center"><code>0.24</code></td>
+<td style="text-align:left">Compact cloud badges, small icons, or thought bubbles.</td>
 </tr>
 </tbody>
 </table>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">cloud</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
 
+<span class="c1"># Row 1: The 4 Cloud Variants</span>
 <span class="n">variants</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"standard"</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
     <span class="p">(</span><span class="s2">"flat"</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
-    <span class="p">(</span><span class="s2">"fluffy"</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"fluffy"</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
     <span class="p">(</span><span class="s2">"simple"</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
 <span class="p">]</span>
-
 <span class="k">for</span> <span class="n">v_name</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span> <span class="ow">in</span> <span class="n">variants</span><span class="p">:</span>
-    <span class="n">cloud</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">v_name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">v_name</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'variant="</span><span class="si">{</span><span class="n">v_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">cloud</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">v_name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">v_name</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'variant="</span><span class="si">{</span><span class="n">v_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># Row 2 Left: Shallow vs Deep bump_ratio</span>
+<span class="n">cloud</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"standard"</span><span class="p">,</span> <span class="n">bump_ratio</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Shallow"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="s2">"bump_ratio=0.12"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">cloud</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"standard"</span><span class="p">,</span> <span class="n">bump_ratio</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Deep Lobes"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="s2">"bump_ratio=0.35"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># Row 2 Right: Large fluffy dashed VPC enclosure containing service cards</span>
+<span class="n">cloud</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"fluffy"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">86</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"API"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"App"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="s1">'variant="fluffy" (Dashed VPC Boundary)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_cloud.png" alt="shapes_domain_7" />
-  <figcaption class="drawlib-caption">Four Cloud Variants (standard, flat, fluffy, simple) in drawlib.shapes.cloud</figcaption>
+  <figcaption class="drawlib-caption">Four Cloud Variants (Row 1) and bump_ratio Comparison & VPC Boundary Usage (Row 2)</figcaption>
 </figure>
 <hr />
 <h2>8. Grouping Braces &amp; Brackets (<code>brace</code>)</h2>
@@ -1086,7 +1359,11 @@
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">symbol</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"{"</span><span class="p">,</span> <span class="s2">"}"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"curly"</span><span class="p">,</span> <span class="s2">"["</span><span class="p">,</span> <span class="s2">"]"</span><span class="p">,</span> <span class="s2">"[]"</span><span class="p">,</span> <span class="s2">"square"</span><span class="p">,</span> <span class="s2">"("</span><span class="p">,</span> <span class="s2">")"</span><span class="p">,</span> <span class="s2">"()"</span><span class="p">,</span> <span class="s2">"round"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"{"</span><span class="p">,</span>
+    <span class="n">symbol</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">"{"</span><span class="p">,</span> <span class="s2">"}"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"curly"</span><span class="p">,</span>
+        <span class="s2">"["</span><span class="p">,</span> <span class="s2">"]"</span><span class="p">,</span> <span class="s2">"[]"</span><span class="p">,</span> <span class="s2">"square"</span><span class="p">,</span>
+        <span class="s2">"("</span><span class="p">,</span> <span class="s2">")"</span><span class="p">,</span> <span class="s2">"()"</span><span class="p">,</span> <span class="s2">"round"</span><span class="p">,</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">"{"</span><span class="p">,</span>
     <span class="n">direction</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">tip_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">tip_position_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1095,6 +1372,7 @@
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
+<h3>Parameter Reference</h3>
 <table>
 <thead>
 <tr>
@@ -1112,40 +1390,137 @@
 <td style="text-align:left">Center coordinate <code>(x, y)</code> of the brace bounding box.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Horizontal width and vertical height (<code>&gt; 0</code>).</td>
+<td style="text-align:left">Horizontal width of the brace bounding box (<code>&gt; 0</code>). For vertical braces (<code>&quot;left&quot;</code> / <code>&quot;right&quot;</code>), <code>width</code> is the bracket depth; for horizontal braces (<code>&quot;top&quot;</code> / <code>&quot;bottom&quot;</code>), <code>width</code> is the span length.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Vertical height of the brace bounding box (<code>&gt; 0</code>). For vertical braces (<code>&quot;left&quot;</code> / <code>&quot;right&quot;</code>), <code>height</code> is the span length; for horizontal braces (<code>&quot;top&quot;</code> / <code>&quot;bottom&quot;</code>), <code>height</code> is the bracket depth.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>symbol</code></td>
 <td style="text-align:left"><code>BraceSymbol</code></td>
 <td style="text-align:left"><code>&quot;{&quot;</code></td>
-<td style="text-align:left">Bracket family: curly (<code>&quot;{&quot;</code>, <code>&quot;}&quot;</code>, <code>&quot;curly&quot;</code>), square (<code>&quot;[&quot;</code>, <code>&quot;]&quot;</code>, <code>&quot;square&quot;</code>), or round (<code>&quot;(&quot;</code>, <code>&quot;)&quot;</code>, <code>&quot;round&quot;</code>).</td>
+<td style="text-align:left">Bracket family and default orientation (see <strong><code>symbol</code> Variants</strong> below).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>direction</code></td>
 <td style="text-align:left"><code>BraceDirection | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Outward pointing direction (<code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>). Auto-inferred from <code>symbol</code> when <code>None</code> (<code>&quot;}&quot;</code>/<code>&quot;]&quot;</code>/<code>&quot;)&quot;</code> $\rightarrow$ <code>&quot;right&quot;</code>, others $\rightarrow$ <code>&quot;left&quot;</code>).</td>
+<td style="text-align:left">Which side of a grouped region the bracket is placed on (the direction the outer spine/tip points toward): <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, or <code>&quot;bottom&quot;</code> (see <strong><code>direction</code> Variants</strong> below).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>tip_ratio</code></td>
 <td style="text-align:left"><code>float | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Center tip depth ratio in <code>(0.0, 1.0)</code> for curly braces (defaults to <code>0.50</code>).</td>
+<td style="text-align:left"><strong>Curly brace (<code>{}</code>) only</strong>: Fraction of the bracket depth occupied by the central outward tip in <code>(0.0, 1.0)</code>. Defaults to <code>0.50</code>. Higher values (<code>0.70</code>) create a sharp protruding tip; lower values (<code>0.25</code>) create a subtle tip.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>tip_position_ratio</code></td>
 <td style="text-align:left"><code>float | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Center tip position along the span in <code>(0.0, 1.0)</code> for asymmetric curly braces (defaults to <code>0.50</code>).</td>
+<td style="text-align:left"><strong>Curly brace (<code>{}</code>) only</strong>: Position of the central tip along the span axis in <code>(0.0, 1.0)</code> (measured bottom-to-top for <code>&quot;left&quot;</code>/<code>&quot;right&quot;</code>, or left-to-right for <code>&quot;top&quot;</code>/<code>&quot;bottom&quot;</code>). Defaults to <code>0.50</code> (symmetric center).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style</code></td>
 <td style="text-align:left"><code>Style</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Stroke style (<code>line_width</code> or <code>shape_line_width</code> controls thickness; <code>shape_r</code> rounds <code>&quot;square&quot;</code> bracket corners).</td>
+<td style="text-align:left">Stroke thickness is controlled via <code>style.line_width</code> (or <code>style.shape_line_width</code>), color via <code>style.line_color</code> (or <code>style.shape_line_color</code>), line pattern via <code>style.line_style</code>, and rotation via <code>style.angle</code>. On <code>&quot;square&quot;</code> brackets (<code>[</code>, <code>]</code>), <code>style.shape_r</code> rounds the two $90^\circ$ corners.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Optional text label centered at <code>xy</code> and typography override.</td>
+</tr>
+</tbody>
+</table>
+<h3><code>symbol</code> &amp; <code>direction</code> Variants</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>symbol</code> Values</th>
+<th style="text-align:left">Bracket Family</th>
+<th style="text-align:left">Auto <code>direction</code> (when <code>direction=None</code>)</th>
+<th style="text-align:left">Supported Geometry Modifiers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>&quot;{&quot;</code></strong>, <strong><code>&quot;{}&quot;</code></strong>, <strong><code>&quot;curly&quot;</code></strong></td>
+<td style="text-align:left">Curly brace <code>{</code></td>
+<td style="text-align:left"><code>&quot;left&quot;</code> (tip points left, ends curl right)</td>
+<td style="text-align:left"><code>tip_ratio</code>, <code>tip_position_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;}&quot;</code></strong></td>
+<td style="text-align:left">Curly brace <code>}</code></td>
+<td style="text-align:left"><code>&quot;right&quot;</code> (tip points right, ends curl left)</td>
+<td style="text-align:left"><code>tip_ratio</code>, <code>tip_position_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;[&quot;</code></strong>, <strong><code>&quot;[]&quot;</code></strong>, <strong><code>&quot;square&quot;</code></strong></td>
+<td style="text-align:left">Square bracket <code>[</code></td>
+<td style="text-align:left"><code>&quot;left&quot;</code> (spine on left, ends point right)</td>
+<td style="text-align:left"><code>style.patch(shape_r=...)</code> corner rounding</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;]&quot;</code></strong></td>
+<td style="text-align:left">Square bracket <code>]</code></td>
+<td style="text-align:left"><code>&quot;right&quot;</code> (spine on right, ends point left)</td>
+<td style="text-align:left"><code>style.patch(shape_r=...)</code> corner rounding</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;(&quot;</code></strong>, <strong><code>&quot;()&quot;</code></strong>, <strong><code>&quot;round&quot;</code></strong></td>
+<td style="text-align:left">Round parenthesis <code>(</code></td>
+<td style="text-align:left"><code>&quot;left&quot;</code> (arc bows left, ends point right)</td>
+<td style="text-align:left">Smooth cubic-Bézier arch</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;)&quot;</code></strong></td>
+<td style="text-align:left">Round parenthesis <code>)</code></td>
+<td style="text-align:left"><code>&quot;right&quot;</code> (arc bows right, ends point left)</td>
+<td style="text-align:left">Smooth cubic-Bézier arch</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>direction</code> Value</th>
+<th style="text-align:left">Orientation</th>
+<th style="text-align:left">Spine / Tip Points Toward</th>
+<th style="text-align:left">Open Ends Point Toward</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>&quot;left&quot;</code></strong></td>
+<td style="text-align:left">Vertical (<code>span = height</code>)</td>
+<td style="text-align:left">Left ($-X$)</td>
+<td style="text-align:left">Right ($+X$, wrapping items to its right)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;right&quot;</code></strong></td>
+<td style="text-align:left">Vertical (<code>span = height</code>)</td>
+<td style="text-align:left">Right ($+X$)</td>
+<td style="text-align:left">Left ($-X$, wrapping items to its left)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;top&quot;</code></strong></td>
+<td style="text-align:left">Horizontal (<code>span = width</code>)</td>
+<td style="text-align:left">Top ($+Y$)</td>
+<td style="text-align:left">Bottom ($-Y$, wrapping items below it)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;bottom&quot;</code></strong></td>
+<td style="text-align:left">Horizontal (<code>span = width</code>)</td>
+<td style="text-align:left">Bottom ($-Y$)</td>
+<td style="text-align:left">Top ($+Y$, wrapping items above it)</td>
 </tr>
 </tbody>
 </table>
@@ -1154,41 +1529,46 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
 
-<span class="c1"># 1. Three Bracket Families: { } , [ ] , ( )</span>
+<span class="c1"># Row 1 Left: Three Bracket Families: { } , [ ] , ( )</span>
 <span class="n">families</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"{"</span><span class="p">,</span> <span class="s2">"}"</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)),</span>
-    <span class="p">(</span><span class="s2">"[]"</span><span class="p">,</span> <span class="s2">"["</span><span class="p">,</span> <span class="s2">"]"</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)),</span>
-    <span class="p">(</span><span class="s2">"()"</span><span class="p">,</span> <span class="s2">"("</span><span class="p">,</span> <span class="s2">")"</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"{"</span><span class="p">,</span> <span class="s2">"}"</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"[]"</span><span class="p">,</span> <span class="s2">"["</span><span class="p">,</span> <span class="s2">"]"</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"()"</span><span class="p">,</span> <span class="s2">"("</span><span class="p">,</span> <span class="s2">")"</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)),</span>
 <span class="p">]</span>
 <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">sym_l</span><span class="p">,</span> <span class="n">sym_r</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">families</span><span class="p">:</span>
-    <span class="n">brace</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym_l</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
-    <span class="n">brace</span><span class="p">((</span><span class="n">cx</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym_r</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'symbol="</span><span class="si">{</span><span class="n">sym_l</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">brace</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym_l</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+    <span class="n">brace</span><span class="p">((</span><span class="n">cx</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym_r</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'symbol="</span><span class="si">{</span><span class="n">sym_l</span><span class="si">}</span><span class="s1">" / "</span><span class="si">{</span><span class="n">sym_r</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="c1"># 2. Horizontal Top Brace &amp; Vertical Right Brace Grouping Cards</span>
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s2">"API"</span><span class="p">,</span> <span class="s2">"Auth"</span><span class="p">,</span> <span class="s2">"DB"</span><span class="p">)):</span>
-    <span class="n">rx</span> <span class="o">=</span> <span class="mi">86</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">13</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="c1"># Row 1 Right: All 4 Directions (top, bottom, left, right) around a card group</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s2">"API"</span><span class="p">,</span> <span class="s2">"App"</span><span class="p">,</span> <span class="s2">"DB"</span><span class="p">)):</span>
+    <span class="n">rx</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">12</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="n">brace</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
-    <span class="n">symbol</span><span class="o">=</span><span class="s2">"{"</span><span class="p">,</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span>
-    <span class="n">tip_ratio</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">99</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="s1">'direction="top" (line_width=2.2)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">brace</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">66.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"{"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">),</span> <span class="s1">'direction="top"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">brace</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"{"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="s1">'direction="bottom"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># Row 2: Curly brace tip_ratio &amp; tip_position_ratio variations</span>
+<span class="n">brace</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"{"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">tip_ratio</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">"tip_ratio=0.25 (Shallow)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">brace</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"{"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">tip_ratio</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">"tip_ratio=0.75 (Sharp)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">brace</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"{"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">tip_position_ratio</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">"tip_position_ratio=0.25"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_brace.png" alt="shapes_domain_8" />
-  <figcaption class="drawlib-caption">Curly, Square, and Round Braces with Directions and Line Width Control</figcaption>
+  <figcaption class="drawlib-caption">Bracket Families ({}, [], ()), All 4 Directions (left, right, top, bottom), and Curly Tip Ratios</figcaption>
 </figure>
 <blockquote>
 <p>[!TIP]

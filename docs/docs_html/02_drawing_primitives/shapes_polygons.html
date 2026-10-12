@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polygons & Custom Paths</title>
+    <title>Polygons, Gears, Math Symbols & Custom Paths</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -474,12 +474,12 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Polygons & Custom Paths</span>
+                    <span class="crumb active">Polygons, Gears, Math Symbols & Custom Paths</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Polygons &amp; Custom Paths</h1>
-<p>In addition to basic rectangles and circles, <code>drawlib.shapes</code> provides planar polygons (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>), radial equilateral shapes (<code>regularpolygon</code>, <code>star</code>, <code>gear</code>), mathematical operator symbols (<code>math_symbol</code>), arbitrary coordinate polygons (<code>polygon</code>), and a low-level Bézier vector path builder (<code>shape</code>).</p>
+                <h1>Polygons, Gears, Math Symbols &amp; Custom Paths</h1>
+<p>In addition to basic rectangles and circles, <code>drawlib.shapes</code> provides planar polygons (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>), radial equilateral shapes (<code>regularpolygon</code>, <code>star</code>), mechanical cogwheels (<code>gear</code>), mathematical operator symbols (<code>math_symbol</code>), arbitrary coordinate polygons (<code>polygon</code>), and a low-level Bézier vector path builder (<code>shape</code>).</p>
 <hr />
 <h2>1. Overview of Polygons &amp; Custom Paths</h2>
 <figure class="drawlib-image" style="text-align: center;">
@@ -552,36 +552,146 @@
 </code></pre>
 </details>
 <hr />
-<h2>2. Planar Quadrilaterals &amp; Triangles</h2>
-<p>All planar quadrilateral and triangle primitives support corner rounding via <code>style.patch(shape_r=...)</code> (either a uniform <code>float</code> or a per-vertex tuple: 4-tuple for <code>parallelogram</code>, <code>rhombus</code>, and <code>trapezoid</code>; 3-tuple for <code>triangle</code>) and rotation via <code>style.patch(angle=...)</code>:</p>
+<h2>2. Planar Quadrilaterals &amp; Triangles (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>)</h2>
+<p>All planar quadrilateral and triangle primitives support corner rounding via <code>style.patch(shape_r=...)</code> (either a uniform <code>float</code> or a per-vertex tuple) and rotation via <code>style.patch(angle=...)</code>:</p>
+<pre><code class="language-python"><span class="n">parallelogram</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">corner_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">rhombus</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">trapezoid</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">bottomedge_width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">topedge_width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">topedge_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">triangle</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">topvertex_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
 <table>
 <thead>
 <tr>
 <th style="text-align:left">Function</th>
-<th style="text-align:left">Signature &amp; Key Geometric Arguments</th>
-<th style="text-align:left">Typical Use Cases</th>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:left"><strong>Common</strong></td>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the unrotated bounding box (when using preset <code>Styles.*</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Fill, border, rotation (<code>angle</code>), and vertex rounding (<code>shape_r</code>: scalar <code>float</code> or per-vertex tuple).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Centered text label and optional typography override (use <code>xy_shift</code> to nudge text in asymmetric triangles/trapezoids).</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>parallelogram</code></strong></td>
-<td style="text-align:left"><code>parallelogram(xy, width, height, corner_angle=60.0, *, style, text=&quot;&quot;, text_style=None)</code></td>
-<td style="text-align:left">Flowchart I/O blocks, data streams (<code>corner_angle</code> in $(0^\circ, 90^\circ)$; <code>shape_r</code>: <code>float</code> or 4-tuple).</td>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Base width (<code>&gt; 0</code>) and vertical height (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>corner_angle</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>60.0</code></td>
+<td style="text-align:left">Bottom-left interior slant angle in degrees (<code>0 &lt; corner_angle &lt; 90</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>rhombus</code></strong></td>
-<td style="text-align:left"><code>rhombus(xy, width, height, *, style, text=&quot;&quot;, text_style=None)</code></td>
-<td style="text-align:left">Flowchart decision diamonds, conditional gateways (<code>shape_r</code>: <code>float</code> or 4-tuple).</td>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Total horizontal diagonal span and vertical diagonal span (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>trapezoid</code></strong></td>
-<td style="text-align:left"><code>trapezoid(xy, height, bottomedge_width, topedge_width, topedge_x=None, *, style, text=&quot;&quot;, text_style=None)</code></td>
-<td style="text-align:left">Funnels, neural network pooling layers (<code>topedge_x=None</code> centers the top edge symmetrically; <code>shape_r</code>: <code>float</code> or 4-tuple).</td>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Vertical height (<code>&gt; 0</code>). Note: <code>trapezoid</code> uses <code>bottomedge_width</code> and <code>topedge_width</code> instead of <code>width</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>bottomedge_width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Length of the bottom horizontal edge (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>topedge_width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Length of the top horizontal edge (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>topedge_x</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Horizontal offset of the top-left vertex relative to the bottom-left vertex (<code>None</code> centers the top edge symmetrically: <code>(bottomedge_width - topedge_width) / 2</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>triangle</code></strong></td>
-<td style="text-align:left"><code>triangle(xy, width, height, topvertex_x=None, *, style, text=&quot;&quot;, text_style=None)</code></td>
-<td style="text-align:left">Warning badges, tree apexes, right-angled ramps (<code>topvertex_x=None</code> defaults to <code>width / 2</code>; <code>shape_r</code>: <code>float</code> or 3-tuple).</td>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Base width (<code>&gt; 0</code>) and vertical height (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>topvertex_x</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Horizontal offset of the top apex relative to the bottom-left corner (<code>None</code> defaults to <code>width / 2</code> for an isosceles triangle; <code>0</code> creates a left-aligned right triangle).</td>
 </tr>
 </tbody>
 </table>
@@ -643,14 +753,107 @@
   <figcaption class="drawlib-caption">Parallelogram, Rhombus, Trapezoid, and Triangle</figcaption>
 </figure>
 <hr />
-<h2>3. Regular Polygons, Stars &amp; Gears (<code>regularpolygon</code>, <code>star</code>, <code>gear</code>)</h2>
-<ul>
-<li><strong><code>regularpolygon(xy, num_vertex, radius, *, style, text=&quot;&quot;, text_style=None)</code></strong>: Draws an equilateral $N$-sided polygon circumscribed inside <code>radius</code>. Set <code>style.patch(shape_r=...)</code> (a scalar <code>float</code> or a <code>num_vertex</code>-tuple of per-vertex radii) to round vertices, or <code>style.patch(angle=...)</code> to rotate.</li>
-<li><strong><code>star(xy, num_vertex, radius_ext, radius_int, *, style, text=&quot;&quot;, text_style=None)</code></strong>: Draws a symmetric $N$-pointed star alternating between outer peak radius <code>radius_ext</code> and inner valley radius <code>radius_int</code> (<code>radius_ext &gt; radius_int</code>). Also supports corner rounding via <code>style.patch(shape_r=...)</code> (either a uniform <code>float</code> or a <code>(2 * num_vertex)</code>-tuple of alternating outer/inner vertex radii).</li>
-<li><strong><code>gear(xy, num_teeth, radius_ext, radius_int, *, tooth_ext_ratio=None, tooth_int_ratio=None, hole_radius=None, style, text=&quot;&quot;, text_style=None)</code></strong>: Draws a symmetric $N$-toothed gear (cogwheel) where <code>tooth_ext_ratio</code> (default <code>0.35</code>) and <code>tooth_int_ratio</code> (default <code>0.55</code>) control the fraction of 1 pitch angle ($360^\circ / \text{num_teeth}$) occupied by the outer tooth tip and inner tooth base, and <code>hole_radius</code> optionally cuts a transparent circular hole in the center (<code>0 &lt; hole_radius &lt; radius_int</code>). Supports <code>style.patch(shape_r=...)</code> (scalar or <code>(4 * num_teeth)</code>-tuple) and <code>style.patch(angle=...)</code>.</li>
-</ul>
+<h2>3. Regular Polygons &amp; Stars (<code>regularpolygon</code>, <code>star</code>)</h2>
+<p><code>regularpolygon</code> and <code>star</code> construct radially symmetric shapes centered at <code>xy</code>:</p>
+<pre><code class="language-python"><span class="n">regularpolygon</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">num_vertex</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">star</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">num_vertex</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>regularpolygon</code></strong></td>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the circumscribed circle.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>num_vertex</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Number of polygon vertices/sides (<code>&gt;= 3</code>, e.g. <code>5</code> for pentagon, <code>6</code> for hexagon, <code>8</code> for octagon).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>radius</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Circumscribed radius from center <code>xy</code> to each vertex (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Supports <code>angle</code> rotation and <code>shape_r</code> vertex rounding (scalar <code>float</code> or <code>num_vertex</code>-tuple).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>star</code></strong></td>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the star.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>num_vertex</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Number of outer star tips (<code>&gt;= 3</code>). Total polygon vertices = <code>2 * num_vertex</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>radius_ext</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer tip radius (<code>&gt; radius_int</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>radius_int</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Inner valley radius (<code>0 &lt; radius_int &lt; radius_ext</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Supports <code>angle</code> rotation and <code>shape_r</code> rounding (scalar <code>float</code> or <code>(2 * num_vertex)</code>-tuple of alternating outer/inner vertex radii).</td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">gear</span><span class="p">,</span> <span class="n">regularpolygon</span><span class="p">,</span> <span class="n">star</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">regularpolygon</span><span class="p">,</span> <span class="n">star</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
@@ -673,51 +876,315 @@
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Pod"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Hex Pod"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 3. 5-Point Star (radius_ext=13, radius_int=6.5)</span>
+<span class="c1"># 3. 5-Point Star (radius_ext=13, radius_int=6.0)</span>
 <span class="n">star</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">radius_ext</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-    <span class="n">radius_int</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Star"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Star 5"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># 4. 8-Tooth Gear with Center Hole (hole_radius=4.5)</span>
-<span class="n">gear</span><span class="p">(</span>
+<span class="c1"># 4. Rounded 8-Point Badge Star (num_vertex=8, shape_r=1.0)</span>
+<span class="n">star</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-    <span class="n">num_teeth</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">num_vertex</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
     <span class="n">radius_ext</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
-    <span class="n">radius_int</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
-    <span class="n">hole_radius</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">8.8</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Badge"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_polygons_images/shapes_polygons_regular_and_star.png" alt="shapes_polygons_3" />
-  <figcaption class="drawlib-caption">Regular Polygons, Stars, and Gears with Optional Corner Rounding and Center Holes</figcaption>
+  <figcaption class="drawlib-caption">Regular Polygons and Stars with Vertex Count and Corner Rounding Variations</figcaption>
 </figure>
 <hr />
-<h2>4. Mathematical Operator Symbols (<code>math_symbol</code>)</h2>
-<p><code>math_symbol(xy, symbol, width, height=None, *, thickness_ratio=None, style, text=&quot;&quot;, text_style=None)</code> renders mathematical operator symbols (<code>&quot;+&quot;</code>, <code>&quot;-&quot;</code>, <code>&quot;×&quot;</code>, <code>&quot;÷&quot;</code>, <code>&quot;=&quot;</code>, <code>&quot;≠&quot;</code>) as filled, bordered geometric shapes for visual formulas (<code>Card A + Card B = Result</code>).</p>
+<h2>4. Gears &amp; Cogwheels (<code>gear</code>)</h2>
+<p>For automation engines, background workers, CI/CD runners, and system settings, <code>gear</code> renders an $N$-toothed mechanical cogwheel with circular root valleys, configurable tooth tip/base ratios, and an optional transparent center hole:</p>
+<pre><code class="language-python"><span class="n">gear</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">num_teeth</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">tooth_ext_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tooth_int_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">hole_radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the gear.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>num_teeth</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Number of gear teeth (<code>&gt;= 3</code>, typically <code>6</code> to <code>12</code>). Defines the angular pitch $\Delta\theta = 360^\circ / \text{num_teeth}$.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>radius_ext</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer tooth tip radius (<code>&gt; radius_int</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>radius_int</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Inner root valley radius (<code>0 &lt; radius_int &lt; radius_ext</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tooth_ext_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Fraction of one pitch angle $\Delta\theta$ occupied by the <strong>outer tooth tip</strong> in <code>(0.0, 1.0)</code>. Defaults to <code>0.35</code>. Must satisfy <code>tooth_ext_ratio &lt;= tooth_int_ratio</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tooth_int_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Fraction of one pitch angle $\Delta\theta$ occupied by the <strong>inner tooth base</strong> in <code>(0.0, 1.0)</code>. Defaults to <code>0.55</code>. Must satisfy <code>tooth_int_ratio &gt;= tooth_ext_ratio</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>hole_radius</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Radius of the transparent circular cutout in the center (<code>0 &lt; hole_radius &lt; radius_int</code>). When <code>None</code> (default), the gear has a solid core ideal for displaying <code>text</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Fill, border, rotation (<code>angle</code>), and tooth corner rounding (<code>shape_r</code>: scalar <code>float</code> or <code>(4 * num_teeth)</code>-tuple).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Centered text label and optional typography override.</td>
+</tr>
+</tbody>
+</table>
+<h3>Tooth Geometry &amp; Customization Rules</h3>
 <ul>
-<li><strong>Supported Symbols</strong>: <code>&quot;+&quot;</code> (<code>&quot;plus&quot;</code>), <code>&quot;-&quot;</code> (<code>&quot;−&quot;</code>, <code>&quot;minus&quot;</code>), <code>&quot;*&quot;</code> (<code>&quot;x&quot;</code>, <code>&quot;×&quot;</code>, <code>&quot;multiply&quot;</code>), <code>&quot;/&quot;</code> (<code>&quot;÷&quot;</code>, <code>&quot;divide&quot;</code>), <code>&quot;=&quot;</code> (<code>&quot;equal&quot;</code>), <code>&quot;!=&quot;</code> (<code>&quot;≠&quot;</code>, <code>&quot;not_equal&quot;</code>).</li>
-<li><strong>Dimensions &amp; Bar Thickness</strong>: <code>height</code> defaults to <code>width</code> when <code>None</code>. <code>thickness_ratio</code> controls the bar thickness relative to <code>min(width, height)</code> (defaults to <code>0.28</code>).</li>
-<li><strong>Unified Contours &amp; Corner Rounding</strong>: Intersecting bars (<code>+</code>, <code>×</code>, <code>≠</code>) are constructed as a single unified outer contour with no internal crossing strokes, and <code>style.patch(shape_r=...)</code> rounds the bar corners smoothly.</li>
+<li><strong>Trapezoidal vs. Square Teeth</strong>: By default (<code>tooth_ext_ratio=0.35</code>, <code>tooth_int_ratio=0.55</code>), each tooth tapers outward like a realistic involute gear. Setting both ratios equal (e.g. <code>tooth_ext_ratio=0.45, tooth_int_ratio=0.45</code>) produces straight-sided radial teeth.</li>
+<li><strong>Root Arcs &amp; Corner Rounding (<code>style.shape_r</code>)</strong>: When <code>style.shape_r</code> is <code>None</code>, root valleys and outer tips follow true circular arcs of radii <code>radius_int</code> and <code>radius_ext</code>. When <code>style.shape_r</code> is set (e.g. <code>Styles.PrimaryNeutral.patch(shape_r=0.8)</code>), all $4 \times \text{num_teeth}$ tooth corners are smoothly filleted.</li>
+<li><strong>Solid Core vs. Center Hole (<code>hole_radius</code>)</strong>: Omit <code>hole_radius</code> when placing a text label inside the gear; specify <code>hole_radius</code> (e.g. <code>0.4 * radius_int</code>) for a classic ring-style cogwheel.</li>
 </ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">gear</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="c1"># 1. Solid gear with embedded text (hole_radius=None)</span>
+<span class="n">gear</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">num_teeth</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Worker"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s2">"hole_radius=None"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># 2. Standard 8-tooth gear with center hole (tooth_ext_ratio=0.35, tooth_int_ratio=0.55)</span>
+<span class="n">gear</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">num_teeth</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">hole_radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s2">"hole_radius=4.2"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># 3. 12-tooth gear with wide square teeth (tooth_ext_ratio=0.48, tooth_int_ratio=0.48)</span>
+<span class="n">gear</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">num_teeth</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">tooth_ext_ratio</span><span class="o">=</span><span class="mf">0.48</span><span class="p">,</span>
+    <span class="n">tooth_int_ratio</span><span class="o">=</span><span class="mf">0.48</span><span class="p">,</span>
+    <span class="n">hole_radius</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s2">"num_teeth=12 (square)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># 4. 6-tooth heavy gear with filleted tooth corners (shape_r=1.0)</span>
+<span class="n">gear</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">num_teeth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">8.8</span><span class="p">,</span>
+    <span class="n">tooth_ext_ratio</span><span class="o">=</span><span class="mf">0.38</span><span class="p">,</span>
+    <span class="n">tooth_int_ratio</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span>
+    <span class="n">hole_radius</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">110</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s2">"num_teeth=6, shape_r=1.0"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_polygons_images/shapes_polygons_gear.png" alt="shapes_polygons_4" />
+  <figcaption class="drawlib-caption">Gear Variations: Solid Core with Text, Standard Center Hole, Fine Teeth, and Rounded Tooth Corners</figcaption>
+</figure>
+<hr />
+<h2>5. Mathematical Operator Symbols (<code>math_symbol</code>)</h2>
+<p>For visual equations and concept formulas (<code>[Card A] + [Card B] = [Outcome]</code>), <code>math_symbol</code> renders mathematical operators as filled, bordered geometric shapes rather than thin font glyphs:</p>
+<pre><code class="language-python"><span class="n">math_symbol</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">symbol</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">"+"</span><span class="p">,</span> <span class="s2">"plus"</span><span class="p">,</span>
+        <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"−"</span><span class="p">,</span> <span class="s2">"minus"</span><span class="p">,</span>
+        <span class="s2">"*"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="s2">"×"</span><span class="p">,</span> <span class="s2">"multiply"</span><span class="p">,</span>
+        <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"÷"</span><span class="p">,</span> <span class="s2">"divide"</span><span class="p">,</span>
+        <span class="s2">"="</span><span class="p">,</span> <span class="s2">"equal"</span><span class="p">,</span>
+        <span class="s2">"!="</span><span class="p">,</span> <span class="s2">"≠"</span><span class="p">,</span> <span class="s2">"not_equal"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">thickness_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the symbol bounding box.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>symbol</code></td>
+<td style="text-align:left"><code>MathSymbol</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Operator symbol or canonical name (see <strong>Supported <code>symbol</code> Variants</strong> below).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer horizontal width of the symbol (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Outer vertical height (<code>&gt; 0</code>). When <code>None</code>, defaults to <code>width</code> (square bounding box).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>thickness_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Bar thickness fraction in <code>(0.0, 1.0)</code> relative to <code>min(width, height)</code>. Defaults to <code>0.28</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Fill, border, rotation (<code>angle</code>), and bar corner rounding (<code>shape_r</code>: scalar <code>float</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Centered text label and optional typography override.</td>
+</tr>
+</tbody>
+</table>
+<h3>Supported <code>symbol</code> Variants &amp; Aliases</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Primary <code>symbol</code></th>
+<th style="text-align:left">Accepted Aliases</th>
+<th style="text-align:left">Geometric Construction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>&quot;+&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;plus&quot;</code></td>
+<td style="text-align:left">Unified 12-vertex orthogonal cross contour (no internal overlapping stroke lines).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;-&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;−&quot;</code>, <code>&quot;minus&quot;</code></td>
+<td style="text-align:left">Single horizontal rectangular bar centered vertically.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;×&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;*&quot;</code>, <code>&quot;x&quot;</code>, <code>&quot;multiply&quot;</code></td>
+<td style="text-align:left">Unified 12-vertex diagonal cross rotated $45^\circ$ and scaled to fit <code>(width, height)</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;÷&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;/&quot;</code>, <code>&quot;divide&quot;</code></td>
+<td style="text-align:left">Horizontal center bar combined with upper and lower circular dots (<code>Path.make_compound_path</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;=&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;equal&quot;</code></td>
+<td style="text-align:left">Two parallel horizontal bars spaced symmetrically above and below center.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>&quot;≠&quot;</code></strong></td>
+<td style="text-align:left"><code>&quot;!=&quot;</code>, <code>&quot;not_equal&quot;</code></td>
+<td style="text-align:left">Two parallel horizontal bars intersected by an angled slash in a single unified outer contour.</td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">math_symbol</span><span class="p">,</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="c1"># Row 1: All 6 symbols (+, -, ×, ÷, =, ≠)</span>
 <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span>
@@ -730,13 +1197,13 @@
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbols</span><span class="p">):</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">19.2</span>
-    <span class="n">math_symbol</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">19.6</span>
+    <span class="n">math_symbol</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="n">sym</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># Row 2: Visual equation layout (Card + Card = Result Card)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Latency"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-<span class="n">math_symbol</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"+"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">thickness_ratio</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">math_symbol</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"+"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">thickness_ratio</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">68</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Jitter"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">math_symbol</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"="</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">thickness_ratio</span><span class="o">=</span><span class="mf">0.28</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">108</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"SLA"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
@@ -744,11 +1211,11 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_math_symbol.png" alt="shapes_polygons_4" />
-  <figcaption class="drawlib-caption">Mathematical Operator Symbols (+, -, ×, ÷, =, ≠) and Visual Equation Layout</figcaption>
+  <img src="shapes_polygons_images/shapes_polygons_math_symbol.png" alt="shapes_polygons_5" />
+  <figcaption class="drawlib-caption">Mathematical Operator Symbols (+, -, ×, ÷, =, ≠), Thickness Ratios, and Visual Equation Layout</figcaption>
 </figure>
 <hr />
-<h2>5. Arbitrary Vertex Polygons (<code>polygon</code>)</h2>
+<h2>6. Arbitrary Vertex Polygons (<code>polygon</code>)</h2>
 <p><code>polygon(xys, *, style, text=&quot;&quot;, text_style=None)</code> constructs a closed polygon directly from a list of canvas vertex coordinates <code>xys=[(x1, y1), (x2, y2), ...]</code>.</p>
 <ul>
 <li><strong>Corner Rounding (<code>style.shape_r</code>)</strong>: Pass a single float to round all vertices equally, or a tuple of radii <code>(r1, r2, ..., rN)</code> matching <code>len(xys)</code> to round individual vertices selectively.</li>
@@ -779,12 +1246,12 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_5" />
+  <img src="shapes_polygons_images/shapes_polygons_custom_polygon.png" alt="shapes_polygons_6" />
   <figcaption class="drawlib-caption">Custom Coordinate Polygons with Uniform and Per-Vertex Rounding</figcaption>
 </figure>
 <hr />
-<h2>6. Custom Vector &amp; Bézier Path Builder (<code>shape</code>)</h2>
-<p>For custom icons, shields, waves, or irregular components that need relative positioning, rotation, and Bézier curves, use <code>shape()</code>:</p>
+<h2>7. Custom Vector &amp; Bézier Path Builder (<code>shape</code>)</h2>
+<p>For custom shields, badges, or bespoke silhouettes that combine straight lines and Bézier curves with relative positioning and rotation, use <code>shape()</code>:</p>
 <pre><code class="language-python"><span class="n">shape</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">path_points</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="o">...</span><span class="p">],</span>
@@ -800,17 +1267,21 @@
 <li><strong>Line Vertex</strong>: <code>(x, y)</code> adds a straight line segment.</li>
 <li><strong>Quadratic Bézier Segment</strong>: <code>((cp_x, cp_y), (end_x, end_y))</code> curves toward control point <code>cp</code> before ending at <code>end</code>.</li>
 <li><strong>Cubic Bézier Segment</strong>: <code>((cp1_x, cp1_y), (cp2_x, cp2_y), (end_x, end_y))</code> uses two control points for smooth S-curves and waves.</li>
-<li><strong><code>is_default_center</code></strong>: Controls fallback alignment when <code>style.halign</code> or <code>style.valign</code> is <code>None</code>. All preset <code>Styles.*</code> explicitly set <code>halign=&quot;center&quot;, valign=&quot;center&quot;</code>, centering the path's bounding box at <code>xy</code>. When using a raw <code>Style()</code> with <code>halign=None, valign=None</code>, <code>is_default_center=False</code> (default) anchors the bounding box's bottom-left corner at <code>xy</code>, whereas <code>is_default_center=True</code> centers the bounding box at <code>xy</code>.</li>
+<li><strong><code>is_default_center</code></strong>: Controls fallback alignment when <code>style.halign</code> or <code>style.valign</code> is <code>None</code>. All preset <code>Styles.*</code> explicitly set <code>halign=&quot;center&quot;, valign=&quot;center&quot;</code>, centering the path's bounding box at <code>xy</code>.</li>
 </ul>
+<blockquote>
+<p>[!TIP]
+For wavy-bottom or folded-corner document shapes, use the built-in <code>document()</code> primitive in <strong><a href="./shapes_domain.html">Cylinders, Cubes, Clouds &amp; Callouts</a></strong> rather than constructing Bézier waves manually.</p>
+</blockquote>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">shape</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
-<span class="c1"># 1. Custom Shield Badge (Quadratic Bézier curved bottom)</span>
+<span class="c1"># 1. Custom Security Shield Badge (Quadratic Bézier curved bottom)</span>
 <span class="n">shape</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
     <span class="n">path_points</span><span class="o">=</span><span class="p">[</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span>
@@ -825,26 +1296,25 @@
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 2. Document Card with Wavy Bottom Edge (Cubic Bézier)</span>
+<span class="c1"># 2. Custom symmetric Hourglass / Ribbon Silhouette (Cubic Bézier waist)</span>
 <span class="n">shape</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
     <span class="n">path_points</span><span class="o">=</span><span class="p">[</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
-        <span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
-        <span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-        <span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)),</span>
+        <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+        <span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
     <span class="p">],</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Custom Wave</span><span class="se">\n</span><span class="s2">Document"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Custom</span><span class="se">\n</span><span class="s2">Bezier"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_6" />
-  <figcaption class="drawlib-caption">Custom Vector Shapes Using Straight and Cubic Bézier Path Points</figcaption>
+  <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_7" />
+  <figcaption class="drawlib-caption">Custom Vector Shapes Using Quadratic and Cubic Bézier Path Points</figcaption>
 </figure>
 
             </main>

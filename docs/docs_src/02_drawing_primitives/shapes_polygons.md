@@ -1,6 +1,6 @@
-# Polygons & Custom Paths
+# Polygons, Gears, Math Symbols & Custom Paths
 
-In addition to basic rectangles and circles, `drawlib.shapes` provides planar polygons (`parallelogram`, `rhombus`, `trapezoid`, `triangle`), radial equilateral shapes (`regularpolygon`, `star`, `gear`), mathematical operator symbols (`math_symbol`), arbitrary coordinate polygons (`polygon`), and a low-level Bézier vector path builder (`shape`).
+In addition to basic rectangles and circles, `drawlib.shapes` provides planar polygons (`parallelogram`, `rhombus`, `trapezoid`, `triangle`), radial equilateral shapes (`regularpolygon`, `star`), mechanical cogwheels (`gear`), mathematical operator symbols (`math_symbol`), arbitrary coordinate polygons (`polygon`), and a low-level Bézier vector path builder (`shape`).
 
 ---
 
@@ -72,16 +72,70 @@ save()
 
 ---
 
-## 2. Planar Quadrilaterals & Triangles
+## 2. Planar Quadrilaterals & Triangles (`parallelogram`, `rhombus`, `trapezoid`, `triangle`)
 
-All planar quadrilateral and triangle primitives support corner rounding via `style.patch(shape_r=...)` (either a uniform `float` or a per-vertex tuple: 4-tuple for `parallelogram`, `rhombus`, and `trapezoid`; 3-tuple for `triangle`) and rotation via `style.patch(angle=...)`:
+All planar quadrilateral and triangle primitives support corner rounding via `style.patch(shape_r=...)` (either a uniform `float` or a per-vertex tuple) and rotation via `style.patch(angle=...)`:
 
-| Function | Signature & Key Geometric Arguments | Typical Use Cases |
-| :--- | :--- | :--- |
-| **`parallelogram`** | `parallelogram(xy, width, height, corner_angle=60.0, *, style, text="", text_style=None)` | Flowchart I/O blocks, data streams (`corner_angle` in $(0^\circ, 90^\circ)$; `shape_r`: `float` or 4-tuple). |
-| **`rhombus`** | `rhombus(xy, width, height, *, style, text="", text_style=None)` | Flowchart decision diamonds, conditional gateways (`shape_r`: `float` or 4-tuple). |
-| **`trapezoid`** | `trapezoid(xy, height, bottomedge_width, topedge_width, topedge_x=None, *, style, text="", text_style=None)` | Funnels, neural network pooling layers (`topedge_x=None` centers the top edge symmetrically; `shape_r`: `float` or 4-tuple). |
-| **`triangle`** | `triangle(xy, width, height, topvertex_x=None, *, style, text="", text_style=None)` | Warning badges, tree apexes, right-angled ramps (`topvertex_x=None` defaults to `width / 2`; `shape_r`: `float` or 3-tuple). |
+```python
+parallelogram(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    corner_angle: float = 60.0,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+
+rhombus(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+
+trapezoid(
+    xy: tuple[float, float],
+    height: float,
+    bottomedge_width: float,
+    topedge_width: float,
+    topedge_x: float | None = None,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+
+triangle(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    topvertex_x: float | None = None,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+| Function | Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **Common** | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the unrotated bounding box (when using preset `Styles.*`). |
+| | `style` | `Style` | *Required* | Fill, border, rotation (`angle`), and vertex rounding (`shape_r`: scalar `float` or per-vertex tuple). |
+| | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Centered text label and optional typography override (use `xy_shift` to nudge text in asymmetric triangles/trapezoids). |
+| **`parallelogram`** | `width` / `height` | `float` | *Required* | Base width (`> 0`) and vertical height (`> 0`). |
+| | `corner_angle` | `float` | `60.0` | Bottom-left interior slant angle in degrees (`0 < corner_angle < 90`). |
+| **`rhombus`** | `width` / `height` | `float` | *Required* | Total horizontal diagonal span and vertical diagonal span (`> 0`). |
+| **`trapezoid`** | `height` | `float` | *Required* | Vertical height (`> 0`). Note: `trapezoid` uses `bottomedge_width` and `topedge_width` instead of `width`. |
+| | `bottomedge_width` | `float` | *Required* | Length of the bottom horizontal edge (`> 0`). |
+| | `topedge_width` | `float` | *Required* | Length of the top horizontal edge (`> 0`). |
+| | `topedge_x` | `float \| None` | `None` | Horizontal offset of the top-left vertex relative to the bottom-left vertex (`None` centers the top edge symmetrically: `(bottomedge_width - topedge_width) / 2`). |
+| **`triangle`** | `width` / `height` | `float` | *Required* | Base width (`> 0`) and vertical height (`> 0`). |
+| | `topvertex_x` | `float \| None` | `None` | Horizontal offset of the top apex relative to the bottom-left corner (`None` defaults to `width / 2` for an isosceles triangle; `0` creates a left-aligned right triangle). |
 
 ```drawlib code=show align=center file=shapes_polygons_planar.png caption="Parallelogram, Rhombus, Trapezoid, and Triangle"
 from drawlib.canvas import save, setup
@@ -140,15 +194,48 @@ save()
 
 ---
 
-## 3. Regular Polygons, Stars & Gears (`regularpolygon`, `star`, `gear`)
+## 3. Regular Polygons & Stars (`regularpolygon`, `star`)
 
-- **`regularpolygon(xy, num_vertex, radius, *, style, text="", text_style=None)`**: Draws an equilateral $N$-sided polygon circumscribed inside `radius`. Set `style.patch(shape_r=...)` (a scalar `float` or a `num_vertex`-tuple of per-vertex radii) to round vertices, or `style.patch(angle=...)` to rotate.
-- **`star(xy, num_vertex, radius_ext, radius_int, *, style, text="", text_style=None)`**: Draws a symmetric $N$-pointed star alternating between outer peak radius `radius_ext` and inner valley radius `radius_int` (`radius_ext > radius_int`). Also supports corner rounding via `style.patch(shape_r=...)` (either a uniform `float` or a `(2 * num_vertex)`-tuple of alternating outer/inner vertex radii).
-- **`gear(xy, num_teeth, radius_ext, radius_int, *, tooth_ext_ratio=None, tooth_int_ratio=None, hole_radius=None, style, text="", text_style=None)`**: Draws a symmetric $N$-toothed gear (cogwheel) where `tooth_ext_ratio` (default `0.35`) and `tooth_int_ratio` (default `0.55`) control the fraction of 1 pitch angle ($360^\circ / \text{num\_teeth}$) occupied by the outer tooth tip and inner tooth base, and `hole_radius` optionally cuts a transparent circular hole in the center (`0 < hole_radius < radius_int`). Supports `style.patch(shape_r=...)` (scalar or `(4 * num_teeth)`-tuple) and `style.patch(angle=...)`.
+`regularpolygon` and `star` construct radially symmetric shapes centered at `xy`:
 
-```drawlib code=show align=center file=shapes_polygons_regular_and_star.png caption="Regular Polygons, Stars, and Gears with Optional Corner Rounding and Center Holes"
+```python
+regularpolygon(
+    xy: tuple[float, float],
+    num_vertex: int,
+    radius: float,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+
+star(
+    xy: tuple[float, float],
+    num_vertex: int,
+    radius_ext: float,
+    radius_int: float,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+| Function | Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **`regularpolygon`** | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the circumscribed circle. |
+| | `num_vertex` | `int` | *Required* | Number of polygon vertices/sides (`>= 3`, e.g. `5` for pentagon, `6` for hexagon, `8` for octagon). |
+| | `radius` | `float` | *Required* | Circumscribed radius from center `xy` to each vertex (`> 0`). |
+| | `style` | `Style` | *Required* | Supports `angle` rotation and `shape_r` vertex rounding (scalar `float` or `num_vertex`-tuple). |
+| **`star`** | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the star. |
+| | `num_vertex` | `int` | *Required* | Number of outer star tips (`>= 3`). Total polygon vertices = `2 * num_vertex`. |
+| | `radius_ext` | `float` | *Required* | Outer tip radius (`> radius_int`). |
+| | `radius_int` | `float` | *Required* | Inner valley radius (`0 < radius_int < radius_ext`). |
+| | `style` | `Style` | *Required* | Supports `angle` rotation and `shape_r` rounding (scalar `float` or `(2 * num_vertex)`-tuple of alternating outer/inner vertex radii). |
+
+```drawlib code=show align=center file=shapes_polygons_regular_and_star.png caption="Regular Polygons and Stars with Vertex Count and Corner Rounding Variations"
 from drawlib.canvas import save, setup
-from drawlib.shapes import gear, regularpolygon, star
+from drawlib.shapes import regularpolygon, star
 from drawlib.styles import Styles
 
 setup(width=120, height=40)
@@ -171,29 +258,30 @@ regularpolygon(
     num_vertex=6,
     radius=12,
     style=Styles.PrimaryFlat.patch(shape_r=2),
-    text="Pod",
+    text="Hex Pod",
     text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
-# 3. 5-Point Star (radius_ext=13, radius_int=6.5)
+# 3. 5-Point Star (radius_ext=13, radius_int=6.0)
 star(
     (76, 20),
     num_vertex=5,
     radius_ext=13,
-    radius_int=6.5,
+    radius_int=6.0,
     style=Styles.SecondaryNeutral,
-    text="Star",
+    text="Star 5",
     text_style=lbl_dark,
 )
 
-# 4. 8-Tooth Gear with Center Hole (hole_radius=4.5)
-gear(
+# 4. Rounded 8-Point Badge Star (num_vertex=8, shape_r=1.0)
+star(
     (104, 20),
-    num_teeth=8,
+    num_vertex=8,
     radius_ext=12.5,
-    radius_int=9.0,
-    hole_radius=4.5,
-    style=Styles.PrimaryNeutral,
+    radius_int=8.8,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.0),
+    text="Badge",
+    text_style=lbl_dark,
 )
 
 save()
@@ -201,21 +289,162 @@ save()
 
 ---
 
-## 4. Mathematical Operator Symbols (`math_symbol`)
+## 4. Gears & Cogwheels (`gear`)
 
-`math_symbol(xy, symbol, width, height=None, *, thickness_ratio=None, style, text="", text_style=None)` renders mathematical operator symbols (`"+"`, `"-"`, `"×"`, `"÷"`, `"="`, `"≠"`) as filled, bordered geometric shapes for visual formulas (`Card A + Card B = Result`).
+For automation engines, background workers, CI/CD runners, and system settings, `gear` renders an $N$-toothed mechanical cogwheel with circular root valleys, configurable tooth tip/base ratios, and an optional transparent center hole:
 
-- **Supported Symbols**: `"+"` (`"plus"`), `"-"` (`"−"`, `"minus"`), `"*"` (`"x"`, `"×"`, `"multiply"`), `"/"` (`"÷"`, `"divide"`), `"="` (`"equal"`), `"!="` (`"≠"`, `"not_equal"`).
-- **Dimensions & Bar Thickness**: `height` defaults to `width` when `None`. `thickness_ratio` controls the bar thickness relative to `min(width, height)` (defaults to `0.28`).
-- **Unified Contours & Corner Rounding**: Intersecting bars (`+`, `×`, `≠`) are constructed as a single unified outer contour with no internal crossing strokes, and `style.patch(shape_r=...)` rounds the bar corners smoothly.
+```python
+gear(
+    xy: tuple[float, float],
+    num_teeth: int,
+    radius_ext: float,
+    radius_int: float,
+    *,
+    tooth_ext_ratio: float | None = None,
+    tooth_int_ratio: float | None = None,
+    hole_radius: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
 
-```drawlib code=show align=center file=shapes_polygons_math_symbol.png caption="Mathematical Operator Symbols (+, -, ×, ÷, =, ≠) and Visual Equation Layout"
+### Parameter Reference
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the gear. |
+| `num_teeth` | `int` | *Required* | Number of gear teeth (`>= 3`, typically `6` to `12`). Defines the angular pitch $\Delta\theta = 360^\circ / \text{num\_teeth}$. |
+| `radius_ext` | `float` | *Required* | Outer tooth tip radius (`> radius_int`). |
+| `radius_int` | `float` | *Required* | Inner root valley radius (`0 < radius_int < radius_ext`). |
+| `tooth_ext_ratio` | `float \| None` | `None` | Fraction of one pitch angle $\Delta\theta$ occupied by the **outer tooth tip** in `(0.0, 1.0)`. Defaults to `0.35`. Must satisfy `tooth_ext_ratio <= tooth_int_ratio`. |
+| `tooth_int_ratio` | `float \| None` | `None` | Fraction of one pitch angle $\Delta\theta$ occupied by the **inner tooth base** in `(0.0, 1.0)`. Defaults to `0.55`. Must satisfy `tooth_int_ratio >= tooth_ext_ratio`. |
+| `hole_radius` | `float \| None` | `None` | Radius of the transparent circular cutout in the center (`0 < hole_radius < radius_int`). When `None` (default), the gear has a solid core ideal for displaying `text`. |
+| `style` | `Style` | *Required* | Fill, border, rotation (`angle`), and tooth corner rounding (`shape_r`: scalar `float` or `(4 * num_teeth)`-tuple). |
+| `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Centered text label and optional typography override. |
+
+### Tooth Geometry & Customization Rules
+- **Trapezoidal vs. Square Teeth**: By default (`tooth_ext_ratio=0.35`, `tooth_int_ratio=0.55`), each tooth tapers outward like a realistic involute gear. Setting both ratios equal (e.g. `tooth_ext_ratio=0.45, tooth_int_ratio=0.45`) produces straight-sided radial teeth.
+- **Root Arcs & Corner Rounding (`style.shape_r`)**: When `style.shape_r` is `None`, root valleys and outer tips follow true circular arcs of radii `radius_int` and `radius_ext`. When `style.shape_r` is set (e.g. `Styles.PrimaryNeutral.patch(shape_r=0.8)`), all $4 \times \text{num\_teeth}$ tooth corners are smoothly filleted.
+- **Solid Core vs. Center Hole (`hole_radius`)**: Omit `hole_radius` when placing a text label inside the gear; specify `hole_radius` (e.g. `0.4 * radius_int`) for a classic ring-style cogwheel.
+
+```drawlib code=show align=center file=shapes_polygons_gear.png caption="Gear Variations: Solid Core with Text, Standard Center Hole, Fine Teeth, and Rounded Tooth Corners"
+from drawlib.canvas import save, setup
+from drawlib.shapes import gear
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=126, height=48)
+
+# 1. Solid gear with embedded text (hole_radius=None)
+gear(
+    (18, 27),
+    num_teeth=8,
+    radius_ext=13.0,
+    radius_int=9.8,
+    style=Styles.PrimaryFlat,
+    text="Worker",
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+text((18, 8), "hole_radius=None", style=Styles.DarkBold.patch(text_size=9.5))
+
+# 2. Standard 8-tooth gear with center hole (tooth_ext_ratio=0.35, tooth_int_ratio=0.55)
+gear(
+    (49, 27),
+    num_teeth=8,
+    radius_ext=13.0,
+    radius_int=9.5,
+    hole_radius=4.2,
+    style=Styles.PrimaryNeutral,
+)
+text((49, 8), "hole_radius=4.2", style=Styles.DarkBold.patch(text_size=9.5))
+
+# 3. 12-tooth gear with wide square teeth (tooth_ext_ratio=0.48, tooth_int_ratio=0.48)
+gear(
+    (80, 27),
+    num_teeth=12,
+    radius_ext=13.0,
+    radius_int=10.0,
+    tooth_ext_ratio=0.48,
+    tooth_int_ratio=0.48,
+    hole_radius=5.0,
+    style=Styles.SecondaryNeutral,
+)
+text((80, 8), "num_teeth=12 (square)", style=Styles.DarkBold.patch(text_size=9.5))
+
+# 4. 6-tooth heavy gear with filleted tooth corners (shape_r=1.0)
+gear(
+    (110, 27),
+    num_teeth=6,
+    radius_ext=13.0,
+    radius_int=8.8,
+    tooth_ext_ratio=0.38,
+    tooth_int_ratio=0.60,
+    hole_radius=3.8,
+    style=Styles.Neutral.patch(shape_r=1.0),
+)
+text((110, 8), "num_teeth=6, shape_r=1.0", style=Styles.DarkBold.patch(text_size=9.5))
+
+save()
+```
+
+---
+
+## 5. Mathematical Operator Symbols (`math_symbol`)
+
+For visual equations and concept formulas (`[Card A] + [Card B] = [Outcome]`), `math_symbol` renders mathematical operators as filled, bordered geometric shapes rather than thin font glyphs:
+
+```python
+math_symbol(
+    xy: tuple[float, float],
+    symbol: Literal[
+        "+", "plus",
+        "-", "−", "minus",
+        "*", "x", "×", "multiply",
+        "/", "÷", "divide",
+        "=", "equal",
+        "!=", "≠", "not_equal",
+    ],
+    width: float,
+    height: float | None = None,
+    *,
+    thickness_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+### Parameter Reference
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the symbol bounding box. |
+| `symbol` | `MathSymbol` | *Required* | Operator symbol or canonical name (see **Supported `symbol` Variants** below). |
+| `width` | `float` | *Required* | Outer horizontal width of the symbol (`> 0`). |
+| `height` | `float \| None` | `None` | Outer vertical height (`> 0`). When `None`, defaults to `width` (square bounding box). |
+| `thickness_ratio` | `float \| None` | `None` | Bar thickness fraction in `(0.0, 1.0)` relative to `min(width, height)`. Defaults to `0.28`. |
+| `style` | `Style` | *Required* | Fill, border, rotation (`angle`), and bar corner rounding (`shape_r`: scalar `float`). |
+| `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Centered text label and optional typography override. |
+
+### Supported `symbol` Variants & Aliases
+
+| Primary `symbol` | Accepted Aliases | Geometric Construction |
+| :--- | :--- | :--- |
+| **`"+"`** | `"plus"` | Unified 12-vertex orthogonal cross contour (no internal overlapping stroke lines). |
+| **`"-"`** | `"−"`, `"minus"` | Single horizontal rectangular bar centered vertically. |
+| **`"×"`** | `"*"`, `"x"`, `"multiply"` | Unified 12-vertex diagonal cross rotated $45^\circ$ and scaled to fit `(width, height)`. |
+| **`"÷"`** | `"/"`, `"divide"` | Horizontal center bar combined with upper and lower circular dots (`Path.make_compound_path`). |
+| **`"="`** | `"equal"` | Two parallel horizontal bars spaced symmetrically above and below center. |
+| **`"≠"`** | `"!="`, `"not_equal"` | Two parallel horizontal bars intersected by an angled slash in a single unified outer contour. |
+
+```drawlib code=show align=center file=shapes_polygons_math_symbol.png caption="Mathematical Operator Symbols (+, -, ×, ÷, =, ≠), Thickness Ratios, and Visual Equation Layout"
 from drawlib.canvas import save, setup
 from drawlib.shapes import math_symbol, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=56)
+setup(width=124, height=58)
 
 # Row 1: All 6 symbols (+, -, ×, ÷, =, ≠)
 symbols = [
@@ -228,13 +457,13 @@ symbols = [
 ]
 
 for idx, (sym, label, st) in enumerate(symbols):
-    cx = 12 + idx * 19.2
-    math_symbol((cx, 40), symbol=sym, width=12.5, style=st.patch(shape_r=0.5))
-    text((cx, 28.5), label, style=Styles.DarkBold.patch(text_size=10.0))
+    cx = 13 + idx * 19.6
+    math_symbol((cx, 42), symbol=sym, width=12.5, style=st.patch(shape_r=0.5))
+    text((cx, 30), label, style=Styles.DarkBold.patch(text_size=10.0))
 
 # Row 2: Visual equation layout (Card + Card = Result Card)
 rectangle((24, 13), width=28, height=13, style=Styles.PrimaryNeutral.patch(shape_r=2), text="Latency", text_style=Styles.DarkBold.patch(text_size=10.5))
-math_symbol((46, 13), symbol="+", width=7.5, thickness_ratio=0.30, style=Styles.SecondaryFlat.patch(shape_r=0.4))
+math_symbol((46, 13), symbol="+", width=7.5, thickness_ratio=0.32, style=Styles.SecondaryFlat.patch(shape_r=0.4))
 rectangle((68, 13), width=28, height=13, style=Styles.SecondaryNeutral.patch(shape_r=2), text="Jitter", text_style=Styles.DarkBold.patch(text_size=10.5))
 math_symbol((90, 13), symbol="=", width=7.5, thickness_ratio=0.28, style=Styles.SecondaryFlat.patch(shape_r=0.4))
 rectangle((108, 13), width=20, height=13, style=Styles.PrimaryFlat.patch(shape_r=2), text="SLA", text_style=Styles.WhiteBold.patch(text_size=10.5))
@@ -244,7 +473,7 @@ save()
 
 ---
 
-## 5. Arbitrary Vertex Polygons (`polygon`)
+## 6. Arbitrary Vertex Polygons (`polygon`)
 
 `polygon(xys, *, style, text="", text_style=None)` constructs a closed polygon directly from a list of canvas vertex coordinates `xys=[(x1, y1), (x2, y2), ...]`.
 
@@ -279,9 +508,9 @@ save()
 
 ---
 
-## 6. Custom Vector & Bézier Path Builder (`shape`)
+## 7. Custom Vector & Bézier Path Builder (`shape`)
 
-For custom icons, shields, waves, or irregular components that need relative positioning, rotation, and Bézier curves, use `shape()`:
+For custom shields, badges, or bespoke silhouettes that combine straight lines and Bézier curves with relative positioning and rotation, use `shape()`:
 
 ```python
 shape(
@@ -299,18 +528,21 @@ shape(
 - **Line Vertex**: `(x, y)` adds a straight line segment.
 - **Quadratic Bézier Segment**: `((cp_x, cp_y), (end_x, end_y))` curves toward control point `cp` before ending at `end`.
 - **Cubic Bézier Segment**: `((cp1_x, cp1_y), (cp2_x, cp2_y), (end_x, end_y))` uses two control points for smooth S-curves and waves.
-- **`is_default_center`**: Controls fallback alignment when `style.halign` or `style.valign` is `None`. All preset `Styles.*` explicitly set `halign="center", valign="center"`, centering the path's bounding box at `xy`. When using a raw `Style()` with `halign=None, valign=None`, `is_default_center=False` (default) anchors the bounding box's bottom-left corner at `xy`, whereas `is_default_center=True` centers the bounding box at `xy`.
+- **`is_default_center`**: Controls fallback alignment when `style.halign` or `style.valign` is `None`. All preset `Styles.*` explicitly set `halign="center", valign="center"`, centering the path's bounding box at `xy`.
 
-```drawlib code=show align=center file=shapes_polygons_custom_shape.png caption="Custom Vector Shapes Using Straight and Cubic Bézier Path Points"
+> [!TIP]
+> For wavy-bottom or folded-corner document shapes, use the built-in `document()` primitive in **[Cylinders, Cubes, Clouds & Callouts](./shapes_domain.md)** rather than constructing Bézier waves manually.
+
+```drawlib code=show align=center file=shapes_polygons_custom_shape.png caption="Custom Vector Shapes Using Quadratic and Cubic Bézier Path Points"
 from drawlib.canvas import save, setup
 from drawlib.shapes import shape
 from drawlib.styles import Styles
 
 setup(width=115, height=44)
 
-# 1. Custom Shield Badge (Quadratic Bézier curved bottom)
+# 1. Custom Security Shield Badge (Quadratic Bézier curved bottom)
 shape(
-    xy=(30, 22),
+    xy=(32, 22),
     path_points=[
         (0, 14),
         (0, 28),
@@ -325,18 +557,17 @@ shape(
     text_style=Styles.WhiteBold.patch(text_size=11.0),
 )
 
-# 2. Document Card with Wavy Bottom Edge (Cubic Bézier)
+# 2. Custom symmetric Hourglass / Ribbon Silhouette (Cubic Bézier waist)
 shape(
-    xy=(78, 22),
+    xy=(80, 22),
     path_points=[
-        (0, 4),
-        (0, 30),
-        (36, 30),
-        (36, 4),
-        ((24, 12), (12, -4), (0, 4)),
+        (0, 0),
+        ((10, 10), (10, 20), (0, 30)),
+        (34, 30),
+        ((24, 20), (24, 10), (34, 0)),
     ],
-    style=Styles.Neutral,
-    text="Custom Wave\nDocument",
+    style=Styles.SecondaryNeutral,
+    text="Custom\nBezier",
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 

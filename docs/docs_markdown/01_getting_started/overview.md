@@ -175,7 +175,7 @@ text((15.5, 30.8), "drawlib.graph • diagrams • smartarts • charts • math
 rectangle((60.0, 21.0), width=112.0, height=10.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 phosphor.paint_brush((10.5, 21.0), width=5.2, style=Styles.Primary)
 text((15.5, 23.0), "Layer 2: Drawing Primitives & Assets", style=title_dark)
-text((15.5, 18.8), "drawlib.shapes (24 shapes) • lines • text • icons • images", style=sub_dark)
+text((15.5, 18.8), "drawlib.shapes (30 shapes) • lines • text • icons • images", style=sub_dark)
 
 # Layer 1: Core Engine (Hero anchor)
 rectangle((60.0, 9.0), width=112.0, height=10.0, style=Styles.PrimaryFlat.patch(shape_r=1.5))
@@ -193,7 +193,7 @@ save()
 1. **Layer 1: Core Engine (`drawlib.canvas`, `drawlib.styles`, `drawlib.types`, `drawlib.fonts`)**  
    Manages canvas lifecycle, Cartesian coordinate systems, local coordinate transforms, theme resolution, and universal font typography.
 2. **Layer 2: Drawing Primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`, `drawlib.images`)**  
-   Provides **28** vector shapes (including `cylinder`, `cloud`, `brace`, `gear`, `math_symbol`, `face`, and `bubblespeech`), flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
+   Provides **30** vector shapes (including `cylinder`, `cube`, `document`, `cloud`, `brace`, `gear`, `math_symbol`, `face`, and `bubblespeech`), flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
 3. **Layer 3: High-Level Visualizations & Geometry (`drawlib.graph`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`, `drawlib.math`)**  
    Ready-to-use domain components: auto-layout graphs (`LayerGraph`, `ArchitectureGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), cloud architectures, flowcharts, sequence diagrams, UML class/state diagrams, ER diagrams, data charts, process flows, geographic maps (`drawlib.smartarts.GeoMap`), and geometry & path/color interpolation utilities (`drawlib.math`).
 4. **Layer 4: Animation, Presentation & Document Builder (`drawlib.anim`, `drawlib.slide`, `drawlib.tools`)**  
