@@ -19,7 +19,7 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 # 3. Drawing Primitives
 from drawlib.shapes import (
     arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, bubblespeech, chevron,
-    circle, cylinder, donuts, ellipse, face, fan, parallelogram, polygon, rectangle,
+    circle, cylinder, donuts, ellipse, face, fan, gear, parallelogram, polygon, rectangle,
     regularpolygon, rhombus, shape, star, trapezoid, triangle, wedge,
 )
 from drawlib.lines import (
@@ -134,6 +134,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `regularpolygon(xy, radius, num_vertex, ...)` | `radius: float`, `num_vertex: int` | Regular N-sided polygon (pentagon, hexagon, etc.). |
 | `polygon(xys, ...)` | `xys: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
 | `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float` | Multi-pointed star shape. |
+| `gear(xy, num_teeth, radius_ext, radius_int, ...)` | `num_teeth: int`, `radius_ext, radius_int: float`, `tooth_ext_ratio=None`, `tooth_int_ratio=None`, `hole_radius=None` | Cogwheel / gear shape with configurable tooth ratios and optional center hole. |
 | `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False` | Process chevron arrow shape centered at `xy`. |
 | `arrow(xy1, xy2, tail_width, head_width, head_length, ...)` | `xy1, xy2, tail_width, head_width, head_length`, `head: str = "->"` | Point-to-point block arrow shape. |
 | `arrow_l(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | L-shaped bent block arrow. |

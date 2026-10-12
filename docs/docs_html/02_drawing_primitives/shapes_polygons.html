@@ -479,7 +479,7 @@
             </header>
             <main class="main-content">
                 <h1>Polygons &amp; Custom Paths</h1>
-<p>In addition to basic rectangles and circles, <code>drawlib.shapes</code> provides planar polygons (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>), radial equilateral shapes (<code>regularpolygon</code>, <code>star</code>), arbitrary coordinate polygons (<code>polygon</code>), and a low-level Bézier vector path builder (<code>shape</code>).</p>
+<p>In addition to basic rectangles and circles, <code>drawlib.shapes</code> provides planar polygons (<code>parallelogram</code>, <code>rhombus</code>, <code>trapezoid</code>, <code>triangle</code>), radial equilateral shapes (<code>regularpolygon</code>, <code>star</code>, <code>gear</code>), arbitrary coordinate polygons (<code>polygon</code>), and a low-level Bézier vector path builder (<code>shape</code>).</p>
 <hr />
 <h2>1. Overview of Polygons &amp; Custom Paths</h2>
 <figure class="drawlib-image" style="text-align: center;">
@@ -639,13 +639,14 @@
   <figcaption class="drawlib-caption">Parallelogram, Rhombus, Trapezoid, and Triangle</figcaption>
 </figure>
 <hr />
-<h2>3. Regular Polygons &amp; Stars (<code>regularpolygon</code>, <code>star</code>)</h2>
+<h2>3. Regular Polygons, Stars &amp; Gears (<code>regularpolygon</code>, <code>star</code>, <code>gear</code>)</h2>
 <ul>
 <li><strong><code>regularpolygon(xy, num_vertex, radius, *, style, text=&quot;&quot;, text_style=None)</code></strong>: Draws an equilateral $N$-sided polygon circumscribed inside <code>radius</code>. Set <code>style.patch(shape_r=...)</code> (a scalar <code>float</code> or a <code>num_vertex</code>-tuple of per-vertex radii) to round vertices, or <code>style.patch(angle=...)</code> to rotate.</li>
 <li><strong><code>star(xy, num_vertex, radius_ext, radius_int, *, style, text=&quot;&quot;, text_style=None)</code></strong>: Draws a symmetric $N$-pointed star alternating between outer peak radius <code>radius_ext</code> and inner valley radius <code>radius_int</code> (<code>radius_ext &gt; radius_int</code>). Also supports corner rounding via <code>style.patch(shape_r=...)</code> (either a uniform <code>float</code> or a <code>(2 * num_vertex)</code>-tuple of alternating outer/inner vertex radii).</li>
+<li><strong><code>gear(xy, num_teeth, radius_ext, radius_int, *, tooth_ext_ratio=None, tooth_int_ratio=None, hole_radius=None, style, text=&quot;&quot;, text_style=None)</code></strong>: Draws a symmetric $N$-toothed gear (cogwheel) where <code>tooth_ext_ratio</code> (default <code>0.35</code>) and <code>tooth_int_ratio</code> (default <code>0.55</code>) control the fraction of 1 pitch angle ($360^\circ / \text{num_teeth}$) occupied by the outer tooth tip and inner tooth base, and <code>hole_radius</code> optionally cuts a transparent circular hole in the center (<code>0 &lt; hole_radius &lt; radius_int</code>). Supports <code>style.patch(shape_r=...)</code> (scalar or <code>(4 * num_teeth)</code>-tuple) and <code>style.patch(angle=...)</code>.</li>
 </ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">regularpolygon</span><span class="p">,</span> <span class="n">star</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">gear</span><span class="p">,</span> <span class="n">regularpolygon</span><span class="p">,</span> <span class="n">star</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
@@ -654,7 +655,7 @@
 
 <span class="c1"># 1. Pentagon (num_vertex=5)</span>
 <span class="n">regularpolygon</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
@@ -664,7 +665,7 @@
 
 <span class="c1"># 2. Rounded Hexagon Pod (num_vertex=6, shape_r=2)</span>
 <span class="n">regularpolygon</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
@@ -674,7 +675,7 @@
 
 <span class="c1"># 3. 5-Point Star (radius_ext=13, radius_int=6.5)</span>
 <span class="n">star</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">radius_ext</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
     <span class="n">radius_int</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
@@ -683,22 +684,21 @@
     <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># 4. Rounded 8-Point Seal Badge (shape_r=1.2)</span>
-<span class="n">star</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-    <span class="n">num_vertex</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-    <span class="n">radius_ext</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-    <span class="n">radius_int</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Seal"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">,</span>
+<span class="c1"># 4. 8-Tooth Gear with Center Hole (hole_radius=4.5)</span>
+<span class="n">gear</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">num_teeth</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">radius_ext</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+    <span class="n">radius_int</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
+    <span class="n">hole_radius</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_polygons_images/shapes_polygons_regular_and_star.png" alt="shapes_polygons_3" />
-  <figcaption class="drawlib-caption">Regular Polygons and Stars with Optional Corner Rounding</figcaption>
+  <figcaption class="drawlib-caption">Regular Polygons, Stars, and Gears with Optional Corner Rounding and Center Holes</figcaption>
 </figure>
 <hr />
 <h2>4. Arbitrary Vertex Polygons (<code>polygon</code>)</h2>

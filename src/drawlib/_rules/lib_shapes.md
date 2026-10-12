@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 24 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 25 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -32,7 +32,8 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [3.6 `regularpolygon`](#36-regularpolygon)
   - [3.7 `polygon`](#37-polygon)
   - [3.8 `star`](#38-star)
-  - [3.9 `bubblespeech`](#39-bubblespeech)
+  - [3.9 `gear`](#39-gear)
+  - [3.10 `bubblespeech`](#310-bubblespeech)
 - [4. Custom Path & Vector Construction](#4-custom-path--vector-construction)
   - [4.1 `shape`](#41-shape)
 - [5. Directed Block Arrow Shapes](#5-directed-block-arrow-shapes)
@@ -58,7 +59,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 24 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 25 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -76,6 +77,7 @@ from drawlib.shapes import (
     ellipse,
     face,
     fan,
+    gear,
     parallelogram,
     polygon,
     rectangle,
@@ -121,7 +123,7 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
    - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
@@ -1307,7 +1309,75 @@ save()
 
 ---
 
-### 3.9 `bubblespeech`
+### 3.9 `gear`
+
+Draws a symmetric $N$-toothed gear (cogwheel) with configurable outer/inner tooth pitch ratios and an optional transparent center hole.
+
+#### Signature
+```python
+def gear(
+    xy: tuple[float, float],
+    num_teeth: int,
+    radius_ext: float,
+    radius_int: float,
+    *,
+    tooth_ext_ratio: float | None = None,
+    tooth_int_ratio: float | None = None,
+    hole_radius: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
+| `num_teeth` | `int` | *Required* | Number of gear teeth ($N \ge 3$). |
+| `radius_ext` | `float` | *Required* | Outer radius from center to tooth tips (must be $> \text{radius\_int}$). |
+| `radius_int` | `float` | *Required* | Inner radius from center to tooth roots/valleys ($> 0$). |
+| `tooth_ext_ratio` | `float \| None` | `None` | Ratio in `(0.0, 1.0)` of 1 pitch angle ($360^\circ / N$) occupied by the outer tooth tip (defaults to `0.35`). |
+| `tooth_int_ratio` | `float \| None` | `None` | Ratio in `(0.0, 1.0)` of 1 pitch angle ($360^\circ / N$) occupied by the inner tooth base (defaults to `0.55`). |
+| `hole_radius` | `float \| None` | `None` | Radius of the center circular hole ($0 < \text{hole\_radius} < \text{radius\_int}$), or `None` for a solid center. |
+| `style` | `Style` | *Required* | Fill and stroke style (supports `angle` for rotation and `shape_r` for tooth corner rounding). |
+| `text` | `str` | `""` | Text label at center. |
+| `text_style` | `Style \| None` | `None` | Text styling parameters. |
+
+#### Geometric & Alignment Mechanics
+- Each tooth occupies a fraction of 1 pitch angle $\Delta\theta = 360^\circ / \text{num\_teeth}$, with outer tip angular width $\text{tooth\_ext\_ratio} \times \Delta\theta$ and inner base angular width $\text{tooth\_int\_ratio} \times \Delta\theta$.
+- When `style.shape_r` is `None` (default), tooth tips and valleys follow exact circular arcs; when `style.shape_r` is set (scalar or $4N$-tuple), vertices are rounded via `ShapeUtil.round_polygon_points`.
+- When `hole_radius` is provided, the center hole is subtracted as a true compound Matplotlib `Path`, preserving background transparency and inner rim strokes.
+
+#### Code Examples
+```drawlib code=show
+from drawlib.canvas import save, setup
+from drawlib.shapes import gear
+from drawlib.styles import Styles
+
+setup(width=100, height=50)
+
+# 1. Standard 8-toothed worker gear with center hole
+gear((30, 25), num_teeth=8, radius_ext=16, radius_int=11.5, hole_radius=5.5, style=Styles.PrimaryFlat)
+
+# 2. 12-toothed automation engine gear with large center hole and label
+gear(
+    (70, 25),
+    num_teeth=12,
+    radius_ext=17,
+    radius_int=13.5,
+    hole_radius=8.5,
+    style=Styles.SecondaryNeutral,
+    text="ENG",
+    text_style=Styles.DarkBold.patch(text_size=11),
+)
+save()
+```
+
+---
+
+### 3.10 `bubblespeech`
 
 Draws an irregular speech bubble or callout box with a triangular pointer tail, designed for comic dialogue, system callouts, and migration notes.
 
@@ -2334,6 +2404,7 @@ save()
 | `regularpolygon` | Center `(x, y)` | `num_vertex`, `radius` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
 | `polygon` | Vertices `xys` | `xys: list[tuple[float, float]]` | **Yes** (scalar or N-tuple) | **No** | Yes | **Yes** |
 | `star` | Center `(x, y)` | `num_vertex`, `radius_ext`, `radius_int` | **Yes** (scalar or 2N-tuple) | Yes | Yes | No |
+| `gear` | Center `(x, y)` | `num_teeth`, `radius_ext`, `radius_int`, `hole_radius` | **Yes** (scalar or 4N-tuple) | Yes | Yes | No |
 | `shape` | Center `(x, y)` | `path_points` | Via Bezier | Yes | Yes | No |
 | `arrow` | Endpoints `xy1, xy2` | `tail_width`, `head_width`, `head_length` | Ignored | Auto ($\Delta xy$) | Yes | **Yes** |
 | `arrow_polyline` | Vertices `xys` | `tail_width`, `head_width`, `head_length` | **Yes** (scalar or (N-2)-tuple) | Path-driven | **No** | **Yes** |

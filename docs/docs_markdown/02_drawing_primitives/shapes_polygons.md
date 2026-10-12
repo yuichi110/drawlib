@@ -1,6 +1,6 @@
 # Polygons & Custom Paths
 
-In addition to basic rectangles and circles, `drawlib.shapes` provides planar polygons (`parallelogram`, `rhombus`, `trapezoid`, `triangle`), radial equilateral shapes (`regularpolygon`, `star`), arbitrary coordinate polygons (`polygon`), and a low-level Bézier vector path builder (`shape`).
+In addition to basic rectangles and circles, `drawlib.shapes` provides planar polygons (`parallelogram`, `rhombus`, `trapezoid`, `triangle`), radial equilateral shapes (`regularpolygon`, `star`, `gear`), arbitrary coordinate polygons (`polygon`), and a low-level Bézier vector path builder (`shape`).
 
 ---
 
@@ -159,16 +159,17 @@ save()
 
 ---
 
-## 3. Regular Polygons & Stars (`regularpolygon`, `star`)
+## 3. Regular Polygons, Stars & Gears (`regularpolygon`, `star`, `gear`)
 
 - **`regularpolygon(xy, num_vertex, radius, *, style, text="", text_style=None)`**: Draws an equilateral $N$-sided polygon circumscribed inside `radius`. Set `style.patch(shape_r=...)` (a scalar `float` or a `num_vertex`-tuple of per-vertex radii) to round vertices, or `style.patch(angle=...)` to rotate.
 - **`star(xy, num_vertex, radius_ext, radius_int, *, style, text="", text_style=None)`**: Draws a symmetric $N$-pointed star alternating between outer peak radius `radius_ext` and inner valley radius `radius_int` (`radius_ext > radius_int`). Also supports corner rounding via `style.patch(shape_r=...)` (either a uniform `float` or a `(2 * num_vertex)`-tuple of alternating outer/inner vertex radii).
+- **`gear(xy, num_teeth, radius_ext, radius_int, *, tooth_ext_ratio=None, tooth_int_ratio=None, hole_radius=None, style, text="", text_style=None)`**: Draws a symmetric $N$-toothed gear (cogwheel) where `tooth_ext_ratio` (default `0.35`) and `tooth_int_ratio` (default `0.55`) control the fraction of 1 pitch angle ($360^\circ / \text{num\_teeth}$) occupied by the outer tooth tip and inner tooth base, and `hole_radius` optionally cuts a transparent circular hole in the center (`0 < hole_radius < radius_int`). Supports `style.patch(shape_r=...)` (scalar or `(4 * num_teeth)`-tuple) and `style.patch(angle=...)`.
 
 
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.shapes import regularpolygon, star
+from drawlib.shapes import gear, regularpolygon, star
 from drawlib.styles import Styles
 
 setup(width=120, height=40)
@@ -177,7 +178,7 @@ lbl_dark = Styles.DarkBold.patch(text_size=10.5)
 
 # 1. Pentagon (num_vertex=5)
 regularpolygon(
-    (19, 20),
+    (18, 20),
     num_vertex=5,
     radius=12,
     style=Styles.Neutral,
@@ -187,7 +188,7 @@ regularpolygon(
 
 # 2. Rounded Hexagon Pod (num_vertex=6, shape_r=2)
 regularpolygon(
-    (49, 20),
+    (47, 20),
     num_vertex=6,
     radius=12,
     style=Styles.PrimaryFlat.patch(shape_r=2),
@@ -197,7 +198,7 @@ regularpolygon(
 
 # 3. 5-Point Star (radius_ext=13, radius_int=6.5)
 star(
-    (79, 20),
+    (76, 20),
     num_vertex=5,
     radius_ext=13,
     radius_int=6.5,
@@ -206,15 +207,14 @@ star(
     text_style=lbl_dark,
 )
 
-# 4. Rounded 8-Point Seal Badge (shape_r=1.2)
-star(
-    (106, 20),
-    num_vertex=8,
-    radius_ext=12,
-    radius_int=8.5,
-    style=Styles.Neutral.patch(shape_r=1.2),
-    text="Seal",
-    text_style=lbl_dark,
+# 4. 8-Tooth Gear with Center Hole (hole_radius=4.5)
+gear(
+    (104, 20),
+    num_teeth=8,
+    radius_ext=12.5,
+    radius_int=9.0,
+    hole_radius=4.5,
+    style=Styles.PrimaryNeutral,
 )
 
 save()
@@ -222,7 +222,7 @@ save()
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_polygons_images/shapes_polygons_regular_and_star.png" alt="shapes_polygons_3" />
-  <figcaption class="drawlib-caption">Regular Polygons and Stars with Optional Corner Rounding</figcaption>
+  <figcaption class="drawlib-caption">Regular Polygons, Stars, and Gears with Optional Corner Rounding and Center Holes</figcaption>
 </figure>
 
 

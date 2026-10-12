@@ -431,6 +431,7 @@ trapezoid = canvas.trapezoid
 parallelogram = canvas.parallelogram
 triangle = canvas.triangle
 star = canvas.star
+gear = canvas.gear
 chevron = canvas.chevron
 bubblespeech = canvas.bubblespeech
 
