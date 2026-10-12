@@ -236,7 +236,7 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 | :--- | :--- | :--- |
 | **`lib-canvas`** | `drawlib.canvas` | `setup()`, `clear()`, `save()`, `show()`, `get_dimage()`, grid & background styling. |
 | **`lib-anim`** | `drawlib.anim` | `Animation(fps)`, `add()`, `save()` (APNG & Animated WebP), `fps` / `frame_rate`. |
-| **`lib-shapes`** | `drawlib.shapes` | 23 geometric primitives (`rectangle`, `circle`, `arrow`, `arrow_l`, `arrow_u`, `cylinder`, etc.). |
+| **`lib-shapes`** | `drawlib.shapes` | 28 geometric primitives (`rectangle`, `circle`, `gear`, `math_symbol`, `cloud`, `brace`, `cylinder`, `arrow`, etc.). |
 | **`lib-lines`** | `drawlib.lines` | `line()`, `lines()`, `line_curved()`, `lines_curved()`, `line_arc()`, Bezier curves, arrowheads. |
 | **`lib-text`** | `drawlib.text` | `text()`, `text_vertical()`, alignment (`halign`, `valign`), rotation, and font sizing helpers. |
 | **`lib-preset-colors`** | `drawlib.preset_colors` | `DefaultColors`, `GoogleColors`, `MonochromeColors`, `CssColors`, RGB/RGBA tuples. |

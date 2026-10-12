@@ -49,7 +49,7 @@ save()
 Across Drawlib's components, coordinates follow four consistent anchoring models depending on the component's natural layout geometry:
 
 1. **Center-Anchored (`(x, y)` = center)**:  
-   Most closed shapes (`rectangle`, `circle`, `ellipse`, `donuts`, `triangle`, `regularpolygon`, `star`, `cylinder`, `face`), icons, text, `Cycle`, and `MindMapNode`. *(On shapes, icons, and text, the anchor is configurable via `style.halign` and `style.valign`).*
+   Most closed shapes (`rectangle`, `circle`, `ellipse`, `donuts`, `triangle`, `regularpolygon`, `star`, `gear`, `math_symbol`, `cylinder`, `cloud`, `brace`, `face`), icons, text, `Cycle`, and `MindMapNode`. *(On shapes, icons, and text, the anchor is configurable via `style.halign` and `style.valign`).*
 2. **Bottom-Left Anchored (`(x, y)` = bottom-left)**:  
    `bubblespeech`, `ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `GeoMap`, all `Charts`, and `d.draw(xy=...)` on `Diagrams` and `Graph`.
 3. **Top-Left Anchored (`(x, y)` = top-left)**:  

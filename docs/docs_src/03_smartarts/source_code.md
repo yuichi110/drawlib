@@ -37,7 +37,7 @@ for theme_name, (x, y), label in themes:
 save()
 ```
 
-> **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is documented in **[Cylinders, Faces & Callouts](../02_drawing_primitives/shapes_domain.md)**.
+> **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is documented in **[Cylinders, Clouds, Braces & Callouts](../02_drawing_primitives/shapes_domain.md)**.
 
 ---
 

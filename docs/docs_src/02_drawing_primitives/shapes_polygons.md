@@ -6,9 +6,11 @@ In addition to basic rectangles and circles, `drawlib.shapes` provides planar po
 
 ## 1. Overview of Polygons & Custom Paths
 
-```drawlib code=fold align=center file=shapes_polygons_overview.png caption="Overview of Polygons and Custom Path Primitives"
+```drawlib code=fold align=center file=shapes_polygons_overview.png caption="Overview of Polygons, Gears, Math Symbols, and Custom Path Primitives"
 from drawlib.canvas import save, setup
 from drawlib.shapes import (
+    gear,
+    math_symbol,
     parallelogram,
     polygon,
     regularpolygon,
@@ -20,44 +22,46 @@ from drawlib.shapes import (
 )
 from drawlib.styles import Styles
 
-setup(width=124, height=58)
+setup(width=126, height=58)
 
-lbl_dark = Styles.DarkBold.patch(text_size=10.5)
-lbl_white = Styles.WhiteBold.patch(text_size=10.5)
+lbl_dark = Styles.DarkBold.patch(text_size=10.0)
+lbl_white = Styles.WhiteBold.patch(text_size=10.0)
 
-# Row 1: Planar Quadrilaterals & Triangle
-parallelogram((19, 42), width=23, height=15, corner_angle=68, style=Styles.Neutral, text="parallel", text_style=lbl_dark)
+# Row 1: Planar Quadrilaterals, Triangle & Math Symbol
+parallelogram((16, 42), width=21, height=15, corner_angle=68, style=Styles.Neutral, text="parallel", text_style=lbl_dark)
 rhombus(
-    (50, 42),
-    width=25,
+    (43, 42),
+    width=23,
     height=17,
     style=Styles.PrimaryFlat,
     text="rhombus",
     text_style=lbl_white,
 )
 trapezoid(
-    (81, 42),
+    (70, 42),
     height=15,
-    bottomedge_width=25,
-    topedge_width=15,
+    bottomedge_width=23,
+    topedge_width=14,
     style=Styles.SecondaryNeutral,
     text="trapezoid",
     text_style=lbl_dark,
 )
-triangle((109, 42), width=20, height=16, style=Styles.Neutral, text="tri", text_style=lbl_dark.patch(xy_shift=(0, -2)))
+triangle((94, 42), width=19, height=16, style=Styles.Neutral, text="tri", text_style=lbl_dark.patch(xy_shift=(0, -2)))
+math_symbol((114, 42), symbol="+", width=13, style=Styles.PrimaryNeutral.patch(shape_r=0.5))
 
-# Row 2: Regular Polygons, Stars, Polygon & Custom Shape
-regularpolygon((19, 15), num_vertex=6, radius=10.5, style=Styles.SecondaryNeutral, text="hexagon", text_style=Styles.DarkBold.patch(text_size=10.0))
-star((50, 15), num_vertex=5, radius_ext=11.5, radius_int=5.8, style=Styles.Neutral, text="star", text_style=lbl_dark)
+# Row 2: Regular Polygons, Stars, Gear, Polygon & Custom Shape
+regularpolygon((16, 15), num_vertex=6, radius=10.0, style=Styles.SecondaryNeutral, text="hex", text_style=lbl_dark)
+star((40, 15), num_vertex=5, radius_ext=11.0, radius_int=5.5, style=Styles.Neutral, text="star", text_style=lbl_dark)
+gear((64, 15), num_teeth=8, radius_ext=10.5, radius_int=8.0, hole_radius=3.5, style=Styles.PrimaryFlat)
 polygon(
-    [(69, 8), (89, 8), (94, 15), (89, 22), (69, 22)],
+    [(79, 8), (97, 8), (101, 15), (97, 22), (79, 22)],
     style=Styles.Neutral.patch(shape_r=1.5),
     text="polygon",
     text_style=lbl_dark,
 )
 shape(
-    (109, 15),
-    path_points=[(0, 6), (0, 18), (11, 22), (22, 18), (22, 6), (11, 0)],
+    (114, 15),
+    path_points=[(0, 6), (0, 18), (10, 22), (20, 18), (20, 6), (10, 0)],
     style=Styles.PrimaryNeutral,
     text="shape",
     text_style=lbl_dark,

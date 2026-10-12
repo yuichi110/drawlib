@@ -1,11 +1,11 @@
-# Cylinders, Faces & Callouts
+# Cylinders, Clouds, Braces & Callouts
 
-Beyond standard geometric primitives, `drawlib.shapes` includes three expressive domain shapes for technical architecture and storytelling diagrams:
+Beyond standard geometric primitives, `drawlib.shapes` includes five expressive domain and annotation shapes (`cylinder`, `cloud`, `brace`, `face`, and `bubblespeech`) for technical architecture and storytelling diagrams:
 
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_overview.png" alt="shapes_domain_1" />
-  <figcaption class="drawlib-caption">Combining Actor Faces, 3D Database Cylinders, and Speech Callouts</figcaption>
+  <figcaption class="drawlib-caption">Combining Actor Faces, Cloud Boundaries, 3D Cylinders, Braces, and Speech Callouts</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -14,42 +14,71 @@ Beyond standard geometric primitives, `drawlib.shapes` includes three expressive
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.shapes import bubblespeech, cylinder, face
+from drawlib.shapes import brace, bubblespeech, cloud, cylinder, face
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=52)
+setup(width=126, height=56)
 
 # 1. User Actor Face
-face((20, 26), radius=10, style=Styles.Neutral, mood="smile")
-text((20, 10), "SRE Operator", style=Styles.DarkBold.patch(text_size=11.0))
+face((15, 29), radius=9, style=Styles.Neutral, mood="smile")
+text((15, 14), "SRE Operator", style=Styles.DarkBold.patch(text_size=10.5))
 
-# 2. 3-Disk Primary Database Cylinder
-cylinder(
-    (60, 24),
-    width=26,
-    height=32,
-    disks=3,
-    style=Styles.PrimaryFlat,
-    text="Primary\nCluster",
-    text_style=Styles.WhiteBold.patch(text_size=11.0),
-)
-
-# 3. Callout Speech Bubble pointing to the Database
-bubblespeech(
-    xy=(80, 25),
-    width=35,
+# 2. Cloud Gateway Node
+cloud(
+    (46, 29),
+    width=28,
     height=18,
-    tail_edge="left",
-    tail_start_ratio=0.25,
-    tail_end_ratio=0.55,
-    tail_vertex_xy=(73, 28),
-    style=Styles.SecondaryNeutral,
-    text="3-disk replicated\nstorage volume",
+    variant="flat",
+    style=Styles.PrimaryNeutral,
+    text="Cloud\nGateway",
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
-line((32, 26), (45, 26), arrow_head="->", style=Styles.DarkBold)
+# 3. 3-Disk Primary & Replica Database Cylinders
+cylinder(
+    (80, 39),
+    width=22,
+    height=18,
+    disks=2,
+    style=Styles.PrimaryFlat,
+    text="Primary DB",
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+cylinder(
+    (80, 17),
+    width=22,
+    height=18,
+    disks=2,
+    style=Styles.Neutral,
+    text="Replica DB",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+
+# 4. Curly Brace grouping the Database Tier + Callout Speech Bubble
+brace(
+    (95.5, 28),
+    width=4.5,
+    height=38,
+    symbol="}",
+    style=Styles.PrimaryBold.patch(line_width=2.2),
+)
+bubblespeech(
+    xy=(100, 19),
+    width=23,
+    height=18,
+    tail_edge="left",
+    tail_start_ratio=0.35,
+    tail_end_ratio=0.65,
+    tail_vertex_xy=(98, 28),
+    style=Styles.SecondaryNeutral,
+    text="HA Storage\nCluster",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+
+line((26, 29), (31, 29), arrow_head="->", style=Styles.DarkBold)
+line((61, 33), (68, 38), arrow_head="->", style=Styles.DarkBold)
+line((61, 25), (68, 18), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -315,43 +344,29 @@ cloud(
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.shapes import brace, cloud, rectangle
+from drawlib.shapes import cloud
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=126, height=54)
+setup(width=126, height=44)
 
-# 1. Four Cloud Variants on the left & center
 variants = [
-    ("standard", (22, 38), Styles.PrimaryFlat, Styles.WhiteBold.patch(text_size=10.5)),
-    ("flat", (58, 38), Styles.PrimaryNeutral, Styles.DarkBold.patch(text_size=10.5)),
-    ("fluffy", (22, 15), Styles.SecondaryNeutral.patch(shape_line_style="dashed"), Styles.DarkBold.patch(text_size=10.5)),
-    ("simple", (58, 15), Styles.Neutral, Styles.DarkBold.patch(text_size=10.5)),
+    ("standard", 18, Styles.PrimaryFlat, Styles.WhiteBold.patch(text_size=10.5)),
+    ("flat", 48, Styles.PrimaryNeutral, Styles.DarkBold.patch(text_size=10.5)),
+    ("fluffy", 78, Styles.SecondaryNeutral.patch(shape_line_style="dashed"), Styles.DarkBold.patch(text_size=10.5)),
+    ("simple", 108, Styles.Neutral, Styles.DarkBold.patch(text_size=10.5)),
 ]
-for v_name, pos, st, tst in variants:
-    cloud(pos, width=30, height=18, variant=v_name, style=st, text=v_name, text_style=tst)
 
-# 2. Stacked microservice tiers grouped by a right-pointing curly brace
-for idx, label in enumerate(("Web Tier", "App Tier", "DB Tier")):
-    cy = 40 - idx * 13
-    rectangle((91, cy), width=22, height=9.5, style=Styles.Neutral.patch(shape_r=2), text=label, text_style=Styles.DarkBold.patch(text_size=10.0))
-
-brace(
-    (106.5, 27),
-    width=5.5,
-    height=36,
-    symbol="}",
-    tip_ratio=0.50,
-    style=Styles.PrimaryBold.patch(line_width=2.5),
-)
-text((111, 27), "VPC\nStack", style=Styles.PrimaryBold.patch(text_size=10.5, halign="left"))
+for v_name, cx, st, tst in variants:
+    cloud((cx, 25), width=26, height=17, variant=v_name, style=st, text=v_name, text_style=tst)
+    text((cx, 9), f'variant="{v_name}"', style=Styles.DarkBold.patch(text_size=10.0))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_domain_images/shapes_domain_cloud_and_brace.png" alt="shapes_domain_5" />
-  <figcaption class="drawlib-caption">Cloud Variants and Grouping Braces in drawlib.shapes</figcaption>
+  <img src="shapes_domain_images/shapes_domain_cloud.png" alt="shapes_domain_5" />
+  <figcaption class="drawlib-caption">Four Cloud Variants (standard, flat, fluffy, simple) in drawlib.shapes.cloud</figcaption>
 </figure>
 
 
@@ -387,6 +402,54 @@ brace(
 | `tip_ratio` | `float \| None` | `None` | Center tip depth ratio in `(0.0, 1.0)` for curly braces (defaults to `0.50`). |
 | `tip_position_ratio` | `float \| None` | `None` | Center tip position along the span in `(0.0, 1.0)` for asymmetric curly braces (defaults to `0.50`). |
 | `style` | `Style` | *Required* | Stroke style (`line_width` or `shape_line_width` controls thickness; `shape_r` rounds `"square"` bracket corners). |
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import brace, rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=126, height=48)
+
+# 1. Three Bracket Families: { } , [ ] , ( )
+families = [
+    ("{}", "{", "}", 16, Styles.PrimaryBold.patch(line_width=2.5)),
+    ("[]", "[", "]", 40, Styles.DarkBold.patch(line_width=2.5, shape_r=1.5)),
+    ("()", "(", ")", 64, Styles.SecondaryBold.patch(line_width=2.5)),
+]
+for label, sym_l, sym_r, cx, st in families:
+    brace((cx - 5, 28), width=4.0, height=22, symbol=sym_l, style=st)
+    brace((cx + 5, 28), width=4.0, height=22, symbol=sym_r, style=st)
+    text((cx, 28), label, style=Styles.DarkBold.patch(text_size=11.0))
+    text((cx, 10), f'symbol="{sym_l}"', style=Styles.DarkBold.patch(text_size=10.0))
+
+# 2. Horizontal Top Brace & Vertical Right Brace Grouping Cards
+for idx, name in enumerate(("API", "Auth", "DB")):
+    rx = 86 + idx * 13
+    rectangle((rx, 24), width=11, height=16, style=Styles.Neutral.patch(shape_r=1.5), text=name, text_style=Styles.DarkBold.patch(text_size=10.0))
+
+brace(
+    (99, 36.5),
+    width=37,
+    height=4.5,
+    symbol="{",
+    direction="top",
+    tip_ratio=0.55,
+    style=Styles.PrimaryBold.patch(line_width=2.2),
+)
+text((99, 42.5), 'direction="top" (line_width=2.2)', style=Styles.PrimaryBold.patch(text_size=10.0))
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_brace.png" alt="shapes_domain_6" />
+  <figcaption class="drawlib-caption">Curly, Square, and Round Braces with Directions and Line Width Control</figcaption>
+</figure>
+
+
 
 > [!TIP]
 > For embedding syntax-highlighted source code blocks alongside callouts, see **[SourceCode](../03_smartarts/source_code.md)**.

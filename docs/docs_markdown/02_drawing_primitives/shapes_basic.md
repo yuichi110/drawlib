@@ -278,5 +278,5 @@ save()
 
 > [!TIP]
 > - To draw curved arc connectors with terminal **arrowheads** (`arrow_head="->"`), use `line_arc()` or `line_curved()` in **[Lines & Connectors](./lines.md)**, or 2D block `arrow_arc()` in **[Block Arrows](./arrows.md)**.
-> - For multi-sided polygons and custom Bézier paths, see **[Polygons & Custom Paths](./shapes_polygons.md)**.
-> - For 3D database cylinders, actor faces, and speech callouts, see **[Cylinders, Faces & Callouts](./shapes_domain.md)**.
+> - For multi-sided polygons, gears, math symbols, and custom Bézier paths, see **[Polygons & Custom Paths](./shapes_polygons.md)**.
+> - For 3D database cylinders, cloud boundaries, grouping braces, actor faces, and speech callouts, see **[Cylinders, Clouds, Braces & Callouts](./shapes_domain.md)**.
