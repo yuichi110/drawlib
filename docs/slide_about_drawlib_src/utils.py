@@ -14,25 +14,15 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Literal
 
-from drawlib.canvas import clear, setup
-from drawlib.lines import line, line_bezier1
-from drawlib.shapes import circle, rectangle
+from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.slide import (
     draw_page_number as _draw_page_number,
     draw_section_header as _draw_section_header,
 )
+from drawlib.smartarts import KpiCards, Roadmap
 from drawlib.styles import Style, Styles
 from drawlib.text import text
-
-_DEFAULT_PALETTE = [
-    (79, 70, 229),   # Indigo 600 (Primary)
-    (22, 163, 74),   # Green 600 (Secondary)
-    (217, 119, 6),   # Amber 600 (Accent)
-    (37, 99, 235),   # Blue 600
-    (147, 51, 234),  # Purple 600
-    (13, 148, 136),  # Teal 600
-    (220, 38, 38),   # Red 600
-]
 
 
 def draw_page_number(
@@ -115,169 +105,60 @@ def draw_curved_agenda(
     width: float = 104.0,
     height: float = 86.0,
     accent_bar: bool = True,
-    colors: Sequence[tuple[int, int, int]] | None = None,
 ) -> None:
-    """Draw a curved agenda/roadmap diagram with numbered badges and pill containers."""
+    """Draw a curved agenda/roadmap diagram via drawlib.smartarts.Roadmap."""
     if not items:
         return
 
-    w = width
-    h = height
-
     if accent_bar:
-        bar_color = (79, 70, 229)
-        bar_style = Style(shape_fill_color=bar_color, shape_line_color=bar_color, shape_line_width=0.0)
-        rectangle((1.0, h / 2.0), width=1.5, height=h * 0.9, style=bar_style)
-
-    # Smooth curved arc line
-    p_start = (w * 0.16, h * 0.90)
-    p_end = (w * 0.15, h * 0.10)
-    p_ctrl = (w * 0.25, h * 0.50)
-
-    arc_style = Style(line_color=(203, 213, 225), line_width=3.0)
-    line_bezier1(p_start, p_end, p_ctrl, style=arc_style)
-
-    palette = colors or _DEFAULT_PALETTE
-
-    n = len(items)
-    for i, item in enumerate(items):
-        if isinstance(item, tuple):
-            title_str, sub_str = item[0], item[1]
-        else:
-            title_str, sub_str = str(item), ""
-
-        t = i / (n - 1) if n > 1 else 0.5
-        xi = (1 - t) ** 2 * p_start[0] + 2 * (1 - t) * t * p_ctrl[0] + t**2 * p_end[0]
-        yi = (1 - t) ** 2 * p_start[1] + 2 * (1 - t) * t * p_ctrl[1] + t**2 * p_end[1]
-
-        color = palette[i % len(palette)]
-        r_badge = min(3.4, h / (n * 3.0))
-        badge_style = Style(shape_fill_color=color, shape_line_color=color, shape_line_width=0.0)
-        circle((xi, yi), radius=r_badge, style=badge_style, text=str(i + 1), text_style=Styles.WhiteBold.patch(text_size=10))
-
-        # Pill container
-        x_pill_start = xi + r_badge + 2.2
-        w_pill = min(w - x_pill_start - 2.0, 80.0)
-        h_pill = max(6.0, min(r_badge * 2.3, 8.5))
-        x_pill_center = x_pill_start + w_pill / 2.0
-        pill_style = Style(
-            shape_fill_color=(255, 255, 255),
-            shape_line_color=(226, 232, 240),
-            shape_line_width=1.0,
+        rectangle(
+            (1.0, height / 2.0),
+            width=1.5,
+            height=height * 0.9,
+            style=Styles.PrimaryFlat.patch(shape_line_width=0.0),
         )
-        rectangle((x_pill_center, yi), width=w_pill, height=h_pill, style=pill_style.patch(shape_r=h_pill / 2.0))
 
-        # Text labels
-        x_text = x_pill_start + 3.5
-        if sub_str:
-            text(
-                (x_text, yi + 1.15),
-                title_str,
-                style=Styles.BlackBold.patch(
-                    text_size=10.5,
-                    halign="left",
-                    valign="center",
-                    text_color=(15, 23, 42),
-                ),
-            )
-            text(
-                (x_text, yi - 1.35),
-                sub_str,
-                style=Styles.Black.patch(
-                    text_size=8.2,
-                    halign="left",
-                    valign="center",
-                    text_color=(100, 116, 139),
-                ),
-            )
+    roadmap = Roadmap(
+        style=Styles.White,
+        text_style=Styles.DarkBold.patch(text_size=10.5),
+        description_style=Styles.Muted.patch(text_size=8.5),
+        spine_style=Styles.PrimaryBold,
+        badge_style=Styles.PrimaryFlat,
+        badge_text_style=Styles.WhiteBold.patch(text_size=10.0),
+        direction="vertical",
+        curve_bend=0.14,
+        card_shape="pill",
+        spacing=2.2,
+    )
+    for item in items:
+        if isinstance(item, tuple):
+            roadmap.add(item[0], item[1])
         else:
-            text(
-                (x_text, yi),
-                title_str,
-                style=Styles.BlackBold.patch(
-                    text_size=11.0,
-                    halign="left",
-                    valign="center",
-                    text_color=(15, 23, 42),
-                ),
-            )
+            roadmap.add(str(item))
+    x0 = 4.0 if accent_bar else 2.0
+    roadmap.draw(xy=(x0, height * 0.05), width=width - x0 - 2.0, height=height * 0.9)
 
 
 def draw_kpi_cards(
     cards: Sequence[tuple[str, str, str]],
     width: float = 100.0,
     height: float = 84.0,
-    colors: Sequence[tuple[int, int, int]] | None = None,
 ) -> None:
-    """Draw vertically stacked KPI metric cards with highlight badges and descriptions."""
+    """Draw vertically stacked KPI metric cards via drawlib.smartarts.KpiCards."""
     if not cards:
         return
 
-    w = width
-    h = height
-    n = len(cards)
-    accent_colors = colors or _DEFAULT_PALETTE
-
-    card_h = min(22.0, (h - 10.0) / max(n, 1))
-    gap = (h - 10.0 - (card_h * n)) / max(n + 1, 1)
-
-    for i, (metric, label, subtext) in enumerate(cards):
-        cy = h - 5.0 - gap - (i * (card_h + gap)) - (card_h / 2.0)
-        cx = w / 2.0
-        card_w = w * 0.92
-
-        # Background card
-        card_style = Style(
-            shape_fill_color=(248, 250, 252),
-            shape_line_color=(226, 232, 240),
-            shape_line_width=1.0,
-        )
-        rectangle((cx, cy), width=card_w, height=card_h, style=card_style.patch(shape_r=3.0))
-
-        # Left accent pill
-        accent = accent_colors[i % len(accent_colors)]
-        pill_style = Styles.WhiteFlat.patch(
-            shape_fill_color=accent,
-            shape_line_color=accent,
-            shape_line_width=0.0,
-        )
-        pill_x = cx - (card_w / 2.0) + 1.5
-        rectangle((pill_x, cy), width=2.0, height=card_h * 0.7, style=pill_style.patch(shape_r=1.0))
-
-        # Metric number
-        text(
-            (cx - (card_w / 2.0) + 8.0, cy),
-            metric,
-            style=Styles.BlackBold.patch(
-                text_size=15.0,
-                halign="left",
-                valign="center",
-                text_color=accent,
-            ),
-        )
-
-        # Label
-        if label:
-            text(
-                (cx - (card_w / 2.0) + 38.0, cy + 3.0),
-                label,
-                style=Styles.BlackBold.patch(
-                    text_size=11.0,
-                    halign="left",
-                    valign="center",
-                    text_color=(15, 23, 42),
-                ),
-            )
-
-        # Subtext
-        if subtext:
-            text(
-                (cx - (card_w / 2.0) + 38.0, cy - 3.5),
-                subtext,
-                style=Styles.Black.patch(
-                    text_size=8.5,
-                    halign="left",
-                    valign="center",
-                    text_color=(100, 116, 139),
-                ),
-            )
+    kpi = KpiCards(
+        style=Styles.Neutral.patch(shape_r=2.5),
+        metric_style=Styles.PrimaryBold.patch(text_size=15.0),
+        text_style=Styles.DarkBold.patch(text_size=11.0),
+        description_style=Styles.Muted.patch(text_size=8.8),
+        accent_style=Styles.PrimaryFlat,
+        accent_position="left_pill",
+        metric_layout="left_column",
+        metric_width_ratio=0.32,
+        spacing=3.5,
+    )
+    for metric, label, subtext in cards:
+        kpi.add(metric, label, subtext)
+    kpi.draw(xy=(width * 0.04, height * 0.06), width=width * 0.92, height=height * 0.88, columns=1)

@@ -158,23 +158,32 @@ def _copy_shared_assets(
         _copy_item_with_substitutions(shared_assets_root, src_dir / "_assets", replacements, created_files)
 
 
-def _deploy_stylesheet(
+def _resolve_stylesheet(
     project_type: str,
-    src_dir: Path,
-    style: Optional[str],
-    created_files: list[Path],
+    style: str,
     lang: str = "en",
+) -> str | None:
+    """Resolve and validate stylesheet content for web/slide project types."""
+    if project_type not in {"site", "doc", "slide"}:
+        return None
+    target: Literal["site", "doc", "slide"] = (
+        "site" if project_type == "site" else ("doc" if project_type == "doc" else "slide")
+    )
+    return get_css(name=style, target=target, lang=lang)
+
+
+def _deploy_stylesheet(
+    src_dir: Path,
+    css_content: str | None,
+    created_files: list[Path],
 ) -> None:
-    """Deploy custom or synthesized style.css."""
-    if project_type in {"site", "doc", "slide"}:
-        target: Literal["site", "doc", "slide"] = (
-            "site" if project_type == "site" else ("doc" if project_type == "doc" else "slide")
-        )
-        css_content = get_css(name=style or "default", target=target, lang=lang)
-        style_css_target = src_dir / "style.css"
-        style_css_target.write_text(css_content, encoding="utf-8")
-        if style_css_target not in created_files:
-            created_files.append(style_css_target)
+    """Write resolved style.css into target project directory."""
+    if css_content is None:
+        return
+    style_css_target = src_dir / "style.css"
+    style_css_target.write_text(css_content, encoding="utf-8")
+    if style_css_target not in created_files:
+        created_files.append(style_css_target)
 
 
 def _deploy_shared_templates(
@@ -201,7 +210,7 @@ def _deploy_type_root_files(
 ) -> None:
     """Deploy type-specific root files (build scripts, template.html, etc.)."""
     for item in type_root.iterdir():
-        if item.name in {"docs", "utils", "__pycache__", "output_readme.md"} or item.name.startswith("."):
+        if item.name in {"docs", "__pycache__", "output_readme.md"} or item.name.startswith("."):
             continue
         _copy_item_with_substitutions(item, src_dir / item.name, replacements, created_files)
 
@@ -288,12 +297,7 @@ def init_project(
     if not type_root.is_dir():
         raise FileNotFoundError(f"Template directory for '{canonical_type}' not found.")
 
-    if canonical_type in {"site", "doc", "slide"}:
-        css_target: Literal["site", "doc", "slide"] = (
-            "site" if canonical_type == "site" else ("doc" if canonical_type == "doc" else "slide")
-        )
-        get_css(name=resolved_style, target=css_target, lang=selected_lang)
-
+    css_content = _resolve_stylesheet(canonical_type, resolved_style, lang=selected_lang)
     _validate_conflicts(src_dir=paths.src_dir, force=force)
 
     replacements = {
@@ -311,6 +315,6 @@ def init_project(
     _deploy_type_root_files(type_root, paths.src_dir, replacements, created_files)
     _deploy_localized_docs(type_root, paths.src_dir, selected_lang, replacements, created_files)
     _copy_shared_assets(paths.src_dir, replacements, created_files)
-    _deploy_stylesheet(canonical_type, paths.src_dir, resolved_style, created_files, lang=selected_lang)
+    _deploy_stylesheet(paths.src_dir, css_content, created_files)
 
     return sorted(created_files)

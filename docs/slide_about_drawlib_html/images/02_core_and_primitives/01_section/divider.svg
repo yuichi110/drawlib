@@ -180,180 +180,180 @@ z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; opacity: 0.25"/>
    </g>
    <g id="patch_14">
-    <path d="M 360 96.75 
-L 324.75 96.75 
-Q 315 96.75 315 87 
-L 315 85.5 
-Q 315 75.75 324.75 75.75 
-L 395.25 75.75 
-Q 405 75.75 405 85.5 
-L 405 87 
-Q 405 96.75 395.25 96.75 
+    <path d="M 352.5 96.75 
+L 317.25 96.75 
+Q 307.5 96.75 307.5 87 
+L 307.5 85.5 
+Q 307.5 75.75 317.25 75.75 
+L 387.75 75.75 
+Q 397.5 75.75 397.5 85.5 
+L 397.5 87 
+Q 397.5 96.75 387.75 96.75 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="text_3">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="360" y="90.24" transform="rotate(-0 360 90.24)">Part 2 of 7</text>
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="352.5" y="90.24" transform="rotate(-0 352.5 90.24)">Part 2 of 7</text>
     </g>
    </g>
    <g id="text_4">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 21.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start" x="315" y="138.098086" transform="rotate(-0 315 138.098086)">Core Engine &amp; Primitives</text>
+     <text style="font-size: 21.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start" x="307.5" y="138.098086" transform="rotate(-0 307.5 138.098086)">Core Engine &amp; Primitives</text>
     </g>
    </g>
    <g id="text_5">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="315" y="170.4975" transform="rotate(-0 315 170.4975)">Cartesian Geometry, Shapes, Connectors, Typography, Icons &amp; Design Tokens</text>
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="307.5" y="170.4975" transform="rotate(-0 307.5 170.4975)">Cartesian Geometry, Shapes, Connectors, Typography, Icons &amp; Design Tokens</text>
     </g>
    </g>
    <g id="patch_15">
-    <path d="M 315 193.125 
-L 682.5 193.125 
+    <path d="M 307.5 193.125 
+L 693.75 193.125 
 " clip-path="url(#p6494dea2b6)" style="fill: none; stroke: #dce2eb; stroke-linecap: round"/>
    </g>
    <g id="patch_16">
-    <path d="M 498.75 242.25 
-L 320.13 242.25 
-Q 315 242.25 315 237.12 
-L 315 218.88 
-Q 315 213.75 320.13 213.75 
-L 677.37 213.75 
-Q 682.5 213.75 682.5 218.88 
-L 682.5 237.12 
-Q 682.5 242.25 677.37 242.25 
+    <path d="M 500.625 242.25 
+L 312.63 242.25 
+Q 307.5 242.25 307.5 237.12 
+L 307.5 218.88 
+Q 307.5 213.75 312.63 213.75 
+L 688.62 213.75 
+Q 693.75 213.75 693.75 218.88 
+L 693.75 237.12 
+Q 693.75 242.25 688.62 242.25 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dce2eb; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_17">
-    <path d="M 336.45 237.69 
-C 339.019818 237.69 341.484729 236.669 343.301865 234.851865 
-C 345.119 233.034729 346.14 230.569818 346.14 228 
-C 346.14 225.430182 345.119 222.965271 343.301865 221.148135 
-C 341.484729 219.331 339.019818 218.31 336.45 218.31 
-C 333.880182 218.31 331.415271 219.331 329.598135 221.148135 
-C 327.781 222.965271 326.76 225.430182 326.76 228 
-C 326.76 230.569818 327.781 233.034729 329.598135 234.851865 
-C 331.415271 236.669 333.880182 237.69 336.45 237.69 
+    <path d="M 329.19 237.69 
+C 331.759818 237.69 334.224729 236.669 336.041865 234.851865 
+C 337.859 233.034729 338.88 230.569818 338.88 228 
+C 338.88 225.430182 337.859 222.965271 336.041865 221.148135 
+C 334.224729 219.331 331.759818 218.31 329.19 218.31 
+C 326.620182 218.31 324.155271 219.331 322.338135 221.148135 
+C 320.521 222.965271 319.5 225.430182 319.5 228 
+C 319.5 230.569818 320.521 233.034729 322.338135 234.851865 
+C 324.155271 236.669 326.620182 237.69 329.19 237.69 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #4862da"/>
    </g>
    <g id="text_6">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="336.45" y="231.8" transform="rotate(-0 336.45 231.8)">2.1</text>
+     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="329.19" y="231.8" transform="rotate(-0 329.19 231.8)">2.1</text>
     </g>
    </g>
    <g id="text_7">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="357.9" y="231.771641" transform="rotate(-0 357.9 231.771641)">Cartesian Coordinate Space (0,0 at Bottom-Left) &amp; Lifecycle</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="351.24" y="231.607656" transform="rotate(-0 351.24 231.607656)">Cartesian Coordinate Space (0,0 at Bottom-Left) &amp; Lifecycle</text>
     </g>
    </g>
    <g id="patch_18">
-    <path d="M 498.75 279.75 
-L 320.13 279.75 
-Q 315 279.75 315 274.62 
-L 315 256.38 
-Q 315 251.25 320.13 251.25 
-L 677.37 251.25 
-Q 682.5 251.25 682.5 256.38 
-L 682.5 274.62 
-Q 682.5 279.75 677.37 279.75 
+    <path d="M 500.625 279.75 
+L 312.63 279.75 
+Q 307.5 279.75 307.5 274.62 
+L 307.5 256.38 
+Q 307.5 251.25 312.63 251.25 
+L 688.62 251.25 
+Q 693.75 251.25 693.75 256.38 
+L 693.75 274.62 
+Q 693.75 279.75 688.62 279.75 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dce2eb; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_19">
-    <path d="M 336.45 275.19 
-C 339.019818 275.19 341.484729 274.169 343.301865 272.351865 
-C 345.119 270.534729 346.14 268.069818 346.14 265.5 
-C 346.14 262.930182 345.119 260.465271 343.301865 258.648135 
-C 341.484729 256.831 339.019818 255.81 336.45 255.81 
-C 333.880182 255.81 331.415271 256.831 329.598135 258.648135 
-C 327.781 260.465271 326.76 262.930182 326.76 265.5 
-C 326.76 268.069818 327.781 270.534729 329.598135 272.351865 
-C 331.415271 274.169 333.880182 275.19 336.45 275.19 
+    <path d="M 329.19 275.19 
+C 331.759818 275.19 334.224729 274.169 336.041865 272.351865 
+C 337.859 270.534729 338.88 268.069818 338.88 265.5 
+C 338.88 262.930182 337.859 260.465271 336.041865 258.648135 
+C 334.224729 256.831 331.759818 255.81 329.19 255.81 
+C 326.620182 255.81 324.155271 256.831 322.338135 258.648135 
+C 320.521 260.465271 319.5 262.930182 319.5 265.5 
+C 319.5 268.069818 320.521 270.534729 322.338135 272.351865 
+C 324.155271 274.169 326.620182 275.19 329.19 275.19 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #4862da"/>
    </g>
    <g id="text_8">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="336.45" y="269.3" transform="rotate(-0 336.45 269.3)">2.2</text>
+     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="329.19" y="269.3" transform="rotate(-0 329.19 269.3)">2.2</text>
     </g>
    </g>
    <g id="text_9">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="357.9" y="269.32375" transform="rotate(-0 357.9 269.32375)">23 Geometric Primitives &amp; Specialized Block Arrows</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="351.24" y="269.1575" transform="rotate(-0 351.24 269.1575)">23 Geometric Primitives &amp; Specialized Block Arrows</text>
     </g>
    </g>
    <g id="patch_20">
-    <path d="M 498.75 317.25 
-L 320.13 317.25 
-Q 315 317.25 315 312.12 
-L 315 293.88 
-Q 315 288.75 320.13 288.75 
-L 677.37 288.75 
-Q 682.5 288.75 682.5 293.88 
-L 682.5 312.12 
-Q 682.5 317.25 677.37 317.25 
+    <path d="M 500.625 317.25 
+L 312.63 317.25 
+Q 307.5 317.25 307.5 312.12 
+L 307.5 293.88 
+Q 307.5 288.75 312.63 288.75 
+L 688.62 288.75 
+Q 693.75 288.75 693.75 293.88 
+L 693.75 312.12 
+Q 693.75 317.25 688.62 317.25 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dce2eb; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_21">
-    <path d="M 336.45 312.69 
-C 339.019818 312.69 341.484729 311.669 343.301865 309.851865 
-C 345.119 308.034729 346.14 305.569818 346.14 303 
-C 346.14 300.430182 345.119 297.965271 343.301865 296.148135 
-C 341.484729 294.331 339.019818 293.31 336.45 293.31 
-C 333.880182 293.31 331.415271 294.331 329.598135 296.148135 
-C 327.781 297.965271 326.76 300.430182 326.76 303 
-C 326.76 305.569818 327.781 308.034729 329.598135 309.851865 
-C 331.415271 311.669 333.880182 312.69 336.45 312.69 
+    <path d="M 329.19 312.69 
+C 331.759818 312.69 334.224729 311.669 336.041865 309.851865 
+C 337.859 308.034729 338.88 305.569818 338.88 303 
+C 338.88 300.430182 337.859 297.965271 336.041865 296.148135 
+C 334.224729 294.331 331.759818 293.31 329.19 293.31 
+C 326.620182 293.31 324.155271 294.331 322.338135 296.148135 
+C 320.521 297.965271 319.5 300.430182 319.5 303 
+C 319.5 305.569818 320.521 308.034729 322.338135 309.851865 
+C 324.155271 311.669 326.620182 312.69 329.19 312.69 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #4862da"/>
    </g>
    <g id="text_10">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="336.45" y="306.8" transform="rotate(-0 336.45 306.8)">2.3</text>
+     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="329.19" y="306.8" transform="rotate(-0 329.19 306.8)">2.3</text>
     </g>
    </g>
    <g id="text_11">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="357.9" y="306.66293" transform="rotate(-0 357.9 306.66293)">Straight, Orthogonal, Curved &amp; Bezier Connectors</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="351.24" y="306.503672" transform="rotate(-0 351.24 306.503672)">Straight, Orthogonal, Curved &amp; Bezier Connectors</text>
     </g>
    </g>
    <g id="patch_22">
-    <path d="M 498.75 354.75 
-L 320.13 354.75 
-Q 315 354.75 315 349.62 
-L 315 331.38 
-Q 315 326.25 320.13 326.25 
-L 677.37 326.25 
-Q 682.5 326.25 682.5 331.38 
-L 682.5 349.62 
-Q 682.5 354.75 677.37 354.75 
+    <path d="M 500.625 354.75 
+L 312.63 354.75 
+Q 307.5 354.75 307.5 349.62 
+L 307.5 331.38 
+Q 307.5 326.25 312.63 326.25 
+L 688.62 326.25 
+Q 693.75 326.25 693.75 331.38 
+L 693.75 349.62 
+Q 693.75 354.75 688.62 354.75 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #dce2eb; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_23">
-    <path d="M 336.45 350.19 
-C 339.019818 350.19 341.484729 349.169 343.301865 347.351865 
-C 345.119 345.534729 346.14 343.069818 346.14 340.5 
-C 346.14 337.930182 345.119 335.465271 343.301865 333.648135 
-C 341.484729 331.831 339.019818 330.81 336.45 330.81 
-C 333.880182 330.81 331.415271 331.831 329.598135 333.648135 
-C 327.781 335.465271 326.76 337.930182 326.76 340.5 
-C 326.76 343.069818 327.781 345.534729 329.598135 347.351865 
-C 331.415271 349.169 333.880182 350.19 336.45 350.19 
+    <path d="M 329.19 350.19 
+C 331.759818 350.19 334.224729 349.169 336.041865 347.351865 
+C 337.859 345.534729 338.88 343.069818 338.88 340.5 
+C 338.88 337.930182 337.859 335.465271 336.041865 333.648135 
+C 334.224729 331.831 331.759818 330.81 329.19 330.81 
+C 326.620182 330.81 324.155271 331.831 322.338135 333.648135 
+C 320.521 335.465271 319.5 337.930182 319.5 340.5 
+C 319.5 343.069818 320.521 345.534729 322.338135 347.351865 
+C 324.155271 349.169 326.620182 350.19 329.19 350.19 
 z
 " clip-path="url(#p6494dea2b6)" style="fill: #4862da"/>
    </g>
    <g id="text_12">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="336.45" y="344.3" transform="rotate(-0 336.45 344.3)">2.4</text>
+     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="329.19" y="344.3" transform="rotate(-0 329.19 344.3)">2.4</text>
     </g>
    </g>
    <g id="text_13">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="357.9" y="344.16293" transform="rotate(-0 357.9 344.16293)">Universal Typography, Vector Icons &amp; 50%+ Neutral Design Tokens</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="351.24" y="344.003672" transform="rotate(-0 351.24 344.003672)">Universal Typography, Vector Icons &amp; 50%+ Neutral Design Tokens</text>
     </g>
    </g>
    <g id="text_14">

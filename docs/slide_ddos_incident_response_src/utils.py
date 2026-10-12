@@ -14,13 +14,13 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Literal
 
-from drawlib.canvas import clear, setup
-from drawlib.lines import line, line_bezier1
-from drawlib.shapes import circle, rectangle
+from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.slide import (
     draw_page_number as _draw_page_number,
     draw_section_header as _draw_section_header,
 )
+from drawlib.smartarts import KpiCards, Roadmap
 from drawlib.styles import Style, Styles
 from drawlib.text import text
 
@@ -38,14 +38,6 @@ def draw_page_number(
         style: Text style for the page counter (defaults to gray 65pt text with transparent background).
     """
     _draw_page_number(width=width, height=height, style=style)
-
-
-_GOOGLE_PALETTE = [
-    (26, 115, 232),  # Blue (#1a73e8)
-    (234, 67, 53),   # Red (#ea4335)
-    (24, 128, 56),   # Green (#188038)
-    (251, 188, 4),   # Yellow (#fbbc04)
-]
 
 
 def draw_chapter_divider(
@@ -132,199 +124,62 @@ def draw_curved_agenda(
     width: float = 104.0,
     height: float = 86.0,
     accent_bar: bool = True,
-    colors: Sequence[tuple[int, int, int]] | None = None,
 ) -> None:
-    """Draw a curved agenda/roadmap diagram with Google-colored numbered badges.
-
-    Args:
-        items: List of agenda items, either as "Title" strings or ("Title", "Subtitle") tuples.
-        width: Canvas width in coordinate units.
-        height: Canvas height in coordinate units.
-        accent_bar: Whether to draw the vertical left accent bar.
-        colors: Optional custom list of RGB tuples for numbered badges.
-    """
+    """Draw a curved agenda/roadmap diagram via drawlib.smartarts.Roadmap."""
     if not items:
         return
 
-    w = width
-    h = height
-
     if accent_bar:
-        bar_color = (26, 115, 232)
-        bar_style = Style(shape_fill_color=bar_color, shape_line_color=bar_color, shape_line_width=0.0)
-        rectangle((1.0, h / 2.0), width=1.5, height=h * 0.9, style=bar_style)
+        rectangle(
+            (1.0, height / 2.0),
+            width=1.5,
+            height=height * 0.9,
+            style=Styles.PrimaryFlat.patch(shape_line_width=0.0),
+        )
 
-    # Smooth curved arc line
-    p_start = (w * 0.14, h * 0.88)
-    p_end = (w * 0.13, h * 0.12)
-    p_ctrl = (w * 0.24, h * 0.50)
-
-    arc_style = Style(line_color=(205, 210, 218), line_width=3.5)
-    line_bezier1(p_start, p_end, p_ctrl, style=arc_style)
-
-    palette = colors or _GOOGLE_PALETTE
-
-    n = len(items)
-    for i, item in enumerate(items):
+    roadmap = Roadmap(
+        style=Styles.White,
+        text_style=Styles.DarkBold.patch(text_size=14.0),
+        description_style=Styles.Muted.patch(text_size=11.0),
+        spine_style=Styles.PrimaryBold,
+        badge_style=Styles.PrimaryFlat,
+        badge_text_style=Styles.WhiteBold.patch(text_size=14.0),
+        direction="vertical",
+        curve_bend=0.14,
+        card_shape="pill",
+        spacing=3.0,
+    )
+    for item in items:
         if isinstance(item, tuple):
-            title_str, sub_str = item[0], item[1]
+            roadmap.add(item[0], item[1])
         else:
-            title_str, sub_str = str(item), ""
-
-        t = i / (n - 1) if n > 1 else 0.5
-        xi = (1 - t) ** 2 * p_start[0] + 2 * (1 - t) * t * p_ctrl[0] + t**2 * p_end[0]
-        yi = (1 - t) ** 2 * p_start[1] + 2 * (1 - t) * t * p_ctrl[1] + t**2 * p_end[1]
-
-        color = palette[i % len(palette)]
-        r_badge = min(5.0, h / (n * 2.6))
-        badge_style = Style(shape_fill_color=color, shape_line_color=color, shape_line_width=0.0)
-        circle(
-            (xi, yi),
-            radius=r_badge,
-            style=badge_style,
-            text=str(i + 1),
-            text_style=Styles.WhiteBold.patch(text_size=17.5),
-        )
-
-        # Pill container
-        x_pill_start = xi + r_badge + 2.2
-        w_pill = min(w - x_pill_start - 1.5, 84.0)
-        h_pill = max(12.5, min(r_badge * 3.1, 16.0))
-        x_pill_center = x_pill_start + w_pill / 2.0
-        pill_style = Style(
-            shape_fill_color=(255, 255, 255),
-            shape_line_color=(220, 224, 230),
-            shape_line_width=1.0,
-            shape_r=h_pill / 2.0,
-        )
-        rectangle((x_pill_center, yi), width=w_pill, height=h_pill, style=pill_style)
-
-        # Text labels
-        x_text = x_pill_start + 3.8
-        if sub_str:
-            text(
-                (x_text, yi + 2.6),
-                title_str,
-                style=Styles.BlackBold.patch(
-                    text_size=17.0,
-                    halign="left",
-                    valign="center",
-                    text_color=(32, 33, 36),
-                ),
-            )
-            text(
-                (x_text, yi - 2.6),
-                sub_str,
-                style=Styles.WhiteBold.patch(
-                    text_size=13.5,
-                    halign="left",
-                    valign="center",
-                    text_color=(95, 99, 104),
-                ),
-            )
-        else:
-            text(
-                (x_text, yi),
-                title_str,
-                style=Styles.BlackBold.patch(
-                    text_size=17.5,
-                    halign="left",
-                    valign="center",
-                    text_color=(32, 33, 36),
-                ),
-            )
+            roadmap.add(str(item))
+    x0 = 4.0 if accent_bar else 2.0
+    roadmap.draw(xy=(x0, height * 0.06), width=width - x0 - 2.0, height=height * 0.88)
 
 
 def draw_kpi_cards(
     cards: Sequence[tuple[str, str, str]],
     width: float = 100.0,
     height: float = 84.0,
-    colors: Sequence[tuple[int, int, int]] | None = None,
 ) -> None:
-    """Draw vertically stacked KPI metric cards with Google color accents and descriptions.
-
-    Args:
-        cards: List of (metric_value, label, description) tuples.
-        width: Canvas width in coordinate units.
-        height: Canvas height in coordinate units.
-        colors: Optional custom list of RGB tuples for card accents.
-    """
+    """Draw vertically stacked KPI metric cards via drawlib.smartarts.KpiCards."""
     if not cards:
         return
 
-    w = width
-    h = height
-    n = len(cards)
-    accent_colors = colors or _GOOGLE_PALETTE
-
-    card_h = min(22.0, (h - 6.0) / max(n, 1))
-    gap = (h - 6.0 - (card_h * n)) / max(n + 1, 1)
-
-    for i, (metric, label, subtext) in enumerate(cards):
-        cy = h - 3.0 - gap - (i * (card_h + gap)) - (card_h / 2.0)
-        cx = w / 2.0
-        card_w = w * 0.96
-        x_left = cx - (card_w / 2.0)
-
-        # Background card
-        card_style = Style(
-            shape_fill_color=(248, 249, 250),
-            shape_line_color=(220, 225, 235),
-            shape_line_width=1.0,
-            shape_r=2.5,
-        )
-        rectangle((cx, cy), width=card_w, height=card_h, style=card_style)
-
-        # Left accent pill
-        accent = accent_colors[i % len(accent_colors)]
-        pill_style = Styles.WhiteFlat.patch(
-            shape_fill_color=accent,
-            shape_line_color=accent,
-            shape_line_width=0.0,
-            shape_r=1.0,
-        )
-        pill_x = x_left + card_w * 0.022
-        rectangle((pill_x, cy), width=card_w * 0.025, height=card_h * 0.74, style=pill_style)
-
-        # Metric number
-        text(
-            (x_left + card_w * 0.052, cy),
-            metric,
-            style=Styles.BlackBold.patch(
-                text_size=30.0,
-                halign="left",
-                valign="center",
-                text_color=accent,
-            ),
-        )
-
-        # Proportional text column offset (30% of card width)
-        x_text = x_left + card_w * 0.30
-
-        # Label
-        if label:
-            text(
-                (x_text, cy + card_h * 0.135),
-                label,
-                style=Styles.BlackBold.patch(
-                    text_size=19.5,
-                    halign="left",
-                    valign="center",
-                    text_color=(32, 33, 36),
-                ),
-            )
-
-        # Subtext
-        if subtext:
-            text(
-                (x_text, cy - card_h * 0.145),
-                subtext,
-                style=Styles.Black.patch(
-                    text_size=15.0,
-                    halign="left",
-                    valign="center",
-                    text_color=(90, 95, 102),
-                ),
-            )
+    kpi = KpiCards(
+        style=Styles.Neutral.patch(shape_r=2.5),
+        metric_style=Styles.PrimaryBold.patch(text_size=22.0),
+        text_style=Styles.DarkBold.patch(text_size=14.0),
+        description_style=Styles.Muted.patch(text_size=11.0),
+        accent_style=Styles.PrimaryFlat,
+        accent_position="left_pill",
+        metric_layout="left_column",
+        metric_width_ratio=0.30,
+        spacing=3.5,
+    )
+    for metric, label, subtext in cards:
+        kpi.add(metric, label, subtext)
+    kpi.draw(xy=(width * 0.02, height * 0.05), width=width * 0.96, height=height * 0.90, columns=1)
 
 

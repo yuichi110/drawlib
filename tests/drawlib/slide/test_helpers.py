@@ -136,16 +136,21 @@ class TestDrawSectionHeader:
         assert "Introduction" in svg_text
         assert "1 / 1" not in svg_text
 
-    def test_custom_badge_and_style_overrides(self, tmp_path: Path) -> None:
-        """Verify custom badge_text, section_label, and Style overrides."""
-        out_svg = tmp_path / "section_custom_styles.svg"
+    @pytest.mark.parametrize("variant", ["split", "centered", "banner", "minimal"])
+    def test_custom_badge_and_style_overrides(
+        self,
+        tmp_path: Path,
+        variant: Literal["split", "centered", "banner", "minimal"],
+    ) -> None:
+        """Verify custom badge_text, section_label, and Style overrides across all variants."""
+        out_svg = tmp_path / f"section_custom_styles_{variant}.svg"
         draw_section_header(
             3,
             "Custom Styled Section",
             "Subtitle with custom styles",
             topics=[("Topic A", "Desc A")],
             total_sections=5,
-            variant="split",
+            variant=variant,
             section_label="CHAPTER",
             badge_text="Milestone 3",
             auto_setup=True,
@@ -175,7 +180,7 @@ class TestDrawSectionHeader:
 
         svg_text = out_svg.read_text(encoding="utf-8")
         assert "CHAPTER" in svg_text
-        assert "Milestone 3" in svg_text
+        assert "Milestone 3" in svg_text or "MILESTONE 3" in svg_text
         assert "Custom Styled Section" in svg_text
 
     def test_validation_errors(self) -> None:
