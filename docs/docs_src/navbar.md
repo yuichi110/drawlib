@@ -13,10 +13,13 @@
 
 ## 2. Drawing Primitives & Styles
 - [Canvas & Coordinates](./02_drawing_primitives/canvas.md)
+- [Shapes Overview](./02_drawing_primitives/shapes_overview.md)
 - [Basic & Radial Shapes](./02_drawing_primitives/shapes_basic.md)
-- [Polygons & Custom Paths](./02_drawing_primitives/shapes_polygons.md)
-- [Cylinders, Cubes, Clouds & Callouts](./02_drawing_primitives/shapes_domain.md)
-- [Block Arrows](./02_drawing_primitives/arrows.md)
+- [Polygons & Custom Paths](./02_drawing_primitives/shapes_polygon.md)
+- [Block Arrows & Chevrons](./02_drawing_primitives/shapes_arrow.md)
+- [3D Containers, Flow & Grouping](./02_drawing_primitives/shapes_container.md)
+- [Callouts, Badges & Status](./02_drawing_primitives/shapes_badge.md)
+- [Faces, Clocks, Symbols & Operators](./02_drawing_primitives/shapes_symbol.md)
 - [Lines & Connectors](./02_drawing_primitives/lines.md)
 - [Text & Typography](./02_drawing_primitives/text.md)
 - [Fonts & Multilingual Catalog](./02_drawing_primitives/fonts.md)

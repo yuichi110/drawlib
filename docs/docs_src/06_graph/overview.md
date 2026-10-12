@@ -347,7 +347,7 @@ save()
      - `layout.width`, `layout.height`: Target canvas dimensions.
 2. **Post-Layout Fine-Tuning (`layout.offset(node_id, dx=0.0, dy=0.0) -> None`)**:
    - Shifts a specific node by `(dx, dy)` and automatically updates the attachment ports of all incident edges.
-   - You can also inspect `layout.nodes[id].x` and `.y` to attach custom primitives from [`drawlib.shapes`](../02_drawing_primitives/shapes_basic.md) or [`drawlib.icons`](../02_drawing_primitives/icons_phosphor.md).
+   - You can also inspect `layout.nodes[id].x` and `.y` to attach custom primitives from [`drawlib.shapes`](../02_drawing_primitives/shapes_overview.md) or [`drawlib.icons`](../02_drawing_primitives/icons_phosphor.md).
 3. **Render to Canvas (`g.draw(*, xy=(0.0, 0.0), width=None, height=None, margin=10.0, scale=1.0) -> GraphLayout` or `layout.draw(*, xy=(0.0, 0.0), scale=1.0) -> None`)**:
    - Renders visible clusters, edges, and nodes in proper z-order onto the active canvas, translated by `xy` and proportionally scaled by `scale`.
    - **Fixed-Layout Visibility (`show=False`)**: Setting `show=False` on any node, edge, or cluster preserves its slot during `calc()` so remaining elements never jump, while skipping hidden elements (and edges attached to hidden endpoint nodes) during `draw()`.

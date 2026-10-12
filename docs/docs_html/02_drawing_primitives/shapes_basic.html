@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic, Radial, Status & Clock Shapes</title>
+    <title>Basic & Radial Shapes</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -107,20 +107,32 @@
                                 <a href="canvas.html" >Canvas & Coordinates</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
                             <li class="nav-item active">
                                 <a href="shapes_basic.html" >Basic & Radial Shapes</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="shapes_polygons.html" >Polygons & Custom Paths</a>
+                                <a href="shapes_polygon.html" >Polygons & Custom Paths</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="shapes_domain.html" >Cylinders, Cubes, Clouds & Callouts</a>
+                                <a href="shapes_arrow.html" >Block Arrows & Chevrons</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="arrows.html" >Block Arrows</a>
+                                <a href="shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -474,92 +486,179 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Basic, Radial, Status & Clock Shapes</span>
+                    <span class="crumb active">Basic & Radial Shapes</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Basic, Radial, Status &amp; Clock Shapes</h1>
-<p>The <code>drawlib.shapes</code> module provides declarative geometric primitives with built-in center text labels, corner rounding, hollow ring cutouts (<code>hole_ratio</code>), and unified styling. This page covers <strong>basic rectangular cards</strong> (<code>rectangle</code>), <strong>radial/circular geometries</strong> (<code>circle</code>, <code>ellipse</code>, <code>wedge</code>, <code>fan</code>, <code>arc</code>), <strong>status badges</strong> (<code>forbidden</code>, <code>checkmark</code>), and <strong>celestial/time primitives</strong> (<code>sun</code>, <code>moon</code>, <code>clock</code>).</p>
-<hr />
-<h2>1. Overview of Basic, Radial, Status &amp; Clock Shapes</h2>
+                <h1>Basic &amp; Radial Shapes</h1>
+<p>The <strong>Basic &amp; Radial</strong> category of <code>drawlib.shapes</code> provides the 6 foundational geometric primitives used across nearly every technical diagram: rectangular cards and frames (<code>rectangle</code>), circles and rings (<code>circle</code>), ellipses (<code>ellipse</code>), annular ring slices and pie wedges (<code>wedge</code>), circular pie sectors (<code>fan</code>), and open elliptical strokes (<code>arc</code>).</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_basic_images/shapes_basic_overview.png" alt="shapes_basic_1" />
-  <figcaption class="drawlib-caption">Overview of Basic Rectangular, Radial, Status, and Clock Shapes</figcaption>
+  <figcaption class="drawlib-caption">Overview of the 6 Basic Rectangular and Radial Primitives in drawlib.shapes</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">arc</span><span class="p">,</span>
-    <span class="n">checkmark</span><span class="p">,</span>
-    <span class="n">circle</span><span class="p">,</span>
-    <span class="n">clock</span><span class="p">,</span>
-    <span class="n">ellipse</span><span class="p">,</span>
-    <span class="n">fan</span><span class="p">,</span>
-    <span class="n">forbidden</span><span class="p">,</span>
-    <span class="n">moon</span><span class="p">,</span>
-    <span class="n">rectangle</span><span class="p">,</span>
-    <span class="n">sun</span><span class="p">,</span>
-    <span class="n">wedge</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arc</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">ellipse</span><span class="p">,</span> <span class="n">fan</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">wedge</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="n">lbl_dark</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
 <span class="n">lbl_white</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">cap_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 
-<span class="c1"># Row 1: Rectangle, Circle, Ellipse, Hollow Ring (hole_ratio), Wedge</span>
+<span class="c1"># Row 1: rectangle, circle, ellipse, and hollow ring (hole_ratio)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">3.0</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"rectangle"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_white</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">)</span>
-<span class="n">ellipse</span><span class="p">((</span><span class="mi">68</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"ellipse"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">51</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">)</span>
+<span class="n">ellipse</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"ellipse"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_dark</span><span class="p">)</span>
 <span class="n">circle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
-    <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
     <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.58</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"ring"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">wedge</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">115</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
-    <span class="n">radius</span><span class="o">=</span><span class="mf">8.8</span><span class="p">,</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span>
-    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">angle_end</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"wedge"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Row 2: Fan, Arc, Forbidden, Checkmark, Sun, Moon, Clock</span>
-<span class="n">fan</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">9.2</span><span class="p">,</span> <span class="n">angle_start</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">angle_end</span><span class="o">=</span><span class="mi">155</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"fan"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">)))</span>
-<span class="n">arc</span><span class="p">((</span><span class="mi">31</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">angle_end</span><span class="o">=</span><span class="mi">310</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"arc"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">forbidden</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">6.8</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"slash"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">49</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="s2">"forbidden"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">checkmark</span><span class="p">((</span><span class="mi">66</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">66</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="s2">"checkmark"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">sun</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.4</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"rays"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="s2">"sun"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">moon</span><span class="p">((</span><span class="mi">99</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"crescent"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">99</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="s2">"moon"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">clock</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">6.8</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"ticks"</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="s2">"clock"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="c1"># Row 2: wedge (donut slice), wedge (full sector), fan (FOV pie), arc (open stroke)</span>
+<span class="n">wedge</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"wedge"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="s2">"wedge (width=3.8)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">)</span>
+
+<span class="n">wedge</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">310</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"sector"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">cap_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="s2">"wedge (width=None)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">)</span>
+
+<span class="n">fan</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"fan"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">84</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="s2">"fan (30°..150°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">)</span>
+
+<span class="n">arc</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">112</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"arc"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">112</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="s2">"arc (open stroke)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cap_st</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>2. Parameter &amp; Style Signature Reference</h2>
-<p>All basic and radial shape functions share a consistent parameter and styling contract:</p>
+<h2>1. Quick Comparison of Basic &amp; Radial Shapes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Required Geometry Args</th>
+<th style="text-align:left">Optional Geometry Args</th>
+<th style="text-align:center">Supports <code>hole_ratio</code></th>
+<th style="text-align:center">Supports <code>shape_r</code></th>
+<th style="text-align:left">Typical Diagram Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>rectangle</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
+<td style="text-align:left"><code>hole_ratio=None</code></td>
+<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
+<td style="text-align:center">Scalar <code>float</code> or 4-tuple <code>(bl, tl, tr, br)</code></td>
+<td style="text-align:left">Service cards, containers, swimlanes, UI panels, tabs, and hollow frames.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>circle</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
+<td style="text-align:left"><code>hole_ratio=None</code></td>
+<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">State nodes, endpoints, numbered badges, and hollow annular rings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ellipse</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
+<td style="text-align:left"><code>hole_ratio=None</code></td>
+<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Use-case ovals, Venn diagrams, orbital rings, and wide pill nodes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>wedge</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
+<td style="text-align:left"><code>width=None</code>, <code>angle_start=0</code>, <code>angle_end=360</code></td>
+<td style="text-align:center">Via <code>width</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Gauge meters, donut slices (<code>width</code> set), or circular sectors (<code>width=None</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>fan</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
+<td style="text-align:left"><code>angle_start=0</code>, <code>angle_end=180</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Camera/radar field-of-view (FOV) cones, wireless coverage sectors, pie wedges.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>arc</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
+<td style="text-align:left"><code>angle_start=0.0</code>, <code>angle_end=360.0</code></td>
+<td style="text-align:center">— (Unfilled)</td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Open circular/elliptical trajectory strokes, partial borders, and wave fronts.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Rectangles, Per-Corner Rounding &amp; Hollow Frames (<code>rectangle</code>)</h2>
+<p><code>rectangle</code> draws a sharp, rounded, or hollow rectangular card centered at <code>xy</code> (when using preset <code>Styles.*</code>):</p>
+<pre><code class="language-python"><span class="n">rectangle</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<h3>Parameter &amp; Style Reference</h3>
 <table>
 <thead>
 <tr>
@@ -574,83 +673,56 @@
 <td style="text-align:left"><code>xy</code></td>
 <td style="text-align:left"><code>tuple[float, float]</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Anchor coordinate <code>(x, y)</code> (geometric center when using preset <code>Styles.*</code>).</td>
+<td style="text-align:left">Anchor coordinate <code>(x, y)</code> (center by default; customizable via <code>style.halign</code> / <code>style.valign</code>).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Horizontal and vertical dimensions (<code>&gt; 0</code>) for <code>rectangle</code>, <code>ellipse</code>, <code>checkmark</code>, <code>moon</code>, and <code>arc</code>.</td>
+<td style="text-align:left">Horizontal width in canvas units (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>radius</code></td>
+<td style="text-align:left"><code>height</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Outer radius (<code>&gt; 0</code>) for <code>circle</code>, <code>wedge</code>, <code>fan</code>, <code>forbidden</code>, <code>sun</code>, and <code>clock</code>.</td>
+<td style="text-align:left">Vertical height in canvas units (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>hole_ratio</code></td>
 <td style="text-align:left"><code>float | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Optional concentric center cutout ratio in <code>(0.0, 1.0)</code> on <code>rectangle</code>, <code>circle</code>, and <code>ellipse</code> (as well as planar/regular polygons).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>style</code></td>
-<td style="text-align:left"><code>Style</code></td>
-<td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Visual style defining fill (<code>shape_fill_color</code>), border (<code>shape_line_color</code>, <code>shape_line_width</code>, <code>shape_line_style</code>), and geometry modifiers.</td>
+<td style="text-align:left">Optional concentric rectangular cutout ratio in <code>(0.0, 1.0)</code>. Creates a hollow rectangular frame of wall thickness <code>(1 - hole_ratio) / 2</code> along both axes.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style.shape_r</code></td>
-<td style="text-align:left"><code>float | tuple[float, ...]</code></td>
+<td style="text-align:left"><code>float | tuple[float, float, float, float] | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Corner rounding radius for <code>rectangle</code> and <code>checkmark</code> (scalar <code>float</code> or 4-tuple <code>(bl, tl, tr, br)</code>).</td>
+<td style="text-align:left">Corner fillet radius. Pass a scalar <code>float</code> to round all 4 corners equally, or a 4-tuple <code>(bottom_left, top_left, top_right, bottom_right)</code> to round specific corners selectively. Automatically clamped to <code>min(width, height) / 2</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style.angle</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><code>0.0</code></td>
-<td style="text-align:left">Counterclockwise rotation angle in degrees around the shape center.</td>
+<td style="text-align:left">Counterclockwise rotation angle in degrees around the rectangle's center.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>style.halign</code> / <code>valign</code></td>
-<td style="text-align:left"><code>str</code></td>
-<td style="text-align:left"><code>&quot;center&quot;</code></td>
-<td style="text-align:left">Coordinate anchor alignment (<code>&quot;left&quot;</code>/<code>&quot;center&quot;</code>/<code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>/<code>&quot;center&quot;</code>/<code>&quot;top&quot;</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>text</code></td>
-<td style="text-align:left"><code>str</code></td>
-<td style="text-align:left"><code>&quot;&quot;</code></td>
-<td style="text-align:left">Embedded label rendered at the geometric center of the shape.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>text_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Typography style override (<code>text_color</code>, <code>text_size</code>, <code>text_font</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>text_style.xy_shift</code></td>
-<td style="text-align:left"><code>tuple[float, float]</code></td>
-<td style="text-align:left"><code>(0.0, 0.0)</code></td>
-<td style="text-align:left">Relative <code>(dx, dy)</code> offset for the embedded text label (rotates with the shape).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>text_style.angle</code></td>
-<td style="text-align:left"><code>float | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Independent text rotation angle in degrees (overrides shape <code>style.angle</code>).</td>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Embedded text label centered inside the rectangle and optional typography override.</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2>3. Rectangles, Rounded Corners &amp; Hollow Frames (<code>rectangle</code>)</h2>
-<p><code>rectangle(xy, width, height, *, hole_ratio=None, style, text=&quot;&quot;, text_style=None)</code> draws a rectangular card or hollow frame centered at <code>xy</code>.</p>
+<h3>Corner Rounding &amp; Hollow Frame Rules</h3>
 <ul>
-<li><strong>Uniform Rounded Corners</strong>: Patch <code>shape_r</code> with a scalar float (e.g. <code>Styles.Neutral.patch(shape_r=4)</code>).</li>
-<li><strong>Per-Corner Rounding</strong>: Pass a 4-tuple <code>(bottom_left, top_left, top_right, bottom_right)</code> to round specific corners (ideal for tabs, headers, and split cards).</li>
-<li><strong>Hollow Rectangular Frame (<code>hole_ratio</code>)</strong>: Pass <code>hole_ratio=0.6</code> (<code>0 &lt; hole_ratio &lt; 1</code>) to cut out a proportional inner hole (preserving <code>shape_r</code> rounding on both outer and inner contours).</li>
+<li><strong>4-Tuple Corner Order (<code>(bl, tl, tr, br)</code>)</strong>: When passing a 4-tuple to <code>style.patch(shape_r=...)</code>, the four radii correspond to <code>(bottom_left, top_left, top_right, bottom_right)</code>:
+<ul>
+<li><strong>Top Header Tab</strong>: <code>shape_r=(0, 4, 4, 0)</code> rounds only the top-left and top-right corners.</li>
+<li><strong>Bottom Footer Bar</strong>: <code>shape_r=(4, 0, 0, 4)</code> rounds only the bottom-left and bottom-right corners.</li>
+<li><strong>Left Sidebar Tab</strong>: <code>shape_r=(4, 4, 0, 0)</code> rounds only the left corners.</li>
+</ul>
+</li>
+<li><strong>Hollow Frame + <code>shape_r</code></strong>: When both <code>hole_ratio</code> and <code>style.shape_r</code> are set, the inner cutout rectangle automatically scales its corner radii by <code>hole_ratio</code> so the frame maintains smooth concentric curvature.</li>
 </ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
@@ -703,14 +775,94 @@
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_basic_images/shapes_basic_rectangle.png" alt="shapes_basic_2" />
-  <figcaption class="drawlib-caption">Sharp, Uniform Rounded, Per-Corner Rounded, and Hollow Frame Rectangles</figcaption>
+  <figcaption class="drawlib-caption">Sharp, Uniform Rounded, Per-Corner Rounded Tabs, and Hollow Frame Rectangles</figcaption>
 </figure>
 <hr />
-<h2>4. Circles, Ellipses &amp; Hollow Rings (<code>circle</code>, <code>ellipse</code>, <code>hole_ratio</code>)</h2>
-<ul>
-<li><strong><code>circle(xy, radius, *, hole_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>: Standard circle centered at <code>xy</code> with diameter <code>2 * radius</code>. Setting <code>hole_ratio</code> in <code>(0.0, 1.0)</code> creates a hollow annular ring with inner radius <code>radius * hole_ratio</code>.</li>
-<li><strong><code>ellipse(xy, width, height, *, hole_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>: Oval bounded by horizontal <code>width</code> and vertical <code>height</code> (supports rotation via <code>style.patch(angle=...)</code> and elliptical ring cutouts via <code>hole_ratio</code>).</li>
-</ul>
+<h2>3. Circles, Ellipses &amp; Hollow Rings (<code>circle</code>, <code>ellipse</code>)</h2>
+<p><code>circle</code> and <code>ellipse</code> draw smooth circular and oval primitives, with native support for concentric ring cutouts via <code>hole_ratio</code>:</p>
+<pre><code class="language-python"><span class="n">circle</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+
+<span class="n">ellipse</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>circle</code></strong></td>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Exact center coordinate <code>(cx, cy)</code> of the circle (<code>circle</code> is always center-anchored).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>radius</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer radius of the circle (<code>&gt; 0</code>, total diameter = <code>2 * radius</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>hole_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Concentric inner hole ratio in <code>(0.0, 1.0)</code>. Inner radius = <code>radius * hole_ratio</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ellipse</code></strong></td>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Anchor coordinate <code>(x, y)</code> (center by default; supports <code>style.halign</code> / <code>style.valign</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Full horizontal diameter (<code>width &gt; 0</code>) and vertical diameter (<code>height &gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>hole_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Concentric elliptical cutout ratio in <code>(0.0, 1.0)</code> with inner axes <code>(width * hole_ratio, height * hole_ratio)</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>style.angle</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0.0</code></td>
+<td style="text-align:left">Counterclockwise rotation angle of the ellipse axes in degrees.</td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">ellipse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -761,26 +913,101 @@
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_basic_images/shapes_basic_circle_ellipse_donuts.png" alt="shapes_basic_3" />
-  <figcaption class="drawlib-caption">Circle, Ellipse, and Hollow Rings via hole_ratio</figcaption>
+  <figcaption class="drawlib-caption">Circle, Ellipse, Rotated Ellipse, and Hollow Rings via hole_ratio</figcaption>
 </figure>
 <hr />
-<h2>5. Angular Sectors, Wedges &amp; Arcs (<code>wedge</code>, <code>fan</code>, <code>arc</code>)</h2>
-<p>All angular primitives measure <code>angle_start</code> and <code>angle_end</code> in <strong>degrees counterclockwise (CCW)</strong> from the positive X-axis ($0^\circ$ = right, $90^\circ$ = top, $180^\circ$ = left, $270^\circ$ = bottom):</p>
-<ul>
-<li><strong><code>wedge(xy, radius, *, style, width=None, angle_start=0, angle_end=360, text=&quot;&quot;, text_style=None)</code></strong>: Draws an angular ring slice when <code>width</code> (wall thickness) is specified, or a solid pie sector when <code>width=None</code>.</li>
-<li><strong><code>fan(xy, radius, *, style, angle_start=0, angle_end=180, text=&quot;&quot;, text_style=None)</code></strong>: Draws a filled pie sector connecting the center apex <code>xy</code> to the outer circular arc from <code>angle_start</code> to <code>angle_end</code>.</li>
-<li><strong><code>arc(xy, width, height, *, style, angle_start=0.0, angle_end=360.0, text=&quot;&quot;, text_style=None)</code></strong>: Draws an open, unfilled elliptical stroke along the perimeter between <code>angle_start</code> to <code>angle_end</code>.</li>
-</ul>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arc</span><span class="p">,</span> <span class="n">fan</span><span class="p">,</span> <span class="n">wedge</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<h2>4. Angular Sectors, Donut Slices &amp; Pie Fans (<code>wedge</code>, <code>fan</code>)</h2>
+<p><code>wedge</code> and <code>fan</code> draw circular angular sectors swept counterclockwise from <code>angle_start</code> to <code>angle_end</code> (in degrees, where $0^\circ$ points right along $+X$, $90^\circ$ points up along $+Y$, $180^\circ$ points left along $-X$, and $270^\circ$ points down along $-Y$):</p>
+<pre><code class="language-python"><span class="n">wedge</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">360</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">fan</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(cx, cy)</code> of the underlying circle (apex of the sector).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>radius</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Outer radius of the circular arc (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code> <em>(on <code>wedge</code>)</em></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Radial wall thickness of the annular ring slice (<code>0 &lt; width &lt;= radius</code>), so the inner arc radius is <code>radius - width</code>. When <code>None</code>, <code>wedge</code> draws a solid pie sector all the way to <code>xy</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle_start</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">Starting angle in degrees counterclockwise from $+X$.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle_end</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>360</code> (<code>wedge</code>) / <code>180</code> (<code>fan</code>)</td>
+<td style="text-align:left">Ending angle in degrees counterclockwise from $+X$.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style.angle</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0.0</code></td>
+<td style="text-align:left">Additional rotation offset in degrees added to both <code>angle_start</code> and <code>angle_end</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Label anchored at <code>xy</code> by default. For narrow <code>fan</code> cones, use <code>text_style.patch(xy_shift=(dx, dy))</code> to place the label inside the sector body.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">fan</span><span class="p">,</span> <span class="n">wedge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 
 <span class="c1"># 1. Angular donut slice (wedge with wall thickness width=5)</span>
 <span class="n">wedge</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="n">radius</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">angle_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">angle_end</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
@@ -788,150 +1015,161 @@
     <span class="n">text</span><span class="o">=</span><span class="s2">"67%"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
 <span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"wedge(width=5, 0°..240°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
 
-<span class="c1"># 2. Circular pie sector (fan from 30° to 150°)</span>
+<span class="c1"># 2. Solid circular sector (wedge with width=None)</span>
+<span class="n">wedge</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">325</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Sector"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"wedge(width=None, 35°..325°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 3. Circular pie sector (fan from 30° to 150°)</span>
 <span class="n">fan</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">61</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
     <span class="n">radius</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
     <span class="n">angle_start</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
     <span class="n">angle_end</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"FOV 120°"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">)),</span>
 <span class="p">)</span>
-
-<span class="c1"># 3. Open elliptical stroke (arc from 20° to 320°)</span>
-<span class="n">arc</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">angle_end</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Orbit"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"fan(30°..150°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_basic_images/shapes_basic_sectors_and_arcs.png" alt="shapes_basic_4" />
-  <figcaption class="drawlib-caption">Angular Ring Wedge, Pie Fan, and Elliptical Arc</figcaption>
+  <figcaption class="drawlib-caption">Angular Donut Wedge (width=5), Pac-Man Sector (width=None), and Radar FOV Fan</figcaption>
 </figure>
 <hr />
-<h2>6. Status &amp; Access Control Badges (<code>forbidden</code>, <code>checkmark</code>)</h2>
-<p>For firewall rules, access control matrices, CI/CD verification gates, and audit checklists, <code>forbidden</code> and <code>checkmark</code> render crisp compound-path vector status symbols:</p>
-<ul>
-<li><strong><code>forbidden(xy, radius, *, variant=&quot;slash&quot;, thickness_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
-<ul>
-<li><code>variant</code>: <code>&quot;slash&quot;</code> (or <code>&quot;standard&quot;</code>), <code>&quot;backslash&quot;</code>, <code>&quot;cross&quot;</code>, <code>&quot;no_entry&quot;</code> (or <code>&quot;minus&quot;</code>).</li>
-<li><code>thickness_ratio</code>: Ring and bar thickness ratio in <code>(0.0, 0.5)</code> relative to <code>radius</code> (default <code>0.22</code>).</li>
-</ul>
-</li>
-<li><strong><code>checkmark(xy, width, height=None, *, variant=&quot;standard&quot;, thickness_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
-<ul>
-<li><code>variant</code>: <code>&quot;standard&quot;</code> (or <code>&quot;check&quot;</code> standalone L-tick), <code>&quot;circle&quot;</code> (circular ring + checkmark), <code>&quot;solid_circle&quot;</code> (solid circular badge with transparent checkmark cutout).</li>
-<li><code>thickness_ratio</code>: Stroke thickness ratio in <code>(0.0, 0.5)</code> relative to <code>min(width, height)</code> (default <code>0.24</code>).</li>
-</ul>
-</li>
-</ul>
+<h2>5. Open Elliptical &amp; Circular Arcs (<code>arc</code>)</h2>
+<p><code>arc</code> draws an <strong>open, unfilled vector stroke</strong> along the perimeter of an ellipse or circle between <code>angle_start</code> and <code>angle_end</code>:</p>
+<pre><code class="language-python"><span class="n">arc</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">360.0</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the underlying ellipse (supports <code>style.halign</code> / <code>style.valign</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Full horizontal diameter of the ellipse (<code>&gt; 0</code>). Set <code>width == height</code> for a circular arc.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Full vertical diameter of the ellipse (<code>&gt; 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle_start</code> / <code>angle_end</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0.0</code> / <code>360.0</code></td>
+<td style="text-align:left">Counterclockwise start and end angles in degrees.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Stroke appearance is controlled by <code>shape_line_color</code> (or <code>line_color</code>), <code>shape_line_width</code> (or <code>line_width</code>), <code>shape_line_style</code> (<code>&quot;solid&quot;</code>, <code>&quot;dashed&quot;</code>, <code>&quot;dotted&quot;</code>, <code>&quot;dashdot&quot;</code>), and <code>angle</code> (rotates the entire ellipse frame).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code> / <code>text_style</code></td>
+<td style="text-align:left"><code>str</code> / <code>Style | None</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code> / <code>None</code></td>
+<td style="text-align:left">Optional text label centered at <code>xy</code>.</td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">checkmark</span><span class="p">,</span> <span class="n">forbidden</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arc</span><span class="p">,</span> <span class="n">circle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
 <span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 
-<span class="c1"># Forbidden variants</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span>
-    <span class="p">(</span><span class="s2">"slash"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"backslash"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"cross"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"no_entry"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">),</span>
-<span class="p">]):</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">18</span>
-    <span class="n">forbidden</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+<span class="c1"># 1. Upper semicircle dome arc (0° to 180°)</span>
+<span class="n">arc</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Dome"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"angle_start=0, angle_end=180"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
 
-<span class="c1"># Checkmark variants</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span>
-    <span class="p">(</span><span class="s2">"standard"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)),</span>
-    <span class="p">(</span><span class="s2">"circle"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"solid_circle"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span>
-<span class="p">]):</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="mi">85</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">17.5</span>
-    <span class="n">checkmark</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+<span class="c1"># 2. Dashed elliptical orbit (20° to 325°)</span>
+<span class="n">arc</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">325</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Orbit"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s1">'shape_line_style="dashed"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 3. Concentric wireless signal wave fronts (-45° to 45°)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r_diam</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">34</span><span class="p">):</span>
+    <span class="n">arc</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">r_diam</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">r_diam</span><span class="p">,</span>
+        <span class="n">angle_start</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span>
+        <span class="n">angle_end</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"Concentric Signal Arcs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_basic_images/shapes_basic_status_badges.png" alt="shapes_basic_5" />
-  <figcaption class="drawlib-caption">Forbidden and Checkmark Variants for Security Gates and Verification</figcaption>
-</figure>
-<hr />
-<h2>7. Celestial &amp; Clock Primitives (<code>sun</code>, <code>moon</code>, <code>clock</code>)</h2>
-<p>For light/dark theme toggles, day/night operational schedules, cron jobs, SLA timers, and latency indicators, use <code>sun</code>, <code>moon</code>, and <code>clock</code>:</p>
-<ul>
-<li><strong><code>sun(xy, radius, *, variant=&quot;rays&quot;, num_rays=8, style, text=&quot;&quot;, text_style=None)</code></strong>:
-<ul>
-<li><code>variant</code>: <code>&quot;rays&quot;</code> (or <code>&quot;standard&quot;</code>, core circle + detached triangular rays), <code>&quot;ring&quot;</code> (hollow center ring + rays), <code>&quot;beams&quot;</code> (rectangular beam rays).</li>
-</ul>
-</li>
-<li><strong><code>moon(xy, width, height, *, variant=&quot;crescent&quot;, mirror=False, style, text=&quot;&quot;, text_style=None)</code></strong>:
-<ul>
-<li><code>variant</code>: <code>&quot;crescent&quot;</code> (or <code>&quot;standard&quot;</code>), <code>&quot;thin&quot;</code>, <code>&quot;waxing&quot;</code>, <code>&quot;half&quot;</code>. Set <code>mirror=True</code> to flip horizontally.</li>
-</ul>
-</li>
-<li><strong><code>clock(xy, radius, *, variant=&quot;standard&quot;, hour=10.0, minute=10.0, style, text=&quot;&quot;, text_style=None)</code></strong>:
-<ul>
-<li><code>variant</code>: <code>&quot;standard&quot;</code>, <code>&quot;ticks&quot;</code> (or <code>&quot;dial&quot;</code>, 12-hour tick marks), <code>&quot;alarm&quot;</code> (twin top bells + bottom legs), <code>&quot;stopwatch&quot;</code> (or <code>&quot;timer&quot;</code>, top stem + side button + ticks), or <code>&quot;digital&quot;</code> (font-free 7-segment <code>HH:MM</code> vector display without ghost background segments).</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">clock</span><span class="p">,</span> <span class="n">moon</span><span class="p">,</span> <span class="n">sun</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
-
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
-
-<span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
-
-<span class="c1"># Sun &amp; Moon</span>
-<span class="n">sun</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"rays"</span><span class="p">,</span> <span class="n">num_rays</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">'sun("rays")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
-
-<span class="n">moon</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"crescent"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">'moon("crescent")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
-
-<span class="c1"># Clock variants</span>
-<span class="n">clock</span><span class="p">((</span><span class="mi">56</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"ticks"</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">56</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">'clock("ticks")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
-
-<span class="n">clock</span><span class="p">((</span><span class="mi">78</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"alarm"</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">78</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">'clock("alarm")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
-
-<span class="n">clock</span><span class="p">((</span><span class="mi">99</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"stopwatch"</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">99</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">'"stopwatch"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
-
-<span class="n">clock</span><span class="p">((</span><span class="mi">118</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.8</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"digital"</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">118</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">'"digital"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
-
-<span class="n">save</span><span class="p">()</span>
-</code></pre>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_basic_images/shapes_basic_celestial_and_clock.png" alt="shapes_basic_6" />
-  <figcaption class="drawlib-caption">Sun, Moon, and Analog/Digital Clock Variants</figcaption>
+  <img src="shapes_basic_images/shapes_basic_arc_variations.png" alt="shapes_basic_5" />
+  <figcaption class="drawlib-caption">Circular Semicircle Arc, Dashed Elliptical Orbit, and Rotated Acoustic Wave Fronts</figcaption>
 </figure>
 <blockquote>
 <p>[!TIP]</p>
 <ul>
-<li>To draw curved arc connectors with terminal <strong>arrowheads</strong> (<code>arrow_head=&quot;-&gt;&quot;</code>), use <code>line_arc()</code> or <code>line_curved()</code> in <strong><a href="./lines.html">Lines &amp; Connectors</a></strong>, or 2D block <code>arrow_arc()</code> in <strong><a href="./arrows.html">Block Arrows</a></strong>.</li>
-<li>For multi-sided polygons, gears, math symbols, lightning bolts, explosion bursts, tags, plaques, and custom Bézier paths, see <strong><a href="./shapes_polygons.html">Polygons &amp; Custom Paths</a></strong>.</li>
-<li>For 3D database cylinders, cubes, documents, cloud boundaries, grouping braces, actor faces, shields, ribbons, funnels, pins, hearts, and speech callouts, see <strong><a href="./shapes_domain.html">Cylinders, Cubes, Clouds &amp; Callouts</a></strong>.</li>
+<li>To draw curved arc connectors with <strong>terminal arrowheads</strong> (<code>arrow_head=&quot;-&gt;&quot;</code>), use <code>line_arc()</code> or <code>line_curved()</code> in <strong><a href="./lines.html">Lines &amp; Connectors</a></strong>, or 2D filled block <code>arrow_arc()</code> in <strong><a href="./shapes_arrow.html">Block Arrows &amp; Chevrons</a></strong>.</li>
+<li>For multi-sided polygons (<code>triangle</code>, <code>parallelogram</code>, <code>trapezoid</code>, <code>rhombus</code>, <code>regularpolygon</code>, <code>star</code>, <code>plaque</code>) and custom Bézier paths (<code>polygon</code>, <code>shape</code>), see <strong><a href="./shapes_polygon.html">Polygons &amp; Custom Paths</a></strong>.</li>
 </ul>
 </blockquote>
 

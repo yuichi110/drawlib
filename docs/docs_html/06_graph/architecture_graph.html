@@ -108,19 +108,31 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/shapes_polygons.html" >Polygons & Custom Paths</a>
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/shapes_domain.html" >Cylinders, Cubes, Clouds & Callouts</a>
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -722,7 +734,7 @@ During <code>calc()</code>, <code>ArchitectureGraph</code> inspects each node's 
 </figure>
 <hr />
 <h2>3. Post-Layout Fine-Tuning with <code>calc()</code> and <code>offset()</code></h2>
-<p>When an automatically calculated topology needs a subtle visual adjustment—or when you want to attach custom <a href="../02_drawing_primitives/shapes_basic.html"><code>drawlib.shapes</code></a> badges at exact node coordinates—call <code>layout = g.calc()</code>, apply <code>layout.offset(node_id, dx=..., dy=...)</code>, and then render via <code>layout.draw()</code>:</p>
+<p>When an automatically calculated topology needs a subtle visual adjustment—or when you want to attach custom <a href="../02_drawing_primitives/shapes_overview.html"><code>drawlib.shapes</code></a> badges at exact node coordinates—call <code>layout = g.calc()</code>, apply <code>layout.offset(node_id, dx=..., dy=...)</code>, and then render via <code>layout.draw()</code>:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>

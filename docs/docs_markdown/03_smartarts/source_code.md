@@ -51,7 +51,7 @@ save()
 
 
 
-> **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is documented in **[Cylinders, Cubes, Clouds & Callouts](../02_drawing_primitives/shapes_domain.md)**.
+> **Looking for speech bubbles & callouts?** The `bubblespeech()` primitive is documented in **[Callouts, Badges & Status](../02_drawing_primitives/shapes_badge.md)**.
 
 ---
 

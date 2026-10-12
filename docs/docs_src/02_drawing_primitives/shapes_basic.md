@@ -1,113 +1,142 @@
-# Basic, Radial, Status & Clock Shapes
+# Basic & Radial Shapes
 
-The `drawlib.shapes` module provides declarative geometric primitives with built-in center text labels, corner rounding, hollow ring cutouts (`hole_ratio`), and unified styling. This page covers **basic rectangular cards** (`rectangle`), **radial/circular geometries** (`circle`, `ellipse`, `wedge`, `fan`, `arc`), **status badges** (`forbidden`, `checkmark`), and **celestial/time primitives** (`sun`, `moon`, `clock`).
+The **Basic & Radial** category of `drawlib.shapes` provides the 6 foundational geometric primitives used across nearly every technical diagram: rectangular cards and frames (`rectangle`), circles and rings (`circle`), ellipses (`ellipse`), annular ring slices and pie wedges (`wedge`), circular pie sectors (`fan`), and open elliptical strokes (`arc`).
 
----
-
-## 1. Overview of Basic, Radial, Status & Clock Shapes
-
-```drawlib code=fold align=center file=shapes_basic_overview.png caption="Overview of Basic Rectangular, Radial, Status, and Clock Shapes"
+```drawlib code=fold align=center file=shapes_basic_overview.png caption="Overview of the 6 Basic Rectangular and Radial Primitives in drawlib.shapes"
 from drawlib.canvas import save, setup
-from drawlib.shapes import (
-    arc,
-    checkmark,
-    circle,
-    clock,
-    ellipse,
-    fan,
-    forbidden,
-    moon,
-    rectangle,
-    sun,
-    wedge,
-)
+from drawlib.shapes import arc, circle, ellipse, fan, rectangle, wedge
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=128, height=62)
+setup(width=128, height=58)
 
 lbl_dark = Styles.DarkBold.patch(text_size=10.5)
 lbl_white = Styles.WhiteBold.patch(text_size=10.5)
+cap_st = Styles.DarkBold.patch(text_size=9.5)
 
-# Row 1: Rectangle, Circle, Ellipse, Hollow Ring (hole_ratio), Wedge
+# Row 1: rectangle, circle, ellipse, and hollow ring (hole_ratio)
 rectangle(
-    (16, 44),
-    width=22,
-    height=15,
-    style=Styles.PrimaryFlat.patch(shape_r=2.5),
+    (19, 41),
+    width=26,
+    height=16,
+    style=Styles.PrimaryFlat.patch(shape_r=3.0),
     text="rectangle",
     text_style=lbl_white,
 )
-circle((42, 44), radius=8.5, style=Styles.Neutral, text="circle", text_style=lbl_dark)
-ellipse((68, 44), width=21, height=15, style=Styles.SecondaryNeutral, text="ellipse", text_style=lbl_dark)
+circle((51, 41), radius=9.0, style=Styles.Neutral, text="circle", text_style=lbl_dark)
+ellipse((83, 41), width=25, height=16, style=Styles.SecondaryNeutral, text="ellipse", text_style=lbl_dark)
 circle(
-    (93, 44),
-    radius=8.5,
+    (113, 41),
+    radius=9.0,
     hole_ratio=0.58,
     style=Styles.PrimaryNeutral,
     text="ring",
-    text_style=Styles.DarkBold.patch(text_size=9.5),
-)
-wedge(
-    (115, 44),
-    radius=8.8,
-    width=3.6,
-    angle_start=20,
-    angle_end=240,
-    style=Styles.Neutral,
-    text="wedge",
-    text_style=Styles.DarkBold.patch(text_size=9.5),
+    text_style=cap_st,
 )
 
-# Row 2: Fan, Arc, Forbidden, Checkmark, Sun, Moon, Clock
-fan((12, 13), radius=9.2, angle_start=25, angle_end=155, style=Styles.Neutral, text="fan", text_style=Styles.DarkBold.patch(text_size=9.5, xy_shift=(0, 4.5)))
-arc((31, 18), width=15, height=13, angle_start=20, angle_end=310, style=Styles.DarkBold, text="arc", text_style=Styles.DarkBold.patch(text_size=9.5))
-forbidden((49, 18), radius=6.8, variant="slash", style=Styles.DangerFlat)
-text((49, 6.5), "forbidden", style=Styles.DarkBold.patch(text_size=9.5))
-checkmark((66, 18), width=13.5, variant="circle", style=Styles.SuccessFlat)
-text((66, 6.5), "checkmark", style=Styles.DarkBold.patch(text_size=9.5))
-sun((83, 18), radius=7.4, variant="rays", style=Styles.WarningNeutral)
-text((83, 6.5), "sun", style=Styles.DarkBold.patch(text_size=9.5))
-moon((99, 18), width=12, height=13.5, variant="crescent", style=Styles.SecondaryNeutral)
-text((99, 6.5), "moon", style=Styles.DarkBold.patch(text_size=9.5))
-clock((116, 18), radius=6.8, variant="ticks", hour=10, minute=10, style=Styles.Neutral)
-text((116, 6.5), "clock", style=Styles.DarkBold.patch(text_size=9.5))
+# Row 2: wedge (donut slice), wedge (full sector), fan (FOV pie), arc (open stroke)
+wedge(
+    (22, 16),
+    radius=9.5,
+    width=3.8,
+    angle_start=20,
+    angle_end=250,
+    style=Styles.PrimaryFlat,
+    text="wedge",
+    text_style=cap_st,
+)
+text((22, 3.5), "wedge (width=3.8)", style=cap_st)
+
+wedge(
+    (54, 16),
+    radius=9.5,
+    width=None,
+    angle_start=30,
+    angle_end=310,
+    style=Styles.PrimaryNeutral,
+    text="sector",
+    text_style=cap_st.patch(xy_shift=(-4.0, 0)),
+)
+text((54, 3.5), "wedge (width=None)", style=cap_st)
+
+fan(
+    (84, 10),
+    radius=12.5,
+    angle_start=30,
+    angle_end=150,
+    style=Styles.SecondaryNeutral,
+    text="fan",
+    text_style=Styles.DarkBold.patch(text_size=10.0, xy_shift=(0, 6.0)),
+)
+text((84, 3.5), "fan (30°..150°)", style=cap_st)
+
+arc(
+    (112, 16),
+    width=20,
+    height=15,
+    angle_start=20,
+    angle_end=320,
+    style=Styles.DarkBold.patch(shape_line_style="dashed"),
+    text="arc",
+    text_style=cap_st,
+)
+text((112, 3.5), "arc (open stroke)", style=cap_st)
 
 save()
 ```
 
 ---
 
-## 2. Parameter & Style Signature Reference
+## 1. Quick Comparison of Basic & Radial Shapes
 
-All basic and radial shape functions share a consistent parameter and styling contract:
-
-| Parameter / Style Field | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Anchor coordinate `(x, y)` (geometric center when using preset `Styles.*`). |
-| `width` / `height` | `float` | *Required* | Horizontal and vertical dimensions (`> 0`) for `rectangle`, `ellipse`, `checkmark`, `moon`, and `arc`. |
-| `radius` | `float` | *Required* | Outer radius (`> 0`) for `circle`, `wedge`, `fan`, `forbidden`, `sun`, and `clock`. |
-| `hole_ratio` | `float \| None` | `None` | Optional concentric center cutout ratio in `(0.0, 1.0)` on `rectangle`, `circle`, and `ellipse` (as well as planar/regular polygons). |
-| `style` | `Style` | *Required* | Visual style defining fill (`shape_fill_color`), border (`shape_line_color`, `shape_line_width`, `shape_line_style`), and geometry modifiers. |
-| `style.shape_r` | `float \| tuple[float, ...]` | `None` | Corner rounding radius for `rectangle` and `checkmark` (scalar `float` or 4-tuple `(bl, tl, tr, br)`). |
-| `style.angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees around the shape center. |
-| `style.halign` / `valign` | `str` | `"center"` | Coordinate anchor alignment (`"left"`/`"center"`/`"right"`, `"bottom"`/`"center"`/`"top"`). |
-| `text` | `str` | `""` | Embedded label rendered at the geometric center of the shape. |
-| `text_style` | `Style \| None` | `None` | Typography style override (`text_color`, `text_size`, `text_font`). |
-| `text_style.xy_shift` | `tuple[float, float]` | `(0.0, 0.0)` | Relative `(dx, dy)` offset for the embedded text label (rotates with the shape). |
-| `text_style.angle` | `float \| None` | `None` | Independent text rotation angle in degrees (overrides shape `style.angle`). |
+| Function | Required Geometry Args | Optional Geometry Args | Supports `hole_ratio` | Supports `shape_r` | Typical Diagram Use Cases |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| **`rectangle`** | `xy`, `width`, `height` | `hole_ratio=None` | Yes `(0.0, 1.0)` | Scalar `float` or 4-tuple `(bl, tl, tr, br)` | Service cards, containers, swimlanes, UI panels, tabs, and hollow frames. |
+| **`circle`** | `xy`, `radius` | `hole_ratio=None` | Yes `(0.0, 1.0)` | — | State nodes, endpoints, numbered badges, and hollow annular rings. |
+| **`ellipse`** | `xy`, `width`, `height` | `hole_ratio=None` | Yes `(0.0, 1.0)` | — | Use-case ovals, Venn diagrams, orbital rings, and wide pill nodes. |
+| **`wedge`** | `xy`, `radius` | `width=None`, `angle_start=0`, `angle_end=360` | Via `width` | — | Gauge meters, donut slices (`width` set), or circular sectors (`width=None`). |
+| **`fan`** | `xy`, `radius` | `angle_start=0`, `angle_end=180` | — | — | Camera/radar field-of-view (FOV) cones, wireless coverage sectors, pie wedges. |
+| **`arc`** | `xy`, `width`, `height` | `angle_start=0.0`, `angle_end=360.0` | — (Unfilled) | — | Open circular/elliptical trajectory strokes, partial borders, and wave fronts. |
 
 ---
 
-## 3. Rectangles, Rounded Corners & Hollow Frames (`rectangle`)
+## 2. Rectangles, Per-Corner Rounding & Hollow Frames (`rectangle`)
 
-`rectangle(xy, width, height, *, hole_ratio=None, style, text="", text_style=None)` draws a rectangular card or hollow frame centered at `xy`.
+`rectangle` draws a sharp, rounded, or hollow rectangular card centered at `xy` (when using preset `Styles.*`):
 
-- **Uniform Rounded Corners**: Patch `shape_r` with a scalar float (e.g. `Styles.Neutral.patch(shape_r=4)`).
-- **Per-Corner Rounding**: Pass a 4-tuple `(bottom_left, top_left, top_right, bottom_right)` to round specific corners (ideal for tabs, headers, and split cards).
-- **Hollow Rectangular Frame (`hole_ratio`)**: Pass `hole_ratio=0.6` (`0 < hole_ratio < 1`) to cut out a proportional inner hole (preserving `shape_r` rounding on both outer and inner contours).
+```python
+rectangle(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    hole_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None
+```
 
-```drawlib code=show align=center file=shapes_basic_rectangle.png caption="Sharp, Uniform Rounded, Per-Corner Rounded, and Hollow Frame Rectangles"
+### Parameter & Style Reference
+
+| Parameter / Style Field | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Anchor coordinate `(x, y)` (center by default; customizable via `style.halign` / `style.valign`). |
+| `width` | `float` | *Required* | Horizontal width in canvas units (`> 0`). |
+| `height` | `float` | *Required* | Vertical height in canvas units (`> 0`). |
+| `hole_ratio` | `float \| None` | `None` | Optional concentric rectangular cutout ratio in `(0.0, 1.0)`. Creates a hollow rectangular frame of wall thickness `(1 - hole_ratio) / 2` along both axes. |
+| `style.shape_r` | `float \| tuple[float, float, float, float] \| None` | `None` | Corner fillet radius. Pass a scalar `float` to round all 4 corners equally, or a 4-tuple `(bottom_left, top_left, top_right, bottom_right)` to round specific corners selectively. Automatically clamped to `min(width, height) / 2`. |
+| `style.angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees around the rectangle's center. |
+| `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Embedded text label centered inside the rectangle and optional typography override. |
+
+### Corner Rounding & Hollow Frame Rules
+- **4-Tuple Corner Order (`(bl, tl, tr, br)`)**: When passing a 4-tuple to `style.patch(shape_r=...)`, the four radii correspond to `(bottom_left, top_left, top_right, bottom_right)`:
+  - **Top Header Tab**: `shape_r=(0, 4, 4, 0)` rounds only the top-left and top-right corners.
+  - **Bottom Footer Bar**: `shape_r=(4, 0, 0, 4)` rounds only the bottom-left and bottom-right corners.
+  - **Left Sidebar Tab**: `shape_r=(4, 4, 0, 0)` rounds only the left corners.
+- **Hollow Frame + `shape_r`**: When both `hole_ratio` and `style.shape_r` are set, the inner cutout rectangle automatically scales its corner radii by `hole_ratio` so the frame maintains smooth concentric curvature.
+
+```drawlib code=show align=center file=shapes_basic_rectangle.png caption="Sharp, Uniform Rounded, Per-Corner Rounded Tabs, and Hollow Frame Rectangles"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -160,12 +189,44 @@ save()
 
 ---
 
-## 4. Circles, Ellipses & Hollow Rings (`circle`, `ellipse`, `hole_ratio`)
+## 3. Circles, Ellipses & Hollow Rings (`circle`, `ellipse`)
 
-- **`circle(xy, radius, *, hole_ratio=None, style, text="", text_style=None)`**: Standard circle centered at `xy` with diameter `2 * radius`. Setting `hole_ratio` in `(0.0, 1.0)` creates a hollow annular ring with inner radius `radius * hole_ratio`.
-- **`ellipse(xy, width, height, *, hole_ratio=None, style, text="", text_style=None)`**: Oval bounded by horizontal `width` and vertical `height` (supports rotation via `style.patch(angle=...)` and elliptical ring cutouts via `hole_ratio`).
+`circle` and `ellipse` draw smooth circular and oval primitives, with native support for concentric ring cutouts via `hole_ratio`:
 
-```drawlib code=show align=center file=shapes_basic_circle_ellipse_donuts.png caption="Circle, Ellipse, and Hollow Rings via hole_ratio"
+```python
+circle(
+    xy: tuple[float, float],
+    radius: float,
+    *,
+    hole_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None
+
+ellipse(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    hole_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None
+```
+
+| Function | Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **`circle`** | `xy` | `tuple[float, float]` | *Required* | Exact center coordinate `(cx, cy)` of the circle (`circle` is always center-anchored). |
+| | `radius` | `float` | *Required* | Outer radius of the circle (`> 0`, total diameter = `2 * radius`). |
+| | `hole_ratio` | `float \| None` | `None` | Concentric inner hole ratio in `(0.0, 1.0)`. Inner radius = `radius * hole_ratio`. |
+| **`ellipse`** | `xy` | `tuple[float, float]` | *Required* | Anchor coordinate `(x, y)` (center by default; supports `style.halign` / `style.valign`). |
+| | `width` / `height` | `float` | *Required* | Full horizontal diameter (`width > 0`) and vertical diameter (`height > 0`). |
+| | `hole_ratio` | `float \| None` | `None` | Concentric elliptical cutout ratio in `(0.0, 1.0)` with inner axes `(width * hole_ratio, height * hole_ratio)`. |
+| | `style.angle` | `float` | `0.0` | Counterclockwise rotation angle of the ellipse axes in degrees. |
+
+```drawlib code=show align=center file=shapes_basic_circle_ellipse_donuts.png caption="Circle, Ellipse, Rotated Ellipse, and Hollow Rings via hole_ratio"
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, ellipse
 from drawlib.styles import Styles
@@ -217,25 +278,59 @@ save()
 
 ---
 
-## 5. Angular Sectors, Wedges & Arcs (`wedge`, `fan`, `arc`)
+## 4. Angular Sectors, Donut Slices & Pie Fans (`wedge`, `fan`)
 
-All angular primitives measure `angle_start` and `angle_end` in **degrees counterclockwise (CCW)** from the positive X-axis ($0^\circ$ = right, $90^\circ$ = top, $180^\circ$ = left, $270^\circ$ = bottom):
+`wedge` and `fan` draw circular angular sectors swept counterclockwise from `angle_start` to `angle_end` (in degrees, where $0^\circ$ points right along $+X$, $90^\circ$ points up along $+Y$, $180^\circ$ points left along $-X$, and $270^\circ$ points down along $-Y$):
 
-- **`wedge(xy, radius, *, style, width=None, angle_start=0, angle_end=360, text="", text_style=None)`**: Draws an angular ring slice when `width` (wall thickness) is specified, or a solid pie sector when `width=None`.
-- **`fan(xy, radius, *, style, angle_start=0, angle_end=180, text="", text_style=None)`**: Draws a filled pie sector connecting the center apex `xy` to the outer circular arc from `angle_start` to `angle_end`.
-- **`arc(xy, width, height, *, style, angle_start=0.0, angle_end=360.0, text="", text_style=None)`**: Draws an open, unfilled elliptical stroke along the perimeter between `angle_start` to `angle_end`.
+```python
+wedge(
+    xy: tuple[float, float],
+    radius: float,
+    *,
+    style: Style,
+    width: float | None = None,
+    angle_start: float = 0,
+    angle_end: float = 360,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None
 
-```drawlib code=show align=center file=shapes_basic_sectors_and_arcs.png caption="Angular Ring Wedge, Pie Fan, and Elliptical Arc"
+fan(
+    xy: tuple[float, float],
+    radius: float,
+    *,
+    style: Style,
+    angle_start: float = 0,
+    angle_end: float = 180,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None
+```
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(cx, cy)` of the underlying circle (apex of the sector). |
+| `radius` | `float` | *Required* | Outer radius of the circular arc (`> 0`). |
+| `width` *(on `wedge`)* | `float \| None` | `None` | Radial wall thickness of the annular ring slice (`0 < width <= radius`), so the inner arc radius is `radius - width`. When `None`, `wedge` draws a solid pie sector all the way to `xy`. |
+| `angle_start` | `float` | `0` | Starting angle in degrees counterclockwise from $+X$. |
+| `angle_end` | `float` | `360` (`wedge`) / `180` (`fan`) | Ending angle in degrees counterclockwise from $+X$. |
+| `style.angle` | `float` | `0.0` | Additional rotation offset in degrees added to both `angle_start` and `angle_end`. |
+| `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Label anchored at `xy` by default. For narrow `fan` cones, use `text_style.patch(xy_shift=(dx, dy))` to place the label inside the sector body. |
+
+```drawlib code=show align=center file=shapes_basic_sectors_and_arcs.png caption="Angular Donut Wedge (width=5), Pac-Man Sector (width=None), and Radar FOV Fan"
 from drawlib.canvas import save, setup
-from drawlib.shapes import arc, fan, wedge
+from drawlib.shapes import fan, wedge
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=120, height=42)
+setup(width=124, height=44)
+
+lbl = Styles.DarkBold.patch(text_size=9.5)
 
 # 1. Angular donut slice (wedge with wall thickness width=5)
 wedge(
-    (23, 21),
-    radius=14,
+    (22, 24),
+    radius=13,
     width=5,
     angle_start=0,
     angle_end=240,
@@ -243,127 +338,117 @@ wedge(
     text="67%",
     text_style=Styles.PrimaryBold.patch(text_size=11.0),
 )
+text((22, 6), "wedge(width=5, 0°..240°)", style=lbl)
 
-# 2. Circular pie sector (fan from 30° to 150°)
+# 2. Solid circular sector (wedge with width=None)
+wedge(
+    (62, 24),
+    radius=13,
+    width=None,
+    angle_start=35,
+    angle_end=325,
+    style=Styles.PrimaryNeutral,
+    text="Sector",
+    text_style=Styles.DarkBold.patch(text_size=10.5, xy_shift=(-5.0, 0)),
+)
+text((62, 6), "wedge(width=None, 35°..325°)", style=lbl)
+
+# 3. Circular pie sector (fan from 30° to 150°)
 fan(
-    (61, 13),
+    (102, 14),
     radius=18,
     angle_start=30,
     angle_end=150,
-    style=Styles.Neutral,
+    style=Styles.SecondaryNeutral,
     text="FOV 120°",
-    text_style=Styles.DarkBold.patch(text_size=11.0, xy_shift=(0, 8)),
+    text_style=Styles.DarkBold.patch(text_size=10.5, xy_shift=(0, 8.5)),
 )
+text((102, 6), "fan(30°..150°)", style=lbl)
 
-# 3. Open elliptical stroke (arc from 20° to 320°)
+save()
+```
+
+---
+
+## 5. Open Elliptical & Circular Arcs (`arc`)
+
+`arc` draws an **open, unfilled vector stroke** along the perimeter of an ellipse or circle between `angle_start` and `angle_end`:
+
+```python
 arc(
-    (99, 21),
-    width=28,
-    height=22,
-    angle_start=20,
-    angle_end=320,
-    style=Styles.DarkBold.patch(shape_line_style="dashed"),
-    text="Orbit",
-    text_style=Styles.DarkBold.patch(text_size=11.0),
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    style: Style,
+    angle_start: float = 0.0,
+    angle_end: float = 360.0,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None
+```
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the underlying ellipse (supports `style.halign` / `style.valign`). |
+| `width` | `float` | *Required* | Full horizontal diameter of the ellipse (`> 0`). Set `width == height` for a circular arc. |
+| `height` | `float` | *Required* | Full vertical diameter of the ellipse (`> 0`). |
+| `angle_start` / `angle_end` | `float` | `0.0` / `360.0` | Counterclockwise start and end angles in degrees. |
+| `style` | `Style` | *Required* | Stroke appearance is controlled by `shape_line_color` (or `line_color`), `shape_line_width` (or `line_width`), `shape_line_style` (`"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`), and `angle` (rotates the entire ellipse frame). |
+| `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Optional text label centered at `xy`. |
+
+```drawlib code=show align=center file=shapes_basic_arc_variations.png caption="Circular Semicircle Arc, Dashed Elliptical Orbit, and Rotated Acoustic Wave Fronts"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arc, circle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=124, height=44)
+
+lbl = Styles.DarkBold.patch(text_size=9.5)
+
+# 1. Upper semicircle dome arc (0° to 180°)
+arc(
+    (22, 18),
+    width=26,
+    height=26,
+    angle_start=0,
+    angle_end=180,
+    style=Styles.PrimaryBold.patch(shape_line_width=2.8),
+    text="Dome",
+    text_style=Styles.DarkBold.patch(text_size=10.5, xy_shift=(0, 5)),
 )
+text((22, 6), "angle_start=0, angle_end=180", style=lbl)
 
-save()
-```
+# 2. Dashed elliptical orbit (20° to 325°)
+arc(
+    (64, 24),
+    width=30,
+    height=18,
+    angle_start=20,
+    angle_end=325,
+    style=Styles.DarkBold.patch(shape_line_style="dashed", shape_line_width=2.2),
+    text="Orbit",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+text((64, 6), 'shape_line_style="dashed"', style=lbl)
 
----
-
-## 6. Status & Access Control Badges (`forbidden`, `checkmark`)
-
-For firewall rules, access control matrices, CI/CD verification gates, and audit checklists, `forbidden` and `checkmark` render crisp compound-path vector status symbols:
-
-- **`forbidden(xy, radius, *, variant="slash", thickness_ratio=None, style, text="", text_style=None)`**:
-  - `variant`: `"slash"` (or `"standard"`), `"backslash"`, `"cross"`, `"no_entry"` (or `"minus"`).
-  - `thickness_ratio`: Ring and bar thickness ratio in `(0.0, 0.5)` relative to `radius` (default `0.22`).
-- **`checkmark(xy, width, height=None, *, variant="standard", thickness_ratio=None, style, text="", text_style=None)`**:
-  - `variant`: `"standard"` (or `"check"` standalone L-tick), `"circle"` (circular ring + checkmark), `"solid_circle"` (solid circular badge with transparent checkmark cutout).
-  - `thickness_ratio`: Stroke thickness ratio in `(0.0, 0.5)` relative to `min(width, height)` (default `0.24`).
-
-```drawlib code=show align=center file=shapes_basic_status_badges.png caption="Forbidden and Checkmark Variants for Security Gates and Verification"
-from drawlib.canvas import save, setup
-from drawlib.shapes import checkmark, forbidden
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=128, height=44)
-
-lbl = Styles.DarkBold.patch(text_size=9.5)
-
-# Forbidden variants
-for i, (var, st) in enumerate([
-    ("slash", Styles.DangerFlat),
-    ("backslash", Styles.DangerNeutral),
-    ("cross", Styles.DangerFlat),
-    ("no_entry", Styles.WarningFlat),
-]):
-    cx = 13 + i * 18
-    forbidden((cx, 26), radius=7.5, variant=var, style=st)
-    text((cx, 10), f'"{var}"', style=lbl)
-
-# Checkmark variants
-for i, (var, st) in enumerate([
-    ("standard", Styles.SuccessFlat.patch(shape_r=0.5)),
-    ("circle", Styles.SuccessFlat),
-    ("solid_circle", Styles.PrimaryFlat),
-]):
-    cx = 85 + i * 17.5
-    checkmark((cx, 26), width=14.5, variant=var, style=st)
-    text((cx, 10), f'"{var}"', style=lbl)
-
-save()
-```
-
----
-
-## 7. Celestial & Clock Primitives (`sun`, `moon`, `clock`)
-
-For light/dark theme toggles, day/night operational schedules, cron jobs, SLA timers, and latency indicators, use `sun`, `moon`, and `clock`:
-
-- **`sun(xy, radius, *, variant="rays", num_rays=8, style, text="", text_style=None)`**:
-  - `variant`: `"rays"` (or `"standard"`, core circle + detached triangular rays), `"ring"` (hollow center ring + rays), `"beams"` (rectangular beam rays).
-- **`moon(xy, width, height, *, variant="crescent", mirror=False, style, text="", text_style=None)`**:
-  - `variant`: `"crescent"` (or `"standard"`), `"thin"`, `"waxing"`, `"half"`. Set `mirror=True` to flip horizontally.
-- **`clock(xy, radius, *, variant="standard", hour=10.0, minute=10.0, style, text="", text_style=None)`**:
-  - `variant`: `"standard"`, `"ticks"` (or `"dial"`, 12-hour tick marks), `"alarm"` (twin top bells + bottom legs), `"stopwatch"` (or `"timer"`, top stem + side button + ticks), or `"digital"` (font-free 7-segment `HH:MM` vector display without ghost background segments).
-
-```drawlib code=show align=center file=shapes_basic_celestial_and_clock.png caption="Sun, Moon, and Analog/Digital Clock Variants"
-from drawlib.canvas import save, setup
-from drawlib.shapes import clock, moon, sun
-from drawlib.styles import Styles
-from drawlib.text import text
-
-setup(width=128, height=46)
-
-lbl = Styles.DarkBold.patch(text_size=9.5)
-
-# Sun & Moon
-sun((14, 27), radius=9.0, variant="rays", num_rays=8, style=Styles.WarningFlat)
-text((14, 10), 'sun("rays")', style=lbl)
-
-moon((35, 27), width=15, height=17, variant="crescent", style=Styles.SecondaryNeutral)
-text((35, 10), 'moon("crescent")', style=lbl)
-
-# Clock variants
-clock((56, 27), radius=8.5, variant="ticks", hour=10, minute=10, style=Styles.Neutral)
-text((56, 10), 'clock("ticks")', style=lbl)
-
-clock((78, 27), radius=8.0, variant="alarm", hour=7, minute=0, style=Styles.DangerNeutral)
-text((78, 10), 'clock("alarm")', style=lbl)
-
-clock((99, 27), radius=8.0, variant="stopwatch", hour=0, minute=15, style=Styles.PrimaryNeutral)
-text((99, 10), '"stopwatch"', style=lbl)
-
-clock((118, 27), radius=7.8, variant="digital", hour=12, minute=34, style=Styles.PrimaryFlat)
-text((118, 10), '"digital"', style=lbl)
+# 3. Concentric wireless signal wave fronts (-45° to 45°)
+circle((94, 24), radius=2.2, style=Styles.PrimaryFlat)
+for r_diam in (14, 24, 34):
+    arc(
+        (94, 24),
+        width=r_diam,
+        height=r_diam,
+        angle_start=-45,
+        angle_end=45,
+        style=Styles.PrimaryBold.patch(shape_line_width=2.2),
+    )
+text((102, 6), "Concentric Signal Arcs", style=lbl)
 
 save()
 ```
 
 > [!TIP]
-> - To draw curved arc connectors with terminal **arrowheads** (`arrow_head="->"`), use `line_arc()` or `line_curved()` in **[Lines & Connectors](./lines.md)**, or 2D block `arrow_arc()` in **[Block Arrows](./arrows.md)**.
-> - For multi-sided polygons, gears, math symbols, lightning bolts, explosion bursts, tags, plaques, and custom Bézier paths, see **[Polygons & Custom Paths](./shapes_polygons.md)**.
-> - For 3D database cylinders, cubes, documents, cloud boundaries, grouping braces, actor faces, shields, ribbons, funnels, pins, hearts, and speech callouts, see **[Cylinders, Cubes, Clouds & Callouts](./shapes_domain.md)**.
+> - To draw curved arc connectors with **terminal arrowheads** (`arrow_head="->"`), use `line_arc()` or `line_curved()` in **[Lines & Connectors](./lines.md)**, or 2D filled block `arrow_arc()` in **[Block Arrows & Chevrons](./shapes_arrow.md)**.
+> - For multi-sided polygons (`triangle`, `parallelogram`, `trapezoid`, `rhombus`, `regularpolygon`, `star`, `plaque`) and custom Bézier paths (`polygon`, `shape`), see **[Polygons & Custom Paths](./shapes_polygon.md)**.
