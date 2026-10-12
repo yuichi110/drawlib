@@ -46,10 +46,10 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(37.783246 66.435657)">Tactic A:</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(35.732777 66.254173)">Tactic A:</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(24.281527 77.935657)">Origin Clamp</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(21.056996 78.754173)">Origin Clamp</text>
     </g>
    </g>
    <g id="patch_4">
@@ -70,10 +70,10 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(37.553246 187.117475)">Tactic B:</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(35.482777 186.935991)">Tactic B:</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(33.913675 198.617475)">Edge WAF</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(31.526722 199.435991)">Edge WAF</text>
     </g>
    </g>
    <g id="patch_6">
@@ -124,15 +124,15 @@ L 451.477642 159.454545
    </g>
    <g id="text_3">
     <g id="patch_11">
-     <path d="M 383.59408 163.120455 
-L 410.042283 163.120455 
-L 410.042283 144.720455 
-L 383.59408 144.720455 
+     <path d="M 382.444158 163.920455 
+L 411.192205 163.920455 
+L 411.192205 143.920455 
+L 382.444158 143.920455 
 z
 " clip-path="url(#p3b2b8627c4)" style="fill: #ffffff; fill-opacity: 0.9"/>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="396.818182" y="158.290455" transform="rotate(-0 396.818182 158.290455)">Bot</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="396.818182" y="158.670455" transform="rotate(-0 396.818182 158.670455)">Bot</text>
     </g>
    </g>
    <g id="patch_12">
@@ -146,15 +146,15 @@ L 584.432188 206.5
    </g>
    <g id="text_4">
     <g id="patch_13">
-     <path d="M 472.952955 211.7 
-L 521.137955 211.7 
-L 521.137955 193.3 
-L 472.952955 193.3 
+     <path d="M 470.857955 212.5 
+L 523.232955 212.5 
+L 523.232955 192.5 
+L 470.857955 192.5 
 z
 " clip-path="url(#p3b2b8627c4)" style="fill: #ffffff; fill-opacity: 0.9"/>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="497.045455" y="206.87" transform="rotate(-0 497.045455 206.87)">Human</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="497.045455" y="207.25" transform="rotate(-0 497.045455 207.25)">Human</text>
     </g>
    </g>
    <g id="patch_14">
@@ -172,10 +172,10 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(156.934737 66.12)">Bot Flood</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(154.573331 66)">Bot Flood</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(150.017667 77.62)">+ Real Users</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(147.054776 78.5)">+ Real Users</text>
     </g>
    </g>
    <g id="patch_15">
@@ -188,10 +188,10 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(288.630103 64.94125)">Cloud Run Ingress</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(284.202681 64.71875)">Cloud Run Ingress</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(285.048033 77.855391)">(max-instances = 1)</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(280.309126 78.755859)">(max-instances = 1)</text>
     </g>
    </g>
    <g id="patch_16">
@@ -204,10 +204,10 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(451.845998 65.10207)">App-Level IP Limit</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(447.382013 64.893555)">App-Level IP Limit</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(444.315295 77.69457)">(Shares 1 vCPU Pool)</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(439.196467 78.581055)">(Shares 1 vCPU Pool)</text>
     </g>
    </g>
    <g id="patch_17">
@@ -225,10 +225,10 @@ z
    </g>
    <g id="text_8">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(603.447109 64.947539)">Queue Exhausted</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(599.181641 64.725586)">Queue Exhausted</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(618.449219 77.37832)">504 Outage!</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(615.488281 78.237305)">504 Outage!</text>
     </g>
    </g>
    <g id="patch_18">
@@ -246,10 +246,10 @@ z
    </g>
    <g id="text_9">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(156.934737 201.12)">Bot Flood</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(154.573331 201)">Bot Flood</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(150.017667 212.62)">+ Real Users</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(147.054776 213.5)">+ Real Users</text>
     </g>
    </g>
    <g id="patch_19">
@@ -262,10 +262,10 @@ z
    </g>
    <g id="text_10">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(302.286353 200.41293)">Anycast Edge</text>
+     <text style="font-size: 12.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(300.018408 200.285891)">Anycast Edge</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(308.633814 213.32707)">WAF Check</text>
+     <text style="font-size: 12.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(306.752236 213.986109)">WAF Check</text>
     </g>
    </g>
    <g id="patch_20">
@@ -283,10 +283,10 @@ z
    </g>
    <g id="text_11">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #f57c00" transform="translate(479.077134 152.660405)">403 Edge Drop</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #f57c00" transform="translate(475.55815 152.417436)">403 Edge Drop</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #f57c00" transform="translate(479.738384 165.574545)">(0 Origin CPU)</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #f57c00" transform="translate(476.2769 166.454545)">(0 Origin CPU)</text>
     </g>
    </g>
    <g id="patch_21">
@@ -304,10 +304,10 @@ z
    </g>
    <g id="text_12">
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4285f4" transform="translate(614.957891 200.57375)">200 OK Audio</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4285f4" transform="translate(611.693359 200.40625)">200 OK Audio</text>
     </g>
     <g clip-path="url(#p3b2b8627c4)">
-     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4285f4" transform="translate(610.2375 212.07375)">(100% Uptime)</text>
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4285f4" transform="translate(606.5625 212.90625)">(100% Uptime)</text>
     </g>
    </g>
   </g>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="563.478261pt" viewBox="0 0 720 563.478261" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 563.478261 
+L 720 563.478261 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 550.956522 
+L 28.173913 550.956522 
+Q 12.521739 550.956522 12.521739 535.304348 
+L 12.521739 28.173913 
+Q 12.521739 12.521739 28.173913 12.521739 
+L 691.826087 12.521739 
+Q 707.478261 12.521739 707.478261 28.173913 
+L 707.478261 535.304348 
+Q 707.478261 550.956522 691.826087 550.956522 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 37.565217 72 
+L 682.434783 72 
+" clip-path="url(#p8e8124eca7)" style="fill: none; stroke: #4285f4; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 15.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="47.41462" transform="rotate(-0 360 47.41462)">Forensic Evidence: Manual Script vs. AI-Assisted Botnet</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 360 224.347826 
+L 51.33913 224.347826 
+Q 37.565217 224.347826 37.565217 210.573913 
+L 37.565217 107.686957 
+Q 37.565217 93.913043 51.33913 93.913043 
+L 668.66087 93.913043 
+Q 682.434783 93.913043 682.434783 107.686957 
+L 682.434783 210.573913 
+Q 682.434783 224.347826 668.66087 224.347826 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #e8f0fe; stroke: #669df6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 83.269565 184.8 
+L 69.921391 184.8 
+Q 57.6 184.8 57.6 172.478609 
+L 57.6 145.782261 
+Q 57.6 133.46087 69.921391 133.46087 
+L 96.617739 133.46087 
+Q 108.93913 133.46087 108.93913 145.782261 
+L 108.93913 172.478609 
+Q 108.93913 184.8 96.617739 184.8 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 24px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="83.269565" y="162.442957" transform="rotate(-0 83.269565 162.442957)"></text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="83.269565" y="176.848609" transform="rotate(-0 83.269565 176.848609)">01</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start" x="129.574957" y="133.589654" transform="rotate(-0 129.574957 133.589654)">1. Client JS Signature Reverse-Engineering</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(129.574957 175.078804)">Manual: Days of DevTools debugging</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(129.574957 189.203804)">Observed AI Bot: Parsed AST &amp; cloned HMAC in &lt; 3h</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 360 376.695652 
+L 51.33913 376.695652 
+Q 37.565217 376.695652 37.565217 362.921739 
+L 37.565217 260.034783 
+Q 37.565217 246.26087 51.33913 246.26087 
+L 668.66087 246.26087 
+Q 682.434783 246.26087 682.434783 260.034783 
+L 682.434783 362.921739 
+Q 682.434783 376.695652 668.66087 376.695652 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #d9d2e9; stroke: #8e7cc3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 83.269565 337.147826 
+L 69.921391 337.147826 
+Q 57.6 337.147826 57.6 324.826435 
+L 57.6 298.130087 
+Q 57.6 285.808696 69.921391 285.808696 
+L 96.617739 285.808696 
+Q 108.93913 285.808696 108.93913 298.130087 
+L 108.93913 324.826435 
+Q 108.93913 337.147826 96.617739 337.147826 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 24px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="83.269565" y="314.790783" transform="rotate(-0 83.269565 314.790783)"></text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="83.269565" y="329.196435" transform="rotate(-0 83.269565 329.196435)">02</text>
+    </g>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start" x="129.574957" y="286.133261" transform="rotate(-0 129.574957 286.133261)">2. WAF Rule &amp; Rate-Limit Inference (Step 3 -&gt; 4)</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(129.574957 327.08288)">Manual: Static flood until blocked (429)</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(129.574957 340.532099)">Observed AI Bot: A/B probe -&gt; tuned 5k IPs to 6-8 req/10s</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 360 529.043478 
+L 51.33913 529.043478 
+Q 37.565217 529.043478 37.565217 515.269565 
+L 37.565217 412.382609 
+Q 37.565217 398.608696 51.33913 398.608696 
+L 668.66087 398.608696 
+Q 682.434783 398.608696 682.434783 412.382609 
+L 682.434783 515.269565 
+Q 682.434783 529.043478 668.66087 529.043478 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #ffffff; stroke: #434343; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 83.269565 489.495652 
+L 69.921391 489.495652 
+Q 57.6 489.495652 57.6 477.174261 
+L 57.6 450.477913 
+Q 57.6 438.156522 69.921391 438.156522 
+L 96.617739 438.156522 
+Q 108.93913 438.156522 108.93913 450.477913 
+L 108.93913 477.174261 
+Q 108.93913 489.495652 96.617739 489.495652 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #434343"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 24px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="83.269565" y="467.138609" transform="rotate(-0 83.269565 467.138609)"></text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="83.269565" y="481.544261" transform="rotate(-0 83.269565 481.544261)">03</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start" x="129.574957" y="438.285306" transform="rotate(-0 129.574957 438.285306)">3. Strategic Motivation on a $10/mo Hobby Site</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(129.574957 480.586957)">Manual: Demands ransom or steals user PII</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(129.574957 493.086957)">Observed AI Bot: Zero data theft — live WAF evasion benchmark</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8e8124eca7">
+   <rect x="0" y="0" width="720" height="563.478261"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-phosphor-regular","rel_path":"_assets/fonts/phosphor/regular.ttf","src":"builtin:fonticons/phosphor/regular.ttf","format":"truetype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

@@ -17,30 +17,36 @@
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.diagrams.sequence import GcpIcon, Participant, PhosphorIcon, SequenceDiagram
-from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
-from drawlib.text import text
+from drawlib.smartarts import Panel
+from drawlib.styles import Styles
 
 setup(width=115, height=90)
 
-rectangle((57.5, 45.0), width=111, height=86, style=Styles.Neutral.patch(shape_r=2.5))
-text((57.5, 83.0), "Asymmetric SHA-256 Proof-of-Work Protocol", style=Styles.BlackBold.patch(text_size=14.5))
+panel = Panel(
+    "Asymmetric SHA-256 Proof-of-Work Protocol",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=15.5),
+    header_variant="underline",
+    header_height=9.0,
+    header_align="center",
+)
+panel.draw(xy=(2.0, 2.0), width=111.0, height=86.0)
 
 d = SequenceDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold.patch(text_size=12.0),
+    node_text_style=Styles.DarkBold.patch(text_size=13.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.DarkBold.patch(text_size=11.5),
-    node_card_style=Styles.White,
+    edge_text_style=Styles.DarkBold.patch(text_size=12.5),
     autonumber=True,
     col_width=34.0,
     step_y=5.8,
     margin=2.0,
 )
 
-browser = d.add(Participant("Client Browser\n(UI Thread)", width=25, height=16, icon=PhosphorIcon.BROWSER, icon_size=6.0, card_style=Styles.PrimaryNeutral))
-worker = d.add(Participant("Web Worker\n(SHA-256 Solver)", width=25, height=16, icon=PhosphorIcon.CPU, icon_size=6.0, card_style=Styles.SecondaryNeutral))
-server = d.add(Participant("Cloud Run API\n(O(1) Verifier)", width=25, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=6.0, card_style=Styles.White))
+browser = d.add(Participant("Client Browser\n(UI Thread)", width=26, height=16, icon=PhosphorIcon.BROWSER, icon_size=7.0))
+worker = d.add(Participant("Web Worker\n(SHA-256 Solver)", width=26, height=16, icon=PhosphorIcon.CPU, icon_size=7.0, style=Styles.Secondary))
+server = d.add(Participant("Cloud Run API\n(O(1) Verifier)", width=26, height=16, icon=GcpIcon.CLOUD_RUN, icon_size=7.5))
 
 browser.request(server, "GET /challenge")
 server.reply(browser, "Signed Seed (16 Zero Bits)")

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="563.478261pt" viewBox="0 0 720 563.478261" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 563.478261 
+L 720 563.478261 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 550.956522 
+L 28.173913 550.956522 
+Q 12.521739 550.956522 12.521739 535.304348 
+L 12.521739 28.173913 
+Q 12.521739 12.521739 28.173913 12.521739 
+L 691.826087 12.521739 
+Q 707.478261 12.521739 707.478261 28.173913 
+L 707.478261 535.304348 
+Q 707.478261 550.956522 691.826087 550.956522 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 37.565217 68.869565 
+L 682.434783 68.869565 
+" clip-path="url(#p8e8124eca7)" style="fill: none; stroke: #4285f4; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 14.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="45.516902" transform="rotate(-0 360 45.516902)">Per-IP Rate per 10s Window (5,000 IPs x 8 req/10s = 4,000 RPS Leak)</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #434343" x="108.313043" y="402.505217" transform="rotate(-0 108.313043 402.505217)">0</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 115.826087 326.347826 
+L 638.608696 326.347826 
+" clip-path="url(#p8e8124eca7)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b7b7b7; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #434343" x="108.313043" y="331.287826" transform="rotate(-0 108.313043 331.287826)">5</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 115.826087 255.130435 
+L 638.608696 255.130435 
+" clip-path="url(#p8e8124eca7)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b7b7b7; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #434343" x="108.313043" y="260.070435" transform="rotate(-0 108.313043 260.070435)">10</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 115.826087 183.913043 
+L 638.608696 183.913043 
+" clip-path="url(#p8e8124eca7)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b7b7b7; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #434343" x="108.313043" y="188.853043" transform="rotate(-0 108.313043 188.853043)">15</text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #434343" x="108.313043" y="117.635652" transform="rotate(-0 108.313043 117.635652)">20</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 115.826087 397.565217 
+L 638.608696 397.565217 
+" clip-path="url(#p8e8124eca7)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(137.425363 420.274783)">Naive Bot</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(137.522863 433.274783)">(Blocked)</text>
+    </g>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(252.466182 420.274783)">Bot #1</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(244.862198 433.274783)">(Leaked)</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(357.022704 420.274783)">Bot #2</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(349.418719 433.274783)">(Leaked)</text>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(447.961726 420.274783)">Bot #5,000</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(453.975241 434.497595)">(Leaked)</text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(556.287232 420.274783)">IP Ceiling</text>
+    </g>
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #434343" transform="translate(557.392232 434.873376)">(10 / 10s)</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 168.104348 397.565217 
+L 143.010783 397.565217 
+L 143.010783 147.443478 
+Q 143.010783 141.182609 149.271652 141.182609 
+L 186.937043 141.182609 
+Q 193.197913 141.182609 193.197913 147.443478 
+L 193.197913 397.565217 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="168.104348" y="134.553913" transform="rotate(-0 168.104348 134.553913)">18</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 272.66087 397.565217 
+L 247.567304 397.565217 
+L 247.567304 289.878261 
+Q 247.567304 283.617391 253.828174 283.617391 
+L 291.493565 283.617391 
+Q 297.754435 283.617391 297.754435 289.878261 
+L 297.754435 397.565217 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="272.66087" y="276.988696" transform="rotate(-0 272.66087 276.988696)">8</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 377.217391 397.565217 
+L 352.123826 397.565217 
+L 352.123826 304.121739 
+Q 352.123826 297.86087 358.384696 297.86087 
+L 396.050087 297.86087 
+Q 402.310957 297.86087 402.310957 304.121739 
+L 402.310957 397.565217 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="377.217391" y="291.232174" transform="rotate(-0 377.217391 291.232174)">7</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 481.773913 397.565217 
+L 456.680348 397.565217 
+L 456.680348 289.878261 
+Q 456.680348 283.617391 462.941217 283.617391 
+L 500.606609 283.617391 
+Q 506.867478 283.617391 506.867478 289.878261 
+L 506.867478 397.565217 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="481.773913" y="276.988696" transform="rotate(-0 481.773913 276.988696)">8</text>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 586.330435 397.565217 
+L 561.23687 397.565217 
+L 561.23687 261.391304 
+Q 561.23687 255.130435 567.497739 255.130435 
+L 605.16313 255.130435 
+Q 611.424 255.130435 611.424 261.391304 
+L 611.424 397.565217 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #f57c00"/>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="586.330435" y="248.501739" transform="rotate(-0 586.330435 248.501739)">10</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 360 533.73913 
+L 53.217391 533.73913 
+Q 40.695652 533.73913 40.695652 521.217391 
+L 40.695652 474.26087 
+Q 40.695652 461.73913 53.217391 461.73913 
+L 666.782609 461.73913 
+Q 679.304348 461.73913 679.304348 474.26087 
+L 679.304348 521.217391 
+Q 679.304348 533.73913 666.782609 533.73913 
+z
+" clip-path="url(#p8e8124eca7)" style="fill: #d9d2e9; stroke: #8e7cc3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#p8e8124eca7)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="360" y="501.879834" transform="rotate(-0 360 501.879834)">Sub-Threshold Evasion: 5,000 IPs x 0.8 RPS/IP = 4,000 RPS bypassing per-IP limits!</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8e8124eca7">
+   <rect x="0" y="0" width="720" height="563.478261"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"}] -->
+</svg>

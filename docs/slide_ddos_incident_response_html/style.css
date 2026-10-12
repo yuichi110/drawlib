@@ -1127,3 +1127,10 @@ body.presenter-mode.is-resizing-row * {
   font-style: normal;
   font-display: block;
 }
+@font-face {
+  font-family: 'drawlib-phosphor-bold';
+  src: url('_assets/fonts/phosphor/bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}

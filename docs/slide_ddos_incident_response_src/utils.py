@@ -139,11 +139,11 @@ def draw_curved_agenda(
 
     roadmap = Roadmap(
         style=Styles.White,
-        text_style=Styles.DarkBold.patch(text_size=14.0),
-        description_style=Styles.Muted.patch(text_size=11.0),
+        text_style=Styles.DarkBold.patch(text_size=15.0),
+        description_style=Styles.Dark.patch(text_size=12.5),
         spine_style=Styles.PrimaryBold,
         badge_style=Styles.PrimaryFlat,
-        badge_text_style=Styles.WhiteBold.patch(text_size=14.0),
+        badge_text_style=Styles.WhiteBold.patch(text_size=15.0),
         direction="vertical",
         curve_bend=0.14,
         card_shape="pill",
@@ -169,13 +169,13 @@ def draw_kpi_cards(
 
     kpi = KpiCards(
         style=Styles.Neutral.patch(shape_r=2.5),
-        metric_style=Styles.PrimaryBold.patch(text_size=22.0),
-        text_style=Styles.DarkBold.patch(text_size=14.0),
-        description_style=Styles.Muted.patch(text_size=11.0),
+        metric_style=Styles.PrimaryBold.patch(text_size=23.0),
+        text_style=Styles.DarkBold.patch(text_size=15.5),
+        description_style=Styles.Dark.patch(text_size=13.0),
         accent_style=Styles.PrimaryFlat,
         accent_position="left_pill",
         metric_layout="left_column",
-        metric_width_ratio=0.30,
+        metric_width_ratio=0.31,
         spacing=3.5,
     )
     for metric, label, subtext in cards:

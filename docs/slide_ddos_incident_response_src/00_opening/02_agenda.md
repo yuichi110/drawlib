@@ -10,10 +10,10 @@ import utils
 setup(width=104, height=84)
 utils.draw_curved_agenda(
     [
-        ("Act 1: The Incident Onset", "10 Years of VPS Peace to Serverless Cloud Run Bill Shock"),
-        ("Act 2: Perimeter WAF & Evasion Loops", "Adaptation Cycles, GCLB WAF, 4 Geo-Waves & JS Cracking"),
-        ("Act 3: PoW, EDoS Pivot & WAF Pricing Trap", "SHA-256 PoW, 300M/Day Flood & $225/Day Cloud Armor Crisis"),
-        ("Act 4: Multi-Layered Edge Victory", "Flat-Rate Cloudflare Pro, 5 Defense Pillars & AI Forensics"),
+        ("Act 1: The Incident Onset", "10 Years of VPS Peace to Serverless Bill Shock"),
+        ("Act 2: Perimeter WAF & Evasion", "5-Step Cycles, GCLB WAF, 4 Geo-Waves & JS Crack"),
+        ("Act 3: PoW & EDoS Pricing Trap", "SHA-256 PoW, 300M/Day Flood & $225/Day WAF Crisis"),
+        ("Act 4: Multi-Layered Victory", "Flat-Rate Cloudflare Pro, 5 Layers & AI Forensics"),
     ],
     width=104,
     height=84,
@@ -29,10 +29,10 @@ import utils
 setup(width=72, height=84)
 utils.draw_kpi_cards(
     [
-        ("300M+", "Peak Attack Volume / Day", "Volumetric HTTP flood across 5,000+ nodes"),
-        ("$6,750", "Projected Monthly WAF Bill", "$225/day Cloud Armor rule evaluation trap"),
-        ("<50ms", "Browser SHA-256 PoW", "Asymmetric Web Worker hash puzzle"),
-        ("$20/mo", "Final Flat-Rate Defense", "Cloudflare Pro + 5 orthogonal edge layers"),
+        ("300M+", "Peak Attack / Day", "Volumetric flood (5,000+ nodes)"),
+        ("$6,750", "Projected WAF Bill", "$225/day Cloud Armor fee trap"),
+        ("<50ms", "Browser SHA-256 PoW", "Asymmetric Web Worker puzzle"),
+        ("$20/mo", "Flat-Rate Defense", "Cloudflare Pro + 5 edge layers"),
     ],
     width=72,
     height=84,

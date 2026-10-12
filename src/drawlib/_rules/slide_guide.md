@@ -134,9 +134,9 @@ save()
 
 ## 2. Deck Narrative Arc & Mandatory Structural Slides
 
-A presentation deck is a visual story, not a flat dump of topical pages. Every deck must follow a clear narrative arc with four mandatory structural slide types:
+A presentation deck is a visual story, not a flat dump of topical pages. Every deck must follow a clear narrative arc from Cover to a dedicated Thank You slide (with any optional Appendix placed after Thank You):
 
-```drawlib align=center code=fold file=slide_guide_deck_arc.png caption="Mandatory 4-Part Presentation Deck Narrative Arc"
+```drawlib align=center code=fold file=slide_guide_deck_arc.png caption="Presentation Deck Narrative Arc: Cover -> Agenda -> Chapters -> Summary -> Thank You (-> Optional Appendix)"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -145,37 +145,44 @@ setup(width=152, height=44, dpi=150)
 
 proc = ChevronProcess(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=10.5),
-    description_style=Styles.Dark.patch(text_size=9.5),
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    description_style=Styles.Dark.patch(text_size=9.0),
     corner_angle=60.0,
-    spacing=2.2,
+    spacing=1.8,
     flat_left_end=True,
 )
 proc.add(
-    "1. Cover Slide",
-    description="01_title.md\nTitle, Tagline, Hero\n(No body / page #)",
+    "1. Cover",
+    description="01_title.md\nTitle & Hero\n(No header/page #)",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10.5),
-    description_style=Styles.White.patch(text_size=9.5),
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    description_style=Styles.White.patch(text_size=9.0),
 )
 proc.add(
-    "2. Agenda Slide",
+    "2. Agenda",
     description="02_agenda.md\nChapter Roadmap\n(smartarts.Roadmap)",
     style=Styles.PrimaryNeutral,
-    text_style=Styles.PrimaryBold.patch(text_size=10.5),
+    text_style=Styles.PrimaryBold.patch(text_size=10.0),
 )
 proc.add(
-    "3. Chapter Loop",
-    description="01_section.md + Content\nSection Header ->\nVisual Content Slides",
+    "3. Chapters",
+    description="01_section.md +\nVisual Content\nSlides",
     style=Styles.Neutral,
 )
 proc.add(
-    "4. Summary & Action",
-    description="Closing Slide\nKey Takeaways, KPIs\n& Next Steps",
+    "4. Summary",
+    description="Key Takeaways\n& Outcome KPIs\n(When possible)",
     style=Styles.SecondaryNeutral,
-    text_style=Styles.SecondaryBold.patch(text_size=10.5),
+    text_style=Styles.SecondaryBold.patch(text_size=10.0),
 )
-proc.draw(xy=(5, 7), width=142.0, height=30.0)
+proc.add(
+    "5. Thank You",
+    description="Closing & Q&A\n(+ Appendix\nafter this)",
+    style=Styles.AccentFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+    description_style=Styles.White.patch(text_size=9.0),
+)
+proc.draw(xy=(4, 7), width=144.0, height=30.0)
 
 save()
 ```
@@ -196,14 +203,27 @@ save()
 ### 2.3. Section / Chapter Divider Slides (`01_section.md` per Chapter)
 - **Purpose**: Signal major topic transitions (every 3–6 slides) so the audience always knows where they are in the story.
 - **Strict Rules**:
-  - Organize decks of 8+ slides into numbered chapter subdirectories (e.g., `00_opening/`, `01_incident_overview/`, `02_root_cause/`, `03_defense_architecture/`, `04_summary/`).
+  - Organize decks of 8+ slides into numbered chapter subdirectories (e.g., `00_opening/`, `01_incident_overview/`, `02_root_cause/`, `03_defense_architecture/`, `04_closing/`).
   - Begin each chapter subdirectory with a dedicated **Section Header slide** (`01_section.md`) using `from drawlib.slide import draw_section_header` (choose from `variant="split"`, `"centered"`, `"banner"`, or `"minimal"`).
   - **Exclude Planning & Draft Files with `_`**: Store any deck outlines, storyboards, or scratch notes inside `slide_src/` with a leading underscore (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`). Files/directories starting with `_` and `README.md` are automatically excluded from compilation.
 
-### 2.4. Closing Summary / Takeaways Slide
-- **Purpose**: Leave the audience with 3–4 memorable conclusions, quantitative outcomes, or concrete action items.
+### 2.4. Summary / Key Takeaways Slide (Include Whenever Possible)
+- **Purpose**: Consolidate the presentation's narrative into 3–4 memorable conclusions, architectural golden rules, or quantitative outcomes before closing the talk.
 - **Strict Rules**:
-  - Use `smartarts.KpiCards`, `smartarts.CardList`, `smartarts.GridLayout`, or `smartarts.Panel` with Phosphor icons to summarize key takeaways visually.
+  - Whenever possible (especially for decks with 5+ slides or multiple sections), create a dedicated **Summary / Key Takeaways** slide right before the final Thank You slide.
+  - Use `smartarts.KpiCards`, `smartarts.CardList`, `smartarts.GridLayout`, or `smartarts.Panel` with Phosphor icons to summarize key takeaways visually rather than a plain text bullet list.
+
+### 2.5. Final "Thank You / Q&A" Closing Slide
+- **Purpose**: Provide an unmistakable visual landing that signals the end of the main presentation and invites audience questions.
+- **Strict Rules**:
+  - Always conclude the main deck with a dedicated **Thank You** slide (e.g., `99_thank_you.md` or `08_thank_you.md` at the end of the final chapter).
+  - Keep the Thank You slide clean and uncluttered: display a bold **"Thank You"** / **"Questions & Discussion"** headline, optional key resource links / QR / repository URLs, and speaker contact info (or a full-bleed hero canvas).
+
+### 2.6. Optional Appendix Slides (Always After "Thank You")
+- **Purpose**: Hold backup deep-dive slides, raw configuration tables, extended benchmarks, or FAQ diagrams for Q&A without bloating the main narrative arc.
+- **Strict Rules**:
+  - **Always place Appendix slides AFTER the Thank You slide** (e.g., in a trailing `99_appendix/` subdirectory after `98_closing/02_thank_you.md`).
+  - During live presentation delivery, the speaker stops on the Thank You slide and only advances into the Appendix when specific questions arise during Q&A.
 
 ---
 
@@ -285,6 +305,7 @@ Always calibrate `text_size` according to the enclosing **`::: block` width ($W_
 | **Text vs. Notes** | Writing long paragraphs or 6–8 verbose bullets inside `::: block` | Keep `::: block` to **3–4 short 1-line phrases**; put all deep explanations in **`::: note`** |
 | **Cover Slide** | Starting problem statements, bullet lists, or page numbers on `01_title.md` | Keep `01_title.md` strictly to **Title, Subtitle, Speaker/Date, and Hero Visual** (no header/page #) |
 | **Navigation** | Jumping straight from Cover into technical details without a roadmap | Place an **Agenda slide (`02_agenda.md`)** and insert **Section Dividers (`01_section.md`)** between chapters |
+| **Closing & Appendix** | Ending abruptly on a dense content slide, or placing Appendix slides before Thank You | Include a **Summary / Takeaways slide** when possible, end the main deck with a **Thank You slide**, and place any **Appendix slides after Thank You** |
 | **Non-Slide Files**| Leaving `PLANNING.md` or `notes.md` unprefixed in `slide_src/` so they compile as slides | Prefix non-slide files/folders with **`_`** (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`) |
 | **Diagrams** | Drawing every slide with primitive `rectangle()` + `line()` boxes | Use **`SmartArts`**, **`Diagrams`**, **`Graphs`**, **`Charts`**, **`utils.py` helpers**, and **`phosphor`/`gcp` icons** |
 | **Layout Rhythm** | Using identical Left-Text / Right-Diagram split on all 15+ slides | Alternate among **2-Column Split**, **Top-Bottom Wide Split**, **Full-Stage Visual**, and **KPI + Chart** layouts |

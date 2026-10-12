@@ -18,12 +18,22 @@
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
+from drawlib.smartarts import Panel
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=115, height=90)
 
-rectangle((57.5, 45.0), width=111, height=86, style=Styles.Neutral.patch(shape_r=2.5))
+panel = Panel(
+    "Per-IP Rate per 10s Window (5,000 IPs x 8 req/10s = 4,000 RPS Leak)",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=14.5),
+    header_variant="underline",
+    header_height=9.0,
+    header_align="center",
+)
+panel.draw(xy=(2.0, 2.0), width=111.0, height=86.0)
 
 chart = BarChart(
     axis_line_style=Styles.Primary,
@@ -35,26 +45,24 @@ chart = BarChart(
         "IP Ceiling\n(10 / 10s)",
     ],
     width=95.0,
-    height=54.0,
-    title="Per-IP Rate per 10s Window (5,000 IPs x 8 req/10s = 4,000 RPS Leak)",
-    title_style=Styles.BlackBold.patch(text_size=13.5),
+    height=53.0,
     bar_width_ratio=0.48,
     bar_r=1.0,
-    axis_text_style=Styles.DarkBold.patch(text_size=12.0),
+    axis_text_style=Styles.DarkBold.patch(text_size=13.0),
     grid_style=Styles.MutedDashed,
-    value_text_style=Styles.BlackBold.patch(text_size=12.0),
+    value_text_style=Styles.BlackBold.patch(text_size=13.5),
     value_format="{:.0f}/10s",
 )
 chart.add_series("Per-IP Rate", [18.0, 8.0, 7.0, 8.0, 10.0], style=Styles.AccentFlat)
 chart.configure_y_axis(min_value=0.0, max_value=20.0, tick_step=5.0)
-chart.draw(xy=(10.0, 23.0))
+chart.draw(xy=(10.0, 21.5))
 
 # Bottom Callout Banner
-rectangle((57.5, 11.0), width=102.0, height=12.5, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+rectangle((57.5, 10.5), width=102.0, height=11.5, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
 text(
-    (57.5, 11.0),
+    (57.5, 10.5),
     "Sub-Threshold Evasion: 5,000 IPs x 0.8 RPS/IP = 4,000 RPS bypassing per-IP limits!",
-    style=Styles.AccentBold.patch(text_size=12.0),
+    style=Styles.AccentBold.patch(text_size=13.0),
 )
 ```
 :::

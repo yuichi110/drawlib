@@ -12,66 +12,72 @@ How an AI-orchestrated botnet pushed a 10-year hobby speech synthesis service fr
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
-from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
+from drawlib.smartarts import Panel
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=105, height=98)
 
-# Outer subtle framing card
-rectangle((52.5, 49.0), width=101, height=94, style=Styles.Neutral.patch(shape_r=3.0))
-text((52.5, 90.0), "End-to-End Defense Evolution Overview", style=Styles.BlackBold.patch(text_size=15.0))
-text((52.5, 84.0), "Direct Origin Exposure -> WAF Billing Shock -> Flat-Rate Edge Victory", style=Styles.Muted.patch(text_size=12.0))
+# Outer framing panel
+panel = Panel(
+    "End-to-End Defense Evolution Overview",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=16.0),
+    header_variant="underline",
+    header_height=9.0,
+    header_align="center",
+)
+panel.draw(xy=(2.0, 2.0), width=101.0, height=94.0)
+text((52.5, 83.2), "Direct Origin Exposure -> WAF Billing Shock -> Flat-Rate Edge Victory", style=Styles.Dark.patch(text_size=12.8))
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
-    node_text_style=Styles.DarkBold.patch(text_size=12.5),
+    node_text_style=Styles.DarkBold.patch(text_size=13.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.DarkBold.patch(text_size=12.0),
-    node_card_style=Styles.White,
+    edge_text_style=Styles.DarkBold.patch(text_size=12.5),
 )
 
 # Attackers & Legitimate Users on Left
 botnet = d.add(
-    Node("AI Botnet\n300M+ Req/Day", width=24, height=19, icon=PhosphorIcon.SKULL, icon_size=7.0,
-         style=Styles.Accent, card_style=Styles.SecondaryNeutral),
-    xy=(15.0, 56.0),
+    Node("AI Botnet\n300M+ Req/Day", width=16, height=16, icon=PhosphorIcon.SKULL, icon_size=8.0,
+         style=Styles.Danger),
+    xy=(14.0, 56.0),
 )
 users = d.add(
-    Node("Real Users\nBrowser + PoW", width=24, height=19, icon=PhosphorIcon.USERS, icon_size=7.0,
-         style=Styles.Primary, card_style=Styles.PrimaryNeutral),
-    xy=(15.0, 22.0),
+    Node("Real Users\nBrowser + PoW", width=16, height=16, icon=PhosphorIcon.USERS, icon_size=8.0,
+         style=Styles.Primary),
+    xy=(14.0, 21.0),
 )
 
 # Edge Shield Group in Middle
 edge_group = d.add(
-    NodeGroup(title="Flat-Rate Edge ($20/mo)", padding=4.0,
+    NodeGroup(title="Flat-Rate Edge ($20/mo)", padding=5.5,
               style=Styles.PrimaryNeutral.patch(shape_r=2.0),
-              text_style=Styles.PrimaryBold.patch(text_size=12.5, halign="left")),
-    xy=(36.0, 9.0),
+              text_style=Styles.PrimaryBold.patch(text_size=13.5, halign="left")),
+    xy=(36.0, 8.0),
 )
 waf = edge_group.add(
-    Node("5-Layer WAF\nASN / TLS / Rate", width=24, height=19, icon=PhosphorIcon.SHIELD_CHECK, icon_size=7.5,
-         style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.PrimaryFlat),
-    xy=(15.5, 47.0),
+    Node("5-Layer WAF\nASN / TLS / Rate", width=17, height=16, icon=PhosphorIcon.SHIELD_CHECK, icon_size=8.5,
+         style=Styles.Primary),
+    xy=(15.5, 48.0),
 )
 drop = edge_group.add(
-    Node("100% Bot Drop\n$0 Overages", width=24, height=15, icon=PhosphorIcon.PROHIBIT, icon_size=6.0,
-         style=Styles.White, text_style=Styles.WhiteBold.patch(text_size=12.5), card_style=Styles.AccentFlat),
-    xy=(15.5, 16.0),
+    Node("100% Bot Drop\n$0 Overages", width=17, height=15, icon=PhosphorIcon.PROHIBIT, icon_size=7.5,
+         style=Styles.Danger),
+    xy=(15.5, 14.5),
 )
 
 # Protected Origin on Right
 origin = d.add(
-    Node("Cloud Run\nTTS Origin\n($10/mo)", width=23, height=21, icon=GcpIcon.CLOUD_RUN, icon_size=7.5,
-         card_style=Styles.Neutral),
-    xy=(88.5, 47.0),
+    Node("Cloud Run\nTTS Origin ($10/mo)", width=17, height=17, icon=GcpIcon.CLOUD_RUN, icon_size=8.5),
+    xy=(89.0, 56.0),
 )
 
-d.connect(botnet, waf, label="Flood", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=12.0), padding=1.0)
-d.connect(users, waf, label="HTTPS", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=12.0), padding=1.0)
-d.connect(waf, drop, label="Drop", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=12.0), padding=1.0)
-d.connect(waf, origin, label="Clean", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=12.0), padding=1.0)
+d.connect(botnet, waf, label="Flood", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=12.5), padding=0.5)
+d.connect(users, waf, label="HTTPS", routing="direct", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=12.5), padding=0.5)
+d.connect(waf, drop, label="Drop", style=Styles.AccentBold, text_style=Styles.AccentBold.patch(text_size=12.5), padding=0.5)
+d.connect(waf, origin, label="Clean", style=Styles.PrimaryBold, text_style=Styles.PrimaryBold.patch(text_size=12.5), padding=0.5)
 
 d.draw(xy=(2.0, 3.0))
 ```

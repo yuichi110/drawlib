@@ -17,13 +17,21 @@
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
-from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
-from drawlib.text import text
+from drawlib.smartarts import Panel
+from drawlib.styles import Styles
 
 setup(width=115, height=90)
 
-rectangle((57.5, 45.0), width=111, height=86, style=Styles.Neutral.patch(shape_r=2.5))
+panel = Panel(
+    "Daily Request Volume Escalation (Millions / Day)",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=15.5),
+    header_variant="underline",
+    header_height=9.0,
+    header_align="center",
+)
+panel.draw(xy=(2.0, 2.0), width=111.0, height=86.0)
 
 chart = BarChart(
     axis_line_style=Styles.Primary,
@@ -34,18 +42,16 @@ chart = BarChart(
     ],
     width=95.0,
     height=63.0,
-    title="Daily Request Volume Escalation (Millions / Day)",
-    title_style=Styles.BlackBold.patch(text_size=14.5),
     bar_width_ratio=0.5,
     bar_r=1.2,
-    axis_text_style=Styles.DarkBold.patch(text_size=12.5),
+    axis_text_style=Styles.DarkBold.patch(text_size=13.5),
     grid_style=Styles.MutedDashed,
-    value_text_style=Styles.BlackBold.patch(text_size=13.0),
+    value_text_style=Styles.BlackBold.patch(text_size=14.5),
     value_format="{:g}M / day",
 )
 chart.add_series("Daily Request Volume", [0.1, 3.0, 300.0], style=Styles.AccentFlat)
 chart.configure_y_axis(min_value=0.0, max_value=350.0, tick_step=50.0, format="{:.0f}M")
-chart.draw(xy=(10.0, 12.0))
+chart.draw(xy=(10.0, 10.0))
 ```
 :::
 

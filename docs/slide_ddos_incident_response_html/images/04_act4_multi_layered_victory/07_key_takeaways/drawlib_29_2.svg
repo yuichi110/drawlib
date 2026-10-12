@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="889.411765pt" viewBox="0 0 720 889.411765" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 889.411765 
+L 720 889.411765 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 216.794118 
+L 40.870588 216.794118 
+Q 14.4 216.794118 14.4 190.323529 
+L 14.4 70.941176 
+Q 14.4 44.470588 40.870588 44.470588 
+L 679.129412 44.470588 
+Q 705.6 44.470588 705.6 70.941176 
+L 705.6 190.323529 
+Q 705.6 216.794118 679.129412 216.794118 
+z
+" clip-path="url(#p5320b40668)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 33.408 189.222353 
+L 33.408 189.222353 
+Q 25.8048 189.222353 25.8048 181.619153 
+L 25.8048 79.645553 
+Q 25.8048 72.042353 33.408 72.042353 
+L 33.408 72.042353 
+Q 41.0112 72.042353 41.0112 79.645553 
+L 41.0112 181.619153 
+Q 41.0112 189.222353 33.408 189.222353 
+z
+" clip-path="url(#p5320b40668)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 23px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4285f4" x="56.14848" y="139.372353" transform="rotate(-0 56.14848 139.372353)">100%</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 228.672 185.775882 
+L 228.672 75.488824 
+" clip-path="url(#p5320b40668)" style="fill: none; stroke: #cccccc; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 15.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="104.697633" transform="rotate(-0 252.864 104.697633)">Service Availability</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="166.590588" transform="rotate(-0 252.864 166.590588)">Zero downtime for JP users</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 360 426.176471 
+L 40.870588 426.176471 
+Q 14.4 426.176471 14.4 399.705882 
+L 14.4 280.323529 
+Q 14.4 253.852941 40.870588 253.852941 
+L 679.129412 253.852941 
+Q 705.6 253.852941 705.6 280.323529 
+L 705.6 399.705882 
+Q 705.6 426.176471 679.129412 426.176471 
+z
+" clip-path="url(#p5320b40668)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 33.408 398.604706 
+L 33.408 398.604706 
+Q 25.8048 398.604706 25.8048 391.001506 
+L 25.8048 289.027906 
+Q 25.8048 281.424706 33.408 281.424706 
+L 33.408 281.424706 
+Q 41.0112 281.424706 41.0112 289.027906 
+L 41.0112 391.001506 
+Q 41.0112 398.604706 33.408 398.604706 
+z
+" clip-path="url(#p5320b40668)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 23px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4285f4" x="56.14848" y="348.754706" transform="rotate(-0 56.14848 348.754706)">0%</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 228.672 395.158235 
+L 228.672 284.871176 
+" clip-path="url(#p5320b40668)" style="fill: none; stroke: #cccccc; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 15.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="314.886471" transform="rotate(-0 252.864 314.886471)">Unauthorized TTS CPU</text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="375.264035" transform="rotate(-0 252.864 375.264035)">SHA-256 PoW stopped abuse</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 360 635.558824 
+L 40.870588 635.558824 
+Q 14.4 635.558824 14.4 609.088235 
+L 14.4 489.705882 
+Q 14.4 463.235294 40.870588 463.235294 
+L 679.129412 463.235294 
+Q 705.6 463.235294 705.6 489.705882 
+L 705.6 609.088235 
+Q 705.6 635.558824 679.129412 635.558824 
+z
+" clip-path="url(#p5320b40668)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 33.408 607.987059 
+L 33.408 607.987059 
+Q 25.8048 607.987059 25.8048 600.383859 
+L 25.8048 498.410259 
+Q 25.8048 490.807059 33.408 490.807059 
+L 33.408 490.807059 
+Q 41.0112 490.807059 41.0112 498.410259 
+L 41.0112 600.383859 
+Q 41.0112 607.987059 33.408 607.987059 
+z
+" clip-path="url(#p5320b40668)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 23px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4285f4" x="56.14848" y="558.137059" transform="rotate(-0 56.14848 558.137059)">99.9%</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 228.672 604.540588 
+L 228.672 494.253529 
+" clip-path="url(#p5320b40668)" style="fill: none; stroke: #cccccc; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 15.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="523.315816" transform="rotate(-0 252.864 523.315816)">Edge Drop Efficiency</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="584.613888" transform="rotate(-0 252.864 584.613888)">5-layer rules block 300M/d</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 360 844.941176 
+L 40.870588 844.941176 
+Q 14.4 844.941176 14.4 818.470588 
+L 14.4 699.088235 
+Q 14.4 672.617647 40.870588 672.617647 
+L 679.129412 672.617647 
+Q 705.6 672.617647 705.6 699.088235 
+L 705.6 818.470588 
+Q 705.6 844.941176 679.129412 844.941176 
+z
+" clip-path="url(#p5320b40668)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 33.408 817.369412 
+L 33.408 817.369412 
+Q 25.8048 817.369412 25.8048 809.766212 
+L 25.8048 707.792612 
+Q 25.8048 700.189412 33.408 700.189412 
+L 33.408 700.189412 
+Q 41.0112 700.189412 41.0112 707.792612 
+L 41.0112 809.766212 
+Q 41.0112 817.369412 33.408 817.369412 
+z
+" clip-path="url(#p5320b40668)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 23px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4285f4" x="56.14848" y="766.818631" transform="rotate(-0 56.14848 766.818631)">$20/mo</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 228.672 813.922941 
+L 228.672 703.635882 
+" clip-path="url(#p5320b40668)" style="fill: none; stroke: #cccccc; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 15.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="733.651176" transform="rotate(-0 252.864 733.651176)">Predictable Flat Cost</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p5320b40668)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #434343" x="252.864" y="794.282647" transform="rotate(-0 252.864 794.282647)">Down from $6,750/mo WAF bill</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5320b40668">
+   <rect x="0" y="0" width="720" height="889.411765"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

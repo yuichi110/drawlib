@@ -5,51 +5,71 @@
 ::: block xy=(80, 140) width=1760 height=810
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.shapes import rectangle
-from drawlib.smartarts import ChevronProcess, Table
+from drawlib.smartarts import ChevronProcess, Panel, Table
 from drawlib.styles import Colors, Styles
-from drawlib.text import text
 
 setup(width=176, height=81)
 
 # Top Section: Midnight Emergency Cutover Pipeline
-rectangle((88.0, 63.0), width=172, height=32, style=Styles.Neutral.patch(shape_r=2.5))
-text((88.0, 74.0), "Midnight Emergency Cutover Sequence (Stopping the $225/Day Bleeding)", style=Styles.BlackBold.patch(text_size=14.5))
+p_top = Panel(
+    "Midnight Emergency Cutover Sequence (Stopping the $225/Day Bleeding)",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=15.0),
+    header_variant="underline",
+    header_height=8.0,
+    header_align="center",
+)
+p_top.draw(xy=(2.0, 47.0), width=172.0, height=32.0)
 
 steps = ChevronProcess(
     style=Styles.PrimaryNeutral,
-    text_style=Styles.DarkBold.patch(text_size=12.0),
-    description_style=Styles.Dark.patch(text_size=11.0),
+    text_style=Styles.DarkBold.patch(text_size=13.0),
+    description_style=Styles.Dark.patch(text_size=11.5),
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
 )
-steps.add("1. Delete GCLB & Armor", description="Stop $225/day meter", style=Styles.AccentFlat, text_style=Styles.WhiteBold.patch(text_size=12.0), description_style=Styles.White.patch(text_size=11.0))
+steps.add("1. Delete GCLB & Armor", description="Stop $225/day meter", style=Styles.AccentFlat, text_style=Styles.WhiteBold.patch(text_size=13.0), description_style=Styles.White.patch(text_size=11.5))
 steps.add("2. Temp Origin Clamp", description="max-instances=1 cap", style=Styles.SecondaryNeutral)
 steps.add("3. Audit 4 WAF Options", description="Reject per-req billing")
-steps.add("4. Cutover Cloudflare", description="Flat $20/mo unlimited", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=12.0), description_style=Styles.White.patch(text_size=11.0))
-steps.draw(xy=(8.0, 50.5), width=160.0, height=17.5)
+steps.add("4. Cutover Cloudflare", description="Flat $20/mo unlimited", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=13.0), description_style=Styles.White.patch(text_size=11.5))
+steps.draw(xy=(8.0, 50.0), width=160.0, height=18.0)
 
 # Bottom Section: Architectural Comparison Matrix
-rectangle((88.0, 23.5), width=172, height=41, style=Styles.Neutral.patch(shape_r=2.5))
-text((88.0, 40.0), "Architectural Comparison: Pay-Per-Request Cloud WAFs vs. Flat-Rate Edge Proxy", style=Styles.BlackBold.patch(text_size=14.5))
+p_bot = Panel(
+    "Architectural Comparison: Pay-Per-Request Cloud WAFs vs. Flat-Rate Edge Proxy",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=15.0),
+    header_variant="underline",
+    header_height=8.0,
+    header_align="center",
+)
+p_bot.draw(xy=(2.0, 2.0), width=172.0, height=42.5)
 
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Dark.patch(text_size=11.5),
+    text_style=Styles.Dark.patch(text_size=12.2),
     header_cell_style=Styles.PrimaryFlat,
-    header_text_style=Styles.WhiteBold.patch(text_size=11.5),
+    header_text_style=Styles.WhiteBold.patch(text_size=12.5),
     border_style=Styles.MutedThin,
 )
 table.set_style_cell_evenodd(
     even_color=(248, 250, 252),
-    even_text_style=Styles.Dark.patch(text_size=11.5),
+    even_text_style=Styles.Dark.patch(text_size=12.2),
     odd_color=Colors.White,
-    odd_text_style=Styles.Dark.patch(text_size=11.5),
+    odd_text_style=Styles.Dark.patch(text_size=12.2),
+)
+table.set_style_cell(
+    background_color=Colors.Primary,
+    text_style=Styles.WhiteBold.patch(text_size=12.5),
+    rows=[0],
+    columns=[0, 1, 2, 3, 4],
 )
 table.set_style_cell(
     background_color=(230, 244, 234),
-    text_style=Styles.PrimaryBold.patch(text_size=11.5),
+    text_style=Styles.PrimaryBold.patch(text_size=12.2),
     rows=[4],
     columns=[0, 1, 2, 3, 4],
 )
@@ -61,7 +81,7 @@ matrix = [
     ["Self-Hosted Nginx VPS", "$10/mo fixed", "$0 (Fixed Bandwidth)", "$10 / mo", "REJECT: 1 NIC Saturates"],
     ["Cloudflare Pro (Flat)", "$20/mo FLAT", "$0.00 (Unmetered)", "$20 / mo FLAT", "SELECTED: Zero EDoS Risk"],
 ]
-table.draw_flexible(xy=(6.0, 36.5), column_widths=[40.0, 26.0, 34.0, 29.0, 35.0], row_heights=[6.4, 6.4, 6.4, 6.4, 6.4], data=matrix)
+table.draw_flexible(xy=(6.0, 35.5), column_widths=[40.0, 26.0, 34.0, 29.0, 35.0], row_heights=[6.4, 6.4, 6.4, 6.4, 6.4], data=matrix)
 ```
 :::
 

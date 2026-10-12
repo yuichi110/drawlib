@@ -16,26 +16,32 @@
 ::: block xy=(800, 140) width=1040 height=810
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.shapes import rectangle
-from drawlib.smartarts import Cycle
+from drawlib.smartarts import Cycle, Panel
 from drawlib.styles import Styles
-from drawlib.text import text
 
 setup(width=115, height=90)
 
-rectangle((57.5, 45.0), width=111, height=86, style=Styles.Neutral.patch(shape_r=2.5))
-text((57.5, 83.0), "Assumed Attacker's 5-Step Adaptation Cycle", style=Styles.BlackBold.patch(text_size=14.5))
+panel = Panel(
+    "Assumed Attacker's 5-Step Adaptation Cycle",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryBold,
+    text_style=Styles.BlackBold.patch(text_size=15.5),
+    header_variant="underline",
+    header_height=9.0,
+    header_align="center",
+)
+panel.draw(xy=(2.0, 2.0), width=111.0, height=86.0)
 
 cycle = Cycle(
     style=Styles.White,
-    text_style=Styles.DarkBold.patch(text_size=12.0),
-    description_style=Styles.Dark.patch(text_size=10.8),
+    text_style=Styles.DarkBold.patch(text_size=13.2),
+    description_style=Styles.Dark.patch(text_size=11.8),
     arrow_style=Styles.AccentBold,
     clockwise=True,
     start_angle=90.0,
     node_shape="rectangle",
-    node_width=27.5,
-    node_height=14.5,
+    node_width=29.5,
+    node_height=15.5,
     arrow_type="arc",
     arrow_width=1.8,
     arrow_head_width=3.8,
@@ -67,20 +73,20 @@ cycle.add(
     "5. Hit Weak Point",
     description="Focus full flood on gap",
     style=Styles.AccentFlat,
-    text_style=Styles.WhiteBold.patch(text_size=12.0),
-    description_style=Styles.White.patch(text_size=10.8),
+    text_style=Styles.WhiteBold.patch(text_size=13.2),
+    description_style=Styles.White.patch(text_size=11.8),
 )
 
 cycle.set_center(
     text="Attacker",
     description="Botnet Loop",
-    radius=11.5,
+    radius=12.0,
     style=Styles.DarkFlat,
-    text_style=Styles.WhiteBold.patch(text_size=13.5),
-    description_style=Styles.White.patch(text_size=11.5),
+    text_style=Styles.WhiteBold.patch(text_size=14.5),
+    description_style=Styles.White.patch(text_size=12.2),
 )
 
-cycle.draw(xy=(57.5, 41.0), radius=30.5, align="center")
+cycle.draw(xy=(57.5, 40.5), radius=31.0, align="center")
 ```
 :::
 
