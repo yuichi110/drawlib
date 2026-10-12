@@ -7,12 +7,13 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+"""Canvas polygon, star, plaque, and custom path shape feature implementation module."""
 
-"""Canvas's original shape feature implementation module."""
+from __future__ import annotations
 
 import math
 
-from matplotlib.patches import PathPatch
+from matplotlib.patches import PathPatch, Polygon, RegularPolygon
 from matplotlib.path import Path
 from pydantic import validate_call
 
@@ -20,335 +21,88 @@ from drawlib._core.l2_types import (
     Angle,
     Angle90,
     Coordinate,
-    ExplosionVariant,
-    LightningVariant,
-    MathSymbol,
+    Coordinates,
     NumVertex,
     PathPoints,
     PlaqueVariant,
     PosFloat,
-    PosInt,
     Ratio,
-    Size,
-    TagVariant,
-    TailEdge,
 )
-from drawlib._core.l3_math import rotate_point
+from drawlib._core.l3_math import (
+    get_center_and_size,
+    get_rotated_points,
+    rotate_point,
+)
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
-from drawlib._core.l4_canvas._shapes._polygon_ext import (
-    build_explosion_path,
-    build_lightning_path,
-    build_plaque_path,
-    build_tag_path_and_center,
-)
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
-def _gear_arc_bezier_segment(
-    radius: float,
-    a_start: float,
-    a_end: float,
-    cx: float,
-    cy: float,
-) -> tuple[Coordinate, Coordinate, Coordinate]:
-    """Return cubic Bezier control and end points for a circular arc from a_start to a_end."""
-    alpha = a_end - a_start
-    k = (4.0 / 3.0) * math.tan(alpha / 4.0)
-    x0 = cx + radius * math.cos(a_start)
-    y0 = cy + radius * math.sin(a_start)
-    x3 = cx + radius * math.cos(a_end)
-    y3 = cy + radius * math.sin(a_end)
-    cp1 = (x0 - k * radius * math.sin(a_start), y0 + k * radius * math.cos(a_start))
-    cp2 = (x3 + k * radius * math.sin(a_end), y3 - k * radius * math.cos(a_end))
-    return (cp1, cp2, (x3, y3))
-
-
-def _build_gear_hole_path(cx: float, cy: float, hole_radius: float) -> Path:
-    """Build a clockwise circular Matplotlib Path for subtracting a center hole."""
-    hr = hole_radius
-    kappa = 0.5522847498307936
-    k = hr * kappa
-    h_verts: list[Coordinate] = [
-        (cx, cy + hr),
-        (cx + k, cy + hr),
-        (cx + hr, cy + k),
-        (cx + hr, cy),
-        (cx + hr, cy - k),
-        (cx + k, cy - hr),
-        (cx, cy - hr),
-        (cx - k, cy - hr),
-        (cx - hr, cy - k),
-        (cx - hr, cy),
-        (cx - hr, cy + k),
-        (cx - k, cy + hr),
-        (cx, cy + hr),
-        (cx, cy + hr),
-    ]
-    h_codes = [
-        Path.MOVETO,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CLOSEPOLY,
-    ]
-    return Path(vertices=h_verts, codes=h_codes)
-
-
-def _build_gear_outer_path_points(
-    cx: float,
-    cy: float,
-    num_teeth: int,
-    radius_ext: float,
-    radius_int: float,
-    ext_ratio: float,
-    int_ratio: float,
-    angle: float,
-    shape_r: float | tuple[float, ...] | None,
-) -> PathPoints:
-    """Build outer path points for a gear shape with either rounded corners or exact circular arcs."""
-    pitch_angle = (2.0 * math.pi) / num_teeth
-    half_ext = (ext_ratio * pitch_angle) / 2.0
-    half_int = (int_ratio * pitch_angle) / 2.0
-    start_angle = math.pi / 2.0 + math.radians(angle)
-
-    radii = ShapeUtil._normalize_shape_radii(4 * num_teeth, shape_r)
-    if radii is not None:
-        points_world: list[Coordinate] = []
-        for i in range(num_teeth):
-            center_a = start_angle + i * pitch_angle
-            a1 = center_a - half_int
-            a2 = center_a - half_ext
-            a3 = center_a + half_ext
-            a4 = center_a + half_int
-            points_world.append((cx + radius_int * math.cos(a1), cy + radius_int * math.sin(a1)))
-            points_world.append((cx + radius_ext * math.cos(a2), cy + radius_ext * math.sin(a2)))
-            points_world.append((cx + radius_ext * math.cos(a3), cy + radius_ext * math.sin(a3)))
-            points_world.append((cx + radius_int * math.cos(a4), cy + radius_int * math.sin(a4)))
-        return ShapeUtil.round_polygon_points(points_world, shape_r)
-
-    path_points: PathPoints = []
-    for i in range(num_teeth):
-        center_a = start_angle + i * pitch_angle
-        a1 = center_a - half_int
-        a2 = center_a - half_ext
-        a3 = center_a + half_ext
-        a4 = center_a + half_int
-        next_a1 = (start_angle + (i + 1) * pitch_angle) - half_int
-
-        if i == 0:
-            path_points.append((cx + radius_int * math.cos(a1), cy + radius_int * math.sin(a1)))
-        path_points.append((cx + radius_ext * math.cos(a2), cy + radius_ext * math.sin(a2)))
-        path_points.append(_gear_arc_bezier_segment(radius_ext, a2, a3, cx, cy))
-        path_points.append((cx + radius_int * math.cos(a4), cy + radius_int * math.sin(a4)))
-        path_points.append(_gear_arc_bezier_segment(radius_int, a4, next_a1, cx, cy))
-    return path_points
-
-
-def _build_ccw_circle_path(cx: float, cy: float, radius: float) -> Path:
-    """Build a counter-clockwise circular Matplotlib Path for solid dots."""
-    r = radius
-    kappa = 0.5522847498307936
-    k = r * kappa
-    verts: list[Coordinate] = [
-        (cx + r, cy),
-        (cx + r, cy + k),
-        (cx + k, cy + r),
-        (cx, cy + r),
-        (cx - k, cy + r),
-        (cx - r, cy + k),
-        (cx - r, cy),
-        (cx - r, cy - k),
-        (cx - k, cy - r),
-        (cx, cy - r),
-        (cx + k, cy - r),
-        (cx + r, cy - k),
-        (cx + r, cy),
-        (cx + r, cy),
-    ]
-    codes = [
-        Path.MOVETO,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CURVE4,
-        Path.CLOSEPOLY,
-    ]
-    return Path(vertices=verts, codes=codes)
-
-
-def _build_not_equal_polygon(hw: float, hh: float, ht: float) -> list[Coordinate]:
-    """Build a single unified 20-vertex polygon for the not-equal (≠) symbol without internal seams."""
-    bh = min(ht * 0.85, hh * 0.24)
-    y_mid = min(hh * 0.42, max(bh * 1.6, hh * 0.36))
-    y1 = y_mid - bh
-    y2 = y_mid + bh
-    sw = min(ht * 0.85, hw * 0.28)
-    ks = min(0.32, (hw - sw) / max(hh, 1e-6) * 0.55)
-
-    def xl(y_val: float) -> float:
-        return ks * y_val - sw
-
-    def xr(y_val: float) -> float:
-        return ks * y_val + sw
-
-    return [
-        (xr(hh), hh),
-        (xl(hh), hh),
-        (xl(y2), y2),
-        (-hw, y2),
-        (-hw, y1),
-        (xl(y1), y1),
-        (xl(-y1), -y1),
-        (-hw, -y1),
-        (-hw, -y2),
-        (xl(-y2), -y2),
-        (xl(-hh), -hh),
-        (xr(-hh), -hh),
-        (xr(-y2), -y2),
-        (hw, -y2),
-        (hw, -y1),
-        (xr(-y1), -y1),
-        (xr(y1), y1),
-        (hw, y1),
-        (hw, y2),
-        (xr(y2), y2),
-    ]
-
-
-def _build_math_symbol_components(
-    symbol: str,
+def build_plaque_path(
+    xy: Coordinate,
     width: float,
     height: float,
-    t_ratio: float,
-) -> tuple[list[list[Coordinate]], list[tuple[Coordinate, float]]]:
-    """Return local polygon vertex lists and circular dot specs for a math symbol."""
-    s = min(width, height)
-    t = t_ratio * s
-    hw = width / 2.0
-    hh = height / 2.0
-    ht = t / 2.0
-
-    if symbol in {"+", "plus"}:
-        hx = min(ht, hw * 0.85)
-        hy = min(ht, hh * 0.85)
-        poly = [
-            (hx, hy),
-            (hx, hh),
-            (-hx, hh),
-            (-hx, hy),
-            (-hw, hy),
-            (-hw, -hy),
-            (-hx, -hy),
-            (-hx, -hh),
-            (hx, -hh),
-            (hx, -hy),
-            (hw, -hy),
-            (hw, hy),
-        ]
-        return [poly], []
-
-    if symbol in {"-", "−", "minus"}:
-        hy = min(ht, hh * 0.85)
-        return [[(-hw, -hy), (hw, -hy), (hw, hy), (-hw, hy)]], []
-
-    if symbol in {"*", "x", "×", "multiply"}:
-        hs = s / 2.0
-        ht_s = min(ht, hs * 0.72)
-        arm = max(ht_s * 1.15, hs * 1.0)
-        base_cross = [
-            (ht_s, ht_s),
-            (ht_s, arm),
-            (-ht_s, arm),
-            (-ht_s, ht_s),
-            (-arm, ht_s),
-            (-arm, -ht_s),
-            (-ht_s, -ht_s),
-            (-ht_s, -arm),
-            (ht_s, -arm),
-            (ht_s, -ht_s),
-            (arm, -ht_s),
-            (arm, ht_s),
-        ]
-        scale_x = width / s
-        scale_y = height / s
-        rotated: list[Coordinate] = []
-        for px, py in base_cross:
-            rx, ry = rotate_point((px, py), angle=45.0)
-            rotated.append((rx * scale_x, ry * scale_y))
-        return [rotated], []
-
-    if symbol in {"=", "equal"}:
-        bh = min(ht * 0.85, hh * 0.36)
-        y_off = min(hh - bh, max(bh * 1.45, hh * 0.44))
-        top_bar = [(-hw, y_off - bh), (hw, y_off - bh), (hw, y_off + bh), (-hw, y_off + bh)]
-        bot_bar = [(-hw, -y_off - bh), (hw, -y_off - bh), (hw, -y_off + bh), (-hw, -y_off + bh)]
-        return [top_bar, bot_bar], []
-
-    if symbol in {"/", "÷", "divide"}:
-        bh = min(ht * 0.82, hh * 0.25)
-        bar = [(-hw, -bh), (hw, -bh), (hw, bh), (-hw, bh)]
-        r_dot = min(bh * 1.25, (hh - bh) * 0.42)
-        y_dot = min(hh - r_dot, max(bh + r_dot * 1.35, hh * 0.60))
-        return [bar], [((0.0, y_dot), r_dot), ((0.0, -y_dot), r_dot)]
-
-    return [_build_not_equal_polygon(hw, hh, ht)], []
-
-
-def _build_math_symbol_path(
-    cx: float,
-    cy: float,
-    symbol: str,
-    width: float,
-    height: float,
-    t_ratio: float,
-    angle: float,
+    variant: str,
+    cut_ratio: float | None,
     shape_r: float | tuple[float, ...] | None,
+    angle: float,
 ) -> Path:
-    """Construct the world-space Matplotlib Path for a math_symbol."""
-    polygons_local, dots_local = _build_math_symbol_components(symbol, width, height, t_ratio)
-    sub_paths: list[Path] = []
+    """Build world-space Matplotlib Path for plaque shape variants."""
+    cx, cy = xy
+    hw, hh = width / 2.0, height / 2.0
+    c_ratio = 0.22 if cut_ratio is None else float(cut_ratio)
+    r = min(width, height) * min(0.45, c_ratio)
 
-    for poly in polygons_local:
-        verts_world: list[Coordinate] = []
-        for pt in poly:
-            rx, ry = rotate_point(pt, angle=angle)
-            verts_world.append((rx + cx, ry + cy))
-        path_points = ShapeUtil.round_polygon_points(verts_world, shape_r)
-        sub_paths.append(ShapeUtil.build_matplotlib_path(path_points))
+    if variant in {"concave", "standard"}:
+        local_pts = (
+            ShapeUtil.arc_points_local(hw, -hh, r, 180.0, 90.0, 12)
+            + ShapeUtil.arc_points_local(hw, hh, r, 270.0, 180.0, 12)
+            + ShapeUtil.arc_points_local(-hw, hh, r, 0.0, -90.0, 12)
+            + ShapeUtil.arc_points_local(-hw, -hh, r, 90.0, 0.0, 12)
+        )
+        return ShapeUtil.subpaths_to_compound_path([local_pts], cx, cy, angle)
 
-    for dot_xy, dot_r in dots_local:
-        rx, ry = rotate_point(dot_xy, angle=angle)
-        sub_paths.append(_build_ccw_circle_path(rx + cx, ry + cy, dot_r))
+    if variant in {"chamfered", "octagon"}:
+        local_pts = [
+            (-hw + r, -hh),
+            (hw - r, -hh),
+            (hw, -hh + r),
+            (hw, hh - r),
+            (hw - r, hh),
+            (-hw + r, hh),
+            (-hw, hh - r),
+            (-hw, -hh + r),
+        ]
+    else:
+        # "notched"
+        local_pts = [
+            (-hw + r, -hh),
+            (hw - r, -hh),
+            (hw - r, -hh + r),
+            (hw, -hh + r),
+            (hw, hh - r),
+            (hw - r, hh - r),
+            (hw - r, hh),
+            (-hw + r, hh),
+            (-hw + r, hh - r),
+            (-hw, hh - r),
+            (-hw, -hh + r),
+            (-hw + r, -hh + r),
+        ]
 
-    if len(sub_paths) == 1:
-        return sub_paths[0]
-    return Path.make_compound_path(*sub_paths)
+    world_pts: list[Coordinate] = []
+    for lx, ly in local_pts:
+        rx, ry = rotate_point((lx, ly), angle=angle)
+        world_pts.append((cx + rx, cy + ry))
+    path_points = ShapeUtil.round_polygon_points(world_pts, shape_r)
+    return ShapeUtil.build_matplotlib_path(path_points)
 
 
 class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
     """Canvas polygon shape feature implementation module.
 
-    This class provides methods to draw various polygonal shapes such as
-    triangles, parallelograms, trapezoids, rhombuses, chevrons, stars, and gears
-    on a canvas.
+    Provides triangle, parallelogram, trapezoid, rhombus, regularpolygon,
+    star, plaque, polygon, and custom path shape methods.
     """
 
     def __init__(self) -> None:
@@ -391,7 +145,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p1 = (0.0, 0.0)
         p2 = (topvertex_x, height)
         p3 = (width, 0.0)
-        self._draw_convex_polygon_with_hole(
+        ShapeUtil.draw_convex_polygon_with_hole(
+            artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3],
             hole_ratio=hole_ratio,
@@ -431,16 +186,14 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text_style,
         )
 
-        def calculate_parallelogram_lefttop_coordinate() -> Coordinate:
-            angle_rad = math.radians(corner_angle)
-            x = height / math.tan(angle_rad)
-            return x, height
-
+        angle_rad = math.radians(corner_angle)
+        x_top = height / math.tan(angle_rad)
         p1 = (0.0, 0.0)
-        p2 = calculate_parallelogram_lefttop_coordinate()
-        p3 = (p2[0] + width, height)
+        p2 = (x_top, height)
+        p3 = (x_top + width, height)
         p4 = (width, 0.0)
-        self._draw_convex_polygon_with_hole(
+        ShapeUtil.draw_convex_polygon_with_hole(
+            artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
             hole_ratio=hole_ratio,
@@ -488,7 +241,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (topedge_x, height)
         p3 = (topedge_x + topedge_width, height)
         p4 = (bottomedge_width, 0.0)
-        self._draw_convex_polygon_with_hole(
+        ShapeUtil.draw_convex_polygon_with_hole(
+            artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
             hole_ratio=hole_ratio,
@@ -530,7 +284,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (width / 2, height)
         p3 = (width, height / 2)
         p4 = (width / 2, 0.0)
-        self._draw_convex_polygon_with_hole(
+        ShapeUtil.draw_convex_polygon_with_hole(
+            artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
             hole_ratio=hole_ratio,
@@ -540,62 +295,83 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         )
 
     @validate_call
-    def chevron(
+    def regularpolygon(
         self,
         xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
-        corner_angle: Angle90,
-        mirror: bool = False,
+        num_vertex: NumVertex,
+        radius: PosFloat,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
-        """Draw a chevron (arrow-head block) shape on the canvas.
+        """Draw a regular polygon on the canvas.
 
         Args:
-            xy: Bottom-left coordinate tuple (x, y).
-            width: Width of chevron.
-            height: Height of chevron.
-            corner_angle: Angle of the arrowhead point.
-            mirror: Whether to mirror chevron horizontally.
-            style: Style object.
-            text: Text to display inside shape.
-            text_style: Style object for text or None.
+            xy: Center coordinates (x, y) of the regular polygon.
+            num_vertex: Number of vertices in the polygon.
+            radius: Radius of the circumscribed circle.
+            hole_ratio: Optional inner cutout hole ratio in (0.0, 1.0).
+            style: Style of the polygon (required).
+            text (optional): Text to display inside the polygon.
+            text_style (optional): Style of the text.
         """
         style, text_style = ShapeUtil.format_styles(
             style,
             text_style,
         )
+        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
+        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, radius * 2, radius * 2, style)
 
-        def calculate_p2_coordinate(h: float) -> Coordinate:
-            h /= 2
-            angle_rad = math.radians(corner_angle)
-            x = h / math.tan(angle_rad)
-            return x, h
+        angle_rad = math.radians(angle)
+        options = ShapeUtil.get_shape_options(style)
+        if h_ratio is not None or style.shape_r is not None:
+            start_a = math.pi / 2.0 + angle_rad
+            verts: list[Coordinate] = [
+                (
+                    xy[0] + radius * math.cos(start_a + i * 2.0 * math.pi / num_vertex),
+                    xy[1] + radius * math.sin(start_a + i * 2.0 * math.pi / num_vertex),
+                )
+                for i in range(num_vertex)
+            ]
+            path_points = ShapeUtil.round_polygon_points(verts, style.shape_r)
+            if h_ratio is not None:
+                inner_verts, inset = ShapeUtil.inset_convex_polygon(verts, h_ratio)
+                inner_r = ShapeUtil.shrink_shape_r(style.shape_r, inset, reversed_order=True)
+                inner_points = ShapeUtil.round_polygon_points(inner_verts, inner_r)
+                outer_path = ShapeUtil.build_matplotlib_path(path_points)
+                inner_path = ShapeUtil.build_matplotlib_path(inner_points)
+                path = Path.make_compound_path(outer_path, inner_path)
+                patch: RegularPolygon | PathPatch = PathPatch(path=path, **options)
+            elif len(path_points) == num_vertex and all(isinstance(p[0], (int, float)) for p in path_points):
+                patch = RegularPolygon(
+                    xy,
+                    numVertices=num_vertex,
+                    radius=radius,
+                    orientation=angle_rad,
+                    **options,
+                )
+            else:
+                path = ShapeUtil.build_matplotlib_path(path_points)
+                patch = PathPatch(path=path, **options)
+        else:
+            patch = RegularPolygon(
+                xy,
+                numVertices=num_vertex,
+                radius=radius,
+                orientation=angle_rad,
+                **options,
+            )
 
-        p1 = (0, 0)
-        p2 = calculate_p2_coordinate(height)
-        p3 = (0, height)
-        p4 = (width, height)
-        p5 = (width + p2[0], height / 2)
-        p6 = (width, 0)
-
-        if mirror:
-            p2 = (p2[0] * -1, p2[1])
-            p4 = (p4[0] * -1, p4[1])
-            p5 = (p5[0] * -1, p5[1])
-            p6 = (p6[0] * -1, p6[1])
-
-        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4, p5, p6], style.shape_r)
-
-        self.shape(
-            xy=xy,
-            path_points=path_points,
+        ShapeUtil.append_patches_and_text(
+            artists=self._artists,
+            patches=[patch],
             style=style,
             text=text,
             text_style=text_style,
+            text_xy=xy,
+            angle=angle,
         )
 
     @validate_call
@@ -625,514 +401,41 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             style,
             text_style,
         )
-        angle: Angle = style.angle if style.angle is not None else 0.0
-
         if radius_ext < radius_int:
             raise ValueError("radius_ext must be bigger than radius_int.")
 
-        # calculate points
-
-        points = []
-        start_angle = math.pi / 2
+        points: list[Coordinate] = []
+        start_angle = math.pi / 2.0
         for i in range(2 * num_vertex):
             r = radius_ext if i % 2 == 0 else radius_int
-            point_angle = start_angle + i * 2 * math.pi / (2 * num_vertex)
-            x = r * math.cos(point_angle)
-            y = r * math.sin(point_angle)
-            points.append((x, y))
+            point_angle = start_angle + i * 2.0 * math.pi / (2 * num_vertex)
+            points.append((r * math.cos(point_angle), r * math.sin(point_angle)))
 
-        # move x, y which fit to alignment
-
-        width = radius_ext * 2
-        height = radius_ext * 2
-        x, y = xy
-        x -= width / 2
-        y -= height / 2
-        xy = (x, y)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy,
-            width,
-            height,
-            angle,
-            style,
-            is_default_center=True,
+        width = radius_ext * 2.0
+        height = radius_ext * 2.0
+        (cx, cy), angle, style = ShapeUtil.prepare_centered_shape(
+            xy=xy,
+            width=width,
+            height=height,
+            style=style,
         )
 
-        # shift
-
-        cx = x + width / 2
-        cy = y + height / 2
         points2: list[Coordinate] = []
         for pp in points:
             rx, ry = rotate_point(pp, angle=angle)
             points2.append((rx + cx, ry + cy))
 
-        # create Path
         path_points = ShapeUtil.round_polygon_points(points2, style.shape_r)
         path = ShapeUtil.build_matplotlib_path(path_points)
-
-        # create PathPatch
-
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(cx, cy),
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
-
-    @validate_call
-    def gear(
-        self,
-        xy: Coordinate,
-        num_teeth: NumVertex,
-        radius_ext: PosFloat,
-        radius_int: PosFloat,
-        *,
-        tooth_ext_ratio: Ratio | None = None,
-        tooth_int_ratio: Ratio | None = None,
-        hole_radius: PosFloat | None = None,
-        style: Style,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw a gear shape on the canvas.
-
-        Args:
-            xy: Center coordinate tuple (x, y).
-            num_teeth: Number of gear teeth (must be >= 3).
-            radius_ext: Outer radius of gear tooth tips.
-            radius_int: Inner radius of gear tooth roots/valleys.
-            tooth_ext_ratio: Ratio of 1 pitch angle (360 / num_teeth) for the outer tooth tip.
-                Defaults to 0.35 when None.
-            tooth_int_ratio: Ratio of 1 pitch angle (360 / num_teeth) for the inner tooth base.
-                Defaults to 0.55 when None.
-            hole_radius: Radius of the center circular hole, or None for no hole.
-            style: Style object.
-            text: Text to display inside shape.
-            text_style: Style object for text or None.
-
-        Raises:
-            ValueError: If radii, tooth ratios, or hole_radius are out of valid bounds.
-        """
-        style, text_style = ShapeUtil.format_styles(
-            style,
-            text_style,
-        )
-        angle: Angle = style.angle if style.angle is not None else 0.0
-
-        if radius_int <= 0.0:
-            raise ValueError("radius_int must be positive.")
-        if radius_ext <= radius_int:
-            raise ValueError("radius_ext must be bigger than radius_int.")
-
-        ext_ratio = 0.35 if tooth_ext_ratio is None else float(tooth_ext_ratio)
-        int_ratio = 0.55 if tooth_int_ratio is None else float(tooth_int_ratio)
-        if not (0.0 < ext_ratio < 1.0):
-            raise ValueError("tooth_ext_ratio must be strictly between 0.0 and 1.0.")
-        if not (0.0 < int_ratio < 1.0):
-            raise ValueError("tooth_int_ratio must be strictly between 0.0 and 1.0.")
-
-        if hole_radius is not None and (hole_radius <= 0.0 or hole_radius >= radius_int):
-            raise ValueError("hole_radius must be positive and smaller than radius_int.")
-
-        width = radius_ext * 2.0
-        height = radius_ext * 2.0
-        x, y = xy
-        xy_shifted = (x - width / 2.0, y - height / 2.0)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy_shifted,
-            width,
-            height,
-            angle,
-            style,
-            is_default_center=True,
-        )
-        cx = x + width / 2.0
-        cy = y + height / 2.0
-
-        path_points = _build_gear_outer_path_points(
-            cx=cx,
-            cy=cy,
-            num_teeth=num_teeth,
-            radius_ext=radius_ext,
-            radius_int=radius_int,
-            ext_ratio=ext_ratio,
-            int_ratio=int_ratio,
-            angle=angle,
-            shape_r=style.shape_r,
-        )
-
-        outer_path = ShapeUtil.build_matplotlib_path(path_points)
-        if hole_radius is not None:
-            hole_path = _build_gear_hole_path(cx, cy, hole_radius)
-            path = Path.make_compound_path(outer_path, hole_path)
-        else:
-            path = outer_path
-
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(cx, cy),
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
-
-    @validate_call
-    def math_symbol(
-        self,
-        xy: Coordinate,
-        symbol: MathSymbol,
-        width: PosFloat,
-        height: PosFloat | None = None,
-        *,
-        thickness_ratio: Ratio | None = None,
-        style: Style,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw a mathematical operator symbol shape (+, -, ×, ÷, =, ≠) on the canvas.
-
-        Args:
-            xy: Center coordinate tuple (x, y).
-            symbol: Operator symbol ("+", "-", "*", "x", "×", "/", "÷", "=", "!=", "≠").
-            width: Horizontal width of the symbol bounding box.
-            height: Vertical height of the symbol bounding box (defaults to width when None).
-            thickness_ratio: Bar thickness ratio relative to min(width, height).
-                Defaults to 0.28 when None.
-            style: Style object.
-            text: Text to display inside shape.
-            text_style: Style object for text or None.
-
-        Raises:
-            ValueError: If width, height, or thickness_ratio are out of valid bounds.
-        """
-        style, text_style = ShapeUtil.format_styles(
-            style,
-            text_style,
-        )
-        angle: Angle = style.angle if style.angle is not None else 0.0
-
-        eff_height = width if height is None else height
-        if width <= 0.0 or eff_height <= 0.0:
-            raise ValueError("width and height must be positive.")
-
-        t_ratio = 0.28 if thickness_ratio is None else float(thickness_ratio)
-        if not (0.0 < t_ratio < 1.0):
-            raise ValueError("thickness_ratio must be strictly between 0.0 and 1.0.")
-
-        x, y = xy
-        xy_shifted = (x - width / 2.0, y - eff_height / 2.0)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy_shifted,
-            width,
-            eff_height,
-            angle,
-            style,
-            is_default_center=True,
-        )
-        cx = x + width / 2.0
-        cy = y + eff_height / 2.0
-
-        path = _build_math_symbol_path(
-            cx=cx,
-            cy=cy,
-            symbol=symbol,
-            width=width,
-            height=eff_height,
-            t_ratio=t_ratio,
-            angle=angle,
-            shape_r=style.shape_r,
-        )
-
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(cx, cy),
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
-
-    @validate_call
-    def bubblespeech(
-        self,
-        xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
-        tail_edge: TailEdge,
-        tail_start_ratio: Ratio,
-        tail_vertex_xy: Coordinate,
-        tail_end_ratio: Ratio,
-        *,
-        style: Style,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw a speech bubble shape on the canvas.
-
-        Args:
-            xy: The (x, y) coordinates of the bottom-left corner of the bubble body.
-            width: The width of the bubble body.
-            height: The height of the bubble body.
-            tail_edge: The edge ("left", "top", "right", "bottom") where the tail originates.
-            tail_start_ratio: Ratio (between 0.0 and 1.0) along the edge where the tail begins.
-            tail_vertex_xy: The (x, y) target coordinates pointing to the vertex of the tail.
-            tail_end_ratio: Ratio (between 0.0 and 1.0) along the edge where the tail ends.
-            style: The Style of the speech bubble shape (required).
-            text: Optional text to display inside the bubble. Defaults to an empty string.
-            text_style: Optional Style of the text.
-
-        Raises:
-            ValueError: If tail_start_ratio is greater than or equal to tail_end_ratio.
-        """
-        if tail_start_ratio >= tail_end_ratio:
-            raise ValueError("tail_start_ratio must be smaller than tail_end_ratio.")
-
-        x, y = xy
-        xys: list[Coordinate] = [(x, y)]  # left bottom
-
-        if tail_edge == "left":
-            xys.append((x, y + height * tail_start_ratio))
-            xys.append(tail_vertex_xy)
-            xys.append((x, y + height * tail_end_ratio))
-        xys.append((x, y + height))  # left top
-
-        if tail_edge == "top":
-            xys.append((x + width * tail_start_ratio, y + height))
-            xys.append(tail_vertex_xy)
-            xys.append((x + width * tail_end_ratio, y + height))
-        xys.append((x + width, y + height))  # right top
-
-        if tail_edge == "right":
-            xys.append((x + width, y + height * tail_end_ratio))
-            xys.append(tail_vertex_xy)
-            xys.append((x + width, y + height * tail_start_ratio))
-        xys.append((x + width, y))  # right bottom
-
-        if tail_edge == "bottom":
-            xys.append((x + width * tail_end_ratio, y))
-            xys.append(tail_vertex_xy)
-            xys.append((x + width * tail_start_ratio, y))
-
-        self.polygon(xys=xys, style=style.patch(shape_r=0.0))
-
-
-        if text:
-            center_x = x + width / 2.0
-            center_y = y + height / 2.0
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(center_x, center_y),
-                    text=text,
-                    angle=0.0,
-                    style=effective_text_style,
-                )
-            )
-
-    @validate_call
-    def lightning(
-        self,
-        xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
-        *,
-        variant: LightningVariant = "standard",
-        mirror: bool = False,
-        style: Style,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw a lightning bolt shape on the canvas.
-
-        Args:
-            xy: Center coordinates tuple (x, y).
-            width: Width of the lightning bolt bounding box.
-            height: Height of the lightning bolt bounding box.
-            variant: Lightning bolt silhouette ("standard", "flat", "double",
-                "flat_double", "angled", "slanted").
-            mirror: Whether to flip the lightning bolt horizontally.
-            style: Style object (required).
-            text: Text to display inside shape.
-            text_style: Style object for text.
-        """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        angle: Angle = style.angle if style.angle is not None else 0.0
-        x, y = xy
-        xy_shifted = (x - width / 2.0, y - height / 2.0)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy_shifted,
-            width,
-            height,
-            angle,
-            style,
-            is_default_center=True,
-        )
-        cx = x + width / 2.0
-        cy = y + height / 2.0
-        path = build_lightning_path(
-            xy=(cx, cy),
-            width=width,
-            height=height,
-            variant=variant,
-            mirror=mirror,
-            shape_r=style.shape_r,
+        ShapeUtil.append_path_and_text(
+            artists=self._artists,
+            path=path,
+            style=style,
+            text=text,
+            text_style=text_style,
+            text_xy=(cx, cy),
             angle=angle,
         )
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(cx, cy),
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
-
-    @validate_call
-    def explosion(
-        self,
-        xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
-        *,
-        variant: ExplosionVariant = "standard",
-        style: Style,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw an asymmetric explosion or impact burst shape on the canvas.
-
-        Args:
-            xy: Center coordinates tuple (x, y).
-            width: Width of the explosion bounding box.
-            height: Height of the explosion bounding box.
-            variant: Explosion silhouette ("standard", "irregular", "heavy",
-                "wild", "curved", "comic").
-            style: Style object (required).
-            text: Text to display inside shape.
-            text_style: Style object for text.
-        """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        angle: Angle = style.angle if style.angle is not None else 0.0
-        x, y = xy
-        xy_shifted = (x - width / 2.0, y - height / 2.0)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy_shifted,
-            width,
-            height,
-            angle,
-            style,
-            is_default_center=True,
-        )
-        cx = x + width / 2.0
-        cy = y + height / 2.0
-        path = build_explosion_path(
-            xy=(cx, cy),
-            width=width,
-            height=height,
-            variant=variant,
-            shape_r=style.shape_r,
-            angle=angle,
-        )
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(cx, cy),
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
-
-    @validate_call
-    def tag(
-        self,
-        xy: Coordinate,
-        width: PosFloat,
-        height: PosFloat,
-        *,
-        variant: TagVariant = "angled",
-        mirror: bool = False,
-        hole_ratio: Ratio | None = None,
-        style: Style,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw a perforated label tag or badge shape on the canvas.
-
-        Args:
-            xy: Center coordinates tuple (x, y).
-            width: Width of the tag bounding box.
-            height: Height of the tag bounding box.
-            variant: Tag silhouette ("angled", "standard", "chamfered", "beveled", "rounded").
-            mirror: Whether to flip the tag tip direction horizontally.
-            hole_ratio: Optional circular hole size ratio in (0.0, 1.0).
-            style: Style object (required).
-            text: Text to display on the tag body.
-            text_style: Style object for text.
-        """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        angle: Angle = style.angle if style.angle is not None else 0.0
-        x, y = xy
-        xy_shifted = (x - width / 2.0, y - height / 2.0)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy_shifted,
-            width,
-            height,
-            angle,
-            style,
-            is_default_center=True,
-        )
-        cx = x + width / 2.0
-        cy = y + height / 2.0
-        path, text_xy = build_tag_path_and_center(
-            xy=(cx, cy),
-            width=width,
-            height=height,
-            variant=variant,
-            mirror=mirror,
-            hole_ratio=hole_ratio,
-            shape_r=style.shape_r,
-            angle=angle,
-        )
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=text_xy,
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
 
     @validate_call
     def plaque(
@@ -1162,19 +465,12 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         """
         ShapeUtil.validate_hole_ratio(cut_ratio)
         style, text_style = ShapeUtil.format_styles(style, text_style)
-        angle: Angle = style.angle if style.angle is not None else 0.0
-        x, y = xy
-        xy_shifted = (x - width / 2.0, y - height / 2.0)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy_shifted,
-            width,
-            height,
-            angle,
-            style,
-            is_default_center=True,
+        (cx, cy), angle, style = ShapeUtil.prepare_centered_shape(
+            xy=xy,
+            width=width,
+            height=height,
+            style=style,
         )
-        cx = x + width / 2.0
-        cy = y + height / 2.0
         path = build_plaque_path(
             xy=(cx, cy),
             width=width,
@@ -1184,18 +480,96 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             shape_r=style.shape_r,
             angle=angle,
         )
+        ShapeUtil.append_path_and_text(
+            artists=self._artists,
+            path=path,
+            style=style,
+            text=text,
+            text_style=text_style,
+            text_xy=(cx, cy),
+            angle=angle,
+        )
+
+    @validate_call
+    def polygon(
+        self,
+        xys: Coordinates,
+        *,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a polygon on the canvas.
+
+        Args:
+            xys: List of vertices [(x1, y1), ...(x_n, y_n)].
+            style: Style of the polygon (required).
+            text (optional): Text shown at the center of the polygon.
+            text_style (optional): Style of the text.
+
+        Returns:
+            None
+        """
+        style, text_style = ShapeUtil.format_styles(
+            style,
+            text_style,
+        )
+
+        path_points = ShapeUtil.round_polygon_points(list(xys), style.shape_r)
+        style = style.patch(halign=None, valign=None)
         options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
-        if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
-            self._artists.append(
-                ShapeUtil.get_shape_text(
-                    xy=(cx, cy),
-                    text=text,
-                    angle=angle,
-                    style=effective_text_style,
-                )
-            )
+        if len(path_points) == len(xys) and all(isinstance(p[0], (int, float)) for p in path_points):
+            self._artists.append(Polygon(xy=xys, closed=True, **options))
+        else:
+            path = ShapeUtil.build_matplotlib_path(path_points)
+            self._artists.append(PathPatch(path=path, **options))
+
+        if not text:
+            return
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+        center, (_, _) = get_center_and_size(xys)
+        self._artists.append(
+            ShapeUtil.get_shape_text(
+                center,
+                text=text,
+                angle=0,
+                style=effective_text_style,
+            ),
+        )
+
+    @validate_call
+    def shape(
+        self,
+        xy: Coordinate,
+        path_points: PathPoints,
+        *,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+        is_default_center: bool = False,
+    ) -> None:
+        """Draw basic shape on the canvas.
+
+        Args:
+            xy: Starting point of the shape.
+            path_points: List of path points including control points for Bezier curves.
+            style: Style of the shape (required).
+            text (str, optional): Text to display along with the shape.
+            text_style (Style | None, optional): Style of the text.
+            is_default_center (bool, optional): Whether to place (xy) at the center of the shape.
+
+        Raises:
+            ValueError: If invalid path points are provided.
+        """
+        ShapeUtil.draw_shape_path_points(
+            artists=self._artists,
+            xy=xy,
+            path_points=path_points,
+            style=style,
+            text=text,
+            text_style=text_style,
+            is_default_center=is_default_center,
+        )
 
 
 __all__ = [

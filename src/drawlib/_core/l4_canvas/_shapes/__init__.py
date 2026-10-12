@@ -9,30 +9,35 @@
 
 """Canvas shape feature package aggregating all shape drawing capabilities."""
 
-from drawlib._core.l4_canvas._shapes._arrow import (
-    CanvasShapeArrowFeature,
-)
+from drawlib._core.l4_canvas._shapes._arrow import CanvasShapeArrowFeature
+from drawlib._core.l4_canvas._shapes._badge import CanvasShapeBadgeFeature
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
-from drawlib._core.l4_canvas._shapes._polygon import (
-    CanvasShapePolygonFeature,
-)
+from drawlib._core.l4_canvas._shapes._container import CanvasShapeContainerFeature
+from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
+from drawlib._core.l4_canvas._shapes._symbol import CanvasShapeSymbolFeature
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
 class CanvasShapeFeature(
-    CanvasShapePolygonFeature,
     CanvasShapeArrowFeature,
+    CanvasShapeBadgeFeature,
+    CanvasShapeContainerFeature,
+    CanvasShapeSymbolFeature,
+    CanvasShapePolygonFeature,
     CanvasShapeBasicFeature,
 ):
-    """Unified canvas shape feature class combining basic, polygon, and arrow shapes."""
+    """Unified canvas shape feature class combining all 6 shape categories."""
 
     pass
 
 
 __all__ = [
     "CanvasShapeArrowFeature",
+    "CanvasShapeBadgeFeature",
     "CanvasShapeBasicFeature",
+    "CanvasShapeContainerFeature",
     "CanvasShapeFeature",
     "CanvasShapePolygonFeature",
+    "CanvasShapeSymbolFeature",
     "ShapeUtil",
 ]

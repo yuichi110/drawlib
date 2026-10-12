@@ -12,6 +12,7 @@
 import math
 from typing import Any, cast
 
+from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 from matplotlib.text import Text
 
@@ -655,6 +656,302 @@ class ShapeUtil:
         if reversed_order:
             radii = list(reversed(radii))
         return tuple(radii) if any(r > 0.0 for r in radii) else None
+
+    @staticmethod
+    def prepare_centered_shape(
+        xy: Coordinate,
+        width: float,
+        height: float,
+        style: Style,
+    ) -> tuple[Coordinate, Angle, Style]:
+        """Resolve center coordinate (cx, cy), angle, and post-alignment style for a centered shape."""
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy_aligned, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        return xy_aligned, angle, style
+
+    @staticmethod
+    def append_path_and_text(
+        artists: list[Any],
+        path: Path,
+        style: Style,
+        text: str,
+        text_style: Style | None,
+        text_xy: Coordinate,
+        angle: float,
+    ) -> None:
+        """Append a PathPatch and optional embedded text artist to the canvas artist list."""
+        options = ShapeUtil.get_shape_options(style)
+        artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @staticmethod
+    def append_patches_and_text(
+        artists: list[Any],
+        patches: list[Any],
+        style: Style,
+        text: str,
+        text_style: Style | None,
+        text_xy: Coordinate,
+        angle: float,
+    ) -> None:
+        """Append multiple patch artists and optional embedded text artist to the canvas artist list."""
+        artists.extend(patches)
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @staticmethod
+    def draw_shape_path_points(
+        artists: list[Any],
+        xy: Coordinate,
+        path_points: PathPoints,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+        is_default_center: bool = False,
+    ) -> None:
+        """Draw a custom path shape defined by local PathPoints with alignment and optional text."""
+        style, text_style = ShapeUtil.format_styles(
+            style,
+            text_style,
+        )
+        angle: Angle = style.angle if style.angle is not None else 0.0
+
+        transformed_points, (cx, cy), effective_style = ShapeUtil.transform_shape_path_points(
+            xy=xy,
+            path_points=path_points,
+            angle=angle,
+            style=style,
+            is_default_center=is_default_center,
+        )
+
+        path = ShapeUtil.build_matplotlib_path(transformed_points)
+        ShapeUtil.append_path_and_text(
+            artists=artists,
+            path=path,
+            style=effective_style,
+            text=text,
+            text_style=text_style,
+            text_xy=(cx, cy),
+            angle=angle,
+        )
+
+    @staticmethod
+    def draw_convex_polygon_with_hole(
+        artists: list[Any],
+        xy: Coordinate,
+        vertices: list[Coordinate],
+        hole_ratio: float | None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+        is_default_center: bool = False,
+    ) -> None:
+        """Draw a convex polygon with optional inner hole_ratio cutout and corner rounding."""
+        if hole_ratio is None:
+            path_points = ShapeUtil.round_polygon_points(vertices, style.shape_r)
+            ShapeUtil.draw_shape_path_points(
+                artists=artists,
+                xy=xy,
+                path_points=path_points,
+                style=style,
+                text=text,
+                text_style=text_style,
+                is_default_center=is_default_center,
+            )
+            return
+
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        h_ratio = float(ShapeUtil.validate_hole_ratio(hole_ratio) or 0.5)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+
+        inner_local_verts, inset = ShapeUtil.inset_convex_polygon(vertices, h_ratio)
+        outer_points = ShapeUtil.round_polygon_points(vertices, style.shape_r)
+        inner_shape_r = ShapeUtil.shrink_shape_r(style.shape_r, inset, reversed_order=True)
+        inner_points = ShapeUtil.round_polygon_points(inner_local_verts, inner_shape_r)
+
+        orig_center, (width, height) = get_center_and_size(vertices)
+        centered_outer = [ShapeUtil._shift_path_point(p, orig_center) for p in outer_points]
+        centered_inner = [ShapeUtil._shift_path_point(p, orig_center) for p in inner_points]
+
+        align_xy = (xy[0] - width / 2.0, xy[1] - height / 2.0) if is_default_center else xy
+        (adj_x, adj_y), effective_style = ShapeUtil.apply_alignment(
+            align_xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=is_default_center,
+        )
+        center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
+
+        transformed_outer = [
+            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_outer
+        ]
+        transformed_inner = [
+            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_inner
+        ]
+
+        outer_path = ShapeUtil.build_matplotlib_path(transformed_outer)
+        inner_path = ShapeUtil.build_matplotlib_path(transformed_inner)
+        compound_path = Path.make_compound_path(outer_path, inner_path)
+
+        ShapeUtil.append_path_and_text(
+            artists=artists,
+            path=compound_path,
+            style=effective_style,
+            text=text,
+            text_style=text_style,
+            text_xy=center_xy,
+            angle=angle,
+        )
+
+    @staticmethod
+    def lighten_rgba(
+        rgba: tuple[float, float, float, float],
+        factor: float,
+    ) -> tuple[float, float, float, float]:
+        """Lighten an RGBA color tuple toward white by factor in [0.0, 1.0]."""
+        r, g, b, a = rgba
+        return (
+            min(1.0, r + (1.0 - r) * factor),
+            min(1.0, g + (1.0 - g) * factor),
+            min(1.0, b + (1.0 - b) * factor),
+            a,
+        )
+
+    @staticmethod
+    def darken_rgba(
+        rgba: tuple[float, float, float, float],
+        factor: float,
+    ) -> tuple[float, float, float, float]:
+        """Darken an RGBA color tuple toward black by factor in [0.0, 1.0]."""
+        r, g, b, a = rgba
+        scale = 1.0 - factor
+        return (
+            max(0.0, r * scale),
+            max(0.0, g * scale),
+            max(0.0, b * scale),
+            a,
+        )
+
+    @staticmethod
+    def resolve_feature_colors(
+        style: Style,
+    ) -> tuple[
+        tuple[float, float, float, float] | str,
+        tuple[float, float, float, float] | str,
+        tuple[float, float, float, float],
+        float,
+    ]:
+        """Derive face fill, outline stroke, and inner feature color/width from Style."""
+        line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
+        raw_stroke = (
+            ColorUtil.get_mplot_rgba(style.shape_line_color)
+            if style.shape_line_color is not None
+            else (0.0, 0.0, 0.0, 0.0)
+        )
+        has_stroke = style.shape_line_color is not None and line_w > 0 and raw_stroke[3] > 0.0
+
+        if style.shape_fill_color is None:
+            face_fill: tuple[float, float, float, float] | str = "none"
+        else:
+            raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+            face_fill = "none" if raw_fill[3] <= 0.0 else raw_fill
+
+        stroke_color: tuple[float, float, float, float] | str = raw_stroke if has_stroke else "none"
+
+        if has_stroke:
+            feature_color = raw_stroke
+            feature_w = line_w
+        elif style.text_color is not None:
+            feature_color = ColorUtil.get_mplot_rgba(style.text_color)
+            feature_w = 1.5
+        else:
+            contrast_col = ColorUtil.get_contrast_text_color(style.shape_fill_color, style.alpha)
+            feature_color = ColorUtil.get_mplot_rgba(contrast_col)
+            feature_w = 1.5
+
+        if style.alpha is not None and 0.0 < style.alpha < 1.0:
+            feature_color = (
+                feature_color[0],
+                feature_color[1],
+                feature_color[2],
+                round(feature_color[3] * style.alpha, 5),
+            )
+            if isinstance(stroke_color, tuple):
+                stroke_color = (
+                    stroke_color[0],
+                    stroke_color[1],
+                    stroke_color[2],
+                    round(stroke_color[3] * style.alpha, 5),
+                )
+
+        return face_fill, stroke_color, feature_color, feature_w
+
+    @staticmethod
+    def arc_points_local(
+        cx: float,
+        cy: float,
+        r: float,
+        a_start_deg: float,
+        a_end_deg: float,
+        n: int = 36,
+    ) -> list[Coordinate]:
+        """Sample points along a circular arc from a_start_deg to a_end_deg."""
+        pts: list[Coordinate] = []
+        for i in range(n + 1):
+            a = math.radians(a_start_deg + (a_end_deg - a_start_deg) * (i / n))
+            pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+        return pts
+
+    @staticmethod
+    def subpaths_to_compound_path(
+        subpaths: list[list[Coordinate]],
+        cx: float,
+        cy: float,
+        angle: float,
+    ) -> Path:
+        """Transform local polygon subpaths by (cx, cy, angle) and combine into a single Matplotlib Path."""
+        rad = math.radians(angle)
+        cos_a = math.cos(rad)
+        sin_a = math.sin(rad)
+
+        all_verts: list[Coordinate] = []
+        all_codes: list[Any] = []
+        for sp in subpaths:
+            if not sp:
+                continue
+            xformed = [(cx + lx * cos_a - ly * sin_a, cy + lx * sin_a + ly * cos_a) for lx, ly in sp]
+            all_verts.extend(xformed)
+            all_verts.append(xformed[0])
+            all_codes.append(Path.MOVETO)
+            all_codes.extend([Path.LINETO] * (len(xformed) - 1))
+            all_codes.append(Path.CLOSEPOLY)
+        return Path(vertices=all_verts, codes=all_codes)
 
 
 __all__ = ["ShapeUtil"]

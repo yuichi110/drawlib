@@ -65,9 +65,18 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ## 1. Architectural Overview & Core Mechanics
 
-### 1.1 Package Facade & Exports
+### 1.1 Package Facade & 6-Category Taxonomy
 
-The `drawlib.shapes` module re-exports 43 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 43 functions organized into **6 semantic categories** across `drawlib._core.l4_canvas._shapes`:
+
+| Category | Internal Feature Module | Count | Shapes |
+| :--- | :--- | :---: | :--- |
+| **1. Basic** (Fundamental Geometries & Arcs) | `_basic.py` (`CanvasShapeBasicFeature`) | 6 | `rectangle`, `circle`, `ellipse`, `wedge`, `fan`, `arc` |
+| **2. Polygon** (Planar Polygons & Custom Paths) | `_polygon.py` (`CanvasShapePolygonFeature`) | 9 | `triangle`, `parallelogram`, `trapezoid`, `rhombus`, `regularpolygon`, `star`, `plaque`, `polygon`, `shape` |
+| **3. Arrow** (Directed Block Arrows & Process Steps) | `_arrow.py` (`CanvasShapeArrowFeature`) | 6 | `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, `chevron` |
+| **4. Container** (3D Containers, Flow & Grouping) | `_container.py` (`CanvasShapeContainerFeature`) | 6 | `cylinder`, `cube`, `document`, `funnel`, `cloud`, `brace` |
+| **5. Badge** (Callouts, Badges & Status Indicators) | `_badge.py` (`CanvasShapeBadgeFeature`) | 8 | `bubblespeech`, `pin`, `tag`, `ribbon`, `shield`, `forbidden`, `checkmark`, `explosion` |
+| **6. Symbol** (Faces, Clocks, Symbols & Operators) | `_symbol.py` (`CanvasShapeSymbolFeature`) | 8 | `face`, `clock`, `sun`, `moon`, `heart`, `lightning`, `gear`, `math_symbol` |
 
 ```python
 from drawlib.shapes import (

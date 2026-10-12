@@ -115,54 +115,54 @@ rectangle((50, 22), width=80, height=26, style=Styles.PrimaryFlat, text="Canvas 
 
 ## 3. Geometric Shapes Primitives (`drawlib.shapes`)
 
-All shape primitives accept `style: Style | None = None` (including `style.angle` for rotation, `style.halign`/`style.valign` for alignment), `text: str = ""`, and `text_style: Style | None = None`.  
+All 43 shape primitives are organized into **6 semantic categories** (`Basic`, `Polygon`, `Arrow`, `Container`, `Badge`, `Symbol`) and accept `style: Style | None = None` (including `style.angle` for rotation, `style.halign`/`style.valign` for alignment), `text: str = ""`, and `text_style: Style | None = None`.  
 Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted.
 
-| Function | Geometric Parameters | Description |
-| :--- | :--- | :--- |
-| `rectangle(xy, width, height, ...)` | `width, height: float`, `hole_ratio: float \| None = None` | Rectangle, rounded rectangle (`style.shape_r`), or hollow rectangular frame (`hole_ratio`). |
-| `circle(xy, radius, ...)` | `radius: float`, `hole_ratio: float \| None = None` | Perfect circle or hollow annular ring / donut (`hole_ratio`) centered at `xy`. |
-| `cylinder(xy, width, height, ...)` | `disks: int = 1` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
-| `cube(xy, width, height, ...)` | `depth_ratio: float \| None = None` | 3D cube / rectangular block with 3-face automatic shading centered at `xy`. |
-| `document(xy, width, height, ...)` | `variant: str = "wave"` (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`), `stacked: int = 1`, `wave_ratio=None`, `fold_ratio=None` | Wavy-bottom or folded-corner document / multi-sheet stack centered at `xy`. |
-| `face(xy, radius, ...)` | `variant: str = "smile"` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`, `"dizzy"`, `"dead"`, `"skull"`, `"devil"`) centered at `xy`. |
-| `cloud(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`), `bump_ratio=None` | Cloud node or VPC/SaaS boundary enclosure centered at `xy`. |
-| `brace(xy, width, height, ...)` | `symbol: str = "{"` (`"{"`, `"}"`, `"["`, `"]"`, `"("`, `")"`), `direction=None`, `tip_ratio=None`, `tip_position_ratio=None` | Curly, square, or round grouping bracket/brace (stroke thickness controlled via `style.line_width`). |
-| `forbidden(xy, radius, ...)` | `variant: str = "slash"` (`"slash"`, `"backslash"`, `"cross"`, `"no_entry"`), `thickness_ratio=None` | Forbidden / no-entry symbol centered at `xy`. |
-| `checkmark(xy, width, height=None, ...)` | `variant: str = "standard"` (`"standard"`, `"circle"`, `"solid_circle"`), `thickness_ratio=None` | Checkmark symbol or badge centered at `xy`. |
-| `shield(xy, width, height, ...)` | `variant: str = "classic"` (`"classic"`, `"flat"`, `"heater"`, `"round"`) | Security shield silhouette centered at `xy`. |
-| `ribbon(xy, width, height, ...)` | `variant: str = "down"` (`"down"`, `"up"`, `"flat"`), `tail_width_ratio=None`, `drop_ratio=None` | 3D or flat ribbon banner centered at `xy`. |
-| `funnel(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"3d"`, `"curved"`), `neck_width_ratio=None`, `neck_height_ratio=None` | Filter / conversion funnel centered at `xy`. |
-| `pin(xy, width, height, ...)` | `variant: str = "pointer"` (`"pointer"`, `"teardrop"`, `"pin"`, `"badge"`), `hole_ratio=None` | Callout pointer badge or map pin centered at `xy`. |
-| `heart(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"broken"`) | Heart or broken-heart shape centered at `xy`. |
-| `sun(xy, radius, ...)` | `variant: str = "rays"` (`"rays"`, `"ring"`, `"beams"`), `num_rays: int = 8` | Sun with surrounding rays centered at `xy`. |
-| `moon(xy, width, height, ...)` | `variant: str = "crescent"` (`"crescent"`, `"thin"`, `"waxing"`, `"half"`), `mirror: bool = False` | Crescent or half moon centered at `xy`. |
-| `clock(xy, radius, ...)` | `variant: str = "standard"` (`"standard"`, `"ticks"`, `"stopwatch"`, `"alarm"`, `"digital"`), `hour=10.0`, `minute=10.0` | Analog or font-free 7-segment digital clock centered at `xy`. |
-| `ellipse(xy, width, height, ...)` | `width, height: float`, `hole_ratio: float \| None = None` | Ellipse or hollow elliptical ring (`hole_ratio`) centered at `xy`. |
-| `wedge(xy, radius, width, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Annular sector / wedge slice from `angle_start` to `angle_end`. |
-| `fan(xy, radius, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Circular pie sector from `angle_start` to `angle_end`. |
-| `arc(xy, width, height, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Arc segment perimeter. |
-| `triangle(xy, width, height, ...)` | `width, height: float`, `topvertex_x: float \| None = None`, `hole_ratio: float \| None = None` | Triangle defined by bounding box width and height. |
-| `trapezoid(xy, height, bottomedge_width, topedge_width, ...)` | `height, bottomedge_width, topedge_width: float`, `hole_ratio: float \| None = None` | Trapezoid with configurable top edge offset. |
-| `parallelogram(xy, width, height, corner_angle, ...)` | `width, height: float`, `corner_angle: float = 60.0`, `hole_ratio: float \| None = None` | Parallelogram with interior slant angle `corner_angle`. |
-| `rhombus(xy, width, height, ...)` | `width, height: float`, `hole_ratio: float \| None = None` | Diamond / rhombus shape. |
-| `regularpolygon(xy, radius, num_vertex, ...)` | `radius: float`, `num_vertex: int`, `hole_ratio: float \| None = None` | Regular N-sided polygon (pentagon, hexagon, etc.). |
-| `polygon(xys, ...)` | `xys: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
-| `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float` | Multi-pointed star shape. |
-| `gear(xy, num_teeth, radius_ext, radius_int, ...)` | `num_teeth: int`, `radius_ext, radius_int: float`, `tooth_ext_ratio=None`, `tooth_int_ratio=None`, `hole_radius=None` | Cogwheel / gear shape with configurable tooth ratios and optional center hole. |
-| `math_symbol(xy, symbol, width, height=None, ...)` | `symbol: str` (`"+"`, `"-"`, `"×"`, `"÷"`, `"="`, `"≠"`), `width: float`, `height=None`, `thickness_ratio=None` | Mathematical operator symbol shape for visual equations (`A + B = C`). |
-| `lightning(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"flat"`, `"double"`, `"flat_double"`, `"angled"`, `"slanted"`), `mirror: bool = False` | Lightning bolt shape centered at `xy`. |
-| `explosion(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"irregular"`, `"heavy"`, `"wild"`, `"curved"`, `"comic"`) | Asymmetric explosion / impact burst centered at `xy`. |
-| `tag(xy, width, height, ...)` | `variant: str = "angled"` (`"angled"`, `"chamfered"`, `"beveled"`, `"rounded"`), `mirror: bool = False`, `hole_ratio=None` | Perforated label tag or badge centered at `xy`. |
-| `plaque(xy, width, height, ...)` | `variant: str = "concave"` (`"concave"`, `"chamfered"`, `"octagon"`, `"notched"`), `cut_ratio=None` | Corner-cut plaque or ornamental plate centered at `xy`. |
-| `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False` | Process chevron arrow shape centered at `xy`. |
-| `arrow(xy1, xy2, tail_width, head_width, head_length, ...)` | `xy1, xy2, tail_width, head_width, head_length`, `head: str = "->"` | Point-to-point block arrow shape. |
-| `arrow_l(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | L-shaped bent block arrow. |
-| `arrow_u(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | U-turn block arrow. |
-| `arrow_arc(xy, width, height, tail_width, head_width, ...)` | `width, height, tail_width, head_width, head_angle, angle_start, angle_end` | Curved circular block arrow. |
-| `arrow_polyline(xys, tail_width, head_width, head_length, ...)` | `xys: list[tuple[float, float]]`, `tail_width, head_width, head_length` | Polyline-following block arrow. |
-| `bubblespeech(xy, width, height, tail_edge, ...)` | `tail_edge, tail_start_ratio, tail_end_ratio, tail_vertex_xy` | Rectangular speech bubble with pointer tail. |
-| `shape(xy, path_points, ...)` | `path_points: list[...]` | Custom path shape. |
+| Category | Function | Geometric Parameters | Description |
+| :--- | :--- | :--- | :--- |
+| **Basic** | `rectangle(xy, width, height, ...)` | `width, height: float`, `hole_ratio: float \| None = None` | Rectangle, rounded rectangle (`style.shape_r`), or hollow rectangular frame (`hole_ratio`). |
+| **Basic** | `circle(xy, radius, ...)` | `radius: float`, `hole_ratio: float \| None = None` | Perfect circle or hollow annular ring / donut (`hole_ratio`) centered at `xy`. |
+| **Basic** | `ellipse(xy, width, height, ...)` | `width, height: float`, `hole_ratio: float \| None = None` | Ellipse or hollow elliptical ring (`hole_ratio`) centered at `xy`. |
+| **Basic** | `wedge(xy, radius, width, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Annular sector / wedge slice from `angle_start` to `angle_end`. |
+| **Basic** | `fan(xy, radius, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Circular pie sector from `angle_start` to `angle_end`. |
+| **Basic** | `arc(xy, width, height, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Arc segment perimeter. |
+| **Polygon** | `triangle(xy, width, height, ...)` | `width, height: float`, `topvertex_x: float \| None = None`, `hole_ratio: float \| None = None` | Triangle defined by bounding box width and height. |
+| **Polygon** | `parallelogram(xy, width, height, corner_angle, ...)` | `width, height: float`, `corner_angle: float = 60.0`, `hole_ratio: float \| None = None` | Parallelogram with interior slant angle `corner_angle`. |
+| **Polygon** | `trapezoid(xy, height, bottomedge_width, topedge_width, ...)` | `height, bottomedge_width, topedge_width: float`, `hole_ratio: float \| None = None` | Trapezoid with configurable top edge offset. |
+| **Polygon** | `rhombus(xy, width, height, ...)` | `width, height: float`, `hole_ratio: float \| None = None` | Diamond / rhombus shape. |
+| **Polygon** | `regularpolygon(xy, radius, num_vertex, ...)` | `radius: float`, `num_vertex: int`, `hole_ratio: float \| None = None` | Regular N-sided polygon (pentagon, hexagon, etc.). |
+| **Polygon** | `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float` | Multi-pointed star shape. |
+| **Polygon** | `plaque(xy, width, height, ...)` | `variant: str = "concave"` (`"concave"`, `"chamfered"`, `"octagon"`, `"notched"`), `cut_ratio=None` | Corner-cut plaque or ornamental plate centered at `xy`. |
+| **Polygon** | `polygon(xys, ...)` | `xys: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
+| **Polygon** | `shape(xy, path_points, ...)` | `path_points: list[...]` | Custom path shape. |
+| **Arrow** | `arrow(xy1, xy2, tail_width, head_width, head_length, ...)` | `xy1, xy2, tail_width, head_width, head_length`, `head: str = "->"` | Point-to-point block arrow shape. |
+| **Arrow** | `arrow_l(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | L-shaped bent block arrow. |
+| **Arrow** | `arrow_u(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | U-turn block arrow. |
+| **Arrow** | `arrow_arc(xy, width, height, tail_width, head_width, ...)` | `width, height, tail_width, head_width, head_angle, angle_start, angle_end` | Curved circular block arrow. |
+| **Arrow** | `arrow_polyline(xys, tail_width, head_width, head_length, ...)` | `xys: list[tuple[float, float]]`, `tail_width, head_width, head_length` | Polyline-following block arrow. |
+| **Arrow** | `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False` | Process chevron arrow shape. |
+| **Container** | `cylinder(xy, width, height, ...)` | `disks: int = 1` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
+| **Container** | `cube(xy, width, height, ...)` | `depth_ratio: float \| None = None` | 3D cube / rectangular block with 3-face automatic shading centered at `xy`. |
+| **Container** | `document(xy, width, height, ...)` | `variant: str = "wave"` (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`), `stacked: int = 1`, `wave_ratio=None`, `fold_ratio=None` | Wavy-bottom or folded-corner document / multi-sheet stack centered at `xy`. |
+| **Container** | `funnel(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"3d"`, `"curved"`), `neck_width_ratio=None`, `neck_height_ratio=None` | Filter / conversion funnel centered at `xy`. |
+| **Container** | `cloud(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`), `bump_ratio=None` | Cloud node or VPC/SaaS boundary enclosure centered at `xy`. |
+| **Container** | `brace(xy, width, height, ...)` | `symbol: str = "{"` (`"{"`, `"}"`, `"["`, `"]"`, `"("`, `")"`), `direction=None`, `tip_ratio=None`, `tip_position_ratio=None` | Curly, square, or round grouping bracket/brace (stroke thickness controlled via `style.line_width`). |
+| **Badge** | `bubblespeech(xy, width, height, tail_edge, ...)` | `tail_edge, tail_start_ratio, tail_end_ratio, tail_vertex_xy` | Rectangular speech bubble with pointer tail. |
+| **Badge** | `pin(xy, width, height, ...)` | `variant: str = "pointer"` (`"pointer"`, `"teardrop"`, `"pin"`, `"badge"`), `hole_ratio=None` | Callout pointer badge or map pin centered at `xy`. |
+| **Badge** | `tag(xy, width, height, ...)` | `variant: str = "angled"` (`"angled"`, `"chamfered"`, `"beveled"`, `"rounded"`), `mirror: bool = False`, `hole_ratio=None` | Perforated label tag or badge centered at `xy`. |
+| **Badge** | `ribbon(xy, width, height, ...)` | `variant: str = "down"` (`"down"`, `"up"`, `"flat"`), `tail_width_ratio=None`, `drop_ratio=None` | 3D or flat ribbon banner centered at `xy`. |
+| **Badge** | `shield(xy, width, height, ...)` | `variant: str = "classic"` (`"classic"`, `"flat"`, `"heater"`, `"round"`) | Security shield silhouette centered at `xy`. |
+| **Badge** | `forbidden(xy, radius, ...)` | `variant: str = "slash"` (`"slash"`, `"backslash"`, `"cross"`, `"no_entry"`), `thickness_ratio=None` | Forbidden / no-entry symbol centered at `xy`. |
+| **Badge** | `checkmark(xy, width, height=None, ...)` | `variant: str = "standard"` (`"standard"`, `"circle"`, `"solid_circle"`), `thickness_ratio=None` | Checkmark symbol or badge centered at `xy`. |
+| **Badge** | `explosion(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"irregular"`, `"heavy"`, `"wild"`, `"curved"`, `"comic"`) | Asymmetric explosion / impact burst centered at `xy`. |
+| **Symbol** | `face(xy, radius, ...)` | `variant: str = "smile"` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`, `"dizzy"`, `"dead"`, `"skull"`, `"devil"`) centered at `xy`. |
+| **Symbol** | `clock(xy, radius, ...)` | `variant: str = "standard"` (`"standard"`, `"ticks"`, `"stopwatch"`, `"alarm"`, `"digital"`), `hour=10.0`, `minute=10.0` | Analog or font-free 7-segment digital clock centered at `xy`. |
+| **Symbol** | `sun(xy, radius, ...)` | `variant: str = "rays"` (`"rays"`, `"ring"`, `"beams"`), `num_rays: int = 8` | Sun with surrounding rays centered at `xy`. |
+| **Symbol** | `moon(xy, width, height, ...)` | `variant: str = "crescent"` (`"crescent"`, `"thin"`, `"waxing"`, `"half"`), `mirror: bool = False` | Crescent or half moon centered at `xy`. |
+| **Symbol** | `heart(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"broken"`) | Heart or broken-heart shape centered at `xy`. |
+| **Symbol** | `lightning(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"flat"`, `"double"`, `"flat_double"`, `"angled"`, `"slanted"`), `mirror: bool = False` | Lightning bolt shape centered at `xy`. |
+| **Symbol** | `gear(xy, num_teeth, radius_ext, radius_int, ...)` | `num_teeth: int`, `radius_ext, radius_int: float`, `tooth_ext_ratio=None`, `tooth_int_ratio=None`, `hole_radius=None` | Cogwheel / gear shape with configurable tooth ratios and optional center hole. |
+| **Symbol** | `math_symbol(xy, symbol, width, height=None, ...)` | `symbol: str` (`"+"`, `"-"`, `"×"`, `"÷"`, `"="`, `"≠"`), `width: float`, `height=None`, `thickness_ratio=None` | Mathematical operator symbol shape for visual equations (`A + B = C`). |
 
 ```drawlib code=show file=shapes_primitives.png
 from drawlib.canvas import setup

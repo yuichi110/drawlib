@@ -19,6 +19,7 @@ from pydantic import validate_call
 
 from drawlib._core.l2_types import (
     Angle,
+    Angle90,
     ArrowHead,
     Coordinate,
     Coordinates,
@@ -36,11 +37,11 @@ from drawlib._core.l3_math import (
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._line_util import LineUtil
 from drawlib._core.l4_canvas._lines import LineArcHelper
-from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
+from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
-class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
+class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
     """Canvas arrow shape feature implementation module.
 
     This class provides methods to draw single-headed and double-headed arrows
@@ -471,6 +472,65 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_length=head_length,
             head=head,
             style=style,
+        )
+
+    @validate_call
+    def chevron(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        corner_angle: Angle90,
+        mirror: bool = False,
+        *,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a chevron (arrow-head block) shape on the canvas.
+
+        Args:
+            xy: Bottom-left coordinate tuple (x, y).
+            width: Width of chevron.
+            height: Height of chevron.
+            corner_angle: Angle of the arrowhead point.
+            mirror: Whether to mirror chevron horizontally.
+            style: Style object.
+            text: Text to display inside shape.
+            text_style: Style object for text or None.
+        """
+        style, text_style = ShapeUtil.format_styles(
+            style,
+            text_style,
+        )
+
+        def calculate_p2_coordinate(h: float) -> Coordinate:
+            h /= 2
+            angle_rad = math.radians(corner_angle)
+            x = h / math.tan(angle_rad)
+            return x, h
+
+        p1 = (0, 0)
+        p2 = calculate_p2_coordinate(height)
+        p3 = (0, height)
+        p4 = (width, height)
+        p5 = (width + p2[0], height / 2)
+        p6 = (width, 0)
+
+        if mirror:
+            p2 = (p2[0] * -1, p2[1])
+            p4 = (p4[0] * -1, p4[1])
+            p5 = (p5[0] * -1, p5[1])
+            p6 = (p6[0] * -1, p6[1])
+
+        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4, p5, p6], style.shape_r)
+
+        self.shape(
+            xy=xy,
+            path_points=path_points,
+            style=style,
+            text=text,
+            text_style=text_style,
         )
 
     @staticmethod
