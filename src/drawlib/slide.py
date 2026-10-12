@@ -16,6 +16,8 @@ from drawlib._slide import (
     SlideContext,
     build_slide,
     current_slide,
+    draw_page_number,
+    draw_section_header,
 )
 
 __all__ = [
@@ -23,4 +25,6 @@ __all__ = [
     "SlideContext",
     "build_slide",
     "current_slide",
+    "draw_page_number",
+    "draw_section_header",
 ]

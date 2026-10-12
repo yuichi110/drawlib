@@ -639,7 +639,7 @@
 <p>This generates the complete presentation infrastructure:</p>
 <ul>
 <li><strong><code>styles.py</code></strong>: Configures the color palette (<code>GoogleStyles</code>) and language-appropriate fonts.</li>
-<li><strong><code>utils.py</code></strong>: Provides reusable presentation helpers (<code>draw_page_number()</code>, <code>draw_chapter_divider()</code>, <code>draw_curved_agenda()</code>, <code>draw_kpi_cards()</code>).</li>
+<li><strong><code>utils.py</code> &amp; <code>drawlib.slide</code></strong>: Provides shared project utilities (<code>service_card()</code>, <code>connect()</code>) alongside built-in <code>drawlib.slide</code> stage helpers (<code>draw_page_number()</code>, <code>draw_section_header()</code>) and <code>drawlib.smartarts</code> (<code>Roadmap</code>, <code>KpiCards</code>, <code>CardList</code>, <code>Panel</code>).</li>
 <li><strong><code>build.sh</code> / <code>serve.sh</code></strong>: Scripts to compile the interactive HTML deck (<code>*_html/index.html</code>), vector PDF (<code>*.pdf</code>), and standalone PNG assets (<code>*_images/</code>).</li>
 </ul>
 <h3>2.2. Step 2: Structuring the Narrative Arc with AI</h3>

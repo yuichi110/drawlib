@@ -24,10 +24,10 @@ Styles = DefaultStyles()   # Or GoogleStyles, MonochromeStyles
 ```
 Switching a 64-slide presentation from `DefaultStyles` to `GoogleStyles` or `MonochromeStyles` is a **two-line change** in `styles.py`.
 
-### 2. `utils.py` — Reusable Slide Macros
-- **`utils.draw_page_number()`**: Renders `current_slide.text` (`"42 / 64"`) on a transparent canvas (`alpha=0.0`).
-- **`utils.draw_chapter_divider(...)`**: Full-bleed 16:9 chapter cover with progress dots and topic cards.
-- **`utils.draw_kpi_cards(...)` & `utils.draw_curved_agenda(...)`**: Data-driven visual macros callable in 3 lines of Python.
+### 2. `drawlib.slide` & `utils.py` — Reusable Slide Macros
+- **`drawlib.slide.draw_page_number()`**: Renders `current_slide.text` (`"42 / 64"`) on a transparent canvas (`alpha=0.0`).
+- **`drawlib.slide.draw_section_header(...)`**: Full-bleed 16:9 chapter cover (`split`, `centered`, `banner`, `minimal`) with progress dots and topic cards.
+- **`utils.py` Domain Macros**: Project-specific helpers (`service_card()`, `connect()`, `draw_kpi_cards()`) callable in 3 lines of Python.
 :::
 
 ::: block xy=(860, 140) width=980 height=840

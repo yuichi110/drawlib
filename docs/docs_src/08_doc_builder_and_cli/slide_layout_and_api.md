@@ -241,13 +241,27 @@ Brief one-line summary of the presentation topic
 :::
 ````
 
-### 3.2. Section Divider / Closing Slide (`section` / `closing`)
-Centers a bold section header or closing call-to-action across the middle of the stage (`(160, 360) (1600, 360) center`), or uses a full-bleed `(0, 0) (1920, 1080)` vector background canvas:
+### 3.2. Section Header / Chapter Divider Slide (`draw_section_header`)
+Use `from drawlib.slide import draw_section_header` inside a full-bleed `::: block xy=(0, 0) width=1920 height=1080` block (`01_section.md`) with one of four layout patterns (`variant="split"`, `"centered"`, `"banner"`, or `"minimal"`):
 
 ````markdown
-::: block xy=(160, 360) width=1600 height=360 align=center
-# Part 2: Distributed Storage Engine
-## Consensus, Replication & Recovery Workflows
+::: block xy=(0, 0) width=1920 height=1080
+```drawlib file=section_cover.svg
+from drawlib.slide import draw_section_header
+
+draw_section_header(
+    2,
+    "Distributed Storage Engine",
+    "Consensus, Replication & Recovery Workflows",
+    [
+        "Raft Consensus & Leader Election",
+        "Quorum Write Path & WAL Durability",
+        "Automated Shard Rebalancing",
+    ],
+    total_sections=4,
+    variant="split",
+)
+```
 :::
 ````
 
@@ -257,8 +271,9 @@ Combines a standard header (`(80, 40) (1760, 60)`), footer (`(80, 1010) (820, 30
 ````markdown
 ::: block xy=(1700, 1010) width=140 height=30
 ```drawlib file=page.svg
-import utils
-utils.draw_page_number()
+from drawlib.slide import draw_page_number
+
+draw_page_number()
 ```
 :::
 
@@ -308,7 +323,7 @@ Use a single `xy=(0, 0) width=1920 height=1080` block with `setup(width=192, hei
 
 ## 5. Programmatic `drawlib.slide` Python API
 
-All slide runtime helpers, geometry models, and compilation functions are exported by `drawlib.slide`:
+All slide runtime helpers, stage/page helpers, geometry models, and compilation functions are exported by `drawlib.slide`:
 
 ```python
 from drawlib.slide import (
@@ -316,12 +331,16 @@ from drawlib.slide import (
     SlideContext,
     build_slide,
     current_slide,
+    draw_page_number,
+    draw_section_header,
 )
 ```
 
 | Symbol | Category | Description |
 | :--- | :--- | :--- |
 | **`current_slide`** | Runtime Proxy | Dynamic `contextvars`-backed proxy exposing the active slide's 1-based `index`, `total` slide count, `.text` (`"{index} / {total}"`), and `.format(template)` during deck compilation. |
+| **`draw_page_number`** | Stage Helper | Renders a standardized slide page counter badge (`14×3`, `alpha=0.0`) using `current_slide.text` or a custom `template`. |
+| **`draw_section_header`** | Stage Helper | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 selectable layout variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). |
 | **`SlideContext`** | Frozen Dataclass | Immutable context model (`index: int = 1`, `total: int = 1`, `.text`, `.format()`) holding slide numbering state. |
 | **`BoundingBox`** | Frozen Dataclass | Immutable stage geometry model (`x: float`, `y: float`, `width: float`, `height: float`) in 1920×1080 stage pixels. |
 | **`build_slide`** | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a standalone HTML presentation deck (`index.html`). |
@@ -339,19 +358,20 @@ from drawlib.slide import (
 During `build_slide()`, Drawlib binds `SlideContext(index=idx, total=N)` before executing each slide's ````drawlib```` blocks (defaulting safely to `1 / 1` when run standalone):
 
 ```python
-# slide_src/utils.py
-from drawlib.canvas import clear, setup
-from drawlib.slide import current_slide
-from drawlib.styles import Style, Styles
-from drawlib.text import text
+from drawlib.slide import draw_page_number, draw_section_header
 
+# 1. Bottom-right page counter badge (::: block xy=(1700, 1010) width=140 height=30)
+draw_page_number()
 
-def draw_page_number(width: int = 14, height: int = 3, style: Style | None = None) -> None:
-    """Draw a standardized slide page number badge on a transparent canvas."""
-    clear()
-    setup(width=width, height=height, alpha=0.0)
-    effective_style = style or Styles.Black.patch(text_size=65, text_color=(128, 128, 128))
-    text((width / 2.0, height / 2.0), current_slide.text, style=effective_style)
+# 2. Full-bleed 16:9 section header slide (::: block xy=(0, 0) width=1920 height=1080)
+draw_section_header(
+    1,
+    "Architecture Overview",
+    "Core Engine, SmartArts & Auto-Layout Graphs",
+    ["Coordinate Geometry", "Semantic Design Tokens", "High-Level Components"],
+    total_sections=4,
+    variant="split",  # "split" | "centered" | "banner" | "minimal"
+)
 ```
 
 ### 5.2. Compiling Slides Programmatically (`build_slide`)

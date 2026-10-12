@@ -21,12 +21,18 @@ from drawlib._slide.base import (
     set_slide_context,
 )
 from drawlib._slide.compiler import build_slide
+from drawlib._slide.helpers import (
+    draw_page_number,
+    draw_section_header,
+)
 
 __all__ = [
     "BoundingBox",
     "SlideContext",
     "build_slide",
     "current_slide",
+    "draw_page_number",
+    "draw_section_header",
     "get_slide_context",
     "has_slide_context",
     "reset_slide_context",

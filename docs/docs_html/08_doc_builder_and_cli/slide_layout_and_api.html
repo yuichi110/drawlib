@@ -790,19 +790,34 @@ Brief one-line summary of the presentation topic
 ![<span class="nt">Hero Logo</span>](<span class="na">_assets/logo.png</span>)
 :::
 </code></pre>
-<h3>3.2. Section Divider / Closing Slide (<code>section</code> / <code>closing</code>)</h3>
-<p>Centers a bold section header or closing call-to-action across the middle of the stage (<code>(160, 360) (1600, 360) center</code>), or uses a full-bleed <code>(0, 0) (1920, 1080)</code> vector background canvas:</p>
-<pre><code class="language-markdown">::: block xy=(160, 360) width=1600 height=360 align=center
-<span class="gh"># Part 2: Distributed Storage Engine</span>
-<span class="gu">## Consensus, Replication &amp; Recovery Workflows</span>
+<h3>3.2. Section Header / Chapter Divider Slide (<code>draw_section_header</code>)</h3>
+<p>Use <code>from drawlib.slide import draw_section_header</code> inside a full-bleed <code>::: block xy=(0, 0) width=1920 height=1080</code> block (<code>01_section.md</code>) with one of four layout patterns (<code>variant=&quot;split&quot;</code>, <code>&quot;centered&quot;</code>, <code>&quot;banner&quot;</code>, or <code>&quot;minimal&quot;</code>):</p>
+<pre><code class="language-markdown">::: block xy=(0, 0) width=1920 height=1080
+<span class="sb">```drawlib</span><span class="w"> </span>file=section_cover.svg
+<span class="s">from drawlib.slide import draw_section_header</span>
+
+<span class="s">draw_section_header(</span>
+<span class="s">    2,</span>
+<span class="s">    "Distributed Storage Engine",</span>
+<span class="s">    "Consensus, Replication &amp; Recovery Workflows",</span>
+<span class="s">    [</span>
+<span class="s">        "Raft Consensus &amp; Leader Election",</span>
+<span class="s">        "Quorum Write Path &amp; WAL Durability",</span>
+<span class="s">        "Automated Shard Rebalancing",</span>
+<span class="s">    ],</span>
+<span class="s">    total_sections=4,</span>
+<span class="s">    variant="split",</span>
+<span class="s">)</span>
+<span class="sb">```</span>
 :::
 </code></pre>
 <h3>3.3. Default Content &amp; Two-Column Split (<code>default</code>)</h3>
 <p>Combines a standard header (<code>(80, 40) (1760, 60)</code>), footer (<code>(80, 1010) (820, 30)</code>), page counter (<code>(1700, 1010) (140, 30)</code>), left narrative column (<code>(80, 140) (740, 840)</code>), and right diagram column (<code>(860, 140) (980, 840)</code>):</p>
 <pre><code class="language-markdown">::: block xy=(1700, 1010) width=140 height=30
 <span class="sb">```drawlib</span><span class="w"> </span>file=page.svg
-<span class="s">import utils</span>
-<span class="s">utils.draw_page_number()</span>
+<span class="s">from drawlib.slide import draw_page_number</span>
+
+<span class="s">draw_page_number()</span>
 <span class="sb">```</span>
 :::
 
@@ -862,12 +877,14 @@ Brief one-line summary of the presentation topic
 </table>
 <hr />
 <h2>5. Programmatic <code>drawlib.slide</code> Python API</h2>
-<p>All slide runtime helpers, geometry models, and compilation functions are exported by <code>drawlib.slide</code>:</p>
+<p>All slide runtime helpers, stage/page helpers, geometry models, and compilation functions are exported by <code>drawlib.slide</code>:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BoundingBox</span><span class="p">,</span>
     <span class="n">SlideContext</span><span class="p">,</span>
     <span class="n">build_slide</span><span class="p">,</span>
     <span class="n">current_slide</span><span class="p">,</span>
+    <span class="n">draw_page_number</span><span class="p">,</span>
+    <span class="n">draw_section_header</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <table>
@@ -883,6 +900,16 @@ Brief one-line summary of the presentation topic
 <td style="text-align:left"><strong><code>current_slide</code></strong></td>
 <td style="text-align:left">Runtime Proxy</td>
 <td style="text-align:left">Dynamic <code>contextvars</code>-backed proxy exposing the active slide's 1-based <code>index</code>, <code>total</code> slide count, <code>.text</code> (<code>&quot;{index} / {total}&quot;</code>), and <code>.format(template)</code> during deck compilation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>draw_page_number</code></strong></td>
+<td style="text-align:left">Stage Helper</td>
+<td style="text-align:left">Renders a standardized slide page counter badge (<code>14×3</code>, <code>alpha=0.0</code>) using <code>current_slide.text</code> or a custom <code>template</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>draw_section_header</code></strong></td>
+<td style="text-align:left">Stage Helper</td>
+<td style="text-align:left">Renders a full-bleed 16:9 section header slide (<code>192×108</code>) with 4 selectable layout variants (<code>&quot;split&quot;</code>, <code>&quot;centered&quot;</code>, <code>&quot;banner&quot;</code>, <code>&quot;minimal&quot;</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>SlideContext</code></strong></td>
@@ -945,19 +972,20 @@ Brief one-line summary of the presentation topic
 </tbody>
 </table>
 <p>During <code>build_slide()</code>, Drawlib binds <code>SlideContext(index=idx, total=N)</code> before executing each slide's <code>drawlib</code> blocks (defaulting safely to <code>1 / 1</code> when run standalone):</p>
-<pre><code class="language-python"><span class="c1"># slide_src/utils.py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">current_slide</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Style</span><span class="p">,</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">draw_page_number</span><span class="p">,</span> <span class="n">draw_section_header</span>
 
+<span class="c1"># 1. Bottom-right page counter badge (::: block xy=(1700, 1010) width=140 height=30)</span>
+<span class="n">draw_page_number</span><span class="p">()</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">draw_page_number</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Draw a standardized slide page number badge on a transparent canvas."""</span>
-    <span class="n">clear</span><span class="p">()</span>
-    <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-    <span class="n">effective_style</span> <span class="o">=</span> <span class="n">style</span> <span class="ow">or</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">current_slide</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">effective_style</span><span class="p">)</span>
+<span class="c1"># 2. Full-bleed 16:9 section header slide (::: block xy=(0, 0) width=1920 height=1080)</span>
+<span class="n">draw_section_header</span><span class="p">(</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"Architecture Overview"</span><span class="p">,</span>
+    <span class="s2">"Core Engine, SmartArts &amp; Auto-Layout Graphs"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"Coordinate Geometry"</span><span class="p">,</span> <span class="s2">"Semantic Design Tokens"</span><span class="p">,</span> <span class="s2">"High-Level Components"</span><span class="p">],</span>
+    <span class="n">total_sections</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"split"</span><span class="p">,</span>  <span class="c1"># "split" | "centered" | "banner" | "minimal"</span>
+<span class="p">)</span>
 </code></pre>
 <h3>5.2. Compiling Slides Programmatically (<code>build_slide</code>)</h3>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_slide</span>

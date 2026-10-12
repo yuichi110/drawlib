@@ -17,7 +17,10 @@ from typing import Literal
 from drawlib.canvas import clear, setup
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle, rectangle
-from drawlib.slide import current_slide
+from drawlib.slide import (
+    draw_page_number as _draw_page_number,
+    draw_section_header as _draw_section_header,
+)
 from drawlib.styles import Style, Styles
 from drawlib.text import text
 
@@ -44,13 +47,7 @@ def draw_page_number(
         height: Canvas height in coordinate units.
         style: Text style for the page counter (defaults to gray 65pt text with transparent background).
     """
-    clear()
-    setup(width=width, height=height, alpha=0.0)
-    effective_style = style or Styles.Black.patch(
-        text_size=65,
-        text_color=(128, 128, 128),
-    )
-    text((width / 2.0, height / 2.0), current_slide.text, style=effective_style)
+    _draw_page_number(width=width, height=height, style=style)
 
 
 def draw_chapter_divider(
@@ -60,7 +57,7 @@ def draw_chapter_divider(
     topics: Sequence[str] = (),
     total_chapters: int = 7,
 ) -> None:
-    """Draw a full-bleed 16:9 chapter divider slide (192.0 x 108.0 coordinate canvas).
+    """Draw a full-bleed 16:9 chapter divider slide via drawlib.slide.draw_section_header.
 
     Args:
         chapter_num: 1-based chapter number.
@@ -69,217 +66,14 @@ def draw_chapter_divider(
         topics: List of key topic strings previewed in the chapter.
         total_chapters: Total number of chapters in the presentation.
     """
-    clear()
-    setup(width=192, height=108)
-
-    # Right panel background (soft slate)
-    rectangle(
-        (132.0, 54.0),
-        width=120.0,
-        height=108.0,
-        style=Styles.WhiteFlat.patch(
-            shape_fill_color=(248, 250, 252),
-            shape_line_color=(248, 250, 252),
-            shape_line_width=0.0,
-        ),
-    )
-
-    # Left dark slate panel
-    rectangle(
-        (36.0, 54.0),
-        width=72.0,
-        height=108.0,
-        style=Styles.WhiteFlat.patch(
-            shape_fill_color=(15, 23, 42),
-            shape_line_color=(15, 23, 42),
-            shape_line_width=0.0,
-        ),
-    )
-
-    # Subtle decorative geometry on left panel
-    circle(
-        (14.0, 92.0),
-        radius=24.0,
-        style=Style(
-            shape_fill_color=(30, 41, 59),
-            shape_line_color=(51, 65, 85),
-            shape_line_width=1.0,
-        ),
-    )
-    circle(
-        (50.0, 14.0),
-        radius=14.0,
-        style=Style(
-            shape_fill_color=(30, 41, 59),
-            shape_line_color=(51, 65, 85),
-            shape_line_width=1.0,
-        ),
-    )
-
-    # Indigo accent vertical bar separating left & right panels
-    rectangle(
-        (72.0, 54.0),
-        width=1.4,
-        height=108.0,
-        style=Styles.WhiteFlat.patch(
-            shape_fill_color=(79, 70, 229),
-            shape_line_color=(79, 70, 229),
-            shape_line_width=0.0,
-        ),
-    )
-
-    # Chapter label and large two-digit number
-    text(
-        (36.0, 70.0),
-        "CHAPTER",
-        style=Styles.WhiteBold.patch(
-            text_size=13.0,
-            text_color=(129, 140, 248),
-        ),
-    )
-    text(
-        (36.0, 52.0),
-        f"{chapter_num:02d}",
-        style=Styles.WhiteBold.patch(
-            text_size=54.0,
-            text_color=(255, 255, 255),
-        ),
-    )
-
-    # Chapter progress indicator dots
-    if total_chapters > 0:
-        spacing = 6.2
-        start_x = 36.0 - ((total_chapters - 1) * spacing) / 2.0
-        for i in range(1, total_chapters + 1):
-            cx = start_x + (i - 1) * spacing
-            if i == chapter_num:
-                circle(
-                    (cx, 26.0),
-                    radius=2.1,
-                    style=Style(
-                        shape_fill_color=(99, 102, 241),
-                        shape_line_color=(199, 210, 254),
-                        shape_line_width=1.2,
-                    ),
-                )
-            elif i < chapter_num:
-                circle(
-                    (cx, 26.0),
-                    radius=1.3,
-                    style=Styles.WhiteFlat.patch(
-                        shape_fill_color=(79, 70, 229),
-                        shape_line_color=(79, 70, 229),
-                        shape_line_width=0.0,
-                    ),
-                )
-            else:
-                circle(
-                    (cx, 26.0),
-                    radius=1.3,
-                    style=Styles.WhiteFlat.patch(
-                        shape_fill_color=(51, 65, 85),
-                        shape_line_color=(51, 65, 85),
-                        shape_line_width=0.0,
-                    ),
-                )
-
-    # Right panel header badge
-    rectangle(
-        (98.0, 84.0),
-        width=24.0,
-        height=5.2,
-        style=Style(
-            shape_fill_color=(224, 231, 255),
-            shape_line_color=(199, 210, 254),
-            shape_line_width=1.0,
-        ).patch(shape_r=2.5),
-    )
-    text(
-        (98.0, 84.0),
-        f"Part {chapter_num} of {total_chapters}",
-        style=Styles.BlackBold.patch(
-            text_size=9.5,
-            text_color=(67, 56, 202),
-        ),
-    )
-
-    # Chapter title & subtitle
-    text(
-        (86.0, 72.0),
+    _draw_section_header(
+        chapter_num,
         title,
-        style=Styles.BlackBold.patch(
-            text_size=22.0,
-            halign="left",
-            valign="center",
-            text_color=(15, 23, 42),
-        ),
-    )
-    if subtitle:
-        text(
-            (86.0, 62.5),
-            subtitle,
-            style=Styles.Black.patch(
-                text_size=12.0,
-                halign="left",
-                valign="center",
-                text_color=(71, 85, 105),
-            ),
-        )
-
-    line(
-        (86.0, 55.0),
-        (178.0, 55.0),
-        style=Style(line_color=(203, 213, 225), line_width=1.5),
-    )
-
-    # Key topics list cards
-    if topics:
-        n_topics = len(topics)
-        card_h = min(7.2, 36.0 / max(n_topics, 1))
-        gap = min(2.4, (40.0 - card_h * n_topics) / max(n_topics, 1))
-        top_y = 48.0
-        for idx, topic in enumerate(topics, start=1):
-            cy = top_y - (idx - 1) * (card_h + gap) - card_h / 2.0
-            rectangle(
-                (132.0, cy),
-                width=92.0,
-                height=card_h,
-                style=Style(
-                    shape_fill_color=(255, 255, 255),
-                    shape_line_color=(226, 232, 240),
-                    shape_line_width=1.0,
-                ).patch(shape_r=1.8),
-            )
-            circle(
-                (91.5, cy),
-                radius=2.3,
-                style=Styles.WhiteFlat.patch(
-                    shape_fill_color=(79, 70, 229),
-                    shape_line_color=(79, 70, 229),
-                    shape_line_width=0.0,
-                ),
-                text=f"{chapter_num}.{idx}",
-                text_style=Styles.WhiteBold.patch(text_size=7.5),
-            )
-            text(
-                (96.5, cy),
-                topic,
-                style=Styles.BlackBold.patch(
-                    text_size=10.5,
-                    halign="left",
-                    valign="center",
-                    text_color=(30, 41, 59),
-                ),
-            )
-
-    # Bottom-right slide counter
-    text(
-        (182.0, 4.5),
-        current_slide.text,
-        style=Styles.Black.patch(
-            text_size=9.0,
-            text_color=(148, 163, 184),
-        ),
+        subtitle=subtitle,
+        topics=topics,
+        total_sections=total_chapters,
+        variant="split",
+        section_label="CHAPTER",
     )
 
 

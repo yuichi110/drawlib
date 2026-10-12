@@ -125,7 +125,7 @@ uv run drawlib init slide docs/slide_ddos_incident_response_src --style google
 
 This generates the complete presentation infrastructure:
 - **`styles.py`**: Configures the color palette (`GoogleStyles`) and language-appropriate fonts.
-- **`utils.py`**: Provides reusable presentation helpers (`draw_page_number()`, `draw_chapter_divider()`, `draw_curved_agenda()`, `draw_kpi_cards()`).
+- **`utils.py` & `drawlib.slide`**: Provides shared project utilities (`service_card()`, `connect()`) alongside built-in `drawlib.slide` stage helpers (`draw_page_number()`, `draw_section_header()`) and `drawlib.smartarts` (`Roadmap`, `KpiCards`, `CardList`, `Panel`).
 - **`build.sh` / `serve.sh`**: Scripts to compile the interactive HTML deck (`*_html/index.html`), vector PDF (`*.pdf`), and standalone PNG assets (`*_images/`).
 
 ### 2.2. Step 2: Structuring the Narrative Arc with AI

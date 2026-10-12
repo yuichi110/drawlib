@@ -76,7 +76,7 @@ from drawlib.math import (
 from drawlib.anim import Animation
 
 # 10. Presentation Slides
-from drawlib.slide import BoundingBox, SlideContext, build_slide, current_slide
+from drawlib.slide import BoundingBox, SlideContext, build_slide, current_slide, draw_page_number, draw_section_header
 
 # 11. Developer Tools
 from drawlib.tools import clear_cache, init_project, list_cache, scan_broken_links, serve_docs
@@ -582,19 +582,21 @@ Drawlib presentation slides operate on a universal **16:9 widescreen stage (1920
 
 | Symbol / Model | Description | Example Usage |
 | :--- | :--- | :--- |
-| `current_slide` | Dynamic slide counter runtime proxy (`index`, `total`, `text`, `format()`). | `text((1800, 50), current_slide.text, style=Styles.MutedSmall)` |
+| `current_slide` | Dynamic slide counter runtime proxy (`index`, `total`, `text`, `format()`). | `text((1800, 50), current_slide.text, style=Styles.Muted)` |
+| `draw_page_number(...)` | Renders a standardized slide page counter badge (`14×3`, `alpha=0.0`). | `draw_page_number()` |
+| `draw_section_header(...)` | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). | `draw_section_header(1, "Intro", "Overview", ["A", "B"], total_sections=4)` |
 | `BoundingBox` | Dataclass representing rectangular layout bounds `(x, y, width, height)`. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
 | `SlideContext` | Slide execution state container. | Internal slide runtime context |
 | `build_slide(...)` | Programmatic slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
 
 ```python
-from drawlib.canvas import save, setup
-from drawlib.slide import current_slide
-from drawlib.styles import Styles
-from drawlib.text import text
+from drawlib.slide import draw_page_number, draw_section_header
 
-setup(width=120, height=30)
-text((60, 15), f"Slide {current_slide.index} of {current_slide.total}", style=Styles.PrimaryBold)
+# Bottom-right page counter badge (14x3 transparent canvas)
+draw_page_number()
+
+# Full-bleed 16:9 section header slide (192x108 canvas)
+draw_section_header(2, "Core Engine", "Geometry & Primitives", ["Shapes", "Lines"], total_sections=5, variant="split")
 ```
 
 ---

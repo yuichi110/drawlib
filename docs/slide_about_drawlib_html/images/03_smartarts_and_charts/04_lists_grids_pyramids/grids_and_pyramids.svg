@@ -212,7 +212,7 @@ z
    </g>
    <g id="text_15">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="27.692308" y="477.033707" transform="rotate(-0 27.692308 477.033707)">Regional Cluster Health Ribbon — BoxList(align='left')</text>
+     <text style="font-size: 8.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="27.692308" y="477.033707" transform="rotate(-0 27.692308 477.033707)">Regional Cluster Health Ribbon — BoxList(direction='left')</text>
     </g>
    </g>
    <g id="patch_15">

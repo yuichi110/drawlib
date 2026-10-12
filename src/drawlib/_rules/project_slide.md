@@ -370,10 +370,8 @@ Press `P` or `S` (or click the `🗒` button in the bottom-right slide controls)
 
 ## 7. Reusable Deck Helpers (`utils.py`) & Vector PDF Export
 
-### 7.1. Sharing Layout Macros via `utils.py`
-During slide compilation, `slide_src/` is automatically added to Python's import path so any ````drawlib```` block can `import utils` (or `from drawlib.utils import ...`). Use `utils.py` to keep slide Markdown files clean and DRY:
-- **Page Counter Helper (`utils.draw_page_number()`)**: Uses `from drawlib.slide import current_slide` with a transparent canvas (`setup(..., alpha=0.0)`) so every slide displays `"2 / 9"`, `"3 / 9"`, etc.
-- **Custom SmartArt / Card Macros**: Define deck-specific components (e.g. `draw_curved_agenda()`, `draw_kpi_cards()`, `service_card()`) in `utils.py` and invoke them with data tuples in each slide.
+### 7.1. Built-In Slide Helpers (`drawlib.slide`) & Custom Macros (`utils.py`)
+Use `from drawlib.slide import draw_page_number, draw_section_header` for standard slide page numbers and full-bleed chapter covers (`01_section.md`). In addition, `slide_src/` is automatically added to Python's import path so any ````drawlib```` block can `import utils` (or `from drawlib.utils import ...`) for deck-specific helper functions (such as `service_card()`, `connect()`, or custom layouts).
 
 ### 7.2. Building HTML & Exporting 1920×1080 Vector PDF
 ```bash

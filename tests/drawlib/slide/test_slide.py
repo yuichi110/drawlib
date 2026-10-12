@@ -12,9 +12,6 @@
 from __future__ import annotations
 
 import base64
-import importlib.machinery
-import importlib.util
-from importlib.resources import files
 from pathlib import Path
 
 import pytest
@@ -23,21 +20,14 @@ import drawlib.slide as slide_module
 from drawlib._slide import (
     BoundingBox,
     build_slide,
+    draw_page_number,
+    draw_section_header,
 )
 from drawlib._slide._blocks import extract_slide_notes
 from drawlib._slide.base import reset_slide_context, set_slide_context
 from drawlib._templates import get_css, get_slide_js, init_project, list_slide_css
-from drawlib.canvas import clear, save, setup
+from drawlib.canvas import clear, save
 from tests.drawlib.cli.common import run_drawlib_cli
-
-_SLIDE_UTILS_PATH = Path(str(files("drawlib._templates").joinpath("project/slide/utils/google.py.template")))
-_loader = importlib.machinery.SourceFileLoader("_slide_template_utils", str(_SLIDE_UTILS_PATH))
-_spec = importlib.util.spec_from_loader(_loader.name, _loader)
-assert _spec is not None
-_slide_utils = importlib.util.module_from_spec(_spec)
-_loader.exec_module(_slide_utils)
-draw_curved_agenda = _slide_utils.draw_curved_agenda
-draw_kpi_cards = _slide_utils.draw_kpi_cards
 
 
 class TestSlideFoundation:
@@ -85,7 +75,11 @@ class TestSlideFoundation:
         assert hasattr(slide_module, "SlideContext")
         assert hasattr(slide_module, "current_slide")
         assert hasattr(slide_module, "build_slide")
+        assert hasattr(slide_module, "draw_page_number")
+        assert hasattr(slide_module, "draw_section_header")
         assert slide_module.BoundingBox is BoundingBox
+        assert slide_module.draw_page_number is draw_page_number
+        assert slide_module.draw_section_header is draw_section_header
 
     def test_current_slide_introspection(self) -> None:
         """Verify current_slide introspection properties and format method."""
@@ -113,48 +107,41 @@ class TestSlideFoundation:
 class TestSlideDrawingHelpers:
     """Test suite for slide drawing helpers with Native SVG vector rendering."""
 
-    def test_draw_curved_agenda_svg(self, tmp_path: Path) -> None:
-        """Verify draw_curved_agenda renders geometry and searchable native text into SVG."""
-        output_svg = tmp_path / "agenda.svg"
-        clear()
-        setup(width=104, height=86)
-        items = [
-            ("Team Introductions", "チーム紹介"),
-            ("Architecture Overview", "設計概要"),
-            ("Production Deployment", "本番公開"),
-        ]
-        draw_curved_agenda(items, width=104.0, height=86.0)
+    def test_draw_page_number_svg(self, tmp_path: Path) -> None:
+        """Verify draw_page_number renders searchable native text into SVG."""
+        output_svg = tmp_path / "page.svg"
+        token = set_slide_context(3, 12)
+        try:
+            draw_page_number()
+            save(str(output_svg), format="svg")
+            clear()
+        finally:
+            reset_slide_context(token)
+
+        assert output_svg.is_file()
+        svg_content = output_svg.read_text(encoding="utf-8")
+        assert "<svg" in svg_content
+        assert "3 / 12" in svg_content
+
+    def test_draw_section_header_svg(self, tmp_path: Path) -> None:
+        """Verify draw_section_header renders section cover and topics into SVG."""
+        output_svg = tmp_path / "section.svg"
+        draw_section_header(
+            2,
+            "Core Engine & Primitives",
+            "Cartesian Geometry & Design Tokens",
+            ["Geometry", "Shapes", "Typography"],
+            total_sections=5,
+        )
         save(str(output_svg), format="svg")
         clear()
 
         assert output_svg.is_file()
         svg_content = output_svg.read_text(encoding="utf-8")
         assert "<svg" in svg_content
-        assert "<text" in svg_content
-        assert "Team Introductions" in svg_content
-        assert "チーム紹介" in svg_content
-        assert "Architecture Overview" in svg_content
-
-    def test_draw_kpi_cards_svg(self, tmp_path: Path) -> None:
-        """Verify draw_kpi_cards renders metrics and searchable native text into SVG."""
-        output_svg = tmp_path / "kpi.svg"
-        clear()
-        setup(width=100, height=84)
-        cards = [
-            ("99.99%", "System Availability", "Tier-1 SLA Guaranteed"),
-            ("1.2s", "Fast Build Time", "Sub-second SQLite cache hit"),
-        ]
-        draw_kpi_cards(cards, width=100.0, height=84.0)
-        save(str(output_svg), format="svg")
-        clear()
-
-        assert output_svg.is_file()
-        svg_content = output_svg.read_text(encoding="utf-8")
-        assert "<svg" in svg_content
-        assert "<text" in svg_content
-        assert "99.99%" in svg_content
-        assert "System Availability" in svg_content
-        assert "Tier-1 SLA Guaranteed" in svg_content
+        assert "02" in svg_content
+        assert "Core Engine &amp; Primitives" in svg_content or "Core Engine" in svg_content
+        assert "Geometry" in svg_content
 
 
 class TestSlideCompiler:
@@ -175,8 +162,6 @@ class TestSlideCompiler:
             encoding="utf-8",
         )
 
-        (src_dir / "utils.py").write_text(_SLIDE_UTILS_PATH.read_text(encoding="utf-8"), encoding="utf-8")
-
         (src_dir / "02_agenda.md").write_text(
             """::: block xy=(80, 40) width=1760 height=60
 # Presentation Agenda
@@ -190,18 +175,24 @@ class TestSlideCompiler:
 ::: block xy=(820, 140) width=1040 height=860
 ```drawlib file=agenda.svg
 from drawlib.canvas import setup, clear
-from utils import draw_curved_agenda
+from drawlib.smartarts import Roadmap
+from drawlib.styles import Styles
 
 clear()
 setup(width=104, height=86)
-draw_curved_agenda(
-    [
-        ("First Step", "はじめに"),
-        ("Second Step", "つづき"),
-    ],
-    width=104,
-    height=86,
+rm = Roadmap(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold,
+    description_style=Styles.Muted,
+    spine_style=Styles.PrimaryBold,
+    badge_style=Styles.PrimaryFlat,
+    badge_text_style=Styles.WhiteBold,
+    curve_bend=-0.18,
+    card_shape="pill",
 )
+rm.add("First Step", "はじめに")
+rm.add("Second Step", "つづき")
+rm.draw(xy=(4, 4), width=96, height=78)
 ```
 :::
 """,
@@ -465,9 +456,12 @@ class TestSlideCli:
         assert not (src_dir / "output_readme.md").exists()
         assert not (src_dir / "output_html_readme.md").exists()
 
-    @pytest.mark.parametrize("style_name", ["default", "google", "monochrome"])
+    @pytest.mark.parametrize(
+        "style_name",
+        ["default", "default-dark", "google", "google-dark", "monochrome"],
+    )
     def test_cli_init_slide_styles(self, tmp_path: Path, style_name: str) -> None:
-        """Verify `drawlib init slide --style <style>` deploys matching utils.py and style.css."""
+        """Verify `drawlib init slide --style <style>` deploys shared utils.py and matching style.css/styles.py."""
         target_dir = tmp_path / f"deck_{style_name}"
         target_dir.mkdir()
         res = run_drawlib_cli(["init", "slide", "--style", style_name], cwd=str(target_dir))
@@ -477,24 +471,23 @@ class TestSlideCli:
         utils_content = (src_dir / "utils.py").read_text(encoding="utf-8")
         styles_content = (src_dir / "styles.py").read_text(encoding="utf-8")
         css_content = (src_dir / "style.css").read_text(encoding="utf-8")
+        agenda_content = (src_dir / "02_agenda.md").read_text(encoding="utf-8")
 
-        assert "draw_curved_agenda" in utils_content
-        assert "draw_kpi_cards" in utils_content
         assert "service_card" in utils_content
         assert "connect" in utils_content
+        assert "draw_curved_agenda" not in utils_content
+        assert "Roadmap" in agenda_content
+        assert "draw_page_number" in agenda_content
 
-        if style_name == "google":
-            assert "(26, 115, 232)" in utils_content
+        if style_name in {"google", "google-dark"}:
             assert "GoogleStyles" in styles_content
             assert "GoogleColors" in styles_content
             assert "Google Sans" in css_content
         elif style_name == "monochrome":
-            assert "(20, 20, 20)" in utils_content
             assert "MonochromeStyles" in styles_content
             assert "MonochromeColors" in styles_content
             assert "Monochrome" in css_content or "--slide-bg: #ffffff" in css_content
-        elif style_name == "default":
-            assert "(37, 99, 235)" in utils_content
+        elif style_name in {"default", "default-dark"}:
             assert "DefaultStyles" in styles_content
             assert "DefaultColors" in styles_content
 
@@ -505,12 +498,12 @@ class TestSlideCli:
         res = run_drawlib_cli(["init", "slide", "--style", "unsupported_theme"], cwd=str(target_dir))
         assert res.returncode != 0
         error_output = res.stderr + res.stdout
-        assert "Unsupported slide style 'unsupported_theme'" in error_output
-        assert "Available styles: default, google, monochrome" in error_output
+        assert "Unknown CSS preset 'unsupported_theme'" in error_output
+        assert "default, default-dark, google, google-dark, monochrome" in error_output
 
     def test_python_api_init_slide_unsupported_style_raises(self, tmp_path: Path) -> None:
         """Verify init_project('slide', style='invalid') raises ValueError."""
-        with pytest.raises(ValueError, match="Unsupported slide style 'unknown'"):
+        with pytest.raises(ValueError, match="Unknown CSS preset 'unknown'"):
             init_project("slide", destination=tmp_path / "invalid_slide", style="unknown")
 
     def test_python_api_init_non_slide_uses_shared_utils(self, tmp_path: Path) -> None:

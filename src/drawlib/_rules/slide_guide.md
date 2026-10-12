@@ -160,13 +160,13 @@ proc.add(
 )
 proc.add(
     "2. Agenda Slide",
-    description="02_agenda.md\nChapter Roadmap\n(draw_curved_agenda)",
+    description="02_agenda.md\nChapter Roadmap\n(smartarts.Roadmap)",
     style=Styles.PrimaryNeutral,
     text_style=Styles.PrimaryBold.patch(text_size=10.5),
 )
 proc.add(
     "3. Chapter Loop",
-    description="01_section.md + Content\nSection Divider ->\nVisual Content Slides",
+    description="01_section.md + Content\nSection Header ->\nVisual Content Slides",
     style=Styles.Neutral,
 )
 proc.add(
@@ -191,37 +191,39 @@ save()
 - **Purpose**: Give the audience a clear mental map of the presentation's chapters before diving into details.
 - **Strict Rules**:
   - Always include an Agenda slide immediately after the Cover slide (or after a 1-slide Executive Hook).
-  - Use the built-in `utils.draw_curved_agenda()` helper or a `SmartArts` component (`ChevronProcess`, `BoxList`, `GridLayout`) rather than plain Markdown numbered lists.
+  - Use `smartarts.Roadmap` (e.g., `Roadmap(curve_bend=-0.18, card_shape="pill")`) or another `SmartArts` component (`ChevronProcess`, `CardList`, `GridLayout`) rather than plain Markdown numbered lists.
 
 ### 2.3. Section / Chapter Divider Slides (`01_section.md` per Chapter)
 - **Purpose**: Signal major topic transitions (every 3–6 slides) so the audience always knows where they are in the story.
 - **Strict Rules**:
   - Organize decks of 8+ slides into numbered chapter subdirectories (e.g., `00_opening/`, `01_incident_overview/`, `02_root_cause/`, `03_defense_architecture/`, `04_summary/`).
-  - Begin each chapter subdirectory with a dedicated **Section Divider slide** (`01_section.md`) featuring the chapter number, title, and a 1-line subtitle on a high-impact full-bleed or centered stage layout.
+  - Begin each chapter subdirectory with a dedicated **Section Header slide** (`01_section.md`) using `from drawlib.slide import draw_section_header` (choose from `variant="split"`, `"centered"`, `"banner"`, or `"minimal"`).
   - **Exclude Planning & Draft Files with `_`**: Store any deck outlines, storyboards, or scratch notes inside `slide_src/` with a leading underscore (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`). Files/directories starting with `_` and `README.md` are automatically excluded from compilation.
 
 ### 2.4. Closing Summary / Takeaways Slide
 - **Purpose**: Leave the audience with 3–4 memorable conclusions, quantitative outcomes, or concrete action items.
 - **Strict Rules**:
-  - Use `utils.draw_kpi_cards()`, `smartarts.GridLayout`, or `smartarts.BoxList` with Phosphor icons to summarize key takeaways visually.
+  - Use `smartarts.KpiCards`, `smartarts.CardList`, `smartarts.GridLayout`, or `smartarts.Panel` with Phosphor icons to summarize key takeaways visually.
 
 ---
 
-## 3. Ban on Primitive Box-Spam: Use High-Level Components & `utils.py`
+## 3. Ban on Primitive Box-Spam: Use High-Level Components & `drawlib.slide`
 
 > **CRITICAL RULE**: Never construct slide illustrations out of raw `rectangle()` and `line()` calls ("Primitive Box-Spam"). Hand-rolled boxes without icons, semantic hierarchy, or structured layout engines make slides look amateurish and monotonous.
 
-Always select the appropriate high-level Drawlib component or `utils.py` helper for the concept being presented:
+Always select the appropriate high-level Drawlib component or `drawlib.slide` helper for the concept being presented:
 
 | Slide Concept / Story | Required Drawlib Component / Helper | Avoid |
 | :--- | :--- | :--- |
-| **Agenda / Table of Contents** | `utils.draw_curved_agenda()`, `smartarts.BoxList` | Plain bullet lists or bare rectangles |
-| **Headline KPIs / SLA Metrics** | `utils.draw_kpi_cards()`, `smartarts.GridLayout` | Unstyled text inside `rectangle()` |
+| **Section / Chapter Cover (`01_section.md`)**| `slide.draw_section_header(..., variant="split" \| "centered" \| "banner" \| "minimal")` | Manual full-bleed panel rectangles |
+| **Slide Page Counter (`(1700, 1010)`)** | `slide.draw_page_number()` | Manual `setup(14, 3, alpha=0.0)` boilerplate |
+| **Agenda / Table of Contents** | `smartarts.Roadmap(curve_bend=-0.18, card_shape="pill")`, `smartarts.CardList` | Plain bullet lists or bare rectangles |
+| **Headline KPIs / SLA Metrics** | `smartarts.KpiCards`, `smartarts.GridLayout` | Unstyled text inside `rectangle()` |
 | **Step-by-Step Process / Playbook** | `smartarts.ChevronProcess`, `diagrams.FlowDiagram`, `smartarts.Cycle` | Row of manual `rectangle()` + `line()` |
 | **Cloud / Network / System Topology** | `diagrams.ArchitectureDiagram`, `graph.ArchitectureGraph`, `utils.service_card()` + `utils.connect()` | Bare boxes without icons or tier containers |
 | **Attack / API / Protocol Timeline** | `diagrams.SequenceDiagram`, `diagrams.StateDiagram`, `charts.GanttChart` | Manual horizontal lines with text labels |
 | **Quantitative Trends & Comparisons** | `charts.LineChart`, `AreaChart`, `BarChart`, `PieChart`, `RadarChart` | Writing numbers only in prose bullets |
-| **Feature Matrix / Trade-off Analysis**| `smartarts.Table`, `smartarts.GridLayout` | Cramped Markdown tables with tiny fonts |
+| **Feature Matrix / Trade-off Analysis**| `smartarts.Table`, `smartarts.GridLayout`, `smartarts.Panel` | Cramped Markdown tables with tiny fonts |
 | **Layered / Defense-in-Depth Stack** | `smartarts.Pyramid`, `smartarts.TreeNode`, `graph.LayerGraph` | Stacked plain rectangles |
 | **Visual Anchors on Every Node** | `icons.phosphor`, `icons.gcp`, `icons.fontawesome` | Text-only shapes with zero iconography |
 
@@ -236,8 +238,8 @@ Repeating the exact same `Left Text (740px) + Right Diagram (980px)` split acros
 | **1. Two-Column Split**<br>*(Narrative Left + Diagram Right)* | Left: `(80, 140) (720, 820)`<br>Right: `(840, 140) (1000, 820)` → `setup(100, 82)` | Architecture topologies, vertical flows, radar/pie charts, 2x2 grids |
 | **2. Top-Bottom Wide Split**<br>*(Summary Top + Wide Diagram Bottom)* | Top: `(80, 130) (1760, 190)`<br>Bottom: `(80, 340) (1760, 620)` → `setup(176, 62)` | Multi-stage horizontal pipelines (`ChevronProcess`), wide `SequenceDiagram`, `GanttChart`, timelines |
 | **3. Full-Stage Visual Diagram**<br>*(100% Visual + `::: note` Narrative)* | Main: `(80, 140) (1760, 820)` → `setup(176, 82)` | Comprehensive end-to-end `ArchitectureDiagram`, `Table` comparison matrices, multi-cluster `ArchitectureGraph` |
-| **4. KPI Cards + Chart Split**<br>*(Metrics Left + Trend Chart Right)* | Left: `(80, 140) (760, 820)` (`draw_kpi_cards`)<br>Right: `(880, 140) (960, 820)` (`LineChart` / `BarChart`) | Executive impact summaries, before/after benchmark comparisons, incident scale metrics |
-| **5. Full-Bleed Hero / Divider**<br>*(1920×1080 Canvas)* | Stage: `(0, 0) (1920, 1080)` → `setup(192, 108)` | Cover slides (`01_title.md`), Chapter Section Dividers (`01_section.md`), high-impact closing slides |
+| **4. KPI Cards + Chart Split**<br>*(Metrics Left + Trend Chart Right)* | Left: `(80, 140) (760, 820)` (`KpiCards`)<br>Right: `(880, 140) (960, 820)` (`LineChart` / `BarChart`) | Executive impact summaries, before/after benchmark comparisons, incident scale metrics |
+| **5. Full-Bleed Hero / Divider**<br>*(1920×1080 Canvas)* | Stage: `(0, 0) (1920, 1080)` → `draw_section_header(...)` / `setup(192, 108)` | Cover slides (`01_title.md`), Chapter Section Headers (`01_section.md`), high-impact closing slides |
 
 ---
 
