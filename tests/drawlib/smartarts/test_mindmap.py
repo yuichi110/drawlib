@@ -32,10 +32,10 @@ class TestMindMapNode:
         assert node._branch is None
         assert node._children == []
 
-        child = MindMapNode("Child", shape="oval", branch="right", xy_shift=(2.0, 3.0))
+        child = MindMapNode("Child", shape="ellipse", branch="right", xy_shift=(2.0, 3.0))
         parent = MindMapNode("Parent", children=[child])
         assert len(parent._children) == 1
-        assert parent._children[0]._shape == "oval"
+        assert parent._children[0]._shape == "ellipse"
         assert parent._children[0]._branch == "right"
         assert parent._children[0]._xy_shift == (2.0, 3.0)
 
@@ -100,7 +100,7 @@ class TestMindMapNode:
         styles = default_styles
         root = MindMapNode(
             "Topic",
-            shape="oval",
+            shape="ellipse",
             width=20.0,
             height=10.0,
             style=styles.PrimarySolid,
@@ -120,7 +120,7 @@ class TestMindMapNode:
         styles = default_styles
         root = MindMapNode(
             "Topic",
-            shape="oval",
+            shape="ellipse",
             width=20.0,
             height=10.0,
             style=styles.PrimarySolid,
@@ -140,7 +140,7 @@ class TestMindMapNode:
         styles = default_styles
         root = MindMapNode(
             "Main Concept",
-            shape="oval",
+            shape="ellipse",
             width=26.0,
             height=12.0,
             style=styles.PrimaryBold,
@@ -217,7 +217,7 @@ class TestMindMapNode:
         styles = default_styles
         root = MindMapNode(
             "Root",
-            shape="oval",
+            shape="ellipse",
             width=22.0,
             height=10.0,
             style=styles.PrimarySolid,

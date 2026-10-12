@@ -64,10 +64,21 @@ TailEdge = Annotated[
     Literal["left", "top", "right", "bottom"],
     BeforeValidator(_normalize_str),
 ]
-FaceMood = Annotated[
-    Literal["smile", "neutral", "sad", "angry", "surprised"],
+FaceVariant = Annotated[
+    Literal[
+        "smile",
+        "neutral",
+        "sad",
+        "angry",
+        "surprised",
+        "dizzy",
+        "dead",
+        "skull",
+        "devil",
+    ],
     BeforeValidator(_normalize_str),
 ]
+FaceMood = FaceVariant
 MathSymbol = Annotated[
     Literal[
         "+",
@@ -129,6 +140,62 @@ DocumentVariant = Annotated[
     ],
     BeforeValidator(_normalize_str),
 ]
+ForbiddenVariant = Annotated[
+    Literal["slash", "standard", "backslash", "cross", "no_entry", "minus"],
+    BeforeValidator(_normalize_str),
+]
+CheckmarkVariant = Annotated[
+    Literal["standard", "check", "circle", "solid_circle"],
+    BeforeValidator(_normalize_str),
+]
+ShieldVariant = Annotated[
+    Literal["classic", "standard", "flat", "heater", "round"],
+    BeforeValidator(_normalize_str),
+]
+LightningVariant = Annotated[
+    Literal["standard", "flat", "double", "flat_double", "angled", "slanted"],
+    BeforeValidator(_normalize_str),
+]
+ExplosionVariant = Annotated[
+    Literal["standard", "irregular", "heavy", "wild", "curved", "comic"],
+    BeforeValidator(_normalize_str),
+]
+RibbonVariant = Annotated[
+    Literal["down", "standard", "up", "flat", "banner"],
+    BeforeValidator(_normalize_str),
+]
+TagVariant = Annotated[
+    Literal["angled", "standard", "chamfered", "beveled", "rounded"],
+    BeforeValidator(_normalize_str),
+]
+FunnelVariant = Annotated[
+    Literal["standard", "flat", "3d", "cylinder", "curved"],
+    BeforeValidator(_normalize_str),
+]
+PlaqueVariant = Annotated[
+    Literal["concave", "standard", "chamfered", "octagon", "notched"],
+    BeforeValidator(_normalize_str),
+]
+PinVariant = Annotated[
+    Literal["pointer", "standard", "teardrop", "drop", "pin", "badge"],
+    BeforeValidator(_normalize_str),
+]
+HeartVariant = Annotated[
+    Literal["standard", "classic", "broken"],
+    BeforeValidator(_normalize_str),
+]
+SunVariant = Annotated[
+    Literal["rays", "standard", "ring", "beams"],
+    BeforeValidator(_normalize_str),
+]
+MoonVariant = Annotated[
+    Literal["crescent", "standard", "thin", "waxing", "half"],
+    BeforeValidator(_normalize_str),
+]
+ClockVariant = Annotated[
+    Literal["standard", "ticks", "dial", "stopwatch", "timer", "alarm", "digital"],
+    BeforeValidator(_normalize_str),
+]
 IconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
     BeforeValidator(_normalize_str),
@@ -149,15 +216,30 @@ __all__ = [
     "Bend",
     "BraceDirection",
     "BraceSymbol",
+    "CheckmarkVariant",
+    "ClockVariant",
     "CloudVariant",
     "DocumentVariant",
+    "ExplosionVariant",
     "FaceMood",
+    "FaceVariant",
+    "ForbiddenVariant",
+    "FunnelVariant",
     "HAlign",
+    "HeartVariant",
     "IconStyle",
+    "LightningVariant",
     "LineStyle",
     "MathSymbol",
+    "MoonVariant",
+    "PinVariant",
+    "PlaqueVariant",
+    "RibbonVariant",
     "ShapeRadius",
+    "ShieldVariant",
     "Size",
+    "SunVariant",
+    "TagVariant",
     "TailEdge",
     "VAlign",
 ]

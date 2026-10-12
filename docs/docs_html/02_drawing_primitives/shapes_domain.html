@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cylinders, Cubes, Documents, Clouds & Braces</title>
+    <title>Cylinders, Cubes, Documents, Clouds & Domain Badges</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -474,12 +474,12 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Cylinders, Cubes, Documents, Clouds & Braces</span>
+                    <span class="crumb active">Cylinders, Cubes, Documents, Clouds & Domain Badges</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Cylinders, Cubes, Documents, Clouds &amp; Braces</h1>
-<p>Beyond standard geometric primitives, <code>drawlib.shapes</code> includes seven expressive 3D, domain, and annotation shapes (<code>cylinder</code>, <code>cube</code>, <code>document</code>, <code>cloud</code>, <code>brace</code>, <code>face</code>, and <code>bubblespeech</code>) for technical architecture and storytelling diagrams:</p>
+                <h1>Cylinders, Cubes, Documents, Clouds &amp; Domain Badges</h1>
+<p>Beyond standard geometric primitives, <code>drawlib.shapes</code> includes expressive 3D, domain, and annotation shapes (<code>cylinder</code>, <code>cube</code>, <code>document</code>, <code>cloud</code>, <code>brace</code>, <code>face</code>, <code>bubblespeech</code>, <code>shield</code>, <code>ribbon</code>, <code>funnel</code>, <code>pin</code>, <code>heart</code>) for technical architecture and storytelling diagrams:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_overview.png" alt="shapes_domain_1" />
   <figcaption class="drawlib-caption">Combining Actor Faces, Cloud Gateways, 3D Cubes & Cylinders, Documents, Braces, and Callouts</figcaption>
@@ -495,7 +495,7 @@
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
 <span class="c1"># 1. User Actor Face</span>
-<span class="n">face</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">mood</span><span class="o">=</span><span class="s2">"smile"</span><span class="p">)</span>
+<span class="n">face</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"smile"</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="s2">"Developer"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># 2. Cloud Gateway Node</span>
@@ -601,8 +601,8 @@
 <tr>
 <td style="text-align:left"><strong><code>face</code></strong></td>
 <td style="text-align:left">Center <code>(cx, cy)</code></td>
-<td style="text-align:left">Expressive user/actor personas &amp; status indicators</td>
-<td style="text-align:left"><code>mood</code> (<code>&quot;smile&quot;</code>, <code>&quot;neutral&quot;</code>, <code>&quot;surprised&quot;</code>, <code>&quot;sad&quot;</code>, <code>&quot;angry&quot;</code>)</td>
+<td style="text-align:left">Expressive user/actor personas, status &amp; threat icons</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;smile&quot;</code>, <code>&quot;neutral&quot;</code>, <code>&quot;surprised&quot;</code>, <code>&quot;sad&quot;</code>, <code>&quot;angry&quot;</code>, <code>&quot;dizzy&quot;</code>, <code>&quot;dead&quot;</code>, <code>&quot;skull&quot;</code>, <code>&quot;devil&quot;</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>bubblespeech</code></strong></td>
@@ -621,6 +621,36 @@
 <td style="text-align:left">Center <code>(cx, cy)</code></td>
 <td style="text-align:left">Curly, square, &amp; round grouping brackets/braces</td>
 <td style="text-align:left"><code>symbol</code> (<code>&quot;{&quot;</code>, <code>&quot;}&quot;</code>, <code>&quot;[&quot;</code>, <code>&quot;]&quot;</code>, <code>&quot;(&quot;</code>, <code>&quot;)&quot;</code>), <code>direction</code> (<code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>), <code>tip_ratio</code>, <code>tip_position_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>shield</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Security / IAM / WAF badges</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;classic&quot;</code>, <code>&quot;standard&quot;</code>, <code>&quot;flat&quot;</code>, <code>&quot;heater&quot;</code>, <code>&quot;round&quot;</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ribbon</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Section banners &amp; stepped ribbons</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;down&quot;</code>, <code>&quot;standard&quot;</code>, <code>&quot;up&quot;</code>, <code>&quot;flat&quot;</code>, <code>&quot;banner&quot;</code>), <code>tail_width_ratio</code>, <code>drop_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>funnel</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Filtering &amp; ETL pipeline stages</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;standard&quot;</code>, <code>&quot;flat&quot;</code>, <code>&quot;3d&quot;</code>, <code>&quot;cylinder&quot;</code>, <code>&quot;curved&quot;</code>), <code>neck_width_ratio</code>, <code>neck_height_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>pin</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Map markers, pointers &amp; badges</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;pointer&quot;</code>, <code>&quot;standard&quot;</code>, <code>&quot;teardrop&quot;</code>, <code>&quot;drop&quot;</code>, <code>&quot;pin&quot;</code>, <code>&quot;badge&quot;</code>), <code>hole_ratio</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>heart</code></strong></td>
+<td style="text-align:left">Center <code>(cx, cy)</code></td>
+<td style="text-align:left">Healthcheck / favorite badges</td>
+<td style="text-align:left"><code>variant</code> (<code>&quot;standard&quot;</code>, <code>&quot;classic&quot;</code>, <code>&quot;broken&quot;</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -1000,19 +1030,22 @@
   <figcaption class="drawlib-caption">The Four Document Variants (Row 1) and Multi-Sheet Stacking & Ratio Customizations (Row 2)</figcaption>
 </figure>
 <hr />
-<h2>5. Expressive Actor &amp; Status Faces (<code>face</code>)</h2>
-<p>For user personas, customer journey maps, and system health indicators, <code>face</code> renders a circular face with eyes, eyebrows, and five built-in facial expressions (<code>mood</code>):</p>
+<h2>5. Expressive Actor, Status &amp; Threat Faces (<code>face</code>)</h2>
+<p>For user personas, customer journey maps, system health indicators, and threat/attacker modeling, <code>face</code> renders a circular or silhouette face with nine built-in expressions (<code>variant</code>):</p>
 <pre><code class="language-python"><span class="n">face</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
-    <span class="n">mood</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"smile"</span><span class="p">,</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"sad"</span><span class="p">,</span> <span class="s2">"angry"</span><span class="p">,</span> <span class="s2">"surprised"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"smile"</span><span class="p">,</span>
+    <span class="n">variant</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">"smile"</span><span class="p">,</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"sad"</span><span class="p">,</span> <span class="s2">"angry"</span><span class="p">,</span> <span class="s2">"surprised"</span><span class="p">,</span>
+        <span class="s2">"dizzy"</span><span class="p">,</span> <span class="s2">"dead"</span><span class="p">,</span> <span class="s2">"skull"</span><span class="p">,</span> <span class="s2">"devil"</span><span class="p">,</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">"smile"</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
-<h3>Parameter Reference &amp; <code>mood</code> Variants</h3>
+<h3>Parameter Reference &amp; <code>variant</code> Options</h3>
 <table>
 <thead>
 <tr>
@@ -1027,25 +1060,25 @@
 <td style="text-align:left"><code>xy</code></td>
 <td style="text-align:left"><code>tuple[float, float]</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Center coordinate <code>(x, y)</code> of the circular face.</td>
+<td style="text-align:left">Center coordinate <code>(x, y)</code> of the face.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>radius</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Outer radius of the face circle (<code>&gt; 0</code>).</td>
+<td style="text-align:left">Outer radius of the face (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>mood</code></td>
-<td style="text-align:left"><code>FaceMood</code></td>
+<td style="text-align:left"><code>variant</code></td>
+<td style="text-align:left"><code>FaceVariant</code></td>
 <td style="text-align:left"><code>&quot;smile&quot;</code></td>
-<td style="text-align:left">Facial expression variant (case-insensitive):<br>• <strong><code>&quot;smile&quot;</code></strong>: Upward cubic-Bézier smile curve.<br>• <strong><code>&quot;neutral&quot;</code></strong>: Straight horizontal mouth line.<br>• <strong><code>&quot;surprised&quot;</code></strong>: Elliptical open <code>'O'</code> mouth.<br>• <strong><code>&quot;sad&quot;</code></strong>: Downward cubic-Bézier frown curve.<br>• <strong><code>&quot;angry&quot;</code></strong>: Downward frown curve plus inward-slanted eyebrows.</td>
+<td style="text-align:left">Facial expression or persona variant (case-insensitive):<br>• <strong><code>&quot;smile&quot;</code></strong>: Upward cubic-Bézier smile curve.<br>• <strong><code>&quot;neutral&quot;</code></strong>: Straight horizontal mouth line.<br>• <strong><code>&quot;surprised&quot;</code></strong>: Elliptical open <code>'O'</code> mouth.<br>• <strong><code>&quot;sad&quot;</code></strong>: Downward cubic-Bézier frown curve.<br>• <strong><code>&quot;angry&quot;</code></strong>: Downward frown curve plus inward-slanted eyebrows.<br>• <strong><code>&quot;dizzy&quot;</code></strong>: Crossed <code>'X'</code> eyes + wavy mouth (overloaded / degraded node).<br>• <strong><code>&quot;dead&quot;</code></strong>: Crossed <code>'X'</code> eyes + flat mouth with hanging tongue (crashed / OOM killed).<br>• <strong><code>&quot;skull&quot;</code></strong>: Cranium + jawbone silhouette with hollow eye sockets, nasal cavity, and teeth (fatal / poison pill).<br>• <strong><code>&quot;devil&quot;</code></strong>: Curved horns + slanted eyebrows + sinister grin (attacker / malicious actor).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style</code></td>
 <td style="text-align:left"><code>Style</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Face fill, outline, and rotation (<code>angle</code>). Eyes, eyebrows, and mouth automatically use <code>style.shape_line_color</code> when a border is present, or high-contrast <code>text_color</code>/white on flat borderless styles (<code>Styles.PrimaryFlat</code>).</td>
+<td style="text-align:left">Face fill, outline, and rotation (<code>angle</code>). Features automatically use <code>style.shape_line_color</code> when a border is present, or high-contrast <code>text_color</code>/white on flat borderless styles (<code>Styles.PrimaryFlat</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>text</code> / <code>text_style</code></td>
@@ -1060,26 +1093,30 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
-<span class="n">moods</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">variants</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"smile"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"neutral"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"surprised"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"sad"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"angry"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"angry"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"dizzy"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"dead"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"skull"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"devil"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">),</span>
 <span class="p">]</span>
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">mood_name</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">moods</span><span class="p">):</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">22</span>
-    <span class="n">face</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">mood</span><span class="o">=</span><span class="n">mood_name</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'mood="</span><span class="si">{</span><span class="n">mood_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">v_name</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">variants</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">14.0</span>
+    <span class="n">face</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="n">v_name</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">v_name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_5" />
-  <figcaption class="drawlib-caption">The Five Facial Moods in drawlib.shapes.face</figcaption>
+  <figcaption class="drawlib-caption">The Nine Face Variants in drawlib.shapes.face</figcaption>
 </figure>
 <hr />
 <h2>6. Callout Speech Bubbles (<code>bubblespeech</code>)</h2>
@@ -1569,6 +1606,104 @@
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_brace.png" alt="shapes_domain_8" />
   <figcaption class="drawlib-caption">Bracket Families ({}, [], ()), All 4 Directions (left, right, top, bottom), and Curly Tip Ratios</figcaption>
+</figure>
+<hr />
+<h2>9. Security Shields, Ribbons, Funnels, Pins &amp; Hearts (<code>shield</code>, <code>ribbon</code>, <code>funnel</code>, <code>pin</code>, <code>heart</code>)</h2>
+<p>For security boundaries, milestone banners, data filtering stages, location markers, and healthcheck badges, <code>drawlib.shapes</code> provides five dedicated domain primitives:</p>
+<ul>
+<li><strong><code>shield(xy, width, height, *, variant=&quot;classic&quot;, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;classic&quot;</code> (or <code>&quot;standard&quot;</code> — 3-segment scalloped top + curved point), <code>&quot;flat&quot;</code> (or <code>&quot;heater&quot;</code> — straight horizontal top + pointed bottom), <code>&quot;round&quot;</code> (arched top + rounded bottom).</li>
+</ul>
+</li>
+<li><strong><code>ribbon(xy, width, height, *, variant=&quot;down&quot;, tail_width_ratio=None, drop_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;down&quot;</code> (or <code>&quot;standard&quot;</code> — stepped 3D ribbon with downward tails), <code>&quot;up&quot;</code> (upward stepped tails), <code>&quot;flat&quot;</code> (or <code>&quot;banner&quot;</code> — single-piece swallowtail banner).</li>
+</ul>
+</li>
+<li><strong><code>funnel(xy, width, height, *, variant=&quot;standard&quot;, neck_width_ratio=None, neck_height_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;standard&quot;</code> (or <code>&quot;flat&quot;</code>), <code>&quot;3d&quot;</code> (or <code>&quot;cylinder&quot;</code> — 3D shaded elliptical top opening), <code>&quot;curved&quot;</code> (smooth cubic-Bézier curved funnel walls).</li>
+</ul>
+</li>
+<li><strong><code>pin(xy, width, height, *, variant=&quot;pointer&quot;, hole_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;pointer&quot;</code> (or <code>&quot;standard&quot;</code> — circular head with straight tangent cone), <code>&quot;teardrop&quot;</code> (or <code>&quot;drop&quot;</code>), <code>&quot;pin&quot;</code> (or <code>&quot;badge&quot;</code> — circular badge with short bottom pointer triangle).</li>
+<li>Rotation: Use <code>style.patch(angle=...)</code> and <code>text_style.patch(angle=...)</code> to point in any direction.</li>
+</ul>
+</li>
+<li><strong><code>heart(xy, width, height, *, variant=&quot;standard&quot;, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;standard&quot;</code> (or <code>&quot;classic&quot;</code> — smooth cubic-Bézier heart) or <code>&quot;broken&quot;</code> (heart with central jagged crack).</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">funnel</span><span class="p">,</span> <span class="n">heart</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">ribbon</span><span class="p">,</span> <span class="n">shield</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+<span class="c1"># 1. Security Shield</span>
+<span class="n">shield</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"classic"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"WAF"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s1">'shield("classic")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 2. Ribbon Banner</span>
+<span class="n">ribbon</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"down"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"MILESTONE"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s1">'ribbon("down")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 3. Filtering Funnel</span>
+<span class="n">funnel</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"3d"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Filter"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">77</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s1">'funnel("3d")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 4. Teardrop Map Pin</span>
+<span class="n">pin</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"teardrop"</span><span class="p">,</span> <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s1">'pin("teardrop")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 5. Heart Badge</span>
+<span class="n">heart</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">119</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"standard"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"OK"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">119</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"heart()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_badges_and_markers.png" alt="shapes_domain_9" />
+  <figcaption class="drawlib-caption">Security Shields, Ribbon Banners, Filtering Funnels, Map/Pointer Pins, and Heart Badges</figcaption>
 </figure>
 <blockquote>
 <p>[!TIP]

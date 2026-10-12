@@ -520,7 +520,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.5. Shapes Primitives & Styling (`lib-shapes`)
 - **Command**: `drawlib rules show lib-shapes`
-- **Scope**: All 23 geometric shape functions including `rectangle`, `circle`, `cylinder`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
+- **Scope**: Geometric and domain shape functions including `rectangle`, `circle`, `cylinder`, `cube`, `document`, `ellipse`, `face`, `cloud`, `brace`, `forbidden`, `checkmark`, `shield`, `ribbon`, `funnel`, `pin`, `heart`, `sun`, `moon`, `clock`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `gear`, `math_symbol`, `lightning`, `explosion`, `tag`, `plaque`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, `chevron`, and `bubblespeech`.
 - **Key Syntax**:
   ```python
   from drawlib.styles import Styles

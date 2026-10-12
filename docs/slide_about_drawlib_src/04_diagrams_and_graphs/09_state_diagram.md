@@ -17,7 +17,7 @@ utils.draw_page_number()
 
 ### Rich State & Pseudo-State Palette
 - **`State(name, shape="box", entry=..., do=..., exit=...)`**:
-  - Supports 5 shapes (`"box"`, `"oval"`, `"circle"`, `"double_circle"`, `"text_only"`) and internal action compartments (`entry / ...`, `do / ...`, `exit / ...`).
+  - Supports 5 shapes (`"box"`, `"ellipse"`, `"circle"`, `"double_circle"`, `"text_only"`) and internal action compartments (`entry / ...`, `do / ...`, `exit / ...`).
 - **UML Pseudo-States**:
   - `InitialState()`: Solid black entry circle.
   - `ChoiceState(name="...")`: Dynamic conditional diamond branch.

@@ -435,6 +435,10 @@ gear = canvas.gear
 math_symbol = canvas.math_symbol
 chevron = canvas.chevron
 bubblespeech = canvas.bubblespeech
+lightning = canvas.lightning
+explosion = canvas.explosion
+tag = canvas.tag
+plaque = canvas.plaque
 
 # original arrow
 arrow = canvas.arrow
@@ -446,19 +450,28 @@ arrow_u = canvas.arrow_u
 # patches
 arc = canvas.arc
 brace = canvas.brace
+checkmark = canvas.checkmark
 circle = canvas.circle
+clock = canvas.clock
 cloud = canvas.cloud
 cube = canvas.cube
 cylinder = canvas.cylinder
 document = canvas.document
 ellipse = canvas.ellipse
 face = canvas.face
+fan = canvas.fan
+forbidden = canvas.forbidden
+funnel = canvas.funnel
+heart = canvas.heart
+moon = canvas.moon
+pin = canvas.pin
 polygon = canvas.polygon
 rectangle = canvas.rectangle
 regularpolygon = canvas.regularpolygon
+ribbon = canvas.ribbon
+shield = canvas.shield
+sun = canvas.sun
 wedge = canvas.wedge
-donuts = canvas.donuts
-fan = canvas.fan
 
 # text
 text = canvas.text

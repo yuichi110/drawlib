@@ -10,7 +10,7 @@ Drawlib uses a standard **Cartesian coordinate space**:
 
 ## 7.2 Shapes, Lines, and Vector Icons
 
-Over 22 shape primitives (rectangles, circles, ellipses, wedges, donuts, block arrows, stars) are built-in:
+Over 40 shape primitives (rectangles, circles, ellipses, wedges, shields, ribbons, pins, clocks, block arrows, stars) are built-in:
 
 ```drawlib width=600px align=center file=fig_basic_drawing.png caption="Figure 7.1: Service Architecture Built with Shapes, Lines, and Icons"
 from drawlib.canvas import setup

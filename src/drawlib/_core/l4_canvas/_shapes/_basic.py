@@ -10,6 +10,7 @@
 """Canvas basic shapes and matplotlib patches feature implementation module."""
 
 import math
+from collections.abc import Callable
 from typing import Any
 
 from matplotlib.patches import (
@@ -28,22 +29,44 @@ from drawlib._core.l2_types import (
     Angle,
     BraceDirection,
     BraceSymbol,
+    CheckmarkVariant,
+    ClockVariant,
     CloudVariant,
     Coordinate,
     Coordinates,
     DocumentVariant,
-    FaceMood,
+    FaceVariant,
+    ForbiddenVariant,
+    FunnelVariant,
+    HeartVariant,
+    MoonVariant,
     NumVertex,
     PathPoints,
+    PinVariant,
     PosFloat,
     PosInt,
     Ratio,
+    RibbonVariant,
+    ShieldVariant,
     Size,
+    SunVariant,
 )
 from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_math import get_center_and_size
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
+from drawlib._core.l4_canvas._shapes._basic_ext import (
+    build_checkmark_path,
+    build_clock_patches,
+    build_forbidden_path,
+    build_funnel_patches,
+    build_heart_path,
+    build_moon_path,
+    build_pin_path_and_center,
+    build_ribbon_patches,
+    build_shield_path,
+    build_sun_path,
+)
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
@@ -211,6 +234,78 @@ class CanvasShapeBasicFeature(CanvasBase):
                 )
             )
 
+    def _draw_convex_polygon_with_hole(
+        self,
+        xy: Coordinate,
+        vertices: list[Coordinate],
+        hole_ratio: float | None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+        is_default_center: bool = False,
+    ) -> None:
+        """Draw a convex polygon with optional inner hole_ratio cutout and corner rounding."""
+        if hole_ratio is None:
+            path_points = ShapeUtil.round_polygon_points(vertices, style.shape_r)
+            self.shape(
+                xy=xy,
+                path_points=path_points,
+                style=style,
+                text=text,
+                text_style=text_style,
+                is_default_center=is_default_center,
+            )
+            return
+
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        h_ratio = float(ShapeUtil.validate_hole_ratio(hole_ratio) or 0.5)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+
+        inner_local_verts, inset = ShapeUtil.inset_convex_polygon(vertices, h_ratio)
+        outer_points = ShapeUtil.round_polygon_points(vertices, style.shape_r)
+        inner_shape_r = ShapeUtil.shrink_shape_r(style.shape_r, inset, reversed_order=True)
+        inner_points = ShapeUtil.round_polygon_points(inner_local_verts, inner_shape_r)
+
+        orig_center, (width, height) = get_center_and_size(vertices)
+        centered_outer = [ShapeUtil._shift_path_point(p, orig_center) for p in outer_points]
+        centered_inner = [ShapeUtil._shift_path_point(p, orig_center) for p in inner_points]
+
+        align_xy = (xy[0] - width / 2.0, xy[1] - height / 2.0) if is_default_center else xy
+        (adj_x, adj_y), effective_style = ShapeUtil.apply_alignment(
+            align_xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=is_default_center,
+        )
+        center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
+
+        transformed_outer = [
+            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_outer
+        ]
+        transformed_inner = [
+            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_inner
+        ]
+
+        outer_path = ShapeUtil.build_matplotlib_path(transformed_outer)
+        inner_path = ShapeUtil.build_matplotlib_path(transformed_inner)
+        compound_path = Path.make_compound_path(outer_path, inner_path)
+
+        options = ShapeUtil.get_shape_options(effective_style)
+        self._artists.append(PathPatch(path=compound_path, **options))
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(effective_style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=center_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
     @validate_call
     def rectangle(
         self,
@@ -218,6 +313,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         width: PosFloat,
         height: PosFloat,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
@@ -225,15 +321,16 @@ class CanvasShapeBasicFeature(CanvasBase):
         """Draw a rectangle on the canvas.
 
         Args:
-            xy: Bottom-left corner of the rectangle.
+            xy: Center or aligned coordinate of the rectangle.
             width: Width of the rectangle.
             height: Height of the rectangle.
+            hole_ratio: Optional inner cutout hole ratio in (0.0, 1.0) for frame shapes.
             style: Style of the rectangle (required).
             text (str, optional): Text to display within the rectangle.
             text_style (Style | None, optional): Style of the text.
 
         Raises:
-            ValueError: If invalid path points or shape_r are provided.
+            ValueError: If invalid path points, hole_ratio, or shape_r are provided.
         """
         style, text_style = ShapeUtil.format_styles(
             style,
@@ -244,11 +341,10 @@ class CanvasShapeBasicFeature(CanvasBase):
         p2 = (0, height)
         p3 = (width, height)
         p4 = (width, 0)
-        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
-
-        self.shape(
+        self._draw_convex_polygon_with_hole(
             xy=xy,
-            path_points=path_points,
+            vertices=[p1, p2, p3, p4],
+            hole_ratio=hole_ratio,
             style=style,
             text=text,
             text_style=text_style,
@@ -365,15 +461,17 @@ class CanvasShapeBasicFeature(CanvasBase):
         xy: Coordinate,
         radius: PosFloat,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
-        """Draw a circle on the canvas.
+        """Draw a circle or hollow ring on the canvas.
 
         Args:
             xy: Center coordinates tuple (x, y).
-            radius: Radius of the circle.
+            radius: Outer radius of the circle.
+            hole_ratio: Optional inner cutout hole ratio in (0.0, 1.0) for ring/donut shapes.
             style: Style object (required).
             text: Text to display inside shape.
             text_style: Style object for text.
@@ -382,19 +480,31 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
         angle: Angle = style.angle if style.angle is not None else 0.0
 
         width = radius * 2
         height = radius * 2
         xy, style = ShapeUtil.apply_alignment(xy, width, height, angle, style, is_default_center=True)
         options = ShapeUtil.get_shape_options(style)
-        self._artists.append(
-            Circle(
-                xy=xy,
-                radius=radius,
-                **options,
-            ),
-        )
+        if h_ratio is None:
+            self._artists.append(
+                Circle(
+                    xy=xy,
+                    radius=radius,
+                    **options,
+                ),
+            )
+        else:
+            path = ShapeUtil.build_hollow_ellipse_path(
+                cx=xy[0],
+                cy=xy[1],
+                rx=radius,
+                ry=radius,
+                hole_ratio=h_ratio,
+                angle=angle,
+            )
+            self._artists.append(PathPatch(path=path, **options))
 
         if not text:
             return
@@ -415,16 +525,18 @@ class CanvasShapeBasicFeature(CanvasBase):
         width: PosFloat,
         height: PosFloat,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
-        """Draw an ellipse on the canvas.
+        """Draw an ellipse or hollow oval ring on the canvas.
 
         Args:
             xy: Center coordinates (x, y) of the ellipse.
-            width: Width (major axis) of the ellipse.
-            height: Height (minor axis) of the ellipse.
+            width: Width (horizontal axis) of the ellipse.
+            height: Height (vertical axis) of the ellipse.
+            hole_ratio: Optional inner cutout hole ratio in (0.0, 1.0).
             style: Style of the ellipse (required).
             text (optional): Text to display inside the ellipse.
             text_style (optional): Style of the text.
@@ -433,6 +545,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
         angle: Angle = style.angle if style.angle is not None else 0.0
 
         xy, style = ShapeUtil.apply_alignment(
@@ -445,15 +558,26 @@ class CanvasShapeBasicFeature(CanvasBase):
         )
 
         options = ShapeUtil.get_shape_options(style)
-        self._artists.append(
-            Ellipse(
-                xy,
-                width=width,
-                height=height,
-                angle=angle,
-                **options,
+        if h_ratio is None:
+            self._artists.append(
+                Ellipse(
+                    xy,
+                    width=width,
+                    height=height,
+                    angle=angle,
+                    **options,
+                )
             )
-        )
+        else:
+            path = ShapeUtil.build_hollow_ellipse_path(
+                cx=xy[0],
+                cy=xy[1],
+                rx=width / 2.0,
+                ry=height / 2.0,
+                hole_ratio=h_ratio,
+                angle=angle,
+            )
+            self._artists.append(PathPatch(path=path, **options))
 
         if not text:
             return
@@ -474,6 +598,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         num_vertex: NumVertex,
         radius: PosFloat,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
@@ -484,6 +609,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             xy: Center coordinates (x, y) of the regular polygon.
             num_vertex: Number of vertices in the polygon.
             radius: Radius of the circumscribed circle.
+            hole_ratio: Optional inner cutout hole ratio in (0.0, 1.0).
             style: Style of the polygon (required).
             text (optional): Text to display inside the polygon.
             text_style (optional): Style of the text.
@@ -492,6 +618,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
         angle: Angle = style.angle if style.angle is not None else 0.0
 
         xy, style = ShapeUtil.apply_alignment(
@@ -505,7 +632,7 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         angle_rad = math.radians(angle)
         options = ShapeUtil.get_shape_options(style)
-        if style.shape_r is not None:
+        if h_ratio is not None or style.shape_r is not None:
             start_a = math.pi / 2.0 + angle_rad
             verts: list[Coordinate] = [
                 (
@@ -515,7 +642,15 @@ class CanvasShapeBasicFeature(CanvasBase):
                 for i in range(num_vertex)
             ]
             path_points = ShapeUtil.round_polygon_points(verts, style.shape_r)
-            if len(path_points) == num_vertex and all(isinstance(p[0], (int, float)) for p in path_points):
+            if h_ratio is not None:
+                inner_verts, inset = ShapeUtil.inset_convex_polygon(verts, h_ratio)
+                inner_r = ShapeUtil.shrink_shape_r(style.shape_r, inset, reversed_order=True)
+                inner_points = ShapeUtil.round_polygon_points(inner_verts, inner_r)
+                outer_path = ShapeUtil.build_matplotlib_path(path_points)
+                inner_path = ShapeUtil.build_matplotlib_path(inner_points)
+                path = Path.make_compound_path(outer_path, inner_path)
+                self._artists.append(PathPatch(path=path, **options))
+            elif len(path_points) == num_vertex and all(isinstance(p[0], (int, float)) for p in path_points):
                 self._artists.append(
                     RegularPolygon(
                         xy,
@@ -538,7 +673,6 @@ class CanvasShapeBasicFeature(CanvasBase):
                     **options,
                 )
             )
-
 
         if not text:
             return
@@ -608,36 +742,6 @@ class CanvasShapeBasicFeature(CanvasBase):
                 angle=angle,
                 style=effective_text_style,
             ),
-        )
-
-    @validate_call
-    def donuts(
-        self,
-        xy: Coordinate,
-        radius: PosFloat,
-        *,
-        style: Style,
-        width: PosFloat | None = None,
-        text: str = "",
-        text_style: Style | None = None,
-    ) -> None:
-        """Draw a donut shape on the canvas.
-
-        Args:
-            xy: Center coordinates tuple (x, y).
-            radius: Outer radius of the donut.
-            style: Style object (required).
-            width: Width of the donut ring.
-            text: Text to display inside shape.
-            text_style: Style object for text.
-        """
-        self.wedge(
-            xy=xy,
-            radius=radius,
-            width=width,
-            style=style,
-            text=text,
-            text_style=text_style,
         )
 
     @validate_call
@@ -897,8 +1001,8 @@ class CanvasShapeBasicFeature(CanvasBase):
         xy: Coordinate,
         radius: PosFloat,
         *,
+        variant: FaceVariant = "smile",
         style: Style,
-        mood: FaceMood = "smile",
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -907,8 +1011,9 @@ class CanvasShapeBasicFeature(CanvasBase):
         Args:
             xy: Center coordinates (x, y) of the face circle.
             radius: Radius of the face circle.
+            variant: Facial expression or silhouette ("smile", "neutral", "sad",
+                "angry", "surprised", "dizzy", "dead", "skull", or "devil").
             style: Style object (required).
-            mood: Facial expression ("smile", "neutral", "sad", "angry", or "surprised").
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -937,28 +1042,31 @@ class CanvasShapeBasicFeature(CanvasBase):
         line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
         line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
 
-        self._artists.append(
-            Circle(
-                xy=(cx, cy),
-                radius=radius,
-                facecolor=face_fill,
-                edgecolor=stroke_color,
-                linewidth=line_w,
-                linestyle=line_style,
-                zorder=1,
-            )
-        )
-
         rad = math.radians(angle)
         cos_a = math.cos(rad)
         sin_a = math.sin(rad)
+
+        self._artists.append(
+            _build_face_head_patch(
+                cx=cx,
+                cy=cy,
+                radius=radius,
+                variant=variant,
+                cos_a=cos_a,
+                sin_a=sin_a,
+                face_fill=face_fill,
+                stroke_color=stroke_color,
+                line_w=line_w,
+                line_style=line_style,
+            )
+        )
 
         self._artists.extend(
             _build_face_feature_patches(
                 cx=cx,
                 cy=cy,
                 radius=radius,
-                mood=mood,
+                variant=variant,
                 cos_a=cos_a,
                 sin_a=sin_a,
                 feature_color=feature_color,
@@ -1259,6 +1367,499 @@ class CanvasShapeBasicFeature(CanvasBase):
                 )
             )
 
+    @validate_call
+    def forbidden(
+        self,
+        xy: Coordinate,
+        radius: PosFloat,
+        *,
+        variant: ForbiddenVariant = "slash",
+        thickness_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a forbidden or no-entry mark shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            radius: Outer radius of the forbidden circle.
+            variant: Visual variant ("slash", "standard", "backslash", "cross", "no_entry", "minus").
+            thickness_ratio: Optional ring/bar thickness ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(thickness_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        width = radius * 2.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=width,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path = build_forbidden_path(xy, radius, variant, thickness_ratio, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
+    @validate_call
+    def checkmark(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat | None = None,
+        *,
+        variant: CheckmarkVariant = "standard",
+        thickness_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a checkmark symbol or badge shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the checkmark bounding box.
+            height: Height of the checkmark bounding box (defaults to width when None).
+            variant: Checkmark variant ("standard", "check", "circle", "solid_circle").
+            thickness_ratio: Optional stroke thickness ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(thickness_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        eff_h = width if height is None else height
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=eff_h,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path = build_checkmark_path(xy, width, eff_h, variant, thickness_ratio, style.shape_r, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
+    @validate_call
+    def shield(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: ShieldVariant = "classic",
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a security shield shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the shield bounding box.
+            height: Height of the shield bounding box.
+            variant: Shield silhouette variant ("classic", "standard", "flat", "heater", "round").
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path = build_shield_path(xy, width, height, variant, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
+    @validate_call
+    def ribbon(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: RibbonVariant = "down",
+        tail_width_ratio: Ratio | None = None,
+        drop_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a ribbon banner shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Outer width of the ribbon bounding box.
+            height: Outer height of the ribbon bounding box.
+            variant: Ribbon variant ("down", "standard", "up", "flat", "banner").
+            tail_width_ratio: Optional side tail width fraction in (0.0, 1.0).
+            drop_ratio: Optional vertical step drop fraction in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display on the front banner panel.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(tail_width_ratio)
+        ShapeUtil.validate_hole_ratio(drop_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        patches, text_xy = build_ribbon_patches(
+            xy=xy,
+            width=width,
+            height=height,
+            variant=variant,
+            tail_width_ratio=tail_width_ratio,
+            drop_ratio=drop_ratio,
+            angle=angle,
+            style=style,
+        )
+        self._artists.extend(patches)
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def funnel(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: FunnelVariant = "standard",
+        neck_width_ratio: Ratio | None = None,
+        neck_height_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a filter funnel shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Outer width of the funnel top opening.
+            height: Total height of the funnel.
+            variant: Funnel silhouette ("standard", "flat", "3d", "cylinder", "curved").
+            neck_width_ratio: Optional bottom spout width ratio in (0.0, 1.0).
+            neck_height_ratio: Optional bottom spout height ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display inside the funnel.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(neck_width_ratio)
+        ShapeUtil.validate_hole_ratio(neck_height_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        patches, text_xy = build_funnel_patches(
+            xy=xy,
+            width=width,
+            height=height,
+            variant=variant,
+            neck_width_ratio=neck_width_ratio,
+            neck_height_ratio=neck_height_ratio,
+            angle=angle,
+            style=style,
+        )
+        self._artists.extend(patches)
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def pin(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: PinVariant = "pointer",
+        hole_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a callout pointer badge or map pin shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the pin bounding box.
+            height: Height of the pin bounding box.
+            variant: Pin silhouette ("pointer", "standard", "teardrop", "drop", "pin", "badge").
+            hole_ratio: Optional center circular hole ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display centered inside the pin head.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path, head_xy = build_pin_path_and_center(xy, width, height, variant, hole_ratio, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=head_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def heart(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: HeartVariant = "standard",
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a heart or broken-heart shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the heart bounding box.
+            height: Height of the heart bounding box.
+            variant: Heart silhouette ("standard", "classic", "broken").
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path = build_heart_path(xy, width, height, variant, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
+    @validate_call
+    def sun(
+        self,
+        xy: Coordinate,
+        radius: PosFloat,
+        *,
+        variant: SunVariant = "rays",
+        num_rays: NumVertex = 8,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a sun shape with surrounding rays on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            radius: Outer radius to ray tips.
+            variant: Sun variant ("rays", "standard", "ring", "beams").
+            num_rays: Number of surrounding rays (must be >= 3).
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        width = radius * 2.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=width,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path = build_sun_path(xy, radius, variant, num_rays, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
+    @validate_call
+    def moon(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: MoonVariant = "crescent",
+        mirror: bool = False,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a crescent or half moon shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the moon bounding box.
+            height: Height of the moon bounding box.
+            variant: Moon silhouette ("crescent", "standard", "thin", "waxing", "half").
+            mirror: Whether to flip the moon horizontally.
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        path = build_moon_path(xy, width, height, variant, mirror, angle)
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
+    @validate_call
+    def clock(
+        self,
+        xy: Coordinate,
+        radius: PosFloat,
+        *,
+        variant: ClockVariant = "standard",
+        hour: float = 10.0,
+        minute: float = 10.0,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw an analog or 7-segment digital clock shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            radius: Radius of the clock dial (or scale reference for digital clock).
+            variant: Clock variant ("standard", "ticks", "dial", "stopwatch",
+                "timer", "alarm", "digital").
+            hour: Hour value (e.g., 10.0 for 10 o'clock).
+            minute: Minute value (e.g., 10.0 for 10 minutes).
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        width = radius * 2.15 if variant == "digital" else radius * 2.0
+        height = radius * 1.22 if variant == "digital" else radius * 2.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        face_fill, stroke_color, feature_color, feature_w = _get_face_colors(style)
+        self._artists.extend(
+            build_clock_patches(
+                xy=xy,
+                radius=radius,
+                variant=variant,
+                hour=hour,
+                minute=minute,
+                angle=angle,
+                face_fill=face_fill,
+                stroke_color=stroke_color,
+                feature_color=feature_color,
+                feature_w=feature_w,
+                style=style,
+            )
+        )
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(xy=xy, text=text, angle=angle, style=effective_text_style)
+            )
+
 
 def _get_face_colors(
     style: Style,
@@ -1321,11 +1922,332 @@ def _get_face_colors(
     return face_fill, stroke_color, feature_color, feature_w
 
 
+def _build_face_head_patch(
+    cx: float,
+    cy: float,
+    radius: float,
+    variant: str,
+    cos_a: float,
+    sin_a: float,
+    face_fill: tuple[float, float, float, float] | str,
+    stroke_color: tuple[float, float, float, float] | str,
+    line_w: float,
+    line_style: str,
+) -> Circle | PathPatch:
+    """Build the outer head silhouette patch for a face shape."""
+
+    def xform_pt(lx: float, ly: float) -> tuple[float, float]:
+        return (cx + lx * cos_a - ly * sin_a, cy + lx * sin_a + ly * cos_a)
+
+    if variant == "skull":
+        r = radius
+        jw = r * 0.52
+        jy_bot = -r * 0.92
+        jy_cheek = -r * 0.28
+        cr = r * 0.92
+        cy_dome = r * 0.12
+        local_verts = [
+            (-jw, jy_cheek),
+            (-jw, jy_bot + r * 0.16),
+            (-jw, jy_bot),
+            (-jw + r * 0.16, jy_bot),
+            (jw - r * 0.16, jy_bot),
+            (jw, jy_bot),
+            (jw, jy_bot + r * 0.16),
+            (jw, jy_cheek),
+            (cr * 1.02, jy_cheek + r * 0.08),
+            (cr * 1.05, cy_dome + r * 0.25),
+            (cr * 0.78, r * 0.78),
+            (cr * 0.42, r * 1.02),
+            (-cr * 0.42, r * 1.02),
+            (-cr * 0.78, r * 0.78),
+            (-cr * 1.05, cy_dome + r * 0.25),
+            (-cr * 1.02, jy_cheek + r * 0.08),
+            (-jw, jy_cheek),
+            (-jw, jy_cheek),
+        ]
+        codes = [
+            Path.MOVETO,
+            Path.LINETO,
+            Path.CURVE3,
+            Path.CURVE3,
+            Path.LINETO,
+            Path.CURVE3,
+            Path.CURVE3,
+            Path.LINETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+        verts = [xform_pt(lx, ly) for lx, ly in local_verts]
+        return PathPatch(
+            Path(vertices=verts, codes=codes),
+            facecolor=face_fill,
+            edgecolor=stroke_color,
+            linewidth=line_w,
+            linestyle=line_style,
+            joinstyle="round",
+            zorder=1,
+        )
+
+    if variant == "devil":
+        r = radius
+        local_pts: list[tuple[float, float]] = []
+        codes_d: list[Any] = []
+
+        def add_arc(deg_start: float, deg_end: float, steps: int) -> None:
+            for i in range(steps + 1):
+                rad_ang = math.radians(deg_start + (deg_end - deg_start) * (i / steps))
+                pt = (r * math.cos(rad_ang), r * math.sin(rad_ang))
+                if not local_pts:
+                    local_pts.append(pt)
+                    codes_d.append(Path.MOVETO)
+                else:
+                    local_pts.append(pt)
+                    codes_d.append(Path.LINETO)
+
+        add_arc(142.0, 398.0, 48)
+        r_tip = (r * 0.62, r * 1.25)
+        r_base_in = (r * math.cos(math.radians(66.0)), r * math.sin(math.radians(66.0)))
+        local_pts.extend(
+            [
+                (r * 1.05, r * 0.85),
+                (r * 0.94, r * 1.16),
+                r_tip,
+                (r * 0.62, r * 1.04),
+                (r * 0.50, r * 0.96),
+                r_base_in,
+            ]
+        )
+        codes_d.extend([Path.CURVE4] * 6)
+        add_arc(66.0, 114.0, 14)
+        l_tip = (-r * 0.62, r * 1.25)
+        l_base_out = (r * math.cos(math.radians(142.0)), r * math.sin(math.radians(142.0)))
+        local_pts.extend(
+            [
+                (-r * 0.50, r * 0.96),
+                (-r * 0.62, r * 1.04),
+                l_tip,
+                (-r * 0.94, r * 1.16),
+                (-r * 1.05, r * 0.85),
+                l_base_out,
+            ]
+        )
+        codes_d.extend([Path.CURVE4] * 6)
+        local_pts.append(local_pts[0])
+        codes_d.append(Path.CLOSEPOLY)
+        verts_d = [xform_pt(lx, ly) for lx, ly in local_pts]
+        return PathPatch(
+            Path(vertices=verts_d, codes=codes_d),
+            facecolor=face_fill,
+            edgecolor=stroke_color,
+            linewidth=line_w,
+            linestyle=line_style,
+            joinstyle="round",
+            zorder=1,
+        )
+
+    return Circle(
+        xy=(cx, cy),
+        radius=radius,
+        facecolor=face_fill,
+        edgecolor=stroke_color,
+        linewidth=line_w,
+        linestyle=line_style,
+        zorder=1,
+    )
+
+
+def _build_skull_feature_patches(
+    xform_pt: Callable[[float, float], tuple[float, float]],
+    radius: float,
+    feature_color: tuple[float, float, float, float],
+    feature_w: float,
+) -> list[Circle | PathPatch]:
+    """Build eye sockets, nasal cavity, and teeth lines for the skull face variant."""
+    r = radius
+    eye_x = r * 0.34
+    eye_y = r * 0.16
+    eye_r = r * 0.20
+    patches: list[Circle | PathPatch] = [
+        Circle(
+            xy=xform_pt(-eye_x, eye_y),
+            radius=eye_r,
+            facecolor=feature_color,
+            edgecolor="none",
+            linewidth=0,
+            zorder=2,
+        ),
+        Circle(
+            xy=xform_pt(eye_x, eye_y),
+            radius=eye_r,
+            facecolor=feature_color,
+            edgecolor="none",
+            linewidth=0,
+            zorder=2,
+        ),
+    ]
+
+    nw = r * 0.11
+    ny_top = -r * 0.04
+    ny_bot = -r * 0.24
+    nose_verts = [
+        xform_pt(0.0, ny_top),
+        xform_pt(-nw, ny_bot),
+        xform_pt(nw, ny_bot),
+        xform_pt(0.0, ny_top),
+    ]
+    nose_codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY]
+    patches.append(
+        PathPatch(
+            Path(vertices=nose_verts, codes=nose_codes),
+            facecolor=feature_color,
+            edgecolor="none",
+            linewidth=0,
+            zorder=2,
+        )
+    )
+
+    t_top = -r * 0.52
+    t_bot = -r * 0.92
+    t_verts: list[tuple[float, float]] = []
+    t_codes: list[Any] = []
+    for tx in (-r * 0.24, 0.0, r * 0.24):
+        t_verts.extend([xform_pt(tx, t_top), xform_pt(tx, t_bot)])
+        t_codes.extend([Path.MOVETO, Path.LINETO])
+    patches.append(
+        PathPatch(
+            Path(vertices=t_verts, codes=t_codes),
+            facecolor="none",
+            edgecolor=feature_color,
+            linewidth=feature_w,
+            capstyle="round",
+            zorder=2,
+        )
+    )
+    return patches
+
+
+def _build_x_eye_face_patches(
+    xform_pt: Callable[[float, float], tuple[float, float]],
+    radius: float,
+    variant: str,
+    feature_color: tuple[float, float, float, float],
+    feature_w: float,
+) -> list[Circle | PathPatch]:
+    """Build X-eyes and mouth patches for 'dizzy' and 'dead' face variants."""
+    eye_x = radius * 0.33
+    eye_y = radius * 0.18
+    d = radius * 0.14
+    x_verts = [
+        xform_pt(-eye_x - d, eye_y - d),
+        xform_pt(-eye_x + d, eye_y + d),
+        xform_pt(-eye_x - d, eye_y + d),
+        xform_pt(-eye_x + d, eye_y - d),
+        xform_pt(eye_x - d, eye_y - d),
+        xform_pt(eye_x + d, eye_y + d),
+        xform_pt(eye_x - d, eye_y + d),
+        xform_pt(eye_x + d, eye_y - d),
+    ]
+    x_codes = [
+        Path.MOVETO,
+        Path.LINETO,
+        Path.MOVETO,
+        Path.LINETO,
+        Path.MOVETO,
+        Path.LINETO,
+        Path.MOVETO,
+        Path.LINETO,
+    ]
+    patches: list[Circle | PathPatch] = [
+        PathPatch(
+            Path(vertices=x_verts, codes=x_codes),
+            facecolor="none",
+            edgecolor=feature_color,
+            linewidth=feature_w * 1.15,
+            capstyle="round",
+            zorder=2,
+        )
+    ]
+
+    my = -radius * 0.30
+    if variant == "dizzy":
+        w = radius * 0.38
+        h = radius * 0.12
+        m_verts = [
+            xform_pt(-w, my),
+            xform_pt(-w * 0.5, my + h),
+            xform_pt(0.0, my),
+            xform_pt(w * 0.5, my - h),
+            xform_pt(w, my),
+        ]
+        m_codes = [Path.MOVETO, Path.CURVE3, Path.CURVE3, Path.CURVE3, Path.CURVE3]
+    else:
+        rx = radius * 0.17
+        ry = radius * 0.18
+        kappa = 0.5522847498307936
+        kx = rx * kappa
+        ky = ry * kappa
+        local_o = [
+            (rx, my),
+            (rx, my + ky),
+            (kx, my + ry),
+            (0.0, my + ry),
+            (-kx, my + ry),
+            (-rx, my + ky),
+            (-rx, my),
+            (-rx, my - ky),
+            (-kx, my - ry),
+            (0.0, my - ry),
+            (kx, my - ry),
+            (rx, my - ky),
+            (rx, my),
+            (rx, my),
+        ]
+        m_verts = [xform_pt(lx, ly) for lx, ly in local_o]
+        m_codes = [
+            Path.MOVETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+
+    patches.append(
+        PathPatch(
+            Path(vertices=m_verts, codes=m_codes),
+            facecolor="none",
+            edgecolor=feature_color,
+            linewidth=feature_w,
+            capstyle="round",
+            joinstyle="round",
+            zorder=2,
+        )
+    )
+    return patches
+
+
 def _build_face_feature_patches(
     cx: float,
     cy: float,
     radius: float,
-    mood: str,
+    variant: str,
     cos_a: float,
     sin_a: float,
     feature_color: tuple[float, float, float, float],
@@ -1337,7 +2259,7 @@ def _build_face_feature_patches(
         cx: Center x coordinate.
         cy: Center y coordinate.
         radius: Face circle radius.
-        mood: Facial expression name.
+        variant: Facial expression or silhouette name.
         cos_a: Cosine of rotation angle.
         sin_a: Sine of rotation angle.
         feature_color: RGBA color for eyes, eyebrows, and mouth.
@@ -1350,9 +2272,21 @@ def _build_face_feature_patches(
     def xform_pt(lx: float, ly: float) -> tuple[float, float]:
         return (cx + lx * cos_a - ly * sin_a, cy + lx * sin_a + ly * cos_a)
 
+    if variant == "skull":
+        return _build_skull_feature_patches(xform_pt, radius, feature_color, feature_w)
+    if variant in {"dizzy", "dead"}:
+        return _build_x_eye_face_patches(xform_pt, radius, variant, feature_color, feature_w)
+
     eye_x = radius * 0.32
-    eye_y = radius * 0.13 if mood == "angry" else radius * 0.20
-    eye_r = radius * 0.105 if mood == "angry" else radius * 0.11
+    if variant == "devil":
+        eye_y = radius * 0.10
+        eye_r = radius * 0.105
+    elif variant == "angry":
+        eye_y = radius * 0.13
+        eye_r = radius * 0.105
+    else:
+        eye_y = radius * 0.20
+        eye_r = radius * 0.11
 
     left_eye = Circle(
         xy=xform_pt(-eye_x, eye_y),
@@ -1372,12 +2306,16 @@ def _build_face_feature_patches(
     )
     patches: list[Circle | PathPatch] = [left_eye, right_eye]
 
-    if mood == "angry":
+    if variant in {"angry", "devil"}:
+        bx_out = 0.50 if variant == "devil" else 0.48
+        by_out = 0.38 if variant == "devil" else 0.40
+        bx_in = 0.13 if variant == "devil" else 0.15
+        by_in = 0.20 if variant == "devil" else 0.25
         brow_verts = [
-            xform_pt(-radius * 0.48, radius * 0.40),
-            xform_pt(-radius * 0.15, radius * 0.25),
-            xform_pt(radius * 0.48, radius * 0.40),
-            xform_pt(radius * 0.15, radius * 0.25),
+            xform_pt(-radius * bx_out, radius * by_out),
+            xform_pt(-radius * bx_in, radius * by_in),
+            xform_pt(radius * bx_out, radius * by_out),
+            xform_pt(radius * bx_in, radius * by_in),
         ]
         brow_codes = [Path.MOVETO, Path.LINETO, Path.MOVETO, Path.LINETO]
         patches.append(
@@ -1392,21 +2330,23 @@ def _build_face_feature_patches(
             )
         )
 
-    if mood == "smile":
+    if variant in {"smile", "devil"}:
+        mx_out = 0.46 if variant == "devil" else 0.44
+        my_out = -0.14 if variant == "devil" else -0.18
         m_verts = [
-            xform_pt(-radius * 0.44, -radius * 0.18),
+            xform_pt(-radius * mx_out, radius * my_out),
             xform_pt(-radius * 0.24, -radius * 0.54),
             xform_pt(radius * 0.24, -radius * 0.54),
-            xform_pt(radius * 0.44, -radius * 0.18),
+            xform_pt(radius * mx_out, radius * my_out),
         ]
         m_codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4]
-    elif mood == "neutral":
+    elif variant == "neutral":
         m_verts = [
             xform_pt(-radius * 0.36, -radius * 0.28),
             xform_pt(radius * 0.36, -radius * 0.28),
         ]
         m_codes = [Path.MOVETO, Path.LINETO]
-    elif mood in {"sad", "angry"}:
+    elif variant in {"sad", "angry"}:
         m_verts = [
             xform_pt(-radius * 0.42, -radius * 0.42),
             xform_pt(-radius * 0.22, -radius * 0.14),

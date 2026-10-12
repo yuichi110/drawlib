@@ -12,7 +12,7 @@ setup(width=130, height=58)
 
 root = MindMapNode(
     "Cloud Platform",
-    shape="oval",
+    shape="ellipse",
     width=26,
     height=9.5,
     style=Styles.PrimaryFlat,
@@ -90,7 +90,7 @@ setup(width=130, height=40)
 
 root = MindMapNode(
     "API Gateway",
-    shape="oval",
+    shape="ellipse",
     width=26,
     height=11,
     style=Styles.PrimaryFlat,
@@ -201,7 +201,7 @@ save()
   - You can mix directions on the same root by setting `branch="left"`, `"right"`, `"top"`, or `"bottom"` on individual child nodes.
 - **Node Shapes & Automatic Text Sizing (`shape`, `width`, `height`)**:
   - `"rectangle"`: Rectangular box with optional corner rounding (`style.shape_r`).
-  - `"oval"`: Pill / ellipse container.
+  - `"ellipse"`: Pill / ellipse container.
   - `"none"`: Clean borderless text label. When `shape="none"` and `width=None` / `height=None`, `MindMapNode` **automatically measures the text width and height** from `text_style.text_size` (including CJK wide-character compensation) so sibling labels never overlap.
 - **Layout & Spacing Parameters**:
   - `horizontal_margin`: Horizontal gap between sibling subtrees when branching `"bottom"` or `"top"`.
@@ -219,7 +219,7 @@ MindMapNode(
     text: str,
     *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
-    shape: Literal["rectangle", "oval", "none"] | None = None,
+    shape: Literal["rectangle", "ellipse", "none"] | None = None,
     width: float | None = None,
     height: float | None = None,
     style: Style | None = None,
@@ -238,7 +238,7 @@ MindMapNode(
 | :--- | :--- | :--- | :--- |
 | **`text`** | `str` | *(Required)* | Text content displayed in this node. |
 | **`branch`** | `Literal["bottom", "top", "left", "right"] \| None` | `None` | Branch direction for this node/subtree (inherits parent or `draw(branch=...)` default if `None`). |
-| **`shape`** | `Literal["rectangle", "oval", "none"] \| None` | `None` | Node shape (root defaults to `"rectangle"` if `None`; children inherit parent `shape`). |
+| **`shape`** | `Literal["rectangle", "ellipse", "none"] \| None` | `None` | Node shape (root defaults to `"rectangle"` if `None`; children inherit parent `shape`). |
 | **`width`** | `float \| None` | `None` | Node width (root defaults to `20.0`; auto-sized from text when `shape="none"` and `width=None`). |
 | **`height`** | `float \| None` | `None` | Node height (root defaults to `8.0`; auto-sized from text when `shape="none"` and `height=None`). |
 | **`style`** | `Style \| None` | `None` | Node shape style (**required on root**; inherited by children if `None`). |
@@ -257,7 +257,7 @@ node.add(
     text: str,
     *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
-    shape: Literal["rectangle", "oval", "none"] | None = None,
+    shape: Literal["rectangle", "ellipse", "none"] | None = None,
     width: float | None = None,
     height: float | None = None,
     style: Style | None = None,
@@ -286,7 +286,7 @@ root.draw(
 - **Mutable Node Properties**:
   - `node.text: str`
   - `node.branch: Literal["bottom", "top", "left", "right"] | None`
-  - `node.shape: Literal["rectangle", "oval", "none"] | None`
+  - `node.shape: Literal["rectangle", "ellipse", "none"] | None`
   - `node.width: float | None`
   - `node.height: float | None`
   - `node.style: Style | None`

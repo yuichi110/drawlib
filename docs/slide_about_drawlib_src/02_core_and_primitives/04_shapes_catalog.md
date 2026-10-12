@@ -1,5 +1,5 @@
 ::: block xy=(80, 45) width=1760 height=110
-# 23 Geometric Primitives (`drawlib.shapes`)
+# 40+ Geometric Primitives (`drawlib.shapes`)
 A rich vocabulary of vector shapes—all supporting `style` (including rotation `style.angle`), `text`, and `text_style`.
 :::
 
@@ -11,7 +11,6 @@ from drawlib.shapes import (
     chevron,
     circle,
     cylinder,
-    donuts,
     ellipse,
     face,
     parallelogram,
@@ -69,8 +68,8 @@ draw_cell_label(cols[0], rows[2], "regularpolygon(6)")
 star((cols[1], rows[2]), num_vertex=5, radius_ext=6.8, radius_int=3.2, style=Styles.SecondaryNeutral)
 draw_cell_label(cols[1], rows[2], "star(5)")
 
-donuts((cols[2], rows[2]), radius=6.2, width=2.4, style=Styles.BlueNeutral, text="75%", text_style=Styles.DarkBold.patch(text_size=7.5))
-draw_cell_label(cols[2], rows[2], "donuts()")
+circle((cols[2], rows[2]), radius=6.2, hole_ratio=0.61, style=Styles.BlueNeutral, text="75%", text_style=Styles.DarkBold.patch(text_size=7.5))
+draw_cell_label(cols[2], rows[2], "circle(hole_ratio=0.6)")
 
 wedge((cols[3], rows[2]), radius=6.2, angle_start=0, angle_end=240, width=2.6, style=Styles.PrimaryNeutral)
 draw_cell_label(cols[3], rows[2], "wedge()")
@@ -94,8 +93,8 @@ bubblespeech(
 )
 draw_cell_label(cols[1], r3_y, "bubblespeech()")
 
-face((cols[2], r3_y), radius=5.8, mood="smile", style=Styles.PrimaryNeutral)
-draw_cell_label(cols[2], r3_y, 'face(mood="smile")')
+face((cols[2], r3_y), radius=5.8, variant="smile", style=Styles.PrimaryNeutral)
+draw_cell_label(cols[2], r3_y, 'face(variant="smile")')
 
 polygon(
     [(cols[3] - 10, r3_y - 4.5), (cols[3] + 6, r3_y - 4.5), (cols[3] + 11, r3_y), (cols[3] + 6, r3_y + 4.5), (cols[3] - 10, r3_y + 4.5)],
@@ -117,6 +116,6 @@ utils.draw_page_number()
 :::
 
 ::: note
-- `drawlib.shapes` provides 23 geometric primitives out of the box.
-- Here is a 4x4 visual catalog of 16 core shapes: rounded rectangles, circles, ellipses, multi-disk 3D database cylinders, rhombuses, trapezoids, parallelograms, triangles, hexagons (`regularpolygon`), stars, donuts, wedges, chevrons, speech bubbles, expressive user faces, and arbitrary polygons.
+- `drawlib.shapes` provides over 40 geometric primitives out of the box.
+- Here is a 4x4 visual catalog of 16 core shapes: rounded rectangles, circles, ellipses, multi-disk 3D database cylinders, rhombuses, trapezoids, parallelograms, triangles, hexagons (`regularpolygon`), stars, hollow rings (`hole_ratio`), wedges, chevrons, speech bubbles, expressive user faces, and arbitrary polygons.
 :::

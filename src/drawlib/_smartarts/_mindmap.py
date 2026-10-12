@@ -23,7 +23,7 @@ from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, 
 class MindMapNode:
     """Class for rendering smart art MindMap and hierarchy tree diagrams.
 
-    Supports nodes with rectangle, oval, or text-only (none) shapes, connected with
+    Supports nodes with rectangle, ellipse, or text-only (none) shapes, connected with
     right-angled fork lines via automatically placed junctions, expanding in 4 directions
     (bottom, top, left, right).
     """
@@ -33,7 +33,7 @@ class MindMapNode:
         text: str,
         *,
         branch: Literal["bottom", "top", "left", "right"] | None = None,
-        shape: Literal["rectangle", "oval", "none"] | None = None,
+        shape: Literal["rectangle", "ellipse", "none"] | None = None,
         width: PosFloat | None = None,
         height: PosFloat | None = None,
         style: Style | None = None,
@@ -51,7 +51,7 @@ class MindMapNode:
         Args:
             text: Text content displayed in this node.
             branch: Branch direction for child nodes ("bottom", "top", "left", "right").
-            shape: Shape of this node ("rectangle", "oval", "none").
+            shape: Shape of this node ("rectangle", "ellipse", "none").
             width: Width of the node.
             height: Height of the node.
             style: Shape style object.
@@ -104,12 +104,12 @@ class MindMapNode:
         self._branch = value
 
     @property
-    def shape(self) -> Literal["rectangle", "oval", "none"] | None:
+    def shape(self) -> Literal["rectangle", "ellipse", "none"] | None:
         """Return or set the node shape."""
         return self._shape
 
     @shape.setter
-    def shape(self, value: Literal["rectangle", "oval", "none"] | None) -> None:
+    def shape(self, value: Literal["rectangle", "ellipse", "none"] | None) -> None:
         self._shape = value
 
     @property
@@ -168,7 +168,7 @@ class MindMapNode:
         text: str,
         *,
         branch: Literal["bottom", "top", "left", "right"] | None = None,
-        shape: Literal["rectangle", "oval", "none"] | None = None,
+        shape: Literal["rectangle", "ellipse", "none"] | None = None,
         width: PosFloat | None = None,
         height: PosFloat | None = None,
         style: Style | None = None,
@@ -185,7 +185,7 @@ class MindMapNode:
         Args:
             text: Text content displayed in the child node.
             branch: Branch direction for the child node ("bottom", "top", "left", "right").
-            shape: Shape of the child node ("rectangle", "oval", "none").
+            shape: Shape of the child node ("rectangle", "ellipse", "none").
             width: Width of the child node.
             height: Height of the child node.
             style: Shape style object for the child node.
@@ -303,7 +303,7 @@ class MindMapNode:
     def _measure_pass(  # noqa: PLR0913
         self,
         current_branch: Literal["bottom", "top", "left", "right"],
-        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_shape: Literal["rectangle", "ellipse", "none"],
         parent_w: float,
         parent_h: float,
         parent_style: Style,
@@ -381,7 +381,7 @@ class MindMapNode:
         self,
         center_xy: tuple[float, float],
         current_branch: Literal["bottom", "top", "left", "right"],
-        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_shape: Literal["rectangle", "ellipse", "none"],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -430,7 +430,7 @@ class MindMapNode:
                     text=self._text,
                     text_style=text_style,
                 )
-            elif shape == "oval":
+            elif shape == "ellipse":
                 ellipse(
                     xy=(cx, cy),
                     width=bw,
@@ -547,7 +547,7 @@ class MindMapNode:
         line_len: float,
         h_margin: float,
         line_style: Style,
-        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_shape: Literal["rectangle", "ellipse", "none"],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -616,7 +616,7 @@ class MindMapNode:
         line_len: float,
         h_margin: float,
         line_style: Style,
-        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_shape: Literal["rectangle", "ellipse", "none"],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -685,7 +685,7 @@ class MindMapNode:
         line_len: float,
         v_margin: float,
         line_style: Style,
-        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_shape: Literal["rectangle", "ellipse", "none"],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,
@@ -754,7 +754,7 @@ class MindMapNode:
         line_len: float,
         v_margin: float,
         line_style: Style,
-        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_shape: Literal["rectangle", "ellipse", "none"],
         parent_style: Style,
         parent_text_style: Style,
         parent_line_style: Style,

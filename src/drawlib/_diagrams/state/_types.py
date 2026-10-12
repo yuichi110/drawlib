@@ -18,7 +18,7 @@ from pydantic import BaseModel, ConfigDict
 # Node visual shape kinds
 ShapeType = Literal[
     "box",
-    "oval",
+    "ellipse",
     "circle",
     "double_circle",
     "text_only",

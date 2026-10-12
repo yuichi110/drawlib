@@ -61,8 +61,8 @@ def _render_state_node(node: State, center_xy: tuple[float, float], default_node
     """
     if node.shape == "box":
         _render_box_state(node, center_xy, default_node_style)
-    elif node.shape == "oval":
-        _render_oval_state(node, center_xy, default_node_style)
+    elif node.shape == "ellipse":
+        _render_ellipse_state(node, center_xy, default_node_style)
     elif node.shape == "circle":
         _render_circle_state(node, center_xy, default_node_style)
     elif node.shape == "double_circle":
@@ -173,11 +173,11 @@ def _render_box_state(node: State, center_xy: tuple[float, float], default_node_
         canvas_text(xy=(act_x, act_y), text=action.display_text, style=action_style)
 
 
-def _render_oval_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
-    """Render an oval (capsule/ellipse) state node.
+def _render_ellipse_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
+    """Render an ellipse state node.
 
     Args:
-        node: State instance with shape='oval'.
+        node: State instance with shape='ellipse'.
         center_xy: Center coordinate (cx, cy) on canvas.
         default_node_style: Base Style for state nodes.
     """

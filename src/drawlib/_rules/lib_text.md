@@ -356,7 +356,7 @@ save()
 ## 9. Embedding Text in Shapes
 
 In Drawlib, you rarely need to call `text()` manually to place labels inside boxes or circles.  
-All shape functions (`rectangle`, `circle`, `donuts`, `chevron`, `polygon`, etc.) accept direct text attributes:
+All shape functions (`rectangle`, `circle`, `ellipse`, `chevron`, `polygon`, etc.) accept direct text attributes:
 
 ```drawlib code=show
 from drawlib.canvas import save, setup

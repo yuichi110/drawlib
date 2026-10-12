@@ -8,7 +8,7 @@ Drawlib includes over 20 shape primitives. Every shape supports direct text embe
 
 ```drawlib width=620px align=center file=shapes_primitives.png caption="Figure 4.1: Selection of Drawlib Vector Shapes"
 from drawlib.canvas import setup
-from drawlib.shapes import chevron, circle, donuts, polygon, rectangle, rhombus
+from drawlib.shapes import chevron, circle, polygon, rectangle, rhombus
 from drawlib.styles import Styles
 
 setup(width=120, height=45)
@@ -19,8 +19,8 @@ rectangle((15, 23), width=20, height=22, style=Styles.PrimaryFlat.patch(shape_r=
 # 2. Circle
 circle((38, 23), radius=10, style=Styles.SecondaryFlat, text="Circle", text_style=Styles.WhiteBold)
 
-# 3. Donut Ring
-donuts((60, 23), radius=10, width=4, style=Styles.AccentFlat, text="Ring", text_style=Styles.WhiteBold)
+# 3. Donut Ring (circle with hole_ratio)
+circle((60, 23), radius=10, hole_ratio=0.6, style=Styles.AccentFlat, text="Ring", text_style=Styles.AccentBold)
 
 # 4. Rhombus / Decision Diamond
 rhombus((80, 23), width=18, height=20, style=Styles.DangerFlat, text="Decision", text_style=Styles.WhiteBold)

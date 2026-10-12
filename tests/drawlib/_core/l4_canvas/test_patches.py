@@ -13,7 +13,7 @@ import pytest
 
 from drawlib.canvas import clear, save
 from drawlib.fonts import Font
-from drawlib.shapes import arc, circle, donuts, ellipse, fan, regularpolygon, wedge
+from drawlib.shapes import arc, circle, ellipse, fan, rectangle, regularpolygon, wedge
 from drawlib.styles import Colors, Styles
 from drawlib.types import Style
 
@@ -254,21 +254,21 @@ class TestCanvasPatches:
 
         save(f"{OUTPUT_DIR}test_wedge.png")
 
-    def test_donuts(self) -> None:
-        """Verify donut shape drawing with outer radius, width, styling, and text."""
+    def test_circle_hole_ratio(self) -> None:
+        """Verify hollow circle (donut) drawing with hole_ratio, styling, and text."""
         clear()
         styles = default_styles
         s_primary = styles.Primary
         s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
-        # Simple donut
-        donuts((50, 50), radius=30, width=10, style=s_primary)
+        # Simple hollow circle
+        circle((50, 50), radius=30, hole_ratio=20 / 30, style=s_primary)
 
-        # Styled donuts
-        donuts(
+        # Styled hollow circle
+        circle(
             (50, 50),
             radius=30,
-            width=10,
+            hole_ratio=20 / 30,
             style=s_white.patch(
                 shape_line_width=3,
                 shape_line_color=Colors.Red,
@@ -279,23 +279,23 @@ class TestCanvasPatches:
         )
 
         # Alignments
-        donuts(
+        circle(
             (50, 50),
             radius=30,
-            width=10,
+            hole_ratio=20 / 30,
             style=s_white.patch(halign="left", valign="bottom"),
             text="Hello",
         )
-        donuts(
+        circle(
             (50, 50),
             radius=30,
-            width=10,
+            hole_ratio=20 / 30,
             style=s_white.patch(halign="center", valign="center"),
             text="Hello",
         )
 
         # Rotation angle
-        donuts((50, 50), radius=30, width=10, text="hungry", style=s_primary.patch(angle=120))
+        circle((50, 50), radius=30, hole_ratio=20 / 30, text="hungry", style=s_primary.patch(angle=120))
 
         save(f"{OUTPUT_DIR}test_donuts.png")
 

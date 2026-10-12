@@ -120,7 +120,7 @@ def _compute_loop_geometry(
 
     is_corner = side in {"top_right", "top_left", "bottom_right", "bottom_left"}
     if is_corner:
-        is_curved = getattr(node, "shape", "box") in {"circle", "double_circle", "oval"}
+        is_curved = getattr(node, "shape", "box") in {"circle", "double_circle", "ellipse"}
         scale = 0.70710678 if is_curved else 1.0
         dist_x = (w_l / 2.0) * cos_gap * 0.70710678
         dist_y = (h_l / 2.0) * cos_gap * 0.70710678
@@ -445,7 +445,7 @@ def _get_auto_border_point(
     ):
         return _intersect_circle(cx, cy, hw, dx, dy)
 
-    if isinstance(node, State) and node.shape == "oval":
+    if isinstance(node, State) and node.shape == "ellipse":
         return _intersect_ellipse(cx, cy, hw, hh, dx, dy)
 
     if isinstance(node, ChoiceState):

@@ -595,7 +595,7 @@ d.draw(xy=(5.0, 5.0))
 ### 6.2 Node Shapes and Pseudo-States
 `State` supports 5 distinct geometric representations via `shape`:
 1. `"box"` (Default): UML rounded card with action compartment headers.
-2. `"oval"`: Pill / capsule shape for high-level workflow states.
+2. `"ellipse"`: Pill / capsule shape for high-level workflow states.
 3. `"circle"`: Automaton / DFA / NFA states with transparent backgrounds.
 4. `"double_circle"`: Automaton accepting or terminal states.
 5. `"text_only"`: Minimalist borderless text state.

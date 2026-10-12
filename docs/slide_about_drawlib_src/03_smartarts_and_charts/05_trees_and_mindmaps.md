@@ -21,7 +21,7 @@ utils.draw_page_number()
 ### 2. `MindMapNode` — Two-Pass Radial & Org Trees
 - **Pass 1 (Bottom-Up Measurement)**: Recursively measures exact subtree bounding heights and widths so branches never collide.
 - **Pass 2 (Orthogonal Routing)**: Routes right-angled junction lines from the center root node across all 4 directions (`branch="left"`, `"right"`, `"top"`, `"bottom"`).
-- **Flexible Node Shapes**: Mix `"oval"`, `"rectangle"`, and borderless `"none"` leaf labels.
+- **Flexible Node Shapes**: Mix `"ellipse"`, `"rectangle"`, and borderless `"none"` leaf labels.
 :::
 
 ::: block xy=(780, 140) width=1060 height=840
@@ -119,7 +119,7 @@ txt_leaf = Styles.Dark.patch(text_size=7.2)
 
 mindmap = MindMapNode(
     "Platform Core",
-    shape="oval",
+    shape="ellipse",
     width=19,
     height=9,
     style=Styles.PrimaryFlat,
@@ -193,5 +193,5 @@ save()
 ::: note
 - This slide compares Drawlib's two hierarchical SmartArt components: `TreeNode` and `MindMapNode`.
 - **Left (`TreeNode`)**: Designed for vertical directory and package listings. Using `TreeNode.register_drawing_item`, we bind Phosphor vector icons (`phosphor.folder`, `phosphor.file_py`, `phosphor.file_code`) that automatically align with the orthogonal tree lines.
-- **Right (`MindMapNode`)**: Uses a two-pass layout algorithm to measure subtree extents first and then route orthogonal connectors in all four directions (`branch="left"`, `"right"`, `"top"`, `"bottom"`) around the central `"Platform Core"` oval node.
+- **Right (`MindMapNode`)**: Uses a two-pass layout algorithm to measure subtree extents first and then route orthogonal connectors in all four directions (`branch="left"`, `"right"`, `"top"`, `"bottom"`) around the central `"Platform Core"` ellipse node.
 :::

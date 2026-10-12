@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 30 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 43 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -15,30 +15,33 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [1.6 The Unified Styling System (`Style`)](#16-the-unified-styling-system-style)
   - [1.7 Embedded Text Rendering & Micro-Offsets (`text_style`)](#17-embedded-text-rendering--micro-offsets-text_style)
 - [2. Circle-like & Domain Shapes](#2-circle-like-shapes)
-  - [2.1 `circle`](#21-circle)
-  - [2.2 `donuts`](#22-donuts)
-  - [2.3 `ellipse`](#23-ellipse)
-  - [2.4 `wedge`](#24-wedge)
-  - [2.5 `fan`](#25-fan)
-  - [2.6 `arc`](#26-arc)
-  - [2.7 `cylinder`](#27-cylinder)
-  - [2.8 `face`](#28-face)
-  - [2.9 `cloud`](#29-cloud)
-  - [2.10 `brace`](#210-brace)
-  - [2.11 `cube`](#211-cube)
-  - [2.12 `document`](#212-document)
+  - [2.1 `circle` (and Hollow Ring via `hole_ratio`)](#21-circle)
+  - [2.2 `ellipse` (and Hollow Ring via `hole_ratio`)](#22-ellipse)
+  - [2.3 `wedge`](#24-wedge)
+  - [2.4 `fan`](#25-fan)
+  - [2.5 `arc`](#26-arc)
+  - [2.6 `cylinder`](#27-cylinder)
+  - [2.7 `face`](#28-face)
+  - [2.8 `cloud`](#29-cloud)
+  - [2.9 `brace`](#210-brace)
+  - [2.10 `cube`](#211-cube)
+  - [2.11 `document`](#212-document)
+  - [2.12 `forbidden` & `checkmark`](#213-forbidden--checkmark)
+  - [2.13 `shield`, `ribbon` & `funnel`](#214-shield-ribbon--funnel)
+  - [2.14 `pin`, `heart`, `sun`, `moon` & `clock`](#215-pin-heart-sun-moon--clock)
 - [3. Polygon & Planar Geometric Primitives](#3-polygon--planar-geometric-primitives)
-  - [3.1 `rectangle`](#31-rectangle)
-  - [3.2 `parallelogram`](#32-parallelogram)
-  - [3.3 `rhombus`](#33-rhombus)
-  - [3.4 `trapezoid`](#34-trapezoid)
-  - [3.5 `triangle`](#35-triangle)
-  - [3.6 `regularpolygon`](#36-regularpolygon)
+  - [3.1 `rectangle` (with `hole_ratio`)](#31-rectangle)
+  - [3.2 `parallelogram` (with `hole_ratio`)](#32-parallelogram)
+  - [3.3 `rhombus` (with `hole_ratio`)](#33-rhombus)
+  - [3.4 `trapezoid` (with `hole_ratio`)](#34-trapezoid)
+  - [3.5 `triangle` (with `hole_ratio`)](#35-triangle)
+  - [3.6 `regularpolygon` (with `hole_ratio`)](#36-regularpolygon)
   - [3.7 `polygon`](#37-polygon)
   - [3.8 `star`](#38-star)
   - [3.9 `gear`](#39-gear)
   - [3.10 `math_symbol`](#310-math_symbol)
   - [3.11 `bubblespeech`](#311-bubblespeech)
+  - [3.12 `lightning`, `explosion`, `tag` & `plaque`](#312-lightning-explosion-tag--plaque)
 - [4. Custom Path & Vector Construction](#4-custom-path--vector-construction)
   - [4.1 `shape`](#41-shape)
 - [5. Directed Block Arrow Shapes](#5-directed-block-arrow-shapes)
@@ -64,7 +67,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 30 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 43 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -76,25 +79,38 @@ from drawlib.shapes import (
     arrow_u,
     brace,
     bubblespeech,
+    checkmark,
     chevron,
     circle,
+    clock,
     cloud,
     cube,
     cylinder,
     document,
-    donuts,
     ellipse,
+    explosion,
     face,
     fan,
+    forbidden,
+    funnel,
     gear,
+    heart,
+    lightning,
     math_symbol,
+    moon,
     parallelogram,
+    pin,
+    plaque,
     polygon,
     rectangle,
     regularpolygon,
     rhombus,
+    ribbon,
     shape,
+    shield,
     star,
+    sun,
+    tag,
     trapezoid,
     triangle,
     wedge,
@@ -133,10 +149,10 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `cylinder`, `cube`, `document`, `donuts`, `ellipse`, `face`, `cloud`, `brace`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `math_symbol`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `rectangle`, `circle`, `cylinder`, `cube`, `document`, `ellipse`, `face`, `cloud`, `brace`, `forbidden`, `checkmark`, `shield`, `ribbon`, `funnel`, `pin`, `heart`, `sun`, `moon`, `clock`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `star`, `gear`, `math_symbol`, `lightning`, `explosion`, `tag`, `plaque`, `chevron`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
-   - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
+   - Functions: `bubblespeech`, `shape` (when `is_default_center=False`).
 3. **Directed & Multi-Point Shapes (Point-Defined)**:
    Position is explicitly defined by specific vertex sequences or directional endpoints.
    - Functions: `arrow` (`xy1` start, `xy2` end), `arrow_polyline` (`xys` path), `polygon` (`xys` vertices).
@@ -271,7 +287,7 @@ Circle-like shapes are centered at `xy=(x, y)` and sized primarily using radii.
 
 ### 2.1 `circle`
 
-Draws a standard geometric circle.
+Draws a standard geometric circle or hollow annular ring / donut (`hole_ratio`).
 
 #### Signature
 ```python
@@ -279,7 +295,8 @@ def circle(
     xy: tuple[float, float],
     radius: float,
     *,
-    style: Style | None = None,
+    hole_ratio: float | None = None,
+    style: Style,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -290,114 +307,49 @@ def circle(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
-| `radius` | `float` | *Required* | Radius of the circle (must be $> 0$). |
-| `style` | `Style \| None` | `None` | `Style` instance (supports `angle` to rotate embedded text). |
+| `radius` | `float` | *Required* | Outer radius of the circle (must be $> 0$). |
+| `hole_ratio` | `float \| None` | `None` | Optional hollow cutout ratio in `(0.0, 1.0)`. Inner hole radius = $\text{radius} \times \text{hole\_ratio}$. |
+| `style` | `Style` | *Required* | `Style` instance (supports `angle` to rotate embedded text). |
 | `text` | `str` | `""` | Text label drawn at the circle center. |
 | `text_style` | `Style \| None` | `None` | `Style` instance for text formatting. |
 
 #### Geometric & Alignment Mechanics
 - **Anchor**: Geometric center `(x, y)`.
 - Bounding box is $2r \times 2r$.
-- Setting `style.halign="left"` shifts the circle so that `x` aligns with its left tangent boundary ($x' = x + r$).
-- `style.angle` does not alter the appearance of a symmetric circle, but rotates embedded text around the center point.
+- Passing `hole_ratio=0.6` renders a true compound-path hollow ring (donut) with inner radius $0.6r$ and transparent center.
+- `style.angle` rotates embedded text around the center point.
 
 #### Code Examples
 ```drawlib code=show
 from drawlib.canvas import save, setup
-
-setup(width=100, height=50)
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import circle
-from drawlib.types import Style
 from drawlib.styles import Styles
+
+setup(width=100, height=50)
 
 # 1. Solid status node with embedded label
 circle((30, 25), radius=14, style=Styles.GreenFlat, text="OK", text_style=Styles.WhiteBold.patch(text_size=14))
 
-# 2. Semi-transparent dashed boundary zone with rotated label
+# 2. Hollow ring (donut) badge via hole_ratio
 circle(
     (70, 25),
-    radius=18,
-    style=Styles.Primary.patch(
-        shape_fill_color=CssColors.DeepSkyBlue,
-        alpha=0.3,
-        shape_line_style="dashed",
-        shape_line_width=2,
-        angle=35,
-    ),
-    text="Zone B",
-    text_style=Styles.Primary.patch(text_color=CssColors.Navy, text_size=12),
-)
-save()
-```
-
----
-
-### 2.2 `donuts`
-
-Draws an annular ring defined by an outer radius and filled wall thickness.
-
-#### Signature
-```python
-def donuts(
-    xy: tuple[float, float],
-    radius: float,
-    width: float | None = None,
-    *,
-    style: Style | None = None,
-    text: str = "",
-    text_style: Style | None = None,
-) -> None:
-    ...
-```
-
-#### Parameter Breakdown
-| Parameter | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
-| `radius` | `float` | *Required* | Outer radius of the annular ring. |
-| `width` | `float \| None` | `None` | Ring wall thickness. Inner radius = $\text{radius} - \text{width}$. If `None`, renders solid. |
-| `style` | `Style \| None` | `None` | Shape fill and stroke configuration (supports `angle`). |
-| `text` | `str` | `""` | Label rendered in the center void of the donut. |
-| `text_style` | `Style \| None` | `None` | Text styling parameters. |
-
-#### Geometric & Alignment Mechanics
-- Built on top of `wedge(..., angle_start=0, angle_end=360)`.
-- If `width >= radius`, the inner radius collapses to 0 or becomes invalid. Ensure $0 < \text{width} < \text{radius}$.
-- Center text is positioned in the hollow central core.
-
-#### Code Examples
-```drawlib code=show
-from drawlib.canvas import save, setup
-
-setup(width=100, height=50)
-from drawlib.preset_colors import CssColors
-from drawlib.shapes import donuts
-from drawlib.types import Style
-from drawlib.styles import Styles
-
-# 1. Thin status indicator ring
-donuts((30, 22), radius=15, width=4, style=Styles.MutedFlat, text="Base")
-
-# 2. KPI ring badge with custom fill and styled percentage label
-donuts(
-    (70, 22),
     radius=17,
-    width=6,
+    hole_ratio=0.65,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.Purple, shape_line_color=CssColors.Indigo, shape_line_width=2
     ),
     text="78%",
-    text_style=Styles.WhiteBold.patch(text_size=14, text_color=CssColors.White),
+    text_style=Styles.DarkBold.patch(text_size=13),
 )
 save()
 ```
 
 ---
 
-### 2.3 `ellipse`
+### 2.2 `ellipse`
 
-Draws an axis-aligned or rotated ellipse bounded by width and height.
+Draws an axis-aligned or rotated ellipse (or hollow elliptical ring via `hole_ratio`) bounded by width and height.
 
 #### Signature
 ```python
@@ -406,7 +358,8 @@ def ellipse(
     width: float,
     height: float,
     *,
-    style: Style | None = None,
+    hole_ratio: float | None = None,
+    style: Style,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -419,7 +372,8 @@ def ellipse(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
 | `width` | `float` | *Required* | Total horizontal axis diameter before rotation. |
 | `height` | `float` | *Required* | Total vertical axis diameter before rotation. |
-| `style` | `Style \| None` | `None` | Shape style object (supports `angle` for rotation around `xy`). |
+| `hole_ratio` | `float \| None` | `None` | Optional hollow cutout ratio in `(0.0, 1.0)`. |
+| `style` | `Style` | *Required* | Shape style object (supports `angle` for rotation around `xy`). |
 | `text` | `str` | `""` | Centered text annotation. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -728,7 +682,7 @@ save()
 
 ### 2.8 `face`
 
-Draws an expressive face circle with eyes, optional eyebrows, and a configurable facial expression (`mood`), ideal for actors, user personas, customer journey states, and incident/health indicators.
+Draws an expressive face or character silhouette (`variant`), ideal for actors, user personas, customer journey states, incident/error indicators, and security threat/attacker nodes.
 
 #### Signature
 ```python
@@ -736,8 +690,11 @@ def face(
     xy: tuple[float, float],
     radius: float,
     *,
-    style: Style | None = None,
-    mood: Literal["smile", "neutral", "sad", "angry", "surprised"] = "smile",
+    variant: Literal[
+        "smile", "neutral", "sad", "angry", "surprised",
+        "dizzy", "dead", "skull", "devil",
+    ] = "smile",
+    style: Style,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -749,8 +706,8 @@ def face(
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the face circle. |
 | `radius` | `float` | *Required* | Radius of the face circle ($> 0$). |
-| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle`). Eyes and mouth automatically derive their color from `shape_line_color` (or contrasting `text_color`/white on flat styles). |
-| `mood` | `str` | `"smile"` | Facial expression: `"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`. |
+| `variant` | `str` | `"smile"` | Expression or silhouette: `"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`, `"dizzy"` (X-eyes + wavy mouth), `"dead"` (X-eyes + tongue out), `"skull"` (cranium + jawbone + sockets), or `"devil"` (horns + angry grin). |
+| `style` | `Style` | *Required* | Shape fill and stroke style (supports `angle`). Eyes and mouth automatically derive their color from `shape_line_color` (or contrasting `text_color`/white on flat styles). |
 | `text` | `str` | `""` | Embedded text label (can be shifted below the face using `xy_shift`). |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -760,12 +717,13 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import face
 from drawlib.styles import Styles
 
-setup(width=120, height=45)
+setup(width=140, height=45)
 
-face((20, 22.5), radius=10, style=Styles.SuccessNeutral, mood="smile")
-face((50, 22.5), radius=10, style=Styles.Neutral, mood="neutral")
-face((80, 22.5), radius=10, style=Styles.WarningNeutral, mood="sad")
-face((105, 22.5), radius=10, style=Styles.DangerNeutral, mood="angry")
+face((18, 22.5), radius=10, style=Styles.SuccessNeutral, variant="smile")
+face((45, 22.5), radius=10, style=Styles.WarningNeutral, variant="dizzy")
+face((72, 22.5), radius=10, style=Styles.DangerNeutral, variant="dead")
+face((99, 22.5), radius=10, style=Styles.Neutral, variant="skull")
+face((124, 22.5), radius=10, style=Styles.DangerFlat, variant="devil")
 save()
 ```
 
@@ -915,6 +873,41 @@ def document(
 | `style` | `Style` | *Required* | Shape fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Text centered on the front document sheet. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
+
+---
+
+### 2.13 `forbidden` & `checkmark`
+
+- **`forbidden(xy, radius, *, variant="slash", thickness_ratio=None, style, text="", text_style=None)`**:
+  Draws a compound-path forbidden or no-entry mark (`variant`: `"slash"` / `"standard"`, `"backslash"`, `"cross"`, `"no_entry"` / `"minus"`).
+- **`checkmark(xy, width, height=None, *, variant="standard", thickness_ratio=None, style, text="", text_style=None)`**:
+  Draws a checkmark symbol or circular badge (`variant`: `"standard"` / `"check"`, `"circle"`, `"solid_circle"`).
+
+---
+
+### 2.14 `shield`, `ribbon` & `funnel`
+
+- **`shield(xy, width, height, *, variant="classic", style, text="", text_style=None)`**:
+  Draws a security shield silhouette (`variant`: `"classic"` / `"standard"`, `"flat"`, `"heater"`, `"round"`).
+- **`ribbon(xy, width, height, *, variant="down", tail_width_ratio=None, drop_ratio=None, style, text="", text_style=None)`**:
+  Draws a 3D or flat ribbon banner (`variant`: `"down"` / `"standard"`, `"up"`, `"flat"` / `"banner"`).
+- **`funnel(xy, width, height, *, variant="standard", neck_width_ratio=None, neck_height_ratio=None, style, text="", text_style=None)`**:
+  Draws a filter or conversion funnel (`variant`: `"standard"` / `"flat"`, `"3d"` / `"cylinder"`, `"curved"`).
+
+---
+
+### 2.15 `pin`, `heart`, `sun`, `moon` & `clock`
+
+- **`pin(xy, width, height, *, variant="pointer", hole_ratio=None, style, text="", text_style=None)`**:
+  Draws a callout pointer badge or map pin (`variant`: `"pointer"`, `"teardrop"` / `"standard"` / `"drop"`, `"pin"`, `"badge"`). Rotate to point in any direction using `style.angle` (and `text_style=Style(angle=0)` to keep text horizontal).
+- **`heart(xy, width, height, *, variant="standard", style, text="", text_style=None)`**:
+  Draws a smooth cubic-Bézier heart or broken-heart shape (`variant`: `"standard"` / `"classic"`, `"broken"`).
+- **`sun(xy, radius, *, variant="rays", num_rays=8, style, text="", text_style=None)`**:
+  Draws a sun with surrounding rays (`variant`: `"rays"` / `"standard"`, `"ring"`, `"beams"`).
+- **`moon(xy, width, height, *, variant="crescent", mirror=False, style, text="", text_style=None)`**:
+  Draws a crescent or half moon (`variant`: `"crescent"` / `"standard"`, `"thin"`, `"waxing"`, `"half"`).
+- **`clock(xy, radius, *, variant="standard", hour=10.0, minute=10.0, style, text="", text_style=None)`**:
+  Draws an analog clock or font-free 7-segment digital clock (`variant`: `"standard"`, `"ticks"` / `"dial"`, `"stopwatch"` / `"timer"`, `"alarm"`, `"digital"`).
 
 ---
 
@@ -1658,6 +1651,19 @@ save()
 
 ---
 
+### 3.12 `lightning`, `explosion`, `tag` & `plaque`
+
+- **`lightning(xy, width, height, *, variant="standard", mirror=False, style, text="", text_style=None)`**:
+  Draws a lightning bolt shape (`variant`: `"standard"`, `"flat"`, `"double"`, `"flat_double"`, `"angled"`, `"slanted"`). Supports corner rounding via `style.shape_r` and rotation via `style.angle`.
+- **`explosion(xy, width, height, *, variant="standard", style, text="", text_style=None)`**:
+  Draws an asymmetric explosion or impact burst (`variant`: `"standard"`, `"irregular"`, `"heavy"`, `"wild"`, `"curved"`, `"comic"`). Supports `style.shape_r` and `style.angle`.
+- **`tag(xy, width, height, *, variant="angled", mirror=False, hole_ratio=None, style, text="", text_style=None)`**:
+  Draws a perforated label tag or badge (`variant`: `"angled"` / `"standard"`, `"chamfered"`, `"beveled"`, `"rounded"`).
+- **`plaque(xy, width, height, *, variant="concave", cut_ratio=None, style, text="", text_style=None)`**:
+  Draws a corner-cut plaque or ornamental plate (`variant`: `"concave"` / `"standard"`, `"chamfered"`, `"octagon"`, `"notched"`).
+
+---
+
 ## 4. Custom Path & Vector Construction
 
 ### 4.1 `shape`
@@ -2283,7 +2289,7 @@ Demonstrates message publishers, Kafka message topic queues, consumer groups, an
 
 ```drawlib code=show
 from drawlib.canvas import save, setup
-from drawlib.shapes import arrow, donuts, parallelogram, rectangle
+from drawlib.shapes import arrow, circle, parallelogram, rectangle
 from drawlib.styles import Styles
 
 setup(width=140, height=65)
@@ -2325,11 +2331,11 @@ rectangle(
     text="Inventory Worker",
 )
 
-# Dead Letter Queue (Donuts)
-donuts(
+# Dead Letter Queue (Hollow Circle / Donut)
+circle(
     (64, 9),
     radius=6,
-    width=2,
+    hole_ratio=0.65,
     style=Styles.SecondaryNeutral,
     text="DLQ",
     text_style=Styles.DarkBold.patch(text_size=8),
@@ -2451,7 +2457,7 @@ Constructs a standard UML state chart featuring initial pseudo-states, rounded c
 
 ```drawlib code=show
 from drawlib.canvas import save, setup
-from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
+from drawlib.shapes import arrow, circle, rectangle, rhombus
 from drawlib.styles import Styles
 from drawlib.text import text
 
@@ -2493,11 +2499,11 @@ rectangle(
     text_style=Styles.DarkBold.patch(text_size=9),
 )
 
-# Terminal State (Bullseye / Donut with inner circle)
-donuts(
+# Terminal State (Bullseye / Hollow circle with inner circle)
+circle(
     (136, 30),
     radius=5,
-    width=1.2,
+    hole_ratio=0.76,
     style=Styles.DarkFlat,
 )
 circle((136, 30), radius=3, style=Styles.DarkFlat)
@@ -2601,28 +2607,41 @@ save()
 
 | Function | Default Anchor | Primary Dimensions | Corner Radius (`style.shape_r`) | Rotation (`style.angle`) | Supports `text` | Ignores `halign/valign` |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| `circle` | Center `(x, y)` | `radius` | Ignored | Yes (text) | Yes | No |
-| `donuts` | Center `(x, y)` | `radius`, `width` | Ignored | Yes (text) | Yes | No |
-| `ellipse`| Center `(x, y)` | `width`, `height` | Ignored | Yes | Yes | No |
+| `circle` | Center `(x, y)` | `radius`, `hole_ratio` | Ignored | Yes (text) | Yes | No |
+| `ellipse`| Center `(x, y)` | `width`, `height`, `hole_ratio` | Ignored | Yes | Yes | No |
 | `wedge`  | Center `(x, y)` | `radius`, `width`, `angle_start/end` | Ignored | Yes | Yes | No |
 | `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | Ignored | Yes | Yes | No |
 | `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | Ignored | Yes | Yes | No |
 | `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | Ignored | Yes | Yes | No |
 | `cube`   | Center `(x, y)` | `width`, `height`, `depth_ratio` | Ignored | Yes | Yes | No |
 | `document` | Center `(x, y)` | `width`, `height`, `variant`, `stacked` | Ignored | Yes | Yes | No |
-| `face`   | Center `(x, y)` | `radius`, `mood` | Ignored | Yes | Yes | No |
+| `face`   | Center `(x, y)` | `radius`, `variant` | Ignored | Yes | Yes | No |
 | `cloud`  | Center `(x, y)` | `width`, `height`, `variant`, `bump_ratio` | Ignored | Yes | Yes | No |
 | `brace`  | Center `(x, y)` | `width`, `height`, `symbol`, `direction` | **Yes** (scalar, `"square"`) | Yes | Yes | No |
-| `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
-| `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
-| `rhombus` | Center `(x, y)` | `width`, `height` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
-| `trapezoid` | Center `(x, y)` | `height`, `bottomedge_width`, `topedge_width` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
-| `triangle` | Center `(x, y)` | `width`, `height`, `topvertex_x` | **Yes** (scalar or 3-tuple) | Yes | Yes | No |
-| `regularpolygon` | Center `(x, y)` | `num_vertex`, `radius` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
+| `forbidden` | Center `(x, y)` | `radius`, `variant`, `thickness_ratio` | Ignored | Yes | Yes | No |
+| `checkmark` | Center `(x, y)` | `width`, `height`, `variant`, `thickness_ratio` | **Yes** (scalar) | Yes | Yes | No |
+| `shield` | Center `(x, y)` | `width`, `height`, `variant` | Ignored | Yes | Yes | No |
+| `ribbon` | Center `(x, y)` | `width`, `height`, `variant`, `tail_width_ratio`, `drop_ratio` | Ignored | Yes | Yes | No |
+| `funnel` | Center `(x, y)` | `width`, `height`, `variant`, `neck_width_ratio`, `neck_height_ratio` | Ignored | Yes | Yes | No |
+| `pin`    | Center `(x, y)` | `width`, `height`, `variant`, `hole_ratio` | Ignored | Yes | Yes | No |
+| `heart`  | Center `(x, y)` | `width`, `height`, `variant` | Ignored | Yes | Yes | No |
+| `sun`    | Center `(x, y)` | `radius`, `variant`, `num_rays` | Ignored | Yes | Yes | No |
+| `moon`   | Center `(x, y)` | `width`, `height`, `variant`, `mirror` | Ignored | Yes | Yes | No |
+| `clock`  | Center `(x, y)` | `radius`, `variant`, `hour`, `minute` | Ignored | Yes | Yes | No |
+| `rectangle` | Center `(x, y)` | `width`, `height`, `hole_ratio` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle`, `hole_ratio` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `rhombus` | Center `(x, y)` | `width`, `height`, `hole_ratio` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `trapezoid` | Center `(x, y)` | `height`, `bottomedge_width`, `topedge_width`, `hole_ratio` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
+| `triangle` | Center `(x, y)` | `width`, `height`, `topvertex_x`, `hole_ratio` | **Yes** (scalar or 3-tuple) | Yes | Yes | No |
+| `regularpolygon` | Center `(x, y)` | `num_vertex`, `radius`, `hole_ratio` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
 | `polygon` | Vertices `xys` | `xys: list[tuple[float, float]]` | **Yes** (scalar or N-tuple) | **No** | Yes | **Yes** |
 | `star` | Center `(x, y)` | `num_vertex`, `radius_ext`, `radius_int` | **Yes** (scalar or 2N-tuple) | Yes | Yes | No |
 | `gear` | Center `(x, y)` | `num_teeth`, `radius_ext`, `radius_int`, `hole_radius` | **Yes** (scalar or 4N-tuple) | Yes | Yes | No |
 | `math_symbol` | Center `(x, y)` | `symbol`, `width`, `height`, `thickness_ratio` | **Yes** (scalar) | Yes | Yes | No |
+| `lightning` | Center `(x, y)` | `width`, `height`, `variant`, `mirror` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
+| `explosion` | Center `(x, y)` | `width`, `height`, `variant` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
+| `tag` | Center `(x, y)` | `width`, `height`, `variant`, `mirror`, `hole_ratio` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
+| `plaque` | Center `(x, y)` | `width`, `height`, `variant`, `cut_ratio` | **Yes** (scalar or N-tuple) | Yes | Yes | No |
 | `shape` | Center `(x, y)` | `path_points` | Via Bezier | Yes | Yes | No |
 | `arrow` | Endpoints `xy1, xy2` | `tail_width`, `head_width`, `head_length` | Ignored | Auto ($\Delta xy$) | Yes | **Yes** |
 | `arrow_polyline` | Vertices `xys` | `tail_width`, `head_width`, `head_length` | **Yes** (scalar or (N-2)-tuple) | Path-driven | **No** | **Yes** |

@@ -463,5 +463,198 @@ class ShapeUtil:
 
         return {k: v for k, v in options.items() if v is not None}
 
+    @staticmethod
+    def validate_hole_ratio(hole_ratio: float | None) -> float | None:
+        """Validate that hole_ratio is strictly in (0.0, 1.0) when provided."""
+        if hole_ratio is None:
+            return None
+        val = float(hole_ratio)
+        if not (0.0 < val < 1.0):
+            raise ValueError("hole_ratio must be strictly between 0.0 and 1.0.")
+        return val
+
+    @staticmethod
+    def build_ellipse_path(
+        cx: float,
+        cy: float,
+        rx: float,
+        ry: float,
+        angle: float = 0.0,
+        *,
+        cw: bool = False,
+    ) -> Path:
+        """Build a closed 4-segment cubic Bezier Path for an ellipse or circle."""
+        kappa = 0.5522847498307936
+        kx = rx * kappa
+        ky = ry * kappa
+
+        if not cw:
+            local_pts: list[Coordinate] = [
+                (rx, 0.0),
+                (rx, ky),
+                (kx, ry),
+                (0.0, ry),
+                (-kx, ry),
+                (-rx, ky),
+                (-rx, 0.0),
+                (-rx, -ky),
+                (-kx, -ry),
+                (0.0, -ry),
+                (kx, -ry),
+                (rx, -ky),
+                (rx, 0.0),
+            ]
+        else:
+            local_pts = [
+                (rx, 0.0),
+                (rx, -ky),
+                (kx, -ry),
+                (0.0, -ry),
+                (-kx, -ry),
+                (-rx, -ky),
+                (-rx, 0.0),
+                (-rx, ky),
+                (-kx, ry),
+                (0.0, ry),
+                (kx, ry),
+                (rx, ky),
+                (rx, 0.0),
+            ]
+
+        world_pts: list[Coordinate] = []
+        for pt in local_pts:
+            rx_pt, ry_pt = rotate_point(pt, angle=angle)
+            world_pts.append((cx + rx_pt, cy + ry_pt))
+        world_pts.append(world_pts[0])
+
+        codes = [
+            Path.MOVETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+        return Path(vertices=world_pts, codes=codes)
+
+    @staticmethod
+    def build_hollow_ellipse_path(
+        cx: float,
+        cy: float,
+        rx: float,
+        ry: float,
+        hole_ratio: float,
+        angle: float = 0.0,
+    ) -> Path:
+        """Build a compound Path for an ellipse/circle with an inner hole cutout."""
+        outer = ShapeUtil.build_ellipse_path(cx, cy, rx, ry, angle=angle, cw=False)
+        inner = ShapeUtil.build_ellipse_path(
+            cx,
+            cy,
+            rx * hole_ratio,
+            ry * hole_ratio,
+            angle=angle,
+            cw=True,
+        )
+        return Path.make_compound_path(outer, inner)
+
+    @staticmethod
+    def inset_convex_polygon(
+        vertices: list[Coordinate],
+        hole_ratio: float,
+    ) -> tuple[list[Coordinate], float]:
+        """Compute reversed inner hole vertices for a convex polygon by parallel edge inset.
+
+        Returns:
+            tuple[list[Coordinate], float]: Reversed inner polygon vertices (opposite winding to input)
+                and the applied perpendicular inset thickness.
+        """
+        n = len(vertices)
+        if n == 3:
+            # Triangle incenter gives exact equal distance to all 3 edges
+            l0 = math.hypot(vertices[2][0] - vertices[1][0], vertices[2][1] - vertices[1][1])
+            l1 = math.hypot(vertices[0][0] - vertices[2][0], vertices[0][1] - vertices[2][1])
+            l2 = math.hypot(vertices[1][0] - vertices[0][0], vertices[1][1] - vertices[0][1])
+            perim = l0 + l1 + l2
+            cx = (l0 * vertices[0][0] + l1 * vertices[1][0] + l2 * vertices[2][0]) / perim
+            cy = (l0 * vertices[0][1] + l1 * vertices[1][1] + l2 * vertices[2][1]) / perim
+        else:
+            cx = sum(v[0] for v in vertices) / n
+            cy = sum(v[1] for v in vertices) / n
+
+        tangents: list[Coordinate] = []
+        normals: list[Coordinate] = []
+        lengths: list[float] = []
+        dists: list[float] = []
+
+        for i in range(n):
+            v0 = vertices[i]
+            v1 = vertices[(i + 1) % n]
+            dx = v1[0] - v0[0]
+            dy = v1[1] - v0[1]
+            length = math.hypot(dx, dy)
+            ux, uy = dx / length, dy / length
+            nx, ny = -uy, ux
+            if nx * (cx - v0[0]) + ny * (cy - v0[1]) < 0.0:
+                nx, ny = -nx, -ny
+            dist = nx * (cx - v0[0]) + ny * (cy - v0[1])
+            tangents.append((ux, uy))
+            normals.append((nx, ny))
+            lengths.append(length)
+            dists.append(dist)
+
+        deltas: list[Coordinate] = []
+        for i in range(n):
+            ux, uy = tangents[i]
+            nx, ny = normals[i]
+            px, py = normals[(i - 1) % n]
+            denom = ux * px + uy * py
+            if abs(denom) < 1e-9:
+                deltas.append((nx, ny))
+            else:
+                s = (1.0 - (nx * px + ny * py)) / denom
+                deltas.append((nx + s * ux, ny + s * uy))
+
+        t_max = min(dists)
+        for i in range(n):
+            d0 = deltas[i]
+            d1 = deltas[(i + 1) % n]
+            ux, uy = tangents[i]
+            shrink_rate = -((d1[0] - d0[0]) * ux + (d1[1] - d0[1]) * uy)
+            if shrink_rate > 1e-9:
+                t_max = min(t_max, lengths[i] / shrink_rate)
+
+        inset = (1.0 - hole_ratio) * t_max
+        inner_same_winding: list[Coordinate] = [
+            (vertices[i][0] + inset * deltas[i][0], vertices[i][1] + inset * deltas[i][1])
+            for i in range(n)
+        ]
+        return list(reversed(inner_same_winding)), inset
+
+    @staticmethod
+    def shrink_shape_r(
+        shape_r: ShapeRadius | None,
+        inset: float,
+        reversed_order: bool = True,
+    ) -> ShapeRadius | None:
+        """Reduce corner radius for an inset inner hole polygon."""
+        if shape_r is None:
+            return None
+        if isinstance(shape_r, (int, float)):
+            r_in = max(0.0, float(shape_r) - inset * 0.5)
+            return r_in if r_in > 0.0 else None
+        radii = [max(0.0, float(r) - inset * 0.5) for r in shape_r]
+        if reversed_order:
+            radii = list(reversed(radii))
+        return tuple(radii) if any(r > 0.0 for r in radii) else None
+
 
 __all__ = ["ShapeUtil"]

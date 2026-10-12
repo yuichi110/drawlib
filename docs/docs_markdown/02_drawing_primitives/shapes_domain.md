@@ -1,6 +1,6 @@
-# Cylinders, Cubes, Documents, Clouds & Braces
+# Cylinders, Cubes, Documents, Clouds & Domain Badges
 
-Beyond standard geometric primitives, `drawlib.shapes` includes seven expressive 3D, domain, and annotation shapes (`cylinder`, `cube`, `document`, `cloud`, `brace`, `face`, and `bubblespeech`) for technical architecture and storytelling diagrams:
+Beyond standard geometric primitives, `drawlib.shapes` includes expressive 3D, domain, and annotation shapes (`cylinder`, `cube`, `document`, `cloud`, `brace`, `face`, `bubblespeech`, `shield`, `ribbon`, `funnel`, `pin`, `heart`) for technical architecture and storytelling diagrams:
 
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -21,7 +21,7 @@ from drawlib.text import text
 setup(width=132, height=62)
 
 # 1. User Actor Face
-face((13, 33), radius=8.5, style=Styles.Neutral, mood="smile")
+face((13, 33), radius=8.5, style=Styles.Neutral, variant="smile")
 text((13, 18), "Developer", style=Styles.DarkBold.patch(text_size=10.0))
 
 # 2. Cloud Gateway Node
@@ -107,10 +107,15 @@ save()
 | **`cylinder`** | Center `(cx, cy)` | 3D storage cylinders & multi-disk database stacks | `disks: int = 1` |
 | **`cube`** | Center `(cx, cy)` | 3D shaded cubes, containers, & hardware blocks | `depth_ratio: float \| None = None` |
 | **`document`** | Center `(cx, cy)` | Single or stacked document/file/log cards | `variant` (`"wave"`, `"folded"`, `"double_wave"`, `"folded_wave"`), `stacked: int = 1`, `wave_ratio`, `fold_ratio` |
-| **`face`** | Center `(cx, cy)` | Expressive user/actor personas & status indicators | `mood` (`"smile"`, `"neutral"`, `"surprised"`, `"sad"`, `"angry"`) |
+| **`face`** | Center `(cx, cy)` | Expressive user/actor personas, status & threat icons | `variant` (`"smile"`, `"neutral"`, `"surprised"`, `"sad"`, `"angry"`, `"dizzy"`, `"dead"`, `"skull"`, `"devil"`) |
 | **`bubblespeech`** | Bottom-Left `(x0, y0)` | Callout speech bubbles with directional pointer tails | `tail_edge` (`"left"`, `"top"`, `"right"`, `"bottom"`), `tail_start_ratio`, `tail_end_ratio`, `tail_vertex_xy` |
 | **`cloud`** | Center `(cx, cy)` | Cloud service nodes & VPC/WAN boundary enclosures | `variant` (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`), `bump_ratio: float \| None = None` |
 | **`brace`** | Center `(cx, cy)` | Curly, square, & round grouping brackets/braces | `symbol` (`"{"`, `"}"`, `"["`, `"]"`, `"("`, `")"`), `direction` (`"left"`, `"right"`, `"top"`, `"bottom"`), `tip_ratio`, `tip_position_ratio` |
+| **`shield`** | Center `(cx, cy)` | Security / IAM / WAF badges | `variant` (`"classic"`, `"standard"`, `"flat"`, `"heater"`, `"round"`) |
+| **`ribbon`** | Center `(cx, cy)` | Section banners & stepped ribbons | `variant` (`"down"`, `"standard"`, `"up"`, `"flat"`, `"banner"`), `tail_width_ratio`, `drop_ratio` |
+| **`funnel`** | Center `(cx, cy)` | Filtering & ETL pipeline stages | `variant` (`"standard"`, `"flat"`, `"3d"`, `"cylinder"`, `"curved"`), `neck_width_ratio`, `neck_height_ratio` |
+| **`pin`** | Center `(cx, cy)` | Map markers, pointers & badges | `variant` (`"pointer"`, `"standard"`, `"teardrop"`, `"drop"`, `"pin"`, `"badge"`), `hole_ratio` |
+| **`heart`** | Center `(cx, cy)` | Healthcheck / favorite badges | `variant` (`"standard"`, `"classic"`, `"broken"`) |
 
 ---
 
@@ -354,9 +359,9 @@ save()
 
 ---
 
-## 5. Expressive Actor & Status Faces (`face`)
+## 5. Expressive Actor, Status & Threat Faces (`face`)
 
-For user personas, customer journey maps, and system health indicators, `face` renders a circular face with eyes, eyebrows, and five built-in facial expressions (`mood`):
+For user personas, customer journey maps, system health indicators, and threat/attacker modeling, `face` renders a circular or silhouette face with nine built-in expressions (`variant`):
 
 ```python
 face(
@@ -364,20 +369,23 @@ face(
     radius: float,
     *,
     style: Style,
-    mood: Literal["smile", "neutral", "sad", "angry", "surprised"] = "smile",
+    variant: Literal[
+        "smile", "neutral", "sad", "angry", "surprised",
+        "dizzy", "dead", "skull", "devil",
+    ] = "smile",
     text: str = "",
     text_style: Style | None = None,
 )
 ```
 
-### Parameter Reference & `mood` Variants
+### Parameter Reference & `variant` Options
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the circular face. |
-| `radius` | `float` | *Required* | Outer radius of the face circle (`> 0`). |
-| `mood` | `FaceMood` | `"smile"` | Facial expression variant (case-insensitive):<br>• **`"smile"`**: Upward cubic-Bézier smile curve.<br>• **`"neutral"`**: Straight horizontal mouth line.<br>• **`"surprised"`**: Elliptical open `'O'` mouth.<br>• **`"sad"`**: Downward cubic-Bézier frown curve.<br>• **`"angry"`**: Downward frown curve plus inward-slanted eyebrows. |
-| `style` | `Style` | *Required* | Face fill, outline, and rotation (`angle`). Eyes, eyebrows, and mouth automatically use `style.shape_line_color` when a border is present, or high-contrast `text_color`/white on flat borderless styles (`Styles.PrimaryFlat`). |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the face. |
+| `radius` | `float` | *Required* | Outer radius of the face (`> 0`). |
+| `variant` | `FaceVariant` | `"smile"` | Facial expression or persona variant (case-insensitive):<br>• **`"smile"`**: Upward cubic-Bézier smile curve.<br>• **`"neutral"`**: Straight horizontal mouth line.<br>• **`"surprised"`**: Elliptical open `'O'` mouth.<br>• **`"sad"`**: Downward cubic-Bézier frown curve.<br>• **`"angry"`**: Downward frown curve plus inward-slanted eyebrows.<br>• **`"dizzy"`**: Crossed `'X'` eyes + wavy mouth (overloaded / degraded node).<br>• **`"dead"`**: Crossed `'X'` eyes + flat mouth with hanging tongue (crashed / OOM killed).<br>• **`"skull"`**: Cranium + jawbone silhouette with hollow eye sockets, nasal cavity, and teeth (fatal / poison pill).<br>• **`"devil"`**: Curved horns + slanted eyebrows + sinister grin (attacker / malicious actor). |
+| `style` | `Style` | *Required* | Face fill, outline, and rotation (`angle`). Features automatically use `style.shape_line_color` when a border is present, or high-contrast `text_color`/white on flat borderless styles (`Styles.PrimaryFlat`). |
 | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Optional text label and typography style. |
 
 
@@ -388,27 +396,31 @@ from drawlib.shapes import face
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=44)
+setup(width=132, height=44)
 
-moods = [
+variants = [
     ("smile", Styles.PrimaryFlat),
     ("neutral", Styles.Neutral),
     ("surprised", Styles.SecondaryNeutral),
     ("sad", Styles.Neutral),
-    ("angry", Styles.DangerNeutral),
+    ("angry", Styles.WarningNeutral),
+    ("dizzy", Styles.WarningNeutral),
+    ("dead", Styles.DangerNeutral),
+    ("skull", Styles.Neutral),
+    ("devil", Styles.DangerFlat),
 ]
 
-for i, (mood_name, st) in enumerate(moods):
-    cx = 16 + i * 22
-    face((cx, 26), radius=9, style=st, mood=mood_name)
-    text((cx, 10), f'mood="{mood_name}"', style=Styles.DarkBold.patch(text_size=10.0))
+for i, (v_name, st) in enumerate(variants):
+    cx = 10 + i * 14.0
+    face((cx, 26), radius=5.6, style=st, variant=v_name)
+    text((cx, 11), f'"{v_name}"', style=Styles.DarkBold.patch(text_size=9.5))
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_domain_images/shapes_domain_face.png" alt="shapes_domain_5" />
-  <figcaption class="drawlib-caption">The Five Facial Moods in drawlib.shapes.face</figcaption>
+  <figcaption class="drawlib-caption">The Nine Face Variants in drawlib.shapes.face</figcaption>
 </figure>
 
 
@@ -707,5 +719,98 @@ save()
 
 
 
+---
+
+## 9. Security Shields, Ribbons, Funnels, Pins & Hearts (`shield`, `ribbon`, `funnel`, `pin`, `heart`)
+
+For security boundaries, milestone banners, data filtering stages, location markers, and healthcheck badges, `drawlib.shapes` provides five dedicated domain primitives:
+
+- **`shield(xy, width, height, *, variant="classic", style, text="", text_style=None)`**:
+  - `variant`: `"classic"` (or `"standard"` — 3-segment scalloped top + curved point), `"flat"` (or `"heater"` — straight horizontal top + pointed bottom), `"round"` (arched top + rounded bottom).
+- **`ribbon(xy, width, height, *, variant="down", tail_width_ratio=None, drop_ratio=None, style, text="", text_style=None)`**:
+  - `variant`: `"down"` (or `"standard"` — stepped 3D ribbon with downward tails), `"up"` (upward stepped tails), `"flat"` (or `"banner"` — single-piece swallowtail banner).
+- **`funnel(xy, width, height, *, variant="standard", neck_width_ratio=None, neck_height_ratio=None, style, text="", text_style=None)`**:
+  - `variant`: `"standard"` (or `"flat"`), `"3d"` (or `"cylinder"` — 3D shaded elliptical top opening), `"curved"` (smooth cubic-Bézier curved funnel walls).
+- **`pin(xy, width, height, *, variant="pointer", hole_ratio=None, style, text="", text_style=None)`**:
+  - `variant`: `"pointer"` (or `"standard"` — circular head with straight tangent cone), `"teardrop"` (or `"drop"`), `"pin"` (or `"badge"` — circular badge with short bottom pointer triangle).
+  - Rotation: Use `style.patch(angle=...)` and `text_style.patch(angle=...)` to point in any direction.
+- **`heart(xy, width, height, *, variant="standard", style, text="", text_style=None)`**:
+  - `variant`: `"standard"` (or `"classic"` — smooth cubic-Bézier heart) or `"broken"` (heart with central jagged crack).
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import funnel, heart, pin, ribbon, shield
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=130, height=48)
+
+lbl = Styles.DarkBold.patch(text_size=9.5)
+
+# 1. Security Shield
+shield(
+    (15, 27),
+    width=19,
+    height=23,
+    variant="classic",
+    style=Styles.PrimaryFlat,
+    text="WAF",
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+text((15, 8.5), 'shield("classic")', style=lbl)
+
+# 2. Ribbon Banner
+ribbon(
+    (46, 27),
+    width=32,
+    height=15,
+    variant="down",
+    style=Styles.PrimaryNeutral,
+    text="MILESTONE",
+    text_style=Styles.DarkBold.patch(text_size=9.5),
+)
+text((46, 8.5), 'ribbon("down")', style=lbl)
+
+# 3. Filtering Funnel
+funnel(
+    (77, 27),
+    width=21,
+    height=21,
+    variant="3d",
+    style=Styles.SecondaryNeutral,
+    text="Filter",
+    text_style=Styles.DarkBold.patch(text_size=9.5),
+)
+text((77, 8.5), 'funnel("3d")', style=lbl)
+
+# 4. Teardrop Map Pin
+pin((100, 27), width=15, height=22, variant="teardrop", hole_ratio=0.35, style=Styles.DangerFlat)
+text((100, 8.5), 'pin("teardrop")', style=lbl)
+
+# 5. Heart Badge
+heart(
+    (119, 27),
+    width=18,
+    height=17,
+    variant="standard",
+    style=Styles.DangerNeutral,
+    text="OK",
+    text_style=Styles.DarkBold.patch(text_size=9.5),
+)
+text((119, 8.5), "heart()", style=lbl)
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_badges_and_markers.png" alt="shapes_domain_9" />
+  <figcaption class="drawlib-caption">Security Shields, Ribbon Banners, Filtering Funnels, Map/Pointer Pins, and Heart Badges</figcaption>
+</figure>
+
+
+
 > [!TIP]
 > For embedding syntax-highlighted source code blocks alongside callouts, see **[SourceCode](../03_smartarts/source_code.md)**.
+

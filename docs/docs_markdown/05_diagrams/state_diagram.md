@@ -73,7 +73,7 @@ save()
 
 
 
-- **5 State Geometric Shapes (`shape=...`)**: `State` supports `"box"` (rounded rectangle with optional action compartments), `"oval"` (ellipse/capsule), `"circle"` (classic FSM state), `"double_circle"` (FSM accepting state), and `"text_only"` (borderless text node).
+- **5 State Geometric Shapes (`shape=...`)**: `State` supports `"box"` (rounded rectangle with optional action compartments), `"ellipse"` (ellipse/capsule), `"circle"` (classic FSM state), `"double_circle"` (FSM accepting state), and `"text_only"` (borderless text node).
 - **UML Action Compartments**: When `shape="box"`, a `State` card can display internal behavior triggers (`entry`, `do`, `exit`, or custom triggers via `state.add_action(kind, action)`) below a divider line.
 - **Pseudo-States (`StateNodeBase` subclasses)**:
   - `InitialState`: Solid circle indicating system start.
@@ -139,12 +139,12 @@ sd.connect(init, active, event="login", guard="token_valid", action="init_sessio
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `name` | `str` | *(Required)* | State name / label text. |
-| `shape` | `Literal["box", "oval", "circle", "double_circle", "text_only"]` | `"box"` | Geometric shape of the state node. |
+| `shape` | `Literal["box", "ellipse", "circle", "double_circle", "text_only"]` | `"box"` | Geometric shape of the state node. |
 | `entry` | `str` | `""` | Optional entry action rendered as `entry / <entry>` (`shape="box"`). |
 | `do` | `str` | `""` | Optional ongoing activity rendered as `do / <do>` (`shape="box"`). |
 | `exit` | `str` | `""` | Optional exit action rendered as `exit / <exit>` (`shape="box"`). |
-| `width` | `float \| None` | `None` | Width (or diameter for `"circle"`/`"double_circle"`). Defaults: `"box"`=`22.0`, `"oval"`=`24.0`, `"circle"`/`"double_circle"`/`"text_only"`=`16.0`. |
-| `height` | `float \| None` | `None` | Height of the state. Defaults: `"box"`=`12.0` (auto-expands for actions), `"oval"`=`13.0`, `"circle"`/`"double_circle"`=`width`, `"text_only"`=`8.0`. |
+| `width` | `float \| None` | `None` | Width (or diameter for `"circle"`/`"double_circle"`). Defaults: `"box"`=`22.0`, `"ellipse"`=`24.0`, `"circle"`/`"double_circle"`/`"text_only"`=`16.0`. |
+| `height` | `float \| None` | `None` | Height of the state. Defaults: `"box"`=`12.0` (auto-expands for actions), `"ellipse"`=`13.0`, `"circle"`/`"double_circle"`=`width`, `"text_only"`=`8.0`. |
 | `size` | `tuple[float, float] \| None` | `None` | Optional `(width, height)` shorthand tuple overriding `width` and `height`. |
 | `style` | `Style \| None` | `None` | Optional `Style` override for border, fill, text color, and `shape_r`. |
 | `show` | `bool` | `True` | Visibility flag (connected `StateTransition` arcs auto-hide when `False`). |
@@ -317,7 +317,7 @@ save()
 
 ## 5. Finite Automaton & All 5 `State` Geometric Shapes
 
-Beyond UML `"box"` cards, `State` supports `"text_only"` (borderless entry/label nodes), `"circle"` (standard automaton states), `"oval"` (capsule states), and `"double_circle"` (accepting states), along with diagonal anchor sides (`"top_right"`, `"bottom_left"`, etc.):
+Beyond UML `"box"` cards, `State` supports `"text_only"` (borderless entry/label nodes), `"circle"` (standard automaton states), `"ellipse"` (capsule states), and `"double_circle"` (accepting states), along with diagonal anchor sides (`"top_right"`, `"bottom_left"`, etc.):
 
 
 
@@ -336,11 +336,11 @@ sd = StateDiagram(
     title_style=Styles.BlackBold.patch(text_size=13.5),
 )
 
-# 1. text_only start indicator, circle state, oval state, and double_circle accepting state
+# 1. text_only start indicator, circle state, ellipse state, and double_circle accepting state
 start_lbl = sd.add(State("start", shape="text_only", width=11.0), xy=(11.0, 26.0))
 q0 = sd.add(State("q0", shape="circle", width=15.0, style=Styles.Neutral), xy=(36.0, 26.0))
 q1 = sd.add(
-    State("Scan Ident", shape="oval", width=25.0, height=13.0, style=Styles.PrimaryNeutral),
+    State("Scan Ident", shape="ellipse", width=25.0, height=13.0, style=Styles.PrimaryNeutral),
     xy=(73.0, 26.0),
 )
 q_accept = sd.add(
@@ -370,7 +370,7 @@ save()
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="state_diagram_images/state_automaton_shapes.png" alt="state_diagram_4" />
-  <figcaption class="drawlib-caption">Finite Automaton Showcasing text_only, circle, oval, and double_circle State Shapes</figcaption>
+  <figcaption class="drawlib-caption">Finite Automaton Showcasing text_only, circle, ellipse, and double_circle State Shapes</figcaption>
 </figure>
 
 

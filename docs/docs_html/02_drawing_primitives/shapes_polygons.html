@@ -560,6 +560,7 @@
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">corner_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -570,6 +571,7 @@
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -582,6 +584,7 @@
     <span class="n">topedge_width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">topedge_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -593,6 +596,7 @@
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">topvertex_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -615,6 +619,13 @@
 <td style="text-align:left"><code>tuple[float, float]</code></td>
 <td style="text-align:left"><em>Required</em></td>
 <td style="text-align:left">Center coordinate <code>(x, y)</code> of the unrotated bounding box (when using preset <code>Styles.*</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>hole_ratio</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Optional concentric center cutout ratio in <code>(0.0, 1.0)</code> (also supported on <code>regularpolygon</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
@@ -1315,6 +1326,88 @@ For wavy-bottom or folded-corner document shapes, use the built-in <code>documen
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_polygons_images/shapes_polygons_custom_shape.png" alt="shapes_polygons_7" />
   <figcaption class="drawlib-caption">Custom Vector Shapes Using Quadratic and Cubic Bézier Path Points</figcaption>
+</figure>
+<hr />
+<h2>8. Lightning, Explosion Bursts, Tags &amp; Plaques (<code>lightning</code>, <code>explosion</code>, <code>tag</code>, <code>plaque</code>)</h2>
+<p>For serverless triggers, incident/alert callouts, Git release tags, and certificate plaques, <code>drawlib.shapes</code> provides four specialized polygon primitives:</p>
+<ul>
+<li><strong><code>lightning(xy, width, height, *, variant=&quot;standard&quot;, mirror=False, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;standard&quot;</code>, <code>&quot;flat&quot;</code>, <code>&quot;double&quot;</code>, <code>&quot;flat_double&quot;</code>, <code>&quot;angled&quot;</code>, <code>&quot;slanted&quot;</code>. Set <code>mirror=True</code> to flip horizontally.</li>
+</ul>
+</li>
+<li><strong><code>explosion(xy, width, height, *, variant=&quot;standard&quot;, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;standard&quot;</code>, <code>&quot;irregular&quot;</code>, <code>&quot;heavy&quot;</code>, <code>&quot;wild&quot;</code>, <code>&quot;curved&quot;</code>, <code>&quot;comic&quot;</code>.</li>
+</ul>
+</li>
+<li><strong><code>tag(xy, width, height, *, variant=&quot;angled&quot;, mirror=False, hole_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;angled&quot;</code>, <code>&quot;standard&quot;</code>, <code>&quot;chamfered&quot;</code>, <code>&quot;beveled&quot;</code>, <code>&quot;rounded&quot;</code>.</li>
+<li>Rotation: Use <code>style.patch(angle=...)</code> and <code>text_style.patch(angle=...)</code> to orient tags in any direction, or <code>mirror=True</code> to flip horizontally.</li>
+</ul>
+</li>
+<li><strong><code>plaque(xy, width, height, *, variant=&quot;concave&quot;, cut_ratio=None, style, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>variant</code>: <code>&quot;concave&quot;</code> (or <code>&quot;standard&quot;</code> — inward circular-arc scooped corners), <code>&quot;chamfered&quot;</code>, <code>&quot;octagon&quot;</code> ($45^\circ$ straight cut corners), <code>&quot;notched&quot;</code> ($90^\circ$ L-shaped inward corner steps).</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">explosion</span><span class="p">,</span> <span class="n">lightning</span><span class="p">,</span> <span class="n">plaque</span><span class="p">,</span> <span class="n">tag</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
+
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+<span class="c1"># 1. Lightning bolt</span>
+<span class="n">lightning</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"standard"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s1">'lightning("standard")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 2. Explosion burst</span>
+<span class="n">explosion</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"irregular"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"BOOM!"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s1">'explosion("irregular")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 3. Git / Release Tag</span>
+<span class="n">tag</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"angled"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"v2.4.0"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">77</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s1">'tag("angled")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># 4. Certificate Plaque</span>
+<span class="n">plaque</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"concave"</span><span class="p">,</span>
+    <span class="n">cut_ratio</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"CERTIFIED"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">111</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s1">'plaque("concave")'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_polygons_images/shapes_polygons_lightning_explosion_tag_plaque.png" alt="shapes_polygons_8" />
+  <figcaption class="drawlib-caption">Lightning Bolts, Explosion Bursts, Release Tags, and Certificate Plaques</figcaption>
 </figure>
 
             </main>

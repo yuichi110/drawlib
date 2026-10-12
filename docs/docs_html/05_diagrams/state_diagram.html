@@ -541,7 +541,7 @@
 </code></pre>
 </details>
 <ul>
-<li><strong>5 State Geometric Shapes (<code>shape=...</code>)</strong>: <code>State</code> supports <code>&quot;box&quot;</code> (rounded rectangle with optional action compartments), <code>&quot;oval&quot;</code> (ellipse/capsule), <code>&quot;circle&quot;</code> (classic FSM state), <code>&quot;double_circle&quot;</code> (FSM accepting state), and <code>&quot;text_only&quot;</code> (borderless text node).</li>
+<li><strong>5 State Geometric Shapes (<code>shape=...</code>)</strong>: <code>State</code> supports <code>&quot;box&quot;</code> (rounded rectangle with optional action compartments), <code>&quot;ellipse&quot;</code> (ellipse/capsule), <code>&quot;circle&quot;</code> (classic FSM state), <code>&quot;double_circle&quot;</code> (FSM accepting state), and <code>&quot;text_only&quot;</code> (borderless text node).</li>
 <li><strong>UML Action Compartments</strong>: When <code>shape=&quot;box&quot;</code>, a <code>State</code> card can display internal behavior triggers (<code>entry</code>, <code>do</code>, <code>exit</code>, or custom triggers via <code>state.add_action(kind, action)</code>) below a divider line.</li>
 <li><strong>Pseudo-States (<code>StateNodeBase</code> subclasses)</strong>:
 <ul>
@@ -674,7 +674,7 @@
 </tr>
 <tr>
 <td><code>shape</code></td>
-<td><code>Literal[&quot;box&quot;, &quot;oval&quot;, &quot;circle&quot;, &quot;double_circle&quot;, &quot;text_only&quot;]</code></td>
+<td><code>Literal[&quot;box&quot;, &quot;ellipse&quot;, &quot;circle&quot;, &quot;double_circle&quot;, &quot;text_only&quot;]</code></td>
 <td><code>&quot;box&quot;</code></td>
 <td>Geometric shape of the state node.</td>
 </tr>
@@ -700,13 +700,13 @@
 <td><code>width</code></td>
 <td><code>float | None</code></td>
 <td><code>None</code></td>
-<td>Width (or diameter for <code>&quot;circle&quot;</code>/<code>&quot;double_circle&quot;</code>). Defaults: <code>&quot;box&quot;</code>=<code>22.0</code>, <code>&quot;oval&quot;</code>=<code>24.0</code>, <code>&quot;circle&quot;</code>/<code>&quot;double_circle&quot;</code>/<code>&quot;text_only&quot;</code>=<code>16.0</code>.</td>
+<td>Width (or diameter for <code>&quot;circle&quot;</code>/<code>&quot;double_circle&quot;</code>). Defaults: <code>&quot;box&quot;</code>=<code>22.0</code>, <code>&quot;ellipse&quot;</code>=<code>24.0</code>, <code>&quot;circle&quot;</code>/<code>&quot;double_circle&quot;</code>/<code>&quot;text_only&quot;</code>=<code>16.0</code>.</td>
 </tr>
 <tr>
 <td><code>height</code></td>
 <td><code>float | None</code></td>
 <td><code>None</code></td>
-<td>Height of the state. Defaults: <code>&quot;box&quot;</code>=<code>12.0</code> (auto-expands for actions), <code>&quot;oval&quot;</code>=<code>13.0</code>, <code>&quot;circle&quot;</code>/<code>&quot;double_circle&quot;</code>=<code>width</code>, <code>&quot;text_only&quot;</code>=<code>8.0</code>.</td>
+<td>Height of the state. Defaults: <code>&quot;box&quot;</code>=<code>12.0</code> (auto-expands for actions), <code>&quot;ellipse&quot;</code>=<code>13.0</code>, <code>&quot;circle&quot;</code>/<code>&quot;double_circle&quot;</code>=<code>width</code>, <code>&quot;text_only&quot;</code>=<code>8.0</code>.</td>
 </tr>
 <tr>
 <td><code>size</code></td>
@@ -1004,7 +1004,7 @@
 </figure>
 <hr />
 <h2>5. Finite Automaton &amp; All 5 <code>State</code> Geometric Shapes</h2>
-<p>Beyond UML <code>&quot;box&quot;</code> cards, <code>State</code> supports <code>&quot;text_only&quot;</code> (borderless entry/label nodes), <code>&quot;circle&quot;</code> (standard automaton states), <code>&quot;oval&quot;</code> (capsule states), and <code>&quot;double_circle&quot;</code> (accepting states), along with diagonal anchor sides (<code>&quot;top_right&quot;</code>, <code>&quot;bottom_left&quot;</code>, etc.):</p>
+<p>Beyond UML <code>&quot;box&quot;</code> cards, <code>State</code> supports <code>&quot;text_only&quot;</code> (borderless entry/label nodes), <code>&quot;circle&quot;</code> (standard automaton states), <code>&quot;ellipse&quot;</code> (capsule states), and <code>&quot;double_circle&quot;</code> (accepting states), along with diagonal anchor sides (<code>&quot;top_right&quot;</code>, <code>&quot;bottom_left&quot;</code>, etc.):</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.state</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">StateDiagram</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -1019,11 +1019,11 @@
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 1. text_only start indicator, circle state, oval state, and double_circle accepting state</span>
+<span class="c1"># 1. text_only start indicator, circle state, ellipse state, and double_circle accepting state</span>
 <span class="n">start_lbl</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="s2">"start"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"text_only"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">))</span>
 <span class="n">q0</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="s2">"q0"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">))</span>
 <span class="n">q1</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">State</span><span class="p">(</span><span class="s2">"Scan Ident"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"oval"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"Scan Ident"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"ellipse"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
     <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">73.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">q_accept</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -1052,7 +1052,7 @@
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="state_diagram_images/state_automaton_shapes.png" alt="state_diagram_4" />
-  <figcaption class="drawlib-caption">Finite Automaton Showcasing text_only, circle, oval, and double_circle State Shapes</figcaption>
+  <figcaption class="drawlib-caption">Finite Automaton Showcasing text_only, circle, ellipse, and double_circle State Shapes</figcaption>
 </figure>
 <hr />
 <h2>6. Best Practices &amp; Guidelines</h2>

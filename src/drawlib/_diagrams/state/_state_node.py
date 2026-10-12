@@ -106,7 +106,7 @@ class StateNodeBase:
 class State(StateNodeBase):
     """Represents a state node in a StateDiagram.
 
-    Supports box (rounded rectangle), oval (ellipse), circle, double_circle, and text_only shapes.
+    Supports box (rounded rectangle), ellipse, circle, double_circle, and text_only shapes.
     """
 
     def __init__(
@@ -125,7 +125,7 @@ class State(StateNodeBase):
 
         Args:
             name: State name.
-            shape: Visual shape kind ('box', 'oval', 'circle', 'double_circle', 'text_only').
+            shape: Visual shape kind ('box', 'ellipse', 'circle', 'double_circle', 'text_only').
             entry: Optional entry action string ('entry / action').
             do: Optional internal activity string ('do / activity').
             exit: Optional exit action string ('exit / action').
@@ -134,7 +134,7 @@ class State(StateNodeBase):
             style: Optional Style object overriding border, fill, text colors, and shape_r.
             show: Whether to render this state node.
         """
-        valid_shapes = {"box", "oval", "circle", "double_circle", "text_only"}
+        valid_shapes = {"box", "ellipse", "circle", "double_circle", "text_only"}
         if shape not in valid_shapes:
             raise ValueError(f"Invalid shape: {shape!r}. Must be one of {sorted(valid_shapes)}.")
 
@@ -319,7 +319,7 @@ def _compute_state_default_size(
     """
     default_widths = {
         "box": 22.0,
-        "oval": 24.0,
+        "ellipse": 24.0,
         "circle": 16.0,
         "double_circle": 16.0,
         "text_only": 16.0,
@@ -330,7 +330,7 @@ def _compute_state_default_size(
         init_h = float(height)
     elif shape in {"circle", "double_circle"}:
         init_h = init_w
-    elif shape == "oval":
+    elif shape == "ellipse":
         init_h = 13.0
     elif shape == "text_only":
         init_h = 8.0

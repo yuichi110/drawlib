@@ -50,10 +50,10 @@ class TestStateNode:
 
     def test_state_shapes(self) -> None:
         """Verify State initialization for different shapes."""
-        oval = State(name="Running", shape="oval")
-        assert oval.shape == "oval"
-        assert oval.effective_width == 24.0
-        assert oval.effective_height == 13.0
+        ellipse_state = State(name="Running", shape="ellipse")
+        assert ellipse_state.shape == "ellipse"
+        assert ellipse_state.effective_width == 24.0
+        assert ellipse_state.effective_height == 13.0
 
         circle = State(name="S0", shape="circle")
         assert circle.shape == "circle"
@@ -393,7 +393,7 @@ class TestStateDiagramRendering:
         )
 
         # Automaton nodes (circle & double_circle)
-        audit = sd.add(State("Audit", shape="oval"), xy=(55.0, 35.0))
+        audit = sd.add(State("Audit", shape="ellipse"), xy=(55.0, 35.0))
         success = sd.add(
             State("Done", shape="double_circle", style=Style(shape_fill_color=Colors.Green)),
             xy=(115.0, 35.0),

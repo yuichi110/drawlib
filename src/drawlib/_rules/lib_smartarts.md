@@ -348,7 +348,7 @@ MindMapNode(
     text: str,
     *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
-    shape: Literal["rectangle", "oval", "none"] | None = None,
+    shape: Literal["rectangle", "ellipse", "none"] | None = None,
     width: float | None = None,
     height: float | None = None,
     style: Style | None = None,
@@ -366,7 +366,7 @@ MindMapNode(
 - `node.draw(xy, branch="right", scale=1.0)`: Renders the mindmap centered at `xy` with optional proportional `scale`.
 
 ### 6.3 Shapes & Layout Options
-- `shape`: `"rectangle"` (rounded via `style.shape_r`), `"oval"`, or `"none"` (clean text label).
+- `shape`: `"rectangle"` (rounded via `style.shape_r`), `"ellipse"`, or `"none"` (clean text label).
 - `branch`: `"bottom"` (top-down), `"top"` (bottom-up), `"right"` (left-to-right), `"left"` (right-to-left), or multi-directional.
 - `xy_shift`: Relative `(dx, dy)` offset applied after layout calculation to fine-tune placement or avoid label collisions.
 - Cascading: Children automatically inherit unassigned style, width/height, shape, margins, and line styles from parent nodes. Root requires `style`, `text_style`, and `line_style`.
@@ -385,7 +385,7 @@ txt_leaf = Styles.Dark.patch(text_size=9)
 
 root = MindMapNode(
     "Core API Gateway",
-    shape="oval",
+    shape="ellipse",
     width=28,
     height=12,
     style=Styles.PrimaryFlat,

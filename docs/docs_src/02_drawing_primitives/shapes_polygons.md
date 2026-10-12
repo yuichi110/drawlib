@@ -83,6 +83,7 @@ parallelogram(
     height: float,
     corner_angle: float = 60.0,
     *,
+    hole_ratio: float | None = None,
     style: Style,
     text: str = "",
     text_style: Style | None = None,
@@ -93,6 +94,7 @@ rhombus(
     width: float,
     height: float,
     *,
+    hole_ratio: float | None = None,
     style: Style,
     text: str = "",
     text_style: Style | None = None,
@@ -105,6 +107,7 @@ trapezoid(
     topedge_width: float,
     topedge_x: float | None = None,
     *,
+    hole_ratio: float | None = None,
     style: Style,
     text: str = "",
     text_style: Style | None = None,
@@ -116,6 +119,7 @@ triangle(
     height: float,
     topvertex_x: float | None = None,
     *,
+    hole_ratio: float | None = None,
     style: Style,
     text: str = "",
     text_style: Style | None = None,
@@ -125,6 +129,7 @@ triangle(
 | Function | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **Common** | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the unrotated bounding box (when using preset `Styles.*`). |
+| | `hole_ratio` | `float \| None` | `None` | Optional concentric center cutout ratio in `(0.0, 1.0)` (also supported on `regularpolygon`). |
 | | `style` | `Style` | *Required* | Fill, border, rotation (`angle`), and vertex rounding (`shape_r`: scalar `float` or per-vertex tuple). |
 | | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Centered text label and optional typography override (use `xy_shift` to nudge text in asymmetric triangles/trapezoids). |
 | **`parallelogram`** | `width` / `height` | `float` | *Required* | Base width (`> 0`) and vertical height (`> 0`). |
@@ -573,3 +578,74 @@ shape(
 
 save()
 ```
+
+---
+
+## 8. Lightning, Explosion Bursts, Tags & Plaques (`lightning`, `explosion`, `tag`, `plaque`)
+
+For serverless triggers, incident/alert callouts, Git release tags, and certificate plaques, `drawlib.shapes` provides four specialized polygon primitives:
+
+- **`lightning(xy, width, height, *, variant="standard", mirror=False, style, text="", text_style=None)`**:
+  - `variant`: `"standard"`, `"flat"`, `"double"`, `"flat_double"`, `"angled"`, `"slanted"`. Set `mirror=True` to flip horizontally.
+- **`explosion(xy, width, height, *, variant="standard", style, text="", text_style=None)`**:
+  - `variant`: `"standard"`, `"irregular"`, `"heavy"`, `"wild"`, `"curved"`, `"comic"`.
+- **`tag(xy, width, height, *, variant="angled", mirror=False, hole_ratio=None, style, text="", text_style=None)`**:
+  - `variant`: `"angled"`, `"standard"`, `"chamfered"`, `"beveled"`, `"rounded"`.
+  - Rotation: Use `style.patch(angle=...)` and `text_style.patch(angle=...)` to orient tags in any direction, or `mirror=True` to flip horizontally.
+- **`plaque(xy, width, height, *, variant="concave", cut_ratio=None, style, text="", text_style=None)`**:
+  - `variant`: `"concave"` (or `"standard"` — inward circular-arc scooped corners), `"chamfered"`, `"octagon"` ($45^\circ$ straight cut corners), `"notched"` ($90^\circ$ L-shaped inward corner steps).
+
+```drawlib code=show align=center file=shapes_polygons_lightning_explosion_tag_plaque.png caption="Lightning Bolts, Explosion Bursts, Release Tags, and Certificate Plaques"
+from drawlib.canvas import save, setup
+from drawlib.shapes import explosion, lightning, plaque, tag
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=128, height=46)
+
+lbl = Styles.DarkBold.patch(text_size=9.5)
+
+# 1. Lightning bolt
+lightning((14, 27), width=13, height=22, variant="standard", style=Styles.WarningFlat)
+text((14, 9), 'lightning("standard")', style=lbl)
+
+# 2. Explosion burst
+explosion(
+    (42, 27),
+    width=26,
+    height=22,
+    variant="irregular",
+    style=Styles.DangerFlat,
+    text="BOOM!",
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+text((42, 9), 'explosion("irregular")', style=lbl)
+
+# 3. Git / Release Tag
+tag(
+    (77, 27),
+    width=28,
+    height=15,
+    variant="angled",
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="v2.4.0",
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+)
+text((77, 9), 'tag("angled")', style=lbl)
+
+# 4. Certificate Plaque
+plaque(
+    (111, 27),
+    width=27,
+    height=17,
+    variant="concave",
+    cut_ratio=0.22,
+    style=Styles.SecondaryNeutral,
+    text="CERTIFIED",
+    text_style=Styles.DarkBold.patch(text_size=9.5),
+)
+text((111, 9), 'plaque("concave")', style=lbl)
+
+save()
+```
+

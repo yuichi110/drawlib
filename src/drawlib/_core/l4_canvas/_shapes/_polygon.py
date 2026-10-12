@@ -20,18 +20,28 @@ from drawlib._core.l2_types import (
     Angle,
     Angle90,
     Coordinate,
+    ExplosionVariant,
+    LightningVariant,
     MathSymbol,
     NumVertex,
     PathPoints,
+    PlaqueVariant,
     PosFloat,
     PosInt,
     Ratio,
     Size,
+    TagVariant,
     TailEdge,
 )
 from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
+from drawlib._core.l4_canvas._shapes._polygon_ext import (
+    build_explosion_path,
+    build_lightning_path,
+    build_plaque_path,
+    build_tag_path_and_center,
+)
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
@@ -353,6 +363,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         height: PosFloat,
         topvertex_x: float | None = None,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
@@ -360,14 +371,16 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         """Draw a triangle on the canvas.
 
         Args:
-            xy: Bottom-left coordinate tuple (x, y).
+            xy: Center or bottom-left coordinate tuple (x, y).
             width: Width of triangle.
             height: Height of triangle.
             topvertex_x: X-offset of top vertex relative to left edge.
+            hole_ratio: Optional hollow cutout ratio in (0.0, 1.0).
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
+        ShapeUtil.validate_hole_ratio(hole_ratio)
         style, text_style = ShapeUtil.format_styles(
             style,
             text_style,
@@ -375,13 +388,13 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
 
         if topvertex_x is None:
             topvertex_x = width / 2
-        p1 = (0, 0)
+        p1 = (0.0, 0.0)
         p2 = (topvertex_x, height)
-        p3 = (width, 0)
-        path_points = ShapeUtil.round_polygon_points([p1, p2, p3], style.shape_r)
-        self.shape(
+        p3 = (width, 0.0)
+        self._draw_convex_polygon_with_hole(
             xy=xy,
-            path_points=path_points,
+            vertices=[p1, p2, p3],
+            hole_ratio=hole_ratio,
             style=style,
             text=text,
             text_style=text_style,
@@ -395,6 +408,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         height: PosFloat,
         corner_angle: Angle90,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
@@ -402,14 +416,16 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         """Draw a parallelogram on the canvas.
 
         Args:
-            xy: Bottom-left coordinate tuple (x, y).
+            xy: Center or bottom-left coordinate tuple (x, y).
             width: Width of parallelogram.
             height: Height of parallelogram.
             corner_angle: Corner angle in degrees.
+            hole_ratio: Optional hollow cutout ratio in (0.0, 1.0).
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
+        ShapeUtil.validate_hole_ratio(hole_ratio)
         style, text_style = ShapeUtil.format_styles(
             style,
             text_style,
@@ -420,15 +436,14 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             x = height / math.tan(angle_rad)
             return x, height
 
-        p1 = (0, 0)
+        p1 = (0.0, 0.0)
         p2 = calculate_parallelogram_lefttop_coordinate()
         p3 = (p2[0] + width, height)
-        p4 = (width, 0)
-        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
-
-        self.shape(
+        p4 = (width, 0.0)
+        self._draw_convex_polygon_with_hole(
             xy=xy,
-            path_points=path_points,
+            vertices=[p1, p2, p3, p4],
+            hole_ratio=hole_ratio,
             style=style,
             text=text,
             text_style=text_style,
@@ -443,6 +458,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         topedge_width: PosFloat,
         topedge_x: float | None = None,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
@@ -450,15 +466,17 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         """Draw a trapezoid on the canvas.
 
         Args:
-            xy: Bottom-left coordinate tuple (x, y).
+            xy: Center or bottom-left coordinate tuple (x, y).
             height: Height of trapezoid.
             bottomedge_width: Width of bottom edge.
             topedge_width: Width of top edge.
             topedge_x: X-offset of top edge left vertex.
+            hole_ratio: Optional hollow cutout ratio in (0.0, 1.0).
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
+        ShapeUtil.validate_hole_ratio(hole_ratio)
         style, text_style = ShapeUtil.format_styles(
             style,
             text_style,
@@ -466,15 +484,14 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
 
         if topedge_x is None:
             topedge_x = (bottomedge_width - topedge_width) / 2
-        p1 = (0, 0)
+        p1 = (0.0, 0.0)
         p2 = (topedge_x, height)
         p3 = (topedge_x + topedge_width, height)
-        p4 = (bottomedge_width, 0)
-        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
-
-        self.shape(
+        p4 = (bottomedge_width, 0.0)
+        self._draw_convex_polygon_with_hole(
             xy=xy,
-            path_points=path_points,
+            vertices=[p1, p2, p3, p4],
+            hole_ratio=hole_ratio,
             style=style,
             text=text,
             text_style=text_style,
@@ -487,6 +504,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         width: PosFloat,
         height: PosFloat,
         *,
+        hole_ratio: Ratio | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
@@ -497,24 +515,25 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             xy: Center or bottom-left coordinate tuple (x, y).
             width: Horizontal diagonal length.
             height: Vertical diagonal length.
+            hole_ratio: Optional hollow cutout ratio in (0.0, 1.0).
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
+        ShapeUtil.validate_hole_ratio(hole_ratio)
         style, text_style = ShapeUtil.format_styles(
             style,
             text_style,
         )
 
-        p1 = (0, height / 2)
+        p1 = (0.0, height / 2)
         p2 = (width / 2, height)
         p3 = (width, height / 2)
-        p4 = (width / 2, 0)
-        path_points = ShapeUtil.round_polygon_points([p1, p2, p3, p4], style.shape_r)
-
-        self.shape(
+        p4 = (width / 2, 0.0)
+        self._draw_convex_polygon_with_hole(
             xy=xy,
-            path_points=path_points,
+            vertices=[p1, p2, p3, p4],
+            hole_ratio=hole_ratio,
             style=style,
             text=text,
             text_style=text_style,
@@ -925,6 +944,255 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
                     xy=(center_x, center_y),
                     text=text,
                     angle=0.0,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def lightning(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: LightningVariant = "standard",
+        mirror: bool = False,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a lightning bolt shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the lightning bolt bounding box.
+            height: Height of the lightning bolt bounding box.
+            variant: Lightning bolt silhouette ("standard", "flat", "double",
+                "flat_double", "angled", "slanted").
+            mirror: Whether to flip the lightning bolt horizontally.
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        x, y = xy
+        xy_shifted = (x - width / 2.0, y - height / 2.0)
+        ((x, y), style) = ShapeUtil.apply_alignment(
+            xy_shifted,
+            width,
+            height,
+            angle,
+            style,
+            is_default_center=True,
+        )
+        cx = x + width / 2.0
+        cy = y + height / 2.0
+        path = build_lightning_path(
+            xy=(cx, cy),
+            width=width,
+            height=height,
+            variant=variant,
+            mirror=mirror,
+            shape_r=style.shape_r,
+            angle=angle,
+        )
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=(cx, cy),
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def explosion(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: ExplosionVariant = "standard",
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw an asymmetric explosion or impact burst shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the explosion bounding box.
+            height: Height of the explosion bounding box.
+            variant: Explosion silhouette ("standard", "irregular", "heavy",
+                "wild", "curved", "comic").
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        x, y = xy
+        xy_shifted = (x - width / 2.0, y - height / 2.0)
+        ((x, y), style) = ShapeUtil.apply_alignment(
+            xy_shifted,
+            width,
+            height,
+            angle,
+            style,
+            is_default_center=True,
+        )
+        cx = x + width / 2.0
+        cy = y + height / 2.0
+        path = build_explosion_path(
+            xy=(cx, cy),
+            width=width,
+            height=height,
+            variant=variant,
+            shape_r=style.shape_r,
+            angle=angle,
+        )
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=(cx, cy),
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def tag(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: TagVariant = "angled",
+        mirror: bool = False,
+        hole_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a perforated label tag or badge shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the tag bounding box.
+            height: Height of the tag bounding box.
+            variant: Tag silhouette ("angled", "standard", "chamfered", "beveled", "rounded").
+            mirror: Whether to flip the tag tip direction horizontally.
+            hole_ratio: Optional circular hole size ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display on the tag body.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        x, y = xy
+        xy_shifted = (x - width / 2.0, y - height / 2.0)
+        ((x, y), style) = ShapeUtil.apply_alignment(
+            xy_shifted,
+            width,
+            height,
+            angle,
+            style,
+            is_default_center=True,
+        )
+        cx = x + width / 2.0
+        cy = y + height / 2.0
+        path, text_xy = build_tag_path_and_center(
+            xy=(cx, cy),
+            width=width,
+            height=height,
+            variant=variant,
+            mirror=mirror,
+            hole_ratio=hole_ratio,
+            shape_r=style.shape_r,
+            angle=angle,
+        )
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=text_xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def plaque(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: PlaqueVariant = "concave",
+        cut_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a corner-cut plaque or ornamental plate shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the plaque bounding box.
+            height: Height of the plaque bounding box.
+            variant: Plaque corner variant ("concave", "standard", "chamfered",
+                "octagon", "notched").
+            cut_ratio: Optional corner cutout size ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        ShapeUtil.validate_hole_ratio(cut_ratio)
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        x, y = xy
+        xy_shifted = (x - width / 2.0, y - height / 2.0)
+        ((x, y), style) = ShapeUtil.apply_alignment(
+            xy_shifted,
+            width,
+            height,
+            angle,
+            style,
+            is_default_center=True,
+        )
+        cx = x + width / 2.0
+        cy = y + height / 2.0
+        path = build_plaque_path(
+            xy=(cx, cy),
+            width=width,
+            height=height,
+            variant=variant,
+            cut_ratio=cut_ratio,
+            shape_r=style.shape_r,
+            angle=angle,
+        )
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=(cx, cy),
+                    text=text,
+                    angle=angle,
                     style=effective_text_style,
                 )
             )
