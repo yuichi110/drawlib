@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="405pt" viewBox="0 0 720 405" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 405 
+L 720 405 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 0 405 
+L 0 0 
+L 720 0 
+L 720 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 60 165 
+C 83.868279 165 106.762188 155.517032 123.63961 138.63961 
+C 140.517032 121.762188 150 98.868279 150 75 
+C 150 51.131721 140.517032 28.237812 123.63961 11.36039 
+C 106.762188 -5.517032 83.868279 -15 60 -15 
+C 36.131721 -15 13.237812 -5.517032 -3.63961 11.36039 
+C -20.517032 28.237812 -30 51.131721 -30 75 
+C -30 98.868279 -20.517032 121.762188 -3.63961 138.63961 
+C 13.237812 155.517032 36.131721 165 60 165 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #e8f0fe; opacity: 0.45"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 660 420 
+C 681.879256 420 702.865339 411.30728 718.336309 395.836309 
+C 733.80728 380.365339 742.5 359.379256 742.5 337.5 
+C 742.5 315.620744 733.80728 294.634661 718.336309 279.163691 
+C 702.865339 263.69272 681.879256 255 660 255 
+C 638.120744 255 617.134661 263.69272 601.663691 279.163691 
+C 586.19272 294.634661 577.5 315.620744 577.5 337.5 
+C 577.5 359.379256 586.19272 380.365339 601.663691 395.836309 
+C 617.134661 411.30728 638.120744 420 660 420 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #d9d2e9; opacity: 0.45"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 0 9 
+L 0 0 
+L 720 0 
+L 720 9 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4285f4"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 360 147.75 
+L 290.25 147.75 
+Q 277.5 147.75 277.5 135 
+L 277.5 135 
+Q 277.5 122.25 290.25 122.25 
+L 429.75 122.25 
+Q 442.5 122.25 442.5 135 
+L 442.5 135 
+Q 442.5 147.75 429.75 147.75 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="138.904609" transform="rotate(-0 360 138.904609)">THANK YOU  •  Q&amp;A</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 40px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle" x="360" y="213.95" transform="rotate(-0 360 213.95)">Thank You!</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 18.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="360" y="255.656328" transform="rotate(-0 360 255.656328)">Questions &amp; Discussion</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 360 281.625 
+L 313.5 281.625 
+Q 311.25 281.625 311.25 279.375 
+L 311.25 279.375 
+Q 311.25 277.125 313.5 277.125 
+L 406.5 277.125 
+Q 408.75 277.125 408.75 279.375 
+L 408.75 279.375 
+Q 408.75 281.625 406.5 281.625 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4285f4"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="360" y="317.0625" transform="rotate(-0 360 317.0625)">Surviving a 300M+ Req/Day DDoS &amp; EDoS Attack on Google Cloud Run &amp; Edge WAF</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6494dea2b6">
+   <rect x="0" y="0" width="720" height="405"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

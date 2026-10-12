@@ -1,5 +1,5 @@
 ::: block xy=(80, 40) width=1760 height=70
-# Key Takeaways: 4 Golden Rules for Serverless DDoS Defense
+# Summary: 4 Golden Rules for Serverless DDoS Defense
 :::
 
 ::: block xy=(80, 140) width=1060 height=810
@@ -96,9 +96,9 @@ utils.draw_page_number()
 :::
 
 ::: note
-Let's close with the **4 Golden Rules** every cloud architect and solo developer should take away from this incident:
+Let's summarize the **4 Golden Rules** every cloud architect and solo developer should take away from this incident:
 1. **Never Expose Auto-Scaling Serverless Origins Directly**: Publicly exposing a pay-per-use endpoint (`*.run.app`, AWS Lambda Function URLs) without an edge shield gives attackers a blank check drawn on your credit card.
 2. **Audit Your WAF's EDoS Pricing Model Before an Attack**: Hyperscaler WAFs that charge per evaluated request ($0.60–$0.75 per million) turn volumetric floods into financial disasters even when 99.9% of requests are blocked. Use flat-rate unmetered edge mitigation (such as Cloudflare Pro at $20/mo) when cost predictability matters.
 3. **Stack Orthogonal L3–L7 Signals**: Geographic IP blocks and simple rate limits fail against distributed residential proxies. Combine **Hosting ASN blocks**, **User-Agent hygiene**, and **HTTP/2+ ALPN wire protocol checks**.
-4. **Replace Client-Side Obscurity with Cryptographic Proof-of-Work**: In the era of LLM-assisted reverse engineering, obfuscated JS logic survives Less than 3 hours. Use **asymmetric SHA-256 Proof-of-Work** so computational cost scales against the attacker.
+4. **Replace Client-Side Obscurity with Cryptographic Proof-of-Work**: In the era of LLM-assisted reverse engineering, obfuscated JS logic survives less than 3 hours. Use **asymmetric SHA-256 Proof-of-Work** so computational cost scales against the attacker.
 :::

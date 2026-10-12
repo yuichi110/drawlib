@@ -170,17 +170,17 @@ proc.add(
     style=Styles.Neutral,
 )
 proc.add(
-    "4. Summary",
-    description="Key Takeaways\n& Outcome KPIs\n(When possible)",
+    "4. Closing Section",
+    description="Section Header ->\nSummary ->\nThank You (Msg Only)",
     style=Styles.SecondaryNeutral,
-    text_style=Styles.SecondaryBold.patch(text_size=10.0),
+    text_style=Styles.SecondaryBold.patch(text_size=9.8),
 )
 proc.add(
-    "5. Thank You",
-    description="Closing & Q&A\n(+ Appendix\nafter this)",
+    "5. Appendix (Opt.)",
+    description="99_appendix/\nBackup Deep Dives\n(After Thank You)",
     style=Styles.AccentFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10.0),
-    description_style=Styles.White.patch(text_size=9.0),
+    text_style=Styles.WhiteBold.patch(text_size=9.8),
+    description_style=Styles.White.patch(text_size=8.8),
 )
 proc.draw(xy=(4, 7), width=144.0, height=30.0)
 
@@ -207,23 +207,20 @@ save()
   - Begin each chapter subdirectory with a dedicated **Section Header slide** (`01_section.md`) using `from drawlib.slide import draw_section_header` (choose from `variant="split"`, `"centered"`, `"banner"`, or `"minimal"`).
   - **Exclude Planning & Draft Files with `_`**: Store any deck outlines, storyboards, or scratch notes inside `slide_src/` with a leading underscore (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`). Files/directories starting with `_` and `README.md` are automatically excluded from compilation.
 
-### 2.4. Summary / Key Takeaways Slide (Include Whenever Possible)
-- **Purpose**: Consolidate the presentation's narrative into 3–4 memorable conclusions, architectural golden rules, or quantitative outcomes before closing the talk.
-- **Strict Rules**:
-  - Whenever possible (especially for decks with 5+ slides or multiple sections), create a dedicated **Summary / Key Takeaways** slide right before the final Thank You slide.
-  - Use `smartarts.KpiCards`, `smartarts.CardList`, `smartarts.GridLayout`, or `smartarts.Panel` with Phosphor icons to summarize key takeaways visually rather than a plain text bullet list.
+### 2.4. Dedicated Closing Section (`XX_closing/`) & Optional Appendix (`99_appendix/`)
+To prevent the overall presentation conclusion from blending into the final technical chapter, organize the end of multi-chapter decks into a dedicated **Closing section** (followed by an optional **Appendix**):
 
-### 2.5. Final "Thank You / Q&A" Closing Slide
-- **Purpose**: Provide an unmistakable visual landing that signals the end of the main presentation and invites audience questions.
-- **Strict Rules**:
-  - Always conclude the main deck with a dedicated **Thank You** slide (e.g., `99_thank_you.md` or `08_thank_you.md` at the end of the final chapter).
-  - Keep the Thank You slide clean and uncluttered: display a bold **"Thank You"** / **"Questions & Discussion"** headline, optional key resource links / QR / repository URLs, and speaker contact info (or a full-bleed hero canvas).
-
-### 2.6. Optional Appendix Slides (Always After "Thank You")
-- **Purpose**: Hold backup deep-dive slides, raw configuration tables, extended benchmarks, or FAQ diagrams for Q&A without bloating the main narrative arc.
-- **Strict Rules**:
-  - **Always place Appendix slides AFTER the Thank You slide** (e.g., in a trailing `99_appendix/` subdirectory after `98_closing/02_thank_you.md`).
-  - During live presentation delivery, the speaker stops on the Thank You slide and only advances into the Appendix when specific questions arise during Q&A.
+1. **`01_section.md` — Closing Section Header (No Topic List on Right)**:
+   - Call `draw_section_header(..., topics=(), total_sections=0, section_label="CLOSING", badge_text="Summary & Wrap-Up")`.
+   - Omit `topics` (`topics=()`) so no topic summary cards are drawn on the right panel—only the section title and subtitle are cleanly centered to signal the transition from the last chapter to the overall wrap-up.
+2. **`02_summary.md` — Overall Summary / Key Takeaways Slide (Include Whenever Possible)**:
+   - Consolidate the presentation's narrative into 3–4 memorable conclusions, architectural golden rules, or quantitative outcomes using `smartarts.KpiCards`, `smartarts.CardList`, `smartarts.GridLayout`, or `smartarts.Panel` with Phosphor icons.
+3. **`03_thank_you.md` — Final "Thank You" Slide (Message Only)**:
+   - Always conclude the main presentation with a dedicated, **message-only Thank You slide**.
+   - **Do NOT repeat bullet lists, architecture diagrams, or KPI cards on the Thank You slide** (which makes it look like a duplicate Summary slide). Display only a bold **"Thank You!"** headline, **"Questions & Discussion"** prompt, and optional subtitle/repository link on a clean centered or full-bleed stage.
+4. **`99_appendix/` — Optional Appendix Slides (Always After "Thank You")**:
+   - Place any backup deep-dive slides, raw configuration tables, or Q&A reference diagrams **after** the Thank You slide (optionally starting with a `topics=()` Section Header for `"Appendix"`).
+   - During live delivery, stop on the Thank You slide and advance into the Appendix only when asked during Q&A.
 
 ---
 
@@ -305,7 +302,7 @@ Always calibrate `text_size` according to the enclosing **`::: block` width ($W_
 | **Text vs. Notes** | Writing long paragraphs or 6–8 verbose bullets inside `::: block` | Keep `::: block` to **3–4 short 1-line phrases**; put all deep explanations in **`::: note`** |
 | **Cover Slide** | Starting problem statements, bullet lists, or page numbers on `01_title.md` | Keep `01_title.md` strictly to **Title, Subtitle, Speaker/Date, and Hero Visual** (no header/page #) |
 | **Navigation** | Jumping straight from Cover into technical details without a roadmap | Place an **Agenda slide (`02_agenda.md`)** and insert **Section Dividers (`01_section.md`)** between chapters |
-| **Closing & Appendix** | Ending abruptly on a dense content slide, or placing Appendix slides before Thank You | Include a **Summary / Takeaways slide** when possible, end the main deck with a **Thank You slide**, and place any **Appendix slides after Thank You** |
+| **Closing & Appendix** | Putting Summary inside the last chapter, cramming KPIs/bullets onto the Thank You slide, or placing Appendix before Thank You | Create a **Closing section** (`01_section.md` with `topics=()` -> `02_summary.md` -> **message-only `03_thank_you.md`**) and place any **Appendix (`99_appendix/`) after Thank You** |
 | **Non-Slide Files**| Leaving `PLANNING.md` or `notes.md` unprefixed in `slide_src/` so they compile as slides | Prefix non-slide files/folders with **`_`** (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`) |
 | **Diagrams** | Drawing every slide with primitive `rectangle()` + `line()` boxes | Use **`SmartArts`**, **`Diagrams`**, **`Graphs`**, **`Charts`**, **`utils.py` helpers**, and **`phosphor`/`gcp` icons** |
 | **Layout Rhythm** | Using identical Left-Text / Right-Diagram split on all 15+ slides | Alternate among **2-Column Split**, **Top-Bottom Wide Split**, **Full-Stage Visual**, and **KPI + Chart** layouts |

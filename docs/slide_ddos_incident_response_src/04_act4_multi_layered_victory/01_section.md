@@ -9,7 +9,7 @@ utils.draw_chapter_divider(
     topics=[
         "Cloudflare Pro Migration & Sub-Threshold Bot Leak (25%)",
         "Traffic Forensics: Cloud VMs vs. Home Residential Proxies",
-        "5-Layer Defense Architecture, AI Bot Profile & SRE Rules",
+        "5-Layer Defense Architecture, WAF Rules & AI Bot Profile",
     ],
     total_chapters=4,
 )
