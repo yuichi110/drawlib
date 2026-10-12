@@ -65,6 +65,8 @@ save()
 - **`cylinder`**: 3D shaded storage cylinders and multi-disk database stacks.
 - **`face`**: Expressive user/actor personas and operational status faces.
 - **`bubblespeech`**: Callout speech bubbles with directional pointer tails.
+- **`cloud`**: Cloud nodes and VPC/SaaS boundary enclosures (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`).
+- **`brace`**: Grouping brackets and braces (`{`, `}`, `[`, `]`, `(`, `)`) in 4 directions (`"left"`, `"right"`, `"top"`, `"bottom"`).
 
 ---
 
@@ -281,5 +283,111 @@ save()
 
 
 
+---
+
+## 5. Cloud Nodes & Boundaries (`cloud`)
+
+`cloud` renders a smooth cubic-Bézier cloud silhouette scaled to fit its exact `(width, height)` bounding box centered at `xy`:
+
+```python
+cloud(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    variant: Literal["standard", "flat", "flat_bottom", "fluffy", "dense", "simple", "minimal"] = "standard",
+    bump_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the cloud bounding box. |
+| `width` / `height` | `float` | *Required* | Exact outer horizontal width and vertical height (`> 0`). |
+| `variant` | `CloudVariant` | `"standard"` | `"standard"` (8-bump natural cloud), `"flat"` / `"flat_bottom"` (flat base + upper domes), `"fluffy"` / `"dense"` (12-bump boundary), or `"simple"` / `"minimal"` (6-bump compact icon). |
+| `bump_ratio` | `float \| None` | `None` | Outward bulge depth ratio in `(0.0, 1.0)`. Defaults to variant-specific optimum when `None`. |
+| `style` / `text` / `text_style` | `Style` / `str` / `Style \| None` | *Required* | Fill/stroke style (including `Dashed` for VPC/SaaS boundaries and `angle` for rotation) and centered label. |
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import brace, cloud, rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=126, height=54)
+
+# 1. Four Cloud Variants on the left & center
+variants = [
+    ("standard", (22, 38), Styles.PrimaryFlat, Styles.WhiteBold.patch(text_size=10.5)),
+    ("flat", (58, 38), Styles.PrimaryNeutral, Styles.DarkBold.patch(text_size=10.5)),
+    ("fluffy", (22, 15), Styles.SecondaryNeutral.patch(shape_line_style="dashed"), Styles.DarkBold.patch(text_size=10.5)),
+    ("simple", (58, 15), Styles.Neutral, Styles.DarkBold.patch(text_size=10.5)),
+]
+for v_name, pos, st, tst in variants:
+    cloud(pos, width=30, height=18, variant=v_name, style=st, text=v_name, text_style=tst)
+
+# 2. Stacked microservice tiers grouped by a right-pointing curly brace
+for idx, label in enumerate(("Web Tier", "App Tier", "DB Tier")):
+    cy = 40 - idx * 13
+    rectangle((91, cy), width=22, height=9.5, style=Styles.Neutral.patch(shape_r=2), text=label, text_style=Styles.DarkBold.patch(text_size=10.0))
+
+brace(
+    (106.5, 27),
+    width=5.5,
+    height=36,
+    symbol="}",
+    tip_ratio=0.50,
+    style=Styles.PrimaryBold.patch(line_width=2.5),
+)
+text((111, 27), "VPC\nStack", style=Styles.PrimaryBold.patch(text_size=10.5, halign="left"))
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_domain_images/shapes_domain_cloud_and_brace.png" alt="shapes_domain_5" />
+  <figcaption class="drawlib-caption">Cloud Variants and Grouping Braces in drawlib.shapes</figcaption>
+</figure>
+
+
+
+---
+
+## 6. Grouping Braces & Brackets (`brace`)
+
+`brace` renders a curly (`{`, `}`), square (`[`, `]`), or round (`(`, `)`) grouping bracket in any of four directions (`"left"`, `"right"`, `"top"`, `"bottom"`), with stroke thickness controlled via `style.line_width`:
+
+```python
+brace(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    symbol: Literal["{", "}", "{}", "curly", "[", "]", "[]", "square", "(", ")", "()", "round"] = "{",
+    direction: Literal["left", "right", "top", "bottom"] | None = None,
+    tip_ratio: float | None = None,
+    tip_position_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+)
+```
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the brace bounding box. |
+| `width` / `height` | `float` | *Required* | Horizontal width and vertical height (`> 0`). |
+| `symbol` | `BraceSymbol` | `"{"` | Bracket family: curly (`"{"`, `"}"`, `"curly"`), square (`"["`, `"]"`, `"square"`), or round (`"("`, `")"`, `"round"`). |
+| `direction` | `BraceDirection \| None` | `None` | Outward pointing direction (`"left"`, `"right"`, `"top"`, `"bottom"`). Auto-inferred from `symbol` when `None` (`"}"`/`"]"`/`")"` $\rightarrow$ `"right"`, others $\rightarrow$ `"left"`). |
+| `tip_ratio` | `float \| None` | `None` | Center tip depth ratio in `(0.0, 1.0)` for curly braces (defaults to `0.50`). |
+| `tip_position_ratio` | `float \| None` | `None` | Center tip position along the span in `(0.0, 1.0)` for asymmetric curly braces (defaults to `0.50`). |
+| `style` | `Style` | *Required* | Stroke style (`line_width` or `shape_line_width` controls thickness; `shape_r` rounds `"square"` bracket corners). |
+
 > [!TIP]
 > For embedding syntax-highlighted source code blocks alongside callouts, see **[SourceCode](../03_smartarts/source_code.md)**.
+

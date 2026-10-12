@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 26 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 28 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -23,6 +23,8 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [2.6 `arc`](#26-arc)
   - [2.7 `cylinder`](#27-cylinder)
   - [2.8 `face`](#28-face)
+  - [2.9 `cloud`](#29-cloud)
+  - [2.10 `brace`](#210-brace)
 - [3. Polygon & Planar Geometric Primitives](#3-polygon--planar-geometric-primitives)
   - [3.1 `rectangle`](#31-rectangle)
   - [3.2 `parallelogram`](#32-parallelogram)
@@ -60,7 +62,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 26 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 28 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -70,9 +72,11 @@ from drawlib.shapes import (
     arrow_l,
     arrow_polyline,
     arrow_u,
+    brace,
     bubblespeech,
     chevron,
     circle,
+    cloud,
     cylinder,
     donuts,
     ellipse,
@@ -125,7 +129,7 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `math_symbol`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `cloud`, `brace`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `gear`, `math_symbol`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
    - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
@@ -760,6 +764,78 @@ face((80, 22.5), radius=10, style=Styles.WarningNeutral, mood="sad")
 face((105, 22.5), radius=10, style=Styles.DangerNeutral, mood="angry")
 save()
 ```
+
+---
+
+### 2.9 `cloud`
+
+Draws a smooth cubic-Bézier cloud silhouette scaled to fit its exact `(width, height)` bounding box centered at `xy`, suitable for cloud services, external internet nodes, and large VPC/SaaS boundary enclosures.
+
+#### Signature
+```python
+def cloud(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    variant: Literal["standard", "flat", "flat_bottom", "fluffy", "dense", "simple", "minimal"] = "standard",
+    bump_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the cloud bounding box. |
+| `width` | `float` | *Required* | Outer horizontal width of the cloud ($> 0$). |
+| `height` | `float` | *Required* | Outer vertical height of the cloud ($> 0$). |
+| `variant` | `str` | `"standard"` | Cloud silhouette style: `"standard"` (8-bump natural cloud), `"flat"` / `"flat_bottom"` (flat base + upper domes), `"fluffy"` / `"dense"` (12-bump boundary), or `"simple"` / `"minimal"` (6-bump compact icon). |
+| `bump_ratio` | `float \| None` | `None` | Outward bulge depth ratio in `(0.0, 1.0)`. Defaults to variant-specific optimum when `None`. |
+| `style` | `Style` | *Required* | Shape fill and stroke style (supports `Dashed` for boundaries and `angle` for rotation). |
+| `text` | `str` | `""` | Centered text label. |
+| `text_style` | `Style \| None` | `None` | Text formatting style. |
+
+---
+
+### 2.10 `brace`
+
+Draws a curly (`{`, `}`), square (`[`, `]`), or round (`(`, `)`) grouping bracket in any of four directions (`"left"`, `"right"`, `"top"`, `"bottom"`), with stroke thickness controlled via `style.line_width`.
+
+#### Signature
+```python
+def brace(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    symbol: Literal["{", "}", "{}", "curly", "[", "]", "[]", "square", "(", ")", "()", "round"] = "{",
+    direction: Literal["left", "right", "top", "bottom"] | None = None,
+    tip_ratio: float | None = None,
+    tip_position_ratio: float | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the brace bounding box. |
+| `width` | `float` | *Required* | Horizontal width ($> 0$). |
+| `height` | `float` | *Required* | Vertical height ($> 0$). |
+| `symbol` | `str` | `"{"` | Bracket family: curly (`"{"`, `"}"`, `"curly"`), square (`"["`, `"]"`, `"square"`), or round (`"("`, `")"`, `"round"`). |
+| `direction` | `str \| None` | `None` | Outward pointing direction (`"left"`, `"right"`, `"top"`, `"bottom"`). Auto-inferred from `symbol` when `None`. |
+| `tip_ratio` | `float \| None` | `None` | Center tip depth ratio in `(0.0, 1.0)` for curly braces (defaults to `0.50`). |
+| `tip_position_ratio` | `float \| None` | `None` | Center tip position along the span in `(0.0, 1.0)` for curly braces (defaults to `0.50`). |
+| `style` | `Style` | *Required* | Stroke style (`line_width` or `shape_line_width` controls thickness; `shape_r` rounds `"square"` bracket corners). |
+| `text` | `str` | `""` | Centered text label. |
+| `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 ---
 
@@ -2454,6 +2530,8 @@ save()
 | `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | Ignored | Yes | Yes | No |
 | `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | Ignored | Yes | Yes | No |
 | `face`   | Center `(x, y)` | `radius`, `mood` | Ignored | Yes | Yes | No |
+| `cloud`  | Center `(x, y)` | `width`, `height`, `variant`, `bump_ratio` | Ignored | Yes | Yes | No |
+| `brace`  | Center `(x, y)` | `width`, `height`, `symbol`, `direction` | **Yes** (scalar, `"square"`) | Yes | Yes | No |
 | `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
 | `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |
 | `rhombus` | Center `(x, y)` | `width`, `height` | **Yes** (scalar or 4-tuple) | Yes | Yes | No |

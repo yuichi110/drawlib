@@ -44,9 +44,9 @@
 | :--- | :--- | :--- | :--- | :---: |
 | **完了** | **`gear`** | `_polygon.py` | 歯車・ワーカー・自動化エンジン（1ピッチ比率、中心透過穴、円弧＆角丸対応） | **実装済** |
 | **完了 (Phase 1)** | **`math_symbol`** | `_polygon.py` | スライド・概念図の数式演算子ブロック（`+`, `-`, `×`, `÷`, `=`, `≠`） | **実装済** |
-| **Phase 2 (Tier 1)** | **`cloud`** | `_basic.py` | クラウド境界・インターネット・思考バブル（破線・任意縦横比・内部テキスト対応） | 計画中 |
+| **完了 (Phase 2)** | **`cloud`** | `_basic.py` | クラウド境界・単体ノード（4種の `variant`: `"standard"`, `"flat"`, `"fluffy"`, `"simple"` ＋ `bump_ratio`） | **実装済** |
+| **完了 (Phase 2)** | **`brace`** | `_basic.py` | 括弧図形（`{}` 中括弧 / `[]` 角括弧 / `()` 丸括弧、上下左右4方向、`tip_ratio` / `tip_position_ratio`、`style.line_width` 太さ制御） | **実装済** |
 | **Phase 2 (Tier 1)** | **`cube`** | `_basic.py` | 3D直方体・コンテナ・ノード・ブロック（`cylinder` の相棒、3面自動明度シェーディング） | 計画中 |
-| **Phase 2 (Tier 1)** | **`brace`** | `_basic.py` | 複数要素を束ねるカーリーブレース／中括弧 `{` `}`（上下左右4方向・スパイン位置調整） | 計画中 |
 | **Phase 2 (Tier 1)** | **`document`** | `_basic.py` | フローチャートの波底ドキュメント記号（`stacked: int = 1` で複数書類の重ね合わせに対応） | 計画中 |
 | **Phase 3 (Tier 2)** | **`shield`** | `_polygon.py` | セキュリティ・WAF・認証（IAM/Auth）・ガードレールの盾型プリミティブ | 検討候補 |
 | **Phase 3 (Tier 2)** | **`hexagon`** | `_polygon.py` | `width`, `height` を自由指定できる横長六角形（フローチャート準備記号・サービスバッジ） | 検討候補 |
@@ -86,18 +86,21 @@
 
 #### 3.2.1. シグネチャ & 型定義
 - **サポートする記号（`MathSymbol` 型エイリアス in `l2_types`）**:
-  - 加算（Plus）: `"+"`
-  - 減算（Minus）: `"-"`, `"−"`
-  - 乗算（Multiply）: `"*"`, `"x"`, `"×"`
-  - 除算（Divide）: `"/"`, `"÷"`
-  - 等号（Equal）: `"="`
-  - 不等号（Not Equal）: `"!="`, `"≠"`
+  - 加算（Plus）: `"+"`, `"plus"`
+  - 減算（Minus）: `"-"`, `"−"`, `"minus"`
+  - 乗算（Multiply）: `"*"`, `"x"`, `"×"`, `"multiply"`
+  - 除算（Divide）: `"/"`, `"÷"`, `"divide"`
+  - 等号（Equal）: `"="`, `"equal"`
+  - 不等号（Not Equal）: `"!="`, `"≠"`, `"not_equal"`
 
 ```python
 MathSymbol = Annotated[
     str,
     BeforeValidator(_normalize_str),
-    Literal["+", "-", "−", "*", "x", "×", "/", "÷", "=", "!=", "≠"],
+    Literal[
+        "+", "-", "−", "*", "x", "×", "/", "÷", "=", "!=", "≠",
+        "plus", "minus", "multiply", "divide", "equal", "not_equal",
+    ],
 ]
 
 @validate_call
@@ -147,26 +150,101 @@ def math_symbol(
 
 ---
 
-### 3.3. `cloud`（クラウド / 雲形）— 【Phase 2】
-- **シグネチャ案**:
-  ```python
-  def cloud(
-      xy: Coordinate,
-      width: PosFloat,
-      height: PosFloat,
-      *,
-      style: Style,
-      text: str = "",
-      text_style: Style | None = None,
-  ) -> None:
-  ```
-- **設計ポイント**:
-  - 正規化された `[-0.5, 0.5] × [-0.5, 0.5]` 空間でバランス良く配置された複数の3次ベジェ曲線（モコモコした6〜8個のバンプ）を `(width, height)` にスケーリング＆ `style.angle` 回転して単一の閉じた `PathPatch` として描画。
-  - 塗りつぶしだけでなく、`Styles.PrimaryDashed` 等による「クラウド境界枠（VPC / Internet 境界）」としても美しく見える外周シルエットにする。
+### 3.3. `cloud`（クラウド / 雲形）— 【Phase 2：複数バリエーション＆モコモコ比率対応】
+
+クラウド図形は「単体ノード（アイコン・カード風）」として使う場合と「複数要素を囲む大きなネットワーク境界枠」として使う場合で最適なシルエットが異なるため、**4種類の `variant`** と **`bump_ratio`（モコモコの深さ比率）** を提供する。
+
+#### 3.3.1. シグネチャ & 型定義
+```python
+CloudVariant = Annotated[
+    str,
+    BeforeValidator(_normalize_str),
+    Literal["standard", "flat", "flat_bottom", "fluffy", "dense", "simple", "minimal"],
+]
+
+@validate_call
+def cloud(
+    self,
+    xy: Coordinate,
+    width: PosFloat,
+    height: PosFloat,
+    *,
+    variant: CloudVariant = "standard",
+    bump_ratio: Ratio | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+```
+
+#### 3.3.2. `variant` と `bump_ratio` の仕様
+| `variant` 値 | シルエットの特徴 | 主な用途 |
+| :--- | :--- | :--- |
+| **`"standard"`** *(デフォルト)* | 全周 8 個前後の大小バンプを持つバランスの良い王道クラウド | 汎用（Internet ノード、中規模の境界囲み） |
+| **`"flat"`** (`"flat_bottom"`) | **底面が水平（フラット）**で、上部に3〜4個のドームが並ぶモダン形状 | 単体ノード・カード代替（内部にテキストやアイコンを置いたときの安定感・接地感が抜群） |
+| **`"fluffy"`** (`"dense"`) | 全周 12 個前後の**細かいふくらみ**が連続する雲 | 大きな VPC / WAN / Public Cloud 領域を破線で囲む境界ボックス（大きく引き伸ばしても間延びしない） |
+| **`"simple"`** (`"minimal"`) | 6 個の大きな弧だけで構成されたシンプル・対称寄りの雲 | 小さいサイズで配置するバッジや思考バブル |
+
+- **`bump_ratio: Ratio | None = None`**:
+  - 短辺 `min(width, height)` に対する「外周バンプ（ふくらみ・谷の切れ込み）の深さ」の比率（`None` 時は各 `variant` の最適デフォルト値 `0.20` 前後を適用）。
+  - 小さくすると「浅く落ち着いた雲」、大きくすると「モコモコ感が強調された雲」になる。
 
 ---
 
-### 3.4. `cube`（3Dキューブ / 直方体）— 【Phase 2】
+### 3.4. `brace`（括弧図形：`{}` `[]` `()` ＋ `{` の尖り Ratio 制御）— 【Phase 2】
+
+中括弧 `{}`・角括弧 `[]`・丸括弧 `()` の3種類と上下左右4方向に対応し、線の太さ・色・線種は `style`（`style.line_width` / `style.line_color` / `style.line_style`、または `shape_line_*` フォールバック）で直感的に調整できる設計とする。`{}` では尖り具合（`tip_ratio`）と尖り位置（`tip_position_ratio`）を柔軟に制御でき、`[]` では `style.shape_r` による角丸にも対応する。
+
+#### 3.4.1. シグネチャ & 型定義
+```python
+BraceSymbol = Annotated[
+    str,
+    BeforeValidator(_normalize_str),
+    Literal[
+        "{", "}", "{}", "curly",
+        "[", "]", "[]", "square",
+        "(", ")", "()", "round",
+    ],
+]
+
+BraceDirection = Annotated[
+    str,
+    BeforeValidator(_normalize_str),
+    Literal["left", "right", "top", "bottom"],
+]
+
+@validate_call
+def brace(
+    self,
+    xy: Coordinate,
+    width: PosFloat,
+    height: PosFloat,
+    *,
+    symbol: BraceSymbol = "{",
+    direction: BraceDirection | None = None,
+    tip_ratio: Ratio | None = None,
+    tip_position_ratio: Ratio | None = None,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+```
+
+#### 3.4.2. パラメーター仕様
+| 引数名 | 型 | デフォルト | 説明 |
+| :--- | :--- | :--- | :--- |
+| `xy` | `Coordinate` | *必須* | 中心座標 `(cx, cy)`（Center-Anchored）。 |
+| `width` / `height` | `PosFloat` | *必須* | 括弧全体のバウンディングボックスの幅・高さ。 |
+| `symbol` | `BraceSymbol` | `"{"` | 括弧の種類：中括弧 (`"{"`, `"}"`, `"{}"`, `"curly"`)、角括弧 (`"["`, `"]"`, `"[]"`, `"square"`)、丸括弧 (`"("`, `")"`, `"()"`, `"round"`)。 |
+| `direction` | `BraceDirection \| None` | `None` | 括弧を配置する側（尖り・背が向く方向）：`"left"`, `"right"`, `"top"`, `"bottom"`。`None` の場合、`"{"`/`"["`/`"("` は `"left"`（左側に置く括弧）、`"}"`/`"]"`/`")"` は `"right"`（右側に置く括弧）を自動選択。 |
+| `tip_ratio` | `Ratio \| None` | `None` | **`{}` 専用**：奥行き（横向き配置なら `width`、上下配置なら `height`）のうち、**中央の尖り（突起 / Tip）が前に突き出る比率**（`None` 時は `0.50`）。大きくすると鋭く長く突き出し、小さくすると控えめな突起になる。 |
+| `tip_position_ratio` | `Ratio \| None` | `None` | **`{}` 専用**：スパン方向における**中央の尖りの位置比率**（`None` 時は `0.50`＝中央）。`0.25` や `0.75` にすると非対称な中括弧になる。 |
+| `style` | `Style` | *必須* | 線の太さ（`line_width` / `shape_line_width`）・色（`line_color` / `shape_line_color`）・線種（`line_style` / `shape_line_style`）・回転角（`angle`）・角丸（`shape_r`：`[]` のコーナー半径）スタイル。 |
+| `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | テキストとテキストスタイル。 |
+
+---
+
+### 3.5. `cube`（3Dキューブ / 直方体）— 【Phase 2】
 - **シグネチャ案**:
   ```python
   def cube(
@@ -184,27 +262,6 @@ def math_symbol(
 - **設計ポイント**:
   - 既存の [`cylinder`](file:///usr/local/google/home/yuichiito/git_github/drawlib/src/drawlib/_core/l4_canvas/_shapes/_basic.py#L672-L887) と同じ思想で、`style.shape_fill_color` から **前面（ベース色）・上面（+25% 明度）・右側面（-18% 暗度）** を自動算出。
   - `text` は前面（フロントフェイス）の中央に自動配置することで、立体感を損なわずにラベルを表示できる。
-
----
-
-### 3.5. `brace`（中括弧 `{` `}`）— 【Phase 2】
-- **シグネチャ案**:
-  ```python
-  def brace(
-      xy: Coordinate,
-      width: PosFloat,
-      height: PosFloat,
-      *,
-      direction: Literal["right", "left", "up", "down"] = "right",
-      tip_ratio: Ratio = 0.5,
-      style: Style,
-      text: str = "",
-      text_style: Style | None = None,
-  ) -> None:
-  ```
-- **設計ポイント**:
-  - `direction` でティップ（尖った中央の突起）が向く方向を指定し、`tip_ratio`（デフォルト `0.5`）で突起の位置を非対称にもずらせる設計。
-  - 滑らかなS字ベジェ曲線で構成され、`text` を指定した場合はティップの外側にラベルを配置可能にする。
 
 ---
 

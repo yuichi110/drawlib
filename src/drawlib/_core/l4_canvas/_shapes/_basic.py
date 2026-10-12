@@ -10,6 +10,7 @@
 """Canvas basic shapes and matplotlib patches feature implementation module."""
 
 import math
+from typing import Any
 
 from matplotlib.patches import (
     Arc,
@@ -25,6 +26,9 @@ from pydantic import validate_call
 
 from drawlib._core.l2_types import (
     Angle,
+    BraceDirection,
+    BraceSymbol,
+    CloudVariant,
     Coordinate,
     Coordinates,
     FaceMood,
@@ -32,6 +36,7 @@ from drawlib._core.l2_types import (
     PathPoints,
     PosFloat,
     PosInt,
+    Ratio,
     Size,
 )
 from drawlib._core.l3_colors import ColorUtil
@@ -971,6 +976,148 @@ class CanvasShapeBasicFeature(CanvasBase):
                 )
             )
 
+    @validate_call
+    def cloud(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        variant: CloudVariant = "standard",
+        bump_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a cloud shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the cloud bounding box.
+            height: Height of the cloud bounding box.
+            variant: Cloud silhouette variant ("standard", "flat", "fluffy", "simple").
+            bump_ratio: Optional bulge depth ratio in (0.0, 1.0).
+            style: Style object (required).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+
+        Raises:
+            ValueError: If width, height, or bump_ratio are out of valid bounds.
+        """
+        style, text_style = ShapeUtil.format_styles(style, text_style)
+        if width <= 0.0 or height <= 0.0:
+            raise ValueError("width and height must be positive.")
+        if bump_ratio is not None and not (0.0 < bump_ratio < 1.0):
+            raise ValueError("bump_ratio must be strictly between 0.0 and 1.0.")
+
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+
+        path = _build_cloud_path(
+            xy=xy,
+            width=width,
+            height=height,
+            variant=variant,
+            bump_ratio=bump_ratio,
+            angle=angle,
+        )
+        options = ShapeUtil.get_shape_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def brace(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        symbol: BraceSymbol = "{",
+        direction: BraceDirection | None = None,
+        tip_ratio: Ratio | None = None,
+        tip_position_ratio: Ratio | None = None,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a curly, square, or round brace shape on the canvas.
+
+        Args:
+            xy: Center coordinates tuple (x, y).
+            width: Width of the brace bounding box.
+            height: Height of the brace bounding box.
+            symbol: Brace symbol ("{", "}", "{}", "curly", "[", "]", "[]", "square", "(", ")", "()", "round").
+            direction: Orientation direction ("left", "right", "top", "bottom") or None.
+            tip_ratio: Optional center tip depth ratio in (0.0, 1.0) for curly braces.
+            tip_position_ratio: Optional center tip span position ratio in (0.0, 1.0) for curly braces.
+            style: Style object (controls line_width, line_color, line_style, shape_r, and angle).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+
+        Raises:
+            ValueError: If width, height, tip_ratio, or tip_position_ratio are out of valid bounds.
+        """
+        style, text_style = _format_brace_styles(style, text_style)
+        if width <= 0.0 or height <= 0.0:
+            raise ValueError("width and height must be positive.")
+        if tip_ratio is not None and not (0.0 < tip_ratio < 1.0):
+            raise ValueError("tip_ratio must be strictly between 0.0 and 1.0.")
+        if tip_position_ratio is not None and not (0.0 < tip_position_ratio < 1.0):
+            raise ValueError("tip_position_ratio must be strictly between 0.0 and 1.0.")
+
+        angle: Angle = style.angle if style.angle is not None else 0.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+
+        shape_r_scalar = style.shape_r if isinstance(style.shape_r, (int, float)) else None
+        path = _build_brace_path(
+            xy=xy,
+            width=width,
+            height=height,
+            symbol=symbol,
+            direction=direction,
+            tip_ratio=tip_ratio,
+            tip_position_ratio=tip_position_ratio,
+            shape_r=shape_r_scalar,
+            angle=angle,
+        )
+        options = _get_brace_stroke_options(style)
+        self._artists.append(PathPatch(path=path, **options))
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
 
 def _get_face_colors(
     style: Style,
@@ -1180,6 +1327,368 @@ def _build_face_feature_patches(
         )
     )
     return patches
+
+
+def _arc_bezier_between(
+    p0: tuple[float, float],
+    p1: tuple[float, float],
+    sagitta_ratio: float,
+) -> list[tuple[tuple[float, float], Any]]:
+    """Build circular arc cubic Bezier segments from p0 to p1 bulging outward (CCW)."""
+    dx = p1[0] - p0[0]
+    dy = p1[1] - p0[1]
+    chord = math.hypot(dx, dy)
+    if chord < 1e-9 or sagitta_ratio <= 1e-4:
+        return [(p1, Path.LINETO)]
+
+    nx = dy / chord
+    ny = -dx / chord
+    h = sagitta_ratio * chord
+    r = (chord * chord) / (8.0 * h) + (h / 2.0)
+    theta = 4.0 * math.atan((2.0 * h) / chord)
+
+    mx = 0.5 * (p0[0] + p1[0])
+    my = 0.5 * (p0[1] + p1[1])
+    cx = mx + (h - r) * nx
+    cy = my + (h - r) * ny
+
+    angle_peak = math.atan2(ny, nx)
+    a0 = angle_peak - 0.5 * theta
+    a1 = angle_peak + 0.5 * theta
+
+    num_seg = 1 if theta <= (math.pi * 0.55) else 2
+    d_theta = (a1 - a0) / num_seg
+    k = (4.0 / 3.0) * math.tan(d_theta / 4.0)
+
+    segments: list[tuple[tuple[float, float], Any]] = []
+    for i in range(num_seg):
+        t0 = a0 + i * d_theta
+        t1 = t0 + d_theta
+        x0_s, y0_s = cx + r * math.cos(t0), cy + r * math.sin(t0)
+        x1_s, y1_s = cx + r * math.cos(t1), cy + r * math.sin(t1)
+        cp1 = (x0_s - k * r * math.sin(t0), y0_s + k * r * math.cos(t0))
+        cp2 = (x1_s + k * r * math.sin(t1), y1_s - k * r * math.cos(t1))
+        segments.extend([(cp1, Path.CURVE4), (cp2, Path.CURVE4), ((x1_s, y1_s), Path.CURVE4)])
+    return segments
+
+
+def _get_cloud_valleys_and_sagittas(
+    variant: str,
+    bump_ratio: float | None,
+) -> tuple[list[tuple[float, float]], list[float]]:
+    """Return valley coordinates and sagitta ratios for the selected cloud variant."""
+    if variant in ("flat", "flat_bottom"):
+        br = 0.24 if bump_ratio is None else bump_ratio
+        scale_b = br / 0.24
+        valleys = [
+            (-0.34, -0.38),
+            (0.36, -0.38),
+            (0.32, 0.06),
+            (0.02, 0.24),
+            (-0.28, 0.12),
+        ]
+        sagittas = [0.0, 0.40 * scale_b, 0.42 * scale_b, 0.46 * scale_b, 0.40 * scale_b]
+        return valleys, sagittas
+
+    if variant in ("fluffy", "dense"):
+        br = 0.20 if bump_ratio is None else bump_ratio
+        scale_b = br / 0.20
+        angles_deg = [-150, -120, -90, -60, -30, 0, 30, 62, 92, 122, 150, 180]
+        radii_scale = [0.96, 0.94, 0.95, 0.94, 0.96, 0.98, 0.95, 0.98, 0.96, 0.95, 0.97, 0.96]
+        valleys = [
+            (0.38 * s * math.cos(math.radians(a)), 0.36 * s * math.sin(math.radians(a)))
+            for a, s in zip(angles_deg, radii_scale, strict=True)
+        ]
+        return valleys, [0.38 * scale_b] * len(valleys)
+
+    if variant in ("simple", "minimal"):
+        br = 0.24 if bump_ratio is None else bump_ratio
+        scale_b = br / 0.24
+        angles_deg = [-145, -90, -35, 35, 90, 145]
+        valleys = [
+            (0.35 * math.cos(math.radians(a)), 0.32 * math.sin(math.radians(a)))
+            for a in angles_deg
+        ]
+        sagittas = [0.36 * scale_b, 0.36 * scale_b, 0.42 * scale_b, 0.38 * scale_b, 0.38 * scale_b, 0.42 * scale_b]
+        return valleys, sagittas
+
+    br = 0.22 if bump_ratio is None else bump_ratio
+    scale_b = br / 0.22
+    angles_deg = [-148, -108, -68, -26, 22, 68, 118, 156]
+    radii_scale = [0.95, 0.92, 0.92, 0.95, 0.96, 0.98, 0.96, 0.95]
+    valleys = [
+        (0.37 * s * math.cos(math.radians(a)), 0.34 * s * math.sin(math.radians(a)))
+        for a, s in zip(angles_deg, radii_scale, strict=True)
+    ]
+    sagittas = [
+        0.34 * scale_b,
+        0.32 * scale_b,
+        0.34 * scale_b,
+        0.42 * scale_b,
+        0.40 * scale_b,
+        0.45 * scale_b,
+        0.38 * scale_b,
+        0.42 * scale_b,
+    ]
+    return valleys, sagittas
+
+
+def _build_cloud_path(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    variant: str,
+    bump_ratio: float | None,
+    angle: float,
+) -> Path:
+    """Build normalized and rotated cloud Path for the given variant and bump_ratio."""
+    valleys, sagittas = _get_cloud_valleys_and_sagittas(variant, bump_ratio)
+    raw_verts: list[tuple[float, float]] = [valleys[0]]
+    codes: list[Any] = [Path.MOVETO]
+
+    n = len(valleys)
+    for i in range(n):
+        segs = _arc_bezier_between(valleys[i], valleys[(i + 1) % n], max(0.0, sagittas[i]))
+        for pt, code in segs:
+            raw_verts.append(pt)
+            codes.append(code)
+
+    min_x = min(p[0] for p in raw_verts)
+    max_x = max(p[0] for p in raw_verts)
+    min_y = min(p[1] for p in raw_verts)
+    max_y = max(p[1] for p in raw_verts)
+    span_x = max(max_x - min_x, 1e-6)
+    span_y = max(max_y - min_y, 1e-6)
+    cx_norm = 0.5 * (min_x + max_x)
+    cy_norm = 0.5 * (min_y + max_y)
+
+    rad = math.radians(angle)
+    cos_a = math.cos(rad)
+    sin_a = math.sin(rad)
+
+    scaled_verts: list[tuple[float, float]] = []
+    for vx, vy in raw_verts:
+        lx = ((vx - cx_norm) / span_x) * width
+        ly = ((vy - cy_norm) / span_y) * height
+        rx = xy[0] + lx * cos_a - ly * sin_a
+        ry = xy[1] + lx * sin_a + ly * cos_a
+        scaled_verts.append((rx, ry))
+
+    scaled_verts.append((0.0, 0.0))
+    codes.append(Path.CLOSEPOLY)
+    return Path(scaled_verts, codes)
+
+
+def _format_brace_styles(
+    style: Style,
+    text_style: Style | None = None,
+) -> tuple[Style, Style | None]:
+    """Validate and return style (supporting 'line' or 'shape') and optional text_style."""
+    if not isinstance(style, Style):
+        raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
+    if "line" not in style.supports and "shape" not in style.supports:
+        style.validate_for("line")
+    if text_style is not None:
+        if not isinstance(text_style, Style):
+            raise TypeError(f'Arg "text_style" must be Style, but {type(text_style)} given.')
+        text_style.validate_for("text")
+    return style, text_style
+
+
+def _get_brace_stroke_options(style: Style) -> dict[str, Any]:
+    """Extract Matplotlib PathPatch stroke options from Style for brace rendering."""
+    lw = style.line_width
+    if lw is None:
+        lw = style.shape_line_width if (style.shape_line_width or 0.0) > 0.0 else 1.5
+
+    col = style.line_color
+    if col is None:
+        col = (
+            style.shape_line_color
+            if (style.shape_line_width or 0.0) > 0.0 and style.shape_line_color is not None
+            else style.shape_fill_color
+        )
+    rgba = ColorUtil.get_mplot_rgba(col) if col is not None else (0.0, 0.0, 0.0, 1.0)
+    ls = style.line_style if style.line_style is not None else (style.shape_line_style or "solid")
+
+    options: dict[str, Any] = {
+        "facecolor": "none",
+        "edgecolor": rgba,
+        "linewidth": lw,
+        "linestyle": ls,
+        "capstyle": "round",
+        "joinstyle": "round",
+    }
+    if style.alpha is not None:
+        options["alpha"] = style.alpha
+    return options
+
+
+def _build_square_brace_local(
+    hd: float,
+    hs: float,
+    depth: float,
+    span: float,
+    shape_r: float | None,
+) -> tuple[list[tuple[float, float]], list[Any]]:
+    """Build local canonical 'left' vertices and Path codes for square bracket '['."""
+    r = 0.0 if shape_r is None else min(float(shape_r), depth * 0.9, span * 0.45)
+    if r <= 1e-6:
+        verts = [(hd, hs), (-hd, hs), (-hd, -hs), (hd, -hs)]
+        codes: list[Any] = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO]
+        return verts, codes
+
+    k = 0.5522847498307936
+    verts = [
+        (hd, hs),
+        (-hd + r, hs),
+        (-hd + r * (1.0 - k), hs),
+        (-hd, hs - r * (1.0 - k)),
+        (-hd, hs - r),
+        (-hd, -hs + r),
+        (-hd, -hs + r * (1.0 - k)),
+        (-hd + r * (1.0 - k), -hs),
+        (-hd + r, -hs),
+        (hd, -hs),
+    ]
+    codes = [
+        Path.MOVETO,
+        Path.LINETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.LINETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.LINETO,
+    ]
+    return verts, codes
+
+
+def _build_curly_brace_local(
+    hd: float,
+    hs: float,
+    depth: float,
+    span: float,
+    tip_ratio: float | None,
+    tip_position_ratio: float | None,
+) -> tuple[list[tuple[float, float]], list[Any]]:
+    """Build local canonical 'left' vertices and Path codes for curly brace '{'."""
+    tip_r = 0.50 if tip_ratio is None else tip_ratio
+    pos_r = 0.50 if tip_position_ratio is None else tip_position_ratio
+
+    tip_depth = tip_r * depth
+    hook_depth = (1.0 - tip_r) * depth
+    x_spine = -hd + tip_depth
+
+    r_hook = min(max(hook_depth, depth * 0.15), span * 0.14)
+    h_tip = min(max(tip_depth * 0.95, depth * 0.20), span * 0.16)
+
+    y_tip = (pos_r - 0.5) * span
+    y_tip = max(-hs + r_hook + h_tip, min(hs - r_hook - h_tip, y_tip))
+
+    k = 0.5522847498307936
+    verts = [
+        (hd, hs),
+        (x_spine + hook_depth * (1.0 - k), hs),
+        (x_spine, hs - r_hook * (1.0 - k)),
+        (x_spine, hs - r_hook),
+        (x_spine, y_tip + h_tip),
+        (x_spine, y_tip + h_tip * (1.0 - k)),
+        (-hd + tip_depth * (1.0 - k), y_tip),
+        (-hd, y_tip),
+        (-hd + tip_depth * (1.0 - k), y_tip),
+        (x_spine, y_tip - h_tip * (1.0 - k)),
+        (x_spine, y_tip - h_tip),
+        (x_spine, -hs + r_hook),
+        (x_spine, -hs + r_hook * (1.0 - k)),
+        (x_spine + hook_depth * (1.0 - k), -hs),
+        (hd, -hs),
+    ]
+    codes: list[Any] = [
+        Path.MOVETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.LINETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.LINETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+    ]
+    return verts, codes
+
+
+def _build_brace_path(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    symbol: str,
+    direction: str | None,
+    tip_ratio: float | None,
+    tip_position_ratio: float | None,
+    shape_r: float | None,
+    angle: float,
+) -> Path:
+    """Build rotated open Path for curly {}, square [], and round () braces."""
+    eff_dir = direction if direction is not None else ("right" if symbol in ("}", "]", ")") else "left")
+    is_horizontal = eff_dir in ("top", "bottom")
+    span = width if is_horizontal else height
+    depth = height if is_horizontal else width
+    hs = span / 2.0
+    hd = depth / 2.0
+
+    if symbol in ("[", "]", "[]", "square"):
+        verts, codes = _build_square_brace_local(hd, hs, depth, span, shape_r)
+    elif symbol in ("(", ")", "()", "round"):
+        k_y = hs * 0.5522847498307936
+        verts = [
+            (hd, hs),
+            (-hd * 0.25, hs),
+            (-hd, k_y),
+            (-hd, 0.0),
+            (-hd, -k_y),
+            (-hd * 0.25, -hs),
+            (hd, -hs),
+        ]
+        codes = [
+            Path.MOVETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+        ]
+    else:
+        verts, codes = _build_curly_brace_local(hd, hs, depth, span, tip_ratio, tip_position_ratio)
+
+    rad = math.radians(angle)
+    cos_a = math.cos(rad)
+    sin_a = math.sin(rad)
+
+    transformed: list[tuple[float, float]] = []
+    for lx, ly in verts:
+        if eff_dir == "left":
+            tx, ty = lx, ly
+        elif eff_dir == "right":
+            tx, ty = -lx, ly
+        elif eff_dir == "top":
+            tx, ty = ly, -lx
+        else:
+            tx, ty = ly, lx
+        rx = xy[0] + tx * cos_a - ty * sin_a
+        ry = xy[1] + tx * sin_a + ty * cos_a
+        transformed.append((rx, ry))
+
+    return Path(transformed, codes)
 
 
 __all__ = ["CanvasShapeBasicFeature"]

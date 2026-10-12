@@ -18,9 +18,10 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 
 # 3. Drawing Primitives
 from drawlib.shapes import (
-    arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, bubblespeech, chevron,
-    circle, cylinder, donuts, ellipse, face, fan, gear, math_symbol, parallelogram,
-    polygon, rectangle, regularpolygon, rhombus, shape, star, trapezoid, triangle, wedge,
+    arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, brace, bubblespeech,
+    chevron, circle, cloud, cylinder, donuts, ellipse, face, fan, gear, math_symbol,
+    parallelogram, polygon, rectangle, regularpolygon, rhombus, shape, star,
+    trapezoid, triangle, wedge,
 )
 from drawlib.lines import (
     line, line_arc, line_bezier1, line_bezier2, line_curved,
@@ -122,6 +123,8 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
 | `cylinder(xy, width, height, ...)` | `disks: int = 1` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
 | `face(xy, radius, ...)` | `mood: str = "smile"` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) centered at `xy`. |
+| `cloud(xy, width, height, ...)` | `variant: str = "standard"` (`"standard"`, `"flat"`, `"fluffy"`, `"simple"`), `bump_ratio=None` | Cloud node or VPC/SaaS boundary enclosure centered at `xy`. |
+| `brace(xy, width, height, ...)` | `symbol: str = "{"` (`"{"`, `"}"`, `"["`, `"]"`, `"("`, `")"`), `direction=None`, `tip_ratio=None`, `tip_position_ratio=None` | Curly, square, or round grouping bracket/brace (stroke thickness controlled via `style.line_width`). |
 | `ellipse(xy, width, height, ...)` | `width, height: float` | Ellipse centered at `xy`. |
 | `wedge(xy, radius, width, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Annular sector / wedge slice from `angle_start` to `angle_end`. |
 | `fan(xy, radius, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Circular pie sector from `angle_start` to `angle_end`. |

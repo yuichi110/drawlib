@@ -90,6 +90,31 @@ MathSymbol = Annotated[
     ],
     BeforeValidator(_normalize_str),
 ]
+CloudVariant = Annotated[
+    Literal["standard", "flat", "flat_bottom", "fluffy", "dense", "simple", "minimal"],
+    BeforeValidator(_normalize_str),
+]
+BraceSymbol = Annotated[
+    Literal[
+        "{",
+        "}",
+        "{}",
+        "curly",
+        "[",
+        "]",
+        "[]",
+        "square",
+        "(",
+        ")",
+        "()",
+        "round",
+    ],
+    BeforeValidator(_normalize_str),
+]
+BraceDirection = Annotated[
+    Literal["left", "right", "top", "bottom"],
+    BeforeValidator(_normalize_str),
+]
 IconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
     BeforeValidator(_normalize_str),
@@ -108,6 +133,9 @@ __all__ = [
     "Angle90",
     "ArrowHead",
     "Bend",
+    "BraceDirection",
+    "BraceSymbol",
+    "CloudVariant",
     "FaceMood",
     "HAlign",
     "IconStyle",

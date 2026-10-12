@@ -445,7 +445,9 @@ arrow_u = canvas.arrow_u
 
 # patches
 arc = canvas.arc
+brace = canvas.brace
 circle = canvas.circle
+cloud = canvas.cloud
 cylinder = canvas.cylinder
 ellipse = canvas.ellipse
 face = canvas.face
