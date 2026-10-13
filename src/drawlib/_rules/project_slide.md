@@ -398,3 +398,8 @@ uv run drawlib serve slide_html/
    - Export complex slide diagrams with `-g` to `.drawlib/scratch/preview.png` and inspect via `view_file` to ensure zero text collisions, `50%+` neutral balance, and clean perimeter margins.
 3. **Stage 3 — Full Slide Stage / PDF Verification (`view_file`)**:
    - Run `./slide_src/build.sh` and inspect `slide.pdf` (or `1920×1080` browser screenshots of `slide_html/index.html`) via `view_file` to verify that text and diagrams do not overflow or collide across `::: block` boundaries.
+4. **Parallel Multi-Agent Slide Delegation (For Multi-Slide Decks)**:
+   Because every slide in `slide_src/` is an independent Markdown file (`01_title.md`, `02_agenda.md`, `03_architecture.md`, or grouped into section directories), **distribute slide authoring across parallel subagents**:
+   - **Phase 1 (Parent)**: Scaffold `slide_src/` (`drawlib init slide`), configure `styles.py` and `utils.py`, and define the slide deck story arc and numbered filenames first.
+   - **Phase 2 (Parallel Subagents)**: Assign disjoint slide files (or section folders) to each subagent. Each subagent authors its slides (`::: block` stage + `::: note` speaker script) and runs Stage 1 & Stage 2 grid previews using **unique scratch filenames** (`-o .drawlib/scratch/<slide>_<block>_grid.png`).
+   - **Phase 3 (Parent)**: Once all subagents complete their slides, run `./slide_src/build.sh` once and inspect the compiled `slide.pdf` / `slide_html/index.html` in Stage 3.

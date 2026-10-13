@@ -214,3 +214,8 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
    - The `# Title`, lead paragraph, and **Top Hero diagram** are immediately visible above the fold without scrolling.
    - Diagram labels match the surrounding `16px` HTML body prose in visual font size.
    - Clean up `.drawlib/scratch/` when finished.
+4. **Parallel Multi-Agent Page & Section Delegation (For Multi-Page Sites)**:
+   When authoring or overhauling multiple pages across `docs_src/**/*.md`, **actively parallelize work across subagents** rather than editing every page sequentially in one context window:
+   - **Phase 1 (Parent)**: Scaffold `docs_src/` (`drawlib init site`) and finalize `styles.py`, `utils.py`, `_assets/`, `index.md`, and the complete `navbar.md` link tree first.
+   - **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g. `01_getting_started/*.md` to Subagent A, `02_architecture/*.md` to Subagent B). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned `.md` files (`2+` diagrams, Top Hero at `Lines 5–15`), and runs Stage 1 & Stage 2 using **unique scratch filenames** (`-o .drawlib/scratch/<page>_<diagram>_grid.png`).
+   - **Phase 3 (Parent)**: After all subagents report back, run `./docs_src/build.sh` once, run `uv run drawlib serve docs_html/ --check`, and perform Stage 3 `1280×920` browser verification.

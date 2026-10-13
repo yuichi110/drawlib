@@ -753,6 +753,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <p>Before deploying to production, run a headless pre-flight audit:</p>
 <pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
 </code></pre>
+<hr />
+<h2>6. Parallel Multi-Agent Site Authoring</h2>
+<p>Multi-page <code>site</code> projects (<code>docs_src/**/*.md</code>) scale naturally across parallel AI subagents:</p>
+<ol>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>docs_src/</code> (<code>drawlib init site</code>) and finalize shared files (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>index.md</code>, and the complete <code>navbar.md</code> sidebar tree) before launching subagents.</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Assign each subagent a disjoint page or section directory (e.g., <code>01_architecture/*.md</code> vs. <code>02_services/*.md</code>). Each subagent treats <code>styles.py</code>, <code>utils.py</code>, and <code>navbar.md</code> as read-only, authors its assigned pages, and runs <code>-g</code> grid previews using unique scratch filenames (<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>).</li>
+<li><strong>Phase 3 (Unified Build &amp; Link Audit)</strong>: Once all subagents finish, the parent agent runs <code>./docs_src/build.sh</code> once and verifies site-wide link integrity with <code>uv run drawlib serve docs_html/ --check</code>.</li>
+</ol>
 
             </main>
         </div>

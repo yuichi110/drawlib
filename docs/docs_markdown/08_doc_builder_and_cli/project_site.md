@@ -301,3 +301,12 @@ Before deploying to production, run a headless pre-flight audit:
 ```bash
 uv run drawlib serve docs_html/ --check
 ```
+
+---
+
+## 6. Parallel Multi-Agent Site Authoring
+
+Multi-page `site` projects (`docs_src/**/*.md`) scale naturally across parallel AI subagents:
+1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init site`) and finalize shared files (`styles.py`, `utils.py`, `_assets/`, `index.md`, and the complete `navbar.md` sidebar tree) before launching subagents.
+2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g., `01_architecture/*.md` vs. `02_services/*.md`). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned pages, and runs `-g` grid previews using unique scratch filenames (`-o .drawlib/scratch/<page>_<block>_grid.png`).
+3. **Phase 3 (Unified Build & Link Audit)**: Once all subagents finish, the parent agent runs `./docs_src/build.sh` once and verifies site-wide link integrity with `uv run drawlib serve docs_html/ --check`.

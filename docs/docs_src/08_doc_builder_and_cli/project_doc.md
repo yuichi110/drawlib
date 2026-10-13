@@ -275,3 +275,12 @@ drawlib build markdown doc_src/ -o doc_markdown/
 # 4. Extract diagram images from Markdown:
 drawlib build image doc_src/ -o doc_images/
 ```
+
+---
+
+## 7. Parallel Multi-Agent Chapter Authoring
+
+Because a `doc` project separates chapters into numbered Markdown files (`00_cover.md`, `01_overview.md`, `02_architecture.md`, `03_security.md`, etc.), AI coding agents can author multi-chapter whitepapers and specifications in parallel:
+1. **Phase 1 (Parent Setup)**: Scaffold `doc_src/` (`drawlib init doc`), finalize `styles.py`, `utils.py`, and `00_cover.md`, and establish the numbered chapter filenames.
+2. **Phase 2 (Parallel Subagents)**: Delegate individual chapters (`doc_src/0N_<topic>.md`) to parallel subagents. Each subagent authors its assigned chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and verifies its diagrams with unique grid preview paths (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
+3. **Phase 3 (Unified Compilation)**: After all subagents complete their chapters, the parent agent runs `./doc_src/build.sh` once to merge all chapters into `doc_html/index.html` and `doc.pdf`.

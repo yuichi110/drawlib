@@ -816,6 +816,14 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong><code>anim_pause=(2, 4)</code></strong>: Pauses at 0-based frame indices <code>2</code> and <code>4</code> (<code>PAUSED</code>); clicking resumes to the next step.</li>
 <li><strong>Vector PDF Export (<code>build_pdf.sh</code>)</strong>: Automatically renders Frame 0 onto the slide without the interactive play badge.</li>
 </ul>
+<hr />
+<h2>7. Parallel Multi-Agent Slide Deck Authoring</h2>
+<p>Because each slide in <code>slide_src/</code> is an isolated Markdown file (<code>01_title.md</code>, <code>02_agenda.md</code>, <code>03_arch.md</code>, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:</p>
+<ol>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>slide_src/</code> (<code>drawlib init slide</code>), configure <code>styles.py</code> and <code>utils.py</code>, and define the slide deck story arc and numbered filenames first.</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint slide files (or section directories) to parallel subagents. Each subagent authors its assigned slides (<code>::: block</code> stage layout + <code>::: note</code> speaker script) and runs <code>-g</code> grid previews using unique scratch paths (<code>-o .drawlib/scratch/&lt;slide&gt;_&lt;block&gt;_grid.png</code>).</li>
+<li><strong>Phase 3 (Unified Deck Build &amp; PDF Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> once and inspects the compiled <code>slide.pdf</code> and <code>slide_html/index.html</code>.</li>
+</ol>
 
             </main>
         </div>

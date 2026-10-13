@@ -315,3 +315,12 @@ When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams insid
 - **`anim_pause=(2, 4)`**: Pauses at 0-based frame indices `2` and `4` (`PAUSED`); clicking resumes to the next step.
 - **Vector PDF Export (`build_pdf.sh`)**: Automatically renders Frame 0 onto the slide without the interactive play badge.
 
+---
+
+## 7. Parallel Multi-Agent Slide Deck Authoring
+
+Because each slide in `slide_src/` is an isolated Markdown file (`01_title.md`, `02_agenda.md`, `03_arch.md`, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:
+1. **Phase 1 (Parent Setup)**: Scaffold `slide_src/` (`drawlib init slide`), configure `styles.py` and `utils.py`, and define the slide deck story arc and numbered filenames first.
+2. **Phase 2 (Parallel Subagents)**: Delegate disjoint slide files (or section directories) to parallel subagents. Each subagent authors its assigned slides (`::: block` stage layout + `::: note` speaker script) and runs `-g` grid previews using unique scratch paths (`-o .drawlib/scratch/<slide>_<block>_grid.png`).
+3. **Phase 3 (Unified Deck Build & PDF Review)**: After all subagents complete their slides, the parent agent runs `./slide_src/build.sh` once and inspects the compiled `slide.pdf` and `slide_html/index.html`.
+

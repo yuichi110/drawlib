@@ -41,6 +41,11 @@ Traditional technical documentation suffers from severe tool fragmentation:
    - **50%+ Neutral Baseline**: Ground at least 50% of shapes in calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`). Never produce rainbow diagrams.
    - **Reserved Saturated Fills**: Use `Styles.PrimaryFlat` or `Styles.AccentFlat` strictly for 1–2 primary focal points.
    - **PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles` (never lowercase `styles` or `colors`).
+5. **Parallel Multi-Agent Delegation (Distribute Work Across Subagents)**:
+   Whenever a task involves multiple diagrams, scripts (`images_src/*.py`), chapters (`doc_src/*.md`), pages (`docs_src/**/*.md`), or slides (`slide_src/*.md`), **actively delegate and parallelize the work across multiple subagents** (when subagent tools are available) instead of authoring every file sequentially in a single context window:
+   - **Phase 1 (Parent Orchestrator — Shared Foundation First)**: Run `drawlib init` and finalize shared files (`styles.py`, `utils.py`, `_assets/`, `navbar.md`, or slide deck outline) *before* spawning subagents.
+   - **Phase 2 (Parallel Subagents — Disjoint Files + Stage 1 & 2 Grid Review)**: Assign each subagent a strictly disjoint set of `.py` or `.md` files. Each subagent authors its assigned files and performs **Stage 1 (Static Check)** and **Stage 2 (`drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` + `view_file`)** in its own isolated context window. Always use a **unique scratch filename** per diagram so concurrent subagents never overwrite each other's preview images.
+   - **Phase 3 (Parent Orchestrator — Unified Build & Stage 3 Macro Review)**: After all subagents report completion, the parent agent runs `./build.sh` once (avoiding concurrent `.drawlib/cache.db` SQLite write contention), runs `drawlib serve --check`, and performs **Stage 3 (Macro-Page Browser HTML / PDF Review)**.
 
 ---
 
@@ -91,8 +96,8 @@ save()
 
 Never deliver unverified diagrams or documentation. Always execute this 3-stage verification loop (details: `uv run drawlib rules show review-guide`):
 1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` fence caps, `text_size >= 10.0`, and accurate coordinate anchors (`shapes`/`text`/`icons` = **Center `(cx, cy)`** vs. `SmartArts`/`Charts`/`Diagrams`/`Graphs` = **Bottom-Left `(x0, y0)`**).
-2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export each diagram with the 10-unit/5-unit coordinate grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/preview.png`) and inspect via `view_file` to fix text clipping, arrow routing, margins (`>= 4–6` units), and `50%+` neutral balance in 1 shot.
-3. **Stage 3 — Macro-Page Browser HTML Review**: Build HTML (`./build.sh`), verify zero broken links (`uv run drawlib serve docs_html/ --check`), and inspect a `1280×920` headless browser screenshot of `docs_html/*.html` via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font size parity.
+2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export each diagram with the 10-unit/5-unit coordinate grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`) and inspect via `view_file` to fix text clipping, arrow routing, margins (`>= 4–6` units), and `50%+` neutral balance in 1 shot. *(When delegating to parallel subagents, each subagent runs Stage 1 & Stage 2 on its own files using unique scratch filenames.)*
+3. **Stage 3 — Macro-Page Browser HTML Review**: Build HTML (`./build.sh` once after all subagents finish), verify zero broken links (`uv run drawlib serve docs_html/ --check`), and inspect a `1280×920` headless browser screenshot of `docs_html/*.html` via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font size parity.
 
 ---
 

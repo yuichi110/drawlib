@@ -167,7 +167,42 @@ uv run drawlib cache clear --all       # Purge all font, icon, and SQLite image 
 
 ---
 
-## 5. Dedicated Project Rule Guides
+## 5. Parallel Multi-Agent Workflow Across the 4 Project Archetypes
+
+Drawlib projects are intentionally structured as **modular collections of independent `.py` scripts or `.md` files** sharing a common `styles.py` and `utils.py` foundation. When creating or updating multiple diagrams, chapters, pages, or slides, **AI coding agents should actively distribute and parallelize work across multiple subagents** (whenever subagent invocation tools are available) rather than authoring every file sequentially in a single context window.
+
+### 5.1. Why Multi-Agent Parallelization Fits Drawlib
+1. **Context Window Preservation for Multimodal Review**: Every `drawlib show ... -g` + `view_file` cycle loads high-resolution diagram images into the agent's context window. Delegating files to subagents lets each subagent perform its own **Stage 1 (Static Check)** and **Stage 2 (Grid Review `-g`)** in an isolated context window, keeping the parent orchestrator's context clean.
+2. **Natural File-Level Partitioning**: Each of the 4 project archetypes partitions cleanly along file or directory boundaries:
+
+| Project Type | Partition Unit per Subagent | Shared Files (Parent Sets Up First) | Subagent Responsibility (Phase 2) | Parent Finalization (Phase 3) |
+| :--- | :--- | :--- | :--- | :--- |
+| **`images`** | Individual `images_src/<name>.py` script (or subset of scripts) | `images_src/styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` + `view_file` | Run `./images_src/build.sh` & inspect `images/*.png` |
+| **`doc`** | Individual chapter `doc_src/0N_<topic>.md` | `doc_src/styles.py`, `utils.py`, `00_cover.md`, chapter outline | Author assigned chapter(s) (`2+` diagrams, Hero at Lines 5–15) & run Stage 1 + Stage 2 grid review | Run `./doc_src/build.sh`, `serve --check`, & inspect `doc.pdf` / `doc_html/` |
+| **`site`** | Topic page `docs_src/<sec>/<page>.md` or section folder | `docs_src/styles.py`, `utils.py`, `navbar.md`, `index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & `1280×920` browser check |
+| **`slide`** | Individual slide `slide_src/0N_<slide>.md` or section folder | `slide_src/styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` & inspect `slide.pdf` / `1920×1080` stage |
+
+### 5.2. The 3-Phase Orchestrator–Subagent Protocol & Concurrency Guardrails
+
+1. **Phase 1 — Parent Orchestrator Establishes Shared Foundation First**:
+   - Run `drawlib init <type>` and configure `styles.py` (theme, language fonts), `utils.py` (shared helpers/macros), `_assets/`, and the structural index (`navbar.md` for `site`, chapter numbering for `doc`, or slide numbering/story arc for `slide`) **before** launching subagents.
+   - Subagents must treat `styles.py`, `utils.py`, and `navbar.md` as **read-only** so parallel workers never overwrite shared configuration.
+2. **Phase 2 — Parallel Subagents Author Disjoint Files & Run Stage 1 + Stage 2**:
+   - **Strict Disjoint File Ownership**: Never assign the same `.py` or `.md` file to two subagents concurrently.
+   - **Unique Scratch Preview Filenames (Critical)**: When running `drawlib show ... -g` in parallel, each subagent **must** write to a unique scratch file path named after its script or diagram block:
+     ```bash
+     uv run drawlib show docs_src/02_arch/vpc.md vpc_hero.png \
+         -s docs_src/styles.py -u docs_src/utils.py \
+         -g -o .drawlib/scratch/vpc_hero_grid.png
+     ```
+     Never use a hardcoded shared filename like `.drawlib/scratch/preview.png` across concurrent subagents, or subagents will overwrite and inspect each other's images.
+   - **No Full-Project Builds Inside Subagents**: Subagents should only run `drawlib show ... -g` for their assigned diagrams and must **not** run `./build.sh`, avoiding concurrent SQLite write contention on `.drawlib/cache.db`.
+3. **Phase 3 — Parent Orchestrator Runs Unified Build & Stage 3 Macro Review**:
+   - Once all subagents complete their assigned files and Stage 2 fixes, the parent orchestrator runs `./<target>_src/build.sh` once, verifies link integrity (`uv run drawlib serve <target>_html/ --check`), performs **Stage 3 (Macro-Page Browser HTML / PDF Review)**, and cleans up `.drawlib/scratch/`.
+
+---
+
+## 6. Dedicated Project Rule Guides
 
 Query the specific project manual matching your target deliverable:
 - **`uv run drawlib rules show project-images`**: Standalone `.py` illustration scripts (`images_src/`).

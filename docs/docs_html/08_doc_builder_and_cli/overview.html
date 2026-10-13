@@ -726,7 +726,57 @@
 </code></pre>
 </details>
 <hr />
-<h2>3. Chapter Structure</h2>
+<h2>3. Parallel Multi-Agent Authoring Across Project Templates</h2>
+<p>Because every Drawlib project separates <strong>shared configuration</strong> (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>navbar.md</code>) from <strong>modular content files</strong> (<code>*.py</code> or <code>*.md</code>), AI coding agents can accelerate large documentation and illustration tasks by distributing work across <strong>parallel subagents</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Project Template</th>
+<th style="text-align:left">Parallel Subagent Unit</th>
+<th style="text-align:left">Phase 1: Parent Orchestrator Setup</th>
+<th style="text-align:left">Phase 2: Parallel Subagent Execution</th>
+<th style="text-align:left">Phase 3: Parent Finalization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>doc</code></strong></td>
+<td style="text-align:left">Numbered chapter file (<code>doc_src/01_*.md</code>, <code>02_*.md</code>, ...)</td>
+<td style="text-align:left"><code>drawlib init doc</code>, <code>styles.py</code>, <code>utils.py</code>, <code>00_cover.md</code>, chapter outline</td>
+<td style="text-align:left">Author assigned chapter(s) &amp; run <code>drawlib show ... -g -o .drawlib/scratch/0N_&lt;fig&gt;_grid.png</code></td>
+<td style="text-align:left">Run <code>./doc_src/build.sh</code> &amp; inspect <code>doc.pdf</code> / <code>doc_html/</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>site</code></strong></td>
+<td style="text-align:left">Topic page or section folder (<code>docs_src/01_arch/*.md</code>, ...)</td>
+<td style="text-align:left"><code>drawlib init site</code>, <code>styles.py</code>, <code>utils.py</code>, <code>navbar.md</code>, <code>index.md</code></td>
+<td style="text-align:left">Author assigned page(s) &amp; run Stage 1 + Stage 2 grid review with unique scratch filenames</td>
+<td style="text-align:left">Run <code>./docs_src/build.sh</code>, <code>serve --check</code>, &amp; browser check</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>slide</code></strong></td>
+<td style="text-align:left">Slide file (<code>slide_src/02_*.md</code>, ...) or section directory</td>
+<td style="text-align:left"><code>drawlib init slide</code>, <code>styles.py</code>, <code>utils.py</code>, deck story arc &amp; slide numbering</td>
+<td style="text-align:left">Author assigned slide(s) (<code>::: block</code> + <code>::: note</code>) &amp; run Stage 1 + Stage 2 grid review</td>
+<td style="text-align:left">Run <code>./slide_src/build.sh</code> &amp; inspect <code>slide.pdf</code> / <code>1920x1080</code> stage</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>images</code></strong></td>
+<td style="text-align:left">Standalone Python script (<code>images_src/&lt;name&gt;.py</code>)</td>
+<td style="text-align:left"><code>drawlib init images</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code></td>
+<td style="text-align:left">Author assigned <code>.py</code> script(s) &amp; run <code>drawlib show ... -g -o .drawlib/scratch/&lt;script&gt;_grid.png</code></td>
+<td style="text-align:left">Run <code>./images_src/build.sh</code> &amp; inspect <code>images/*.png</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Concurrency Guardrails for Subagents:</h3>
+<ol>
+<li><strong>Read-Only Shared Files</strong>: Subagents treat <code>styles.py</code>, <code>utils.py</code>, and <code>navbar.md</code> as read-only and edit only their assigned <code>.md</code> or <code>.py</code> files.</li>
+<li><strong>Unique Scratch Preview Paths</strong>: Each subagent writes <code>-g</code> grid previews to a unique path (<code>-o .drawlib/scratch/&lt;unique_name&gt;_grid.png</code>, never a shared <code>preview.png</code>) so concurrent multimodal inspections never collide.</li>
+<li><strong>Single Unified Build</strong>: Subagents only run <code>drawlib show ... -g</code> for their assigned diagrams; the parent agent runs <code>./build.sh</code> once after all subagents finish, avoiding concurrent SQLite writes to <code>.drawlib/cache.db</code>.</li>
+</ol>
+<hr />
+<h2>4. Chapter Structure</h2>
 <p>Dive deeper into each builder subsystem:</p>
 <ul>
 <li><a href="./code_blocks.html">Embedded Code Blocks</a>: Code fence syntax, display modes (<code>show-code</code>, <code>fold-code</code>), alignment, and captions.</li>

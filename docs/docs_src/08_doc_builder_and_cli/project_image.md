@@ -181,3 +181,12 @@ drawlib build image images_src/ -o images/ -s images_src/styles.py -u images_src
 - `--grid` (`-g`): Automatically generates companion `*_grid.png` images overlaid with coordinate grid lines for visual debugging.
 - `-f webp`: Overrides output format across all scripts to modern WebP.
 - `--no-cache`: Forces a clean re-render of all images, bypassing the SQLite hash cache (`.drawlib/cache.db`).
+
+---
+
+## 5. Parallel Multi-Agent Script Authoring
+
+Because each `.py` script in `images_src/` is independent, AI coding agents can generate multiple illustrations in parallel by delegating scripts across subagents:
+1. **Phase 1 (Parent Setup)**: Run `drawlib init images` and configure shared `images_src/styles.py`, `images_src/utils.py`, and `_assets/` first.
+2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint script (`images_src/<name>.py`). Each subagent authors its script and runs a grid preview with a **unique scratch filename** (`uv run drawlib show images_src/<name>.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/<name>_grid.png`) to verify layout without colliding with other subagents.
+3. **Phase 3 (Unified Batch Build)**: Once all subagents finish, the parent agent runs `./images_src/build.sh` once to compile all scripts into `images/`.

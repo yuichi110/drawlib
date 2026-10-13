@@ -284,11 +284,18 @@ Avoid **"Rainbow Color Chaos"** (assigning a different saturated fill to every n
 
 ---
 
-## 4. Quick Self-Correction Checklist for AI Agents
+## 4. Quick Self-Correction Checklist & Parallel Subagent Protocol
 
+### 4.1. Scaling the 3-Stage Loop Across Parallel Subagents
+When authoring or reviewing multiple scripts, chapters, pages, or slides, **distribute Stage 1 and Stage 2 across parallel subagents** to prevent multimodal image inspection from filling a single agent's context window:
+1. **Parent Sets Up Shared Config First**: Initialize the project (`drawlib init`) and finalize `styles.py`, `utils.py`, `_assets/`, and `navbar.md` before spawning subagents.
+2. **Subagents Run Stage 1 & Stage 2 on Disjoint Files with Unique Scratch Names**: Each subagent edits only its assigned `.py` or `.md` file(s) and exports grid previews to a **unique filename** (`-o .drawlib/scratch/<file_or_block>_grid.png`, never a shared `preview.png`) before inspecting with `view_file`. Subagents must not run full `./build.sh` builds concurrently.
+3. **Parent Runs Stage 3 Unified Build & Macro Review**: After all subagents finish, the parent orchestrator runs `./build.sh` once, checks links (`drawlib serve --check`), and inspects the rendered HTML/PDF output.
+
+### 4.2. Final Pre-Delivery Checklist
 - [ ] **Stage 1 (Static Check)**:
   - For **`site` / `doc`**: `>= 2` diagrams/page, Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` width caps, and `text_size >= 10.0`.
   - For **`slide`**: Dual-Layer split (`::: block` 3–4 short phrases + `::: note` full script), Cover/Agenda/Section Dividers/Takeaways arc, and block-width-calibrated `text_size` (`11.0–13.0` full-width, `13.5–15.5` 2-column, `14.0–17.0` narrow column; no `scale < 1.0` in 2-column blocks).
-- [ ] **Stage 2 (Grid Check `-g`)**: Did you export each new/modified diagram with `drawlib show ... -g -o .drawlib/scratch/preview.png` and inspect it via `view_file` to verify zero overlapping labels, accurate `Center` vs. `Bottom-Left` anchors, and `50%+` neutral color balance?
-- [ ] **Stage 3 (Macro-Page HTML / Slide PDF Check)**: Did you build (`./build.sh`) and inspect the rendered HTML page (`1280×920` Playwright screenshot) or compiled Slide PDF (`view_file`) to confirm prose-to-diagram font size parity (`~14px–16px` in docs; `>= 18px–24px` vs `26px` prose on `1920×1080` slides)?
+- [ ] **Stage 2 (Grid Check `-g`)**: Did you (or the assigned subagent) export each new/modified diagram with `drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` and inspect it via `view_file` to verify zero overlapping labels, accurate `Center` vs. `Bottom-Left` anchors, and `50%+` neutral color balance?
+- [ ] **Stage 3 (Macro-Page HTML / Slide PDF Check)**: Did the parent agent build (`./build.sh`) and inspect the rendered HTML page (`1280×920` Playwright screenshot) or compiled Slide PDF (`view_file`) to confirm prose-to-diagram font size parity (`~14px–16px` in docs; `>= 18px–24px` vs `26px` prose on `1920×1080` slides)?
 - [ ] **Cleanup**: Did you remove temporary files in `.drawlib/scratch/` before finishing?

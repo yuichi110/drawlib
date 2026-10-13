@@ -166,3 +166,8 @@ Always verify linear documents across all three stages before finishing:
    - The cover page (`00_cover.md`) and Table of Contents (`--toc`) render cleanly without overflowing onto extra blank pages.
    - Diagram labels are crisp and proportional to the surrounding body prose.
    - Clean up `.drawlib/scratch/` when done.
+4. **Parallel Multi-Agent Chapter Delegation (For Multi-Chapter Documents)**:
+   Because each chapter in `doc_src/` is a standalone numbered file (`01_overview.md`, `02_architecture.md`, `03_security.md`, etc.), **distribute chapter authoring across parallel subagents** whenever creating or updating multiple chapters:
+   - **Phase 1 (Parent)**: Scaffold `doc_src/`, configure `styles.py`, `utils.py`, and `00_cover.md`, and define the numbered chapter filenames.
+   - **Phase 2 (Parallel Subagents)**: Assign each subagent its own `doc_src/0N_<chapter>.md` file(s). Each subagent writes the chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and executes Stage 1 & Stage 2 using a **unique scratch filename** (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
+   - **Phase 3 (Parent)**: Run `./doc_src/build.sh` once after all subagents finish, verify links (`drawlib serve doc_html/ --check`), and perform Stage 3 inspection of `doc.pdf` and `doc_html/index.html`.

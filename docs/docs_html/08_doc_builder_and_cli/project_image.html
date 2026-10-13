@@ -667,6 +667,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"
 <li><code>-f webp</code>: Overrides output format across all scripts to modern WebP.</li>
 <li><code>--no-cache</code>: Forces a clean re-render of all images, bypassing the SQLite hash cache (<code>.drawlib/cache.db</code>).</li>
 </ul>
+<hr />
+<h2>5. Parallel Multi-Agent Script Authoring</h2>
+<p>Because each <code>.py</code> script in <code>images_src/</code> is independent, AI coding agents can generate multiple illustrations in parallel by delegating scripts across subagents:</p>
+<ol>
+<li><strong>Phase 1 (Parent Setup)</strong>: Run <code>drawlib init images</code> and configure shared <code>images_src/styles.py</code>, <code>images_src/utils.py</code>, and <code>_assets/</code> first.</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Assign each subagent a disjoint script (<code>images_src/&lt;name&gt;.py</code>). Each subagent authors its script and runs a grid preview with a <strong>unique scratch filename</strong> (<code>uv run drawlib show images_src/&lt;name&gt;.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/&lt;name&gt;_grid.png</code>) to verify layout without colliding with other subagents.</li>
+<li><strong>Phase 3 (Unified Batch Build)</strong>: Once all subagents finish, the parent agent runs <code>./images_src/build.sh</code> once to compile all scripts into <code>images/</code>.</li>
+</ol>
 
             </main>
         </div>

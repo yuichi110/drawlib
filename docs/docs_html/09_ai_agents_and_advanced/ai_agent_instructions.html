@@ -590,10 +590,16 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 <span class="k">4.</span> The 3-Stage Multimodal Self-Correction Loop:
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Always include an explicit <span class="sb">`file:&lt;name&gt;.png`</span> and <span class="sb">`caption:"..."`</span> on every embedded ```drawlib block, place a Top Hero at Lines 5–15 with <span class="sb">`fold-code`</span>, omit narrow <span class="sb">`px`</span> width caps, and keep <span class="sb">`text_size &gt;= 10.0`</span>.
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Render headlessly with the coordinate grid (<span class="sb">`-g`</span>):
-     <span class="sb">`uv run drawlib show docs_src/page.md &lt;name&gt;.png -g -o .drawlib/scratch/preview.png`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Visually inspect <span class="sb">`.drawlib/scratch/preview.png`</span> for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a <span class="sb">`1280×920`</span> headless browser viewport.
+     <span class="sb">`uv run drawlib show docs_src/page.md &lt;name&gt;.png -g -o .drawlib/scratch/&lt;unique_name&gt;_grid.png`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Visually inspect <span class="sb">`.drawlib/scratch/&lt;unique_name&gt;_grid.png`</span> for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a <span class="sb">`1280×920`</span> headless browser viewport.
 
-<span class="k">5.</span> Fetch Rules on Demand:
+<span class="k">5.</span> Parallel Multi-Agent Delegation (Distribute Work Across Subagents):
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>When creating or updating multiple scripts (<span class="sb">`images_src/*.py`</span>), chapters (<span class="sb">`doc_src/*.md`</span>), pages (<span class="sb">`docs_src/**/*.md`</span>), or slides (<span class="sb">`slide_src/*.md`</span>), actively distribute work across parallel subagents:
+<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 1 (Parent): Run <span class="sb">`drawlib init`</span> and finalize shared <span class="sb">`styles.py`</span>, <span class="sb">`utils.py`</span>, <span class="sb">`_assets/`</span>, and <span class="sb">`navbar.md`</span> first.
+<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 2 (Subagents): Assign disjoint <span class="sb">`.py`</span> or <span class="sb">`.md`</span> files to each subagent. Each subagent authors its files and runs Stage 1 &amp; Stage 2 grid review using a unique scratch filename (<span class="sb">`-o .drawlib/scratch/&lt;file_or_block&gt;_grid.png`</span>).
+<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 3 (Parent): Run <span class="sb">`./build.sh`</span> once after all subagents finish, run <span class="sb">`drawlib serve --check`</span>, and perform Stage 3 HTML/PDF verification.
+
+<span class="k">6.</span> Fetch Rules on Demand:
    Run <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`overview`</span>, <span class="sb">`style-guide`</span>, <span class="sb">`review-guide`</span>, <span class="sb">`project-overview`</span>, <span class="sb">`project-site`</span>, <span class="sb">`lib-graph`</span>, <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`anim-guide`</span>).
 </code></pre>
 <hr />
@@ -814,7 +820,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tr>
 <td style="text-align:left"><strong><code>lib-smartarts</code></strong></td>
 <td style="text-align:left"><code>drawlib.smartarts</code></td>
-<td style="text-align:left"><code>ChevronProcess</code>, <code>Cycle</code>, <code>GridLayout</code>, <code>Pyramid</code>, <code>BoxList</code>, <code>BulletPoints</code>, <code>TreeNode</code>, <code>MindMapNode</code>, <code>Table</code>, <code>SourceCode</code>.</td>
+<td style="text-align:left"><code>ChevronProcess</code>, <code>Cycle</code>, <code>GridLayout</code>, <code>Pyramid</code>, <code>BoxList</code>, <code>BulletPoints</code>, <code>TreeNode</code>, <code>MindMapNode</code>, <code>Table</code>, <code>SourceCode</code>, <code>MonthCalendar</code>, <code>WeekCalendar</code>, <code>DayCalendar</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>lib-charts</code></strong></td>
@@ -844,12 +850,19 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </tbody>
 </table>
 <hr />
-<h2>4. Prompting Best Practices</h2>
-<p>When asking an AI agent to generate a diagram:</p>
+<h2>4. Prompting &amp; Multi-Agent Parallelization Best Practices</h2>
+<p>When asking an AI agent to generate diagrams or multi-page documentation:</p>
 <ul>
 <li><strong>Provide Real Code Context</strong>: Reference actual source files (e.g., &quot;Inspect <code>src/services/order.py</code> and draw an <code>ArchitectureDiagram</code> showing its upstream and downstream dependencies&quot;).</li>
 <li><strong>Specify Project or Target Document</strong>: Indicate whether the diagram belongs in a Markdown page (<code>docs_src/architecture.md</code>) or a standalone <code>images_src/</code> script.</li>
 <li><strong>Ask for Multimodal Verification</strong>: Remind the agent to render with <code>-g</code> into <code>.drawlib/scratch/</code> and visually inspect the output image before finalizing.</li>
+<li><strong>Distribute Multi-File Tasks Across Parallel Subagents</strong>: Because each multimodal <code>drawlib show -g</code> + image review cycle consumes context window tokens, multi-chapter documents (<code>doc_src/*.md</code>), multi-page sites (<code>docs_src/**/*.md</code>), slide decks (<code>slide_src/*.md</code>), and batch scripts (<code>images_src/*.py</code>) should be executed via the <strong>3-Phase Orchestrator–Subagent Protocol</strong>:
+<ol>
+<li><strong>Phase 1 (Parent Orchestrator)</strong>: Run <code>drawlib init</code>, configure shared <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, and <code>navbar.md</code> (or chapter/slide outline).</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint <code>.py</code> or <code>.md</code> files to parallel subagents. Each subagent authors its assigned files and performs Stage 1 &amp; Stage 2 grid verification using a <strong>unique scratch filename</strong> (<code>-o .drawlib/scratch/&lt;file_or_block&gt;_grid.png</code>).</li>
+<li><strong>Phase 3 (Parent Orchestrator)</strong>: Run <code>./build.sh</code> once after all subagents finish, verify links (<code>drawlib serve --check</code>), and perform Stage 3 HTML/PDF visual verification.</li>
+</ol>
+</li>
 </ul>
 
             </main>

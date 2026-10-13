@@ -195,7 +195,25 @@ save()
 
 ---
 
-## 3. Chapter Structure
+## 3. Parallel Multi-Agent Authoring Across Project Templates
+
+Because every Drawlib project separates **shared configuration** (`styles.py`, `utils.py`, `_assets/`, `navbar.md`) from **modular content files** (`*.py` or `*.md`), AI coding agents can accelerate large documentation and illustration tasks by distributing work across **parallel subagents**:
+
+| Project Template | Parallel Subagent Unit | Phase 1: Parent Orchestrator Setup | Phase 2: Parallel Subagent Execution | Phase 3: Parent Finalization |
+| :--- | :--- | :--- | :--- | :--- |
+| **`doc`** | Numbered chapter file (`doc_src/01_*.md`, `02_*.md`, ...) | `drawlib init doc`, `styles.py`, `utils.py`, `00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` & inspect `doc.pdf` / `doc_html/` |
+| **`site`** | Topic page or section folder (`docs_src/01_arch/*.md`, ...) | `drawlib init site`, `styles.py`, `utils.py`, `navbar.md`, `index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
+| **`slide`** | Slide file (`slide_src/02_*.md`, ...) or section directory | `drawlib init slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` & inspect `slide.pdf` / `1920x1080` stage |
+| **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
+
+### Concurrency Guardrails for Subagents:
+1. **Read-Only Shared Files**: Subagents treat `styles.py`, `utils.py`, and `navbar.md` as read-only and edit only their assigned `.md` or `.py` files.
+2. **Unique Scratch Preview Paths**: Each subagent writes `-g` grid previews to a unique path (`-o .drawlib/scratch/<unique_name>_grid.png`, never a shared `preview.png`) so concurrent multimodal inspections never collide.
+3. **Single Unified Build**: Subagents only run `drawlib show ... -g` for their assigned diagrams; the parent agent runs `./build.sh` once after all subagents finish, avoiding concurrent SQLite writes to `.drawlib/cache.db`.
+
+---
+
+## 4. Chapter Structure
 
 Dive deeper into each builder subsystem:
 - [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`show-code`, `fold-code`), alignment, and captions.

@@ -790,6 +790,14 @@ drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class=
 <span class="c1"># 4. Extract diagram images from Markdown:</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_images/
 </code></pre>
+<hr />
+<h2>7. Parallel Multi-Agent Chapter Authoring</h2>
+<p>Because a <code>doc</code> project separates chapters into numbered Markdown files (<code>00_cover.md</code>, <code>01_overview.md</code>, <code>02_architecture.md</code>, <code>03_security.md</code>, etc.), AI coding agents can author multi-chapter whitepapers and specifications in parallel:</p>
+<ol>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>doc_src/</code> (<code>drawlib init doc</code>), finalize <code>styles.py</code>, <code>utils.py</code>, and <code>00_cover.md</code>, and establish the numbered chapter filenames.</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate individual chapters (<code>doc_src/0N_&lt;topic&gt;.md</code>) to parallel subagents. Each subagent authors its assigned chapter (<code>2+</code> diagrams, Chapter Hero at <code>Lines 5–15</code>) and verifies its diagrams with unique grid preview paths (<code>-o .drawlib/scratch/0N_&lt;diagram&gt;_grid.png</code>).</li>
+<li><strong>Phase 3 (Unified Compilation)</strong>: After all subagents complete their chapters, the parent agent runs <code>./doc_src/build.sh</code> once to merge all chapters into <code>doc_html/index.html</code> and <code>doc.pdf</code>.</li>
+</ol>
 
             </main>
         </div>

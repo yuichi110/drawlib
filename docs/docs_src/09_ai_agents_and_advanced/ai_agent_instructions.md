@@ -96,10 +96,16 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 4. The 3-Stage Multimodal Self-Correction Loop:
    - Always include an explicit `file:<name>.png` and `caption:"..."` on every embedded ```drawlib block, place a Top Hero at Lines 5–15 with `fold-code`, omit narrow `px` width caps, and keep `text_size >= 10.0`.
    - Render headlessly with the coordinate grid (`-g`):
-     `uv run drawlib show docs_src/page.md <name>.png -g -o .drawlib/scratch/preview.png`
-   - Visually inspect `.drawlib/scratch/preview.png` for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a `1280×920` headless browser viewport.
+     `uv run drawlib show docs_src/page.md <name>.png -g -o .drawlib/scratch/<unique_name>_grid.png`
+   - Visually inspect `.drawlib/scratch/<unique_name>_grid.png` for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a `1280×920` headless browser viewport.
 
-5. Fetch Rules on Demand:
+5. Parallel Multi-Agent Delegation (Distribute Work Across Subagents):
+   - When creating or updating multiple scripts (`images_src/*.py`), chapters (`doc_src/*.md`), pages (`docs_src/**/*.md`), or slides (`slide_src/*.md`), actively distribute work across parallel subagents:
+     * Phase 1 (Parent): Run `drawlib init` and finalize shared `styles.py`, `utils.py`, `_assets/`, and `navbar.md` first.
+     * Phase 2 (Subagents): Assign disjoint `.py` or `.md` files to each subagent. Each subagent authors its files and runs Stage 1 & Stage 2 grid review using a unique scratch filename (`-o .drawlib/scratch/<file_or_block>_grid.png`).
+     * Phase 3 (Parent): Run `./build.sh` once after all subagents finish, run `drawlib serve --check`, and perform Stage 3 HTML/PDF verification.
+
+6. Fetch Rules on Demand:
    Run `uv run drawlib rules show <topic>` (e.g. `overview`, `style-guide`, `review-guide`, `project-overview`, `project-site`, `lib-graph`, `lib-diagrams`, `lib-charts`, `lib-smartarts`, `anim-guide`).
 ````
 
@@ -219,7 +225,7 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 | **`lib-icons`** | `drawlib.icons` | `phosphor` (1,512 vector icons), `fontawesome` (5 brands), and `gcp` (212 official cloud icons). |
 | **`lib-math`** | `drawlib.math` | Distance, angle, bounding box, linear/polyline path interpolation, rotation, orthogonal routing. |
 | **`lib-types`** | `drawlib.types` | `Style`, `Color`, `FontBase`, alignment and line-style literal types, `.patch()` immutability. |
-| **`lib-smartarts`** | `drawlib.smartarts` | `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `BulletPoints`, `TreeNode`, `MindMapNode`, `Table`, `SourceCode`. |
+| **`lib-smartarts`** | `drawlib.smartarts` | `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `BulletPoints`, `TreeNode`, `MindMapNode`, `Table`, `SourceCode`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`. |
 | **`lib-charts`** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `GeoMapChart`. |
 | **`lib-diagrams`** | `drawlib.diagrams` | `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ClassDiagram`, `ERDiagram`, `StateDiagram`. |
 | **`lib-graph`** | `drawlib.graph` | `ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`, `calc()`, `export_code()`. |
@@ -228,9 +234,13 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 
 ---
 
-## 4. Prompting Best Practices
+## 4. Prompting & Multi-Agent Parallelization Best Practices
 
-When asking an AI agent to generate a diagram:
+When asking an AI agent to generate diagrams or multi-page documentation:
 - **Provide Real Code Context**: Reference actual source files (e.g., "Inspect `src/services/order.py` and draw an `ArchitectureDiagram` showing its upstream and downstream dependencies").
 - **Specify Project or Target Document**: Indicate whether the diagram belongs in a Markdown page (`docs_src/architecture.md`) or a standalone `images_src/` script.
 - **Ask for Multimodal Verification**: Remind the agent to render with `-g` into `.drawlib/scratch/` and visually inspect the output image before finalizing.
+- **Distribute Multi-File Tasks Across Parallel Subagents**: Because each multimodal `drawlib show -g` + image review cycle consumes context window tokens, multi-chapter documents (`doc_src/*.md`), multi-page sites (`docs_src/**/*.md`), slide decks (`slide_src/*.md`), and batch scripts (`images_src/*.py`) should be executed via the **3-Phase Orchestrator–Subagent Protocol**:
+  1. **Phase 1 (Parent Orchestrator)**: Run `drawlib init`, configure shared `styles.py`, `utils.py`, `_assets/`, and `navbar.md` (or chapter/slide outline).
+  2. **Phase 2 (Parallel Subagents)**: Delegate disjoint `.py` or `.md` files to parallel subagents. Each subagent authors its assigned files and performs Stage 1 & Stage 2 grid verification using a **unique scratch filename** (`-o .drawlib/scratch/<file_or_block>_grid.png`).
+  3. **Phase 3 (Parent Orchestrator)**: Run `./build.sh` once after all subagents finish, verify links (`drawlib serve --check`), and perform Stage 3 HTML/PDF visual verification.

@@ -176,3 +176,5 @@ Never run `./images_src/build.sh` blindly without inspecting your diagrams with 
    rm -rf .drawlib/scratch/*
    ```
    Inspect the final grid-free output in `images/*.png` via `view_file` before delivering to the user.
+4. **Parallel Multi-Agent Delegation (When Generating Multiple Scripts)**:
+   When producing multiple standalone scripts in `images_src/*.py`, first configure `images_src/styles.py` and `images_src/utils.py` in the parent agent, then **delegate individual `.py` scripts (or disjoint groups of scripts) to parallel subagents**. Each subagent writes its assigned `images_src/<name>.py` file and runs Step 1 & Step 2 using a **unique scratch path** (`-o .drawlib/scratch/<name>_grid.png` so concurrent subagents never overwrite each other's preview images). Once all subagents finish, the parent agent runs `./images_src/build.sh` once in Step 3.
