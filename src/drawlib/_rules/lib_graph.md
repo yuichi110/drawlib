@@ -68,6 +68,49 @@ To give you the best of both worlds, **`drawlib.graph` is strictly a pure geomet
 2. **Step 2 — Render with `drawlib.diagrams` or `drawlib.shapes` / `drawlib.lines`**:
    - Pass the solved coordinates into `ArchitectureDiagram` (`xy=layout["vpc"].bottom_left`, `xy=layout["sub"].local_bottom_left`, `xy=layout["api"].local_xy`), `FlowDiagram` (`xy=layout["step"].xy`), or primitive `rectangle(n.xy, ...)`, `circle(n.xy, ...)`, and `lines(e.points, arrow_head="->")`.
 
+```python
+from drawlib.canvas import save, setup
+from drawlib.graph import LayerGraph
+from drawlib.lines import lines
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+
+setup(width=100, height=52)
+
+# Step 1: Declare topology & solve coordinates with get_layout()
+g = LayerGraph(direction="LR", default_node_width=16.0, default_node_height=16.0)
+g.edge("A", "B")
+g.edge("A", "C")
+g.edge("B", "D")
+g.edge("C", "D")
+
+layout = g.get_layout(margin=8.0)
+
+# print(layout) outputs:
+# GraphLayout(width=100.0, height=52.0)
+# Nodes:
+#   A : xy=(16.0, 26.0), bottom_left=(8.0, 18.0), size=(16.0, 16.0)
+#   B : xy=(50.0, 36.0), bottom_left=(42.0, 28.0), size=(16.0, 16.0)
+#   C : xy=(50.0, 16.0), bottom_left=(42.0, 8.0), size=(16.0, 16.0)
+#   D : xy=(84.0, 26.0), bottom_left=(76.0, 18.0), size=(16.0, 16.0)
+# Edges:
+#   A -> B : points=[(24.0, 26.0), (33.0, 26.0), (33.0, 36.0), (42.0, 36.0)], mid_xy=(33.0, 31.0)
+#   A -> C : points=[(24.0, 26.0), (33.0, 26.0), (33.0, 16.0), (42.0, 16.0)], mid_xy=(33.0, 21.0)
+#   B -> D : points=[(58.0, 36.0), (67.0, 36.0), (67.0, 26.0), (76.0, 26.0)], mid_xy=(67.0, 31.0)
+#   C -> D : points=[(58.0, 16.0), (67.0, 16.0), (67.0, 26.0), (76.0, 26.0)], mid_xy=(67.0, 21.0)
+
+# Step 2: Connect circles with lines using the solved coordinates
+for e in layout.edges:
+    lines(e.points, arrow_head="->", style=Styles.DarkBold)
+
+circle(layout["A"].xy, radius=8.0, style=Styles.PrimaryFlat, text="A\n(16, 26)", text_style=Styles.WhiteBold.patch(text_size=10.5))
+circle(layout["B"].xy, radius=8.0, style=Styles.PrimaryNeutral, text="B\n(50, 36)", text_style=Styles.DarkBold.patch(text_size=10.5))
+circle(layout["C"].xy, radius=8.0, style=Styles.PrimaryNeutral, text="C\n(50, 16)", text_style=Styles.DarkBold.patch(text_size=10.5))
+circle(layout["D"].xy, radius=8.0, style=Styles.SecondaryNeutral, text="D\n(84, 26)", text_style=Styles.DarkBold.patch(text_size=10.5))
+
+save()
+```
+
 ### 1.3. Solver Selection Matrix
 
 | Solver Class | Algorithm / Strategy | Best Used For | Key Helper Methods | Typical Rendering Partner |
