@@ -207,7 +207,7 @@ save()
 
 ## 3. Project-Wide Custom Fonts with `Styles.patch_font()`
 
-Instead of patching `text_font` on every shape, call `Styles.patch_font()` to create a custom `Styles` catalog that applies your `FontFile` across high-level components such as `SmartArts`, `Diagrams`, and `Graphs`.
+Instead of patching `text_font` on every shape, call `Styles.patch_font()` to create a custom `Styles` catalog that applies your `FontFile` across high-level components such as `SmartArts`, `Diagrams`, and `Shapes`.
 
 - **Display Headers + Standard Body**: Pass `bold=avenger` while keeping `regular=FontRoboto.ROBOTO_REGULAR` so component titles (`*Bold` styles) render in your custom display typeface while descriptions remain clean and readable.
 - **Full Custom Brand Family**: Pass `regular=FontFile("..."), bold=FontFile("..."), thin=FontFile("...")` in `styles.py` to switch every preset style token across the entire project.
@@ -271,7 +271,7 @@ boxes.add("WAF SHIELD", style=BrandStyles.PrimaryFlat, text_style=BrandStyles.Wh
 boxes.add("RATE LIMITER", style=BrandStyles.PrimaryNeutral)
 boxes.add("MTLS GATEWAY", style=BrandStyles.SecondaryNeutral)
 boxes.add("AUDIT LOGGER", style=BrandStyles.Neutral)
-boxes.draw(xy=(7.0, 7.5), box_width=28.5, box_height=12.0, align="left")
+boxes.draw(xy=(7.0, 7.5), box_width=28.5, box_height=12.0, align="bottom_left")
 
 save()
 ```

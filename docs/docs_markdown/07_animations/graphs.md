@@ -1,12 +1,12 @@
 # Animating Auto-Layout Graphs
 
-All 5 declarative auto-layout graph solvers in [`drawlib.graph`](../06_graph/overview.md) (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, and `GridGraph`) follow **Pattern B (Pre-Build & Mutate)**:
+All 5 declarative auto-layout graph solvers in [`drawlib.graph`](../06_graph/overview.md) (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, and `GridGraph`) are **pure coordinate & layout calculators** that pair naturally with **Pattern B (Solve Once via `get_layout()` & Mutate / Animate)**:
 
 
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="graphs_images/anim_graphs_hero.png" alt="graphs_1" />
-  <figcaption class="drawlib-caption">Auto-Layout Graph Animation: 100% Locked Node Coordinates Across Progressive Reveal Frames</figcaption>
+  <figcaption class="drawlib-caption">Auto-Layout Graph Animation: 100% Locked Node Coordinates Solved Once via get_layout() Across Progressive Reveal Frames</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -17,76 +17,67 @@ from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.graph import TreeGraph
 from drawlib.icons import phosphor
+from drawlib.lines import lines
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=124, height=52)
 anim = Animation(fps=2.0)
 
+# 1. Declare full tree topology once & lock 100% of coordinates via get_layout()
 g = TreeGraph(
     root="gw",
     direction="LR",
     default_node_width=26.0,
     default_node_height=12.5,
-    default_node_style=Styles.Neutral,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
-    default_edge_style=Styles.DarkBold,
 )
+g.node("gw")
+g.child("gw", "auth")
+g.child("gw", "bill")
+g.child("auth", "cache")
+g.child("bill", "ledger")
 
-n_gw = g.node("gw", "\nAPI Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5))
-n_auth = g.child("gw", "auth", "\nAuth Service", style=Styles.PrimaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5), show=False)
-n_bill = g.child("gw", "bill", "\nBilling API", style=Styles.SecondaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5), show=False)
-n_cache = g.child("auth", "cache", "\nToken Cache", style=Styles.Neutral, text_style=Styles.DarkBold.patch(text_size=10.5), show=False)
-n_ledger = g.child("bill", "ledger", "\nLedger DB", style=Styles.Neutral, text_style=Styles.DarkBold.patch(text_size=10.5), show=False)
+layout = g.get_layout(margin=5.0)
 
-icons = {
-    "gw": phosphor.shield_check,
-    "auth": phosphor.lock_key,
-    "bill": phosphor.credit_card,
-    "cache": phosphor.lightning,
-    "ledger": phosphor.database,
+node_meta = {
+    "gw": ("\nAPI Gateway", Styles.PrimaryNeutral, phosphor.shield_check),
+    "auth": ("\nAuth Service", Styles.PrimaryNeutral, phosphor.lock_key),
+    "bill": ("\nBilling API", Styles.SecondaryNeutral, phosphor.credit_card),
+    "cache": ("\nToken Cache", Styles.Neutral, phosphor.lightning),
+    "ledger": ("\nLedger DB", Styles.Neutral, phosphor.database),
 }
 
 
-def draw_with_icons() -> None:
-    layout = g.draw(margin=5.0)
-    for nid, icon_fn in icons.items():
-        n = layout.nodes[nid]
-        if n.show:
-            ic_style = Styles.White if n.style == Styles.PrimaryFlat else Styles.PrimaryFlat
-            icon_fn((n.x, n.y + 2.4), width=4.2, style=ic_style)
+def draw_step(visible: set[str], focal: str) -> None:
+    for e in layout.edges:
+        if e.src in visible and e.dst in visible:
+            lines(e.points, arrow_head="->", style=Styles.DarkBold)
+    for nid in visible:
+        label, base_st, icon_fn = node_meta[nid]
+        nl = layout[nid]
+        is_focal = nid == focal
+        box_st = Styles.PrimaryFlat if is_focal else base_st
+        txt_st = (Styles.WhiteBold if is_focal else Styles.DarkBold).patch(text_size=10.5)
+        ic_st = Styles.White if is_focal else Styles.PrimaryFlat
+        rectangle(nl.xy, width=nl.width, height=nl.height, style=box_st, text=label, text_style=txt_st)
+        icon_fn((nl.x, nl.y + 2.4), width=4.2, style=ic_st)
 
 
 # Frame 1: Root node at its final auto-solved position
 with anim.frame(duration=0.7):
-    draw_with_icons()
+    draw_step({"gw"}, focal="gw")
 
 # Frame 2: Reveal Tier 1 services (Auth Service highlighted)
-n_gw.style = Styles.PrimaryNeutral
-n_gw.text_style = Styles.DarkBold.patch(text_size=10.5)
-n_auth.show = True
-n_auth.style = Styles.PrimaryFlat
-n_auth.text_style = Styles.WhiteBold.patch(text_size=10.5)
-n_bill.show = True
 with anim.frame(duration=0.7):
-    draw_with_icons()
+    draw_step({"gw", "auth", "bill"}, focal="auth")
 
 # Frame 3: Reveal Leaf data stores (Ledger DB highlighted)
-n_auth.style = Styles.PrimaryNeutral
-n_auth.text_style = Styles.DarkBold.patch(text_size=10.5)
-n_cache.show = True
-n_ledger.show = True
-n_ledger.style = Styles.PrimaryFlat
-n_ledger.text_style = Styles.WhiteBold.patch(text_size=10.5)
 with anim.frame(duration=0.7):
-    draw_with_icons()
+    draw_step({"gw", "auth", "bill", "cache", "ledger"}, focal="ledger")
 
 # Frame 4: Settled full hierarchy with Root Gateway as focal node
-n_ledger.style = Styles.Neutral
-n_ledger.text_style = Styles.DarkBold.patch(text_size=10.5)
-n_gw.style = Styles.PrimaryFlat
-n_gw.text_style = Styles.WhiteBold.patch(text_size=10.5)
 with anim.frame(duration=2.5):
-    draw_with_icons()
+    draw_step({"gw", "auth", "bill", "cache", "ledger"}, focal="gw")
 
 save()
 ```
@@ -95,176 +86,244 @@ save()
 
 
 
-1. **Declare Full Topology Once**: Register all nodes (`g.node()`), clusters (`g.cluster()` / `g.group()`), and edges (`g.edge()`) **once** outside the animation loop.
-2. **Mutate & Redraw Per Frame**: Inside `with anim.frame():`, mutate `node.show`, `node.style`, `cluster.show`, `edge.show`, or `edge.style`, and call `g.draw(margin=..., scale=...)` (or pre-compute `layout = g.calc()` and call `layout.draw()`).
+1. **Solve Full Topology Once (`layout = g.get_layout()`)**: Register all nodes (`g.node()`), clusters (`g.cluster()` / `g.group()`), and edges (`g.edge()`) **once** before the animation loop and call `layout = g.get_layout(margin=...)`.
+2. **Mutate Diagram Items or Animate Along `edge_layout.points`**:
+   - **Option 1 (`drawlib.diagrams`)**: Place `ArchitectureDiagram` or `FlowDiagram` nodes/groups at `layout` coordinates (`nl.xy`, `nl.local_xy`, `cl.bottom_left`) once outside the loop, then mutate `.show` and `.style` / `.card_style` inside `with anim.frame():` before calling `d.draw()`.
+   - **Option 2 (`drawlib.shapes` & `drawlib.lines`)**: Render visible nodes (`layout[id].xy`) and polylines (`edge_layout.points`), or animate data packets along `edge_layout.points` using `get_intermediate_path_points()`.
 
 *(For coordinate-controlled diagrams in `drawlib.diagrams`, see [Animating Technical Diagrams](./diagrams.md).)*
 
 ---
 
-## 1. Deterministic Layout Locking (`g.calc()` & `.show = False`)
+## 1. Deterministic Layout Locking (`layout = g.get_layout()`)
 
 A core challenge when animating auto-layout graphs in traditional tools is **layout jumping**: adding a node on Frame 2 causes the layout engine to recompute all positions and shift Frame 1's nodes unpredictably.
 
-Drawlib eliminates layout jumping by separating **layout solving (`g.calc()`)** from **visibility filtering (`show=False`)**:
-- `g.calc()` always solves node coordinates, cluster bounding boxes, and orthogonal edge ports across the **entire declared topology**, regardless of whether `node.show`, `cluster.show`, or `edge.show` is `False`.
-- During rendering (`g.draw()` or `layout.draw()`), hidden elements (`show=False`) are skipped while visible elements render at their locked final coordinates.
-- Setting `node.show = False` also **automatically hides any edges connected to that node**, so edges appear cleanly as soon as both endpoint nodes become visible.
+Drawlib eliminates layout jumping by decoupling **coordinate solving (`g.get_layout()`)** from **per-frame rendering**:
+- Calling `layout = g.get_layout(width=None, height=None, margin=10.0)` **once** outside the animation loop solves and locks every node center (`layout[id].xy` / `.local_xy`), cluster bounding box (`layout[cid].bottom_left` / `.size`), and orthogonal edge trajectory (`edge_layout.points`) across the entire topology.
+- When rendered with `FlowDiagram` or `ArchitectureDiagram`, setting `node.show = False` skips the hidden node and **automatically hides any edges connected to that node**, so edges appear cleanly as soon as both endpoint nodes become visible.
 
-| Declaration / Layout Property | Description |
+| Layout / Diagram Property | Role in Animation |
 | :--- | :--- |
-| **`node.show` / `cluster.show` / `edge.show`** | Toggle visibility per frame while keeping all computed coordinates and container bounding boxes 100% stationary. |
-| **`node.style` / `node.text_style`** | Highlight the newly revealed or active node with `Styles.PrimaryFlat` (`Styles.WhiteBold` text) and settle previous steps into `Styles.PrimaryNeutral` or `Styles.Neutral`. |
-| **`edge.style` / `edge.text_style`** | Mutate `edge.style = Styles.PrimaryBold` to highlight active data paths, or pass `edge_layout.points` (`list[tuple[float, float]]`) from `layout = g.calc()` to `get_intermediate_path_points()` to animate packets along auto-routed edges. |
-| **`g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)`** | Solves and renders the layout with configurable origin translation `xy`, target `width`/`height`, outer `margin`, and uniform proportional `scale`. |
+| **`layout = g.get_layout(margin=...)`** | Computes and locks all node, cluster, and edge coordinates once before the animation loop begins. |
+| **`node.show` / `group.show` / `edge.show`** | Toggle visibility per frame on `FlowDiagram` or `ArchitectureDiagram` items placed at `layout` coordinates while keeping positions 100% stationary. |
+| **`node.style` / `node.card_style` / `node.text_style`** | Highlight the newly revealed or active step with `Styles.PrimaryFlat` (`Styles.WhiteBold` text) and settle previous steps into `Styles.PrimaryNeutral` or `Styles.Neutral`. |
+| **`edge_layout.points`** | Complete auto-routed polyline (`[src_port, *waypoints, dst_port]`) ready for `lines(e.points)` or `get_intermediate_path_points(e.points, num=...)` packet animations. |
 
 ---
 
-## 2. Step-by-Step Pipeline Reveal (`LayerGraph`)
+## 2. Step-by-Step Pipeline Reveal (`LayerGraph` + `FlowDiagram`)
 
-In `LayerGraph`, `g.node(id, label, ...)` returns a mutable `Node` declaration. Toggling `node.show = (i <= step)` and updating `node.style` inside the frame loop reveals each pipeline rank sequentially while keeping the horizontal layout locked:
+After solving horizontal rank coordinates once with `LayerGraph.get_layout()`, place `Process` nodes into a `FlowDiagram` at `xy=layout[nid].xy`. Toggling `fn.show = (i <= step)` and updating `fn.style` inside the frame loop reveals each pipeline rank sequentially while keeping the horizontal layout locked:
 
 
 
 ```python
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
+from drawlib.diagrams.flow import FlowDiagram, Process
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
 setup(width=124, height=34)
 anim = Animation(fps=1.5)
 
+# Step 1: Solve pipeline coordinates once via LayerGraph.get_layout()
 g = LayerGraph(
     direction="LR",
     rank_sep=8.0,
     default_node_width=23.0,
     default_node_height=11.5,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
-nodes = [
-    g.node("edge", "Edge Router", layer=0),
-    g.node("auth", "Auth Guard", layer=1),
-    g.node("core", "Core API", layer=2),
-    g.node("db", "Primary DB", layer=3),
+stages = [
+    ("edge", "Edge Router", 0),
+    ("auth", "Auth Guard", 1),
+    ("core", "Core API", 2),
+    ("db", "Primary DB", 3),
 ]
+for nid, _, layer_idx in stages:
+    g.node(nid, layer=layer_idx)
 
 g.edge("edge", "auth")
 g.edge("auth", "core")
 g.edge("core", "db")
 
-for step in range(len(nodes)):
-    for i, node in enumerate(nodes):
-        node.show = (i <= step)
-        node.style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
-        node.text_style = Styles.WhiteBold.patch(text_size=10.5) if i == step else Styles.DarkBold.patch(text_size=10.5)
+layout = g.get_layout(margin=5.0)
 
-    is_last = (step == len(nodes) - 1)
+# Step 2: Register Process nodes at locked layout[nid].xy coordinates
+fd = FlowDiagram(
+    node_style=Styles.PrimaryNeutral.patch(text_size=10.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
+)
+flow_nodes = []
+for nid, label, _ in stages:
+    nl = layout[nid]
+    flow_nodes.append(fd.add(Process(label, width=nl.width, height=nl.height), xy=nl.xy))
+
+for i in range(len(flow_nodes) - 1):
+    fd.connect(flow_nodes[i], flow_nodes[i + 1])
+
+# Step 3: Reveal stages one by one without layout jumping
+for step in range(len(flow_nodes)):
+    for i, fn in enumerate(flow_nodes):
+        fn.show = (i <= step)
+        fn.style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
+        fn.text_style = (Styles.WhiteBold if i == step else Styles.DarkBold).patch(text_size=10.5)
+
+    is_last = (step == len(flow_nodes) - 1)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        g.draw(margin=5.0)
+        fd.draw()
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="graphs_images/anim_diagrams_graph_layers.png" alt="graphs_2" />
-  <figcaption class="drawlib-caption">Auto-Layout LayerGraph Step-by-Step Reveal</figcaption>
+  <figcaption class="drawlib-caption">Auto-Layout LayerGraph Step-by-Step Reveal Rendered with FlowDiagram</figcaption>
 </figure>
 
 
 
 ---
 
-## 3. Progressive Cluster & Edge Reveal (`ArchitectureGraph`)
+## 3. Progressive Cluster & Edge Reveal (`ArchitectureGraph` + `ArchitectureDiagram`)
 
-In `ArchitectureGraph`, you can combine `cluster.show`, `node.show`, `node.style`, and `edge.style` to reveal cloud zones and highlight active request routing step by step across nested VPC tiers:
+With `ArchitectureGraph`, calling `layout = g.get_layout()` computes both outer container bounding boxes (`cl.bottom_left`, `cl.width`, `cl.height`) and relative child node coordinates (`nl.local_xy`). Populating an `ArchitectureDiagram` with those locked coordinates lets you progressively reveal cloud zones (`group.show`), service nodes (`node.show`), and active request paths (`edge.style`):
 
 
 
 ```python
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
 
-setup(width=126, height=52)
+setup(width=138, height=42)
 anim = Animation(fps=1.5)
 
+# Step 1: Solve multi-zone container and node coordinates once
 g = ArchitectureGraph(
     direction="LR",
-    container_sep=6.5,
-    default_node_width=20.0,
+    container_sep=6.0,
+    default_node_width=18.0,
     default_node_height=10.5,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
-    default_edge_text_style=Styles.Dark.patch(text_size=10.0),
+)
+g.cluster("ext", ["client"], pos="left", padding=3.5)
+g.node("client")
+
+g.cluster("app", ["gw", "worker"], pos="center", padding=4.0)
+g.node("gw")
+g.node("worker")
+
+g.cluster("data", ["db"], pos="right", padding=3.5)
+g.node("db")
+
+g.edge("client", "gw")
+g.edge("gw", "worker")
+g.edge("worker", "db")
+
+layout = g.get_layout()
+
+# Step 2: Populate ArchitectureDiagram at solved layout coordinates
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
+    node_card_style=Styles.Neutral,
 )
 
-# 1. Declare clusters and nodes across 3 zones
-c_ext = g.cluster("ext", ["client"], label="External", pos="left", padding=4.0)
-n_client = g.node("client", "Client App", style=Styles.Neutral, text_style=Styles.DarkBold.patch(text_size=10.5))
 
-c_app = g.cluster("app", ["gw", "worker"], label="Compute VPC", pos="center", padding=4.5, show=False)
-n_gw = g.node("gw", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.5), show=False)
-n_worker = g.node("worker", "Task Worker", style=Styles.PrimaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5), show=False)
+def make_group(cid: str, title: str, *, show: bool = True) -> NodeGroup:
+    cl = layout.clusters[cid]
+    return d.add(
+        NodeGroup(title=title, width=cl.width, height=cl.height, style=Styles.MutedDashed, show=show),
+        xy=cl.bottom_left,
+    )
 
-c_data = g.cluster("data", ["db"], label="Data Tier", pos="right", padding=4.0, show=False)
-n_db = g.node("db", "Primary DB", style=Styles.SecondaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5), show=False)
 
-e1 = g.edge("client", "gw", "HTTPS")
-e2 = g.edge("gw", "worker", "Dispatch")
-e3 = g.edge("worker", "db", "Write")
+def make_node(grp: NodeGroup, nid: str, label: str, card_st, txt_st, *, show: bool = True) -> Node:
+    nl = layout[nid]
+    return grp.add(
+        Node(
+            label,
+            width=nl.width,
+            height=nl.height,
+            card_style=card_st,
+            text_style=txt_st.patch(text_size=10.5),
+            show=show,
+        ),
+        xy=nl.local_xy,
+    )
+
+
+c_ext = make_group("ext", "External", show=True)
+n_client = make_node(c_ext, "client", "Client App", Styles.Neutral, Styles.DarkBold, show=True)
+
+c_app = make_group("app", "Compute VPC", show=False)
+n_gw = make_node(c_app, "gw", "API Gateway", Styles.PrimaryFlat, Styles.WhiteBold, show=False)
+n_worker = make_node(c_app, "worker", "Task Worker", Styles.PrimaryNeutral, Styles.DarkBold, show=False)
+
+c_data = make_group("data", "Data Tier", show=False)
+n_db = make_node(c_data, "db", "Primary DB", Styles.SecondaryNeutral, Styles.DarkBold, show=False)
+
+e1 = d.connect(n_client, n_gw, label="HTTPS")
+e2 = d.connect(n_gw, n_worker, label="Queue")
+e3 = d.connect(n_worker, n_db, label="Write")
 
 # Frame 1: External Client entry point
 with anim.frame(duration=0.8):
-    g.draw(xy=(-6.0, -5.0), width=138, height=62)
+    d.draw()
 
 # Frame 2: Reveal Compute VPC & API Gateway with active incoming edge
 c_app.show = True
 n_gw.show = True
 e1.style = Styles.PrimaryBold
 with anim.frame(duration=0.8):
-    g.draw(xy=(-6.0, -5.0), width=138, height=62)
+    d.draw()
 
 # Frame 3: Reveal Task Worker inside Compute VPC
 e1.style = Styles.DarkBold
-n_gw.style = Styles.PrimaryNeutral
+n_gw.card_style = Styles.PrimaryNeutral
 n_gw.text_style = Styles.DarkBold.patch(text_size=10.5)
 n_worker.show = True
-n_worker.style = Styles.PrimaryFlat
+n_worker.card_style = Styles.PrimaryFlat
 n_worker.text_style = Styles.WhiteBold.patch(text_size=10.5)
 e2.style = Styles.PrimaryBold
 with anim.frame(duration=0.8):
-    g.draw(xy=(-6.0, -5.0), width=138, height=62)
+    d.draw()
 
 # Frame 4: Reveal Data Tier and complete architecture (hold final frame)
 e2.style = Styles.DarkBold
-n_worker.style = Styles.PrimaryNeutral
+n_worker.card_style = Styles.PrimaryNeutral
 n_worker.text_style = Styles.DarkBold.patch(text_size=10.5)
 c_data.show = True
 n_db.show = True
-n_gw.style = Styles.PrimaryFlat
+n_gw.card_style = Styles.PrimaryFlat
 n_gw.text_style = Styles.WhiteBold.patch(text_size=10.5)
 e3.style = Styles.PrimaryBold
 with anim.frame(duration=2.5):
-    g.draw(xy=(-6.0, -5.0), width=138, height=62)
+    d.draw()
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="graphs_images/anim_graphs_architecture_reveal.png" alt="graphs_3" />
-  <figcaption class="drawlib-caption">ArchitectureGraph Progressive Cluster, Node, and Edge Reveal</figcaption>
+  <figcaption class="drawlib-caption">ArchitectureGraph + ArchitectureDiagram Progressive Cluster, Node, and Edge Reveal</figcaption>
 </figure>
 
 
 
 ---
 
-## 4. Animating Packets Along Auto-Routed Edges (`g.calc()` & `edge_layout.points`)
+## 4. Animating Packets Along Auto-Routed Edges (`g.get_layout()` & `edge_layout.points`)
 
-Calling `layout = g.calc(width=None, height=None, margin=10.0)` **once** before the animation loop computes the exact `GraphLayout` without drawing anything:
-- Every `EdgeLayout` in `layout.edges` exposes `edge_layout.points: list[tuple[float, float]]` (`[src_port, *waypoints, dst_port]`), representing the complete auto-routed polyline trajectory.
-- Pass `edge_layout.points` to `get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)` (or `get_intermediate_paths()`) to animate a data packet (`circle`) traveling smoothly along an auto-routed graph edge while calling `layout.draw(*, xy=(0, 0), scale=1.0)` on each frame:
+Every `EdgeLayout` in `layout.edges` exposes `edge_layout.points: list[tuple[float, float]]` (`[src_port, *waypoints, dst_port]`), representing the complete auto-routed polyline trajectory between node borders.
+
+Pass `edge_layout.points` to `get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)` to animate a data packet (`circle`) traveling smoothly along an auto-routed graph edge:
 
 
 
@@ -272,9 +331,11 @@ Calling `layout = g.calc(width=None, height=None, margin=10.0)` **once** before 
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
+from drawlib.lines import lines
 from drawlib.math import get_intermediate_path_points
-from drawlib.shapes import circle
+from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=118, height=38)
 anim = Animation(fps=10.0)
@@ -283,47 +344,61 @@ g = LayerGraph(
     direction="LR",
     default_node_width=24.0,
     default_node_height=12.0,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
-    default_edge_text_style=Styles.Dark.patch(text_size=10.0),
 )
-g.node("ingest", "Ingest API", layer=0, style=Styles.PrimaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5))
-g.node("worker", "Stream Worker", layer=1, style=Styles.Neutral, text_style=Styles.DarkBold.patch(text_size=10.5))
-g.node("store", "Data Warehouse", layer=2, style=Styles.SecondaryNeutral, text_style=Styles.DarkBold.patch(text_size=10.5))
-g.edge("ingest", "worker", "Events")
-g.edge("worker", "store", "Batch")
+g.node("ingest", layer=0)
+g.node("worker", layer=1)
+g.node("store", layer=2)
+g.edge("ingest", "worker")
+g.edge("worker", "store")
 
 # 1. Solve layout once to inspect auto-routed edge polylines
-layout = g.calc(margin=5.0)
-pts_e0 = get_intermediate_path_points(layout.edges[0].points, num=3, include_ends=True)
-pts_e1 = get_intermediate_path_points(layout.edges[1].points, num=3, include_ends=True)
+layout = g.get_layout(margin=5.0)
+pts_e0 = get_intermediate_path_points(layout.edges[0].points, num=4, include_ends=False)
+pts_e1 = get_intermediate_path_points(layout.edges[1].points, num=4, include_ends=False)
+
+edge_labels = {("ingest", "worker"): "Events", ("worker", "store"): "Batch"}
+base_nodes = [
+    ("ingest", "Ingest API", Styles.PrimaryNeutral),
+    ("worker", "Stream Worker", Styles.Neutral),
+    ("store", "Data Warehouse", Styles.SecondaryNeutral),
+]
+
+
+def draw_pipeline(active_id: str | None = None) -> None:
+    for e in layout.edges:
+        lines(e.points, arrow_head="->", style=Styles.DarkBold)
+        lbl = edge_labels[(e.src, e.dst)]
+        text((e.mid_xy[0], e.mid_xy[1] + 2.4), lbl, style=Styles.Dark.patch(text_size=10.0))
+    for nid, label, base_st in base_nodes:
+        nl = layout[nid]
+        is_active = nid == active_id
+        st = Styles.PrimaryFlat if is_active else base_st
+        tst = (Styles.WhiteBold if is_active else Styles.DarkBold).patch(text_size=10.5)
+        rectangle(nl.xy, width=nl.width, height=nl.height, style=st, text=label, text_style=tst)
+
 
 # 2. Hop 1: Packet travels along layout.edges[0].points
 for pkt_xy in pts_e0:
     with anim.frame(duration=0.12):
-        layout.draw()
-        circle(pkt_xy, radius=2.6, style=Styles.PrimaryFlat)
+        draw_pipeline(active_id="ingest")
+        circle(pkt_xy, radius=2.2, style=Styles.PrimaryFlat)
 
 # 3. Hop 2: Highlight worker and move packet along layout.edges[1].points
-layout.nodes["worker"].style = Styles.PrimaryFlat
-layout.nodes["worker"].text_style = Styles.WhiteBold.patch(text_size=10.5)
-for i, pkt_xy in enumerate(pts_e1):
-    is_last = (i == len(pts_e1) - 1)
-    if is_last:
-        layout.nodes["worker"].style = Styles.PrimaryNeutral
-        layout.nodes["worker"].text_style = Styles.DarkBold.patch(text_size=10.5)
-        layout.nodes["store"].style = Styles.PrimaryFlat
-        layout.nodes["store"].text_style = Styles.WhiteBold.patch(text_size=10.5)
-    with anim.frame(duration=2.2 if is_last else 0.12):
-        layout.draw()
-        if not is_last:
-            circle(pkt_xy, radius=2.6, style=Styles.PrimaryFlat)
+for pkt_xy in pts_e1:
+    with anim.frame(duration=0.12):
+        draw_pipeline(active_id="worker")
+        circle(pkt_xy, radius=2.2, style=Styles.PrimaryFlat)
+
+# 4. Final settled frame: Data Warehouse active
+with anim.frame(duration=2.2):
+    draw_pipeline(active_id="store")
 
 save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="graphs_images/anim_graphs_edge_packet.png" alt="graphs_4" />
-  <figcaption class="drawlib-caption">Animating a Data Packet Along an Auto-Routed Graph Edge via layout = g.calc() and edge_layout.points</figcaption>
+  <figcaption class="drawlib-caption">Animating a Data Packet Along an Auto-Routed Graph Edge via layout = g.get_layout() and edge_layout.points</figcaption>
 </figure>
 
 

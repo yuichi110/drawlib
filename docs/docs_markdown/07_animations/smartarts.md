@@ -59,7 +59,7 @@ for step in range(len(chev_items)):
     is_last = (step == len(chev_items) - 1)
     with anim.frame(duration=2.5 if is_last else 0.7):
         proc.draw(xy=(4.0, 21.0), width=112.0, height=14.0)
-        cards.draw(xy=(4.0, 5.0), box_width=28.0, box_height=11.5, align="left")
+        cards.draw(xy=(4.0, 5.0), box_width=28.0, box_height=11.5, align="bottom_left")
 
 save()
 ```

@@ -663,8 +663,8 @@
 <li><strong>Native theming integration</strong>: All diagrams use standard <a href="../02_drawing_primitives/styles.html"><code>Styles</code></a>, <a href="../02_drawing_primitives/colors.html"><code>Colors</code></a>, and <a href="../02_drawing_primitives/fonts.html"><code>Font</code></a> models.</li>
 </ul>
 <blockquote>
-<p><strong>Looking for Automatic Graph Layout?</strong><br />
-When you want to declare nodes, edges, and clusters without specifying <code>(x, y)</code> coordinates—or scaffold initial coordinates using <code>export_code()</code>—see <strong><a href="../06_graph/overview.html">Chapter 6: Auto-Layout Graphs (<code>drawlib.graph</code>)</a></strong>.</p>
+<p><strong>Looking for Automatic Coordinate Calculation?</strong><br />
+When you want to solve <code>(x, y)</code> coordinates, container bounding boxes, and edge waypoints automatically from topological relationships (<code>node</code>, <code>edge</code>, <code>cluster</code>) via <code>g.get_layout()</code> before rendering with <code>drawlib.diagrams</code> or <code>drawlib.shapes</code>, see <strong><a href="../06_graph/overview.html">Chapter 6: Auto-Layout Graphs (<code>drawlib.graph</code>)</a></strong>.</p>
 </blockquote>
 <hr />
 <h2>1. The 6 Technical Diagram Engines (<code>drawlib.diagrams</code>)</h2>
@@ -1031,11 +1031,11 @@ Generates a quadratic Bezier or arc curve between nodes. A positive bend curves 
 </li>
 </ol>
 <hr />
-<h2>5. Choosing Between <code>drawlib.diagrams</code> and <code>drawlib.graph</code></h2>
-<p>When starting a new architecture or workflow diagram:</p>
+<h2>5. Combining <code>drawlib.diagrams</code> and <code>drawlib.graph</code></h2>
+<p>When building an architecture or workflow diagram:</p>
 <ul>
-<li>Choose <strong><code>drawlib.diagrams</code></strong> (this chapter) when you want <strong>domain-specific visual notations</strong> (cloud icon cards, ISO flowchart swimlanes, UML sequence lifelines, 3-compartment UML classes, Crow's Foot ER tables, or UML statecharts) and <strong>deterministic coordinate control</strong>.</li>
-<li>Choose <strong><a href="../06_graph/overview.html"><code>drawlib.graph</code></a></strong> (Chapter 6) when you want <strong>automatic topological coordinate solving</strong> (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>), or when you want to solve an initial layout automatically and export editable coordinate code via <code>g.export_code()</code>.</li>
+<li>Use <strong><code>drawlib.diagrams</code></strong> (this chapter) for <strong>domain-specific visual notations</strong> (cloud icon cards, ISO flowchart swimlanes, UML sequence lifelines, 3-compartment UML classes, Crow's Foot ER tables, or UML statecharts) with <strong>deterministic coordinate control</strong>.</li>
+<li>Combine with <strong><a href="../06_graph/overview.html"><code>drawlib.graph</code></a></strong> (Chapter 6) when you want <strong>automatic topological coordinate solving</strong> (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>): call <code>layout = g.get_layout(width=..., height=...)</code> (or <code>print(layout)</code> to inspect coordinates) and pass the solved <code>c.bottom_left</code>, <code>c.local_bottom_left</code>, <code>n.xy</code>, and <code>n.local_xy</code> coordinates directly into <code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, or <code>drawlib.shapes</code>.</li>
 </ul>
 <hr />
 <h2>6. Chapter Navigation</h2>

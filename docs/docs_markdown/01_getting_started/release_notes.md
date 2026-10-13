@@ -36,7 +36,7 @@ Version 0.3.0 represents a major architectural milestone for Drawlib, transformi
   - **`TreeGraph`**: Balanced parent-child hierarchy layout.
   - **`RadialGraph`**: Concentric radial ring layout.
   - **`GridGraph`**: Structured matrix placement solver.
-- **Code Export (`export_code()`)**: Automatically emits clean, editable Drawlib primitive Python code from computed graph layouts for fine-grained customization.
+- **2-Step Layout Inspection & Diagram Rendering (`get_layout()`)**: Computes structured `GraphLayout` coordinates (`xy`, `bottom_left`, `local_xy`, `local_bottom_left`, `points`) with human- and AI-readable `print(layout)` inspection and `offset()` fine-tuning.
 
 #### 4. High-Level Technical Diagrams (`drawlib.diagrams`)
 - **Architecture Diagrams (`drawlib.diagrams.architecture.ArchitectureDiagram`)**: Cloud topologies, nested cluster groups, and Phosphor / official GCP vector icons.

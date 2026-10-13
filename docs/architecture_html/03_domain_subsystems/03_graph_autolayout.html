@@ -194,8 +194,8 @@
             </header>
             <main class="main-content">
                 <h1>Declarative Graph Auto-Layout Engine (drawlib.graph)</h1>
-<p>Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and cannot be customized with Python styling tokens.</p>
-<p>To solve this, Drawlib includes <code>drawlib.graph</code>: a <strong>pure-Python declarative graph auto-layout engine</strong> that calculates topological coordinates, nested cluster boundaries, and edge routing in-memory without external dependencies.</p>
+<p>Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and trap layouts inside a rigid rendering black box.</p>
+<p>To solve this, Drawlib includes <code>drawlib.graph</code>: a <strong>pure-Python coordinate and layout calculator (<code>get_layout()</code>)</strong> that solves topological coordinates, nested cluster boundaries, and edge waypoints in-memory without external dependencies, powering a clean <strong>2-Step Workflow</strong> with <code>drawlib.diagrams</code> and <code>drawlib.shapes</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="03_graph_autolayout_images/graph_layout_pipeline.png" alt="03_graph_autolayout_1" />
   <figcaption class="drawlib-caption">Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)</figcaption>
@@ -219,18 +219,18 @@
 <span class="p">)</span>
 
 <span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Node/Edge Spec"</span><span class="p">,</span> <span class="s2">"Declarative DAG</span><span class="se">\n</span><span class="s2">Parents &amp; Children"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Topology Sort"</span><span class="p">,</span> <span class="s2">"Layer assignment</span><span class="se">\n</span><span class="s2">Rank distribution"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sort_ascending</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Coord Solving"</span><span class="p">,</span> <span class="s2">"X/Y coordinates</span><span class="se">\n</span><span class="s2">Cluster boundaries"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Edge Routing"</span><span class="p">,</span> <span class="s2">"Arrow curves</span><span class="se">\n</span><span class="s2">Collision avoidance"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_split</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Node/Edge Spec"</span><span class="p">,</span> <span class="s2">"Declarative DAG</span><span class="se">\n</span><span class="s2">Nodes &amp; Clusters"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Topology Sort"</span><span class="p">,</span> <span class="s2">"Layer assignment</span><span class="se">\n</span><span class="s2">Compass &amp; tree packing"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sort_ascending</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Coord Solving"</span><span class="p">,</span> <span class="s2">"xy, local_xy &amp;</span><span class="se">\n</span><span class="s2">Cluster bottom_left"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. get_layout()"</span><span class="p">,</span> <span class="s2">"GraphLayout output</span><span class="se">\n</span><span class="s2">for diagrams/shapes"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_split</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
     <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
     <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
     <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">x_from</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
@@ -241,31 +241,43 @@
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Pure-Python Declarative Graph Layout</h2>
-<p>Instead of writing graph descriptions in external domain-specific languages (e.g. Graphviz DOT files), <code>drawlib.graph</code> allows developers to define nodes, edges, and clusters using native Python syntax:</p>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<h2>1. Concept: Pure Coordinate Calculator &amp; 2-Step Workflow</h2>
+<p>Instead of coupling layout math to a rigid, un-customizable renderer, <code>drawlib.graph</code> is strictly a <strong>pure coordinate calculator (<code>get_layout()</code> only)</strong>. Developers and AI agents declare topological relationships in Step 1, and render with <code>drawlib.diagrams</code> (<code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, etc.) or <code>drawlib.shapes</code> in Step 2:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"Web Browser"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"service"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"service"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="c1"># Step 1: Solve topology coordinates with LayerGraph.get_layout()</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span> <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"client"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"service"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"service"</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Render with FlowDiagram (or inspect via print(layout))</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span><span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"client"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
+<span class="n">gw</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"gateway"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
+<span class="n">svc</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"service"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">gw</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gw</span><span class="p">,</span> <span class="n">svc</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre>
-<h3>Key Advantages:</h3>
+<h3>Key Architectural Advantages:</h3>
 <ul>
-<li><strong>No External Binaries</strong>: Runs anywhere standard Python runs—including lightweight Docker alpine images and air-gapped CI environments.</li>
-<li><strong>Unified Visual Styling</strong>: Graph nodes and edges accept standard Drawlib <code>Style</code> tokens (<code>Styles.PrimaryFlat</code>, <code>Styles.Neutral</code>), ensuring aesthetic parity with hand-crafted diagrams.</li>
-<li><strong>Deterministic Coordinate Mapping</strong>: The solved coordinates can be extracted and composed alongside hand-drawn callouts, legends, and icons.</li>
+<li><strong>Strict Separation of Layout and Rendering</strong>: <code>drawlib.graph</code> contains zero visual styling parameters (<code>style</code>, <code>label</code>, <code>shape</code>, <code>draw()</code> do not exist on <code>drawlib.graph</code>), eliminating redundant rendering code and letting <code>drawlib.diagrams</code> handle icons, cards, and connectors.</li>
+<li><strong>No External Binaries</strong>: Runs anywhere standard Python runs—including lightweight Docker images and air-gapped CI environments.</li>
+<li><strong>Seamless Local &amp; Global Coordinates</strong>: <code>GraphLayout</code> provides both global canvas coordinates (<code>.xy</code>, <code>.bottom_left</code>) and cluster-relative coordinates (<code>.local_xy</code>, <code>.local_bottom_left</code>) that map directly into <code>ArchitectureDiagram</code>'s nested <code>NodeGroup</code> hierarchy.</li>
 </ul>
 <hr />
 <h2>2. Positioning: The 5 Graph Layout Engines</h2>
 <p>All solvers in <code>drawlib.graph</code> inherit from the abstract base class <code>BaseGraph(ABC)</code> (<code>_common/_base.py</code>). <code>BaseGraph</code> defines the standard lifecycle:</p>
 <ol>
-<li><strong>Specification Phase</strong>: Registering nodes (<code>add_node()</code>), edges (<code>add_edge()</code>), and nested boundaries (<code>add_cluster()</code> or <code>container()</code>).</li>
-<li><strong>Solve Phase (<code>calc()</code>)</strong>: Returns an immutable <code>GraphLayout</code> dataclass containing absolute node centroids, cluster bounds, and polyline edge waypoints.</li>
-<li><strong>Render Phase (<code>draw(xy)</code>)</strong>: Renders artists to the canvas offset by <code>(x0, y0)</code>, or serializes to standalone Python code (<code>export_code()</code>).</li>
+<li><strong>Specification Phase</strong>: Registering nodes (<code>g.node(id, *, width=..., height=...)</code>), edges (<code>g.edge(src, dst)</code>), and nested boundaries (<code>g.cluster(id, nodes=[...], *, padding=4.0, header_height=3.5)</code> or <code>g.group(id, ...)</code>).</li>
+<li><strong>Solve Phase (<code>get_layout(width=..., height=..., margin=10.0)</code>)</strong>: Returns a <code>GraphLayout</code> container holding <code>NodeLayout</code>, <code>ClusterLayout</code>, and <code>EdgeLayout</code> objects, supporting <code>layout[&quot;id&quot;]</code> lookup, <code>print(layout)</code> tabular inspection, and <code>layout.offset(id, dx=..., dy=...)</code> post-solve adjustments.</li>
+<li><strong>Render Phase (Externalized to <code>drawlib.diagrams</code> / <code>drawlib.shapes</code>)</strong>: Solved coordinates are passed to <code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, or <code>drawlib.shapes</code> / <code>drawlib.lines</code>.</li>
 </ol>
 <p><code>drawlib.graph</code> provides <strong>five specialized layout solvers</strong>:</p>
 <ol>
@@ -273,9 +285,9 @@
 <ul>
 <li>Uses an adapted Sugiyama-style layering algorithm:
 <ul>
-<li>Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting and longest-path analysis.</li>
-<li>Orders nodes within each layer to minimize edge crossings.</li>
-<li>Solves coordinate positions and projects orthogonal or curved connecting arrows.</li>
+<li>Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting, longest-path analysis, and <code>.tier()</code> stage pinning.</li>
+<li>Orders nodes within each layer via barycenter crossing minimization.</li>
+<li>Solves coordinate positions and computes orthogonal or straight edge waypoints.</li>
 </ul>
 </li>
 </ul>
@@ -285,27 +297,26 @@
 <li>Specialized layout solver designed for cloud architectures and distributed microservices.</li>
 <li>Solves layouts across two coupled geometric tiers:
 <ul>
-<li><strong>Macro Level</strong>: Arranges top-level containers (VPCs, AWS/GCP regions, client tiers, SaaS services) along the macro flow direction (<code>LR</code> or <code>TB</code>).</li>
-<li><strong>Micro Level</strong>: Automatically arranges internal services, subnets, and databases within their respective container boundaries.</li>
-<li>Automatically routes cross-container connections with collision-avoiding orthogonal clearance paths.</li>
+<li><strong>Macro Level</strong>: Arranges top-level containers (VPCs, cloud regions, client tiers, observability zones) across a 5-zone compass (<code>pos=&quot;left&quot;|&quot;center&quot;|&quot;right&quot;|&quot;top&quot;|&quot;bottom&quot;</code>) or along the macro flow direction (<code>LR</code> or <code>TB</code>).</li>
+<li><strong>Micro Level</strong>: Packs internal services and nested subnets (<code>parent=...</code>) within their enclosing container boundaries and computes <code>.local_xy</code> and <code>.local_bottom_left</code>.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><strong><code>TreeGraph</code> (Hierarchical Directory / Org Layout)</strong>:
 <ul>
-<li>Optimized for single-parent trees, directory trees, and organizational hierarchies.</li>
-<li>Computes subtree widths recursively to prevent node overlaps.</li>
+<li>Optimized for single-parent trees, directory trees, and organizational hierarchies (<code>.child(parent, child_id)</code>).</li>
+<li>Computes subtree widths recursively via Reingold-Tilford contours to prevent node overlaps.</li>
 </ul>
 </li>
 <li><strong><code>RadialGraph</code> (Central Hub &amp; Spoke Layout)</strong>:
 <ul>
-<li>Distributes peripheral nodes in concentric angular orbits around a central hub.</li>
+<li>Distributes peripheral nodes (<code>.spoke(parent, spoke_id, ring=...)</code>) in concentric angular orbits around a central hub and exposes ring radii in <code>layout.ring_radii</code>.</li>
 </ul>
 </li>
 <li><strong><code>GridGraph</code> (Matrix / Cluster Topology)</strong>:
 <ul>
-<li>Aligns nodes on a 2D coordinate grid with configurable column and row gaps.</li>
+<li>Aligns nodes on a 2D coordinate grid (<code>.cell()</code>, <code>.cluster_row()</code>, <code>.cluster_column()</code>) with smart channel edge routing.</li>
 </ul>
 </li>
 </ol>

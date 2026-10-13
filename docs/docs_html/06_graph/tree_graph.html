@@ -495,17 +495,19 @@
             </header>
             <main class="main-content">
                 <h1>TreeGraph: Balanced Hierarchies &amp; Decomposition Trees</h1>
-<p><code>TreeGraph</code> implements the <strong>Reingold-Tilford / Buchheim compact tree layout algorithm</strong>, arranging strict parent-child hierarchies so that every parent node is symmetrically centered over (or beside) its children while sibling subtrees are packed tightly without ever colliding.</p>
-<p>Use <code>TreeGraph</code> whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees.</p>
+<p><code>TreeGraph</code> implements the <strong>Reingold-Tilford / Buchheim compact tree layout algorithm</strong>, computing balanced <code>(cx, cy)</code> node centers and branch waypoints so that every parent node is symmetrically centered over (or beside) its children while sibling subtrees are packed tightly without ever colliding.</p>
+<p>Use <code>TreeGraph</code> whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees. Call <code>layout = g.get_layout(margin=...)</code> to solve coordinates and render with <a href="../05_diagrams/flow.html"><code>FlowDiagram</code></a>, <a href="../05_diagrams/architecture.html"><code>ArchitectureDiagram</code></a>, or <a href="../02_drawing_primitives/shapes_overview.html"><code>drawlib.shapes</code></a> and <a href="../02_drawing_primitives/lines.html"><code>drawlib.lines</code></a>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="tree_graph_images/graph_tree_hero.png" alt="tree_graph_1" />
-  <figcaption class="drawlib-caption">TreeGraph Overview: Orthogonal vs. Straight Branch Routing in Balanced Hierarchies</figcaption>
+  <figcaption class="drawlib-caption">TreeGraph Overview: Balanced Buchheim Tree Coordinates Rendered with Orthogonal Branch Polylines and Icons</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
@@ -518,48 +520,57 @@
     <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Level 0: Root Node</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
-    <span class="s2">"core"</span><span class="p">,</span>
-    <span class="s2">"</span><span class="se">\n</span><span class="s2">Platform Core"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"core"</span><span class="p">)</span>
 
 <span class="c1"># Level 1: Division Branches</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Compute Plane"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Data Plane"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"compute"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">)</span>
 
-<span class="c1"># Level 2: Leaf Subsystems (50%+ Neutral baseline)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">API Mesh"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"workers"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Worker Pool"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Primary SQL"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Cache Cluster"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="c1"># Level 2: Leaf Subsystems</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"api"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="s2">"workers"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">)</span>
 
-<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
+<span class="c1"># 1. Compute balanced tree coordinates &amp; orthogonal branch waypoints</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"compute"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"api"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"workers"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"sql"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"cache"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-<span class="p">]:</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
-    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+<span class="c1"># 2. Render orthogonal tree branches from layout.edges</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># 3. Render node cards &amp; Phosphor icons at solved (cx, cy) coordinates</span>
+<span class="n">node_meta</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"core"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Platform Core"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="s2">"compute"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Compute Plane"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Data Plane"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="s2">"api"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">API Mesh"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="s2">"workers"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Worker Pool"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="s2">"sql"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Primary SQL"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="s2">"cache"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Cache Cluster"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">box_st</span><span class="p">,</span> <span class="n">txt_st</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">ic_st</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="n">n</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">n</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">n</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">box_st</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ic_st</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Constructor &amp; <code>.child()</code> Builder API</h2>
+<h2>1. Constructor, <code>.child()</code>, &amp; <code>get_layout()</code> API</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
     <span class="n">root</span><span class="o">=</span><span class="s2">"vp"</span><span class="p">,</span>                       <span class="c1"># Explicit root node ID (auto-detected if None)</span>
@@ -567,11 +578,12 @@
     <span class="n">level_sep</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>                  <span class="c1"># Fixed gap between tree depths (auto-scales if None)</span>
     <span class="n">sibling_sep</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>                 <span class="c1"># Minimum gap between sibling nodes (auto-scales if None)</span>
     <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span>       <span class="c1"># "orthogonal" or "straight"</span>
-    <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">default_edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>                        <span class="c1"># Inspect solved node centers &amp; branch waypoints</span>
 </code></pre>
 <h3>Parameter Reference</h3>
 <table>
@@ -612,31 +624,7 @@
 <td style="text-align:left"><code>edge_routing</code></td>
 <td style="text-align:left"><code>Literal[&quot;orthogonal&quot;, &quot;straight&quot;]</code></td>
 <td style="text-align:left"><code>&quot;orthogonal&quot;</code></td>
-<td style="text-align:left">Edge path routing (<code>&quot;orthogonal&quot;</code> right-angled tree branches or <code>&quot;straight&quot;</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_node_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default style for nodes without an explicit <code>style</code> (defaults to <code>Styles.PrimaryFlat</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_node_text_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default typography style for node labels.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_edge_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default line style for tree branches (defaults to <code>Styles.DarkBold</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_edge_text_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default text style for branch labels.</td>
+<td style="text-align:left">Edge path routing (<code>&quot;orthogonal&quot;</code> right-angled tree branches or <code>&quot;straight&quot;</code> Euclidean segments) stored in <code>edge_layout.points</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>default_node_width</code></td>
@@ -653,22 +641,13 @@
 </tbody>
 </table>
 <h3>Concise Tree Construction with <code>g.child(...)</code></h3>
-<p>In addition to <code>g.node()</code> and <code>g.edge()</code>, <code>TreeGraph</code> provides a single-call <code>.child()</code> helper that registers a child node and connects it from <code>parent</code> in one step:</p>
+<p>In addition to <code>g.node(id, *, width=None, height=None)</code> and <code>g.edge(src, dst)</code>, <code>TreeGraph</code> provides a single-call <code>.child()</code> helper that registers a child node and connects it from <code>parent</code> in one step:</p>
 <pre><code class="language-python"><span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span>
     <span class="n">parent</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">child_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="s2">"circle"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rectangle"</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">edge_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">edge_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-&gt;"</span><span class="p">,</span>
-    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">edge_show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span>
 </code></pre>
 <blockquote>
@@ -679,84 +658,148 @@
 </ul>
 </blockquote>
 <hr />
-<h2>2. Top-Down (<code>TB</code>) Engineering Organization Hierarchy</h2>
-<p>A top-down (<code>direction=&quot;TB&quot;</code>) tree is ideal for organizational structures, class taxonomies, and ASTs. Notice how the Buchheim contour solver centers <code>VP Engineering</code> over the two division heads and evenly spaces the four leaf teams:</p>
+<h2>2. Top-Down (<code>TB</code>) Engineering Organization Hierarchy with <code>FlowDiagram</code></h2>
+<p>A top-down (<code>direction=&quot;TB&quot;</code>) tree is ideal for organizational structures, class taxonomies, and ASTs. Notice how the Buchheim contour solver (<code>g.get_layout()</code>) centers <code>VP Engineering</code> over the two division heads and evenly spaces the four leaf teams, while <code>FlowDiagram</code> (<code>Process</code> + <code>fork()</code>) renders the styled cards and orthogonal tree forks:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
+<span class="c1"># Step 1: Declare tree topology &amp; solve coordinates</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
     <span class="n">root</span><span class="o">=</span><span class="s2">"vp"</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"plat"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"infra"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"sec"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"web"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"mob"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Place Process nodes at solved layout[id].xy centers in FlowDiagram</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Root focal node in PrimaryFlat</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"VP Engineering"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"VP Engineering"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"Platform Div"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Product Div"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"infra"</span><span class="p">,</span> <span class="s2">"Cloud Infra"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"sec"</span><span class="p">,</span> <span class="s2">"Security Eng"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"Web Frontend"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"mob"</span><span class="p">,</span> <span class="s2">"Mobile Apps"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">Process</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+    <span class="p">)</span>
 
-<span class="c1"># Second level in Tinted-Neutral cards</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"Platform Div"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"vp"</span><span class="p">,</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"Product Div"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">src</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">dst</span><span class="p">],</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">)</span>
 
-<span class="c1"># Leaf teams in calm Neutral cards (50%+ neutral baseline)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"infra"</span><span class="p">,</span> <span class="s2">"Cloud Infra"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"plat"</span><span class="p">,</span> <span class="s2">"sec"</span><span class="p">,</span> <span class="s2">"Security Eng"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"web"</span><span class="p">,</span> <span class="s2">"Web Frontend"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"mob"</span><span class="p">,</span> <span class="s2">"Mobile Apps"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="tree_graph_images/graph_tree_tb_hierarchy.png" alt="tree_graph_2" />
-  <figcaption class="drawlib-caption">Top-Down (TB) Engineering Organization Hierarchy with Orthogonal Branches</figcaption>
+  <figcaption class="drawlib-caption">Top-Down (TB) Engineering Organization Hierarchy Solved with TreeGraph and Rendered with FlowDiagram</figcaption>
 </figure>
 <hr />
 <h2>3. Left-to-Right (<code>LR</code>) Service Decomposition &amp; Call Tree</h2>
-<p>Switching to <code>direction=&quot;LR&quot;</code> grows the hierarchy horizontally from left to right. This layout works exceptionally well for API request fan-out trees, work breakdown structures (WBS), and file/module trees where labels are wider than they are tall:</p>
+<p>Switching to <code>direction=&quot;LR&quot;</code> grows the hierarchy horizontally from left to right. This layout works exceptionally well for API request fan-out trees, work breakdown structures (WBS), and query execution plans where labels are wider than they are tall:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
+<span class="c1"># Step 1: Solve Left-to-Right tree coordinates</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
     <span class="n">root</span><span class="o">=</span><span class="s2">"query_plan"</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"index_scan"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"agg_stage"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"shard_1"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"shard_2"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"col_store"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"cache_hit"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Render with FlowDiagram and labeled branch connectors</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Root query coordinator</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"Query Planner"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"Query Planner"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"Index Lookup"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"Hash Aggregate"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"shard_1"</span><span class="p">,</span> <span class="s2">"Users Shard A"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"shard_2"</span><span class="p">,</span> <span class="s2">"Users Shard B"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"col_store"</span><span class="p">,</span> <span class="s2">"Orders Columnar"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"cache_hit"</span><span class="p">,</span> <span class="s2">"Materialized View"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">Process</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+    <span class="p">)</span>
 
-<span class="c1"># Intermediate execution branches</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"Index Lookup"</span><span class="p">,</span> <span class="n">edge_label</span><span class="o">=</span><span class="s2">"Filter"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"query_plan"</span><span class="p">,</span> <span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"Hash Aggregate"</span><span class="p">,</span> <span class="n">edge_label</span><span class="o">=</span><span class="s2">"Group"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"query_plan"</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="s2">"index_scan"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Filter"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"query_plan"</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="s2">"agg_stage"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Group"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"index_scan"</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="s2">"shard_1"</span><span class="p">],</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"index_scan"</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="s2">"shard_2"</span><span class="p">],</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"agg_stage"</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="s2">"col_store"</span><span class="p">],</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="s2">"agg_stage"</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="s2">"cache_hit"</span><span class="p">],</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
-<span class="c1"># Leaf storage shards</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"shard_1"</span><span class="p">,</span> <span class="s2">"Users Shard A"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"index_scan"</span><span class="p">,</span> <span class="s2">"shard_2"</span><span class="p">,</span> <span class="s2">"Users Shard B"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"col_store"</span><span class="p">,</span> <span class="s2">"Orders Columnar"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"agg_stage"</span><span class="p">,</span> <span class="s2">"cache_hit"</span><span class="p">,</span> <span class="s2">"Materialized View"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="tree_graph_images/graph_tree_lr_decomposition.png" alt="tree_graph_3" />
-  <figcaption class="drawlib-caption">Left-to-Right (LR) Query Execution Decomposition Tree</figcaption>
+  <figcaption class="drawlib-caption">Left-to-Right (LR) Query Execution Decomposition Tree Rendered with FlowDiagram</figcaption>
 </figure>
 <hr />
 <h2>4. Automatic Multi-Root Forest (<code>root=None</code>) &amp; Straight Edge Routing</h2>
-<p>When <code>root=None</code>, <code>TreeGraph</code> automatically identifies all nodes with in-degree <code>0</code> and arranges multiple independent trees side-by-side as a balanced forest. Passing <code>edge_routing=&quot;straight&quot;</code> connects parents to children with direct Euclidean line segments:</p>
+<p>When <code>root=None</code>, <code>TreeGraph</code> automatically identifies all nodes with in-degree <code>0</code> and arranges multiple independent trees side-by-side as a balanced forest. Passing <code>edge_routing=&quot;straight&quot;</code> populates <code>edge_layout.points</code> with direct Euclidean line segments between parent and child ports:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
@@ -767,32 +810,53 @@
     <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"straight"</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Tree 1: Frontend App Hierarchy (Root 1)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"Frontend App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"fe_router"</span><span class="p">,</span> <span class="s2">"SPA Router"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"fe_store"</span><span class="p">,</span> <span class="s2">"State Store"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"fe_router"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"fe_store"</span><span class="p">)</span>
 
 <span class="c1"># Tree 2: Backend API Hierarchy (Root 2)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"Backend API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"be_auth"</span><span class="p">,</span> <span class="s2">"Auth Module"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"be_billing"</span><span class="p">,</span> <span class="s2">"Billing Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"be_auth"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"be_billing"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"fe_app"</span><span class="p">,</span> <span class="s2">"Frontend App"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"fe_router"</span><span class="p">,</span> <span class="s2">"SPA Router"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"fe_store"</span><span class="p">,</span> <span class="s2">"State Store"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"be_api"</span><span class="p">,</span> <span class="s2">"Backend API"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"be_auth"</span><span class="p">,</span> <span class="s2">"Auth Module"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"be_billing"</span><span class="p">,</span> <span class="s2">"Billing Engine"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="n">nl</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">)</span>
+
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="tree_graph_images/graph_tree_multi_root_forest.png" alt="tree_graph_4" />
-  <figcaption class="drawlib-caption">Automatic Multi-Root Forest (root=None) with Straight Edge Routing</figcaption>
+  <figcaption class="drawlib-caption">Automatic Multi-Root Forest (root=None) with Straight Edge Routing via layout.edges</figcaption>
 </figure>
 <hr />
 <h2>5. Best Practices</h2>
 <ol>
 <li><strong>Choose <code>TreeGraph</code> vs. <code>SmartArts.TreeNode</code></strong>:
 <ul>
-<li>Use <code>TreeGraph</code> (<code>drawlib.graph</code>) when you want node-and-edge graph semantics, edge labels (<code>edge_label=&quot;...&quot;</code>), cluster overlays, or post-layout coordinate access (<code>g.calc()</code>).</li>
+<li>Use <code>TreeGraph</code> (<code>drawlib.graph</code>) when you want balanced node-and-edge graph coordinates (<code>layout = g.get_layout()</code>) to render with <code>FlowDiagram</code>, <code>ArchitectureDiagram</code>, or custom primitives.</li>
 <li>Use <a href="../03_smartarts/tree.html"><code>TreeNode</code></a> (<code>drawlib.smartarts</code>) when you want a compact file-explorer / indented directory tree list.</li>
 </ul>
 </li>

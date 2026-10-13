@@ -1,8 +1,8 @@
 # Declarative Graph Auto-Layout Engine (drawlib.graph)
 
-Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and cannot be customized with Python styling tokens.
+Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and trap layouts inside a rigid rendering black box.
 
-To solve this, Drawlib includes `drawlib.graph`: a **pure-Python declarative graph auto-layout engine** that calculates topological coordinates, nested cluster boundaries, and edge routing in-memory without external dependencies.
+To solve this, Drawlib includes `drawlib.graph`: a **pure-Python coordinate and layout calculator (`get_layout()`)** that solves topological coordinates, nested cluster boundaries, and edge waypoints in-memory without external dependencies, powering a clean **2-Step Workflow** with `drawlib.diagrams` and `drawlib.shapes`.
 
 
 
@@ -32,18 +32,18 @@ text(
 )
 
 stages = [
-    (18.5, "1. Node/Edge Spec", "Declarative DAG\nParents & Children", phosphor.graph, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52.5, "2. Topology Sort", "Layer assignment\nRank distribution", phosphor.sort_ascending, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (86.5, "3. Coord Solving", "X/Y coordinates\nCluster boundaries", phosphor.bounding_box, Styles.Neutral, Styles.DarkBold),
-    (120.5, "4. Edge Routing", "Arrow curves\nCollision avoidance", phosphor.arrows_split, Styles.PrimaryFlat, Styles.WhiteBold),
+    (18.5, "1. Node/Edge Spec", "Declarative DAG\nNodes & Clusters", phosphor.graph, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (52.5, "2. Topology Sort", "Layer assignment\nCompass & tree packing", phosphor.sort_ascending, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (86.5, "3. Coord Solving", "xy, local_xy &\nCluster bottom_left", phosphor.bounding_box, Styles.Neutral, Styles.DarkBold),
+    (120.5, "4. get_layout()", "GraphLayout output\nfor diagrams/shapes", phosphor.arrows_split, Styles.PrimaryFlat, Styles.WhiteBold),
 ]
 
 for x, title, desc, icon_func, card_style, icon_style in stages:
     rectangle((x, 23.5), width=28, height=31, style=card_style.patch(shape_r=1.8))
     icon_func((x - 9.5, 33.5), width=3.4, style=icon_style)
-    text((x - 5.5, 33.5), title, style=icon_style.patch(halign="left", text_size=9.0))
+    text((x - 5.5, 33.5), title, style=icon_style.patch(halign="left", text_size=9.5))
     sub_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x, 18.5), desc, style=sub_style.patch(text_size=8.2))
+    text((x, 18.5), desc, style=sub_style.patch(text_size=9.5))
 
 for i in range(3):
     x_from = stages[i][0] + 14.0
@@ -59,56 +59,67 @@ save()
 
 ---
 
-## 1. Concept: Pure-Python Declarative Graph Layout
+## 1. Concept: Pure Coordinate Calculator & 2-Step Workflow
 
-Instead of writing graph descriptions in external domain-specific languages (e.g. Graphviz DOT files), `drawlib.graph` allows developers to define nodes, edges, and clusters using native Python syntax:
+Instead of coupling layout math to a rigid, un-customizable renderer, `drawlib.graph` is strictly a **pure coordinate calculator (`get_layout()` only)**. Developers and AI agents declare topological relationships in Step 1, and render with `drawlib.diagrams` (`ArchitectureDiagram`, `FlowDiagram`, etc.) or `drawlib.shapes` in Step 2:
 
 ```python
+from drawlib.diagrams.flow import FlowDiagram, Process
 from drawlib.graph import LayerGraph
+from drawlib.styles import Styles
 
-g = LayerGraph((10, 10), width=100, height=40, direction="LR")
-g.add_node("client", "Web Browser")
-g.add_node("gateway", "API Gateway")
-g.add_node("service", "Auth Service")
-g.add_edge("client", "gateway")
-g.add_edge("gateway", "service")
-g.draw()
+# Step 1: Solve topology coordinates with LayerGraph.get_layout()
+g = LayerGraph(direction="LR", default_node_width=24.0, default_node_height=12.0)
+g.node("client")
+g.node("gateway")
+g.node("service")
+g.edge("client", "gateway")
+g.edge("gateway", "service")
+layout = g.get_layout(width=120, height=40)
+
+# Step 2: Render with FlowDiagram (or inspect via print(layout))
+flow = FlowDiagram(node_style=Styles.Neutral, edge_style=Styles.DarkBold, edge_text_style=Styles.Dark)
+c = flow.add(Process("Web Browser", width=24, height=12), xy=layout["client"].xy)
+gw = flow.add(Process("API Gateway", width=24, height=12, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=layout["gateway"].xy)
+svc = flow.add(Process("Auth Service", width=24, height=12), xy=layout["service"].xy)
+flow.connect(c, gw)
+flow.connect(gw, svc)
+flow.draw()
 ```
 
-### Key Advantages:
-- **No External Binaries**: Runs anywhere standard Python runs—including lightweight Docker alpine images and air-gapped CI environments.
-- **Unified Visual Styling**: Graph nodes and edges accept standard Drawlib `Style` tokens (`Styles.PrimaryFlat`, `Styles.Neutral`), ensuring aesthetic parity with hand-crafted diagrams.
-- **Deterministic Coordinate Mapping**: The solved coordinates can be extracted and composed alongside hand-drawn callouts, legends, and icons.
+### Key Architectural Advantages:
+- **Strict Separation of Layout and Rendering**: `drawlib.graph` contains zero visual styling parameters (`style`, `label`, `shape`, `draw()` do not exist on `drawlib.graph`), eliminating redundant rendering code and letting `drawlib.diagrams` handle icons, cards, and connectors.
+- **No External Binaries**: Runs anywhere standard Python runs—including lightweight Docker images and air-gapped CI environments.
+- **Seamless Local & Global Coordinates**: `GraphLayout` provides both global canvas coordinates (`.xy`, `.bottom_left`) and cluster-relative coordinates (`.local_xy`, `.local_bottom_left`) that map directly into `ArchitectureDiagram`'s nested `NodeGroup` hierarchy.
 
 ---
 
 ## 2. Positioning: The 5 Graph Layout Engines
 
 All solvers in `drawlib.graph` inherit from the abstract base class `BaseGraph(ABC)` (`_common/_base.py`). `BaseGraph` defines the standard lifecycle:
-1. **Specification Phase**: Registering nodes (`add_node()`), edges (`add_edge()`), and nested boundaries (`add_cluster()` or `container()`).
-2. **Solve Phase (`calc()`)**: Returns an immutable `GraphLayout` dataclass containing absolute node centroids, cluster bounds, and polyline edge waypoints.
-3. **Render Phase (`draw(xy)`)**: Renders artists to the canvas offset by `(x0, y0)`, or serializes to standalone Python code (`export_code()`).
+1. **Specification Phase**: Registering nodes (`g.node(id, *, width=..., height=...)`), edges (`g.edge(src, dst)`), and nested boundaries (`g.cluster(id, nodes=[...], *, padding=4.0, header_height=3.5)` or `g.group(id, ...)`).
+2. **Solve Phase (`get_layout(width=..., height=..., margin=10.0)`)**: Returns a `GraphLayout` container holding `NodeLayout`, `ClusterLayout`, and `EdgeLayout` objects, supporting `layout["id"]` lookup, `print(layout)` tabular inspection, and `layout.offset(id, dx=..., dy=...)` post-solve adjustments.
+3. **Render Phase (Externalized to `drawlib.diagrams` / `drawlib.shapes`)**: Solved coordinates are passed to `ArchitectureDiagram`, `FlowDiagram`, or `drawlib.shapes` / `drawlib.lines`.
 
 `drawlib.graph` provides **five specialized layout solvers**:
 
 1. **`LayerGraph` (Ranked DAG Layout)**:
    - Uses an adapted Sugiyama-style layering algorithm:
-     - Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting and longest-path analysis.
-     - Orders nodes within each layer to minimize edge crossings.
-     - Solves coordinate positions and projects orthogonal or curved connecting arrows.
+     - Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting, longest-path analysis, and `.tier()` stage pinning.
+     - Orders nodes within each layer via barycenter crossing minimization.
+     - Solves coordinate positions and computes orthogonal or straight edge waypoints.
 2. **`ArchitectureGraph` (2-Level Macro/Micro Compound Topology)**:
    - Specialized layout solver designed for cloud architectures and distributed microservices.
    - Solves layouts across two coupled geometric tiers:
-     - **Macro Level**: Arranges top-level containers (VPCs, AWS/GCP regions, client tiers, SaaS services) along the macro flow direction (`LR` or `TB`).
-     - **Micro Level**: Automatically arranges internal services, subnets, and databases within their respective container boundaries.
-     - Automatically routes cross-container connections with collision-avoiding orthogonal clearance paths.
+     - **Macro Level**: Arranges top-level containers (VPCs, cloud regions, client tiers, observability zones) across a 5-zone compass (`pos="left"|"center"|"right"|"top"|"bottom"`) or along the macro flow direction (`LR` or `TB`).
+     - **Micro Level**: Packs internal services and nested subnets (`parent=...`) within their enclosing container boundaries and computes `.local_xy` and `.local_bottom_left`.
 3. **`TreeGraph` (Hierarchical Directory / Org Layout)**:
-   - Optimized for single-parent trees, directory trees, and organizational hierarchies.
-   - Computes subtree widths recursively to prevent node overlaps.
+   - Optimized for single-parent trees, directory trees, and organizational hierarchies (`.child(parent, child_id)`).
+   - Computes subtree widths recursively via Reingold-Tilford contours to prevent node overlaps.
 4. **`RadialGraph` (Central Hub & Spoke Layout)**:
-   - Distributes peripheral nodes in concentric angular orbits around a central hub.
+   - Distributes peripheral nodes (`.spoke(parent, spoke_id, ring=...)`) in concentric angular orbits around a central hub and exposes ring radii in `layout.ring_radii`.
 5. **`GridGraph` (Matrix / Cluster Topology)**:
-   - Aligns nodes on a 2D coordinate grid with configurable column and row gaps.
+   - Aligns nodes on a 2D coordinate grid (`.cell()`, `.cluster_row()`, `.cluster_column()`) with smart channel edge routing.
 
 ---
 

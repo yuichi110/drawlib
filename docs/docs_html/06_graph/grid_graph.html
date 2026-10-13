@@ -496,7 +496,7 @@
             <main class="main-content">
                 <h1>GridGraph: 2D Matrix Layouts &amp; Channel Edge Routing</h1>
 <p><code>GridGraph</code> places nodes into a structured <strong>2D <code>(row, col)</code> matrix</strong> and routes edges cleanly between cells. While adjacent horizontal or vertical neighbors connect directly, non-adjacent cross-edges are automatically routed through inter-row and inter-column highway channels (<code>edge_routing=&quot;smart&quot;</code>) so lines never cut across intermediate nodes.</p>
-<p>Use <code>GridGraph</code> when you want tabular alignment across rows and columns—such as multi-tier service matrices, state grids, periodic/catalog topologies, or grid-aligned component architectures.</p>
+<p>Use <code>GridGraph</code> when you want tabular alignment across rows and columns—such as multi-tier service matrices, state grids, periodic/catalog topologies, or grid-aligned component architectures. Call <code>layout = g.get_layout(margin=...)</code> to obtain cell coordinates (<code>layout[id].xy</code> / <code>.local_xy</code>), row/column cluster bounding boxes (<code>layout.clusters[cid].bottom_left</code>), and channel-routed edge waypoints (<code>layout.edges</code>).</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="grid_graph_images/graph_grid_hero.png" alt="grid_graph_1" />
   <figcaption class="drawlib-caption">GridGraph Overview: 2D Matrix Cell Placement and Smart Inter-Channel Edge Routing</figcaption>
@@ -506,6 +506,8 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
@@ -517,53 +519,61 @@
     <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"smart"</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Row 0: Ingress &amp; Routing Tier</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Web Portal"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span>
-    <span class="s2">"gateway"</span><span class="p">,</span>
-    <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">API Gateway"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Admin CLI"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Row 1: Service &amp; Persistence Tier</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Orders API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"ledger"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Ledger DB"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"ledger"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="c1"># Direct grid edges + smart channel-routed edge through the inter-row corridor around col=1</span>
+<span class="c1"># Direct grid edges + smart channel-routed edge through the inter-row corridor</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"admin"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"orders"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">)</span>
 
-<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="c1"># 1. Solve 2D grid coordinates &amp; smart inter-channel edge polylines</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"ledger"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
-<span class="p">]:</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
-    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+<span class="c1"># 2. Render edges (highlighting the smart channel-routed cross-edge web -&gt; ledger)</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">edge_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">)</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_st</span><span class="p">)</span>
+
+<span class="c1"># 3. Render cell cards &amp; Phosphor icons</span>
+<span class="n">cells</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"web"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Web Portal"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="s2">"gateway"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">API Gateway"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="s2">"admin"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Admin CLI"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="s2">"auth"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Auth Service"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="s2">"orders"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Orders API"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="s2">"ledger"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Ledger DB"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">box_st</span><span class="p">,</span> <span class="n">txt_st</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">ic_st</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cells</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="n">n</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">n</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">n</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">box_st</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ic_st</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Constructor &amp; Matrix Helper API</h2>
+<h2>1. Constructor, Matrix Helpers, &amp; <code>get_layout()</code> API</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">GridGraph</span><span class="p">(</span>
     <span class="n">columns</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>                       <span class="c1"># Number of grid columns (default: 3)</span>
@@ -572,11 +582,12 @@
     <span class="n">col_sep</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>                    <span class="c1"># Horizontal gap between columns (auto-scales if None)</span>
     <span class="n">row_sep</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>                    <span class="c1"># Vertical gap between rows (auto-scales if None)</span>
     <span class="n">edge_routing</span><span class="o">=</span><span class="s2">"smart"</span><span class="p">,</span>            <span class="c1"># "smart" (channel routing), "orthogonal", or "straight"</span>
-    <span class="n">default_node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">default_edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>                        <span class="c1"># Inspect solved cell centers, row/column clusters &amp; edges</span>
 </code></pre>
 <h3>Parameter Reference</h3>
 <table>
@@ -626,30 +637,6 @@
 <td style="text-align:left"><code>&quot;smart&quot;</code> routes non-adjacent edges through inter-cell channels; <code>&quot;orthogonal&quot;</code> uses standard Z/L bends; <code>&quot;straight&quot;</code> draws direct lines.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>default_node_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default style for grid cells (defaults to <code>Styles.PrimaryFlat</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_node_text_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default typography style for cell labels.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_edge_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default line style for edges (defaults to <code>Styles.DarkBold</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>default_edge_text_style</code></td>
-<td style="text-align:left"><code>Style | None</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Default text style for edge labels.</td>
-</tr>
-<tr>
 <td style="text-align:left"><code>default_node_width</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><code>20.0</code></td>
@@ -665,20 +652,22 @@
 </table>
 <h3>Matrix Cell &amp; Row/Column Cluster Methods</h3>
 <ul>
-<li><strong><code>g.cell(cell_id, row=None, col=None, label=None, *, style=None, text_style=None, shape=&quot;rectangle&quot;, width=None, height=None, show=True) -&gt; Node</code></strong>:
+<li><strong><code>g.cell(cell_id, row=None, col=None, *, width=None, height=None) -&gt; Node</code></strong>:
 Registers a node pinned to <code>(row, col)</code> (0-based, where <code>row=0, col=0</code> is the top-left cell), or leaves <code>row</code>/<code>col</code> as <code>None</code> to auto-flow into the next available slot.</li>
-<li><strong><code>g.cluster_row(row, cluster_id, label=None, *, style=None, text_style=None, padding=4.0, show=True) -&gt; Cluster</code></strong>:
-Automatically encloses all nodes placed in <code>row</code> inside a horizontal band container.</li>
-<li><strong><code>g.cluster_column(col, cluster_id, label=None, *, style=None, text_style=None, padding=4.0, show=True) -&gt; Cluster</code></strong>:
-Automatically encloses all nodes placed in <code>col</code> inside a vertical column container.</li>
-<li><strong><code>g.cluster(id, nodes, label=None, *, style=None, text_style=None, padding=4.0, show=True) -&gt; Cluster</code></strong>:
-Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>cluster_row()</code> and <code>cluster_column()</code> to enclose any arbitrary subset of grid cells (such as a $2 \times 2$ sub-matrix or adjacent pair of cells) inside a bounding rectangle.</li>
+<li><strong><code>g.cluster_row(row, cluster_id, *, padding=4.0, header_height=3.5) -&gt; Cluster</code></strong>:
+Automatically encloses all nodes placed in <code>row</code> inside a horizontal band container (<code>ClusterLayout</code>), setting each cell's <code>parent_id</code> and <code>local_xy</code> relative to the row container's <code>bottom_left</code>.</li>
+<li><strong><code>g.cluster_column(col, cluster_id, *, padding=4.0, header_height=3.5) -&gt; Cluster</code></strong>:
+Automatically encloses all nodes placed in <code>col</code> inside a vertical column container (<code>ClusterLayout</code>), setting each cell's <code>parent_id</code> and <code>local_xy</code> relative to the column container's <code>bottom_left</code>.</li>
+<li><strong><code>g.cluster(id, nodes=None, *, padding=4.0, header_height=3.5, parent=None, order=None, pos=None) -&gt; Cluster</code></strong>:
+Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>cluster_row()</code> and <code>cluster_column()</code> to enclose any arbitrary subset of grid cells inside a bounding rectangle.</li>
 </ul>
 <hr />
 <h2>2. Explicit <code>(row, col)</code> Component Matrix with Row Clusters &amp; Cross-Edges</h2>
-<p>By pinning nodes to explicit <code>(row, col)</code> coordinates and grouping rows with <code>g.cluster_row(...)</code>, you can model layered client/service/storage matrices where cross-column edges route cleanly around neighboring cells:</p>
+<p>By pinning nodes to explicit <code>(row, col)</code> coordinates and grouping rows with <code>g.cluster_row(...)</code>, you can model layered client/service/storage matrices where <code>ArchitectureDiagram</code> renders the <code>NodeGroup</code> row bands (<code>xy=cl.bottom_left</code>) and <code>Node</code> cards (<code>xy=nl.local_xy</code>), while <code>layout.edges</code> routes cross-column edges cleanly around neighboring cells:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
@@ -689,53 +678,111 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
     <span class="n">row_sep</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Row 0: Client Interfaces (calm Neutral baseline)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Web Portal"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_mob"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_cli"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Admin CLI"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="c1"># Row 0: Client Interfaces</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_mob"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"fe_cli"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="c1"># Row 1: Core Services (Core API highlighted as PrimaryFlat focal point)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Core API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_bill"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Billing API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="c1"># Row 1: Core Services</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"svc_bill"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Row 2: Persistence Layer</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_users"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Identity DB"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_main"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Primary SQL"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_ledger"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ledger Store"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_users"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_main"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"db_ledger"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="c1"># Enclose rows in labeled horizontal containers</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"row_clients"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Client Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"row_services"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Service Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"row_storage"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Data Tier"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="c1"># Enclose rows in horizontal containers</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"row_clients"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"row_services"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"row_storage"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
 
 <span class="c1"># Direct vertical/horizontal edges + non-adjacent channel-routed cross-edges</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="s2">"svc_core"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="s2">"svc_auth"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"fe_mob"</span><span class="p">,</span> <span class="s2">"svc_core"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"fe_cli"</span><span class="p">,</span> <span class="s2">"svc_auth"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"fe_cli"</span><span class="p">,</span> <span class="s2">"svc_core"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="s2">"svc_auth"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="s2">"svc_bill"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="s2">"db_users"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="s2">"db_main"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_bill"</span><span class="p">,</span> <span class="s2">"db_ledger"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="s2">"db_ledger"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="s2">"db_ledger"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+
+<span class="c1"># Render NodeGroups and Nodes with ArchitectureDiagram</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">groups</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"row_clients"</span><span class="p">,</span> <span class="s2">"Client Tier"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"row_services"</span><span class="p">,</span> <span class="s2">"Service Tier"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"row_storage"</span><span class="p">,</span> <span class="s2">"Data Tier"</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span>
+    <span class="n">groups</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bottom_left</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">txt_st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"fe_web"</span><span class="p">,</span> <span class="s2">"Web Portal"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"fe_mob"</span><span class="p">,</span> <span class="s2">"Mobile App"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"fe_cli"</span><span class="p">,</span> <span class="s2">"Admin CLI"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"svc_core"</span><span class="p">,</span> <span class="s2">"Core API"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"svc_bill"</span><span class="p">,</span> <span class="s2">"Billing API"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"db_users"</span><span class="p">,</span> <span class="s2">"Identity DB"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"db_main"</span><span class="p">,</span> <span class="s2">"Primary SQL"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"db_ledger"</span><span class="p">,</span> <span class="s2">"Ledger Store"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">groups</span><span class="p">[</span><span class="n">nl</span><span class="o">.</span><span class="n">parent_id</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">Node</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">card_style</span><span class="o">=</span><span class="n">card_st</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="c1"># Overlay smart channel-routed edges from layout.edges</span>
+<span class="n">edge_styles</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s2">"fe_cli"</span><span class="p">,</span> <span class="s2">"svc_core"</span><span class="p">):</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">"svc_auth"</span><span class="p">,</span> <span class="s2">"db_ledger"</span><span class="p">):</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">edge_styles</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">dst</span><span class="p">),</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="grid_graph_images/graph_grid_explicit_matrix.png" alt="grid_graph_2" />
-  <figcaption class="drawlib-caption">Explicit (row, col) Service Matrix with Row Clusters and Smart Channel Routing</figcaption>
+  <figcaption class="drawlib-caption">Explicit (row, col) Service Matrix with ArchitectureDiagram Row Groups and Smart Channel Routing</figcaption>
 </figure>
 <hr />
 <h2>3. Auto-Flow Grid Topology with Column Clusters</h2>
 <p>When you omit <code>row</code> and <code>col</code> on <code>g.node()</code> or <code>g.cell()</code>, <code>GridGraph</code> automatically streams nodes into successive grid cells in <code>&quot;row-major&quot;</code> (left-to-right, top-to-bottom) or <code>&quot;column-major&quot;</code> (top-to-bottom, left-to-right) order:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
@@ -748,45 +795,95 @@ Standard <code>BaseGraph.cluster()</code> can also be used alongside <code>clust
     <span class="n">row_sep</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
     <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
     <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
-    <span class="n">default_node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Column 0 (Ingest Zone)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"webhook"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Webhook In"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"poller"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"S3 Poller"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"webhook"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"poller"</span><span class="p">)</span>
 
 <span class="c1"># Column 1 (Processing Zone)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Schema Check"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Enrich Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">)</span>
 
 <span class="c1"># Column 2 (Sink Zone)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"warehouse"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"BigQuery Sink"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"dlq"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Dead-Letter Q"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"dlq"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="s2">"warehouse"</span><span class="p">)</span>
 
 <span class="c1"># Group by column</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"col_in"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Ingest"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"col_proc"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Transform"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"col_out"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Sinks"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"col_in"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"col_proc"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster_column</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"col_out"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.2</span><span class="p">)</span>
 
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"webhook"</span><span class="p">,</span> <span class="s2">"validator"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"poller"</span><span class="p">,</span> <span class="s2">"enricher"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="s2">"enricher"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="s2">"dlq"</span><span class="p">,</span> <span class="s2">"Invalid"</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="s2">"warehouse"</span><span class="p">,</span> <span class="s2">"Valid"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="s2">"dlq"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="s2">"warehouse"</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">col_groups</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"col_in"</span><span class="p">,</span> <span class="s2">"Ingest"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"col_proc"</span><span class="p">,</span> <span class="s2">"Transform"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"col_out"</span><span class="p">,</span> <span class="s2">"Sinks"</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span>
+    <span class="n">col_groups</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bottom_left</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">txt_st</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"webhook"</span><span class="p">,</span> <span class="s2">"Webhook In"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"poller"</span><span class="p">,</span> <span class="s2">"S3 Poller"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="s2">"Schema Check"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="s2">"Enrich Engine"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"dlq"</span><span class="p">,</span> <span class="s2">"Dead-Letter Q"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"warehouse"</span><span class="p">,</span> <span class="s2">"BigQuery Sink"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">col_groups</span><span class="p">[</span><span class="n">nl</span><span class="o">.</span><span class="n">parent_id</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">Node</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">card_style</span><span class="o">=</span><span class="n">card_st</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">is_dlq</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="s2">"validator"</span><span class="p">,</span> <span class="s2">"dlq"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningDashed</span> <span class="k">if</span> <span class="n">is_dlq</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_dlq</span><span class="p">:</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">mid_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="o">.</span><span class="n">mid_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">),</span> <span class="s2">"Invalid"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="s2">"enricher"</span><span class="p">,</span> <span class="s2">"warehouse"</span><span class="p">):</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">mid_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="o">.</span><span class="n">mid_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">),</span> <span class="s2">"Valid"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="grid_graph_images/graph_grid_auto_flow.png" alt="grid_graph_3" />
-  <figcaption class="drawlib-caption">Auto-Flow 3-Column Grid Topology with Column Clusters</figcaption>
+  <figcaption class="drawlib-caption">Auto-Flow 3-Column Grid Topology Rendered with ArchitectureDiagram Column NodeGroups</figcaption>
 </figure>
 <hr />
 <h2>4. Best Practices</h2>
 <ol>
 <li><strong>Choose <code>GridGraph</code> vs. <code>SmartArts.GridLayout</code></strong>:
 <ul>
-<li>Use <code>GridGraph</code> (<code>drawlib.graph</code>) when cells are connected by directed edges (<code>g.edge()</code>) or grouped into row/column clusters.</li>
+<li>Use <code>GridGraph</code> (<code>drawlib.graph</code>) when cells are connected by directed edges (<code>g.edge()</code>) or grouped into row/column clusters (<code>g.cluster_row()</code> / <code>g.cluster_column()</code>).</li>
 <li>Use <a href="../03_smartarts/grid_layout.html"><code>GridLayout</code></a> (<code>drawlib.smartarts</code>) when displaying unlinked feature cards with headers and bullet points.</li>
 </ul>
 </li>

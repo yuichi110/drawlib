@@ -16175,7 +16175,7 @@ z
 <li>Welcome to Chapter 4: <strong>Domain Diagrams &amp; Auto-Layout Graphs</strong>.</li>
 <li>Software architecture documentation requires standard formal notations: cloud network topologies, ISO 5807 swimlane flowcharts, chronological UML sequence lifelines, Crow's Foot database schemas, UML 2.0 class hierarchies, and finite state machines.</li>
 <li>In the first half of this chapter, we explore <code>drawlib.diagrams</code>—six purpose-built engines where you specify clean node coordinates while Drawlib handles boundary clipping, orthogonal Z-bends, row-level foreign key anchoring, and group bounding boxes.</li>
-<li>In the second half, we explore <code>drawlib.graph</code>—five declarative auto-layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, and <code>GridGraph</code>) that compute coordinates automatically while allowing post-calculation tweaks (<code>layout.offset()</code>) and standalone Python code export (<code>g.export_code()</code>).</li>
+<li>In the second half, we explore <code>drawlib.graph</code>—five pure coordinate layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, and <code>GridGraph</code>) that compute <code>GraphLayout</code> coordinates via <code>get_layout()</code> (<code>print(layout)</code> and <code>layout.offset()</code>) for seamless 2-step rendering with <code>drawlib.diagrams</code> and <code>drawlib.shapes</code>.</li>
 </ul>
       </aside>
     </section>
@@ -20051,31 +20051,27 @@ z
 
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 80.0px; top: 40.0px; width: 1760.0px; height: 60.0px;">
-<h1>Declarative Auto-Layout + Fine-Tuning (<code>drawlib.graph</code>)</h1>
+<h1>2-Step Auto-Layout Engine (<code>drawlib.graph</code> -&gt; <code>get_layout()</code>)</h1>
 
 </div>
 
 
 <div class="slide-block slide-text-box compact" style="position: absolute; left: 80.0px; top: 140.0px; width: 660.0px; height: 840.0px;">
-<h2>Bridging Auto-Layout and Manual Control</h2>
-<p>Manual <code>(x, y)</code> coordinates give total precision, but when a graph topology changes frequently, you want automatic layout—<strong>without getting trapped in a rigid black box like Graphviz</strong>.</p>
-<h3>The 3 Progressive Workflows of <code>drawlib.graph</code></h3>
+<h2>Pure Coordinate Solver + Rich Rendering</h2>
+<p>Manual <code>(x, y)</code> coordinates give total precision, while black-box tools like Graphviz lock you out of custom icons and styles. <code>drawlib.graph</code> bridges both worlds as a <strong>pure coordinate calculator (<code>get_layout()</code> only)</strong>:</p>
+<h3>The 2-Step Workflow of <code>drawlib.graph</code></h3>
 <ol>
-<li><strong>Workflow 1 — Direct Declarative (<code>g.draw()</code>)</strong>:
+<li><strong>Step 1 — Solve &amp; Inspect (<code>layout = g.get_layout()</code>)</strong>:
 <ul>
-<li>Declare <code>.node()</code>, <code>.edge()</code>, and <code>.cluster()</code>, then call <code>g.draw()</code> to compute coordinates and render in one step.</li>
+<li>Declare topology via <code>.node(id, width=..., height=...)</code>, <code>.edge(src, dst)</code>, and <code>.cluster(id, nodes=[...])</code>.</li>
+<li>Call <code>layout = g.get_layout(width=..., height=..., margin=...)</code> to compute a <code>GraphLayout</code>.</li>
+<li>Inspect all solved coordinates via <code>print(layout)</code> or fine-tune positions with <code>layout.offset(&quot;canary&quot;, dy=-2.5)</code>.</li>
 </ul>
 </li>
-<li><strong>Workflow 2 — Calculate, Tweak &amp; Overlay (<code>g.calc()</code>)</strong>:
+<li><strong>Step 2 — Render with <code>diagrams</code> or <code>shapes</code></strong>:
 <ul>
-<li>Call <code>layout = g.calc()</code> to obtain a mutable <code>GraphLayout</code> (<code>layout.nodes</code>, <code>layout.edges</code>, <code>layout.clusters</code>).</li>
-<li>Nudge specific nodes or clusters with <code>layout.offset(&quot;db&quot;, dy=-5.0)</code>.</li>
-<li>Read exact computed coordinates (<code>layout.nodes[&quot;api&quot;].x</code>) to attach custom <code>bubblespeech</code> callouts or charts!</li>
-</ul>
-</li>
-<li><strong>Workflow 3 — Export Standalone Code (<code>g.export_code()</code>)</strong>:
-<ul>
-<li>Generates clean, self-contained <code>drawlib.shapes</code> + <code>drawlib.lines</code> Python code with all computed coordinates baked in.</li>
+<li>Pass <code>layout[&quot;id&quot;].xy</code>, <code>.local_xy</code>, <code>.bottom_left</code>, <code>.local_bottom_left</code>, or <code>edge.points</code> directly into <code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, or <code>drawlib.shapes</code> / <code>drawlib.lines</code>.</li>
+<li>Attach custom callouts (<code>bubblespeech</code>) or charts to exact solved coordinates!</li>
 </ul>
 </li>
 </ol>
@@ -20128,191 +20124,208 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 8.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="33.962264" y="40.161428" transform="rotate(-0 33.962264 40.161428)">Workflow 2 Live Output: layout = g.calc() -&gt; layout.offset() -&gt; layout.draw()</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="33.962264" y="40.097725" transform="rotate(-0 33.962264 40.097725)">2-Step Live Output: Step 1 g.get_layout().offset() -&gt; Step 2 FlowDiagram + Callout</text>
     </g>
    </g>
    <g id="patch_3">
-    <path d="M 159.622642 285.283019 
-L 159.622642 50.943396 
-L 349.811321 50.943396 
-L 349.811321 285.283019 
-L 159.622642 285.283019 
+    <path d="M 275.09434 281.886792 
+L 205.471698 281.886792 
+Q 195.283019 281.886792 195.283019 271.698113 
+L 195.283019 64.528302 
+Q 195.283019 54.339623 205.471698 54.339623 
+L 344.716981 54.339623 
+Q 354.90566 54.339623 354.90566 64.528302 
+L 354.90566 271.698113 
+Q 354.90566 281.886792 344.716981 281.886792 
+L 275.09434 281.886792 
 z
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_2">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #646469" x="176.603774" y="73.328302" transform="rotate(-0 176.603774 73.328302)">CI Stage</text>
+     <text style="font-size: 7px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="205.471698" y="70.154138" transform="rotate(-0 205.471698 70.154138)">CI Stage</text>
     </g>
    </g>
    <g id="patch_4">
-    <path d="M 112.075472 180 
-L 149.433962 180 
-L 149.433962 134.150943 
-L 183.997368 134.150943 
+    <path d="M 161.320755 180 
+L 190.188679 180 
+L 190.188679 130.754717 
+L 216.261519 130.754717 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 175.997368 130.150943 
-L 183.997368 134.150943 
-L 175.997368 138.150943 
+    <path d="M 208.261519 126.754717 
+L 216.261519 130.754717 
+L 208.261519 134.754717 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_5">
-    <path d="M 112.075472 180 
-L 149.433962 180 
-L 149.433962 225.849057 
-L 183.997368 225.849057 
+    <path d="M 161.320755 180 
+L 190.188679 180 
+L 190.188679 229.245283 
+L 216.261519 229.245283 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 175.997368 221.849057 
-L 183.997368 225.849057 
-L 175.997368 229.849057 
+    <path d="M 208.261519 225.245283 
+L 216.261519 229.245283 
+L 208.261519 233.245283 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_6">
-    <path d="M 322.641509 134.150943 
-L 360 134.150943 
-L 360 180 
-L 394.813939 195.824518 
+    <path d="M 331.132075 130.754717 
+L 360 130.754717 
+L 360 196.981132 
+L 386.07284 196.981132 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 389.186219 188.872628 
-L 394.813939 195.824518 
-L 385.875795 196.15556 
+    <path d="M 378.07284 192.981132 
+L 386.07284 196.981132 
+L 378.07284 200.981132 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_7">
-    <path d="M 322.641509 225.849057 
-L 360 225.849057 
-L 360 180 
-L 394.813939 195.824518 
+    <path d="M 331.132075 229.245283 
+L 360 229.245283 
+L 360 196.981132 
+L 386.07284 196.981132 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 389.186219 188.872628 
-L 394.813939 195.824518 
-L 385.875795 196.15556 
+    <path d="M 378.07284 192.981132 
+L 386.07284 196.981132 
+L 378.07284 200.981132 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_8">
-    <path d="M 533.207547 196.981132 
-L 605.198949 180.61945 
+    <path d="M 500.943396 196.981132 
+L 529.811321 196.981132 
+L 529.811321 180 
+L 555.88416 180 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 596.511402 178.491887 
-L 605.198949 180.61945 
-L 598.284371 186.29295 
+    <path d="M 547.88416 176 
+L 555.88416 180 
+L 547.88416 184 
 " clip-path="url(#pf77f305f56)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="text_3">
     <g id="patch_9">
-     <path d="M 546.257444 182.90566 
-L 594.874631 182.90566 
-L 594.874631 166.90566 
-L 546.257444 166.90566 
+     <path d="M 514.018852 193.930566 
+L 545.60379 193.930566 
+L 545.60379 183.050566 
+L 514.018852 183.050566 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #ffffff; fill-opacity: 0.9"/>
     </g>
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 10px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="570.566038" y="178.70566" transform="rotate(-0 570.566038 178.70566)">Promote</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="529.811321" y="191.074566" transform="rotate(-0 529.811321 191.074566)">Promote</text>
     </g>
    </g>
    <g id="patch_10">
-    <path d="M -23.773585 212.264151 
-L -23.773585 147.735849 
-L 112.075472 147.735849 
-L 112.075472 212.264151 
+    <path d="M 105.283019 208.867925 
+L 78.113208 208.867925 
+Q 49.245283 208.867925 49.245283 180 
+L 49.245283 180 
+Q 49.245283 151.132075 78.113208 151.132075 
+L 132.45283 151.132075 
+Q 161.320755 151.132075 161.320755 180 
+L 161.320755 180 
+Q 161.320755 208.867925 132.45283 208.867925 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_4">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #282828" x="44.150943" y="186.08" transform="rotate(-0 44.150943 186.08)">Git Push</text>
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="105.283019" y="182.736" transform="rotate(-0 105.283019 182.736)">Git Push</text>
     </g>
    </g>
    <g id="patch_11">
-    <path d="M 186.792453 166.415094 
-L 186.792453 101.886792 
-L 322.641509 101.886792 
-L 322.641509 166.415094 
+    <path d="M 219.056604 159.622642 
+L 219.056604 101.886792 
+L 331.132075 101.886792 
+L 331.132075 159.622642 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_5">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #282828" x="254.716981" y="139.318443" transform="rotate(-0 254.716981 139.318443)">Lint &amp; Type</text>
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="275.09434" y="133.116092" transform="rotate(-0 275.09434 133.116092)">Lint &amp; Type</text>
     </g>
    </g>
    <g id="patch_12">
-    <path d="M 186.792453 258.113208 
-L 186.792453 193.584906 
-L 322.641509 193.584906 
-L 322.641509 258.113208 
+    <path d="M 219.056604 258.113208 
+L 219.056604 200.377358 
+L 331.132075 200.377358 
+L 331.132075 258.113208 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_6">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #282828" x="254.716981" y="231.929057" transform="rotate(-0 254.716981 231.929057)">Unit Tests</text>
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="275.09434" y="231.981283" transform="rotate(-0 275.09434 231.981283)">Unit Tests</text>
     </g>
    </g>
    <g id="patch_13">
-    <path d="M 397.358491 229.245283 
-L 397.358491 164.716981 
-L 533.207547 164.716981 
-L 533.207547 229.245283 
+    <path d="M 388.867925 225.849057 
+L 388.867925 168.113208 
+L 500.943396 168.113208 
+L 500.943396 225.849057 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #4862da"/>
    </g>
    <g id="text_7">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="465.283019" y="202.228632" transform="rotate(-0 465.283019 202.228632)">Canary Gate</text>
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="444.90566" y="199.342507" transform="rotate(-0 444.90566 199.342507)">Canary Gate</text>
     </g>
    </g>
    <g id="patch_14">
-    <path d="M 607.924528 212.264151 
-L 607.924528 147.735849 
-L 743.773585 147.735849 
-L 743.773585 212.264151 
+    <path d="M 614.716981 208.867925 
+L 587.54717 208.867925 
+Q 558.679245 208.867925 558.679245 180 
+L 558.679245 180 
+Q 558.679245 151.132075 587.54717 151.132075 
+L 641.886792 151.132075 
+Q 670.754717 151.132075 670.754717 180 
+L 670.754717 180 
+Q 670.754717 208.867925 641.886792 208.867925 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_8">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #282828" x="675.849057" y="186.08" transform="rotate(-0 675.849057 186.08)">Prod Fleet</text>
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="614.716981" y="182.736" transform="rotate(-0 614.716981 182.736)">Prod Fleet</text>
     </g>
    </g>
    <g id="patch_15">
-    <path d="M 370.188679 139.245283 
-L 370.188679 88.301887 
-L 560.377358 88.301887 
-L 560.377358 139.245283 
-L 480.498113 139.245283 
-L 465.283019 161.320755 
-L 450.067925 139.245283 
+    <path d="M 444.90566 125.660377 
+L 444.90566 76.754717 
+L 641.886792 76.754717 
+L 641.886792 125.660377 
+L 559.154717 125.660377 
+L 444.90566 164.716981 
+L 527.637736 125.660377 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #fff6de; stroke: #f2b43a; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_9">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="465.283019" y="116.003772" transform="rotate(-0 465.283019 116.003772)"> Tweaked dy=-2.5 + Callout!</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="543.396226" y="103.437735" transform="rotate(-0 543.396226 103.437735)">Tweaked dy=-2.5 + Callout!</text>
     </g>
    </g>
    <g id="text_10">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 8.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="33.962264" y="332.2369" transform="rotate(-0 33.962264 332.2369)">3 Progressive Workflows — From 1-Line Auto-Layout to Exported Primitives</text>
+     <text style="font-size: 8.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="33.962264" y="332.173197" transform="rotate(-0 33.962264 332.173197)">The 2-Step Workflow — Pure Layout Calculation (Step 1) + Rich Diagram Rendering (Step 2)</text>
     </g>
    </g>
    <g id="patch_16">
-    <path d="M 186.792453 476.291321 
-L 37.358491 476.291321 
-Q 27.169811 476.291321 27.169811 466.102642 
+    <path d="M 186.792453 464.051321 
+L 37.358491 464.051321 
+Q 27.169811 464.051321 27.169811 453.862642 
 L 27.169811 360 
 Q 27.169811 349.811321 37.358491 349.811321 
 L 336.226415 349.811321 
 Q 346.415094 349.811321 346.415094 360 
-L 346.415094 466.102642 
-Q 346.415094 476.291321 336.226415 476.291321 
+L 346.415094 453.862642 
+Q 346.415094 464.051321 336.226415 464.051321 
 z
 " clip-path="url(#pf77f305f56)" style="fill: #272822; stroke: #3c3c3c; stroke-linejoin: miter"/>
    </g>
    <g id="text_11">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="37.369811" y="365.791321" transform="rotate(-0 37.369811 365.791321)"># 1. Direct Auto-Layout:</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="37.369811" y="365.791321" transform="rotate(-0 37.369811 365.791321)"># Step 1: Solve &amp; Inspect Topology</text>
     </g>
    </g>
    <g id="text_12">
@@ -20322,510 +20335,1250 @@ z
    </g>
    <g id="text_13">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="41.689811" y="378.031321" transform="rotate(-0 41.689811 378.031321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="41.689811" y="378.031321" transform="rotate(-0 41.689811 378.031321)"> </text>
     </g>
    </g>
    <g id="text_14">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="46.009811" y="378.031321" transform="rotate(-0 46.009811 378.031321)">draw</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="46.009811" y="378.031321" transform="rotate(-0 46.009811 378.031321)">=</text>
     </g>
    </g>
    <g id="text_15">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="63.289811" y="378.031321" transform="rotate(-0 63.289811 378.031321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="50.329811" y="378.031321" transform="rotate(-0 50.329811 378.031321)"> </text>
     </g>
    </g>
    <g id="text_16">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="67.609811" y="378.031321" transform="rotate(-0 67.609811 378.031321)">margin</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="54.649811" y="378.031321" transform="rotate(-0 54.649811 378.031321)">LayerGraph</text>
     </g>
    </g>
    <g id="text_17">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="93.529811" y="378.031321" transform="rotate(-0 93.529811 378.031321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="97.849811" y="378.031321" transform="rotate(-0 97.849811 378.031321)">(</text>
     </g>
    </g>
    <g id="text_18">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="97.849811" y="378.031321" transform="rotate(-0 97.849811 378.031321)">10</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="102.169811" y="378.031321" transform="rotate(-0 102.169811 378.031321)">direction</text>
     </g>
    </g>
    <g id="text_19">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="106.489811" y="378.031321" transform="rotate(-0 106.489811 378.031321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="141.049811" y="378.031321" transform="rotate(-0 141.049811 378.031321)">=</text>
     </g>
    </g>
    <g id="text_20">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="37.369811" y="402.511321" transform="rotate(-0 37.369811 402.511321)"># 2. Calc, Tweak &amp; Overlay:</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="145.369811" y="378.031321" transform="rotate(-0 145.369811 378.031321)">"</text>
     </g>
    </g>
    <g id="text_21">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="414.751321" transform="rotate(-0 37.369811 414.751321)">layout</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="149.689811" y="378.031321" transform="rotate(-0 149.689811 378.031321)">LR</text>
     </g>
    </g>
    <g id="text_22">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="63.289811" y="414.751321" transform="rotate(-0 63.289811 414.751321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="158.329811" y="378.031321" transform="rotate(-0 158.329811 378.031321)">"</text>
     </g>
    </g>
    <g id="text_23">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="67.609811" y="414.751321" transform="rotate(-0 67.609811 414.751321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="162.649811" y="378.031321" transform="rotate(-0 162.649811 378.031321)">,</text>
     </g>
    </g>
    <g id="text_24">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="71.929811" y="414.751321" transform="rotate(-0 71.929811 414.751321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="166.969811" y="378.031321" transform="rotate(-0 166.969811 378.031321)"> </text>
     </g>
    </g>
    <g id="text_25">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="76.249811" y="414.751321" transform="rotate(-0 76.249811 414.751321)">g</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="171.289811" y="378.031321" transform="rotate(-0 171.289811 378.031321)">default_node_width</text>
     </g>
    </g>
    <g id="text_26">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="80.569811" y="414.751321" transform="rotate(-0 80.569811 414.751321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="249.049811" y="378.031321" transform="rotate(-0 249.049811 378.031321)">=</text>
     </g>
    </g>
    <g id="text_27">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="84.889811" y="414.751321" transform="rotate(-0 84.889811 414.751321)">calc</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="253.369811" y="378.031321" transform="rotate(-0 253.369811 378.031321)">19</text>
     </g>
    </g>
    <g id="text_28">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="102.169811" y="414.751321" transform="rotate(-0 102.169811 414.751321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="262.009811" y="378.031321" transform="rotate(-0 262.009811 378.031321)">)</text>
     </g>
    </g>
    <g id="text_29">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="106.489811" y="414.751321" transform="rotate(-0 106.489811 414.751321)">margin</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="390.271321" transform="rotate(-0 37.369811 390.271321)">g</text>
     </g>
    </g>
    <g id="text_30">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="132.409811" y="414.751321" transform="rotate(-0 132.409811 414.751321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="41.689811" y="390.271321" transform="rotate(-0 41.689811 390.271321)">.</text>
     </g>
    </g>
    <g id="text_31">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="136.729811" y="414.751321" transform="rotate(-0 136.729811 414.751321)">10</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="46.009811" y="390.271321" transform="rotate(-0 46.009811 390.271321)">tier</text>
     </g>
    </g>
    <g id="text_32">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="145.369811" y="414.751321" transform="rotate(-0 145.369811 414.751321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="63.289811" y="390.271321" transform="rotate(-0 63.289811 390.271321)">(</text>
     </g>
    </g>
    <g id="text_33">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="426.991321" transform="rotate(-0 37.369811 426.991321)">layout</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="67.609811" y="390.271321" transform="rotate(-0 67.609811 390.271321)">"</text>
     </g>
    </g>
    <g id="text_34">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="63.289811" y="426.991321" transform="rotate(-0 63.289811 426.991321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="71.929811" y="390.271321" transform="rotate(-0 71.929811 390.271321)">ci</text>
     </g>
    </g>
    <g id="text_35">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="67.609811" y="426.991321" transform="rotate(-0 67.609811 426.991321)">offset</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="80.569811" y="390.271321" transform="rotate(-0 80.569811 390.271321)">"</text>
     </g>
    </g>
    <g id="text_36">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="93.529811" y="426.991321" transform="rotate(-0 93.529811 426.991321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="84.889811" y="390.271321" transform="rotate(-0 84.889811 390.271321)">,</text>
     </g>
    </g>
    <g id="text_37">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="97.849811" y="426.991321" transform="rotate(-0 97.849811 426.991321)">"</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="89.209811" y="390.271321" transform="rotate(-0 89.209811 390.271321)"> </text>
     </g>
    </g>
    <g id="text_38">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="102.169811" y="426.991321" transform="rotate(-0 102.169811 426.991321)">canary</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="93.529811" y="390.271321" transform="rotate(-0 93.529811 390.271321)">[</text>
     </g>
    </g>
    <g id="text_39">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="128.089811" y="426.991321" transform="rotate(-0 128.089811 426.991321)">"</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="97.849811" y="390.271321" transform="rotate(-0 97.849811 390.271321)">"</text>
     </g>
    </g>
    <g id="text_40">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="132.409811" y="426.991321" transform="rotate(-0 132.409811 426.991321)">,</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="102.169811" y="390.271321" transform="rotate(-0 102.169811 390.271321)">lint</text>
     </g>
    </g>
    <g id="text_41">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="136.729811" y="426.991321" transform="rotate(-0 136.729811 426.991321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="119.449811" y="390.271321" transform="rotate(-0 119.449811 390.271321)">"</text>
     </g>
    </g>
    <g id="text_42">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="141.049811" y="426.991321" transform="rotate(-0 141.049811 426.991321)">dy</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="123.769811" y="390.271321" transform="rotate(-0 123.769811 390.271321)">,</text>
     </g>
    </g>
    <g id="text_43">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="149.689811" y="426.991321" transform="rotate(-0 149.689811 426.991321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="128.089811" y="390.271321" transform="rotate(-0 128.089811 390.271321)"> </text>
     </g>
    </g>
    <g id="text_44">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="154.009811" y="426.991321" transform="rotate(-0 154.009811 426.991321)">-</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="132.409811" y="390.271321" transform="rotate(-0 132.409811 390.271321)">"</text>
     </g>
    </g>
    <g id="text_45">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="158.329811" y="426.991321" transform="rotate(-0 158.329811 426.991321)">2.5</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="136.729811" y="390.271321" transform="rotate(-0 136.729811 390.271321)">test</text>
     </g>
    </g>
    <g id="text_46">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="171.289811" y="426.991321" transform="rotate(-0 171.289811 426.991321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="154.009811" y="390.271321" transform="rotate(-0 154.009811 390.271321)">"</text>
     </g>
    </g>
    <g id="text_47">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="439.231321" transform="rotate(-0 37.369811 439.231321)">layout</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="158.329811" y="390.271321" transform="rotate(-0 158.329811 390.271321)">]</text>
     </g>
    </g>
    <g id="text_48">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="63.289811" y="439.231321" transform="rotate(-0 63.289811 439.231321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="162.649811" y="390.271321" transform="rotate(-0 162.649811 390.271321)">,</text>
     </g>
    </g>
    <g id="text_49">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="67.609811" y="439.231321" transform="rotate(-0 67.609811 439.231321)">draw</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="166.969811" y="390.271321" transform="rotate(-0 166.969811 390.271321)"> </text>
     </g>
    </g>
    <g id="text_50">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="84.889811" y="439.231321" transform="rotate(-0 84.889811 439.231321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="171.289811" y="390.271321" transform="rotate(-0 171.289811 390.271321)">layer</text>
     </g>
    </g>
    <g id="text_51">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="89.209811" y="439.231321" transform="rotate(-0 89.209811 439.231321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="192.889811" y="390.271321" transform="rotate(-0 192.889811 390.271321)">=</text>
     </g>
    </g>
    <g id="text_52">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="451.471321" transform="rotate(-0 37.369811 451.471321)">c</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="197.209811" y="390.271321" transform="rotate(-0 197.209811 390.271321)">1</text>
     </g>
    </g>
    <g id="text_53">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="41.689811" y="451.471321" transform="rotate(-0 41.689811 451.471321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="201.529811" y="390.271321" transform="rotate(-0 201.529811 390.271321)">)</text>
     </g>
    </g>
    <g id="text_54">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="46.009811" y="451.471321" transform="rotate(-0 46.009811 451.471321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="402.511321" transform="rotate(-0 37.369811 402.511321)">g</text>
     </g>
    </g>
    <g id="text_55">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="50.329811" y="451.471321" transform="rotate(-0 50.329811 451.471321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="41.689811" y="402.511321" transform="rotate(-0 41.689811 402.511321)">.</text>
     </g>
    </g>
    <g id="text_56">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="54.649811" y="451.471321" transform="rotate(-0 54.649811 451.471321)">layout</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="46.009811" y="402.511321" transform="rotate(-0 46.009811 402.511321)">cluster</text>
     </g>
    </g>
    <g id="text_57">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="80.569811" y="451.471321" transform="rotate(-0 80.569811 451.471321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="76.249811" y="402.511321" transform="rotate(-0 76.249811 402.511321)">(</text>
     </g>
    </g>
    <g id="text_58">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="84.889811" y="451.471321" transform="rotate(-0 84.889811 451.471321)">nodes</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="80.569811" y="402.511321" transform="rotate(-0 80.569811 402.511321)">"</text>
     </g>
    </g>
    <g id="text_59">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="106.489811" y="451.471321" transform="rotate(-0 106.489811 451.471321)">[</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="84.889811" y="402.511321" transform="rotate(-0 84.889811 402.511321)">ci_cluster</text>
     </g>
    </g>
    <g id="text_60">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="110.809811" y="451.471321" transform="rotate(-0 110.809811 451.471321)">"</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="128.089811" y="402.511321" transform="rotate(-0 128.089811 402.511321)">"</text>
     </g>
    </g>
    <g id="text_61">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="115.129811" y="451.471321" transform="rotate(-0 115.129811 451.471321)">canary</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="132.409811" y="402.511321" transform="rotate(-0 132.409811 402.511321)">,</text>
     </g>
    </g>
    <g id="text_62">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="141.049811" y="451.471321" transform="rotate(-0 141.049811 451.471321)">"</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="136.729811" y="402.511321" transform="rotate(-0 136.729811 402.511321)"> </text>
     </g>
    </g>
    <g id="text_63">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="145.369811" y="451.471321" transform="rotate(-0 145.369811 451.471321)">]</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="141.049811" y="402.511321" transform="rotate(-0 141.049811 402.511321)">[</text>
     </g>
    </g>
    <g id="text_64">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="463.711321" transform="rotate(-0 37.369811 463.711321)">bubblespeech</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="145.369811" y="402.511321" transform="rotate(-0 145.369811 402.511321)">"</text>
     </g>
    </g>
    <g id="text_65">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="89.209811" y="463.711321" transform="rotate(-0 89.209811 463.711321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="149.689811" y="402.511321" transform="rotate(-0 149.689811 402.511321)">lint</text>
     </g>
    </g>
    <g id="text_66">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="93.529811" y="463.711321" transform="rotate(-0 93.529811 463.711321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="166.969811" y="402.511321" transform="rotate(-0 166.969811 402.511321)">"</text>
     </g>
    </g>
    <g id="text_67">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="97.849811" y="463.711321" transform="rotate(-0 97.849811 463.711321)">c</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="171.289811" y="402.511321" transform="rotate(-0 171.289811 402.511321)">,</text>
     </g>
    </g>
    <g id="text_68">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="102.169811" y="463.711321" transform="rotate(-0 102.169811 463.711321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="175.609811" y="402.511321" transform="rotate(-0 175.609811 402.511321)"> </text>
     </g>
    </g>
    <g id="text_69">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="106.489811" y="463.711321" transform="rotate(-0 106.489811 463.711321)">x</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="179.929811" y="402.511321" transform="rotate(-0 179.929811 402.511321)">"</text>
     </g>
    </g>
    <g id="text_70">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="110.809811" y="463.711321" transform="rotate(-0 110.809811 463.711321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="184.249811" y="402.511321" transform="rotate(-0 184.249811 402.511321)">test</text>
     </g>
    </g>
    <g id="text_71">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="115.129811" y="463.711321" transform="rotate(-0 115.129811 463.711321)">-</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="201.529811" y="402.511321" transform="rotate(-0 201.529811 402.511321)">"</text>
     </g>
    </g>
    <g id="text_72">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="119.449811" y="463.711321" transform="rotate(-0 119.449811 463.711321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="205.849811" y="402.511321" transform="rotate(-0 205.849811 402.511321)">]</text>
     </g>
    </g>
    <g id="text_73">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="123.769811" y="463.711321" transform="rotate(-0 123.769811 463.711321)">14</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="210.169811" y="402.511321" transform="rotate(-0 210.169811 402.511321)">)</text>
     </g>
    </g>
    <g id="text_74">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="132.409811" y="463.711321" transform="rotate(-0 132.409811 463.711321)">,</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="414.751321" transform="rotate(-0 37.369811 414.751321)">g</text>
     </g>
    </g>
    <g id="text_75">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="136.729811" y="463.711321" transform="rotate(-0 136.729811 463.711321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="41.689811" y="414.751321" transform="rotate(-0 41.689811 414.751321)">.</text>
     </g>
    </g>
    <g id="text_76">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="141.049811" y="463.711321" transform="rotate(-0 141.049811 463.711321)">c</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="46.009811" y="414.751321" transform="rotate(-0 46.009811 414.751321)">edge</text>
     </g>
    </g>
    <g id="text_77">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="145.369811" y="463.711321" transform="rotate(-0 145.369811 463.711321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="63.289811" y="414.751321" transform="rotate(-0 63.289811 414.751321)">(</text>
     </g>
    </g>
    <g id="text_78">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="149.689811" y="463.711321" transform="rotate(-0 149.689811 463.711321)">y</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="67.609811" y="414.751321" transform="rotate(-0 67.609811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_79">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="154.009811" y="463.711321" transform="rotate(-0 154.009811 463.711321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="71.929811" y="414.751321" transform="rotate(-0 71.929811 414.751321)">git</text>
     </g>
    </g>
    <g id="text_80">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="158.329811" y="463.711321" transform="rotate(-0 158.329811 463.711321)">+</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="84.889811" y="414.751321" transform="rotate(-0 84.889811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_81">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="162.649811" y="463.711321" transform="rotate(-0 162.649811 463.711321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="89.209811" y="414.751321" transform="rotate(-0 89.209811 414.751321)">,</text>
     </g>
    </g>
    <g id="text_82">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="166.969811" y="463.711321" transform="rotate(-0 166.969811 463.711321)">8</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="93.529811" y="414.751321" transform="rotate(-0 93.529811 414.751321)"> </text>
     </g>
    </g>
    <g id="text_83">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="171.289811" y="463.711321" transform="rotate(-0 171.289811 463.711321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="97.849811" y="414.751321" transform="rotate(-0 97.849811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_84">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="175.609811" y="463.711321" transform="rotate(-0 175.609811 463.711321)">,</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="102.169811" y="414.751321" transform="rotate(-0 102.169811 414.751321)">lint</text>
     </g>
    </g>
    <g id="text_85">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="179.929811" y="463.711321" transform="rotate(-0 179.929811 463.711321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="119.449811" y="414.751321" transform="rotate(-0 119.449811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_86">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="184.249811" y="463.711321" transform="rotate(-0 184.249811 463.711321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="123.769811" y="414.751321" transform="rotate(-0 123.769811 414.751321)">)</text>
     </g>
    </g>
    <g id="text_87">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="188.569811" y="463.711321" transform="rotate(-0 188.569811 463.711321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="128.089811" y="414.751321" transform="rotate(-0 128.089811 414.751321)">;</text>
     </g>
    </g>
    <g id="text_88">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="192.889811" y="463.711321" transform="rotate(-0 192.889811 463.711321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="132.409811" y="414.751321" transform="rotate(-0 132.409811 414.751321)"> </text>
     </g>
    </g>
    <g id="text_89">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="197.209811" y="463.711321" transform="rotate(-0 197.209811 463.711321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="136.729811" y="414.751321" transform="rotate(-0 136.729811 414.751321)">g</text>
     </g>
-   </g>
-   <g id="patch_17">
-    <path d="M 533.207547 451.811321 
-L 383.773585 451.811321 
-Q 373.584906 451.811321 373.584906 441.622642 
-L 373.584906 360 
-Q 373.584906 349.811321 383.773585 349.811321 
-L 682.641509 349.811321 
-Q 692.830189 349.811321 692.830189 360 
-L 692.830189 441.622642 
-Q 692.830189 451.811321 682.641509 451.811321 
-z
-" clip-path="url(#pf77f305f56)" style="fill: #272822; stroke: #3c3c3c; stroke-linejoin: miter"/>
    </g>
    <g id="text_90">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="365.791321" transform="rotate(-0 383.784906 365.791321)"># 3. Export Editable Primitive Code:</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="141.049811" y="414.751321" transform="rotate(-0 141.049811 414.751321)">.</text>
     </g>
    </g>
    <g id="text_91">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #66d9ef" x="383.784906" y="378.031321" transform="rotate(-0 383.784906 378.031321)">print</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="145.369811" y="414.751321" transform="rotate(-0 145.369811 414.751321)">edge</text>
     </g>
    </g>
    <g id="text_92">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="405.384906" y="378.031321" transform="rotate(-0 405.384906 378.031321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="162.649811" y="414.751321" transform="rotate(-0 162.649811 414.751321)">(</text>
     </g>
    </g>
    <g id="text_93">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="409.704906" y="378.031321" transform="rotate(-0 409.704906 378.031321)">g</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="166.969811" y="414.751321" transform="rotate(-0 166.969811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_94">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="414.024906" y="378.031321" transform="rotate(-0 414.024906 378.031321)">.</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="171.289811" y="414.751321" transform="rotate(-0 171.289811 414.751321)">lint</text>
     </g>
    </g>
    <g id="text_95">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="418.344906" y="378.031321" transform="rotate(-0 418.344906 378.031321)">export_code</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="188.569811" y="414.751321" transform="rotate(-0 188.569811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_96">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="465.864906" y="378.031321" transform="rotate(-0 465.864906 378.031321)">(</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="192.889811" y="414.751321" transform="rotate(-0 192.889811 414.751321)">,</text>
     </g>
    </g>
    <g id="text_97">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="470.184906" y="378.031321" transform="rotate(-0 470.184906 378.031321)">width</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="197.209811" y="414.751321" transform="rotate(-0 197.209811 414.751321)"> </text>
     </g>
    </g>
    <g id="text_98">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="491.784906" y="378.031321" transform="rotate(-0 491.784906 378.031321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="201.529811" y="414.751321" transform="rotate(-0 201.529811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_99">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="496.104906" y="378.031321" transform="rotate(-0 496.104906 378.031321)">160</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="205.849811" y="414.751321" transform="rotate(-0 205.849811 414.751321)">canary</text>
     </g>
    </g>
    <g id="text_100">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="509.064906" y="378.031321" transform="rotate(-0 509.064906 378.031321)">,</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="231.769811" y="414.751321" transform="rotate(-0 231.769811 414.751321)">"</text>
     </g>
    </g>
    <g id="text_101">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="513.384906" y="378.031321" transform="rotate(-0 513.384906 378.031321)"> </text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="236.089811" y="414.751321" transform="rotate(-0 236.089811 414.751321)">)</text>
     </g>
    </g>
    <g id="text_102">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="517.704906" y="378.031321" transform="rotate(-0 517.704906 378.031321)">height</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="426.991321" transform="rotate(-0 37.369811 426.991321)">layout</text>
     </g>
    </g>
    <g id="text_103">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="543.624906" y="378.031321" transform="rotate(-0 543.624906 378.031321)">=</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="63.289811" y="426.991321" transform="rotate(-0 63.289811 426.991321)"> </text>
     </g>
    </g>
    <g id="text_104">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="547.944906" y="378.031321" transform="rotate(-0 547.944906 378.031321)">90</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="67.609811" y="426.991321" transform="rotate(-0 67.609811 426.991321)">=</text>
     </g>
    </g>
    <g id="text_105">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="556.584906" y="378.031321" transform="rotate(-0 556.584906 378.031321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="71.929811" y="426.991321" transform="rotate(-0 71.929811 426.991321)"> </text>
     </g>
    </g>
    <g id="text_106">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="560.904906" y="378.031321" transform="rotate(-0 560.904906 378.031321)">)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="76.249811" y="426.991321" transform="rotate(-0 76.249811 426.991321)">g</text>
     </g>
    </g>
    <g id="text_107">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="390.271321" transform="rotate(-0 383.784906 390.271321)"># Outputs standalone Python script:</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="80.569811" y="426.991321" transform="rotate(-0 80.569811 426.991321)">.</text>
     </g>
    </g>
    <g id="text_108">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="402.511321" transform="rotate(-0 383.784906 402.511321)"># setup(width=160, height=90)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="84.889811" y="426.991321" transform="rotate(-0 84.889811 426.991321)">get_layout</text>
     </g>
    </g>
    <g id="text_109">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="414.751321" transform="rotate(-0 383.784906 414.751321)"># rectangle((24.0, 45.0), width=20.0,</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="128.089811" y="426.991321" transform="rotate(-0 128.089811 426.991321)">(</text>
     </g>
    </g>
    <g id="text_110">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="426.991321" transform="rotate(-0 383.784906 426.991321)">#           height=9.5, text="Git Push")</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="132.409811" y="426.991321" transform="rotate(-0 132.409811 426.991321)">width</text>
     </g>
    </g>
    <g id="text_111">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="439.231321" transform="rotate(-0 383.784906 439.231321)"># line((34.0, 45.0), (58.0, 62.0), ...)</text>
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="154.009811" y="426.991321" transform="rotate(-0 154.009811 426.991321)">=</text>
+    </g>
+   </g>
+   <g id="text_112">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="158.329811" y="426.991321" transform="rotate(-0 158.329811 426.991321)">100</text>
+    </g>
+   </g>
+   <g id="text_113">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="171.289811" y="426.991321" transform="rotate(-0 171.289811 426.991321)">,</text>
+    </g>
+   </g>
+   <g id="text_114">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="175.609811" y="426.991321" transform="rotate(-0 175.609811 426.991321)"> </text>
+    </g>
+   </g>
+   <g id="text_115">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="179.929811" y="426.991321" transform="rotate(-0 179.929811 426.991321)">height</text>
+    </g>
+   </g>
+   <g id="text_116">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="205.849811" y="426.991321" transform="rotate(-0 205.849811 426.991321)">=</text>
+    </g>
+   </g>
+   <g id="text_117">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="210.169811" y="426.991321" transform="rotate(-0 210.169811 426.991321)">35</text>
+    </g>
+   </g>
+   <g id="text_118">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="218.809811" y="426.991321" transform="rotate(-0 218.809811 426.991321)">)</text>
+    </g>
+   </g>
+   <g id="text_119">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="37.369811" y="439.231321" transform="rotate(-0 37.369811 439.231321)">layout</text>
+    </g>
+   </g>
+   <g id="text_120">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="63.289811" y="439.231321" transform="rotate(-0 63.289811 439.231321)">.</text>
+    </g>
+   </g>
+   <g id="text_121">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="67.609811" y="439.231321" transform="rotate(-0 67.609811 439.231321)">offset</text>
+    </g>
+   </g>
+   <g id="text_122">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="93.529811" y="439.231321" transform="rotate(-0 93.529811 439.231321)">(</text>
+    </g>
+   </g>
+   <g id="text_123">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="97.849811" y="439.231321" transform="rotate(-0 97.849811 439.231321)">"</text>
+    </g>
+   </g>
+   <g id="text_124">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="102.169811" y="439.231321" transform="rotate(-0 102.169811 439.231321)">canary</text>
+    </g>
+   </g>
+   <g id="text_125">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="128.089811" y="439.231321" transform="rotate(-0 128.089811 439.231321)">"</text>
+    </g>
+   </g>
+   <g id="text_126">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="132.409811" y="439.231321" transform="rotate(-0 132.409811 439.231321)">,</text>
+    </g>
+   </g>
+   <g id="text_127">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="136.729811" y="439.231321" transform="rotate(-0 136.729811 439.231321)"> </text>
+    </g>
+   </g>
+   <g id="text_128">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="141.049811" y="439.231321" transform="rotate(-0 141.049811 439.231321)">dy</text>
+    </g>
+   </g>
+   <g id="text_129">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="149.689811" y="439.231321" transform="rotate(-0 149.689811 439.231321)">=</text>
+    </g>
+   </g>
+   <g id="text_130">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="154.009811" y="439.231321" transform="rotate(-0 154.009811 439.231321)">-</text>
+    </g>
+   </g>
+   <g id="text_131">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="158.329811" y="439.231321" transform="rotate(-0 158.329811 439.231321)">2.5</text>
+    </g>
+   </g>
+   <g id="text_132">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="171.289811" y="439.231321" transform="rotate(-0 171.289811 439.231321)">)</text>
+    </g>
+   </g>
+   <g id="text_133">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #66d9ef" x="37.369811" y="451.471321" transform="rotate(-0 37.369811 451.471321)">print</text>
+    </g>
+   </g>
+   <g id="text_134">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="58.969811" y="451.471321" transform="rotate(-0 58.969811 451.471321)">(</text>
+    </g>
+   </g>
+   <g id="text_135">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="63.289811" y="451.471321" transform="rotate(-0 63.289811 451.471321)">layout</text>
+    </g>
+   </g>
+   <g id="text_136">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="89.209811" y="451.471321" transform="rotate(-0 89.209811 451.471321)">)</text>
+    </g>
+   </g>
+   <g id="text_137">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="93.529811" y="451.471321" transform="rotate(-0 93.529811 451.471321)">  </text>
+    </g>
+   </g>
+   <g id="text_138">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="102.169811" y="451.471321" transform="rotate(-0 102.169811 451.471321)"># Inspect xy, local_xy, bottom_left</text>
+    </g>
+   </g>
+   <g id="patch_17">
+    <path d="M 533.207547 464.051321 
+L 383.773585 464.051321 
+Q 373.584906 464.051321 373.584906 453.862642 
+L 373.584906 360 
+Q 373.584906 349.811321 383.773585 349.811321 
+L 682.641509 349.811321 
+Q 692.830189 349.811321 692.830189 360 
+L 692.830189 453.862642 
+Q 692.830189 464.051321 682.641509 464.051321 
+z
+" clip-path="url(#pf77f305f56)" style="fill: #272822; stroke: #3c3c3c; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_139">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="365.791321" transform="rotate(-0 383.784906 365.791321)"># Step 2: Render with Diagrams or Shapes</text>
+    </g>
+   </g>
+   <g id="text_140">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="383.784906" y="378.031321" transform="rotate(-0 383.784906 378.031321)">flow</text>
+    </g>
+   </g>
+   <g id="text_141">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="401.064906" y="378.031321" transform="rotate(-0 401.064906 378.031321)"> </text>
+    </g>
+   </g>
+   <g id="text_142">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="405.384906" y="378.031321" transform="rotate(-0 405.384906 378.031321)">=</text>
+    </g>
+   </g>
+   <g id="text_143">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="409.704906" y="378.031321" transform="rotate(-0 409.704906 378.031321)"> </text>
+    </g>
+   </g>
+   <g id="text_144">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="414.024906" y="378.031321" transform="rotate(-0 414.024906 378.031321)">FlowDiagram</text>
+    </g>
+   </g>
+   <g id="text_145">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="461.544906" y="378.031321" transform="rotate(-0 461.544906 378.031321)">(</text>
+    </g>
+   </g>
+   <g id="text_146">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="465.864906" y="378.031321" transform="rotate(-0 465.864906 378.031321)">node_style</text>
+    </g>
+   </g>
+   <g id="text_147">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="509.064906" y="378.031321" transform="rotate(-0 509.064906 378.031321)">=</text>
+    </g>
+   </g>
+   <g id="text_148">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="513.384906" y="378.031321" transform="rotate(-0 513.384906 378.031321)">Styles</text>
+    </g>
+   </g>
+   <g id="text_149">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="539.304906" y="378.031321" transform="rotate(-0 539.304906 378.031321)">.</text>
+    </g>
+   </g>
+   <g id="text_150">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="543.624906" y="378.031321" transform="rotate(-0 543.624906 378.031321)">Neutral</text>
+    </g>
+   </g>
+   <g id="text_151">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="573.864906" y="378.031321" transform="rotate(-0 573.864906 378.031321)">,</text>
+    </g>
+   </g>
+   <g id="text_152">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="578.184906" y="378.031321" transform="rotate(-0 578.184906 378.031321)"> </text>
+    </g>
+   </g>
+   <g id="text_153">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="582.504906" y="378.031321" transform="rotate(-0 582.504906 378.031321)">.</text>
+    </g>
+   </g>
+   <g id="text_154">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="586.824906" y="378.031321" transform="rotate(-0 586.824906 378.031321)">.</text>
+    </g>
+   </g>
+   <g id="text_155">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="591.144906" y="378.031321" transform="rotate(-0 591.144906 378.031321)">.</text>
+    </g>
+   </g>
+   <g id="text_156">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="595.464906" y="378.031321" transform="rotate(-0 595.464906 378.031321)">)</text>
+    </g>
+   </g>
+   <g id="text_157">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="383.784906" y="390.271321" transform="rotate(-0 383.784906 390.271321)">git</text>
+    </g>
+   </g>
+   <g id="text_158">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="396.744906" y="390.271321" transform="rotate(-0 396.744906 390.271321)"> </text>
+    </g>
+   </g>
+   <g id="text_159">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="401.064906" y="390.271321" transform="rotate(-0 401.064906 390.271321)">=</text>
+    </g>
+   </g>
+   <g id="text_160">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="405.384906" y="390.271321" transform="rotate(-0 405.384906 390.271321)"> </text>
+    </g>
+   </g>
+   <g id="text_161">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="409.704906" y="390.271321" transform="rotate(-0 409.704906 390.271321)">flow</text>
+    </g>
+   </g>
+   <g id="text_162">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="426.984906" y="390.271321" transform="rotate(-0 426.984906 390.271321)">.</text>
+    </g>
+   </g>
+   <g id="text_163">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="431.304906" y="390.271321" transform="rotate(-0 431.304906 390.271321)">add</text>
+    </g>
+   </g>
+   <g id="text_164">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="444.264906" y="390.271321" transform="rotate(-0 444.264906 390.271321)">(</text>
+    </g>
+   </g>
+   <g id="text_165">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="448.584906" y="390.271321" transform="rotate(-0 448.584906 390.271321)">Start</text>
+    </g>
+   </g>
+   <g id="text_166">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="470.184906" y="390.271321" transform="rotate(-0 470.184906 390.271321)">(</text>
+    </g>
+   </g>
+   <g id="text_167">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="474.504906" y="390.271321" transform="rotate(-0 474.504906 390.271321)">"</text>
+    </g>
+   </g>
+   <g id="text_168">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="478.824906" y="390.271321" transform="rotate(-0 478.824906 390.271321)">Git Push</text>
+    </g>
+   </g>
+   <g id="text_169">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="513.384906" y="390.271321" transform="rotate(-0 513.384906 390.271321)">"</text>
+    </g>
+   </g>
+   <g id="text_170">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="517.704906" y="390.271321" transform="rotate(-0 517.704906 390.271321)">)</text>
+    </g>
+   </g>
+   <g id="text_171">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="522.024906" y="390.271321" transform="rotate(-0 522.024906 390.271321)">,</text>
+    </g>
+   </g>
+   <g id="text_172">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="526.344906" y="390.271321" transform="rotate(-0 526.344906 390.271321)"> </text>
+    </g>
+   </g>
+   <g id="text_173">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="530.664906" y="390.271321" transform="rotate(-0 530.664906 390.271321)">xy</text>
+    </g>
+   </g>
+   <g id="text_174">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="539.304906" y="390.271321" transform="rotate(-0 539.304906 390.271321)">=</text>
+    </g>
+   </g>
+   <g id="text_175">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="543.624906" y="390.271321" transform="rotate(-0 543.624906 390.271321)">layout</text>
+    </g>
+   </g>
+   <g id="text_176">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="569.544906" y="390.271321" transform="rotate(-0 569.544906 390.271321)">[</text>
+    </g>
+   </g>
+   <g id="text_177">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="573.864906" y="390.271321" transform="rotate(-0 573.864906 390.271321)">"</text>
+    </g>
+   </g>
+   <g id="text_178">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="578.184906" y="390.271321" transform="rotate(-0 578.184906 390.271321)">git</text>
+    </g>
+   </g>
+   <g id="text_179">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="591.144906" y="390.271321" transform="rotate(-0 591.144906 390.271321)">"</text>
+    </g>
+   </g>
+   <g id="text_180">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="595.464906" y="390.271321" transform="rotate(-0 595.464906 390.271321)">]</text>
+    </g>
+   </g>
+   <g id="text_181">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="599.784906" y="390.271321" transform="rotate(-0 599.784906 390.271321)">.</text>
+    </g>
+   </g>
+   <g id="text_182">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="604.104906" y="390.271321" transform="rotate(-0 604.104906 390.271321)">xy</text>
+    </g>
+   </g>
+   <g id="text_183">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="612.744906" y="390.271321" transform="rotate(-0 612.744906 390.271321)">)</text>
+    </g>
+   </g>
+   <g id="text_184">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="383.784906" y="402.511321" transform="rotate(-0 383.784906 402.511321)">can</text>
+    </g>
+   </g>
+   <g id="text_185">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="396.744906" y="402.511321" transform="rotate(-0 396.744906 402.511321)"> </text>
+    </g>
+   </g>
+   <g id="text_186">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="401.064906" y="402.511321" transform="rotate(-0 401.064906 402.511321)">=</text>
+    </g>
+   </g>
+   <g id="text_187">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="405.384906" y="402.511321" transform="rotate(-0 405.384906 402.511321)"> </text>
+    </g>
+   </g>
+   <g id="text_188">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="409.704906" y="402.511321" transform="rotate(-0 409.704906 402.511321)">flow</text>
+    </g>
+   </g>
+   <g id="text_189">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="426.984906" y="402.511321" transform="rotate(-0 426.984906 402.511321)">.</text>
+    </g>
+   </g>
+   <g id="text_190">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="431.304906" y="402.511321" transform="rotate(-0 431.304906 402.511321)">add</text>
+    </g>
+   </g>
+   <g id="text_191">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="444.264906" y="402.511321" transform="rotate(-0 444.264906 402.511321)">(</text>
+    </g>
+   </g>
+   <g id="text_192">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="448.584906" y="402.511321" transform="rotate(-0 448.584906 402.511321)">Process</text>
+    </g>
+   </g>
+   <g id="text_193">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="478.824906" y="402.511321" transform="rotate(-0 478.824906 402.511321)">(</text>
+    </g>
+   </g>
+   <g id="text_194">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="483.144906" y="402.511321" transform="rotate(-0 483.144906 402.511321)">"</text>
+    </g>
+   </g>
+   <g id="text_195">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="487.464906" y="402.511321" transform="rotate(-0 487.464906 402.511321)">Canary</text>
+    </g>
+   </g>
+   <g id="text_196">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="513.384906" y="402.511321" transform="rotate(-0 513.384906 402.511321)">"</text>
+    </g>
+   </g>
+   <g id="text_197">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="517.704906" y="402.511321" transform="rotate(-0 517.704906 402.511321)">)</text>
+    </g>
+   </g>
+   <g id="text_198">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="522.024906" y="402.511321" transform="rotate(-0 522.024906 402.511321)">,</text>
+    </g>
+   </g>
+   <g id="text_199">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="526.344906" y="402.511321" transform="rotate(-0 526.344906 402.511321)"> </text>
+    </g>
+   </g>
+   <g id="text_200">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="530.664906" y="402.511321" transform="rotate(-0 530.664906 402.511321)">xy</text>
+    </g>
+   </g>
+   <g id="text_201">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="539.304906" y="402.511321" transform="rotate(-0 539.304906 402.511321)">=</text>
+    </g>
+   </g>
+   <g id="text_202">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="543.624906" y="402.511321" transform="rotate(-0 543.624906 402.511321)">layout</text>
+    </g>
+   </g>
+   <g id="text_203">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="569.544906" y="402.511321" transform="rotate(-0 569.544906 402.511321)">[</text>
+    </g>
+   </g>
+   <g id="text_204">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="573.864906" y="402.511321" transform="rotate(-0 573.864906 402.511321)">"</text>
+    </g>
+   </g>
+   <g id="text_205">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="578.184906" y="402.511321" transform="rotate(-0 578.184906 402.511321)">canary</text>
+    </g>
+   </g>
+   <g id="text_206">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="604.104906" y="402.511321" transform="rotate(-0 604.104906 402.511321)">"</text>
+    </g>
+   </g>
+   <g id="text_207">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="608.424906" y="402.511321" transform="rotate(-0 608.424906 402.511321)">]</text>
+    </g>
+   </g>
+   <g id="text_208">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="612.744906" y="402.511321" transform="rotate(-0 612.744906 402.511321)">.</text>
+    </g>
+   </g>
+   <g id="text_209">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="617.064906" y="402.511321" transform="rotate(-0 617.064906 402.511321)">xy</text>
+    </g>
+   </g>
+   <g id="text_210">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="625.704906" y="402.511321" transform="rotate(-0 625.704906 402.511321)">)</text>
+    </g>
+   </g>
+   <g id="text_211">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="383.784906" y="414.751321" transform="rotate(-0 383.784906 414.751321)">flow</text>
+    </g>
+   </g>
+   <g id="text_212">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="401.064906" y="414.751321" transform="rotate(-0 401.064906 414.751321)">.</text>
+    </g>
+   </g>
+   <g id="text_213">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="405.384906" y="414.751321" transform="rotate(-0 405.384906 414.751321)">connect</text>
+    </g>
+   </g>
+   <g id="text_214">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="435.624906" y="414.751321" transform="rotate(-0 435.624906 414.751321)">(</text>
+    </g>
+   </g>
+   <g id="text_215">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="439.944906" y="414.751321" transform="rotate(-0 439.944906 414.751321)">git</text>
+    </g>
+   </g>
+   <g id="text_216">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="452.904906" y="414.751321" transform="rotate(-0 452.904906 414.751321)">,</text>
+    </g>
+   </g>
+   <g id="text_217">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="457.224906" y="414.751321" transform="rotate(-0 457.224906 414.751321)"> </text>
+    </g>
+   </g>
+   <g id="text_218">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="461.544906" y="414.751321" transform="rotate(-0 461.544906 414.751321)">can</text>
+    </g>
+   </g>
+   <g id="text_219">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="474.504906" y="414.751321" transform="rotate(-0 474.504906 414.751321)">)</text>
+    </g>
+   </g>
+   <g id="text_220">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="478.824906" y="414.751321" transform="rotate(-0 478.824906 414.751321)">;</text>
+    </g>
+   </g>
+   <g id="text_221">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="483.144906" y="414.751321" transform="rotate(-0 483.144906 414.751321)"> </text>
+    </g>
+   </g>
+   <g id="text_222">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="487.464906" y="414.751321" transform="rotate(-0 487.464906 414.751321)">flow</text>
+    </g>
+   </g>
+   <g id="text_223">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="504.744906" y="414.751321" transform="rotate(-0 504.744906 414.751321)">.</text>
+    </g>
+   </g>
+   <g id="text_224">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="509.064906" y="414.751321" transform="rotate(-0 509.064906 414.751321)">draw</text>
+    </g>
+   </g>
+   <g id="text_225">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="526.344906" y="414.751321" transform="rotate(-0 526.344906 414.751321)">(</text>
+    </g>
+   </g>
+   <g id="text_226">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="530.664906" y="414.751321" transform="rotate(-0 530.664906 414.751321)">)</text>
+    </g>
+   </g>
+   <g id="text_227">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #75715e" x="383.784906" y="426.991321" transform="rotate(-0 383.784906 426.991321)"># Or attach callouts to layout["canary"]:</text>
+    </g>
+   </g>
+   <g id="text_228">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="383.784906" y="439.231321" transform="rotate(-0 383.784906 439.231321)">c</text>
+    </g>
+   </g>
+   <g id="text_229">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="388.104906" y="439.231321" transform="rotate(-0 388.104906 439.231321)"> </text>
+    </g>
+   </g>
+   <g id="text_230">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="392.424906" y="439.231321" transform="rotate(-0 392.424906 439.231321)">=</text>
+    </g>
+   </g>
+   <g id="text_231">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="396.744906" y="439.231321" transform="rotate(-0 396.744906 439.231321)"> </text>
+    </g>
+   </g>
+   <g id="text_232">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="401.064906" y="439.231321" transform="rotate(-0 401.064906 439.231321)">layout</text>
+    </g>
+   </g>
+   <g id="text_233">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="426.984906" y="439.231321" transform="rotate(-0 426.984906 439.231321)">[</text>
+    </g>
+   </g>
+   <g id="text_234">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="431.304906" y="439.231321" transform="rotate(-0 431.304906 439.231321)">"</text>
+    </g>
+   </g>
+   <g id="text_235">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="435.624906" y="439.231321" transform="rotate(-0 435.624906 439.231321)">canary</text>
+    </g>
+   </g>
+   <g id="text_236">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #e6db74" x="461.544906" y="439.231321" transform="rotate(-0 461.544906 439.231321)">"</text>
+    </g>
+   </g>
+   <g id="text_237">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="465.864906" y="439.231321" transform="rotate(-0 465.864906 439.231321)">]</text>
+    </g>
+   </g>
+   <g id="text_238">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="383.784906" y="451.471321" transform="rotate(-0 383.784906 451.471321)">bubblespeech</text>
+    </g>
+   </g>
+   <g id="text_239">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="435.624906" y="451.471321" transform="rotate(-0 435.624906 451.471321)">(</text>
+    </g>
+   </g>
+   <g id="text_240">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="439.944906" y="451.471321" transform="rotate(-0 439.944906 451.471321)">(</text>
+    </g>
+   </g>
+   <g id="text_241">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="444.264906" y="451.471321" transform="rotate(-0 444.264906 451.471321)">c</text>
+    </g>
+   </g>
+   <g id="text_242">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="448.584906" y="451.471321" transform="rotate(-0 448.584906 451.471321)">.</text>
+    </g>
+   </g>
+   <g id="text_243">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="452.904906" y="451.471321" transform="rotate(-0 452.904906 451.471321)">x</text>
+    </g>
+   </g>
+   <g id="text_244">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="457.224906" y="451.471321" transform="rotate(-0 457.224906 451.471321)">,</text>
+    </g>
+   </g>
+   <g id="text_245">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="461.544906" y="451.471321" transform="rotate(-0 461.544906 451.471321)"> </text>
+    </g>
+   </g>
+   <g id="text_246">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="465.864906" y="451.471321" transform="rotate(-0 465.864906 451.471321)">c</text>
+    </g>
+   </g>
+   <g id="text_247">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="470.184906" y="451.471321" transform="rotate(-0 470.184906 451.471321)">.</text>
+    </g>
+   </g>
+   <g id="text_248">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="474.504906" y="451.471321" transform="rotate(-0 474.504906 451.471321)">y</text>
+    </g>
+   </g>
+   <g id="text_249">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="478.824906" y="451.471321" transform="rotate(-0 478.824906 451.471321)"> </text>
+    </g>
+   </g>
+   <g id="text_250">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="483.144906" y="451.471321" transform="rotate(-0 483.144906 451.471321)">+</text>
+    </g>
+   </g>
+   <g id="text_251">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="487.464906" y="451.471321" transform="rotate(-0 487.464906 451.471321)"> </text>
+    </g>
+   </g>
+   <g id="text_252">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #ae81ff" x="491.784906" y="451.471321" transform="rotate(-0 491.784906 451.471321)">10.5</text>
+    </g>
+   </g>
+   <g id="text_253">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="509.064906" y="451.471321" transform="rotate(-0 509.064906 451.471321)">)</text>
+    </g>
+   </g>
+   <g id="text_254">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="513.384906" y="451.471321" transform="rotate(-0 513.384906 451.471321)">,</text>
+    </g>
+   </g>
+   <g id="text_255">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f8f8f2" x="517.704906" y="451.471321" transform="rotate(-0 517.704906 451.471321)"> </text>
+    </g>
+   </g>
+   <g id="text_256">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="522.024906" y="451.471321" transform="rotate(-0 522.024906 451.471321)">.</text>
+    </g>
+   </g>
+   <g id="text_257">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="526.344906" y="451.471321" transform="rotate(-0 526.344906 451.471321)">.</text>
+    </g>
+   </g>
+   <g id="text_258">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="530.664906" y="451.471321" transform="rotate(-0 530.664906 451.471321)">.</text>
+    </g>
+   </g>
+   <g id="text_259">
+    <g clip-path="url(#pf77f305f56)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: start; fill: #f92672" x="534.984906" y="451.471321" transform="rotate(-0 534.984906 451.471321)">)</text>
     </g>
    </g>
   </g>
@@ -20841,12 +21594,11 @@ z
       </div>
       <aside class="slide-notes" hidden>
 <ul>
-<li>What if you want automatic graph layout without giving up pixel-level adjustments or custom Drawlib overlays?</li>
-<li><code>drawlib.graph</code> solves this with <strong>three progressive workflows</strong>:
+<li>What if you want automatic graph layout without giving up <code>ArchitectureDiagram</code> icons, <code>FlowDiagram</code> shapes, or pixel-level adjustments?</li>
+<li><code>drawlib.graph</code> achieves this by acting strictly as a <strong>pure coordinate calculator (<code>get_layout()</code> only)</strong> in a <strong>2-Step Workflow</strong>:
 <ol>
-<li><strong>Direct rendering (<code>g.draw()</code>)</strong>: Declare nodes, clusters, and edges and render immediately.</li>
-<li><strong>Calculate, Tweak &amp; Overlay (<code>layout = g.calc()</code>)</strong>: As shown in the top panel, we run the Sugiyama <code>LayerGraph</code> solver, call <code>layout.offset(&quot;canary&quot;, dy=-2.5)</code> to nudge a specific node, call <code>layout.draw()</code>, and then inspect <code>layout.nodes[&quot;canary&quot;].x, .y</code> to attach a <code>bubblespeech</code> callout right above the computed node!</li>
-<li><strong>Export standalone code (<code>g.export_code()</code>)</strong>: Ejects the solved graph into a pure <code>drawlib.shapes</code> + <code>drawlib.lines</code> Python script with rounded numeric coordinates when you want 100% manual ownership.</li>
+<li><strong>Step 1 — Solve &amp; Inspect (<code>layout = g.get_layout()</code>)</strong>: Declare nodes, clusters, and edges and compute a <code>GraphLayout</code>. You can run <code>print(layout)</code> to inspect the coordinate table or call <code>layout.offset(&quot;canary&quot;, dy=-2.5)</code> to nudge a node or cluster.</li>
+<li><strong>Step 2 — Render with <code>drawlib.diagrams</code> or <code>drawlib.shapes</code></strong>: As shown in the top panel, we pass <code>layout[id].xy</code> directly into <code>FlowDiagram</code> (<code>Start</code>, <code>Process</code>, <code>End</code>) and use <code>layout[&quot;canary&quot;].x, .y</code> to attach a <code>bubblespeech</code> callout right above the computed node!</li>
 </ol>
 </li>
 </ul>
@@ -20910,7 +21662,7 @@ z
 
 <div class="slide-block slide-text-box compact" style="position: absolute; left: 80.0px; top: 140.0px; width: 640.0px; height: 840.0px;">
 <h2>Choosing the Right Solver for Your Topology</h2>
-<p>Instead of forcing one generic algorithm onto every graph, <code>drawlib.graph</code> provides <strong>5 domain-tuned layout solvers</strong> sharing the <code>BaseGraph</code> API:</p>
+<p>Instead of forcing one generic algorithm onto every graph, <code>drawlib.graph</code> provides <strong>5 domain-tuned layout solvers</strong> sharing the <code>BaseGraph.get_layout()</code> API:</p>
 <ol>
 <li><strong><code>ArchitectureGraph</code> (Compass + Nested Packing)</strong>:
 <ul>
@@ -20929,7 +21681,7 @@ z
 </li>
 <li><strong><code>RadialGraph</code> (Concentric Hub &amp; Spoke)</strong>:
 <ul>
-<li>Places a central <code>hub</code> at <code>ring=0</code> and allocates angular sectors across concentric rings (<code>draw_ring_guides=True</code>).</li>
+<li>Places a central <code>hub</code> at <code>ring=0</code>, allocates angular sectors across concentric rings, and exposes radii via <code>layout.ring_radii</code>.</li>
 </ul>
 </li>
 <li><strong><code>GridGraph</code> (2D Matrix + Smart Channel Routing)</strong>:
@@ -20991,102 +21743,132 @@ z
     </g>
    </g>
    <g id="patch_3">
-    <path d="M 82 185.946667 
-L 82 127.186667 
-L 142.32 127.186667 
-L 142.32 185.946667 
-L 82 185.946667 
+    <path d="M 94.453333 178.933333 
+L 69.333333 178.933333 
+Q 61.333333 178.933333 61.333333 170.933333 
+L 61.333333 116.853333 
+Q 61.333333 108.853333 69.333333 108.853333 
+L 119.573333 108.853333 
+Q 127.573333 108.853333 127.573333 116.853333 
+L 127.573333 170.933333 
+Q 127.573333 178.933333 119.573333 178.933333 
+L 94.453333 178.933333 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 4.329,1.872; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.17; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_2">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 4.524px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="95" y="139.305787" transform="rotate(-0 95 139.305787)">Client</text>
+     <text style="font-size: 6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="68" y="121.133333" transform="rotate(-0 68 121.133333)">Client</text>
     </g>
    </g>
    <g id="patch_4">
-    <path d="M 160.52 204.666667 
-L 160.52 108.466667 
-L 341.48 108.466667 
-L 341.48 204.666667 
-L 160.52 204.666667 
+    <path d="M 242.293333 205.333333 
+L 152.373333 205.333333 
+Q 144.373333 205.333333 144.373333 197.333333 
+L 144.373333 90.453333 
+Q 144.373333 82.453333 152.373333 82.453333 
+L 332.213333 82.453333 
+Q 340.213333 82.453333 340.213333 90.453333 
+L 340.213333 197.333333 
+Q 340.213333 205.333333 332.213333 205.333333 
+L 242.293333 205.333333 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 4.329,1.872; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.17; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_3">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 4.524px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="173.52" y="120.585787" transform="rotate(-0 173.52 120.585787)">Cloud VPC</text>
+     <text style="font-size: 6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="151.04" y="94.733333" transform="rotate(-0 151.04 94.733333)">Cloud VPC</text>
     </g>
    </g>
    <g id="patch_5">
-    <path d="M 169.88 186.206667 
-L 169.88 147.726667 
-L 332.12 147.726667 
-L 332.12 186.206667 
-L 169.88 186.206667 
+    <path d="M 242.293333 183.733333 
+L 161.973333 183.733333 
+Q 153.973333 183.733333 153.973333 175.733333 
+L 153.973333 136.053333 
+Q 153.973333 128.053333 161.973333 128.053333 
+L 322.613333 128.053333 
+Q 330.613333 128.053333 330.613333 136.053333 
+L 330.613333 175.733333 
+Q 330.613333 183.733333 322.613333 183.733333 
+L 242.293333 183.733333 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 4.329,1.872; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.17; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_4">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 4.524px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="182.88" y="159.630897" transform="rotate(-0 182.88 159.630897)">Compute</text>
+     <text style="font-size: 6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="160.64" y="140.048333" transform="rotate(-0 160.64 140.048333)">Compute</text>
     </g>
    </g>
    <g id="patch_6">
-    <path d="M 132.96 165.666667 
-L 176.020733 166.904044 
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 1.95; stroke-linecap: round"/>
-    <path d="M 169.872926 163.606095 
-L 176.020733 166.904044 
-L 169.69369 169.84352 
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 1.95; stroke-linecap: round"/>
+    <path d="M 116.053333 162.133333 
+L 167.498248 162.133333 
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 159.498248 158.133333 
+L 167.498248 162.133333 
+L 159.498248 166.133333 
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_7">
-    <path d="M 219.8 166.966667 
-L 280.019834 166.966667 
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 1.95; stroke-linecap: round"/>
-    <path d="M 273.779834 163.846667 
-L 280.019834 166.966667 
-L 273.779834 170.086667 
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 1.95; stroke-linecap: round"/>
+    <path d="M 213.493333 162.133333 
+L 268.298248 162.133333 
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 260.298248 158.133333 
+L 268.298248 162.133333 
+L 260.298248 166.133333 
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_8">
-    <path d="M 91.36 176.586667 
-L 91.36 154.746667 
-L 132.96 154.746667 
-L 132.96 176.586667 
+    <path d="M 94.453333 173.653333 
+L 80.853333 173.653333 
+Q 72.853333 173.653333 72.853333 165.653333 
+L 72.853333 158.613333 
+Q 72.853333 150.613333 80.853333 150.613333 
+L 108.053333 150.613333 
+Q 116.053333 150.613333 116.053333 158.613333 
+L 116.053333 165.653333 
+Q 116.053333 173.653333 108.053333 173.653333 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.17; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_5">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 4.524px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="112.16" y="167.170897" transform="rotate(-0 112.16 167.170897)">App</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="94.453333" y="164.194833" transform="rotate(-0 94.453333 164.194833)">App</text>
     </g>
    </g>
    <g id="patch_9">
-    <path d="M 178.2 177.886667 
-L 178.2 156.046667 
-L 219.8 156.046667 
-L 219.8 177.886667 
+    <path d="M 191.893333 173.653333 
+L 178.293333 173.653333 
+Q 170.293333 173.653333 170.293333 165.653333 
+L 170.293333 158.613333 
+Q 170.293333 150.613333 178.293333 150.613333 
+L 205.493333 150.613333 
+Q 213.493333 150.613333 213.493333 158.613333 
+L 213.493333 165.653333 
+Q 213.493333 173.653333 205.493333 173.653333 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #4862da"/>
    </g>
    <g id="text_6">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 4.524px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="199" y="168.685787" transform="rotate(-0 199 168.685787)">API</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="191.893333" y="164.489333" transform="rotate(-0 191.893333 164.489333)">API</text>
     </g>
    </g>
    <g id="patch_10">
-    <path d="M 282.2 177.886667 
-L 282.2 156.046667 
-L 323.8 156.046667 
-L 323.8 177.886667 
+    <path d="M 292.693333 173.653333 
+L 279.093333 173.653333 
+Q 271.093333 173.653333 271.093333 165.653333 
+L 271.093333 158.613333 
+Q 271.093333 150.613333 279.093333 150.613333 
+L 306.293333 150.613333 
+Q 314.293333 150.613333 314.293333 158.613333 
+L 314.293333 165.653333 
+Q 314.293333 173.653333 306.293333 173.653333 
 z
-" clip-path="url(#pe9bfb2d8ab)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.17; stroke-linejoin: miter"/>
+" clip-path="url(#pe9bfb2d8ab)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_7">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 4.524px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="303" y="168.685787" transform="rotate(-0 303 168.685787)">Worker</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="292.693333" y="164.489333" transform="rotate(-0 292.693333 164.489333)">Worker</text>
     </g>
    </g>
    <g id="patch_11">
@@ -21111,28 +21893,28 @@ z
    <g id="patch_12">
     <path d="M 468.333333 156.666667 
 L 485 156.666667 
-L 485 130.666667 
-L 498.871582 130.666667 
+L 485 130 
+L 498.871582 130 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 490.871582 126.666667 
-L 498.871582 130.666667 
-L 490.871582 134.666667 
+    <path d="M 490.871582 126 
+L 498.871582 130 
+L 490.871582 134 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_13">
     <path d="M 468.333333 156.666667 
 L 485 156.666667 
-L 485 182.666667 
-L 498.871582 182.666667 
+L 485 183.333333 
+L 498.871582 183.333333 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 490.871582 178.666667 
-L 498.871582 182.666667 
-L 490.871582 186.666667 
+    <path d="M 490.871582 179.333333 
+L 498.871582 183.333333 
+L 490.871582 187.333333 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_14">
-    <path d="M 565 130.666667 
-L 581.666667 130.666667 
+    <path d="M 565 130 
+L 581.666667 130 
 L 581.666667 156.666667 
 L 595.538248 156.666667 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
@@ -21142,8 +21924,8 @@ L 587.538248 160.666667
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_15">
-    <path d="M 565 182.666667 
-L 581.666667 182.666667 
+    <path d="M 565 183.333333 
+L 581.666667 183.333333 
 L 581.666667 156.666667 
 L 595.538248 156.666667 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
@@ -21153,55 +21935,75 @@ L 587.538248 160.666667
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_16">
-    <path d="M 405 172.666667 
-L 405 140.666667 
-L 468.333333 140.666667 
-L 468.333333 172.666667 
+    <path d="M 436.666667 173.333333 
+L 413 173.333333 
+Q 405 173.333333 405 165.333333 
+L 405 148 
+Q 405 140 413 140 
+L 460.333333 140 
+Q 468.333333 140 468.333333 148 
+L 468.333333 165.333333 
+Q 468.333333 173.333333 460.333333 173.333333 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_9">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="436.666667" y="158.514057" transform="rotate(-0 436.666667 158.514057)">Ingest</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="436.666667" y="158.641464" transform="rotate(-0 436.666667 158.641464)">Ingest</text>
     </g>
    </g>
    <g id="patch_17">
-    <path d="M 501.666667 146.666667 
-L 501.666667 114.666667 
-L 565 114.666667 
-L 565 146.666667 
+    <path d="M 533.333333 146.666667 
+L 509.666667 146.666667 
+Q 501.666667 146.666667 501.666667 138.666667 
+L 501.666667 121.333333 
+Q 501.666667 113.333333 509.666667 113.333333 
+L 557 113.333333 
+Q 565 113.333333 565 121.333333 
+L 565 138.666667 
+Q 565 146.666667 557 146.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_10">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="533.333333" y="132.870667" transform="rotate(-0 533.333333 132.870667)">Parse</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="533.333333" y="132.356" transform="rotate(-0 533.333333 132.356)">Parse</text>
     </g>
    </g>
    <g id="patch_18">
-    <path d="M 501.666667 198.666667 
-L 501.666667 166.666667 
-L 565 166.666667 
-L 565 198.666667 
+    <path d="M 533.333333 200 
+L 509.666667 200 
+Q 501.666667 200 501.666667 192 
+L 501.666667 174.666667 
+Q 501.666667 166.666667 509.666667 166.666667 
+L 557 166.666667 
+Q 565 166.666667 565 174.666667 
+L 565 192 
+Q 565 200 557 200 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_11">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="533.333333" y="184.870667" transform="rotate(-0 533.333333 184.870667)">Enrich</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="533.333333" y="185.689333" transform="rotate(-0 533.333333 185.689333)">Enrich</text>
     </g>
    </g>
    <g id="patch_19">
-    <path d="M 598.333333 172.666667 
-L 598.333333 140.666667 
-L 661.666667 140.666667 
-L 661.666667 172.666667 
+    <path d="M 630 173.333333 
+L 606.333333 173.333333 
+Q 598.333333 173.333333 598.333333 165.333333 
+L 598.333333 148 
+Q 598.333333 140 606.333333 140 
+L 653.666667 140 
+Q 661.666667 140 661.666667 148 
+L 661.666667 165.333333 
+Q 661.666667 173.333333 653.666667 173.333333 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #4862da"/>
    </g>
    <g id="text_12">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="630" y="158.870667" transform="rotate(-0 630 158.870667)">Index</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="630" y="159.022667" transform="rotate(-0 630 159.022667)">Index</text>
     </g>
    </g>
    <g id="patch_20">
@@ -21224,112 +22026,137 @@ z
     </g>
    </g>
    <g id="patch_21">
-    <path d="M 147.466667 376.666667 
-L 147.466667 399.2 
-L 105.866667 399.2 
-L 105.866667 418.871582 
+    <path d="M 146.666667 376.666667 
+L 146.666667 399.2 
+L 106.666667 399.2 
+L 106.666667 418.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 109.866667 410.871582 
-L 105.866667 418.871582 
-L 101.866667 410.871582 
+    <path d="M 110.666667 410.871582 
+L 106.666667 418.871582 
+L 102.666667 410.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_22">
-    <path d="M 147.466667 376.666667 
-L 147.466667 399.2 
-L 189.2 399.2 
-L 189.2 418.871582 
+    <path d="M 146.666667 376.666667 
+L 146.666667 399.2 
+L 186.666667 399.2 
+L 186.666667 418.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 193.2 410.871582 
-L 189.2 418.871582 
-L 185.2 410.871582 
+    <path d="M 190.666667 410.871582 
+L 186.666667 418.871582 
+L 182.666667 410.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_23">
-    <path d="M 105.866667 451.666667 
-L 105.866667 474.133333 
-L 64.133333 474.133333 
-L 64.133333 493.871582 
+    <path d="M 106.666667 451.666667 
+L 106.666667 474.133333 
+L 66.666667 474.133333 
+L 66.666667 493.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 68.133333 485.871582 
-L 64.133333 493.871582 
-L 60.133333 485.871582 
+    <path d="M 70.666667 485.871582 
+L 66.666667 493.871582 
+L 62.666667 485.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_24">
-    <path d="M 105.866667 451.666667 
-L 105.866667 474.133333 
-L 147.466667 474.133333 
-L 147.466667 493.871582 
+    <path d="M 106.666667 451.666667 
+L 106.666667 474.133333 
+L 146.666667 474.133333 
+L 146.666667 493.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 151.466667 485.871582 
-L 147.466667 493.871582 
-L 143.466667 485.871582 
+    <path d="M 150.666667 485.871582 
+L 146.666667 493.871582 
+L 142.666667 485.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_25">
-    <path d="M 119.133333 376.666667 
-L 119.133333 346.666667 
-L 175.8 346.666667 
-L 175.8 376.666667 
+    <path d="M 146.666667 376.666667 
+L 128 376.666667 
+Q 120 376.666667 120 368.666667 
+L 120 354.666667 
+Q 120 346.666667 128 346.666667 
+L 165.333333 346.666667 
+Q 173.333333 346.666667 173.333333 354.666667 
+L 173.333333 368.666667 
+Q 173.333333 376.666667 165.333333 376.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #4862da"/>
    </g>
    <g id="text_14">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="147.466667" y="363.870667" transform="rotate(-0 147.466667 363.870667)">Root</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="146.666667" y="364.022667" transform="rotate(-0 146.666667 364.022667)">Root</text>
     </g>
    </g>
    <g id="patch_26">
-    <path d="M 77.533333 451.666667 
-L 77.533333 421.666667 
-L 134.2 421.666667 
-L 134.2 451.666667 
+    <path d="M 106.666667 451.666667 
+L 88 451.666667 
+Q 80 451.666667 80 443.666667 
+L 80 429.666667 
+Q 80 421.666667 88 421.666667 
+L 125.333333 421.666667 
+Q 133.333333 421.666667 133.333333 429.666667 
+L 133.333333 443.666667 
+Q 133.333333 451.666667 125.333333 451.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_15">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="105.866667" y="438.595167" transform="rotate(-0 105.866667 438.595167)">plat</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.666667" y="438.728167" transform="rotate(-0 106.666667 438.728167)">plat</text>
     </g>
    </g>
    <g id="patch_27">
-    <path d="M 160.866667 451.666667 
-L 160.866667 421.666667 
-L 217.533333 421.666667 
-L 217.533333 451.666667 
+    <path d="M 186.666667 451.666667 
+L 168 451.666667 
+Q 160 451.666667 160 443.666667 
+L 160 429.666667 
+Q 160 421.666667 168 421.666667 
+L 205.333333 421.666667 
+Q 213.333333 421.666667 213.333333 429.666667 
+L 213.333333 443.666667 
+Q 213.333333 451.666667 205.333333 451.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_16">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="189.2" y="438.595167" transform="rotate(-0 189.2 438.595167)">app</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="186.666667" y="438.728167" transform="rotate(-0 186.666667 438.728167)">app</text>
     </g>
    </g>
    <g id="patch_28">
-    <path d="M 35.8 526.666667 
-L 35.8 496.666667 
-L 92.466667 496.666667 
-L 92.466667 526.666667 
+    <path d="M 66.666667 526.666667 
+L 48 526.666667 
+Q 40 526.666667 40 518.666667 
+L 40 504.666667 
+Q 40 496.666667 48 496.666667 
+L 85.333333 496.666667 
+Q 93.333333 496.666667 93.333333 504.666667 
+L 93.333333 518.666667 
+Q 93.333333 526.666667 85.333333 526.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_17">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="64.133333" y="513.870667" transform="rotate(-0 64.133333 513.870667)">k8s</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="66.666667" y="514.022667" transform="rotate(-0 66.666667 514.022667)">k8s</text>
     </g>
    </g>
    <g id="patch_29">
-    <path d="M 119.133333 526.666667 
-L 119.133333 496.666667 
-L 175.8 496.666667 
-L 175.8 526.666667 
+    <path d="M 146.666667 526.666667 
+L 128 526.666667 
+Q 120 526.666667 120 518.666667 
+L 120 504.666667 
+Q 120 496.666667 128 496.666667 
+L 165.333333 496.666667 
+Q 173.333333 496.666667 173.333333 504.666667 
+L 173.333333 518.666667 
+Q 173.333333 526.666667 165.333333 526.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_18">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="147.466667" y="513.870667" transform="rotate(-0 147.466667 513.870667)">iam</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="146.666667" y="514.022667" transform="rotate(-0 146.666667 514.022667)">iam</text>
     </g>
    </g>
    <g id="patch_30">
@@ -21352,6 +22179,20 @@ z
     </g>
    </g>
    <g id="patch_31">
+    <path d="M 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+C 360 436.666667 360 436.666667 360 436.666667 
+L 360 436.666667 
+z
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_32">
     <path d="M 360 500 
 C 376.796196 500 392.906725 493.3268 404.783429 481.450096 
 C 416.660134 469.573392 423.333333 453.462863 423.333333 436.666667 
@@ -21365,8 +22206,8 @@ L 360 500
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
-   <g id="patch_32">
-    <path d="M 385 436.666667 
+   <g id="patch_33">
+    <path d="M 385.333333 436.666667 
 L 397.204915 436.666667 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
     <path d="M 389.204915 432.666667 
@@ -21374,17 +22215,17 @@ L 397.204915 436.666667
 L 389.204915 440.666667 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
-   <g id="patch_33">
-    <path d="M 360 411.666667 
-L 360 389.461752 
+   <g id="patch_34">
+    <path d="M 360 411.333333 
+L 360 390.128418 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 356 397.461752 
-L 360 389.461752 
-L 364 397.461752 
+    <path d="M 356 398.128418 
+L 360 390.128418 
+L 364 398.128418 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
-   <g id="patch_34">
-    <path d="M 335 436.666667 
+   <g id="patch_35">
+    <path d="M 334.666667 436.666667 
 L 322.795085 436.666667 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
     <path d="M 330.795085 440.666667 
@@ -21392,86 +22233,106 @@ L 322.795085 436.666667
 L 330.795085 432.666667 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
-   <g id="patch_35">
-    <path d="M 360 461.666667 
-L 360 483.871582 
+   <g id="patch_36">
+    <path d="M 360 462 
+L 360 483.204915 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 364 475.871582 
-L 360 483.871582 
-L 356 475.871582 
+    <path d="M 364 475.204915 
+L 360 483.204915 
+L 356 475.204915 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
-   <g id="patch_36">
-    <path d="M 360 461.666667 
-C 366.630077 461.666667 372.989497 459.032509 377.67767 454.344336 
-C 382.365842 449.656163 385 443.296744 385 436.666667 
-C 385 430.036589 382.365842 423.67717 377.67767 418.988997 
-C 372.989497 414.300824 366.630077 411.666667 360 411.666667 
-C 353.369922 411.666667 347.010503 414.300824 342.32233 418.988997 
-C 337.634158 423.67717 335 430.036589 335 436.666667 
-C 335 443.296744 337.634158 449.656163 342.32233 454.344336 
-C 347.010503 459.032509 353.369922 461.666667 360 461.666667 
+   <g id="patch_37">
+    <path d="M 360 462 
+C 366.718479 462 373.16269 459.33072 377.913372 454.580038 
+C 382.664054 449.829357 385.333333 443.385145 385.333333 436.666667 
+C 385.333333 429.948188 382.664054 423.503977 377.913372 418.753295 
+C 373.16269 414.002613 366.718479 411.333333 360 411.333333 
+C 353.281521 411.333333 346.83731 414.002613 342.086628 418.753295 
+C 337.335946 423.503977 334.666667 429.948188 334.666667 436.666667 
+C 334.666667 443.385145 337.335946 449.829357 342.086628 454.580038 
+C 346.83731 459.33072 353.281521 462 360 462 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #4862da"/>
    </g>
    <g id="text_20">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="438.870667" transform="rotate(-0 360 438.870667)">Mesh</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="439.022667" transform="rotate(-0 360 439.022667)">Mesh</text>
     </g>
    </g>
-   <g id="patch_37">
-    <path d="M 400 450 
-L 400 423.333333 
-L 446.666667 423.333333 
-L 446.666667 450 
+   <g id="patch_38">
+    <path d="M 423.333333 450.666667 
+L 408 450.666667 
+Q 400 450.666667 400 442.666667 
+L 400 430.666667 
+Q 400 422.666667 408 422.666667 
+L 438.666667 422.666667 
+Q 446.666667 422.666667 446.666667 430.666667 
+L 446.666667 442.666667 
+Q 446.666667 450.666667 438.666667 450.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_21">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="423.333333" y="438.870667" transform="rotate(-0 423.333333 438.870667)">Auth</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="423.333333" y="439.022667" transform="rotate(-0 423.333333 439.022667)">Auth</text>
     </g>
    </g>
-   <g id="patch_38">
-    <path d="M 336.666667 386.666667 
-L 336.666667 360 
-L 383.333333 360 
-L 383.333333 386.666667 
+   <g id="patch_39">
+    <path d="M 360 387.333333 
+L 344.666667 387.333333 
+Q 336.666667 387.333333 336.666667 379.333333 
+L 336.666667 367.333333 
+Q 336.666667 359.333333 344.666667 359.333333 
+L 375.333333 359.333333 
+Q 383.333333 359.333333 383.333333 367.333333 
+L 383.333333 379.333333 
+Q 383.333333 387.333333 375.333333 387.333333 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_22">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="375.235552" transform="rotate(-0 360 375.235552)">Pay</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="375.36674" transform="rotate(-0 360 375.36674)">Pay</text>
     </g>
    </g>
-   <g id="patch_39">
-    <path d="M 273.333333 450 
-L 273.333333 423.333333 
-L 320 423.333333 
-L 320 450 
+   <g id="patch_40">
+    <path d="M 296.666667 450.666667 
+L 281.333333 450.666667 
+Q 273.333333 450.666667 273.333333 442.666667 
+L 273.333333 430.666667 
+Q 273.333333 422.666667 281.333333 422.666667 
+L 312 422.666667 
+Q 320 422.666667 320 430.666667 
+L 320 442.666667 
+Q 320 450.666667 312 450.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_23">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="296.666667" y="438.514057" transform="rotate(-0 296.666667 438.514057)">Log</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="296.666667" y="438.641464" transform="rotate(-0 296.666667 438.641464)">Log</text>
     </g>
    </g>
-   <g id="patch_40">
-    <path d="M 336.666667 513.333333 
-L 336.666667 486.666667 
-L 383.333333 486.666667 
-L 383.333333 513.333333 
+   <g id="patch_41">
+    <path d="M 360 514 
+L 344.666667 514 
+Q 336.666667 514 336.666667 506 
+L 336.666667 494 
+Q 336.666667 486 344.666667 486 
+L 375.333333 486 
+Q 383.333333 486 383.333333 494 
+L 383.333333 506 
+Q 383.333333 514 375.333333 514 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_24">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="502.204" transform="rotate(-0 360 502.204)">DB</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="502.356" transform="rotate(-0 360 502.356)">DB</text>
     </g>
    </g>
-   <g id="patch_41">
+   <g id="patch_42">
     <path d="M 593.333333 546.666667 
 L 496.666667 546.666667 
 Q 486.666667 546.666667 486.666667 536.666667 
@@ -21490,85 +22351,105 @@ z
      <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="500" y="312.49375" transform="rotate(-0 500 312.49375)">5. GridGraph</text>
     </g>
    </g>
-   <g id="patch_42">
-    <path d="M 545 386.666667 
-L 545 483.871582 
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 549 475.871582 
-L 545 483.871582 
-L 541 475.871582 
-" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-   </g>
    <g id="patch_43">
-    <path d="M 641.666667 386.666667 
-L 641.666667 436.666667 
-L 545 436.666667 
-L 545 483.871582 
+    <path d="M 548.333333 386.666667 
+L 548.333333 483.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 549 475.871582 
-L 545 483.871582 
-L 541 475.871582 
+    <path d="M 552.333333 475.871582 
+L 548.333333 483.871582 
+L 544.333333 475.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_44">
-    <path d="M 576.666667 503.333333 
-L 607.204915 503.333333 
+    <path d="M 638.333333 386.666667 
+L 638.333333 436.666667 
+L 548.333333 436.666667 
+L 548.333333 483.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
-    <path d="M 599.204915 499.333333 
-L 607.204915 503.333333 
-L 599.204915 507.333333 
+    <path d="M 552.333333 475.871582 
+L 548.333333 483.871582 
+L 544.333333 475.871582 
 " clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
    </g>
    <g id="patch_45">
-    <path d="M 513.333333 386.666667 
-L 513.333333 353.333333 
-L 576.666667 353.333333 
-L 576.666667 386.666667 
+    <path d="M 580 503.333333 
+L 603.871582 503.333333 
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 595.871582 499.333333 
+L 603.871582 503.333333 
+L 595.871582 507.333333 
+" clip-path="url(#pe9bfb2d8ab)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_46">
+    <path d="M 548.333333 386.666667 
+L 524.666667 386.666667 
+Q 516.666667 386.666667 516.666667 378.666667 
+L 516.666667 361.333333 
+Q 516.666667 353.333333 524.666667 353.333333 
+L 572 353.333333 
+Q 580 353.333333 580 361.333333 
+L 580 378.666667 
+Q 580 386.666667 572 386.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_26">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="545" y="372.204" transform="rotate(-0 545 372.204)">Web</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="548.333333" y="372.356" transform="rotate(-0 548.333333 372.356)">Web</text>
     </g>
    </g>
-   <g id="patch_46">
-    <path d="M 610 386.666667 
-L 610 353.333333 
-L 673.333333 353.333333 
-L 673.333333 386.666667 
+   <g id="patch_47">
+    <path d="M 638.333333 386.666667 
+L 614.666667 386.666667 
+Q 606.666667 386.666667 606.666667 378.666667 
+L 606.666667 361.333333 
+Q 606.666667 353.333333 614.666667 353.333333 
+L 662 353.333333 
+Q 670 353.333333 670 361.333333 
+L 670 378.666667 
+Q 670 386.666667 662 386.666667 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_27">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="641.666667" y="372.204" transform="rotate(-0 641.666667 372.204)">CLI</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="638.333333" y="372.356" transform="rotate(-0 638.333333 372.356)">CLI</text>
     </g>
    </g>
-   <g id="patch_47">
-    <path d="M 513.333333 520 
-L 513.333333 486.666667 
-L 576.666667 486.666667 
-L 576.666667 520 
+   <g id="patch_48">
+    <path d="M 548.333333 520 
+L 524.666667 520 
+Q 516.666667 520 516.666667 512 
+L 516.666667 494.666667 
+Q 516.666667 486.666667 524.666667 486.666667 
+L 572 486.666667 
+Q 580 486.666667 580 494.666667 
+L 580 512 
+Q 580 520 572 520 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #4862da"/>
    </g>
    <g id="text_28">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="545" y="505.537333" transform="rotate(-0 545 505.537333)">API</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="548.333333" y="505.689333" transform="rotate(-0 548.333333 505.689333)">API</text>
     </g>
    </g>
-   <g id="patch_48">
-    <path d="M 610 520 
-L 610 486.666667 
-L 673.333333 486.666667 
-L 673.333333 520 
+   <g id="patch_49">
+    <path d="M 638.333333 520 
+L 614.666667 520 
+Q 606.666667 520 606.666667 512 
+L 606.666667 494.666667 
+Q 606.666667 486.666667 614.666667 486.666667 
+L 662 486.666667 
+Q 670 486.666667 670 494.666667 
+L 670 512 
+Q 670 520 662 520 
 z
 " clip-path="url(#pe9bfb2d8ab)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_29">
     <g clip-path="url(#pe9bfb2d8ab)">
-     <text style="font-size: 5.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="641.666667" y="505.537333" transform="rotate(-0 641.666667 505.537333)">DB</text>
+     <text style="font-size: 6.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="638.333333" y="505.689333" transform="rotate(-0 638.333333 505.689333)">DB</text>
     </g>
    </g>
   </g>
@@ -21584,12 +22465,12 @@ z
       </div>
       <aside class="slide-notes" hidden>
 <ul>
-<li>This final slide of Chapter 4 renders all <strong>5 specialized graph layout solvers</strong> side-by-side on a single 108x84 canvas—demonstrating that even auto-layout graphs can be composed into multi-panel dashboards using <code>g.draw(xy=..., width=..., height=...)</code>:
+<li>This final slide of Chapter 4 solves and renders all <strong>5 specialized graph layout solvers</strong> side-by-side on a single 108x84 canvas using <code>get_layout(width=..., height=...)</code>:
 <ol>
 <li><strong><code>ArchitectureGraph</code> (Top-Left)</strong>: Packs nested containers (<code>Compute</code> inside <code>Cloud VPC</code>) and aligns top-level compass zones (<code>Client</code> on the left, <code>Cloud VPC</code> in the center).</li>
 <li><strong><code>LayerGraph</code> (Top-Right)</strong>: Runs the Sugiyama hierarchical DAG pipeline (<code>Ingest -&gt; [Parse, Enrich] -&gt; Index</code>).</li>
 <li><strong><code>TreeGraph</code> (Bottom-Left)</strong>: Balances parent-child subtrees symmetrically using Reingold-Tilford contours.</li>
-<li><strong><code>RadialGraph</code> (Bottom-Center)</strong>: Places the circular <code>&quot;Mesh&quot;</code> hub at <code>ring=0</code> with dashed concentric ring guides (<code>draw_ring_guides=True</code>) and evenly spaced spokes.</li>
+<li><strong><code>RadialGraph</code> (Bottom-Center)</strong>: Places the circular <code>&quot;Mesh&quot;</code> hub at <code>ring=0</code> with dashed concentric ring guides (<code>layout.ring_radii</code>) and evenly spaced spokes.</li>
 <li><strong><code>GridGraph</code> (Bottom-Right)</strong>: Maps nodes onto a 2x2 matrix (<code>row</code>, <code>col</code>) with smart channel edge routing.</li>
 </ol>
 </li>

@@ -2,7 +2,7 @@
 
 `TreeGraph` implements the **Reingold-Tilford / Buchheim compact tree layout algorithm**, computing balanced `(cx, cy)` node centers and branch waypoints so that every parent node is symmetrically centered over (or beside) its children while sibling subtrees are packed tightly without ever colliding.
 
-Use `TreeGraph` whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees. Call `layout = g.get_layout(margin=...)` to solve coordinates and render with [`FlowDiagram`](../04_diagrams/flow_diagram.md), [`ArchitectureDiagram`](../04_diagrams/architecture_diagram.md), or [`drawlib.shapes`](../02_shapes/overview.md) and [`drawlib.lines`](../02_shapes/lines.md).
+Use `TreeGraph` whenever your topology is a strict tree (every node has at most one parent), such as organization charts, Abstract Syntax Trees (ASTs), call hierarchies, taxonomy breakdowns, or fault trees. Call `layout = g.get_layout(margin=...)` to solve coordinates and render with [`FlowDiagram`](../05_diagrams/flow.md), [`ArchitectureDiagram`](../05_diagrams/architecture.md), or [`drawlib.shapes`](../02_drawing_primitives/shapes_overview.md) and [`drawlib.lines`](../02_drawing_primitives/lines.md).
 
 ```drawlib code=fold align=center file=graph_tree_hero.png caption="TreeGraph Overview: Balanced Buchheim Tree Coordinates Rendered with Orthogonal Branch Polylines and Icons"
 from drawlib.canvas import save, setup

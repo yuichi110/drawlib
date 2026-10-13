@@ -755,7 +755,7 @@ Animations empower developers and AI coding agents to create clean, high-framera
 </tr>
 <tr>
 <td style="text-align:left"><strong>Auto-Layout Graphs</strong> (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, etc.)</td>
-<td style="text-align:left"><strong>Pattern B: Pre-Build &amp; Mutate</strong><br><code>g.calc()</code> solves coordinates across the full topology regardless of <code>show=False</code>; mutate <code>node.show</code>, <code>cluster.show</code>, or <code>edge.style</code> and call <code>g.draw()</code>, or animate packets along <code>edge_layout.points</code>.</td>
+<td style="text-align:left"><strong>Pattern B: Solve Once (<code>get_layout()</code>) &amp; Mutate / Animate</strong><br>Call <code>layout = g.get_layout()</code> once outside the loop to lock 100% of coordinates, then either mutate <code>.show</code> / <code>.style</code> on <code>ArchitectureDiagram</code> / <code>FlowDiagram</code> items placed at <code>layout</code> coordinates, or render <code>shapes</code>/<code>lines</code> and animate packets along <code>edge_layout.points</code>.</td>
 <td style="text-align:left"><a href="./graphs.html">Animating Auto-Layout Graphs</a></td>
 </tr>
 </tbody>
