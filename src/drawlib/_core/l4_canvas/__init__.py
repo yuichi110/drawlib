@@ -76,6 +76,7 @@ from drawlib._core.l4_canvas._canvas import (
     triangle,
     wedge,
 )
+from drawlib._core.l4_canvas._image_code import get_dimage_from_code
 from drawlib._core.l4_canvas._line_util import LineUtil
 from drawlib._core.l4_canvas._lines import LineArcHelper
 from drawlib._core.l4_canvas._shapes import ShapeUtil
@@ -113,6 +114,7 @@ __all__ = [
     "gear",
     "get_charwidth_from_fontsize",
     "get_dimage",
+    "get_dimage_from_code",
     "get_fontsize_from_charwidth",
     "heart",
     "image",

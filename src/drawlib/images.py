@@ -11,8 +11,8 @@
 
 from __future__ import annotations
 
-from drawlib._core.l3_images import Dimage, get_dimage_from_code
-from drawlib._core.l4_canvas import image
+from drawlib._core.l3_images import Dimage
+from drawlib._core.l4_canvas import get_dimage_from_code, image
 
 __all__ = [
     "Dimage",

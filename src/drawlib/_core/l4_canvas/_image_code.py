@@ -9,7 +9,7 @@
 
 # ruff: noqa: S102, PLC0415
 
-"""Image utility functions for rendering code in isolated subprocesses."""
+"""Canvas image utility functions for rendering code in isolated subprocesses."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ from typing import Any
 from PIL import Image
 from pydantic import validate_call
 
-from drawlib._core.l3_images._dimage import Dimage
+from drawlib._core.l3_images import Dimage
 
 
 def _worker_render_code(
@@ -118,3 +118,6 @@ def get_dimage_from_code(
     pil_image = Image.open(image_buffer)
     pil_image.load()
     return Dimage(pil_image)
+
+
+__all__ = ["get_dimage_from_code"]
