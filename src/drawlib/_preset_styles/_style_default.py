@@ -14,7 +14,7 @@ from __future__ import annotations
 import warnings
 from typing import Any, Literal, Self
 
-from drawlib._core.l3_colors import BaseColors, Color, ColorType
+from drawlib._core.l3_colors import BaseColors, ColorType
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import BaseStyles, Style
 from drawlib._preset_colors import (

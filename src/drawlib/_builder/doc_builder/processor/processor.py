@@ -19,7 +19,8 @@ import re
 import sys
 import tempfile
 import warnings
-from typing import Any, Callable, Dict, Optional
+from collections.abc import Callable
+from typing import Any
 
 import drawlib._core.l4_canvas
 import drawlib.canvas
@@ -46,16 +47,16 @@ class DrawlibBlockProcessor:
 
     def __init__(
         self,
-        styles_path: Optional[str] = None,
-        utils_path: Optional[str] = None,
+        styles_path: str | None = None,
+        utils_path: str | None = None,
         no_cache: bool = False,
-        cache: Optional[BuildImageCache] = None,
-        project_root: Optional[str] = None,
+        cache: BuildImageCache | None = None,
+        project_root: str | None = None,
         require_file: bool = True,
         extra_config_hash: str = "",
     ) -> None:
         """Initialize processor with shared globals and SQLite build image cache."""
-        self.shared_globals: Dict[str, Any] = {}
+        self.shared_globals: dict[str, Any] = {}
         self.styles_path = styles_path
         self.utils_path = utils_path
         s_hash = hash_file(styles_path) if styles_path else ""
@@ -67,7 +68,7 @@ class DrawlibBlockProcessor:
         self.no_cache = no_cache
         self.require_file = require_file
         self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
-        self.project_root: Optional[str] = os.path.abspath(project_root) if project_root else None
+        self.project_root: str | None = os.path.abspath(project_root) if project_root else None
         if self.project_root is None:
             if styles_path and os.path.isfile(styles_path):
                 self.project_root = os.path.dirname(os.path.abspath(styles_path))
@@ -84,7 +85,7 @@ class DrawlibBlockProcessor:
     def _exec_code_block(
         code: str,
         source_filename: str = "<drawlib_block>",
-        shared_globals: Optional[Dict[str, Any]] = None,
+        shared_globals: dict[str, Any] | None = None,
     ) -> None:
         """Execute drawlib code block while temporarily overriding explicit save() calls as no-ops."""
         canvas_inst = drawlib._core.l4_canvas.canvas
@@ -126,8 +127,8 @@ class DrawlibBlockProcessor:
         code: str,
         target_file_path: str,
         source_filename: str = "<drawlib_block>",
-        grid: Optional[bool] = None,
-        cache_target_file: Optional[str] = None,
+        grid: bool | None = None,
+        cache_target_file: str | None = None,
         extra_cache_salt: str = "",
         no_cache: bool = False,
     ) -> None:
@@ -196,7 +197,7 @@ class DrawlibBlockProcessor:
         if use_cache and os.path.isfile(target_abs_path):
             with open(target_abs_path, "rb") as f:
                 normal_bytes = f.read()
-            grid_bytes: Optional[bytes] = None
+            grid_bytes: bytes | None = None
             if os.path.isfile(grid_abs_path):
                 with open(grid_abs_path, "rb") as gf:
                     grid_bytes = gf.read()
@@ -214,7 +215,7 @@ class DrawlibBlockProcessor:
         code: str,
         image_format: str = "png",
         source_filename: str = "<drawlib_block>",
-        target_file_path: Optional[str] = None,
+        target_file_path: str | None = None,
         no_cache: bool = False,
     ) -> str:
         """Execute a single drawlib code block and return a base64 Data URL string."""
@@ -288,12 +289,12 @@ class DrawlibBlockProcessor:
         self,
         markdown_text: str,
         doc_base_name: str = "doc",
-        output_dir: Optional[str] = None,
+        output_dir: str | None = None,
         image_format: str = "png",
         use_markdown_syntax: bool = False,
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
-        progress_callback: Optional[Callable[[int, int, bool], None]] = None,
+        progress_callback: Callable[[int, int, bool], None] | None = None,
     ) -> str:
         """Process Markdown text and replace ```drawlib blocks with rendered images."""
         masked_text, preserved = preserve_outer_fences(markdown_text)
@@ -376,11 +377,11 @@ class DrawlibBlockProcessor:
         self,
         html_text: str,
         doc_base_name: str = "doc",
-        output_dir: Optional[str] = None,
+        output_dir: str | None = None,
         image_format: str = "png",
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
-        progress_callback: Optional[Callable[[int, int, bool], None]] = None,
+        progress_callback: Callable[[int, int, bool], None] | None = None,
     ) -> str:
         """Process HTML text and replace <script type="text/drawlib"> blocks with rendered images."""
         pattern_script = re.compile(
@@ -397,7 +398,7 @@ class DrawlibBlockProcessor:
             code = match.group(3).strip()
             options = parse_block_info(info_str)
 
-            line_no = html_text[:match.start()].count("\n") + 1
+            line_no = html_text[: match.start()].count("\n") + 1
 
             rel_img_path, target_img_path = resolve_block_image_paths(
                 options=options,

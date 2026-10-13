@@ -8,6 +8,8 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 """Markdown exporter for writing rendered Markdown files with embedded images."""
 
+from __future__ import annotations
+
 import os
 
 

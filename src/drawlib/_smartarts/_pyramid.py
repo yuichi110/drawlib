@@ -10,7 +10,9 @@
 
 """Pyramid implementation module."""
 
-from typing import Literal
+from __future__ import annotations
+
+from typing import Literal, Self
 
 from pydantic import BaseModel, validate_call
 
@@ -109,11 +111,11 @@ class Pyramid:
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
         align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw smart art pyramid.
 
         Args:
-            xy (Tuple[float, float]): Anchor coordinate of the pyramid (interpreted via align).
+            xy (tuple[float, float]): Anchor coordinate of the pyramid (interpreted via align).
             width (float): The base width of the pyramid.
             height (float): The altitude height of the pyramid.
             margin (float): The margin between pyramid items.
@@ -121,6 +123,9 @@ class Pyramid:
             order (str): Item order. "vertex_to_base" or "base_to_vertex". Defaults to "vertex_to_base".
             align (str): Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This Pyramid instance for method chaining.
         """
         if len(self._items) == 0:
             raise ValueError("Number of pyramid item is 0.")
@@ -129,7 +134,7 @@ class Pyramid:
         item_height = (height - sum(margins)) / len(self._items)
         item_heights = [item_height] * len(self._items)
 
-        self.draw_flexible(
+        return self.draw_flexible(
             xy=xy,
             width=width,
             item_heights=item_heights,
@@ -151,18 +156,21 @@ class Pyramid:
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
         align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw smart art pyramid with flexible pyramid item heights.
 
         Args:
-            xy (Tuple[float, float]): Anchor coordinate of the pyramid (interpreted via align).
+            xy (tuple[float, float]): Anchor coordinate of the pyramid (interpreted via align).
             width (float): The base width of the pyramid.
-            item_heights (float): The height of each pyramid item.
-            margins (float): The margin between pyramid items.
+            item_heights (list[float]): The height of each pyramid item.
+            margins (list[float]): The margin between pyramid items.
             direction (str): Orientation direction of the pyramid base ("bottom", "top", "left", or "right").
             order (str): Item order. "vertex_to_base" or "base_to_vertex". Defaults to "vertex_to_base".
             align (str): Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This Pyramid instance for method chaining.
 
         Raises:
             ValueError: If item_heights or margins lengths do not match the number of pyramid items.
@@ -201,6 +209,7 @@ class Pyramid:
                 self._draw_flexible_right(start_xy, width, item_heights, margins, items)
             else:
                 raise ValueError("Drawlib internal error.")
+        return self
 
     @staticmethod
     def _draw_flexible_bottom(

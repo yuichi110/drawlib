@@ -11,8 +11,6 @@
 
 from __future__ import annotations
 
-from typing import Literal
-
 from drawlib._cli._visualizers.colors.base import (
     BaseColorVisualizer,
     SortMode,

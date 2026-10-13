@@ -11,7 +11,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Literal
 
 from drawlib._charts._common._style_utils import ensure_text_style
 from drawlib._charts._common._types import ColorType, Orientation

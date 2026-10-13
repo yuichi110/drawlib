@@ -9,6 +9,8 @@
 
 """Architecture compound graph layout implementation."""
 
+from __future__ import annotations
+
 from drawlib._graph._architecture._graph import ArchitectureGraph
 
 __all__ = ["ArchitectureGraph"]

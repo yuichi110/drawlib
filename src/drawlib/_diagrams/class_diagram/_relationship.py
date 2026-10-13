@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, cast
+from typing import TYPE_CHECKING, cast
 
 from drawlib._diagrams.class_diagram._types import RelationshipType, RoutingType, Side
 
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.class_diagram._class_node import ClassNode
     from drawlib._diagrams.class_diagram._diagram import ClassDiagram
 
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 
 class ClassRelationship:

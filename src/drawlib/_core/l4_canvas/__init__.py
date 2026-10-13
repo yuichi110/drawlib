@@ -9,6 +9,8 @@
 
 """Package for core drawing action modules."""
 
+from __future__ import annotations
+
 from drawlib._core.l4_canvas._canvas import (
     arc,
     arrow,

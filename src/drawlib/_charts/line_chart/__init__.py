@@ -9,6 +9,8 @@
 
 """LineChart implementation package."""
 
+from __future__ import annotations
+
 from drawlib._charts.line_chart._line import LineChart
 from drawlib._charts.line_chart._series import Series
 

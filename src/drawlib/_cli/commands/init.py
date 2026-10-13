@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 
@@ -69,7 +69,7 @@ def _print_init_success(
 def _run_init(
     project_type: str,
     target: str,
-    style: Optional[str] = None,
+    style: str | None = None,
     lang: str = "en",
     force: bool = False,
 ) -> None:
@@ -113,7 +113,7 @@ def cmd_init_doc(
         ),
     ] = "doc",
     style: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "-s",
             "--style",
@@ -150,7 +150,7 @@ def cmd_init_site(
         ),
     ] = "docs",
     style: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "-s",
             "--style",
@@ -187,7 +187,7 @@ def cmd_init_slide(
         ),
     ] = "slide",
     style: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "-s",
             "--style",
@@ -224,7 +224,7 @@ def cmd_init_images(
         ),
     ] = "images",
     style: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "-s",
             "--style",
@@ -260,7 +260,7 @@ def cmd_init_image_alias(
             help="Legacy alias for 'images'.",
         ),
     ] = "images",
-    style: Annotated[Optional[str], typer.Option("-s", "--style")] = None,
+    style: Annotated[str | None, typer.Option("-s", "--style")] = None,
     lang: Annotated[str, typer.Option("-l", "--lang")] = "en",
     force: Annotated[bool, typer.Option("-f", "--force")] = False,
 ) -> None:

@@ -106,13 +106,9 @@ class Panel:
                 f"'description_style' must be provided when 'description' is non-empty for panel '{self.text}'."
             )
         if self.icon is not None and self.icon_style is None:
-            raise ValueError(
-                f"'icon_style' must be provided when 'icon' is specified for panel '{self.text}'."
-            )
+            raise ValueError(f"'icon_style' must be provided when 'icon' is specified for panel '{self.text}'.")
         if self.header_variant == "window" and self.dot_styles is None:
-            raise ValueError(
-                f"'dot_styles' must be provided when header_variant='window' for panel '{self.text}'."
-            )
+            raise ValueError(f"'dot_styles' must be provided when header_variant='window' for panel '{self.text}'.")
 
     @validate_call
     def get_content_box(  # noqa: PLR0913
@@ -200,11 +196,7 @@ class Panel:
         h_height = min(self.header_height, total_h * 0.45)
         body_style = resolve_card_box_style(self.style, total_h, max_r=2.5)
         raw_r = body_style.shape_r
-        r: float = (
-            float(raw_r[0])
-            if isinstance(raw_r, tuple)
-            else float(raw_r if raw_r is not None else 2.5)
-        )
+        r: float = float(raw_r[0]) if isinstance(raw_r, tuple) else float(raw_r if raw_r is not None else 2.5)
 
         with transform(origin=xy, scale=scale):
             if self.header_variant == "filled":
@@ -282,9 +274,7 @@ class Panel:
         canvas_rectangle(xy=(cx, cy), width=total_w, height=total_h, style=body_style)
 
         line_col = (
-            self.header_style.line_color
-            or self.header_style.shape_line_color
-            or self.header_style.shape_fill_color
+            self.header_style.line_color or self.header_style.shape_line_color or self.header_style.shape_fill_color
         )
         line_w = self.header_style.line_width or self.header_style.shape_line_width or 1.4
         line_st = self.header_style.line_style or self.header_style.shape_line_style or "solid"

@@ -9,6 +9,8 @@
 
 """Package for smart arts modules."""
 
+from __future__ import annotations
+
 from drawlib._smartarts._boxlist import BoxList, BoxListItem
 from drawlib._smartarts._bulletpoints import BulletPointItem, BulletPoints
 from drawlib._smartarts._calendar import (

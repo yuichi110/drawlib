@@ -18,6 +18,8 @@ Provides 43 shape primitives organized into 6 semantic categories:
 - Symbol (`face`, `clock`, `sun`, `moon`, `heart`, `lightning`, `gear`, `math_symbol`)
 """
 
+from __future__ import annotations
+
 from drawlib._core.l4_canvas import (
     arc,
     arrow,

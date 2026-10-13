@@ -11,8 +11,6 @@
 
 from __future__ import annotations
 
-from typing import Any, List, Optional, Sequence, Union
-
 from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
@@ -63,13 +61,13 @@ from drawlib._templates import (
 
 def build_document(
     input_dir: str,
-    output_path: Optional[str] = None,
-    output_format: Optional[str] = None,
+    output_path: str | None = None,
+    output_format: str | None = None,
     *,
     image_format: str = "png",
     css_mode: str = "external",
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
 ) -> str:
@@ -142,6 +140,7 @@ __all__ = [
     "build_pdf",
     "check_document_output_duplicates",
     "detect_document_type",
+    "expand_input_files",
     "export_code_block",
     "export_css",
     "export_html_to_pdf",

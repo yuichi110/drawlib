@@ -9,6 +9,8 @@
 
 """Math and geometry calculations for drawlib core."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_math._geometry import (
     get_angle,
     get_center_and_size,

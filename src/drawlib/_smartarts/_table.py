@@ -12,7 +12,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, Self
 
 from pydantic import BaseModel, validate_call
 
@@ -90,11 +90,7 @@ class Table:
 
     def _reset_initial_styles(self) -> None:
         self._cell_style_orders = []
-        bg = (
-            self._cell_style.shape_fill_color
-            if self._cell_style.shape_fill_color is not None
-            else (0, 0, 0, 0.0)
-        )
+        bg = self._cell_style.shape_fill_color if self._cell_style.shape_fill_color is not None else (0, 0, 0, 0.0)
         self._cell_style_orders.append(
             _CellStyleOrder(
                 order="range",
@@ -283,23 +279,26 @@ class Table:
         data: list[list[Any]],
         align: Literal["top_left", "bottom_left", "center"] = "top_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draws the table with equal-sized cells.
 
         Args:
             xy (tuple[float, float]): Anchor coordinate of the table (interpreted via align).
             width (float): The total width of the table.
             height (float): The total height of the table.
-            data (List[List[Any]]): The data to be displayed in the table.
+            data (list[list[Any]]): The data to be displayed in the table.
             align (Literal["top_left", "bottom_left", "center"]): Anchor alignment of xy. Defaults to "top_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This Table instance for method chaining.
         """
         num_rows = len(data)
         num_cols = len(data[0])
 
         column_widths = [width / num_cols] * num_cols
         row_heights = [height / num_rows] * num_rows
-        self.draw_flexible(
+        return self.draw_flexible(
             xy=xy,
             column_widths=column_widths,
             row_heights=row_heights,
@@ -317,16 +316,19 @@ class Table:
         data: list[list[Any]],
         align: Literal["top_left", "bottom_left", "center"] = "top_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draws the table with flexible cell sizes.
 
         Args:
             xy (tuple[float, float]): Anchor coordinate of the table (interpreted via align).
-            column_widths (List[float]): A list of widths for each column.
-            row_heights (List[float]): A list of heights for each row.
-            data (List[List[Any]]): The data to be displayed in the table.
+            column_widths (list[float]): A list of widths for each column.
+            row_heights (list[float]): A list of heights for each row.
+            data (list[list[Any]]): The data to be displayed in the table.
             align (Literal["top_left", "bottom_left", "center"]): Anchor alignment of xy. Defaults to "top_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This Table instance for method chaining.
         """
         total_w = float(sum(column_widths))
         total_h = float(sum(row_heights))
@@ -372,6 +374,7 @@ class Table:
                 column_widths=column_widths,
                 row_heights=row_heights,
             )
+        return self
 
     # private
 

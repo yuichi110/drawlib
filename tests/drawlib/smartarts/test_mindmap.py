@@ -71,7 +71,7 @@ class TestMindMapNode:
                 ),
             ],
         )
-        root.draw(xy=(50.0, 85.0), branch="bottom")
+        assert root.draw(xy=(50.0, 85.0), branch="bottom") is root
         save(f"{OUTPUT_DIR}test_mindmap_bottom.png")
 
     def test_mindmap_vertical_top(self) -> None:

@@ -26,7 +26,10 @@ from drawlib._smartarts._calendar._models import (
     WEEKDAYS_SUN_EN,
     WEEKDAYS_SUN_JA,
     CalendarItem,
-    derive_default_event_styles,
+    _draw_calendar_title_bar,
+    _draw_vertical_hour_grid,
+    _resolve_default_event_styles,
+    _resolve_weekday_text_style,
     draw_event_card,
     make_outer_frame_style,
     make_subtle_fill_style,
@@ -106,9 +109,7 @@ class WeekCalendar:
         if end_date is not None:
             e_date = parse_iso_date_strict(end_date, param_name="end_date")
             if e_date < self._start_date:
-                raise ValueError(
-                    f"end_date ({end_date}) must not be earlier than start_date ({start_date})."
-                )
+                raise ValueError(f"end_date ({end_date}) must not be earlier than start_date ({start_date}).")
             resolved_days = (e_date - self._start_date).days + 1
         elif columns is not None and len(columns) > 0:
             resolved_days = len(columns)
@@ -116,9 +117,7 @@ class WeekCalendar:
             resolved_days = int(num_days)
 
         if columns is not None and len(columns) != resolved_days:
-            raise ValueError(
-                f"Length of 'columns' ({len(columns)}) must match displayed days ({resolved_days})."
-            )
+            raise ValueError(f"Length of 'columns' ({len(columns)}) must match displayed days ({resolved_days}).")
 
         self._num_days: int = resolved_days
         self._columns: list[str] | None = list(columns) if columns is not None else None
@@ -136,7 +135,7 @@ class WeekCalendar:
         self._header_text_style: Style = header_text_style
         self._border_style: Style = border_style
 
-        ev_st, ev_txt_st = derive_default_event_styles(
+        ev_st, ev_txt_st = _resolve_default_event_styles(
             header_style,
             header_text_style,
             event_style,
@@ -147,9 +146,7 @@ class WeekCalendar:
         self._sunday_text_style: Style | None = sunday_text_style
         self._saturday_text_style: Style | None = saturday_text_style
         self._title_style: Style = title_style if title_style is not None else header_style
-        self._title_text_style: Style = (
-            title_text_style if title_text_style is not None else header_text_style
-        )
+        self._title_text_style: Style = title_text_style if title_text_style is not None else header_text_style
         self._items: list[CalendarItem] = []
 
     @property
@@ -242,10 +239,7 @@ class WeekCalendar:
             intervals.append((c_start, c_end))
 
         lanes, num_lanes = pack_closed_intervals(intervals)
-        packed = [
-            (item, cs, ce, cl, cr, l_idx)
-            for (item, cs, ce, cl, cr), l_idx in zip(entries, lanes, strict=True)
-        ]
+        packed = [(item, cs, ce, cl, cr, l_idx) for (item, cs, ce, cl, cr), l_idx in zip(entries, lanes, strict=True)]
         return packed, num_lanes
 
     def _compute_geometry(  # noqa: PLR0913
@@ -262,11 +256,7 @@ class WeekCalendar:
         title_h = min(5.6, h * 0.10) if title_str else 0.0
         col_hdr_h = min(4.6, h * 0.085)
 
-        has_all_day = (
-            self._show_all_day
-            if self._show_all_day is not None
-            else (all_day_lanes > 0)
-        )
+        has_all_day = self._show_all_day if self._show_all_day is not None else (all_day_lanes > 0)
         eff_lanes = max(1, all_day_lanes) if has_all_day else 0
         track_h = min(2.9, h * 0.052)
         all_day_h = (eff_lanes * (track_h + 0.5) + 0.9) if has_all_day else 0.0
@@ -333,9 +323,7 @@ class WeekCalendar:
             return (cx, cy)
 
         if not (self._start_hour <= target_hr <= self._end_hour):
-            raise ValueError(
-                f"Hour {target_hr} in '{dt}' is outside [{self._start_hour}, {self._end_hour}]."
-            )
+            raise ValueError(f"Hour {target_hr} in '{dt}' is outside [{self._start_hour}, {self._end_hour}].")
         grid_h = max(1.0, grid_top - y0)
         ratio = (target_hr - self._start_hour) / (self._end_hour - self._start_hour)
         cy = grid_top - ratio * grid_h
@@ -445,19 +433,16 @@ class WeekCalendar:
     ) -> None:
         """Render title bar, column headers, All-Day field background, and hourly grid background."""
         title_str = self._resolve_title_text(dates)
-        if title_h > 0 and title_str:
-            t_cy = y0 + h - title_h / 2.0
-            canvas_rectangle(
-                xy=(x0 + w / 2.0, t_cy),
-                width=w,
-                height=title_h,
-                style=self._title_style.patch(shape_r=0, shape_line_width=0),
-            )
-            canvas_text(
-                xy=(x0 + w / 2.0, t_cy),
-                text=title_str,
-                style=self._title_text_style.patch(halign="center", valign="center"),
-            )
+        _draw_calendar_title_bar(
+            x0=x0,
+            y0=y0,
+            w=w,
+            h=h,
+            title_h=title_h,
+            title_str=title_str,
+            title_style=self._title_style,
+            title_text_style=self._title_text_style,
+        )
 
         col_hdr_cy = all_day_top + col_hdr_h / 2.0
         canvas_rectangle(
@@ -477,12 +462,12 @@ class WeekCalendar:
             else:
                 lbl = f"{wd_names[sun_idx]} {d.month}/{d.day}"
 
-            if sun_idx == 0 and self._sunday_text_style is not None:
-                st = self._sunday_text_style
-            elif sun_idx == 6 and self._saturday_text_style is not None:
-                st = self._saturday_text_style
-            else:
-                st = self._header_text_style
+            st = _resolve_weekday_text_style(
+                sun_idx,
+                self._header_text_style,
+                self._sunday_text_style,
+                self._saturday_text_style,
+            )
             canvas_text(xy=(cx, col_hdr_cy), text=lbl, style=st.patch(halign="center", valign="center"))
 
         if all_day_h > 0:
@@ -535,20 +520,18 @@ class WeekCalendar:
     ) -> None:
         """Render hour labels, horizontal hour lines, and vertical day column dividers."""
         grid_h = max(1.0, grid_top - y0)
-        total_hours = self._end_hour - self._start_hour
-        hour_h = grid_h / total_hours
-
-        for h_offset in range(total_hours + 1):
-            hy = grid_top - h_offset * hour_h
-            if 0 < h_offset < total_hours:
-                canvas_line(xy1=(x0 + gutter_w, hy), xy2=(x0 + w, hy), style=self._border_style)
-            hr_val = self._start_hour + h_offset
-            if h_offset < total_hours and (h_offset % self._hour_step == 0):
-                canvas_text(
-                    xy=(x0 + gutter_w / 2.0, hy - (hour_h * self._hour_step) / 2.0),
-                    text=f"{hr_val:02d}:00",
-                    style=self._text_style.patch(halign="center", valign="center"),
-                )
+        _draw_vertical_hour_grid(
+            x0=x0,
+            w=w,
+            gutter_w=gutter_w,
+            grid_top=grid_top,
+            grid_h=grid_h,
+            start_hour=self._start_hour,
+            end_hour=self._end_hour,
+            hour_step=self._hour_step,
+            border_style=self._border_style,
+            text_style=self._text_style,
+        )
 
         col_hdr_top = y0 + h - title_h
         for i in range(self._num_days):
@@ -617,9 +600,7 @@ class WeekCalendar:
         s_hr_f = float(self._start_hour)
         e_hr_f = float(self._end_hour)
 
-        col_segments: dict[int, list[tuple[CalendarItem, float, float]]] = {
-            i: [] for i in range(self._num_days)
-        }
+        col_segments: dict[int, list[tuple[CalendarItem, float, float]]] = {i: [] for i in range(self._num_days)}
         box_spans: list[tuple[CalendarItem, int, int, float, float]] = []
 
         for item in self._items:

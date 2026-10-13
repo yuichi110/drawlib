@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal
 
 import typer
 from rich.console import Console
@@ -55,7 +55,7 @@ def _run_css_list(target: Literal["html", "pdf"]) -> None:
 @css_app.command("list", epilog=HELP_EPILOG)
 def cmd_css_list(
     target: Annotated[
-        Optional[str],
+        str | None,
         typer.Argument(
             help="Target document format ('html', 'pdf', or omitted for both).",
         ),
@@ -83,9 +83,8 @@ def cmd_css_list(
         in_pdf = name in BUILTIN_PDF_CSS_PRESETS
         html_str = "[green]Yes[/green]" if in_html else "[dim]No[/dim]"
         pdf_str = "[green]Yes[/green]" if in_pdf else "[dim]No[/dim]"
-        desc = (
-            BUILTIN_HTML_CSS_PRESETS.get(name, {}).get("description")
-            or BUILTIN_PDF_CSS_PRESETS.get(name, {}).get("description", "")
+        desc = BUILTIN_HTML_CSS_PRESETS.get(name, {}).get("description") or BUILTIN_PDF_CSS_PRESETS.get(name, {}).get(
+            "description", ""
         )
         table.add_row(name, html_str, pdf_str, desc)
 
@@ -94,7 +93,7 @@ def cmd_css_list(
 
 def _resolve_css_target_and_preset(
     target_or_preset: str,
-    preset: Optional[str],
+    preset: str | None,
 ) -> tuple[Literal["html", "pdf"], str]:
     """Resolve and validate target and preset name from positional CLI arguments."""
     arg1_lower = target_or_preset.strip().lower()
@@ -114,7 +113,7 @@ def _resolve_css_target_and_preset(
 def _run_css_export(
     target: Literal["html", "pdf"],
     preset: str,
-    output: Optional[str],
+    output: str | None,
     force: bool,
     lang: str = "en",
 ) -> None:
@@ -155,13 +154,13 @@ def cmd_css_show(
         ),
     ],
     preset: Annotated[
-        Optional[str],
+        str | None,
         typer.Argument(
             help="Built-in CSS preset name (when target is specified as first argument).",
         ),
     ] = None,
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "-o",
             "--output",

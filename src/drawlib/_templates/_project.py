@@ -14,7 +14,7 @@ from __future__ import annotations
 import importlib.resources
 from importlib.resources.abc import Traversable
 from pathlib import Path
-from typing import Final, Literal, Optional
+from typing import Final, Literal
 
 from drawlib._templates._css import get_css
 from drawlib._templates._models import ProjectPaths
@@ -47,7 +47,7 @@ def list_project_types() -> dict[str, str]:
 
 def resolve_project_paths(
     project_type: str,
-    target: Optional[str] = None,
+    target: str | None = None,
     destination: str | Path = ".",
 ) -> ProjectPaths:
     """Resolve project directory names and output paths into a structured ProjectPaths object.
@@ -242,11 +242,11 @@ def _deploy_localized_docs(
 def init_project(
     project_type: str,
     destination: str | Path = ".",
-    target: Optional[str] = None,
-    output: Optional[str] = None,
+    target: str | None = None,
+    output: str | None = None,
     force: bool = False,
     lang: str = "en",
-    style: Optional[str] = None,
+    style: str | None = None,
     here: bool = False,
 ) -> list[Path]:
     """Scaffold a starter Drawlib project in the target destination directory.

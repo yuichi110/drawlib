@@ -9,6 +9,8 @@
 
 """Package for external asset downloading implementations."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_external._download import (
     download_if_not_exist,
 )

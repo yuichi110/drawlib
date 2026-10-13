@@ -9,6 +9,8 @@
 
 """BarChart implementation package."""
 
+from __future__ import annotations
+
 from drawlib._charts.bar_chart._chart import BarChart
 from drawlib._charts.bar_chart._series import Series
 

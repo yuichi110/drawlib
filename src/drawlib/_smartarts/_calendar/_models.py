@@ -20,6 +20,7 @@ from pydantic import BaseModel, ConfigDict
 from drawlib._core.l2_types import Coordinate  # noqa: TC001
 from drawlib._core.l3_colors import BaseColors
 from drawlib._core.l3_styles import Style  # noqa: TC001
+from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
 
@@ -88,15 +89,11 @@ def parse_iso_date_strict(value: str, param_name: str = "date") -> date:
         ValueError: If value does not match 'YYYY-MM-DD' or is an invalid calendar date.
     """
     if not isinstance(value, str) or not _DATE_RE.match(value):
-        raise ValueError(
-            f"Invalid ISO date format for '{param_name}': '{value}'. Expected 'YYYY-MM-DD'."
-        )
+        raise ValueError(f"Invalid ISO date format for '{param_name}': '{value}'. Expected 'YYYY-MM-DD'.")
     try:
         return date.fromisoformat(value)
     except ValueError as exc:
-        raise ValueError(
-            f"Invalid calendar date for '{param_name}': '{value}' ({exc})."
-        ) from exc
+        raise ValueError(f"Invalid calendar date for '{param_name}': '{value}' ({exc}).") from exc
 
 
 def parse_iso_date_or_datetime(
@@ -113,8 +110,7 @@ def parse_iso_date_or_datetime(
     """
     if not isinstance(value, str):
         raise ValueError(
-            f"Invalid ISO format for '{param_name}': '{value}'. "
-            "Expected 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM'."
+            f"Invalid ISO format for '{param_name}': '{value}'. Expected 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM'."
         )
     if _DATE_RE.match(value):
         return parse_iso_date_strict(value, param_name=param_name), None
@@ -122,14 +118,9 @@ def parse_iso_date_or_datetime(
         try:
             dt = datetime.strptime(value, "%Y-%m-%d %H:%M")  # noqa: DTZ007
         except ValueError as exc:
-            raise ValueError(
-                f"Invalid calendar datetime for '{param_name}': '{value}' ({exc})."
-            ) from exc
+            raise ValueError(f"Invalid calendar datetime for '{param_name}': '{value}' ({exc}).") from exc
         return dt.date(), float(dt.hour) + float(dt.minute) / 60.0
-    raise ValueError(
-        f"Invalid ISO format for '{param_name}': '{value}'. "
-        "Expected 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM'."
-    )
+    raise ValueError(f"Invalid ISO format for '{param_name}': '{value}'. Expected 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM'.")
 
 
 def resolve_item_span(
@@ -149,13 +140,9 @@ def resolve_item_span(
         e_date, e_hour = parse_iso_date_or_datetime(item.end, param_name="end")
 
     if e_date < s_date:
-        raise ValueError(
-            f"Event 'end' date ({item.end}) must not be earlier than 'start' date ({item.start})."
-        )
+        raise ValueError(f"Event 'end' date ({item.end}) must not be earlier than 'start' date ({item.start}).")
     if s_date == e_date and s_hour is not None and e_hour is not None and e_hour <= s_hour:
-        raise ValueError(
-            f"Event 'end' time ({item.end}) must be later than 'start' time ({item.start})."
-        )
+        raise ValueError(f"Event 'end' time ({item.end}) must be later than 'start' time ({item.start}).")
 
     if item.all_day is not None:
         is_all_day = bool(item.all_day)
@@ -301,24 +288,89 @@ def draw_event_card(  # noqa: PLR0913
         canvas_text(xy=(cx, cy), text=description, style=d_style)
 
 
-def derive_default_event_styles(
+def _resolve_default_event_styles(
     header_style: Style,
     header_text_style: Style,
     event_style: Style | None,
     event_text_style: Style | None,
 ) -> tuple[Style, Style]:
     """Resolve fallback event_style and event_text_style from header styles when omitted."""
-    resolved_ev_style = (
-        event_style
-        if event_style is not None
-        else header_style.patch(shape_r=0.55)
-    )
-    resolved_ev_text = (
-        event_text_style
-        if event_text_style is not None
-        else header_text_style.patch(text_size=9.5)
-    )
+    resolved_ev_style = event_style if event_style is not None else header_style.patch(shape_r=0.55)
+    resolved_ev_text = event_text_style if event_text_style is not None else header_text_style.patch(text_size=9.5)
     return resolved_ev_style, resolved_ev_text
+
+
+derive_default_event_styles = _resolve_default_event_styles
+
+
+def _resolve_weekday_text_style(
+    sun_idx: int,
+    default_style: Style,
+    sunday_text_style: Style | None,
+    saturday_text_style: Style | None,
+) -> Style:
+    """Select Sunday, Saturday, or default weekday text style based on 0=Sun..6=Sat index."""
+    if sun_idx == 0 and sunday_text_style is not None:
+        return sunday_text_style
+    if sun_idx == 6 and saturday_text_style is not None:
+        return saturday_text_style
+    return default_style
+
+
+def _draw_calendar_title_bar(  # noqa: PLR0913
+    *,
+    x0: float,
+    y0: float,
+    w: float,
+    h: float,
+    title_h: float,
+    title_str: str,
+    title_style: Style,
+    title_text_style: Style,
+) -> None:
+    """Draw the top title bar rectangle and centered title text when visible."""
+    if title_h > 0 and title_str:
+        t_cy = y0 + h - title_h / 2.0
+        canvas_rectangle(
+            xy=(x0 + w / 2.0, t_cy),
+            width=w,
+            height=title_h,
+            style=title_style.patch(shape_r=0, shape_line_width=0),
+        )
+        canvas_text(
+            xy=(x0 + w / 2.0, t_cy),
+            text=title_str,
+            style=title_text_style.patch(halign="center", valign="center"),
+        )
+
+
+def _draw_vertical_hour_grid(  # noqa: PLR0913
+    *,
+    x0: float,
+    w: float,
+    gutter_w: float,
+    grid_top: float,
+    grid_h: float,
+    start_hour: int,
+    end_hour: int,
+    hour_step: int,
+    border_style: Style,
+    text_style: Style,
+) -> None:
+    """Draw horizontal hour divider lines and left-gutter hour labels for vertical time grids."""
+    total_hours = end_hour - start_hour
+    hour_h = grid_h / total_hours
+    for h_offset in range(total_hours + 1):
+        hy = grid_top - h_offset * hour_h
+        if 0 < h_offset < total_hours:
+            canvas_line(xy1=(x0 + gutter_w, hy), xy2=(x0 + w, hy), style=border_style)
+        hr_val = start_hour + h_offset
+        if h_offset < total_hours and (h_offset % hour_step == 0):
+            canvas_text(
+                xy=(x0 + gutter_w / 2.0, hy - (hour_h * hour_step) / 2.0),
+                text=f"{hr_val:02d}:00",
+                style=text_style.patch(halign="center", valign="center"),
+            )
 
 
 def make_subtle_fill_style(base_cell_style: Style, rgb: tuple[int, int, int]) -> Style:

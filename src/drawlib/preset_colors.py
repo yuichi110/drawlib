@@ -9,6 +9,8 @@
 
 """Public preset colors module for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_colors import (
     Color,
     get_intermediate_color,

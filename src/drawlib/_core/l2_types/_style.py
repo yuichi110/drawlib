@@ -9,6 +9,8 @@
 
 """Style type definitions for drawlib."""
 
+from __future__ import annotations
+
 from typing import Annotated, Any, Literal
 
 from pydantic import BeforeValidator, Field
@@ -243,4 +245,3 @@ __all__ = [
     "TailEdge",
     "VAlign",
 ]
-

@@ -11,8 +11,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Literal, Union
+from typing import TYPE_CHECKING, Literal, TypeAlias
 
 from PIL.Image import Image
 
@@ -27,7 +28,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.sequence._participant import Participant
 
 # Arrowhead directionality
-ArrowType = Union[Literal["->", "<->", "-"], str]
+ArrowType = Literal["->", "<->", "-"] | str
 
 # Note position relative to participant lifeline
 NotePosition = Literal["left", "right", "over"]
@@ -36,24 +37,14 @@ NotePosition = Literal["left", "right", "over"]
 BlockType = Literal["loop", "alt", "else", "opt", "par", "critical", "break"]
 
 # Message clearance padding (float or (start, end) tuple)
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 # Diagram canvas padding (single float or (top, right, bottom, left) tuple)
-DiagramPadding = Union[float, tuple[float, float, float, float]]
+DiagramPadding = float | tuple[float, float, float, float]
 
 # Supported icon representations
 IconFunction = Callable[..., object]
-IconType = Union[
-    "GcpIcon",
-    "PhosphorIcon",
-    "CustomIcon",
-    Dimage,
-    Image,
-    str,
-    Path,
-    IconFunction,
-    None,
-]
+IconType: TypeAlias = "GcpIcon | PhosphorIcon | CustomIcon | Dimage | Image | str | Path | IconFunction | None"
 
 # Sequence timeline event items
-SequenceItem = Union["Participant", "Message", "Note", "Block", "ParticipantGroup"]
+SequenceItem: TypeAlias = "Participant | Message | Note | Block | ParticipantGroup"

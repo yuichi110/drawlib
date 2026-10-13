@@ -9,6 +9,8 @@
 
 """Drawlib templates and theme assets package."""
 
+from __future__ import annotations
+
 from drawlib._templates._css import (
     BUILTIN_CSS_PRESETS,
     BUILTIN_HTML_CSS_PRESETS,

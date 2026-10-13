@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, TypeVar, Union
+from typing import TYPE_CHECKING, Literal, TypeAlias, TypeVar
 
 if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram
@@ -31,16 +31,16 @@ ShapeType = Literal["process", "decision", "start", "end", "data"]
 Orientation = Literal["vertical", "horizontal"]
 
 # Arrowhead directionality
-ArrowType = Union[Literal["->", "<-", "<->", "-"], str]
+ArrowType = Literal["->", "<-", "<->", "-"] | str
 
 # Edge padding (gap clearance)
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 # Connectable elements
-Connectable = Union["FlowNode", "Junction"]
+Connectable: TypeAlias = "FlowNode | Junction"
 
 # Diagram items that can be added via add()
-DiagramItem = Union["FlowNode", "Junction"]
+DiagramItem: TypeAlias = "FlowNode | Junction"
 ItemT = TypeVar("ItemT", bound="DiagramItem")
 
 DiagramT = TypeVar("DiagramT", bound="FlowDiagram")

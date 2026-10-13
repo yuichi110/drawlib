@@ -62,11 +62,14 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 ```
 - **Available `TARGET` names**:
   - `site` *(default)*: Main documentation site (`docs/docs_src/` -> `docs/docs_html/`, `docs/docs_markdown/`)
+  - `architecture`: Software architecture specification site (`docs/architecture_src/`)
   - `quickstart`: Quickstart guide & PDF (`docs/quickstart_src/`)
   - `dogfooding`: Dogfooding whitepaper JP (`docs/drawlib-dogfooding_src/`)
   - `dogfooding-en`: Dogfooding whitepaper EN (`docs/drawlib-dogfooding-en_src/`)
   - `slide` (`slide_about_drawlib`): 16:9 presentation slide deck (`docs/slide_about_drawlib_src/`)
+  - `slide-ddos` (`slide_ddos_incident_response`, `ddos`): 16:9 DDoS incident response slide deck (`docs/slide_ddos_incident_response_src/`)
   - `readme`: Standalone README illustration scripts (`docs/readme_src/`)
+  - `logo`: Brand logo & favicon asset scripts (`docs/logo_src/`)
   - `all`: Build all targets sequentially
 
 ### 2.4. `codegen` — Icon & Binding Code Generation

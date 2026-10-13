@@ -17,7 +17,7 @@ import json
 import os
 import re
 import shutil
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from drawlib._core.l1_core import FONT_DIR_PATH, FONT_ICON_DIR_PATH
 from drawlib._core.l3_external import download_if_not_exist
@@ -118,7 +118,7 @@ def _write_svg_font_faces_css(
 
 def bundle_svg_fonts(
     output_abs: str,
-    css_file_path: Optional[str] = None,
+    css_file_path: str | None = None,
 ) -> list[dict[str, str]]:
     """Scan generated SVG files in output_abs, copy used fonts to _assets/fonts/, and inject @font-face CSS.
 
@@ -157,7 +157,7 @@ def format_asset_markup(
     file_name: str,
     alt_text: str,
     output_abs: str = "",
-    options: Optional[DrawlibBlockOptions] = None,
+    options: DrawlibBlockOptions | None = None,
 ) -> str:
     """Format HTML markup for a rendered slide asset to fill its parent block container.
 
@@ -184,25 +184,15 @@ def format_asset_markup(
                 svg_clean,
                 count=1,
             )
-            return (
-                f'\n<figure class="drawlib-image">\n'
-                f"  {svg_clean}\n"
-                f"</figure>\n"
-            )
+            return f'\n<figure class="drawlib-image">\n  {svg_clean}\n</figure>\n'
 
     has_anim_opts = options is not None and (
-        options.anim_trigger is not None
-        or options.anim_loop is not None
-        or bool(options.anim_pause)
+        options.anim_trigger is not None or options.anim_loop is not None or bool(options.anim_pause)
     )
     if has_anim_opts and options is not None and file_name.lower().endswith((".png", ".apng", ".webp")):
         trigger = options.anim_trigger or "auto"
         loop = options.anim_loop or ("once" if options.anim_pause else "infinite")
-        pause_attr = (
-            f' data-anim-pause="{",".join(str(p) for p in options.anim_pause)}"'
-            if options.anim_pause
-            else ""
-        )
+        pause_attr = f' data-anim-pause="{",".join(str(p) for p in options.anim_pause)}"' if options.anim_pause else ""
         base64_attr = ""
         if output_abs:
             anim_disk = os.path.normpath(os.path.join(output_abs, file_name))
@@ -243,10 +233,9 @@ def copy_static_assets(input_abs: str, output_abs: str) -> None:
     """
     for asset_file in os.listdir(input_abs):
         asset_lower = asset_file.lower()
-        if (
-            asset_lower.endswith((".png", ".apng", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ttf", ".woff", ".woff2"))
-            and not asset_lower.startswith(".")
-        ):
+        if asset_lower.endswith(
+            (".png", ".apng", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ttf", ".woff", ".woff2")
+        ) and not asset_lower.startswith("."):
             src_p = os.path.join(input_abs, asset_file)
             dst_p = os.path.join(output_abs, asset_file)
             if not os.path.exists(dst_p):

@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Literal, Union
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -53,7 +53,7 @@ LoopSide = Literal[
 RoutingType = Literal["curved", "orthogonal", "direct"]
 
 # Padding type
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 
 class StateAction(BaseModel):

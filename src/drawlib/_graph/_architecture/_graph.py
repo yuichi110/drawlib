@@ -159,7 +159,7 @@ class ArchitectureGraph(BaseGraph):
         for cid, (cx, cy, cw, ch) in cluster_boxes.items():
             cluster_meta = self._clusters.get(cid)
             lbl = cluster_meta.label if cluster_meta else cid
-            style = (cluster_meta.style if cluster_meta and cluster_meta.style else self.default_container_style)
+            style = cluster_meta.style if cluster_meta and cluster_meta.style else self.default_container_style
             t_style = (
                 default_cluster_text_style.patch(cluster_meta.text_style)
                 if cluster_meta and cluster_meta.text_style

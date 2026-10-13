@@ -9,6 +9,8 @@
 
 """Package for font_icon() function and icon modules."""
 
+from __future__ import annotations
+
 from drawlib._icons.font_icons import (
     font_icon,
     phosphor,

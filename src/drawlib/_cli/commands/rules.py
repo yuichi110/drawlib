@@ -11,14 +11,12 @@
 
 from __future__ import annotations
 
-import os
 import sys
-from typing import Annotated, Final, Optional
+from typing import Annotated, Final
 
 import typer
 
 from drawlib._builder.rules_builder import (
-    AVAILABLE_TOPICS,
     build_all_rules,
     build_rule,
     clear_rules_cache,
@@ -124,7 +122,7 @@ def cmd_rules_show(
 @rules_app.command("build", epilog=HELP_EPILOG)
 def cmd_rules_build(
     topic: Annotated[
-        Optional[str],
+        str | None,
         typer.Argument(
             help="Specific topic to build, or 'all' to build all topics.",
         ),

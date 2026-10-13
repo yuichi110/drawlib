@@ -161,17 +161,13 @@ def _buchheim_execute_shifts(v: _DrawTreeNode) -> None:
         shift += w.shift + change
 
 
-def _buchheim_ancestor(
-    vil: _DrawTreeNode, v: _DrawTreeNode, default_ancestor: _DrawTreeNode
-) -> _DrawTreeNode:
+def _buchheim_ancestor(vil: _DrawTreeNode, v: _DrawTreeNode, default_ancestor: _DrawTreeNode) -> _DrawTreeNode:
     if v.parent and vil.ancestor in v.parent.children:
         return vil.ancestor
     return default_ancestor
 
 
-def _buchheim_second_walk(
-    v: _DrawTreeNode, m: float = 0.0, depth: int = 0, min_val: float | None = None
-) -> float:
+def _buchheim_second_walk(v: _DrawTreeNode, m: float = 0.0, depth: int = 0, min_val: float | None = None) -> float:
     v.x += m
     v.y = float(depth)
     if min_val is None or v.x < min_val:
@@ -202,20 +198,18 @@ def solve_buchheim_tree(
     Returns:
         Dictionary mapping node IDs to (logical_x, logical_depth).
     """
+
     def build_draw_node(nid: str, parent: _DrawTreeNode | None, depth: int, number: int) -> _DrawTreeNode:
         dnode = _DrawTreeNode(nid, parent=parent, depth=depth, number=number)
         dnode.children = [
-            build_draw_node(cid, dnode, depth + 1, idx + 1)
-            for idx, cid in enumerate(children_map.get(nid, []))
+            build_draw_node(cid, dnode, depth + 1, idx + 1) for idx, cid in enumerate(children_map.get(nid, []))
         ]
         return dnode
 
     is_forest = len(roots) > 1
     if is_forest:
         super_root = _DrawTreeNode("__super_root__", None, 0, 1)
-        super_root.children = [
-            build_draw_node(rid, super_root, 1, idx + 1) for idx, rid in enumerate(roots)
-        ]
+        super_root.children = [build_draw_node(rid, super_root, 1, idx + 1) for idx, rid in enumerate(roots)]
         layout_root = super_root
     else:
         layout_root = build_draw_node(roots[0], None, 0, 1)

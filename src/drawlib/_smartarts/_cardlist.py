@@ -181,8 +181,7 @@ class CardList:
             )
         if self._badge_shape != "none" and has_lead and effective_badge_style is None:
             raise ValueError(
-                "Neither default 'badge_style' nor item 'badge_style' was provided "
-                f"for badge of item '{text}'."
+                f"Neither default 'badge_style' nor item 'badge_style' was provided for badge of item '{text}'."
             )
         if has_badge_text and effective_badge_text_style is None:
             raise ValueError(
@@ -191,8 +190,7 @@ class CardList:
             )
         if icon is not None and effective_icon_style is None:
             raise ValueError(
-                "Neither default 'icon_style' nor item 'icon_style' was provided "
-                f"for icon of item '{text}'."
+                f"Neither default 'icon_style' nor item 'icon_style' was provided for icon of item '{text}'."
             )
 
         item = CardListItem(
@@ -250,8 +248,7 @@ class CardList:
                 card_w = total_w
                 card_h = max(4.0, (total_h - (num_items - 1) * eff_spacing) / num_items)
                 has_any_lead = any(
-                    it.icon is not None or bool(it.badge_text and it.badge_text.strip())
-                    for it in self._items
+                    it.icon is not None or bool(it.badge_text and it.badge_text.strip()) for it in self._items
                 )
 
                 for i, item in enumerate(self._items):
@@ -442,5 +439,3 @@ class CardList:
         elif badge_label is not None and item.badge_text_style is not None:
             b_style = item.badge_text_style.patch(halign="center", valign="center")
             canvas_text(xy=(bx, by), text=badge_label, style=b_style)
-
-

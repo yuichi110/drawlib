@@ -9,6 +9,8 @@
 
 """GanttChart project schedule components."""
 
+from __future__ import annotations
+
 from drawlib._charts.gantt_chart._chart import GanttChart
 from drawlib._charts.gantt_chart._item import (
     Dependency,

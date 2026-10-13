@@ -12,7 +12,6 @@
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 from drawlib._builder._common import resolve_styles_and_utils
 from drawlib._builder.doc_builder.compiler.base import (
@@ -55,15 +54,15 @@ def _is_slide_project_dir(input_abs: str) -> bool:
 
 
 def build_pdf(
-    input_path: Optional[str] = None,
-    output_file: Optional[str] = None,
+    input_path: str | None = None,
+    output_file: str | None = None,
     *,
-    input_dir: Optional[str] = None,
-    title: Optional[str] = None,
+    input_dir: str | None = None,
+    title: str | None = None,
     page_break: bool = True,
     generate_index: bool = False,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
 ) -> str:

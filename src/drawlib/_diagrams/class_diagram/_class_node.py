@@ -11,7 +11,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Sequence, Union
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Any
 
 from drawlib._diagrams.class_diagram._types import AttributeInfo, MethodInfo, Side
 
@@ -127,7 +128,7 @@ class ClassNode:
 
     def add_attributes(
         self,
-        attributes: Sequence[Union[Sequence[Any], AttributeInfo]],
+        attributes: Sequence[Sequence[Any] | AttributeInfo],
     ) -> ClassNode:
         """Add multiple attributes in batch.
 
@@ -193,7 +194,7 @@ class ClassNode:
 
     def add_methods(
         self,
-        methods: Sequence[Union[Sequence[Any], MethodInfo]],
+        methods: Sequence[Sequence[Any] | MethodInfo],
     ) -> ClassNode:
         """Add multiple methods in batch.
 

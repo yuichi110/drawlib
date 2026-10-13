@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.er._diagram import ERDiagram
     from drawlib._diagrams.er._entity import Entity
 
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 
 class Relationship:

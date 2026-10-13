@@ -28,7 +28,9 @@ from drawlib._smartarts._calendar._models import (
     WEEKDAYS_SUN_EN,
     WEEKDAYS_SUN_JA,
     CalendarItem,
-    derive_default_event_styles,
+    _draw_calendar_title_bar,
+    _resolve_default_event_styles,
+    _resolve_weekday_text_style,
     draw_event_card,
     make_outer_frame_style,
     make_subtle_fill_style,
@@ -96,9 +98,7 @@ class MonthCalendar:
             parse_iso_date_strict(end_date, param_name="end_date") if end_date is not None else None
         )
         if self._end_date is not None and self._end_date < self._start_date:
-            raise ValueError(
-                f"end_date ({end_date}) must not be earlier than start_date ({start_date})."
-            )
+            raise ValueError(f"end_date ({end_date}) must not be earlier than start_date ({start_date}).")
 
         self._first_weekday: Literal["sun", "mon"] = first_weekday
         self._title: str | None = title
@@ -111,7 +111,7 @@ class MonthCalendar:
         self._header_text_style: Style = header_text_style
         self._border_style: Style = border_style
 
-        ev_st, ev_txt_st = derive_default_event_styles(
+        ev_st, ev_txt_st = _resolve_default_event_styles(
             header_style,
             header_text_style,
             event_style,
@@ -122,9 +122,7 @@ class MonthCalendar:
         self._sunday_text_style: Style | None = sunday_text_style
         self._saturday_text_style: Style | None = saturday_text_style
         self._title_style: Style = title_style if title_style is not None else header_style
-        self._title_text_style: Style = (
-            title_text_style if title_text_style is not None else header_text_style
-        )
+        self._title_text_style: Style = title_text_style if title_text_style is not None else header_text_style
         self._items: list[CalendarItem] = []
 
     @property
@@ -202,9 +200,7 @@ class MonthCalendar:
         if self._title is not None:
             return self._title
         y, m = self._start_date.year, self._start_date.month
-        if self._end_date is not None and (
-            self._end_date.year != y or self._end_date.month != m
-        ):
+        if self._end_date is not None and (self._end_date.year != y or self._end_date.month != m):
             ey, em = self._end_date.year, self._end_date.month
             if self._lang == "ja":
                 return f"{y}年{m}月 – {ey}年{em}月"
@@ -373,19 +369,16 @@ class MonthCalendar:
     ) -> None:
         """Draw the top title bar and the 7-column weekday header strip."""
         title_str = self._resolve_title_text()
-        if title_h > 0 and title_str:
-            t_cy = y0 + h - title_h / 2.0
-            canvas_rectangle(
-                xy=(x0 + w / 2.0, t_cy),
-                width=w,
-                height=title_h,
-                style=self._title_style.patch(shape_r=0, shape_line_width=0),
-            )
-            canvas_text(
-                xy=(x0 + w / 2.0, t_cy),
-                text=title_str,
-                style=self._title_text_style.patch(halign="center", valign="center"),
-            )
+        _draw_calendar_title_bar(
+            x0=x0,
+            y0=y0,
+            w=w,
+            h=h,
+            title_h=title_h,
+            title_str=title_str,
+            title_style=self._title_style,
+            title_text_style=self._title_text_style,
+        )
 
         wd_cy = weekday_top - weekday_h / 2.0
         canvas_rectangle(
@@ -396,12 +389,12 @@ class MonthCalendar:
         )
         for c_idx, (wd_label, sun_idx) in enumerate(self._weekday_order()):
             cx = x0 + (c_idx + 0.5) * col_w
-            if sun_idx == 0 and self._sunday_text_style is not None:
-                st = self._sunday_text_style
-            elif sun_idx == 6 and self._saturday_text_style is not None:
-                st = self._saturday_text_style
-            else:
-                st = self._header_text_style
+            st = _resolve_weekday_text_style(
+                sun_idx,
+                self._header_text_style,
+                self._sunday_text_style,
+                self._saturday_text_style,
+            )
             canvas_text(
                 xy=(cx, wd_cy),
                 text=wd_label,
@@ -444,12 +437,13 @@ class MonthCalendar:
                 sun_idx = wd_meta[c_idx][1]
                 if not active:
                     d_st = self._text_style.patch(alpha=0.45)
-                elif sun_idx == 0 and self._sunday_text_style is not None:
-                    d_st = self._sunday_text_style
-                elif sun_idx == 6 and self._saturday_text_style is not None:
-                    d_st = self._saturday_text_style
                 else:
-                    d_st = self._text_style
+                    d_st = _resolve_weekday_text_style(
+                        sun_idx,
+                        self._text_style,
+                        self._sunday_text_style,
+                        self._saturday_text_style,
+                    )
 
                 label_str = f"{d.month}/{d.day}" if (d.day == 1 and not active) else str(d.day)
                 num_x = x0 + c_idx * col_w + min(1.4, col_w * 0.12)

@@ -9,6 +9,8 @@
 
 """Public types module for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l2_types import (
     FontBase,
 )

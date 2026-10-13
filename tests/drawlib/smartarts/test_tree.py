@@ -59,7 +59,7 @@ class TestTree:
             ],
         )
 
-        t.draw((10, 80))
+        assert t.draw((10, 80)) is t
         save(f"{OUTPUT_DIR}test_tree_default.png")
 
     def test_tree_with_icon_item_decorators(self) -> None:

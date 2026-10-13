@@ -9,6 +9,8 @@
 
 """Public icons module for drawlib."""
 
+from __future__ import annotations
+
 import sys
 
 from drawlib._icons import (

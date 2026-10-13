@@ -176,8 +176,7 @@ class Roadmap:
             )
         if icon is not None and effective_icon_style is None:
             raise ValueError(
-                "Neither default 'icon_style' nor item 'icon_style' was provided "
-                f"for icon of item '{text}'."
+                f"Neither default 'icon_style' nor item 'icon_style' was provided for icon of item '{text}'."
             )
 
         resolved_badge_text = badge_text if badge_text is not None else str(idx + 1)

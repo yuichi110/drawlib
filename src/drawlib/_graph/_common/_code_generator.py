@@ -49,10 +49,7 @@ def _format_clusters_code(clusters: dict[str, ClusterLayout]) -> list[str]:
     for c in clusters.values():
         if c.shape == "circle":
             r = c.width / 2.0
-            lines.append(
-                f"circle(({c.cx:.1f}, {c.cy:.1f}), radius={r:.1f}, "
-                "style=Styles.MutedDashed)"
-            )
+            lines.append(f"circle(({c.cx:.1f}, {c.cy:.1f}), radius={r:.1f}, style=Styles.MutedDashed)")
             if c.label:
                 lines.append(f'text(({c.cx:.1f}, {c.top - 2.0:.1f}), "{c.label}", style=Styles.DarkBold)')
         else:

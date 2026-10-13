@@ -9,6 +9,8 @@
 
 """Internal charts package."""
 
+from __future__ import annotations
+
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import (
     AreaMode,

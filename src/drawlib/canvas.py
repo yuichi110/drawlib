@@ -9,6 +9,8 @@
 
 """Public canvas module for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l4_canvas import (
     canvas,
     clear,

@@ -9,6 +9,8 @@
 
 """Public smartarts module for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._smartarts import (
     BoxList,
     BoxListItem,

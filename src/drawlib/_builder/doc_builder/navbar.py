@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import os
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -31,7 +31,7 @@ class NavbarItem(BaseModel):
 
     title: str
     url: str
-    target_file_abs: Optional[str] = None
+    target_file_abs: str | None = None
     is_external: bool = False
     anchor: str = ""
 
@@ -44,14 +44,14 @@ class NavbarSection(BaseModel):
         items (List[NavbarItem]): List of navigation items in this section.
     """
 
-    title: Optional[str] = None
-    items: List[NavbarItem] = Field(default_factory=list)
+    title: str | None = None
+    items: list[NavbarItem] = Field(default_factory=list)
 
 
 _LINK_PATTERN = re.compile(r"^\s*[-*+]\s+\[(.*?)\]\(\s*([^\s)]+)(?:\s+[\"'].*?[\"'])?\s*\)\s*$")
 
 
-def parse_navbar_markdown(navbar_path: str, root_dir: str) -> Tuple[List[NavbarSection], Optional[str]]:
+def parse_navbar_markdown(navbar_path: str, root_dir: str) -> tuple[list[NavbarSection], str | None]:
     """Parse and validate navbar.md against files in root_dir.
 
     Args:
@@ -78,10 +78,10 @@ def parse_navbar_markdown(navbar_path: str, root_dir: str) -> Tuple[List[NavbarS
     except Exception as e:
         raise ValueError(f"Failed to read navbar file '{navbar_abs}': {e}") from e
 
-    sections: List[NavbarSection] = []
-    current_section: Optional[NavbarSection] = None
+    sections: list[NavbarSection] = []
+    current_section: NavbarSection | None = None
     first_heading_seen = False
-    site_title: Optional[str] = None
+    site_title: str | None = None
 
     for line_no, raw_line in enumerate(lines, start=1):
         line = raw_line.strip()
@@ -148,12 +148,12 @@ def parse_navbar_markdown(navbar_path: str, root_dir: str) -> Tuple[List[NavbarS
 
 
 def resolve_navbar_for_page(
-    sections: List[NavbarSection],
+    sections: list[NavbarSection],
     root_dir_abs: str,
     out_dir_abs: str,
     current_src_abs: str,
     current_dest_abs: str,
-) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Resolve navbar links and active states relative to a specific destination HTML page.
 
     Args:
@@ -169,11 +169,11 @@ def resolve_navbar_for_page(
             - nav_items: Flat list of all items for backwards compatibility.
     """
     current_dest_dir = os.path.dirname(current_dest_abs)
-    nav_sections: List[Dict[str, Any]] = []
-    nav_items: List[Dict[str, Any]] = []
+    nav_sections: list[dict[str, Any]] = []
+    nav_items: list[dict[str, Any]] = []
 
     for section in sections:
-        resolved_items: List[Dict[str, Any]] = []
+        resolved_items: list[dict[str, Any]] = []
         for item in section.items:
             if item.is_external:
                 url = item.url
@@ -191,7 +191,7 @@ def resolve_navbar_for_page(
                 url = rel_url
                 active = os.path.abspath(item.target_file_abs) == os.path.abspath(current_src_abs)
 
-            item_dict: Dict[str, Any] = {
+            item_dict: dict[str, Any] = {
                 "title": item.title,
                 "url": url,
                 "active": active,
@@ -200,9 +200,11 @@ def resolve_navbar_for_page(
             resolved_items.append(item_dict)
             nav_items.append(item_dict)
 
-        nav_sections.append({
-            "title": section.title,
-            "items": resolved_items,
-        })
+        nav_sections.append(
+            {
+                "title": section.title,
+                "items": resolved_items,
+            }
+        )
 
     return nav_sections, nav_items

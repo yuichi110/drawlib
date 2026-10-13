@@ -33,11 +33,17 @@ def test_target_definitions() -> None:
     """Test that all targets are properly mapped."""
     assert "site" in TARGET_MAP
     assert "docs" in TARGET_MAP
+    assert "architecture" in TARGET_MAP
     assert "quickstart" in TARGET_MAP
     assert "dogfooding" in TARGET_MAP
     assert "dogfooding-en" in TARGET_MAP
     assert "slide" in TARGET_MAP
+    assert "slide-ddos" in TARGET_MAP
+    assert "slide_ddos_incident_response" in TARGET_MAP
+    assert "ddos" in TARGET_MAP
     assert "readme" in TARGET_MAP
+    assert "logo" in TARGET_MAP
+    assert len(ALL_TARGETS) == 9
 
 
 def test_docs_build_unknown_target() -> None:

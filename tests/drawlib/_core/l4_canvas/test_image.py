@@ -146,4 +146,3 @@ class TestCanvasImage:
         )
         ab = canvas._artists[-1]
         assert getattr(ab, "xy") == (55.0, 55.0)
-

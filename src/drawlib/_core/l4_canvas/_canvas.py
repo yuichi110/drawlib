@@ -10,6 +10,8 @@
 
 """Canvas implementation module."""
 
+from __future__ import annotations
+
 import contextlib
 import io
 import json
@@ -215,12 +217,14 @@ class Canvas(
                     info = resolve_svg_font_info(str(fname))
                     if info.unique_family not in seen_families:
                         seen_families.add(info.unique_family)
-                        records.append({
-                            "family": info.unique_family,
-                            "rel_path": info.rel_bundle_path,
-                            "src": info.src_spec,
-                            "format": info.font_format,
-                        })
+                        records.append(
+                            {
+                                "family": info.unique_family,
+                                "rel_path": info.rel_bundle_path,
+                                "src": info.src_spec,
+                                "format": info.font_format,
+                            }
+                        )
         return records
 
     @staticmethod

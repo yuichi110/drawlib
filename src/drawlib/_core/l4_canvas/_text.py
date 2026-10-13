@@ -9,6 +9,8 @@
 
 """Canvas's text feature implementation module."""
 
+from __future__ import annotations
+
 from matplotlib.text import Text
 from pydantic import validate_call
 

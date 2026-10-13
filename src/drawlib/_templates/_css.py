@@ -13,11 +13,11 @@ from __future__ import annotations
 
 import importlib.resources
 import os
-from typing import Dict, Final, List, Literal, Optional
+from typing import Final, Literal
 
 from drawlib._templates.langs import get_font_replacements
 
-BUILTIN_THEMES: Final[Dict[str, Dict[str, str]]] = {
+BUILTIN_THEMES: Final[dict[str, dict[str, str]]] = {
     "default": {
         "file": "default.css.template",
         "description": "Modern developer light theme inspired by VitePress & Tailwind CSS.",
@@ -58,17 +58,17 @@ BUILTIN_THEMES: Final[Dict[str, Dict[str, str]]] = {
 
 BUILTIN_HTML_CSS_PRESETS = BUILTIN_THEMES
 BUILTIN_CSS_PRESETS = BUILTIN_THEMES
-BUILTIN_PDF_CSS_PRESETS: Final[Dict[str, Dict[str, str]]] = {
+BUILTIN_PDF_CSS_PRESETS: Final[dict[str, dict[str, str]]] = {
     k: v for k, v in BUILTIN_THEMES.items() if not k.endswith("-auto")
 }
-BUILTIN_SLIDE_CSS_PRESETS: Final[Dict[str, Dict[str, str]]] = {
+BUILTIN_SLIDE_CSS_PRESETS: Final[dict[str, dict[str, str]]] = {
     k: v for k, v in BUILTIN_THEMES.items() if k in {"default", "default-dark", "google", "google-dark", "monochrome"}
 }
 
 
 def list_css(
     target: Literal["html", "pdf", "slide", "site", "doc"] = "html",
-) -> List[Dict[str, str]]:
+) -> list[dict[str, str]]:
     """Return metadata for built-in CSS presets for the specified target.
 
     Args:
@@ -90,17 +90,17 @@ def list_css(
     ]
 
 
-def list_html_css() -> List[Dict[str, str]]:
+def list_html_css() -> list[dict[str, str]]:
     """Return metadata for built-in HTML CSS presets."""
     return list_css(target="html")
 
 
-def list_pdf_css() -> List[Dict[str, str]]:
+def list_pdf_css() -> list[dict[str, str]]:
     """Return metadata for built-in PDF CSS presets."""
     return list_css(target="pdf")
 
 
-def list_slide_css() -> List[Dict[str, str]]:
+def list_slide_css() -> list[dict[str, str]]:
     """Return metadata for built-in slide CSS presets."""
     return list_css(target="slide")
 
@@ -123,7 +123,7 @@ def _read_template_resource(*subpath: str) -> str:
 
 
 def get_css(
-    name: Optional[str] = None,
+    name: str | None = None,
     target: Literal["html", "pdf", "slide", "site", "doc"] = "html",
     lang: str = "en",
 ) -> str:
@@ -154,9 +154,7 @@ def get_css(
 
     if theme_name not in BUILTIN_THEMES:
         available_presets = ", ".join(sorted(p["name"] for p in list_css(target=target)))
-        raise ValueError(
-            f"Unknown CSS preset '{name}' for target '{target}'. Available presets: {available_presets}"
-        )
+        raise ValueError(f"Unknown CSS preset '{name}' for target '{target}'. Available presets: {available_presets}")
 
     theme_file = BUILTIN_THEMES[theme_name]["file"]
     theme_content = _read_template_resource("css", "themes", theme_file)
@@ -210,7 +208,7 @@ def get_html_readme() -> str:
 
 def export_css(
     name: str,
-    output_path: Optional[str] = None,
+    output_path: str | None = None,
     target: Literal["html", "pdf", "slide", "site", "doc"] = "html",
     force: bool = False,
     lang: str = "en",

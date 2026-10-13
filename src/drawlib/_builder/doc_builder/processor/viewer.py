@@ -14,10 +14,8 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
-from typing import Optional
 
 from drawlib._builder.doc_builder.detector import detect_document_type
-from drawlib._builder.doc_builder.processor.options import ExtractedBlockInfo
 from drawlib._builder.doc_builder.processor.parser import extract_code_blocks, resolve_selected_block
 
 
@@ -26,8 +24,8 @@ def render_code_with_context(
     dest_abs: str,
     source_filename: str,
     file_dir: str,
-    styles_path: Optional[str],
-    utils_path: Optional[str],
+    styles_path: str | None,
+    utils_path: str | None,
     grid: bool,
     no_cache: bool = False,
 ) -> None:
@@ -61,11 +59,11 @@ def render_code_with_context(
 
 
 def export_code_block(
-    file_path: Optional[str] = None,
-    target: Optional[str] = None,
-    output_path: Optional[str] = None,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    file_path: str | None = None,
+    target: str | None = None,
+    output_path: str | None = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     grid: bool = False,
     no_cache: bool = False,
 ) -> str:
@@ -156,12 +154,12 @@ def display_image_file(image_path: str) -> None:
 
 
 def show_code_block(
-    file_path: Optional[str] = None,
-    target: Optional[str] = None,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    file_path: str | None = None,
+    target: str | None = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     grid: bool = False,
-    output_path: Optional[str] = None,
+    output_path: str | None = None,
     no_cache: bool = False,
 ) -> None:
     """Execute target code block from Markdown/HTML file or Python script and display output image."""

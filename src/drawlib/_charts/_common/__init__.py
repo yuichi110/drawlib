@@ -9,6 +9,8 @@
 
 """Common charting utilities and models."""
 
+from __future__ import annotations
+
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
 from drawlib._charts._common._legend import draw_legend
 from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style

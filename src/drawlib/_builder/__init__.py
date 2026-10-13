@@ -8,3 +8,5 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 """Private builder package for drawlib."""
+
+from __future__ import annotations

@@ -10,6 +10,8 @@
 
 """Canvas's original arrow feature implementation module."""
 
+from __future__ import annotations
+
 import math
 from typing import Any, Literal
 
@@ -227,7 +229,6 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
 
         parallel_xys1.extend(parallel_xys2)
         self.polygon(xys=parallel_xys1, style=style.patch(shape_r=0.0), text="", text_style=None)
-
 
     @validate_call
     def arrow_arc(
@@ -580,9 +581,7 @@ class ArrowPolylineHelper:
         if isinstance(r, (int, float)):
             return [float(r)] * num_joints
         if len(r) != num_joints:
-            raise ValueError(
-                f"shape_r tuple length ({len(r)}) must match the number of joints ({num_joints})."
-            )
+            raise ValueError(f"shape_r tuple length ({len(r)}) must match the number of joints ({num_joints}).")
         return [float(val) for val in r]
 
     def __init__(
@@ -675,7 +674,6 @@ class ArrowPolylineHelper:
                 parallel_curve_points.append((px1, py1))
 
         return parallel_curve_points
-
 
     def _get_parallel_straight_points(self, distance: float) -> Coordinates:
         """Internal function"""

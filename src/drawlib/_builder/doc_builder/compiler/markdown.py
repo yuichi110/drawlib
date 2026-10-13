@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import Optional
 
 from drawlib._builder._common import BuildImageCache, FileBuildProgress, resolve_styles_and_utils
 from drawlib._builder.doc_builder.compiler.base import (
@@ -30,11 +29,11 @@ from drawlib._builder.doc_builder.progress import check_document_output_duplicat
 
 def build_markdown(
     input_dir: str,
-    output_dir: Optional[str] = None,
+    output_dir: str | None = None,
     *,
     image_format: str = "png",
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     no_cache: bool = False,
 ) -> str:
     """Compile a directory of Markdown files with drawlib code blocks into rendered Markdown.
@@ -58,8 +57,7 @@ def build_markdown(
 
     if out_dir_abs == input_abs:
         raise ValueError(
-            f'Refusing to overwrite input source directory "{input_abs}". '
-            "Please specify a different output directory."
+            f'Refusing to overwrite input source directory "{input_abs}". Please specify a different output directory.'
         )
 
     styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
@@ -109,7 +107,7 @@ def build_markdown(
     name_width = max((len(n) for n in display_names), default=0)
     image_width = len(str(max(max_blocks, 0)))
 
-    processor: Optional[DrawlibBlockProcessor] = None
+    processor: DrawlibBlockProcessor | None = None
     for idx, ((src_abs, dest_abs), disp_name) in enumerate(zip(md_tasks, display_names), start=1):
         processor = _compile_single_markdown_file(
             src_abs=src_abs,
@@ -138,13 +136,13 @@ def _compile_single_markdown_file(
     src_abs: str,
     dest_abs: str,
     image_format: str,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-    processor: Optional[DrawlibBlockProcessor] = None,
-    progress: Optional[FileBuildProgress] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    processor: DrawlibBlockProcessor | None = None,
+    progress: FileBuildProgress | None = None,
     no_cache: bool = False,
-    cache: Optional[BuildImageCache] = None,
-    project_root: Optional[str] = None,
+    cache: BuildImageCache | None = None,
+    project_root: str | None = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown file with drawlib blocks into rendered Markdown."""
     with open(src_abs, "r", encoding="utf-8") as f:

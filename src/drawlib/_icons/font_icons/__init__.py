@@ -9,6 +9,8 @@
 
 """Font icons internal package."""
 
+from __future__ import annotations
+
 from drawlib._icons.font_icons import phosphor
 from drawlib._icons.font_icons._font_icon import font_icon
 

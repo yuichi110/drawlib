@@ -9,6 +9,8 @@
 
 """Grid graph layout implementation."""
 
+from __future__ import annotations
+
 from drawlib._graph._grid._graph import GridGraph
 
 __all__ = ["GridGraph"]

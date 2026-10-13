@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from drawlib._core.l2_types import IconStyle, LineStyle
 from drawlib._core.l3_colors import Color, ColorType
-from drawlib._core.l3_fonts import Font, FontBase, FontFile
+from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import (
     DEFAULT_FONT,
     DEFAULT_FONT_BOLD,
@@ -24,30 +24,6 @@ from drawlib._core.l3_styles import (
 from drawlib._preset_colors import DefaultColors as Colors
 
 _DEFAULT_BORDER_COLOR: Color = Color(39, 39, 39)
-
-
-def _resolve_target_font(
-    field_name: str,
-    regular: FontBase | FontFile | None,
-    bold: FontBase | FontFile | None,
-    thin: FontBase | FontFile | None,
-) -> FontBase | FontFile | None:
-    """Resolve target font for a specific style field based on naming convention.
-
-    Args:
-        field_name (str): Style attribute name.
-        regular (FontBase | FontFile | None): Base font.
-        bold (FontBase | FontFile | None): Bold font.
-        thin (FontBase | FontFile | None): Thin font.
-
-    Returns:
-        FontBase | FontFile | None: Target font to apply.
-    """
-    if field_name == "Bold" or field_name.endswith("Bold"):
-        return bold if bold is not None else regular
-    if field_name.endswith("Thin"):
-        return thin if thin is not None else regular
-    return regular
 
 
 def _create_style(
@@ -389,5 +365,4 @@ __all__ = [
     "_create_style",
     "_make_neutral_card",
     "_make_variants",
-    "_resolve_target_font",
 ]

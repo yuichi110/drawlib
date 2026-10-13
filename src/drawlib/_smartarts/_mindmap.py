@@ -224,7 +224,7 @@ class MindMapNode:
         xy: Coordinate,
         branch: Literal["bottom", "top", "left", "right"] = "bottom",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw the mindmap tree rooted at this node.
 
         The given xy coordinate specifies the center point of this root node.
@@ -233,6 +233,9 @@ class MindMapNode:
             xy: Center coordinates (x, y) of the root node.
             branch: Default branch direction for child nodes ("bottom", "top", "left", "right").
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This MindMapNode instance for method chaining.
 
         Raises:
             ValueError: If root node is missing mandatory style, text_style, or line_style.
@@ -284,6 +287,8 @@ class MindMapNode:
                 parent_v_margin=root_v_margin,
                 parent_line_len=root_line_len,
             )
+
+        return self
 
     def _get_children_by_branch(
         self,
@@ -539,6 +544,148 @@ class MindMapNode:
                 )
 
     @staticmethod
+    def _connect_and_layout_vertical(  # noqa: PLR0913
+        direction: Literal["bottom", "top"],
+        cx: float,
+        cy: float,
+        bh: float,
+        group: list[MindMapNode],
+        line_len: float,
+        h_margin: float,
+        line_style: Style,
+        parent_shape: Literal["rectangle", "ellipse", "none"],
+        parent_style: Style,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
+        parent_show: bool = True,
+    ) -> None:
+        sign = -1.0 if direction == "bottom" else 1.0
+        parent_pt = (cx, cy + sign * (bh / 2.0))
+        junction_y = cy + sign * (bh / 2.0 + line_len / 2.0)
+
+        total_w = sum(c._extent_w for c in group) + (len(group) - 1) * h_margin
+        cur_x = cx - total_w / 2.0
+
+        child_positions: list[tuple[MindMapNode, float, float]] = []
+        for child in group:
+            child_cx = cur_x + child._extent_w / 2.0
+            child_cy = cy + sign * (bh / 2.0 + line_len + child._resolved_h / 2.0)
+            if child._xy_shift is not None:
+                child_cx += child._xy_shift[0]
+                child_cy += child._xy_shift[1]
+            child_positions.append((child, child_cx, child_cy))
+            cur_x += child._extent_w + h_margin
+
+        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
+        if parent_show and visible_positions:
+            if len(group) == 1 and len(visible_positions) == 1:
+                c, c_cx, c_cy = visible_positions[0]
+                child_anchor = (c_cx, c_cy - sign * (c._resolved_h / 2.0))
+                if abs(c_cx - cx) < 1e-6:
+                    line(xy1=parent_pt, xy2=child_anchor, style=line_style)
+                else:
+                    line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
+                    line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
+                    line(xy1=(c_cx, junction_y), xy2=child_anchor, style=line_style)
+            else:
+                line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
+                all_xs = [cx] + [pos[1] for pos in visible_positions]
+                line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
+                for child, child_cx, child_cy in visible_positions:
+                    line(
+                        xy1=(child_cx, junction_y),
+                        xy2=(child_cx, child_cy - sign * (child._resolved_h / 2.0)),
+                        style=line_style,
+                    )
+
+        for child, child_cx, child_cy in child_positions:
+            child._layout_and_draw(
+                center_xy=(child_cx, child_cy),
+                current_branch=direction,
+                parent_shape=parent_shape,
+                parent_style=parent_style,
+                parent_text_style=parent_text_style,
+                parent_line_style=parent_line_style,
+                parent_h_margin=parent_h_margin,
+                parent_v_margin=parent_v_margin,
+                parent_line_len=parent_line_len,
+            )
+
+    @staticmethod
+    def _connect_and_layout_horizontal(  # noqa: PLR0913
+        direction: Literal["right", "left"],
+        cx: float,
+        cy: float,
+        bw: float,
+        group: list[MindMapNode],
+        line_len: float,
+        v_margin: float,
+        line_style: Style,
+        parent_shape: Literal["rectangle", "ellipse", "none"],
+        parent_style: Style,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
+        parent_show: bool = True,
+    ) -> None:
+        sign = 1.0 if direction == "right" else -1.0
+        parent_pt = (cx + sign * (bw / 2.0), cy)
+        junction_x = cx + sign * (bw / 2.0 + line_len / 2.0)
+
+        total_h = sum(c._extent_h for c in group) + (len(group) - 1) * v_margin
+        cur_y = cy + total_h / 2.0
+
+        child_positions: list[tuple[MindMapNode, float, float]] = []
+        for child in group:
+            child_cy = cur_y - child._extent_h / 2.0
+            child_cx = cx + sign * (bw / 2.0 + line_len + child._resolved_w / 2.0)
+            if child._xy_shift is not None:
+                child_cx += child._xy_shift[0]
+                child_cy += child._xy_shift[1]
+            child_positions.append((child, child_cx, child_cy))
+            cur_y -= child._extent_h + v_margin
+
+        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
+        if parent_show and visible_positions:
+            if len(group) == 1 and len(visible_positions) == 1:
+                c, c_cx, c_cy = visible_positions[0]
+                child_anchor = (c_cx - sign * (c._resolved_w / 2.0), c_cy)
+                if abs(c_cy - cy) < 1e-6:
+                    line(xy1=parent_pt, xy2=child_anchor, style=line_style)
+                else:
+                    line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
+                    line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
+                    line(xy1=(junction_x, c_cy), xy2=child_anchor, style=line_style)
+            else:
+                line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
+                all_ys = [cy] + [pos[2] for pos in visible_positions]
+                line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
+                for child, child_cx, child_cy in visible_positions:
+                    line(
+                        xy1=(junction_x, child_cy),
+                        xy2=(child_cx - sign * (child._resolved_w / 2.0), child_cy),
+                        style=line_style,
+                    )
+
+        for child, child_cx, child_cy in child_positions:
+            child._layout_and_draw(
+                center_xy=(child_cx, child_cy),
+                current_branch=direction,
+                parent_shape=parent_shape,
+                parent_style=parent_style,
+                parent_text_style=parent_text_style,
+                parent_line_style=parent_line_style,
+                parent_h_margin=parent_h_margin,
+                parent_v_margin=parent_v_margin,
+                parent_line_len=parent_line_len,
+            )
+
+    @staticmethod
     def _connect_and_layout_bottom(  # noqa: PLR0913
         cx: float,
         cy: float,
@@ -556,56 +703,24 @@ class MindMapNode:
         parent_line_len: float,
         parent_show: bool = True,
     ) -> None:
-        parent_pt = (cx, cy - bh / 2.0)
-        junction_y = cy - bh / 2.0 - line_len / 2.0
-
-        total_w = sum(c._extent_w for c in group) + (len(group) - 1) * h_margin
-        cur_x = cx - total_w / 2.0
-
-        child_positions: list[tuple[MindMapNode, float, float]] = []
-        for child in group:
-            child_cx = cur_x + child._extent_w / 2.0
-            child_cy = cy - bh / 2.0 - line_len - child._resolved_h / 2.0
-            if child._xy_shift is not None:
-                child_cx += child._xy_shift[0]
-                child_cy += child._xy_shift[1]
-            child_positions.append((child, child_cx, child_cy))
-            cur_x += child._extent_w + h_margin
-
-        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
-        if parent_show and visible_positions:
-            if len(group) == 1 and len(visible_positions) == 1:
-                c, c_cx, c_cy = visible_positions[0]
-                child_top = (c_cx, c_cy + c._resolved_h / 2.0)
-                if abs(c_cx - cx) < 1e-6:
-                    line(xy1=parent_pt, xy2=child_top, style=line_style)
-                else:
-                    line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-                    line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
-                    line(xy1=(c_cx, junction_y), xy2=child_top, style=line_style)
-            else:
-                line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-                all_xs = [cx] + [pos[1] for pos in visible_positions]
-                line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
-                for child, child_cx, child_cy in visible_positions:
-                    line(
-                        xy1=(child_cx, junction_y),
-                        xy2=(child_cx, child_cy + child._resolved_h / 2.0),
-                        style=line_style,
-                    )
-
-        for child, child_cx, child_cy in child_positions:
-            child._layout_and_draw(
-                center_xy=(child_cx, child_cy),
-                current_branch="bottom",
-                parent_shape=parent_shape,
-                parent_style=parent_style,
-                parent_text_style=parent_text_style,
-                parent_line_style=parent_line_style,
-                parent_h_margin=parent_h_margin,
-                parent_v_margin=parent_v_margin,
-                parent_line_len=parent_line_len,
-            )
+        MindMapNode._connect_and_layout_vertical(
+            direction="bottom",
+            cx=cx,
+            cy=cy,
+            bh=bh,
+            group=group,
+            line_len=line_len,
+            h_margin=h_margin,
+            line_style=line_style,
+            parent_shape=parent_shape,
+            parent_style=parent_style,
+            parent_text_style=parent_text_style,
+            parent_line_style=parent_line_style,
+            parent_h_margin=parent_h_margin,
+            parent_v_margin=parent_v_margin,
+            parent_line_len=parent_line_len,
+            parent_show=parent_show,
+        )
 
     @staticmethod
     def _connect_and_layout_top(  # noqa: PLR0913
@@ -625,56 +740,24 @@ class MindMapNode:
         parent_line_len: float,
         parent_show: bool = True,
     ) -> None:
-        parent_pt = (cx, cy + bh / 2.0)
-        junction_y = cy + bh / 2.0 + line_len / 2.0
-
-        total_w = sum(c._extent_w for c in group) + (len(group) - 1) * h_margin
-        cur_x = cx - total_w / 2.0
-
-        child_positions: list[tuple[MindMapNode, float, float]] = []
-        for child in group:
-            child_cx = cur_x + child._extent_w / 2.0
-            child_cy = cy + bh / 2.0 + line_len + child._resolved_h / 2.0
-            if child._xy_shift is not None:
-                child_cx += child._xy_shift[0]
-                child_cy += child._xy_shift[1]
-            child_positions.append((child, child_cx, child_cy))
-            cur_x += child._extent_w + h_margin
-
-        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
-        if parent_show and visible_positions:
-            if len(group) == 1 and len(visible_positions) == 1:
-                c, c_cx, c_cy = visible_positions[0]
-                child_bottom = (c_cx, c_cy - c._resolved_h / 2.0)
-                if abs(c_cx - cx) < 1e-6:
-                    line(xy1=parent_pt, xy2=child_bottom, style=line_style)
-                else:
-                    line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-                    line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
-                    line(xy1=(c_cx, junction_y), xy2=child_bottom, style=line_style)
-            else:
-                line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-                all_xs = [cx] + [pos[1] for pos in visible_positions]
-                line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
-                for child, child_cx, child_cy in visible_positions:
-                    line(
-                        xy1=(child_cx, junction_y),
-                        xy2=(child_cx, child_cy - child._resolved_h / 2.0),
-                        style=line_style,
-                    )
-
-        for child, child_cx, child_cy in child_positions:
-            child._layout_and_draw(
-                center_xy=(child_cx, child_cy),
-                current_branch="top",
-                parent_shape=parent_shape,
-                parent_style=parent_style,
-                parent_text_style=parent_text_style,
-                parent_line_style=parent_line_style,
-                parent_h_margin=parent_h_margin,
-                parent_v_margin=parent_v_margin,
-                parent_line_len=parent_line_len,
-            )
+        MindMapNode._connect_and_layout_vertical(
+            direction="top",
+            cx=cx,
+            cy=cy,
+            bh=bh,
+            group=group,
+            line_len=line_len,
+            h_margin=h_margin,
+            line_style=line_style,
+            parent_shape=parent_shape,
+            parent_style=parent_style,
+            parent_text_style=parent_text_style,
+            parent_line_style=parent_line_style,
+            parent_h_margin=parent_h_margin,
+            parent_v_margin=parent_v_margin,
+            parent_line_len=parent_line_len,
+            parent_show=parent_show,
+        )
 
     @staticmethod
     def _connect_and_layout_right(  # noqa: PLR0913
@@ -694,56 +777,24 @@ class MindMapNode:
         parent_line_len: float,
         parent_show: bool = True,
     ) -> None:
-        parent_pt = (cx + bw / 2.0, cy)
-        junction_x = cx + bw / 2.0 + line_len / 2.0
-
-        total_h = sum(c._extent_h for c in group) + (len(group) - 1) * v_margin
-        cur_y = cy + total_h / 2.0
-
-        child_positions: list[tuple[MindMapNode, float, float]] = []
-        for child in group:
-            child_cy = cur_y - child._extent_h / 2.0
-            child_cx = cx + bw / 2.0 + line_len + child._resolved_w / 2.0
-            if child._xy_shift is not None:
-                child_cx += child._xy_shift[0]
-                child_cy += child._xy_shift[1]
-            child_positions.append((child, child_cx, child_cy))
-            cur_y -= child._extent_h + v_margin
-
-        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
-        if parent_show and visible_positions:
-            if len(group) == 1 and len(visible_positions) == 1:
-                c, c_cx, c_cy = visible_positions[0]
-                child_left = (c_cx - c._resolved_w / 2.0, c_cy)
-                if abs(c_cy - cy) < 1e-6:
-                    line(xy1=parent_pt, xy2=child_left, style=line_style)
-                else:
-                    line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-                    line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
-                    line(xy1=(junction_x, c_cy), xy2=child_left, style=line_style)
-            else:
-                line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-                all_ys = [cy] + [pos[2] for pos in visible_positions]
-                line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
-                for child, child_cx, child_cy in visible_positions:
-                    line(
-                        xy1=(junction_x, child_cy),
-                        xy2=(child_cx - child._resolved_w / 2.0, child_cy),
-                        style=line_style,
-                    )
-
-        for child, child_cx, child_cy in child_positions:
-            child._layout_and_draw(
-                center_xy=(child_cx, child_cy),
-                current_branch="right",
-                parent_shape=parent_shape,
-                parent_style=parent_style,
-                parent_text_style=parent_text_style,
-                parent_line_style=parent_line_style,
-                parent_h_margin=parent_h_margin,
-                parent_v_margin=parent_v_margin,
-                parent_line_len=parent_line_len,
-            )
+        MindMapNode._connect_and_layout_horizontal(
+            direction="right",
+            cx=cx,
+            cy=cy,
+            bw=bw,
+            group=group,
+            line_len=line_len,
+            v_margin=v_margin,
+            line_style=line_style,
+            parent_shape=parent_shape,
+            parent_style=parent_style,
+            parent_text_style=parent_text_style,
+            parent_line_style=parent_line_style,
+            parent_h_margin=parent_h_margin,
+            parent_v_margin=parent_v_margin,
+            parent_line_len=parent_line_len,
+            parent_show=parent_show,
+        )
 
     @staticmethod
     def _connect_and_layout_left(  # noqa: PLR0913
@@ -763,53 +814,21 @@ class MindMapNode:
         parent_line_len: float,
         parent_show: bool = True,
     ) -> None:
-        parent_pt = (cx - bw / 2.0, cy)
-        junction_x = cx - bw / 2.0 - line_len / 2.0
-
-        total_h = sum(c._extent_h for c in group) + (len(group) - 1) * v_margin
-        cur_y = cy + total_h / 2.0
-
-        child_positions: list[tuple[MindMapNode, float, float]] = []
-        for child in group:
-            child_cy = cur_y - child._extent_h / 2.0
-            child_cx = cx - bw / 2.0 - line_len - child._resolved_w / 2.0
-            if child._xy_shift is not None:
-                child_cx += child._xy_shift[0]
-                child_cy += child._xy_shift[1]
-            child_positions.append((child, child_cx, child_cy))
-            cur_y -= child._extent_h + v_margin
-
-        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
-        if parent_show and visible_positions:
-            if len(group) == 1 and len(visible_positions) == 1:
-                c, c_cx, c_cy = visible_positions[0]
-                child_right = (c_cx + c._resolved_w / 2.0, c_cy)
-                if abs(c_cy - cy) < 1e-6:
-                    line(xy1=parent_pt, xy2=child_right, style=line_style)
-                else:
-                    line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-                    line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
-                    line(xy1=(junction_x, c_cy), xy2=child_right, style=line_style)
-            else:
-                line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-                all_ys = [cy] + [pos[2] for pos in visible_positions]
-                line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
-                for child, child_cx, child_cy in visible_positions:
-                    line(
-                        xy1=(junction_x, child_cy),
-                        xy2=(child_cx + child._resolved_w / 2.0, child_cy),
-                        style=line_style,
-                    )
-
-        for child, child_cx, child_cy in child_positions:
-            child._layout_and_draw(
-                center_xy=(child_cx, child_cy),
-                current_branch="left",
-                parent_shape=parent_shape,
-                parent_style=parent_style,
-                parent_text_style=parent_text_style,
-                parent_line_style=parent_line_style,
-                parent_h_margin=parent_h_margin,
-                parent_v_margin=parent_v_margin,
-                parent_line_len=parent_line_len,
-            )
+        MindMapNode._connect_and_layout_horizontal(
+            direction="left",
+            cx=cx,
+            cy=cy,
+            bw=bw,
+            group=group,
+            line_len=line_len,
+            v_margin=v_margin,
+            line_style=line_style,
+            parent_shape=parent_shape,
+            parent_style=parent_style,
+            parent_text_style=parent_text_style,
+            parent_line_style=parent_line_style,
+            parent_h_margin=parent_h_margin,
+            parent_v_margin=parent_v_margin,
+            parent_line_len=parent_line_len,
+            parent_show=parent_show,
+        )

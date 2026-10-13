@@ -9,6 +9,8 @@
 
 """Layered hierarchical DAG graph layout implementation."""
 
+from __future__ import annotations
+
 from drawlib._graph._layered._graph import LayerGraph
 
 __all__ = ["LayerGraph"]

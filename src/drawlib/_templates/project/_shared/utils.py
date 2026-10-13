@@ -74,4 +74,3 @@ def connect(
         mid_x = (start[0] + end[0]) / 2
         mid_y = (start[1] + end[1]) / 2
         text((mid_x, mid_y + 3.0), label, style=Styles.Primary.patch(text_size=10.5))
-

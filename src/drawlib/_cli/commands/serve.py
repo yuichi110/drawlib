@@ -17,7 +17,6 @@ from typing import Annotated
 
 import typer
 
-from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.l1_core import dutil_settings
 from drawlib._http_server import serve_docs
 

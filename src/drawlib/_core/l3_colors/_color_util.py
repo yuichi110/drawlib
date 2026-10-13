@@ -9,6 +9,8 @@
 
 """Color utility module for style and canvas operations."""
 
+from __future__ import annotations
+
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (

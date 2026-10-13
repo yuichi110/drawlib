@@ -15,7 +15,7 @@ import os
 import re
 import shutil
 from pathlib import Path
-from typing import Final, Optional
+from typing import Final
 
 from drawlib._builder._common import resolve_styles_and_utils
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
@@ -34,7 +34,7 @@ _PATTERN_DRAWLIB: Final[re.Pattern[str]] = re.compile(
 )
 
 
-def _resolve_output_dir(input_abs: str, output_dir: Optional[str]) -> str:
+def _resolve_output_dir(input_abs: str, output_dir: str | None) -> str:
     """Resolve target output directory path.
 
     Args:
@@ -102,9 +102,7 @@ def _collect_slide_files(input_abs: str) -> list[str]:
     """
     rel_files: list[str] = []
     for root, dirnames, files in os.walk(input_abs):
-        dirnames[:] = sorted(
-            d for d in dirnames if not d.startswith(".") and not d.startswith("_")
-        )
+        dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
         for f in sorted(files):
             if (
                 (f.endswith(".md") or f.endswith(".markdown"))
@@ -126,7 +124,7 @@ def _process_drawlib_blocks(
     file_path: str,
     idx: int,
     default_format: str,
-    input_abs: Optional[str] = None,
+    input_abs: str | None = None,
 ) -> str:
     """Execute and replace ```drawlib blocks.
 
@@ -224,13 +222,13 @@ def _assemble_slide_section(
 
 def build_slide(
     input_dir: str,
-    output_dir: Optional[str] = None,
+    output_dir: str | None = None,
     *,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     image_format: str = "svg",
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     no_cache: bool = False,
 ) -> str:
     """Compile a presentation source directory into a static HTML slide deck.

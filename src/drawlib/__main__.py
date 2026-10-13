@@ -9,6 +9,8 @@
 
 """Entry point of drawlib command."""
 
+from __future__ import annotations
+
 from drawlib._cli import call_command
 
 

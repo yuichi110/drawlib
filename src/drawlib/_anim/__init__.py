@@ -9,6 +9,8 @@
 
 """Drawlib animation package."""
 
+from __future__ import annotations
+
 from drawlib._anim._animation import Animation
 
 __all__ = ["Animation"]

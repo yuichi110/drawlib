@@ -37,7 +37,7 @@ class TestBulletPoints:
         b.add("level 2-2")
         b.set_indent(1)
         b.add("level 1-3")
-        b.draw((10, 80))
+        assert b.draw((10, 80)) is b
         save(f"{OUTPUT_DIR}test_bulletpoints_default.png")
 
     def test_bulletpoints_japanese(self) -> None:

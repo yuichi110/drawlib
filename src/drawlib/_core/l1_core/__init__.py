@@ -9,6 +9,8 @@
 
 """Package for core drawing action modules."""
 
+from __future__ import annotations
+
 from drawlib._core.l1_core._const import (
     FONT_DIR_PATH,
     FONT_ICON_DIR_PATH,

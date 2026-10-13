@@ -9,6 +9,8 @@
 
 """Line utility module for canvas operations."""
 
+from __future__ import annotations
+
 from typing import Any
 
 from drawlib._core.l2_types import ArrowHead

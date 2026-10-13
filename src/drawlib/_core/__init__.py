@@ -20,3 +20,5 @@ This package contains internal drawing layers:
 - l3_styles: Style models, theming, and palette systems.
 - l4_canvas: Canvas drawing API, Matplotlib wrappers, and shape primitives.
 """
+
+from __future__ import annotations

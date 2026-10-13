@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import os
-from typing import Sequence
+from collections.abc import Sequence
 
 from drawlib._builder._common.progress import (
     BAR_WIDTH,

@@ -9,6 +9,8 @@
 
 """Canvas shape feature package aggregating all shape drawing capabilities."""
 
+from __future__ import annotations
+
 from drawlib._core.l4_canvas._shapes._arrow import CanvasShapeArrowFeature
 from drawlib._core.l4_canvas._shapes._badge import CanvasShapeBadgeFeature
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature

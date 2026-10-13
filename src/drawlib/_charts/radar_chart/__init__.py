@@ -9,6 +9,8 @@
 
 """Radar chart (spider web) components."""
 
+from __future__ import annotations
+
 from drawlib._charts.radar_chart._chart import RadarChart
 from drawlib._charts.radar_chart._series import Series
 

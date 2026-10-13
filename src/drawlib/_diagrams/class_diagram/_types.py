@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Literal, Union
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -38,7 +38,7 @@ Side = Literal["left", "right", "top", "bottom", "auto"]
 RoutingType = Literal["orthogonal", "direct"]
 
 # Padding clearance (gap distance between borders and line endpoints)
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 
 class AttributeInfo(BaseModel):

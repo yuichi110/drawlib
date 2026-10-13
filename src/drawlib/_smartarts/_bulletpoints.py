@@ -10,7 +10,10 @@
 
 """BulletPoints implementation module."""
 
-from typing import Callable
+from __future__ import annotations
+
+from collections.abc import Callable
+from typing import Any, Self
 
 from pydantic import BaseModel, validate_call
 
@@ -22,9 +25,9 @@ from drawlib._core.l4_canvas import circle, text, transform
 class _BulletPointsShape(BaseModel):
     """Shape settings for a specific indent level."""
 
-    function: Callable
+    function: Callable[..., Any]
     style: Style
-    args: dict
+    args: dict[str, Any]
 
 
 class BulletPointItem(BaseModel):
@@ -100,9 +103,9 @@ class BulletPoints:
     def set_bullet_style(
         self,
         indent_level: int,
-        function: Callable,
+        function: Callable[..., Any],
         style: Style,
-        args: dict,
+        args: dict[str, Any],
     ) -> None:
         """Configure bullet shape style for a specific indent level.
 
@@ -157,12 +160,15 @@ class BulletPoints:
         self,
         xy: Coordinate,
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draws the list of bullet points starting from the specified location.
 
         Args:
             xy: The starting point (x, y) to draw the bullet points.
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This BulletPoints instance for method chaining.
         """
         with transform(origin=xy, scale=scale):
             y = xy[1]
@@ -191,3 +197,4 @@ class BulletPoints:
                         function(**args)
 
                 y -= self._vertical_margin
+        return self

@@ -9,6 +9,8 @@
 
 """AreaChart implementation package."""
 
+from __future__ import annotations
+
 from drawlib._charts.area_chart._chart import AreaChart
 from drawlib._charts.area_chart._series import Series
 

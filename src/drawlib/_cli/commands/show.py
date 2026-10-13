@@ -14,7 +14,7 @@ from __future__ import annotations
 import os
 import sys
 import traceback
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 
@@ -38,11 +38,11 @@ def cmd_show(
         typer.Argument(help="Target Markdown (.md), HTML (.html), or Python script (.py) path."),
     ],
     target: Annotated[
-        Optional[str],
+        str | None,
         typer.Argument(help="1-based block index (e.g. 1) or target image filename (e.g. arch.png)."),
     ] = None,
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "-o",
             "--output",
@@ -54,11 +54,11 @@ def cmd_show(
         typer.Option("-g", "--grid", help="Show canvas with coordinate grid overlaid."),
     ] = False,
     styles: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
     ] = None,
     utils: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[

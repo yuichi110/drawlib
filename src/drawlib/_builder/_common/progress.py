@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Callable
+from collections.abc import Callable
 
 from drawlib._core.l1_core import dutil_settings
 

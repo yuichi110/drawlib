@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 import traceback
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal
 
 import typer
 from rich.console import Console
@@ -50,19 +50,19 @@ def cmd_build_image(
         typer.Argument(metavar="INPUT", help="Target Python file (.py) or directory containing Python drawing code."),
     ],
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Output image file path or output directory path."),
     ] = None,
     format: Annotated[
-        Optional[Literal["png", "webp", "jpg", "pdf"]],
+        Literal["png", "webp", "jpg", "pdf"] | None,
         typer.Option("-f", "--format", help="Output image format override (png, webp, jpg, pdf)."),
     ] = None,
     styles: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
     ] = None,
     utils: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     grid: Annotated[
@@ -113,7 +113,7 @@ def cmd_build_markdown(
         typer.Argument(metavar="DIR", help="Directory containing Markdown (.md) source files."),
     ],
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Output Markdown directory path."),
     ] = None,
     format: Annotated[
@@ -121,11 +121,11 @@ def cmd_build_markdown(
         typer.Option("-f", "--format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
     styles: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
     ] = None,
     utils: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[
@@ -155,7 +155,7 @@ def cmd_build_html(
         typer.Argument(metavar="DIR", help="Directory containing documentation source files."),
     ],
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Output HTML directory path."),
     ] = None,
     format: Annotated[
@@ -163,11 +163,11 @@ def cmd_build_html(
         typer.Option("-f", "--format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
     styles: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
     ] = None,
     utils: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[
@@ -200,7 +200,7 @@ def cmd_build_pdf(
         ),
     ],
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Output PDF file path."),
     ] = None,
     page_break: Annotated[
@@ -215,15 +215,15 @@ def cmd_build_pdf(
         ),
     ] = False,
     title: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("--title", help="Document title override for the merged PDF."),
     ] = None,
     styles: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
     ] = None,
     utils: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[
@@ -263,11 +263,11 @@ def cmd_build_slide(
         typer.Argument(metavar="DIR", help="Directory containing Markdown (.md) slide files."),
     ],
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Output directory path for the presentation deck."),
     ] = None,
     theme: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-t", "--theme", help="CSS theme preset (google, default, google-dark, default-dark)."),
     ] = None,
     format: Annotated[
@@ -275,11 +275,11 @@ def cmd_build_slide(
         typer.Option("-f", "--format", help="Default image format for embedded diagrams: svg, webp, or png."),
     ] = "svg",
     styles: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
     ] = None,
     utils: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[

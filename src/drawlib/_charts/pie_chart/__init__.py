@@ -9,6 +9,8 @@
 
 """Pie chart and donut chart components."""
 
+from __future__ import annotations
+
 from drawlib._charts.pie_chart._chart import PieChart
 from drawlib._charts.pie_chart._slice import Slice
 

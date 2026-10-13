@@ -15,7 +15,6 @@ import os
 import re
 import shutil
 import sys
-from typing import Optional, Set
 
 EXCLUDED_ASSET_NAMES: set[str] = {
     "build.sh",
@@ -81,6 +80,7 @@ def resolve_template_and_css(search_dir: str) -> tuple[str, str]:
         )
 
     return template_cand, css_cand
+
 
 _FORBIDDEN_LINK_PREFIXES: tuple[str, ...] = (
     "file://",
@@ -183,7 +183,7 @@ def extract_html_body(html_text: str) -> str:
 def copy_directory_assets(
     input_dir_abs: str,
     out_dir_abs: str,
-    excluded_files: Optional[Set[str]] = None,
+    excluded_files: set[str] | None = None,
 ) -> None:
     """Recursively copy static asset files from input directory to output directory.
 

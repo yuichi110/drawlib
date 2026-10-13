@@ -588,9 +588,9 @@ def handle_single_page_output(
             tmp_path = tmp.name
         dimage.save(tmp_path)
 
-        has_display = (
-            bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}
-        ) and os.environ.get("DRAWLIB_SHOW_NO_DISPLAY") != "1"
+        has_display = (bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}) and os.environ.get(
+            "DRAWLIB_SHOW_NO_DISPLAY"
+        ) != "1"
         if has_display:
             try:
                 display_dimage(dimage)

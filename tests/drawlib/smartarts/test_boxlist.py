@@ -32,7 +32,7 @@ class TestBoxList:
         b.add("2")
         b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
         b.add("4")
-        b.draw((10, 10), 8, 6)
+        assert b.draw((10, 10), 8, 6) is b
         save(f"{OUTPUT_DIR}test_boxlist_left.png")
 
     def test_boxlist_horizontal_right(self) -> None:

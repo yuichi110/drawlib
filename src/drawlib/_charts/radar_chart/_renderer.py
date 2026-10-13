@@ -90,9 +90,7 @@ def _draw_radar_grid(
                 ring_pts = [(cx + ring_r * math.cos(a), cy + ring_r * math.sin(a)) for a in angles]
                 canvas_lines(xys=ring_pts + [ring_pts[0]], style=ensure_line_style(chart.grid_style))
             else:
-                grid_color = (
-                    chart.grid_style.line_color or chart.grid_style.shape_line_color or (200, 200, 200, 1.0)
-                )
+                grid_color = chart.grid_style.line_color or chart.grid_style.shape_line_color or (200, 200, 200, 1.0)
                 circle_grid_style = Style(
                     shape_fill_color=(0, 0, 0, 0.0),
                     shape_line_color=grid_color,
@@ -217,11 +215,7 @@ def _draw_series(
             val = s.values[i] if i < len(s.values) else chart.min_value
             clamped_val = max(chart.min_value, min(eff_max, val))
             ratio = (clamped_val - chart.min_value) / span
-            v_dr = (
-                max(0.0, min(1.0, dr * num_cats - i))
-                if (s.draw_direction == "left_to_right" and dr < 1.0)
-                else dr
-            )
+            v_dr = max(0.0, min(1.0, dr * num_cats - i)) if (s.draw_direction == "left_to_right" and dr < 1.0) else dr
             v_ratios.append(v_dr)
             r = chart.radius * ratio * v_dr
             pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))

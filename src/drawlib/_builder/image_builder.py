@@ -17,11 +17,11 @@ import importlib.util
 import io
 import os
 import re
-import runpy
 import sys
 import traceback
 import warnings
-from typing import Any, Callable, List, Literal, Optional, Sequence, Tuple, Union
+from collections.abc import Callable, Sequence
+from typing import Literal
 
 from pydantic import validate_call
 
@@ -34,6 +34,20 @@ from drawlib._builder._common import (
     hash_file,
     load_styles_and_utils,
     resolve_styles_and_utils,
+)
+from drawlib._builder._image_ast import (
+    _collect_target_files,
+    _extract_single_static_save,
+    _get_python_files,
+    _has_local_imports,
+    _is_save_call_node,
+    _normalize_build_inputs_and_output,
+    _parse_static_save_call,
+    _resolve_execution_mode,
+    _SaveCallVisitor,
+    check_duplicate_script_outputs,
+    resolve_effective_output_dir,
+    resolve_static_save_target,
 )
 from drawlib._core.l1_core import dutil_settings, get_script_relative_path, logger
 from drawlib._core.l4_canvas import clear
@@ -50,14 +64,14 @@ class DrawlibExecuter:
     def __init__(
         self,
         mode: Literal["none", "auto_clear", "auto_initialize"] = "auto_clear",
-        styles_path: Optional[str] = None,
-        utils_path: Optional[str] = None,
-        output_dir: Optional[str] = None,
-        output_file: Optional[str] = None,
-        image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
+        styles_path: str | None = None,
+        utils_path: str | None = None,
+        output_dir: str | None = None,
+        output_file: str | None = None,
+        image_format: Literal["png", "webp", "jpg", "pdf"] | None = None,
         grid: bool = False,
         no_cache: bool = False,
-        target_roots: Optional[Sequence[str]] = None,
+        target_roots: Sequence[str] | None = None,
     ) -> None:
         """Initialize a DrawlibExecuter instance.
 
@@ -67,14 +81,14 @@ class DrawlibExecuter:
                 - "none": Executes Python files without clearing canvas between executions.
                 - "auto_clear": Automatically clears the canvas between executing each Python file.
                 - "auto_initialize": Automatically initializes canvas per execution.
-            styles_path (Optional[str]): Optional path to Python styles script.
-            utils_path (Optional[str]): Optional path to Python utils script.
-            output_dir (Optional[str]): Optional path to directory where images should be saved.
-            output_file (Optional[str]): Optional explicit output file path when executing a single script.
-            image_format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Optional image format override.
+            styles_path (str | None): Optional path to Python styles script.
+            utils_path (str | None): Optional path to Python utils script.
+            output_dir (str | None): Optional path to directory where images should be saved.
+            output_file (str | None): Optional explicit output file path when executing a single script.
+            image_format (Literal["png", "webp", "jpg", "pdf"] | None): Optional image format override.
             grid (bool): Whether to generate coordinate grid overlaid images in addition to normal images.
             no_cache (bool): If True, disable reading/writing the SQLite build image cache.
-            target_roots (Optional[Sequence[str]]): Optional base directory paths for preserving subdirectories.
+            target_roots (Sequence[str] | None): Optional base directory paths for preserving subdirectories.
 
         Raises:
             ValueError: If mode is not one of ["none", "auto_clear", "auto_initialize"].
@@ -89,16 +103,16 @@ class DrawlibExecuter:
         self._config_hash = f"{s_hash}:{u_hash}"
         self._output_dir = output_dir
         self._output_file = output_file
-        self._image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = image_format
+        self._image_format: Literal["png", "webp", "jpg", "pdf"] | None = image_format
         self._grid = grid
         self._no_cache = no_cache
         self._cache = BuildImageCache(enabled=not no_cache)
-        self._current_cache_info: Optional[tuple[str, str, str, str]] = None
+        self._current_cache_info: tuple[str, str, str, str] | None = None
         self._topdir_path: str = ""
         self._target_roots: list[str] = [os.path.abspath(r) for r in target_roots] if target_roots else []
         self._current_target_root: str = ""
         self._current_source_label: str = ""
-        self._current_progress: Optional[FileBuildProgress] = None
+        self._current_progress: FileBuildProgress | None = None
         self._current_save_step: int = 0
         self._current_total_saves: int = 1
         self._runtime_seen_outputs: dict[str, str] = {}
@@ -107,100 +121,37 @@ class DrawlibExecuter:
         """Set base target directory roots for preserving relative subdirectory output structure."""
         self._target_roots = [os.path.abspath(r) for r in roots]
 
-    def _get_effective_output_dir(self, script_path: str) -> Optional[str]:
+    def _get_effective_output_dir(self, script_path: str) -> str | None:
         """Compute the effective output directory for a script, preserving subdirectories if under a target dir."""
-        if not self._output_dir:
-            return None
-        abs_output_dir = os.path.abspath(self._output_dir)
-        abs_script_dir = os.path.dirname(os.path.abspath(script_path))
-
-        candidate_roots: list[str] = []
-        if self._current_target_root:
-            candidate_roots.append(self._current_target_root)
-        if self._target_roots:
-            candidate_roots.extend(self._target_roots)
-
-        for root in candidate_roots:
-            if not os.path.isdir(root):
-                continue
-            abs_root = os.path.abspath(root)
-            try:
-                rel = os.path.relpath(abs_script_dir, abs_root)
-            except ValueError:
-                continue
-            if not rel.startswith("..") and rel != ".":
-                return os.path.abspath(os.path.join(abs_output_dir, rel))
-            if rel == ".":
-                return abs_output_dir
-
-        return abs_output_dir
+        return resolve_effective_output_dir(
+            output_dir=self._output_dir,
+            script_path=script_path,
+            current_target_root=self._current_target_root,
+            target_roots=self._target_roots,
+        )
 
     def _resolve_static_save_target(
         self,
         script_path: str,
-        call_file: Optional[str],
-        call_format: Optional[str],
+        call_file: str | None,
+        call_format: str | None,
     ) -> str:
         """Resolve the output file path that a static `save(file, format)` call in `script_path` will write."""
-        eff_format = self._image_format if self._image_format else call_format
-        if self._output_file is not None:
-            target = os.path.abspath(self._output_file)
-            if eff_format:
-                stem, _ = os.path.splitext(target)
-                target = f"{stem}.{eff_format}"
-            return os.path.abspath(target)
-
-        effective_output_dir = self._get_effective_output_dir(script_path)
-        if call_file is None:
-            ext = eff_format or "png"
-            target_dir = (
-                effective_output_dir
-                if effective_output_dir is not None
-                else os.path.dirname(os.path.abspath(script_path))
-            )
-            stem = os.path.splitext(os.path.basename(script_path))[0]
-            return os.path.abspath(os.path.join(target_dir, f"{stem}.{ext}"))
-
-        eff_file = f"{os.path.splitext(call_file)[0]}.{eff_format}" if eff_format else call_file
-        if effective_output_dir is not None and not os.path.isabs(eff_file):
-            return os.path.abspath(os.path.join(effective_output_dir, eff_file))
-        if os.path.isabs(eff_file):
-            return os.path.abspath(eff_file)
-        return os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(script_path)), eff_file))
+        return resolve_static_save_target(
+            script_path=script_path,
+            call_file=call_file,
+            call_format=call_format,
+            output_file=self._output_file,
+            output_dir=self._output_dir,
+            image_format=self._image_format,
+            current_target_root=self._current_target_root,
+            target_roots=self._target_roots,
+        )
 
     @staticmethod
-    def _parse_static_save_call(node: ast.Call) -> Optional[tuple[Optional[str], Optional[str]]]:
+    def _parse_static_save_call(node: ast.Call) -> tuple[str | None, str | None] | None:
         """Extract static `(call_file, call_format)` from an AST `save(...)` call node, or None if not static."""
-        is_save = (isinstance(node.func, ast.Name) and node.func.id == "save") or (
-            isinstance(node.func, ast.Attribute) and node.func.attr == "save"
-        )
-        if not is_save:
-            return None
-
-        call_file: Optional[str] = None
-        call_format: Optional[str] = None
-
-        for idx, arg in enumerate(node.args[:2]):
-            if not isinstance(arg, ast.Constant) or not (isinstance(arg.value, str) or arg.value is None):
-                return None
-            if idx == 0:
-                call_file = arg.value
-            else:
-                call_format = arg.value
-
-        for kw in node.keywords:
-            if kw.arg not in {"file", "format"}:
-                continue
-            if not isinstance(kw.value, ast.Constant) or not (
-                isinstance(kw.value.value, str) or kw.value.value is None
-            ):
-                return None
-            if kw.arg == "file":
-                call_file = kw.value.value
-            else:
-                call_format = kw.value.value
-
-        return call_file, call_format
+        return _parse_static_save_call(node)
 
     def _check_duplicate_outputs(
         self,
@@ -208,38 +159,11 @@ class DrawlibExecuter:
         display_names: Sequence[str],
     ) -> dict[str, int]:
         """Pre-check all target Python scripts via AST for duplicate output image paths and count saves per file."""
-        seen_outputs: dict[str, str] = {}
-        save_counts: dict[str, int] = {}
-        for file_path, disp_name in zip(file_paths, display_names):
-            count = 0
-            try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    tree = ast.parse(f.read(), filename=file_path)
-            except (OSError, SyntaxError) as exc:
-                logger.debug(f"Skipping static AST check for {file_path}: {exc}")
-                save_counts[file_path] = 0
-                continue
-
-            for node in ast.walk(tree):
-                if not isinstance(node, ast.Call):
-                    continue
-                is_save = (isinstance(node.func, ast.Name) and node.func.id == "save") or (
-                    isinstance(node.func, ast.Attribute) and node.func.attr == "save"
-                )
-                if not is_save:
-                    continue
-                count += 1
-                parsed = self._parse_static_save_call(node)
-                if parsed is None:
-                    continue
-                call_file, call_format = parsed
-                target_abs = self._resolve_static_save_target(file_path, call_file, call_format)
-                src_label = f"{disp_name} (line {node.lineno})"
-                if target_abs in seen_outputs:
-                    raise ValueError(format_duplicate_output_error(target_abs, seen_outputs[target_abs], src_label))
-                seen_outputs[target_abs] = src_label
-            save_counts[file_path] = count
-        return save_counts
+        return check_duplicate_script_outputs(
+            file_paths=file_paths,
+            display_names=display_names,
+            resolve_target_fn=self._resolve_static_save_target,
+        )
 
     def _create_wrapped_save(
         self,
@@ -249,10 +173,10 @@ class DrawlibExecuter:
         """Create a wrapped save function that applies output overrides and guards against duplicate outputs."""
 
         def _wrapped_save(
-            file: Optional[str] = None,
-            format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
+            file: str | None = None,
+            format: Literal["png", "webp", "jpg", "pdf"] | None = None,
         ) -> None:
-            eff_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = (
+            eff_format: Literal["png", "webp", "jpg", "pdf"] | None = (
                 self._image_format if self._image_format else format
             )
             if self._output_file is not None:
@@ -260,7 +184,7 @@ class DrawlibExecuter:
                 if eff_format:
                     stem, _ = os.path.splitext(target)
                     target = f"{stem}.{eff_format}"
-                eff_file: Optional[str] = target
+                eff_file: str | None = target
             elif file is not None and eff_format:
                 stem, _ = os.path.splitext(file)
                 eff_file = f"{stem}.{eff_format}"
@@ -310,39 +234,15 @@ class DrawlibExecuter:
     @staticmethod
     def _has_local_imports(tree: ast.AST, script_dir: str, topdir_path: str) -> bool:
         """Check whether the AST imports any local Python modules from script_dir or topdir_path."""
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):
-                for alias in node.names:
-                    top_mod = alias.name.split(".")[0]
-                    if os.path.exists(os.path.join(script_dir, f"{top_mod}.py")) or (
-                        topdir_path and os.path.exists(os.path.join(topdir_path, top_mod))
-                    ):
-                        return True
-            elif isinstance(node, ast.ImportFrom):
-                if node.level > 0:
-                    return True
-                if node.module:
-                    top_mod = node.module.split(".")[0]
-                    if os.path.exists(os.path.join(script_dir, f"{top_mod}.py")) or (
-                        topdir_path and os.path.exists(os.path.join(topdir_path, top_mod))
-                    ):
-                        return True
-        return False
+        return _has_local_imports(tree, script_dir, topdir_path)
 
     def _extract_single_static_save(
         self,
         tree: ast.AST,
         script_dir: str,
-    ) -> Optional[tuple[Optional[str], Optional[str]]]:
+    ) -> tuple[str | None, str | None] | None:
         """Extract static save arguments if script has no local module imports, else None."""
-        if self._has_local_imports(tree, script_dir, self._topdir_path):
-            return None
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Call):
-                res = self._parse_static_save_call(node)
-                if res is not None:
-                    return res
-        return None
+        return _extract_single_static_save(tree, script_dir, self._topdir_path)
 
     def _restore_cached_image(
         self,
@@ -565,23 +465,9 @@ class DrawlibExecuter:
         logger.info("")
 
     @staticmethod
-    def _get_python_files(directory: str) -> List[str]:
+    def _get_python_files(directory: str) -> list[str]:
         """Retrieve all Python files recursively within the specified directory."""
-        python_files: List[str] = []
-        for root, _, files in os.walk(directory):
-            for file in files:
-                if file.startswith("."):
-                    continue
-                if file in {"styles.py", "utils.py", "__init__.py"}:
-                    continue
-                if file.endswith(".py"):
-                    file_path = os.path.join(root, file)
-                    python_files.append(file_path)
-
-        def sort_key(path: str) -> Tuple[int, str]:
-            return (path.count(os.sep), path)
-
-        return sorted(python_files, key=sort_key)
+        return _get_python_files(directory)
 
     def _resolve_module_name(self, file_path: str) -> str:
         """Resolve module name and ensure parent packages/directories are loaded."""
@@ -649,7 +535,7 @@ class DrawlibExecuter:
             raise
 
     @staticmethod
-    def _exec_styles_and_utils(styles_path: Optional[str] = None, utils_path: Optional[str] = None) -> None:
+    def _exec_styles_and_utils(styles_path: str | None = None, utils_path: str | None = None) -> None:
         """Execute external styles and utils scripts before running drawing code."""
         load_styles_and_utils(styles_path=styles_path, utils_path=utils_path)
 
@@ -669,7 +555,7 @@ class DrawlibExecuter:
 
         return False
 
-    def _get_package_words(self, file_path: str) -> List[str]:
+    def _get_package_words(self, file_path: str) -> list[str]:
         """Retrieve the package words from the specified file path relative to the top directory."""
         last_path = file_path.replace(self._topdir_path, "")
         words = last_path.split(os.sep)
@@ -677,7 +563,7 @@ class DrawlibExecuter:
             words = words[1:]
         return words
 
-    def _load_parent_modules(self, words: List[str]) -> None:
+    def _load_parent_modules(self, words: list[str]) -> None:
         """Load parent modules for the specified package words."""
         for i in range(1, len(words)):
             name = ".".join(words[:i])
@@ -698,118 +584,40 @@ class DrawlibExecuter:
                 sys.modules[name] = module
 
 
-def _collect_target_files(
-    target_list: Sequence[str],
-    executer: DrawlibExecuter,
-) -> tuple[List[str], List[str], List[str]]:
-    """Resolve valid target paths and collect all Python and Markdown files across those targets."""
-    resolved_targets: List[str] = []
-    all_py_files: List[str] = []
-    all_md_files: List[str] = []
-    for target_file in target_list:
-        if not os.path.isfile(target_file) and not os.path.isdir(target_file):
-            logger.warning(f'ignore arg "{target_file}" since it is not a file/dir path')
-            continue
-        realpath = os.path.realpath(os.path.abspath(target_file))
-        resolved_targets.append(realpath)
-        if os.path.isfile(realpath):
-            if realpath.endswith(".py"):
-                all_py_files.append(realpath)
-            elif realpath.lower().endswith((".md", ".markdown")):
-                all_md_files.append(realpath)
-        elif os.path.isdir(realpath):
-            all_py_files.extend(
-                fp for fp in executer._get_python_files(realpath) if not os.path.basename(fp).startswith("__")
-            )
-            for root, dirnames, files in os.walk(realpath):
-                dirnames[:] = sorted(
-                    d for d in dirnames if not d.startswith(".") and not d.startswith("_")
-                )
-                for f in sorted(files):
-                    if f.startswith(".") or f.startswith("_"):
-                        continue
-                    f_lower = f.lower()
-                    if (
-                        f_lower.endswith((".md", ".markdown"))
-                        and not f_lower.startswith("readme")
-                        and f_lower not in {"navbar.md", "navbar.markdown", "output_readme.md", "output_html_readme.md"}
-                    ):
-                        all_md_files.append(os.path.join(root, f))
-    return resolved_targets, all_py_files, all_md_files
-
-
-def _normalize_build_inputs_and_output(
-    target_list: Sequence[str],
-    output: Optional[str],
-) -> tuple[List[str], Optional[str], Optional[str]]:
-    """Normalize input targets and resolve output directory/file destinations."""
-    targets = list(target_list)
-    if len(targets) == 1 and os.path.isdir(targets[0]) and output is None:
-        candidate_codes = os.path.join(targets[0], "codes")
-        candidate_images = os.path.join(targets[0], "images")
-        if os.path.isdir(candidate_codes):
-            targets = [candidate_codes]
-            output = candidate_images
-
-    output_dir: Optional[str] = None
-    output_file: Optional[str] = None
-    if output:
-        ext = os.path.splitext(output)[1].lower()
-        is_single = len(targets) == 1 and os.path.isfile(targets[0])
-        if is_single and ext in {".png", ".webp", ".jpg", ".jpeg", ".pdf"} and not os.path.isdir(output):
-            output_file = output
-        else:
-            output_dir = output
-
-    return targets, output_dir, output_file
-
-
-def _resolve_execution_mode(
-    disable_auto_clear: bool,
-    enable_auto_initialize: bool,
-) -> Literal["none", "auto_clear", "auto_initialize"]:
-    """Resolve canvas execution mode from CLI flags."""
-    if disable_auto_clear:
-        return "none"
-    if enable_auto_initialize:
-        return "auto_initialize"
-    return "auto_clear"
-
-
 def build_image(
-    input_path: Union[str, Sequence[str]],
-    output_path: Optional[str] = None,
+    input_path: str | Sequence[str],
+    output_path: str | None = None,
     *,
-    format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    format: Literal["png", "webp", "jpg", "pdf"] | None = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     grid: bool = False,
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
     no_cache: bool = False,
-) -> List[str]:
+) -> list[str]:
     """Execute one or more Python drawing scripts or directories to generate images.
 
     Args:
-        input_path (Union[str, Sequence[str]]): Target Python file(s) or directories.
-        output_path (Optional[str]): Output image file path or output directory path.
-        format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Image format override ('png', 'webp', 'jpg', 'pdf').
-        styles_path (Optional[str]): Optional path to Python styles script.
-        utils_path (Optional[str]): Optional path to Python utils script.
+        input_path (str | Sequence[str]): Target Python file(s) or directories.
+        output_path (str | None): Output image file path or output directory path.
+        format (Literal["png", "webp", "jpg", "pdf"] | None): Image format override ('png', 'webp', 'jpg', 'pdf').
+        styles_path (str | None): Optional path to Python styles script.
+        utils_path (str | None): Optional path to Python utils script.
         grid (bool): Whether to save companion *_grid.<ext> images with coordinate grid overlaid.
         disable_auto_clear (bool): Disable clearing canvas per executing drawing code file.
         enable_auto_initialize (bool): Enable full canvas re-initialization per executing drawing code file.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
 
     Returns:
-        List[str]: List of executed target paths.
+        list[str]: List of executed target paths.
 
     Raises:
         ValueError: If no valid target files or directories are provided.
     """
     if not input_path:
         raise ValueError("No input files or directories specified for build_image.")
-    raw_targets: List[str] = [input_path] if isinstance(input_path, str) else list(input_path)
+    raw_targets: list[str] = [input_path] if isinstance(input_path, str) else list(input_path)
 
     first_target = os.path.abspath(raw_targets[0])
     search_dir = first_target if os.path.isdir(first_target) else os.path.dirname(first_target)
@@ -838,7 +646,7 @@ def build_image(
         all_disp = ["/" + os.path.relpath(fp, base_root).replace(os.sep, "/") for fp in all_py_files]
         executer._check_duplicate_outputs(all_py_files, all_disp)
 
-    executed: List[str] = []
+    executed: list[str] = []
     if all_py_files:
         for realpath in resolved_targets:
             if realpath in all_py_files or os.path.isdir(realpath):
@@ -858,9 +666,7 @@ def build_image(
         )
         os.makedirs(out_img_dir, exist_ok=True)
         root_target_dir = (
-            resolved_targets[0]
-            if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0]))
-            else None
+            resolved_targets[0] if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0])) else None
         )
         processor = DrawlibBlockProcessor(
             styles_path=styles_abs,
@@ -907,3 +713,21 @@ def build_image(
         raise ValueError("No valid Python files or Markdown files with drawing code were executed.")
 
     return executed
+
+
+__all__ = [
+    "DrawlibExecuter",
+    "_SaveCallVisitor",
+    "_collect_target_files",
+    "_extract_single_static_save",
+    "_get_python_files",
+    "_has_local_imports",
+    "_is_save_call_node",
+    "_normalize_build_inputs_and_output",
+    "_parse_static_save_call",
+    "_resolve_execution_mode",
+    "build_image",
+    "check_duplicate_script_outputs",
+    "resolve_effective_output_dir",
+    "resolve_static_save_target",
+]

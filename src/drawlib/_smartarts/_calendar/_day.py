@@ -26,7 +26,9 @@ from drawlib._smartarts._calendar._models import (
     WEEKDAYS_SUN_EN,
     WEEKDAYS_SUN_JA,
     CalendarItem,
-    derive_default_event_styles,
+    _draw_calendar_title_bar,
+    _draw_vertical_hour_grid,
+    _resolve_default_event_styles,
     draw_event_card,
     make_outer_frame_style,
     make_subtle_fill_style,
@@ -110,7 +112,7 @@ class DayCalendar:
         self._header_text_style: Style = header_text_style
         self._border_style: Style = border_style
 
-        ev_st, ev_txt_st = derive_default_event_styles(
+        ev_st, ev_txt_st = _resolve_default_event_styles(
             header_style,
             header_text_style,
             event_style,
@@ -119,9 +121,7 @@ class DayCalendar:
         self._event_style: Style = ev_st
         self._event_text_style: Style = ev_txt_st
         self._title_style: Style = title_style if title_style is not None else header_style
-        self._title_text_style: Style = (
-            title_text_style if title_text_style is not None else header_text_style
-        )
+        self._title_text_style: Style = title_text_style if title_text_style is not None else header_text_style
         self._items: list[CalendarItem] = []
 
     @property
@@ -210,11 +210,7 @@ class DayCalendar:
 
     def _resolve_all_day_height(self, h: float, num_all_day: int) -> tuple[float, float]:
         """Compute (all_day_h, track_h) preserving layout across item.show changes."""
-        has_all_day = (
-            self._show_all_day
-            if self._show_all_day is not None
-            else (num_all_day > 0)
-        )
+        has_all_day = self._show_all_day if self._show_all_day is not None else (num_all_day > 0)
         if not has_all_day:
             return 0.0, 0.0
         eff_lanes = max(1, num_all_day)
@@ -251,9 +247,7 @@ class DayCalendar:
         """
         target_d, target_hr = parse_iso_date_or_datetime(dt, param_name="dt")
         if target_d != self._date:
-            raise ValueError(
-                f"Date '{target_d}' in '{dt}' does not match DayCalendar date '{self._date}'."
-            )
+            raise ValueError(f"Date '{target_d}' in '{dt}' does not match DayCalendar date '{self._date}'.")
 
         w = float(width) * float(scale)
         h = float(height) * float(scale)
@@ -269,9 +263,7 @@ class DayCalendar:
             return (x0 + w / 2.0, cy)
 
         if not (self._start_hour <= target_hr <= self._end_hour):
-            raise ValueError(
-                f"Hour {target_hr} in '{dt}' is outside [{self._start_hour}, {self._end_hour}]."
-            )
+            raise ValueError(f"Hour {target_hr} in '{dt}' is outside [{self._start_hour}, {self._end_hour}].")
         ratio = (target_hr - self._start_hour) / (self._end_hour - self._start_hour)
         if self._direction == "vertical":
             gutter_w = min(9.0, w * 0.22)
@@ -347,19 +339,16 @@ class DayCalendar:
         """Draw top title bar and optional All-Day band; return (title_h, all_day_h)."""
         title_str = self._resolve_title_text()
         title_h = min(5.4, h * 0.11) if title_str else 0.0
-        if title_h > 0 and title_str:
-            t_cy = y0 + h - title_h / 2.0
-            canvas_rectangle(
-                xy=(x0 + w / 2.0, t_cy),
-                width=w,
-                height=title_h,
-                style=self._title_style.patch(shape_r=0, shape_line_width=0),
-            )
-            canvas_text(
-                xy=(x0 + w / 2.0, t_cy),
-                text=title_str,
-                style=self._title_text_style.patch(halign="center", valign="center"),
-            )
+        _draw_calendar_title_bar(
+            x0=x0,
+            y0=y0,
+            w=w,
+            h=h,
+            title_h=title_h,
+            title_str=title_str,
+            title_style=self._title_style,
+            title_text_style=self._title_text_style,
+        )
 
         all_day_h, track_h = self._resolve_all_day_height(h, len(all_day_items))
         if all_day_h > 0:
@@ -441,18 +430,18 @@ class DayCalendar:
         )
 
         total_hours = self._end_hour - self._start_hour
-        hour_h = grid_h / total_hours
-        for h_offset in range(total_hours + 1):
-            hy = grid_top - h_offset * hour_h
-            if 0 < h_offset < total_hours:
-                canvas_line(xy1=(x0 + gutter_w, hy), xy2=(x0 + w, hy), style=self._border_style)
-            hr_val = self._start_hour + h_offset
-            if h_offset < total_hours and (h_offset % self._hour_step == 0):
-                canvas_text(
-                    xy=(x0 + gutter_w / 2.0, hy - (hour_h * self._hour_step) / 2.0),
-                    text=f"{hr_val:02d}:00",
-                    style=self._text_style.patch(halign="center", valign="center"),
-                )
+        _draw_vertical_hour_grid(
+            x0=x0,
+            w=w,
+            gutter_w=gutter_w,
+            grid_top=grid_top,
+            grid_h=grid_h,
+            start_hour=self._start_hour,
+            end_hour=self._end_hour,
+            hour_step=self._hour_step,
+            border_style=self._border_style,
+            text_style=self._text_style,
+        )
 
         canvas_line(xy1=(x0 + gutter_w, y0), xy2=(x0 + gutter_w, y0 + h - title_h), style=self._border_style)
         canvas_line(xy1=(x0, grid_top), xy2=(x0 + w, grid_top), style=self._border_style)

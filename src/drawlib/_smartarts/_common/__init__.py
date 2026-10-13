@@ -9,6 +9,8 @@
 
 """Shared internal helpers for SmartArts components."""
 
+from __future__ import annotations
+
 from drawlib._smartarts._common._card_helpers import (
     draw_card_title_and_description,
     resolve_card_box_style,

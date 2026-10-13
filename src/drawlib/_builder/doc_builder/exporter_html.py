@@ -9,8 +9,10 @@
 
 """HTML and PDF document renderer using html_templates/html_css and pdf_templates/pdf_css."""
 
+from __future__ import annotations
+
 import os
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Literal
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -18,7 +20,7 @@ from drawlib._templates import get_css
 
 
 def get_default_css(
-    custom_css_path: Optional[str] = None,
+    custom_css_path: str | None = None,
     target: Literal["html", "pdf"] = "html",
     lang: str = "en",
 ) -> str:
@@ -38,7 +40,7 @@ def get_default_css(
     return get_css(name=custom_css_path, target=target, lang=lang)
 
 
-def get_pdf_css(custom_css_path: Optional[str] = None, lang: str = "en") -> str:
+def get_pdf_css(custom_css_path: str | None = None, lang: str = "en") -> str:
     """Get complete PDF CSS content string from pdf or custom CSS file path.
 
     Args:
@@ -54,16 +56,16 @@ def get_pdf_css(custom_css_path: Optional[str] = None, lang: str = "en") -> str:
 def render_html_document(
     body_html: str,
     title: str = "Drawlib Document",
-    custom_css_path: Optional[str] = None,
-    css_href: Optional[str] = None,
-    nav_items: Optional[List[Dict[str, Any]]] = None,
-    nav_sections: Optional[List[Dict[str, Any]]] = None,
-    template_path: Optional[str] = None,
+    custom_css_path: str | None = None,
+    css_href: str | None = None,
+    nav_items: list[dict[str, Any]] | None = None,
+    nav_sections: list[dict[str, Any]] | None = None,
+    template_path: str | None = None,
     index_url: str = "index.html",
-    site_title: Optional[str] = None,
-    favicon_href: Optional[str] = None,
-    logo_href: Optional[str] = None,
-    logo_dark_href: Optional[str] = None,
+    site_title: str | None = None,
+    favicon_href: str | None = None,
+    logo_href: str | None = None,
+    logo_dark_href: str | None = None,
 ) -> str:
     """Render full standalone HTML document using template and html_css.
 
@@ -118,8 +120,8 @@ def render_html_document(
 def render_pdf_document(
     body_html: str,
     title: str = "Drawlib Document",
-    custom_css_path: Optional[str] = None,
-    template_path: Optional[str] = None,
+    custom_css_path: str | None = None,
+    template_path: str | None = None,
 ) -> str:
     """Render merged HTML document for PDF compilation using template and pdf_css.
 

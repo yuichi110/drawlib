@@ -9,6 +9,8 @@
 
 """PNG icons internal package."""
 
+from __future__ import annotations
+
 from drawlib._icons.png_icons import gcp
 
 __all__ = [

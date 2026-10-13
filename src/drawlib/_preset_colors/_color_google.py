@@ -37,8 +37,8 @@ class GoogleColors(BaseColors):
     Gray5: Color = Color(183, 183, 183)  # #B7B7B7 (Google Dark Gray 1: Inactive separator)
     Gray6: Color = Color(153, 153, 153)  # #999999 (Google Dark Gray 2: Sub-text & subtle icons)
     Gray7: Color = Color(102, 102, 102)  # #666666 (Google Dark Gray 3: Subtitle & dark border)
-    Gray8: Color = Color(67, 67, 67)    # #434343 (Google Dark Gray 4: Body charcoal text)
-    Black: Color = Color(0, 0, 0)        # #000000
+    Gray8: Color = Color(67, 67, 67)  # #434343 (Google Dark Gray 4: Body charcoal text)
+    Black: Color = Color(0, 0, 0)  # #000000
 
     # =========================================================================
     # 2. Main Chromatic Tones (10 Hues x 6 Levels: 1 is lightest, 6 is darkest)
@@ -47,81 +47,81 @@ class GoogleColors(BaseColors):
     CornflowerBlue1: Color = Color(201, 218, 248)  # #C9DAF8 (Light 3: Lightest pastel)
     CornflowerBlue2: Color = Color(164, 194, 244)  # #A4C2F4 (Light 2)
     CornflowerBlue3: Color = Color(109, 158, 235)  # #6D9EEB (Light 1: Standard fill)
-    CornflowerBlue4: Color = Color(60, 120, 216)   # #3C78D8 (Dark 1: Accent fill & border)
-    CornflowerBlue5: Color = Color(17, 85, 204)    # #1155CC (Dark 2)
-    CornflowerBlue6: Color = Color(28, 69, 135)    # #1C4587 (Dark 3: Darkest shade)
+    CornflowerBlue4: Color = Color(60, 120, 216)  # #3C78D8 (Dark 1: Accent fill & border)
+    CornflowerBlue5: Color = Color(17, 85, 204)  # #1155CC (Dark 2)
+    CornflowerBlue6: Color = Color(28, 69, 135)  # #1C4587 (Dark 3: Darkest shade)
 
     # Blue (centered on GoogleBlue at Tone 4)
     Blue1: Color = Color(232, 240, 254)  # #E8F0FE
     Blue2: Color = Color(174, 203, 250)  # #AECBFA
     Blue3: Color = Color(102, 157, 246)  # #669DF6
-    Blue4: Color = Color(66, 133, 244)   # #4285F4 (GoogleBlue)
-    Blue5: Color = Color(26, 115, 232)   # #1A73E8
-    Blue6: Color = Color(23, 78, 166)    # #174EA6
+    Blue4: Color = Color(66, 133, 244)  # #4285F4 (GoogleBlue)
+    Blue5: Color = Color(26, 115, 232)  # #1A73E8
+    Blue6: Color = Color(23, 78, 166)  # #174EA6
 
     # Red (centered on GoogleRed at Tone 4)
     Red1: Color = Color(252, 232, 230)  # #FCE8E6
     Red2: Color = Color(246, 174, 169)  # #F6AEA9
-    Red3: Color = Color(238, 103, 92)   # #EE675C
-    Red4: Color = Color(234, 67, 53)    # #EA4335 (GoogleRed)
-    Red5: Color = Color(197, 34, 31)    # #C5221F
-    Red6: Color = Color(140, 29, 24)    # #8C1D18
+    Red3: Color = Color(238, 103, 92)  # #EE675C
+    Red4: Color = Color(234, 67, 53)  # #EA4335 (GoogleRed)
+    Red5: Color = Color(197, 34, 31)  # #C5221F
+    Red6: Color = Color(140, 29, 24)  # #8C1D18
 
     # Red Berry (Wine / Burgundy)
     RedBerry1: Color = Color(230, 184, 175)  # #E6B8AF
     RedBerry2: Color = Color(221, 126, 107)  # #DD7E6B
-    RedBerry3: Color = Color(204, 65, 37)    # #CD4025
-    RedBerry4: Color = Color(166, 28, 0)     # #A61D01
-    RedBerry5: Color = Color(133, 32, 12)    # #85210D
-    RedBerry6: Color = Color(91, 15, 0)      # #5B0F00
+    RedBerry3: Color = Color(204, 65, 37)  # #CD4025
+    RedBerry4: Color = Color(166, 28, 0)  # #A61D01
+    RedBerry5: Color = Color(133, 32, 12)  # #85210D
+    RedBerry6: Color = Color(91, 15, 0)  # #5B0F00
 
     # Green (centered on GoogleGreen at Tone 4)
     Green1: Color = Color(230, 244, 234)  # #E6F4EA
     Green2: Color = Color(206, 234, 214)  # #CEEAD6
-    Green3: Color = Color(91, 185, 116)   # #5BB974
-    Green4: Color = Color(52, 168, 83)    # #34A853 (GoogleGreen)
-    Green5: Color = Color(24, 128, 56)    # #188038
-    Green6: Color = Color(13, 101, 45)    # #0D652D
+    Green3: Color = Color(91, 185, 116)  # #5BB974
+    Green4: Color = Color(52, 168, 83)  # #34A853 (GoogleGreen)
+    Green5: Color = Color(24, 128, 56)  # #188038
+    Green6: Color = Color(13, 101, 45)  # #0D652D
 
     # Yellow
     Yellow1: Color = Color(255, 242, 204)  # #FFF2CC
     Yellow2: Color = Color(255, 229, 153)  # #FFE599
     Yellow3: Color = Color(255, 217, 102)  # #FFD966
-    Yellow4: Color = Color(241, 194, 50)   # #F1C232
-    Yellow5: Color = Color(191, 144, 0)    # #BF9000
-    Yellow6: Color = Color(127, 96, 0)     # #7F6000
+    Yellow4: Color = Color(241, 194, 50)  # #F1C232
+    Yellow5: Color = Color(191, 144, 0)  # #BF9000
+    Yellow6: Color = Color(127, 96, 0)  # #7F6000
 
     # Orange (centered on GoogleOrange at Tone 4)
     Orange1: Color = Color(254, 237, 222)  # #FEEDE0
     Orange2: Color = Color(255, 204, 153)  # #FFCC99
-    Orange3: Color = Color(251, 164, 75)   # #FBA44B
-    Orange4: Color = Color(245, 124, 0)    # #F57C00 (GoogleOrange)
-    Orange5: Color = Color(224, 86, 0)     # #E05600
-    Orange6: Color = Color(163, 62, 0)     # #A33E00
+    Orange3: Color = Color(251, 164, 75)  # #FBA44B
+    Orange4: Color = Color(245, 124, 0)  # #F57C00 (GoogleOrange)
+    Orange5: Color = Color(224, 86, 0)  # #E05600
+    Orange6: Color = Color(163, 62, 0)  # #A33E00
 
     # Cyan
     Cyan1: Color = Color(208, 224, 227)  # #D0E0E3
     Cyan2: Color = Color(162, 196, 201)  # #A2C4C9
     Cyan3: Color = Color(118, 165, 175)  # #76A5AF
-    Cyan4: Color = Color(69, 129, 142)   # #45818E
-    Cyan5: Color = Color(19, 79, 92)     # #134F5C
-    Cyan6: Color = Color(12, 52, 61)     # #0C343D
+    Cyan4: Color = Color(69, 129, 142)  # #45818E
+    Cyan5: Color = Color(19, 79, 92)  # #134F5C
+    Cyan6: Color = Color(12, 52, 61)  # #0C343D
 
     # Purple
     Purple1: Color = Color(217, 210, 233)  # #D9D2E9
     Purple2: Color = Color(180, 167, 214)  # #B4A7D6
     Purple3: Color = Color(142, 124, 195)  # #8E7CC3
-    Purple4: Color = Color(103, 78, 167)   # #674EA7
-    Purple5: Color = Color(53, 28, 117)    # #351C75
-    Purple6: Color = Color(32, 18, 77)     # #20124D
+    Purple4: Color = Color(103, 78, 167)  # #674EA7
+    Purple5: Color = Color(53, 28, 117)  # #351C75
+    Purple6: Color = Color(32, 18, 77)  # #20124D
 
     # Magenta
     Magenta1: Color = Color(234, 209, 220)  # #EAD1DC
     Magenta2: Color = Color(213, 166, 189)  # #D5A6BD
     Magenta3: Color = Color(194, 123, 160)  # #C27BA0
-    Magenta4: Color = Color(166, 77, 121)   # #A64D79
-    Magenta5: Color = Color(116, 27, 71)    # #741B47
-    Magenta6: Color = Color(76, 17, 48)     # #4C1130
+    Magenta4: Color = Color(166, 77, 121)  # #A64D79
+    Magenta5: Color = Color(116, 27, 71)  # #741B47
+    Magenta6: Color = Color(76, 17, 48)  # #4C1130
 
     # =========================================================================
     # 3. Base Primaries (Unnumbered pure hues from Row 1 + Defaults)
@@ -152,13 +152,13 @@ class GoogleColors(BaseColors):
     # =========================================================================
     # 4. Google Brand Colors (Standalone brand constants, single colors only)
     # =========================================================================
-    GoogleBlue: Color = Blue4           # #4285F4 (Theme Primary)
-    GoogleRed: Color = Red4             # #EA4335 (Theme Danger)
+    GoogleBlue: Color = Blue4  # #4285F4 (Theme Primary)
+    GoogleRed: Color = Red4  # #EA4335 (Theme Danger)
     GoogleYellow: Color = Color(251, 188, 4)  # #FBBC04 (Standalone brand color)
-    GoogleGreen: Color = Green4         # #34A853 (Theme Success)
-    GoogleOrange: Color = Orange4       # #F57C00 (Theme Accent)
-    GooglePurple: Color = Purple4       # #674EA7 (Theme Secondary)
-    GoogleGray: Color = Gray4           # #CCCCCC (Theme Muted border & fill)
+    GoogleGreen: Color = Green4  # #34A853 (Theme Success)
+    GoogleOrange: Color = Orange4  # #F57C00 (Theme Accent)
+    GooglePurple: Color = Purple4  # #674EA7 (Theme Secondary)
+    GoogleGray: Color = Gray4  # #CCCCCC (Theme Muted border & fill)
 
     # =========================================================================
     # 5. Semantic Numbered Palette (6 Roles x 6 Levels)
@@ -215,17 +215,17 @@ class GoogleColors(BaseColors):
     # =========================================================================
     # 6. Semantic Roles (Tone 4 Centered as Default)
     # =========================================================================
-    Primary: Color = Primary4          # GoogleBlue (#4285F4)
-    Secondary: Color = Secondary4      # GooglePurple (#674EA7)
-    Accent: Color = Accent4            # GoogleOrange (#F57C00)
-    Warning: Color = Warning4          # GoogleYellow (#FBBC04)
-    Muted: Color = Muted4              # GoogleGray (#CCCCCC)
-    Light: Color = Gray1               # #F3F3F3
-    Dark: Color = Gray8                # #434343
-    Danger: Color = Danger4            # GoogleRed (#EA4335)
-    Success: Color = Success4          # GoogleGreen (#34A853)
-    Neutral: Color = Gray2             # #EFEFEF
-    Canvas: Color = White              # #FFFFFF
+    Primary: Color = Primary4  # GoogleBlue (#4285F4)
+    Secondary: Color = Secondary4  # GooglePurple (#674EA7)
+    Accent: Color = Accent4  # GoogleOrange (#F57C00)
+    Warning: Color = Warning4  # GoogleYellow (#FBBC04)
+    Muted: Color = Muted4  # GoogleGray (#CCCCCC)
+    Light: Color = Gray1  # #F3F3F3
+    Dark: Color = Gray8  # #434343
+    Danger: Color = Danger4  # GoogleRed (#EA4335)
+    Success: Color = Success4  # GoogleGreen (#34A853)
+    Neutral: Color = Gray2  # #EFEFEF
+    Canvas: Color = White  # #FFFFFF
 
     # =========================================================================
     # 7. Semantic & Tinted Neutral Colors (Fill tones)

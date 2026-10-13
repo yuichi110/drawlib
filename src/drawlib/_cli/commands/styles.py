@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 from rich.console import Console
@@ -107,11 +107,11 @@ def cmd_styles_show(
         typer.Option("--all", "-a", help="Export all pages at once (e.g. styles_google_1.png, ...)."),
     ] = False,
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Save chart to image file instead of opening GUI."),
     ] = None,
     color: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-c", "--color", help="Filter by base color or hue name (e.g. 'blue', 'red')."),
     ] = None,
     grid: Annotated[
@@ -159,7 +159,5 @@ def cmd_styles_show(
         )
         raise typer.Exit(code=1)
 
-    dimage = render_styles_matrix(
-        instance, short_name, page=page, filter_color=color, grid=grid, no_cache=no_cache
-    )
+    dimage = render_styles_matrix(instance, short_name, page=page, filter_color=color, grid=grid, no_cache=no_cache)
     handle_single_page_output(dimage, output, key, short_name, page, total_pages)

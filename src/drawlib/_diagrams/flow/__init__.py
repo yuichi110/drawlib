@@ -9,6 +9,8 @@
 
 """Flow diagram module (internal implementation)."""
 
+from __future__ import annotations
+
 from drawlib._diagrams.flow._diagram import FlowDiagram
 from drawlib._diagrams.flow._edge import FlowEdge
 from drawlib._diagrams.flow._junction import Junction

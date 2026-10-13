@@ -12,7 +12,8 @@
 
 from __future__ import annotations
 
-from typing import Callable, Literal, Self
+from collections.abc import Callable
+from typing import Any, Literal, Self
 
 from pydantic import BaseModel, validate_call
 
@@ -26,9 +27,9 @@ class _TreeNodeDrawingItem(BaseModel):
 
     location: Literal["before", "after"]
     padding_width: PosFloat
-    function: Callable
+    function: Callable[..., Any]
     style: Style
-    args: dict
+    args: dict[str, Any]
 
 
 class TreeNode:
@@ -152,9 +153,9 @@ class TreeNode:
         name: str,
         location: Literal["before", "after"],
         padding_width: float,
-        function: Callable,
+        function: Callable[..., Any],
         style: Style,
-        args: dict,
+        args: dict[str, Any],
     ) -> None:
         """Register a drawing item for the tree node.
 
@@ -163,11 +164,8 @@ class TreeNode:
             location (Literal["before", "after"]): The location of the drawing item relative to the text.
             padding_width (float): The padding width for the drawing item.
             function (Callable): The function to render the drawing item.
-            style (Union[Style]): The style for the drawing item.
+            style (Style): The style for the drawing item.
             args (dict): The arguments for the function.
-
-        Returns:
-            TreeNode: The current tree node instance.
         """
         style = style.patch(halign="left", valign="center")
 
@@ -205,12 +203,15 @@ class TreeNode:
         self,
         xy: Coordinate,
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw the tree node and its children.
 
         Args:
             xy: The coordinates to start drawing.
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This TreeNode instance for method chaining.
 
         Raises:
             ValueError: If any required style or margin is missing on the root node.
@@ -235,6 +236,7 @@ class TreeNode:
                 effective_line_horizontal_length=self._line_horizontal_length,
                 effective_line_vertical_margin=self._line_vertical_margin,
             )
+        return self
 
     def _draw(  # noqa: C901, PLR0912, PLR0913
         self,

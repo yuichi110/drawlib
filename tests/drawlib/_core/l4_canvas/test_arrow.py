@@ -9,10 +9,11 @@
 
 """Unit and integration tests for CanvasShapeArrowFeature shapes."""
 
+from __future__ import annotations
+
 import pytest
 
 from drawlib.canvas import clear, save
-from drawlib.fonts import Font
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, ellipse
 from drawlib.styles import Colors, Styles
 from drawlib.text import text

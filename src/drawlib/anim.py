@@ -9,6 +9,8 @@
 
 """Public facade for Drawlib animations (APNG and Animated WebP)."""
 
+from __future__ import annotations
+
 from drawlib._anim._animation import Animation
 
 __all__ = ["Animation"]

@@ -9,6 +9,8 @@
 
 """Package for core color base and utilities."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_colors._color import (
     Color,
     ColorType,

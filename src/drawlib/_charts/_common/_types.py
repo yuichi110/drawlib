@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import Literal, Union
+from typing import Literal
 
 from drawlib._core.l3_colors import Color, ColorType
 
@@ -29,7 +29,7 @@ LegendPosition = Literal["top", "bottom", "right", "none", "auto"]
 ScaleType = Literal["linear", "log"]
 
 # Value label and tick formatter
-FormatterType = Union[str, Callable[[float], str], None]
+FormatterType = str | Callable[[float], str] | None
 
 # Data point marker shape
 PointShape = Literal["circle", "square", "rhombus", "triangle", "none"]
@@ -45,3 +45,18 @@ GridShape = Literal["polygon", "circle"]
 
 # Spatial partial rendering direction for chart elements
 DrawDirection = Literal["bottom_to_top", "left_to_right"]
+
+__all__ = [
+    "AreaMode",
+    "BarMode",
+    "Color",
+    "ColorType",
+    "DrawDirection",
+    "FormatterType",
+    "GridShape",
+    "LegendPosition",
+    "LineStyle",
+    "Orientation",
+    "PointShape",
+    "ScaleType",
+]

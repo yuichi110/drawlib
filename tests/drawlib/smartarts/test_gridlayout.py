@@ -38,7 +38,7 @@ class TestGridLayout:
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")
-        gl.draw((10, 10), 30, 30, 1)
+        assert gl.draw((10, 10), 30, 30, 1) is gl
         save(f"{OUTPUT_DIR}test_gridlayout_default.png")
 
     def test_gridlayout_text_angle(self) -> None:

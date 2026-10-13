@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, Union
+from typing import TYPE_CHECKING, Literal
 
 from pydantic import validate_call
 
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.er._entity import Entity
     from drawlib._diagrams.er._relationship import Relationship
 
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 
 class ERDiagram:

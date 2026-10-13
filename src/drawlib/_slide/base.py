@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import contextvars
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -62,12 +61,10 @@ class SlideContext:
         return template.format(index=self.index, total=self.total)
 
 
-_slide_context_var: contextvars.ContextVar[Optional[SlideContext]] = contextvars.ContextVar(
-    "slide_context", default=None
-)
+_slide_context_var: contextvars.ContextVar[SlideContext | None] = contextvars.ContextVar("slide_context", default=None)
 
 
-def get_slide_context() -> Optional[SlideContext]:
+def get_slide_context() -> SlideContext | None:
     """Return the active SlideContext if set, else None."""
     return _slide_context_var.get()
 
@@ -77,7 +74,7 @@ def has_slide_context() -> bool:
     return _slide_context_var.get() is not None
 
 
-def set_slide_context(index: int, total: int) -> contextvars.Token[Optional[SlideContext]]:
+def set_slide_context(index: int, total: int) -> contextvars.Token[SlideContext | None]:
     """Set the active slide context.
 
     Args:
@@ -90,7 +87,7 @@ def set_slide_context(index: int, total: int) -> contextvars.Token[Optional[Slid
     return _slide_context_var.set(SlideContext(index=index, total=total))
 
 
-def reset_slide_context(token: contextvars.Token[Optional[SlideContext]]) -> None:
+def reset_slide_context(token: contextvars.Token[SlideContext | None]) -> None:
     """Reset the slide context using token.
 
     Args:

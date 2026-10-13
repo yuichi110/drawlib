@@ -55,11 +55,7 @@ def _infer_supports(data: dict[str, Any]) -> frozenset[SupportType]:
         supports.add("shape")
     if data.get("line_color") is not None and data.get("line_width") is not None:
         supports.add("line")
-    if (
-        data.get("text_color") is not None
-        and data.get("text_size") is not None
-        and data.get("text_font") is not None
-    ):
+    if data.get("text_color") is not None and data.get("text_size") is not None and data.get("text_font") is not None:
         supports.add("text")
     if data.get("icon_color") is not None:
         supports.add("icon")
@@ -103,42 +99,24 @@ class Style(BaseModel):
         """
         if "shape" in self.supports:
             missing = [
-                k
-                for k in ("shape_fill_color", "shape_line_color", "shape_line_width")
-                if getattr(self, k) is None
+                k for k in ("shape_fill_color", "shape_line_color", "shape_line_width") if getattr(self, k) is None
             ]
             if missing:
-                raise ValueError(
-                    f"Style declares 'shape' support, but required attributes {missing} are None."
-                )
+                raise ValueError(f"Style declares 'shape' support, but required attributes {missing} are None.")
 
         if "line" in self.supports:
-            missing = [
-                k
-                for k in ("line_color", "line_width")
-                if getattr(self, k) is None
-            ]
+            missing = [k for k in ("line_color", "line_width") if getattr(self, k) is None]
             if missing:
-                raise ValueError(
-                    f"Style declares 'line' support, but required attributes {missing} are None."
-                )
+                raise ValueError(f"Style declares 'line' support, but required attributes {missing} are None.")
 
         if "text" in self.supports:
-            missing = [
-                k
-                for k in ("text_color", "text_size", "text_font")
-                if getattr(self, k) is None
-            ]
+            missing = [k for k in ("text_color", "text_size", "text_font") if getattr(self, k) is None]
             if missing:
-                raise ValueError(
-                    f"Style declares 'text' support, but required attributes {missing} are None."
-                )
+                raise ValueError(f"Style declares 'text' support, but required attributes {missing} are None.")
 
         if "icon" in self.supports:
             if self.icon_color is None:
-                raise ValueError(
-                    "Style declares 'icon' support, but required attribute 'icon_color' is None."
-                )
+                raise ValueError("Style declares 'icon' support, but required attribute 'icon_color' is None.")
 
     # --- Shape Properties (rectangle, circle, polygon, etc.) ---
     shape_fill_color: ColorType | None = None
@@ -269,13 +247,7 @@ class Style(BaseModel):
         updates: dict[str, Any] = {}
         if other is not None:
             updates.update({k: v for k, v in other.model_dump().items() if v is not None})
-        updates.update(
-            {
-                k: v
-                for k, v in locals().items()
-                if k not in {"self", "other", "updates"} and v is not None
-            }
-        )
+        updates.update({k: v for k, v in locals().items() if k not in {"self", "other", "updates"} and v is not None})
         merged = {**self.__dict__, **updates}
         if supports is not None:
             merged["supports"] = frozenset(supports)

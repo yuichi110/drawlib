@@ -50,9 +50,7 @@ def _compute_slice_wedge_params(
     if s.draw_direction == "left_to_right":
         eff_span = span * dr
         theta1, theta2 = (
-            (slice_start - eff_span, slice_start)
-            if chart.clockwise
-            else (slice_start, slice_start + eff_span)
+            (slice_start - eff_span, slice_start) if chart.clockwise else (slice_start, slice_start + eff_span)
         )
         eff_radius = chart.radius
         eff_ring_width = ring_width

@@ -131,7 +131,7 @@ class TestCycleRendering:
             c.add("Check", style=styles.PrimarySolid, description="Verify outcomes")
             c.add("Act", style=styles.PrimarySolid, description="Standardize & scale")
 
-            c.draw(xy=(50.0, 50.0), radius=32.0)
+            assert c.draw(xy=(50.0, 50.0), radius=32.0) is c
 
             canvas.save(str(out_file))
             assert out_file.exists()

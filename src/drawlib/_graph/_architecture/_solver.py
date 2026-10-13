@@ -157,8 +157,7 @@ def _layout_leaf_nodes(
     center_x = (min_x + max_x) / 2.0
     center_y = (min_y + max_y) / 2.0
     centered_coords = {
-        nid: (round(pt[0] - center_x, 2), round(pt[1] - center_y, 2))
-        for nid, pt in local_coords.items()
+        nid: (round(pt[0] - center_x, 2), round(pt[1] - center_y, 2)) for nid, pt in local_coords.items()
     }
 
     content_w = (max_x - min_x) + max_w
@@ -219,9 +218,7 @@ def _compute_container_boxes(
                 s_pad = clusters[sub_id].padding if sub_id in clusters else 4.0
                 s_extra = 3.5 if (sub_id in clusters and clusters[sub_id].label) else 0.0
 
-                s_coords, s_cw, s_ch = _layout_leaf_nodes(
-                    s_members, nodes, edges, c_dir, default_nw, default_nh
-                )
+                s_coords, s_cw, s_ch = _layout_leaf_nodes(s_members, nodes, edges, c_dir, default_nw, default_nh)
                 s_lbl = clusters[sub_id].label if sub_id in clusters else None
                 s_lbl_w = len(s_lbl) * 1.3 if s_lbl else 0.0
                 eff_scw = max(s_cw, s_lbl_w)
@@ -436,34 +433,74 @@ def _position_compass_containers(
 
     # Center zone
     _place_zone_members(
-        "center", zone_roots["center"], core_cx, core_cy, w_center, h_center,
-        root_dims, direction, gap, root_centers,
+        "center",
+        zone_roots["center"],
+        core_cx,
+        core_cy,
+        w_center,
+        h_center,
+        root_dims,
+        direction,
+        gap,
+        root_centers,
     )
 
     # Left and right zones
     left_cx = core_cx - core_w / 2.0 - sep - w_left / 2.0
     _place_zone_members(
-        "left", zone_roots["left"], left_cx, core_cy, w_left, h_left,
-        root_dims, direction, gap, root_centers,
+        "left",
+        zone_roots["left"],
+        left_cx,
+        core_cy,
+        w_left,
+        h_left,
+        root_dims,
+        direction,
+        gap,
+        root_centers,
     )
 
     right_cx = core_cx + core_w / 2.0 + sep + w_right / 2.0
     _place_zone_members(
-        "right", zone_roots["right"], right_cx, core_cy, w_right, h_right,
-        root_dims, direction, gap, root_centers,
+        "right",
+        zone_roots["right"],
+        right_cx,
+        core_cy,
+        w_right,
+        h_right,
+        root_dims,
+        direction,
+        gap,
+        root_centers,
     )
 
     # Top and bottom zones
     top_cy = core_cy + core_h / 2.0 + sep + h_top / 2.0
     _place_zone_members(
-        "top", zone_roots["top"], core_cx, top_cy, w_top, h_top,
-        root_dims, direction, gap, root_centers,
+        "top",
+        zone_roots["top"],
+        core_cx,
+        top_cy,
+        w_top,
+        h_top,
+        root_dims,
+        direction,
+        gap,
+        root_centers,
     )
 
     bottom_cy = core_cy - core_h / 2.0 - sep - h_bottom / 2.0
     _place_zone_members(
-        "bottom", zone_roots["bottom"], core_cx, bottom_cy, w_bottom, h_bottom,
-        root_dims, direction, gap, root_centers,
+        "bottom",
+        zone_roots["bottom"],
+        core_cx,
+        bottom_cy,
+        w_bottom,
+        h_bottom,
+        root_dims,
+        direction,
+        gap,
+        root_centers,
     )
 
     return root_centers
@@ -645,9 +682,7 @@ def solve_architecture_layout(
             ordered_roots, root_dims, clusters, direction, width, height, container_sep
         )
     else:
-        root_centers = _position_root_containers(
-            ordered_roots, root_dims, direction, width, height, container_sep
-        )
+        root_centers = _position_root_containers(ordered_roots, root_dims, direction, width, height, container_sep)
 
     node_coords: dict[str, tuple[float, float]] = {}
     cluster_boxes: dict[str, tuple[float, float, float, float]] = {}

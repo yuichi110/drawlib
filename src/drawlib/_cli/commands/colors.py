@@ -14,7 +14,7 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 from rich.console import Console
@@ -92,7 +92,7 @@ def cmd_colors_show(
         typer.Argument(help="Preset name: 'default', 'google', 'monochrome', or 'css'."),
     ],
     output: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("-o", "--output", help="Save chart to image file instead of opening GUI."),
     ] = None,
     sort: Annotated[
@@ -132,9 +132,9 @@ def cmd_colors_show(
             tmp_path = tmp.name
         dimage.save(tmp_path)
 
-        has_display = (
-            bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}
-        ) and os.environ.get("DRAWLIB_SHOW_NO_DISPLAY") != "1"
+        has_display = (bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}) and os.environ.get(
+            "DRAWLIB_SHOW_NO_DISPLAY"
+        ) != "1"
         if has_display:
             try:
                 display_dimage(dimage)

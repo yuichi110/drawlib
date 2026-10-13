@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Final, Optional
+from typing import Final
 
 from drawlib._templates.langs._models import LanguageConfig
 from drawlib._templates.langs._registry import LANGUAGE_ALIASES, LANGUAGES
@@ -35,7 +35,7 @@ THEME_PRESET_MAP: Final[dict[str, tuple[str, str]]] = {
 }
 
 
-def resolve_style_preset(style_theme: Optional[str]) -> tuple[str, str]:
+def resolve_style_preset(style_theme: str | None) -> tuple[str, str]:
     """Resolve style theme name to (styles_class_name, colors_class_name).
 
     Args:

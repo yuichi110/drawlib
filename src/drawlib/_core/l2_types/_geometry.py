@@ -9,6 +9,7 @@
 
 """Geometry type definitions for drawlib."""
 
+from __future__ import annotations
 
 # Modern type definitions
 Coordinate = tuple[float, float]

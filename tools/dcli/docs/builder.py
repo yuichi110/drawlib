@@ -13,9 +13,8 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+from collections.abc import Sequence
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Sequence
 
 from tools.dcli.common import PROJECT_ROOT, console, err_console
 
@@ -94,6 +93,17 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         ),
     ),
     BuildTarget(
+        name="slide-ddos",
+        src_dir="docs/slide_ddos_incident_response_src",
+        script_rel_path="docs/slide_ddos_incident_response_src/build.sh",
+        description="16:9 Presentation Slide Deck (DDoS Incident Response)",
+        clean_paths=(
+            "docs/slide_ddos_incident_response_html",
+            "docs/slide_ddos_incident_response.pdf",
+            "docs/slide_ddos_incident_response_images",
+        ),
+    ),
+    BuildTarget(
         name="architecture",
         src_dir="docs/architecture_src",
         script_rel_path="docs/architecture_src/build.sh",
@@ -104,16 +114,24 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
             "docs/architecture_images",
         ),
     ),
+    BuildTarget(
+        name="logo",
+        src_dir="docs/logo_src",
+        script_rel_path="docs/logo_src/build.sh",
+        description="Drawlib Brand Logo & Favicon Assets",
+        clean_paths=("docs/logo_images",),
+    ),
 )
 
-TARGET_MAP: dict[str, BuildTarget] = {
-    target.name: target for target in ALL_TARGETS
-}
+TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARGETS}
 # Convenience aliases
 TARGET_MAP["docs"] = TARGET_MAP["site"]
 TARGET_MAP["doc"] = TARGET_MAP["site"]
 TARGET_MAP["slide_about_drawlib"] = TARGET_MAP["slide"]
 TARGET_MAP["slide-about-drawlib"] = TARGET_MAP["slide"]
+TARGET_MAP["slide_ddos_incident_response"] = TARGET_MAP["slide-ddos"]
+TARGET_MAP["slide-ddos-incident-response"] = TARGET_MAP["slide-ddos"]
+TARGET_MAP["ddos"] = TARGET_MAP["slide-ddos"]
 
 
 def clean_target_artifacts(targets: Sequence[BuildTarget]) -> None:
@@ -143,7 +161,7 @@ def run_target_build(target: BuildTarget) -> None:
         return
 
     console.print(f"[bold cyan]=== Building {target.description} ({target.script_rel_path}) ===[/bold cyan]")
-    result = subprocess.run(["bash", str(script_path)], cwd=str(PROJECT_ROOT))
+    result = subprocess.run(["bash", str(script_path)], cwd=str(PROJECT_ROOT), check=False)
     if result.returncode != 0:
         err_console.print(f"[bold red]Build failed for {target.name} with return code {result.returncode}[/bold red]")
         raise RuntimeError(f"Build failed for {target.name}")

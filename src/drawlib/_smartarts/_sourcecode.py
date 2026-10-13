@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import contextlib
 import os
-from typing import Any, Literal
+from typing import Any, Literal, Self
 
 import pygments
 from pydantic import BaseModel, ConfigDict, validate_call
@@ -176,300 +176,134 @@ class SourceCodeStyles(BaseModel):
             return cls._get_google(resolved_font, text_size)
         return cls._get_default(resolved_font, text_size)
 
-    @classmethod
-    def _get_default(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
-        return cls(
-            box_style=Style(
-                shape_fill_color=(248, 250, 252),
-                shape_line_color=(203, 213, 225),
+    @staticmethod
+    def _build_theme_styles(  # noqa: PLR0913
+        font: FontBase | FontFile,
+        text_size: float,
+        *,
+        box_fill: tuple[int, int, int],
+        box_line: tuple[int, int, int],
+        linenum: tuple[int, int, int],
+        default: tuple[int, int, int],
+        keyword: tuple[int, int, int],
+        string: tuple[int, int, int],
+        comment: tuple[int, int, int],
+        number: tuple[int, int, int],
+        function: tuple[int, int, int],
+        type_: tuple[int, int, int],
+        operator: tuple[int, int, int],
+    ) -> dict[str, Style]:
+        def tok(col: tuple[int, int, int]) -> Style:
+            return Style(
+                text_color=col,
+                text_font=font,
+                text_size=text_size,
+                halign="left",
+                valign="center",
+            )
+
+        return {
+            "box_style": Style(
+                shape_fill_color=box_fill,
+                shape_line_color=box_line,
                 shape_line_width=1.0,
                 shape_r=1.5,
             ),
-            linenum_style=Style(
-                text_color=(148, 163, 184),
+            "linenum_style": Style(
+                text_color=linenum,
                 text_font=font,
                 text_size=text_size,
                 halign="right",
                 valign="center",
             ),
-            default=Style(
-                text_color=(15, 23, 42),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            keyword=Style(
-                text_color=(37, 99, 235),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            string=Style(
-                text_color=(22, 163, 74),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            comment=Style(
-                text_color=(100, 116, 139),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            number=Style(
-                text_color=(217, 119, 6),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            function=Style(
-                text_color=(220, 38, 38),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            type_=Style(
-                text_color=(147, 51, 234),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            operator=Style(
-                text_color=(71, 85, 105),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
+            "default": tok(default),
+            "keyword": tok(keyword),
+            "string": tok(string),
+            "comment": tok(comment),
+            "number": tok(number),
+            "function": tok(function),
+            "type_": tok(type_),
+            "operator": tok(operator),
+        }
+
+    @classmethod
+    def _get_default(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
+        return cls(
+            **cls._build_theme_styles(
+                font,
+                text_size,
+                box_fill=(248, 250, 252),
+                box_line=(203, 213, 225),
+                linenum=(148, 163, 184),
+                default=(15, 23, 42),
+                keyword=(37, 99, 235),
+                string=(22, 163, 74),
+                comment=(100, 116, 139),
+                number=(217, 119, 6),
+                function=(220, 38, 38),
+                type_=(147, 51, 234),
+                operator=(71, 85, 105),
+            )
         )
 
     @classmethod
     def _get_monochrome(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
-            box_style=Style(
-                shape_fill_color=(255, 255, 255),
-                shape_line_color=(0, 0, 0),
-                shape_line_width=1.0,
-                shape_r=1.5,
-            ),
-            linenum_style=Style(
-                text_color=(150, 150, 150),
-                text_font=font,
-                text_size=text_size,
-                halign="right",
-                valign="center",
-            ),
-            default=Style(
-                text_color=(0, 0, 0),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            keyword=Style(
-                text_color=(0, 0, 0),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            string=Style(
-                text_color=(80, 80, 80),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            comment=Style(
-                text_color=(130, 130, 130),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            number=Style(
-                text_color=(60, 60, 60),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            function=Style(
-                text_color=(0, 0, 0),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            type_=Style(
-                text_color=(40, 40, 40),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            operator=Style(
-                text_color=(100, 100, 100),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
+            **cls._build_theme_styles(
+                font,
+                text_size,
+                box_fill=(255, 255, 255),
+                box_line=(0, 0, 0),
+                linenum=(150, 150, 150),
+                default=(0, 0, 0),
+                keyword=(0, 0, 0),
+                string=(80, 80, 80),
+                comment=(130, 130, 130),
+                number=(60, 60, 60),
+                function=(0, 0, 0),
+                type_=(40, 40, 40),
+                operator=(100, 100, 100),
+            )
         )
 
     @classmethod
     def _get_dark(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
-            box_style=Style(
-                shape_fill_color=(39, 40, 34),
-                shape_line_color=(60, 60, 60),
-                shape_line_width=1.0,
-                shape_r=1.5,
-            ),
-            linenum_style=Style(
-                text_color=(120, 120, 120),
-                text_font=font,
-                text_size=text_size,
-                halign="right",
-                valign="center",
-            ),
-            default=Style(
-                text_color=(248, 248, 242),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            keyword=Style(
-                text_color=(249, 38, 114),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            string=Style(
-                text_color=(230, 219, 116),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            comment=Style(
-                text_color=(117, 113, 94),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            number=Style(
-                text_color=(174, 129, 255),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            function=Style(
-                text_color=(166, 226, 46),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            type_=Style(
-                text_color=(102, 217, 239),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            operator=Style(
-                text_color=(249, 38, 114),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
+            **cls._build_theme_styles(
+                font,
+                text_size,
+                box_fill=(39, 40, 34),
+                box_line=(60, 60, 60),
+                linenum=(120, 120, 120),
+                default=(248, 248, 242),
+                keyword=(249, 38, 114),
+                string=(230, 219, 116),
+                comment=(117, 113, 94),
+                number=(174, 129, 255),
+                function=(166, 226, 46),
+                type_=(102, 217, 239),
+                operator=(249, 38, 114),
+            )
         )
 
     @classmethod
     def _get_google(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
-            box_style=Style(
-                shape_fill_color=(255, 255, 255),
-                shape_line_color=(218, 220, 224),
-                shape_line_width=1.0,
-                shape_r=1.5,
-            ),
-            linenum_style=Style(
-                text_color=(128, 134, 139),
-                text_font=font,
-                text_size=text_size,
-                halign="right",
-                valign="center",
-            ),
-            default=Style(
-                text_color=(32, 33, 36),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            keyword=Style(
-                text_color=(26, 115, 232),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            string=Style(
-                text_color=(30, 142, 62),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            comment=Style(
-                text_color=(128, 134, 139),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            number=Style(
-                text_color=(249, 171, 0),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            function=Style(
-                text_color=(217, 48, 37),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            type_=Style(
-                text_color=(175, 56, 196),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
-            operator=Style(
-                text_color=(95, 99, 104),
-                text_font=font,
-                text_size=text_size,
-                halign="left",
-                valign="center",
-            ),
+            **cls._build_theme_styles(
+                font,
+                text_size,
+                box_fill=(255, 255, 255),
+                box_line=(218, 220, 224),
+                linenum=(128, 134, 139),
+                default=(32, 33, 36),
+                keyword=(26, 115, 232),
+                string=(30, 142, 62),
+                comment=(128, 134, 139),
+                number=(249, 171, 0),
+                function=(217, 48, 37),
+                type_=(175, 56, 196),
+                operator=(95, 99, 104),
+            )
         )
 
 
@@ -483,8 +317,7 @@ class SourceCode:
     def __init__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
         """Raise TypeError to enforce classmethod usage."""
         raise TypeError(
-            "SourceCode cannot be instantiated directly. "
-            "Use 'SourceCode.draw(xy, width, styles=..., ...)' instead."
+            "SourceCode cannot be instantiated directly. Use 'SourceCode.draw(xy, width, styles=..., ...)' instead."
         )
 
     @classmethod
@@ -501,7 +334,7 @@ class SourceCode:
         show_linenum: bool = False,
         align: Literal["top_left", "bottom_left", "center"] = "top_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> type[Self]:
         """Draw syntax-highlighted source code on the canvas.
 
         Args:
@@ -515,6 +348,9 @@ class SourceCode:
             show_linenum: Whether to display line numbers in a gutter.
             align: Anchor alignment of xy ("top_left", "bottom_left", or "center"). Defaults to "top_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            type[Self]: The SourceCode class for chaining.
 
         Raises:
             ValueError: If neither or both `code` and `file` are provided.
@@ -637,6 +473,8 @@ class SourceCode:
                         style=tok_style,
                     )
                     token_x += get_dx(tok_val, tok_style)
+
+        return cls
 
     @staticmethod
     @validate_call

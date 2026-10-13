@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 import drawlib._diagrams.flow._edge as _edge_module
 import drawlib._diagrams.flow._junction as _junction_module

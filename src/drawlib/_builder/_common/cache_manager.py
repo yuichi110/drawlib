@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any
 
 from drawlib._builder._common.cache import BuildImageCache, CliImageCache
 from drawlib._core.l3_external import (
@@ -42,14 +42,14 @@ def clear_image_cache(cli_only: bool = False, build_only: bool = False) -> None:
         CliImageCache().clear()
 
 
-def list_cache() -> List[Dict[str, Any]]:
+def list_cache() -> list[dict[str, Any]]:
     """Inspect all downloadable font, icon, and map packages and their local cache status.
 
     Returns:
         List[Dict[str, Any]]: List of package status dicts with keys
             'name', 'category', 'cached', 'file_count', and 'size_bytes'.
     """
-    results: List[Dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
     for pkg in RELEASE_ASSET_PACKAGES.values():
         cached_files = 0
         total_bytes = 0
@@ -61,13 +61,15 @@ def list_cache() -> List[Dict[str, Any]]:
                 total_bytes += file_path.stat().st_size
 
         is_cached = cached_files == len(pkg.files) and len(pkg.files) > 0
-        results.append({
-            "name": str(pkg.name),
-            "category": pkg.category,
-            "cached": is_cached,
-            "file_count": f"{cached_files}/{len(pkg.files)}",
-            "size_bytes": total_bytes,
-        })
+        results.append(
+            {
+                "name": str(pkg.name),
+                "category": pkg.category,
+                "cached": is_cached,
+                "file_count": f"{cached_files}/{len(pkg.files)}",
+                "size_bytes": total_bytes,
+            }
+        )
     return results
 
 

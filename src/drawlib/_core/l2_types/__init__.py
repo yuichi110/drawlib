@@ -9,6 +9,8 @@
 
 """Package for core drawing action modules."""
 
+from __future__ import annotations
+
 from drawlib._core.l2_types._color import (
     Alpha,
     ColorRGB,
@@ -143,4 +145,3 @@ __all__ = [
     "TailEdge",
     "VAlign",
 ]
-

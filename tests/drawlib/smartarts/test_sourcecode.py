@@ -69,7 +69,7 @@ class TestSourceCode:
         clear()
         setup(width=100, height=80)
         styles = SourceCodeStyles.get("default", font_lang="en")
-        SourceCode.draw(
+        res = SourceCode.draw(
             xy=(10, 70),
             width=80,
             code=code_snippet,
@@ -77,6 +77,7 @@ class TestSourceCode:
             code_lang="python",
             show_linenum=True,
         )
+        assert res is SourceCode
         save(f"{OUTPUT_DIR}test_sourcecode_default.png")
 
     def test_sourcecode_themes(self) -> None:

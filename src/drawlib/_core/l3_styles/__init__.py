@@ -9,6 +9,8 @@
 
 """Package for core styles base and models."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_styles._base_styles import (
     DEFAULT_FONT,
     DEFAULT_FONT_BOLD,

@@ -102,10 +102,7 @@ def _prepare_path_segments(
         raise ValueError(f"num must be >= 1, got {num}.")
 
     pts: Coordinates = [(float(pt[0]), float(pt[1])) for pt in xys]
-    seg_lengths = [
-        math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1])
-        for i in range(len(pts) - 1)
-    ]
+    seg_lengths = [math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) for i in range(len(pts) - 1)]
     total_length = sum(seg_lengths)
     return pts, seg_lengths, total_length
 
@@ -136,9 +133,8 @@ def _sample_path_at_ratio(
                 p_start[1] + (p_end[1] - p_start[1]) * local_t,
             )
             prefix: Coordinates = list(pts[: i + 1])
-            is_duplicate_last = (
-                math.isclose(pt[0], prefix[-1][0], abs_tol=1e-9)
-                and math.isclose(pt[1], prefix[-1][1], abs_tol=1e-9)
+            is_duplicate_last = math.isclose(pt[0], prefix[-1][0], abs_tol=1e-9) and math.isclose(
+                pt[1], prefix[-1][1], abs_tol=1e-9
             )
             if not is_duplicate_last or len(prefix) == 1:
                 prefix.append(pt)
@@ -340,17 +336,21 @@ def get_rotated_path_points(
             rotated.append(rotate_point(coord, angle=angle, center=center))
         elif len(pt) == 2:
             b2 = cast(Bezier2, pt)
-            rotated.append((
-                rotate_point(b2[0], angle=angle, center=center),
-                rotate_point(b2[1], angle=angle, center=center),
-            ))
+            rotated.append(
+                (
+                    rotate_point(b2[0], angle=angle, center=center),
+                    rotate_point(b2[1], angle=angle, center=center),
+                )
+            )
         elif len(pt) == 3:
             b3 = pt
-            rotated.append((
-                rotate_point(b3[0], angle=angle, center=center),
-                rotate_point(b3[1], angle=angle, center=center),
-                rotate_point(b3[2], angle=angle, center=center),
-            ))
+            rotated.append(
+                (
+                    rotate_point(b3[0], angle=angle, center=center),
+                    rotate_point(b3[1], angle=angle, center=center),
+                    rotate_point(b3[2], angle=angle, center=center),
+                )
+            )
     return rotated
 
 

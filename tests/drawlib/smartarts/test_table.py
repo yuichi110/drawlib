@@ -39,7 +39,7 @@ class TestTable:
             header_text_style=styles.WhiteBold,
             border_style=styles.PrimarySolid,
         )
-        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        assert t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]]) is t
         save(f"{OUTPUT_DIR}test_table_default.png")
 
     def test_table_style_cell_headers(self) -> None:

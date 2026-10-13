@@ -9,6 +9,8 @@
 
 """Canvas basic geometric and radial shape feature implementation module."""
 
+from __future__ import annotations
+
 from matplotlib.patches import Arc, Circle, Ellipse, PathPatch, Wedge
 from pydantic import validate_call
 

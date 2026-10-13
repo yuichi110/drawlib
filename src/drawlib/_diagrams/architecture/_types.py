@@ -11,8 +11,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Literal, TypeVar, Union
+from typing import TYPE_CHECKING, Literal, TypeAlias, TypeVar
 
 from PIL.Image import Image
 
@@ -26,33 +27,23 @@ if TYPE_CHECKING:
     from drawlib._diagrams.architecture._node import Node
 
 # Connectable elements (can be start or end of an edge)
-Connectable = Union["Node", "NodeGroup", "Junction"]
+Connectable: TypeAlias = "Node | NodeGroup | Junction"
 
 # Diagram / Group item that can be added
-DiagramItem = Union["Node", "NodeGroup", "Junction"]
+DiagramItem: TypeAlias = "Node | NodeGroup | Junction"
 ItemT = TypeVar("ItemT", bound="DiagramItem")
 
 # Edge routing strategy
 RoutingType = Literal["orthogonal", "direct", "curved"]
 
 # Arrowhead configuration
-ArrowType = Union[Literal["->", "<-", "<->", "-"], str]
+ArrowType = Literal["->", "<-", "<->", "-"] | str
 
 # Edge padding type (float or (start_padding, end_padding))
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 # Node icon types supported
 IconFunction = Callable[..., object]
-IconType = Union[
-    "GcpIcon",
-    "PhosphorIcon",
-    "CustomIcon",
-    Dimage,
-    Image,
-    str,
-    Path,
-    IconFunction,
-    None,
-]
+IconType: TypeAlias = "GcpIcon | PhosphorIcon | CustomIcon | Dimage | Image | str | Path | IconFunction | None"
 
 DiagramT = TypeVar("DiagramT", bound="ArchitectureDiagram")

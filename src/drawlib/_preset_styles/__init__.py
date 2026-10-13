@@ -9,6 +9,8 @@
 
 """Private preset_styles package for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_styles import (
     BaseStyles,
 )

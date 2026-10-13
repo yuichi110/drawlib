@@ -9,6 +9,8 @@
 
 """Icon utility module for canvas operations."""
 
+from __future__ import annotations
+
 from drawlib._core.l2_types import IconStyle
 from drawlib._core.l3_styles import Style
 

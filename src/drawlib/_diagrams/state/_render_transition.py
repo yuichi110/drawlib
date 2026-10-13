@@ -201,14 +201,10 @@ def _render_self_transition(
             .patch(applied_text_style)
             .patch(
                 halign=(
-                    trans.text_style.halign
-                    if trans.text_style and trans.text_style.halign is not None
-                    else halign
+                    trans.text_style.halign if trans.text_style and trans.text_style.halign is not None else halign
                 ),
                 valign=(
-                    trans.text_style.valign
-                    if trans.text_style and trans.text_style.valign is not None
-                    else valign
+                    trans.text_style.valign if trans.text_style and trans.text_style.valign is not None else valign
                 ),
             )
         )
@@ -277,14 +273,10 @@ def _render_orthogonal_transition(
             .patch(applied_text_style)
             .patch(
                 halign=(
-                    trans.text_style.halign
-                    if trans.text_style and trans.text_style.halign is not None
-                    else "center"
+                    trans.text_style.halign if trans.text_style and trans.text_style.halign is not None else "center"
                 ),
                 valign=(
-                    trans.text_style.valign
-                    if trans.text_style and trans.text_style.valign is not None
-                    else "bottom"
+                    trans.text_style.valign if trans.text_style and trans.text_style.valign is not None else "bottom"
                 ),
             )
         )

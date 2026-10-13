@@ -13,11 +13,9 @@ from __future__ import annotations
 
 import os
 import re
-from typing import List, Optional
 
 from drawlib._builder.doc_builder.detector import preserve_outer_fences
 from drawlib._builder.doc_builder.processor.options import (
-    DrawlibBlockOptions,
     ExtractedBlockInfo,
     parse_block_info,
 )
@@ -27,7 +25,7 @@ def extract_code_blocks(
     text: str,
     is_html: bool = False,
     require_file: bool = False,
-) -> List[ExtractedBlockInfo]:
+) -> list[ExtractedBlockInfo]:
     """Extract all drawlib code blocks from Markdown or HTML text.
 
     Args:
@@ -41,7 +39,7 @@ def extract_code_blocks(
     Raises:
         ValueError: If require_file is True and any block lacks a 'file=<filename.ext>' option.
     """
-    blocks: List[ExtractedBlockInfo] = []
+    blocks: list[ExtractedBlockInfo] = []
 
     if is_html:
         pattern_script = re.compile(
@@ -121,9 +119,9 @@ def extract_code_blocks(
 
 
 def resolve_selected_block(
-    blocks: List[ExtractedBlockInfo],
+    blocks: list[ExtractedBlockInfo],
     target: str,
-) -> Optional[ExtractedBlockInfo]:
+) -> ExtractedBlockInfo | None:
     """Find matching ExtractedBlockInfo by 1-based index or filename.
 
     Args:

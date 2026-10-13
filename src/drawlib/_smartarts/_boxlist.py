@@ -12,7 +12,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Self
 
 from pydantic import BaseModel, validate_call
 
@@ -96,7 +96,7 @@ class BoxList:
         direction: Literal["left", "right", "bottom", "top"] = "left",
         align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw a list of boxes at the specified location.
 
         Args:
@@ -106,10 +106,13 @@ class BoxList:
             direction: Layout flow direction ("left", "right", "bottom", or "top"). Defaults to "left".
             align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This BoxList instance for method chaining.
         """
         num_items = len(self._list)
         if num_items == 0:
-            return
+            return self
 
         if direction in ("left", "right"):
             total_w = num_items * float(box_width)
@@ -145,6 +148,7 @@ class BoxList:
                         text_style=item.text_style,
                         direction=direction,
                     )
+        return self
 
     @staticmethod
     def _draw_cell(  # noqa: PLR0913

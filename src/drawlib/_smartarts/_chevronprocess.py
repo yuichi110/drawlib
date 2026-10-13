@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import math
-from typing import Literal
+from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
@@ -123,7 +123,7 @@ class ChevronProcess:
         item_width: PosFloat | None = None,
         align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw the chevron process diagram at the specified location.
 
         Args:
@@ -133,10 +133,13 @@ class ChevronProcess:
             item_width: Optional explicit width per chevron block. If None, calculated evenly from width.
             align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This ChevronProcess instance for method chaining.
         """
         num_items = len(self._items)
         if num_items == 0:
-            return
+            return self
 
         h = float(height)
         angle_rad = math.radians(self._corner_angle)
@@ -202,6 +205,7 @@ class ChevronProcess:
                             style=item.style,
                         )
                     self._draw_item_texts(item, cx, cy, h)
+        return self
 
     @staticmethod
     def _draw_item_texts(

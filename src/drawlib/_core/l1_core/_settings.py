@@ -9,10 +9,12 @@
 
 """dutil_settings implementation module."""
 
+from __future__ import annotations
+
 import logging
 import sys
-import typing
 import warnings
+from typing import Literal
 
 from pydantic import validate_call
 
@@ -37,20 +39,20 @@ class DrawlibSettings:
         This class holds logging modes which determine error handling methods.
 
         """
-        self._logging_mode: typing.Literal[
+        self._logging_mode: Literal[
             "normal",
             "quiet",
             "verbose",
             "developer",
         ] = "normal"
         self._suppress_warning: bool = False
-        self._output_dir: typing.Optional[str] = None
+        self._output_dir: str | None = None
         self._force_grid: bool = False
 
     @validate_call
     def get_logging_mode(
         self,
-    ) -> typing.Literal[
+    ) -> Literal[
         "normal",
         "quiet",
         "verbose",
@@ -73,7 +75,7 @@ class DrawlibSettings:
     @validate_call
     def set_logging_mode(
         self,
-        mode: typing.Literal["normal", "quiet", "verbose", "debug", "developer"],
+        mode: Literal["normal", "quiet", "verbose", "debug", "developer"],
     ) -> None:
         """
         Set the logging mode.
@@ -206,7 +208,7 @@ class DrawlibSettings:
         return self._logging_mode == "developer"
 
     @validate_call
-    def get_output_dir(self) -> typing.Optional[str]:
+    def get_output_dir(self) -> str | None:
         """Get the custom output directory for saved images, if configured.
 
         Returns:
@@ -215,7 +217,7 @@ class DrawlibSettings:
         return self._output_dir
 
     @validate_call
-    def set_output_dir(self, output_dir: typing.Optional[str]) -> None:
+    def set_output_dir(self, output_dir: str | None) -> None:
         """Set the custom output directory for saved images.
 
         Args:

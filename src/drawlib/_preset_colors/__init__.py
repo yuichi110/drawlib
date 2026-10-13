@@ -9,6 +9,8 @@
 
 """Private preset colors package for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_colors import BaseColors
 from drawlib._preset_colors._color_css import CssColors
 from drawlib._preset_colors._color_default import (

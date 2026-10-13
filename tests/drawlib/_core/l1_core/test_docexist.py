@@ -7,6 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+"""Verify all public drawlib module attributes have docstrings."""
+
+from __future__ import annotations
+
 import inspect
 
 import drawlib.canvas
@@ -22,7 +26,7 @@ import drawlib.text
 import drawlib.types
 
 
-def test_all_doc_exist():
+def test_all_doc_exist() -> None:
     modules = [
         drawlib.canvas,
         drawlib.fonts,
@@ -39,7 +43,7 @@ def test_all_doc_exist():
     all_drawlib_objects_have_doc = True
     for mod in modules:
         members = inspect.getmembers(mod)
-        drawlib_members = [o[1] for o in members if not o[0].startswith("_")]
+        drawlib_members = [o[1] for o in members if not o[0].startswith("_") and o[0] != "annotations"]
         for drawlib_object in drawlib_members:
             if getattr(drawlib_object, "__doc__", None) is None:
                 print(f"'{getattr(drawlib_object, '__name__', str(drawlib_object))}' in {mod.__name__} has no doc.")

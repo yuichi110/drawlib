@@ -14,7 +14,7 @@ from __future__ import annotations
 import contextlib
 import os
 import sys
-from typing import Any, Dict, Optional
+from typing import Any
 
 import drawlib.preset_colors
 import drawlib.preset_styles
@@ -23,8 +23,8 @@ import drawlib.utils
 
 
 def load_styles(
-    styles_path: Optional[str] = None,
-    shared_globals: Optional[Dict[str, Any]] = None,
+    styles_path: str | None = None,
+    shared_globals: dict[str, Any] | None = None,
 ) -> None:
     """Load an external Python styles script and apply it to drawlib.styles.
 
@@ -114,8 +114,8 @@ def load_styles(
 
 
 def load_utils(
-    utils_path: Optional[str] = None,
-    shared_globals: Optional[Dict[str, Any]] = None,
+    utils_path: str | None = None,
+    shared_globals: dict[str, Any] | None = None,
 ) -> None:
     """Load an external Python utils script and attach its members to drawlib.utils.
 
@@ -167,9 +167,9 @@ def load_utils(
 
 
 def load_styles_and_utils(
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-    shared_globals: Optional[Dict[str, Any]] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    shared_globals: dict[str, Any] | None = None,
 ) -> None:
     """Load both external styles and utils scripts.
 
@@ -206,9 +206,9 @@ def _find_project_search_dirs(base_dir: str) -> list[str]:
 
 def resolve_styles_and_utils(
     input_path: str,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-) -> tuple[Optional[str], Optional[str]]:
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+) -> tuple[str | None, str | None]:
     """Resolve styles.py and utils.py file paths from parameters or directory conventions.
 
     Args:

@@ -9,6 +9,8 @@
 
 """Package for font implementations."""
 
+from __future__ import annotations
+
 from drawlib._core.l2_types import (
     FontBase,
     FontFile,

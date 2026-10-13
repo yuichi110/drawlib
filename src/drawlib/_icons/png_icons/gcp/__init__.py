@@ -9,4 +9,6 @@
 
 """GCP PNG icon package."""
 
+from __future__ import annotations
+
 from drawlib._icons.png_icons.gcp._generated import *  # noqa: F403

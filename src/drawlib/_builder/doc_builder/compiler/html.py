@@ -15,7 +15,7 @@ import os
 import re
 import shutil
 import sys
-from typing import Any, Optional
+from typing import Any
 
 from drawlib._builder._common import BuildImageCache, FileBuildProgress, resolve_styles_and_utils
 from drawlib._builder.doc_builder.compiler.base import (
@@ -41,7 +41,7 @@ from drawlib._slide._assets import bundle_svg_fonts
 from drawlib._templates import get_html_readme
 
 
-def resolve_favicon_href(input_abs: str, out_dir_abs: str, dest_abs: str) -> Optional[str]:
+def resolve_favicon_href(input_abs: str, out_dir_abs: str, dest_abs: str) -> str | None:
     """Resolve relative href to favicon for a given output HTML file."""
     for sub in ("_assets", "assets", ""):
         for fav_name in ("favicon.png", "favicon.ico", "favicon.svg"):
@@ -52,7 +52,7 @@ def resolve_favicon_href(input_abs: str, out_dir_abs: str, dest_abs: str) -> Opt
     return None
 
 
-def resolve_logo_hrefs(input_abs: str, out_dir_abs: str, dest_abs: str) -> tuple[Optional[str], Optional[str]]:
+def resolve_logo_hrefs(input_abs: str, out_dir_abs: str, dest_abs: str) -> tuple[str | None, str | None]:
     """Resolve relative hrefs to logo.png and logo_dark.png for a given output HTML file if present in source."""
     for sub in ("_assets", "assets", ""):
         for logo_name in ("logo.png", "logo.svg"):
@@ -61,17 +61,11 @@ def resolve_logo_hrefs(input_abs: str, out_dir_abs: str, dest_abs: str) -> tuple
             if os.path.isfile(src_logo):
                 logo_href = os.path.relpath(dst_logo, os.path.dirname(dest_abs)).replace(os.sep, "/")
 
-                logo_dark_href: Optional[str] = None
+                logo_dark_href: str | None = None
                 for dark_name in ("logo_dark.png", "logo_dark.svg"):
-                    src_dark = (
-                        os.path.join(input_abs, sub, dark_name)
-                        if sub
-                        else os.path.join(input_abs, dark_name)
-                    )
+                    src_dark = os.path.join(input_abs, sub, dark_name) if sub else os.path.join(input_abs, dark_name)
                     dst_dark = (
-                        os.path.join(out_dir_abs, sub, dark_name)
-                        if sub
-                        else os.path.join(out_dir_abs, dark_name)
+                        os.path.join(out_dir_abs, sub, dark_name) if sub else os.path.join(out_dir_abs, dark_name)
                     )
                     if os.path.isfile(src_dark):
                         logo_dark_href = os.path.relpath(dst_dark, os.path.dirname(dest_abs)).replace(os.sep, "/")
@@ -82,14 +76,13 @@ def resolve_logo_hrefs(input_abs: str, out_dir_abs: str, dest_abs: str) -> tuple
     return None, None
 
 
-
 def build_html(
     input_dir: str,
-    output_dir: Optional[str] = None,
+    output_dir: str | None = None,
     *,
     image_format: str = "png",
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
     no_cache: bool = False,
     css_mode: str = "external",
 ) -> str:
@@ -125,14 +118,14 @@ def build_html(
         os.path.join(input_abs, "navbar.md"),
         os.path.join(input_abs, "navbar.markdown"),
     ]
-    active_navbar_path: Optional[str] = None
+    active_navbar_path: str | None = None
     for p in navbar_candidates:
         if os.path.isfile(p):
             active_navbar_path = p
             break
 
-    navbar_sections: Optional[list[NavbarSection]] = None
-    site_title: Optional[str] = None
+    navbar_sections: list[NavbarSection] | None = None
+    site_title: str | None = None
     if active_navbar_path:
         index_candidates = [
             os.path.join(input_abs, "index.md"),
@@ -141,12 +134,10 @@ def build_html(
             os.path.join(input_abs, "index.htm"),
         ]
         if not any(os.path.isfile(p) for p in index_candidates):
-            raise ValueError(
-                f'Directory build requires "index.md" or "index.html" at the root: "{input_abs}".'
-            )
+            raise ValueError(f'Directory build requires "index.md" or "index.html" at the root: "{input_abs}".')
         navbar_sections, site_title = parse_navbar_markdown(active_navbar_path, input_abs)
 
-    style_css_path: Optional[str] = None
+    style_css_path: str | None = None
     if css_mode != "embed":
         style_css_path = os.path.join(out_dir_abs, "style.css")
         if os.path.abspath(style_css_path) != os.path.abspath(css_file):
@@ -208,7 +199,7 @@ def build_html(
         embed_images=False,
     )
 
-    processor: Optional[DrawlibBlockProcessor] = None
+    processor: DrawlibBlockProcessor | None = None
     name_width = max((len(n) for n in display_names), default=0)
     image_width = len(str(max(max_blocks, 0)))
     root_index_dest_abs = os.path.join(out_dir_abs, "index.html")
@@ -306,11 +297,11 @@ def _compile_merged_doc_html(
     input_abs: str,
     out_dir_abs: str,
     image_format: str,
-    styles_path: Optional[str],
-    utils_path: Optional[str],
-    css_path: Optional[str],
-    css_href: Optional[str],
-    template_path: Optional[str],
+    styles_path: str | None,
+    utils_path: str | None,
+    css_path: str | None,
+    css_href: str | None,
+    template_path: str | None,
     name_width: int,
     image_width: int,
     no_cache: bool,
@@ -340,8 +331,8 @@ def _compile_merged_doc_html(
 
     chapters_html: list[str] = []
     toc_entries: list[tuple[str, str]] = []
-    inferred_title: Optional[str] = None
-    processor: Optional[DrawlibBlockProcessor] = None
+    inferred_title: str | None = None
+    processor: DrawlibBlockProcessor | None = None
     total_files = len(html_tasks)
 
     for idx, ((src_abs, dest_abs, _), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
@@ -390,9 +381,7 @@ def _compile_merged_doc_html(
     index_entries = toc_entries[1:]
     if len(index_entries) > 0:
         toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
-        toc_html = (
-            f'<nav class="doc-toc pdf-toc">\n  <h2>Table of Contents</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
-        )
+        toc_html = f'<nav class="doc-toc pdf-toc">\n  <h2>Table of Contents</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
         body_parts.append(chapters_html[0])
         body_parts.append(toc_html)
         body_parts.extend(chapters_html[1:])
@@ -427,13 +416,13 @@ def _compile_chapter_body(
     src_abs: str,
     dest_abs: str,
     image_format: str,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-    processor: Optional[DrawlibBlockProcessor] = None,
-    progress: Optional[FileBuildProgress] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    processor: DrawlibBlockProcessor | None = None,
+    progress: FileBuildProgress | None = None,
     no_cache: bool = False,
-    cache: Optional[BuildImageCache] = None,
-    project_root: Optional[str] = None,
+    cache: BuildImageCache | None = None,
+    project_root: str | None = None,
 ) -> tuple[str, str, DrawlibBlockProcessor | None]:
     """Compile a single source file into an HTML body fragment and title."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -529,23 +518,23 @@ def _compile_single_html_file(
     src_abs: str,
     dest_abs: str,
     image_format: str,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-    css_path: Optional[str] = None,
-    css_href: Optional[str] = None,
-    template_path: Optional[str] = None,
-    processor: Optional[DrawlibBlockProcessor] = None,
-    progress: Optional[FileBuildProgress] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    css_path: str | None = None,
+    css_href: str | None = None,
+    template_path: str | None = None,
+    processor: DrawlibBlockProcessor | None = None,
+    progress: FileBuildProgress | None = None,
     no_cache: bool = False,
-    cache: Optional[BuildImageCache] = None,
-    nav_sections: Optional[list[dict[str, Any]]] = None,
-    nav_items: Optional[list[dict[str, Any]]] = None,
-    index_url: Optional[str] = None,
-    site_title: Optional[str] = None,
-    project_root: Optional[str] = None,
-    favicon_href: Optional[str] = None,
-    logo_href: Optional[str] = None,
-    logo_dark_href: Optional[str] = None,
+    cache: BuildImageCache | None = None,
+    nav_sections: list[dict[str, Any]] | None = None,
+    nav_items: list[dict[str, Any]] | None = None,
+    index_url: str | None = None,
+    site_title: str | None = None,
+    project_root: str | None = None,
+    favicon_href: str | None = None,
+    logo_href: str | None = None,
+    logo_dark_href: str | None = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     body_html, doc_title, processor = _compile_chapter_body(

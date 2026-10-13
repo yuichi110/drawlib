@@ -9,6 +9,8 @@
 
 """Calendar SmartArts package."""
 
+from __future__ import annotations
+
 from drawlib._smartarts._calendar._day import DayCalendar
 from drawlib._smartarts._calendar._models import CalendarItem
 from drawlib._smartarts._calendar._month import MonthCalendar

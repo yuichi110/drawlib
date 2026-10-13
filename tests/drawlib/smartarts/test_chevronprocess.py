@@ -100,7 +100,7 @@ class TestChevronProcessRendering:
             cp.add("Verification")
             cp.add("Deployment")
 
-            cp.draw(xy=(5.0, 40.0), width=90.0, height=14.0)
+            assert cp.draw(xy=(5.0, 40.0), width=90.0, height=14.0) is cp
 
             canvas.save(str(out_file))
             assert out_file.exists()

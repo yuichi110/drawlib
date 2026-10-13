@@ -106,11 +106,7 @@ class Animation:
             self._in_frame_context = False
             dimage = canvas.get_dimage()
             self._frames.append(dimage.get_pil_image())
-            eff_duration_ms = (
-                max(1, round(duration * 1000.0))
-                if duration is not None
-                else self._default_duration_ms
-            )
+            eff_duration_ms = max(1, round(duration * 1000.0)) if duration is not None else self._default_duration_ms
             self._durations.append(eff_duration_ms)
 
     @validate_call
@@ -135,11 +131,7 @@ class Animation:
 
         dimage = canvas.get_dimage()
         self._frames.append(dimage.get_pil_image())
-        eff_duration_ms = (
-            max(1, round(duration * 1000.0))
-            if duration is not None
-            else self._default_duration_ms
-        )
+        eff_duration_ms = max(1, round(duration * 1000.0)) if duration is not None else self._default_duration_ms
         self._durations.append(eff_duration_ms)
         if clear:
             canvas._clear_artists()

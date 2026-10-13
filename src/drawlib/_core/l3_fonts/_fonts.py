@@ -9,6 +9,8 @@
 
 """Font metadata resolution module."""
 
+from __future__ import annotations
+
 import os
 
 from drawlib._core.l1_core import FONT_DIR_PATH

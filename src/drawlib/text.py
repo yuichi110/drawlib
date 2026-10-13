@@ -9,6 +9,8 @@
 
 """Public text module for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l4_canvas import (
     text,
     text_vertical,

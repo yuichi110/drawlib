@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import math
-from typing import Literal
+from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
@@ -205,11 +205,7 @@ class Cycle:
                 f"for description of item '{text}'."
             )
 
-        if (
-            self._arrow_type != "none"
-            and self._arrow_color_mode == "monochrome"
-            and effective_arrow_style is None
-        ):
+        if self._arrow_type != "none" and self._arrow_color_mode == "monochrome" and effective_arrow_style is None:
             raise ValueError(
                 f"Neither default 'arrow_style' nor item 'arrow_style' was provided for arrow after '{text}'."
             )
@@ -274,7 +270,7 @@ class Cycle:
         radius: PosFloat = 35.0,
         align: Literal["center", "bottom_left"] = "center",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw the cycle diagram at the specified coordinate.
 
         Args:
@@ -283,6 +279,9 @@ class Cycle:
             align: Anchor alignment ("center" if xy is center, "bottom_left" if xy is bottom-left bounding corner).
                 Defaults to "center".
             scale: Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This Cycle instance for method chaining.
         """
         orbit_r = float(radius)
         num_items = len(self._items)
@@ -302,7 +301,7 @@ class Cycle:
             if num_items == 0:
                 if self._center.text and self._center.show:
                     self._draw_center_node(cx, cy)
-                return
+                return self
 
             angles = self._compute_item_angles(num_items)
 
@@ -337,6 +336,8 @@ class Cycle:
 
                 # Render texts
                 self._draw_item_texts(item, node_style, nx, ny, ang_rad)
+
+        return self
 
     def _compute_item_angles(self, num_items: int) -> list[float]:
         """Compute angular placement for each item in degrees."""
@@ -448,9 +449,7 @@ class Cycle:
             line_style="solid",
         )
 
-    def _resolve_node_text_colors(
-        self, node_style: Style
-    ) -> tuple[ColorType, ColorType]:
+    def _resolve_node_text_colors(self, node_style: Style) -> tuple[ColorType, ColorType]:
         """Resolve default title and description colors based on node fill luminance."""
         if self._node_shape == "none":
             return (40, 40, 40, 1.0), (80, 80, 80, 1.0)

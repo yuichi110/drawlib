@@ -9,6 +9,8 @@
 
 """Canvas's base class implementation module."""
 
+from __future__ import annotations
+
 import contextlib
 import math
 from collections.abc import Generator, Iterable
@@ -154,7 +156,7 @@ def _apply_artist_transform(
 class _TransformArtistList(list[matplotlib.artist.Artist]):
     """Artist list that transparently applies active CanvasBase spatial transforms on append/extend."""
 
-    def __init__(self, canvas_base: "CanvasBase") -> None:
+    def __init__(self, canvas_base: CanvasBase) -> None:
         super().__init__()
         self._canvas_base = canvas_base
 

@@ -7,24 +7,23 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit and integration tests for CanvasPatchesFeature shapes."""
+"""Unit and integration tests for CanvasShapeBasicFeature shapes."""
+
+from __future__ import annotations
 
 import pytest
+from pydantic import ValidationError
 
-from drawlib.canvas import clear, save
-from drawlib.fonts import Font
+from drawlib.canvas import canvas, clear, save
 from drawlib.shapes import arc, circle, ellipse, fan, rectangle, regularpolygon, wedge
 from drawlib.styles import Colors, Styles
-from drawlib.types import Style
-
-# ruff: noqa: F403, F405
 
 default_styles = Styles
-OUTPUT_DIR = "../../../../output_tests/_core/l4_canvas/patches/"
+OUTPUT_DIR = "../../../../output_tests/_core/l4_canvas/basic/"
 
 
-class TestCanvasPatches:
-    """Tests for the CanvasPatchesFeature class and basic matplotlib patch shapes."""
+class TestCanvasBasic:
+    """Tests for the CanvasShapeBasicFeature class and basic patch shapes."""
 
     def test_arc(self) -> None:
         """Verify arc drawing with dimensions, angles, alignments, and text."""
@@ -346,3 +345,39 @@ class TestCanvasPatches:
         fan((50, 50), radius=30, angle_start=45, angle_end=270, text="Hello", style=s_primary.patch(angle=120))
 
         save(f"{OUTPUT_DIR}test_fan.png")
+
+    def test_basic_shapes_hole_ratio(self) -> None:
+        """Verify hole_ratio rendering on circle, ellipse, rectangle, and regularpolygon."""
+        clear()
+        circle((25, 50), radius=15, hole_ratio=0.5, style=Styles.PrimaryNeutral, text="C")
+        ellipse((50, 50), width=30, height=20, hole_ratio=0.4, style=Styles.SecondaryNeutral.patch(angle=20), text="E")
+        rectangle(
+            (75, 50),
+            width=24,
+            height=18,
+            hole_ratio=0.5,
+            style=Styles.AccentNeutral.patch(shape_r=1.5),
+            text="R",
+        )
+        regularpolygon(
+            (50, 20),
+            radius=14,
+            num_vertex=6,
+            hole_ratio=0.5,
+            style=Styles.SuccessNeutral.patch(shape_r=1.0, angle=15),
+            text="P",
+        )
+        assert len(canvas._artists) == 8  # 4 hollow PathPatches + 4 Text artists
+
+    def test_basic_hole_ratio_validation_errors(self) -> None:
+        """Verify hole_ratio boundary validation errors on basic shapes."""
+        clear()
+        for bad_ratio in (0.0, 1.0, -0.2, 1.5):
+            with pytest.raises((ValueError, ValidationError)):
+                circle((50, 50), radius=10, hole_ratio=bad_ratio, style=Styles.Neutral)
+            with pytest.raises((ValueError, ValidationError)):
+                ellipse((50, 50), width=20, height=10, hole_ratio=bad_ratio, style=Styles.Neutral)
+            with pytest.raises((ValueError, ValidationError)):
+                rectangle((50, 50), width=20, height=10, hole_ratio=bad_ratio, style=Styles.Neutral)
+            with pytest.raises((ValueError, ValidationError)):
+                regularpolygon((50, 50), radius=10, num_vertex=5, hole_ratio=bad_ratio, style=Styles.Neutral)

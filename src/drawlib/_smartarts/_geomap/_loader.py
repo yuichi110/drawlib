@@ -380,9 +380,7 @@ def _load_preset_geodata(preset_key: str) -> GeoData:
             )
 
         filtered = {
-            eid: elem
-            for eid, elem in base_world.elements.items()
-            if _matches_world_region(elem, canonical_key)
+            eid: elem for eid, elem in base_world.elements.items() if _matches_world_region(elem, canonical_key)
         }
         min_lon = min(e.bbox[0] for e in filtered.values())
         min_lat = min(e.bbox[1] for e in filtered.values())

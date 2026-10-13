@@ -10,7 +10,9 @@
 
 """GridLayout implementation module."""
 
-from typing import Literal
+from __future__ import annotations
+
+from typing import Literal, Self
 
 from pydantic import BaseModel, validate_call
 
@@ -135,17 +137,20 @@ class GridLayout:
         outer_style: Style | None = None,
         align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw the grid layout.
 
         Args:
-            xy (Tuple[float, float]): Anchor coordinate of the grid (interpreted via align).
+            xy (tuple[float, float]): Anchor coordinate of the grid (interpreted via align).
             width (float): The total width of the grid.
             height (float): The total height of the grid.
             margin (float): The margin between grid items.
             outer_style (Style, optional): The style for the outer grid border.
             align (Literal["bottom_left", "center"]): Anchor alignment of xy. Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This GridLayout instance for method chaining.
         """
         if outer_style is None:
             column_widths = [(width - margin * (self._num_column - 1)) / self._num_column] * self._num_column
@@ -158,7 +163,7 @@ class GridLayout:
             column_margins = [margin] * (self._num_column + 1)
             row_margins = [margin] * (self._num_row + 1)
 
-        self.draw_flexible(
+        return self.draw_flexible(
             xy=xy,
             column_widths=column_widths,
             column_margins=column_margins,
@@ -180,18 +185,21 @@ class GridLayout:
         outer_style: Style | None = None,
         align: Literal["bottom_left", "center"] = "bottom_left",
         scale: PosFloat = 1.0,
-    ) -> None:
+    ) -> Self:
         """Draw the grid layout with flexible column widths and row heights.
 
         Args:
-            xy (Tuple[float, float]): Anchor coordinate of the grid (interpreted via align).
-            column_widths (List[float]): The widths of each column.
-            column_margins (List[float]): The margins between columns.
-            row_heights (List[float]): The heights of each row.
-            row_margins (List[float]): The margins between rows.
+            xy (tuple[float, float]): Anchor coordinate of the grid (interpreted via align).
+            column_widths (list[float]): The widths of each column.
+            column_margins (list[float]): The margins between columns.
+            row_heights (list[float]): The heights of each row.
+            row_margins (list[float]): The margins between rows.
             outer_style (Style, optional): The style for the outer grid border.
             align (Literal["bottom_left", "center"]): Anchor alignment of xy. Defaults to "bottom_left".
             scale (float): Proportional scale factor around xy. Defaults to 1.0.
+
+        Returns:
+            Self: This GridLayout instance for method chaining.
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
@@ -270,3 +278,4 @@ class GridLayout:
                     text=text,
                     text_style=text_style,
                 )
+        return self

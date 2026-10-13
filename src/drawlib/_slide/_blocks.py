@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import re
-from typing import Final, Optional
+from typing import Final
 
 from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._builder.doc_builder.processor.options import tokenize_kv_pairs
@@ -59,13 +59,13 @@ def extract_slide_notes(text: str) -> tuple[str, str]:
 
 
 def build_box_styles(
-    x: Optional[float],
-    y: Optional[float],
-    w: Optional[float],
-    h: Optional[float],
-    font_size: Optional[str],
-    align: Optional[str],
-    z_index: Optional[int],
+    x: float | None,
+    y: float | None,
+    w: float | None,
+    h: float | None,
+    font_size: str | None,
+    align: str | None,
+    z_index: int | None,
     custom_styles: list[str],
 ) -> list[str]:
     """Construct inline CSS style declarations for a positioned text box.
@@ -105,7 +105,7 @@ def build_box_styles(
     return styles
 
 
-def _parse_xy_tuple(val_clean: str) -> Optional[tuple[float, float]]:
+def _parse_xy_tuple(val_clean: str) -> tuple[float, float] | None:
     """Parse an '(x, y)' string into a float pair."""
     try:
         coords = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
@@ -116,7 +116,7 @@ def _parse_xy_tuple(val_clean: str) -> Optional[tuple[float, float]]:
     return None
 
 
-def _parse_px_float(val_clean: str) -> Optional[float]:
+def _parse_px_float(val_clean: str) -> float | None:
     """Parse a numeric or '<num>px' string into a float."""
     try:
         num_str = val_clean[:-2].strip() if val_clean.lower().endswith("px") else val_clean
@@ -135,7 +135,7 @@ def _parse_bool_flag(val_clean: str, current: bool) -> bool:
     return current
 
 
-def _parse_int_opt(val_clean: str) -> Optional[int]:
+def _parse_int_opt(val_clean: str) -> int | None:
     """Parse an integer option string safely."""
     try:
         return int(val_clean)
@@ -146,14 +146,14 @@ def _parse_int_opt(val_clean: str) -> Optional[int]:
 def parse_box_options(
     header_opts: str,
 ) -> tuple[
-    Optional[float],
-    Optional[float],
-    Optional[float],
-    Optional[float],
-    Optional[str],
+    float | None,
+    float | None,
+    float | None,
+    float | None,
+    str | None,
     bool,
-    Optional[str],
-    Optional[int],
+    str | None,
+    int | None,
     list[str],
     list[str],
 ]:

@@ -9,6 +9,8 @@
 
 """Markdown parser using markdown-it-py with raw HTML passthrough enabled."""
 
+from __future__ import annotations
+
 import re
 
 from markdown_it import MarkdownIt

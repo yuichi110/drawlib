@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import math
-from typing import TYPE_CHECKING, Literal, cast
+from typing import TYPE_CHECKING, cast
 
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_math import Side as MathSide
@@ -28,7 +28,7 @@ from drawlib._diagrams._common import (
     render_diagram_background,
     render_diagram_title,
 )
-from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
+from drawlib._diagrams.er._types import Side
 from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:

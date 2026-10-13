@@ -31,7 +31,7 @@ class TestPyramid:
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
-        p.draw((10, 10), 30, 30, 2)
+        assert p.draw((10, 10), 30, 30, 2) is p
         p.draw((60, 10), 30, 30, 2, order="base_to_vertex")
         save(f"{OUTPUT_DIR}test_pyramid_default.png")
 

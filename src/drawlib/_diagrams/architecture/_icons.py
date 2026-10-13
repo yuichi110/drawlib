@@ -13,12 +13,10 @@ from __future__ import annotations
 
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable
 
 from PIL.Image import Image
 
 from drawlib._core.l3_images import Dimage
-from drawlib._core.l3_styles import Style
 
 
 class GcpIcon(str, Enum):

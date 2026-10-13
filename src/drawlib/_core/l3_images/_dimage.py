@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import os
 from collections import Counter
-from typing import List, Literal, cast
+from typing import Literal
 
 import matplotlib.colors as mcolors
 from PIL import (

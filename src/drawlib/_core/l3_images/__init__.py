@@ -9,6 +9,8 @@
 
 """Package for image processing models."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_images._dimage import (
     Dimage,
 )

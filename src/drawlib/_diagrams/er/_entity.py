@@ -11,7 +11,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Sequence, Union
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Any
 
 from drawlib._diagrams.er._relationship import Relationship
 from drawlib._diagrams.er._types import Cardinality, ColumnInfo, RoutingType, Side
@@ -20,7 +21,7 @@ if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
     from drawlib._diagrams.er._diagram import ERDiagram
 
-PaddingType = Union[float, tuple[float, float]]
+PaddingType = float | tuple[float, float]
 
 
 class Entity:
@@ -114,7 +115,7 @@ class Entity:
 
     def add_columns(
         self,
-        columns: Sequence[Union[Sequence[Any], ColumnInfo]],
+        columns: Sequence[Sequence[Any] | ColumnInfo],
     ) -> Entity:
         """Add multiple columns in batch.
 

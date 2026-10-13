@@ -178,8 +178,7 @@ class KpiCards:
             )
         if icon is not None and effective_icon_style is None:
             raise ValueError(
-                "Neither default 'icon_style' nor item 'icon_style' was provided "
-                f"for icon of item '{text}'."
+                f"Neither default 'icon_style' nor item 'icon_style' was provided for icon of item '{text}'."
             )
 
         item = KpiCardItem(

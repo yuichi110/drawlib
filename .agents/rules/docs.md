@@ -16,11 +16,14 @@ All documentation, guides, slides, and README illustrations in this repository a
 | Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init`) | Generated Outputs (Do NOT edit directly) | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **`site`** | `docs/docs_src/` | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-page documentation website & GitHub Markdown |
+| **`architecture`** | `docs/architecture_src/` | `site` | `docs/architecture_markdown/`, `docs/architecture_html/`, `docs/architecture_images/` | Software architecture specification site |
 | **`quickstart`** | `docs/quickstart_src/` | `doc` | `docs/quickstart_html/`, `docs/quickstart.pdf`, `docs/quickstart_markdown/`, `docs/quickstart_images/` | Linear quickstart guide & PDF |
 | **`dogfooding`** | `docs/drawlib-dogfooding_src/` | `doc` | `docs/drawlib-dogfooding_html/`, `docs/drawlib-dogfooding.pdf`, `docs/drawlib-dogfooding_markdown/`, `docs/drawlib-dogfooding_images/` | Dogfooding technical whitepaper (Japanese) |
 | **`dogfooding-en`** | `docs/drawlib-dogfooding-en_src/` | `doc` | `docs/drawlib-dogfooding-en_html/`, `docs/drawlib-dogfooding-en.pdf`, `docs/drawlib-dogfooding-en_markdown/`, `docs/drawlib-dogfooding-en_images/` | Dogfooding technical whitepaper (English) |
-| **`slide`** | `docs/slide_about_drawlib_src/` | `slide` | `docs/slide_about_drawlib_html/`, `docs/slide_about_drawlib.pdf`, `docs/slide_about_drawlib_images/` | 16:9 presentation slide deck (HTML & PDF) |
+| **`slide`** | `docs/slide_about_drawlib_src/` | `slide` | `docs/slide_about_drawlib_html/`, `docs/slide_about_drawlib.pdf`, `docs/slide_about_drawlib_images/` | 16:9 presentation slide deck (About Drawlib) |
+| **`slide-ddos`** | `docs/slide_ddos_incident_response_src/` | `slide` | `docs/slide_ddos_incident_response_html/`, `docs/slide_ddos_incident_response.pdf`, `docs/slide_ddos_incident_response_images/` | 16:9 presentation slide deck (DDoS Incident Response) |
 | **`readme`** | `docs/readme_src/` | `image` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
+| **`logo`** | `docs/logo_src/` | `image` | `docs/logo_images/` | Drawlib brand logo & favicon asset generator scripts |
 
 - **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `build.sh` / `navbar.md` within it). Never manually edit generated output folders or PDFs.
 - **Build & Preview**:

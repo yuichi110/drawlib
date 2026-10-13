@@ -16,13 +16,10 @@ import os
 import re
 import sqlite3
 import time
-from typing import Optional
 
 import matplotlib
 
 from drawlib._core.l1_core import (
-    CACHE_GITIGNORE_CONTENT,
-    CACHE_TAG_CONTENT,
     LIB_VERSION,
     ensure_cache_dir_ignores,
 )
@@ -39,7 +36,7 @@ def hash_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def hash_file(file_path: Optional[str]) -> str:
+def hash_file(file_path: str | None) -> str:
     """Compute SHA-256 hex digest of a file's contents, or empty string if None/missing."""
     if not file_path:
         return ""
@@ -55,8 +52,8 @@ def hash_file(file_path: Optional[str]) -> str:
 
 def _hash_referenced_local_assets(
     code: str,
-    context_dir: Optional[str],
-    project_root: Optional[str] = None,
+    context_dir: str | None,
+    project_root: str | None = None,
 ) -> str:
     """Hash any local files referenced as string literals inside `code` from context_dir or project_root."""
     candidates = sorted(set(_STRING_LITERAL_RE.findall(code)))
@@ -82,7 +79,7 @@ def _hash_referenced_local_assets(
 
     parts: list[str] = []
     for rel_candidate in candidates:
-        resolved_file: Optional[str] = None
+        resolved_file: str | None = None
 
         # 1. Direct match in context_dir
         if context_dir and os.path.isdir(context_dir):
@@ -132,11 +129,11 @@ class BuildImageCache:
 
     def __init__(
         self,
-        db_path: Optional[str] = None,
+        db_path: str | None = None,
         max_size_bytes: int = DEFAULT_MAX_CACHE_BYTES,
         enabled: bool = True,
-        lib_version: Optional[str] = None,
-        matplotlib_version: Optional[str] = None,
+        lib_version: str | None = None,
+        matplotlib_version: str | None = None,
     ) -> None:
         """Initialize the SQLite build image cache.
 
@@ -292,10 +289,10 @@ class BuildImageCache:
     def compute_keys(
         code: str,
         config_hash: str = "",
-        context_dir: Optional[str] = None,
-        project_root: Optional[str] = None,
-        source_file: Optional[str] = None,
-        target_file: Optional[str] = None,
+        context_dir: str | None = None,
+        project_root: str | None = None,
+        source_file: str | None = None,
+        target_file: str | None = None,
         extra_salt: str = "",
     ) -> tuple[str, str]:
         """Compute `(cache_key, code_hash)` for a given code block, config hash, and local asset context."""
@@ -313,7 +310,7 @@ class BuildImageCache:
         self,
         cache_key: str,
         image_format: str = "png",
-    ) -> Optional[tuple[bytes, Optional[bytes]]]:
+    ) -> tuple[bytes, bytes | None] | None:
         """Retrieve `(image_blob, grid_blob)` for `cache_key` and `image_format`, updating `last_accessed_at`.
 
         Returns:
@@ -356,7 +353,7 @@ class BuildImageCache:
         config_hash: str,
         image_format: str,
         image_blob: bytes,
-        grid_blob: Optional[bytes] = None,
+        grid_blob: bytes | None = None,
     ) -> None:
         """Insert or update cached image and optional grid blobs for `cache_key` and `image_format`."""
         if not self._enabled:
@@ -515,10 +512,10 @@ class CliImageCache:
 
     def __init__(
         self,
-        db_path: Optional[str] = None,
+        db_path: str | None = None,
         enabled: bool = True,
-        lib_version: Optional[str] = None,
-        matplotlib_version: Optional[str] = None,
+        lib_version: str | None = None,
+        matplotlib_version: str | None = None,
     ) -> None:
         """Initialize the SQLite CLI image cache.
 
@@ -632,7 +629,7 @@ class CliImageCache:
         finally:
             conn.close()
 
-    def get(self, cache_key: str) -> Optional[bytes]:
+    def get(self, cache_key: str) -> bytes | None:
         """Retrieve cached PNG blob for `cache_key`, updating `last_accessed_at`.
 
         Returns:

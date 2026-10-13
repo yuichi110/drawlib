@@ -9,6 +9,8 @@
 
 """Download assets implementations."""
 
+from __future__ import annotations
+
 import hashlib
 import os
 
@@ -63,6 +65,7 @@ def download_if_not_exist(
         FileNotFoundError: If the asset package cannot be found for the given path.
         RuntimeError: If downloading or extracting the package fails.
     """
+
     def is_file_exist() -> bool:
         return os.path.exists(file_path)
 

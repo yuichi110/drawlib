@@ -9,6 +9,8 @@
 
 """CLI package for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._cli._drawlib import app, call_command
 from drawlib._cli.main import main
 

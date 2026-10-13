@@ -9,6 +9,8 @@
 
 """Public preset_styles module for drawlib."""
 
+from __future__ import annotations
+
 from drawlib._core.l3_styles import Style
 from drawlib._preset_styles import (
     DefaultStyles,

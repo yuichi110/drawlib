@@ -116,22 +116,12 @@ def _draw_progress_dots(
         active_st = cfg.active_dot_style or Styles.PrimaryFlat.patch(
             shape_line_color=Colors.White, shape_line_width=1.2
         )
-        completed_st = cfg.completed_dot_style or Styles.PrimaryFlat.patch(
-            shape_line_width=0.0
-        )
-        upcoming_st = cfg.upcoming_dot_style or Styles.WhiteFlat.patch(
-            alpha=0.25, shape_line_width=0.0
-        )
+        completed_st = cfg.completed_dot_style or Styles.PrimaryFlat.patch(shape_line_width=0.0)
+        upcoming_st = cfg.upcoming_dot_style or Styles.WhiteFlat.patch(alpha=0.25, shape_line_width=0.0)
     else:
-        active_st = cfg.active_dot_style or Styles.PrimaryFlat.patch(
-            shape_line_width=0.0
-        )
-        completed_st = cfg.completed_dot_style or Styles.PrimaryFlat.patch(
-            alpha=0.45, shape_line_width=0.0
-        )
-        upcoming_st = cfg.upcoming_dot_style or Styles.DarkFlat.patch(
-            alpha=0.20, shape_line_width=0.0
-        )
+        active_st = cfg.active_dot_style or Styles.PrimaryFlat.patch(shape_line_width=0.0)
+        completed_st = cfg.completed_dot_style or Styles.PrimaryFlat.patch(alpha=0.45, shape_line_width=0.0)
+        upcoming_st = cfg.upcoming_dot_style or Styles.DarkFlat.patch(alpha=0.20, shape_line_width=0.0)
 
     start_x = cx_center - ((cfg.total_sections - 1) * spacing) / 2.0
     for i in range(1, cfg.total_sections + 1):
@@ -191,9 +181,7 @@ def _draw_split_variant(cfg: _SectionHeaderConfig) -> None:
     rectangle((72.0, 54.0), width=1.6, height=108.0, style=cfg.divider_bar_style)
 
     # Left panel section label & two-digit section number
-    lbl_st = cfg.section_label_style or Styles.WhiteBold.patch(
-        text_size=13.0, alpha=0.82
-    )
+    lbl_st = cfg.section_label_style or Styles.WhiteBold.patch(text_size=13.0, alpha=0.82)
     num_st = cfg.section_num_style or Styles.WhiteBold.patch(text_size=54.0)
     text((36.0, 70.0), cfg.section_label, style=lbl_st)
     text((36.0, 52.0), f"{cfg.section_num:02d}", style=num_st)
@@ -204,12 +192,8 @@ def _draw_split_variant(cfg: _SectionHeaderConfig) -> None:
     base_top_y = 85.0 if cfg.has_topics else 68.0
     if cfg.has_badge:
         badge_w = max(24.0, len(cfg.resolved_badge) * 1.55 + 5.0)
-        badge_st = cfg.badge_style or Styles.PrimaryNeutral.patch(
-            shape_r=2.6, shape_line_width=0.8
-        )
-        badge_txt_st = cfg.badge_text_style or Styles.PrimaryBold.patch(
-            text_size=10.5
-        )
+        badge_st = cfg.badge_style or Styles.PrimaryNeutral.patch(shape_r=2.6, shape_line_width=0.8)
+        badge_txt_st = cfg.badge_text_style or Styles.PrimaryBold.patch(text_size=10.5)
         rectangle(
             (82.0 + badge_w / 2.0, base_top_y),
             width=badge_w,
@@ -225,16 +209,12 @@ def _draw_split_variant(cfg: _SectionHeaderConfig) -> None:
     else:
         title_y = base_top_y - 4.0
 
-    t_st = cfg.title_style or Styles.BlackBold.patch(
-        text_size=21.5, halign="left", valign="center"
-    )
+    t_st = cfg.title_style or Styles.BlackBold.patch(text_size=21.5, halign="left", valign="center")
     text((82.0, title_y), cfg.title, style=t_st)
 
     if cfg.has_subtitle:
         sub_y = title_y - 9.5
-        s_st = cfg.subtitle_style or Styles.Dark.patch(
-            text_size=11.5, halign="left", valign="center"
-        )
+        s_st = cfg.subtitle_style or Styles.Dark.patch(text_size=11.5, halign="left", valign="center")
         text((82.0, sub_y), cfg.subtitle, style=s_st)
         line_y = sub_y - 7.0
     else:
@@ -266,12 +246,8 @@ def _draw_centered_variant(cfg: _SectionHeaderConfig) -> None:
     """Render the 'centered' (keynote hero + horizontal cards) layout."""
     rectangle((96.0, 54.0), width=192.0, height=108.0, style=cfg.right_panel_style)
     if cfg.show_decorations:
-        decor_primary = cfg.decoration_style or Styles.PrimaryNeutral.patch(
-            alpha=0.45, shape_line_width=0.0
-        )
-        decor_secondary = cfg.decoration_style or Styles.SecondaryNeutral.patch(
-            alpha=0.45, shape_line_width=0.0
-        )
+        decor_primary = cfg.decoration_style or Styles.PrimaryNeutral.patch(alpha=0.45, shape_line_width=0.0)
+        decor_secondary = cfg.decoration_style or Styles.SecondaryNeutral.patch(alpha=0.45, shape_line_width=0.0)
         circle((16.0, 88.0), radius=24.0, style=decor_primary)
         circle((176.0, 18.0), radius=22.0, style=decor_secondary)
 
@@ -284,30 +260,18 @@ def _draw_centered_variant(cfg: _SectionHeaderConfig) -> None:
         else f"{cfg.section_label} {cfg.section_num:02d}"
     )
     pill_w = max(32.0, len(pill_label) * 1.55 + 8.0)
-    pill_bg_st = (
-        cfg.badge_style
-        or cfg.section_num_style
-        or Styles.PrimaryFlat.patch(shape_r=3.4, shape_line_width=0.0)
-    )
-    pill_txt_st = (
-        cfg.badge_text_style
-        or cfg.section_label_style
-        or Styles.WhiteBold.patch(text_size=11.5)
-    )
+    pill_bg_st = cfg.badge_style or cfg.section_num_style or Styles.PrimaryFlat.patch(shape_r=3.4, shape_line_width=0.0)
+    pill_txt_st = cfg.badge_text_style or cfg.section_label_style or Styles.WhiteBold.patch(text_size=11.5)
     rectangle((96.0, top_anchor), width=pill_w, height=6.8, style=pill_bg_st)
     text((96.0, top_anchor), pill_label, style=pill_txt_st)
 
     title_y = top_anchor - 14.0
-    t_st = cfg.title_style or Styles.BlackBold.patch(
-        text_size=26.0, halign="center", valign="center"
-    )
+    t_st = cfg.title_style or Styles.BlackBold.patch(text_size=26.0, halign="center", valign="center")
     text((96.0, title_y), cfg.title, style=t_st)
 
     if cfg.has_subtitle:
         sub_y = title_y - 10.5
-        s_st = cfg.subtitle_style or Styles.Dark.patch(
-            text_size=13.0, halign="center", valign="center"
-        )
+        s_st = cfg.subtitle_style or Styles.Dark.patch(text_size=13.0, halign="center", valign="center")
         text((96.0, sub_y), cfg.subtitle, style=s_st)
         div_y = sub_y - 7.5
     else:
@@ -333,9 +297,7 @@ def _draw_centered_variant(cfg: _SectionHeaderConfig) -> None:
             height=card_h,
             direction="horizontal",
             badge_shape="circle",
-            default_badge_style=Styles.PrimaryNeutral.patch(
-                shape_line_width=0.8
-            ),
+            default_badge_style=Styles.PrimaryNeutral.patch(shape_line_width=0.8),
             default_badge_text_style=Styles.PrimaryBold.patch(text_size=10.5),
             spacing=3.2,
         )
@@ -366,18 +328,14 @@ def _draw_banner_variant(cfg: _SectionHeaderConfig) -> None:
         circle((174.0, band_cy + 8.0), radius=20.0, style=decor_st)
 
     badge_box_x = 28.0
-    box_st = cfg.badge_style or Styles.PrimaryFlat.patch(
-        shape_r=3.5, shape_line_width=0.0
-    )
+    box_st = cfg.badge_style or Styles.PrimaryFlat.patch(shape_r=3.5, shape_line_width=0.0)
     rectangle(
         (badge_box_x, band_cy),
         width=26.0,
         height=26.0,
         style=box_st,
     )
-    lbl_st = cfg.section_label_style or Styles.WhiteBold.patch(
-        text_size=9.5, alpha=0.9
-    )
+    lbl_st = cfg.section_label_style or Styles.WhiteBold.patch(text_size=9.5, alpha=0.9)
     num_st = cfg.section_num_style or Styles.WhiteBold.patch(text_size=28.0)
     text((badge_box_x, band_cy + 6.5), cfg.section_label, style=lbl_st)
     text((badge_box_x, band_cy - 3.5), f"{cfg.section_num:02d}", style=num_st)
@@ -396,14 +354,10 @@ def _draw_banner_variant(cfg: _SectionHeaderConfig) -> None:
     else:
         t_y = band_cy + 4.5 if cfg.has_subtitle else band_cy
 
-    t_st = cfg.title_style or Styles.WhiteBold.patch(
-        text_size=23.5, halign="left", valign="center"
-    )
+    t_st = cfg.title_style or Styles.WhiteBold.patch(text_size=23.5, halign="left", valign="center")
     text((text_x, t_y), cfg.title, style=t_st)
     if cfg.has_subtitle:
-        s_st = cfg.subtitle_style or Styles.White.patch(
-            text_size=12.0, halign="left", valign="center", alpha=0.85
-        )
+        s_st = cfg.subtitle_style or Styles.White.patch(text_size=12.0, halign="left", valign="center", alpha=0.85)
         text((text_x, t_y - 10.0), cfg.subtitle, style=s_st)
 
     _draw_progress_dots(
@@ -446,11 +400,7 @@ def _draw_minimal_variant(cfg: _SectionHeaderConfig) -> None:
     top_y = 86.0 if cfg.has_topics else 68.0
 
     num_pill_w = 24.0
-    pill_bg_st = (
-        cfg.badge_style
-        or cfg.section_num_style
-        or Styles.PrimaryFlat.patch(shape_r=1.6, shape_line_width=0.0)
-    )
+    pill_bg_st = cfg.badge_style or cfg.section_num_style or Styles.PrimaryFlat.patch(shape_r=1.6, shape_line_width=0.0)
     pill_txt_st = cfg.section_label_style or Styles.WhiteBold.patch(text_size=11.0)
     rectangle(
         (content_x + num_pill_w / 2.0, top_y),
@@ -465,9 +415,7 @@ def _draw_minimal_variant(cfg: _SectionHeaderConfig) -> None:
     )
 
     if cfg.has_badge:
-        badge_txt_st = cfg.badge_text_style or Styles.Muted.patch(
-            text_size=11.0, halign="left", valign="center"
-        )
+        badge_txt_st = cfg.badge_text_style or Styles.Muted.patch(text_size=11.0, halign="left", valign="center")
         text(
             (content_x + num_pill_w + 3.5, top_y),
             cfg.resolved_badge,
@@ -483,15 +431,11 @@ def _draw_minimal_variant(cfg: _SectionHeaderConfig) -> None:
     )
 
     title_y = top_y - 12.0
-    t_st = cfg.title_style or Styles.BlackBold.patch(
-        text_size=24.0, halign="left", valign="center"
-    )
+    t_st = cfg.title_style or Styles.BlackBold.patch(text_size=24.0, halign="left", valign="center")
     text((content_x, title_y), cfg.title, style=t_st)
     if cfg.has_subtitle:
         sub_y = title_y - 9.5
-        s_st = cfg.subtitle_style or Styles.Dark.patch(
-            text_size=12.5, halign="left", valign="center"
-        )
+        s_st = cfg.subtitle_style or Styles.Dark.patch(text_size=12.5, halign="left", valign="center")
         text((content_x, sub_y), cfg.subtitle, style=s_st)
         line_y = sub_y - 6.5
     else:
@@ -513,9 +457,7 @@ def _draw_minimal_variant(cfg: _SectionHeaderConfig) -> None:
             height=list_h,
             direction="vertical",
             badge_shape="rounded_rect",
-            default_badge_style=Styles.PrimaryNeutral.patch(
-                shape_line_width=0.8
-            ),
+            default_badge_style=Styles.PrimaryNeutral.patch(shape_line_width=0.8),
             default_badge_text_style=Styles.PrimaryBold.patch(text_size=10.5),
             spacing=gap,
         )
@@ -554,11 +496,7 @@ def draw_page_number(
         clear()
         setup(width=width, height=height, alpha=0.0)
     effective_style = style or Styles.Muted.patch(text_size=65.0)
-    label = (
-        current_slide.text
-        if template == "{index} / {total}"
-        else current_slide.format(template)
-    )
+    label = current_slide.text if template == "{index} / {total}" else current_slide.format(template)
     text((width / 2.0, height / 2.0), label, style=effective_style)
 
 
@@ -655,11 +593,7 @@ def draw_section_header(  # noqa: PLR0913
     resolved_badge = (
         badge_text
         if badge_text is not None
-        else (
-            f"Part {section_num} of {total_sections}"
-            if total_sections > 0
-            else ""
-        )
+        else (f"Part {section_num} of {total_sections}" if total_sections > 0 else "")
     )
 
     cfg = _SectionHeaderConfig(
@@ -671,12 +605,9 @@ def draw_section_header(  # noqa: PLR0913
         section_label=section_label,
         resolved_badge=resolved_badge,
         show_decorations=show_decorations,
-        left_panel_style=left_panel_style
-        or Styles.DarkFlat.patch(shape_line_width=0.0, shape_r=0.0),
-        right_panel_style=right_panel_style
-        or Styles.Neutral.patch(shape_line_width=0.0, shape_r=0.0),
-        divider_bar_style=divider_bar_style
-        or Styles.PrimaryFlat.patch(shape_line_width=0.0, shape_r=0.0),
+        left_panel_style=left_panel_style or Styles.DarkFlat.patch(shape_line_width=0.0, shape_r=0.0),
+        right_panel_style=right_panel_style or Styles.Neutral.patch(shape_line_width=0.0, shape_r=0.0),
+        divider_bar_style=divider_bar_style or Styles.PrimaryFlat.patch(shape_line_width=0.0, shape_r=0.0),
         decoration_style=decoration_style,
         section_label_style=section_label_style,
         section_num_style=section_num_style,
@@ -687,17 +618,14 @@ def draw_section_header(  # noqa: PLR0913
         badge_text_style=badge_text_style,
         title_style=title_style,
         subtitle_style=subtitle_style,
-        line_style=line_style
-        or Styles.Neutral.patch(line_color=Colors.Gray3, line_width=1.0),
+        line_style=line_style or Styles.Neutral.patch(line_color=Colors.Gray3, line_width=1.0),
         topic_card_style=topic_card_style
         or Styles.White.patch(
             shape_line_color=Colors.Gray3,
             shape_line_width=0.9,
         ),
-        topic_text_style=topic_text_style
-        or Styles.DarkBold.patch(text_size=11.0),
-        topic_description_style=topic_description_style
-        or Styles.Muted.patch(text_size=9.8),
+        topic_text_style=topic_text_style or Styles.DarkBold.patch(text_size=11.0),
+        topic_description_style=topic_description_style or Styles.Muted.patch(text_size=9.8),
         topic_badge_style=topic_badge_style,
         topic_badge_text_style=topic_badge_text_style,
     )

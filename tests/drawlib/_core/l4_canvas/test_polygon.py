@@ -9,9 +9,12 @@
 
 """Unit and integration tests for CanvasShapePolygonFeature shapes."""
 
-import pytest
+from __future__ import annotations
 
-from drawlib.canvas import clear, save
+import pytest
+from pydantic import ValidationError
+
+from drawlib.canvas import canvas, clear, save
 from drawlib.shapes import (
     arrow_l,
     arrow_polyline,
@@ -20,6 +23,7 @@ from drawlib.shapes import (
     circle,
     ellipse,
     parallelogram,
+    plaque,
     polygon,
     rectangle,
     regularpolygon,
@@ -29,8 +33,6 @@ from drawlib.shapes import (
     triangle,
 )
 from drawlib.styles import Colors, Styles
-
-# ruff: noqa: F403, F405
 
 default_styles = Styles
 OUTPUT_DIR = "../../../../output_tests/_core/l4_canvas/polygon/"
@@ -329,3 +331,92 @@ class TestCanvasPolygon:
 
         with pytest.raises(ValueError, match="shape_r tuple length"):
             arrow_polyline([(10, 10), (10, 30), (30, 30), (30, 10)], 2, 5, 3, style=s.patch(shape_r=(1.0, 2.0, 3.0)))
+
+    def test_polygon_shapes_hole_ratio(self) -> None:
+        """Verify hole_ratio rendering on triangle, parallelogram, trapezoid, and rhombus."""
+        clear()
+        triangle(
+            (20, 50),
+            width=24,
+            height=20,
+            hole_ratio=0.4,
+            style=Styles.PrimaryNeutral.patch(shape_r=1.0),
+            text="T",
+        )
+        parallelogram(
+            (45, 50),
+            width=24,
+            height=18,
+            corner_angle=65,
+            hole_ratio=0.45,
+            style=Styles.SecondaryNeutral.patch(shape_r=(0.5, 1.0, 0.5, 1.0)),
+            text="Pa",
+        )
+        trapezoid(
+            (70, 50),
+            bottomedge_width=26,
+            height=18,
+            topedge_width=16,
+            hole_ratio=0.4,
+            style=Styles.WarningNeutral.patch(angle=10),
+            text="Tr",
+        )
+        rhombus(
+            (50, 20),
+            width=24,
+            height=18,
+            hole_ratio=0.5,
+            style=Styles.DangerNeutral.patch(shape_r=1.0),
+            text="Rh",
+        )
+        assert len(canvas._artists) == 8  # 4 hollow PathPatches + 4 Text artists
+
+    def test_polygon_hole_ratio_validation_errors(self) -> None:
+        """Verify hole_ratio boundary validation errors on polygon shapes."""
+        clear()
+        for bad_ratio in (0.0, 1.0, -0.2, 1.5):
+            with pytest.raises((ValueError, ValidationError)):
+                triangle((50, 50), width=20, height=15, hole_ratio=bad_ratio, style=Styles.Neutral)
+            with pytest.raises((ValueError, ValidationError)):
+                parallelogram(
+                    (50, 50),
+                    width=20,
+                    height=15,
+                    corner_angle=60,
+                    hole_ratio=bad_ratio,
+                    style=Styles.Neutral,
+                )
+            with pytest.raises((ValueError, ValidationError)):
+                trapezoid(
+                    (50, 50),
+                    bottomedge_width=20,
+                    height=15,
+                    topedge_width=12,
+                    hole_ratio=bad_ratio,
+                    style=Styles.Neutral,
+                )
+            with pytest.raises((ValueError, ValidationError)):
+                rhombus((50, 50), width=20, height=15, hole_ratio=bad_ratio, style=Styles.Neutral)
+
+    def test_plaque(self) -> None:
+        """Test plaque export, variants, cut_ratio, and validation."""
+        clear()
+        assert callable(plaque)
+        assert hasattr(canvas, "plaque")
+
+        for pv in ("concave", "standard", "chamfered", "octagon", "notched"):
+            plaque(
+                (70, 50),
+                width=30,
+                height=18,
+                variant=pv,
+                cut_ratio=0.2,
+                style=Styles.SecondaryNeutral.patch(shape_r=0.4, angle=-10),
+                text="VIP",
+            )
+        assert len(canvas._artists) == 10  # 5 shapes + 5 texts
+
+        with pytest.raises((ValueError, ValidationError)):
+            plaque((50, 50), width=24, height=16, cut_ratio=1.0, style=Styles.Primary)
+        with pytest.raises((ValueError, ValidationError)):
+            plaque((50, 50), width=24, height=16, cut_ratio=0.0, style=Styles.Primary)

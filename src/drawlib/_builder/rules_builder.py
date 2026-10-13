@@ -18,7 +18,7 @@ import re
 import shutil
 import sys
 from pathlib import Path
-from typing import Final, Sequence
+from typing import Final
 
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._core.l1_core import RULES_DIR_PATH

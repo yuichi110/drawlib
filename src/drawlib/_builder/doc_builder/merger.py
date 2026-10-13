@@ -16,7 +16,6 @@ import mimetypes
 import os
 import re
 import sys
-from typing import List, Optional
 
 from drawlib._builder._common.cache import BuildImageCache
 from drawlib._builder.doc_builder.compiler.base import validate_markdown_links
@@ -82,7 +81,7 @@ def _inline_local_images(html_body: str, src_dir: str) -> str:
     return pattern.sub(repl, html_body)
 
 
-def expand_input_files(inputs: List[str]) -> List[str]:
+def expand_input_files(inputs: list[str]) -> list[str]:
     """Expand a list of file and directory paths into an ordered list of Markdown/HTML file paths.
 
     Args:
@@ -94,7 +93,7 @@ def expand_input_files(inputs: List[str]) -> List[str]:
     Raises:
         ValueError: If any input path does not exist or no valid documents are found.
     """
-    collected: List[str] = []
+    collected: list[str] = []
     for item in inputs:
         abs_path = os.path.abspath(item)
         if not os.path.exists(abs_path):
@@ -105,7 +104,7 @@ def expand_input_files(inputs: List[str]) -> List[str]:
                 raise ValueError(f'Unsupported input file "{abs_path}". Expected .md or .html.')
             collected.append(abs_path)
         elif os.path.isdir(abs_path):
-            dir_files: List[str] = []
+            dir_files: list[str] = []
             for root, dirnames, files in os.walk(abs_path):
                 dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
                 for fname in sorted(files):
@@ -136,16 +135,16 @@ def expand_input_files(inputs: List[str]) -> List[str]:
 
 
 def build_merged_html(
-    inputs: List[str],
-    title: Optional[str] = None,
+    inputs: list[str],
+    title: str | None = None,
     page_break: bool = True,
     generate_index: bool = False,
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-    css_path: Optional[str] = None,
-    template_path: Optional[str] = None,
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    css_path: str | None = None,
+    template_path: str | None = None,
     no_cache: bool = False,
-) -> tuple[str, List[str]]:
+) -> tuple[str, list[str]]:
     """Compile and merge one or more Markdown/HTML inputs into a single standalone HTML document.
 
     Args:
@@ -205,7 +204,7 @@ def build_merged_html(
 
     file_list = expand_input_files(inputs)
     cache = BuildImageCache(enabled=not no_cache)
-    processor: Optional[DrawlibBlockProcessor] = None
+    processor: DrawlibBlockProcessor | None = None
 
     chapter_anchors: dict[str, str] = {}
     for idx, src_abs in enumerate(file_list, start=1):
@@ -217,9 +216,9 @@ def build_merged_html(
         chapter_anchors[f"{stem}.md"] = anchor_id
         chapter_anchors[f"{stem}.html"] = anchor_id
 
-    chapters_html: List[str] = []
-    toc_entries: List[tuple[str, str]] = []
-    inferred_title: Optional[str] = title
+    chapters_html: list[str] = []
+    toc_entries: list[tuple[str, str]] = []
+    inferred_title: str | None = title
     total_files = len(file_list)
     if len(inputs) == 1 and os.path.isdir(os.path.abspath(inputs[0])):
         base_root = os.path.abspath(inputs[0])
@@ -352,7 +351,7 @@ def build_merged_html(
         chapters_html.append(f'<section id="{anchor_id}" class="pdf-chapter"{break_style}>\n{chapter_body}\n</section>')
         progress.update(total_steps, total_steps, done=True)
 
-    body_parts: List[str] = []
+    body_parts: list[str] = []
     index_entries = toc_entries[1:]
     if generate_index and len(index_entries) > 0:
         toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)

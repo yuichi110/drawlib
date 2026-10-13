@@ -9,6 +9,8 @@
 
 """Shape utility module for canvas operations."""
 
+from __future__ import annotations
+
 import math
 from typing import Any, cast
 
@@ -214,9 +216,7 @@ class ShapeUtil:
             return [r_val] * n
 
         if len(shape_r) != n:
-            raise ValueError(
-                f"shape_r tuple length ({len(shape_r)}) must match the number of vertices ({n})."
-            )
+            raise ValueError(f"shape_r tuple length ({len(shape_r)}) must match the number of vertices ({n}).")
         radii = [float(r) for r in shape_r]
         if any(r < 0.0 for r in radii):
             raise ValueError("shape_r values must be non-negative.")
@@ -291,7 +291,6 @@ class ShapeUtil:
                 path_points.append(vertices[i])
 
         return path_points
-
 
     @staticmethod
     def _shift_path_point(p: PathPoint, offset: Coordinate) -> PathPoint:
@@ -393,9 +392,7 @@ class ShapeUtil:
         center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
 
         # 5. Rotate and place at canvas center
-        transformed_points = [
-            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_points
-        ]
+        transformed_points = [ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_points]
 
         return transformed_points, center_xy, effective_style
 
@@ -635,8 +632,7 @@ class ShapeUtil:
 
         inset = (1.0 - hole_ratio) * t_max
         inner_same_winding: list[Coordinate] = [
-            (vertices[i][0] + inset * deltas[i][0], vertices[i][1] + inset * deltas[i][1])
-            for i in range(n)
+            (vertices[i][0] + inset * deltas[i][0], vertices[i][1] + inset * deltas[i][1]) for i in range(n)
         ]
         return list(reversed(inner_same_winding)), inset
 
@@ -808,12 +804,8 @@ class ShapeUtil:
         )
         center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
 
-        transformed_outer = [
-            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_outer
-        ]
-        transformed_inner = [
-            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_inner
-        ]
+        transformed_outer = [ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_outer]
+        transformed_inner = [ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_inner]
 
         outer_path = ShapeUtil.build_matplotlib_path(transformed_outer)
         inner_path = ShapeUtil.build_matplotlib_path(transformed_inner)

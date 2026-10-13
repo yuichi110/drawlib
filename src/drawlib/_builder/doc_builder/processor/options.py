@@ -14,7 +14,7 @@ from __future__ import annotations
 import os
 import re
 import shlex
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel
 
@@ -64,18 +64,18 @@ def tokenize_kv_pairs(info_str: str) -> list[tuple[str, str]]:
 class DrawlibBlockOptions(BaseModel):
     """Parsed options from ```drawlib header line or <script type='text/drawlib'> attributes."""
 
-    width: Optional[str] = None
-    height: Optional[str] = None
-    align: Optional[str] = None
-    format: Optional[str] = None
-    caption: Optional[str] = None
-    css_class: Optional[str] = None
-    file: Optional[str] = None
+    width: str | None = None
+    height: str | None = None
+    align: str | None = None
+    format: str | None = None
+    caption: str | None = None
+    css_class: str | None = None
+    file: str | None = None
     code: Literal["hide", "show", "fold"] = "hide"
     no_cache: bool = False
-    anim_trigger: Optional[Literal["auto", "click"]] = None
-    anim_loop: Optional[Literal["once", "infinite"]] = None
-    anim_pause: Optional[list[int]] = None
+    anim_trigger: Literal["auto", "click"] | None = None
+    anim_loop: Literal["once", "infinite"] | None = None
+    anim_pause: list[int] | None = None
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -112,9 +112,7 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.code = "hide"
         elif key_lower == "width":
             if val_clean:
-                options.width = (
-                    val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
-                )
+                options.width = val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
         elif key_lower == "height":
             if val_clean:
                 options.height = (
@@ -174,7 +172,7 @@ def resolve_block_image_paths(
     doc_base_name: str,
     block_counter: int,
     default_format: str,
-    output_dir: Optional[str],
+    output_dir: str | None,
     require_file: bool = False,
     line_number: int = 1,
 ) -> tuple[str, str]:
