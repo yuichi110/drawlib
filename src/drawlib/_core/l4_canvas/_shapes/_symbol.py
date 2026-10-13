@@ -33,13 +33,13 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
 from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 from drawlib._core.l4_canvas._shapes._symbol_builders import (
-    _build_face_feature_patches,
-    _build_face_head_patch,
-    _build_gear_outer_path_points,
-    _build_math_symbol_path,
     build_clock_patches,
+    build_face_feature_patches,
+    build_face_head_patch,
+    build_gear_outer_path_points,
     build_heart_path,
     build_lightning_path,
+    build_math_symbol_path,
     build_moon_path,
     build_sun_path,
 )
@@ -93,7 +93,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
         cos_a = math.cos(rad)
         sin_a = math.sin(rad)
 
-        head_patch = _build_face_head_patch(
+        head_patch = build_face_head_patch(
             cx=cx,
             cy=cy,
             radius=radius,
@@ -105,7 +105,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             line_w=line_w,
             line_style=line_style,
         )
-        feature_patches = _build_face_feature_patches(
+        feature_patches = build_face_feature_patches(
             cx=cx,
             cy=cy,
             radius=radius,
@@ -390,7 +390,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
         width = radius_ext * 2.0
         (cx, cy), angle, style = ShapeUtils.prepare_centered_shape(xy, width, width, style)
 
-        path_points = _build_gear_outer_path_points(
+        path_points = build_gear_outer_path_points(
             cx=cx,
             cy=cy,
             num_teeth=num_teeth,
@@ -459,7 +459,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
 
         (cx, cy), angle, style = ShapeUtils.prepare_centered_shape(xy, width, eff_height, style)
 
-        path = _build_math_symbol_path(
+        path = build_math_symbol_path(
             cx=cx,
             cy=cy,
             symbol=symbol,

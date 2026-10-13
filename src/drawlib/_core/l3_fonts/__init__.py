@@ -17,7 +17,7 @@ from drawlib._core.l2_types import (
     FontMetadata,
     FontResource,
 )
-from drawlib._core.l3_fonts._fonts import get_font_metadata
+from drawlib._core.l3_fonts._metadata import get_font_metadata
 from drawlib._core.l3_fonts._names import (
     Font,
     FontArabic,
@@ -40,7 +40,7 @@ __all__ = [
     "FontFile",
     "FontMetadata",
     "FontResource",
-    # _fonts.py
+    # _metadata.py
     "get_font_metadata",
     # _names.py
     "Font",

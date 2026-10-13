@@ -94,7 +94,7 @@ def _build_cylinder_disk_patches(
     return patches
 
 
-def _build_cylinder_patches(
+def build_cylinder_patches(
     xy: Coordinate,
     width: float,
     height: float,
@@ -372,7 +372,7 @@ def _get_cloud_valleys_and_sagittas(
     return valleys, sagittas
 
 
-def _build_cloud_path(
+def build_cloud_path(
     xy: tuple[float, float],
     width: float,
     height: float,
@@ -418,7 +418,7 @@ def _build_cloud_path(
     return Path(scaled_verts, codes)
 
 
-def _format_brace_styles(
+def format_brace_styles(
     style: Style,
     text_style: Style | None = None,
 ) -> tuple[Style, Style | None]:
@@ -434,7 +434,7 @@ def _format_brace_styles(
     return style, text_style
 
 
-def _get_brace_stroke_options(style: Style) -> dict[str, Any]:
+def get_brace_stroke_options(style: Style) -> dict[str, Any]:
     """Extract Matplotlib PathPatch stroke options from Style for brace rendering."""
     lw = style.line_width
     if lw is None:
@@ -565,7 +565,7 @@ def _build_curly_brace_local(
     return verts, codes
 
 
-def _build_brace_path(
+def build_brace_path(
     xy: tuple[float, float],
     width: float,
     height: float,
@@ -651,7 +651,7 @@ def _get_cube_face_fills(
     return raw, ShapeUtils.lighten_rgba(raw, top_lift), ShapeUtils.darken_rgba(raw, side_darken)
 
 
-def _build_cube_patches(
+def build_cube_patches(
     xy: tuple[float, float],
     width: float,
     height: float,
@@ -890,7 +890,7 @@ def _get_document_text_center(
     )
 
 
-def _build_document_patches(
+def build_document_patches(
     xy: tuple[float, float],
     width: float,
     height: float,
@@ -1082,17 +1082,17 @@ def build_funnel_patches(
 
 __all__ = [
     "_arc_bezier_between",
-    "_build_brace_path",
-    "_build_cloud_path",
-    "_build_cube_patches",
+    "build_brace_path",
+    "build_cloud_path",
+    "build_cube_patches",
     "_build_curly_brace_local",
     "_build_cylinder_disk_patches",
-    "_build_cylinder_patches",
-    "_build_document_patches",
+    "build_cylinder_patches",
+    "build_document_patches",
     "_build_document_sheet_paths",
     "_build_square_brace_local",
-    "_format_brace_styles",
-    "_get_brace_stroke_options",
+    "format_brace_styles",
+    "get_brace_stroke_options",
     "_get_cloud_valleys_and_sagittas",
     "_get_cube_face_fills",
     "_get_cylinder_fill_colors",

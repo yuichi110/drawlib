@@ -111,3 +111,33 @@ class TestColorUtils:
 
         with pytest.raises(ValueError, match="num must be >= 1"):
             get_intermediate_colors(c1, c2, num=0)
+
+    def test_luminance_black_and_white(self) -> None:
+        """Verifies get_luminance calculates WCAG relative luminance for white and black."""
+        lum_white = ColorUtils.get_luminance((255, 255, 255))
+        assert pytest.approx(lum_white, abs=1e-3) == 1.0
+
+        lum_black = ColorUtils.get_luminance((0, 0, 0))
+        assert pytest.approx(lum_black, abs=1e-3) == 0.0
+
+    def test_contrast_text_transparent_background(self) -> None:
+        """Verifies get_contrast_text_color falls back to dark text on transparent backgrounds."""
+        assert ColorUtils.get_contrast_text_color(None) == (40, 40, 40, 1.0)
+        assert ColorUtils.get_contrast_text_color((255, 255, 255, 0.0)) == (40, 40, 40, 1.0)
+        assert ColorUtils.get_contrast_text_color((255, 255, 255, 0.1)) == (40, 40, 40, 1.0)
+
+    def test_contrast_text_bright_and_dark_backgrounds(self) -> None:
+        """Verifies get_contrast_text_color selects dark or light text based on background luminance."""
+        assert ColorUtils.get_contrast_text_color((255, 255, 255)) == (40, 40, 40, 1.0)
+        assert ColorUtils.get_contrast_text_color((0, 0, 0)) == (255, 255, 255, 1.0)
+        assert ColorUtils.get_contrast_text_color((20, 30, 80)) == (255, 255, 255, 1.0)
+        assert ColorUtils.get_contrast_text_color((255, 255, 0)) == (40, 40, 40, 1.0)
+
+    def test_contrast_text_custom_colors_and_threshold(self) -> None:
+        """Verifies get_contrast_text_color respects custom dark_color and light_color."""
+        res = ColorUtils.get_contrast_text_color(
+            (0, 0, 0),
+            dark_color=(10, 10, 10, 1.0),
+            light_color=(240, 240, 240, 1.0),
+        )
+        assert res == (240, 240, 240, 1.0)

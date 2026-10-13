@@ -538,6 +538,66 @@ def subpaths_to_compound_path(
     return Path(vertices=all_verts, codes=all_codes)
 
 
+def build_plaque_path(
+    xy: Coordinate,
+    width: float,
+    height: float,
+    variant: str,
+    cut_ratio: float | None,
+    shape_r: float | tuple[float, ...] | None,
+    angle: float,
+) -> Path:
+    """Build world-space Matplotlib Path for plaque shape variants."""
+    cx, cy = xy
+    hw, hh = width / 2.0, height / 2.0
+    c_ratio = 0.22 if cut_ratio is None else float(cut_ratio)
+    r = min(width, height) * min(0.45, c_ratio)
+
+    if variant in {"concave", "standard"}:
+        local_pts = (
+            arc_points_local(hw, -hh, r, 180.0, 90.0, 12)
+            + arc_points_local(hw, hh, r, 270.0, 180.0, 12)
+            + arc_points_local(-hw, hh, r, 0.0, -90.0, 12)
+            + arc_points_local(-hw, -hh, r, 90.0, 0.0, 12)
+        )
+        return subpaths_to_compound_path([local_pts], cx, cy, angle)
+
+    if variant in {"chamfered", "octagon"}:
+        local_pts = [
+            (-hw + r, -hh),
+            (hw - r, -hh),
+            (hw, -hh + r),
+            (hw, hh - r),
+            (hw - r, hh),
+            (-hw + r, hh),
+            (-hw, hh - r),
+            (-hw, -hh + r),
+        ]
+    else:
+        # "notched"
+        local_pts = [
+            (-hw + r, -hh),
+            (hw - r, -hh),
+            (hw - r, -hh + r),
+            (hw, -hh + r),
+            (hw, hh - r),
+            (hw - r, hh - r),
+            (hw - r, hh),
+            (-hw + r, hh),
+            (-hw + r, hh - r),
+            (-hw, hh - r),
+            (-hw, -hh + r),
+            (-hw + r, -hh + r),
+        ]
+
+    world_pts: list[Coordinate] = []
+    for lx, ly in local_pts:
+        rx, ry = rotate_point((lx, ly), angle=angle)
+        world_pts.append((cx + rx, cy + ry))
+    path_points = round_polygon_points(world_pts, shape_r)
+    return build_matplotlib_path(path_points)
+
+
 __all__ = [
     "_normalize_shape_radii",
     "_rotate_and_place_path_point",
@@ -546,6 +606,7 @@ __all__ = [
     "build_ellipse_path",
     "build_hollow_ellipse_path",
     "build_matplotlib_path",
+    "build_plaque_path",
     "darken_rgba",
     "inset_convex_polygon",
     "lighten_rgba",

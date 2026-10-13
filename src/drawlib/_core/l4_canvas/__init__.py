@@ -77,8 +77,7 @@ from drawlib._core.l4_canvas._canvas import (
     wedge,
 )
 from drawlib._core.l4_canvas._image_code import get_dimage_from_code
-from drawlib._core.l4_canvas._line import LineArcHelper
-from drawlib._core.l4_canvas._line_utils import LineUtils
+from drawlib._core.l4_canvas._line_utils import LineArcHelper, LineUtils
 from drawlib._core.l4_canvas._shapes import ShapeUtils
 from drawlib._core.l4_canvas._text_utils import TextUtils
 

@@ -28,14 +28,14 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._container_builders import (
-    _build_brace_path,
-    _build_cloud_path,
-    _build_cube_patches,
-    _build_cylinder_patches,
-    _build_document_patches,
-    _format_brace_styles,
-    _get_brace_stroke_options,
+    build_brace_path,
+    build_cloud_path,
+    build_cube_patches,
+    build_cylinder_patches,
+    build_document_patches,
     build_funnel_patches,
+    format_brace_styles,
+    get_brace_stroke_options,
 )
 from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
 from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
@@ -84,7 +84,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
             raise ValueError(f"disks must be >= 1, but got {disks}.")
 
         xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
-        patches = _build_cylinder_patches(
+        patches = build_cylinder_patches(
             xy=xy,
             width=width,
             height=height,
@@ -135,7 +135,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
             raise ValueError("depth_ratio must be strictly between 0.0 and 1.0.")
 
         xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
-        patches, text_xy = _build_cube_patches(
+        patches, text_xy = build_cube_patches(
             xy=xy,
             width=width,
             height=height,
@@ -197,7 +197,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
             raise ValueError("fold_ratio must be strictly between 0.0 and 1.0.")
 
         xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
-        patches, text_xy = _build_document_patches(
+        patches, text_xy = build_document_patches(
             xy=xy,
             width=width,
             height=height,
@@ -304,7 +304,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
             raise ValueError("bump_ratio must be strictly between 0.0 and 1.0.")
 
         xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
-        path = _build_cloud_path(
+        path = build_cloud_path(
             xy=xy,
             width=width,
             height=height,
@@ -354,7 +354,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
         Raises:
             ValueError: If width, height, tip_ratio, or tip_position_ratio are out of valid bounds.
         """
-        style, text_style = _format_brace_styles(style, text_style)
+        style, text_style = format_brace_styles(style, text_style)
         if width <= 0.0 or height <= 0.0:
             raise ValueError("width and height must be positive.")
         if tip_ratio is not None and not (0.0 < tip_ratio < 1.0):
@@ -373,7 +373,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
         )
 
         shape_r_scalar = style.shape_r if isinstance(style.shape_r, (int, float)) else None
-        path = _build_brace_path(
+        path = build_brace_path(
             xy=xy,
             width=width,
             height=height,
@@ -384,7 +384,7 @@ class CanvasShapeContainerFeature(CanvasShapePolygonFeature):
             shape_r=shape_r_scalar,
             angle=angle,
         )
-        options = _get_brace_stroke_options(style)
+        options = get_brace_stroke_options(style)
         ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[PathPatch(path=path, **options)],

@@ -101,7 +101,7 @@ _LIGHTNING_RAW_SPECS: dict[str, list[Coordinate]] = {
 }
 
 
-def _build_face_head_patch(
+def build_face_head_patch(
     cx: float,
     cy: float,
     radius: float,
@@ -422,7 +422,7 @@ def _build_x_eye_face_patches(
     return patches
 
 
-def _build_face_feature_patches(
+def build_face_feature_patches(
     cx: float,
     cy: float,
     radius: float,
@@ -1191,7 +1191,7 @@ def _gear_arc_bezier_segment(
     return (cp1, cp2, (x3, y3))
 
 
-def _build_gear_outer_path_points(
+def build_gear_outer_path_points(
     cx: float,
     cy: float,
     num_teeth: int,
@@ -1359,7 +1359,7 @@ def _build_math_symbol_components(
     return [_build_not_equal_polygon(hw, hh, ht)], []
 
 
-def _build_math_symbol_path(
+def build_math_symbol_path(
     cx: float,
     cy: float,
     symbol: str,
@@ -1396,11 +1396,11 @@ __all__ = [
     "_build_7seg_digit_polygons",
     "_build_clock_hardware_patches",
     "_build_digital_clock_patches",
-    "_build_face_feature_patches",
-    "_build_face_head_patch",
-    "_build_gear_outer_path_points",
+    "build_face_feature_patches",
+    "build_face_head_patch",
+    "build_gear_outer_path_points",
     "_build_math_symbol_components",
-    "_build_math_symbol_path",
+    "build_math_symbol_path",
     "_build_not_equal_polygon",
     "_build_skull_feature_patches",
     "_build_x_eye_face_patches",

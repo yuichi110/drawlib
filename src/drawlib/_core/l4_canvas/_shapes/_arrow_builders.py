@@ -24,8 +24,7 @@ from drawlib._core.l2_types import (
     ShapeRadius,
 )
 from drawlib._core.l3_math import get_rotated_path_points
-from drawlib._core.l4_canvas._line import LineArcHelper
-from drawlib._core.l4_canvas._line_utils import LineUtils
+from drawlib._core.l4_canvas._line_utils import LineArcHelper, LineUtils
 from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
@@ -260,8 +259,8 @@ def build_arrow_arc_path_points(
     path_points1.extend(path_points2)
 
     if angle != 0:
-        return get_rotated_path_points(cast(PathPoints, path_points1), xy, angle)
-    return cast(PathPoints, path_points1)
+        return get_rotated_path_points(path_points1, xy, angle)
+    return path_points1
 
 
 def build_chevron_points(

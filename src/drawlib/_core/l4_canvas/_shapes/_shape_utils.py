@@ -39,6 +39,7 @@ from drawlib._core.l4_canvas._shapes._path_utils import (
     build_ellipse_path,
     build_hollow_ellipse_path,
     build_matplotlib_path,
+    build_plaque_path,
     darken_rgba,
     inset_convex_polygon,
     lighten_rgba,
@@ -66,6 +67,7 @@ class ShapeUtils:
     validate_hole_ratio = staticmethod(validate_hole_ratio)
     build_ellipse_path = staticmethod(build_ellipse_path)
     build_hollow_ellipse_path = staticmethod(build_hollow_ellipse_path)
+    build_plaque_path = staticmethod(build_plaque_path)
     inset_convex_polygon = staticmethod(inset_convex_polygon)
     shrink_shape_r = staticmethod(shrink_shape_r)
     lighten_rgba = staticmethod(lighten_rgba)

@@ -18,7 +18,6 @@ import pytest
 
 import drawlib.math as dmath
 from drawlib._core.l2_types import Bezier2, PathPoints
-from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_math import (
     RoutingType,
     Side,
@@ -250,37 +249,3 @@ class TestOrthogonalRouting:
         path = compute_orthogonal_path((10.0, 10.0), (30.0, 30.0), start_side="right", end_side="bottom")
         assert path == [(10.0, 10.0), (30.0, 10.0), (30.0, 30.0)]
 
-
-class TestColorContrastUtil:
-    """Unit tests for ColorUtils contrast and luminance calculations."""
-
-    def test_luminance_black_and_white(self) -> None:
-        lum_white = ColorUtils.get_luminance((255, 255, 255))
-        assert pytest.approx(lum_white, abs=1e-3) == 1.0
-
-        lum_black = ColorUtils.get_luminance((0, 0, 0))
-        assert pytest.approx(lum_black, abs=1e-3) == 0.0
-
-    def test_contrast_text_transparent_background(self) -> None:
-        assert ColorUtils.get_contrast_text_color(None) == (40, 40, 40, 1.0)
-        assert ColorUtils.get_contrast_text_color((255, 255, 255, 0.0)) == (40, 40, 40, 1.0)
-        # Low alpha (< 0.3)
-        assert ColorUtils.get_contrast_text_color((255, 255, 255, 0.1)) == (40, 40, 40, 1.0)
-
-    def test_contrast_text_bright_and_dark_backgrounds(self) -> None:
-        # Pure white bg -> dark text
-        assert ColorUtils.get_contrast_text_color((255, 255, 255)) == (40, 40, 40, 1.0)
-        # Pure black bg -> light text
-        assert ColorUtils.get_contrast_text_color((0, 0, 0)) == (255, 255, 255, 1.0)
-        # Deep blue -> light text
-        assert ColorUtils.get_contrast_text_color((20, 30, 80)) == (255, 255, 255, 1.0)
-        # Yellow -> dark text
-        assert ColorUtils.get_contrast_text_color((255, 255, 0)) == (40, 40, 40, 1.0)
-
-    def test_contrast_text_custom_colors_and_threshold(self) -> None:
-        res = ColorUtils.get_contrast_text_color(
-            (0, 0, 0),
-            dark_color=(10, 10, 10, 1.0),
-            light_color=(240, 240, 240, 1.0),
-        )
-        assert res == (240, 240, 240, 1.0)

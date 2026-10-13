@@ -38,66 +38,6 @@ from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
 from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
-def build_plaque_path(
-    xy: Coordinate,
-    width: float,
-    height: float,
-    variant: str,
-    cut_ratio: float | None,
-    shape_r: float | tuple[float, ...] | None,
-    angle: float,
-) -> Path:
-    """Build world-space Matplotlib Path for plaque shape variants."""
-    cx, cy = xy
-    hw, hh = width / 2.0, height / 2.0
-    c_ratio = 0.22 if cut_ratio is None else float(cut_ratio)
-    r = min(width, height) * min(0.45, c_ratio)
-
-    if variant in {"concave", "standard"}:
-        local_pts = (
-            ShapeUtils.arc_points_local(hw, -hh, r, 180.0, 90.0, 12)
-            + ShapeUtils.arc_points_local(hw, hh, r, 270.0, 180.0, 12)
-            + ShapeUtils.arc_points_local(-hw, hh, r, 0.0, -90.0, 12)
-            + ShapeUtils.arc_points_local(-hw, -hh, r, 90.0, 0.0, 12)
-        )
-        return ShapeUtils.subpaths_to_compound_path([local_pts], cx, cy, angle)
-
-    if variant in {"chamfered", "octagon"}:
-        local_pts = [
-            (-hw + r, -hh),
-            (hw - r, -hh),
-            (hw, -hh + r),
-            (hw, hh - r),
-            (hw - r, hh),
-            (-hw + r, hh),
-            (-hw, hh - r),
-            (-hw, -hh + r),
-        ]
-    else:
-        # "notched"
-        local_pts = [
-            (-hw + r, -hh),
-            (hw - r, -hh),
-            (hw - r, -hh + r),
-            (hw, -hh + r),
-            (hw, hh - r),
-            (hw - r, hh - r),
-            (hw - r, hh),
-            (-hw + r, hh),
-            (-hw + r, hh - r),
-            (-hw, hh - r),
-            (-hw, -hh + r),
-            (-hw + r, -hh + r),
-        ]
-
-    world_pts: list[Coordinate] = []
-    for lx, ly in local_pts:
-        rx, ry = rotate_point((lx, ly), angle=angle)
-        world_pts.append((cx + rx, cy + ry))
-    path_points = ShapeUtils.round_polygon_points(world_pts, shape_r)
-    return ShapeUtils.build_matplotlib_path(path_points)
-
-
 class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
     """Canvas polygon shape feature implementation module.
 
@@ -471,7 +411,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             height=height,
             style=style,
         )
-        path = build_plaque_path(
+        path = ShapeUtils.build_plaque_path(
             xy=(cx, cy),
             width=width,
             height=height,

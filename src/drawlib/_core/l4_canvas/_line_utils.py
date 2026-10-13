@@ -11,15 +11,17 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
-from drawlib._core.l2_types import ArrowHead
+from drawlib._core.l2_types import ArrowHead, Coordinate, PathPoints
 from drawlib._core.l3_colors import ColorUtils
+from drawlib._core.l3_math import get_point_on_ellipse
 from drawlib._core.l3_styles import Style
 
 
 class LineUtils:
-    """A utility class for handling line styles and options."""
+    """A utility class for handling line styles, geometry, and options."""
 
     def __init__(self) -> None:
         """Raise TypeError to prevent instantiation of utility class."""
@@ -58,6 +60,24 @@ class LineUtils:
         """Sanitize a list of coordinates by removing duplicates and merging straight lines."""
         xys = LineUtils._remove_consecutive_duplicates(xys)
         return LineUtils._merge_straight_lines(xys)
+
+    @staticmethod
+    def get_mid_points(
+        xy1: tuple[float, float],
+        xy2: tuple[float, float],
+        r: float,
+    ) -> tuple[tuple[float, float], tuple[float, float]]:
+        """Calculate rounded corner transition points along segment xy1 -> xy2."""
+        x1, y1 = xy1
+        x2, y2 = xy2
+        dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        if dist == 0:
+            return xy1, xy2
+
+        ratio = min(r / dist, 0.5)
+        p1 = (x1 + (x2 - x1) * ratio, y1 + (y2 - y1) * ratio)
+        p2 = (x2 - (x2 - x1) * ratio, y2 - (y2 - y1) * ratio)
+        return p1, p2
 
     @staticmethod
     def validate_line_style(style: Style) -> None:
@@ -104,4 +124,89 @@ class LineUtils:
         return {k: v for k, v in options.items() if v is not None}
 
 
-__all__ = ["LineUtils"]
+class LineArcHelper:
+    """Helper class for elliptical arc Bezier approximations."""
+
+    @classmethod
+    def get_point_on_ellipse(
+        cls,
+        xy: Coordinate,
+        width: float,
+        height: float,
+        angle: float,
+    ) -> tuple[float, float]:
+        """Get coordinates of a point on an ellipse at a given angle."""
+        return get_point_on_ellipse(center=xy, width=width, height=height, angle=angle)
+
+    @classmethod
+    def get_ellipse_path_points(
+        cls,
+        xy: Coordinate,
+        width: float,
+        height: float,
+        angle_start: float,
+        angle_end: float,
+    ) -> PathPoints:
+        """Get bezier path points along an ellipse arc."""
+        diff = angle_end - angle_start
+        if diff == 0:
+            return [cls.get_point_on_ellipse(xy, width, height, angle_start)]
+
+        sweep = abs(diff)
+        num_segments = max(1, math.ceil(sweep / 90.0))
+        step = diff / num_segments
+        path_points: PathPoints = []
+        start: tuple[float, float] | None = None
+        for i in range(num_segments):
+            a_start = angle_start + i * step
+            a_end = angle_start + (i + 1) * step
+            p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
+                xy,
+                width,
+                height,
+                a_start,
+                a_end,
+            )
+            if start is None:
+                start = p1
+            path_points.append((p2, p3, p4))
+
+        if start is not None:
+            path_points.insert(0, start)
+        return path_points
+
+    @classmethod
+    def bezier_ellipse_arc_approximation(
+        cls,
+        xy: Coordinate,
+        width: float,
+        height: float,
+        start_angle: float,
+        end_angle: float,
+    ) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float], tuple[float, float]]:
+        """Calculate Bezier curve approximation points for an elliptical arc."""
+        x, y = xy
+
+        start_angle_rad = math.radians(start_angle)
+        end_angle_rad = math.radians(end_angle)
+
+        start_point = (x + width / 2 * math.cos(start_angle_rad), y + height / 2 * math.sin(start_angle_rad))
+        end_point = (x + width / 2 * math.cos(end_angle_rad), y + height / 2 * math.sin(end_angle_rad))
+
+        t = (4 / 3) * math.tan((end_angle_rad - start_angle_rad) / 4)
+        control_point1 = (
+            start_point[0] - t * width / 2 * math.sin(start_angle_rad),
+            start_point[1] + t * height / 2 * math.cos(start_angle_rad),
+        )
+        control_point2 = (
+            end_point[0] + t * width / 2 * math.sin(end_angle_rad),
+            end_point[1] - t * height / 2 * math.cos(end_angle_rad),
+        )
+
+        return start_point, control_point1, control_point2, end_point
+
+
+__all__ = [
+    "LineArcHelper",
+    "LineUtils",
+]

@@ -18,27 +18,8 @@ from pydantic import BaseModel, ConfigDict
 from drawlib._core.l3_colors._color import Color
 
 
-def _resolve_color_field_name(cls: type[BaseColors], name: str) -> str:
-    """Resolve color field name matching model attributes.
-
-    Args:
-        cls (type[BaseColors]): Preset color class.
-        name (str): Field or color name.
-
-    Returns:
-        str: Resolved field name matching cls.model_fields if found, else original name.
-    """
-    fields = getattr(cls, "model_fields", {})
-    if name in fields:
-        return name
-    return name
-
-
 class _BaseColorsMeta(type(BaseModel)):
     """Metaclass allowing class-level attribute access for color fields."""
-
-    def __getattribute__(cls, name: str) -> Any:  # noqa: ANN401
-        return super().__getattribute__(name)
 
     def __getattr__(cls, name: str) -> Any:  # noqa: ANN401
         if name.startswith("__"):
@@ -181,11 +162,10 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         updates: dict[str, Any] = {}
         for k, v in kwargs.items():
             if k != "__class__" and v is not None:
-                target_key = _resolve_color_field_name(self.__class__, k)
                 try:
-                    updates[target_key] = v if isinstance(v, Color) else Color(v)
+                    updates[k] = v if isinstance(v, Color) else Color(v)
                 except Exception:
-                    updates[target_key] = v
+                    updates[k] = v
 
         merged = {**self.__dict__, **updates}
         return self.__class__.model_validate(merged)

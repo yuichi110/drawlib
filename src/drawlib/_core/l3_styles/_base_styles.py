@@ -50,25 +50,20 @@ def _resolve_target_font(
     return regular
 
 
-def _resolve_style_field_name(cls: type[BaseStyles], name: str, value: Any = None) -> str:  # noqa: ANN401
+def _resolve_style_field_name(name: str) -> str:
     """Resolve style field name matching model attributes regardless of casing or aliases.
 
     Args:
-        cls (type[BaseStyles]): Preset style class.
         name (str): Style or attribute name.
-        value (Any): Optional value to distinguish style vs color for aliases like 'canvas'.
 
     Returns:
-        str: Resolved field name matching cls.model_fields if found, else original name.
+        str: Resolved field name matching model attributes if aliased, else original name.
     """
     lower = name.lower()
     if lower in {"bg_color", "background", "background_color", "backgroundcolor"}:
         return "background_color"
     if lower in {"width", "height", "dpi", "sourcecode_font", "colors"}:
         return lower
-    fields = getattr(cls, "model_fields", {})
-    if name in fields:
-        return name
     return name
 
 
@@ -169,7 +164,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         """
         normalized: dict[str, Any] = {}
         for k, v in kwargs.items():
-            target_key = _resolve_style_field_name(self.__class__, k, v)
+            target_key = _resolve_style_field_name(k)
             if target_key == "background_color" and v is not None:
                 try:
                     normalized[target_key] = v if isinstance(v, Color) else Color(v)
@@ -500,7 +495,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         updates: dict[str, Any] = {}
         for k, v in kwargs.items():
             if k != "__class__" and v is not None:
-                target_key = _resolve_style_field_name(self.__class__, k, v)
+                target_key = _resolve_style_field_name(k)
                 if target_key == "background_color":
                     try:
                         updates[target_key] = v if isinstance(v, Color) else Color(v)

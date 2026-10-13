@@ -106,9 +106,29 @@ Following the `drawlib.graph` pure-layout refactoring and the relocation of `get
 
 ---
 
+### Phase 6: Final `_core` Polish, Dead Code Removal & 1:1 Test Mirroring
+
+1. **Move `LineArcHelper` & `get_mid_points` to `_line_utils.py` and Eliminate `# type: ignore` in `_line.py`**:
+   - Move `LineArcHelper` and `_get_mid_points` (`LineUtils.get_mid_points`) from `src/drawlib/_core/l4_canvas/_line.py` into `src/drawlib/_core/l4_canvas/_line_utils.py`.
+   - Delegate `LineArcHelper.get_point_on_ellipse` to `l3_math.get_point_on_ellipse` and remove all 6 `# type: ignore` comments in `_line.py`.
+2. **Move `build_plaque_path` to `_path_utils.py` (`ShapeUtils.build_plaque_path`)**:
+   - Move `build_plaque_path` from `src/drawlib/_core/l4_canvas/_shapes/_polygon.py` to `_path_utils.py` and expose it via `ShapeUtils.build_plaque_path`.
+3. **Standardize Builder Function Naming in `l4_canvas/_shapes/*_builders.py`**:
+   - Standardize functions exported from `_container_builders.py` and `_symbol_builders.py` so functions imported by `CanvasShape*Feature` classes do not start with `_` (`build_*`, `format_*`, `get_*`), while private helpers start with `_` (matching `_badge_builders.py` and `_arrow_builders.py`).
+4. **Remove Dead Code in `l3_colors/_base_colors.py` & Simplify `l3_styles/_base_styles.py`**:
+   - Remove unused `_resolve_color_field_name` and `_BaseColorsMeta.__getattribute__` from `src/drawlib/_core/l3_colors/_base_colors.py`.
+   - Simplify `_resolve_style_field_name(name: str) -> str` in `src/drawlib/_core/l3_styles/_base_styles.py`.
+5. **Rename `l3_fonts/_fonts.py` -> `l3_fonts/_metadata.py`**:
+   - Rename `src/drawlib/_core/l3_fonts/_fonts.py` -> `_metadata.py` and `tests/drawlib/_core/l3_fonts/test_fonts.py` -> `test_metadata.py`.
+6. **Complete 1:1 Test Mirroring Across `tests/drawlib/_core/`**:
+   - Move `TestColorContrastUtil` from `tests/drawlib/_core/l3_math/test_math.py` into `tests/drawlib/_core/l3_colors/test_color_utils.py`.
+   - Move `tests/drawlib/_core/l1_core/test_langs.py` -> `tests/drawlib/cli/test_langs.py` and `tests/drawlib/_core/l1_core/test_docexist.py` -> `tests/drawlib/test_docexist.py` (expanding `test_docexist.py` to all 18 public facade modules).
+   - Rename `tests/drawlib/_core/l2_types/test_color_types.py` -> `tests/drawlib/_core/l2_types/test_color.py`.
+
+---
+
 ## 3. Verification Criteria
 
 1. `./dcli release-assets sync --check` passes cleanly.
-2. `./dcli code-check all` passes with 0 lint, format, type, or docstring errors, and **zero `# noqa: C901` comments in `src/drawlib/_core/`**.
+2. `./dcli code-check all` passes with 0 lint, format, type, or docstring errors, and **zero `# noqa: C901` or `# type: ignore` comments in `src/drawlib/_core/`**.
 3. `./dcli test target core` and `./dcli test all` pass 100%.
-

@@ -12,8 +12,7 @@
 
 from __future__ import annotations
 
-import math
-from typing import Any, Literal
+from typing import cast
 
 from matplotlib.patches import ConnectionStyle, FancyArrowPatch
 from matplotlib.path import Path
@@ -23,6 +22,8 @@ from drawlib._core.l2_types import (
     Angle,
     ArrowHead,
     Bend,
+    Bezier2,
+    Bezier3,
     Coordinate,
     Coordinates,
     PathPoints,
@@ -31,7 +32,7 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_math import get_rotated_path_points
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._line_utils import LineUtils
+from drawlib._core.l4_canvas._line_utils import LineArcHelper, LineUtils
 
 
 class CanvasLineFeature(CanvasBase):
@@ -93,7 +94,7 @@ class CanvasLineFeature(CanvasBase):
             FancyArrowPatch(
                 posA=xy1,
                 posB=xy2,
-                connectionstyle=ConnectionStyle.Arc3(rad=bend),  # type: ignore
+                connectionstyle=ConnectionStyle("arc3", rad=bend),
                 **options,
             )
         )
@@ -205,14 +206,14 @@ class CanvasLineFeature(CanvasBase):
         )
 
         if angle != 0:
-            path_points = get_rotated_path_points(path_points, xy, angle)  # type: ignore
+            path_points = get_rotated_path_points(path_points, xy, angle)
 
-        start_point = path_points[0]
-        path_points = path_points[1:]
+        start_point = cast(Coordinate, path_points[0])
+        rest_points: PathPoints = path_points[1:]
 
         self.lines_bezier(
-            start_point,  # type: ignore
-            path_points=path_points,  # type: ignore
+            start_point,
+            path_points=rest_points,
             arrow_head=arrow_head,
             style=style,
         )
@@ -234,9 +235,10 @@ class CanvasLineFeature(CanvasBase):
         """
         style.validate_for("line")
         xys = LineUtils._remove_consecutive_duplicates(list(xys))
+        rest_points: PathPoints = list(xys[1:])
         self.lines_bezier(
             xy=xys[0],
-            path_points=xys[1:],  # type: ignore
+            path_points=rest_points,
             arrow_head=arrow_head,
             style=style,
         )
@@ -269,17 +271,17 @@ class CanvasLineFeature(CanvasBase):
         last_i = len(xys) - 2
         for i, xy in enumerate(xys):
             if i == 0:
-                _, p = _get_mid_points(xy, xys[i + 1], r)
+                _, p = LineUtils.get_mid_points(xy, xys[i + 1], r)
                 path_points.append(p)
                 continue
 
             if i == last_i:
-                p, _ = _get_mid_points(xy, xys[i + 1], r)
+                p, _ = LineUtils.get_mid_points(xy, xys[i + 1], r)
                 path_points.append((xy, p))
                 path_points.append(xys[i + 1])
                 break
 
-            p1, p2 = _get_mid_points(xy, xys[i + 1], r)
+            p1, p2 = LineUtils.get_mid_points(xy, xys[i + 1], r)
             path_points.append((xy, p1))
             path_points.append(p2)
 
@@ -310,7 +312,7 @@ class CanvasLineFeature(CanvasBase):
         style.validate_for("line")
 
         # create Path
-        vertices = [xy]
+        vertices: list[Coordinate] = [xy]
         codes = [Path.MOVETO]
         for p in path_points:
             length = len(p)
@@ -318,13 +320,16 @@ class CanvasLineFeature(CanvasBase):
                 raise ValueError()
             if length == 2:
                 if isinstance(p[0], tuple):
-                    vertices.extend([p[0], p[1]])
+                    p2 = cast(Bezier2, p)
+                    vertices.extend([p2[0], p2[1]])
                     codes.extend([Path.CURVE3] * 2)
                 else:
-                    vertices.append(p)
+                    pt = cast(Coordinate, p)
+                    vertices.append(pt)
                     codes.append(Path.LINETO)
             else:
-                vertices.extend([p[0], p[1], p[2]])  # type: ignore
+                p3 = cast(Bezier3, p)
+                vertices.extend([p3[0], p3[1], p3[2]])
                 codes.extend([Path.CURVE4] * 3)
 
         path = Path(vertices=vertices, codes=codes)
@@ -332,112 +337,6 @@ class CanvasLineFeature(CanvasBase):
         self._artists.append(FancyArrowPatch(path=path, **options))
 
 
-class LineArcHelper:
-    """Internal class"""
-
-    @classmethod
-    def get_point_on_ellipse(
-        cls,
-        xy: Coordinate,
-        width: float,
-        height: float,
-        angle: float,
-    ) -> tuple[float, float]:
-        """Get coordinates of a point on an ellipse at a given angle."""
-        x, y = xy
-        angle_rad = math.radians(angle)
-        point_x = x + (width / 2) * math.cos(angle_rad)
-        point_y = y + (height / 2) * math.sin(angle_rad)
-        return (point_x, point_y)
-
-    @classmethod
-    def get_ellipse_path_points(
-        cls,
-        xy: Coordinate,
-        width: float,
-        height: float,
-        angle_start: float,
-        angle_end: float,
-    ) -> list[tuple[float, float] | tuple[tuple[float, float], tuple[float, float], tuple[float, float]]]:
-        """Get bezier path points along an ellipse arc."""
-        diff = angle_end - angle_start
-        if diff == 0:
-            return [cls.get_point_on_ellipse(xy, width, height, angle_start)]
-
-        sweep = abs(diff)
-        num_segments = max(1, math.ceil(sweep / 90.0))
-        step = diff / num_segments
-        path_points: list[
-            tuple[float, float] | tuple[tuple[float, float], tuple[float, float], tuple[float, float]]
-        ] = []
-        start: tuple[float, float] | None = None
-        for i in range(num_segments):
-            a_start = angle_start + i * step
-            a_end = angle_start + (i + 1) * step
-            p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
-                xy,
-                width,
-                height,
-                a_start,
-                a_end,
-            )
-            if start is None:
-                start = p1
-            path_points.append((p2, p3, p4))
-
-        if start is not None:
-            path_points.insert(0, start)
-        return path_points
-
-    @classmethod
-    def bezier_ellipse_arc_approximation(
-        cls,
-        xy: Coordinate,
-        width: float,
-        height: float,
-        start_angle: float,
-        end_angle: float,
-    ) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float], tuple[float, float]]:
-        """Calculate Bezier curve approximation points for an elliptical arc."""
-        x, y = xy
-
-        start_angle_rad = math.radians(start_angle)
-        end_angle_rad = math.radians(end_angle)
-
-        start_point = (x + width / 2 * math.cos(start_angle_rad), y + height / 2 * math.sin(start_angle_rad))
-        end_point = (x + width / 2 * math.cos(end_angle_rad), y + height / 2 * math.sin(end_angle_rad))
-
-        t = (4 / 3) * math.tan((end_angle_rad - start_angle_rad) / 4)
-        control_point1 = (
-            start_point[0] - t * width / 2 * math.sin(start_angle_rad),
-            start_point[1] + t * height / 2 * math.cos(start_angle_rad),
-        )
-        control_point2 = (
-            end_point[0] + t * width / 2 * math.sin(end_angle_rad),
-            end_point[1] - t * height / 2 * math.cos(end_angle_rad),
-        )
-
-        return start_point, control_point1, control_point2, end_point
-
-
-def _get_mid_points(
-    xy1: tuple[float, float],
-    xy2: tuple[float, float],
-    r: float,
-) -> tuple[tuple[float, float], tuple[float, float]]:
-    x1, y1 = xy1
-    x2, y2 = xy2
-    dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-    if dist == 0:
-        return xy1, xy2
-
-    ratio = min(r / dist, 0.5)
-    p1 = (x1 + (x2 - x1) * ratio, y1 + (y2 - y1) * ratio)
-    p2 = (x2 - (x2 - x1) * ratio, y2 - (y2 - y1) * ratio)
-    return p1, p2
-
-
 __all__ = [
     "CanvasLineFeature",
-    "LineArcHelper",
 ]
