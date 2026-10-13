@@ -37,7 +37,7 @@ from drawlib._core.l4_canvas._shapes._badge_builders import (
     build_tag_path_and_center,
 )
 from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
 class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
@@ -116,9 +116,9 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
         if text:
             center_x = x + width / 2.0
             center_y = y + height / 2.0
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            effective_text_style = ShapeUtils.resolve_embedded_text_style(style, text_style)
             self._artists.append(
-                ShapeUtil.get_shape_text(
+                ShapeUtils.get_shape_text(
                     xy=(center_x, center_y),
                     text=text,
                     angle=0.0,
@@ -151,11 +151,11 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display centered inside the pin head.
             text_style: Style object for text.
         """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        ShapeUtils.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path, head_xy = build_pin_path_and_center(xy, width, height, variant, hole_ratio, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -192,9 +192,9 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display on the tag body.
             text_style: Style object for text.
         """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        ShapeUtils.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path, text_xy = build_tag_path_and_center(
             xy=xy,
             width=width,
@@ -205,7 +205,7 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             shape_r=style.shape_r,
             angle=angle,
         )
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -242,10 +242,10 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display on the front banner panel.
             text_style: Style object for text.
         """
-        ShapeUtil.validate_hole_ratio(tail_width_ratio)
-        ShapeUtil.validate_hole_ratio(drop_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        ShapeUtils.validate_hole_ratio(tail_width_ratio)
+        ShapeUtils.validate_hole_ratio(drop_ratio)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         patches, text_xy = build_ribbon_patches(
             xy=xy,
             width=width,
@@ -256,7 +256,7 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             angle=angle,
             style=style,
         )
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=patches,
             style=style,
@@ -289,10 +289,10 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path = build_shield_path(xy, width, height, variant, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -325,12 +325,12 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        ShapeUtil.validate_hole_ratio(thickness_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        ShapeUtils.validate_hole_ratio(thickness_ratio)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         width = radius * 2.0
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, width, style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, width, style)
         path = build_forbidden_path(xy, radius, variant, thickness_ratio, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -365,12 +365,12 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        ShapeUtil.validate_hole_ratio(thickness_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        ShapeUtils.validate_hole_ratio(thickness_ratio)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         eff_h = width if height is None else height
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, eff_h, style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, eff_h, style)
         path = build_checkmark_path(xy, width, eff_h, variant, thickness_ratio, style.shape_r, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -404,8 +404,8 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path = build_explosion_path(
             xy=xy,
             width=width,
@@ -414,7 +414,7 @@ class CanvasShapeBadgeFeature(CanvasShapePolygonFeature):
             shape_r=style.shape_r,
             angle=angle,
         )
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,

@@ -19,7 +19,7 @@ from matplotlib.path import Path as MplPath
 from pydantic import validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import canvas, rectangle, transform
 from drawlib._smartarts._geomap._loader import load_geodata
@@ -41,7 +41,7 @@ def _get_map_patch_options(style: Style, fallback_border_style: Style | None = N
     if style.shape_fill_color is None:
         facecolor: tuple[float, float, float, float] | str = "none"
     else:
-        raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+        raw_fill = ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
         facecolor = "none" if raw_fill[3] <= 0.0 else raw_fill
 
     line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
@@ -65,7 +65,7 @@ def _get_map_patch_options(style: Style, fallback_border_style: Style | None = N
         edgecolor: tuple[float, float, float, float] | str = "none"
         eff_line_w = 0.0
     else:
-        raw_edge = ColorUtil.get_mplot_rgba(line_col, alpha=style.alpha)
+        raw_edge = ColorUtils.get_mplot_rgba(line_col, alpha=style.alpha)
         edgecolor = "none" if raw_edge[3] <= 0.0 else raw_edge
         eff_line_w = line_w * 0.45
 

@@ -84,8 +84,31 @@ Following the `drawlib.graph` pure-layout refactoring and the relocation of `get
 
 ---
 
+### Phase 5: Module, Class & Test Naming Standardization Across `_core`
+
+1. **Utility Modules & Classes Standardized to Plural (`*_utils.py` / `*Utils`)**:
+   - `l3_colors`: `_color_util.py` / `ColorUtil` -> `_color_utils.py` / `ColorUtils` (test: `test_color_util.py` -> `test_color_utils.py` / `TestColorUtils`)
+   - `l4_canvas`: `_line_util.py` / `LineUtil` -> `_line_utils.py` / `LineUtils` (test: `test_line_utils.py` / `TestLineUtils`)
+   - `l4_canvas`: `_text_util.py` / `TextUtil` -> `_text_utils.py` / `TextUtils` (test: `test_text_utils.py` / `TestTextUtils`)
+   - `l4_canvas/_shapes`: `_util.py` / `ShapeUtil` -> `_shape_utils.py` / `ShapeUtils` (test: `test_shape_utils.py` / `TestShapeUtils`)
+   - `l4_canvas/_shapes`: `_path_util.py` -> `_path_utils.py`
+   - `_icons`: `_icons/_utils.py` `IconUtil` -> `IconUtils` (matching `TestIconUtils` in `tests/drawlib/icons/test_utils.py`)
+2. **`l3_colors` & `l3_styles` Symmetry**:
+   - `l3_colors`: `_color.py` (`Color`), `_base_colors.py` (`BaseColors`, renamed from `_colors.py`), `_color_utils.py` (`ColorUtils`)
+   - `l3_styles`: `_style.py` (`Style`, renamed from `_style_models.py`), `_base_styles.py` (`BaseStyles`)
+   - Mirror in tests:
+     - `tests/drawlib/_core/l3_colors/`: `test_color.py`, `test_base_colors.py` (from `test_colors.py`), `test_color_utils.py` (from `test_color_util.py`)
+     - `tests/drawlib/_core/l3_styles/`: `test_style.py` (from `test_style_models.py`), `test_base_styles.py` (from `test_preset_styles_access.py`)
+3. **`l4_canvas`, `l3_external`, and `l1_core` Naming Consistency**:
+   - `l4_canvas`: Rename `_images.py` -> `_image.py` (`CanvasImageFeature`) and `_lines.py` -> `_line.py` (`CanvasLineFeature`), matching `_text.py` and `test_image.py` / `test_line.py`.
+   - `l3_external`: Rename `_font.py` -> `_cache.py` and `tests/drawlib/_core/l3_external/test_font.py` -> `test_cache.py`.
+   - `l1_core`: Rename singleton `dutil_settings` -> `drawlib_settings` (matching `DrawlibSettings`).
+
+---
+
 ## 3. Verification Criteria
 
 1. `./dcli release-assets sync --check` passes cleanly.
 2. `./dcli code-check all` passes with 0 lint, format, type, or docstring errors, and **zero `# noqa: C901` comments in `src/drawlib/_core/`**.
 3. `./dcli test target core` and `./dcli test all` pass 100%.
+

@@ -24,7 +24,7 @@ from rich.console import Console
 from drawlib._builder._common.cache import CliImageCache, hash_text
 from drawlib._cli._visualizers._common import display_dimage
 from drawlib._core.l1_core import LIB_VERSION
-from drawlib._core.l3_colors import Color, ColorUtil
+from drawlib._core.l3_colors import Color, ColorUtils
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
@@ -236,18 +236,18 @@ def render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None
 
     st_sample = styles.Primary
     fill_c = Color(st_sample.shape_fill_color or (255, 255, 255))
-    legend_text_color = ColorUtil.get_contrast_text_color(
+    legend_text_color = ColorUtils.get_contrast_text_color(
         fill_c,
         dark_color=Color(0, 0, 0),
         light_color=Color(255, 255, 255),
     )
 
     txt_c = Color(st_sample.text_color or (40, 40, 40))
-    txt_lum = ColorUtil.get_luminance(txt_c)
+    txt_lum = ColorUtils.get_luminance(txt_c)
     legend_txt_sample_color = Color(40, 40, 40) if txt_lum > 0.78 else txt_c
 
     line_c = Color(st_sample.line_color or (40, 40, 40))
-    line_lum = ColorUtil.get_luminance(line_c)
+    line_lum = ColorUtils.get_luminance(line_c)
     legend_arrow_style = Style(line_color=Color(40, 40, 40), line_width=1.5) if line_lum > 0.78 else st_sample
 
     rectangle(

@@ -23,7 +23,7 @@ from matplotlib.path import Path
 from drawlib._core.l2_types import Coordinate, PathPoints
 from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 # 7-segment bitmask for digits 0-9: (a=top, b=top-right, c=bot-right, d=bot, e=bot-left, f=top-left, g=mid)
 _SEG7_MASKS: dict[int, tuple[int, int, int, int, int, int, int]] = {
@@ -707,7 +707,7 @@ def _build_digital_clock_patches(
     if active_subpaths:
         patches.append(
             PathPatch(
-                ShapeUtil.subpaths_to_compound_path(active_subpaths, cx, cy, angle),
+                ShapeUtils.subpaths_to_compound_path(active_subpaths, cx, cy, angle),
                 facecolor=feature_color,
                 edgecolor="none",
                 linewidth=0,
@@ -1038,7 +1038,7 @@ def build_heart_path(
         (w_c * 0.5, hh * 0.65),
     ]
     crack_cw = list(reversed(c_left + c_right))
-    crack_path = ShapeUtil.subpaths_to_compound_path([crack_cw], cx, cy, angle)
+    crack_path = ShapeUtils.subpaths_to_compound_path([crack_cw], cx, cy, angle)
     return Path.make_compound_path(outer_path, crack_path)
 
 
@@ -1054,9 +1054,9 @@ def build_sun_path(
     r_disk = radius * 0.54
     r_ray_base = radius * 0.66
     r_ray_tip = radius
-    subpaths: list[list[Coordinate]] = [ShapeUtil.arc_points_local(0.0, 0.0, r_disk, 0.0, 360.0, 48)[:-1]]
+    subpaths: list[list[Coordinate]] = [ShapeUtils.arc_points_local(0.0, 0.0, r_disk, 0.0, 360.0, 48)[:-1]]
     if variant == "ring":
-        subpaths.append(ShapeUtil.arc_points_local(0.0, 0.0, r_disk * 0.58, 360.0, 0.0, 48)[:-1])
+        subpaths.append(ShapeUtils.arc_points_local(0.0, 0.0, r_disk * 0.58, 360.0, 0.0, 48)[:-1])
 
     half_ang = min(14.0, 110.0 / max(num_rays, 3))
     for i in range(num_rays):
@@ -1082,7 +1082,7 @@ def build_sun_path(
                 (r_ray_base * math.cos(a2), r_ray_base * math.sin(a2)),
             ]
             subpaths.append(tri)
-    return ShapeUtil.subpaths_to_compound_path(subpaths, cx, cy, angle)
+    return ShapeUtils.subpaths_to_compound_path(subpaths, cx, cy, angle)
 
 
 def build_moon_path(
@@ -1096,11 +1096,11 @@ def build_moon_path(
     """Build Matplotlib Path for moon shape variants."""
     cx, cy = xy
     if variant == "half":
-        raw_all = ShapeUtil.arc_points_local(0.0, 0.0, 1.0, 90.0, 270.0, 48)
+        raw_all = ShapeUtils.arc_points_local(0.0, 0.0, 1.0, 90.0, 270.0, 48)
     else:
         t_ratio = 0.28 if variant in {"thin", "waxing"} else 0.46
         a1, a2 = 62.0, 298.0
-        outer_raw = ShapeUtil.arc_points_local(0.0, 0.0, 1.0, a1, a2, 48)
+        outer_raw = ShapeUtils.arc_points_local(0.0, 0.0, 1.0, a1, a2, 48)
         x_tip = math.cos(math.radians(a1))
         y_tip = math.sin(math.radians(a1))
         x_belly_in = -1.0 + t_ratio * (1.0 + x_tip)
@@ -1108,7 +1108,7 @@ def build_moon_path(
         r_in = (y_tip * y_tip + dx_sag * dx_sag) / (2.0 * dx_sag)
         cx_in = x_belly_in + r_in
         ang_in = math.degrees(math.asin(min(0.999, y_tip / r_in)))
-        inner_raw = ShapeUtil.arc_points_local(cx_in, 0.0, r_in, 180.0 + ang_in, 180.0 - ang_in, 48)
+        inner_raw = ShapeUtils.arc_points_local(cx_in, 0.0, r_in, 180.0 + ang_in, 180.0 - ang_in, 48)
         raw_all = outer_raw + inner_raw[1:-1]
 
     xs = [p[0] for p in raw_all]
@@ -1128,7 +1128,7 @@ def build_moon_path(
         ny = (py - my) / span_y
         local_pts.append((nx * width, ny * height))
 
-    return ShapeUtil.subpaths_to_compound_path([local_pts], cx, cy, angle)
+    return ShapeUtils.subpaths_to_compound_path([local_pts], cx, cy, angle)
 
 
 def build_lightning_path(
@@ -1168,8 +1168,8 @@ def build_lightning_path(
         rx, ry = rotate_point((nx * width, ny * height), angle=angle)
         world_pts.append((cx + rx, cy + ry))
 
-    path_points = ShapeUtil.round_polygon_points(world_pts, shape_r)
-    return ShapeUtil.build_matplotlib_path(path_points)
+    path_points = ShapeUtils.round_polygon_points(world_pts, shape_r)
+    return ShapeUtils.build_matplotlib_path(path_points)
 
 
 def _gear_arc_bezier_segment(
@@ -1208,7 +1208,7 @@ def _build_gear_outer_path_points(
     half_int = (int_ratio * pitch_angle) / 2.0
     start_angle = math.pi / 2.0 + math.radians(angle)
 
-    radii = ShapeUtil._normalize_shape_radii(4 * num_teeth, shape_r)
+    radii = ShapeUtils._normalize_shape_radii(4 * num_teeth, shape_r)
     if radii is not None:
         points_world: list[Coordinate] = []
         for i in range(num_teeth):
@@ -1221,7 +1221,7 @@ def _build_gear_outer_path_points(
             points_world.append((cx + radius_ext * math.cos(a2), cy + radius_ext * math.sin(a2)))
             points_world.append((cx + radius_ext * math.cos(a3), cy + radius_ext * math.sin(a3)))
             points_world.append((cx + radius_int * math.cos(a4), cy + radius_int * math.sin(a4)))
-        return ShapeUtil.round_polygon_points(points_world, shape_r)
+        return ShapeUtils.round_polygon_points(points_world, shape_r)
 
     path_points: PathPoints = []
     for i in range(num_teeth):
@@ -1378,12 +1378,12 @@ def _build_math_symbol_path(
         for pt in poly:
             rx, ry = rotate_point(pt, angle=angle)
             verts_world.append((rx + cx, ry + cy))
-        path_points = ShapeUtil.round_polygon_points(verts_world, shape_r)
-        sub_paths.append(ShapeUtil.build_matplotlib_path(path_points))
+        path_points = ShapeUtils.round_polygon_points(verts_world, shape_r)
+        sub_paths.append(ShapeUtils.build_matplotlib_path(path_points))
 
     for dot_xy, dot_r in dots_local:
         rx, ry = rotate_point(dot_xy, angle=angle)
-        sub_paths.append(ShapeUtil.build_ellipse_path(rx + cx, ry + cy, dot_r, dot_r, cw=False))
+        sub_paths.append(ShapeUtils.build_ellipse_path(rx + cx, ry + cy, dot_r, dot_r, cw=False))
 
     if len(sub_paths) == 1:
         return sub_paths[0]

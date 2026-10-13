@@ -22,7 +22,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
 class CanvasShapeBasicFeature(CanvasBase):
@@ -58,7 +58,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         Raises:
             ValueError: If invalid path points, hole_ratio, or shape_r are provided.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -67,7 +67,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         p2 = (0.0, height)
         p3 = (width, height)
         p4 = (width, 0.0)
-        ShapeUtil.draw_convex_polygon_with_hole(
+        ShapeUtils.draw_convex_polygon_with_hole(
             artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
@@ -98,15 +98,15 @@ class CanvasShapeBasicFeature(CanvasBase):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
-        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
+        h_ratio = ShapeUtils.validate_hole_ratio(hole_ratio)
         width = radius * 2
         height = radius * 2
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
-        options = ShapeUtil.get_shape_options(style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
+        options = ShapeUtils.get_shape_options(style)
         if h_ratio is None:
             patch: Circle | PathPatch = Circle(
                 xy=xy,
@@ -114,7 +114,7 @@ class CanvasShapeBasicFeature(CanvasBase):
                 **options,
             )
         else:
-            path = ShapeUtil.build_hollow_ellipse_path(
+            path = ShapeUtils.build_hollow_ellipse_path(
                 cx=xy[0],
                 cy=xy[1],
                 rx=radius,
@@ -124,7 +124,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             )
             patch = PathPatch(path=path, **options)
 
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[patch],
             style=style,
@@ -157,14 +157,14 @@ class CanvasShapeBasicFeature(CanvasBase):
             text (optional): Text to display inside the ellipse.
             text_style (optional): Style of the text.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
-        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        h_ratio = ShapeUtils.validate_hole_ratio(hole_ratio)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
 
-        options = ShapeUtil.get_shape_options(style)
+        options = ShapeUtils.get_shape_options(style)
         if h_ratio is None:
             patch: Ellipse | PathPatch = Ellipse(
                 xy,
@@ -174,7 +174,7 @@ class CanvasShapeBasicFeature(CanvasBase):
                 **options,
             )
         else:
-            path = ShapeUtil.build_hollow_ellipse_path(
+            path = ShapeUtils.build_hollow_ellipse_path(
                 cx=xy[0],
                 cy=xy[1],
                 rx=width / 2.0,
@@ -184,7 +184,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             )
             patch = PathPatch(path=path, **options)
 
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[patch],
             style=style,
@@ -219,14 +219,14 @@ class CanvasShapeBasicFeature(CanvasBase):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
         ext_width = radius * 2
         ext_height = radius * 2
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, ext_width, ext_height, style)
-        options = ShapeUtil.get_shape_options(style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, ext_width, ext_height, style)
+        options = ShapeUtils.get_shape_options(style)
         patch = Wedge(
             center=xy,
             r=radius,
@@ -235,7 +235,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             theta2=angle_end + angle,
             **options,
         )
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[patch],
             style=style,
@@ -304,12 +304,12 @@ class CanvasShapeBasicFeature(CanvasBase):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
-        options = ShapeUtil.get_shape_options(style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
+        options = ShapeUtils.get_shape_options(style)
         patch = Arc(
             xy,
             width=width,
@@ -319,7 +319,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             theta2=angle_end,
             **options,
         )
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[patch],
             style=style,

@@ -7,47 +7,47 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for the IconUtil class and formatting helper methods."""
+"""Unit tests for the IconUtils class and formatting helper methods."""
 
 import pytest
 
 from drawlib._core.l3_styles import Style
-from drawlib._icons._utils import IconUtil
+from drawlib._icons._utils import IconUtils
 
 
 class TestIconUtils:
-    """Tests for the IconUtil class and style formatting helper methods."""
+    """Tests for the IconUtils class and style formatting helper methods."""
 
     def test_instantiation_raises_type_error(self) -> None:
-        """Verify that instantiating IconUtil directly raises a TypeError."""
+        """Verify that instantiating IconUtils directly raises a TypeError."""
         with pytest.raises(TypeError):
-            IconUtil()
+            IconUtils()
 
     def test_format_style_none_raises_type_error(self) -> None:
         """Verify format_style raises TypeError when input style is None."""
         with pytest.raises(TypeError):
-            IconUtil.format_style(None)  # type: ignore
+            IconUtils.format_style(None)  # type: ignore
 
     def test_format_style_string_raises_type_error(self) -> None:
         """Verify format_style raises TypeError when input style is a string."""
         with pytest.raises(TypeError):
-            IconUtil.format_style("blue")  # type: ignore
+            IconUtils.format_style("blue")  # type: ignore
 
     def test_format_style_object(self) -> None:
         """Verify format_style retains properties and applies default_icon_style."""
         custom_style = Style(icon_color=(255, 0, 0))
-        formatted = IconUtil.format_style(custom_style, default_icon_style="light")
+        formatted = IconUtils.format_style(custom_style, default_icon_style="light")
         assert formatted.icon_color == (255, 0, 0, 1.0)
         assert formatted.icon_style == "light"
 
     def test_format_style_missing_icon_color_raises_value_error(self) -> None:
         """Verify that style missing icon_color raises ValueError."""
         with pytest.raises(ValueError, match="Style cannot be used for icons"):
-            IconUtil.format_style(Style())
+            IconUtils.format_style(Style())
         with pytest.raises(ValueError, match="Icon drawing requires attribute 'icon_color'"):
-            IconUtil.validate_icon_style(Style.model_construct(supports=frozenset({"icon"}), icon_color=None))
+            IconUtils.validate_icon_style(Style.model_construct(supports=frozenset({"icon"}), icon_color=None))
 
     def test_format_style_invalid_type_raises_type_error(self) -> None:
         """Verify that passing an invalid style type raises a TypeError."""
         with pytest.raises(TypeError):
-            IconUtil.format_style(12345)  # type: ignore
+            IconUtils.format_style(12345)  # type: ignore

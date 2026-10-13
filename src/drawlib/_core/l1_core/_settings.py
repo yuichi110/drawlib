@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""dutil_settings implementation module."""
+"""drawlib_settings implementation module."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ __ARG_SUPPRESS_WARNING = "--drawlib_suppress_warning"
 class DrawlibSettings:
     """Class for managing drawlib settings.
 
-    This class should not be used directly. Use its singleton instance ``dutil_settings`` instead.
+    This class should not be used directly. Use its singleton instance ``drawlib_settings`` instead.
     """
 
     def __init__(self) -> None:
@@ -250,7 +250,7 @@ class DrawlibSettings:
         self._force_grid = force_grid
 
 
-dutil_settings = DrawlibSettings()
+drawlib_settings = DrawlibSettings()
 """Managing drawlib's library settings.
 
 This object provides utilities for setting and retrieving logging modes,
@@ -258,25 +258,25 @@ enabling or disabling warnings, and determining debug states.
 """
 
 # set logging mode normal first.
-dutil_settings.set_logging_mode("normal")
+drawlib_settings.set_logging_mode("normal")
 
 # set logging mode quiet if selected
 if __ARG_QUIET in sys.argv:
-    dutil_settings.set_logging_mode("quiet")
+    drawlib_settings.set_logging_mode("quiet")
 
 # set logging mode debug if selected
 if __ARG_DEBUG in sys.argv:
     if __ARG_QUIET in sys.argv:
         logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEBUG}")
         sys.exit(1)
-    dutil_settings.set_logging_mode("quiet")
+    drawlib_settings.set_logging_mode("quiet")
 
 # set logging mode developer if selected
 if __ARG_DEVDEBUG in sys.argv:
     if __ARG_QUIET in sys.argv:
         logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEVDEBUG}")
         sys.exit(1)
-    dutil_settings.set_logging_mode("developer")
+    drawlib_settings.set_logging_mode("developer")
 
 # set logging mode developer on pytest
 for arg in sys.argv:
@@ -285,8 +285,8 @@ for arg in sys.argv:
         if __ARG_QUIET in sys.argv:
             logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEVDEBUG}")
             sys.exit(1)
-        dutil_settings.set_logging_mode("developer")
+        drawlib_settings.set_logging_mode("developer")
         break
 
 if __ARG_SUPPRESS_WARNING in sys.argv:
-    dutil_settings.set_suppress_warning(True)
+    drawlib_settings.set_suppress_warning(True)

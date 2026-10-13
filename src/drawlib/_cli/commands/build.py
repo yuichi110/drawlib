@@ -21,7 +21,7 @@ from rich.console import Console
 from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
 from drawlib._builder.image_builder import build_image
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.l1_core import drawlib_settings
 from drawlib._slide import build_slide
 
 build_app = typer.Typer(
@@ -38,7 +38,7 @@ console = Console()
 def _handle_build_error(prefix: str, exc: Exception) -> None:
     """Print formatted error message and exit with status code 1."""
     print(f"{prefix}: {exc}", file=sys.stderr)
-    if dutil_settings.get_logging_mode() in {"verbose", "developer"}:
+    if drawlib_settings.get_logging_mode() in {"verbose", "developer"}:
         traceback.print_exc()
     raise typer.Exit(code=1)
 

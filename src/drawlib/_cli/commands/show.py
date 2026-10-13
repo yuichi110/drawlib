@@ -21,13 +21,13 @@ import typer
 from drawlib._builder.doc_builder import show_code_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli.commands.rules import cmd_rules_show
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.l1_core import drawlib_settings
 
 
 def _handle_show_error(prefix: str, exc: Exception) -> None:
     """Print formatted error message and exit with status code 1."""
     print(f"{prefix}: {exc}", file=sys.stderr)
-    if dutil_settings.get_logging_mode() in {"verbose", "developer"}:
+    if drawlib_settings.get_logging_mode() in {"verbose", "developer"}:
         traceback.print_exc()
     raise typer.Exit(code=1)
 

@@ -37,7 +37,7 @@ from drawlib._core.l4_canvas._shapes._arrow_builders import (
     build_chevron_points,
 )
 from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
 class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
@@ -48,7 +48,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
     head, and optional text annotations.
     """
 
-    _get_path_from_points = staticmethod(ShapeUtil.build_matplotlib_path)
+    _get_path_from_points = staticmethod(ShapeUtils.build_matplotlib_path)
 
     def __init__(self) -> None:
         """Initialize CanvasShapeArrowFeature."""
@@ -81,7 +81,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -132,7 +132,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             head: Arrow head type ("->", "<-", "<->").
             style: Style object.
         """
-        style, _ = ShapeUtil.format_styles(
+        style, _ = ShapeUtils.format_styles(
             style,
             None,
         )
@@ -175,7 +175,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             angle_end: Ending angle in degrees.
             style: Style object.
         """
-        style, _ = ShapeUtil.format_styles(
+        style, _ = ShapeUtils.format_styles(
             style,
             None,
         )
@@ -194,8 +194,8 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             angle=angle,
         )
 
-        path = ShapeUtil.build_matplotlib_path(path_points)
-        options = ShapeUtil.get_shape_options(style)
+        path = ShapeUtils.build_matplotlib_path(path_points)
+        options = ShapeUtils.get_shape_options(style)
         self._artists.append(PathPatch(path=path, **options))
 
     @validate_call
@@ -223,7 +223,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             head: Arrow head type ("->", "<-", "<->").
             style: Style object.
         """
-        style, _ = ShapeUtil.format_styles(
+        style, _ = ShapeUtils.format_styles(
             style,
             None,
         )
@@ -271,7 +271,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             head: Arrow head type ("->", "<-", "<->").
             style: Style object.
         """
-        style, _ = ShapeUtil.format_styles(
+        style, _ = ShapeUtils.format_styles(
             style,
             None,
         )
@@ -320,7 +320,7 @@ class CanvasShapeArrowFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )

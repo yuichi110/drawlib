@@ -11,15 +11,15 @@
 
 from __future__ import annotations
 
-from drawlib._core.l3_external._download import (
-    download_if_not_exist,
-)
-from drawlib._core.l3_external._font import (
+from drawlib._core.l3_external._cache import (
     download_all_assets,
     download_all_fonts,
     download_all_icons,
     download_all_maps,
     purge_font_cache,
+)
+from drawlib._core.l3_external._download import (
+    download_if_not_exist,
 )
 from drawlib._core.l3_external._package import (
     AssetManifest,
@@ -30,14 +30,14 @@ from drawlib._core.l3_external._package import (
 )
 
 __all__ = [
-    # _download.py
-    "download_if_not_exist",
-    # _font.py
+    # _cache.py
     "download_all_assets",
     "download_all_fonts",
     "download_all_icons",
     "download_all_maps",
     "purge_font_cache",
+    # _download.py
+    "download_if_not_exist",
     # _package.py
     "AssetManifest",
     "AssetManifestItem",

@@ -24,7 +24,7 @@ from matplotlib.font_manager import FontProperties
 from drawlib._core.l1_core import FONT_DIR_PATH, FONT_ICON_DIR_PATH
 from drawlib._core.l3_colors import (
     BaseColors,
-    ColorUtil,
+    ColorUtils,
 )
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import (
@@ -119,7 +119,7 @@ def resolve_svg_font_info(abs_path: str) -> SvgFontInfo:
     return _resolve_svg_font_info_cached(norm_abs, os.path.isfile(norm_abs))
 
 
-class TextUtil:
+class TextUtils:
     """A utility class for handling text styles and options."""
 
     def __init__(self) -> None:
@@ -147,7 +147,7 @@ class TextUtil:
         if style is None or style.text_color is None:
             return {}
 
-        color = ColorUtil.get_mplot_rgba(style.text_color)
+        color = ColorUtils.get_mplot_rgba(style.text_color)
         options: dict[str, Any] = {
             "color": color,
             "horizontalalignment": style.halign if style.halign is not None else "center",
@@ -179,7 +179,7 @@ class TextUtil:
             raise ValueError("text_font and text_size must be set in Style.")
 
         if isinstance(style.text_font, FontFile):
-            return TextUtil._build_font_properties(style.text_font.file, style.text_size)
+            return TextUtils._build_font_properties(style.text_font.file, style.text_size)
 
         font_target = style.text_font
         if not isinstance(font_target, FontBase):
@@ -188,7 +188,7 @@ class TextUtil:
         meta = get_font_metadata(font_target)
         file_path, md5_hash = meta.abs_path, meta.md5
         download_if_not_exist(file_path=file_path, md5_hash=md5_hash)
-        return TextUtil._build_font_properties(file_path, style.text_size)
+        return TextUtils._build_font_properties(file_path, style.text_size)
 
     @staticmethod
     def get_bbox_dict(
@@ -205,8 +205,8 @@ class TextUtil:
         if all_none:
             return None
 
-        lcolor = None if style.text_bg_line_color is None else ColorUtil.get_mplot_rgba(style.text_bg_line_color)
-        fcolor = None if style.text_bg_fill_color is None else ColorUtil.get_mplot_rgba(style.text_bg_fill_color)
+        lcolor = None if style.text_bg_line_color is None else ColorUtils.get_mplot_rgba(style.text_bg_line_color)
+        fcolor = None if style.text_bg_fill_color is None else ColorUtils.get_mplot_rgba(style.text_bg_fill_color)
 
         if lcolor is None:
             lcolor = BaseColors.Transparent

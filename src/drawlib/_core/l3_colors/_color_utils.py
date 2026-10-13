@@ -89,7 +89,7 @@ def get_intermediate_color(
     return get_intermediate_colors(color1, color2, num=1, include_ends=False)[0]
 
 
-class ColorUtil:
+class ColorUtils:
     """A utility class for color conversion operations."""
 
     def __init__(self) -> None:
@@ -139,7 +139,7 @@ class ColorUtil:
             return rgb_or_rgba.to_mplot_rgba()
 
         if isinstance(rgb_or_rgba, str):
-            rgba = ColorUtil.get_rgba_from_hex(rgb_or_rgba)
+            rgba = ColorUtils.get_rgba_from_hex(rgb_or_rgba)
             r = round(rgba[0] / 255, 5)
             g = round(rgba[1] / 255, 5)
             b = round(rgba[2] / 255, 5)
@@ -240,7 +240,7 @@ class ColorUtil:
         Returns:
             float: Relative luminance value in range [0.0, 1.0].
         """
-        rgba = ColorUtil.get_mplot_rgba(rgb_or_rgba)
+        rgba = ColorUtils.get_mplot_rgba(rgb_or_rgba)
         return 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
 
     @staticmethod
@@ -277,7 +277,7 @@ class ColorUtil:
         if bg_color is None:
             return fallback_transparent
 
-        rgba = ColorUtil.get_mplot_rgba(bg_color, bg_alpha)
+        rgba = ColorUtils.get_mplot_rgba(bg_color, bg_alpha)
         if rgba[3] < alpha_threshold or rgba == (0.0, 0.0, 0.0, 0.0):
             return fallback_transparent
 
@@ -286,7 +286,7 @@ class ColorUtil:
 
 
 __all__ = [
-    "ColorUtil",
+    "ColorUtils",
     "get_intermediate_color",
     "get_intermediate_colors",
 ]

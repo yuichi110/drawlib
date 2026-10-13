@@ -34,7 +34,7 @@ from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l2_types import Coordinate, FilePath, FontBase, FontFile, PosFloat
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import TextUtil, canvas, rectangle, text, transform
+from drawlib._core.l4_canvas import TextUtils, canvas, rectangle, text, transform
 
 
 class SourceCodeStyles(BaseModel):
@@ -397,7 +397,7 @@ class SourceCode:
         def get_dx(s: str, style_obj: Style) -> float:
             if not s:
                 return 0.0
-            prop = TextUtil.get_font_properties(style_obj)
+            prop = TextUtils.get_font_properties(style_obj)
             file_name = str(prop.get_file() or "")
             size_val = float(prop.get_size())
             key: tuple[str, str, float] = (s, file_name, size_val)

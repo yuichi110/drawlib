@@ -14,7 +14,7 @@ from __future__ import annotations
 import sys
 from collections.abc import Callable
 
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.l1_core import drawlib_settings
 
 BAR_WIDTH = 20
 
@@ -105,7 +105,7 @@ class FileBuildProgress:
         self.file_name = file_name
         self.name_width = name_width
         self.image_width = image_width
-        self._quiet = dutil_settings.get_logging_mode() == "quiet"
+        self._quiet = drawlib_settings.get_logging_mode() == "quiet"
         self._is_tty = hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
 
     def update(self, completed_steps: int, total_steps: int, done: bool = False) -> None:

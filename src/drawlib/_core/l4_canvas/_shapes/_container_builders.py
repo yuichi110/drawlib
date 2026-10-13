@@ -18,9 +18,9 @@ from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
 from drawlib._core.l2_types import Coordinate
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
 def _get_cylinder_fill_colors(
@@ -29,10 +29,10 @@ def _get_cylinder_fill_colors(
     """Get body fill and top cap fill colors for cylinder."""
     if style.shape_fill_color is None:
         return "none", "none"
-    raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+    raw_fill = ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
     if raw_fill[3] <= 0.0:
         return "none", "none"
-    return raw_fill, ShapeUtil.lighten_rgba(raw_fill, 0.28)
+    return raw_fill, ShapeUtils.lighten_rgba(raw_fill, 0.28)
 
 
 def _build_cylinder_disk_patches(
@@ -198,7 +198,7 @@ def _build_cylinder_patches(
 
     m_fill, top_fill = _get_cylinder_fill_colors(style)
     stroke_color = (
-        ColorUtil.get_mplot_rgba(style.shape_line_color)
+        ColorUtils.get_mplot_rgba(style.shape_line_color)
         if has_stroke and style.shape_line_color is not None
         else "none"
     )
@@ -447,7 +447,7 @@ def _get_brace_stroke_options(style: Style) -> dict[str, Any]:
             if (style.shape_line_width or 0.0) > 0.0 and style.shape_line_color is not None
             else style.shape_fill_color
         )
-    rgba = ColorUtil.get_mplot_rgba(col) if col is not None else (0.0, 0.0, 0.0, 1.0)
+    rgba = ColorUtils.get_mplot_rgba(col) if col is not None else (0.0, 0.0, 0.0, 1.0)
     ls = style.line_style if style.line_style is not None else (style.shape_line_style or "solid")
 
     options: dict[str, Any] = {
@@ -641,14 +641,14 @@ def _get_cube_face_fills(
     if style.shape_fill_color is None:
         return "none", "none", "none"
 
-    raw = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+    raw = ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
     if raw[3] <= 0.0:
         return "none", "none", "none"
 
     lum = 0.299 * raw[0] + 0.587 * raw[1] + 0.114 * raw[2]
     top_lift = 0.55 if lum > 0.85 else 0.28
     side_darken = 0.08 if lum > 0.85 else 0.18
-    return raw, ShapeUtil.lighten_rgba(raw, top_lift), ShapeUtil.darken_rgba(raw, side_darken)
+    return raw, ShapeUtils.lighten_rgba(raw, top_lift), ShapeUtils.darken_rgba(raw, side_darken)
 
 
 def _build_cube_patches(
@@ -697,7 +697,7 @@ def _build_cube_patches(
 
     line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
     if style.shape_line_color is not None and line_w > 0:
-        stroke_color = ColorUtil.get_mplot_rgba(style.shape_line_color, alpha=style.alpha)
+        stroke_color = ColorUtils.get_mplot_rgba(style.shape_line_color, alpha=style.alpha)
         if stroke_color[3] > 0.0:
             line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
             outer_pts = [
@@ -855,10 +855,10 @@ def _get_document_sheet_fills(
     if raw_fill is None or raw_fill[3] <= 0.0:
         return "none", "none"
 
-    fill_c = ShapeUtil.lighten_rgba(raw_fill, 0.14 * idx)
+    fill_c = ShapeUtils.lighten_rgba(raw_fill, 0.14 * idx)
     lum = 0.299 * fill_c[0] + 0.587 * fill_c[1] + 0.114 * fill_c[2]
     flap_darken = 0.10 if lum > 0.85 else 0.20
-    return fill_c, ShapeUtil.darken_rgba(fill_c, flap_darken)
+    return fill_c, ShapeUtils.darken_rgba(fill_c, flap_darken)
 
 
 def _get_document_text_center(
@@ -920,14 +920,14 @@ def _build_document_patches(
 
     line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
     stroke_rgba = (
-        ColorUtil.get_mplot_rgba(style.shape_line_color, alpha=style.alpha)
+        ColorUtils.get_mplot_rgba(style.shape_line_color, alpha=style.alpha)
         if style.shape_line_color is not None and line_w > 0
         else None
     )
     has_stroke = stroke_rgba is not None and stroke_rgba[3] > 0.0
     line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
     raw_fill = (
-        ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+        ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
         if style.shape_fill_color is not None
         else None
     )
@@ -1018,7 +1018,7 @@ def build_funnel_patches(
         return [(cx + lx * cos_a - ly * sin_a, cy + lx * sin_a + ly * cos_a) for lx, ly in pts]
 
     text_xy = xform([(0.0, hh * 0.26)])[0]
-    options = ShapeUtil.get_shape_options(style)
+    options = ShapeUtils.get_shape_options(style)
 
     if variant == "curved":
         local_v = [
@@ -1055,28 +1055,28 @@ def build_funnel_patches(
         rim_ry = height * 0.14
         y_top = hh - rim_ry
         body_local = [(-hw, y_top), (hw, y_top), (nw, y_neck), (nw, -hh), (-nw, -hh), (-nw, y_neck)]
-        body_patch = PathPatch(ShapeUtil.subpaths_to_compound_path([body_local], cx, cy, angle), **options)
+        body_patch = PathPatch(ShapeUtils.subpaths_to_compound_path([body_local], cx, cy, angle), **options)
 
         raw = (
-            ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+            ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
             if style.shape_fill_color is not None
             else (0.0, 0.0, 0.0, 0.0)
         )
         has_fill = style.shape_fill_color is not None and raw[3] > 0.0
-        top_fill: Any = ShapeUtil.lighten_rgba(raw, 0.35) if has_fill else "none"
+        top_fill: Any = ShapeUtils.lighten_rgba(raw, 0.35) if has_fill else "none"
         ell_local = [
             (hw * math.cos(math.radians(a)), y_top + rim_ry * math.sin(math.radians(a))) for a in range(0, 360, 8)
         ]
         cap_opts = dict(options)
         cap_opts["facecolor"] = top_fill
-        cap_patch = PathPatch(ShapeUtil.subpaths_to_compound_path([ell_local], cx, cy, angle), **cap_opts)
+        cap_patch = PathPatch(ShapeUtils.subpaths_to_compound_path([ell_local], cx, cy, angle), **cap_opts)
         return [body_patch, cap_patch], text_xy
 
     # "standard" or "flat"
     pts_local = [(-hw, hh), (hw, hh), (nw, y_neck), (nw, -hh), (-nw, -hh), (-nw, y_neck)]
     pts_world = xform(pts_local)
-    path_points = ShapeUtil.round_polygon_points(pts_world, style.shape_r)
-    path = ShapeUtil.build_matplotlib_path(path_points)
+    path_points = ShapeUtils.round_polygon_points(pts_world, style.shape_r)
+    path = ShapeUtils.build_matplotlib_path(path_points)
     return [PathPatch(path=path, **options)], text_xy
 
 

@@ -28,7 +28,7 @@ from drawlib._core.l1_core._path_utils import (
     get_script_path,
     get_script_relative_path,
 )
-from drawlib._core.l1_core._settings import dutil_settings
+from drawlib._core.l1_core._settings import drawlib_settings
 
 __all__ = [
     # _const.py
@@ -42,7 +42,7 @@ __all__ = [
     # _logging.py
     "logger",
     # _settings.py
-    "dutil_settings",
+    "drawlib_settings",
     # _path_utils.py
     "CACHE_GITIGNORE_CONTENT",
     "CACHE_TAG_CONTENT",

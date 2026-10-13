@@ -20,7 +20,7 @@ from drawlib._core.l2_types import Coordinate, IconStyle, PosFloat
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
 from drawlib._core.l3_styles import Style
-from drawlib._icons._utils import IconUtil
+from drawlib._icons._utils import IconUtils
 from drawlib._icons.font_icons._font_icon import font_icon
 
 
@@ -93,7 +93,7 @@ class FontIconProvider:
         Raises:
             ValueError: If an unsupported icon_style is specified.
         """
-        style_obj = IconUtil.format_style(style, default_icon_style=self.default_style)
+        style_obj = IconUtils.format_style(style, default_icon_style=self.default_style)
 
         if style_obj.icon_style not in self.font_resources:
             valid_styles = list(self.font_resources.keys())

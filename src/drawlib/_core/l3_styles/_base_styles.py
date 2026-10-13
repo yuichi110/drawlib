@@ -18,7 +18,7 @@ from pydantic import BaseModel, ConfigDict, validate_call
 from drawlib._core.l2_types import FontBase, FontFile, PosFloat
 from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import Font, FontSourceCode
-from drawlib._core.l3_styles._style_models import Style
+from drawlib._core.l3_styles._style import Style
 
 DEFAULT_TEXT_SIZE: Final[float] = 16.0
 DEFAULT_FONT: Final[Font] = Font.SANSSERIF_REGULAR

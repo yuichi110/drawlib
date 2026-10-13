@@ -1506,7 +1506,7 @@ def gear(
 
 #### Geometric & Alignment Mechanics
 - Each tooth occupies a fraction of 1 pitch angle $\Delta\theta = 360^\circ / \text{num\_teeth}$, with outer tip angular width $\text{tooth\_ext\_ratio} \times \Delta\theta$ and inner base angular width $\text{tooth\_int\_ratio} \times \Delta\theta$.
-- When `style.shape_r` is `None` (default), tooth tips and valleys follow exact circular arcs; when `style.shape_r` is set (scalar or $4N$-tuple), vertices are rounded via `ShapeUtil.round_polygon_points`.
+- When `style.shape_r` is `None` (default), tooth tips and valleys follow exact circular arcs; when `style.shape_r` is set (scalar or $4N$-tuple), vertices are rounded via `ShapeUtils.round_polygon_points`.
 - When `hole_radius` is provided, the center hole is subtracted as a true compound Matplotlib `Path`, preserving background transparency and inner rim strokes.
 
 #### Code Examples

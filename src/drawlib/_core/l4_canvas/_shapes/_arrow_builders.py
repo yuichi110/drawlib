@@ -24,9 +24,9 @@ from drawlib._core.l2_types import (
     ShapeRadius,
 )
 from drawlib._core.l3_math import get_rotated_path_points
-from drawlib._core.l4_canvas._line_util import LineUtil
-from drawlib._core.l4_canvas._lines import LineArcHelper
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._line import LineArcHelper
+from drawlib._core.l4_canvas._line_utils import LineUtils
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
 def build_arrow_points(
@@ -96,7 +96,7 @@ def build_arrow_polyline_points(
     shape_r: ShapeRadius | None,
 ) -> Coordinates:
     """Build polygon outline points for a polyline arrow."""
-    xys = LineUtil.sanitize_xys(xys)
+    xys = LineUtils.sanitize_xys(xys)
     if len(xys) < 2:
         raise ValueError("xys must contain at least 2 distinct points.")
 
@@ -289,7 +289,7 @@ def build_chevron_points(
         p5 = (p5[0] * -1, p5[1])
         p6 = (p6[0] * -1, p6[1])
 
-    return ShapeUtil.round_polygon_points([p1, p2, p3, p4, p5, p6], shape_r)
+    return ShapeUtils.round_polygon_points([p1, p2, p3, p4, p5, p6], shape_r)
 
 
 class ArrowPolylineHelper:

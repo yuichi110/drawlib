@@ -17,7 +17,7 @@ from typing import Literal, Self
 from pydantic import BaseModel, ConfigDict, validate_call
 
 from drawlib._core.l2_types import Angle, Coordinate, PosFloat
-from drawlib._core.l3_colors import ColorType, ColorUtil
+from drawlib._core.l3_colors import ColorType, ColorUtils
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import arrow_arc as canvas_arrow_arc
@@ -455,8 +455,8 @@ class Cycle:
             return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
         fill_color = node_style.shape_fill_color
         fill_alpha = node_style.alpha
-        title_color = ColorUtil.get_contrast_text_color(fill_color, fill_alpha)
-        desc_color = ColorUtil.get_contrast_text_color(
+        title_color = ColorUtils.get_contrast_text_color(fill_color, fill_alpha)
+        desc_color = ColorUtils.get_contrast_text_color(
             fill_color,
             fill_alpha,
             dark_color=(80, 80, 80, 1.0),
@@ -572,13 +572,13 @@ class Cycle:
 
         fill_color = c_style.shape_fill_color
         fill_alpha = c_style.alpha
-        def_center_title_col = ColorUtil.get_contrast_text_color(
+        def_center_title_col = ColorUtils.get_contrast_text_color(
             fill_color,
             fill_alpha,
             dark_color=(50, 60, 80, 1.0),
             light_color=(255, 255, 255, 1.0),
         )
-        def_center_desc_col = ColorUtil.get_contrast_text_color(
+        def_center_desc_col = ColorUtils.get_contrast_text_color(
             fill_color,
             fill_alpha,
             dark_color=(90, 100, 120, 1.0),

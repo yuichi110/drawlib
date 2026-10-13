@@ -17,7 +17,7 @@ from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_fonts import FontFile
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import get_fontsize_from_charwidth, text
-from drawlib._icons._utils import IconUtil
+from drawlib._icons._utils import IconUtils
 
 
 @validate_call
@@ -40,7 +40,7 @@ def font_icon(
         style: The style of the icon (required).
 
     """
-    style_obj = IconUtil.format_style(style)
+    style_obj = IconUtils.format_style(style)
     font_size = get_fontsize_from_charwidth(width)
 
     # convert Style to Style for text rendering

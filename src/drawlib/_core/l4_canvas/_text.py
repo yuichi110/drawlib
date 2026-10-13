@@ -21,8 +21,8 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
-from drawlib._core.l4_canvas._text_util import TextUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
+from drawlib._core.l4_canvas._text_utils import TextUtils
 
 
 class CanvasTextFeature(CanvasBase):
@@ -49,11 +49,11 @@ class CanvasTextFeature(CanvasBase):
         """
         style.validate_for("text")
         angle: Angle = style.angle if style.angle is not None else 0.0
-        x, y = ShapeUtil.apply_xy_shift(xy, angle, style)
+        x, y = ShapeUtils.apply_xy_shift(xy, angle, style)
 
-        options = TextUtil.get_text_options(style)
-        fp = TextUtil.get_font_properties(style)
-        bx = TextUtil.get_bbox_dict(style)
+        options = TextUtils.get_text_options(style)
+        fp = TextUtils.get_font_properties(style)
+        bx = TextUtils.get_bbox_dict(style)
 
         self._artists.append(
             Text(

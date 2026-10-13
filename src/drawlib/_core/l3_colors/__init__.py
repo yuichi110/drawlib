@@ -11,27 +11,27 @@
 
 from __future__ import annotations
 
+from drawlib._core.l3_colors._base_colors import (
+    BaseColors,
+)
 from drawlib._core.l3_colors._color import (
     Color,
     ColorType,
 )
-from drawlib._core.l3_colors._color_util import (
-    ColorUtil,
+from drawlib._core.l3_colors._color_utils import (
+    ColorUtils,
     get_intermediate_color,
     get_intermediate_colors,
 )
-from drawlib._core.l3_colors._colors import (
-    BaseColors,
-)
 
 __all__ = [
+    # _base_colors.py
+    "BaseColors",
     # _color.py
     "Color",
     "ColorType",
-    # _color_util.py
-    "ColorUtil",
+    # _color_utils.py
+    "ColorUtils",
     "get_intermediate_color",
     "get_intermediate_colors",
-    # _colors.py
-    "BaseColors",
 ]

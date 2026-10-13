@@ -49,7 +49,7 @@ from drawlib._builder._image_ast import (
     resolve_effective_output_dir,
     resolve_static_save_target,
 )
-from drawlib._core.l1_core import dutil_settings, get_script_relative_path, logger
+from drawlib._core.l1_core import drawlib_settings, get_script_relative_path, logger
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
 
@@ -301,7 +301,7 @@ class DrawlibExecuter:
         if ext not in {"png", "webp"}:
             return False
 
-        need_grid = self._grid or dutil_settings.get_force_grid() or bool(re.search(r"\bgrid\s*=\s*True\b", code))
+        need_grid = self._grid or drawlib_settings.get_force_grid() or bool(re.search(r"\bgrid\s*=\s*True\b", code))
         project_root = self._topdir_path or (self._target_roots[0] if self._target_roots else None)
         cache_key, code_hash = self._cache.compute_keys(
             code=code,
@@ -335,7 +335,7 @@ class DrawlibExecuter:
             self._current_total_saves = total_saves
             eff_out = self._get_effective_output_dir(path)
             if eff_out is not None:
-                dutil_settings.set_output_dir(eff_out)
+                drawlib_settings.set_output_dir(eff_out)
                 os.makedirs(eff_out, exist_ok=True)
             progress = FileBuildProgress(
                 1,
@@ -368,7 +368,7 @@ class DrawlibExecuter:
             self._current_total_saves = total_saves
             eff_out = self._get_effective_output_dir(file_path)
             if eff_out is not None:
-                dutil_settings.set_output_dir(eff_out)
+                drawlib_settings.set_output_dir(eff_out)
                 os.makedirs(eff_out, exist_ok=True)
             progress = FileBuildProgress(
                 idx,
@@ -397,9 +397,9 @@ class DrawlibExecuter:
             ValueError: If the specified path `file_or_directory` does not exist or is not a .py file.
         """
         if self._output_dir is not None:
-            dutil_settings.set_output_dir(os.path.abspath(self._output_dir))
+            drawlib_settings.set_output_dir(os.path.abspath(self._output_dir))
         if self._grid:
-            dutil_settings.set_force_grid(True)
+            drawlib_settings.set_force_grid(True)
 
         canvas_inst = drawlib._core.l4_canvas.canvas
         orig_canvas_save = canvas_inst.save
@@ -424,9 +424,9 @@ class DrawlibExecuter:
             if orig_canvas_mod_save is not None:
                 drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]
             if self._grid:
-                dutil_settings.set_force_grid(False)
+                drawlib_settings.set_force_grid(False)
             if self._output_dir is not None:
-                dutil_settings.set_output_dir(None)
+                drawlib_settings.set_output_dir(None)
             self._current_target_root = ""
 
     def _add_topdir_to_syspath(self, path: str) -> None:
@@ -518,7 +518,7 @@ class DrawlibExecuter:
             if self._current_progress is None:
                 logger.info(f"    - {file_path}")
             with warnings.catch_warnings():
-                if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+                if drawlib_settings.get_logging_mode() not in {"verbose", "developer"}:
                     warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
                     with contextlib.redirect_stdout(io.StringIO()):
                         mspec.loader.exec_module(module)

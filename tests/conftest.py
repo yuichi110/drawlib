@@ -16,7 +16,7 @@ from typing import Optional
 
 import pytest
 
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.l1_core import drawlib_settings
 from drawlib.canvas import clear, setup
 from tests.utils import check_image_match
 
@@ -77,7 +77,7 @@ def preprocess():
     """Preprocess test setup and initialize drawlib canvas."""
     os.environ["NO_COLOR"] = "1"
     os.environ["TERM"] = "dumb"
-    dutil_settings._set_suppress_warning(True)
+    drawlib_settings._set_suppress_warning(True)
     setup(grid_only=True)
     yield
     clear()

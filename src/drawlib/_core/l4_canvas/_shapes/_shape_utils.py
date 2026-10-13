@@ -24,14 +24,14 @@ from drawlib._core.l2_types import (
     Coordinate,
     PathPoints,
 )
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_math import (
     get_center_and_size,
     rotate_point,
 )
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._shapes._path_util import (
+from drawlib._core.l4_canvas._shapes._path_utils import (
     _normalize_shape_radii,
     _rotate_and_place_path_point,
     _shift_path_point,
@@ -48,10 +48,10 @@ from drawlib._core.l4_canvas._shapes._path_util import (
     subpaths_to_compound_path,
     validate_hole_ratio,
 )
-from drawlib._core.l4_canvas._text_util import TextUtil
+from drawlib._core.l4_canvas._text_utils import TextUtils
 
 
-class ShapeUtil:
+class ShapeUtils:
     """A utility class for handling shape styles and options."""
 
     def __init__(self) -> None:
@@ -96,13 +96,13 @@ class ShapeUtil:
         if text_style is not None:
             if not isinstance(text_style, Style):
                 raise TypeError(f'Arg "text_style" must be Style, but {type(text_style)} given.')
-            TextUtil.validate_text_style(text_style)
+            TextUtils.validate_text_style(text_style)
             return text_style
 
         # Automatic contrast resolution
         fill_color = shape_style.shape_fill_color
         fill_alpha = shape_style.alpha
-        text_col = ColorUtil.get_contrast_text_color(
+        text_col = ColorUtils.get_contrast_text_color(
             fill_color,
             fill_alpha,
             transparent_color=shape_style.shape_line_color,
@@ -237,11 +237,11 @@ class ShapeUtil:
         orig_center, (width, height) = get_center_and_size(anchor_points)
 
         # 2. Shift points relative to center (0, 0)
-        centered_points = [ShapeUtil._shift_path_point(p, orig_center) for p in path_points]
+        centered_points = [ShapeUtils._shift_path_point(p, orig_center) for p in path_points]
 
         # 3. Apply alignment
         align_xy = (xy[0] - width / 2.0, xy[1] - height / 2.0) if is_default_center else xy
-        (adj_x, adj_y), effective_style = ShapeUtil.apply_alignment(
+        (adj_x, adj_y), effective_style = ShapeUtils.apply_alignment(
             align_xy,
             width=width,
             height=height,
@@ -254,7 +254,7 @@ class ShapeUtil:
         center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
 
         # 5. Rotate and place at canvas center
-        transformed_points = [ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_points]
+        transformed_points = [ShapeUtils._rotate_and_place_path_point(p, angle, center_xy) for p in centered_points]
 
         return transformed_points, center_xy, effective_style
 
@@ -272,9 +272,9 @@ class ShapeUtil:
         if style.text_flip is not None and style.text_flip:
             text_angle = (text_angle + 180) % 360
 
-        x, y = ShapeUtil.apply_xy_shift(xy, shape_angle, style)
+        x, y = ShapeUtils.apply_xy_shift(xy, shape_angle, style)
 
-        options = TextUtil.get_text_options(style)
+        options = TextUtils.get_text_options(style)
         if "horizontalalignment" in options:
             del options["horizontalalignment"]
         if "verticalalignment" in options:
@@ -288,7 +288,7 @@ class ShapeUtil:
             rotation_mode="anchor",
             horizontalalignment="center",
             verticalalignment="center",
-            fontproperties=TextUtil.get_font_properties(style),
+            fontproperties=TextUtils.get_font_properties(style),
             **options,
         )
 
@@ -297,8 +297,8 @@ class ShapeUtil:
         style: Style,
     ) -> dict[str, Any]:
         """Convert drawlib's Style to matplotlib's patches(shape) options."""
-        lcolor = None if style.shape_line_color is None else ColorUtil.get_mplot_rgba(style.shape_line_color)
-        fcolor = None if style.shape_fill_color is None else ColorUtil.get_mplot_rgba(style.shape_fill_color)
+        lcolor = None if style.shape_line_color is None else ColorUtils.get_mplot_rgba(style.shape_line_color)
+        fcolor = None if style.shape_fill_color is None else ColorUtils.get_mplot_rgba(style.shape_fill_color)
 
         options: dict[str, Any] = {
             "facecolor": fcolor,
@@ -319,7 +319,7 @@ class ShapeUtil:
     ) -> tuple[Coordinate, Angle, Style]:
         """Resolve center coordinate (cx, cy), angle, and post-alignment style for a centered shape."""
         angle: Angle = style.angle if style.angle is not None else 0.0
-        xy_aligned, style = ShapeUtil.apply_alignment(
+        xy_aligned, style = ShapeUtils.apply_alignment(
             xy=xy,
             width=width,
             height=height,
@@ -340,12 +340,12 @@ class ShapeUtil:
         angle: float,
     ) -> None:
         """Append a PathPatch and optional embedded text artist to the canvas artist list."""
-        options = ShapeUtil.get_shape_options(style)
+        options = ShapeUtils.get_shape_options(style)
         artists.append(PathPatch(path=path, **options))
         if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            effective_text_style = ShapeUtils.resolve_embedded_text_style(style, text_style)
             artists.append(
-                ShapeUtil.get_shape_text(
+                ShapeUtils.get_shape_text(
                     xy=text_xy,
                     text=text,
                     angle=angle,
@@ -366,9 +366,9 @@ class ShapeUtil:
         """Append multiple patch artists and optional embedded text artist to the canvas artist list."""
         artists.extend(patches)
         if text:
-            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            effective_text_style = ShapeUtils.resolve_embedded_text_style(style, text_style)
             artists.append(
-                ShapeUtil.get_shape_text(
+                ShapeUtils.get_shape_text(
                     xy=text_xy,
                     text=text,
                     angle=angle,
@@ -387,13 +387,13 @@ class ShapeUtil:
         is_default_center: bool = False,
     ) -> None:
         """Draw a custom path shape defined by local PathPoints with alignment and optional text."""
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
         angle: Angle = style.angle if style.angle is not None else 0.0
 
-        transformed_points, (cx, cy), effective_style = ShapeUtil.transform_shape_path_points(
+        transformed_points, (cx, cy), effective_style = ShapeUtils.transform_shape_path_points(
             xy=xy,
             path_points=path_points,
             angle=angle,
@@ -401,8 +401,8 @@ class ShapeUtil:
             is_default_center=is_default_center,
         )
 
-        path = ShapeUtil.build_matplotlib_path(transformed_points)
-        ShapeUtil.append_path_and_text(
+        path = ShapeUtils.build_matplotlib_path(transformed_points)
+        ShapeUtils.append_path_and_text(
             artists=artists,
             path=path,
             style=effective_style,
@@ -425,8 +425,8 @@ class ShapeUtil:
     ) -> None:
         """Draw a convex polygon with optional inner hole_ratio cutout and corner rounding."""
         if hole_ratio is None:
-            path_points = ShapeUtil.round_polygon_points(vertices, style.shape_r)
-            ShapeUtil.draw_shape_path_points(
+            path_points = ShapeUtils.round_polygon_points(vertices, style.shape_r)
+            ShapeUtils.draw_shape_path_points(
                 artists=artists,
                 xy=xy,
                 path_points=path_points,
@@ -437,21 +437,21 @@ class ShapeUtil:
             )
             return
 
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        h_ratio = float(ShapeUtil.validate_hole_ratio(hole_ratio) or 0.5)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        h_ratio = float(ShapeUtils.validate_hole_ratio(hole_ratio) or 0.5)
         angle: Angle = style.angle if style.angle is not None else 0.0
 
-        inner_local_verts, inset = ShapeUtil.inset_convex_polygon(vertices, h_ratio)
-        outer_points = ShapeUtil.round_polygon_points(vertices, style.shape_r)
-        inner_shape_r = ShapeUtil.shrink_shape_r(style.shape_r, inset, reversed_order=True)
-        inner_points = ShapeUtil.round_polygon_points(inner_local_verts, inner_shape_r)
+        inner_local_verts, inset = ShapeUtils.inset_convex_polygon(vertices, h_ratio)
+        outer_points = ShapeUtils.round_polygon_points(vertices, style.shape_r)
+        inner_shape_r = ShapeUtils.shrink_shape_r(style.shape_r, inset, reversed_order=True)
+        inner_points = ShapeUtils.round_polygon_points(inner_local_verts, inner_shape_r)
 
         orig_center, (width, height) = get_center_and_size(vertices)
-        centered_outer = [ShapeUtil._shift_path_point(p, orig_center) for p in outer_points]
-        centered_inner = [ShapeUtil._shift_path_point(p, orig_center) for p in inner_points]
+        centered_outer = [ShapeUtils._shift_path_point(p, orig_center) for p in outer_points]
+        centered_inner = [ShapeUtils._shift_path_point(p, orig_center) for p in inner_points]
 
         align_xy = (xy[0] - width / 2.0, xy[1] - height / 2.0) if is_default_center else xy
-        (adj_x, adj_y), effective_style = ShapeUtil.apply_alignment(
+        (adj_x, adj_y), effective_style = ShapeUtils.apply_alignment(
             align_xy,
             width=width,
             height=height,
@@ -461,14 +461,14 @@ class ShapeUtil:
         )
         center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
 
-        transformed_outer = [ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_outer]
-        transformed_inner = [ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_inner]
+        transformed_outer = [ShapeUtils._rotate_and_place_path_point(p, angle, center_xy) for p in centered_outer]
+        transformed_inner = [ShapeUtils._rotate_and_place_path_point(p, angle, center_xy) for p in centered_inner]
 
-        outer_path = ShapeUtil.build_matplotlib_path(transformed_outer)
-        inner_path = ShapeUtil.build_matplotlib_path(transformed_inner)
+        outer_path = ShapeUtils.build_matplotlib_path(transformed_outer)
+        inner_path = ShapeUtils.build_matplotlib_path(transformed_inner)
         compound_path = Path.make_compound_path(outer_path, inner_path)
 
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=artists,
             path=compound_path,
             style=effective_style,
@@ -479,4 +479,4 @@ class ShapeUtil:
         )
 
 
-__all__ = ["ShapeUtil"]
+__all__ = ["ShapeUtils"]

@@ -17,9 +17,6 @@ import os
 import os.path
 from typing import Final
 
-from drawlib._core.l1_core._logging import logger
-from drawlib._core.l1_core._settings import dutil_settings
-
 CACHE_GITIGNORE_CONTENT: Final[str] = "# Created by drawlib automatically.\n*\n"
 CACHE_TAG_CONTENT: Final[str] = (
     "Signature: 8a477f597d28d172789f06886806bc55\n"

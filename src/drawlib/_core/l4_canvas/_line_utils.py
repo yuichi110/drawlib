@@ -14,11 +14,11 @@ from __future__ import annotations
 from typing import Any
 
 from drawlib._core.l2_types import ArrowHead
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_styles import Style
 
 
-class LineUtil:
+class LineUtils:
     """A utility class for handling line styles and options."""
 
     def __init__(self) -> None:
@@ -56,8 +56,8 @@ class LineUtil:
     @staticmethod
     def sanitize_xys(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:
         """Sanitize a list of coordinates by removing duplicates and merging straight lines."""
-        xys = LineUtil._remove_consecutive_duplicates(xys)
-        return LineUtil._merge_straight_lines(xys)
+        xys = LineUtils._remove_consecutive_duplicates(xys)
+        return LineUtils._merge_straight_lines(xys)
 
     @staticmethod
     def validate_line_style(style: Style) -> None:
@@ -78,7 +78,7 @@ class LineUtil:
         style: Style,
     ) -> dict[str, Any]:
         """Convert drawlib's Style to matplotlib's FancyArrowPatch options."""
-        color = None if style.line_color is None else ColorUtil.get_mplot_rgba(style.line_color)
+        color = None if style.line_color is None else ColorUtils.get_mplot_rgba(style.line_color)
         options: dict[str, Any] = {
             "linewidth": style.line_width,
             "linestyle": style.line_style if style.line_style is not None else "solid",
@@ -104,4 +104,4 @@ class LineUtil:
         return {k: v for k, v in options.items() if v is not None}
 
 
-__all__ = ["LineUtil"]
+__all__ = ["LineUtils"]

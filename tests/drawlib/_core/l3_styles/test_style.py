@@ -15,7 +15,7 @@ import pytest
 from pydantic import ValidationError
 
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles._style_models import Style
+from drawlib._core.l3_styles._style import Style
 from drawlib.styles import Colors
 
 

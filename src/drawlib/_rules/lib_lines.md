@@ -8,7 +8,7 @@ This document serves as the comprehensive, production-grade technical manual for
 
 ## 1. Module Architecture & Core Imports
 
-All line-drawing functionality is implemented in the internal canvas engine (`drawlib._core.l4_canvas._lines.CanvasLineFeature`) and re-exported through the public domain module `drawlib.lines`.
+All line-drawing functionality is implemented in the internal canvas engine (`drawlib._core.l4_canvas._line.CanvasLineFeature`) and re-exported through the public domain module `drawlib.lines`.
 
 ### 1.1. Public Domain Functions
 ```python
@@ -391,7 +391,7 @@ def lines(
 | `arrow_head` | `str` | `""` | Arrowhead placed on terminal segment(s). |
 
 ### 5.2. Built-in Optimizations: Sanitization & Collinear Merging
-Drawlib's `LineUtil.sanitize_xys()` runs automatically prior to rendering:
+Drawlib's `LineUtils.sanitize_xys()` runs automatically prior to rendering:
 1. **Consecutive Duplicate Elimination**: Sequences like `[(10, 10), (10, 10), (20, 20)]` are automatically collapsed to `[(10, 10), (20, 20)]`.
 2. **Collinear Redundancy Merging**: Intermediate points that lie along the same straight slope are pruned, reducing matplotlib artist overhead and avoiding rendering seams.
 

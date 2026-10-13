@@ -16,42 +16,42 @@ from drawlib._core.l2_types import FontFile
 from drawlib._core.l3_fonts import FontRoboto, FontSansSerif
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import canvas, clear, text
-from drawlib._core.l4_canvas._text_util import TextUtil, resolve_svg_font_info
+from drawlib._core.l4_canvas._text_utils import TextUtils, resolve_svg_font_info
 from drawlib.styles import Colors
 
 
-class TestTextUtil:
-    """Unit tests for the TextUtil static helper class."""
+class TestTextUtils:
+    """Unit tests for the TextUtils static helper class."""
 
     def test_format_style(self) -> None:
         """Verifies format_style validates Style and raises errors on invalid input."""
         # 1. Test valid Style object
         custom_style = Style(text_size=32.0, text_color=(255, 0, 0), text_font=FontSansSerif.LATO_REGULAR)
-        formatted_obj = TextUtil.format_style(custom_style)
+        formatted_obj = TextUtils.format_style(custom_style)
         assert formatted_obj.text_size == 32.0
         assert formatted_obj.text_color == (255, 0, 0, 1.0)
 
         # 2. Unsupported text style raises ValueError
         with pytest.raises(ValueError, match="Style cannot be used for text"):
-            TextUtil.format_style(Style(text_size=32.0))
+            TextUtils.format_style(Style(text_size=32.0))
 
         with pytest.raises(ValueError, match="Style cannot be used for text"):
-            TextUtil.validate_text_style(Style(text_size=32.0))
+            TextUtils.validate_text_style(Style(text_size=32.0))
 
         # 3. Invalid types raise TypeError
         with pytest.raises(TypeError):
-            TextUtil.format_style(123)  # type: ignore
+            TextUtils.format_style(123)  # type: ignore
         with pytest.raises(TypeError):
-            TextUtil.format_style("primary")  # type: ignore
+            TextUtils.format_style("primary")  # type: ignore
 
     def test_get_text_options(self) -> None:
         """Verifies mapping from Style to matplotlib's options dictionary."""
         # 1. Test None style
-        assert TextUtil.get_text_options(None) == {}
+        assert TextUtils.get_text_options(None) == {}
 
         # 2. Test mapped values
         style = Style(text_color=(0, 255, 0), halign="center", valign="top")
-        options = TextUtil.get_text_options(style)
+        options = TextUtils.get_text_options(style)
         assert options["color"] == (0.0, 1.0, 0.0, 1.0)
         assert options["horizontalalignment"] == "center"
         assert options["verticalalignment"] == "top"
@@ -59,7 +59,7 @@ class TestTextUtil:
 
         # 3. Test text_line_spacing and alpha
         style_with_spacing = Style(text_color=(0, 255, 0), text_line_spacing=1.6, alpha=0.4)
-        options_spacing = TextUtil.get_text_options(style_with_spacing)
+        options_spacing = TextUtils.get_text_options(style_with_spacing)
         assert options_spacing["linespacing"] == 1.6
         assert options_spacing["alpha"] == 0.4
 
@@ -69,7 +69,7 @@ class TestTextUtil:
         font_path = os.path.normpath(os.path.join(os.path.dirname(__file__), "../../../assets/avenger/regular.ttf"))
         font_file = FontFile(font_path)
         style_file = Style(text_font=font_file, text_size=18.0)
-        props = TextUtil.get_font_properties(style_file)
+        props = TextUtils.get_font_properties(style_file)
         assert isinstance(props, FontProperties)
         assert props.get_size() == 18.0
         assert props.get_file() == font_path
@@ -84,7 +84,7 @@ class TestTextUtil:
 
         # 2. Test Style with FontSansSerif and FontRoboto (collision-free family names)
         style_sans = Style(text_font=FontSansSerif.LATO_REGULAR, text_size=15.0)
-        props_sans = TextUtil.get_font_properties(style_sans)
+        props_sans = TextUtils.get_font_properties(style_sans)
         assert isinstance(props_sans, FontProperties)
         assert props_sans.get_size() == 15.0
         font_file_path = props_sans.get_file()
@@ -94,23 +94,23 @@ class TestTextUtil:
         assert "lato" in font_file_path.lower() or "ttf" in font_file_path.lower()
         assert props_sans.get_family()[0] == "drawlib-sans-lato-regular"
 
-        props_reg = TextUtil.get_font_properties(Style(text_font=FontRoboto.ROBOTO_REGULAR, text_size=12.0))
-        props_bold = TextUtil.get_font_properties(Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=12.0))
+        props_reg = TextUtils.get_font_properties(Style(text_font=FontRoboto.ROBOTO_REGULAR, text_size=12.0))
+        props_bold = TextUtils.get_font_properties(Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=12.0))
         assert props_reg.get_family()[0] == "drawlib-roboto-regular"
         assert props_bold.get_family()[0] == "drawlib-roboto-bold"
         assert props_reg.get_family()[0] != props_bold.get_family()[0]
 
         # 3. Invalid types raise TypeError
         with pytest.raises(TypeError):
-            TextUtil.get_font_properties(123)  # type: ignore
+            TextUtils.get_font_properties(123)  # type: ignore
 
     def test_get_bbox_dict(self) -> None:
         """Verifies get_bbox_dict converts Style background properties to bbox options."""
         # 1. Test None style
-        assert TextUtil.get_bbox_dict(None) is None
+        assert TextUtils.get_bbox_dict(None) is None
 
         # 2. Test style with all None background options
-        assert TextUtil.get_bbox_dict(Style()) is None
+        assert TextUtils.get_bbox_dict(Style()) is None
 
         # 3. Test background options mapping
         style = Style(
@@ -120,7 +120,7 @@ class TestTextUtil:
             text_bg_line_width=2.0,
             alpha=0.5,
         )
-        bbox = TextUtil.get_bbox_dict(style)
+        bbox = TextUtils.get_bbox_dict(style)
         assert bbox is not None
         assert bbox["boxstyle"] == "square"
         assert bbox["facecolor"] == (1.0, 0.0, 0.0, 1.0)
@@ -131,7 +131,7 @@ class TestTextUtil:
 
         # 4. Transparent fallback
         transparent_style = Style(text_bg_fill_color=None, text_bg_line_color=None, text_bg_line_style="solid")
-        bbox_trans = TextUtil.get_bbox_dict(transparent_style)
+        bbox_trans = TextUtils.get_bbox_dict(transparent_style)
         assert bbox_trans is not None
         assert bbox_trans["facecolor"] == Colors.Transparent
         assert bbox_trans["edgecolor"] == Colors.Transparent

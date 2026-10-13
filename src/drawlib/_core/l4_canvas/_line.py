@@ -31,7 +31,7 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_math import get_rotated_path_points
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._line_util import LineUtil
+from drawlib._core.l4_canvas._line_utils import LineUtils
 
 
 class CanvasLineFeature(CanvasBase):
@@ -88,7 +88,7 @@ class CanvasLineFeature(CanvasBase):
         """
         style.validate_for("line")
 
-        options = LineUtil.get_fancyarrowpatch_options(arrow_head, style)
+        options = LineUtils.get_fancyarrowpatch_options(arrow_head, style)
         self._artists.append(
             FancyArrowPatch(
                 posA=xy1,
@@ -233,7 +233,7 @@ class CanvasLineFeature(CanvasBase):
             arrow_head (Literal["->", "<-", "<->", "-"] | str): Optional arrowhead style.
         """
         style.validate_for("line")
-        xys = LineUtil._remove_consecutive_duplicates(list(xys))
+        xys = LineUtils._remove_consecutive_duplicates(list(xys))
         self.lines_bezier(
             xy=xys[0],
             path_points=xys[1:],  # type: ignore
@@ -264,7 +264,7 @@ class CanvasLineFeature(CanvasBase):
             self.line(xys[0], xys[1], arrow_head=arrow_head, style=style)
             return
 
-        xys = LineUtil._remove_consecutive_duplicates(list(xys))
+        xys = LineUtils._remove_consecutive_duplicates(list(xys))
         path_points: PathPoints = []
         last_i = len(xys) - 2
         for i, xy in enumerate(xys):
@@ -328,7 +328,7 @@ class CanvasLineFeature(CanvasBase):
                 codes.extend([Path.CURVE4] * 3)
 
         path = Path(vertices=vertices, codes=codes)
-        options = LineUtil.get_fancyarrowpatch_options(arrow_head, style)
+        options = LineUtils.get_fancyarrowpatch_options(arrow_head, style)
         self._artists.append(FancyArrowPatch(path=path, **options))
 
 

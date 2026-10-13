@@ -28,7 +28,7 @@ from drawlib._cli.commands import (
     rules_app,
     styles_app,
 )
-from drawlib._core.l1_core import LIB_VERSION, dutil_settings, logger
+from drawlib._core.l1_core import LIB_VERSION, drawlib_settings, logger
 
 app = typer.Typer(
     name="drawlib",
@@ -118,13 +118,13 @@ def main_callback(
         raise typer.BadParameter("Option --quiet cannot be combined with --verbose, --debug, or --developer.")
 
     if quiet:
-        dutil_settings.set_logging_mode("quiet")
+        drawlib_settings.set_logging_mode("quiet")
     elif developer:
-        dutil_settings.set_logging_mode("developer")
+        drawlib_settings.set_logging_mode("developer")
     elif verbose or debug:
-        dutil_settings.set_logging_mode("verbose")
+        drawlib_settings.set_logging_mode("verbose")
     else:
-        dutil_settings.set_logging_mode("normal")
+        drawlib_settings.set_logging_mode("normal")
 
     if ctx.invoked_subcommand != "cache":
         _ensure_overview_rules_cached()

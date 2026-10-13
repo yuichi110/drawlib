@@ -25,7 +25,7 @@ from PIL import Image
 from pydantic import validate_call
 
 from drawlib._core.l1_core import (
-    dutil_settings,
+    drawlib_settings,
     ensure_cache_dir_ignores,
     get_script_path,
     get_script_relative_path,
@@ -34,14 +34,14 @@ from drawlib._core.l1_core import (
 from drawlib._core.l2_types import (
     ImageFormat,
 )
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._images import CanvasImageFeature
-from drawlib._core.l4_canvas._lines import CanvasLineFeature
+from drawlib._core.l4_canvas._image import CanvasImageFeature
+from drawlib._core.l4_canvas._line import CanvasLineFeature
 from drawlib._core.l4_canvas._shapes import CanvasShapeFeature
 from drawlib._core.l4_canvas._text import CanvasTextFeature
-from drawlib._core.l4_canvas._text_util import resolve_svg_font_info
+from drawlib._core.l4_canvas._text_utils import resolve_svg_font_info
 
 
 class Canvas(
@@ -88,7 +88,7 @@ class Canvas(
         zorder = self._draw_items()
         self._remove_margin()
 
-        is_grid = self._grid or dutil_settings.get_force_grid()
+        is_grid = self._grid or drawlib_settings.get_force_grid()
         if not is_grid:
             pyplot.show()
             return
@@ -109,7 +109,7 @@ class Canvas(
         zorder = self._draw_items()
         self._remove_margin()
 
-        is_grid = self._grid or self._grid_only or dutil_settings.get_force_grid()
+        is_grid = self._grid or self._grid_only or drawlib_settings.get_force_grid()
         buf = io.BytesIO()
 
         if is_grid:
@@ -158,7 +158,7 @@ class Canvas(
         self._remove_margin()
         self._create_parent_directory(file_path)
 
-        is_grid = self._grid or dutil_settings.get_force_grid()
+        is_grid = self._grid or drawlib_settings.get_force_grid()
 
         save_kwargs: dict[str, Any] = {"format": format} if format is not None else {}
         _, ext = os.path.splitext(file_path)
@@ -262,7 +262,7 @@ class Canvas(
         Returns:
             str: File path to save the canvas.
         """
-        output_dir = dutil_settings.get_output_dir()
+        output_dir = drawlib_settings.get_output_dir()
         if file is None:
             script_path = get_script_path()
             parent_dir = os.path.dirname(script_path)
@@ -298,7 +298,7 @@ class Canvas(
         else:
             background_alpha = 1.0
 
-        mplot_rgba = ColorUtil.get_mplot_rgba(background_color, background_alpha)
+        mplot_rgba = ColorUtils.get_mplot_rgba(background_color, background_alpha)
         self._fig.patch.set_facecolor(mplot_rgba)
         self._ax.patch.set_alpha(0)
 

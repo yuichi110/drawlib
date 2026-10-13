@@ -31,7 +31,7 @@ from drawlib._core.l3_colors import BaseColors
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
             style = Style(image_border_width=0)
         angle: Angle = style.angle if style.angle is not None else 0.0
 
-        x, y = ShapeUtil.apply_xy_shift(xy, angle, style)
+        x, y = ShapeUtils.apply_xy_shift(xy, angle, style)
         base_xy = (x, y)
         dimg = Dimage(image, copy=True)
 

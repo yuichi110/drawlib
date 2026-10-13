@@ -31,6 +31,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 from drawlib._core.l4_canvas._shapes._symbol_builders import (
     _build_face_feature_patches,
     _build_face_head_patch,
@@ -42,7 +43,6 @@ from drawlib._core.l4_canvas._shapes._symbol_builders import (
     build_moon_path,
     build_sun_path,
 )
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
 class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
@@ -77,15 +77,15 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         if radius <= 0:
             raise ValueError(f"radius must be positive, but got radius={radius}.")
 
         width = radius * 2.0
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, width, style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, width, style)
         cx, cy = xy
 
-        face_fill, stroke_color, feature_color, feature_w = ShapeUtil.resolve_feature_colors(style)
+        face_fill, stroke_color, feature_color, feature_w = ShapeUtils.resolve_feature_colors(style)
         line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
         line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
 
@@ -115,7 +115,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             feature_color=feature_color,
             feature_w=feature_w,
         )
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[head_patch, *feature_patches],
             text_xy=xy,
@@ -151,11 +151,11 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         width = radius * 2.15 if variant == "digital" else radius * 2.0
         height = radius * 1.22 if variant == "digital" else radius * 2.0
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
-        face_fill, stroke_color, feature_color, feature_w = ShapeUtil.resolve_feature_colors(style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
+        face_fill, stroke_color, feature_color, feature_w = ShapeUtils.resolve_feature_colors(style)
         patches = build_clock_patches(
             xy=xy,
             radius=radius,
@@ -169,7 +169,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             feature_w=feature_w,
             style=style,
         )
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=patches,
             text_xy=xy,
@@ -202,11 +202,11 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         width = radius * 2.0
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, width, style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, width, style)
         path = build_sun_path(xy, radius, variant, num_rays, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             text_xy=xy,
@@ -241,10 +241,10 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path = build_moon_path(xy, width, height, variant, mirror, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             text_xy=xy,
@@ -277,10 +277,10 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path = build_heart_path(xy, width, height, variant, angle)
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             text_xy=xy,
@@ -316,8 +316,8 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, width, height, style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, width, height, style)
         path = build_lightning_path(
             xy=xy,
             width=width,
@@ -327,7 +327,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             shape_r=style.shape_r,
             angle=angle,
         )
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             text_xy=xy,
@@ -371,7 +371,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
         Raises:
             ValueError: If radii, tooth ratios, or hole_radius are out of valid bounds.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         if radius_int <= 0.0:
             raise ValueError("radius_int must be positive.")
         if radius_ext <= radius_int:
@@ -388,7 +388,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             raise ValueError("hole_radius must be positive and smaller than radius_int.")
 
         width = radius_ext * 2.0
-        (cx, cy), angle, style = ShapeUtil.prepare_centered_shape(xy, width, width, style)
+        (cx, cy), angle, style = ShapeUtils.prepare_centered_shape(xy, width, width, style)
 
         path_points = _build_gear_outer_path_points(
             cx=cx,
@@ -402,14 +402,14 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             shape_r=style.shape_r,
         )
 
-        outer_path = ShapeUtil.build_matplotlib_path(path_points)
+        outer_path = ShapeUtils.build_matplotlib_path(path_points)
         if hole_radius is not None:
-            hole_path = ShapeUtil.build_ellipse_path(cx, cy, hole_radius, hole_radius, cw=True)
+            hole_path = ShapeUtils.build_ellipse_path(cx, cy, hole_radius, hole_radius, cw=True)
             path = Path.make_compound_path(outer_path, hole_path)
         else:
             path = outer_path
 
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             text_xy=(cx, cy),
@@ -448,7 +448,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
         Raises:
             ValueError: If width, height, or thickness_ratio are out of valid bounds.
         """
-        style, text_style = ShapeUtil.format_styles(style, text_style)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
         eff_height = width if height is None else height
         if width <= 0.0 or eff_height <= 0.0:
             raise ValueError("width and height must be positive.")
@@ -457,7 +457,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
         if not (0.0 < t_ratio < 1.0):
             raise ValueError("thickness_ratio must be strictly between 0.0 and 1.0.")
 
-        (cx, cy), angle, style = ShapeUtil.prepare_centered_shape(xy, width, eff_height, style)
+        (cx, cy), angle, style = ShapeUtils.prepare_centered_shape(xy, width, eff_height, style)
 
         path = _build_math_symbol_path(
             cx=cx,
@@ -469,7 +469,7 @@ class CanvasShapeSymbolFeature(CanvasShapePolygonFeature):
             angle=angle,
             shape_r=style.shape_r,
         )
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             text_xy=(cx, cy),

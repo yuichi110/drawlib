@@ -38,7 +38,7 @@ from drawlib._builder.doc_builder.processor.options import (
     parse_block_info,
     resolve_block_image_paths,
 )
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.l1_core import drawlib_settings
 from drawlib._core.l4_canvas import save
 
 
@@ -107,7 +107,7 @@ class DrawlibBlockProcessor:
             setattr(drawlib._core.l4_canvas, "save", _no_op_save)
             setattr(drawlib.canvas, "save", _no_op_save)
             with warnings.catch_warnings():
-                if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+                if drawlib_settings.get_logging_mode() not in {"verbose", "developer"}:
                     warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
                     with contextlib.redirect_stdout(io.StringIO()):
                         exec(compiled, exec_globals)
@@ -190,7 +190,7 @@ class DrawlibBlockProcessor:
         if grid is True:
             drawlib._core.l4_canvas.canvas._grid = True
         with warnings.catch_warnings():
-            if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+            if drawlib_settings.get_logging_mode() not in {"verbose", "developer"}:
                 warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
             save(target_abs_path)
 

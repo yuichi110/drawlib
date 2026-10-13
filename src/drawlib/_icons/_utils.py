@@ -15,7 +15,7 @@ from drawlib._core.l2_types import IconStyle
 from drawlib._core.l3_styles import Style
 
 
-class IconUtil:
+class IconUtils:
     """A utility class for handling icon styles."""
 
     def __init__(self) -> None:
@@ -46,7 +46,7 @@ class IconUtil:
         if not isinstance(style, Style):
             raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
 
-        IconUtil.validate_icon_style(style)
+        IconUtils.validate_icon_style(style)
 
         if style.icon_style is None and default_icon_style is not None:
             style = style.patch(icon_style=default_icon_style)

@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for the font module in l3_external."""
+"""Unit tests for the cache module in l3_external."""
 
 import os
 from pathlib import Path
@@ -15,7 +15,7 @@ from unittest.mock import patch
 
 import pytest
 
-from drawlib._core.l3_external._font import download_all_fonts, purge_font_cache
+from drawlib._core.l3_external._cache import download_all_fonts, purge_font_cache
 
 
 class TestDownloadAllFonts:
@@ -48,10 +48,10 @@ class TestPurgeFontCache:
         (font_icon_dir / "__init__.py").write_text("init")
         (font_icon_dir / "icon.ttf").write_text("icon_data")
 
-        # Patch paths in _font.py to point to our temporary directories
+        # Patch paths in _cache.py to point to our temporary directories
         with (
-            patch("drawlib._core.l3_external._font.FONT_DIR_PATH", str(font_dir)),
-            patch("drawlib._core.l3_external._font.FONT_ICON_DIR_PATH", str(font_icon_dir)),
+            patch("drawlib._core.l3_external._cache.FONT_DIR_PATH", str(font_dir)),
+            patch("drawlib._core.l3_external._cache.FONT_ICON_DIR_PATH", str(font_icon_dir)),
         ):
             purge_font_cache()
 

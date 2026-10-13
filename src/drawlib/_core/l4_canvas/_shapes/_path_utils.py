@@ -25,7 +25,7 @@ from drawlib._core.l2_types import (
     PathPoints,
     ShapeRadius,
 )
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_math import (
     minus_2points,
     rotate_point,
@@ -454,14 +454,16 @@ def resolve_feature_colors(
     """Derive face fill, outline stroke, and inner feature color/width from Style."""
     line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
     raw_stroke = (
-        ColorUtil.get_mplot_rgba(style.shape_line_color) if style.shape_line_color is not None else (0.0, 0.0, 0.0, 0.0)
+        ColorUtils.get_mplot_rgba(style.shape_line_color)
+        if style.shape_line_color is not None
+        else (0.0, 0.0, 0.0, 0.0)
     )
     has_stroke = style.shape_line_color is not None and line_w > 0 and raw_stroke[3] > 0.0
 
     if style.shape_fill_color is None:
         face_fill: tuple[float, float, float, float] | str = "none"
     else:
-        raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+        raw_fill = ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
         face_fill = "none" if raw_fill[3] <= 0.0 else raw_fill
 
     stroke_color: tuple[float, float, float, float] | str = raw_stroke if has_stroke else "none"
@@ -470,11 +472,11 @@ def resolve_feature_colors(
         feature_color = raw_stroke
         feature_w = line_w
     elif style.text_color is not None:
-        feature_color = ColorUtil.get_mplot_rgba(style.text_color)
+        feature_color = ColorUtils.get_mplot_rgba(style.text_color)
         feature_w = 1.5
     else:
-        contrast_col = ColorUtil.get_contrast_text_color(style.shape_fill_color, style.alpha)
-        feature_color = ColorUtil.get_mplot_rgba(contrast_col)
+        contrast_col = ColorUtils.get_contrast_text_color(style.shape_fill_color, style.alpha)
+        feature_color = ColorUtils.get_mplot_rgba(contrast_col)
         feature_w = 1.5
 
     if style.alpha is not None and 0.0 < style.alpha < 1.0:

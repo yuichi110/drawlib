@@ -18,10 +18,10 @@ from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
 from drawlib._core.l2_types import Coordinate
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 _EXPLOSION_STANDARD_SPECS: list[tuple[float, float]] = [
     (12.0, 1.00),
@@ -88,15 +88,15 @@ def build_forbidden_path(
     t_ratio = 0.22 if thickness_ratio is None else float(thickness_ratio)
     t = radius * t_ratio
     r_in = max(radius * 0.1, radius - t)
-    outer = ShapeUtil.arc_points_local(0.0, 0.0, radius, 0.0, 360.0, 72)[:-1]
+    outer = ShapeUtils.arc_points_local(0.0, 0.0, radius, 0.0, 360.0, 72)[:-1]
 
     if variant in {"slash", "standard", "backslash"}:
         base_deg = 45.0 if variant == "backslash" else 135.0
         ht = t * 0.5
         alpha_deg = math.degrees(math.asin(min(0.95, ht / r_in)))
-        hole1 = ShapeUtil.arc_points_local(0.0, 0.0, r_in, base_deg - alpha_deg, base_deg - 180.0 + alpha_deg, 36)
-        hole2 = ShapeUtil.arc_points_local(0.0, 0.0, r_in, base_deg + 180.0 - alpha_deg, base_deg + alpha_deg, 36)
-        return ShapeUtil.subpaths_to_compound_path([outer, hole1, hole2], cx, cy, angle)
+        hole1 = ShapeUtils.arc_points_local(0.0, 0.0, r_in, base_deg - alpha_deg, base_deg - 180.0 + alpha_deg, 36)
+        hole2 = ShapeUtils.arc_points_local(0.0, 0.0, r_in, base_deg + 180.0 - alpha_deg, base_deg + alpha_deg, 36)
+        return ShapeUtils.subpaths_to_compound_path([outer, hole1, hole2], cx, cy, angle)
 
     if variant == "cross":
         ht = t * 0.48
@@ -109,9 +109,9 @@ def build_forbidden_path(
             ay = apex_dist * math.sin(rad_q)
             a_ccw = q_angle + 45.0 - alpha_deg
             a_cw = q_angle - 45.0 + alpha_deg
-            arc_cw = ShapeUtil.arc_points_local(0.0, 0.0, r_in, a_ccw, a_cw, 24)
+            arc_cw = ShapeUtils.arc_points_local(0.0, 0.0, r_in, a_ccw, a_cw, 24)
             holes.append([(ax, ay), *arc_cw])
-        return ShapeUtil.subpaths_to_compound_path([outer, *holes], cx, cy, angle)
+        return ShapeUtils.subpaths_to_compound_path([outer, *holes], cx, cy, angle)
 
     # "no_entry" or "minus"
     bw = radius * 1.32
@@ -120,12 +120,12 @@ def build_forbidden_path(
     hx = bw / 2.0 - r_c
     hy = bh / 2.0 - r_c
     bar_cw = (
-        ShapeUtil.arc_points_local(-hx, hy, r_c, 180.0, 90.0, 8)
-        + ShapeUtil.arc_points_local(hx, hy, r_c, 90.0, 0.0, 8)
-        + ShapeUtil.arc_points_local(hx, -hy, r_c, 0.0, -90.0, 8)
-        + ShapeUtil.arc_points_local(-hx, -hy, r_c, -90.0, -180.0, 8)
+        ShapeUtils.arc_points_local(-hx, hy, r_c, 180.0, 90.0, 8)
+        + ShapeUtils.arc_points_local(hx, hy, r_c, 90.0, 0.0, 8)
+        + ShapeUtils.arc_points_local(hx, -hy, r_c, 0.0, -90.0, 8)
+        + ShapeUtils.arc_points_local(-hx, -hy, r_c, -90.0, -180.0, 8)
     )
-    return ShapeUtil.subpaths_to_compound_path([outer, bar_cw], cx, cy, angle)
+    return ShapeUtils.subpaths_to_compound_path([outer, bar_cw], cx, cy, angle)
 
 
 def _local_check_pts(width: float, height: float, t_ratio: float) -> list[Coordinate]:
@@ -169,22 +169,22 @@ def build_checkmark_path(
             )
             for pt in local_pts
         ]
-        path_points = ShapeUtil.round_polygon_points(world_pts, shape_r)
-        return ShapeUtil.build_matplotlib_path(path_points)
+        path_points = ShapeUtils.round_polygon_points(world_pts, shape_r)
+        return ShapeUtils.build_matplotlib_path(path_points)
 
     radius = min(width, height) / 2.0
-    outer = ShapeUtil.arc_points_local(0.0, 0.0, radius, 0.0, 360.0, 64)[:-1]
+    outer = ShapeUtils.arc_points_local(0.0, 0.0, radius, 0.0, 360.0, 64)[:-1]
     if variant == "solid_circle":
         chk_s = radius * 1.15
         chk_cw = list(reversed(_local_check_pts(chk_s, chk_s * 0.85, t_ratio)))
-        return ShapeUtil.subpaths_to_compound_path([outer, chk_cw], cx, cy, angle)
+        return ShapeUtils.subpaths_to_compound_path([outer, chk_cw], cx, cy, angle)
 
     # "circle"
     r_in = radius * max(0.2, 1.0 - t_ratio * 0.9)
-    inner_cw = ShapeUtil.arc_points_local(0.0, 0.0, r_in, 360.0, 0.0, 64)[:-1]
+    inner_cw = ShapeUtils.arc_points_local(0.0, 0.0, r_in, 360.0, 0.0, 64)[:-1]
     chk_s = radius * 0.96
     chk_ccw = _local_check_pts(chk_s, chk_s * 0.85, t_ratio)
-    return ShapeUtil.subpaths_to_compound_path([outer, inner_cw, chk_ccw], cx, cy, angle)
+    return ShapeUtils.subpaths_to_compound_path([outer, inner_cw, chk_ccw], cx, cy, angle)
 
 
 def build_shield_path(
@@ -334,8 +334,8 @@ def build_ribbon_patches(
             (-hw, hh),
             (-hw + notch, 0.0),
         ]
-        path = ShapeUtil.subpaths_to_compound_path([pts], cx, cy, angle)
-        options = ShapeUtil.get_shape_options(style)
+        path = ShapeUtils.subpaths_to_compound_path([pts], cx, cy, angle)
+        options = ShapeUtils.get_shape_options(style)
         return [PathPatch(path=path, **options)], xy
 
     t_ratio = 0.17 if tail_width_ratio is None else float(tail_width_ratio)
@@ -380,25 +380,25 @@ def build_ribbon_patches(
     ]
 
     raw_fill = (
-        ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
+        ColorUtils.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
         if style.shape_fill_color is not None
         else (0.0, 0.0, 0.0, 0.0)
     )
     has_fill = style.shape_fill_color is not None and raw_fill[3] > 0.0
-    tail_fill: Any = ShapeUtil.darken_rgba(raw_fill, 0.16) if has_fill else "none"
-    fold_fill: Any = ShapeUtil.darken_rgba(raw_fill, 0.40) if has_fill else "none"
+    tail_fill: Any = ShapeUtils.darken_rgba(raw_fill, 0.16) if has_fill else "none"
+    fold_fill: Any = ShapeUtils.darken_rgba(raw_fill, 0.40) if has_fill else "none"
     front_fill: Any = raw_fill if has_fill else "none"
 
     lw = style.shape_line_width if style.shape_line_width is not None else 0.0
     has_stroke = style.shape_line_color is not None and lw > 0.0
-    stroke_col: Any = ColorUtil.get_mplot_rgba(style.shape_line_color, alpha=style.alpha) if has_stroke else "none"
+    stroke_col: Any = ColorUtils.get_mplot_rgba(style.shape_line_color, alpha=style.alpha) if has_stroke else "none"
     ls = style.shape_line_style if style.shape_line_style is not None else "solid"
 
     patches: list[PathPatch] = []
     for t_pts in (left_tail, right_tail):
         patches.append(
             PathPatch(
-                ShapeUtil.subpaths_to_compound_path([t_pts], cx, cy, angle),
+                ShapeUtils.subpaths_to_compound_path([t_pts], cx, cy, angle),
                 facecolor=tail_fill,
                 edgecolor=stroke_col,
                 linewidth=lw,
@@ -410,7 +410,7 @@ def build_ribbon_patches(
     for f_pts in (left_fold, right_fold):
         patches.append(
             PathPatch(
-                ShapeUtil.subpaths_to_compound_path([f_pts], cx, cy, angle),
+                ShapeUtils.subpaths_to_compound_path([f_pts], cx, cy, angle),
                 facecolor=fold_fill,
                 edgecolor=stroke_col,
                 linewidth=lw,
@@ -421,7 +421,7 @@ def build_ribbon_patches(
         )
     patches.append(
         PathPatch(
-            ShapeUtil.subpaths_to_compound_path([front], cx, cy, angle),
+            ShapeUtils.subpaths_to_compound_path([front], cx, cy, angle),
             facecolor=front_fill,
             edgecolor=stroke_col,
             linewidth=lw,
@@ -453,7 +453,7 @@ def build_pin_path_and_center(
         half_ang = 20.0
         local_outer = [
             (0.0, y_tip),
-            *ShapeUtil.arc_points_local(0.0, head_cy, r, -90.0 + half_ang, 270.0 - half_ang, 48),
+            *ShapeUtils.arc_points_local(0.0, head_cy, r, -90.0 + half_ang, 270.0 - half_ang, 48),
         ]
         local_head_cy = head_cy
         hole_r = r * float(hole_ratio) if hole_ratio is not None else None
@@ -465,7 +465,7 @@ def build_pin_path_and_center(
         alpha_deg = math.degrees(math.asin(min(0.98, r / dy)))
         local_outer = [
             (0.0, y_tip),
-            *ShapeUtil.arc_points_local(0.0, head_cy, r, -alpha_deg, 180.0 + alpha_deg, 48),
+            *ShapeUtils.arc_points_local(0.0, head_cy, r, -alpha_deg, 180.0 + alpha_deg, 48),
         ]
         local_head_cy = head_cy
         hole_r = r * float(hole_ratio) if hole_ratio is not None else None
@@ -478,10 +478,10 @@ def build_pin_path_and_center(
         cr = min(hw * 0.35, body_h * 0.35)
         local_outer = (
             [(0.0, -hh), (spike_hw, y_bot_body)]
-            + ShapeUtil.arc_points_local(hw - cr, y_bot_body + cr, cr, -90.0, 0.0, 8)
-            + ShapeUtil.arc_points_local(hw - cr, hh - cr, cr, 0.0, 90.0, 8)
-            + ShapeUtil.arc_points_local(-hw + cr, hh - cr, cr, 90.0, 180.0, 8)
-            + ShapeUtil.arc_points_local(-hw + cr, y_bot_body + cr, cr, 180.0, 270.0, 8)
+            + ShapeUtils.arc_points_local(hw - cr, y_bot_body + cr, cr, -90.0, 0.0, 8)
+            + ShapeUtils.arc_points_local(hw - cr, hh - cr, cr, 0.0, 90.0, 8)
+            + ShapeUtils.arc_points_local(-hw + cr, hh - cr, cr, 90.0, 180.0, 8)
+            + ShapeUtils.arc_points_local(-hw + cr, y_bot_body + cr, cr, 180.0, 270.0, 8)
             + [(-spike_hw, y_bot_body)]
         )
         local_head_cy = 0.5 * (y_bot_body + hh)
@@ -489,9 +489,9 @@ def build_pin_path_and_center(
 
     subpaths = [local_outer]
     if hole_r is not None and hole_r > 0.0:
-        subpaths.append(ShapeUtil.arc_points_local(0.0, local_head_cy, hole_r, 360.0, 0.0, 32)[:-1])
+        subpaths.append(ShapeUtils.arc_points_local(0.0, local_head_cy, hole_r, 360.0, 0.0, 32)[:-1])
 
-    path = ShapeUtil.subpaths_to_compound_path(subpaths, cx, cy, angle)
+    path = ShapeUtils.subpaths_to_compound_path(subpaths, cx, cy, angle)
     rx, ry = rotate_point((0.0, local_head_cy), angle=angle)
     return path, (cx + rx, cy + ry)
 
@@ -536,7 +536,7 @@ def build_explosion_path(
                 qx = omt * omt * p0[0] + 2.0 * omt * t * p_mid[0] + t * t * p1[0]
                 qy = omt * omt * p0[1] + 2.0 * omt * t * p_mid[1] + t * t * p1[1]
                 local_pts.append((qx, qy))
-        return ShapeUtil.subpaths_to_compound_path([local_pts], cx, cy, angle)
+        return ShapeUtils.subpaths_to_compound_path([local_pts], cx, cy, angle)
 
     specs = _EXPLOSION_HEAVY_SPECS if variant in {"heavy", "wild"} else _EXPLOSION_STANDARD_SPECS
     world_pts: list[Coordinate] = []
@@ -546,8 +546,8 @@ def build_explosion_path(
         rx, ry = rotate_point((lx, ly), angle=angle)
         world_pts.append((cx + rx, cy + ry))
 
-    path_points = ShapeUtil.round_polygon_points(world_pts, shape_r)
-    return ShapeUtil.build_matplotlib_path(path_points)
+    path_points = ShapeUtils.round_polygon_points(world_pts, shape_r)
+    return ShapeUtils.build_matplotlib_path(path_points)
 
 
 def build_tag_path_and_center(
@@ -573,7 +573,7 @@ def build_tag_path_and_center(
     if variant in {"rounded"}:
         r_end = hh
         x_arc = max(-hw + r_end * 0.2, hw - r_end)
-        local_outer = [(-hw, -hh), *ShapeUtil.arc_points_local(x_arc, 0.0, r_end, -90.0, 90.0, 24), (-hw, hh)]
+        local_outer = [(-hw, -hh), *ShapeUtils.arc_points_local(x_arc, 0.0, r_end, -90.0, 90.0, 24), (-hw, hh)]
     elif variant in {"chamfered", "beveled"}:
         ch_y = hh * 0.38
         local_outer = [
@@ -605,12 +605,12 @@ def build_tag_path_and_center(
         world_outer.append((cx + rx, cy + ry))
 
     if variant != "rounded" and shape_r is not None:
-        outer_path = ShapeUtil.build_matplotlib_path(ShapeUtil.round_polygon_points(world_outer, shape_r))
+        outer_path = ShapeUtils.build_matplotlib_path(ShapeUtils.round_polygon_points(world_outer, shape_r))
     else:
-        outer_path = ShapeUtil.subpaths_to_compound_path([local_outer], cx, cy, angle)
+        outer_path = ShapeUtils.subpaths_to_compound_path([local_outer], cx, cy, angle)
 
-    hole_cw = ShapeUtil.arc_points_local(hole_lx, 0.0, hole_r, 360.0, 0.0, 32)[:-1]
-    hole_path = ShapeUtil.subpaths_to_compound_path([hole_cw], cx, cy, angle)
+    hole_cw = ShapeUtils.arc_points_local(hole_lx, 0.0, hole_r, 360.0, 0.0, 32)[:-1]
+    hole_path = ShapeUtils.subpaths_to_compound_path([hole_cw], cx, cy, angle)
     tx_r, ty_r = rotate_point((text_lx, 0.0), angle=angle)
     return Path.make_compound_path(outer_path, hole_path), (cx + tx_r, cy + ty_r)
 

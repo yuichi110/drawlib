@@ -35,7 +35,7 @@ from drawlib._core.l3_math import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 
 
 def build_plaque_path(
@@ -55,12 +55,12 @@ def build_plaque_path(
 
     if variant in {"concave", "standard"}:
         local_pts = (
-            ShapeUtil.arc_points_local(hw, -hh, r, 180.0, 90.0, 12)
-            + ShapeUtil.arc_points_local(hw, hh, r, 270.0, 180.0, 12)
-            + ShapeUtil.arc_points_local(-hw, hh, r, 0.0, -90.0, 12)
-            + ShapeUtil.arc_points_local(-hw, -hh, r, 90.0, 0.0, 12)
+            ShapeUtils.arc_points_local(hw, -hh, r, 180.0, 90.0, 12)
+            + ShapeUtils.arc_points_local(hw, hh, r, 270.0, 180.0, 12)
+            + ShapeUtils.arc_points_local(-hw, hh, r, 0.0, -90.0, 12)
+            + ShapeUtils.arc_points_local(-hw, -hh, r, 90.0, 0.0, 12)
         )
-        return ShapeUtil.subpaths_to_compound_path([local_pts], cx, cy, angle)
+        return ShapeUtils.subpaths_to_compound_path([local_pts], cx, cy, angle)
 
     if variant in {"chamfered", "octagon"}:
         local_pts = [
@@ -94,8 +94,8 @@ def build_plaque_path(
     for lx, ly in local_pts:
         rx, ry = rotate_point((lx, ly), angle=angle)
         world_pts.append((cx + rx, cy + ry))
-    path_points = ShapeUtil.round_polygon_points(world_pts, shape_r)
-    return ShapeUtil.build_matplotlib_path(path_points)
+    path_points = ShapeUtils.round_polygon_points(world_pts, shape_r)
+    return ShapeUtils.build_matplotlib_path(path_points)
 
 
 class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
@@ -134,8 +134,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(
+        ShapeUtils.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -145,7 +145,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p1 = (0.0, 0.0)
         p2 = (topvertex_x, height)
         p3 = (width, 0.0)
-        ShapeUtil.draw_convex_polygon_with_hole(
+        ShapeUtils.draw_convex_polygon_with_hole(
             artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3],
@@ -180,8 +180,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(
+        ShapeUtils.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -192,7 +192,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (x_top, height)
         p3 = (x_top + width, height)
         p4 = (width, 0.0)
-        ShapeUtil.draw_convex_polygon_with_hole(
+        ShapeUtils.draw_convex_polygon_with_hole(
             artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
@@ -229,8 +229,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(
+        ShapeUtils.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -241,7 +241,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (topedge_x, height)
         p3 = (topedge_x + topedge_width, height)
         p4 = (bottomedge_width, 0.0)
-        ShapeUtil.draw_convex_polygon_with_hole(
+        ShapeUtils.draw_convex_polygon_with_hole(
             artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
@@ -274,8 +274,8 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        ShapeUtil.validate_hole_ratio(hole_ratio)
-        style, text_style = ShapeUtil.format_styles(
+        ShapeUtils.validate_hole_ratio(hole_ratio)
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -284,7 +284,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         p2 = (width / 2, height)
         p3 = (width, height / 2)
         p4 = (width / 2, 0.0)
-        ShapeUtil.draw_convex_polygon_with_hole(
+        ShapeUtils.draw_convex_polygon_with_hole(
             artists=self._artists,
             xy=xy,
             vertices=[p1, p2, p3, p4],
@@ -317,15 +317,15 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text (optional): Text to display inside the polygon.
             text_style (optional): Style of the text.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
-        h_ratio = ShapeUtil.validate_hole_ratio(hole_ratio)
-        xy, angle, style = ShapeUtil.prepare_centered_shape(xy, radius * 2, radius * 2, style)
+        h_ratio = ShapeUtils.validate_hole_ratio(hole_ratio)
+        xy, angle, style = ShapeUtils.prepare_centered_shape(xy, radius * 2, radius * 2, style)
 
         angle_rad = math.radians(angle)
-        options = ShapeUtil.get_shape_options(style)
+        options = ShapeUtils.get_shape_options(style)
         if h_ratio is not None or style.shape_r is not None:
             start_a = math.pi / 2.0 + angle_rad
             verts: list[Coordinate] = [
@@ -335,13 +335,13 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
                 )
                 for i in range(num_vertex)
             ]
-            path_points = ShapeUtil.round_polygon_points(verts, style.shape_r)
+            path_points = ShapeUtils.round_polygon_points(verts, style.shape_r)
             if h_ratio is not None:
-                inner_verts, inset = ShapeUtil.inset_convex_polygon(verts, h_ratio)
-                inner_r = ShapeUtil.shrink_shape_r(style.shape_r, inset, reversed_order=True)
-                inner_points = ShapeUtil.round_polygon_points(inner_verts, inner_r)
-                outer_path = ShapeUtil.build_matplotlib_path(path_points)
-                inner_path = ShapeUtil.build_matplotlib_path(inner_points)
+                inner_verts, inset = ShapeUtils.inset_convex_polygon(verts, h_ratio)
+                inner_r = ShapeUtils.shrink_shape_r(style.shape_r, inset, reversed_order=True)
+                inner_points = ShapeUtils.round_polygon_points(inner_verts, inner_r)
+                outer_path = ShapeUtils.build_matplotlib_path(path_points)
+                inner_path = ShapeUtils.build_matplotlib_path(inner_points)
                 path = Path.make_compound_path(outer_path, inner_path)
                 patch: RegularPolygon | PathPatch = PathPatch(path=path, **options)
             elif len(path_points) == num_vertex and all(isinstance(p[0], (int, float)) for p in path_points):
@@ -353,7 +353,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
                     **options,
                 )
             else:
-                path = ShapeUtil.build_matplotlib_path(path_points)
+                path = ShapeUtils.build_matplotlib_path(path_points)
                 patch = PathPatch(path=path, **options)
         else:
             patch = RegularPolygon(
@@ -364,7 +364,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
                 **options,
             )
 
-        ShapeUtil.append_patches_and_text(
+        ShapeUtils.append_patches_and_text(
             artists=self._artists,
             patches=[patch],
             style=style,
@@ -397,7 +397,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text: Text to display inside shape.
             text_style: Style object for text or None.
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
@@ -413,7 +413,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
 
         width = radius_ext * 2.0
         height = radius_ext * 2.0
-        (cx, cy), angle, style = ShapeUtil.prepare_centered_shape(
+        (cx, cy), angle, style = ShapeUtils.prepare_centered_shape(
             xy=xy,
             width=width,
             height=height,
@@ -425,9 +425,9 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             rx, ry = rotate_point(pp, angle=angle)
             points2.append((rx + cx, ry + cy))
 
-        path_points = ShapeUtil.round_polygon_points(points2, style.shape_r)
-        path = ShapeUtil.build_matplotlib_path(path_points)
-        ShapeUtil.append_path_and_text(
+        path_points = ShapeUtils.round_polygon_points(points2, style.shape_r)
+        path = ShapeUtils.build_matplotlib_path(path_points)
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -463,9 +463,9 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             text: Text to display inside shape.
             text_style: Style object for text.
         """
-        ShapeUtil.validate_hole_ratio(cut_ratio)
-        style, text_style = ShapeUtil.format_styles(style, text_style)
-        (cx, cy), angle, style = ShapeUtil.prepare_centered_shape(
+        ShapeUtils.validate_hole_ratio(cut_ratio)
+        style, text_style = ShapeUtils.format_styles(style, text_style)
+        (cx, cy), angle, style = ShapeUtils.prepare_centered_shape(
             xy=xy,
             width=width,
             height=height,
@@ -480,7 +480,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             shape_r=style.shape_r,
             angle=angle,
         )
-        ShapeUtil.append_path_and_text(
+        ShapeUtils.append_path_and_text(
             artists=self._artists,
             path=path,
             style=style,
@@ -510,26 +510,26 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         Returns:
             None
         """
-        style, text_style = ShapeUtil.format_styles(
+        style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
 
-        path_points = ShapeUtil.round_polygon_points(list(xys), style.shape_r)
+        path_points = ShapeUtils.round_polygon_points(list(xys), style.shape_r)
         style = style.patch(halign=None, valign=None)
-        options = ShapeUtil.get_shape_options(style)
+        options = ShapeUtils.get_shape_options(style)
         if len(path_points) == len(xys) and all(isinstance(p[0], (int, float)) for p in path_points):
             self._artists.append(Polygon(xy=xys, closed=True, **options))
         else:
-            path = ShapeUtil.build_matplotlib_path(path_points)
+            path = ShapeUtils.build_matplotlib_path(path_points)
             self._artists.append(PathPatch(path=path, **options))
 
         if not text:
             return
-        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+        effective_text_style = ShapeUtils.resolve_embedded_text_style(style, text_style)
         center, (_, _) = get_center_and_size(xys)
         self._artists.append(
-            ShapeUtil.get_shape_text(
+            ShapeUtils.get_shape_text(
                 center,
                 text=text,
                 angle=0,
@@ -561,7 +561,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         Raises:
             ValueError: If invalid path points are provided.
         """
-        ShapeUtil.draw_shape_path_points(
+        ShapeUtils.draw_shape_path_points(
             artists=self._artists,
             xy=xy,
             path_points=path_points,

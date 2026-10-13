@@ -16,8 +16,8 @@ from drawlib._core.l4_canvas._shapes._badge import CanvasShapeBadgeFeature
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
 from drawlib._core.l4_canvas._shapes._container import CanvasShapeContainerFeature
 from drawlib._core.l4_canvas._shapes._polygon import CanvasShapePolygonFeature
+from drawlib._core.l4_canvas._shapes._shape_utils import ShapeUtils
 from drawlib._core.l4_canvas._shapes._symbol import CanvasShapeSymbolFeature
-from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
 class CanvasShapeFeature(
@@ -41,5 +41,5 @@ __all__ = [
     "CanvasShapeFeature",
     "CanvasShapePolygonFeature",
     "CanvasShapeSymbolFeature",
-    "ShapeUtil",
+    "ShapeUtils",
 ]
