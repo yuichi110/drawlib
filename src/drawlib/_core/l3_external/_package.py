@@ -15,7 +15,7 @@ import hashlib
 import io
 import urllib.request
 import zipfile
-from collections.abc import Iterator
+from collections.abc import Iterator, Sequence
 from pathlib import Path
 from typing import Literal
 
@@ -34,7 +34,7 @@ class ReleaseAssetPackage(BaseModel):
         archive_sha256: SHA-256 hex digest of the ZIP archive file.
         source_rel_path: Relative path within release_assets/<ver>/, e.g. 'fonts/roboto'.
         target_rel_path: Relative path where the asset is extracted locally.
-        files: List of file names contained within this asset package.
+        files: Tuple of file names contained within this asset package.
     """
 
     model_config = ConfigDict(frozen=True)
@@ -51,8 +51,8 @@ class ReleaseAssetPackage(BaseModel):
     target_rel_path: str = Field(
         description="Relative path where the asset is extracted locally, e.g. 'fonts/roboto'.",
     )
-    files: list[str] = Field(
-        description="List of file names contained within this asset package.",
+    files: tuple[str, ...] = Field(
+        description="Tuple of file names contained within this asset package.",
     )
 
     @property
@@ -163,6 +163,8 @@ class AssetManifest(BaseModel):
         assets: Dictionary mapping archive_name to its AssetManifestItem.
     """
 
+    model_config = ConfigDict(frozen=True)
+
     version: str = Field(default="v0.3", description="Drawlib release version tag, e.g. 'v0.3'.")
     assets: dict[str, AssetManifestItem] = Field(
         default_factory=dict,
@@ -170,7 +172,7 @@ class AssetManifest(BaseModel):
     )
 
 
-def create_deterministic_zip_bytes(source_dir: Path, files: list[str]) -> bytes:
+def create_deterministic_zip_bytes(source_dir: Path, files: Sequence[str]) -> bytes:
     """Build a deterministic, byte-reproducible ZIP archive from specified files.
 
     Normalizes file ordering, modification timestamps, and permissions so that
@@ -178,7 +180,7 @@ def create_deterministic_zip_bytes(source_dir: Path, files: list[str]) -> bytes:
 
     Args:
         source_dir: Directory containing the asset files.
-        files: List of file names to include in the archive.
+        files: Sequence of file names to include in the archive.
 
     Returns:
         bytes: Binary content of the generated ZIP archive.

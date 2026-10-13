@@ -29,9 +29,9 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_colors import BaseColors
 from drawlib._core.l3_images import Dimage
-from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
+from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +44,7 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
         super().__init__()
 
     @validate_call(config=ConfigDict(arbitrary_types_allowed=True))
-    def image(  # noqa: C901
+    def image(
         self,
         xy: Coordinate,
         width: PosFloat,
@@ -65,21 +65,7 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
             style = Style(image_border_width=0)
         angle: Angle = style.angle if style.angle is not None else 0.0
 
-        x, y = xy
-        if style.xy_shift is not None:
-            x_shift, y_shift = style.xy_shift
-            if angle == 0:
-                x += x_shift
-                y += y_shift
-            else:
-                rx_shift, ry_shift = rotate_point((x_shift, y_shift), angle=angle)
-                x += rx_shift
-                y += ry_shift
-
-        if style.xy_abs_shift is not None:
-            x += style.xy_abs_shift[0]
-            y += style.xy_abs_shift[1]
-
+        x, y = ShapeUtil.apply_xy_shift(xy, angle, style)
         base_xy = (x, y)
         dimg = Dimage(image, copy=True)
 

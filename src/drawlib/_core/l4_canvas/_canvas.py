@@ -16,7 +16,8 @@ import contextlib
 import io
 import json
 import os
-from typing import Any, Literal
+from collections.abc import Callable
+from typing import Any
 
 from matplotlib import pyplot
 from matplotlib.text import Text
@@ -66,6 +67,17 @@ class Canvas(
         """
         super().__init__()
 
+    def _render_with_grid(self, zorder: int, render_fn: Callable[[], None]) -> None:
+        """Render the canvas with grid lines overlaid, then remove grid and drawing artists from axes."""
+        temp_artists = list(self._artists)
+        self._artists.clear()
+        self._draw_grid(zorder)
+        render_fn()
+        self._remove_artists_from_ax()  # remove grid
+        self._artists.clear()
+        self._artists.extend(temp_artists)
+        self._remove_artists_from_ax()  # remove drawing items
+
     @validate_call
     def show(self) -> None:
         """Show canvas illustration."""
@@ -81,14 +93,7 @@ class Canvas(
             pyplot.show()
             return
 
-        temp_artists = list(self._artists)
-        self._artists.clear()
-        self._draw_grid(zorder)
-        pyplot.show()
-        self._remove_artists_from_ax()  # remove grid
-        self._artists.clear()
-        self._artists.extend(temp_artists)
-        self._remove_artists_from_ax()  # remove drawing items
+        self._render_with_grid(zorder, pyplot.show)
 
     @validate_call
     def get_dimage(self) -> Dimage:
@@ -108,14 +113,7 @@ class Canvas(
         buf = io.BytesIO()
 
         if is_grid:
-            temp_artists = list(self._artists)
-            self._artists.clear()
-            self._draw_grid(zorder)
-            pyplot.savefig(buf, format="png")
-            self._remove_artists_from_ax()  # remove grid
-            self._artists.clear()
-            self._artists.extend(temp_artists)
-            self._remove_artists_from_ax()  # remove drawing items
+            self._render_with_grid(zorder, lambda: pyplot.savefig(buf, format="png"))
         else:
             pyplot.savefig(buf, format="png")
             self._remove_artists_from_ax()  # remove drawing items
@@ -171,10 +169,7 @@ class Canvas(
             svg_font_records = self._collect_svg_font_metadata()
 
         # save normal image
-        if self._grid_only:
-            # does not save normal image
-            ...
-        else:
+        if not self._grid_only:
             pyplot.savefig(file_path, **save_kwargs)
             if is_svg and svg_font_records:
                 self._inject_svg_font_metadata(file_path, svg_font_records)
@@ -182,26 +177,17 @@ class Canvas(
                 self._remove_artists_from_ax()  # remove drawing items
                 return
 
-        temp_artists = list(self._artists)
-        self._artists.clear()
-        self._draw_grid(zorder)
-
-        # save grid image
-        if self._grid_only:
-            pyplot.savefig(file_path, **save_kwargs)
+        def save_grid_image() -> None:
+            if self._grid_only:
+                target_path = file_path
+            else:
+                name, extension = os.path.splitext(file_path)
+                target_path = f"{name}_grid{extension}"
+            pyplot.savefig(target_path, **save_kwargs)
             if is_svg and svg_font_records:
-                self._inject_svg_font_metadata(file_path, svg_font_records)
-        else:
-            name, extension = os.path.splitext(file_path)
-            grid_image_file_path = f"{name}_grid{extension}"
-            pyplot.savefig(grid_image_file_path, **save_kwargs)
-            if is_svg and svg_font_records:
-                self._inject_svg_font_metadata(grid_image_file_path, svg_font_records)
+                self._inject_svg_font_metadata(target_path, svg_font_records)
 
-        self._remove_artists_from_ax()  # remove grid
-        self._artists.clear()
-        self._artists.extend(temp_artists)
-        self._remove_artists_from_ax()  # remove drawing items
+        self._render_with_grid(zorder, save_grid_image)
 
     def _collect_svg_font_metadata(self) -> list[dict[str, str]]:
         """Collect unique font metadata records from active Text artists on the canvas."""

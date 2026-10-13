@@ -286,7 +286,7 @@ class CanvasBase:
         CanvasBase.__init__(self)  # noqa: PLC2801
 
     @validate_call
-    def setup(  # noqa: C901
+    def setup(
         self,
         width: PosInt | None = None,
         height: PosInt | None = None,
@@ -336,76 +336,99 @@ class CanvasBase:
             may lead to unexpected behavior and should be avoided.
             Call `setup()` again after `clear()` if you wish to reconfigure canvas settings.
         """
-        # This method config() can be called repeatedly.
-        # Please don't set default value in args
-        # Default values should be set at __init__() and load them via calling clear().
-
         if len(self._artists) != 0:
             self._artists.clear()
 
-        def config_size_dpi() -> None:
-            if width is not None:
-                self._width = width
-            if height is not None:
-                self._height = height
-            if dpi is not None:
-                self._dpi = dpi
-
-            # set fig size. width is always FIGURE_WIDTH_INCHES (10.0 inches)
-            fig_width = self.FIGURE_WIDTH_INCHES
-            fig_hight = self._height * self.FIGURE_WIDTH_INCHES / self._width
-            self._fig = pyplot.figure(
-                figsize=(fig_width, fig_hight),
-                dpi=self._dpi,
-            )
-
-            # set ax size
-            self._ax = self._fig.add_subplot(1, 1, 1)
-            self._ax.set_xlim(0, self._width)
-            self._ax.set_ylim(0, self._height)
-            self._ax.set_aspect("equal")
-            self._ax.axis("off")
-            self._ax.margins(0, 0)
-
-        def config_background() -> None:
-            resolved_color = color if color is not None else background_color
-            if resolved_color is not None:
-                self._background_color = resolved_color
-            resolved_alpha = alpha if alpha is not None else background_alpha
-            if resolved_alpha is not None:
-                self._background_alpha = resolved_alpha
-
-        def config_grid() -> None:
-            if grid_style is not None:
-                self._grid = True
-                self._grid_style = grid_style
-                if grid_centerstyle is None:
-                    self._grid_centerstyle = grid_style
-
-            if grid_centerstyle is not None:
-                self._grid = True
-                self._grid_centerstyle = grid_centerstyle
-
-            if grid_only is not None:
-                self._grid_only = grid_only
-                if grid_only:
-                    self._grid = True
-
-            if grid_xpitch is not None:
-                self._grid_xpitch = grid_xpitch
-
-            if grid_ypitch is not None:
-                self._grid_ypitch = grid_ypitch
-
-            if grid is not None:
-                self._grid = grid
-
-            # grid is drawn at method _render()
-
         pyplot.close()
-        config_size_dpi()
-        config_background()
-        config_grid()
+        self._setup_size_dpi(width=width, height=height, dpi=dpi)
+        self._setup_background(
+            color=color,
+            alpha=alpha,
+            background_color=background_color,
+            background_alpha=background_alpha,
+        )
+        self._setup_grid(
+            grid=grid,
+            grid_only=grid_only,
+            grid_style=grid_style,
+            grid_centerstyle=grid_centerstyle,
+            grid_xpitch=grid_xpitch,
+            grid_ypitch=grid_ypitch,
+        )
+
+    def _setup_size_dpi(
+        self,
+        width: PosInt | None,
+        height: PosInt | None,
+        dpi: PosInt | None,
+    ) -> None:
+        if width is not None:
+            self._width = width
+        if height is not None:
+            self._height = height
+        if dpi is not None:
+            self._dpi = dpi
+
+        fig_width = self.FIGURE_WIDTH_INCHES
+        fig_height = self._height * self.FIGURE_WIDTH_INCHES / self._width
+        self._fig = pyplot.figure(
+            figsize=(fig_width, fig_height),
+            dpi=self._dpi,
+        )
+
+        self._ax = self._fig.add_subplot(1, 1, 1)
+        self._ax.set_xlim(0, self._width)
+        self._ax.set_ylim(0, self._height)
+        self._ax.set_aspect("equal")
+        self._ax.axis("off")
+        self._ax.margins(0, 0)
+
+    def _setup_background(
+        self,
+        color: ColorType | None,
+        alpha: Alpha | None,
+        background_color: ColorType | None,
+        background_alpha: Alpha | None,
+    ) -> None:
+        resolved_color = color if color is not None else background_color
+        if resolved_color is not None:
+            self._background_color = resolved_color
+        resolved_alpha = alpha if alpha is not None else background_alpha
+        if resolved_alpha is not None:
+            self._background_alpha = resolved_alpha
+
+    def _setup_grid(
+        self,
+        grid: bool | None,
+        grid_only: bool | None,
+        grid_style: Style | None,
+        grid_centerstyle: Style | None,
+        grid_xpitch: PosInt | None,
+        grid_ypitch: PosInt | None,
+    ) -> None:
+        if grid_style is not None:
+            self._grid = True
+            self._grid_style = grid_style
+            if grid_centerstyle is None:
+                self._grid_centerstyle = grid_style
+
+        if grid_centerstyle is not None:
+            self._grid = True
+            self._grid_centerstyle = grid_centerstyle
+
+        if grid_only is not None:
+            self._grid_only = grid_only
+            if grid_only:
+                self._grid = True
+
+        if grid_xpitch is not None:
+            self._grid_xpitch = grid_xpitch
+
+        if grid_ypitch is not None:
+            self._grid_ypitch = grid_ypitch
+
+        if grid is not None:
+            self._grid = grid
 
     def _calculate_image_zoom(
         self,

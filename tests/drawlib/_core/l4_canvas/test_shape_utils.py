@@ -151,6 +151,14 @@ class TestShapeUtil:
         t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 0.0, "hello", style=abs_style)
         assert t_obj.get_position() == (53.0, 47.0)
 
+    def test_apply_xy_shift(self) -> None:
+        """Verifies apply_xy_shift handles unrotated relative shift, rotated relative shift, and absolute shift."""
+        style = Style(xy_shift=(10.0, 0.0), xy_abs_shift=(2.0, 3.0))
+        assert ShapeUtil.apply_xy_shift((50.0, 50.0), 0.0, style) == (62.0, 53.0)
+        rx, ry = ShapeUtil.apply_xy_shift((50.0, 50.0), 90.0, style)
+        assert rx == pytest.approx(52.0)
+        assert ry == pytest.approx(63.0)
+
     def test_get_shape_options(self) -> None:
         """Verifies get_shape_options maps Style fields to matplotlib patch dictionary format."""
         style = Style(

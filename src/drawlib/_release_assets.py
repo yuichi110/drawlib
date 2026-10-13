@@ -11,6 +11,12 @@
 
 Acts as the Single Source of Truth (SoT) defining all downloadable asset packages,
 archive structures, and contained files for fonts, icons, and maps.
+
+Architectural Note (Do Not Move):
+    This module is intentionally placed at the top level of `src/drawlib/` as a
+    human- and tool-visible manifest definition table. AI coding agents and
+    developers must NOT relocate or hide this file inside `drawlib._core`
+    (`l1_core`, `l3_external`, etc.).
 """
 
 from __future__ import annotations
@@ -157,7 +163,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="7054fa6de8a5a410e1f963eb04144ade5d1df07dc647e85ddcecec282bbc6654",
         source_rel_path="fonts/arabic_noto_kufi",
         target_rel_path="fonts/arabic_noto_kufi",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_arabic_noto_naskh=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ARABIC_NOTO_NASKH,
@@ -166,7 +172,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="bcb55fd6bcd31926616c8ace47051b4b9c02f97a01927df6b1348fdc241959c9",
         source_rel_path="fonts/arabic_noto_naskh",
         target_rel_path="fonts/arabic_noto_naskh",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf"),
     ),
     font_arabic_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ARABIC_NOTO_SANS,
@@ -175,7 +181,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="c3f4992bbae13c47ab9ca03dac20902705ba7875825094de3f6d3767ec8ca123",
         source_rel_path="fonts/arabic_noto_sans",
         target_rel_path="fonts/arabic_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_bengali_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_BENGALI_NOTO_SANS,
@@ -184,7 +190,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="58c81a64a7cede39c08061551de38c56d44988f5c5771003a324612101edff08",
         source_rel_path="fonts/brahmic_bengali_noto_sans",
         target_rel_path="fonts/brahmic_bengali_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_bengali_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_BENGALI_NOTO_SERIF,
@@ -193,7 +199,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="58353474a2de6ee4d4f264de43840ddd3b7e629cdde1147ba3faa78cb45b568e",
         source_rel_path="fonts/brahmic_bengali_noto_serif",
         target_rel_path="fonts/brahmic_bengali_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_devanagari_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_DEVANAGARI_NOTO_SANS,
@@ -202,7 +208,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="5126b3a2d7f633ffb11c1ecb06ad5e228ba7daf882a9a098c5730f2cd677a3f4",
         source_rel_path="fonts/brahmic_devanagari_noto_sans",
         target_rel_path="fonts/brahmic_devanagari_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_devanagari_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_DEVANAGARI_NOTO_SERIF,
@@ -211,7 +217,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="3c1818912177c94530cd530a36bb7be1df6fd100b84901e2ebf2d90fe9159c34",
         source_rel_path="fonts/brahmic_devanagari_noto_serif",
         target_rel_path="fonts/brahmic_devanagari_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_tamil_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_TAMIL_NOTO_SANS,
@@ -220,7 +226,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="a47e2cc36980e3e4c8554c11e4d2a0ff3d2a6e41e5532a242e87958e6bb59b25",
         source_rel_path="fonts/brahmic_tamil_noto_sans",
         target_rel_path="fonts/brahmic_tamil_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_tamil_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_TAMIL_NOTO_SERIF,
@@ -229,7 +235,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="009b4e3d1792cba3e2382c5ffdbf6f3881a22fb6a953c0cbb1113c157c80b016",
         source_rel_path="fonts/brahmic_tamil_noto_serif",
         target_rel_path="fonts/brahmic_tamil_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_telugu_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_TELUGU_NOTO_SANS,
@@ -238,7 +244,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="5ae660080cf0911cc553e68a282a8cfeee26bdcf1675bc77b4e8b687b7a60d8a",
         source_rel_path="fonts/brahmic_telugu_noto_sans",
         target_rel_path="fonts/brahmic_telugu_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_brahmic_telugu_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_BRAHMIC_TELUGU_NOTO_SERIF,
@@ -247,7 +253,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="d7cf58f56b1895e9a3b934deb1aab6ab21e5f246c79227d3cb4cc337f2fc479d",
         source_rel_path="fonts/brahmic_telugu_noto_serif",
         target_rel_path="fonts/brahmic_telugu_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_chinese_hongkong_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CHINESE_HONGKONG_NOTO_SANS,
@@ -256,7 +262,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="150d302fb90af2ffe360a12ca1d8c845f53ab7dc107f827d7fc1af8606f6bb11",
         source_rel_path="fonts/chinese_hongkong_noto_sans",
         target_rel_path="fonts/chinese_hongkong_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_chinese_hongkong_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CHINESE_HONGKONG_NOTO_SERIF,
@@ -265,7 +271,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="20807fe65bb4a4614358bafaa7bc8b9ecb6f6d802b1115c76f8045f0f946d839",
         source_rel_path="fonts/chinese_hongkong_noto_serif",
         target_rel_path="fonts/chinese_hongkong_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_chinese_simplified_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CHINESE_SIMPLIFIED_NOTO_SANS,
@@ -274,7 +280,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="510e1f30dab17b2909043f3442d65b19f87fa195360ba0db0daa22e4298ea2ad",
         source_rel_path="fonts/chinese_simplified_noto_sans",
         target_rel_path="fonts/chinese_simplified_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_chinese_simplified_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CHINESE_SIMPLIFIED_NOTO_SERIF,
@@ -283,7 +289,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="a458b8984c7c388af33d81bbfbd332bb75d6619d9ed2b03a2b2fb22486650836",
         source_rel_path="fonts/chinese_simplified_noto_serif",
         target_rel_path="fonts/chinese_simplified_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_chinese_traditional_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CHINESE_TRADITIONAL_NOTO_SANS,
@@ -292,7 +298,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="d3ba673eaf06553ac49e1c18365580b9ca4e10f2584e95e425bc728e7b32be31",
         source_rel_path="fonts/chinese_traditional_noto_sans",
         target_rel_path="fonts/chinese_traditional_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_chinese_traditional_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CHINESE_TRADITIONAL_NOTO_SERIF,
@@ -301,7 +307,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="89ca783a854355015709479405e123f47d5dba3718ac14f3fd878c3a23fa4420",
         source_rel_path="fonts/chinese_traditional_noto_serif",
         target_rel_path="fonts/chinese_traditional_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_cjk_japanese_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CJK_JAPANESE_NOTO_SANS,
@@ -310,7 +316,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="3aefb1bc51e0c8fc712e0e020d322363dea6a54ff064df5f578a7f54cfaa983a",
         source_rel_path="fonts/cjk_japanese_noto_sans",
         target_rel_path="fonts/cjk_japanese_noto_sans",
-        files=["bold.otf", "readme.txt", "regular.otf", "thin.otf"],
+        files=("bold.otf", "readme.txt", "regular.otf", "thin.otf"),
     ),
     font_cjk_japanese_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_CJK_JAPANESE_NOTO_SERIF,
@@ -319,7 +325,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="58c1245c6144347b009c891041410cf65d9f78c2303e578c6d21ba58683ae015",
         source_rel_path="fonts/cjk_japanese_noto_serif",
         target_rel_path="fonts/cjk_japanese_noto_serif",
-        files=["bold.otf", "readme.txt", "regular.otf", "thin.otf"],
+        files=("bold.otf", "readme.txt", "regular.otf", "thin.otf"),
     ),
     font_japanese_mplus_1p=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_JAPANESE_MPLUS_1P,
@@ -328,7 +334,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="b6a865e4bde2ab2113310c31493543c73400d3622f668c2c69a40a90cc2d701f",
         source_rel_path="fonts/japanese_mplus_1p",
         target_rel_path="fonts/japanese_mplus_1p",
-        files=["OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_japanese_mplus_rounded1c=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_JAPANESE_MPLUS_ROUNDED1C,
@@ -337,7 +343,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="a7081b47470808c4faa14d4d9f44df2cd96c91b05823bf411668741c65ab5157",
         source_rel_path="fonts/japanese_mplus_rounded1c",
         target_rel_path="fonts/japanese_mplus_rounded1c",
-        files=["OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_japanese_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_JAPANESE_NOTO_SANS,
@@ -346,7 +352,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="c399f3ca1311ab0cb4e1137aea5667a20c198c5d7ee584e47dfc08f5d9de020d",
         source_rel_path="fonts/japanese_noto_sans",
         target_rel_path="fonts/japanese_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_japanese_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_JAPANESE_NOTO_SERIF,
@@ -355,7 +361,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="88ff2c8d9984d15624d49908fd6c12ccbf8bdf1366c560993eeb276e1e07cc57",
         source_rel_path="fonts/japanese_noto_serif",
         target_rel_path="fonts/japanese_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_japanese_sawarabi_gothic=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_JAPANESE_SAWARABI_GOTHIC,
@@ -364,7 +370,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="630c70b32c0d572eb5c0b9ec25d7a9771025bc7ec06933c4691cd78748f13e7e",
         source_rel_path="fonts/japanese_sawarabi_gothic",
         target_rel_path="fonts/japanese_sawarabi_gothic",
-        files=["OFL.txt", "regular.ttf"],
+        files=("OFL.txt", "regular.ttf"),
     ),
     font_japanese_sawarabi_mincho=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_JAPANESE_SAWARABI_MINCHO,
@@ -373,7 +379,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="6b90555bbccbb30fc4fcd66b510a6d139811328c56c690fbd678fba30997ab2d",
         source_rel_path="fonts/japanese_sawarabi_mincho",
         target_rel_path="fonts/japanese_sawarabi_mincho",
-        files=["OFL.txt", "regular.ttf"],
+        files=("OFL.txt", "regular.ttf"),
     ),
     font_korean_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_KOREAN_NOTO_SANS,
@@ -382,7 +388,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="fddcc8a3fa84993625cfed095933befb401a80a2c8277cba986975d4a3b4767b",
         source_rel_path="fonts/korean_noto_sans",
         target_rel_path="fonts/korean_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_korean_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_KOREAN_NOTO_SERIF,
@@ -391,7 +397,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="e716a401ad779407403b7e0544ce40d889aa0be2b410394f1ff312ae2c952e5a",
         source_rel_path="fonts/korean_noto_serif",
         target_rel_path="fonts/korean_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_mono_courier=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_MONO_COURIER,
@@ -400,7 +406,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="8bd2046daeed8cd4f98609f146ef60392d31bacd8cd3635a93f95a0f0d3f89c0",
         source_rel_path="fonts/mono_courier",
         target_rel_path="fonts/mono_courier",
-        files=["OFL.txt", "bold.ttf", "regular.ttf"],
+        files=("OFL.txt", "bold.ttf", "regular.ttf"),
     ),
     font_mono_source_code_pro=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_MONO_SOURCE_CODE_PRO,
@@ -409,7 +415,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="6f541570f188941ca7be6e2a162c17dc587aa26160f5c7f2ad456ed0adf12479",
         source_rel_path="fonts/mono_source_code_pro",
         target_rel_path="fonts/mono_source_code_pro",
-        files=["LICENSE.md", "README.md", "bold.otf", "regular.otf", "thin.otf", "url.txt"],
+        files=("LICENSE.md", "README.md", "bold.otf", "regular.otf", "thin.otf", "url.txt"),
     ),
     font_mono_source_han_code_jp=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_MONO_SOURCE_HAN_CODE_JP,
@@ -418,7 +424,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="64083b35f01d1267f3a92b02bc785bfe0429b06ee7e04b3635556f9ed9e717ac",
         source_rel_path="fonts/mono_source_han_code_jp",
         target_rel_path="fonts/mono_source_han_code_jp",
-        files=["LICENSE.txt", "README-JP.md", "README.md", "bold.otf", "regular.otf", "relnotes.txt", "thin.otf"],
+        files=("LICENSE.txt", "README-JP.md", "README.md", "bold.otf", "regular.otf", "relnotes.txt", "thin.otf"),
     ),
     font_roboto=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ROBOTO,
@@ -427,7 +433,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="180720137126cc545831aec3a68bbca3db1a19839abdfbe53aa2907a35eceece",
         source_rel_path="fonts/roboto",
         target_rel_path="fonts/roboto",
-        files=["LICENSE.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("LICENSE.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_roboto_condensed=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ROBOTO_CONDENSED,
@@ -436,7 +442,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="81aed5304323e483ac9d01347d9eeb88ba453084000719439c1ed9ce9e017f8a",
         source_rel_path="fonts/roboto_condensed",
         target_rel_path="fonts/roboto_condensed",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_roboto_mono=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ROBOTO_MONO,
@@ -445,7 +451,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="bfdd43fbee05dd2de7c5670de94d13662c5e23af55355d4025e9c51e7e77173d",
         source_rel_path="fonts/roboto_mono",
         target_rel_path="fonts/roboto_mono",
-        files=["LICENSE.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("LICENSE.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_roboto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ROBOTO_SERIF,
@@ -454,7 +460,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="dfa6ba2305d4120d98dfda8a1b45626c96833df7e031ea33d1b1337d3d90b987",
         source_rel_path="fonts/roboto_serif",
         target_rel_path="fonts/roboto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_roboto_slab=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_ROBOTO_SLAB,
@@ -463,7 +469,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="a3847c39cb9ee09ecf31942ccdb4913cf25f269cc6a51ce0a1392585e601724a",
         source_rel_path="fonts/roboto_slab",
         target_rel_path="fonts/roboto_slab",
-        files=["LICENSE.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("LICENSE.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_sans_lato=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SANS_LATO,
@@ -472,7 +478,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="74403a5fed356f5bc63aece602b4b8424ff4ad5016be0c986ddd9f8a948fe1b5",
         source_rel_path="fonts/sans_lato",
         target_rel_path="fonts/sans_lato",
-        files=["OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_sans_monstserrat=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SANS_MONSTSERRAT,
@@ -481,7 +487,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="720dc591e59f8bfb309f6ffb6be8467f6159a54b36e1f7ad1177087cf9cbf79f",
         source_rel_path="fonts/sans_monstserrat",
         target_rel_path="fonts/sans_monstserrat",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_sans_open_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SANS_OPEN_SANS,
@@ -490,7 +496,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="84496a6d45d8d3cbaa6e529c07286c2e268507f661b2f356bf57187d6e779c34",
         source_rel_path="fonts/sans_open_sans",
         target_rel_path="fonts/sans_open_sans",
-        files=["OFL.txt", "OpenSans-Bold.ttf", "OpenSans-Light.ttf", "OpenSans-Regular.ttf", "README.txt"],
+        files=("OFL.txt", "OpenSans-Bold.ttf", "OpenSans-Light.ttf", "OpenSans-Regular.ttf", "README.txt"),
     ),
     font_sans_oswald=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SANS_OSWALD,
@@ -499,7 +505,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="8cb10bce7a8d6e7a85f4dc1a99499e68563b04571edcbf741fb5e6b41a4041f4",
         source_rel_path="fonts/sans_oswald",
         target_rel_path="fonts/sans_oswald",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_sans_poppins=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SANS_POPPINS,
@@ -508,7 +514,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="646cedeb1b05e79a4e17214df6d47dc1fdbe20582f0f1f1dcdb0a20982dea6f1",
         source_rel_path="fonts/sans_poppins",
         target_rel_path="fonts/sans_poppins",
-        files=["OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_sans_raleways=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SANS_RALEWAYS,
@@ -517,7 +523,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="00afb0a377c1bfeb26e00bc35879a8ba3da60554e5e0192b21eacee907a05747",
         source_rel_path="fonts/sans_raleways",
         target_rel_path="fonts/sans_raleways",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_serif_merriweather=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SERIF_MERRIWEATHER,
@@ -526,7 +532,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="de7a01c553ef760325685a36cf7fae41682eb10fa71fa1888eb8782ff2b317e2",
         source_rel_path="fonts/serif_merriweather",
         target_rel_path="fonts/serif_merriweather",
-        files=["OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_serif_platypi=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SERIF_PLATYPI,
@@ -535,7 +541,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="b810c1e17d78b74713b075216199e13c4ea1d3f68b68502692688d8d2a029fed",
         source_rel_path="fonts/serif_platypi",
         target_rel_path="fonts/serif_platypi",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_serif_playfairdisplay=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_SERIF_PLAYFAIRDISPLAY,
@@ -544,7 +550,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="2fafbaba06f415651e41d75e2c712ae1b42b67a4506c582468c844c82b18e1a1",
         source_rel_path="fonts/serif_playfairdisplay",
         target_rel_path="fonts/serif_playfairdisplay",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf"),
     ),
     font_thai_noto_sans=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_THAI_NOTO_SANS,
@@ -553,7 +559,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="09ca09667b5afddd8841f3cf248a2020b58ddb72c1b5f54389b2722c9f4db0e7",
         source_rel_path="fonts/thai_noto_sans",
         target_rel_path="fonts/thai_noto_sans",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     font_thai_noto_serif=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.FONT_THAI_NOTO_SERIF,
@@ -562,7 +568,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="128d066b82395f3ee007421f1d0365a6fe131236150a76a466846f6368bb5260",
         source_rel_path="fonts/thai_noto_serif",
         target_rel_path="fonts/thai_noto_serif",
-        files=["OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"],
+        files=("OFL.txt", "README.txt", "bold.ttf", "regular.ttf", "thin.ttf"),
     ),
     icon_phosphor=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_PHOSPHOR,
@@ -571,7 +577,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="6f9d7687235decedd0f0bc72ca67d05ca28b9baaf0c520bd9cc2743d2c0b7715",
         source_rel_path="fonticons/phosphor",
         target_rel_path="fonticons/phosphor",
-        files=[
+        files=(
             "LICENSE.txt",
             "bold.css",
             "bold.ttf",
@@ -584,7 +590,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "thin.css",
             "thin.ttf",
             "version.txt",
-        ],
+        ),
     ),
     icon_gcp=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_GCP,
@@ -593,7 +599,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="34e400995bfdc6cae891c01bab2cabfb4b368f0a12f7b09042b7570fbe0ae989",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
-        files=[
+        files=(
             "access_context_manager.png",
             "administration.png",
             "advanced_agent_modeling.png",
@@ -853,7 +859,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "web_security_scanner.png",
             "workflows.png",
             "workload_identity_pool.png",
-        ],
+        ),
     ),
     map_cities=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.MAP_CITIES,
@@ -862,7 +868,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="387fd518706cc1db5040732bd7f0b66d08cdf11c3da297ea4fbc2a1f82c4bafe",
         source_rel_path="maps/cities",
         target_rel_path="maps/cities",
-        files=[
+        files=(
             "australia_sydney.geojson",
             "china_hong_kong.geojson",
             "china_shanghai.geojson",
@@ -879,7 +885,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "united_states_los_angeles.geojson",
             "united_states_new_york.geojson",
             "united_states_san_francisco.geojson",
-        ],
+        ),
     ),
     map_countries=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.MAP_COUNTRIES,
@@ -888,7 +894,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="e8a0a0fd8bbee0ee25b5441042f821044ba81b008257fce620a579387222f1ec",
         source_rel_path="maps/countries",
         target_rel_path="maps/countries",
-        files=[
+        files=(
             "afghanistan.geojson",
             "aland.geojson",
             "albania.geojson",
@@ -1104,7 +1110,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "yemen.geojson",
             "zambia.geojson",
             "zimbabwe.geojson",
-        ],
+        ),
     ),
     map_world=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.MAP_WORLD,
@@ -1113,7 +1119,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         archive_sha256="19a1045e4dc7eda62f8da7595dd8b8d861a9ad217ee3762b1b0919c1babab244",
         source_rel_path="maps/world",
         target_rel_path="maps/world",
-        files=["world.geojson"],
+        files=("world.geojson",),
     ),
 )
 

@@ -159,6 +159,15 @@ class TextUtil:
         return {k: v for k, v in options.items() if v is not None}
 
     @staticmethod
+    def _build_font_properties(file_path: str, size: float | str) -> FontProperties:
+        """Construct FontProperties with SVG-safe family aliases for a resolved font file."""
+        info = resolve_svg_font_info(file_path)
+        families = [info.unique_family]
+        if info.ttf_family and info.ttf_family != info.unique_family:
+            families.append(info.ttf_family)
+        return FontProperties(family=families, size=size, fname=file_path)
+
+    @staticmethod
     def get_font_properties(
         style: Style,
     ) -> FontProperties:
@@ -170,12 +179,7 @@ class TextUtil:
             raise ValueError("text_font and text_size must be set in Style.")
 
         if isinstance(style.text_font, FontFile):
-            file_path = style.text_font.file
-            info = resolve_svg_font_info(file_path)
-            families = [info.unique_family]
-            if info.ttf_family and info.ttf_family != info.unique_family:
-                families.append(info.ttf_family)
-            return FontProperties(family=families, size=style.text_size, fname=file_path)
+            return TextUtil._build_font_properties(style.text_font.file, style.text_size)
 
         font_target = style.text_font
         if not isinstance(font_target, FontBase):
@@ -184,11 +188,7 @@ class TextUtil:
         meta = get_font_metadata(font_target)
         file_path, md5_hash = meta.abs_path, meta.md5
         download_if_not_exist(file_path=file_path, md5_hash=md5_hash)
-        info = resolve_svg_font_info(file_path)
-        families = [info.unique_family]
-        if info.ttf_family and info.ttf_family != info.unique_family:
-            families.append(info.ttf_family)
-        return FontProperties(family=families, size=style.text_size, fname=file_path)
+        return TextUtil._build_font_properties(file_path, style.text_size)
 
     @staticmethod
     def get_bbox_dict(

@@ -15,6 +15,7 @@ import hashlib
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib._release_assets import (
     RELEASE_ASSET_PACKAGES,
@@ -160,19 +161,28 @@ def test_release_asset_packages_container() -> None:
     roboto = RELEASE_ASSET_PACKAGES.font_roboto
     assert roboto.name == "font_roboto"
     assert roboto.category == "font"
+    assert isinstance(roboto.files, tuple)
     assert "regular.ttf" in roboto.files
+
+    with pytest.raises(ValidationError):
+        setattr(RELEASE_ASSET_PACKAGES, "font_roboto", roboto)
+    with pytest.raises(ValidationError):
+        setattr(roboto, "name", "modified")
 
     phosphor = RELEASE_ASSET_PACKAGES.icon_phosphor
     assert phosphor.name == "icon_phosphor"
     assert phosphor.category == "icon"
+    assert isinstance(phosphor.files, tuple)
 
     gcp = RELEASE_ASSET_PACKAGES.icon_gcp
     assert gcp.name == "icon_gcp"
     assert gcp.category == "icon"
+    assert isinstance(gcp.files, tuple)
 
     map_world = RELEASE_ASSET_PACKAGES.map_world
     assert map_world.name == "map_world"
     assert map_world.category == "map"
+    assert isinstance(map_world.files, tuple)
 
     # Dict-like item access via string key and enum key
     assert RELEASE_ASSET_PACKAGES["font_roboto"] == roboto

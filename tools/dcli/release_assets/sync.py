@@ -91,7 +91,7 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
         "# This software is licensed under the Apache License, Version 2.0.",
         "# For more information, please visit: https://github.com/yuichi110/drawlib",
         "#",
-        "# This software is provided \"as is\", without warranty of any kind,",
+        '# This software is provided "as is", without warranty of any kind,',
         "# express or implied, including but not limited to the warranties of",
         "# merchantability, fitness for a particular purpose and noninfringement.",
         "",
@@ -99,6 +99,12 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
         "",
         "Acts as the Single Source of Truth (SoT) defining all downloadable asset packages,",
         "archive structures, and contained files for fonts, icons, and maps.",
+        "",
+        "Architectural Note (Do Not Move):",
+        "    This module is intentionally placed at the top level of `src/drawlib/` as a",
+        "    human- and tool-visible manifest definition table. AI coding agents and",
+        "    developers must NOT relocate or hide this file inside `drawlib._core`",
+        "    (`l1_core`, `l3_external`, etc.).",
         '"""',
         "",
         "from __future__ import annotations",
@@ -140,7 +146,7 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
     )
 
     for pkg in packages:
-        lines.append(f'    {pkg["var_name"]}: ReleaseAssetPackage')
+        lines.append(f"    {pkg['var_name']}: ReleaseAssetPackage")
 
     lines.extend(
         [
@@ -155,14 +161,16 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
     )
 
     for pkg in packages:
-        lines.append(f'    {pkg["var_name"]}=ReleaseAssetPackage(')
-        lines.append(f'        name=ReleaseAssetPackageName.{pkg["enum_name"]},')
+        files_val = pkg["files"]
+        files_tuple = tuple(files_val) if isinstance(files_val, (list, tuple)) else ()
+        lines.append(f"    {pkg['var_name']}=ReleaseAssetPackage(")
+        lines.append(f"        name=ReleaseAssetPackageName.{pkg['enum_name']},")
         lines.append(f'        category="{pkg["category"]}",')
         lines.append(f'        archive_name="{pkg["archive_name"]}",')
         lines.append(f'        archive_sha256="{pkg["archive_sha256"]}",')
         lines.append(f'        source_rel_path="{pkg["source_rel_path"]}",')
         lines.append(f'        target_rel_path="{pkg["target_rel_path"]}",')
-        lines.append(f'        files={pkg["files"]!r},')
+        lines.append(f"        files={files_tuple!r},")
         lines.append("    ),")
 
     lines.extend(
@@ -305,7 +313,7 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
             '    """',
             "    pkg = find_package_for_resource_path(resource_path)",
             "    if pkg is None:",
-            '        raise ValueError(f"No release asset package found for resource path \'{resource_path}\'.")',
+            "        raise ValueError(f\"No release asset package found for resource path '{resource_path}'.\")",
             "",
             "    if not pkg.is_downloaded():",
             "        pkg.download_and_extract(tag=tag)",

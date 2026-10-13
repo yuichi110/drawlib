@@ -19,9 +19,9 @@ from drawlib._core.l2_types import (
     Angle,
     Coordinate,
 )
-from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
+from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 from drawlib._core.l4_canvas._text_util import TextUtil
 
 
@@ -49,21 +49,7 @@ class CanvasTextFeature(CanvasBase):
         """
         style.validate_for("text")
         angle: Angle = style.angle if style.angle is not None else 0.0
-
-        x, y = xy
-        if style.xy_shift is not None:
-            x_shift, y_shift = style.xy_shift
-            if angle == 0:
-                x += x_shift
-                y += y_shift
-            else:
-                rx_shift, ry_shift = rotate_point((x_shift, y_shift), angle=angle)
-                x += rx_shift
-                y += ry_shift
-
-        if style.xy_abs_shift is not None:
-            x += style.xy_abs_shift[0]
-            y += style.xy_abs_shift[1]
+        x, y = ShapeUtil.apply_xy_shift(xy, angle, style)
 
         options = TextUtil.get_text_options(style)
         fp = TextUtil.get_font_properties(style)

@@ -156,12 +156,11 @@ class TestColors:
             for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Neutral", "Dark", "Canvas"):
                 val = getattr(inst, sem)
                 assert isinstance(val, Color)
-                # Lowercase property access
-                lower_val = getattr(inst, sem.lower())
-                assert lower_val == val
-                # Dictionary item access (both cases)
                 assert inst[sem] == val
-                assert inst[sem.lower()] == val
+                with pytest.raises(AttributeError):
+                    _ = getattr(inst, sem.lower())
+                with pytest.raises(KeyError):
+                    _ = inst[sem.lower()]
 
         # CssColors does not define semantic colors
         for inst in (css_colors,):
@@ -183,10 +182,11 @@ class TestColors:
             for sem in ("Danger", "Success"):
                 val = getattr(inst, sem)
                 assert isinstance(val, Color)
-                lower_val = getattr(inst, sem.lower())
-                assert lower_val == val
                 assert inst[sem] == val
-                assert inst[sem.lower()] == val
+                with pytest.raises(AttributeError):
+                    _ = getattr(inst, sem.lower())
+                with pytest.raises(KeyError):
+                    _ = inst[sem.lower()]
 
         # Monochrome intentionally leaves Danger and Success as None
         assert monochrome_colors.Danger is None
@@ -225,7 +225,8 @@ class TestColors:
     def test_neutral_colors(self) -> None:
         """Test neutral and semantic/tinted neutral colors on color palettes."""
         assert default_colors.Neutral == default_colors.Gray2
-        assert default_colors.neutral == default_colors.Gray2
+        with pytest.raises(AttributeError):
+            _ = default_colors.neutral
         assert default_colors.PrimaryNeutral == default_colors.Primary1
         assert default_colors.SecondaryNeutral == default_colors.Secondary1
         assert default_colors.AccentNeutral == default_colors.Accent1

@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, Generator, Self
+from typing import Any, ClassVar, Final, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
@@ -20,10 +20,10 @@ from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import Font, FontSourceCode
 from drawlib._core.l3_styles._style_models import Style
 
-DEFAULT_TEXT_SIZE: float = 16.0
-DEFAULT_FONT: Font = Font.SANSSERIF_REGULAR
-DEFAULT_FONT_BOLD: Font = Font.SANSSERIF_BOLD
-DEFAULT_FONT_THIN: Font = Font.SANSSERIF_THIN
+DEFAULT_TEXT_SIZE: Final[float] = 16.0
+DEFAULT_FONT: Final[Font] = Font.SANSSERIF_REGULAR
+DEFAULT_FONT_BOLD: Final[Font] = Font.SANSSERIF_BOLD
+DEFAULT_FONT_THIN: Final[Font] = Font.SANSSERIF_THIN
 
 
 def _resolve_target_font(

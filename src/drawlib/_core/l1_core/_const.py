@@ -15,14 +15,12 @@ import importlib.metadata
 import os
 from typing import Final
 
-import drawlib._cached_assets
-
 LIB_NAME: Final[str] = "drawlib"
 LIB_VERSION: Final[str] = importlib.metadata.version(LIB_NAME)
 
-ASSETS_DIR_PATH = os.path.dirname(drawlib._cached_assets.__file__)
-FONT_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "fonts")
-FONT_ICON_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "fonticons")
-ICON_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "icons")
-MAP_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "maps")
-RULES_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "rules")
+ASSETS_DIR_PATH: Final[str] = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "_cached_assets"))
+FONT_DIR_PATH: Final[str] = os.path.join(ASSETS_DIR_PATH, "fonts")
+FONT_ICON_DIR_PATH: Final[str] = os.path.join(ASSETS_DIR_PATH, "fonticons")
+ICON_DIR_PATH: Final[str] = os.path.join(ASSETS_DIR_PATH, "icons")
+MAP_DIR_PATH: Final[str] = os.path.join(ASSETS_DIR_PATH, "maps")
+RULES_DIR_PATH: Final[str] = os.path.join(ASSETS_DIR_PATH, "rules")

@@ -11,15 +11,15 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, ClassVar, Concatenate, Generator, Generic, ParamSpec, Self, TypeVar, overload
+from typing import Any, ClassVar, Generator, Self
 
 from pydantic import BaseModel, ConfigDict
 
-from drawlib._core.l3_colors._color import Color, ColorType
+from drawlib._core.l3_colors._color import Color
 
 
 def _resolve_color_field_name(cls: type[BaseColors], name: str) -> str:
-    """Resolve color field name matching model attributes regardless of casing.
+    """Resolve color field name matching model attributes.
 
     Args:
         cls (type[BaseColors]): Preset color class.
@@ -31,12 +31,6 @@ def _resolve_color_field_name(cls: type[BaseColors], name: str) -> str:
     fields = getattr(cls, "model_fields", {})
     if name in fields:
         return name
-    cap_name = name.capitalize()
-    if cap_name in fields:
-        return cap_name
-    for f in fields:
-        if f.lower() == name.lower():
-            return f
     return name
 
 
@@ -44,32 +38,17 @@ class _BaseColorsMeta(type(BaseModel)):
     """Metaclass allowing class-level attribute access for color fields."""
 
     def __getattribute__(cls, name: str) -> Any:  # noqa: ANN401
-        attr = super().__getattribute__(name)
-        if isinstance(attr, property):
-            cap_name = name.capitalize()
-            if cap_name != name:
-                fields = cls.__dict__.get("__pydantic_fields__", {})
-                if cap_name in fields and fields[cap_name].default is not None:
-                    return fields[cap_name].default
-                if hasattr(cls, cap_name):
-                    return getattr(cls, cap_name)
-        return attr
+        return super().__getattribute__(name)
 
     def __getattr__(cls, name: str) -> Any:  # noqa: ANN401
-        if name.lower() == "transparent":
-            return cls.Transparent
+        if name.startswith("__"):
+            raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
         fields = cls.__dict__.get("__pydantic_fields__")
-        if fields:
-            if name in fields:
-                default = fields[name].default
-                if default is not None:
-                    return default
-                return None
-            cap_name = name.capitalize()
-            if cap_name in fields:
-                default = fields[cap_name].default
-                if default is not None:
-                    return default
+        if fields and name in fields:
+            default = fields[name].default
+            if default is not None:
+                return default
+            return None
         raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
 
     def __getitem__(cls, key: str) -> Color:
@@ -77,11 +56,6 @@ class _BaseColorsMeta(type(BaseModel)):
             raise KeyError(f"Invalid key type: {type(key)}")
         if hasattr(cls, key):
             val = getattr(cls, key)
-            if isinstance(val, Color):
-                return val
-        cap_key = key.capitalize()
-        if hasattr(cls, cap_key):
-            val = getattr(cls, cap_key)
             if isinstance(val, Color):
                 return val
         raise KeyError(f'Color "{key}" is not found in {cls.__name__}.')
@@ -139,83 +113,6 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
     YellowNeutral: Color | None = None
     MagentaNeutral: Color | None = None
 
-    @property
-    def primary(self) -> Color:
-        """Return primary semantic color."""
-        if self.Primary is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Primary color.")
-        return self.Primary
-
-    @property
-    def secondary(self) -> Color:
-        """Return secondary semantic color."""
-        if self.Secondary is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Secondary color.")
-        return self.Secondary
-
-    @property
-    def accent(self) -> Color:
-        """Return accent semantic color."""
-        if self.Accent is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Accent color.")
-        return self.Accent
-
-    @property
-    def muted(self) -> Color:
-        """Return muted semantic color."""
-        if self.Muted is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Muted color.")
-        return self.Muted
-
-    @property
-    def light(self) -> Color:
-        """Return light semantic color."""
-        if self.Light is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Light color.")
-        return self.Light
-
-    @property
-    def dark(self) -> Color:
-        """Return dark semantic color."""
-        if self.Dark is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Dark color.")
-        return self.Dark
-
-    @property
-    def canvas(self) -> Color:
-        """Return canvas semantic background color."""
-        if self.Canvas is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Canvas color.")
-        return self.Canvas
-
-    @property
-    def danger(self) -> Color:
-        """Return danger semantic color."""
-        if self.Danger is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Danger color.")
-        return self.Danger
-
-    @property
-    def success(self) -> Color:
-        """Return success semantic color."""
-        if self.Success is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Success color.")
-        return self.Success
-
-    @property
-    def warning(self) -> Color:
-        """Return warning semantic color."""
-        if self.Warning is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Warning color.")
-        return self.Warning
-
-    @property
-    def neutral(self) -> Color:
-        """Return neutral semantic color."""
-        if self.Neutral is None:
-            raise AttributeError(f"{self.__class__.__name__} has no Neutral color.")
-        return self.Neutral
-
     def __iter__(self) -> Generator[tuple[str, Color], None, None]:
         """Yield (field_name, field_value) pairs for all color fields in the preset color model.
 
@@ -239,31 +136,17 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         Raises:
             KeyError: If the specified key does not exist.
         """
-        if key.lower() == "transparent":
+        if key == "Transparent":
             return self.Transparent
         fields = self.__class__.model_fields
         if key in fields:
             val = getattr(self, key)
             if isinstance(val, Color):
                 return val
-        cap_key = key.capitalize()
-        if cap_key in fields:
-            val = getattr(self, cap_key)
-            if isinstance(val, Color):
-                return val
         raise KeyError(f'Color "{key}" is not found in {self.__class__.__name__}.')
 
     def __getattr__(self, name: str) -> Any:  # noqa: ANN401
-        """Allow fallback resolution for transparent and lowercase color names on instances."""
-        if name.startswith("__"):
-            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-        if name.lower() == "transparent":
-            return self.Transparent
-        cap_name = name.capitalize()
-        if cap_name != name and hasattr(self, cap_name):
-            val = getattr(self, cap_name)
-            if isinstance(val, Color):
-                return val
+        """Raise AttributeError for missing attributes."""
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
     def get(self, key: str, default: Any = None) -> Any:  # noqa: ANN401
@@ -290,7 +173,7 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         """Create a new copy of preset colors with updated attributes.
 
         Args:
-            **kwargs: Color attributes to update (accepts PascalCase, snake_case, or lowercase).
+            **kwargs: Color attributes to update (in PascalCase).
 
         Returns:
             Self: New preset colors instance with updated attributes.
