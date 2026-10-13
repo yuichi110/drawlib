@@ -44,8 +44,10 @@ from drawlib.diagrams.er import ERDiagram
 
 # 5. SmartArts Structured Components
 from drawlib.smartarts import (
-    BoxList, BulletPoints, ChevronProcess, Cycle, GridLayout,
-    MindMapNode, Pyramid, SourceCode, SourceCodeStyles, Table, TreeNode,
+    BoxList, BulletPoints, CalendarItem, CardList, ChevronProcess, Cycle,
+    DayCalendar, GeoMap, GridLayout, KpiCard, KpiCards, MindMapNode,
+    MonthCalendar, Panel, Pyramid, Roadmap, SourceCode, SourceCodeStyles,
+    Table, TreeNode, WeekCalendar,
 )
 
 # 6. Statistical & Project Charts
@@ -433,6 +435,9 @@ High-level automated components for business and technical concepts. Every state
 | `KpiCards` (`KpiCard`) | Bottom-Left (`"bottom_left" \| "center"`) | KPI metrics, SLA/spec highlight cards | `k = KpiCards(...); k.add("99.99%", "SLA", "Desc", show=True); k.draw(xy, width, height, columns=1, align="bottom_left", scale=1.0)` |
 | `Roadmap` | Bottom-Left (`"bottom_left" \| "center"`) | Linear timelines, curved agendas, roadmaps | `r = Roadmap(...); r.add("Phase 1", "Sub", badge_text="Q1", show=True); r.draw(xy, width, height, align="bottom_left", scale=1.0)` |
 | `Panel` | Bottom-Left (`"bottom_left" \| "center"`) | Titled container frames with header bands | `p = Panel("Group", style=..., header_style=..., text_style=...); p.draw(xy, width, height, align="bottom_left"); inner_xy, w, h = p.get_content_box(xy, width, height, align="bottom_left", content_align=None)` |
+| `MonthCalendar` | Bottom-Left (`"bottom_left" \| "center" \| "top_left"`) | Monthly or multi-week 7-column schedule grids | `m = MonthCalendar(start_date="2026-10-01", ...); m.add("2026-10-10", "2026-10-13", text="Sprint"); m.draw(xy, width, height)` |
+| `WeekCalendar` | Bottom-Left (`"bottom_left" \| "center" \| "top_left"`) | Weekly/N-day hourly grids with top All-day field | `w = WeekCalendar(start_date="2026-10-05", start_hour=9, end_hour=18, ...); w.add("2026-10-06", "2026-10-08", text="Freeze"); w.add("2026-10-09 10:00", "2026-10-09 12:00", text="Sync"); w.draw(xy, width, height)` |
+| `DayCalendar` | Bottom-Left (`"bottom_left" \| "center" \| "top_left"`) | Single-day schedule (`"vertical"` or `"horizontal"`) | `d = DayCalendar(date="2026-10-10", direction="vertical", ...); d.add("2026-10-10 09:00", "2026-10-10 11:00", text="Deploy"); d.draw(xy, width, height)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(..., show=True); b.draw(xy, scale=1.0)` |
 | `SourceCode` | Top-Left (`"top_left" \| "bottom_left" \| "center"`) | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., align="top_left", scale=1.0)` |
 | `GeoMap` | Bottom-Left (`"bottom_left" \| "center"`) | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=..., align="bottom_left")` |

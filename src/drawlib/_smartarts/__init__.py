@@ -11,6 +11,12 @@
 
 from drawlib._smartarts._boxlist import BoxList, BoxListItem
 from drawlib._smartarts._bulletpoints import BulletPointItem, BulletPoints
+from drawlib._smartarts._calendar import (
+    CalendarItem,
+    DayCalendar,
+    MonthCalendar,
+    WeekCalendar,
+)
 from drawlib._smartarts._cardlist import CardList, CardListItem
 from drawlib._smartarts._chevronprocess import ChevronItem, ChevronProcess
 from drawlib._smartarts._cycle import Cycle, CycleCenter, CycleItem
@@ -35,6 +41,7 @@ __all__ = [
     "BoxListItem",
     "BulletPointItem",
     "BulletPoints",
+    "CalendarItem",
     "CardList",
     "CardListItem",
     "ChevronItem",
@@ -42,6 +49,7 @@ __all__ = [
     "Cycle",
     "CycleCenter",
     "CycleItem",
+    "DayCalendar",
     "GeoMap",
     "GridItem",
     "GridLayout",
@@ -49,6 +57,7 @@ __all__ = [
     "KpiCardItem",
     "KpiCards",
     "MindMapNode",
+    "MonthCalendar",
     "Panel",
     "Pyramid",
     "PyramidItem",
@@ -58,6 +67,7 @@ __all__ = [
     "SourceCodeStyles",
     "Table",
     "TreeNode",
+    "WeekCalendar",
     "get_source_code_styles",
     "sourcecode",
 ]

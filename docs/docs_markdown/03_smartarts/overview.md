@@ -149,20 +149,24 @@ from drawlib.smartarts import (
     CardList,
     ChevronProcess,
     Cycle,
+    DayCalendar,
     GeoMap,
     GridLayout,
     KpiCard,
     KpiCards,
     MindMapNode,
+    MonthCalendar,
     Panel,
     Pyramid,
     Roadmap,
     SourceCode,
     Table,
     TreeNode,
+    WeekCalendar,
     # Mutable Item & Style Models
     BoxListItem,
     BulletPointItem,
+    CalendarItem,
     CardListItem,
     ChevronItem,
     CycleCenter,
@@ -196,6 +200,7 @@ from drawlib.smartarts import (
 | **[`CardList`](./card_list.md)** | Icon/badge feature stacks and arrow step cards | Bottom-Left / Center | `add(...) -> CardListItem`, `items`, `draw(xy, width, height, align="bottom_left", scale=1.0)` |
 | **[`Roadmap`](./roadmap.md)** | Straight/curved timelines and milestone roadmaps | Bottom-Left / Center | `add(...) -> RoadmapItem`, `items`, `draw(xy, width, height, align="bottom_left", scale=1.0)` |
 | **[`Panel`](./panel.md)** | Titled container frames with header bands & content box math | Bottom-Left / Center | `draw(xy, width, height, align="bottom_left", scale=1.0)`, `get_content_box(xy, width, height, padding=..., align="bottom_left", content_align=None)` |
+| **[`Calendar`](./calendar.md)** | Monthly, weekly, and daily (`"vertical"` / `"horizontal"`) calendars | Bottom-Left / Center / Top-Left | `MonthCalendar`, `WeekCalendar`, `DayCalendar`, `add(...) -> CalendarItem`, `draw(xy, width, height)` |
 | **[`BulletPoints`](./bullet_points.md)** | Architectural takeaways, RFC key points, checklists | Top-Left `(x, y)` | `set_indent()`, `set_bullet_style()`, `add(...) -> BulletPointItem`, `items`, `draw(...)` |
 | **[`SourceCode`](./source_code.md)** | Syntax-highlighted code blocks in diagrams | Top-Left / Bottom-Left / Center | `SourceCode.draw(..., align="top_left")` / `sourcecode(...)`, `SourceCode.get_text()`, `SourceCodeStyles.get()` |
 | **[`GeoMap`](./geomap.md)** | Geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) | Bottom-Left / Center | `get_areas()`, `set_area_styles()`, `draw(..., align="bottom_left")`, `get_area_xy()`, `lonlat_to_xy()`, `data` |
@@ -209,7 +214,7 @@ from drawlib.smartarts import (
 Understanding anchor conventions is essential when combining multiple SmartArts onto a single canvas:
 - **Top-Left Anchored by Default (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
   You specify the top-left coordinate `(x, y)` (`Table` and `SourceCode` also accept `align="bottom_left"` or `align="center"`). Content flows horizontally to the right (`+x`) and vertically downward (`-y`).
-- **Bottom-Left Anchored by Default (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, `GeoMap`)**:  
+- **Bottom-Left Anchored by Default (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`, `GeoMap`)**:  
   You specify the bottom-left coordinate `(x, y)` (or pass `align="center"` to anchor by the bounding-box center `(cx, cy)`). The bounding container extends rightward (`+x`) and upward (`+y`).
 - **Center Anchored by Default (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)` (or pass `align="bottom_left"` to `Cycle.draw()`). The diagram expands symmetrically or radially around the center.

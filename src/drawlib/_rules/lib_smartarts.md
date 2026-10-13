@@ -21,9 +21,10 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 14. [Component 12: KpiCards (Metric & Highlight Cards)](#12c-component-12-kpicards-metric--highlight-cards)
 15. [Component 13: CardList (Icon & Badge Feature/Step Cards)](#12d-component-13-cardlist-icon--badge-featurestep-cards)
 16. [Component 14: Roadmap (Timeline & Milestone Roadmaps)](#12e-component-14-roadmap-timeline--milestone-roadmaps)
-17. [Component 15: Panel (Titled Container Frames & Header Bands)](#12f-component-15-panel-titled-container-frames--header-bands)
-18. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
-19. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
+24. [Component 15: Panel (Titled Container Frames & Header Bands)](#12f-component-15-panel-titled-container-frames--header-bands)
+25. [Component 16: Calendar (MonthCalendar, WeekCalendar, DayCalendar)](#12g-component-16-calendar-monthcalendar-weekcalendar-daycalendar)
+26. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
+27. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
 
 ---
 ## 1. Architectural Overview & Core Concepts
@@ -34,16 +35,19 @@ All SmartArts classes and helper functions are exported directly from `drawlib.s
 from drawlib.smartarts import (
     BoxList,
     BulletPoints,
+    CalendarItem,
     CardList,
     CardListItem,
     ChevronProcess,
     Cycle,
+    DayCalendar,
     GeoMap,
     GridLayout,
     KpiCard,
     KpiCardItem,
     KpiCards,
     MindMapNode,
+    MonthCalendar,
     Panel,
     Pyramid,
     Roadmap,
@@ -51,6 +55,7 @@ from drawlib.smartarts import (
     SourceCode,
     Table,
     TreeNode,
+    WeekCalendar,
 )
 ```
 
@@ -65,7 +70,7 @@ from drawlib.types import Style
 ### 1.2 Coordinate Anchor Conventions
 Understanding anchor points is essential for programmatic generation and positioning:
 - **Top-Left Anchored**: `Table`, `TreeNode`, `BulletPoints`. You specify top-left coordinate `(x, y)`; elements flow rightward and downward.
-- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
+- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
@@ -76,7 +81,7 @@ Every SmartArt accepts:
 
 ### 1.4 Unified Component Lifecycle (`add()`, `show`, Deferred Mutation & `scale`)
 All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Register via `add()` -> 3. Mutate State -> 4. Render via `draw()`**):
-1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `CardList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`, `KpiCards`, `Roadmap`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
+1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `CardList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`, `KpiCards`, `Roadmap`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
 2. **Layout-Preserving Visibility (`item.show`)**: Every item exposes `item.show: bool = True`. Setting `item.show = False` skips drawing that specific element while **keeping the overall component geometry, item widths, orbit angles, and grid/tree coordinates completely unchanged**.
 3. **Deferred Style & Text Evaluation**: Item attributes (`item.style`, `item.text_style`, `item.text`, `item.description`, etc.) are resolved lazily inside `draw()`. Mutating an item's style or text between `draw()` calls immediately reflects on the next render without reconstructing the component.
 4. **Proportional Scaling (`scale: float = 1.0`)**: Every `draw(...)` and `draw_flexible(...)` method accepts `scale: float = 1.0`. Passing `scale != 1.0` uniformly scales all shapes, margins, corner radii, line widths, and font sizes relative to the anchor coordinate `xy`.
@@ -101,6 +106,9 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 | `CardList` | Bottom-Left / Center | `"vertical"` or `"horizontal"` (optional `->` arrows) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Layered feature cards, numbered forensic steps, workflow cards |
 | `Roadmap` | Bottom-Left / Center | `"vertical"` (straight/curved) or `"horizontal"` (alternating) | `add(text, description, badge_text=..., icon=..., show=True)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Release timelines, migration roadmaps, incident chronicles |
 | `Panel` | Bottom-Left / Center | `"filled"`, `"underline"`, `"floating"`, `"window"` header | `draw(xy, width, height, align="bottom_left", scale=1.0)`, `get_content_box(xy, width, height, padding=..., align="bottom_left", content_align=None)` | Titled container frames, comparison columns, window panels |
+| `MonthCalendar` | Bottom-Left / Center / Top-Left | 7-column month or multi-week grid | `add(start, end=None, text=..., show=True) -> CalendarItem`, `get_date_xy(date, xy, width, height)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Monthly release schedules, sprint calendars, freeze windows |
+| `WeekCalendar` | Bottom-Left / Center / Top-Left | Top All-Day row + N-day hourly grid | `add(start, end=None, text=..., span_mode="columns", show=True) -> CalendarItem`, `get_slot_xy(dt, xy, width, height)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Weekly or workweek schedules, on-call shifts, multi-day events |
+| `DayCalendar` | Bottom-Left / Center / Top-Left | `"vertical"` or `"horizontal"` time grid | `add(start, end=None, text=..., show=True) -> CalendarItem`, `get_time_xy(dt, xy, width, height)`, `draw(xy, width, height, align="bottom_left", scale=1.0)` | Single-day incident timelines, maintenance runbooks, event agendas | |
 
 ---
 ## 3. Component 1: Table
@@ -1318,6 +1326,76 @@ inner_xy, inner_w, inner_h = p.get_content_box(
 ```
 
 ---
+## 12g. Component 16: Calendar (`MonthCalendar`, `WeekCalendar`, `DayCalendar`)
+
+Drawlib provides three Outlook / Google Calendar-style schedule components that share a strict ISO 8601 date/datetime interface (**only `"YYYY-MM-DD"` and `"YYYY-MM-DD HH:MM"` are accepted**; slash-separated dates or time-only strings raise `ValueError`) and standard style tokens (`cell_style`, `text_style`, `header_style`, `header_text_style`, `border_style`, plus optional `event_style`, `event_text_style`, `sunday_text_style`, `saturday_text_style`, `title_style`, `title_text_style`):
+
+1. **`MonthCalendar`**: 7-column monthly or multi-week cross-month (`start_date="YYYY-MM-DD"`, optional `end_date="YYYY-MM-DD"`) calendar grid with automatic cross-week wrapping (`←` / `→`) and vertical lane stacking for overlapping multi-day bars.
+2. **`WeekCalendar`**: Weekly or N-day (`start_date`, `end_date` or `num_days=7`) time-grid calendar (`start_hour=9, end_hour=18, hour_step=1`) featuring a Google Calendar-style top **"All-day" (`全日`)** field (`show_all_day=None` auto-shows only when all-day items exist, preserving layout across `item.show=False` frames; or pass `True`/`False` explicitly) and multi-day timed `span_mode="columns" | "box" | "all_day"`.
+3. **`DayCalendar`**: Single-day time-grid calendar supporting both `direction="vertical"` (default, top-to-bottom time axis with automatic X-axis parallel lane splitting) and `direction="horizontal"` (left-to-right time axis with automatic Y-axis parallel lane splitting, ideal for 16:9 slides and wide Hero banners).
+
+```python
+from drawlib.smartarts import DayCalendar, MonthCalendar, WeekCalendar
+from drawlib.styles import Styles
+
+# 1. MonthCalendar (single month or cross-month range)
+mcal = MonthCalendar(
+    start_date="2026-10-01",
+    first_weekday="sun",
+    lang="en",
+    cell_style=Styles.White,
+    text_style=Styles.DarkBold.patch(text_size=10.0),
+    header_style=Styles.SecondaryNeutral,
+    header_text_style=Styles.DarkBold.patch(text_size=10.0),
+    border_style=Styles.Neutral,
+    event_style=Styles.PrimaryNeutral,
+    event_text_style=Styles.DarkBold.patch(text_size=9.5),
+    sunday_text_style=Styles.DangerBold.patch(text_size=10.0),
+    saturday_text_style=Styles.PrimaryBold.patch(text_size=10.0),
+)
+mcal.add("2026-10-06", "2026-10-09", text="Design Sprint")
+mcal.add("2026-10-10", "2026-10-13", text="Cross-Week Cutover", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=9.5))
+mcal.draw(xy=(6.0, 6.0), width=110.0, height=64.0)
+
+# 2. WeekCalendar (top All-day X-axis bars + lower hourly grid)
+wcal = WeekCalendar(
+    start_date="2026-10-08",
+    end_date="2026-10-14",
+    start_hour=9,
+    end_hour=18,
+    show_all_day=None,  # Auto-shows when >=1 all-day event is registered
+    cell_style=Styles.White,
+    text_style=Styles.Dark.patch(text_size=9.5),
+    header_style=Styles.SecondaryNeutral,
+    header_text_style=Styles.DarkBold.patch(text_size=10.0),
+    border_style=Styles.Neutral,
+    event_style=Styles.SecondaryNeutral,
+    event_text_style=Styles.DarkBold.patch(text_size=9.5),
+)
+wcal.add("2026-10-08", "2026-10-10", text="Release Freeze (All-Day)")
+wcal.add("2026-10-10 09:00", "2026-10-13 15:00", text="Canary Rollout", span_mode="columns")
+wcal.draw(xy=(6.0, 6.0), width=120.0, height=68.0)
+
+# 3. DayCalendar (direction="vertical" or "horizontal")
+dcal = DayCalendar(
+    date="2026-10-10",
+    direction="horizontal",
+    start_hour=9,
+    end_hour=18,
+    cell_style=Styles.White,
+    text_style=Styles.Dark.patch(text_size=9.5),
+    header_style=Styles.SecondaryNeutral,
+    header_text_style=Styles.DarkBold.patch(text_size=10.0),
+    border_style=Styles.Neutral,
+    event_style=Styles.PrimaryNeutral,
+    event_text_style=Styles.DarkBold.patch(text_size=9.5),
+)
+dcal.add("2026-10-10 09:00", "2026-10-10 11:30", text="Schema Migration")
+dcal.add("2026-10-10 10:30", "2026-10-10 13:00", text="Shadow Traffic Check")
+dcal.draw(xy=(6.0, 6.0), width=120.0, height=42.0)
+```
+
+---
 ## 13. Design Patterns & Coordinate Anchor Systems
 
 ### 13.1 Coordinate Normalization Cheat Sheet
@@ -1338,7 +1416,7 @@ top_left_y = bottom_y + H
 | :--- | :--- | :--- | :--- |
 | `Table`, `SourceCode` | Top-Left `(x, y)` | `"top_left"`, `"bottom_left"`, `"center"` | Pass `align="bottom_left"` or `(X, Y + H)` |
 | `TreeNode`, `BulletPoints` | Top-Left `(x, y)` | *(Fixed Top-Left)* | Pass `(X, Y + H)` |
-| `ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel` | Bottom-Left `(x, y)` | `"bottom_left"`, `"center"` | Pass `(X, Y)` directly |
+| `ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, `MonthCalendar`, `WeekCalendar`, `DayCalendar` | Bottom-Left `(x, y)` | `"bottom_left"`, `"center"` (`Calendar` also `"top_left"`) | Pass `(X, Y)` directly |
 | `MindMapNode` | Root Center `(x, y)` | *(Fixed Root Center)* | Pass `(X + W/2, Y + H/2)` |
 | `Cycle` | Orbit Center `(x, y)` | `"center"`, `"bottom_left"` | Pass `align="bottom_left"` or `(X + R, Y + R)` |
 
