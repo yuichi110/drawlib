@@ -9,11 +9,13 @@
 
 """Global logger implementation."""
 
+from __future__ import annotations
+
 import logging
 
-import drawlib
+from drawlib._core.l1_core._const import LIB_NAME
 
-logger = logging.getLogger(drawlib.LIB_NAME)
+logger = logging.getLogger(LIB_NAME)
 """Global logger object which is shared on this library."""
 
 # set default level

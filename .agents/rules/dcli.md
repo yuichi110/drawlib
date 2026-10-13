@@ -93,7 +93,6 @@ Manages external binary packages (fonts & icons) stored in `tools/release_assets
 ./dcli pypi list-versions [--test-pypi]              # List all published drawlib versions
 ./dcli pypi latest [--test-pypi]                     # Show latest published version
 ./dcli pypi check-version [--allow-jump] [--test-pypi]
-./dcli pypi update-pyproject                         # Sync README_PYPI.md and metadata for release
 ./dcli pypi publish [--allow-jump] [--test-pypi]     # Build and publish package to TestPyPI or PyPI
 ```
 

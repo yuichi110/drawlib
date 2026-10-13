@@ -9,18 +9,30 @@
 
 """Unit tests for _const.py module."""
 
+import importlib.metadata
 import os
 
+import drawlib
 from drawlib._core.l1_core._const import (
     ASSETS_DIR_PATH,
     FONT_DIR_PATH,
     FONT_ICON_DIR_PATH,
     ICON_DIR_PATH,
+    LIB_NAME,
+    LIB_VERSION,
 )
 
 
 class TestConst:
     """Test cases for constants in _const.py."""
+
+    def test_lib_name_and_version(self):
+        """Test LIB_NAME and LIB_VERSION match importlib.metadata and root re-exports."""
+        assert LIB_NAME == "drawlib"
+        assert LIB_VERSION == importlib.metadata.version("drawlib")
+        assert drawlib.LIB_NAME == LIB_NAME
+        assert drawlib.LIB_VERSION == LIB_VERSION
+        assert drawlib.__version__ == LIB_VERSION
 
     def test_assets_dir_path(self):
         """Test ASSETS_DIR_PATH is a valid existing directory path."""

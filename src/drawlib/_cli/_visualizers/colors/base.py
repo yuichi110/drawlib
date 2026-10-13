@@ -18,8 +18,8 @@ from typing import Literal
 
 from PIL import Image
 
-from drawlib import LIB_VERSION
 from drawlib._builder._common.cache import CliImageCache, hash_text
+from drawlib._core.l1_core import LIB_VERSION
 from drawlib._core.l3_colors import BaseColors, Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage

@@ -30,13 +30,12 @@ from tools.dcli.pypi.client import (
     list_versions as client_list_versions,
 )
 from tools.dcli.pypi.dep import get_dependencies, get_releases
-from tools.dcli.pypi.pyproject import update_pyproject_toml
 
 _get_new_version = get_new_version
 
 app = typer.Typer(
     name="pypi",
-    help="Version verification, dependency tracking, metadata sync, and publishing to PyPI / TestPyPI.",
+    help="Version verification, dependency tracking, and publishing to PyPI / TestPyPI.",
     no_args_is_help=True,
 )
 
@@ -122,7 +121,7 @@ def check_version(
     test_pypi: bool = typer.Option(False, "--test-pypi", help="Check against TestPyPI instead of production PyPI."),
     allow_jump: bool = typer.Option(False, "--allow-jump", help="Allow major/minor version jumps."),
 ) -> None:
-    """Check if local version in src/drawlib/__init__.py is valid for release.
+    """Check if local version in pyproject.toml is valid for release.
 
     Args:
         test_pypi: Whether to validate against TestPyPI.
@@ -137,14 +136,6 @@ def check_version(
     except Exception as e:
         err_console.print(f"[bold red]Check failed: {e}[/bold red]")
         raise typer.Exit(code=1) from e
-
-
-@app.command("update-pyproject")
-def update_pyproject() -> None:
-    """Synchronize pyproject.toml metadata and version from src/drawlib/__init__.py."""
-    console.print("[bold cyan]Updating pyproject.toml metadata...[/bold cyan]")
-    update_pyproject_toml()
-    console.print("[bold green]✓ pyproject.toml updated successfully![/bold green]")
 
 
 @app.command("publish")
@@ -174,7 +165,6 @@ def publish(
     target_name = "TestPyPI" if test_pypi else "PyPI"
     console.print(f"[bold cyan]Preparing to publish drawlib to {target_name}...[/bold cyan]")
 
-    update_pyproject()
     check_version(test_pypi=test_pypi, allow_jump=allow_jump)
 
     dist_dir = PROJECT_ROOT / "dist"

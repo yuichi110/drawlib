@@ -21,9 +21,9 @@ import typer
 from PIL import Image
 from rich.console import Console
 
-from drawlib import LIB_VERSION
 from drawlib._builder._common.cache import CliImageCache, hash_text
 from drawlib._cli._visualizers._common import display_dimage
+from drawlib._core.l1_core import LIB_VERSION
 from drawlib._core.l3_colors import Color, ColorUtil
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage

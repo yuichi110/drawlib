@@ -9,16 +9,20 @@
 
 """Helper script for getting latest drawlib version which includes pre-release."""
 
-import importlib.util
+from __future__ import annotations
+
 import json
 import re
 import urllib.request
+from pathlib import Path
 from typing import List, Tuple
+
+import tomlkit
 
 from tools.dcli.common import PROJECT_ROOT
 
 LIB_NAME = "drawlib"
-INIT_PATH = str(PROJECT_ROOT / "src" / "drawlib" / "__init__.py")
+PYPROJECT_TOML_PATH = PROJECT_ROOT / "pyproject.toml"
 PYPI_JSON_URL_TEMPLATE = "https://pypi.org/pypi/{package_name}/json"
 TEST_PYPI_JSON_URL_TEMPLATE = "https://test.pypi.org/pypi/{package_name}/json"
 
@@ -52,8 +56,41 @@ def list_versions(package_name: str, test_pypi: bool = False) -> List[str]:
         raise RuntimeError(f"Failed to fetch versions for package '{package_name}': {e}") from e
 
 
+def check_version_syntax(version: str) -> None:
+    """Validate version string syntax ('major.minor.patch' or 'major.minor.patch.pre-release')."""
+    parts = tuple(int(part) if part.isdigit() else part for part in version.split("."))
+
+    if len(parts) not in {3, 4}:
+        raise ValueError(
+            f'Version syntax is "major.minor.patch" or "major.minor.patch.pre-release". But {version}',
+        )
+
+    if not isinstance(parts[0], int):
+        raise ValueError(f"Major version must be int. But {version}")
+
+    if not isinstance(parts[1], int):
+        raise ValueError(f"Minor version must be int. But {version}")
+
+    if not isinstance(parts[2], int):
+        raise ValueError(f"Patch version must be int. But {version}")
+
+    if len(parts) == 3:
+        return
+
+    pre_version = parts[3]
+    if not isinstance(pre_version, str):
+        raise ValueError(f"Pre-release version can't be int. But {version}")
+
+    if _get_dev_value(pre_version) >= 1 or _get_rc_value(pre_version) >= 1:
+        return
+
+    raise ValueError(f"Pre-release version must be dev<n> or rc<n>. But {version}")
+
+
 def check_new_version_ok(latest_version: str, new_version: str, allow_jump: bool = False) -> None:
     """Compare PyPI latest version and new_version."""
+    check_version_syntax(new_version)
+
     if _parse_version(new_version) <= _parse_version(latest_version):
         raise ValueError(f"New version {new_version} must be greater than latest version {latest_version}.")
 
@@ -103,16 +140,16 @@ def _handle_jump(message: str, latest_version: str, new_version: str, allow_jump
     )
 
 
-def get_new_version() -> str:
-    """Retrieve current library version from src/drawlib/__init__.py."""
-    spec = importlib.util.spec_from_file_location("init", INIT_PATH)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Could not load module from {INIT_PATH}")
-
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-
-    return module.LIB_VERSION
+def get_new_version(pyproject_path: Path = PYPROJECT_TOML_PATH) -> str:
+    """Retrieve current library version from pyproject.toml."""
+    content = pyproject_path.read_text(encoding="utf-8")
+    doc = tomlkit.parse(content)
+    version = doc.get("project", {}).get("version")
+    if not version:
+        raise ValueError(f"Could not find [project].version in {pyproject_path}")
+    version_str = str(version)
+    check_version_syntax(version_str)
+    return version_str
 
 
 _get_new_version = get_new_version

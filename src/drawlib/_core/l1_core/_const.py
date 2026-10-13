@@ -9,9 +9,16 @@
 
 """Constants module."""
 
+from __future__ import annotations
+
+import importlib.metadata
 import os
+from typing import Final
 
 import drawlib._cached_assets
+
+LIB_NAME: Final[str] = "drawlib"
+LIB_VERSION: Final[str] = importlib.metadata.version(LIB_NAME)
 
 ASSETS_DIR_PATH = os.path.dirname(drawlib._cached_assets.__file__)
 FONT_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "fonts")

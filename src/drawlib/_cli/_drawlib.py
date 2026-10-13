@@ -15,7 +15,6 @@ from typing import Annotated
 
 import typer
 
-import drawlib
 from drawlib._builder.rules_builder import build_rule, is_rule_cached
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._cli.commands import (
@@ -29,7 +28,7 @@ from drawlib._cli.commands import (
     rules_app,
     styles_app,
 )
-from drawlib._core.l1_core import dutil_settings, logger
+from drawlib._core.l1_core import LIB_VERSION, dutil_settings, logger
 
 app = typer.Typer(
     name="drawlib",
@@ -64,7 +63,7 @@ app.command(
 def _version_callback(value: bool) -> None:
     """Display drawlib version and exit."""
     if value:
-        typer.echo(drawlib.LIB_VERSION)
+        typer.echo(LIB_VERSION)
         raise typer.Exit(code=0)
 
 

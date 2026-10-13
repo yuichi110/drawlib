@@ -30,7 +30,7 @@
 
 | フェーズ | 対象領域 | 主な作業内容 | リスク |
 | :--- | :--- | :--- | :---: |
-| **Phase 1: バージョン・メタデータ・デッドコード整理** | `pyproject.toml`<br>`src/drawlib/__init__.py`<br>`_templates/builder.py`<br>`_base_styles.py` / `_utils.py`<br>`.agents/plans/` | ・バージョン表記（`0.3.1.dev1` / `0.3.1`）とコピーライト年号（`2026`）の統一<br>・`_check_version_syntax()` の `parts[2]` 判定バグ修正<br>・未使用の `_templates/builder.py` 削除<br>・重複関数 `_resolve_target_font()` の一元化<br>・実装完了済み計画書（`SHAPES_EXPANSION_PLAN.md`, `SMARTARTS_CALENDAR_PLAN.md`）の整理 | 低 |
+| **Phase 1: バージョン・メタデータ SoT 統一 & デッドコード整理** | `pyproject.toml`<br>`src/drawlib/_core/l1_core/_const.py`<br>`src/drawlib/__init__.py`<br>`tools/dcli/pypi/`<br>`_templates/builder.py`<br>`_base_styles.py` / `_utils.py`<br>`.agents/plans/` | ・`pyproject.toml` をバージョン・メタデータの唯一の SoT（`"0.3.1.dev1"`）に統一<br>・`l1_core/_const.py` で `importlib.metadata.version(LIB_NAME)`（フォールバックなし）から `LIB_VERSION` を取得し `drawlib.__init__` へ再エクスポート<br>・`dcli pypi` の `pyproject.toml` 直接参照化と `update-pyproject` 廃止・バージョン構文検証の `dcli pypi` への移設<br>・未使用の `_templates/builder.py` 削除、重複関数 `_resolve_target_font()` の一元化、完了済み計画書の整理 | 低 |
 | **Phase 2: モダン型ヒント（PEP 604/585）と `future annotations` 統一** | `src/drawlib/` 全域<br>（対象 45〜47 ファイル） | ・`from __future__ import annotations` 欠落ファイルへの追加<br>・`Optional[T]`, `Union[A, B]`, `List[T]`, `Dict[K, V]`, `Tuple[...]` を `T \| None`, `list[T]`, `dict[K, V]`, `tuple[...]` に統一（特に `_builder/image_builder.py`, `doc_builder/` 等） | 低 |
 | **Phase 3: SmartArts の重複削減・API 一貫性向上** | `src/drawlib/_smartarts/` | ・`_sourcecode.py`: `SourceCodeStyles` の4テーマ生成ボイラープレート（約290行）を共通ファクトリに統合<br>・`_mindmap.py`: 4方向レイアウトメソッド（`_connect_and_layout_*` 約270行）の共通化<br>・`_calendar/`: `DayCalendar` / `WeekCalendar` / `MonthCalendar` 間の共通ヘッダー・タイトルバー・All-Day 描画ロジックの抽出<br>・既存 SmartArts の `.draw()` 戻り値を `Self`（メソッドチェーン可能）へ統一 | 中 |
 | **Phase 4: Shapes 内部実装モジュールの構造整理** | `src/drawlib/_core/l4_canvas/_shapes/` | ・肥大化した `_symbol.py` (1,847行)、`_container.py` (1,434行)、`_badge.py` (1,021行)、`_util.py` (957行) のパス生成ヘルパー関数群と Canvas Feature クラス群の責務分離・モジュール分割 | 中 |
@@ -41,20 +41,14 @@
 
 ## 3. 各フェーズの詳細仕様
 
-### 3.1. Phase 1: バージョン・メタデータ・デッドコード・完了計画書の整理
+### 3.1. Phase 1: バージョン・メタデータ SoT 統一 & デッドコード・完了計画書の整理
 
-1. **[`src/drawlib/__init__.py`](../../src/drawlib/__init__.py) の修正**:
-   - L1 の `# Copyright (c) 2024 Yuichi Ito` を `# Copyright (c) 2026 Yuichi Ito` に更新する。
-   - L54 の `_check_version_syntax()` における Patch バージョン検証バグを修正する：
-     ```python
-     # Before:
-     if not isinstance(parts[0], int):
-         raise ValueError(f"Patch version must be int. But {LIB_VERSION}")
-     # After:
-     if not isinstance(parts[2], int):
-         raise ValueError(f"Patch version must be int. But {LIB_VERSION}")
-     ```
-   - [`pyproject.toml`](../../pyproject.toml) および [`src/drawlib/__init__.py`](../../src/drawlib/__init__.py) の開発バージョンを `"0.3.1.dev1"`（リリース時は `"0.3.1"`）に更新する。
+1. **バージョン・メタデータの Single Source of Truth (SoT) 統一（最優先で先行実施）**:
+   - [`pyproject.toml`](../../pyproject.toml) をパッケージメタデータ（`name`, `version`, `description`, `readme`, `authors`, `urls`）の唯一の SoT とし、`version = "0.3.1.dev1"`（リリース時は `"0.3.1"`）に更新する。
+   - [`src/drawlib/_core/l1_core/_const.py`](../../src/drawlib/_core/l1_core/_const.py) にて `LIB_NAME: Final[str] = "drawlib"` および `LIB_VERSION: Final[str] = importlib.metadata.version(LIB_NAME)`（ハードコードされたフォールバック値なし）を定義し、[`src/drawlib/_core/l1_core/__init__.py`](../../src/drawlib/_core/l1_core/__init__.py) からエクスポートする。
+   - [`src/drawlib/_core/l1_core/_logging.py`](../../src/drawlib/_core/l1_core/_logging.py) および内部モジュール（`_builder/_common/cache.py`, `_cli/_drawlib.py`, `_cli/_visualizers/colors/base.py`, `_cli/_visualizers/styles/base.py`）が `drawlib._core.l1_core` から `LIB_NAME` / `LIB_VERSION` を直接参照するように整理し、最下層 `l1_core` からルートパッケージ `drawlib` への逆方向依存を解消する。
+   - [`src/drawlib/__init__.py`](../../src/drawlib/__init__.py) のコピーライト年号を `2026` に更新し、`l1_core` から `LIB_NAME`, `LIB_VERSION` を再エクスポート（`__version__: Final[str] = LIB_VERSION`）する。不要となった重複メタデータ定数（`AUTHORS`, `DESCRIPTION`, `HOMEPAGE`, `REPOSITORY`, `README`）、フォールバック関数 `_get_version()`、および import 時の `_check_version_syntax()` 実行を除去する。
+   - [`tools/dcli/pypi/client.py`](../../tools/dcli/pypi/client.py) の `get_new_version()` が [`pyproject.toml`](../../pyproject.toml) から直接バージョンを読み取るように変更し、バージョン構文チェック関数 `check_version_syntax()`（Patch バージョン `parts[2]` 判定バグ修正済み）を `client.py` 側に統合する。これに伴い不要となった `tools/dcli/pypi/pyproject.py` および `./dcli pypi update-pyproject` サブコマンドを廃止する。
 2. **デッドコード・重複コードの削除**:
    - 参照箇所ゼロ・カバレッジ 0% の後方互換ファイル [`src/drawlib/_templates/builder.py`](../../src/drawlib/_templates/builder.py) を削除する。
    - [`src/drawlib/_core/l3_styles/_base_styles.py`](../../src/drawlib/_core/l3_styles/_base_styles.py) と [`src/drawlib/_preset_styles/_utils.py`](../../src/drawlib/_preset_styles/_utils.py) に重複定義されている `_resolve_target_font()` を `_base_styles.py` 側に一元化し、`_utils.py` から削除（または import）する。

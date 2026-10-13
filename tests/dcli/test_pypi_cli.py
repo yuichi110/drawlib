@@ -22,6 +22,7 @@ from tools.dcli.pypi.client import (
     _get_new_version,
     _parse_version,
     check_new_version_ok,
+    check_version_syntax,
     get_latest_version,
     list_versions,
 )
@@ -35,6 +36,22 @@ def test_parse_version() -> None:
     assert _parse_version("0.2.1") > _parse_version("0.2.1.rc1")
     assert _parse_version("0.2.1.rc2") > _parse_version("0.2.1.rc1")
     assert _parse_version("0.3.0") > _parse_version("0.2.9")
+
+
+def test_check_version_syntax() -> None:
+    """Test version syntax validation including patch version int check."""
+    check_version_syntax("0.3.1")
+    check_version_syntax("0.3.1.dev1")
+    check_version_syntax("0.3.1.rc2")
+
+    with pytest.raises(ValueError, match="Major version must be int"):
+        check_version_syntax("x.3.1")
+    with pytest.raises(ValueError, match="Minor version must be int"):
+        check_version_syntax("0.y.1")
+    with pytest.raises(ValueError, match="Patch version must be int"):
+        check_version_syntax("0.3.z")
+    with pytest.raises(ValueError, match="Pre-release version must be dev<n> or rc<n>"):
+        check_version_syntax("0.3.1.beta1")
 
 
 def test_check_new_version_ok() -> None:
@@ -62,7 +79,7 @@ def test_check_new_version_ok() -> None:
 
 
 def test_get_new_version() -> None:
-    """Test retrieving local version from __init__.py."""
+    """Test retrieving local version from pyproject.toml."""
     version = _get_new_version()
     assert isinstance(version, str)
     assert len(version.split(".")) >= 3
@@ -154,7 +171,6 @@ def test_pypi_cli_dep_releases_json() -> None:
 def test_pypi_cli_publish_purges_cache() -> None:
     """Test dcli pypi publish clears cached assets via drawlib cache clear --all before building."""
     with (
-        patch("tools.dcli.pypi.cli.update_pyproject"),
         patch("tools.dcli.pypi.cli.check_version"),
         patch("tools.dcli.pypi.cli.run_command") as mock_run,
     ):

@@ -20,10 +20,10 @@ from typing import Optional
 
 import matplotlib
 
-from drawlib import LIB_VERSION
 from drawlib._core.l1_core import (
     CACHE_GITIGNORE_CONTENT,
     CACHE_TAG_CONTENT,
+    LIB_VERSION,
     ensure_cache_dir_ignores,
 )
 
