@@ -2,12 +2,14 @@
 
 `RadialGraph` places a central hub node at the origin (`ring=0`) and arranges connected nodes on **concentric orbital rings** (`ring=1, 2, ...`). Angular sectors are allocated proportionally to subtree sizes so multi-hop spokes radiate outward without crossing lines.
 
-It is purpose-built for event-driven message meshes, Pub/Sub broker topologies, microservice hub-and-spoke networks, and concentric dependency radars.
+It is purpose-built for event-driven message meshes, Pub/Sub broker topologies, microservice hub-and-spoke networks, and concentric dependency radars. Call `layout = g.get_layout(margin=...)` to obtain node centers (`layout[id].xy`), radial spoke polylines (`layout.edges`), and concentric orbit radii (`layout.ring_radii`).
 
-```drawlib code=fold align=center file=graph_radial_hero.png caption="RadialGraph Overview: Concentric BFS Orbit Rings and Dashed Ring Guides"
+```drawlib code=fold align=center file=graph_radial_hero.png caption="RadialGraph Overview: Concentric BFS Orbit Rings, layout.ring_radii Guides, and Spoke Icons"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.icons import phosphor
+from drawlib.lines import lines
+from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 
 setup(width=122, height=112)
@@ -16,61 +18,80 @@ g = RadialGraph(
     hub="core",
     radius_step=24.5,
     start_angle=35.0,
-    draw_ring_guides=True,
     default_node_width=19.5,
     default_node_height=11.0,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # Ring 0: Central Hub
-g.node(
-    "core",
-    "\nEvent Hub",
-    shape="circle",
-    width=17.5,
-    height=17.5,
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10.0),
-)
+g.node("core", width=17.5, height=17.5)
 
 # Ring 1: Core Services
-g.spoke("core", "auth", "\nAuth API", ring=1, style=Styles.PrimaryNeutral)
-g.spoke("core", "orders", "\nOrders", ring=1, style=Styles.SecondaryNeutral)
-g.spoke("core", "billing", "\nBilling", ring=1, style=Styles.PrimaryNeutral)
-g.spoke("core", "audit", "\nAudit Log", ring=1, style=Styles.Neutral)
+g.spoke("core", "auth", ring=1)
+g.spoke("core", "orders", ring=1)
+g.spoke("core", "billing", ring=1)
+g.spoke("core", "audit", ring=1)
 
 # Ring 2: Outer Adapters
-g.spoke("auth", "idp", "\nOAuth IdP", ring=2, style=Styles.Neutral)
-g.spoke("orders", "db", "\nOrders DB", ring=2, style=Styles.Neutral)
-g.spoke("billing", "stripe", "\nStripe GW", ring=2, style=Styles.Neutral)
-g.spoke("audit", "siem", "\nSIEM Sink", ring=2, style=Styles.Neutral)
+g.spoke("auth", "idp", ring=2)
+g.spoke("orders", "db", ring=2)
+g.spoke("billing", "stripe", ring=2)
+g.spoke("audit", "siem", ring=2)
 
-layout = g.draw(margin=5.0)
+# 1. Solve concentric coordinates & orbit ring radii
+layout = g.get_layout(margin=5.0)
+hub_n = layout["core"]
 
-for nid, icon_fn, st in [
-    ("core", phosphor.circles_three_plus, Styles.White),
-    ("auth", phosphor.shield_check, Styles.Primary),
-    ("orders", phosphor.cpu, Styles.Secondary),
-    ("billing", phosphor.credit_card, Styles.Primary),
-    ("audit", phosphor.chart_line_up, Styles.Dark),
-    ("idp", phosphor.lock_key, Styles.Dark),
-    ("db", phosphor.database, Styles.Dark),
-    ("stripe", phosphor.globe, Styles.Dark),
-    ("siem", phosphor.terminal_window, Styles.Dark),
-]:
-    n = layout.nodes[nid]
-    icon_fn((n.x, n.y + (2.7 if nid == "core" else 2.0)), width=3.8, style=st)
+# 2. Draw dashed circular orbit guides from layout.ring_radii
+for r in layout.ring_radii.values():
+    circle(hub_n.xy, radius=r, style=Styles.MutedDashed)
+
+# 3. Draw radial spoke edges (from hub center for ring 0->1 so lines meet the circular hub perimeter)
+for e in layout.edges:
+    pts = [hub_n.xy, e.dst_port] if e.src == "core" else e.points
+    lines(pts, arrow_head="->", style=Styles.DarkBold)
+
+# 4. Draw central circular hub and satellite cards with Phosphor icons
+circle(
+    hub_n.xy,
+    radius=hub_n.width / 2,
+    style=Styles.PrimaryFlat,
+    text="\nEvent Hub",
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+phosphor.circles_three_plus((hub_n.x, hub_n.y + 2.7), width=3.8, style=Styles.White)
+
+spokes = {
+    "auth": ("\nAuth API", Styles.PrimaryNeutral, phosphor.shield_check, Styles.Primary),
+    "orders": ("\nOrders", Styles.SecondaryNeutral, phosphor.cpu, Styles.Secondary),
+    "billing": ("\nBilling", Styles.PrimaryNeutral, phosphor.credit_card, Styles.Primary),
+    "audit": ("\nAudit Log", Styles.Neutral, phosphor.chart_line_up, Styles.Dark),
+    "idp": ("\nOAuth IdP", Styles.Neutral, phosphor.lock_key, Styles.Dark),
+    "db": ("\nOrders DB", Styles.Neutral, phosphor.database, Styles.Dark),
+    "stripe": ("\nStripe GW", Styles.Neutral, phosphor.globe, Styles.Dark),
+    "siem": ("\nSIEM Sink", Styles.Neutral, phosphor.terminal_window, Styles.Dark),
+}
+
+for nid, (label, box_st, icon_fn, ic_st) in spokes.items():
+    n = layout[nid]
+    rectangle(
+        n.xy,
+        width=n.width,
+        height=n.height,
+        style=box_st,
+        text=label,
+        text_style=Styles.DarkBold.patch(text_size=10.0),
+    )
+    icon_fn((n.x, n.y + 2.0), width=3.8, style=ic_st)
 
 save()
 ```
 
 ---
 
-## 1. Constructor & `.spoke()` Builder API
+## 1. Constructor, `.spoke()`, & `get_layout()` API
 
 ```python
 from drawlib.graph import RadialGraph
-from drawlib.styles import Styles
 
 g = RadialGraph(
     hub="core",                      # Central hub node ID (auto-detects highest degree if None)
@@ -78,12 +99,12 @@ g = RadialGraph(
     radius_step=36.0,                # Radial distance between rings (auto-scales if None)
     start_angle=0.0,                 # Starting angle in degrees (0.0 = East, 90.0 = North)
     angle_range=360.0,               # Total angular sweep (e.g. 360.0 full circle, 180.0 arc)
-    draw_ring_guides=True,           # Render dashed circular orbit guides for each ring
-    ring_guide_style=Styles.MutedDashed,
-    default_node_style=Styles.Neutral,
     default_node_width=22.0,
     default_node_height=11.0,
 )
+
+layout = g.get_layout(margin=8.0)
+print(layout)                        # Inspect solved node coordinates & layout.ring_radii
 ```
 
 ### Parameter Reference
@@ -95,41 +116,27 @@ g = RadialGraph(
 | `radius_step` | `float \| None` | `None` | Fixed radial gap between successive rings. Auto-scales to canvas if `None`. |
 | `start_angle` | `float` | `0.0` | Starting angle in degrees (`0.0` = right/east, `90.0` = top/north). |
 | `angle_range` | `float` | `360.0` | Total angular sweep in degrees (`360.0` for full orbit, `180.0` for semicircular fan). |
-| `draw_ring_guides` | `bool` | `False` | When `True`, draws subtle dashed circular orbit guidelines behind each ring. |
-| `ring_guide_style` | `Style \| None` | `None` | Custom `Style` for the ring guide circles (defaults to `Styles.MutedDashed`). |
-| `default_node_style` | `Style \| None` | `None` | Default style for nodes (defaults to `Styles.PrimaryFlat`). |
-| `default_node_text_style` | `Style \| None` | `None` | Default typography style for node labels. |
-| `default_edge_style` | `Style \| None` | `None` | Default style for radial spoke edges (defaults to `Styles.DarkBold`). |
-| `default_edge_text_style` | `Style \| None` | `None` | Default text style for edge labels. |
 | `default_node_width` | `float` | `20.0` | Default node width in canvas units. |
 | `default_node_height` | `float` | `12.0` | Default node height in canvas units. |
 
-### Assigning Orbits with `g.spoke(...)` and `ring=`
+### Assigning Orbits with `g.spoke(...)`, `ring=`, and `layout.ring_radii`
 
-In addition to `g.node()` and `g.edge()`, `RadialGraph` provides `.spoke()` to register a satellite node and connect it from `parent` in a single call:
+In addition to `g.node(id, *, ring=None, width=None, height=None)` and `g.edge(src, dst)`, `RadialGraph` provides `.spoke()` to register a satellite node and connect it from `parent` in a single call:
 
 ```python
 g.spoke(
     parent: str,
     spoke_id: str,
-    label: str | None = None,
     *,
     ring: int | None = None,
-    style: Style | None = None,
-    text_style: Style | None = None,
-    shape: Literal["rectangle", "circle"] = "rectangle",
     width: float | None = None,
     height: float | None = None,
-    edge_label: str | None = None,
-    edge_style: Style | None = None,
-    arrow_head: Literal["->", "<-", "<->", "-"] = "->",
-    show: bool = True,
-    edge_show: bool = True,
 ) -> Node
 ```
 
 - **Automatic BFS Ring Assignment**: By default (`ring=None`), each node's ring index equals its shortest hop distance from `hub` (`ring=0` for the hub, `ring=1` for direct neighbors, `ring=2` for second-hop neighbors).
-- **Explicit Ring Assignment (`ring=int`)**: Pass `ring=1` or `ring=2` to `g.node(id, label, ring=...)` or `g.spoke(parent, spoke_id, label, ring=...)` to pin a node to a specific concentric orbit.
+- **Explicit Ring Assignment (`ring=int`)**: Pass `ring=1` or `ring=2` to `g.node(id, ring=...)` or `g.spoke(parent, spoke_id, ring=...)` to pin a node to a specific concentric orbit.
+- **Orbit Guide Circles (`layout.ring_radii`)**: `GraphLayout.ring_radii` (`dict[int, float]`) maps each ring index (`1, 2, ...`) to its computed radial distance from the hub center, making it trivial to draw dashed guide circles via `circle(layout[hub].xy, radius=r, style=Styles.MutedDashed)`.
 
 ---
 
@@ -140,6 +147,8 @@ A single-ring `RadialGraph` arranges satellite services evenly around a central 
 ```drawlib code=show align=center file=graph_radial_single_ring.png caption="Single-Ring Hub-and-Spoke Microservice Mesh Around an Event Broker"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
+from drawlib.lines import lines
+from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 
 setup(width=118, height=84)
@@ -147,32 +156,56 @@ setup(width=118, height=84)
 g = RadialGraph(
     hub="broker",
     radius_step=29.0,
-    draw_ring_guides=True,
     default_node_width=23.0,
     default_node_height=10.5,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
-# Central Hub (ring=0) in PrimaryFlat circle
-g.node(
-    "broker",
-    "Event\nBroker",
-    shape="circle",
-    width=22.0,
-    height=22.0,
+# Central Hub (ring=0)
+g.node("broker", width=22.0, height=22.0)
+
+# 6 Spoke Microservices on Ring 1
+for sid in ["auth", "orders", "billing", "inventory", "notify", "audit"]:
+    g.spoke("broker", sid)
+
+layout = g.get_layout(margin=8.0)
+hub = layout["broker"]
+
+# Draw dashed orbit guide circle
+for r in layout.ring_radii.values():
+    circle(hub.xy, radius=r, style=Styles.MutedDashed)
+
+# Draw spoke edges
+for e in layout.edges:
+    lines([hub.xy, e.dst_port], arrow_head="->", style=Styles.DarkBold)
+
+# Draw central hub circle
+circle(
+    hub.xy,
+    radius=hub.width / 2,
     style=Styles.PrimaryFlat,
+    text="Event\nBroker",
     text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
 
-# 6 Spoke Microservices on Ring 1 (calm Neutral & Tinted-Neutral cards)
-g.spoke("broker", "auth", "Auth Service", style=Styles.PrimaryNeutral, arrow_head="<->")
-g.spoke("broker", "orders", "Orders API", style=Styles.SecondaryNeutral, arrow_head="<->")
-g.spoke("broker", "billing", "Billing Job", style=Styles.Neutral)
-g.spoke("broker", "inventory", "Inventory", style=Styles.Neutral)
-g.spoke("broker", "notify", "Email & Push", style=Styles.Neutral)
-g.spoke("broker", "audit", "Audit Log", style=Styles.PrimaryNeutral)
+# Draw Ring 1 spoke cards (calm Neutral & Tinted-Neutral baseline)
+for sid, label, st in [
+    ("auth", "Auth Service", Styles.PrimaryNeutral),
+    ("orders", "Orders API", Styles.SecondaryNeutral),
+    ("billing", "Billing Job", Styles.Neutral),
+    ("inventory", "Inventory", Styles.Neutral),
+    ("notify", "Email & Push", Styles.Neutral),
+    ("audit", "Audit Log", Styles.PrimaryNeutral),
+]:
+    nl = layout[sid]
+    rectangle(
+        nl.xy,
+        width=nl.width,
+        height=nl.height,
+        style=st,
+        text=label,
+        text_style=Styles.DarkBold.patch(text_size=10.5),
+    )
 
-g.draw(margin=8.0)
 save()
 ```
 
@@ -185,6 +218,8 @@ By connecting second-hop spokes or explicitly passing `ring=2`, `RadialGraph` co
 ```drawlib code=show align=center file=graph_radial_multi_ring.png caption="Multi-Ring Concentric Dependency Radar (Ring 0 Core, Ring 1 Domain, Ring 2 Adapters)"
 from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
+from drawlib.lines import lines
+from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 
 setup(width=122, height=112)
@@ -192,49 +227,80 @@ setup(width=122, height=112)
 g = RadialGraph(
     hub="domain_core",
     radius_step=24.5,
-    draw_ring_guides=True,
     default_node_width=19.0,
     default_node_height=10.0,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # Ring 0: Central Domain Kernel
-g.node(
-    "domain_core",
-    "Domain\nKernel",
-    shape="circle",
-    width=17.0,
-    height=17.0,
+g.node("domain_core", width=17.0, height=17.0)
+
+# Ring 1: Application Services
+g.spoke("domain_core", "checkout", ring=1)
+g.spoke("domain_core", "catalog", ring=1)
+g.spoke("domain_core", "identity", ring=1)
+
+# Ring 2: External Infrastructure Adapters
+g.spoke("checkout", "stripe", ring=2)
+g.spoke("checkout", "orders_db", ring=2)
+g.spoke("catalog", "elastic", ring=2)
+g.spoke("catalog", "cdn", ring=2)
+g.spoke("identity", "oauth", ring=2)
+g.spoke("identity", "redis", ring=2)
+
+layout = g.get_layout(margin=5.0)
+hub = layout["domain_core"]
+
+for r in layout.ring_radii.values():
+    circle(hub.xy, radius=r, style=Styles.MutedDashed)
+
+for e in layout.edges:
+    pts = [hub.xy, e.dst_port] if e.src == "domain_core" else e.points
+    lines(pts, arrow_head="->", style=Styles.DarkBold)
+
+circle(
+    hub.xy,
+    radius=hub.width / 2,
     style=Styles.PrimaryFlat,
+    text="Domain\nKernel",
     text_style=Styles.WhiteBold.patch(text_size=10.0),
 )
 
-# Ring 1: Application Services
-g.spoke("domain_core", "checkout", "Checkout", ring=1, style=Styles.PrimaryNeutral)
-g.spoke("domain_core", "catalog", "Catalog", ring=1, style=Styles.PrimaryNeutral)
-g.spoke("domain_core", "identity", "Identity", ring=1, style=Styles.SecondaryNeutral)
+for nid, label, st in [
+    ("checkout", "Checkout", Styles.PrimaryNeutral),
+    ("catalog", "Catalog", Styles.PrimaryNeutral),
+    ("identity", "Identity", Styles.SecondaryNeutral),
+    ("stripe", "Stripe API", Styles.Neutral),
+    ("orders_db", "Orders SQL", Styles.Neutral),
+    ("elastic", "Search Idx", Styles.Neutral),
+    ("cdn", "Media CDN", Styles.Neutral),
+    ("oauth", "OAuth IdP", Styles.Neutral),
+    ("redis", "Token Cache", Styles.Neutral),
+]:
+    nl = layout[nid]
+    rectangle(
+        nl.xy,
+        width=nl.width,
+        height=nl.height,
+        style=st,
+        text=label,
+        text_style=Styles.DarkBold.patch(text_size=10.0),
+    )
 
-# Ring 2: External Infrastructure Adapters
-g.spoke("checkout", "stripe", "Stripe API", ring=2, style=Styles.Neutral)
-g.spoke("checkout", "orders_db", "Orders SQL", ring=2, style=Styles.Neutral)
-g.spoke("catalog", "elastic", "Search Idx", ring=2, style=Styles.Neutral)
-g.spoke("catalog", "cdn", "Media CDN", ring=2, style=Styles.Neutral)
-g.spoke("identity", "oauth", "OAuth IdP", ring=2, style=Styles.Neutral)
-g.spoke("identity", "redis", "Token Cache", ring=2, style=Styles.Neutral)
-
-g.draw(margin=5.0)
 save()
 ```
 
 ---
 
-## 4. Semicircular Dependency Fan (`angle_range=180.0`, `start_angle=0.0`)
+## 4. Semicircular Dependency Fan (`angle_range=180.0`) with `ArchitectureDiagram`
 
-Instead of a full `360.0` degree orbit, you can restrict spokes to a semicircular or quadrant fan using `start_angle` and `angle_range` (along with an explicit `center=(cx, cy)` and `radius_step`):
+Instead of a full `360.0` degree orbit, you can restrict spokes to a semicircular or quadrant fan using `start_angle` and `angle_range` (along with an explicit `center=(cx, cy)` and `radius_step`), and render the resulting coordinates using `ArchitectureDiagram` (`Node` + `PhosphorIcon`) and `circle()`:
 
-```drawlib code=show align=center file=graph_radial_semicircle_fan.png caption="Semicircular Dependency Fan Using angle_range=180.0 and start_angle=0.0"
+```drawlib code=show align=center file=graph_radial_semicircle_fan.png caption="Semicircular Dependency Fan (angle_range=180.0) Rendered with ArchitectureDiagram and Ring Guide"
 from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 from drawlib.graph import RadialGraph
+from drawlib.lines import lines
+from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=124, height=66)
@@ -245,31 +311,72 @@ g = RadialGraph(
     radius_step=36.0,
     start_angle=0.0,
     angle_range=180.0,
-    draw_ring_guides=True,
     default_node_width=22.0,
-    default_node_height=10.5,
-    default_node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    default_node_height=13.5,
 )
 
 # Hub anchored near the bottom center
-g.node(
-    "gateway",
-    "API\nGateway",
-    shape="circle",
-    width=21.0,
-    height=21.0,
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10.5),
-)
+g.node("gateway", width=22.0, height=15.0)
 
 # 5 downstream services fanned across the upper 0°..180° arc
-g.spoke("gateway", "cdn", "Edge CDN", style=Styles.Neutral)
-g.spoke("gateway", "auth", "Auth API", style=Styles.PrimaryNeutral)
-g.spoke("gateway", "catalog", "Catalog API", style=Styles.SecondaryNeutral)
-g.spoke("gateway", "orders", "Orders API", style=Styles.PrimaryNeutral)
-g.spoke("gateway", "audit", "Audit Log", style=Styles.Neutral)
+for sid in ["cdn", "auth", "catalog", "orders", "audit"]:
+    g.spoke("gateway", sid)
 
-g.draw(margin=6.0)
+layout = g.get_layout(margin=6.0)
+hub = layout["gateway"]
+
+# 1. Draw dashed orbit guide circle and radial spoke lines from layout
+for r in layout.ring_radii.values():
+    circle(hub.xy, radius=r, style=Styles.MutedDashed)
+
+for e in layout.edges:
+    lines([hub.xy, e.dst_port], arrow_head="->", style=Styles.DarkBold)
+
+# 2. Place styled ArchitectureDiagram nodes at solved radial coordinates
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.DarkBold.patch(text_size=10.0),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=9.5),
+    node_card_style=Styles.Neutral,
+)
+
+d.add(
+    Node(
+        "API Gateway",
+        width=hub.width,
+        height=hub.height,
+        icon=PhosphorIcon.SHIELD_CHECK,
+        icon_size=5.0,
+        style=Styles.White,
+        text_style=Styles.WhiteBold.patch(text_size=10.0),
+        card_style=Styles.PrimaryFlat,
+    ),
+    xy=hub.xy,
+)
+
+for sid, label, icon_enum, ic_st, card_st in [
+    ("cdn", "Edge CDN", PhosphorIcon.GLOBE, Styles.Dark, Styles.Neutral),
+    ("auth", "Auth API", PhosphorIcon.LOCK_KEY, Styles.Primary, Styles.PrimaryNeutral),
+    ("catalog", "Catalog API", PhosphorIcon.CPU, Styles.Secondary, Styles.SecondaryNeutral),
+    ("orders", "Orders API", PhosphorIcon.CREDIT_CARD, Styles.Primary, Styles.PrimaryNeutral),
+    ("audit", "Audit Log", PhosphorIcon.TERMINAL_WINDOW, Styles.Dark, Styles.Neutral),
+]:
+    nl = layout[sid]
+    d.add(
+        Node(
+            label,
+            width=nl.width,
+            height=nl.height,
+            icon=icon_enum,
+            icon_size=4.5,
+            style=ic_st,
+            card_style=card_st,
+        ),
+        xy=nl.xy,
+    )
+
+d.draw()
 save()
 ```
 
@@ -277,6 +384,6 @@ save()
 
 ## 5. Best Practices
 
-1. **Enable `draw_ring_guides=True` for Multi-Ring Graphs**: Subtle dashed orbit circles make concentric hierarchy levels (`ring=1` vs. `ring=2`) immediately legible at a glance.
-2. **Use `shape="circle"` for the Central Hub**: Making the center hub a circle (`shape="circle"`, `width=24.0`, `height=24.0`) with `Styles.PrimaryFlat` creates a natural visual anchor for radial spokes.
-3. **Give Outer Rings Generous Canvas Margin**: Pass `margin=16.0` (or higher) to `g.draw(margin=16.0)` so rectangular cards at the top, bottom, left, and right extremes of the outer ring have comfortable breathing room.
+1. **Draw Orbit Ring Guides via `layout.ring_radii`**: Iterate over `layout.ring_radii.values()` and draw `circle(layout[hub].xy, radius=r, style=Styles.MutedDashed)` before drawing edges and nodes to make concentric hierarchy levels (`ring=1` vs. `ring=2`) immediately legible.
+2. **Use `circle()` for the Central Hub**: Rendering the center hub as a circle (`circle(hub.xy, radius=hub.width / 2, style=Styles.PrimaryFlat, ...)`) creates a natural visual anchor for radial spokes.
+3. **Give Outer Rings Generous Canvas Margin**: Pass `margin=8.0` (or higher) to `g.get_layout(margin=8.0)` so rectangular cards at the top, bottom, left, and right extremes of the outer ring have comfortable breathing room.

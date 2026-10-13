@@ -51,7 +51,7 @@ Never manually assemble diagrams out of dozens of primitive rectangles and lines
 
 | Category | Recommended Module | Primary Use Cases |
 | :--- | :--- | :--- |
-| **Auto-Layout Graphs** | `drawlib.graph` | Declarative auto-layout DAGs, nested clusters, topologies |
+| **Auto-Layout Graphs** | `drawlib.graph` | Pure coordinate calculators (`get_layout()`) for DAGs, clusters & topologies (render via `diagrams` / `shapes`) |
 | **Cloud Architecture** | `drawlib.diagrams.architecture` | VPCs, microservices, cloud topologies, official icons |
 | **Workflows & Pipelines** | `drawlib.diagrams.flow`, `smartarts.ChevronProcess` | Decision trees, CI/CD pipelines, linear stages |
 | **API Sequences** | `drawlib.diagrams.sequence` | Client/server lifelines, message exchanges, sync/async calls |
@@ -60,7 +60,7 @@ Never manually assemble diagrams out of dozens of primitive rectangles and lines
 | **Hierarchy & Organization**| `drawlib.smartarts.TreeNode`, `smartarts.MindMapNode` | Directory trees, org charts, radial brainstorming maps |
 | **Quantitative Charts** | `drawlib.charts` | Bar, Line, Area, Pie, Radar, Scatter, and Gantt charts |
 | **Standardized Icons** | `drawlib.icons` | Phosphor, FontAwesome, and GCP architecture vector/PNG icons |
-| **Drawing Primitives** | `drawlib.shapes`, `lines`, `text` | 23 geometric primitives, curved lines, bezier curves, styled text |
+| **Drawing Primitives** | `drawlib.shapes`, `lines`, `text` | 43 geometric primitives, curved lines, bezier curves, styled text |
 
 ---
 
@@ -91,7 +91,7 @@ save()
 ## 5. Autonomous 3-Stage Review & Self-Correction Loop
 
 Never deliver unverified diagrams or documentation. Always execute this 3-stage verification loop (details: `uv run drawlib rules show review-guide`):
-1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` fence caps, `text_size >= 10.0`, and accurate coordinate anchors (`shapes`/`text`/`icons` = **Center `(cx, cy)`** vs. `SmartArts`/`Charts`/`Diagrams`/`Graphs` = **Bottom-Left `(x0, y0)`**).
+1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` fence caps, `text_size >= 10.0`, and accurate coordinate anchors (`shapes`/`text`/`icons` = **Center `(cx, cy)`** vs. `SmartArts`/`Charts`/`Diagrams` = **Bottom-Left `(x0, y0)`**; `graph.get_layout()` provides `.xy`/`.local_xy` centers and `.bottom_left`/`.local_bottom_left` corners).
 2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export each diagram with the 10-unit/5-unit coordinate grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`) and inspect via `view_file` to fix text clipping, arrow routing, margins (`>= 4–6` units), and `50%+` neutral balance in 1 shot. *(When delegating to parallel subagents, each subagent runs Stage 1 & Stage 2 on its own files using unique scratch filenames.)*
 3. **Stage 3 — Macro-Page Browser HTML Review**: Build HTML (`./build.sh` once after all subagents finish), verify zero broken links (`uv run drawlib serve docs_html/ --check`), and inspect a `1280×920` headless browser screenshot of `docs_html/*.html` via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font size parity.
 

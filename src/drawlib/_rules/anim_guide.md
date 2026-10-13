@@ -12,7 +12,7 @@ This guide defines the architectural principles, loop idioms, and component-spec
 When `with anim.frame():` executes with its default `clear=True`, Drawlib clears the canvas at the start of the frame and draws the complete scene for that instant.
 - **Why `clear=True` is strongly recommended**:
   - Allows elements to move (`xy`), scale, or change style (`Styles.PrimaryFlat` -> `Styles.PrimaryNeutral`) without leaving behind stale drawings from previous frames.
-  - Works seamlessly with all high-level components (`SmartArts`, `Charts`, `Diagrams`, `Graph`) via their `.show` and `.style` controls (plus `.draw_ratio` / `.draw_direction` on `Charts`).
+  - Works seamlessly with all high-level components (`SmartArts`, `Charts`, `Diagrams`) via their `.show` and `.style` controls (plus `.draw_ratio` / `.draw_direction` on `Charts`, and `get_layout()` coordinates from `Graph`).
 - **When to use `clear=False`**:
   - Only when strictly appending static primitive shapes onto the canvas without ever moving, un-highlighting, or modifying previously drawn elements.
 
@@ -35,12 +35,12 @@ Drawlib's unified component lifecycle (`add()` -> `draw()`) supports two clean l
 
 | Target Module | Recommended Loop Pattern | Why |
 | :--- | :--- | :--- |
-| **Primitives** (`shapes`, `lines`, `text`, `icons`)<br>**SmartArts** (`ChevronProcess`, `Table`, `GridLayout`, `Cycle`, etc.) | **Pattern A / B**: Compute per-frame coordinates for primitives, or register SmartArt items once via `add()` and mutate `.show` / `.style` before `draw()` | Lightweight builders that automatically preserve full container widths, row heights, and cycle slots even when items have `show=False`. |
-| **Charts** (`BarChart`, `LineChart`, `PieChart`, `GanttChart`, etc.)<br>**Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`)<br>**Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, etc.)<br>**Node Trees** (`TreeNode`, `MindMapNode`) | **Pattern B: Pre-Build & Mutate**<br>Build topology/series once outside the loop, then mutate `.show` / `.style` (and `.draw_ratio` / `.draw_direction` on `Charts`) and call `draw()` inside `with anim.frame():` | Avoids re-declaring series or topologies on every frame; locks automatic chart axes (`min_value`/`max_value`) and graph node coordinates; automatically hides connected diagram/graph edges when `node.show = False`. |
+| **Primitives** (`shapes`, `lines`, `text`, `icons`)<br>**SmartArts** (`ChevronProcess`, `Table`, `GridLayout`, `Cycle`, etc.) | **Pattern A / B**: Compute per-frame coordinates for primitives (or solve once via `g.get_layout()`), or register SmartArt items once via `add()` and mutate `.show` / `.style` before `draw()` | Lightweight builders that automatically preserve full container widths, row heights, and cycle slots even when items have `show=False`. |
+| **Charts** (`BarChart`, `LineChart`, `PieChart`, `GanttChart`, etc.)<br>**Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`)<br>**Node Trees** (`TreeNode`, `MindMapNode`) | **Pattern B: Pre-Build & Mutate**<br>Build topology/series once outside the loop (optionally using `g.get_layout()` for coordinates), then mutate `.show` / `.style` (and `.draw_ratio` / `.draw_direction` on `Charts`) and call `draw()` inside `with anim.frame():` | Avoids re-declaring series or topologies on every frame; locks automatic chart axes (`min_value`/`max_value`) and diagram coordinates; automatically hides connected diagram edges when `node.show = False`. |
 
 ### Three Universal Loop Rules
-1. **Hoist Invariant Data Outside the Loop**: Define canvas `setup()`, `Animation()`, color palettes, coordinate arrays, and static data tables once before the `for` loop.
-2. **Use `show=False` Instead of Omitting Elements**: In SmartArts, Charts, Diagrams, and Graphs, always register all elements and toggle `show=False` / `True` rather than omitting `add()` calls. Hidden elements still reserve their spatial layout slots and axis scales, preventing visual layout jumps across frames.
+1. **Hoist Invariant Data Outside the Loop**: Define canvas `setup()`, `Animation()`, `g.get_layout()`, color palettes, coordinate arrays, and static data tables once before the `for` loop.
+2. **Use `show=False` Instead of Omitting Elements**: In SmartArts, Charts, and Diagrams, always register all elements and toggle `show=False` / `True` rather than omitting `add()` calls. Hidden elements still reserve their spatial layout slots and axis scales, preventing visual layout jumps across frames.
 3. **Hold the Final Frame**: Always give the final frame an explicit hold duration (`duration=2.0` or `3.0`).
 
 ---
@@ -216,7 +216,7 @@ save("bar_growth.png")
 
 ## 6. Diagrams (`drawlib.diagrams`) & Auto-Layout Graphs (`drawlib.graph`)
 
-All 6 diagram engines (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`) and all 5 auto-layout graph solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) follow **Pattern B (Pre-Build & Mutate)**.
+All 6 diagram engines (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`) follow **Pattern B (Pre-Build & Mutate)**, and can be paired with `drawlib.graph` (`get_layout()`) for automatic coordinate calculation.
 
 ### 6.1. Key Capabilities on Diagram Elements
 1. **Visibility & Automatic Connected Edge Hiding (`.show`)**:
@@ -270,28 +270,39 @@ with anim.frame(duration=2.5):
 save("flow_walkthrough.png")
 ```
 
-### 6.3. Auto-Layout Graph Animation (`drawlib.graph`)
-For `drawlib.graph` solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `g.node(id, label, ...)` returns a mutable `Node` declaration (`node.show`, `node.style`, `node.text_style`).
-- Because `g.calc()` solves coordinates across the full topology regardless of `show=False`, mutating `node.show` / `node.style` and calling `g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)` inside `with anim.frame():` keeps all node coordinates and cluster boxes fixed.
-- To animate a data packet (`circle`) traveling along an auto-routed graph edge, pre-calculate `layout = g.calc(margin=...)` and pass `edge_layout.points` (`list[tuple[float, float]]`) to `get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)`:
+### 6.3. 2-Step Auto-Layout Graph Animation (`drawlib.graph` + `drawlib.diagrams` / `shapes`)
+For `drawlib.graph` solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `g.get_layout()` computes fixed coordinates (`layout["id"].xy`, `layout.edges[i].points`) once before the animation loop:
+- **Step-by-Step Reveal with `FlowDiagram` / `ArchitectureDiagram`**: Solve coordinates once via `layout = g.get_layout()`, populate a `FlowDiagram` or `ArchitectureDiagram` at `xy=layout[id].xy`, and toggle `node.show` / `node.style` across frames so all coordinates remain 100% locked.
+- **Packet Motion Along Auto-Routed Edges**: Pass `edge_layout.points` (`list[tuple[float, float]]`) from `layout.edges` to `get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)` to animate a packet (`circle`) traveling along orthogonal bends:
 
 ```python
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
+from drawlib.diagrams.flow import FlowDiagram, Process
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
 setup(width=110, height=42)
 anim = Animation(fps=1.5)
 
-g = LayerGraph(direction="LR")
-nodes = [
-    g.node("ingest", "Ingest", layer=0),
-    g.node("transform", "Transform", layer=1),
-    g.node("serve", "Serve", layer=2),
-]
+# Step 1: Solve coordinates once outside the loop
+g = LayerGraph(direction="LR", default_node_width=24.0, default_node_height=12.0)
+g.node("ingest", layer=0)
+g.node("transform", layer=1)
+g.node("serve", layer=2)
 g.edge("ingest", "transform")
 g.edge("transform", "serve")
+layout = g.get_layout(margin=8.0)
+
+# Step 2: Populate FlowDiagram at solved coordinates and animate node visibility/style
+flow = FlowDiagram(node_style=Styles.Neutral, edge_style=Styles.DarkBold, edge_text_style=Styles.Dark)
+nodes = [
+    flow.add(Process("Ingest", width=24, height=12), xy=layout["ingest"].xy),
+    flow.add(Process("Transform", width=24, height=12), xy=layout["transform"].xy),
+    flow.add(Process("Serve", width=24, height=12), xy=layout["serve"].xy),
+]
+flow.connect(nodes[0], nodes[1])
+flow.connect(nodes[1], nodes[2])
 
 for step in range(len(nodes)):
     for i, node in enumerate(nodes):
@@ -301,7 +312,7 @@ for step in range(len(nodes)):
 
     is_last = (step == len(nodes) - 1)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        g.draw(margin=8.0)
+        flow.draw()
 
 save("graph_layer_steps.png")
 ```

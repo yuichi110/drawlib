@@ -52,53 +52,76 @@ diag.draw(xy=(3.0, 3.0))
 
 When drafting complex architectures or data workflows from scratch, calculating pixel coordinates `(x, y)` for every node and boundary can strain cognitive working memory for both engineers and AI agents—a challenge known as the **Cold-Start Problem**.
 
-Drawlib provides a Pure-Python declarative graph layout engine via `drawlib.graph`. Without requiring external binaries (like Graphviz), it computes tidy orthogonal routes and nested cluster bounds automatically:
+Drawlib's `drawlib.graph` is a Pure-Python **coordinate and layout calculator (`get_layout()`)** with zero external binary dependencies (no Graphviz required). Rather than coupling layout calculation to a rigid renderer, it powers a clean **2-Step Workflow**: solve coordinates in Step 1 (`layout = g.get_layout()`), then render with `drawlib.diagrams` or `drawlib.shapes` in Step 2:
 
-```drawlib width=640px align=center file=fig_architecture_graph.png caption="Figure 10.2: Auto-Layout and Cluster Packing with ArchitectureGraph"
+```drawlib align=center file=fig_architecture_graph.png caption="Figure 10.2: 2-Step Auto-Layout with ArchitectureGraph.get_layout() and ArchitectureDiagram"
 from drawlib.canvas import setup
+from drawlib.diagrams.architecture import (
+    ArchitectureDiagram,
+    GcpIcon,
+    Node,
+    NodeGroup,
+    PhosphorIcon,
+)
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
 
-setup(width=195, height=80)
+setup(width=205, height=88)
 
-g = ArchitectureGraph(direction="LR", default_node_width=26.0, default_node_height=13.0)
+# Step 1: Solve cluster bounds and node coordinates with ArchitectureGraph
+g = ArchitectureGraph(direction="LR", container_sep=16.0, default_node_width=24.0, default_node_height=15.0)
+g.cluster("external", ["client"], pos="left", padding=5.0)
+g.group("vpc", pos="center", padding=5.0)
+g.cluster("app_tier", ["api", "worker"], parent="vpc", order=1, padding=5.0)
+g.cluster("data_tier", ["db", "cache"], parent="vpc", order=2, padding=5.0)
 
-ts_hero = Styles.WhiteBold.patch(text_size=9.5)
-ts_body = Styles.Dark.patch(text_size=9.0)
+g.edge("client", "api")
+g.edge("api", "worker")
+g.edge("worker", "db")
+g.edge("worker", "cache")
 
-# External client (pinned to the left compass zone)
-g.cluster("external", ["client"], label="External Client", pos="left", padding=4.0)
-g.node("client", "Web / Mobile\nClient", style=Styles.Neutral, text_style=ts_body)
+layout = g.get_layout(margin=8.0)
 
-# Cloud VPC (central group container)
-g.group("vpc", "Cloud VPC (us-central1)", pos="center", padding=5.0)
-g.cluster("app_tier", ["api", "worker"], label="Application Tier", parent="vpc", order=1, padding=4.0)
-g.cluster("data_tier", ["db", "cache"], label="Data Tier", parent="vpc", order=2, padding=4.0)
+# Step 2: Pass solved coordinates (bottom_left, local_bottom_left, local_xy) to ArchitectureDiagram
+d = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=10.0),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=9.5),
+    node_card_style=Styles.Neutral,
+)
 
-g.node("api", "API Gateway", style=Styles.PrimaryFlat, text_style=ts_hero)
-g.node("worker", "Async Worker", style=Styles.SecondaryNeutral, text_style=ts_body)
-g.node("db", "Primary DB", style=Styles.Neutral, text_style=ts_body)
-g.node("cache", "Redis Cache", style=Styles.Neutral, text_style=ts_body)
+ext = d.add(NodeGroup(title="External Client", padding=5.0, style=Styles.MutedDashed), xy=layout["external"].bottom_left)
+vpc = d.add(NodeGroup(title="Cloud VPC (us-central1)", padding=5.0, style=Styles.MutedDashed), xy=layout["vpc"].bottom_left)
+app = vpc.add(NodeGroup(title="Application Tier", padding=5.0, style=Styles.PrimaryNeutral), xy=layout["app_tier"].local_bottom_left)
+data = vpc.add(NodeGroup(title="Data Tier", padding=5.0, style=Styles.SecondaryNeutral), xy=layout["data_tier"].local_bottom_left)
 
-# Edge connections (orthogonal routing)
-g.edge("client", "api", label="HTTPS")
-g.edge("api", "worker", label="Queue")
-g.edge("api", "cache", label="Get/Set")
-g.edge("worker", "db", label="Write")
+client = ext.add(Node("Web / Mobile", width=24, height=15, icon=PhosphorIcon.DEVICES), xy=layout["client"].local_xy)
+api = app.add(
+    Node("API Gateway", width=24, height=15, icon=GcpIcon.CLOUD_API_GATEWAY, style=Styles.White, card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=10.0)),
+    xy=layout["api"].local_xy,
+)
+worker = app.add(Node("Async Worker", width=24, height=15, icon=GcpIcon.CLOUD_RUN), xy=layout["worker"].local_xy)
+db = data.add(Node("Primary DB", width=24, height=15, icon=GcpIcon.CLOUD_SQL), xy=layout["db"].local_xy)
+cache = data.add(Node("Redis Cache", width=24, height=15, icon=GcpIcon.MEMORYSTORE), xy=layout["cache"].local_xy)
 
-g.draw(margin=8)
+d.connect(client, api, label="HTTPS")
+d.connect(api, worker)
+worker.fork([db, cache], at_x=145.0)
+
+d.draw()
 ```
 
-### From Draft to Finished Illustration (`export_code()`)
-- `g.draw()`: Immediately computes coordinates and draws the topology to canvas.
-- `g.export_code()`: Generates self-contained Drawlib Python code with calculated coordinates baked in as semantic variables (e.g., `api_xy = (72.0, 42.0)`). This enables an ideal **two-stage workflow**: *draft rapidly with auto-layout, then fine-tune critical elements with absolute coordinates*.
+### The 2-Step Workflow (`get_layout()` & `print(layout)`)
+- **Step 1 — Solve & Inspect (`layout = g.get_layout()`)**: Computes node centers (`.xy`, `.local_xy`), cluster bounds (`.bottom_left`, `.local_bottom_left`, `.size`), and edge waypoints (`.points`). Call `print(layout)` to inspect the coordinate table for manual scripts, or call `layout.offset("api", dy=-4.0)` to fine-tune positions.
+- **Step 2 — Render with Rich Components (`drawlib.diagrams` / `drawlib.shapes`)**: Pass the solved coordinates into `ArchitectureDiagram`, `FlowDiagram`, or `drawlib.shapes` / `drawlib.lines` for full control over icons, styles, and connectors.
 
 ### 5 Specialized Layout Solvers
 - **`ArchitectureGraph`**: Multi-tier architecture, VPC/subnet boundary nesting, and 5-zone compass positioning (`left`, `right`, `top`, `bottom`, `center`).
-- **`LayerGraph`**: Sugiyama-style hierarchical DAGs for pipelines, dataflows, and dependency graphs.
-- **`TreeGraph`**: Reingold-Tilford symmetrical tree layout for org charts, taxonomies, and ASTs.
-- **`RadialGraph`**: Concentric ring layouts for hub-and-spoke and event-driven architectures.
-- **`GridGraph`**: 2D matrix grids with orthogonal channel routing for service catalogs.
+- **`LayerGraph`**: Sugiyama-style hierarchical DAGs for pipelines, dataflows, and dependency graphs (`.tier()`).
+- **`TreeGraph`**: Reingold-Tilford symmetrical tree layout for org charts, taxonomies, and ASTs (`.child()`).
+- **`RadialGraph`**: Concentric ring layouts for hub-and-spoke and event-driven architectures (`.spoke()`, `layout.ring_radii`).
+- **`GridGraph`**: 2D matrix grids with orthogonal channel routing for service catalogs (`.cell()`, `.cluster_row()`).
 
 ## 10.3 Other Domain Diagrams
 

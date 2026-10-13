@@ -571,7 +571,7 @@ Every page of prose and every illustration in this documentation was authored di
 <h3>2. Rich High-Level Visualizations</h3>
 <p>Avoid assembling hundreds of primitive shapes by hand. Drawlib provides production-ready, declarative components:</p>
 <ul>
-<li><strong>Auto-Layout Graphs (<code>drawlib.graph</code>)</strong>: Declarative graph layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>) with nested clusters, <code>offset()</code> fine-tuning, and standalone code scaffolding (<code>export_code()</code>).</li>
+<li><strong>Auto-Layout Graphs (<code>drawlib.graph</code>)</strong>: Declarative graph layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>) that compute overlap-free coordinates (<code>get_layout()</code>), nested cluster bounds, and <code>offset()</code> fine-tuning for rendering with <code>drawlib.diagrams</code> and <code>drawlib.shapes</code>.</li>
 <li><strong>SmartArts</strong>: Process pipelines (<code>ChevronProcess</code>), cyclical loops (<code>Cycle</code>), data tables (<code>Table</code>), and trees (<code>Tree</code>).</li>
 <li><strong>Data Charts</strong>: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.</li>
 <li><strong>Technical Diagrams</strong>: Cloud architectures (<code>ArchitectureDiagram</code>), flowcharts (<code>FlowDiagram</code>), API sequences (<code>SequenceDiagram</code>), UML class diagrams (<code>ClassDiagram</code>), ER diagrams (<code>ERDiagram</code>), and state machines (<code>StateDiagram</code>).</li>

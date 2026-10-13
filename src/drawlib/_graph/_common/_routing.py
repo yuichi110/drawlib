@@ -116,10 +116,6 @@ def compute_boundary_intersection(
     u_x = dx / dist
     u_y = dy / dist
 
-    if node.shape == "circle":
-        r = node.width / 2.0
-        return (round(node.x + r * u_x, 2), round(node.y + r * u_y, 2))
-
     # Rectangle / Rounded Rectangle (Ray-Box Intersection)
     half_w = node.width / 2.0
     half_h = node.height / 2.0

@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""ArchitectureGraph class for declarative system and cloud architecture visualization."""
+"""ArchitectureGraph class for declarative system and cloud architecture layout calculation."""
 
 from __future__ import annotations
 
@@ -22,7 +22,6 @@ from drawlib._graph._common._models import (
     GraphLayout,
 )
 from drawlib._graph._common._routing import route_orthogonal_edge, route_straight_edge
-from drawlib.styles import Style, Styles
 
 
 class ArchitectureGraph(BaseGraph):
@@ -39,11 +38,6 @@ class ArchitectureGraph(BaseGraph):
         direction: Literal["LR", "TB"] = "LR",
         container_sep: float | None = None,
         edge_routing: Literal["orthogonal", "straight"] = "orthogonal",
-        default_node_style: Style | None = None,
-        default_node_text_style: Style | None = None,
-        default_edge_style: Style | None = None,
-        default_edge_text_style: Style | None = None,
-        default_container_style: Style | None = None,
         default_node_width: float = 24.0,
         default_node_height: float = 12.0,
     ) -> None:
@@ -53,28 +47,35 @@ class ArchitectureGraph(BaseGraph):
             direction: Macro flow direction ("LR" for Left-to-Right, "TB" for Top-to-Bottom).
             container_sep: Distance between adjacent top-level containers. If None, auto-scales.
             edge_routing: Edge path style ("orthogonal" for Manhattan right angles, or "straight").
-            default_node_style: Default style for nodes.
-            default_node_text_style: Default text style for node labels.
-            default_edge_style: Default style for edges.
-            default_edge_text_style: Default text style for edge labels.
-            default_container_style: Default style for container boundaries.
             default_node_width: Default width for nodes.
             default_node_height: Default height for nodes.
         """
         super().__init__(
-            default_node_style=default_node_style,
-            default_node_text_style=default_node_text_style,
-            default_edge_style=default_edge_style,
-            default_edge_text_style=default_edge_text_style,
             default_node_width=default_node_width,
             default_node_height=default_node_height,
         )
         self.direction: Literal["LR", "TB"] = direction
         self.container_sep: float | None = container_sep
         self.edge_routing: Literal["orthogonal", "straight"] = edge_routing
-        self.default_container_style: Style = default_container_style or Styles.MutedDashed
 
-    def calc(  # noqa: C901
+    def _auto_register_topology(self) -> None:
+        """Auto-register nodes and clusters referenced across topology definitions."""
+        self._ensure_edge_nodes()
+
+        for cluster in self._clusters.values():
+            for nid in cluster.nodes:
+                if nid not in self._nodes:
+                    self.node(nid)
+
+        for node in self._nodes.values():
+            if node.group and node.group not in self._clusters:
+                self.cluster(id=node.group, nodes=[])
+            if node.subgroup and node.subgroup not in self._clusters:
+                self.cluster(id=node.subgroup, nodes=[], parent=node.group)
+            elif node.subgroup and node.group and not self._clusters[node.subgroup].parent:
+                self._clusters[node.subgroup].parent = node.group
+
+    def get_layout(
         self,
         *,
         width: float | None = None,
@@ -97,22 +98,7 @@ class ArchitectureGraph(BaseGraph):
         if not self._nodes and not self._edges and not self._clusters:
             return GraphLayout(width=w, height=h)
 
-        self._ensure_edge_nodes()
-
-        # Auto-register nodes mentioned in clusters
-        for cluster in self._clusters.values():
-            for nid in cluster.nodes:
-                if nid not in self._nodes:
-                    self.node(nid)
-
-        # Auto-register clusters mentioned in node group/subgroup attributes
-        for node in self._nodes.values():
-            if node.group and node.group not in self._clusters:
-                self.cluster(id=node.group, nodes=[], label=node.group)
-            if node.subgroup and node.subgroup not in self._clusters:
-                self.cluster(id=node.subgroup, nodes=[], label=node.subgroup, parent=node.group)
-            elif node.subgroup and node.group and not self._clusters[node.subgroup].parent:
-                self._clusters[node.subgroup].parent = node.group
+        self._auto_register_topology()
 
         node_coords, cluster_boxes = solve_architecture_layout(
             nodes=self._nodes,
@@ -154,27 +140,15 @@ class ArchitectureGraph(BaseGraph):
 
         # Build ClusterLayout objects for containers
         clusters_layout: dict[str, ClusterLayout] = {}
-        default_cluster_text_style = self._default_cluster_text_style()
-
         for cid, (cx, cy, cw, ch) in cluster_boxes.items():
             cluster_meta = self._clusters.get(cid)
-            lbl = cluster_meta.label if cluster_meta else cid
-            style = cluster_meta.style if cluster_meta and cluster_meta.style else self.default_container_style
-            t_style = (
-                default_cluster_text_style.patch(cluster_meta.text_style)
-                if cluster_meta and cluster_meta.text_style
-                else default_cluster_text_style
-            )
-            c_show = cluster_meta.show if cluster_meta is not None else True
             clusters_layout[cid] = ClusterLayout(
                 id=cid,
-                label=lbl,
                 bbox=(cx, cy, cw, ch),
-                style=style,
-                text_style=t_style,
-                shape="rectangle",
-                show=c_show,
+                parent_id=cluster_meta.parent if cluster_meta is not None else None,
             )
+
+        self._finalize_hierarchy_coords(nodes_layout, clusters_layout)
 
         return GraphLayout(
             nodes=nodes_layout,

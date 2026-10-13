@@ -689,7 +689,7 @@
 </figure>
 <hr />
 <h2>3. Project-Wide Custom Fonts with <code>Styles.patch_font()</code></h2>
-<p>Instead of patching <code>text_font</code> on every shape, call <code>Styles.patch_font()</code> to create a custom <code>Styles</code> catalog that applies your <code>FontFile</code> across high-level components such as <code>SmartArts</code>, <code>Diagrams</code>, and <code>Graphs</code>.</p>
+<p>Instead of patching <code>text_font</code> on every shape, call <code>Styles.patch_font()</code> to create a custom <code>Styles</code> catalog that applies your <code>FontFile</code> across high-level components such as <code>SmartArts</code>, <code>Diagrams</code>, and <code>Shapes</code>.</p>
 <ul>
 <li><strong>Display Headers + Standard Body</strong>: Pass <code>bold=avenger</code> while keeping <code>regular=FontRoboto.ROBOTO_REGULAR</code> so component titles (<code>*Bold</code> styles) render in your custom display typeface while descriptions remain clean and readable.</li>
 <li><strong>Full Custom Brand Family</strong>: Pass <code>regular=FontFile(&quot;...&quot;), bold=FontFile(&quot;...&quot;), thin=FontFile(&quot;...&quot;)</code> in <code>styles.py</code> to switch every preset style token across the entire project.</li>
@@ -750,7 +750,7 @@
 <span class="n">boxes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"RATE LIMITER"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">BrandStyles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
 <span class="n">boxes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"MTLS GATEWAY"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">BrandStyles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">boxes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"AUDIT LOGGER"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">BrandStyles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">boxes</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">boxes</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"bottom_left"</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>

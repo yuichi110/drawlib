@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""GridGraph class for declarative matrix and layered grid visualization."""
+"""GridGraph class for declarative matrix and layered grid layout calculation."""
 
 from __future__ import annotations
 
@@ -23,7 +23,6 @@ from drawlib._graph._common._models import (
 )
 from drawlib._graph._common._routing import route_grid_edge
 from drawlib._graph._grid._solver import solve_grid_layout
-from drawlib.styles import Style
 
 
 class GridGraph(BaseGraph):
@@ -43,10 +42,6 @@ class GridGraph(BaseGraph):
         col_sep: float | None = None,
         row_sep: float | None = None,
         edge_routing: Literal["smart", "orthogonal", "straight"] = "smart",
-        default_node_style: Style | None = None,
-        default_node_text_style: Style | None = None,
-        default_edge_style: Style | None = None,
-        default_edge_text_style: Style | None = None,
         default_node_width: float = 20.0,
         default_node_height: float = 12.0,
     ) -> None:
@@ -59,18 +54,10 @@ class GridGraph(BaseGraph):
             col_sep: Fixed horizontal separation between columns. If None, auto-scales to canvas.
             row_sep: Fixed vertical separation between rows. If None, auto-scales to canvas.
             edge_routing: Routing algorithm ("smart", "orthogonal", "straight").
-            default_node_style: Default style for nodes.
-            default_node_text_style: Default text style for node labels.
-            default_edge_style: Default style for edges.
-            default_edge_text_style: Default text style for edge labels.
             default_node_width: Default width for nodes.
             default_node_height: Default height for nodes.
         """
         super().__init__(
-            default_node_style=default_node_style,
-            default_node_text_style=default_node_text_style,
-            default_edge_style=default_edge_style,
-            default_edge_text_style=default_edge_text_style,
             default_node_width=default_node_width,
             default_node_height=default_node_height,
         )
@@ -88,14 +75,9 @@ class GridGraph(BaseGraph):
         cell_id: str,
         row: int | None = None,
         col: int | None = None,
-        label: str | None = None,
         *,
-        style: Style | None = None,
-        text_style: Style | None = None,
-        shape: Literal["rectangle", "circle"] = "rectangle",
         width: float | None = None,
         height: float | None = None,
-        show: bool = True,
     ) -> Node:
         """Convenience method to register a grid cell node at an optional (row, col) position.
 
@@ -103,54 +85,38 @@ class GridGraph(BaseGraph):
             cell_id: Unique identifier for the node.
             row: Optional row index (0-based, top row is 0).
             col: Optional column index (0-based, leftmost column is 0).
-            label: Text label displayed on the node. Defaults to cell_id if None.
-            style: Shape styling for this node.
-            text_style: Text styling for the node label.
-            shape: Shape geometry ("rectangle", "circle").
             width: Custom width for this node.
             height: Custom height for this node.
-            show: Whether to render this cell node.
 
         Returns:
             The registered Node object.
         """
         return self.node(
             id=cell_id,
-            label=label,
-            style=style,
-            text_style=text_style,
-            shape=shape,
             width=width,
             height=height,
             row=row,
             col=col,
-            show=show,
         )
 
     def cluster_row(
         self,
         row: int,
         cluster_id: str,
-        label: str | None = None,
         *,
-        style: Style | None = None,
-        text_style: Style | None = None,
         padding: float = 4.0,
-        show: bool = True,
+        header_height: float = 3.5,
     ) -> Cluster:
         """Register a cluster grouping all nodes in a specific row.
 
-        The actual member nodes are dynamically resolved during calc() based on
+        The actual member nodes are dynamically resolved during get_layout() based on
         their final row assignment.
 
         Args:
             row: Row index (0-based).
             cluster_id: Unique identifier for the cluster.
-            label: Optional title displayed on the cluster.
-            style: Box and border style for the cluster boundary.
-            text_style: Text style for the cluster label.
             padding: Margin surrounding the member nodes.
-            show: Whether to render this row cluster.
+            header_height: Extra top space reserved for a container header title. Defaults to 3.5.
 
         Returns:
             The registered Cluster object.
@@ -161,11 +127,8 @@ class GridGraph(BaseGraph):
         c = self.cluster(
             id=cluster_id,
             nodes=[],
-            label=label,
-            style=style,
-            text_style=text_style,
             padding=padding,
-            show=show,
+            header_height=header_height,
         )
         self._row_clusters.append((row, cluster_id))
         return c
@@ -174,26 +137,20 @@ class GridGraph(BaseGraph):
         self,
         col: int,
         cluster_id: str,
-        label: str | None = None,
         *,
-        style: Style | None = None,
-        text_style: Style | None = None,
         padding: float = 4.0,
-        show: bool = True,
+        header_height: float = 3.5,
     ) -> Cluster:
         """Register a cluster grouping all nodes in a specific column.
 
-        The actual member nodes are dynamically resolved during calc() based on
+        The actual member nodes are dynamically resolved during get_layout() based on
         their final column assignment.
 
         Args:
             col: Column index (0-based).
             cluster_id: Unique identifier for the cluster.
-            label: Optional title displayed on the cluster.
-            style: Box and border style for the cluster boundary.
-            text_style: Text style for the cluster label.
             padding: Margin surrounding the member nodes.
-            show: Whether to render this column cluster.
+            header_height: Extra top space reserved for a container header title. Defaults to 3.5.
 
         Returns:
             The registered Cluster object.
@@ -204,16 +161,13 @@ class GridGraph(BaseGraph):
         c = self.cluster(
             id=cluster_id,
             nodes=[],
-            label=label,
-            style=style,
-            text_style=text_style,
             padding=padding,
-            show=show,
+            header_height=header_height,
         )
         self._col_clusters.append((col, cluster_id))
         return c
 
-    def calc(
+    def get_layout(
         self,
         *,
         width: float | None = None,

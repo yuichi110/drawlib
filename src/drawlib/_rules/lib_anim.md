@@ -185,7 +185,7 @@ To output WebP animations in Markdown, simply name the target file with `.webp` 
 
 ## 8. Cross-Component Animation Design & Loop Best Practices (`anim-guide`)
 
-For complete animation loop idioms and component-specific animation patterns across **Primitives** (`get_intermediate_colors`), **SmartArts** (`show=False` slot reservation), **Charts** (`max_value` pinning & series reveal), **Diagrams** (`.show`, `.draw_ratio`, pan/zoom), and **Auto-Layout Graphs** (`layout = g.calc()`), consult the dedicated Animation Guide:
+For complete animation loop idioms and component-specific animation patterns across **Primitives** (`get_intermediate_colors`), **SmartArts** (`show=False` slot reservation), **Charts** (`max_value` pinning & series reveal), **Diagrams** (`.show`, `.draw_ratio`, pan/zoom), and **Auto-Layout Graphs** (`layout = g.get_layout()`), consult the dedicated Animation Guide:
 
 ```bash
 uv run drawlib rules show anim-guide

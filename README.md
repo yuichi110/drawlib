@@ -21,7 +21,7 @@ Stop assembling complex architectures out of raw coordinates. Drawlib provides h
 
 ![Cloud Architecture Showcase](docs/readme_images/02_showcase_diagrams.png)
 
-- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) with nested clusters, `offset()` fine-tuning, and standalone code export (`export_code()`).
+- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) that compute overlap-free coordinates (`get_layout()`), nested cluster bounds, and `offset()` fine-tuning for rendering with `drawlib.diagrams` and `drawlib.shapes`.
 - **Technical Diagrams (`drawlib.diagrams`)**:
   - **Cloud Architecture (`ArchitectureDiagram`)**: VPC boundaries, subnets, tiers, and official cloud service icons.
   - **Flowcharts (`FlowDiagram`)**: Process stages, decision branches, and orthogonal connectors.

@@ -7,23 +7,19 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""RadialGraph class for concentric ring and hub-and-spoke visualization."""
+"""RadialGraph class for concentric ring and hub-and-spoke layout calculation."""
 
 from __future__ import annotations
-
-from typing import Literal
 
 from drawlib._core.l4_canvas import canvas
 from drawlib._graph._common._base import BaseGraph
 from drawlib._graph._common._models import (
-    ClusterLayout,
     EdgeLayout,
     GraphLayout,
     Node,
 )
 from drawlib._graph._common._routing import route_radial_edge
 from drawlib._graph._radial._solver import solve_radial_layout
-from drawlib.styles import Style, Styles
 
 
 class RadialGraph(BaseGraph):
@@ -43,12 +39,6 @@ class RadialGraph(BaseGraph):
         radius_step: float | None = None,
         start_angle: float = 0.0,
         angle_range: float = 360.0,
-        draw_ring_guides: bool = False,
-        ring_guide_style: Style | None = None,
-        default_node_style: Style | None = None,
-        default_node_text_style: Style | None = None,
-        default_edge_style: Style | None = None,
-        default_edge_text_style: Style | None = None,
         default_node_width: float = 20.0,
         default_node_height: float = 12.0,
     ) -> None:
@@ -61,20 +51,10 @@ class RadialGraph(BaseGraph):
             radius_step: Fixed radial distance between successive rings. If None, auto-scales.
             start_angle: Angular starting position in degrees (0.0 is right/east, 90.0 is top/north).
             angle_range: Total sweep angle in degrees (e.g. 360.0 for full circle, 180.0 for semicircle).
-            draw_ring_guides: Whether to draw subtle dashed circular guidelines for each ring.
-            ring_guide_style: Custom style for the ring guideline circles.
-            default_node_style: Default style for nodes.
-            default_node_text_style: Default text style for node labels.
-            default_edge_style: Default style for edges.
-            default_edge_text_style: Default text style for edge labels.
             default_node_width: Default width for nodes.
             default_node_height: Default height for nodes.
         """
         super().__init__(
-            default_node_style=default_node_style,
-            default_node_text_style=default_node_text_style,
-            default_edge_style=default_edge_style,
-            default_edge_text_style=default_edge_text_style,
             default_node_width=default_node_width,
             default_node_height=default_node_height,
         )
@@ -83,44 +63,24 @@ class RadialGraph(BaseGraph):
         self.radius_step: float | None = radius_step
         self.start_angle: float = start_angle
         self.angle_range: float = angle_range
-        self.draw_ring_guides: bool = draw_ring_guides
-        self.ring_guide_style: Style | None = ring_guide_style
 
     def spoke(
         self,
         parent: str,
         spoke_id: str,
-        label: str | None = None,
         *,
         ring: int | None = None,
-        style: Style | None = None,
-        text_style: Style | None = None,
-        shape: Literal["rectangle", "circle"] = "rectangle",
         width: float | None = None,
         height: float | None = None,
-        edge_label: str | None = None,
-        edge_style: Style | None = None,
-        arrow_head: Literal["->", "<-", "<->", "-"] = "->",
-        show: bool = True,
-        edge_show: bool = True,
     ) -> Node:
         """Convenience method to register a spoke node connected from an existing parent/hub.
 
         Args:
             parent: Parent or hub node ID. Will be auto-registered if not present.
             spoke_id: Unique identifier for the spoke node.
-            label: Text label displayed on spoke node. Defaults to spoke_id if None.
             ring: Optional explicit concentric ring index (1, 2, ...).
-            style: Shape styling for spoke node.
-            text_style: Text styling for spoke node label.
-            shape: Shape geometry of spoke node.
             width: Custom width for spoke node.
             height: Custom height for spoke node.
-            edge_label: Annotation text on connecting edge.
-            edge_style: Style of connecting edge.
-            arrow_head: Arrowhead decoration ("->", "<-", "<->", "-").
-            show: Whether to render the spoke node.
-            edge_show: Whether to render the connecting edge.
 
         Returns:
             The registered spoke Node object.
@@ -130,26 +90,14 @@ class RadialGraph(BaseGraph):
 
         n = self.node(
             id=spoke_id,
-            label=label,
-            style=style,
-            text_style=text_style,
-            shape=shape,
+            ring=ring,
             width=width,
             height=height,
-            ring=ring,
-            show=show,
         )
-        self.edge(
-            src=parent,
-            dst=spoke_id,
-            label=edge_label,
-            style=edge_style,
-            arrow_head=arrow_head,
-            show=edge_show,
-        )
+        self.edge(src=parent, dst=spoke_id)
         return n
 
-    def calc(
+    def get_layout(
         self,
         *,
         width: float | None = None,
@@ -180,7 +128,7 @@ class RadialGraph(BaseGraph):
         avail_w = max(w - 2.0 * margin, 20.0)
         avail_h = max(h - 2.0 * margin, 20.0)
 
-        node_coords, node_rings, ring_radii = solve_radial_layout(
+        node_coords, _node_rings, ring_radii = solve_radial_layout(
             nodes=self._nodes,
             edges=self._edges,
             hub_id=self.hub,
@@ -205,28 +153,7 @@ class RadialGraph(BaseGraph):
             src_port, waypoints, dst_port = route_radial_edge(src_nl, dst_nl)
             edges_layout.append(self._build_edge_layout(edge, src_port, waypoints, dst_port))
 
-        # Compute Clusters
-        clusters_layout: dict[str, ClusterLayout] = {}
-        default_cluster_text_style = self._default_cluster_text_style()
-
-        # Optional Ring Guideline Circles
-        if self.draw_ring_guides:
-            guide_style = self.ring_guide_style or Styles.MutedDashed
-            for r, radius in ring_radii.items():
-                if r > 0 and radius > 0:
-                    guide_id = f"__ring_guide_{r}__"
-                    diam = round(radius * 2.0, 2)
-                    clusters_layout[guide_id] = ClusterLayout(
-                        id=guide_id,
-                        label=None,
-                        bbox=(cx, cy, diam, diam),
-                        style=guide_style,
-                        text_style=default_cluster_text_style,
-                        shape="circle",
-                    )
-
-        # User-defined clusters
-        clusters_layout.update(self._build_clusters_layout(nodes_layout))
+        clusters_layout = self._build_clusters_layout(nodes_layout)
 
         return GraphLayout(
             nodes=nodes_layout,
@@ -234,4 +161,5 @@ class RadialGraph(BaseGraph):
             clusters=clusters_layout,
             width=w,
             height=h,
+            ring_radii=ring_radii,
         )

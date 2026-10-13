@@ -24,9 +24,7 @@ from drawlib._core.l3_colors import BaseColors, Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
-from drawlib.canvas import clear, get_dimage, setup
-from drawlib.shapes import rectangle
-from drawlib.text import text
+from drawlib._core.l4_canvas import clear, get_dimage, rectangle, setup, text
 
 SortMode = Literal["hsv", "name", "raw"]
 SEMANTIC_KEYS: tuple[str, ...] = ("Primary", "Secondary", "Accent", "Muted", "Danger", "Success")

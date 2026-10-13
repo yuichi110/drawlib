@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""TreeGraph class for declarative tree hierarchy visualization."""
+"""TreeGraph class for declarative tree hierarchy layout calculation."""
 
 from __future__ import annotations
 
@@ -18,7 +18,6 @@ from drawlib._graph._common._base import BaseGraph
 from drawlib._graph._common._models import EdgeLayout, GraphLayout, Node
 from drawlib._graph._common._routing import route_orthogonal_edge, route_straight_edge
 from drawlib._graph._tree._solver import solve_buchheim_tree
-from drawlib.styles import Style
 
 
 class TreeGraph(BaseGraph):
@@ -35,10 +34,6 @@ class TreeGraph(BaseGraph):
         direction: Literal["TB", "LR"] = "TB",
         level_sep: float | None = None,
         sibling_sep: float | None = None,
-        default_node_style: Style | None = None,
-        default_node_text_style: Style | None = None,
-        default_edge_style: Style | None = None,
-        default_edge_text_style: Style | None = None,
         default_node_width: float = 22.0,
         default_node_height: float = 12.0,
         edge_routing: Literal["orthogonal", "straight"] = "orthogonal",
@@ -51,19 +46,11 @@ class TreeGraph(BaseGraph):
             direction: Layout flow direction ("TB" for Top-to-Bottom, "LR" for Left-to-Right).
             level_sep: Fixed distance between generational levels. If None, auto-scales to canvas.
             sibling_sep: Fixed minimum distance between siblings. If None, auto-scales to canvas.
-            default_node_style: Default style for nodes.
-            default_node_text_style: Default text style for node labels.
-            default_edge_style: Default style for edges.
-            default_edge_text_style: Default text style for edge labels.
             default_node_width: Default width for nodes.
             default_node_height: Default height for nodes.
             edge_routing: Edge path style ("orthogonal" for Manhattan right-angles, or "straight").
         """
         super().__init__(
-            default_node_style=default_node_style,
-            default_node_text_style=default_node_text_style,
-            default_edge_style=default_edge_style,
-            default_edge_text_style=default_edge_text_style,
             default_node_width=default_node_width,
             default_node_height=default_node_height,
         )
@@ -77,35 +64,17 @@ class TreeGraph(BaseGraph):
         self,
         parent: str,
         child_id: str,
-        label: str | None = None,
         *,
-        style: Style | None = None,
-        text_style: Style | None = None,
-        shape: Literal["rectangle", "circle"] = "rectangle",
         width: float | None = None,
         height: float | None = None,
-        edge_label: str | None = None,
-        edge_style: Style | None = None,
-        arrow_head: Literal["->", "<-", "<->", "-"] = "->",
-        show: bool = True,
-        edge_show: bool = True,
     ) -> Node:
         """Convenience method to register a child node and connect it from its parent.
 
         Args:
             parent: Parent node ID. Will be auto-registered if not present.
             child_id: Child node ID.
-            label: Text label displayed on child node. Defaults to child_id if None.
-            style: Shape styling for child node.
-            text_style: Text styling for child node label.
-            shape: Shape geometry of child node.
             width: Custom width for child node.
             height: Custom height for child node.
-            edge_label: Annotation text on connecting edge.
-            edge_style: Style of connecting edge.
-            arrow_head: Arrowhead decoration ("->", "<-", "<->", "-").
-            show: Whether to render the child node.
-            edge_show: Whether to render the connecting edge.
 
         Returns:
             The registered child Node object.
@@ -115,22 +84,10 @@ class TreeGraph(BaseGraph):
 
         n = self.node(
             id=child_id,
-            label=label,
-            style=style,
-            text_style=text_style,
-            shape=shape,
             width=width,
             height=height,
-            show=show,
         )
-        self.edge(
-            src=parent,
-            dst=child_id,
-            label=edge_label,
-            style=edge_style,
-            arrow_head=arrow_head,
-            show=edge_show,
-        )
+        self.edge(src=parent, dst=child_id)
         return n
 
     def _build_tree_hierarchy(self) -> tuple[list[str], dict[str, list[str]]]:  # noqa: C901
@@ -186,7 +143,7 @@ class TreeGraph(BaseGraph):
 
         return roots, children_map
 
-    def calc(  # noqa: C901
+    def get_layout(  # noqa: C901
         self,
         *,
         width: float | None = None,

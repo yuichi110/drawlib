@@ -163,8 +163,8 @@ Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque l
 - **Rich vector and cloud icons**: Built-in access to 259 official [Google Cloud Platform (`GcpIcon`)](../02_drawing_primitives/icons_gcp.md) icons and 1,531 [Phosphor (`PhosphorIcon`)](../02_drawing_primitives/icons_phosphor.md) icons.
 - **Native theming integration**: All diagrams use standard [`Styles`](../02_drawing_primitives/styles.md), [`Colors`](../02_drawing_primitives/colors.md), and [`Font`](../02_drawing_primitives/fonts.md) models.
 
-> **Looking for Automatic Graph Layout?**  
-> When you want to declare nodes, edges, and clusters without specifying `(x, y)` coordinates—or scaffold initial coordinates using `export_code()`—see **[Chapter 6: Auto-Layout Graphs (`drawlib.graph`)](../06_graph/overview.md)**.
+> **Looking for Automatic Coordinate Calculation?**  
+> When you want to solve `(x, y)` coordinates, container bounding boxes, and edge waypoints automatically from topological relationships (`node`, `edge`, `cluster`) via `g.get_layout()` before rendering with `drawlib.diagrams` or `drawlib.shapes`, see **[Chapter 6: Auto-Layout Graphs (`drawlib.graph`)](../06_graph/overview.md)**.
 
 ---
 
@@ -461,11 +461,11 @@ All six diagram classes (`ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`
 
 ---
 
-## 5. Choosing Between `drawlib.diagrams` and `drawlib.graph`
+## 5. Combining `drawlib.diagrams` and `drawlib.graph`
 
-When starting a new architecture or workflow diagram:
-- Choose **`drawlib.diagrams`** (this chapter) when you want **domain-specific visual notations** (cloud icon cards, ISO flowchart swimlanes, UML sequence lifelines, 3-compartment UML classes, Crow's Foot ER tables, or UML statecharts) and **deterministic coordinate control**.
-- Choose **[`drawlib.graph`](../06_graph/overview.md)** (Chapter 6) when you want **automatic topological coordinate solving** (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), or when you want to solve an initial layout automatically and export editable coordinate code via `g.export_code()`.
+When building an architecture or workflow diagram:
+- Use **`drawlib.diagrams`** (this chapter) for **domain-specific visual notations** (cloud icon cards, ISO flowchart swimlanes, UML sequence lifelines, 3-compartment UML classes, Crow's Foot ER tables, or UML statecharts) with **deterministic coordinate control**.
+- Combine with **[`drawlib.graph`](../06_graph/overview.md)** (Chapter 6) when you want **automatic topological coordinate solving** (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`): call `layout = g.get_layout(width=..., height=...)` (or `print(layout)` to inspect coordinates) and pass the solved `c.bottom_left`, `c.local_bottom_left`, `n.xy`, and `n.local_xy` coordinates directly into `ArchitectureDiagram`, `FlowDiagram`, or `drawlib.shapes`.
 
 ---
 

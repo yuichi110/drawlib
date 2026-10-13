@@ -72,7 +72,7 @@ Drawlib is built to empower AI coding agents (such as Claude Code, Cursor, Gemin
 
 ### 2. Rich High-Level Visualizations
 Avoid assembling hundreds of primitive shapes by hand. Drawlib provides production-ready, declarative components:
-- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) with nested clusters, `offset()` fine-tuning, and standalone code scaffolding (`export_code()`).
+- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) that compute overlap-free coordinates (`get_layout()`), nested cluster bounds, and `offset()` fine-tuning for rendering with `drawlib.diagrams` and `drawlib.shapes`.
 - **SmartArts**: Process pipelines (`ChevronProcess`), cyclical loops (`Cycle`), data tables (`Table`), and trees (`Tree`).
 - **Data Charts**: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.
 - **Technical Diagrams**: Cloud architectures (`ArchitectureDiagram`), flowcharts (`FlowDiagram`), API sequences (`SequenceDiagram`), UML class diagrams (`ClassDiagram`), ER diagrams (`ERDiagram`), and state machines (`StateDiagram`).

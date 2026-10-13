@@ -7,30 +7,19 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Graph and Layout data models for declarative graph solving."""
+"""Graph and Layout data models for declarative graph coordinate solving."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Literal
-
-from pydantic import validate_call
-
-from drawlib._core.l2_types import Coordinate, PosFloat
-from drawlib._graph._common._code_generator import generate_code
-from drawlib._graph._common._renderer import render_layout
-from drawlib.styles import Style, Styles
+from typing import Literal, Self
 
 
 @dataclass
 class Node:
-    """User-registered node in a graph."""
+    """User-registered node in a graph topology."""
 
     id: str
-    label: str | None = None
-    style: Style | None = None
-    text_style: Style | None = None
-    shape: Literal["rectangle", "circle"] = "rectangle"
     width: float | None = None
     height: float | None = None
     ring: int | None = None
@@ -39,37 +28,27 @@ class Node:
     layer: int | None = None
     group: str | None = None
     subgroup: str | None = None
-    show: bool = True
 
 
 @dataclass
 class Edge:
-    """User-registered directed or undirected edge between two nodes."""
+    """User-registered connection between two nodes."""
 
     src: str
     dst: str
-    label: str | None = None
-    style: Style | None = None
-    text_style: Style | None = None
-    arrow_head: Literal["->", "<-", "<->", "-"] = "->"
-    line_style: Literal["solid", "dashed", "dotted"] | None = None
-    show: bool = True
 
 
 @dataclass
 class Cluster:
-    """User-registered grouping cluster of nodes."""
+    """User-registered grouping boundary of nodes."""
 
     id: str
     nodes: list[str] = field(default_factory=list)
-    label: str | None = None
-    style: Style | None = None
-    text_style: Style | None = None
     padding: float = 4.0
+    header_height: float = 3.5
     parent: str | None = None
     order: int | None = None
     pos: Literal["top", "bottom", "left", "right", "center"] | None = None
-    show: bool = True
 
 
 @dataclass
@@ -80,11 +59,12 @@ class NodeLayout:
     xy: tuple[float, float]
     width: float
     height: float
-    style: Style
-    label: str
-    text_style: Style | None = None
-    shape: str = "rectangle"
-    show: bool = True
+    parent_id: str | None = None
+    local_xy: tuple[float, float] = (0.0, 0.0)
+
+    def __post_init__(self) -> None:
+        if self.parent_id is None and self.local_xy == (0.0, 0.0):
+            self.local_xy = self.xy
 
     @property
     def x(self) -> float:
@@ -97,58 +77,92 @@ class NodeLayout:
         return self.xy[1]
 
     @property
+    def center(self) -> tuple[float, float]:
+        """Center (cx, cy) coordinate."""
+        return self.xy
+
+    @property
+    def size(self) -> tuple[float, float]:
+        """Node dimensions (width, height)."""
+        return (self.width, self.height)
+
+    @property
     def left(self) -> float:
         """Left edge X coordinate."""
-        return self.xy[0] - self.width / 2.0
+        return round(self.xy[0] - self.width / 2.0, 2)
 
     @property
     def right(self) -> float:
         """Right edge X coordinate."""
-        return self.xy[0] + self.width / 2.0
+        return round(self.xy[0] + self.width / 2.0, 2)
 
     @property
     def bottom(self) -> float:
         """Bottom edge Y coordinate."""
-        return self.xy[1] - self.height / 2.0
+        return round(self.xy[1] - self.height / 2.0, 2)
 
     @property
     def top(self) -> float:
         """Top edge Y coordinate."""
-        return self.xy[1] + self.height / 2.0
+        return round(self.xy[1] + self.height / 2.0, 2)
+
+    @property
+    def bottom_left(self) -> tuple[float, float]:
+        """Bottom-left (left, bottom) coordinate."""
+        return (self.left, self.bottom)
+
+    @property
+    def local_bottom_left(self) -> tuple[float, float]:
+        """Bottom-left coordinate relative to the parent cluster's bottom-left origin."""
+        lx, ly = self.local_xy
+        return (round(lx - self.width / 2.0, 2), round(ly - self.height / 2.0, 2))
 
 
 @dataclass
 class EdgeLayout:
-    """Calculated routing path and styling for an edge."""
+    """Calculated routing path for an edge."""
 
     src: str
     dst: str
     src_port: tuple[float, float]
     dst_port: tuple[float, float]
     waypoints: list[tuple[float, float]] = field(default_factory=list)
-    label: str | None = None
-    style: Style = field(default_factory=lambda: Styles.DarkBold)
-    text_style: Style = field(default_factory=lambda: Styles.Dark)
-    arrow_head: Literal["", "->", "<-", "<->", "-"] = "->"
-    show: bool = True
 
     @property
     def points(self) -> list[tuple[float, float]]:
         """All consecutive points defining the edge path."""
-        return [self.src_port] + self.waypoints + [self.dst_port]
+        return [self.src_port, *self.waypoints, self.dst_port]
+
+    @property
+    def mid_xy(self) -> tuple[float, float]:
+        """Midpoint coordinate along the routed path."""
+        pts = self.points
+        if len(pts) == 2:
+            return (
+                round((pts[0][0] + pts[1][0]) / 2.0, 2),
+                round((pts[0][1] + pts[1][1]) / 2.0, 2),
+            )
+        mid_idx = len(pts) // 2
+        p1 = pts[mid_idx - 1]
+        p2 = pts[mid_idx]
+        return (
+            round((p1[0] + p2[0]) / 2.0, 2),
+            round((p1[1] + p2[1]) / 2.0, 2),
+        )
 
 
 @dataclass
 class ClusterLayout:
-    """Calculated bounding box and styling for a cluster."""
+    """Calculated bounding box and hierarchy coordinates for a cluster."""
 
     id: str
-    label: str | None
     bbox: tuple[float, float, float, float]  # (cx, cy, width, height)
-    style: Style
-    text_style: Style
-    shape: Literal["rectangle", "circle"] = "rectangle"
-    show: bool = True
+    parent_id: str | None = None
+    local_bottom_left: tuple[float, float] = (0.0, 0.0)
+
+    def __post_init__(self) -> None:
+        if self.parent_id is None and self.local_bottom_left == (0.0, 0.0):
+            self.local_bottom_left = self.bottom_left
 
     @property
     def cx(self) -> float:
@@ -161,6 +175,16 @@ class ClusterLayout:
         return self.bbox[1]
 
     @property
+    def xy(self) -> tuple[float, float]:
+        """Cluster center (cx, cy) coordinate."""
+        return (self.bbox[0], self.bbox[1])
+
+    @property
+    def center(self) -> tuple[float, float]:
+        """Cluster center (cx, cy) coordinate."""
+        return (self.bbox[0], self.bbox[1])
+
+    @property
     def width(self) -> float:
         """Cluster width."""
         return self.bbox[2]
@@ -171,24 +195,34 @@ class ClusterLayout:
         return self.bbox[3]
 
     @property
+    def size(self) -> tuple[float, float]:
+        """Cluster dimensions (width, height)."""
+        return (self.bbox[2], self.bbox[3])
+
+    @property
     def left(self) -> float:
         """Left edge X coordinate."""
-        return self.bbox[0] - self.bbox[2] / 2.0
+        return round(self.bbox[0] - self.bbox[2] / 2.0, 2)
 
     @property
     def right(self) -> float:
         """Right edge X coordinate."""
-        return self.bbox[0] + self.bbox[2] / 2.0
+        return round(self.bbox[0] + self.bbox[2] / 2.0, 2)
 
     @property
     def top(self) -> float:
         """Top edge Y coordinate."""
-        return self.bbox[1] + self.bbox[3] / 2.0
+        return round(self.bbox[1] + self.bbox[3] / 2.0, 2)
 
     @property
     def bottom(self) -> float:
         """Bottom edge Y coordinate."""
-        return self.bbox[1] - self.bbox[3] / 2.0
+        return round(self.bbox[1] - self.bbox[3] / 2.0, 2)
+
+    @property
+    def bottom_left(self) -> tuple[float, float]:
+        """Bottom-left (left, bottom) coordinate."""
+        return (self.left, self.bottom)
 
 
 @dataclass
@@ -200,14 +234,26 @@ class GraphLayout:
     clusters: dict[str, ClusterLayout] = field(default_factory=dict)
     width: float = 100.0
     height: float = 100.0
+    ring_radii: dict[int, float] = field(default_factory=dict)
 
-    def offset(self, node_id: str, dx: float = 0.0, dy: float = 0.0) -> None:
+    def __getitem__(self, key: str) -> NodeLayout | ClusterLayout:
+        """Look up a NodeLayout or ClusterLayout by ID."""
+        if key in self.nodes:
+            return self.nodes[key]
+        if key in self.clusters:
+            return self.clusters[key]
+        raise KeyError(f"'{key}' not found in nodes or clusters of GraphLayout.")
+
+    def offset(self, node_id: str, dx: float = 0.0, dy: float = 0.0) -> Self:
         """Shift a specific node and recalculate incident edge ports.
 
         Args:
             node_id: ID of the node to move.
             dx: Horizontal delta to shift.
             dy: Vertical delta to shift.
+
+        Returns:
+            Self: This GraphLayout instance for method chaining.
 
         Raises:
             KeyError: If node_id does not exist in the layout.
@@ -217,16 +263,15 @@ class GraphLayout:
 
         nl = self.nodes[node_id]
         new_xy = (round(nl.xy[0] + dx, 2), round(nl.xy[1] + dy, 2))
+        old_local = nl.local_xy if nl.local_xy is not None else nl.xy
+        new_local_xy = (round(old_local[0] + dx, 2), round(old_local[1] + dy, 2))
         self.nodes[node_id] = NodeLayout(
             id=nl.id,
             xy=new_xy,
             width=nl.width,
             height=nl.height,
-            style=nl.style,
-            text_style=nl.text_style,
-            label=nl.label,
-            shape=nl.shape,
-            show=nl.show,
+            parent_id=nl.parent_id,
+            local_xy=new_local_xy,
         )
 
         # Shift incident edge ports
@@ -236,27 +281,45 @@ class GraphLayout:
             if edge.dst == node_id:
                 edge.dst_port = (round(edge.dst_port[0] + dx, 2), round(edge.dst_port[1] + dy, 2))
 
-    @validate_call
-    def draw(
-        self,
-        xy: Coordinate = (0.0, 0.0),
-        *,
-        align: Literal["bottom_left", "center"] = "bottom_left",
-        scale: PosFloat = 1.0,
-    ) -> None:
-        """Render this layout directly onto the active Drawlib canvas.
+        return self
 
-        Args:
-            xy: Placement anchor coordinate (x, y) for the layout (interpreted via align).
-            align: Anchor alignment of xy ("bottom_left" or "center"). Defaults to "bottom_left".
-            scale: Proportional scale factor anchored at xy.
-        """
-        render_layout(self, xy=xy, align=align, scale=scale)
+    def _format_clusters(self) -> list[str]:
+        if not self.clusters:
+            return []
+        max_cid = max(len(cid) for cid in self.clusters)
+        out = ["Clusters:"]
+        for cid, cl in self.clusters.items():
+            line = f"  {cid:<{max_cid}} : bottom_left={cl.bottom_left}, center={cl.center}, size={cl.size}"
+            if cl.parent_id is not None:
+                line += f", parent={cl.parent_id!r}, local_bottom_left={cl.local_bottom_left}"
+            out.append(line)
+        return out
 
-    def to_code(self) -> str:
-        """Export this layout as standalone executable Drawlib Python source code.
+    def _format_nodes(self) -> list[str]:
+        if not self.nodes:
+            return []
+        max_nid = max(len(nid) for nid in self.nodes)
+        out = ["Nodes:"]
+        for nid, nl in self.nodes.items():
+            line = f"  {nid:<{max_nid}} : xy={nl.xy}, bottom_left={nl.bottom_left}, size={nl.size}"
+            if nl.parent_id is not None:
+                line += f", parent={nl.parent_id!r}, local_xy={nl.local_xy}"
+            out.append(line)
+        return out
 
-        Returns:
-            Formatted Python source code string.
-        """
-        return generate_code(self)
+    def __str__(self) -> str:
+        """Format a human- and AI-readable coordinate table for layout inspection."""
+        lines: list[str] = [f"GraphLayout(width={self.width:.1f}, height={self.height:.1f})"]
+
+        rings_str = ", ".join(f"ring {r}: r={rad:.1f}" for r, rad in sorted(self.ring_radii.items()) if r > 0)
+        if rings_str:
+            lines.append(f"Ring Radii: {rings_str}")
+
+        lines.extend(self._format_clusters())
+        lines.extend(self._format_nodes())
+
+        if self.edges:
+            lines.append("Edges:")
+            lines.extend(f"  {el.src} -> {el.dst} : points={el.points}, mid_xy={el.mid_xy}" for el in self.edges)
+
+        return "\n".join(lines)

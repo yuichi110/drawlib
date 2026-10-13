@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""LayerGraph class for declarative hierarchical DAG and pipeline visualization."""
+"""LayerGraph class for declarative hierarchical DAG and pipeline layout calculation."""
 
 from __future__ import annotations
 
@@ -18,7 +18,6 @@ from drawlib._graph._common._base import BaseGraph
 from drawlib._graph._common._models import EdgeLayout, GraphLayout
 from drawlib._graph._common._routing import route_orthogonal_edge, route_straight_edge
 from drawlib._graph._layered._solver import solve_layered_layout
-from drawlib.styles import Style
 
 
 class LayerGraph(BaseGraph):
@@ -37,10 +36,6 @@ class LayerGraph(BaseGraph):
         rank_sep: float | None = None,
         node_sep: float | None = None,
         edge_routing: Literal["orthogonal", "straight"] = "orthogonal",
-        default_node_style: Style | None = None,
-        default_node_text_style: Style | None = None,
-        default_edge_style: Style | None = None,
-        default_edge_text_style: Style | None = None,
         default_node_width: float = 22.0,
         default_node_height: float = 12.0,
     ) -> None:
@@ -51,18 +46,10 @@ class LayerGraph(BaseGraph):
             rank_sep: Fixed distance between successive layers. If None, auto-scales.
             node_sep: Fixed minimum distance between nodes in the same layer. If None, auto-scales.
             edge_routing: Edge routing style ("orthogonal" for Manhattan right-angles, or "straight").
-            default_node_style: Default style for nodes.
-            default_node_text_style: Default text style for node labels.
-            default_edge_style: Default style for edges.
-            default_edge_text_style: Default text style for edge labels.
             default_node_width: Default width for nodes.
             default_node_height: Default height for nodes.
         """
         super().__init__(
-            default_node_style=default_node_style,
-            default_node_text_style=default_node_text_style,
-            default_edge_style=default_edge_style,
-            default_edge_text_style=default_edge_text_style,
             default_node_width=default_node_width,
             default_node_height=default_node_height,
         )
@@ -91,7 +78,7 @@ class LayerGraph(BaseGraph):
             if layer is not None:
                 self._nodes[nid].layer = layer
 
-    def calc(
+    def get_layout(
         self,
         *,
         width: float | None = None,

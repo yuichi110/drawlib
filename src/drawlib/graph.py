@@ -9,8 +9,8 @@
 
 """Public graph layout module for drawlib.
 
-Provides declarative graph solvers that automatically compute tidy,
-aesthetic coordinates, render directly to canvas, or export clean Drawlib code.
+Provides declarative graph layout solvers that automatically compute overlap-free
+node coordinates, container bounding boxes, and routed edge paths via `get_layout()`.
 """
 
 from __future__ import annotations

@@ -198,29 +198,27 @@ def _compute_container_boxes(
             # Simple root container without subgroups
             members = container_nodes.get(root_id, [])
             pad = clusters[root_id].padding if root_id in clusters else 4.0
-            top_extra = 3.5 if (root_id in clusters and clusters[root_id].label) else 0.0
+            top_extra = clusters[root_id].header_height if root_id in clusters else 3.5
 
             coords, cw, ch = _layout_leaf_nodes(members, nodes, edges, c_dir, default_nw, default_nh)
-            lbl = clusters[root_id].label if root_id in clusters else None
-            lbl_w = len(lbl) * 1.3 if lbl else 0.0
+            lbl_w = len(root_id) * 1.3
             eff_cw = max(cw, lbl_w)
             leaf_layouts[root_id] = (coords, eff_cw, ch)
             root_dims[root_id] = (eff_cw + 2.0 * pad, ch + 2.0 * pad + top_extra)
         else:
             # Complex root container with subgroups
             pad = clusters[root_id].padding if root_id in clusters else 5.0
-            top_extra = 4.0 if (root_id in clusters and clusters[root_id].label) else 0.0
+            top_extra = clusters[root_id].header_height if root_id in clusters else 4.0
             sub_w_list: list[float] = []
             sub_h_list: list[float] = []
 
             for sub_id in sub_cids:
                 s_members = container_nodes.get(sub_id, [])
                 s_pad = clusters[sub_id].padding if sub_id in clusters else 4.0
-                s_extra = 3.5 if (sub_id in clusters and clusters[sub_id].label) else 0.0
+                s_extra = clusters[sub_id].header_height if sub_id in clusters else 3.5
 
                 s_coords, s_cw, s_ch = _layout_leaf_nodes(s_members, nodes, edges, c_dir, default_nw, default_nh)
-                s_lbl = clusters[sub_id].label if sub_id in clusters else None
-                s_lbl_w = len(s_lbl) * 1.3 if s_lbl else 0.0
+                s_lbl_w = len(sub_id) * 1.3
                 eff_scw = max(s_cw, s_lbl_w)
                 leaf_layouts[sub_id] = (s_coords, eff_scw, s_ch)
                 sub_w_list.append(eff_scw + 2.0 * s_pad)
@@ -521,7 +519,7 @@ def _position_subgroups(
 ) -> None:
     """Position subgroups and their child nodes within a parent root container."""
     ordered_subs = _order_containers(sub_cids, clusters, node_to_container, edges)
-    top_extra = 4.0 if (root_id in clusters and clusters[root_id].label) else 0.0
+    top_extra = clusters[root_id].header_height if root_id in clusters else 4.0
 
     if direction == "LR":
         sub_widths = [leaf_layouts[s][1] + 2.0 * clusters[s].padding for s in ordered_subs]
@@ -591,7 +589,7 @@ def _place_single_container_contents(
     """Place contents (leaf nodes or subgroups) within a single root container."""
     if not sub_cids:
         local_coords, _, _ = leaf_layouts[root_id]
-        top_extra = 3.5 if (root_id in clusters and clusters[root_id].label) else 0.0
+        top_extra = clusters[root_id].header_height if root_id in clusters else 3.5
         shift_y = -top_extra / 2.0
         for nid, (lx, ly) in local_coords.items():
             node_coords[nid] = (round(rcx + lx, 2), round(rcy + ly + shift_y, 2))

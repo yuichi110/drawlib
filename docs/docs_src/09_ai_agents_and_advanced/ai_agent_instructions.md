@@ -228,7 +228,7 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 | **`lib-smartarts`** | `drawlib.smartarts` | `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `BulletPoints`, `TreeNode`, `MindMapNode`, `Table`, `SourceCode`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`. |
 | **`lib-charts`** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `GeoMapChart`. |
 | **`lib-diagrams`** | `drawlib.diagrams` | `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ClassDiagram`, `ERDiagram`, `StateDiagram`. |
-| **`lib-graph`** | `drawlib.graph` | `ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`, `calc()`, `export_code()`. |
+| **`lib-graph`** | `drawlib.graph` | `ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`, `get_layout()`, `GraphLayout`. |
 | **`lib-tools`** | `drawlib.tools` | Programmatic Python API for `build_*`, `export_code_block`, `init_project`, `serve_docs`, `list_cache`. |
 | **`lib-slide`** | `drawlib.slide` | `current_slide`, `SlideContext`, `BoundingBox`, and `build_slide()`. |
 

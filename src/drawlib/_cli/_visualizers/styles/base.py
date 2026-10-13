@@ -28,11 +28,8 @@ from drawlib._core.l3_colors import Color, ColorUtil
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import clear, get_dimage, line, rectangle, setup, text
 from drawlib._preset_styles import BaseStyles
-from drawlib.canvas import clear, get_dimage, setup
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.text import text
 
 console = Console()
 

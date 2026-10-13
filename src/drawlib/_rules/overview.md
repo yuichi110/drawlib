@@ -119,7 +119,7 @@ The canvas represents the virtual Cartesian drawing plane upon which all graphic
 ### 2.2. Coordinate Alignment (`halign` & `valign`) & Anchor Semantics
 By default, primitive shapes, icons, images, and text blocks interpret coordinate `(x, y)` as the geometric **center** (`halign="center"`, `valign="center"`), whereas high-level composite components interpret `(x, y)` as the **bottom-left corner** `(x0, y0)`:
 - **Center-Anchored `(cx, cy)`**: `shapes.*`, `text.text()`, `icons.*` (`phosphor`, `gcp`, `font_icon`), `images.image()` — span `[cx - w/2, cx + w/2]` × `[cy - h/2, cy + h/2]`.
-- **Bottom-Left-Anchored `(x0, y0)`**: `smartarts.*`, `charts.*`, `diagrams.*`, `graph.*` — span `[x0, x0 + width]` × `[y0, y0 + height]`. To center a composite component horizontally on a canvas of width `W`, pass `x0 = (W - width) / 2`.
+- **Bottom-Left-Anchored `(x0, y0)`**: `smartarts.*`, `charts.*`, `diagrams.*` — span `[x0, x0 + width]` × `[y0, y0 + height]`. To center a composite component horizontally on a canvas of width `W`, pass `x0 = (W - width) / 2`. *(Note: `drawlib.graph` is a pure coordinate calculator whose `get_layout()` exposes both `.xy` center and `.bottom_left` / `.local_xy` / `.local_bottom_left` properties.)*
 - **`halign` (Horizontal Alignment on Primitives/Text)**:
   - `"center"`: Anchor `x` is the horizontal midpoint of the element (default).
   - `"left"`: Anchor `x` is the left edge; element extends to the right (`x -> x + width`).
@@ -781,17 +781,18 @@ drawlib rules show <topic> --rebuild
 
 ### 5.23. Graph Layout Engine (`lib-graph`)
 - **Command**: `drawlib rules show lib-graph`
-- **Scope**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), nested containers, compass zone positioning, post-layout coordinate tweaking (`calc()` + `offset()`), and standalone primitive code export (`export_code()`).
+- **Scope**: Pure coordinate & layout calculators (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), nested container bounds, compass zone positioning, post-layout coordinate tweaking (`get_layout()` + `offset()`), and the 2-Step Workflow with `drawlib.diagrams` and `drawlib.shapes`.
 - **Key Syntax**:
   ```python
   from drawlib.graph import ArchitectureGraph
   g = ArchitectureGraph(direction="LR")
-  g.node("api", "API Gateway")
-  g.node("db", "Database", shape="cylinder")
+  g.node("api", width=24, height=14)
+  g.node("db", width=24, height=14)
   g.edge("api", "db")
-  g.draw()
+  layout = g.get_layout(width=140, height=60)
+  # Pass layout["api"].xy, layout["db"].xy, or layout.edges into ArchitectureDiagram or shapes/lines
   ```
-- **When to read**: Refer to this rule when generating complex node-and-edge topologies, cloud VPC clusters, layered DAG pipelines, or scaffolding initial primitive coordinates automatically.
+- **When to read**: Refer to this rule when solving coordinates for complex node-and-edge topologies, cloud VPC clusters, layered DAG pipelines, trees, concentric rings, or matrices before rendering with `drawlib.diagrams` or `drawlib.shapes`.
 
 ---
 

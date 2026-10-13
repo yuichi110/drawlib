@@ -299,10 +299,10 @@ rectangle((50, 22), width=80, height=28, style=custom_style, text="Custom Style 
 
 ---
 
-## 7. High-Level Diagrams (`drawlib.diagrams`)
+## 7. High-Level Diagrams (`drawlib.diagrams`) & Auto-Layout Graphs (`drawlib.graph`)
 
-Always prefer high-level diagrams over manually drawing raw rectangles and connectors. Every diagram and auto-layout graph follows the unified component lifecycle:
-- **Mutable Element References & Visibility (`show`)**: Registration methods (`add()`, `connect()`, `fork()`, `junction()`, `add_lane()`, `request()`, `reply()`, `note()`, `loop()`/`alt()`/`opt()`/`par()`, `node()`, `edge()`, `cluster()`) accept `show: bool = True` and return the mutable element instance. Mutating `.show = False`, `.style`, `.text_style`, or `.text` / `.label` updates rendering on the next `draw()` without shifting the diagram's layout bounds, swimlanes, or sequence timelines.
+Always prefer high-level diagrams over manually drawing raw rectangles and connectors. Every diagram in `drawlib.diagrams` follows the unified component lifecycle:
+- **Mutable Element References & Visibility (`show`)**: Registration methods (`add()`, `connect()`, `fork()`, `junction()`, `add_lane()`, `request()`, `reply()`, `note()`, `loop()`/`alt()`/`opt()`/`par()`) accept `show: bool = True` and return the mutable element instance. Mutating `.show = False`, `.style`, `.text_style`, or `.text` / `.label` updates rendering on the next `draw()` without shifting the diagram's layout bounds, swimlanes, or sequence timelines.
 - **Automatic Edge & Dangling Junction Hiding**: Hiding a node (`node.show = False`) automatically hides all connected edges (and any dangling `Junction` pass-through stems whose outgoing or incoming branches are all hidden).
 - **Anchor Alignment (`align`) & Proportional Scaling (`scale`)**: Every diagram supports `diag.draw(xy=(0.0, 0.0), *, align="bottom_left", scale=1.0)`, where `align="bottom_left"` (default) or `align="center"` anchors the diagram's visual bounding box at `xy`, and `scale` uniformly scales all coordinates, shapes, stroke widths, arrowheads, icons, and font sizes relative to `xy`.
 
@@ -407,13 +407,15 @@ seq.draw()
 - **Class Diagram** (`drawlib.diagrams.class_diagram.ClassDiagram`): UML classes, methods, inheritance (`--|>`), associations, composition.
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
 
-### 7.5 Declarative Auto-Layout Graphs (`drawlib.graph`)
-When you want automatic coordinate computation from topological declarations (`node(..., show=True)`, `edge(..., show=True)`, `cluster(..., show=True)`) with support for post-layout tweaking (`calc()` + `offset()`), translation/alignment/scaling (`g.draw(*, xy=(0, 0), width=None, height=None, margin=10.0, align="bottom_left", scale=1.0)` / `layout.draw(*, xy=(0, 0), align="bottom_left", scale=1.0)`), or code scaffolding (`export_code()`):
+### 7.5 Pure Coordinate Auto-Layout Solvers (`drawlib.graph`)
+`drawlib.graph` is a **pure coordinate and layout calculator** (`get_layout()` only—no `.draw()`, `.export_code()`, or styling/label attributes). Use it in a **2-Step Workflow**:
+1. **Step 1 (Solve & Inspect)**: Declare topology via `g.node(id, *, width=..., height=...)`, `g.edge(src, dst)`, and `g.cluster(id, nodes=[...], *, padding=4.0, header_height=3.5)`, then call `layout = g.get_layout(width=None, height=None, margin=10.0) -> GraphLayout`. Inspect via `print(layout)` or tweak with `layout.offset(id, dx=..., dy=...)`.
+2. **Step 2 (Render)**: Pass `layout["id"].xy`, `layout["id"].local_xy`, `layout["cluster"].bottom_left`, `layout["cluster"].local_bottom_left`, and `edge.points` into `drawlib.diagrams` (`ArchitectureDiagram`, `FlowDiagram`, etc.) or `drawlib.shapes` / `drawlib.lines`.
 - **`ArchitectureGraph`**: 2-level macro/micro container packing and 5-zone compass positioning (`pos="left"|"center"|"right"|"top"|"bottom"`, `parent=...`).
-- **`LayerGraph`**: Sugiyama hierarchical DAG solver with `.tier()` stage pinning.
-- **`TreeGraph`**: Reingold-Tilford compact tree solver with `.child()`.
-- **`RadialGraph`**: Concentric hub-and-spoke solver with `.spoke()`.
-- **`GridGraph`**: 2D matrix solver with `.cell()`, `.cluster_row()`, `.cluster_col()`.
+- **`LayerGraph`**: Sugiyama hierarchical DAG solver with `.tier(name, nodes, *, layer=...)` stage pinning.
+- **`TreeGraph`**: Reingold-Tilford compact tree solver with `.child(parent, child_id, *, width=..., height=...)`.
+- **`RadialGraph`**: Concentric hub-and-spoke solver with `.spoke(parent, spoke_id, *, ring=..., width=..., height=...)` and `layout.ring_radii`.
+- **`GridGraph`**: 2D matrix solver with `.cell(cell_id, row=..., col=...)`, `.cluster_row(row, cluster_id)`, `.cluster_column(col, cluster_id)`.
 
 ---
 
