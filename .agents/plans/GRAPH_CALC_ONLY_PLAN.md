@@ -1,5 +1,5 @@
-# Drawlib `drawlib.graph` 純粋座標計算エンジン化（`calc` 専任化）計画書
-(DRAWLIB GRAPH CALC-ONLY REFACTORING PLAN)
+# Drawlib `drawlib.graph` 純粋座標計算エンジン化（`get_layout` 専任化）計画書
+(DRAWLIB GRAPH GET_LAYOUT-ONLY REFACTORING PLAN)
 
 - **作成日**: 2026-10-13
 - **対象バージョン**: Drawlib `v0.3.1`
@@ -14,7 +14,7 @@
 ## 1. 背景と目的 (Executive Summary & Goals)
 
 ### 1.1. 現状の課題
-`drawlib.graph`（`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`）は、本来「トポロジー（ノード・エッジ・クラスタ）から配置座標を自動計算するソルバー（`calc()`）」として設計されたが、現状では直接描画メソッド `draw()` やコード出力 `export_code()`、および多数の視覚スタイル属性（`style`, `text_style`, `shape`, `arrow_head`, `line_style`, `show`, `label` 等）を併せ持っている。
+`drawlib.graph`（`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`）は、本来「トポロジー（ノード・エッジ・クラスタ）から配置座標を自動計算するソルバー」として設計されたが、現状では直接描画メソッド `draw()` やコード出力 `export_code()`、および多数の視覚スタイル属性（`style`, `text_style`, `shape`, `arrow_head`, `line_style`, `show`, `label` 等）を併せ持っている。
 
 その結果、以下の問題が生じている：
 1. **`drawlib.diagrams` / `drawlib.smartarts` との責務重複と混乱**:
@@ -24,18 +24,20 @@
    - 座標計算には無関係な `default_node_style`, `default_edge_style`, `style`, `text_style`, `arrow_head`, `show` 等がコンストラクタや `node()` / `edge()` / `cluster()` に並び、利用時の認知負荷が高くなっている。
 3. **不要な上位レイヤー依存**:
    - 幾何計算パッケージでありながら、`l4_canvas`（`rectangle`, `circle`, `line`, `text`, `transform`）や `l3_styles`（`Style`, `Styles`）、`l3_fonts`（`Font`）に依存している。
+4. **メソッド名 `calc()` の曖昧さ**:
+   - `drawlib` の他モジュール（`Panel.get_content_box()`, `DayCalendar.get_slot_box()`, `GeoMap.get_coord()`, `ArchitectureDiagram.get_size()` 等）はすべて `get_<対象>()` で統一されているのに対し、`calc()` は返り値（`GraphLayout`）が名前から判別しづらい。
 
-### 1.2. リファクタリングの基本方針（2-Step ワークフローへの特化）
-`drawlib.graph` から **`draw()` および `export_code()`、ならびにすべてのスタイル・描画属性を廃止** し、以下の **2-Step ワークフロー** に特化した **「純粋なトポロジー座標計算エンジン（Layout Calculator）」** として再定義する：
+### 1.2. リファクタリングの基本方針（`get_layout()` による 2-Step ワークフローへの特化）
+`drawlib.graph` から **`draw()` および `export_code()`、ならびにすべてのスタイル・描画属性を廃止** し、座標計算メソッドを **`get_layout()`** に改名した上で、以下の **2-Step ワークフロー** に特化した **「純粋なトポロジー座標計算エンジン（Layout Calculator）」** として再定義する：
 
 ```text
 [Step 1: 座標計算・確認 (drawlib.graph)]
-  トポロジー（ID・サイズ・接続・グループ階層）を登録し、layout = g.calc() を実行
+  トポロジー（ID・サイズ・接続・グループ階層）を登録し、layout = g.get_layout() を実行
   -> AI / 開発者が print(layout) で座標を確認、またはスクリプト内で layout の座標変数を取得
           │
           ▼
 [Step 2: リッチ描画 (drawlib.diagrams / drawlib.shapes)]
-  calc() で得た座標（center / bottom_left / local_xy 等）をベースに変数を用意し、
+  get_layout() で得た座標（center / bottom_left / local_xy 等）をベースに変数を用意し、
   ArchitectureDiagram, FlowDiagram, ErDiagram, shapes 等でアイコン・装飾を含めて描画
 ```
 
@@ -43,13 +45,13 @@
 
 ## 2. API・データモデルの変更仕様
 
-### 2.1. 廃止・削除する要素
+### 2.1. 廃止・削除・改名する要素
 
-| 対象 | 削除内容 |
+| 対象 | 変更・削除内容 |
 | :--- | :--- |
 | **モジュール削除** | ・`src/drawlib/_graph/_common/_renderer.py` (`render_layout` 等すべて)<br>・`src/drawlib/_graph/_common/_code_generator.py` (`generate_code` 等すべて) |
-| **メソッド削除** | ・`BaseGraph.draw()` / `GraphLayout.draw()`<br>・`BaseGraph.export_code()` / `GraphLayout.to_code()`<br>・`BaseGraph._resolve_edge_style()` / `BaseGraph._default_cluster_text_style()` |
-| **`BaseGraph` および各ソルバー `__init__`** | ・`default_node_style`, `default_node_text_style`, `default_edge_style`, `default_edge_text_style`, `default_container_style`<br>・`RadialGraph` の `draw_ring_guides`, `ring_guide_style`（※代わりに `GraphLayout` または `RadialGraph` からリング半径情報を参照可能にする） |
+| **メソッド改名・削除** | ・`BaseGraph.calc()` → **`BaseGraph.get_layout()`** に改名<br>・`BaseGraph.draw()` / `GraphLayout.draw()` を削除<br>・`BaseGraph.export_code()` / `GraphLayout.to_code()` を削除<br>・`BaseGraph._resolve_edge_style()` / `BaseGraph._default_cluster_text_style()` を削除 |
+| **`BaseGraph` および各ソルバー `__init__`** | ・`default_node_style`, `default_node_text_style`, `default_edge_style`, `default_edge_text_style`, `default_container_style` を削除<br>・`RadialGraph` の `draw_ring_guides`, `ring_guide_style` を削除（※代わりに `GraphLayout.ring_radii` からリング半径情報を参照可能にする） |
 | **`Node` / `g.node()` / `.child()` / `.spoke()` / `.cell()`** | ・`label`, `style`, `text_style`, `shape`, `show` を削除<br>・幾何計算に必要な `id`, `width`, `height`（およびソルバー固有の `ring`, `row`, `col`, `layer`, `group`, `subgroup`）のみを残す |
 | **`Edge` / `g.edge()`** | ・`label`, `style`, `text_style`, `arrow_head`, `line_style`, `show` を削除（`child()` / `spoke()` の `edge_label`, `edge_style`, `arrow_head`, `edge_show` も削除）<br>・`g.edge(src: str, dst: str) -> Edge` のみに単純化 |
 | **`Cluster` / `g.cluster()` / `g.group()` / `.cluster_row()` / `.cluster_column()`** | ・`label`, `style`, `text_style`, `show` を削除<br>・`id`, `nodes`, `padding`, `header_height`（旧 `label` 有無による上部余白 `3.5` の代替、デフォルト `3.5`）, `parent`, `order`, `pos` のみを残す |
@@ -57,7 +59,7 @@
 
 ---
 
-### 2.2. 新しい `BaseGraph` および登録 API シグネチャ
+### 2.2. 新しい `BaseGraph` および登録・計算 API シグネチャ
 
 ```python
 class BaseGraph(ABC):
@@ -109,7 +111,7 @@ class BaseGraph(ABC):
     ) -> Cluster: ...
 
     @abstractmethod
-    def calc(
+    def get_layout(
         self,
         *,
         width: float | None = None,
@@ -171,7 +173,7 @@ class BaseGraph(ABC):
 - `offset(node_id: str, dx: float = 0.0, dy: float = 0.0) -> Self`:
   - 指定ノードの中心座標と `local_xy`、および接続エッジのポートを `(dx, dy)` シフトし、メソッドチェーン可能（`return self`）にする。
 - `__str__(self) -> str`（AI・開発者向けの視認性の高い座標レポート出力）:
-  - `print(g.calc(width=120, height=80))` を実行した際、以下のような構造化サマリを出力する：
+  - `print(g.get_layout(width=120, height=80))` を実行した際、以下のような構造化サマリを出力する：
     ```text
     GraphLayout(width=120.0, height=80.0)
     Clusters:
@@ -186,19 +188,19 @@ class BaseGraph(ABC):
 
 ---
 
-## 3. 利用イメージ（Before / After）
+## 3. 利用イメージ（Step 1 & Step 2）
 
-### Step 1 & Step 2 による `ArchitectureDiagram` との連携例
+### `ArchitectureGraph.get_layout()` と `ArchitectureDiagram` の連携例
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.diagrams.architecture import ArchitectureDiagram, Container, Edge, GcpIcon, Node
+from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, GcpIcon, Node, NodeGroup
 from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
 
 setup(width=126, height=86)
 
-# Step 1: ArchitectureGraph でトポロジーとサイズのみを宣言し座標を計算
+# Step 1: ArchitectureGraph でトポロジーとサイズのみを宣言し get_layout() で座標を取得
 g = ArchitectureGraph(direction="LR", default_node_width=20.0, default_node_height=16.0)
 g.group("vpc")
 g.cluster("app_tier", ["api", "worker"], parent="vpc", order=1, padding=5.0)
@@ -208,7 +210,7 @@ g.edge("client", "api")
 g.edge("api", "worker")
 g.edge("worker", "db")
 
-layout = g.calc(width=126.0, height=86.0)
+layout = g.get_layout(width=126.0, height=86.0)
 # AI 確認時は print(layout) で全座標を確認可能
 
 # Step 2: 算出された座標をベースに ArchitectureDiagram でリッチに描画
@@ -224,18 +226,18 @@ c_vpc = layout.clusters["vpc"]
 c_app = layout.clusters["app_tier"]
 c_data = layout.clusters["data_tier"]
 
-vpc = d.add(Container("Production VPC", width=c_vpc.width, height=c_vpc.height, style=Styles.PrimaryNeutral), xy=c_vpc.bottom_left)
-app_grp = vpc.add(Container("Compute Tier", width=c_app.width, height=c_app.height, style=Styles.White), xy=c_app.local_bottom_left)
-data_grp = vpc.add(Container("Data Tier", width=c_data.width, height=c_data.height, style=Styles.SecondaryNeutral), xy=c_data.local_bottom_left)
+vpc = d.add(NodeGroup("Production VPC", width=c_vpc.width, height=c_vpc.height, style=Styles.PrimaryNeutral), xy=c_vpc.bottom_left)
+app_grp = vpc.add(NodeGroup("Compute Tier", width=c_app.width, height=c_app.height, style=Styles.White), xy=c_app.local_bottom_left)
+data_grp = vpc.add(NodeGroup("Data Tier", width=c_data.width, height=c_data.height, style=Styles.SecondaryNeutral), xy=c_data.local_bottom_left)
 
 n_client = d.add(Node("Client", icon=GcpIcon.CLOUD_CDN), xy=layout.nodes["client"].xy)
 n_api = app_grp.add(Node("API Gateway", icon=GcpIcon.APIGEE_API_PLATFORM, card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=layout.nodes["api"].local_xy)
 n_worker = app_grp.add(Node("Cloud Run", icon=GcpIcon.CLOUD_RUN), xy=layout.nodes["worker"].local_xy)
 n_db = data_grp.add(Node("Cloud SQL", icon=GcpIcon.CLOUD_SQL), xy=layout.nodes["db"].local_xy)
 
-d.add_edge(Edge(n_client, n_api, text="HTTPS"))
-d.add_edge(Edge(n_api, n_worker, text="gRPC"))
-d.add_edge(Edge(n_worker, n_db, text="SQL"))
+d.add_edge(Edge(n_client, n_api, label="HTTPS"))
+d.add_edge(Edge(n_api, n_worker, label="gRPC"))
+d.add_edge(Edge(n_worker, n_db, label="SQL"))
 
 d.draw()
 save()
@@ -247,7 +249,8 @@ save()
 
 | フェーズ | 対象 | 作業内容 |
 | :--- | :--- | :--- |
-| **Phase 1: コア実装 (`src/drawlib/_graph/`)** | `_common/_models.py`<br>`_common/_base.py`<br>`_common/_routing.py`<br>5つの `_*/*_graph.py`<br>`_renderer.py` (削除)<br>`_code_generator.py` (削除) | 1. `_renderer.py` と `_code_generator.py` を削除<br>2. `_models.py` からスタイル・描画属性を削除し、`bottom_left`, `local_xy`, `local_bottom_left`, `mid_xy`, `GraphLayout.__str__()` を実装<br>3. `_base.py` および5つのソルバー（`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`）から `draw()`, `export_code()`, スタイル引数を削除し、親子クラスタ相対座標の計算を組み込む<br>4. 同時に残りの内部モジュール（`_slide/helpers.py`, `_geomap.py`, `_cli/_visualizers/`）の公開ファサード import も内部レイヤーへ整理 |
-| **Phase 2: 単体テスト更新 (`tests/drawlib/graph/`)** | `tests/drawlib/graph/test_graph.py` | 1. 全5ソルバーの `calc()` テストを新しいシグネチャに更新<br>2. `local_xy`, `local_bottom_left`, `bottom_left`, `mid_xy`, `offset()`, `str(layout)` の単体テストを追加 |
-| **Phase 3: エージェントルール更新 (`src/drawlib/_rules/`, `.agents/rules/`)** | `lib_graph.md`<br>`api.md`<br>`overview.md`<br>`anim_guide.md`<br>`agent_instruction.md`<br>`.agents/rules/drawlib.md` | 1. `lib_graph.md` を「Step 1: `g.calc()` & `print(layout)` → Step 2: `diagrams` / `shapes` で描画」の2-Step ガイドへ全面改訂<br>2. `api.md`, `overview.md`, `anim_guide.md` のシグネチャとコード例を更新 |
-| **Phase 4: ドキュメント更新 (`docs/*_src/`) & ビルド検証** | `docs/docs_src/06_graph/*.md`<br>`docs/docs_src/07_animations/graphs.md`<br>`docs/docs_src/05_diagrams/overview.md`<br>`docs/drawlib-dogfooding*_src/10_diagrams.md`<br>`docs/slide_about_drawlib_src/04_diagrams_and_graphs/*.md`<br>`docs/architecture_src/03_domain_subsystems/03_graph_autolayout.md` | 1. `06_graph/` 全6ページおよび関連ページのコードブロックと説明を `calc()` + `diagrams` / `shapes` 描画に刷新<br>2. `./dcli code-check all`、`./dcli test all`、`./dcli docs build` で全テストとドキュメントビルドを検証 |
+| **Phase 1: コア実装 (`src/drawlib/_graph/`)** | `_common/_models.py`<br>`_common/_base.py`<br>`_common/_routing.py`<br>5つの `_*/*_graph.py`<br>`_renderer.py` (削除)<br>`_code_generator.py` (削除) | 1. `_renderer.py` と `_code_generator.py` を削除<br>2. `_models.py` からスタイル・描画属性を削除し、`bottom_left`, `local_xy`, `local_bottom_left`, `mid_xy`, `GraphLayout.__str__()` を実装<br>3. `_base.py` および5つのソルバー（`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`）の `calc()` を `get_layout()` に改名し、`draw()`, `export_code()`, スタイル引数を削除、親子クラスタ相対座標の計算を組み込む<br>4. 同時に残りの内部モジュール（`_slide/helpers.py`, `_geomap.py`, `_cli/_visualizers/`）の公開ファサード import も内部レイヤーへ整理 |
+| **Phase 2: 単体テスト更新 (`tests/drawlib/graph/`)** | `tests/drawlib/graph/test_graph.py` | 1. 全5ソルバーのテストを `get_layout()` の新しいシグネチャに更新<br>2. `local_xy`, `local_bottom_left`, `bottom_left`, `mid_xy`, `offset()`, `str(layout)` の単体テストを追加 |
+| **Phase 3: エージェントルール更新 (`src/drawlib/_rules/`, `.agents/rules/`)** | `lib_graph.md`<br>`api.md`<br>`overview.md`<br>`anim_guide.md`<br>`agent_instruction.md`<br>`.agents/rules/drawlib.md` | 1. `lib_graph.md` を「Step 1: `g.get_layout()` & `print(layout)` → Step 2: `diagrams` / `shapes` で描画」の2-Step ガイドへ全面改訂<br>2. `api.md`, `overview.md`, `anim_guide.md` のシグネチャとコード例を更新 |
+| **Phase 4: ドキュメント更新 (`docs/*_src/`) & ビルド検証** | `docs/docs_src/06_graph/*.md`<br>`docs/docs_src/07_animations/graphs.md`<br>`docs/docs_src/05_diagrams/overview.md`<br>`docs/drawlib-dogfooding*_src/10_diagrams.md`<br>`docs/slide_about_drawlib_src/04_diagrams_and_graphs/*.md`<br>`docs/architecture_src/03_domain_subsystems/03_graph_autolayout.md` | 1. `06_graph/` 全6ページおよび関連ページのコードブロックと説明を `get_layout()` + `diagrams` / `shapes` 描画に刷新<br>2. `./dcli code-check all`、`./dcli test all`、`./dcli docs build` で全テストとドキュメントビルドを検証 |
+
