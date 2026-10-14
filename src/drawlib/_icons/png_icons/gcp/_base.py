@@ -13,10 +13,24 @@ from __future__ import annotations
 
 from drawlib._icons.png_icons._base import PngIconProvider
 
+GCP_ALIASES: dict[str, str] = {
+    "functions": "cloud_functions",
+    "gce": "compute_engine",
+    "gcs": "cloud_storage",
+    "gke": "google_kubernetes_engine",
+    "iam": "identity_and_access_management",
+    "kms": "key_management_service",
+    "vertexai": "vertex_ai",
+    "vpc": "virtual_private_cloud",
+    "load_balancing": "cloud_load_balancing",
+    "cloud_pubsub": "pubsub",
+}
+
 GCP_PROVIDER = PngIconProvider(
     name="gcp",
     package_name="icon_gcp",
     asset_subdir="icons/gcp",
+    aliases=GCP_ALIASES,
 )
 
 _write = GCP_PROVIDER.write

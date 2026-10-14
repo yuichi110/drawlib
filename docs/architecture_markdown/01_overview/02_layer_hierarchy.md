@@ -85,7 +85,7 @@ Drawlib decomposes drawing mechanics into six discrete horizontal layers:
 | **L4 Canvas** | `_core/l4_canvas` | Global Canvas context, diamond multiple inheritance feature mixins, transform stack. | Domain modules, Public facades |
 | **L3 Services** | `_core/l3_*` | Independent specialized services (`l3_colors`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, `l3_external`). | L4 Canvas, Domain modules |
 | **L2 Types** | `_core/l2_types` | Functional coordinate primitives (`Coordinate`, `Coordinates`), Pydantic field bounds, enums. | L3 Services, L4 Canvas, Domain |
-| **L1 Core** | `_core/l1_core` | Core runtime settings (`dutil_settings`), logging, path utilities, static asset directory constants. | All higher layers |
+| **L1 Core** | `_core/l1_core` | Core runtime settings (`drawlib_settings`), logging, path utilities, static asset directory constants. | All higher layers |
 
 
 
@@ -153,7 +153,7 @@ save()
 
 ### 3.1. Layer 1 (`l1_core`) — The Bedrock
 `l1_core` has zero internal Drawlib dependencies. It relies strictly on the Python standard library:
-- **Runtime Settings (`_settings.py`)**: `DrawlibSettings` (accessed via the singleton `dutil_settings`) manages global verbosity (`"normal"`, `"quiet"`, `"verbose"`, `"developer"`), warning suppression, test mode detection, and grid overlay forcing (`_force_grid`).
+- **Runtime Settings (`_settings.py`)**: `DrawlibSettings` (accessed via the singleton `drawlib_settings`) manages global verbosity (`"normal"`, `"quiet"`, `"verbose"`, `"developer"`), warning suppression, test mode detection, and grid overlay forcing (`_force_grid`).
 - **Logging (`_logging.py`)**: Centralized Python `logging` instance under the `"drawlib"` namespace.
 - **Constants & Path Utils (`_const.py`, `_path_utils.py`)**: Static directories for fonts, icons, maps, and rules, alongside call-stack inspection tools (`get_script_path()`).
 - **Declarative Validation (No Boilerplate Exception Classes)**: Drawlib avoids custom exception hierarchies. Boundary validation is declared via Pydantic (`@validate_call`, `Field`, `BeforeValidator`), raising standard Pydantic `ValidationError` or built-in `ValueError`.
@@ -166,7 +166,7 @@ save()
 
 ### 3.3. Layer 3 (`l3_*`) — Domain Services
 Layer 3 provides specialized domain engines that operate on `l2_types` without knowing about the Canvas lifecycle:
-- **`l3_colors`**: `Color(BaseModel)` immutable RGBA model, `ColorType` annotation, and `ColorUtil` linear interpolation.
+- **`l3_colors`**: `Color(BaseModel)` immutable RGBA model, `ColorType` annotation, and `ColorUtils` linear interpolation.
 - **`l3_styles`**: Unified flat `Style(BaseModel)` with explicit target declarations (`supports: frozenset[SupportType]`) and `BaseStyles(BaseModel, metaclass=_BaseStylesMeta)`.
 - **`l3_fonts`**: Language-specific font enums, true-type font resources, and metadata caching.
 - **`l3_images`**: `Dimage` PIL fluent wrapper for cropping, tinting, and scaling.

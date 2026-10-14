@@ -38,12 +38,12 @@ Drawlib implements a dual-engine architecture for icon rendering:
 
 | Feature | Vector Font Icons (`phosphor`, `font_icon`) | Raster PNG Icons (`gcp`) |
 | :--- | :--- | :--- |
-| **Underlying Engine** | TrueType Font glyphs via canvas `text()` | High-resolution PNGs via canvas `image()` |
-| **Resolution & Scaling**| Infinite vector scalability; razor-sharp at any zoom | Fixed 256x256 pixel assets; optimized for diagrams |
-| **Color Rendering** | Monochrome by default; tinted via `text_color` / preset | Official vendor multi-color branding |
-| **Weight Variations** | 5 distinct weights (`thin`, `light`, `regular`, `bold`, `fill`) | Single official artwork (weight simulated via borders) |
-| **Silhouette Masking** | Native (font glyph color) | Supported via `Style(icon_color=...)` |
-| **Asset Storage** | Bundled directly within Python package TTFs | Cached locally under `_assets/`, synced via GitHub |
+| **Underlying Engine** | TrueType Font glyphs via canvas `text()` | High-resolution 512x512 PNGs via canvas `image()` |
+| **Resolution & Scaling**| Infinite vector scalability; razor-sharp at any zoom | 512x512 pixel assets (460x460 inner bbox); crisp at all diagram sizes |
+| **Color Rendering** | Monochrome by default; tinted via `text_color` / preset | `variant="default"` (3-tone blue) or `variant="modern"` (4-color) |
+| **Weight / Variant** | 5 distinct weights (`thin`, `light`, `regular`, `bold`, `fill`) | `variant="default"` (all 250+ icons) & `variant="modern"` (45 core/category icons) |
+| **Silhouette Masking** | Native (font glyph color) | Background tint (`image_tint_color`), opacity (`alpha`), border (`image_border_*`) |
+| **Asset Storage** | Cached locally under `_cached_assets/`, synced via GitHub | Cached locally under `_cached_assets/`, synced via GitHub |
 
 ---
 
@@ -259,9 +259,9 @@ save()
 
 ## 5. Google Cloud Platform (GCP) Architecture Icons
 
-Drawlib provides official, publication-quality Google Cloud Platform diagram icons via `drawlib.icons.gcp`. The collection includes more than 250 high-resolution multi-color icons covering all core GCP product categories.
+Drawlib provides 250+ high-resolution `512x512` Google Cloud Platform diagram icons via `drawlib.icons.gcp`, natively rendered in Drawlib (`tools/icons_src/gcp/`). Every service icon defaults to the unified **3-Tone Blue (`variant="default"`)** palette (`#4285F4`, `#669DF6`, `#AECBFA`), while the 19 Core Products and 26 Category icons also provide the **4-Color Multi-Color (`variant="modern"`)** palette.
 
-### 5.1. Basic Syntax & Service Invocation
+### 5.1. Basic Syntax, `variant` Selection & Service Invocation
 
 Each GCP service icon is exposed as a standalone function directly under `drawlib.icons.gcp`:
 
@@ -270,7 +270,8 @@ gcp.<service_name>(
     xy: tuple[float, float],
     width: float,
     *,
-    style: Style | None = None,
+    style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None
 ```
 
@@ -282,18 +283,18 @@ from drawlib.styles import Styles
 
 setup(width=120, height=45)
 
-# Render core compute, storage, container, and database services
-gcp.compute_engine((20, 25), width=11, style=Styles.Primary)
-text((20, 11), "Compute Engine", style=Styles.Primary.patch(text_size=9))
+# Render core compute, storage, container, and database services (default 3-tone blue + modern 4-color)
+gcp.compute_engine((20, 25), width=11, style=Styles.Primary, variant="default")
+text((20, 11), "GCE (default)", style=Styles.Primary.patch(text_size=9))
 
-gcp.google_kubernetes_engine((47, 25), width=11, style=Styles.Primary)
-text((47, 11), "GKE", style=Styles.Primary.patch(text_size=9))
+gcp.compute_engine((47, 25), width=11, style=Styles.Primary, variant="modern")
+text((47, 11), "GCE (modern)", style=Styles.Primary.patch(text_size=9))
 
-gcp.cloud_storage((74, 25), width=11, style=Styles.Primary)
-text((74, 11), "Cloud Storage", style=Styles.Primary.patch(text_size=9))
+gcp.gke((74, 25), width=11, style=Styles.Primary, variant="default")
+text((74, 11), "GKE (default)", style=Styles.Primary.patch(text_size=9))
 
-gcp.bigquery((101, 25), width=11, style=Styles.Primary)
-text((101, 11), "BigQuery", style=Styles.Primary.patch(text_size=9))
+gcp.bigquery((101, 25), width=11, style=Styles.Primary, variant="modern")
+text((101, 11), "BigQuery (modern)", style=Styles.Primary.patch(text_size=9))
 
 save()
 ```
@@ -303,32 +304,38 @@ save()
 To streamline code authoring for common services, Drawlib provides canonical shorthand aliases:
 
 ```text
-┌──────────────────────────────┬──────────────────────────────┬────────────────────────┐
-│ Canonical Service Function   │ Convenient Shorthand Alias   │ Product Area           │
-├──────────────────────────────┼──────────────────────────────┼────────────────────────┤
-│ gcp.cloud_storage            │ gcp.gcs                      │ Object Storage         │
-│ gcp.google_kubernetes_engine │ gcp.gke                      │ Managed Kubernetes     │
-│ gcp.compute_engine           │ gcp.gce                      │ Virtual Machines       │
-│ gcp.bigquery                 │ gcp.bq                       │ Serverless Analytics   │
-└──────────────────────────────┴──────────────────────────────┴────────────────────────┘
+┌────────────────────────────────────┬──────────────────────────────┬────────────────────────┐
+│ Canonical Service Function         │ Convenient Shorthand Alias   │ Product Area           │
+├────────────────────────────────────┼──────────────────────────────┼────────────────────────┤
+│ gcp.compute_engine                 │ gcp.gce                      │ Virtual Machines       │
+│ gcp.google_kubernetes_engine       │ gcp.gke                      │ Managed Kubernetes     │
+│ gcp.cloud_storage                  │ gcp.gcs                      │ Object Storage         │
+│ gcp.cloud_functions                │ gcp.functions                │ Serverless Functions   │
+│ gcp.identity_and_access_management │ gcp.iam                      │ Identity & Access      │
+│ gcp.key_management_service         │ gcp.kms                      │ Cryptographic Keys     │
+│ gcp.virtual_private_cloud          │ gcp.vpc                      │ Virtual Networking     │
+│ gcp.vertex_ai                      │ gcp.vertexai                 │ AI & Machine Learning  │
+│ gcp.cloud_load_balancing           │ gcp.load_balancing           │ Global Load Balancing  │
+│ gcp.pubsub                         │ gcp.cloud_pubsub             │ Messaging & Event Bus  │
+└────────────────────────────────────┴──────────────────────────────┴────────────────────────┘
 ```
 
-Both forms are completely identical in execution:
+Both forms are completely identical in execution (including `variant="default"` and `variant="modern"`):
 
 ```python
 # These pairs invoke the exact same rendering logic
-gcp.cloud_storage((30, 20), width=10)
-gcp.gcs((30, 20), width=10)
+gcp.cloud_storage((30, 20), width=10, style=Styles.Primary)
+gcp.gcs((30, 20), width=10, style=Styles.Primary)
 
-gcp.google_kubernetes_engine((60, 20), width=10)
-gcp.gke((60, 20), width=10)
+gcp.google_kubernetes_engine((60, 20), width=10, style=Styles.Primary, variant="modern")
+gcp.gke((60, 20), width=10, style=Styles.Primary, variant="modern")
 ```
 
 ### 5.3. Asset Delivery & Automatic Download Pipeline
 
-GCP icons are official 256x256 PNG assets packaged under `RELEASE_ASSET_PACKAGES["icon_gcp"]`. Drawlib manages these assets automatically:
+GCP icons are normalized `512x512` PNG assets (`<service>_<variant>.png`) packaged under `RELEASE_ASSET_PACKAGES["icon_gcp"]`. Drawlib manages these assets automatically:
 
-1. **Local Asset Check**: When `gcp.<service>()` is called, `PngIconProvider` checks `drawlib._cached_assets/icons/gcp/<service>.png`.
+1. **Local Asset Check**: When `gcp.<service>()` is called, `PngIconProvider` checks `drawlib._cached_assets/icons/gcp/<service>_<variant>.png`.
 2. **Developer Workspace Fallback**: If running in developer mode, it checks `tools/release_assets/v0.3/icons/gcp/`.
 3. **Automated Lazy Download**: If missing, `ensure_asset_available()` downloads the verified package archive from GitHub Releases and extracts it to the local cache.
 

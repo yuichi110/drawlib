@@ -167,7 +167,7 @@ The type and styling system bridges low-level geometry and high-level domain com
 - **`_core/l3_colors`**:
   - `Color(BaseModel)`: Immutable RGBA model supporting hex codes (`#3b82f6`), RGB tuples, and RGBA floats.
   - `.to_mplot_rgba()`: Generates Matplotlib-ready normalized float tuples rounded to 5 decimal places.
-  - `ColorUtil`: Linear color interpolation and WCAG contrast ratio calculations.
+  - `ColorUtils`: Linear color interpolation and WCAG contrast ratio calculations.
 - **`_core/l3_styles`**:
   - `Style`: The flat universal style value object.
   - `BaseStyles`: Preset catalog providing 17 visual variations for 4 semantic roles (`Primary`, `Secondary`, `Accent`, `Muted`) plus extended roles (`Light`, `Dark`, `Warning`, `Danger`, `Success`).

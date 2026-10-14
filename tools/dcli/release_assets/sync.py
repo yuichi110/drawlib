@@ -55,6 +55,8 @@ def scan_asset_packages(assets_root: Path) -> list[dict[str, object]]:
         for p in sorted(cat_dir.iterdir()):
             if not p.is_dir() or p.name.startswith("."):
                 continue
+            if subdir == "icons" and p.name == "original_cloud":
+                continue
 
             files = sorted([f.name for f in p.iterdir() if f.is_file() and not f.name.startswith(".")])
             zip_bytes = create_deterministic_zip_bytes(p, files)

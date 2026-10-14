@@ -30,9 +30,9 @@ text(
 )
 
 stages = [
-    (24, "1. Upstream Datasets", "phosphor_data.json\nGCP Architecture SVGs\nGoogle Fonts metadata", phosphor.database, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (70, "2. Codegen Engine", "tools/dcli/codegen/\nIdentifier Sanitizer\nAST & Template Engine", phosphor.gear_six, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (116, "3. Typed Bindings", "src/drawlib/icons/\nphosphor.py, gcp.py\nAutocompletion & Docs", phosphor.file_code, Styles.PrimaryFlat, Styles.WhiteBold),
+    (24, "1. Source Definitions", "phosphor_data.json\ntools/icons_src/gcp/*.py\nGoogle Fonts metadata", phosphor.database, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (70, "2. Codegen Engine", "tools/dcli/codegen/\n512x512 PNG Normalizer\nAST & Template Engine", phosphor.gear_six, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (116, "3. Typed Bindings", "src/drawlib/icons/\nphosphor, gcp (variants)\nAutocompletion & Docs", phosphor.file_code, Styles.PrimaryFlat, Styles.WhiteBold),
 ]
 
 for x, title, desc, icon_func, card_style, icon_style in stages:
@@ -60,18 +60,19 @@ save()
 
 A comprehensive technical diagramming library requires vast catalogs of standardized icons:
 - **Phosphor Icons**: 1,200+ icons available across multiple visual weights (regular, bold, fill, thin, light, duotone).
-- **Google Cloud Architecture Icons**: Hundreds of official product symbols across compute, storage, networking, database, AI, and security categories.
+- **Google Cloud Architecture Icons**: 250+ canonical product symbols (`variant="default"` 3-tone blue and `variant="modern"` 4-color) across compute, storage, networking, database, AI, and security categories, plus 10 shorthand aliases (`gce`, `gke`, `gcs`, `functions`, `iam`, `kms`, `vpc`, `vertexai`, `load_balancing`, `cloud_pubsub`).
 
-Manually writing Python functions and classes for thousands of icons is prone to identifier collisions, typo regressions, and immense maintenance overhead when upstream icon sets update.
+Manually writing Python functions and classes for thousands of icons is prone to identifier collisions, typo regressions, and immense maintenance overhead when icon sets evolve.
 
-Drawlib solves this by treating icons as **generated artifacts**:
-1. Upstream icon datasets and SVGs are stored under `tools/original_assets/`.
-2. Generator scripts in `tools/dcli/codegen/` parse upstream schemas, sanitize naming conventions (e.g. converting `cloud-sql` to valid Python identifier `cloud_sql`), and generate type-annotated facades.
+Drawlib solves this by treating icon bindings as **generated artifacts**:
+1. Native Drawlib icon drawing scripts live in `tools/icons_src/gcp/*.py` (`<icon_name>_default.py` and `<icon_name>_modern.py`), which `tools/icons_src/build.sh` renders and normalizes into `512×512` (`460×460` inner bbox) transparent PNGs and `manifest.json` in `tools/release_assets/v0.3/icons/gcp/`.
+2. Generator scripts in `tools/dcli/codegen/` read `manifest.json` (and `phosphor_data.json` for Phosphor) and generate type-annotated Python facades with `Literal["default", "modern"]` variant support.
 3. Developers import clean, autocompleting functions with zero runtime schema parsing cost:
    ```python
    from drawlib.icons import phosphor, gcp
    phosphor.database((50, 50), width=10)
-   gcp.compute_engine((20, 20), width=12)
+   gcp.compute_engine((20, 20), width=12, style=Styles.Primary, variant="default")
+   gcp.compute_engine((40, 20), width=12, style=Styles.Primary, variant="modern")
    ```
 
 ---
@@ -210,10 +211,10 @@ The Phosphor codegen engine (`tools/dcli/codegen/icon_phosphor.py`):
    - Comprehensive docstrings containing tags, categories, and usage examples.
 
 ### 3.2. GCP Architecture Icon Generation (`./dcli codegen icon-gcp`)
-The GCP codegen engine (`tools/dcli/codegen/icon_gcp.py`):
-1. Scans raw GCP architecture icons in SVG and PNG formats.
-2. Normalizes viewBox coordinates and standardizes filename slugs across GCP categories (Compute, Storage, Networking, Big Data, Security).
-3. Generates high-level draw functions in `src/drawlib/icons/gcp.py`.
+The GCP codegen engine (`tools/dcli/codegen/gcp_codegen.py` & `icons_build.py`):
+1. Builds and normalizes native Drawlib GCP icon scripts (`tools/icons_src/gcp/*_default.py` and `*_modern.py`) into `512×512` (`460×460` inner bbox) transparent PNGs in `tools/release_assets/v0.3/icons/gcp/`.
+2. Writes `tools/release_assets/v0.3/icons/gcp/manifest.json` with SHA-256 digests, bounding boxes, available variants (`default`, `modern`), and shorthand alias mappings (`gce`, `gke`, `gcs`, `functions`, `iam`, `kms`, `vpc`, `vertexai`, `load_balancing`, `cloud_pubsub`).
+3. Generates type-safe draw functions (`variant: Literal["default", "modern"] = "default"`) in `src/drawlib/_icons/png_icons/gcp/_generated.py`.
 
 ### 3.3. GeoMap Map Data Codegen (`./dcli codegen map`)
 The GeoMap codegen pipeline downloads, normalizes, and packages geographic vector data:

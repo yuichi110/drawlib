@@ -14,17 +14,24 @@ from __future__ import annotations
 from typer.testing import CliRunner
 
 from tools.dcli.codegen import app
-from tools.dcli.codegen.gcp_normalize import sanitize_name
+from tools.dcli.codegen.gcp_codegen import generate_code
 from tools.dcli.codegen.phosphor import parse_css_icons
 
 runner = CliRunner()
 
 
-def test_sanitize_name() -> None:
-    """Test GCP service name sanitization."""
-    assert sanitize_name("Compute Engine") == "compute_engine"
-    assert sanitize_name("AI & Machine Learning") == "ai_machine_learning"
-    assert sanitize_name("Cloud-Storage") == "cloud_storage"
+def test_gcp_generate_code() -> None:
+    """Test GCP icon code generation with variants and aliases."""
+    code = generate_code(
+        icon_variants={"compute_engine": ["default", "modern"], "app_engine": ["default"]},
+        aliases={"gce": "compute_engine"},
+    )
+    assert 'def compute_engine(' in code
+    assert 'variant: Literal["default", "modern"] = "default"' in code
+    assert 'def gce(' in code
+    assert 'name="compute_engine"' in code
+    assert 'def app_engine(' in code
+    assert 'variant: Literal["default"] = "default"' in code
 
 
 def test_parse_css_icons() -> None:

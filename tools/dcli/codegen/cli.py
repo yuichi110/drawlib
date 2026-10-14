@@ -16,13 +16,12 @@ from pathlib import Path
 import typer
 
 from tools.dcli.codegen.gcp_codegen import generate_gcp_code
-from tools.dcli.codegen.gcp_download import download_and_extract_gcp_icons
-from tools.dcli.codegen.gcp_normalize import normalize_all_gcp_icons
+from tools.dcli.codegen.icons_build import write_provider_manifest
 from tools.dcli.codegen.map_codegen import generate_map_code
 from tools.dcli.codegen.map_download import download_original_maps
 from tools.dcli.codegen.map_normalize import normalize_all_maps
 from tools.dcli.codegen.phosphor import generate_phosphor_code
-from tools.dcli.common import PROJECT_ROOT, console
+from tools.dcli.common import PROJECT_ROOT, console, run_command
 
 app = typer.Typer(
     name="codegen",
@@ -46,66 +45,37 @@ def gen_icon_phosphor() -> None:
 
 @app.command("icon-gcp")
 def gen_icon_gcp(
-    download_only: bool = typer.Option(
+    build_images: bool = typer.Option(
         False,
-        "--download-only",
-        help="Only download original GCP assets without normalizing.",
-    ),
-    normalize_only: bool = typer.Option(
-        False,
-        "--normalize-only",
-        help="Only normalize existing original GCP assets into release_assets.",
+        "--build-images",
+        help="Re-render icon PNGs via tools/icons_src/build.sh before generating bindings.",
     ),
     src_dir: str = typer.Option(
-        "tools/original_assets/gcp",
+        "tools/icons_src/gcp",
         "--src-dir",
-        help="Source directory for original GCP assets.",
+        help="Source directory for native Drawlib GCP icon scripts.",
     ),
     dest_dir: str = typer.Option(
         "tools/release_assets/v0.3/icons/gcp",
         "--dest-dir",
-        help="Destination directory for normalized flat release assets.",
-    ),
-    no_archives: bool = typer.Option(
-        False,
-        "--no-archives",
-        help="Do not keep downloaded raw .zip archives in _archives/.",
-    ),
-    no_docs: bool = typer.Option(
-        False,
-        "--no-docs",
-        help="Do not download official overview guide PDF.",
+        help="Destination directory for normalized 512x512 release assets.",
     ),
 ) -> None:
-    """Download and normalize Google Cloud architecture diagram icons."""
+    """Normalize native Drawlib Google Cloud icons and generate Python bindings."""
     src_path = PROJECT_ROOT / src_dir if not Path(src_dir).is_absolute() else Path(src_dir)
     dest_path = PROJECT_ROOT / dest_dir if not Path(dest_dir).is_absolute() else Path(dest_dir)
 
-    should_download = download_only or (not normalize_only and not src_path.exists())
-    should_normalize = normalize_only or not download_only
+    if build_images:
+        console.print("[bold cyan]Building native Drawlib icon scripts in tools/icons_src/...[/bold cyan]")
+        run_command(["bash", str(PROJECT_ROOT / "tools/icons_src/build.sh")])
 
-    if should_download:
-        console.print("[bold cyan]Downloading official Google Cloud diagram icons...[/bold cyan]")
-        download_and_extract_gcp_icons(
-            output_dir=src_path,
-            save_archives=not no_archives,
-            download_doc=not no_docs,
-        )
-        console.print("[bold green]✓ Google Cloud icons downloaded successfully![/bold green]")
+    console.print("[bold cyan]Updating Google Cloud icon manifest...[/bold cyan]")
+    manifest_file = write_provider_manifest("gcp", src_path, dest_path)
+    console.print(f"[bold green]✓ Manifest written to {manifest_file}[/bold green]")
 
-    if should_normalize:
-        console.print("[bold cyan]Normalizing Google Cloud diagram icons...[/bold cyan]")
-        normalize_all_gcp_icons(
-            src_dir=src_path,
-            dest_dir=dest_path,
-        )
-        console.print("[bold green]✓ Google Cloud icons normalized successfully![/bold green]")
-
-    if not download_only and not normalize_only:
-        manifest_file = dest_path / "manifest.json"
-        console.print("[bold cyan]Generating Google Cloud icon Python bindings...[/bold cyan]")
-        generate_gcp_code(manifest_file=manifest_file)
-        console.print("[bold green]✓ Google Cloud icon bindings generated successfully![/bold green]")
+    console.print("[bold cyan]Generating Google Cloud icon Python bindings...[/bold cyan]")
+    generate_gcp_code(manifest_file=manifest_file)
+    console.print("[bold green]✓ Google Cloud icon bindings generated successfully![/bold green]")
 
 
 @app.command("map")

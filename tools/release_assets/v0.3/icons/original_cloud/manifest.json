@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-14T13:10:24.287481+00:00",
+  "created_at": "2026-10-14T13:22:43.801828+00:00",
   "canvas_size": [
     512,
     512
@@ -11,6 +11,7 @@
     460
   ],
   "total_files": 10,
+  "aliases": {},
   "files": {
     "ai_agent_default.png": {
       "icon_name": "ai_agent",

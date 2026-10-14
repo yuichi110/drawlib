@@ -29,6 +29,7 @@ class PngIconProvider:
         name: str,
         package_name: str,
         asset_subdir: str,
+        aliases: dict[str, str] | None = None,
     ) -> None:
         """Initialize PngIconProvider.
 
@@ -36,16 +37,28 @@ class PngIconProvider:
             name: Vendor/family name of the icon collection (e.g. 'gcp').
             package_name: Package identifier in RELEASE_ASSET_PACKAGES (e.g. 'icon_gcp').
             asset_subdir: Relative subdirectory path under drawlib._cached_assets (e.g. 'icons/gcp').
+            aliases: Optional mapping from shorthand alias names to canonical icon names.
         """
         self.name = name
         self.package_name = package_name
         self.asset_subdir = asset_subdir
+        self.aliases: dict[str, str] = dict(aliases) if aliases else {}
 
-    def get_icon_path(self, icon_name: str) -> str:
+    def _resolve_filename(self, icon_name: str, variant: str = "default") -> str:
+        """Resolve `<canonical_name>_<variant>.png` from an icon name or alias."""
+        if icon_name.endswith(("_default", "_modern")):
+            base_name, resolved_variant = icon_name.rsplit("_", 1)
+            canonical_name = self.aliases.get(base_name, base_name)
+            return f"{canonical_name}_{resolved_variant}.png"
+        canonical_name = self.aliases.get(icon_name, icon_name)
+        return f"{canonical_name}_{variant}.png"
+
+    def get_icon_path(self, icon_name: str, variant: str = "default") -> str:
         """Resolve local file path for an icon, ensuring it is downloaded if missing.
 
         Args:
             icon_name: Base name of the icon file without extension (e.g. 'compute_engine').
+            variant: Visual variant of the icon (e.g. 'default' or 'modern'). Defaults to 'default'.
 
         Returns:
             str: Absolute file path to the icon PNG.
@@ -54,7 +67,7 @@ class PngIconProvider:
             FileNotFoundError: If the icon file does not exist after download/extraction.
             ValueError: If the package is not registered in RELEASE_ASSET_PACKAGES.
         """
-        filename = f"{icon_name}.png"
+        filename = self._resolve_filename(icon_name, variant=variant)
         pkg: ReleaseAssetPackage | None = RELEASE_ASSET_PACKAGES.get(self.package_name)
         if pkg is None:
             raise ValueError(f"Release asset package '{self.package_name}' is not registered.")
@@ -74,7 +87,7 @@ class PngIconProvider:
             dev_source = Path("tools") / "release_assets" / "v0.3" / self.asset_subdir / filename
             if dev_source.is_file():
                 return str(dev_source.resolve())
-            raise FileNotFoundError(f"Icon '{icon_name}' not found at '{icon_path}'.")
+            raise FileNotFoundError(f"Icon '{icon_name}' (variant='{variant}') not found at '{icon_path}'.")
 
         return str(icon_path.resolve())
 
@@ -86,6 +99,7 @@ class PngIconProvider:
         name: str,
         *,
         style: Style,
+        variant: str = "default",
     ) -> None:
         """Draw an icon at the specified position using canvas image().
 
@@ -94,6 +108,7 @@ class PngIconProvider:
             width: Width of the icon.
             name: Base name of the icon file (without .png).
             style: Style object (required).
+            variant: Visual variant of the icon ('default' or 'modern'). Defaults to 'default'.
         """
         if not isinstance(style, Style):
             raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
@@ -102,7 +117,7 @@ class PngIconProvider:
         if applied_style.image_border_width is None:
             applied_style = applied_style.patch(image_border_width=0)
 
-        abs_path = self.get_icon_path(name)
+        abs_path = self.get_icon_path(name, variant=variant)
         image(
             xy=xy,
             width=width,

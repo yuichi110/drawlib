@@ -300,7 +300,7 @@ A higher-level layer may import symbols from lower-level layers, but a lower-lev
 <tr>
 <td style="text-align:left"><strong>L1 Core</strong></td>
 <td style="text-align:left"><code>_core/l1_core</code></td>
-<td style="text-align:left">Core runtime settings (<code>dutil_settings</code>), logging, path utilities, static asset directory constants.</td>
+<td style="text-align:left">Core runtime settings (<code>drawlib_settings</code>), logging, path utilities, static asset directory constants.</td>
 <td style="text-align:left">All higher layers</td>
 </tr>
 </tbody>
@@ -361,7 +361,7 @@ A higher-level layer may import symbols from lower-level layers, but a lower-lev
 <h3>3.1. Layer 1 (<code>l1_core</code>) — The Bedrock</h3>
 <p><code>l1_core</code> has zero internal Drawlib dependencies. It relies strictly on the Python standard library:</p>
 <ul>
-<li><strong>Runtime Settings (<code>_settings.py</code>)</strong>: <code>DrawlibSettings</code> (accessed via the singleton <code>dutil_settings</code>) manages global verbosity (<code>&quot;normal&quot;</code>, <code>&quot;quiet&quot;</code>, <code>&quot;verbose&quot;</code>, <code>&quot;developer&quot;</code>), warning suppression, test mode detection, and grid overlay forcing (<code>_force_grid</code>).</li>
+<li><strong>Runtime Settings (<code>_settings.py</code>)</strong>: <code>DrawlibSettings</code> (accessed via the singleton <code>drawlib_settings</code>) manages global verbosity (<code>&quot;normal&quot;</code>, <code>&quot;quiet&quot;</code>, <code>&quot;verbose&quot;</code>, <code>&quot;developer&quot;</code>), warning suppression, test mode detection, and grid overlay forcing (<code>_force_grid</code>).</li>
 <li><strong>Logging (<code>_logging.py</code>)</strong>: Centralized Python <code>logging</code> instance under the <code>&quot;drawlib&quot;</code> namespace.</li>
 <li><strong>Constants &amp; Path Utils (<code>_const.py</code>, <code>_path_utils.py</code>)</strong>: Static directories for fonts, icons, maps, and rules, alongside call-stack inspection tools (<code>get_script_path()</code>).</li>
 <li><strong>Declarative Validation (No Boilerplate Exception Classes)</strong>: Drawlib avoids custom exception hierarchies. Boundary validation is declared via Pydantic (<code>@validate_call</code>, <code>Field</code>, <code>BeforeValidator</code>), raising standard Pydantic <code>ValidationError</code> or built-in <code>ValueError</code>.</li>
@@ -376,7 +376,7 @@ A higher-level layer may import symbols from lower-level layers, but a lower-lev
 <h3>3.3. Layer 3 (<code>l3_*</code>) — Domain Services</h3>
 <p>Layer 3 provides specialized domain engines that operate on <code>l2_types</code> without knowing about the Canvas lifecycle:</p>
 <ul>
-<li><strong><code>l3_colors</code></strong>: <code>Color(BaseModel)</code> immutable RGBA model, <code>ColorType</code> annotation, and <code>ColorUtil</code> linear interpolation.</li>
+<li><strong><code>l3_colors</code></strong>: <code>Color(BaseModel)</code> immutable RGBA model, <code>ColorType</code> annotation, and <code>ColorUtils</code> linear interpolation.</li>
 <li><strong><code>l3_styles</code></strong>: Unified flat <code>Style(BaseModel)</code> with explicit target declarations (<code>supports: frozenset[SupportType]</code>) and <code>BaseStyles(BaseModel, metaclass=_BaseStylesMeta)</code>.</li>
 <li><strong><code>l3_fonts</code></strong>: Language-specific font enums, true-type font resources, and metadata caching.</li>
 <li><strong><code>l3_images</code></strong>: <code>Dimage</code> PIL fluent wrapper for cropping, tinting, and scaling.</li>

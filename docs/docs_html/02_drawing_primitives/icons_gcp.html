@@ -495,13 +495,13 @@
             </header>
             <main class="main-content">
                 <h1>Google Cloud (GCP) Icons</h1>
-<p>Drawlib provides over 250 official, multi-color <strong>Google Cloud Platform (GCP)</strong> architecture icons via <code>drawlib.icons.gcp</code>. Assets are automatically downloaded and cached on first use, and can be placed either as standalone canvas primitives or inside high-level layout and architecture diagram components.</p>
+<p>Drawlib provides over 250 high-resolution (<code>512×512</code>) <strong>Google Cloud Platform (GCP)</strong> architecture icons via <code>drawlib.icons.gcp</code>, natively authored in Drawlib. Every service defaults to the unified <strong>3-Tone Blue (<code>variant=&quot;default&quot;</code>)</strong> technical palette so full-stack topologies remain visually cohesive, while 19 Core Products and 26 Category icons also offer the <strong>Google 4-Color (<code>variant=&quot;modern&quot;</code>)</strong> palette.</p>
 <hr />
 <h2>1. Categorized GCP Icon Showcase</h2>
-<p>Every GCP service is available as a function <code>gcp.&lt;service_name&gt;(xy, width, *, style)</code> (with convenient shorthand aliases <code>gcp.gce</code>, <code>gcp.gke</code>, <code>gcp.gcs</code>, and <code>gcp.bq</code>):</p>
+<p>Every GCP service is available as <code>gcp.&lt;service_name&gt;(xy, width, *, style, variant=&quot;default&quot;)</code> (with shorthand aliases <code>gcp.gce</code>, <code>gcp.gke</code>, <code>gcp.gcs</code>, <code>gcp.functions</code>, <code>gcp.iam</code>, <code>gcp.kms</code>, <code>gcp.vpc</code>, <code>gcp.vertexai</code>, <code>gcp.load_balancing</code>, and <code>gcp.cloud_pubsub</code>):</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="icons_gcp_images/icons_gcp_categories.png" alt="icons_gcp_1" />
-  <figcaption class="drawlib-caption">Official Google Cloud Architecture Icons Across Core Categories</figcaption>
+  <figcaption class="drawlib-caption">Google Cloud Architecture Icons Across Core Categories (Default 3-Tone Blue Palette)</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -523,7 +523,7 @@
 <span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="s2">"Databases"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_sql</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"Load Balancer"</span><span class="p">,</span> <span class="s2">"Networking"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_load_balancing</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"BigQuery"</span><span class="p">,</span> <span class="s2">"Analytics (BQ)"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">bigquery</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"BigQuery"</span><span class="p">,</span> <span class="s2">"Analytics"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">bigquery</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"Vertex AI"</span><span class="p">,</span> <span class="s2">"AI / ML"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">vertex_ai</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
 <span class="p">]</span>
 
@@ -550,7 +550,7 @@
 <tbody>
 <tr>
 <td style="text-align:left"><strong>Compute</strong></td>
-<td style="text-align:left"><code>compute_engine</code> <em>(alias: <code>gce</code>)</em>, <code>app_engine</code>, <code>batch</code>, <code>vmware_engine</code></td>
+<td style="text-align:left"><code>compute_engine</code> <em>(alias: <code>gce</code>)</em>, <code>app_engine</code>, <code>batch</code>, <code>bare_metal_solutions</code>, <code>vmware_engine</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Containers &amp; Serverless</strong></td>
@@ -558,40 +558,77 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong>Storage</strong></td>
-<td style="text-align:left"><code>cloud_storage</code> <em>(alias: <code>gcs</code>)</em>, <code>filestore</code>, <code>persistent_disk</code></td>
+<td style="text-align:left"><code>cloud_storage</code> <em>(alias: <code>gcs</code>)</em>, <code>filestore</code>, <code>persistent_disk</code>, <code>hyperdisk</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Databases</strong></td>
-<td style="text-align:left"><code>cloud_sql</code>, <code>cloud_spanner</code>, <code>bigtable</code>, <code>firestore</code>, <code>memorystore</code></td>
+<td style="text-align:left"><code>cloud_sql</code>, <code>cloud_spanner</code>, <code>alloydb</code>, <code>bigtable</code>, <code>firestore</code>, <code>memorystore</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Networking</strong></td>
-<td style="text-align:left"><code>virtual_private_cloud</code> <em>(alias: <code>vpc</code>)</em>, <code>cloud_load_balancing</code>, <code>cloud_cdn</code>, <code>cloud_dns</code>, <code>cloud_nat</code>, <code>cloud_interconnect</code></td>
+<td style="text-align:left"><code>virtual_private_cloud</code> <em>(alias: <code>vpc</code>)</em>, <code>cloud_load_balancing</code> <em>(alias: <code>load_balancing</code>)</em>, <code>cloud_cdn</code>, <code>cloud_dns</code>, <code>cloud_nat</code>, <code>cloud_interconnect</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Data &amp; Analytics</strong></td>
-<td style="text-align:left"><code>bigquery</code> <em>(alias: <strong><code>bq</code></strong>)</em>, <code>pubsub</code>, <code>dataflow</code>, <code>dataproc</code>, <code>cloud_composer</code>, <code>looker</code></td>
+<td style="text-align:left"><code>bigquery</code>, <code>pubsub</code> <em>(alias: <code>cloud_pubsub</code>)</em>, <code>dataflow</code>, <code>dataproc</code>, <code>cloud_composer</code>, <code>looker</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>AI &amp; Machine Learning</strong></td>
-<td style="text-align:left"><code>vertex_ai</code>, <code>automl</code>, <code>document_ai</code>, <code>cloud_vision_api</code>, <code>speech_to_text</code>, <code>cloud_translation_api</code></td>
+<td style="text-align:left"><code>vertex_ai</code> <em>(alias: <code>vertexai</code>)</em>, <code>ai_hypercomputer</code>, <code>automl</code>, <code>document_ai</code>, <code>cloud_vision_api</code>, <code>speech_to_text</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Security &amp; Operations</strong></td>
-<td style="text-align:left"><code>cloud_armor</code>, <code>identity_and_access_management</code> <em>(alias: <code>iam</code>)</em>, <code>secret_manager</code>, <code>key_management_service</code> <em>(alias: <code>kms</code>)</em>, <code>cloud_monitoring</code>, <code>cloud_logging</code>, <code>cloud_build</code>, <code>artifact_registry</code></td>
+<td style="text-align:left"><code>cloud_armor</code>, <code>identity_and_access_management</code> <em>(alias: <code>iam</code>)</em>, <code>secret_manager</code>, <code>key_management_service</code> <em>(alias: <code>kms</code>)</em>, <code>security_command_center</code>, <code>cloud_monitoring</code>, <code>cloud_logging</code>, <code>cloud_build</code>, <code>artifact_registry</code></td>
 </tr>
 </tbody>
 </table>
-<h3>1.2. Dynamic Icon Lookup by Name (<code>gcp_icon</code>)</h3>
+<h3>1.2. Color Variants: <code>variant=&quot;default&quot;</code> (3-Tone Blue) vs. <code>variant=&quot;modern&quot;</code> (4-Color)</h3>
+<p>All 250+ GCP icons provide <code>variant=&quot;default&quot;</code> (unified 3-tone blue <code>#4285F4</code> / <code>#669DF6</code> / <code>#AECBFA</code>), which is recommended when combining core services with networking, security, or specialized services so the entire diagram shares a consistent color language. For the 19 Core Products and 26 Category icons, you can pass <code>variant=&quot;modern&quot;</code> to render the Google 4-color multi-color artwork:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">services</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Compute Engine"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">compute_engine</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"GKE"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">gke</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Cloud Run"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">cloud_run</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"BigQuery"</span><span class="p">,</span> <span class="n">gcp</span><span class="o">.</span><span class="n">bigquery</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">services</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">19.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mi">31</span>
+    <span class="c1"># Top row: default (3-tone blue)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">),</span> <span class="s1">'variant="default"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+    <span class="c1"># Bottom row: modern (4-color)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"modern"</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="s1">'variant="modern"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_gcp_images/icons_gcp_variants.png" alt="icons_gcp_2" />
+  <figcaption class="drawlib-caption">Comparing variant='default' (3-Tone Blue) and variant='modern' (Google 4-Color) Across Core GCP Products</figcaption>
+</figure>
+<h3>1.3. Dynamic Icon Lookup by Name (<code>gcp_icon</code>)</h3>
 <p>When the icon name is determined dynamically at runtime (for example, loaded from a configuration file or dictionary), you can invoke the low-level <code>gcp_icon()</code> helper or resolve functions from <code>drawlib.icons.gcp</code>:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span><span class="p">,</span> <span class="n">gcp_icon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="c1"># Render a GCP service icon by string identifier</span>
-<span class="n">gcp_icon</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"bigquery"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="c1"># Render a GCP service icon by string identifier (and optional variant)</span>
+<span class="n">gcp_icon</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"bigquery"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"modern"</span><span class="p">)</span>
 
 <span class="c1"># Or look up the generated service function dynamically on the gcp module</span>
-<span class="nb">getattr</span><span class="p">(</span><span class="n">gcp</span><span class="p">,</span> <span class="s2">"compute_engine"</span><span class="p">)((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="nb">getattr</span><span class="p">(</span><span class="n">gcp</span><span class="p">,</span> <span class="s2">"compute_engine"</span><span class="p">)((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>2. Sizing, Opacity, Tinting &amp; Border Framing (<code>style.image_*</code>)</h2>
@@ -712,7 +749,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_gcp_images/icons_gcp_sizing_and_styling.png" alt="icons_gcp_2" />
+  <img src="icons_gcp_images/icons_gcp_sizing_and_styling.png" alt="icons_gcp_3" />
   <figcaption class="drawlib-caption">GCP Icon Sizing Tiers, Opacity (alpha), Background Tint (image_tint_color), and Border Framing (image_border_*)</figcaption>
 </figure>
 <hr />
@@ -792,7 +829,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_gcp_images/icons_gcp_standalone_grid.png" alt="icons_gcp_3" />
+  <img src="icons_gcp_images/icons_gcp_standalone_grid.png" alt="icons_gcp_4" />
   <figcaption class="drawlib-caption">Overlaying GCP Icons on a GridLayout Tier Matrix</figcaption>
 </figure>
 <h3>3.2. High-Level <code>ArchitectureDiagram</code> (<code>Node</code> &amp; <code>GcpIcon</code>)</h3>
@@ -852,7 +889,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_gcp_images/icons_gcp_architecture_diagram.png" alt="icons_gcp_4" />
+  <img src="icons_gcp_images/icons_gcp_architecture_diagram.png" alt="icons_gcp_5" />
   <figcaption class="drawlib-caption">Mini GCP Topology Using ArchitectureDiagram and GcpIcon</figcaption>
 </figure>
 

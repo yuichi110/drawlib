@@ -9,26 +9,67 @@
 
 """GCP icon: google_kubernetes_engine (default variant)."""
 
+import math
+
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    GCP_TECH_LIGHT,
-    GCP_TECH_MED_LIGHT,
-    GCP_TECH_MID,
-    draw_compound_polygon,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
 
-# ruff: noqa: E501
-# fmt: off
 setup_icon()
-polygon([(61.28, 45.55), (80.39, 34.5), (80.39, 30.34), (59.64, 42.31)], style=fill_style(GCP_TECH_MID))
-polygon([(41.54, 43.07), (19.65, 30.43), (18.31, 33.79), (39.65, 46.14)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(48.13, 86.58), (51.74, 86.58), (51.74, 62.31), (48.13, 62.31)], style=fill_style(GCP_TECH_LIGHT))
-draw_compound_polygon([[(13.27, 71.0), (13.27, 29.0), (50.02, 8.0), (86.73, 29.0), (86.73, 71.0), (50.02, 92.0)], [(78.92, 33.66), (50.02, 17.32), (21.12, 33.66), (21.12, 66.34), (50.02, 82.68), (78.88, 66.34), (78.88, 33.66)]], color=GCP_TECH_LIGHT)
-polygon([(49.94, 52.1), (66.65, 61.72), (49.94, 71.38), (33.26, 61.72)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(48.0, 48.74), (31.79, 58.36), (31.79, 39.08), (48.0, 29.46)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(52.04, 48.74), (52.04, 29.46), (68.25, 39.08), (68.25, 58.36)], style=fill_style(GCP_TECH_MID))
+
+cx, cy = 50.0, 50.0
+r_out = 43.0
+r_in = 34.4
+
+angles_deg = [90.0, 30.0, -30.0, -90.0, -150.0, 150.0]
+outer_pts = [(cx + r_out * math.cos(math.radians(a)), cy + r_out * math.sin(math.radians(a))) for a in angles_deg]
+inner_pts = [(cx + r_in * math.cos(math.radians(a)), cy + r_in * math.sin(math.radians(a))) for a in angles_deg]
+
+st_light = fill_style(GCP_TECH_LIGHT)
+
+hex_ring_pts = outer_pts + [outer_pts[0], inner_pts[0]] + list(reversed(inner_pts[1:])) + [inner_pts[0]]
+polygon(hex_ring_pts, style=st_light)
+
+dx_top = 18.6
+dy_top = dx_top * math.tan(math.radians(30.0))
+y_top_btm = 52.3
+y_top_peak = y_top_btm + 2.0 * dy_top
+spoke_hw = 2.15
+y_spoke_join = y_top_peak - spoke_hw * math.tan(math.radians(30.0))
+top_piece_pts = [
+    (cx, y_top_btm),
+    (cx - dx_top, y_top_btm + dy_top),
+    (cx - spoke_hw, y_spoke_join),
+    (cx - spoke_hw, 88.0),
+    (cx + spoke_hw, 88.0),
+    (cx + spoke_hw, y_spoke_join),
+    (cx + dx_top, y_top_btm + dy_top),
+]
+polygon(top_piece_pts, style=st_light)
+
+x_hex_l, y_hex_bl = inner_pts[4]
+spoke_h = 4.9
+x_face_l = 30.2
+x_face_in_l = 47.9
+y_spoke_top_at_face = y_hex_bl + spoke_h + (x_face_l - x_hex_l) * math.tan(math.radians(30.0))
+x_junc_l = 32.4
+y_junc_l = y_hex_bl + (x_junc_l - x_hex_l) * math.tan(math.radians(30.0))
+y_face_btm_in = y_junc_l - (x_face_in_l - x_junc_l) * math.tan(math.radians(30.0))
+y_face_top_l = 59.6
+y_face_top_in = y_face_top_l - (x_face_in_l - x_face_l) * math.tan(math.radians(30.0))
+
+left_pts = [
+    (x_hex_l, y_hex_bl),
+    (x_hex_l, y_hex_bl + spoke_h),
+    (x_face_l, y_spoke_top_at_face),
+    (x_face_l, y_face_top_l),
+    (x_face_in_l, y_face_top_in),
+    (x_face_in_l, y_face_btm_in),
+    (x_junc_l, y_junc_l),
+]
+polygon(left_pts, style=fill_style(GCP_TECH_MED_LIGHT))
+
+right_pts = [(100.0 - x, y) for (x, y) in left_pts]
+polygon(right_pts, style=fill_style(GCP_TECH_MID))
+
 save()
-# fmt: on

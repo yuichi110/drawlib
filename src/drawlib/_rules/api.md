@@ -513,7 +513,7 @@ pie.draw((104, 26))
 ## 10. Icons & Media (`drawlib.icons`, `drawlib.images`, `drawlib.fonts`)
 
 ### 10.1 Icons
-Drawlib integrates Phosphor vector icons and Google Cloud official architecture icons:
+Drawlib integrates Phosphor vector icons and Google Cloud architecture icons (`variant="default"` 3-tone blue and `variant="modern"` 4-color):
 
 ```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup
@@ -523,10 +523,11 @@ from drawlib.styles import Styles
 setup(width=100, height=40)
 
 # Vector Phosphor Icon
-phosphor.database((30, 20), width=14, style=Styles.PrimaryFlat)
+phosphor.database((20, 20), width=14, style=Styles.PrimaryFlat)
 
-# Official GCP Architecture Icon
-gcp.compute_engine((70, 20), width=16, style=Styles.PrimaryFlat)
+# GCP Architecture Icons (default 3-tone blue & modern 4-color)
+gcp.compute_engine((52, 20), width=15, style=Styles.PrimaryFlat, variant="default")
+gcp.compute_engine((82, 20), width=15, style=Styles.PrimaryFlat, variant="modern")
 ```
 
 ### 10.2 Images & Dimage

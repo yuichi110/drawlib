@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.gcp._base import _write
@@ -21,6 +23,7 @@ def access_context_manager(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing access context manager.
 
@@ -29,9 +32,10 @@ def access_context_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="access_context_manager", style=style)
+    _write(xy=xy, width=width, name="access_context_manager", style=style, variant=variant)
 
 
 def administration(
@@ -39,6 +43,7 @@ def administration(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing administration.
 
@@ -47,9 +52,10 @@ def administration(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="administration", style=style)
+    _write(xy=xy, width=width, name="administration", style=style, variant=variant)
 
 
 def advanced_agent_modeling(
@@ -57,6 +63,7 @@ def advanced_agent_modeling(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing advanced agent modeling.
 
@@ -65,9 +72,10 @@ def advanced_agent_modeling(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="advanced_agent_modeling", style=style)
+    _write(xy=xy, width=width, name="advanced_agent_modeling", style=style, variant=variant)
 
 
 def advanced_solutions_lab(
@@ -75,6 +83,7 @@ def advanced_solutions_lab(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing advanced solutions lab.
 
@@ -83,9 +92,10 @@ def advanced_solutions_lab(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="advanced_solutions_lab", style=style)
+    _write(xy=xy, width=width, name="advanced_solutions_lab", style=style, variant=variant)
 
 
 def agent_assist(
@@ -93,6 +103,7 @@ def agent_assist(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing agent assist.
 
@@ -101,9 +112,10 @@ def agent_assist(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="agent_assist", style=style)
+    _write(xy=xy, width=width, name="agent_assist", style=style, variant=variant)
 
 
 def ai_hub(
@@ -111,6 +123,7 @@ def ai_hub(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing ai hub.
 
@@ -119,9 +132,10 @@ def ai_hub(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="ai_hub", style=style)
+    _write(xy=xy, width=width, name="ai_hub", style=style, variant=variant)
 
 
 def ai_hypercomputer(
@@ -129,6 +143,7 @@ def ai_hypercomputer(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing ai hypercomputer.
 
@@ -137,9 +152,10 @@ def ai_hypercomputer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="ai_hypercomputer", style=style)
+    _write(xy=xy, width=width, name="ai_hypercomputer", style=style, variant=variant)
 
 
 def ai_platform(
@@ -147,6 +163,7 @@ def ai_platform(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing ai platform.
 
@@ -155,9 +172,10 @@ def ai_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="ai_platform", style=style)
+    _write(xy=xy, width=width, name="ai_platform", style=style, variant=variant)
 
 
 def ai_platform_unified(
@@ -165,6 +183,7 @@ def ai_platform_unified(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing ai platform unified.
 
@@ -173,9 +192,10 @@ def ai_platform_unified(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="ai_platform_unified", style=style)
+    _write(xy=xy, width=width, name="ai_platform_unified", style=style, variant=variant)
 
 
 def alloydb(
@@ -183,6 +203,7 @@ def alloydb(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing alloydb.
 
@@ -191,9 +212,10 @@ def alloydb(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="alloydb", style=style)
+    _write(xy=xy, width=width, name="alloydb", style=style, variant=variant)
 
 
 def analytics_hub(
@@ -201,6 +223,7 @@ def analytics_hub(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing analytics hub.
 
@@ -209,9 +232,10 @@ def analytics_hub(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="analytics_hub", style=style)
+    _write(xy=xy, width=width, name="analytics_hub", style=style, variant=variant)
 
 
 def anthos(
@@ -219,6 +243,7 @@ def anthos(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing anthos.
 
@@ -227,9 +252,10 @@ def anthos(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="anthos", style=style)
+    _write(xy=xy, width=width, name="anthos", style=style, variant=variant)
 
 
 def anthos_config_management(
@@ -237,6 +263,7 @@ def anthos_config_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing anthos config management.
 
@@ -245,9 +272,10 @@ def anthos_config_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="anthos_config_management", style=style)
+    _write(xy=xy, width=width, name="anthos_config_management", style=style, variant=variant)
 
 
 def anthos_service_mesh(
@@ -255,6 +283,7 @@ def anthos_service_mesh(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing anthos service mesh.
 
@@ -263,9 +292,10 @@ def anthos_service_mesh(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="anthos_service_mesh", style=style)
+    _write(xy=xy, width=width, name="anthos_service_mesh", style=style, variant=variant)
 
 
 def api(
@@ -273,6 +303,7 @@ def api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing api.
 
@@ -281,9 +312,10 @@ def api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="api", style=style)
+    _write(xy=xy, width=width, name="api", style=style, variant=variant)
 
 
 def api_analytics(
@@ -291,6 +323,7 @@ def api_analytics(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing api analytics.
 
@@ -299,9 +332,10 @@ def api_analytics(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="api_analytics", style=style)
+    _write(xy=xy, width=width, name="api_analytics", style=style, variant=variant)
 
 
 def api_monetization(
@@ -309,6 +343,7 @@ def api_monetization(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing api monetization.
 
@@ -317,9 +352,10 @@ def api_monetization(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="api_monetization", style=style)
+    _write(xy=xy, width=width, name="api_monetization", style=style, variant=variant)
 
 
 def apigee(
@@ -327,6 +363,7 @@ def apigee(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing apigee.
 
@@ -335,9 +372,10 @@ def apigee(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="apigee", style=style)
+    _write(xy=xy, width=width, name="apigee", style=style, variant=variant)
 
 
 def apigee_api_platform(
@@ -345,6 +383,7 @@ def apigee_api_platform(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing apigee api platform.
 
@@ -353,9 +392,10 @@ def apigee_api_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="apigee_api_platform", style=style)
+    _write(xy=xy, width=width, name="apigee_api_platform", style=style, variant=variant)
 
 
 def apigee_sense(
@@ -363,6 +403,7 @@ def apigee_sense(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing apigee sense.
 
@@ -371,9 +412,10 @@ def apigee_sense(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="apigee_sense", style=style)
+    _write(xy=xy, width=width, name="apigee_sense", style=style, variant=variant)
 
 
 def app_engine(
@@ -381,6 +423,7 @@ def app_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing app engine.
 
@@ -389,9 +432,10 @@ def app_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="app_engine", style=style)
+    _write(xy=xy, width=width, name="app_engine", style=style, variant=variant)
 
 
 def artifact_registry(
@@ -399,6 +443,7 @@ def artifact_registry(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing artifact registry.
 
@@ -407,9 +452,10 @@ def artifact_registry(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="artifact_registry", style=style)
+    _write(xy=xy, width=width, name="artifact_registry", style=style, variant=variant)
 
 
 def asset_inventory(
@@ -417,6 +463,7 @@ def asset_inventory(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing asset inventory.
 
@@ -425,9 +472,10 @@ def asset_inventory(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="asset_inventory", style=style)
+    _write(xy=xy, width=width, name="asset_inventory", style=style, variant=variant)
 
 
 def assured_workloads(
@@ -435,6 +483,7 @@ def assured_workloads(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing assured workloads.
 
@@ -443,9 +492,10 @@ def assured_workloads(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="assured_workloads", style=style)
+    _write(xy=xy, width=width, name="assured_workloads", style=style, variant=variant)
 
 
 def automl(
@@ -453,6 +503,7 @@ def automl(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing automl.
 
@@ -461,9 +512,10 @@ def automl(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="automl", style=style)
+    _write(xy=xy, width=width, name="automl", style=style, variant=variant)
 
 
 def automl_natural_language(
@@ -471,6 +523,7 @@ def automl_natural_language(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing automl natural language.
 
@@ -479,9 +532,10 @@ def automl_natural_language(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="automl_natural_language", style=style)
+    _write(xy=xy, width=width, name="automl_natural_language", style=style, variant=variant)
 
 
 def automl_tables(
@@ -489,6 +543,7 @@ def automl_tables(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing automl tables.
 
@@ -497,9 +552,10 @@ def automl_tables(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="automl_tables", style=style)
+    _write(xy=xy, width=width, name="automl_tables", style=style, variant=variant)
 
 
 def automl_translation(
@@ -507,6 +563,7 @@ def automl_translation(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing automl translation.
 
@@ -515,9 +572,10 @@ def automl_translation(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="automl_translation", style=style)
+    _write(xy=xy, width=width, name="automl_translation", style=style, variant=variant)
 
 
 def automl_video_intelligence(
@@ -525,6 +583,7 @@ def automl_video_intelligence(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing automl video intelligence.
 
@@ -533,9 +592,10 @@ def automl_video_intelligence(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="automl_video_intelligence", style=style)
+    _write(xy=xy, width=width, name="automl_video_intelligence", style=style, variant=variant)
 
 
 def automl_vision(
@@ -543,6 +603,7 @@ def automl_vision(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing automl vision.
 
@@ -551,9 +612,10 @@ def automl_vision(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="automl_vision", style=style)
+    _write(xy=xy, width=width, name="automl_vision", style=style, variant=variant)
 
 
 def bare_metal_solutions(
@@ -561,6 +623,7 @@ def bare_metal_solutions(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing bare metal solutions.
 
@@ -569,9 +632,10 @@ def bare_metal_solutions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="bare_metal_solutions", style=style)
+    _write(xy=xy, width=width, name="bare_metal_solutions", style=style, variant=variant)
 
 
 def batch(
@@ -579,6 +643,7 @@ def batch(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing batch.
 
@@ -587,9 +652,10 @@ def batch(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="batch", style=style)
+    _write(xy=xy, width=width, name="batch", style=style, variant=variant)
 
 
 def beyondcorp(
@@ -597,6 +663,7 @@ def beyondcorp(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing beyondcorp.
 
@@ -605,9 +672,10 @@ def beyondcorp(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="beyondcorp", style=style)
+    _write(xy=xy, width=width, name="beyondcorp", style=style, variant=variant)
 
 
 def bigquery(
@@ -615,6 +683,7 @@ def bigquery(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing bigquery.
 
@@ -623,9 +692,10 @@ def bigquery(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="bigquery", style=style)
+    _write(xy=xy, width=width, name="bigquery", style=style, variant=variant)
 
 
 def bigtable(
@@ -633,6 +703,7 @@ def bigtable(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing bigtable.
 
@@ -641,9 +712,10 @@ def bigtable(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="bigtable", style=style)
+    _write(xy=xy, width=width, name="bigtable", style=style, variant=variant)
 
 
 def billing(
@@ -651,6 +723,7 @@ def billing(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing billing.
 
@@ -659,9 +732,10 @@ def billing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="billing", style=style)
+    _write(xy=xy, width=width, name="billing", style=style, variant=variant)
 
 
 def binary_authorization(
@@ -669,6 +743,7 @@ def binary_authorization(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing binary authorization.
 
@@ -677,9 +752,10 @@ def binary_authorization(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="binary_authorization", style=style)
+    _write(xy=xy, width=width, name="binary_authorization", style=style, variant=variant)
 
 
 def catalog(
@@ -687,6 +763,7 @@ def catalog(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing catalog.
 
@@ -695,9 +772,10 @@ def catalog(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="catalog", style=style)
+    _write(xy=xy, width=width, name="catalog", style=style, variant=variant)
 
 
 def category_agents(
@@ -705,6 +783,7 @@ def category_agents(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category agents.
 
@@ -713,9 +792,10 @@ def category_agents(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_agents", style=style)
+    _write(xy=xy, width=width, name="category_agents", style=style, variant=variant)
 
 
 def category_ai_machine_learning(
@@ -723,6 +803,7 @@ def category_ai_machine_learning(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category ai machine learning.
 
@@ -731,9 +812,10 @@ def category_ai_machine_learning(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_ai_machine_learning", style=style)
+    _write(xy=xy, width=width, name="category_ai_machine_learning", style=style, variant=variant)
 
 
 def category_business_intelligence(
@@ -741,6 +823,7 @@ def category_business_intelligence(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category business intelligence.
 
@@ -749,9 +832,10 @@ def category_business_intelligence(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_business_intelligence", style=style)
+    _write(xy=xy, width=width, name="category_business_intelligence", style=style, variant=variant)
 
 
 def category_collaboration(
@@ -759,6 +843,7 @@ def category_collaboration(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category collaboration.
 
@@ -767,9 +852,10 @@ def category_collaboration(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_collaboration", style=style)
+    _write(xy=xy, width=width, name="category_collaboration", style=style, variant=variant)
 
 
 def category_compute(
@@ -777,6 +863,7 @@ def category_compute(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category compute.
 
@@ -785,9 +872,10 @@ def category_compute(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_compute", style=style)
+    _write(xy=xy, width=width, name="category_compute", style=style, variant=variant)
 
 
 def category_containers(
@@ -795,6 +883,7 @@ def category_containers(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category containers.
 
@@ -803,9 +892,10 @@ def category_containers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_containers", style=style)
+    _write(xy=xy, width=width, name="category_containers", style=style, variant=variant)
 
 
 def category_data_analytics(
@@ -813,6 +903,7 @@ def category_data_analytics(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category data analytics.
 
@@ -821,9 +912,10 @@ def category_data_analytics(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_data_analytics", style=style)
+    _write(xy=xy, width=width, name="category_data_analytics", style=style, variant=variant)
 
 
 def category_databases(
@@ -831,6 +923,7 @@ def category_databases(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category databases.
 
@@ -839,9 +932,10 @@ def category_databases(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_databases", style=style)
+    _write(xy=xy, width=width, name="category_databases", style=style, variant=variant)
 
 
 def category_developer_tools(
@@ -849,6 +943,7 @@ def category_developer_tools(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category developer tools.
 
@@ -857,9 +952,10 @@ def category_developer_tools(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_developer_tools", style=style)
+    _write(xy=xy, width=width, name="category_developer_tools", style=style, variant=variant)
 
 
 def category_devops(
@@ -867,6 +963,7 @@ def category_devops(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category devops.
 
@@ -875,9 +972,10 @@ def category_devops(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_devops", style=style)
+    _write(xy=xy, width=width, name="category_devops", style=style, variant=variant)
 
 
 def category_hybrid_multicloud(
@@ -885,6 +983,7 @@ def category_hybrid_multicloud(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category hybrid multicloud.
 
@@ -893,9 +992,10 @@ def category_hybrid_multicloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_hybrid_multicloud", style=style)
+    _write(xy=xy, width=width, name="category_hybrid_multicloud", style=style, variant=variant)
 
 
 def category_integration_services(
@@ -903,6 +1003,7 @@ def category_integration_services(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category integration services.
 
@@ -911,9 +1012,10 @@ def category_integration_services(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_integration_services", style=style)
+    _write(xy=xy, width=width, name="category_integration_services", style=style, variant=variant)
 
 
 def category_management_tools(
@@ -921,6 +1023,7 @@ def category_management_tools(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category management tools.
 
@@ -929,9 +1032,10 @@ def category_management_tools(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_management_tools", style=style)
+    _write(xy=xy, width=width, name="category_management_tools", style=style, variant=variant)
 
 
 def category_maps_geospatial(
@@ -939,6 +1043,7 @@ def category_maps_geospatial(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category maps geospatial.
 
@@ -947,9 +1052,10 @@ def category_maps_geospatial(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_maps_geospatial", style=style)
+    _write(xy=xy, width=width, name="category_maps_geospatial", style=style, variant=variant)
 
 
 def category_marketplace(
@@ -957,6 +1063,7 @@ def category_marketplace(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category marketplace.
 
@@ -965,9 +1072,10 @@ def category_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_marketplace", style=style)
+    _write(xy=xy, width=width, name="category_marketplace", style=style, variant=variant)
 
 
 def category_media_services(
@@ -975,6 +1083,7 @@ def category_media_services(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category media services.
 
@@ -983,9 +1092,10 @@ def category_media_services(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_media_services", style=style)
+    _write(xy=xy, width=width, name="category_media_services", style=style, variant=variant)
 
 
 def category_migration(
@@ -993,6 +1103,7 @@ def category_migration(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category migration.
 
@@ -1001,9 +1112,10 @@ def category_migration(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_migration", style=style)
+    _write(xy=xy, width=width, name="category_migration", style=style, variant=variant)
 
 
 def category_mixed_reality(
@@ -1011,6 +1123,7 @@ def category_mixed_reality(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category mixed reality.
 
@@ -1019,9 +1132,10 @@ def category_mixed_reality(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_mixed_reality", style=style)
+    _write(xy=xy, width=width, name="category_mixed_reality", style=style, variant=variant)
 
 
 def category_networking(
@@ -1029,6 +1143,7 @@ def category_networking(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category networking.
 
@@ -1037,9 +1152,10 @@ def category_networking(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_networking", style=style)
+    _write(xy=xy, width=width, name="category_networking", style=style, variant=variant)
 
 
 def category_observability(
@@ -1047,6 +1163,7 @@ def category_observability(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category observability.
 
@@ -1055,9 +1172,10 @@ def category_observability(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_observability", style=style)
+    _write(xy=xy, width=width, name="category_observability", style=style, variant=variant)
 
 
 def category_operations(
@@ -1065,6 +1183,7 @@ def category_operations(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category operations.
 
@@ -1073,9 +1192,10 @@ def category_operations(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_operations", style=style)
+    _write(xy=xy, width=width, name="category_operations", style=style, variant=variant)
 
 
 def category_security_identity(
@@ -1083,6 +1203,7 @@ def category_security_identity(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category security identity.
 
@@ -1091,9 +1212,10 @@ def category_security_identity(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_security_identity", style=style)
+    _write(xy=xy, width=width, name="category_security_identity", style=style, variant=variant)
 
 
 def category_serverless_computing(
@@ -1101,6 +1223,7 @@ def category_serverless_computing(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category serverless computing.
 
@@ -1109,9 +1232,10 @@ def category_serverless_computing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_serverless_computing", style=style)
+    _write(xy=xy, width=width, name="category_serverless_computing", style=style, variant=variant)
 
 
 def category_storage(
@@ -1119,6 +1243,7 @@ def category_storage(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category storage.
 
@@ -1127,9 +1252,10 @@ def category_storage(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_storage", style=style)
+    _write(xy=xy, width=width, name="category_storage", style=style, variant=variant)
 
 
 def category_web3(
@@ -1137,6 +1263,7 @@ def category_web3(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category web3.
 
@@ -1145,9 +1272,10 @@ def category_web3(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_web3", style=style)
+    _write(xy=xy, width=width, name="category_web3", style=style, variant=variant)
 
 
 def category_web_mobile(
@@ -1155,6 +1283,7 @@ def category_web_mobile(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing category web mobile.
 
@@ -1163,9 +1292,10 @@ def category_web_mobile(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="category_web_mobile", style=style)
+    _write(xy=xy, width=width, name="category_web_mobile", style=style, variant=variant)
 
 
 def certificate_authority_service(
@@ -1173,6 +1303,7 @@ def certificate_authority_service(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing certificate authority service.
 
@@ -1181,9 +1312,10 @@ def certificate_authority_service(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="certificate_authority_service", style=style)
+    _write(xy=xy, width=width, name="certificate_authority_service", style=style, variant=variant)
 
 
 def certificate_manager(
@@ -1191,6 +1323,7 @@ def certificate_manager(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing certificate manager.
 
@@ -1199,9 +1332,10 @@ def certificate_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="certificate_manager", style=style)
+    _write(xy=xy, width=width, name="certificate_manager", style=style, variant=variant)
 
 
 def cloud_api_gateway(
@@ -1209,6 +1343,7 @@ def cloud_api_gateway(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud api gateway.
 
@@ -1217,9 +1352,10 @@ def cloud_api_gateway(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_api_gateway", style=style)
+    _write(xy=xy, width=width, name="cloud_api_gateway", style=style, variant=variant)
 
 
 def cloud_apis(
@@ -1227,6 +1363,7 @@ def cloud_apis(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud apis.
 
@@ -1235,9 +1372,10 @@ def cloud_apis(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_apis", style=style)
+    _write(xy=xy, width=width, name="cloud_apis", style=style, variant=variant)
 
 
 def cloud_armor(
@@ -1245,6 +1383,7 @@ def cloud_armor(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud armor.
 
@@ -1253,9 +1392,10 @@ def cloud_armor(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_armor", style=style)
+    _write(xy=xy, width=width, name="cloud_armor", style=style, variant=variant)
 
 
 def cloud_asset_inventory(
@@ -1263,6 +1403,7 @@ def cloud_asset_inventory(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud asset inventory.
 
@@ -1271,9 +1412,10 @@ def cloud_asset_inventory(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_asset_inventory", style=style)
+    _write(xy=xy, width=width, name="cloud_asset_inventory", style=style, variant=variant)
 
 
 def cloud_audit_logs(
@@ -1281,6 +1423,7 @@ def cloud_audit_logs(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud audit logs.
 
@@ -1289,9 +1432,10 @@ def cloud_audit_logs(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_audit_logs", style=style)
+    _write(xy=xy, width=width, name="cloud_audit_logs", style=style, variant=variant)
 
 
 def cloud_build(
@@ -1299,6 +1443,7 @@ def cloud_build(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud build.
 
@@ -1307,9 +1452,10 @@ def cloud_build(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_build", style=style)
+    _write(xy=xy, width=width, name="cloud_build", style=style, variant=variant)
 
 
 def cloud_cdn(
@@ -1317,6 +1463,7 @@ def cloud_cdn(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud cdn.
 
@@ -1325,9 +1472,10 @@ def cloud_cdn(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_cdn", style=style)
+    _write(xy=xy, width=width, name="cloud_cdn", style=style, variant=variant)
 
 
 def cloud_code(
@@ -1335,6 +1483,7 @@ def cloud_code(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud code.
 
@@ -1343,9 +1492,10 @@ def cloud_code(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_code", style=style)
+    _write(xy=xy, width=width, name="cloud_code", style=style, variant=variant)
 
 
 def cloud_composer(
@@ -1353,6 +1503,7 @@ def cloud_composer(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud composer.
 
@@ -1361,9 +1512,10 @@ def cloud_composer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_composer", style=style)
+    _write(xy=xy, width=width, name="cloud_composer", style=style, variant=variant)
 
 
 def cloud_data_fusion(
@@ -1371,6 +1523,7 @@ def cloud_data_fusion(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud data fusion.
 
@@ -1379,9 +1532,10 @@ def cloud_data_fusion(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_data_fusion", style=style)
+    _write(xy=xy, width=width, name="cloud_data_fusion", style=style, variant=variant)
 
 
 def cloud_deploy(
@@ -1389,6 +1543,7 @@ def cloud_deploy(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud deploy.
 
@@ -1397,9 +1552,10 @@ def cloud_deploy(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_deploy", style=style)
+    _write(xy=xy, width=width, name="cloud_deploy", style=style, variant=variant)
 
 
 def cloud_deployment_manager(
@@ -1407,6 +1563,7 @@ def cloud_deployment_manager(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud deployment manager.
 
@@ -1415,9 +1572,10 @@ def cloud_deployment_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_deployment_manager", style=style)
+    _write(xy=xy, width=width, name="cloud_deployment_manager", style=style, variant=variant)
 
 
 def cloud_dns(
@@ -1425,6 +1583,7 @@ def cloud_dns(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud dns.
 
@@ -1433,9 +1592,10 @@ def cloud_dns(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_dns", style=style)
+    _write(xy=xy, width=width, name="cloud_dns", style=style, variant=variant)
 
 
 def cloud_domains(
@@ -1443,6 +1603,7 @@ def cloud_domains(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud domains.
 
@@ -1451,9 +1612,10 @@ def cloud_domains(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_domains", style=style)
+    _write(xy=xy, width=width, name="cloud_domains", style=style, variant=variant)
 
 
 def cloud_ekm(
@@ -1461,6 +1623,7 @@ def cloud_ekm(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud ekm.
 
@@ -1469,9 +1632,10 @@ def cloud_ekm(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_ekm", style=style)
+    _write(xy=xy, width=width, name="cloud_ekm", style=style, variant=variant)
 
 
 def cloud_endpoints(
@@ -1479,6 +1643,7 @@ def cloud_endpoints(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud endpoints.
 
@@ -1487,9 +1652,10 @@ def cloud_endpoints(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_endpoints", style=style)
+    _write(xy=xy, width=width, name="cloud_endpoints", style=style, variant=variant)
 
 
 def cloud_external_ip_addresses(
@@ -1497,6 +1663,7 @@ def cloud_external_ip_addresses(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud external ip addresses.
 
@@ -1505,9 +1672,10 @@ def cloud_external_ip_addresses(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_external_ip_addresses", style=style)
+    _write(xy=xy, width=width, name="cloud_external_ip_addresses", style=style, variant=variant)
 
 
 def cloud_firewall_rules(
@@ -1515,6 +1683,7 @@ def cloud_firewall_rules(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud firewall rules.
 
@@ -1523,9 +1692,10 @@ def cloud_firewall_rules(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_firewall_rules", style=style)
+    _write(xy=xy, width=width, name="cloud_firewall_rules", style=style, variant=variant)
 
 
 def cloud_for_marketing(
@@ -1533,6 +1703,7 @@ def cloud_for_marketing(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud for marketing.
 
@@ -1541,9 +1712,10 @@ def cloud_for_marketing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_for_marketing", style=style)
+    _write(xy=xy, width=width, name="cloud_for_marketing", style=style, variant=variant)
 
 
 def cloud_functions(
@@ -1551,6 +1723,7 @@ def cloud_functions(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud functions.
 
@@ -1559,9 +1732,10 @@ def cloud_functions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_functions", style=style)
+    _write(xy=xy, width=width, name="cloud_functions", style=style, variant=variant)
 
 
 def cloud_generic(
@@ -1569,6 +1743,7 @@ def cloud_generic(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud generic.
 
@@ -1577,9 +1752,10 @@ def cloud_generic(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_generic", style=style)
+    _write(xy=xy, width=width, name="cloud_generic", style=style, variant=variant)
 
 
 def cloud_gpu(
@@ -1587,6 +1763,7 @@ def cloud_gpu(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud gpu.
 
@@ -1595,9 +1772,10 @@ def cloud_gpu(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_gpu", style=style)
+    _write(xy=xy, width=width, name="cloud_gpu", style=style, variant=variant)
 
 
 def cloud_healthcare_api(
@@ -1605,6 +1783,7 @@ def cloud_healthcare_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud healthcare api.
 
@@ -1613,9 +1792,10 @@ def cloud_healthcare_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_healthcare_api", style=style)
+    _write(xy=xy, width=width, name="cloud_healthcare_api", style=style, variant=variant)
 
 
 def cloud_healthcare_marketplace(
@@ -1623,6 +1803,7 @@ def cloud_healthcare_marketplace(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud healthcare marketplace.
 
@@ -1631,9 +1812,10 @@ def cloud_healthcare_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_healthcare_marketplace", style=style)
+    _write(xy=xy, width=width, name="cloud_healthcare_marketplace", style=style, variant=variant)
 
 
 def cloud_hsm(
@@ -1641,6 +1823,7 @@ def cloud_hsm(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud hsm.
 
@@ -1649,9 +1832,10 @@ def cloud_hsm(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_hsm", style=style)
+    _write(xy=xy, width=width, name="cloud_hsm", style=style, variant=variant)
 
 
 def cloud_ids(
@@ -1659,6 +1843,7 @@ def cloud_ids(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud ids.
 
@@ -1667,9 +1852,10 @@ def cloud_ids(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_ids", style=style)
+    _write(xy=xy, width=width, name="cloud_ids", style=style, variant=variant)
 
 
 def cloud_inference_api(
@@ -1677,6 +1863,7 @@ def cloud_inference_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud inference api.
 
@@ -1685,9 +1872,10 @@ def cloud_inference_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_inference_api", style=style)
+    _write(xy=xy, width=width, name="cloud_inference_api", style=style, variant=variant)
 
 
 def cloud_interconnect(
@@ -1695,6 +1883,7 @@ def cloud_interconnect(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud interconnect.
 
@@ -1703,9 +1892,10 @@ def cloud_interconnect(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_interconnect", style=style)
+    _write(xy=xy, width=width, name="cloud_interconnect", style=style, variant=variant)
 
 
 def cloud_jobs_api(
@@ -1713,6 +1903,7 @@ def cloud_jobs_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud jobs api.
 
@@ -1721,9 +1912,10 @@ def cloud_jobs_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_jobs_api", style=style)
+    _write(xy=xy, width=width, name="cloud_jobs_api", style=style, variant=variant)
 
 
 def cloud_load_balancing(
@@ -1731,6 +1923,7 @@ def cloud_load_balancing(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud load balancing.
 
@@ -1739,9 +1932,10 @@ def cloud_load_balancing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_load_balancing", style=style)
+    _write(xy=xy, width=width, name="cloud_load_balancing", style=style, variant=variant)
 
 
 def cloud_logging(
@@ -1749,6 +1943,7 @@ def cloud_logging(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud logging.
 
@@ -1757,9 +1952,10 @@ def cloud_logging(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_logging", style=style)
+    _write(xy=xy, width=width, name="cloud_logging", style=style, variant=variant)
 
 
 def cloud_media_edge(
@@ -1767,6 +1963,7 @@ def cloud_media_edge(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud media edge.
 
@@ -1775,9 +1972,10 @@ def cloud_media_edge(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_media_edge", style=style)
+    _write(xy=xy, width=width, name="cloud_media_edge", style=style, variant=variant)
 
 
 def cloud_monitoring(
@@ -1785,6 +1983,7 @@ def cloud_monitoring(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud monitoring.
 
@@ -1793,9 +1992,10 @@ def cloud_monitoring(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_monitoring", style=style)
+    _write(xy=xy, width=width, name="cloud_monitoring", style=style, variant=variant)
 
 
 def cloud_nat(
@@ -1803,6 +2003,7 @@ def cloud_nat(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud nat.
 
@@ -1811,9 +2012,10 @@ def cloud_nat(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_nat", style=style)
+    _write(xy=xy, width=width, name="cloud_nat", style=style, variant=variant)
 
 
 def cloud_natural_language_api(
@@ -1821,6 +2023,7 @@ def cloud_natural_language_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud natural language api.
 
@@ -1829,9 +2032,10 @@ def cloud_natural_language_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_natural_language_api", style=style)
+    _write(xy=xy, width=width, name="cloud_natural_language_api", style=style, variant=variant)
 
 
 def cloud_network(
@@ -1839,6 +2043,7 @@ def cloud_network(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud network.
 
@@ -1847,9 +2052,10 @@ def cloud_network(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_network", style=style)
+    _write(xy=xy, width=width, name="cloud_network", style=style, variant=variant)
 
 
 def cloud_ops(
@@ -1857,6 +2063,7 @@ def cloud_ops(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud ops.
 
@@ -1865,9 +2072,10 @@ def cloud_ops(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_ops", style=style)
+    _write(xy=xy, width=width, name="cloud_ops", style=style, variant=variant)
 
 
 def cloud_optimization_ai(
@@ -1875,6 +2083,7 @@ def cloud_optimization_ai(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud optimization ai.
 
@@ -1883,9 +2092,10 @@ def cloud_optimization_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_optimization_ai", style=style)
+    _write(xy=xy, width=width, name="cloud_optimization_ai", style=style, variant=variant)
 
 
 def cloud_optimization_ai_fleet_routing_api(
@@ -1893,6 +2103,7 @@ def cloud_optimization_ai_fleet_routing_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud optimization ai fleet routing api.
 
@@ -1901,9 +2112,30 @@ def cloud_optimization_ai_fleet_routing_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", style=style)
+    _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", style=style, variant=variant)
+
+
+def cloud_pubsub(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws a GCP icon representing cloud pubsub.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pubsub", style=style, variant=variant)
 
 
 def cloud_router(
@@ -1911,6 +2143,7 @@ def cloud_router(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud router.
 
@@ -1919,9 +2152,10 @@ def cloud_router(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_router", style=style)
+    _write(xy=xy, width=width, name="cloud_router", style=style, variant=variant)
 
 
 def cloud_routes(
@@ -1929,6 +2163,7 @@ def cloud_routes(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud routes.
 
@@ -1937,9 +2172,10 @@ def cloud_routes(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_routes", style=style)
+    _write(xy=xy, width=width, name="cloud_routes", style=style, variant=variant)
 
 
 def cloud_run(
@@ -1947,6 +2183,7 @@ def cloud_run(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud run.
 
@@ -1955,9 +2192,10 @@ def cloud_run(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_run", style=style)
+    _write(xy=xy, width=width, name="cloud_run", style=style, variant=variant)
 
 
 def cloud_run_for_anthos(
@@ -1965,6 +2203,7 @@ def cloud_run_for_anthos(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud run for anthos.
 
@@ -1973,9 +2212,10 @@ def cloud_run_for_anthos(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_run_for_anthos", style=style)
+    _write(xy=xy, width=width, name="cloud_run_for_anthos", style=style, variant=variant)
 
 
 def cloud_scheduler(
@@ -1983,6 +2223,7 @@ def cloud_scheduler(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud scheduler.
 
@@ -1991,9 +2232,10 @@ def cloud_scheduler(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_scheduler", style=style)
+    _write(xy=xy, width=width, name="cloud_scheduler", style=style, variant=variant)
 
 
 def cloud_security_scanner(
@@ -2001,6 +2243,7 @@ def cloud_security_scanner(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud security scanner.
 
@@ -2009,9 +2252,10 @@ def cloud_security_scanner(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_security_scanner", style=style)
+    _write(xy=xy, width=width, name="cloud_security_scanner", style=style, variant=variant)
 
 
 def cloud_shell(
@@ -2019,6 +2263,7 @@ def cloud_shell(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud shell.
 
@@ -2027,9 +2272,10 @@ def cloud_shell(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_shell", style=style)
+    _write(xy=xy, width=width, name="cloud_shell", style=style, variant=variant)
 
 
 def cloud_spanner(
@@ -2037,6 +2283,7 @@ def cloud_spanner(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud spanner.
 
@@ -2045,9 +2292,10 @@ def cloud_spanner(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_spanner", style=style)
+    _write(xy=xy, width=width, name="cloud_spanner", style=style, variant=variant)
 
 
 def cloud_sql(
@@ -2055,6 +2303,7 @@ def cloud_sql(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud sql.
 
@@ -2063,9 +2312,10 @@ def cloud_sql(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_sql", style=style)
+    _write(xy=xy, width=width, name="cloud_sql", style=style, variant=variant)
 
 
 def cloud_storage(
@@ -2073,6 +2323,7 @@ def cloud_storage(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud storage.
 
@@ -2081,9 +2332,10 @@ def cloud_storage(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_storage", style=style)
+    _write(xy=xy, width=width, name="cloud_storage", style=style, variant=variant)
 
 
 def cloud_tasks(
@@ -2091,6 +2343,7 @@ def cloud_tasks(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud tasks.
 
@@ -2099,9 +2352,10 @@ def cloud_tasks(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_tasks", style=style)
+    _write(xy=xy, width=width, name="cloud_tasks", style=style, variant=variant)
 
 
 def cloud_test_lab(
@@ -2109,6 +2363,7 @@ def cloud_test_lab(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud test lab.
 
@@ -2117,9 +2372,10 @@ def cloud_test_lab(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_test_lab", style=style)
+    _write(xy=xy, width=width, name="cloud_test_lab", style=style, variant=variant)
 
 
 def cloud_tpu(
@@ -2127,6 +2383,7 @@ def cloud_tpu(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud tpu.
 
@@ -2135,9 +2392,10 @@ def cloud_tpu(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_tpu", style=style)
+    _write(xy=xy, width=width, name="cloud_tpu", style=style, variant=variant)
 
 
 def cloud_translation_api(
@@ -2145,6 +2403,7 @@ def cloud_translation_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud translation api.
 
@@ -2153,9 +2412,10 @@ def cloud_translation_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_translation_api", style=style)
+    _write(xy=xy, width=width, name="cloud_translation_api", style=style, variant=variant)
 
 
 def cloud_vision_api(
@@ -2163,6 +2423,7 @@ def cloud_vision_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud vision api.
 
@@ -2171,9 +2432,10 @@ def cloud_vision_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_vision_api", style=style)
+    _write(xy=xy, width=width, name="cloud_vision_api", style=style, variant=variant)
 
 
 def cloud_vpn(
@@ -2181,6 +2443,7 @@ def cloud_vpn(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing cloud vpn.
 
@@ -2189,9 +2452,10 @@ def cloud_vpn(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="cloud_vpn", style=style)
+    _write(xy=xy, width=width, name="cloud_vpn", style=style, variant=variant)
 
 
 def compute_engine(
@@ -2199,6 +2463,7 @@ def compute_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing compute engine.
 
@@ -2207,9 +2472,10 @@ def compute_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="compute_engine", style=style)
+    _write(xy=xy, width=width, name="compute_engine", style=style, variant=variant)
 
 
 def configuration_management(
@@ -2217,6 +2483,7 @@ def configuration_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing configuration management.
 
@@ -2225,9 +2492,10 @@ def configuration_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="configuration_management", style=style)
+    _write(xy=xy, width=width, name="configuration_management", style=style, variant=variant)
 
 
 def connectivity_test(
@@ -2235,6 +2503,7 @@ def connectivity_test(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing connectivity test.
 
@@ -2243,9 +2512,10 @@ def connectivity_test(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="connectivity_test", style=style)
+    _write(xy=xy, width=width, name="connectivity_test", style=style, variant=variant)
 
 
 def connectors(
@@ -2253,6 +2523,7 @@ def connectors(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing connectors.
 
@@ -2261,9 +2532,10 @@ def connectors(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="connectors", style=style)
+    _write(xy=xy, width=width, name="connectors", style=style, variant=variant)
 
 
 def contact_center_ai(
@@ -2271,6 +2543,7 @@ def contact_center_ai(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing contact center ai.
 
@@ -2279,9 +2552,10 @@ def contact_center_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="contact_center_ai", style=style)
+    _write(xy=xy, width=width, name="contact_center_ai", style=style, variant=variant)
 
 
 def container_optimized_os(
@@ -2289,6 +2563,7 @@ def container_optimized_os(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing container optimized os.
 
@@ -2297,9 +2572,10 @@ def container_optimized_os(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="container_optimized_os", style=style)
+    _write(xy=xy, width=width, name="container_optimized_os", style=style, variant=variant)
 
 
 def container_registry(
@@ -2307,6 +2583,7 @@ def container_registry(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing container registry.
 
@@ -2315,9 +2592,10 @@ def container_registry(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="container_registry", style=style)
+    _write(xy=xy, width=width, name="container_registry", style=style, variant=variant)
 
 
 def data_catalog(
@@ -2325,6 +2603,7 @@ def data_catalog(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data catalog.
 
@@ -2333,9 +2612,10 @@ def data_catalog(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_catalog", style=style)
+    _write(xy=xy, width=width, name="data_catalog", style=style, variant=variant)
 
 
 def data_labeling(
@@ -2343,6 +2623,7 @@ def data_labeling(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data labeling.
 
@@ -2351,9 +2632,10 @@ def data_labeling(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_labeling", style=style)
+    _write(xy=xy, width=width, name="data_labeling", style=style, variant=variant)
 
 
 def data_layers(
@@ -2361,6 +2643,7 @@ def data_layers(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data layers.
 
@@ -2369,9 +2652,10 @@ def data_layers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_layers", style=style)
+    _write(xy=xy, width=width, name="data_layers", style=style, variant=variant)
 
 
 def data_loss_prevention_api(
@@ -2379,6 +2663,7 @@ def data_loss_prevention_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data loss prevention api.
 
@@ -2387,9 +2672,10 @@ def data_loss_prevention_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_loss_prevention_api", style=style)
+    _write(xy=xy, width=width, name="data_loss_prevention_api", style=style, variant=variant)
 
 
 def data_qna(
@@ -2397,6 +2683,7 @@ def data_qna(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data qna.
 
@@ -2405,9 +2692,10 @@ def data_qna(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_qna", style=style)
+    _write(xy=xy, width=width, name="data_qna", style=style, variant=variant)
 
 
 def data_studio(
@@ -2415,6 +2703,7 @@ def data_studio(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data studio.
 
@@ -2423,9 +2712,10 @@ def data_studio(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_studio", style=style)
+    _write(xy=xy, width=width, name="data_studio", style=style, variant=variant)
 
 
 def data_transfer(
@@ -2433,6 +2723,7 @@ def data_transfer(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing data transfer.
 
@@ -2441,9 +2732,10 @@ def data_transfer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="data_transfer", style=style)
+    _write(xy=xy, width=width, name="data_transfer", style=style, variant=variant)
 
 
 def database_migration_service(
@@ -2451,6 +2743,7 @@ def database_migration_service(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing database migration service.
 
@@ -2459,9 +2752,10 @@ def database_migration_service(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="database_migration_service", style=style)
+    _write(xy=xy, width=width, name="database_migration_service", style=style, variant=variant)
 
 
 def dataflow(
@@ -2469,6 +2763,7 @@ def dataflow(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dataflow.
 
@@ -2477,9 +2772,10 @@ def dataflow(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dataflow", style=style)
+    _write(xy=xy, width=width, name="dataflow", style=style, variant=variant)
 
 
 def datalab(
@@ -2487,6 +2783,7 @@ def datalab(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing datalab.
 
@@ -2495,9 +2792,10 @@ def datalab(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="datalab", style=style)
+    _write(xy=xy, width=width, name="datalab", style=style, variant=variant)
 
 
 def dataplex(
@@ -2505,6 +2803,7 @@ def dataplex(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dataplex.
 
@@ -2513,9 +2812,10 @@ def dataplex(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dataplex", style=style)
+    _write(xy=xy, width=width, name="dataplex", style=style, variant=variant)
 
 
 def datapol(
@@ -2523,6 +2823,7 @@ def datapol(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing datapol.
 
@@ -2531,9 +2832,10 @@ def datapol(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="datapol", style=style)
+    _write(xy=xy, width=width, name="datapol", style=style, variant=variant)
 
 
 def dataprep(
@@ -2541,6 +2843,7 @@ def dataprep(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dataprep.
 
@@ -2549,9 +2852,10 @@ def dataprep(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dataprep", style=style)
+    _write(xy=xy, width=width, name="dataprep", style=style, variant=variant)
 
 
 def dataproc(
@@ -2559,6 +2863,7 @@ def dataproc(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dataproc.
 
@@ -2567,9 +2872,10 @@ def dataproc(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dataproc", style=style)
+    _write(xy=xy, width=width, name="dataproc", style=style, variant=variant)
 
 
 def dataproc_metastore(
@@ -2577,6 +2883,7 @@ def dataproc_metastore(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dataproc metastore.
 
@@ -2585,9 +2892,10 @@ def dataproc_metastore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dataproc_metastore", style=style)
+    _write(xy=xy, width=width, name="dataproc_metastore", style=style, variant=variant)
 
 
 def datashare(
@@ -2595,6 +2903,7 @@ def datashare(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing datashare.
 
@@ -2603,9 +2912,10 @@ def datashare(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="datashare", style=style)
+    _write(xy=xy, width=width, name="datashare", style=style, variant=variant)
 
 
 def datastore(
@@ -2613,6 +2923,7 @@ def datastore(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing datastore.
 
@@ -2621,9 +2932,10 @@ def datastore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="datastore", style=style)
+    _write(xy=xy, width=width, name="datastore", style=style, variant=variant)
 
 
 def datastream(
@@ -2631,6 +2943,7 @@ def datastream(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing datastream.
 
@@ -2639,9 +2952,10 @@ def datastream(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="datastream", style=style)
+    _write(xy=xy, width=width, name="datastream", style=style, variant=variant)
 
 
 def debugger(
@@ -2649,6 +2963,7 @@ def debugger(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing debugger.
 
@@ -2657,9 +2972,10 @@ def debugger(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="debugger", style=style)
+    _write(xy=xy, width=width, name="debugger", style=style, variant=variant)
 
 
 def developer_portal(
@@ -2667,6 +2983,7 @@ def developer_portal(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing developer portal.
 
@@ -2675,9 +2992,10 @@ def developer_portal(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="developer_portal", style=style)
+    _write(xy=xy, width=width, name="developer_portal", style=style, variant=variant)
 
 
 def dialogflow(
@@ -2685,6 +3003,7 @@ def dialogflow(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dialogflow.
 
@@ -2693,9 +3012,10 @@ def dialogflow(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dialogflow", style=style)
+    _write(xy=xy, width=width, name="dialogflow", style=style, variant=variant)
 
 
 def dialogflow_cx(
@@ -2703,6 +3023,7 @@ def dialogflow_cx(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dialogflow cx.
 
@@ -2711,9 +3032,10 @@ def dialogflow_cx(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dialogflow_cx", style=style)
+    _write(xy=xy, width=width, name="dialogflow_cx", style=style, variant=variant)
 
 
 def dialogflow_insights(
@@ -2721,6 +3043,7 @@ def dialogflow_insights(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing dialogflow insights.
 
@@ -2729,9 +3052,10 @@ def dialogflow_insights(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="dialogflow_insights", style=style)
+    _write(xy=xy, width=width, name="dialogflow_insights", style=style, variant=variant)
 
 
 def distributed_cloud(
@@ -2739,6 +3063,7 @@ def distributed_cloud(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing distributed cloud.
 
@@ -2747,9 +3072,10 @@ def distributed_cloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="distributed_cloud", style=style)
+    _write(xy=xy, width=width, name="distributed_cloud", style=style, variant=variant)
 
 
 def document_ai(
@@ -2757,6 +3083,7 @@ def document_ai(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing document ai.
 
@@ -2765,9 +3092,10 @@ def document_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="document_ai", style=style)
+    _write(xy=xy, width=width, name="document_ai", style=style, variant=variant)
 
 
 def early_access_center(
@@ -2775,6 +3103,7 @@ def early_access_center(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing early access center.
 
@@ -2783,9 +3112,10 @@ def early_access_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="early_access_center", style=style)
+    _write(xy=xy, width=width, name="early_access_center", style=style, variant=variant)
 
 
 def error_reporting(
@@ -2793,6 +3123,7 @@ def error_reporting(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing error reporting.
 
@@ -2801,9 +3132,10 @@ def error_reporting(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="error_reporting", style=style)
+    _write(xy=xy, width=width, name="error_reporting", style=style, variant=variant)
 
 
 def eventarc(
@@ -2811,6 +3143,7 @@ def eventarc(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing eventarc.
 
@@ -2819,9 +3152,10 @@ def eventarc(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="eventarc", style=style)
+    _write(xy=xy, width=width, name="eventarc", style=style, variant=variant)
 
 
 def filestore(
@@ -2829,6 +3163,7 @@ def filestore(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing filestore.
 
@@ -2837,9 +3172,10 @@ def filestore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="filestore", style=style)
+    _write(xy=xy, width=width, name="filestore", style=style, variant=variant)
 
 
 def financial_services_marketplace(
@@ -2847,6 +3183,7 @@ def financial_services_marketplace(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing financial services marketplace.
 
@@ -2855,9 +3192,10 @@ def financial_services_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="financial_services_marketplace", style=style)
+    _write(xy=xy, width=width, name="financial_services_marketplace", style=style, variant=variant)
 
 
 def firestore(
@@ -2865,6 +3203,7 @@ def firestore(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing firestore.
 
@@ -2873,9 +3212,10 @@ def firestore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="firestore", style=style)
+    _write(xy=xy, width=width, name="firestore", style=style, variant=variant)
 
 
 def fleet_engine(
@@ -2883,6 +3223,7 @@ def fleet_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing fleet engine.
 
@@ -2891,9 +3232,10 @@ def fleet_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="fleet_engine", style=style)
+    _write(xy=xy, width=width, name="fleet_engine", style=style, variant=variant)
 
 
 def free_trial(
@@ -2901,6 +3243,7 @@ def free_trial(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing free trial.
 
@@ -2909,9 +3252,10 @@ def free_trial(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="free_trial", style=style)
+    _write(xy=xy, width=width, name="free_trial", style=style, variant=variant)
 
 
 def functions(
@@ -2919,6 +3263,7 @@ def functions(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing functions.
 
@@ -2927,9 +3272,10 @@ def functions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="functions", style=style)
+    _write(xy=xy, width=width, name="cloud_functions", style=style, variant=variant)
 
 
 def game_servers(
@@ -2937,6 +3283,7 @@ def game_servers(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing game servers.
 
@@ -2945,9 +3292,10 @@ def game_servers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="game_servers", style=style)
+    _write(xy=xy, width=width, name="game_servers", style=style, variant=variant)
 
 
 def gce(
@@ -2955,6 +3303,7 @@ def gce(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing gce.
 
@@ -2963,9 +3312,10 @@ def gce(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="gce", style=style)
+    _write(xy=xy, width=width, name="compute_engine", style=style, variant=variant)
 
 
 def gce_systems_management(
@@ -2973,6 +3323,7 @@ def gce_systems_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing gce systems management.
 
@@ -2981,9 +3332,10 @@ def gce_systems_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="gce_systems_management", style=style)
+    _write(xy=xy, width=width, name="gce_systems_management", style=style, variant=variant)
 
 
 def gcs(
@@ -2991,6 +3343,7 @@ def gcs(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing gcs.
 
@@ -2999,9 +3352,10 @@ def gcs(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="gcs", style=style)
+    _write(xy=xy, width=width, name="cloud_storage", style=style, variant=variant)
 
 
 def genomics(
@@ -3009,6 +3363,7 @@ def genomics(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing genomics.
 
@@ -3017,9 +3372,10 @@ def genomics(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="genomics", style=style)
+    _write(xy=xy, width=width, name="genomics", style=style, variant=variant)
 
 
 def gke(
@@ -3027,6 +3383,7 @@ def gke(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing gke.
 
@@ -3035,9 +3392,10 @@ def gke(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="gke", style=style)
+    _write(xy=xy, width=width, name="google_kubernetes_engine", style=style, variant=variant)
 
 
 def gke_on_prem(
@@ -3045,6 +3403,7 @@ def gke_on_prem(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing gke on prem.
 
@@ -3053,9 +3412,10 @@ def gke_on_prem(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="gke_on_prem", style=style)
+    _write(xy=xy, width=width, name="gke_on_prem", style=style, variant=variant)
 
 
 def google_cloud_marketplace(
@@ -3063,6 +3423,7 @@ def google_cloud_marketplace(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing google cloud marketplace.
 
@@ -3071,9 +3432,10 @@ def google_cloud_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="google_cloud_marketplace", style=style)
+    _write(xy=xy, width=width, name="google_cloud_marketplace", style=style, variant=variant)
 
 
 def google_kubernetes_engine(
@@ -3081,6 +3443,7 @@ def google_kubernetes_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing google kubernetes engine.
 
@@ -3089,9 +3452,10 @@ def google_kubernetes_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="google_kubernetes_engine", style=style)
+    _write(xy=xy, width=width, name="google_kubernetes_engine", style=style, variant=variant)
 
 
 def google_maps_platform(
@@ -3099,6 +3463,7 @@ def google_maps_platform(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing google maps platform.
 
@@ -3107,9 +3472,10 @@ def google_maps_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="google_maps_platform", style=style)
+    _write(xy=xy, width=width, name="google_maps_platform", style=style, variant=variant)
 
 
 def healthcare_nlp_api(
@@ -3117,6 +3483,7 @@ def healthcare_nlp_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing healthcare nlp api.
 
@@ -3125,9 +3492,10 @@ def healthcare_nlp_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="healthcare_nlp_api", style=style)
+    _write(xy=xy, width=width, name="healthcare_nlp_api", style=style, variant=variant)
 
 
 def home(
@@ -3135,6 +3503,7 @@ def home(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing home.
 
@@ -3143,9 +3512,10 @@ def home(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="home", style=style)
+    _write(xy=xy, width=width, name="home", style=style, variant=variant)
 
 
 def hyperdisk(
@@ -3153,6 +3523,7 @@ def hyperdisk(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing hyperdisk.
 
@@ -3161,9 +3532,10 @@ def hyperdisk(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="hyperdisk", style=style)
+    _write(xy=xy, width=width, name="hyperdisk", style=style, variant=variant)
 
 
 def iam(
@@ -3171,6 +3543,7 @@ def iam(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing iam.
 
@@ -3179,9 +3552,10 @@ def iam(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="iam", style=style)
+    _write(xy=xy, width=width, name="identity_and_access_management", style=style, variant=variant)
 
 
 def identity_and_access_management(
@@ -3189,6 +3563,7 @@ def identity_and_access_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing identity and access management.
 
@@ -3197,9 +3572,10 @@ def identity_and_access_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="identity_and_access_management", style=style)
+    _write(xy=xy, width=width, name="identity_and_access_management", style=style, variant=variant)
 
 
 def identity_aware_proxy(
@@ -3207,6 +3583,7 @@ def identity_aware_proxy(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing identity aware proxy.
 
@@ -3215,9 +3592,10 @@ def identity_aware_proxy(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="identity_aware_proxy", style=style)
+    _write(xy=xy, width=width, name="identity_aware_proxy", style=style, variant=variant)
 
 
 def identity_platform(
@@ -3225,6 +3603,7 @@ def identity_platform(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing identity platform.
 
@@ -3233,9 +3612,10 @@ def identity_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="identity_platform", style=style)
+    _write(xy=xy, width=width, name="identity_platform", style=style, variant=variant)
 
 
 def iot_core(
@@ -3243,6 +3623,7 @@ def iot_core(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing iot core.
 
@@ -3251,9 +3632,10 @@ def iot_core(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="iot_core", style=style)
+    _write(xy=xy, width=width, name="iot_core", style=style, variant=variant)
 
 
 def iot_edge(
@@ -3261,6 +3643,7 @@ def iot_edge(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing iot edge.
 
@@ -3269,9 +3652,10 @@ def iot_edge(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="iot_edge", style=style)
+    _write(xy=xy, width=width, name="iot_edge", style=style, variant=variant)
 
 
 def key_access_justifications(
@@ -3279,6 +3663,7 @@ def key_access_justifications(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing key access justifications.
 
@@ -3287,9 +3672,10 @@ def key_access_justifications(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="key_access_justifications", style=style)
+    _write(xy=xy, width=width, name="key_access_justifications", style=style, variant=variant)
 
 
 def key_management_service(
@@ -3297,6 +3683,7 @@ def key_management_service(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing key management service.
 
@@ -3305,9 +3692,10 @@ def key_management_service(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="key_management_service", style=style)
+    _write(xy=xy, width=width, name="key_management_service", style=style, variant=variant)
 
 
 def kms(
@@ -3315,6 +3703,7 @@ def kms(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing kms.
 
@@ -3323,9 +3712,10 @@ def kms(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="kms", style=style)
+    _write(xy=xy, width=width, name="key_management_service", style=style, variant=variant)
 
 
 def kuberun(
@@ -3333,6 +3723,7 @@ def kuberun(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing kuberun.
 
@@ -3341,9 +3732,10 @@ def kuberun(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="kuberun", style=style)
+    _write(xy=xy, width=width, name="kuberun", style=style, variant=variant)
 
 
 def launcher(
@@ -3351,6 +3743,7 @@ def launcher(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing launcher.
 
@@ -3359,9 +3752,30 @@ def launcher(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="launcher", style=style)
+    _write(xy=xy, width=width, name="launcher", style=style, variant=variant)
+
+
+def load_balancing(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws a GCP icon representing load balancing.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cloud_load_balancing", style=style, variant=variant)
 
 
 def local_ssd(
@@ -3369,6 +3783,7 @@ def local_ssd(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing local ssd.
 
@@ -3377,9 +3792,10 @@ def local_ssd(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="local_ssd", style=style)
+    _write(xy=xy, width=width, name="local_ssd", style=style, variant=variant)
 
 
 def looker(
@@ -3387,6 +3803,7 @@ def looker(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing looker.
 
@@ -3395,9 +3812,10 @@ def looker(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="looker", style=style)
+    _write(xy=xy, width=width, name="looker", style=style, variant=variant)
 
 
 def managed_service_for_microsoft_active_directory(
@@ -3405,6 +3823,7 @@ def managed_service_for_microsoft_active_directory(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing managed service for microsoft active directory.
 
@@ -3413,9 +3832,10 @@ def managed_service_for_microsoft_active_directory(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="managed_service_for_microsoft_active_directory", style=style)
+    _write(xy=xy, width=width, name="managed_service_for_microsoft_active_directory", style=style, variant=variant)
 
 
 def mandiant(
@@ -3423,6 +3843,7 @@ def mandiant(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing mandiant.
 
@@ -3431,9 +3852,10 @@ def mandiant(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="mandiant", style=style)
+    _write(xy=xy, width=width, name="mandiant", style=style, variant=variant)
 
 
 def media_translation_api(
@@ -3441,6 +3863,7 @@ def media_translation_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing media translation api.
 
@@ -3449,9 +3872,10 @@ def media_translation_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="media_translation_api", style=style)
+    _write(xy=xy, width=width, name="media_translation_api", style=style, variant=variant)
 
 
 def memorystore(
@@ -3459,6 +3883,7 @@ def memorystore(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing memorystore.
 
@@ -3467,9 +3892,10 @@ def memorystore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="memorystore", style=style)
+    _write(xy=xy, width=width, name="memorystore", style=style, variant=variant)
 
 
 def migrate_for_anthos(
@@ -3477,6 +3903,7 @@ def migrate_for_anthos(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing migrate for anthos.
 
@@ -3485,9 +3912,10 @@ def migrate_for_anthos(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="migrate_for_anthos", style=style)
+    _write(xy=xy, width=width, name="migrate_for_anthos", style=style, variant=variant)
 
 
 def migrate_for_compute_engine(
@@ -3495,6 +3923,7 @@ def migrate_for_compute_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing migrate for compute engine.
 
@@ -3503,9 +3932,10 @@ def migrate_for_compute_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="migrate_for_compute_engine", style=style)
+    _write(xy=xy, width=width, name="migrate_for_compute_engine", style=style, variant=variant)
 
 
 def my_cloud(
@@ -3513,6 +3943,7 @@ def my_cloud(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing my cloud.
 
@@ -3521,9 +3952,10 @@ def my_cloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="my_cloud", style=style)
+    _write(xy=xy, width=width, name="my_cloud", style=style, variant=variant)
 
 
 def network_connectivity_center(
@@ -3531,6 +3963,7 @@ def network_connectivity_center(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing network connectivity center.
 
@@ -3539,9 +3972,10 @@ def network_connectivity_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="network_connectivity_center", style=style)
+    _write(xy=xy, width=width, name="network_connectivity_center", style=style, variant=variant)
 
 
 def network_intelligence_center(
@@ -3549,6 +3983,7 @@ def network_intelligence_center(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing network intelligence center.
 
@@ -3557,9 +3992,10 @@ def network_intelligence_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="network_intelligence_center", style=style)
+    _write(xy=xy, width=width, name="network_intelligence_center", style=style, variant=variant)
 
 
 def network_security(
@@ -3567,6 +4003,7 @@ def network_security(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing network security.
 
@@ -3575,9 +4012,10 @@ def network_security(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="network_security", style=style)
+    _write(xy=xy, width=width, name="network_security", style=style, variant=variant)
 
 
 def network_tiers(
@@ -3585,6 +4023,7 @@ def network_tiers(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing network tiers.
 
@@ -3593,9 +4032,10 @@ def network_tiers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="network_tiers", style=style)
+    _write(xy=xy, width=width, name="network_tiers", style=style, variant=variant)
 
 
 def network_topology(
@@ -3603,6 +4043,7 @@ def network_topology(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing network topology.
 
@@ -3611,9 +4052,10 @@ def network_topology(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="network_topology", style=style)
+    _write(xy=xy, width=width, name="network_topology", style=style, variant=variant)
 
 
 def onboarding(
@@ -3621,6 +4063,7 @@ def onboarding(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing onboarding.
 
@@ -3629,9 +4072,10 @@ def onboarding(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="onboarding", style=style)
+    _write(xy=xy, width=width, name="onboarding", style=style, variant=variant)
 
 
 def os_configuration_management(
@@ -3639,6 +4083,7 @@ def os_configuration_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing os configuration management.
 
@@ -3647,9 +4092,10 @@ def os_configuration_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="os_configuration_management", style=style)
+    _write(xy=xy, width=width, name="os_configuration_management", style=style, variant=variant)
 
 
 def os_inventory_management(
@@ -3657,6 +4103,7 @@ def os_inventory_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing os inventory management.
 
@@ -3665,9 +4112,10 @@ def os_inventory_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="os_inventory_management", style=style)
+    _write(xy=xy, width=width, name="os_inventory_management", style=style, variant=variant)
 
 
 def os_patch_management(
@@ -3675,6 +4123,7 @@ def os_patch_management(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing os patch management.
 
@@ -3683,9 +4132,10 @@ def os_patch_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="os_patch_management", style=style)
+    _write(xy=xy, width=width, name="os_patch_management", style=style, variant=variant)
 
 
 def partner_interconnect(
@@ -3693,6 +4143,7 @@ def partner_interconnect(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing partner interconnect.
 
@@ -3701,9 +4152,10 @@ def partner_interconnect(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="partner_interconnect", style=style)
+    _write(xy=xy, width=width, name="partner_interconnect", style=style, variant=variant)
 
 
 def partner_portal(
@@ -3711,6 +4163,7 @@ def partner_portal(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing partner portal.
 
@@ -3719,9 +4172,10 @@ def partner_portal(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="partner_portal", style=style)
+    _write(xy=xy, width=width, name="partner_portal", style=style, variant=variant)
 
 
 def performance_dashboard(
@@ -3729,6 +4183,7 @@ def performance_dashboard(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing performance dashboard.
 
@@ -3737,9 +4192,10 @@ def performance_dashboard(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="performance_dashboard", style=style)
+    _write(xy=xy, width=width, name="performance_dashboard", style=style, variant=variant)
 
 
 def permissions(
@@ -3747,6 +4203,7 @@ def permissions(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing permissions.
 
@@ -3755,9 +4212,10 @@ def permissions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="permissions", style=style)
+    _write(xy=xy, width=width, name="permissions", style=style, variant=variant)
 
 
 def persistent_disk(
@@ -3765,6 +4223,7 @@ def persistent_disk(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing persistent disk.
 
@@ -3773,9 +4232,10 @@ def persistent_disk(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="persistent_disk", style=style)
+    _write(xy=xy, width=width, name="persistent_disk", style=style, variant=variant)
 
 
 def phishing_protection(
@@ -3783,6 +4243,7 @@ def phishing_protection(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing phishing protection.
 
@@ -3791,9 +4252,10 @@ def phishing_protection(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="phishing_protection", style=style)
+    _write(xy=xy, width=width, name="phishing_protection", style=style, variant=variant)
 
 
 def policy_analyzer(
@@ -3801,6 +4263,7 @@ def policy_analyzer(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing policy analyzer.
 
@@ -3809,9 +4272,10 @@ def policy_analyzer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="policy_analyzer", style=style)
+    _write(xy=xy, width=width, name="policy_analyzer", style=style, variant=variant)
 
 
 def premium_network_tier(
@@ -3819,6 +4283,7 @@ def premium_network_tier(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing premium network tier.
 
@@ -3827,9 +4292,10 @@ def premium_network_tier(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="premium_network_tier", style=style)
+    _write(xy=xy, width=width, name="premium_network_tier", style=style, variant=variant)
 
 
 def private_connectivity(
@@ -3837,6 +4303,7 @@ def private_connectivity(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing private connectivity.
 
@@ -3845,9 +4312,10 @@ def private_connectivity(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="private_connectivity", style=style)
+    _write(xy=xy, width=width, name="private_connectivity", style=style, variant=variant)
 
 
 def private_service_connect(
@@ -3855,6 +4323,7 @@ def private_service_connect(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing private service connect.
 
@@ -3863,9 +4332,10 @@ def private_service_connect(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="private_service_connect", style=style)
+    _write(xy=xy, width=width, name="private_service_connect", style=style, variant=variant)
 
 
 def producer_portal(
@@ -3873,6 +4343,7 @@ def producer_portal(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing producer portal.
 
@@ -3881,9 +4352,10 @@ def producer_portal(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="producer_portal", style=style)
+    _write(xy=xy, width=width, name="producer_portal", style=style, variant=variant)
 
 
 def profiler(
@@ -3891,6 +4363,7 @@ def profiler(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing profiler.
 
@@ -3899,9 +4372,10 @@ def profiler(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="profiler", style=style)
+    _write(xy=xy, width=width, name="profiler", style=style, variant=variant)
 
 
 def project(
@@ -3909,6 +4383,7 @@ def project(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing project.
 
@@ -3917,9 +4392,10 @@ def project(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="project", style=style)
+    _write(xy=xy, width=width, name="project", style=style, variant=variant)
 
 
 def pubsub(
@@ -3927,6 +4403,7 @@ def pubsub(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing pubsub.
 
@@ -3935,9 +4412,10 @@ def pubsub(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="pubsub", style=style)
+    _write(xy=xy, width=width, name="pubsub", style=style, variant=variant)
 
 
 def quantum_engine(
@@ -3945,6 +4423,7 @@ def quantum_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing quantum engine.
 
@@ -3953,9 +4432,10 @@ def quantum_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="quantum_engine", style=style)
+    _write(xy=xy, width=width, name="quantum_engine", style=style, variant=variant)
 
 
 def quotas(
@@ -3963,6 +4443,7 @@ def quotas(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing quotas.
 
@@ -3971,9 +4452,10 @@ def quotas(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="quotas", style=style)
+    _write(xy=xy, width=width, name="quotas", style=style, variant=variant)
 
 
 def real_world_insights(
@@ -3981,6 +4463,7 @@ def real_world_insights(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing real world insights.
 
@@ -3989,9 +4472,10 @@ def real_world_insights(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="real_world_insights", style=style)
+    _write(xy=xy, width=width, name="real_world_insights", style=style, variant=variant)
 
 
 def recommendations_ai(
@@ -3999,6 +4483,7 @@ def recommendations_ai(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing recommendations ai.
 
@@ -4007,9 +4492,10 @@ def recommendations_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="recommendations_ai", style=style)
+    _write(xy=xy, width=width, name="recommendations_ai", style=style, variant=variant)
 
 
 def release_notes(
@@ -4017,6 +4503,7 @@ def release_notes(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing release notes.
 
@@ -4025,9 +4512,10 @@ def release_notes(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="release_notes", style=style)
+    _write(xy=xy, width=width, name="release_notes", style=style, variant=variant)
 
 
 def retail_api(
@@ -4035,6 +4523,7 @@ def retail_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing retail api.
 
@@ -4043,9 +4532,10 @@ def retail_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="retail_api", style=style)
+    _write(xy=xy, width=width, name="retail_api", style=style, variant=variant)
 
 
 def risk_manager(
@@ -4053,6 +4543,7 @@ def risk_manager(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing risk manager.
 
@@ -4061,9 +4552,10 @@ def risk_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="risk_manager", style=style)
+    _write(xy=xy, width=width, name="risk_manager", style=style, variant=variant)
 
 
 def runtime_config(
@@ -4071,6 +4563,7 @@ def runtime_config(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing runtime config.
 
@@ -4079,9 +4572,10 @@ def runtime_config(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="runtime_config", style=style)
+    _write(xy=xy, width=width, name="runtime_config", style=style, variant=variant)
 
 
 def secret_manager(
@@ -4089,6 +4583,7 @@ def secret_manager(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing secret manager.
 
@@ -4097,9 +4592,10 @@ def secret_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="secret_manager", style=style)
+    _write(xy=xy, width=width, name="secret_manager", style=style, variant=variant)
 
 
 def security(
@@ -4107,6 +4603,7 @@ def security(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing security.
 
@@ -4115,9 +4612,10 @@ def security(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="security", style=style)
+    _write(xy=xy, width=width, name="security", style=style, variant=variant)
 
 
 def security_command_center(
@@ -4125,6 +4623,7 @@ def security_command_center(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing security command center.
 
@@ -4133,9 +4632,10 @@ def security_command_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="security_command_center", style=style)
+    _write(xy=xy, width=width, name="security_command_center", style=style, variant=variant)
 
 
 def security_health_advisor(
@@ -4143,6 +4643,7 @@ def security_health_advisor(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing security health advisor.
 
@@ -4151,9 +4652,10 @@ def security_health_advisor(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="security_health_advisor", style=style)
+    _write(xy=xy, width=width, name="security_health_advisor", style=style, variant=variant)
 
 
 def security_key_enforcement(
@@ -4161,6 +4663,7 @@ def security_key_enforcement(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing security key enforcement.
 
@@ -4169,9 +4672,10 @@ def security_key_enforcement(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="security_key_enforcement", style=style)
+    _write(xy=xy, width=width, name="security_key_enforcement", style=style, variant=variant)
 
 
 def security_operations(
@@ -4179,6 +4683,7 @@ def security_operations(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing security operations.
 
@@ -4187,9 +4692,10 @@ def security_operations(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="security_operations", style=style)
+    _write(xy=xy, width=width, name="security_operations", style=style, variant=variant)
 
 
 def service_discovery(
@@ -4197,6 +4703,7 @@ def service_discovery(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing service discovery.
 
@@ -4205,9 +4712,10 @@ def service_discovery(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="service_discovery", style=style)
+    _write(xy=xy, width=width, name="service_discovery", style=style, variant=variant)
 
 
 def speech_to_text(
@@ -4215,6 +4723,7 @@ def speech_to_text(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing speech to text.
 
@@ -4223,9 +4732,10 @@ def speech_to_text(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="speech_to_text", style=style)
+    _write(xy=xy, width=width, name="speech_to_text", style=style, variant=variant)
 
 
 def stackdriver(
@@ -4233,6 +4743,7 @@ def stackdriver(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing stackdriver.
 
@@ -4241,9 +4752,10 @@ def stackdriver(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="stackdriver", style=style)
+    _write(xy=xy, width=width, name="stackdriver", style=style, variant=variant)
 
 
 def standard_network_tier(
@@ -4251,6 +4763,7 @@ def standard_network_tier(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing standard network tier.
 
@@ -4259,9 +4772,10 @@ def standard_network_tier(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="standard_network_tier", style=style)
+    _write(xy=xy, width=width, name="standard_network_tier", style=style, variant=variant)
 
 
 def stream_suite(
@@ -4269,6 +4783,7 @@ def stream_suite(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing stream suite.
 
@@ -4277,9 +4792,10 @@ def stream_suite(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="stream_suite", style=style)
+    _write(xy=xy, width=width, name="stream_suite", style=style, variant=variant)
 
 
 def support(
@@ -4287,6 +4803,7 @@ def support(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing support.
 
@@ -4295,9 +4812,10 @@ def support(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="support", style=style)
+    _write(xy=xy, width=width, name="support", style=style, variant=variant)
 
 
 def tensorflow_enterprise(
@@ -4305,6 +4823,7 @@ def tensorflow_enterprise(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing tensorflow enterprise.
 
@@ -4313,9 +4832,10 @@ def tensorflow_enterprise(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="tensorflow_enterprise", style=style)
+    _write(xy=xy, width=width, name="tensorflow_enterprise", style=style, variant=variant)
 
 
 def text_to_speech(
@@ -4323,6 +4843,7 @@ def text_to_speech(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing text to speech.
 
@@ -4331,9 +4852,10 @@ def text_to_speech(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="text_to_speech", style=style)
+    _write(xy=xy, width=width, name="text_to_speech", style=style, variant=variant)
 
 
 def threat_intelligence(
@@ -4341,6 +4863,7 @@ def threat_intelligence(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing threat intelligence.
 
@@ -4349,9 +4872,10 @@ def threat_intelligence(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="threat_intelligence", style=style)
+    _write(xy=xy, width=width, name="threat_intelligence", style=style, variant=variant)
 
 
 def tools_for_powershell(
@@ -4359,6 +4883,7 @@ def tools_for_powershell(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing tools for powershell.
 
@@ -4367,9 +4892,10 @@ def tools_for_powershell(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="tools_for_powershell", style=style)
+    _write(xy=xy, width=width, name="tools_for_powershell", style=style, variant=variant)
 
 
 def trace(
@@ -4377,6 +4903,7 @@ def trace(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing trace.
 
@@ -4385,9 +4912,10 @@ def trace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="trace", style=style)
+    _write(xy=xy, width=width, name="trace", style=style, variant=variant)
 
 
 def traffic_director(
@@ -4395,6 +4923,7 @@ def traffic_director(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing traffic director.
 
@@ -4403,9 +4932,10 @@ def traffic_director(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="traffic_director", style=style)
+    _write(xy=xy, width=width, name="traffic_director", style=style, variant=variant)
 
 
 def transfer(
@@ -4413,6 +4943,7 @@ def transfer(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing transfer.
 
@@ -4421,9 +4952,10 @@ def transfer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="transfer", style=style)
+    _write(xy=xy, width=width, name="transfer", style=style, variant=variant)
 
 
 def transfer_appliance(
@@ -4431,6 +4963,7 @@ def transfer_appliance(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing transfer appliance.
 
@@ -4439,9 +4972,10 @@ def transfer_appliance(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="transfer_appliance", style=style)
+    _write(xy=xy, width=width, name="transfer_appliance", style=style, variant=variant)
 
 
 def user_preferences(
@@ -4449,6 +4983,7 @@ def user_preferences(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing user preferences.
 
@@ -4457,9 +4992,10 @@ def user_preferences(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="user_preferences", style=style)
+    _write(xy=xy, width=width, name="user_preferences", style=style, variant=variant)
 
 
 def vertex_ai(
@@ -4467,6 +5003,7 @@ def vertex_ai(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing vertex ai.
 
@@ -4475,9 +5012,10 @@ def vertex_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="vertex_ai", style=style)
+    _write(xy=xy, width=width, name="vertex_ai", style=style, variant=variant)
 
 
 def vertexai(
@@ -4485,6 +5023,7 @@ def vertexai(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default", "modern"] = "default",
 ) -> None:
     """Draws a GCP icon representing vertexai.
 
@@ -4493,9 +5032,10 @@ def vertexai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="vertexai", style=style)
+    _write(xy=xy, width=width, name="vertex_ai", style=style, variant=variant)
 
 
 def video_intelligence_api(
@@ -4503,6 +5043,7 @@ def video_intelligence_api(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing video intelligence api.
 
@@ -4511,9 +5052,10 @@ def video_intelligence_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="video_intelligence_api", style=style)
+    _write(xy=xy, width=width, name="video_intelligence_api", style=style, variant=variant)
 
 
 def virtual_private_cloud(
@@ -4521,6 +5063,7 @@ def virtual_private_cloud(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing virtual private cloud.
 
@@ -4529,9 +5072,10 @@ def virtual_private_cloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="virtual_private_cloud", style=style)
+    _write(xy=xy, width=width, name="virtual_private_cloud", style=style, variant=variant)
 
 
 def visual_inspection(
@@ -4539,6 +5083,7 @@ def visual_inspection(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing visual inspection.
 
@@ -4547,9 +5092,10 @@ def visual_inspection(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="visual_inspection", style=style)
+    _write(xy=xy, width=width, name="visual_inspection", style=style, variant=variant)
 
 
 def vmware_engine(
@@ -4557,6 +5103,7 @@ def vmware_engine(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing vmware engine.
 
@@ -4565,9 +5112,10 @@ def vmware_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="vmware_engine", style=style)
+    _write(xy=xy, width=width, name="vmware_engine", style=style, variant=variant)
 
 
 def vpc(
@@ -4575,6 +5123,7 @@ def vpc(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing vpc.
 
@@ -4583,9 +5132,10 @@ def vpc(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="vpc", style=style)
+    _write(xy=xy, width=width, name="virtual_private_cloud", style=style, variant=variant)
 
 
 def web_risk(
@@ -4593,6 +5143,7 @@ def web_risk(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing web risk.
 
@@ -4601,9 +5152,10 @@ def web_risk(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="web_risk", style=style)
+    _write(xy=xy, width=width, name="web_risk", style=style, variant=variant)
 
 
 def web_security_scanner(
@@ -4611,6 +5163,7 @@ def web_security_scanner(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing web security scanner.
 
@@ -4619,9 +5172,10 @@ def web_security_scanner(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="web_security_scanner", style=style)
+    _write(xy=xy, width=width, name="web_security_scanner", style=style, variant=variant)
 
 
 def workflows(
@@ -4629,6 +5183,7 @@ def workflows(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing workflows.
 
@@ -4637,9 +5192,10 @@ def workflows(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="workflows", style=style)
+    _write(xy=xy, width=width, name="workflows", style=style, variant=variant)
 
 
 def workload_identity_pool(
@@ -4647,6 +5203,7 @@ def workload_identity_pool(
     width: PosFloat,
     *,
     style: Style,
+    variant: Literal["default"] = "default",
 ) -> None:
     """Draws a GCP icon representing workload identity pool.
 
@@ -4655,6 +5212,7 @@ def workload_identity_pool(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="workload_identity_pool", style=style)
+    _write(xy=xy, width=width, name="workload_identity_pool", style=style, variant=variant)

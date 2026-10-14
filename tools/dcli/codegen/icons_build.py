@@ -73,6 +73,22 @@ def normalize_png_in_place(
     return final_bbox, True
 
 
+PROVIDER_ALIASES: dict[str, dict[str, str]] = {
+    "gcp": {
+        "functions": "cloud_functions",
+        "gce": "compute_engine",
+        "gcs": "cloud_storage",
+        "gke": "google_kubernetes_engine",
+        "iam": "identity_and_access_management",
+        "kms": "key_management_service",
+        "vertexai": "vertex_ai",
+        "vpc": "virtual_private_cloud",
+        "load_balancing": "cloud_load_balancing",
+        "cloud_pubsub": "pubsub",
+    },
+}
+
+
 def write_provider_manifest(
     provider: str,
     src_subdir: Path,
@@ -99,13 +115,14 @@ def write_provider_manifest(
             "bbox": list(bbox),
         }
 
-    manifest = {
+    manifest: dict[str, Any] = {
         "format_version": "2.0",
         "provider": provider,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "canvas_size": [TARGET_SIZE, TARGET_SIZE],
         "inner_size": [INNER_SIZE, INNER_SIZE],
         "total_files": len(files_meta),
+        "aliases": PROVIDER_ALIASES.get(provider, {}),
         "files": files_meta,
     }
     manifest_path = dest_subdir / "manifest.json"
@@ -160,11 +177,8 @@ def postprocess_icons_build(
                 grid_blob=None,
             )
 
-        if provider != "gcp":
-            manifest_path = write_provider_manifest(provider, provider_src, provider_out)
-            print(f"[{provider}] Normalized {len(py_files)} icons ({mod_count} updated) -> {manifest_path}")
-        else:
-            print(f"[{provider}] Normalized {len(py_files)} icons ({mod_count} updated) in {provider_out}")
+        manifest_path = write_provider_manifest(provider, provider_src, provider_out)
+        print(f"[{provider}] Normalized {len(py_files)} icons ({mod_count} updated) -> {manifest_path}")
 
 
 if __name__ == "__main__":

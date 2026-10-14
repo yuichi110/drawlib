@@ -1,18 +1,18 @@
 # Google Cloud (GCP) Icons
 
-Drawlib provides over 250 official, multi-color **Google Cloud Platform (GCP)** architecture icons via `drawlib.icons.gcp`. Assets are automatically downloaded and cached on first use, and can be placed either as standalone canvas primitives or inside high-level layout and architecture diagram components.
+Drawlib provides over 250 high-resolution (`512×512`) **Google Cloud Platform (GCP)** architecture icons via `drawlib.icons.gcp`, natively authored in Drawlib. Every service defaults to the unified **3-Tone Blue (`variant="default"`)** technical palette so full-stack topologies remain visually cohesive, while 19 Core Products and 26 Category icons also offer the **Google 4-Color (`variant="modern"`)** palette.
 
 ---
 
 ## 1. Categorized GCP Icon Showcase
 
-Every GCP service is available as a function `gcp.<service_name>(xy, width, *, style)` (with convenient shorthand aliases `gcp.gce`, `gcp.gke`, `gcp.gcs`, and `gcp.bq`):
+Every GCP service is available as `gcp.<service_name>(xy, width, *, style, variant="default")` (with shorthand aliases `gcp.gce`, `gcp.gke`, `gcp.gcs`, `gcp.functions`, `gcp.iam`, `gcp.kms`, `gcp.vpc`, `gcp.vertexai`, `gcp.load_balancing`, and `gcp.cloud_pubsub`):
 
 
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="icons_gcp_images/icons_gcp_categories.png" alt="icons_gcp_1" />
-  <figcaption class="drawlib-caption">Official Google Cloud Architecture Icons Across Core Categories</figcaption>
+  <figcaption class="drawlib-caption">Google Cloud Architecture Icons Across Core Categories (Default 3-Tone Blue Palette)</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -37,7 +37,7 @@ row1 = [
 row2 = [
     ("Cloud SQL", "Databases", gcp.cloud_sql, Styles.Neutral),
     ("Load Balancer", "Networking", gcp.cloud_load_balancing, Styles.Neutral),
-    ("BigQuery", "Analytics (BQ)", gcp.bigquery, Styles.SecondaryNeutral),
+    ("BigQuery", "Analytics", gcp.bigquery, Styles.SecondaryNeutral),
     ("Vertex AI", "AI / ML", gcp.vertex_ai, Styles.PrimaryNeutral),
 ]
 
@@ -61,16 +61,62 @@ save()
 
 | Category | Representative `drawlib.icons.gcp` Functions |
 | :--- | :--- |
-| **Compute** | `compute_engine` *(alias: `gce`)*, `app_engine`, `batch`, `vmware_engine` |
+| **Compute** | `compute_engine` *(alias: `gce`)*, `app_engine`, `batch`, `bare_metal_solutions`, `vmware_engine` |
 | **Containers & Serverless** | `google_kubernetes_engine` *(alias: `gke`)*, `cloud_run`, `cloud_functions` *(alias: `functions`)*, `anthos` |
-| **Storage** | `cloud_storage` *(alias: `gcs`)*, `filestore`, `persistent_disk` |
-| **Databases** | `cloud_sql`, `cloud_spanner`, `bigtable`, `firestore`, `memorystore` |
-| **Networking** | `virtual_private_cloud` *(alias: `vpc`)*, `cloud_load_balancing`, `cloud_cdn`, `cloud_dns`, `cloud_nat`, `cloud_interconnect` |
-| **Data & Analytics** | `bigquery` *(alias: **`bq`**)*, `pubsub`, `dataflow`, `dataproc`, `cloud_composer`, `looker` |
-| **AI & Machine Learning** | `vertex_ai`, `automl`, `document_ai`, `cloud_vision_api`, `speech_to_text`, `cloud_translation_api` |
-| **Security & Operations** | `cloud_armor`, `identity_and_access_management` *(alias: `iam`)*, `secret_manager`, `key_management_service` *(alias: `kms`)*, `cloud_monitoring`, `cloud_logging`, `cloud_build`, `artifact_registry` |
+| **Storage** | `cloud_storage` *(alias: `gcs`)*, `filestore`, `persistent_disk`, `hyperdisk` |
+| **Databases** | `cloud_sql`, `cloud_spanner`, `alloydb`, `bigtable`, `firestore`, `memorystore` |
+| **Networking** | `virtual_private_cloud` *(alias: `vpc`)*, `cloud_load_balancing` *(alias: `load_balancing`)*, `cloud_cdn`, `cloud_dns`, `cloud_nat`, `cloud_interconnect` |
+| **Data & Analytics** | `bigquery`, `pubsub` *(alias: `cloud_pubsub`)*, `dataflow`, `dataproc`, `cloud_composer`, `looker` |
+| **AI & Machine Learning** | `vertex_ai` *(alias: `vertexai`)*, `ai_hypercomputer`, `automl`, `document_ai`, `cloud_vision_api`, `speech_to_text` |
+| **Security & Operations** | `cloud_armor`, `identity_and_access_management` *(alias: `iam`)*, `secret_manager`, `key_management_service` *(alias: `kms`)*, `security_command_center`, `cloud_monitoring`, `cloud_logging`, `cloud_build`, `artifact_registry` |
 
-### 1.2. Dynamic Icon Lookup by Name (`gcp_icon`)
+### 1.2. Color Variants: `variant="default"` (3-Tone Blue) vs. `variant="modern"` (4-Color)
+
+All 250+ GCP icons provide `variant="default"` (unified 3-tone blue `#4285F4` / `#669DF6` / `#AECBFA`), which is recommended when combining core services with networking, security, or specialized services so the entire diagram shares a consistent color language. For the 19 Core Products and 26 Category icons, you can pass `variant="modern"` to render the Google 4-color multi-color artwork:
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import gcp
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=132, height=62)
+
+services = [
+    ("Compute Engine", gcp.compute_engine),
+    ("GKE", gcp.gke),
+    ("Cloud Run", gcp.cloud_run),
+    ("BigQuery", gcp.bigquery),
+]
+
+for col_idx, (label, icon_fn) in enumerate(services):
+    cx = 19.5 + col_idx * 31
+    # Top row: default (3-tone blue)
+    rectangle((cx, 45), width=28.5, height=24, style=Styles.Neutral.patch(shape_r=2))
+    icon_fn((cx, 49.5), width=8.5, style=Styles.Primary, variant="default")
+    text((cx, 38.0), f"{label}", style=Styles.DarkBold.patch(text_size=9.5))
+    text((cx, 34.2), 'variant="default"', style=Styles.Muted.patch(text_size=8.5))
+
+    # Bottom row: modern (4-color)
+    rectangle((cx, 17), width=28.5, height=24, style=Styles.PrimaryNeutral.patch(shape_r=2))
+    icon_fn((cx, 21.5), width=8.5, style=Styles.Primary, variant="modern")
+    text((cx, 10.0), f"{label}", style=Styles.DarkBold.patch(text_size=9.5))
+    text((cx, 6.2), 'variant="modern"', style=Styles.PrimaryBold.patch(text_size=8.5))
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_gcp_images/icons_gcp_variants.png" alt="icons_gcp_2" />
+  <figcaption class="drawlib-caption">Comparing variant='default' (3-Tone Blue) and variant='modern' (Google 4-Color) Across Core GCP Products</figcaption>
+</figure>
+
+
+
+### 1.3. Dynamic Icon Lookup by Name (`gcp_icon`)
 
 When the icon name is determined dynamically at runtime (for example, loaded from a configuration file or dictionary), you can invoke the low-level `gcp_icon()` helper or resolve functions from `drawlib.icons.gcp`:
 
@@ -78,11 +124,11 @@ When the icon name is determined dynamically at runtime (for example, loaded fro
 from drawlib.icons import gcp, gcp_icon
 from drawlib.styles import Styles
 
-# Render a GCP service icon by string identifier
-gcp_icon((50, 25), width=10.0, name="bigquery", style=Styles.Primary)
+# Render a GCP service icon by string identifier (and optional variant)
+gcp_icon((50, 25), width=10.0, name="bigquery", style=Styles.Primary, variant="modern")
 
 # Or look up the generated service function dynamically on the gcp module
-getattr(gcp, "compute_engine")((80, 25), width=10.0, style=Styles.Primary)
+getattr(gcp, "compute_engine")((80, 25), width=10.0, style=Styles.Primary, variant="default")
 ```
 
 ---
@@ -148,7 +194,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_gcp_images/icons_gcp_sizing_and_styling.png" alt="icons_gcp_2" />
+  <img src="icons_gcp_images/icons_gcp_sizing_and_styling.png" alt="icons_gcp_3" />
   <figcaption class="drawlib-caption">GCP Icon Sizing Tiers, Opacity (alpha), Background Tint (image_tint_color), and Border Framing (image_border_*)</figcaption>
 </figure>
 
@@ -220,7 +266,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_gcp_images/icons_gcp_standalone_grid.png" alt="icons_gcp_3" />
+  <img src="icons_gcp_images/icons_gcp_standalone_grid.png" alt="icons_gcp_4" />
   <figcaption class="drawlib-caption">Overlaying GCP Icons on a GridLayout Tier Matrix</figcaption>
 </figure>
 
@@ -289,7 +335,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_gcp_images/icons_gcp_architecture_diagram.png" alt="icons_gcp_4" />
+  <img src="icons_gcp_images/icons_gcp_architecture_diagram.png" alt="icons_gcp_5" />
   <figcaption class="drawlib-caption">Mini GCP Topology Using ArchitectureDiagram and GcpIcon</figcaption>
 </figure>
 
