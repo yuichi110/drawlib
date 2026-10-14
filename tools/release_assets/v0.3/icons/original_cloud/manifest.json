@@ -1,0 +1,146 @@
+{
+  "format_version": "2.0",
+  "provider": "original_cloud",
+  "created_at": "2026-10-14T12:20:20.233426+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 10,
+  "files": {
+    "ai_agent_default.png": {
+      "icon_name": "ai_agent",
+      "variant": "default",
+      "source_script": "original_cloud/ai_agent_default.py",
+      "size_bytes": 36773,
+      "sha256": "ca3b5f8c2736c0a2e376cfaeaccce413e46d52443b2bfc4e6e298e6f3bc4b274",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "api_gateway_default.png": {
+      "icon_name": "api_gateway",
+      "variant": "default",
+      "source_script": "original_cloud/api_gateway_default.py",
+      "size_bytes": 14794,
+      "sha256": "b0d2b9f3c2d18ecd5dd8a159d62db85a315314836090abe65f9e1ba631cb48e4",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "compute_default.png": {
+      "icon_name": "compute",
+      "variant": "default",
+      "source_script": "original_cloud/compute_default.py",
+      "size_bytes": 12229,
+      "sha256": "99c153b13d241d1402a02562ca462fab40a2071e60c0818e996299ef76ffb121",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "container_default.png": {
+      "icon_name": "container",
+      "variant": "default",
+      "source_script": "original_cloud/container_default.py",
+      "size_bytes": 24594,
+      "sha256": "7a00502c7626b6191f6c9773f978f32553ee68b463894ee58c3368b28f4ad853",
+      "bbox": [
+        56,
+        26,
+        456,
+        486
+      ]
+    },
+    "database_default.png": {
+      "icon_name": "database",
+      "variant": "default",
+      "source_script": "original_cloud/database_default.py",
+      "size_bytes": 28897,
+      "sha256": "00befcc0f83c953ae224a578e80e19271c2359f0bab225783b8f137b1cbb6779",
+      "bbox": [
+        51,
+        26,
+        460,
+        486
+      ]
+    },
+    "firewall_default.png": {
+      "icon_name": "firewall",
+      "variant": "default",
+      "source_script": "original_cloud/firewall_default.py",
+      "size_bytes": 26845,
+      "sha256": "b2e44a02311fdc1e7226ae61905b6a79ff6c9df5784255847c5e9ff569aaf578",
+      "bbox": [
+        63,
+        26,
+        449,
+        486
+      ]
+    },
+    "load_balancer_default.png": {
+      "icon_name": "load_balancer",
+      "variant": "default",
+      "source_script": "original_cloud/load_balancer_default.py",
+      "size_bytes": 28604,
+      "sha256": "85f324a7a187880d30640704b5c6b36eebb7f4e4e2b4549d345a08de04f67e70",
+      "bbox": [
+        26,
+        27,
+        486,
+        484
+      ]
+    },
+    "message_queue_default.png": {
+      "icon_name": "message_queue",
+      "variant": "default",
+      "source_script": "original_cloud/message_queue_default.py",
+      "size_bytes": 7664,
+      "sha256": "851cee9d845c8d64892741ec27c1f80ca7325ba9706a0d8e32a092fad5308715",
+      "bbox": [
+        26,
+        108,
+        486,
+        404
+      ]
+    },
+    "monitoring_default.png": {
+      "icon_name": "monitoring",
+      "variant": "default",
+      "source_script": "original_cloud/monitoring_default.py",
+      "size_bytes": 15051,
+      "sha256": "99bd9e473d3fd4551349267054b66674ea23d0ece076b383bde498e647adfe86",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "object_storage_default.png": {
+      "icon_name": "object_storage",
+      "variant": "default",
+      "source_script": "original_cloud/object_storage_default.py",
+      "size_bytes": 16250,
+      "sha256": "2e5018cedfb5810616754a56484efa64707cf08c8d62a8dbab06f3d24afef96e",
+      "bbox": [
+        26,
+        50,
+        486,
+        462
+      ]
+    }
+  }
+}
