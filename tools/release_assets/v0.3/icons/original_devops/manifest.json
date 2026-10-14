@@ -1,0 +1,133 @@
+{
+  "format_version": "2.0",
+  "provider": "original_devops",
+  "created_at": "2026-10-14T14:40:50.883210+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 8,
+  "aliases": {
+    "alert": "alert_incident",
+    "cicd": "cicd_pipeline",
+    "config": "config_management",
+    "git": "git_repository",
+    "iac": "config_management",
+    "logs": "logging",
+    "metrics": "monitoring",
+    "pipeline": "cicd_pipeline",
+    "registry": "artifact_registry",
+    "repo": "git_repository",
+    "tracing": "distributed_tracing"
+  },
+  "files": {
+    "alert_incident_default.png": {
+      "icon_name": "alert_incident",
+      "variant": "default",
+      "source_script": "original_devops/alert_incident_default.py",
+      "size_bytes": 21085,
+      "sha256": "5c9f6aa432f14b8e98a25d48aadc2c747051b0c7a88f4eb907fa8ae5792e0a0d",
+      "bbox": [
+        26,
+        47,
+        486,
+        465
+      ]
+    },
+    "artifact_registry_default.png": {
+      "icon_name": "artifact_registry",
+      "variant": "default",
+      "source_script": "original_devops/artifact_registry_default.py",
+      "size_bytes": 18948,
+      "sha256": "c672df8f9c72f29b6cb5007d853a76d0d0bc1992921e226a72a88e00ae5f35e4",
+      "bbox": [
+        26,
+        38,
+        486,
+        473
+      ]
+    },
+    "cicd_pipeline_default.png": {
+      "icon_name": "cicd_pipeline",
+      "variant": "default",
+      "source_script": "original_devops/cicd_pipeline_default.py",
+      "size_bytes": 28933,
+      "sha256": "338f0939a4b5ad824a20da4a9809b73508bdb80afd6b164cdb5b4b89052f6254",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "config_management_default.png": {
+      "icon_name": "config_management",
+      "variant": "default",
+      "source_script": "original_devops/config_management_default.py",
+      "size_bytes": 17465,
+      "sha256": "5a8945660169ff13997b90981e26c454e071c3964a303442aa75230c6857d216",
+      "bbox": [
+        26,
+        44,
+        486,
+        468
+      ]
+    },
+    "distributed_tracing_default.png": {
+      "icon_name": "distributed_tracing",
+      "variant": "default",
+      "source_script": "original_devops/distributed_tracing_default.py",
+      "size_bytes": 11923,
+      "sha256": "522b75bbb37e0c6b13d17b23137c427244c66676f57cd9a15ab59cb28c97dd8f",
+      "bbox": [
+        26,
+        61,
+        486,
+        451
+      ]
+    },
+    "git_repository_default.png": {
+      "icon_name": "git_repository",
+      "variant": "default",
+      "source_script": "original_devops/git_repository_default.py",
+      "size_bytes": 21634,
+      "sha256": "1b3c428f87e842431397ba3aecf533a369beca38e30f5e393cf1ad4f285d2899",
+      "bbox": [
+        82,
+        26,
+        430,
+        486
+      ]
+    },
+    "logging_default.png": {
+      "icon_name": "logging",
+      "variant": "default",
+      "source_script": "original_devops/logging_default.py",
+      "size_bytes": 23527,
+      "sha256": "eaf34b13f9f4a803162fea41ac42c41a2a880104393229c51c29fc67dbe8b7d6",
+      "bbox": [
+        41,
+        26,
+        471,
+        486
+      ]
+    },
+    "monitoring_default.png": {
+      "icon_name": "monitoring",
+      "variant": "default",
+      "source_script": "original_devops/monitoring_default.py",
+      "size_bytes": 15051,
+      "sha256": "99bd9e473d3fd4551349267054b66674ea23d0ece076b383bde498e647adfe86",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    }
+  }
+}

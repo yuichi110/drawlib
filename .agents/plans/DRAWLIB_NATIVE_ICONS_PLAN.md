@@ -72,7 +72,7 @@ tools/
 │   ├── utils.py                      # 共通カラーパレット (Pastel Blue/Green, GCP 3トーン青 & 4色) & 幾何学プリミティブ
 │   ├── build.sh                      # build_image.sh 実行 + 512x512 正規化 & manifest.json 更新
 │   ├── build_image.sh                # uv run drawlib build image tools/icons_src/ -o tools/release_assets/v0.3/icons/
-│   ├── original_cloud/               # オリジナル・クラウド概念アイコン (*_<variant>.py -> release_assets/v0.3/icons/original_cloud/*_<variant>.png)
+│   ├── original_cloud/               # オリジナル・クラウド概念アイコン (7カテゴリ × 8種 = 全56種 -> release_assets/v0.3/icons/original_cloud/*_default.png)
 │   │   ├── compute_default.py
 │   │   ├── container_default.py
 │   │   ├── load_balancer_default.py
@@ -81,9 +81,25 @@ tools/
 │   │   ├── object_storage_default.py
 │   │   ├── message_queue_default.py
 │   │   ├── firewall_default.py
+│   │   └── ... (全56種: 7カテゴリ × 8種)
+│   ├── original_devops/              # オリジナル・DevOps/監視概念アイコン (全8種 -> release_assets/v0.3/icons/original_devops/*_default.png)
 │   │   ├── monitoring_default.py
+│   │   ├── logging_default.py
+│   │   ├── distributed_tracing_default.py
+│   │   ├── alert_incident_default.py
+│   │   ├── git_repository_default.py
+│   │   ├── cicd_pipeline_default.py
+│   │   ├── artifact_registry_default.py
+│   │   └── config_management_default.py
+│   ├── original_ai/                  # オリジナル・AI/ML概念アイコン (全8種 -> release_assets/v0.3/icons/original_ai/*_default.png)
 │   │   ├── ai_agent_default.py
-│   │   └── ... (約38種)
+│   │   ├── llm_model_default.py
+│   │   ├── rag_knowledge_base_default.py
+│   │   ├── embedding_vector_default.py
+│   │   ├── prompt_guardrail_default.py
+│   │   ├── model_registry_default.py
+│   │   ├── training_pipeline_default.py
+│   │   └── inference_endpoint_default.py
 │   └── gcp/                          # GCP 全アイコン (*_<variant>.py -> release_assets/v0.3/icons/gcp/*_<variant>.png)
 │       ├── compute_engine_default.py # Default = 3トーン青 (Legacy) 版
 │       ├── compute_engine_modern.py  # Modern = Google 4色マルチカラー版
@@ -97,13 +113,15 @@ tools/
 │       ├── cloud_storage_modern.py   # Modern = 4色版
 │       ├── vertex_ai_default.py      # Default = 3トーン青版
 │       ├── vertex_ai_modern.py       # Modern = 4色版
-│       ├── gke_default.py            # Default = 3トーン青版
+│       ├── google_kubernetes_engine_default.py # Default = 3トーン青版
 │       ├── cloud_functions_default.py# 3トーン青アイコン (現役 + 廃止サービス全網羅)
 │       ├── pubsub_default.py
 │       ├── stackdriver_default.py    # 廃止・旧名称サービスも含め全数収録
-│       └── ... (全252種 _default.py + 4色対応サービスの _modern.py)
+│       └── ... (全250種 _default.py + 45種 _modern.py = 全295スクリプト)
 └── release_assets/v0.3/icons/
     ├── original_cloud/               # 512x512 透過 PNG (*_default.png) + manifest.json
+    ├── original_devops/              # 512x512 透過 PNG (*_default.png) + manifest.json
+    ├── original_ai/                  # 512x512 透過 PNG (*_default.png) + manifest.json
     └── gcp/                          # 512x512 透過 PNG (*_default.png, *_modern.png) + manifest.json
 ```
 
@@ -119,7 +137,7 @@ tools/
 ### 2.3. 共通カラーパレット & 幾何学プリミティブ (`styles.py` / `utils.py`)
 
 1. **`tools/icons_src/utils.py`（確定カラーパレット）**:
-   - **Original Cloud Icons (`original_cloud/`)**:
+   - **Original Concept Icons (`original_cloud/`, `original_devops/`, `original_ai/`)**:
      - `ORIG_STROKE = 2.7`
      - `DARK = Colors.Dark` (`#323A48`)
      - `PASTEL_BLUE = "#86A4F7"` (メイン面：パステルコーンフラワーブルー)
@@ -143,34 +161,36 @@ tools/
 
 ---
 
-## 3. モジュール全体マップ（全18モジュール：`original_cloud` ＋ 3大クラウド ＋ 14カテゴリ `*_icons`）
+## 3. モジュール全体マップ（全20モジュール：`original_*` 3種 ＋ 3大クラウド ＋ 14カテゴリ `*_icons`）
 
 | # | モジュール名 (`drawlib.icons.*`) | `tools/icons_src/` ディレクトリ | `ArchitectureDiagram` Enum | 対象技術領域（混在なしの単一責務） | 収録数目安 |
 | :- | :--- | :--- | :--- | :--- | :--- |
-| **1** | **`original_cloud`** | `tools/icons_src/original_cloud/` | `OriginalCloudIcon` | **ベンダー非依存のクラウド・システム設計一般概念** | 約 38 |
-| **2** | **`gcp`** | `tools/icons_src/gcp/` | `GcpIcon` | **Google Cloud Platform** (全252種 `_default` 3トーン青＋`_modern` 4色＋エイリアス) | 252 + Modern版 |
-| **3** | **`aws`** | `tools/icons_src/aws/` | `AwsIcon` | **Amazon Web Services** (50+ 独立) | 約 52 |
-| **4** | **`azure`** | `tools/icons_src/azure/` | `AzureIcon` | **Microsoft Azure** (50+ 独立) | 約 50 |
-| **5** | **`network_icons`** | `tools/icons_src/network/` | `NetworkIcon` | **ネットワーク機器・CDN・LB・プロキシ** | 約 28 |
-| **6** | **`security_icons`** | `tools/icons_src/security/` | `SecurityIcon` | **ファイアウォール・EDR・IDaaS・ゼロトラスト** | 約 22 |
-| **7** | **`virtualization_icons`** | `tools/icons_src/virtualization/` | `VirtualizationIcon` | **仮想化・ハイパーバイザ・HCI・プライベートクラウド** | 約 18 |
-| **8** | **`container_icons`** | `tools/icons_src/container/` | `ContainerIcon` | **Kubernetes・Docker・サービスメッシュ** | 約 28 |
-| **9** | **`hardware_icons`** | `tools/icons_src/hardware/` | `HardwareIcon` | **物理サーバー・ストレージ機器・PC/スマホ端末枠** | 約 18 |
-| **10** | **`os_icons`** | `tools/icons_src/os/` | `OsIcon` | **OS (Linux/Windows/Mac/iOS/Android) & ブラウザ** | 約 28 |
-| **11** | **`workspace_icons`** | `tools/icons_src/workspace/` | `WorkspaceIcon` | **M365・Google Workspace・チャット・業務 SaaS** | 約 36 |
-| **12** | **`git_icons`** | `tools/icons_src/git/` | `GitIcon` | **Git・GitHub・GitLab・Bitbucket** | 約 18 |
-| **13** | **`devops_icons`** | `tools/icons_src/devops/` | `DevopsIcon` | **IaC (Terraform/Ansible)・CI/CD 自動化** | 約 18 |
-| **14** | **`observability_icons`** | `tools/icons_src/observability/` | `ObservabilityIcon` | **監視・APM・ログ分析・インシデント管理** | 約 22 |
-| **15** | **`database_icons`** | `tools/icons_src/database/` | `DatabaseIcon` | **RDBMS・NoSQL・インメモリ DB・DWH** | 約 20 |
-| **16** | **`data_pipeline_icons`** | `tools/icons_src/data_pipeline/` | `DataPipelineIcon` | **ストリーミング (Kafka)・分散処理 (Spark)・ETL** | 約 16 |
-| **17** | **`ai_icons`** | `tools/icons_src/ai/` | `AiIcon` | **生成 AI・LLM・AI エージェント/フレームワーク** | 約 18 |
-| **18** | **`programming_icons`** | `tools/icons_src/programming/` | `ProgrammingIcon` | **プログラミング言語・Web FW・IDE** | 約 26 |
+| **1** | **`original_cloud`** | `tools/icons_src/original_cloud/` | `OriginalCloudIcon` | **ベンダー非依存のクラウド・システム設計一般概念（7カテゴリ × 8種）** | **56** (+ 51 エイリアス) |
+| **2** | **`original_devops`** | `tools/icons_src/original_devops/` | `OriginalDevopsIcon` | **ベンダー非依存の監視・CI/CD・Git・構成管理概念（8種）** | **8** (+ 11 エイリアス) |
+| **3** | **`original_ai`** | `tools/icons_src/original_ai/` | `OriginalAiIcon` | **ベンダー非依存の生成AI・LLM・RAG・機械学習概念（8種）** | **8** (+ 6 エイリアス) |
+| **4** | **`gcp`** | `tools/icons_src/gcp/` | `GcpIcon` | **Google Cloud Platform** (全250種 `_default` 3トーン青＋45種 `_modern` 4色＋10エイリアス) | 250 + Modern 45 |
+| **5** | **`aws`** | `tools/icons_src/aws/` | `AwsIcon` | **Amazon Web Services** (50+ 独立) | 約 52 |
+| **6** | **`azure`** | `tools/icons_src/azure/` | `AzureIcon` | **Microsoft Azure** (50+ 独立) | 約 50 |
+| **7** | **`network_icons`** | `tools/icons_src/network/` | `NetworkIcon` | **ネットワーク機器・CDN・LB・プロキシ** | 約 28 |
+| **8** | **`security_icons`** | `tools/icons_src/security/` | `SecurityIcon` | **ファイアウォール・EDR・IDaaS・ゼロトラスト** | 約 22 |
+| **9** | **`virtualization_icons`** | `tools/icons_src/virtualization/` | `VirtualizationIcon` | **仮想化・ハイパーバイザ・HCI・プライベートクラウド** | 約 18 |
+| **10** | **`container_icons`** | `tools/icons_src/container/` | `ContainerIcon` | **Kubernetes・Docker・サービスメッシュ** | 約 28 |
+| **11** | **`hardware_icons`** | `tools/icons_src/hardware/` | `HardwareIcon` | **物理サーバー・ストレージ機器・PC/スマホ端末枠** | 約 18 |
+| **12** | **`os_icons`** | `tools/icons_src/os/` | `OsIcon` | **OS (Linux/Windows/Mac/iOS/Android) & ブラウザ** | 約 28 |
+| **13** | **`workspace_icons`** | `tools/icons_src/workspace/` | `WorkspaceIcon` | **M365・Google Workspace・チャット・業務 SaaS** | 約 36 |
+| **14** | **`git_icons`** | `tools/icons_src/git/` | `GitIcon` | **Git・GitHub・GitLab・Bitbucket** | 約 18 |
+| **15** | **`devops_icons`** | `tools/icons_src/devops/` | `DevopsIcon` | **IaC (Terraform/Ansible)・CI/CD 自動化** | 約 18 |
+| **16** | **`observability_icons`** | `tools/icons_src/observability/` | `ObservabilityIcon` | **監視・APM・ログ分析・インシデント管理** | 約 22 |
+| **17** | **`database_icons`** | `tools/icons_src/database/` | `DatabaseIcon` | **RDBMS・NoSQL・インメモリ DB・DWH** | 約 20 |
+| **18** | **`data_pipeline_icons`** | `tools/icons_src/data_pipeline/` | `DataPipelineIcon` | **ストリーミング (Kafka)・分散処理 (Spark)・ETL** | 約 16 |
+| **19** | **`ai_icons`** | `tools/icons_src/ai/` | `AiIcon` | **生成 AI・LLM・AI エージェント/フレームワーク** | 約 18 |
+| **20** | **`programming_icons`** | `tools/icons_src/programming/` | `ProgrammingIcon` | **プログラミング言語・Web FW・IDE** | 約 26 |
 
 ---
 
-## 4. ベンダー非依存の Drawlib オリジナル・クラウド概念アイコン詳細 (`tools/icons_src/original_cloud/` — 約 38 種)
+## 4. ベンダー非依存の Drawlib オリジナル概念アイコン詳細 (`original_cloud/` [56種]・`original_devops/` [8種]・`original_ai/` [8種] ＝ 全 72 種)
 
-### 4.1. デザイン言語（先行10個のプロトタイプ検証で確定）
+### 4.1. デザイン言語（先行プロトタイプ検証で確定）
 - **単一シルエット原則**: `database_default` アイコンと同等のシンプルな情報密度を維持する（背景のレンガ壁や不要な小パーツを重ねない）。
 - **構造線**: `Colors.Dark` (`#323A48`)、標準線幅 **`ORIG_STROKE = 2.7` units**（細部インジケータ・チェックマーク等は `2.0〜2.4` units）。
 - **パステル3色パレット**:
@@ -178,32 +198,35 @@ tools/
   - **Pastel Green (`#7AD69E`)**: サブ要素・分岐先ノード・稼働インジケータ・チェックマーク
   - **White (`#FFFFFF`)**: 筐体ベース面・円筒上面キャップ・内部カード面
 
-### 4.2. 収録概念アイコンと視覚モチーフ一覧
+### 4.2. 収録概念アイコンと視覚モチーフ一覧（3モジュール・全 72 種 — 作成完了）
 
-| カテゴリ | 関数名 (`original_cloud.<name>`) | 短縮エイリアス | シンプル化された視覚モチーフ設計（Pastel Blue / Green / White） |
-| :--- | :--- | :--- | :--- |
-| **Compute & Workloads** | `compute` *(済)*, `virtual_machine`, `container` *(済)*, `container_cluster`, `serverless_function`, `worker_job`, `autoscaling` | `vm` -> `virtual_machine`, `cluster` -> `container_cluster`, `function` -> `serverless_function`, `worker` -> `worker_job` | ・`compute`: 四辺に3本ずつピンが出た白枠 IC チップ＋中央 Pastel Blue コア＋右下 Pastel Green ドット<br>・`container`: 上面 White・左面 Pastel Blue・右面 Pastel Green のアイソメ立方体＋縦リブ線2本ずつ<br>・`container_cluster`: ピラミッド状に並んだ3つのアイソメキューブ<br>・`serverless_function`: 角丸白プレート内の Pastel Blue 稲妻ボルト<br>・`worker_job`: 白角丸ジョブカード＋Pastel Blue ギア |
-| **Networking & Traffic** | `load_balancer` *(済)*, `api_gateway` *(済)*, `reverse_proxy`, `service_mesh`, `cdn`, `dns`, `router`, `switch`, `virtual_network`, `vpn_tunnel` | `lb` -> `load_balancer`, `apigw` -> `api_gateway`, `vpc` -> `virtual_network`, `vpn` -> `vpn_tunnel` | ・`load_balancer`: 左の Pastel Blue 入口円ノードから右の3つの Pastel Green 円ノードへ分岐するツリー<br>・`api_gateway`: 左右2本の白カプセルピラーの間を通過する上段右向き Pastel Blue 矢印＆下段左向き Pastel Green 矢印<br>・`cdn`: 白グローブ球体＋外周3つの Pastel Blue/Green エッジドット<br>・`dns`: ドメインバーと IP ノードを繋ぐ解決矢印<br>・`router`: 円筒上面の4方向矢印<br>・`switch`: フラット筐体上の左右交互矢印 |
-| **Database & Storage** | `database` *(済)*, `nosql_database`, `in_memory_cache`, `object_storage` *(済)*, `block_storage`, `file_storage`, `data_warehouse`, `vector_database`, `search_engine` | `db` / `rdbms` -> `database`, `nosql` -> `nosql_database`, `cache` -> `in_memory_cache`, `bucket` -> `object_storage`, `disk` -> `block_storage`, `dwh` -> `data_warehouse`, `vector_db` -> `vector_database` | ・`database`: 3段積み Pastel Blue 円筒シリンダー（上面 White）＋各段右側に Pastel Green ドット<br>・`object_storage`: 上部ハンドル弧＋白リムバー＋Pastel Blue 台形バケット＋右下 Pastel Green ドット<br>・`nosql_database`: 円筒シリンダー＋`{ }` シンボル<br>・`in_memory_cache`: メモリカード＋稲妻シンボル<br>・`data_warehouse`: シリンダー＋分析バー<br>・`vector_database`: 3軸座標空間と Pastel Blue/Green ノード |
-| **Messaging & Streaming** | `message_queue` *(済)*, `pub_sub`, `event_stream`, `etl_pipeline`, `webhook`, `scheduler` | `queue` / `mq` -> `message_queue`, `stream` -> `event_stream`, `pipeline` -> `etl_pipeline`, `cron` -> `scheduler` | ・`message_queue`: 上下2本の水平レール間に整列した3つの角丸縦ブロック（左2つ Pastel Blue、右先頭 Pastel Green）<br>・`pub_sub`: 中央ハブ円から放射状に広がる購読ノード<br>・`event_stream`: 2本の滑らかなウェーブ線とストリームドット<br>・`etl_pipeline`: 漏斗（ファネル）＋出力ブロック<br>・`scheduler`: シンプルな時計盤＋トリガー矢印 |
-| **Security & Observability** | `firewall` *(済)*, `waf`, `identity_auth`, `secret_vault`, `certificate_tls`, `monitoring` *(済)*, `logging`, `distributed_tracing`, `alert_incident` | `auth` / `iam` -> `identity_auth`, `vault` / `kms` -> `secret_vault`, `tls` -> `certificate_tls`, `metrics` -> `monitoring`, `tracing` -> `distributed_tracing`, `alert` -> `alert_incident` | ・`firewall`: Pastel Blue の単一シールド＋中央 White 円バッジ＋Pastel Green チェックマーク<br>・`monitoring`: White モニター画面（Pastel Blue スタンド）＋パルス波形折れ線＋ピーク頂点 Pastel Green ドット<br>・`identity_auth`: 人物シルエット＋バッジ<br>・`secret_vault`: シンプルな南京錠（パドロック）<br>・`logging`: ログシート＋虫眼鏡<br>・`distributed_tracing`: 段違いに並んだ3本のウォーターフォール・スパンバー |
-| **Clients, Users & AI** | `user`, `user_group`, `web_browser`, `mobile_app`, `iot_device`, `llm_model`, `ai_agent` *(済)* | `users` -> `user_group`, `browser` -> `web_browser`, `mobile` -> `mobile_app`, `llm` -> `llm_model`, `agent` -> `ai_agent` | ・`ai_agent`: 3本の軌道アークで結ばれた3つの Pastel Green 外周ノード＋中央 Pastel Blue 4芒星スパークル（中心 White ドット）<br>・`user` / `user_group`: 人物アバター<br>・`web_browser`: ブラウザウィンドウ枠<br>・`mobile_app`: スマートフォン筐体<br>・`llm_model`: スパークル＋ニューラルノード |
+| モジュール (`drawlib.icons.*`) | カテゴリ | 関数名（各 8 種） | 短縮エイリアス | シンプル化された視覚モチーフ設計（Pastel Blue / Green / White） |
+| :--- | :--- | :--- | :--- | :--- |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **1. Clients & Edge**<br>（端末・ユーザー・エッジ） | `user`, `user_group`, `web_browser`, `mobile_app`, `desktop_app`, `iot_device`, `edge_location`, `on_premises` | `users` -> `user_group`, `browser` -> `web_browser`, `mobile` -> `mobile_app`, `desktop` -> `desktop_app`, `iot` -> `iot_device`, `on_prem` -> `on_premises` | ・`user` / `user_group`: 単一アバター（Pastel Blue 胴体＋White 頭部）＆複数アバター（サブ Pastel Green）<br>・`web_browser`: 上部バー（3ドット）付きブラウザウィンドウ枠<br>・`mobile_app` / `desktop_app`: スマートフォン筐体 / デスクトップモニター筐体<br>・`iot_device`: アンテナ電波アーク付きセンサーノード<br>・`edge_location`: ピンマーカー＋エッジ通信リング<br>・`on_premises`: サーバールーム・データセンタービル筐体 |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **2. Networking & Traffic**<br>（通信・ルーティング） | `load_balancer`, `api_gateway`, `cdn`, `dns`, `router`, `switch`, `virtual_network`, `vpn_tunnel` | `lb` -> `load_balancer`, `apigw` -> `api_gateway`, `vpc` -> `virtual_network`, `vpn` -> `vpn_tunnel` | ・`load_balancer`: 左の Pastel Blue 入口円ノードから右の3つの Pastel Green 円ノードへ分岐するツリー<br>・`api_gateway`: 左右2本の白カプセルピラーの間を通過する上段右向き Pastel Blue 矢印＆下段左向き Pastel Green 矢印<br>・`cdn`: グローブ球体＋外周3つの Pastel Green エッジドット<br>・`dns`: ドメインバーと IP ノードを繋ぐ解決矢印<br>・`router`: 円筒筐体＋上面4方向矢印<br>・`switch`: フラット筐体＋左右交互2方向矢印<br>・`virtual_network`: クラウド境界枠＋内部サブネットノード<br>・`vpn_tunnel`: パドロック付き暗号化パイプライン |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **3. Compute & Workloads**<br>（計算資源・実行環境） | `compute`, `virtual_machine`, `container`, `container_cluster`, `serverless_function`, `batch_job`, `autoscaling`, `service_mesh` | `vm` -> `virtual_machine`, `cluster` / `k8s` -> `container_cluster`, `function` -> `serverless_function`, `batch` / `worker` -> `batch_job`, `mesh` -> `service_mesh` | ・`compute`: 四辺に3本ずつピンが出た白枠 IC チップ＋中央 Pastel Blue コア＋右下 Pastel Green ドット<br>・`virtual_machine`: ホスト枠＋内部アイソメキューブ<br>・`container`: 上面 White・左面 Pastel Blue・右面 Pastel Green のアイソメ立方体＋縦リブ線2本ずつ<br>・`container_cluster`: ピラミッド状に並んだ3つのアイソメキューブ<br>・`serverless_function`: 角丸白プレート内の Pastel Blue 稲妻ボルト<br>・`batch_job`: 重なったジョブカード＋右下 Pastel Green 実行バッジ<br>・`autoscaling`: 中央 Pastel Blue コアから四隅へ広がる拡張矢印<br>・`service_mesh`: 相互接続された六角形メッシュのプロキシノード群 |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **4. Database & Caching**<br>（データベース・キャッシュ） | `database`, `db_replica`, `nosql_database`, `in_memory_cache`, `graph_database`, `time_series_db`, `search_engine`, `vector_database` | `db` / `rdbms` -> `database`, `replica` -> `db_replica`, `nosql` -> `nosql_database`, `cache` / `redis` -> `in_memory_cache`, `graph_db` -> `graph_database`, `tsdb` -> `time_series_db`, `search` -> `search_engine`, `vector_db` -> `vector_database` | ・`database`: 3段積み Pastel Blue 円筒シリンダー（上面 White）＋各段右側に Pastel Green ドット<br>・`db_replica`: 手前 Primary シリンダー（Pastel Blue）＋奥 Replica シリンダー（Pastel Green）<br>・`nosql_database`: 円筒シリンダー＋ドキュメント波括弧 `{ }` シンボル<br>・`in_memory_cache`: 角丸メモリチップ枠＋中央 Pastel Green 稲妻シンボル<br>・`graph_database`: ネットワークで結ばれた頂点ノード群<br>・`time_series_db`: 円筒シリンダー＋時計バッジ<br>・`search_engine`: データインデックスバー＋拡大鏡ルーペ<br>・`vector_database`: 3軸直交空間（X/Y/Z）と Pastel Blue/Green ベクトル埋め込みドット |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **5. Storage & Data Platform**<br>（ストレージ・データ基盤） | `object_storage`, `block_storage`, `file_storage`, `backup_archive`, `data_lake`, `data_warehouse`, `etl_pipeline`, `bi_dashboard` | `bucket` -> `object_storage`, `disk` -> `block_storage`, `nfs` / `filestore` -> `file_storage`, `backup` -> `backup_archive`, `dwh` -> `data_warehouse`, `etl` -> `etl_pipeline`, `bi` -> `bi_dashboard` | ・`object_storage`: 上部ハンドル弧＋白リムバー＋Pastel Blue 台形バケット＋右下 Pastel Green ドット<br>・`block_storage`: ディスクプラッタ＋読み取りアーム（ハードディスクボリューム）<br>・`file_storage`: タブ付き共有フォルダ（Pastel Blue）＋内部ドキュメントシート<br>・`backup_archive`: アーカイブボックス＋白蓋リム<br>・`data_lake`: 円筒ベース＋2本の滑らかな水面ウェーブ<br>・`data_warehouse`: 3列の分析カラムバーを内包する建物シルエット<br>・`etl_pipeline`: 変換ファネル（漏斗）＋上部入力ドット＆下部 Pastel Green 出力ブロック<br>・`bi_dashboard`: ダッシュボード枠＋棒グラフ＆円ウィジェット |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **6. Messaging & Integration**<br>（非同期・イベント連携） | `message_queue`, `pub_sub`, `event_stream`, `webhook`, `workflow_orchestrator`, `scheduler`, `notification`, `service_bus` | `queue` / `mq` -> `message_queue`, `pubsub` -> `pub_sub`, `stream` -> `event_stream`, `workflow` -> `workflow_orchestrator`, `cron` -> `scheduler`, `bus` -> `service_bus` | ・`message_queue`: 上下2本の水平レール間に整列した3つの角丸縦ブロック（左2つ Pastel Blue、右先頭 Pastel Green）<br>・`pub_sub`: 中央 Pastel Blue ハブ円から右側の3つの Pastel Green 購読ノードへ放射配信<br>・`event_stream`: 3本の並行ストリームライン＋流れるイベントドット<br>・`webhook`: 3方向が噛み合うフックピンホイール<br>・`workflow_orchestrator`: ステップ矩形とひし形分岐を繋ぐフローチャート<br>・`scheduler`: 円形時計盤＋上部トリガーボタン<br>・`notification`: シンプルなベル（鐘）シルエット（Pastel Blue 本体＋White リム＋Pastel Green クラッパー）<br>・`service_bus`: 中央水平バックボーンバス＋上下に接続されたサービスノード |
+| **`original_cloud`**<br>(`OriginalCloudIcon`) | **7. Security & Governance**<br>（セキュリティ・認証） | `firewall`, `waf`, `ddos_protection`, `identity_auth`, `secret_vault`, `certificate_tls`, `zero_trust_proxy`, `audit_compliance` | `ddos` -> `ddos_protection`, `auth` / `iam` -> `identity_auth`, `vault` / `kms` -> `secret_vault`, `tls` -> `certificate_tls`, `zero_trust` / `iap` -> `zero_trust_proxy`, `audit` -> `audit_compliance` | ・`firewall`: Pastel Blue の単一シールド＋中央 White 円バッジ＋Pastel Green チェックマーク<br>・`waf`: グローブ（Web）の前面を守るシールド<br>・`ddos_protection`: シールドバリアで跳ね返される3本の攻撃矢印<br>・`identity_auth`: 人物アバター付き認証IDカード<br>・`secret_vault`: シャックル付きパドロック（南京錠）＋中央鍵穴<br>・`certificate_tls`: リボンメダル付き TLS 証明書バッジ<br>・`zero_trust_proxy`: 検問ゲートピラーと中央検証シールド<br>・`audit_compliance`: クリップボード＋チェックリスト項目 |
+| **`original_devops`**<br>(`OriginalDevopsIcon`) | **8. Observability & DevOps**<br>（監視・CI/CD・構成管理） | `monitoring`, `logging`, `distributed_tracing`, `alert_incident`, `git_repository`, `cicd_pipeline`, `artifact_registry`, `config_management` | `metrics` -> `monitoring`, `logs` -> `logging`, `tracing` -> `distributed_tracing`, `alert` -> `alert_incident`, `git` / `repo` -> `git_repository`, `cicd` / `pipeline` -> `cicd_pipeline`, `registry` -> `artifact_registry`, `config` / `iac` -> `config_management` | ・`monitoring`: White モニター画面（Pastel Blue スタンド）＋パルス波形折れ線＋ピーク頂点 Pastel Green ドット<br>・`logging`: 3行テキストのログシート＋右下 Pastel Green 虫眼鏡<br>・`distributed_tracing`: 段違いに並んだ3本のウォーターフォール・スパンバー（Pastel Blue / Green）<br>・`alert_incident`: 角丸三角形の警告サイン（Pastel Blue 本体＋White の `!` マーク）<br>・`git_repository`: メインラインから分岐する Git ブランチノードグラフ<br>・`cicd_pipeline`: 循環ステージで結ばれたビルド・デプロイリング<br>・`artifact_registry`: 棚フレーム内に格納されたパッケージキューブ<br>・`config_management`: 3本の水平スライダーバー＋Pastel Blue/Green トグルノブ |
+| **`original_ai`**<br>(`OriginalAiIcon`) | **9. AI & Machine Learning**<br>（生成AI・LLM・機械学習） | `ai_agent`, `llm_model`, `rag_knowledge_base`, `embedding_vector`, `prompt_guardrail`, `model_registry`, `training_pipeline`, `inference_endpoint` | `agent` -> `ai_agent`, `llm` -> `llm_model`, `rag` -> `rag_knowledge_base`, `embedding` -> `embedding_vector`, `guardrail` -> `prompt_guardrail`, `inference` -> `inference_endpoint` | ・`ai_agent`: 3本の軌道アークで結ばれた3つの Pastel Green 外周ノード＋中央 Pastel Blue 4芒星スパークル<br>・`llm_model`: ニューラルチップ枠＋中央4芒星スパークル<br>・`rag_knowledge_base`: ドキュメントブック＋検索スパークルバッジ<br>・`embedding_vector`: 角括弧 `[• • •]` 内の3色埋め込みベクトルバー<br>・`prompt_guardrail`: 吹き出しプロンプトを守る Pastel Green セーフティシールド<br>・`model_registry`: AI スパークルバッジ付きモデルパッケージキューブ<br>・`training_pipeline`: 3層ニューラルネットワーク接続グラフ<br>・`inference_endpoint`: AI スパークルコアから高速出力される推論レスポンス矢印 |
 
 ---
 
-## 5. Google Cloud 完全ネイティブ移行詳細 (`tools/icons_src/gcp/` — 全252種 `_default.py` ＋ 4色 `_modern.py`)
+## 5. Google Cloud 完全ネイティブ移行詳細 (`tools/icons_src/gcp/` — 全250種 `_default.py` ＋ 45種 `_modern.py` — 完了)
 
 ### 5.1. 収録範囲（プラン A：3トーン青を `default` に統一 ＋ 4色 `modern` 網羅）
-既存の [`tools/release_assets/v0.3/icons/gcp/manifest.json`](../../tools/release_assets/v0.3/icons/gcp/manifest.json) に収録されている **全 252 種のプライマリアイコン ＋ 8 エイリアス** について、**3トーン青（レガシー）デザインを `<name>_default.py`（デフォルト）** として完全再現し、さらに Google 4色マルチカラー版が存在するアイコンには **`<name>_modern.py`（`variant="modern"`）** を用意する：
+[`tools/release_assets/v0.3/icons/gcp/manifest.json`](../../tools/release_assets/v0.3/icons/gcp/manifest.json) に収録されている **全 250 種のプライマリアイコン ＋ 10 エイリアス** について、**3トーン青（レガシー）デザインを `<name>_default.py`（デフォルト）** として完全再現し、さらに Google 4色マルチカラー版が存在するアイコンには **`<name>_modern.py`（`variant="modern"`）** を用意済み：
 
 1. **Core Products（19 種 — `_default.py` [3トーン青版] ＆ `_modern.py` [4色マルチカラー版]）**:
-   - `ai_hypercomputer`, `alloydb`, `anthos`, `apigee`, `bigquery`, `cloud_run`, `cloud_spanner`, `cloud_sql`, `cloud_storage`, `compute_engine`, `distributed_cloud`, `gke` (`google_kubernetes_engine`), `hyperdisk`, `looker`, `mandiant`, `security_command_center`, `security_operations`, `threat_intelligence`, `vertex_ai`
-   - それぞれ `<name>_default.py`（GCP 3トーン青 `#4285F4` / `#669DF6` / `#AECBFA` による統一デザイン版）と `<name>_modern.py`（Google 4色マルチカラー版）を作成する。
+   - `ai_hypercomputer`, `alloydb`, `anthos`, `apigee`, `bigquery`, `cloud_run`, `cloud_spanner`, `cloud_sql`, `cloud_storage`, `compute_engine`, `distributed_cloud`, `google_kubernetes_engine` *(alias: `gke`)*, `hyperdisk`, `looker`, `mandiant`, `security_command_center`, `security_operations`, `threat_intelligence`, `vertex_ai`
+   - それぞれ `<name>_default.py`（GCP 3トーン青 `#4285F4` / `#669DF6` / `#AECBFA` による統一デザイン版）と `<name>_modern.py`（Google 4色マルチカラー版）を作成済み。
 2. **Category Icons（26 種 — `_default.py` [3トーン青版] ＆ `_modern.py` [4色マルチカラー版]）**:
    - `category_ai_machine_learning`, `category_agents`, `category_business_intelligence`, `category_collaboration`, `category_compute`, `category_containers`, `category_data_analytics`, `category_databases`, `category_developer_tools`, `category_devops`, `category_hybrid_multicloud`, `category_integration_services`, `category_management_tools`, `category_maps_geospatial`, `category_marketplace`, `category_media_services`, `category_migration`, `category_mixed_reality`, `category_networking`, `category_observability`, `category_operations`, `category_security_identity`, `category_serverless_computing`, `category_storage`, `category_web3`, `category_web_mobile`
-3. **3-Tone Blue Service Icons（207 種 — `_default.py` 現役サービス＋廃止・旧名称サービスすべて網羅）**:
-   - **現役の主要サービス**: `app_engine`, `artifact_registry`, `automl`, `bare_metal_solutions`, `batch`, `bigtable`, `cloud_api_gateway`, `cloud_armor`, `cloud_build`, `cloud_cdn`, `cloud_composer`, `cloud_data_fusion`, `cloud_deploy`, `cloud_dns`, `cloud_domains`, `cloud_endpoints`, `cloud_External_ip_addresses`, `cloud_firewall_rules`, `cloud_functions`, `cloud_interconnect`, `cloud_load_balancing`, `cloud_logging`, `cloud_monitoring`, `cloud_nat`, `cloud_natural_language_api`, `cloud_network`, `cloud_router`, `cloud_routes`, `cloud_scheduler`, `cloud_security_scanner`, `cloud_tasks`, `cloud_translation_api`, `cloud_vision_api`, `cloud_vpn`, `data_catalog`, `dataflow`, `datalab`, `dataplex`, `dataprep`, `dataproc`, `datastream`, `dialogflow`, `document_ai`, `eventarc`, `filestore`, `firestore`, `identity_and_access_management`, `identity_Aware_proxy`, `identity_platform`, `key_management_service`, `memorystore`, `network_connectivity_center`, `network_intelligence_center`, `network_security`, `network_tiers`, `network_topology`, `persistent_disk`, `private_service_connect`, `pubsub`, `Recommendations_ai`, `secret_manager`, `service_directory`, `speech_to_text`, `text_to_speech`, `traffic_director`, `transfer_appliance`, `virtual_private_cloud`, `vmware_engine`, `workflows` 等。
-   - **廃止・統合済み・旧名称サービス（後方互換のため全数収録）**: `stackdriver`, `container_builder`, `google_container_registry`, `cloud_iot_core`, `ai_hub`, `ai_platform`, `ai_platform_unified`, `automl_natural_language`, `automl_tables`, `automl_translation`, `automl_video_intelligence`, `automl_vision`, `cloud_inference_api`, `data_labeling`, `genomics`, `apigee_sense`, `anthos_config_management`, `anthos_service_mesh` 等を含む残り全アイコン。
+3. **3-Tone Blue Service Icons（205 種 — `_default.py` 現役サービス＋廃止・旧名称サービスすべて網羅）**:
+   - **現役の主要サービス**: `app_engine`, `artifact_registry`, `automl`, `bare_metal_solutions`, `batch`, `bigtable`, `cloud_api_gateway`, `cloud_armor`, `cloud_build`, `cloud_cdn`, `cloud_composer`, `cloud_data_fusion`, `cloud_deploy`, `cloud_dns`, `cloud_domains`, `cloud_endpoints`, `cloud_external_ip_addresses`, `cloud_firewall_rules`, `cloud_functions`, `cloud_interconnect`, `cloud_load_balancing`, `cloud_logging`, `cloud_monitoring`, `cloud_nat`, `cloud_natural_language_api`, `cloud_network`, `cloud_router`, `cloud_routes`, `cloud_scheduler`, `cloud_security_scanner`, `cloud_tasks`, `cloud_translation_api`, `cloud_vision_api`, `cloud_vpn`, `data_catalog`, `dataflow`, `datalab`, `dataplex`, `dataprep`, `dataproc`, `datastream`, `dialogflow`, `document_ai`, `eventarc`, `filestore`, `firestore`, `identity_and_access_management`, `identity_aware_proxy`, `identity_platform`, `key_management_service`, `memorystore`, `network_connectivity_center`, `network_intelligence_center`, `network_security`, `network_tiers`, `network_topology`, `persistent_disk`, `private_service_connect`, `pubsub`, `recommendations_ai`, `secret_manager`, `service_discovery`, `speech_to_text`, `text_to_speech`, `traffic_director`, `transfer_appliance`, `virtual_private_cloud`, `vmware_engine`, `workflows` 等。
+   - **廃止・統合済み・旧名称サービス（後方互換のため全数収録）**: `stackdriver`, `container_registry`, `iot_core`, `ai_hub`, `ai_platform`, `ai_platform_unified`, `automl_natural_language`, `automl_tables`, `automl_translation`, `automl_video_intelligence`, `automl_vision`, `cloud_inference_api`, `data_labeling`, `genomics`, `apigee_sense`, `anthos_config_management`, `anthos_service_mesh` 等を含む残り全アイコン。
 
 ---
 
@@ -211,8 +234,8 @@ tools/
 
 | フェーズ | マイルストーン | 主な作業内容と完了基準 |
 | :--- | :--- | :--- |
-| **Phase 1: `tools/icons_src/` 基盤構築 ＆ 先行アイコンの移行 (完了)** | `tools/icons_src/` 初期化 ＆ パイプライン確立 | 1. `uv run drawlib init images tools/icons_src` でプロジェクトを初期化。<br>2. `tools/icons_src/styles.py` と `tools/icons_src/utils.py` に確定したパステルパレット・GCP パレット・共通幾何学プリミティブを配置。<br>3. 先行アイコン（`original_cloud` 10個 `*_default.py` ＋ `gcp` 10個 `*_default.py` [3トーン青] ＋ `gcp` 6個 `*_modern.py` [4色]）を `tools/icons_src/{original_cloud,gcp}/*.py`（1アイコンバリアント＝1 `.py` ファイル）へ移植。<br>4. `tools/icons_src/build.sh`（`drawlib build image` ＋ `512×512` 正規化 ＆ `manifest.json` 更新）を構築し、動作と出力画像を検証。 |
-| **Phase 2: オリジナル・クラウド概念アイコン (`original_cloud/`) 全 38 種の完成** | `tools/icons_src/original_cloud/` 全数完成 ＆ バインディング統合 | 1. 残りのオリジナル・クラウド概念アイコン（約 28 種）をパステル3色（`#86A4F7` / `#7AD69E` / `#FFFFFF`）＋ `2.7`-unit ダーク構造線で並列作成・視覚レビュー。<br>2. `tools/release_assets/v0.3/icons/original_cloud/` の生成、`drawlib.icons.original_cloud` および `OriginalCloudIcon` Enum のコード生成・単体テスト実装。 |
+| **Phase 1: `tools/icons_src/` 基盤構築 ＆ 先行アイコンの移行 (完了)** | `tools/icons_src/` 初期化 ＆ パイプライン確立 | 1. `uv run drawlib init images tools/icons_src` でプロジェクトを初期化。<br>2. `tools/icons_src/styles.py` と `tools/icons_src/utils.py` に確定したパステルパレット・GCP パレット・共通幾何学プリミティブを配置。<br>3. 先行アイコンを `tools/icons_src/{original_cloud,original_devops,original_ai,gcp}/*.py`（1アイコンバリアント＝1 `.py` ファイル）へ移植。<br>4. `tools/icons_src/build.sh`（`drawlib build image` ＋ `512×512` 正規化 ＆ `manifest.json` 更新）を構築し、動作と出力画像を検証。 |
+| **Phase 2: オリジナル概念アイコン (`original_cloud/`, `original_devops/`, `original_ai/`) 全 72 種の完成** | `original_cloud` (56種) / `original_devops` (8種) / `original_ai` (8種) 完成 ＆ バインディング統合 | 1. オリジナル概念アイコン全 72 種をパステル3色（`#86A4F7` / `#7AD69E` / `#FFFFFF`）＋ `2.7`-unit ダーク構造線で作成・視覚レビュー。<br>2. `tools/release_assets/v0.3/icons/{original_cloud,original_devops,original_ai}/` の生成、`drawlib.icons.{original_cloud,original_devops,original_ai}` および `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon` Enum のコード生成・単体テスト・ドキュメント実装。 |
 | **Phase 3: GCP アイコン (`gcp/`) 全 250 種 (`_default.py`) ＋ 45 種 (`_modern.py`) の完全ネイティブ化 (完了)** | `tools/icons_src/gcp/` 全 295 スクリプト完成、`icon_gcp.zip` 更新 ＆ API/Docs 統合完了 | 1. **完了**: 全 250 種の `<name>_default.py`（3トーン青）および `core_products` (19種) / `category_*` (26種) の `<name>_modern.py`（4色、計 45 種）＝ **全 295 スクリプト**を `tools/icons_src/gcp/*.py` として作成・公式リファレンスとのマルチモーダル比較検証完了。<br>2. **完了**: 旧 PNG および `tools/original_assets/gcp/` を廃止し、全 295 個の `512×512` 透過 PNG ＋ `manifest.json` を `icon_gcp.zip` として GitHub Releases (`v0.3`) および `_release_assets.py` へ反映完了。<br>3. **完了**: `drawlib.icons.gcp` への `variant: Literal["default", "modern"] = "default"` 引数追加・10個の短縮エイリアス関数生成・単体テストおよび公式ドキュメント更新完了。 |
 | **Phase 4: `aws`, `azure` および 14 カテゴリ `*_icons` の順次拡張** | マルチクラウド ＆ IT ベンダーアイコン拡張 | 1. `tools/icons_src/{aws,azure,<category>}/` サブディレクトリを追加し、同一の `images` プロジェクト基盤上で順次ビルド・公開。<br>2. `src/drawlib/_rules/` および公式ドキュメントを更新し、`./dcli code-check all` と `./dcli test all` をパスさせる。 |
 

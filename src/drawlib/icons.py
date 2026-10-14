@@ -16,15 +16,24 @@ import sys
 from drawlib._icons import (
     font_icon,
     gcp,
+    original_ai,
+    original_cloud,
+    original_devops,
     phosphor,
 )
 
-# Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`
+# Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`, etc.
 sys.modules["drawlib.icons.phosphor"] = phosphor
 sys.modules["drawlib.icons.gcp"] = gcp
+sys.modules["drawlib.icons.original_ai"] = original_ai
+sys.modules["drawlib.icons.original_cloud"] = original_cloud
+sys.modules["drawlib.icons.original_devops"] = original_devops
 
 __all__ = [
     "font_icon",
     "gcp",
+    "original_ai",
+    "original_cloud",
+    "original_devops",
     "phosphor",
 ]

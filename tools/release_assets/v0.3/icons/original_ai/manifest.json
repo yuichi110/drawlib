@@ -1,0 +1,128 @@
+{
+  "format_version": "2.0",
+  "provider": "original_ai",
+  "created_at": "2026-10-14T14:40:54.686609+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 8,
+  "aliases": {
+    "agent": "ai_agent",
+    "embedding": "embedding_vector",
+    "guardrail": "prompt_guardrail",
+    "inference": "inference_endpoint",
+    "llm": "llm_model",
+    "rag": "rag_knowledge_base"
+  },
+  "files": {
+    "ai_agent_default.png": {
+      "icon_name": "ai_agent",
+      "variant": "default",
+      "source_script": "original_ai/ai_agent_default.py",
+      "size_bytes": 36773,
+      "sha256": "ca3b5f8c2736c0a2e376cfaeaccce413e46d52443b2bfc4e6e298e6f3bc4b274",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "embedding_vector_default.png": {
+      "icon_name": "embedding_vector",
+      "variant": "default",
+      "source_script": "original_ai/embedding_vector_default.py",
+      "size_bytes": 14164,
+      "sha256": "08f9b8a7ad734495cf2e9da6fb4ab7f9536b13984804ab431ebdb5cc57313a62",
+      "bbox": [
+        26,
+        65,
+        486,
+        447
+      ]
+    },
+    "inference_endpoint_default.png": {
+      "icon_name": "inference_endpoint",
+      "variant": "default",
+      "source_script": "original_ai/inference_endpoint_default.py",
+      "size_bytes": 17965,
+      "sha256": "62a1f3f2fe73ddb376ec8747a4bbb3de1ea6dc9920a7eca22c8a12561eb091d7",
+      "bbox": [
+        26,
+        80,
+        486,
+        432
+      ]
+    },
+    "llm_model_default.png": {
+      "icon_name": "llm_model",
+      "variant": "default",
+      "source_script": "original_ai/llm_model_default.py",
+      "size_bytes": 21586,
+      "sha256": "66358af85451120ec7e9c5a4d29994beb3ccd4ac55993d63d2008d9a22319434",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "model_registry_default.png": {
+      "icon_name": "model_registry",
+      "variant": "default",
+      "source_script": "original_ai/model_registry_default.py",
+      "size_bytes": 32553,
+      "sha256": "67153d89203bed378181a3c4f75f56a529bbc301e5ed4b28d0e8e24a7dba6387",
+      "bbox": [
+        33,
+        26,
+        478,
+        486
+      ]
+    },
+    "prompt_guardrail_default.png": {
+      "icon_name": "prompt_guardrail",
+      "variant": "default",
+      "source_script": "original_ai/prompt_guardrail_default.py",
+      "size_bytes": 17772,
+      "sha256": "34f45161f74d587b365c478e57f231abbc312d3748d5ea60021b8a90c82addfa",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "rag_knowledge_base_default.png": {
+      "icon_name": "rag_knowledge_base",
+      "variant": "default",
+      "source_script": "original_ai/rag_knowledge_base_default.py",
+      "size_bytes": 20106,
+      "sha256": "798623f5bdad0dbe6d145f1f13c666f290a89e9ca5fb72a639882f5852044bca",
+      "bbox": [
+        26,
+        35,
+        486,
+        476
+      ]
+    },
+    "training_pipeline_default.png": {
+      "icon_name": "training_pipeline",
+      "variant": "default",
+      "source_script": "original_ai/training_pipeline_default.py",
+      "size_bytes": 47704,
+      "sha256": "14f3fe897463ef0e7bf995c3f4aafe019b007894629d1d23779cea1865cb517b",
+      "bbox": [
+        41,
+        26,
+        471,
+        486
+      ]
+    }
+  }
+}

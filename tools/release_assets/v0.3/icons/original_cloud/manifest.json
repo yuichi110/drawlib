@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-14T13:22:43.801828+00:00",
+  "created_at": "2026-10-14T14:40:47.095507+00:00",
   "canvas_size": [
     512,
     512
@@ -10,22 +10,61 @@
     460,
     460
   ],
-  "total_files": 10,
-  "aliases": {},
+  "total_files": 56,
+  "aliases": {
+    "apigw": "api_gateway",
+    "audit": "audit_compliance",
+    "auth": "identity_auth",
+    "backup": "backup_archive",
+    "batch": "batch_job",
+    "bi": "bi_dashboard",
+    "browser": "web_browser",
+    "bucket": "object_storage",
+    "bus": "service_bus",
+    "cache": "in_memory_cache",
+    "cluster": "container_cluster",
+    "cron": "scheduler",
+    "db": "database",
+    "ddos": "ddos_protection",
+    "desktop": "desktop_app",
+    "disk": "block_storage",
+    "dwh": "data_warehouse",
+    "etl": "etl_pipeline",
+    "filestore": "file_storage",
+    "function": "serverless_function",
+    "graph_db": "graph_database",
+    "iam": "identity_auth",
+    "iap": "zero_trust_proxy",
+    "iot": "iot_device",
+    "k8s": "container_cluster",
+    "kms": "secret_vault",
+    "lb": "load_balancer",
+    "mesh": "service_mesh",
+    "mobile": "mobile_app",
+    "mq": "message_queue",
+    "nfs": "file_storage",
+    "nosql": "nosql_database",
+    "on_prem": "on_premises",
+    "pubsub": "pub_sub",
+    "queue": "message_queue",
+    "rdbms": "database",
+    "redis": "in_memory_cache",
+    "replica": "db_replica",
+    "search": "search_engine",
+    "stream": "event_stream",
+    "tls": "certificate_tls",
+    "tsdb": "time_series_db",
+    "users": "user_group",
+    "vault": "secret_vault",
+    "vector_db": "vector_database",
+    "vm": "virtual_machine",
+    "vpc": "virtual_network",
+    "vpn": "vpn_tunnel",
+    "worker": "batch_job",
+    "workflow": "workflow_orchestrator",
+    "zero_trust": "zero_trust_proxy"
+  },
   "files": {
-    "ai_agent_default.png": {
-      "icon_name": "ai_agent",
-      "variant": "default",
-      "source_script": "original_cloud/ai_agent_default.py",
-      "size_bytes": 36773,
-      "sha256": "ca3b5f8c2736c0a2e376cfaeaccce413e46d52443b2bfc4e6e298e6f3bc4b274",
-      "bbox": [
-        27,
-        26,
-        485,
-        486
-      ]
-    },
     "api_gateway_default.png": {
       "icon_name": "api_gateway",
       "variant": "default",
@@ -37,6 +76,110 @@
         49,
         486,
         462
+      ]
+    },
+    "audit_compliance_default.png": {
+      "icon_name": "audit_compliance",
+      "variant": "default",
+      "source_script": "original_cloud/audit_compliance_default.py",
+      "size_bytes": 15586,
+      "sha256": "55228dd77be7129f0f1ea94fa4b50056878c959f860619ff28c16a0cebee10ee",
+      "bbox": [
+        57,
+        26,
+        454,
+        486
+      ]
+    },
+    "autoscaling_default.png": {
+      "icon_name": "autoscaling",
+      "variant": "default",
+      "source_script": "original_cloud/autoscaling_default.py",
+      "size_bytes": 14823,
+      "sha256": "e7eaf55e5edd7f8b8207d7ce14d8ea80a4e4580259c57a4f56e5552a102b8c2f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "backup_archive_default.png": {
+      "icon_name": "backup_archive",
+      "variant": "default",
+      "source_script": "original_cloud/backup_archive_default.py",
+      "size_bytes": 7711,
+      "sha256": "ade608decc7145c45ef971af805a490aa537f60b85d9b96e1ba538549c975163",
+      "bbox": [
+        26,
+        66,
+        486,
+        446
+      ]
+    },
+    "batch_job_default.png": {
+      "icon_name": "batch_job",
+      "variant": "default",
+      "source_script": "original_cloud/batch_job_default.py",
+      "size_bytes": 17084,
+      "sha256": "080ef5e7968b6027324719e3d16adb4263dcfe0dee024022a4c17aa8a100f791",
+      "bbox": [
+        38,
+        26,
+        473,
+        486
+      ]
+    },
+    "bi_dashboard_default.png": {
+      "icon_name": "bi_dashboard",
+      "variant": "default",
+      "source_script": "original_cloud/bi_dashboard_default.py",
+      "size_bytes": 13454,
+      "sha256": "35e1aa7a12be0e71943c5badf609758a84838a39cbf33512d9d080f7e82b0390",
+      "bbox": [
+        26,
+        61,
+        486,
+        451
+      ]
+    },
+    "block_storage_default.png": {
+      "icon_name": "block_storage",
+      "variant": "default",
+      "source_script": "original_cloud/block_storage_default.py",
+      "size_bytes": 26882,
+      "sha256": "6e6437745ff1f39185c9d8eed6e1212cda09c0ceedc21f901edc8c9ba3795572",
+      "bbox": [
+        56,
+        26,
+        456,
+        486
+      ]
+    },
+    "cdn_default.png": {
+      "icon_name": "cdn",
+      "variant": "default",
+      "source_script": "original_cloud/cdn_default.py",
+      "size_bytes": 31826,
+      "sha256": "292d1479bf088128dbebc380cfd76aecb9ef80556cca3ed154f658a3a43f216b",
+      "bbox": [
+        26,
+        35,
+        486,
+        476
+      ]
+    },
+    "certificate_tls_default.png": {
+      "icon_name": "certificate_tls",
+      "variant": "default",
+      "source_script": "original_cloud/certificate_tls_default.py",
+      "size_bytes": 18902,
+      "sha256": "5e9706db4a256425e2528a66da0dfea432813179c250391a9feae27ab0276fa5",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
       ]
     },
     "compute_default.png": {
@@ -52,6 +195,19 @@
         486
       ]
     },
+    "container_cluster_default.png": {
+      "icon_name": "container_cluster",
+      "variant": "default",
+      "source_script": "original_cloud/container_cluster_default.py",
+      "size_bytes": 32883,
+      "sha256": "29e3090a55b1c9749e9084868b063edd3b5610c9d2cc98d5de2ebf42030deaa1",
+      "bbox": [
+        26,
+        33,
+        486,
+        479
+      ]
+    },
     "container_default.png": {
       "icon_name": "container",
       "variant": "default",
@@ -63,6 +219,32 @@
         26,
         456,
         486
+      ]
+    },
+    "data_lake_default.png": {
+      "icon_name": "data_lake",
+      "variant": "default",
+      "source_script": "original_cloud/data_lake_default.py",
+      "size_bytes": 26612,
+      "sha256": "93c69a19852e8928c69a3fa79d073423255da1aa9fba2d12183a8f28ae02ff03",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "data_warehouse_default.png": {
+      "icon_name": "data_warehouse",
+      "variant": "default",
+      "source_script": "original_cloud/data_warehouse_default.py",
+      "size_bytes": 12518,
+      "sha256": "39fec3d523705661463a95084dc0db51806ff61fb25872917c280fb2b04e59f5",
+      "bbox": [
+        26,
+        37,
+        486,
+        475
       ]
     },
     "database_default.png": {
@@ -78,6 +260,110 @@
         486
       ]
     },
+    "db_replica_default.png": {
+      "icon_name": "db_replica",
+      "variant": "default",
+      "source_script": "original_cloud/db_replica_default.py",
+      "size_bytes": 26550,
+      "sha256": "09cc900978b8469875513499bb928eb78b1f888625480e489d311c4bd0992537",
+      "bbox": [
+        26,
+        42,
+        486,
+        469
+      ]
+    },
+    "ddos_protection_default.png": {
+      "icon_name": "ddos_protection",
+      "variant": "default",
+      "source_script": "original_cloud/ddos_protection_default.py",
+      "size_bytes": 29069,
+      "sha256": "4c70fe36ec1134652ba3914f80ecbf6ce8a5bd7000f2a806ed771e97b781c84f",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
+    "desktop_app_default.png": {
+      "icon_name": "desktop_app",
+      "variant": "default",
+      "source_script": "original_cloud/desktop_app_default.py",
+      "size_bytes": 9744,
+      "sha256": "010da2ad945a6b020ccc448f6bc2c413d0e5125ce40f402bf1f986e7e82851f6",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "dns_default.png": {
+      "icon_name": "dns",
+      "variant": "default",
+      "source_script": "original_cloud/dns_default.py",
+      "size_bytes": 19060,
+      "sha256": "f66d711cf08ebd424a6fe42c7af347ca46ef1dfdf5379d975317e4558bcfc90b",
+      "bbox": [
+        26,
+        35,
+        486,
+        476
+      ]
+    },
+    "edge_location_default.png": {
+      "icon_name": "edge_location",
+      "variant": "default",
+      "source_script": "original_cloud/edge_location_default.py",
+      "size_bytes": 29854,
+      "sha256": "d285463026e589a1853f424920cf2bc4ee33fd86be71923ce64b1b125021ae84",
+      "bbox": [
+        47,
+        26,
+        464,
+        486
+      ]
+    },
+    "etl_pipeline_default.png": {
+      "icon_name": "etl_pipeline",
+      "variant": "default",
+      "source_script": "original_cloud/etl_pipeline_default.py",
+      "size_bytes": 18057,
+      "sha256": "2622386c71027234e3103123152aac2027b002ee7cbee041f91506c129f5b2fc",
+      "bbox": [
+        60,
+        26,
+        452,
+        486
+      ]
+    },
+    "event_stream_default.png": {
+      "icon_name": "event_stream",
+      "variant": "default",
+      "source_script": "original_cloud/event_stream_default.py",
+      "size_bytes": 26574,
+      "sha256": "358fe1214822c6bdc68ec99c9945179aa9bd294da1b000b04a05b681cd7f52d4",
+      "bbox": [
+        26,
+        78,
+        486,
+        434
+      ]
+    },
+    "file_storage_default.png": {
+      "icon_name": "file_storage",
+      "variant": "default",
+      "source_script": "original_cloud/file_storage_default.py",
+      "size_bytes": 9585,
+      "sha256": "44bdda74da6527aa409d0f57fe60b9c2886910f6718aa6f43656fcd562ea4521",
+      "bbox": [
+        26,
+        69,
+        486,
+        443
+      ]
+    },
     "firewall_default.png": {
       "icon_name": "firewall",
       "variant": "default",
@@ -89,6 +375,58 @@
         26,
         449,
         486
+      ]
+    },
+    "graph_database_default.png": {
+      "icon_name": "graph_database",
+      "variant": "default",
+      "source_script": "original_cloud/graph_database_default.py",
+      "size_bytes": 33294,
+      "sha256": "357cd8c90e41b5ff3e9697c5e2c86b91fc6532ca2b1fd4e0a78877c3d21c1cd0",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "identity_auth_default.png": {
+      "icon_name": "identity_auth",
+      "variant": "default",
+      "source_script": "original_cloud/identity_auth_default.py",
+      "size_bytes": 15455,
+      "sha256": "56293eb6235bd399f9cc17c06d31912842e206d0b54539a79930a6e17aded194",
+      "bbox": [
+        26,
+        70,
+        486,
+        442
+      ]
+    },
+    "in_memory_cache_default.png": {
+      "icon_name": "in_memory_cache",
+      "variant": "default",
+      "source_script": "original_cloud/in_memory_cache_default.py",
+      "size_bytes": 21401,
+      "sha256": "4442a4d23614946f947a3b60d2429adfaf48688ceba17a88351d2e25e72e2186",
+      "bbox": [
+        38,
+        26,
+        473,
+        486
+      ]
+    },
+    "iot_device_default.png": {
+      "icon_name": "iot_device",
+      "variant": "default",
+      "source_script": "original_cloud/iot_device_default.py",
+      "size_bytes": 23340,
+      "sha256": "7634f9fa15405c9d930ec89495399252d6121f850575325593f398406de465f7",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
       ]
     },
     "load_balancer_default.png": {
@@ -117,17 +455,43 @@
         404
       ]
     },
-    "monitoring_default.png": {
-      "icon_name": "monitoring",
+    "mobile_app_default.png": {
+      "icon_name": "mobile_app",
       "variant": "default",
-      "source_script": "original_cloud/monitoring_default.py",
-      "size_bytes": 15051,
-      "sha256": "99bd9e473d3fd4551349267054b66674ea23d0ece076b383bde498e647adfe86",
+      "source_script": "original_cloud/mobile_app_default.py",
+      "size_bytes": 13216,
+      "sha256": "4809b90c3c27c409c104c016abc9ce180964faaad862fad500398119ac5efaff",
       "bbox": [
+        113,
         26,
+        398,
+        486
+      ]
+    },
+    "nosql_database_default.png": {
+      "icon_name": "nosql_database",
+      "variant": "default",
+      "source_script": "original_cloud/nosql_database_default.py",
+      "size_bytes": 22699,
+      "sha256": "0ffbc57f5658bfb701194d789ee5052157b56ff279b3f75130361f0c966c758d",
+      "bbox": [
         49,
-        486,
-        462
+        26,
+        463,
+        486
+      ]
+    },
+    "notification_default.png": {
+      "icon_name": "notification",
+      "variant": "default",
+      "source_script": "original_cloud/notification_default.py",
+      "size_bytes": 17114,
+      "sha256": "e7a6618247a023c14b021bf906b844536e6b7e0bdbecc6c4ab385f10f8afb419",
+      "bbox": [
+        51,
+        26,
+        461,
+        486
       ]
     },
     "object_storage_default.png": {
@@ -141,6 +505,292 @@
         50,
         486,
         462
+      ]
+    },
+    "on_premises_default.png": {
+      "icon_name": "on_premises",
+      "variant": "default",
+      "source_script": "original_cloud/on_premises_default.py",
+      "size_bytes": 11747,
+      "sha256": "182f57b8a64fdeaec853a48b5fb114bae84a76837fa6260c04b1fe3b8d0684d0",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "pub_sub_default.png": {
+      "icon_name": "pub_sub",
+      "variant": "default",
+      "source_script": "original_cloud/pub_sub_default.py",
+      "size_bytes": 25276,
+      "sha256": "7ac08a8cd9d99c965a92db35fadb6a41c16dbd0e68115e8004dbca86a1b7c6e0",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "router_default.png": {
+      "icon_name": "router",
+      "variant": "default",
+      "source_script": "original_cloud/router_default.py",
+      "size_bytes": 30362,
+      "sha256": "292f5b97e53942bf96d6159da93bbdcfbb8f55ff9c8e5e39f8083d741c823908",
+      "bbox": [
+        26,
+        81,
+        486,
+        430
+      ]
+    },
+    "scheduler_default.png": {
+      "icon_name": "scheduler",
+      "variant": "default",
+      "source_script": "original_cloud/scheduler_default.py",
+      "size_bytes": 35779,
+      "sha256": "4aa458d68b8f5e620b026fe66b327446161d75949c2cf62f654ccd7924818628",
+      "bbox": [
+        50,
+        26,
+        462,
+        486
+      ]
+    },
+    "search_engine_default.png": {
+      "icon_name": "search_engine",
+      "variant": "default",
+      "source_script": "original_cloud/search_engine_default.py",
+      "size_bytes": 22927,
+      "sha256": "ef685cd128a60a799b019acab4a74bcf375bb265fca2e025ccc7cd667795e5b1",
+      "bbox": [
+        26,
+        69,
+        486,
+        442
+      ]
+    },
+    "secret_vault_default.png": {
+      "icon_name": "secret_vault",
+      "variant": "default",
+      "source_script": "original_cloud/secret_vault_default.py",
+      "size_bytes": 19829,
+      "sha256": "93436d3ba0d831108268382136d3c90a9681b56a8509161730250bf5dba3386f",
+      "bbox": [
+        52,
+        26,
+        460,
+        486
+      ]
+    },
+    "serverless_function_default.png": {
+      "icon_name": "serverless_function",
+      "variant": "default",
+      "source_script": "original_cloud/serverless_function_default.py",
+      "size_bytes": 21530,
+      "sha256": "781eae0bc52962824704c386d388413616d601d45ab85c092438477837bd794a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "service_bus_default.png": {
+      "icon_name": "service_bus",
+      "variant": "default",
+      "source_script": "original_cloud/service_bus_default.py",
+      "size_bytes": 11490,
+      "sha256": "059f07667463f363048db2fce80bded097424e51bb85828c9d9c142059d14982",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "service_mesh_default.png": {
+      "icon_name": "service_mesh",
+      "variant": "default",
+      "source_script": "original_cloud/service_mesh_default.py",
+      "size_bytes": 33757,
+      "sha256": "ca503075c850c66712e09759748b30cd5c055d52ab425f2db553b74d5f1d5bbe",
+      "bbox": [
+        50,
+        26,
+        462,
+        486
+      ]
+    },
+    "switch_default.png": {
+      "icon_name": "switch",
+      "variant": "default",
+      "source_script": "original_cloud/switch_default.py",
+      "size_bytes": 12104,
+      "sha256": "fe15db286b7c0349d1b4a19def3eae2abed1942db22a562ad2a22cce6bd26bf1",
+      "bbox": [
+        26,
+        108,
+        486,
+        404
+      ]
+    },
+    "time_series_db_default.png": {
+      "icon_name": "time_series_db",
+      "variant": "default",
+      "source_script": "original_cloud/time_series_db_default.py",
+      "size_bytes": 28846,
+      "sha256": "ad1c61fee94618cee60840b36494d453579e93b2b368d56ecfd1e23ff8eb9822",
+      "bbox": [
+        26,
+        35,
+        486,
+        476
+      ]
+    },
+    "user_default.png": {
+      "icon_name": "user",
+      "variant": "default",
+      "source_script": "original_cloud/user_default.py",
+      "size_bytes": 22871,
+      "sha256": "971bc2fb19a2466a3829d7d77c5f695dc34c81e354a8d1cddc009dfc93821f07",
+      "bbox": [
+        37,
+        26,
+        474,
+        486
+      ]
+    },
+    "user_group_default.png": {
+      "icon_name": "user_group",
+      "variant": "default",
+      "source_script": "original_cloud/user_group_default.py",
+      "size_bytes": 25478,
+      "sha256": "2b5888ecf4b9fe63b9e840f57cbfd7bf28aaa9b310f92843a358b9df74d4bf20",
+      "bbox": [
+        26,
+        59,
+        486,
+        453
+      ]
+    },
+    "vector_database_default.png": {
+      "icon_name": "vector_database",
+      "variant": "default",
+      "source_script": "original_cloud/vector_database_default.py",
+      "size_bytes": 27503,
+      "sha256": "97e26382aa4480bf9a856c2f5ad572cbf2af037c59341dc2d7c40e18a1da6779",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "virtual_machine_default.png": {
+      "icon_name": "virtual_machine",
+      "variant": "default",
+      "source_script": "original_cloud/virtual_machine_default.py",
+      "size_bytes": 23781,
+      "sha256": "76380635bfa034516a69514b755e79c8c2c1e2d445049ef7124f76b485d8b728",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "virtual_network_default.png": {
+      "icon_name": "virtual_network",
+      "variant": "default",
+      "source_script": "original_cloud/virtual_network_default.py",
+      "size_bytes": 27699,
+      "sha256": "39a896c7d25283c031180e4b3d4e1ebd26ee7df0f8937681f3d08d20b2c519b3",
+      "bbox": [
+        26,
+        93,
+        486,
+        419
+      ]
+    },
+    "vpn_tunnel_default.png": {
+      "icon_name": "vpn_tunnel",
+      "variant": "default",
+      "source_script": "original_cloud/vpn_tunnel_default.py",
+      "size_bytes": 11675,
+      "sha256": "8d84d9c6bb7eaa464536a37d33241aeccb8cc07beb13d2b311f001cebdf5c428",
+      "bbox": [
+        26,
+        107,
+        486,
+        405
+      ]
+    },
+    "waf_default.png": {
+      "icon_name": "waf",
+      "variant": "default",
+      "source_script": "original_cloud/waf_default.py",
+      "size_bytes": 31791,
+      "sha256": "7bb32bf261cf385942399b854bd6020f5d46e337bcd2bc7f6b416045cb872be1",
+      "bbox": [
+        26,
+        38,
+        486,
+        473
+      ]
+    },
+    "web_browser_default.png": {
+      "icon_name": "web_browser",
+      "variant": "default",
+      "source_script": "original_cloud/web_browser_default.py",
+      "size_bytes": 12749,
+      "sha256": "0b684da684c58e46ec0f8322529922208d2a7dbfb63b328ee945636df2b9c196",
+      "bbox": [
+        26,
+        61,
+        486,
+        451
+      ]
+    },
+    "webhook_default.png": {
+      "icon_name": "webhook",
+      "variant": "default",
+      "source_script": "original_cloud/webhook_default.py",
+      "size_bytes": 41564,
+      "sha256": "276168f9f773609fc34e482080929a4e48c9aac72451ad428e8bdc08663f0770",
+      "bbox": [
+        26,
+        42,
+        486,
+        469
+      ]
+    },
+    "workflow_orchestrator_default.png": {
+      "icon_name": "workflow_orchestrator",
+      "variant": "default",
+      "source_script": "original_cloud/workflow_orchestrator_default.py",
+      "size_bytes": 15856,
+      "sha256": "09c1b4a7eea5ed90c48b22e6bde2514697a63e2c510d5087995c22ed3f7bd290",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
+    "zero_trust_proxy_default.png": {
+      "icon_name": "zero_trust_proxy",
+      "variant": "default",
+      "source_script": "original_cloud/zero_trust_proxy_default.py",
+      "size_bytes": 20147,
+      "sha256": "18d3c3a2e79799cb319f4966c57890f5458527b81a52554d14ef703cd7d6b904",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
       ]
     }
   }

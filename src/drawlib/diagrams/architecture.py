@@ -15,7 +15,14 @@ from drawlib._diagrams.architecture import _icons as icons
 from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
 from drawlib._diagrams.architecture._edge import Edge
 from drawlib._diagrams.architecture._group import NodeGroup
-from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib._diagrams.architecture._icons import (
+    CustomIcon,
+    GcpIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 from drawlib._diagrams.architecture._junction import Junction
 from drawlib._diagrams.architecture._node import Node
 
@@ -27,6 +34,9 @@ __all__ = [
     "Junction",
     "Node",
     "NodeGroup",
+    "OriginalAiIcon",
+    "OriginalCloudIcon",
+    "OriginalDevopsIcon",
     "PhosphorIcon",
     "icons",
 ]

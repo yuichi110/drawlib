@@ -1,0 +1,37 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Original DevOps icon provider configuration and writer."""
+
+from __future__ import annotations
+
+from drawlib._icons.png_icons._base import PngIconProvider
+
+ORIGINAL_DEVOPS_ALIASES: dict[str, str] = {
+    "alert": "alert_incident",
+    "cicd": "cicd_pipeline",
+    "config": "config_management",
+    "git": "git_repository",
+    "iac": "config_management",
+    "logs": "logging",
+    "metrics": "monitoring",
+    "pipeline": "cicd_pipeline",
+    "registry": "artifact_registry",
+    "repo": "git_repository",
+    "tracing": "distributed_tracing",
+}
+
+ORIGINAL_DEVOPS_PROVIDER = PngIconProvider(
+    name="original_devops",
+    package_name="icon_original_devops",
+    asset_subdir="icons/original_devops",
+    aliases=ORIGINAL_DEVOPS_ALIASES,
+)
+
+_write = ORIGINAL_DEVOPS_PROVIDER.write

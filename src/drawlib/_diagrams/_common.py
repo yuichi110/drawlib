@@ -20,6 +20,9 @@ from PIL.Image import Image
 
 import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
+import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
+import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
+import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
@@ -27,7 +30,14 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image as canvas_image
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib._diagrams.architecture._icons import (
+    CustomIcon,
+    GcpIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 from drawlib._diagrams.architecture._types import IconType
 from drawlib._preset_colors import DefaultColors as Colors
 
@@ -100,7 +110,7 @@ def apply_edge_padding(
             ep = min(end_pad, dist_end * 0.9)
             dx = (p_prev[0] - p_last[0]) / dist_end
             dy = (p_prev[1] - p_last[1]) / dist_end
-            result[-1] = (p_last[0] + dx * ep, p_last[1] + dy * ep)
+            result[-1] = (p_last[0] + dx * ep, p_last[1] - dy * ep)
 
     return result
 
@@ -147,15 +157,24 @@ def render_diagram_title(
 
 
 def draw_enum_icon(
-    icon: GcpIcon | PhosphorIcon,
+    icon: OriginalAiIcon | OriginalCloudIcon | OriginalDevopsIcon | GcpIcon | PhosphorIcon,
     canvas_xy: tuple[float, float],
     icon_size: float,
     applied_style: Style,
     *,
     fallback_box: bool = False,
 ) -> None:
-    """Draw a GCP or Phosphor enum icon from generated function modules."""
-    module = gcp_gen if isinstance(icon, GcpIcon) else phosphor_gen
+    """Draw an Original, GCP, or Phosphor enum icon from generated function modules."""
+    if isinstance(icon, OriginalAiIcon):
+        module = original_ai_gen
+    elif isinstance(icon, OriginalCloudIcon):
+        module = original_cloud_gen
+    elif isinstance(icon, OriginalDevopsIcon):
+        module = original_devops_gen
+    elif isinstance(icon, GcpIcon):
+        module = gcp_gen
+    else:
+        module = phosphor_gen
     func = getattr(module, icon.value, None) or getattr(module, icon.name.lower(), None)
     if func is not None:
         func(xy=canvas_xy, width=icon_size, style=applied_style)
@@ -208,7 +227,7 @@ def draw_diagram_icon(
     applied_style = default_style.patch(icon_style) if icon_style is not None else default_style
     applied_style = applied_style.patch(image_border_width=0)
 
-    if isinstance(icon, (GcpIcon, PhosphorIcon)):
+    if isinstance(icon, (OriginalAiIcon, OriginalCloudIcon, OriginalDevopsIcon, GcpIcon, PhosphorIcon)):
         draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=fallback_box)
     elif isinstance(icon, (CustomIcon, Dimage, Image, str, Path)):
         draw_image_icon(icon, canvas_xy, icon_size, applied_style)

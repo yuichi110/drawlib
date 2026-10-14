@@ -55,8 +55,6 @@ def scan_asset_packages(assets_root: Path) -> list[dict[str, object]]:
         for p in sorted(cat_dir.iterdir()):
             if not p.is_dir() or p.name.startswith("."):
                 continue
-            if subdir == "icons" and p.name == "original_cloud":
-                continue
 
             files = sorted([f.name for f in p.iterdir() if f.is_file() and not f.name.startswith(".")])
             zip_bytes = create_deterministic_zip_bytes(p, files)
@@ -295,7 +293,7 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
             '    norm = resource_path.strip("/")',
             '    if norm.startswith("fonticons/") or norm.startswith("phosphor/"):',
             "        return find_package_for_icon_path(norm)",
-            '    if norm.startswith("icons/") or norm.startswith("gcp/"):',
+            '    if norm.startswith(("icons/", "gcp/", "original_ai/", "original_cloud/", "original_devops/")):',
             "        return find_package_for_icon_path(norm)",
             '    if norm.startswith(("maps/", "world/", "countries/", "cities/")):',
             "        return find_package_for_map_path(norm)",

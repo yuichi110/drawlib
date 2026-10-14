@@ -20,6 +20,10 @@ from tools.dcli.codegen.icons_build import write_provider_manifest
 from tools.dcli.codegen.map_codegen import generate_map_code
 from tools.dcli.codegen.map_download import download_original_maps
 from tools.dcli.codegen.map_normalize import normalize_all_maps
+from tools.dcli.codegen.original_cloud_codegen import (
+    generate_original_cloud_code,
+    generate_original_provider_code,
+)
 from tools.dcli.codegen.phosphor import generate_phosphor_code
 from tools.dcli.common import PROJECT_ROOT, console, run_command
 
@@ -41,6 +45,61 @@ def gen_icon_phosphor() -> None:
     console.print("[bold cyan]Generating Phosphor icon code...[/bold cyan]")
     generate_phosphor_code()
     console.print("[bold green]✓ Phosphor icon code generated successfully![/bold green]")
+
+
+@app.command("icon-original-cloud")
+def gen_icon_original_cloud(
+    build_images: bool = typer.Option(
+        False,
+        "--build-images",
+        help="Re-render icon PNGs via tools/icons_src/build.sh before generating bindings.",
+    ),
+    src_dir: str = typer.Option(
+        "tools/icons_src/original_cloud",
+        "--src-dir",
+        help="Source directory for native Drawlib Original Cloud icon scripts.",
+    ),
+    dest_dir: str = typer.Option(
+        "tools/release_assets/v0.3/icons/original_cloud",
+        "--dest-dir",
+        help="Destination directory for normalized 512x512 release assets.",
+    ),
+) -> None:
+    """Normalize native Drawlib Original Cloud icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / src_dir if not Path(src_dir).is_absolute() else Path(src_dir)
+    dest_path = PROJECT_ROOT / dest_dir if not Path(dest_dir).is_absolute() else Path(dest_dir)
+
+    if build_images:
+        console.print("[bold cyan]Building native Drawlib icon scripts in tools/icons_src/...[/bold cyan]")
+        run_command(["bash", str(PROJECT_ROOT / "tools/icons_src/build.sh")])
+
+    console.print("[bold cyan]Updating Original Cloud icon manifest...[/bold cyan]")
+    manifest_file = write_provider_manifest("original_cloud", src_path, dest_path)
+    console.print(f"[bold green]✓ Manifest written to {manifest_file}[/bold green]")
+
+    console.print("[bold cyan]Generating Original Cloud icon Python bindings...[/bold cyan]")
+    generate_original_cloud_code(manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Cloud icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-devops")
+def gen_icon_original_devops() -> None:
+    """Normalize native Drawlib Original DevOps icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_devops"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_devops"
+    manifest_file = write_provider_manifest("original_devops", src_path, dest_path)
+    generate_original_provider_code("original_devops", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original DevOps icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-ai")
+def gen_icon_original_ai() -> None:
+    """Normalize native Drawlib Original AI icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_ai"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_ai"
+    manifest_file = write_provider_manifest("original_ai", src_path, dest_path)
+    generate_original_provider_code("original_ai", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original AI icon bindings generated successfully![/bold green]")
 
 
 @app.command("icon-gcp")

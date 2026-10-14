@@ -1,0 +1,53 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Original concept icon: artifact_registry."""
+
+from drawlib.canvas import save
+from drawlib.shapes import rectangle
+from drawlib.utils import (
+    DARK,
+    ORIG_STROKE,
+    PASTEL_BLUE,
+    PASTEL_GREEN,
+    WHITE,
+    draw_iso_cube,
+    fill_style,
+    setup_icon,
+)
+
+setup_icon()
+
+w = ORIG_STROKE
+
+rectangle(
+    (50.0, 47.0),
+    width=72.0,
+    height=66.0,
+    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=6.0),
+)
+rectangle(
+    (50.0, 76.0),
+    width=72.0,
+    height=12.0,
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.0),
+)
+
+draw_iso_cube(
+    50.0,
+    42.0,
+    radius=22.0,
+    top_color=WHITE,
+    left_color=PASTEL_BLUE,
+    right_color=PASTEL_GREEN,
+    border_color=DARK,
+    border_units=2.5,
+)
+
+save()

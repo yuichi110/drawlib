@@ -18,11 +18,18 @@ from typing import TYPE_CHECKING, Literal, TypeAlias, TypeVar
 from PIL.Image import Image
 
 from drawlib._core.l3_images import Dimage
+from drawlib._diagrams.architecture._icons import (
+    CustomIcon,
+    GcpIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 
 if TYPE_CHECKING:
     from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._group import NodeGroup
-    from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
     from drawlib._diagrams.architecture._junction import Junction
     from drawlib._diagrams.architecture._node import Node
 
@@ -44,6 +51,19 @@ PaddingType = float | tuple[float, float]
 
 # Node icon types supported
 IconFunction = Callable[..., object]
-IconType: TypeAlias = "GcpIcon | PhosphorIcon | CustomIcon | Dimage | Image | str | Path | IconFunction | None"
+IconType: TypeAlias = (
+    OriginalAiIcon
+    | OriginalCloudIcon
+    | OriginalDevopsIcon
+    | GcpIcon
+    | PhosphorIcon
+    | CustomIcon
+    | Dimage
+    | Image
+    | str
+    | Path
+    | IconFunction
+    | None
+)
 
 DiagramT = TypeVar("DiagramT", bound="ArchitectureDiagram")

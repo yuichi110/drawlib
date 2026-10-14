@@ -86,6 +86,9 @@ class ReleaseAssetPackageName(StrEnum):
     FONT_THAI_NOTO_SERIF = "font_thai_noto_serif"
     ICON_PHOSPHOR = "icon_phosphor"
     ICON_GCP = "icon_gcp"
+    ICON_ORIGINAL_AI = "icon_original_ai"
+    ICON_ORIGINAL_CLOUD = "icon_original_cloud"
+    ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     MAP_CITIES = "map_cities"
     MAP_COUNTRIES = "map_countries"
     MAP_WORLD = "map_world"
@@ -146,6 +149,9 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     font_thai_noto_serif: ReleaseAssetPackage
     icon_phosphor: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
+    icon_original_ai: ReleaseAssetPackage
+    icon_original_cloud: ReleaseAssetPackage
+    icon_original_devops: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
     map_countries: ReleaseAssetPackage
     map_world: ReleaseAssetPackage
@@ -596,7 +602,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
         archive_name="icon_gcp.zip",
-        archive_sha256="238e87174c03c592ba57a275404a89f224e666623bff2692e7a67ce1bf3ac9a8",
+        archive_sha256="ef1efc339bc7f3d596872b29694a84ee02e06caee5350858a4c1164d2104aaa9",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
         files=(
@@ -896,6 +902,111 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "web_security_scanner_default.png",
             "workflows_default.png",
             "workload_identity_pool_default.png",
+        ),
+    ),
+    icon_original_ai=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_AI,
+        category="icon",
+        archive_name="icon_original_ai.zip",
+        archive_sha256="742c0afe52c166b0e0b7d26232ea6cc4d75fee300e3e2ef30608bf99026ba125",
+        source_rel_path="icons/original_ai",
+        target_rel_path="icons/original_ai",
+        files=(
+            "ai_agent_default.png",
+            "embedding_vector_default.png",
+            "inference_endpoint_default.png",
+            "llm_model_default.png",
+            "manifest.json",
+            "model_registry_default.png",
+            "prompt_guardrail_default.png",
+            "rag_knowledge_base_default.png",
+            "training_pipeline_default.png",
+        ),
+    ),
+    icon_original_cloud=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_CLOUD,
+        category="icon",
+        archive_name="icon_original_cloud.zip",
+        archive_sha256="b0816e7eb5803725f436350a4f81d3029476ef8c7efdbac5bb05c18d7de7163a",
+        source_rel_path="icons/original_cloud",
+        target_rel_path="icons/original_cloud",
+        files=(
+            "api_gateway_default.png",
+            "audit_compliance_default.png",
+            "autoscaling_default.png",
+            "backup_archive_default.png",
+            "batch_job_default.png",
+            "bi_dashboard_default.png",
+            "block_storage_default.png",
+            "cdn_default.png",
+            "certificate_tls_default.png",
+            "compute_default.png",
+            "container_cluster_default.png",
+            "container_default.png",
+            "data_lake_default.png",
+            "data_warehouse_default.png",
+            "database_default.png",
+            "db_replica_default.png",
+            "ddos_protection_default.png",
+            "desktop_app_default.png",
+            "dns_default.png",
+            "edge_location_default.png",
+            "etl_pipeline_default.png",
+            "event_stream_default.png",
+            "file_storage_default.png",
+            "firewall_default.png",
+            "graph_database_default.png",
+            "identity_auth_default.png",
+            "in_memory_cache_default.png",
+            "iot_device_default.png",
+            "load_balancer_default.png",
+            "manifest.json",
+            "message_queue_default.png",
+            "mobile_app_default.png",
+            "nosql_database_default.png",
+            "notification_default.png",
+            "object_storage_default.png",
+            "on_premises_default.png",
+            "pub_sub_default.png",
+            "router_default.png",
+            "scheduler_default.png",
+            "search_engine_default.png",
+            "secret_vault_default.png",
+            "serverless_function_default.png",
+            "service_bus_default.png",
+            "service_mesh_default.png",
+            "switch_default.png",
+            "time_series_db_default.png",
+            "user_default.png",
+            "user_group_default.png",
+            "vector_database_default.png",
+            "virtual_machine_default.png",
+            "virtual_network_default.png",
+            "vpn_tunnel_default.png",
+            "waf_default.png",
+            "web_browser_default.png",
+            "webhook_default.png",
+            "workflow_orchestrator_default.png",
+            "zero_trust_proxy_default.png",
+        ),
+    ),
+    icon_original_devops=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_DEVOPS,
+        category="icon",
+        archive_name="icon_original_devops.zip",
+        archive_sha256="f95dff8971d8a8e83faa8ed6b59f96a15c6a97c5bb476c61259ea8bd9b8d9010",
+        source_rel_path="icons/original_devops",
+        target_rel_path="icons/original_devops",
+        files=(
+            "alert_incident_default.png",
+            "artifact_registry_default.png",
+            "cicd_pipeline_default.png",
+            "config_management_default.png",
+            "distributed_tracing_default.png",
+            "git_repository_default.png",
+            "logging_default.png",
+            "manifest.json",
+            "monitoring_default.png",
         ),
     ),
     map_cities=ReleaseAssetPackage(
@@ -1274,7 +1385,7 @@ def find_package_for_resource_path(resource_path: str) -> ReleaseAssetPackage | 
     norm = resource_path.strip("/")
     if norm.startswith("fonticons/") or norm.startswith("phosphor/"):
         return find_package_for_icon_path(norm)
-    if norm.startswith("icons/") or norm.startswith("gcp/"):
+    if norm.startswith(("icons/", "gcp/", "original_ai/", "original_cloud/", "original_devops/")):
         return find_package_for_icon_path(norm)
     if norm.startswith(("maps/", "world/", "countries/", "cities/")):
         return find_package_for_map_path(norm)

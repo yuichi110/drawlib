@@ -17,10 +17,16 @@ from drawlib._icons.font_icons import (
 )
 from drawlib._icons.png_icons import (
     gcp,
+    original_ai,
+    original_cloud,
+    original_devops,
 )
 
 __all__ = [
     "font_icon",
     "gcp",
+    "original_ai",
+    "original_cloud",
+    "original_devops",
     "phosphor",
 ]
