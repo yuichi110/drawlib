@@ -64,6 +64,8 @@ PROVIDER_LABELS: dict[str, str] = {
     "original_cloud": "Original Cloud",
     "original_devops": "Original DevOps",
     "original_ai": "Original AI",
+    "aws": "AWS",
+    "azure": "Azure",
 }
 
 

@@ -18,9 +18,18 @@ from typing import TYPE_CHECKING, Literal, TypeAlias
 from PIL.Image import Image
 
 from drawlib._core.l3_images import Dimage
+from drawlib._diagrams.architecture._icons import (
+    AwsIcon,
+    AzureIcon,
+    CustomIcon,
+    GcpIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 
 if TYPE_CHECKING:
-    from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
     from drawlib._diagrams.sequence._block import Block
     from drawlib._diagrams.sequence._group import ParticipantGroup
     from drawlib._diagrams.sequence._message import Message
@@ -44,7 +53,22 @@ DiagramPadding = float | tuple[float, float, float, float]
 
 # Supported icon representations
 IconFunction = Callable[..., object]
-IconType: TypeAlias = "GcpIcon | PhosphorIcon | CustomIcon | Dimage | Image | str | Path | IconFunction | None"
+IconType: TypeAlias = (
+    OriginalAiIcon
+    | OriginalCloudIcon
+    | OriginalDevopsIcon
+    | AwsIcon
+    | AzureIcon
+    | GcpIcon
+    | PhosphorIcon
+    | CustomIcon
+    | Dimage
+    | Image
+    | str
+    | Path
+    | IconFunction
+    | None
+)
 
 # Sequence timeline event items
 SequenceItem: TypeAlias = "Participant | Message | Note | Block | ParticipantGroup"

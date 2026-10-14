@@ -1,0 +1,4327 @@
+{
+  "format_version": "2.0",
+  "provider": "aws",
+  "created_at": "2026-10-14T16:43:34.544665+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 329,
+  "aliases": {
+    "acm": "certificate_manager",
+    "alb": "elastic_load_balancing",
+    "apigw": "api_gateway",
+    "cdk": "cloud_development_kit",
+    "cli": "command_line_interface",
+    "cloudwatch_logs": "cloudwatch",
+    "cognito_id": "cognito",
+    "dms": "database_migration_service",
+    "ebs": "elastic_block_store",
+    "ecr": "elastic_container_registry",
+    "ecs": "elastic_container_service",
+    "eks": "elastic_kubernetes_service",
+    "elastic_file_system": "efs",
+    "elb": "elastic_load_balancing",
+    "eventbridge_bus": "eventbridge",
+    "flink": "managed_service_for_apache_flink",
+    "iam": "identity_and_access_management",
+    "kms": "key_management_service",
+    "lambda_function": "aws_lambda",
+    "msk": "managed_streaming_for_apache_kafka",
+    "nlb": "elastic_load_balancing",
+    "opensearch": "opensearch_service",
+    "prometheus": "managed_service_for_prometheus",
+    "ram": "resource_access_manager",
+    "route53": "route_53",
+    "s3": "simple_storage_service",
+    "s3_glacier": "simple_storage_service_glacier",
+    "ses": "simple_email_service",
+    "sns": "simple_notification_service",
+    "sqs": "simple_queue_service",
+    "step_functions_workflow": "step_functions",
+    "vpc": "virtual_private_cloud"
+  },
+  "files": {
+    "activate_default.png": {
+      "icon_name": "activate",
+      "variant": "default",
+      "source_script": "aws/activate_default.py",
+      "size_bytes": 20616,
+      "sha256": "1061c6153519f1452a395040cea3b9464a5de35af2b3f47511a895e11e2c513a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "amplify_default.png": {
+      "icon_name": "amplify",
+      "variant": "default",
+      "source_script": "aws/amplify_default.py",
+      "size_bytes": 21566,
+      "sha256": "4d3f7e5d3c95039b982349c5566edc18be3ca3824a35de33ee5db986d9ba68b6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "apache_mxnet_on_aws_default.png": {
+      "icon_name": "apache_mxnet_on_aws",
+      "variant": "default",
+      "source_script": "aws/apache_mxnet_on_aws_default.py",
+      "size_bytes": 22559,
+      "sha256": "fb1f7337cbe13f500be82f99abb7f6b5a1aa6a5d4bd236fd317dffca9cc3e403",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "api_gateway_default.png": {
+      "icon_name": "api_gateway",
+      "variant": "default",
+      "source_script": "aws/api_gateway_default.py",
+      "size_bytes": 10146,
+      "sha256": "5f323212504799ea2ab4fc121a5f25f506300280ac2cb8dbf05e8286e62221da",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "app_mesh_default.png": {
+      "icon_name": "app_mesh",
+      "variant": "default",
+      "source_script": "aws/app_mesh_default.py",
+      "size_bytes": 13760,
+      "sha256": "d70a264547c18378e00c95882a99c8f772fa0dd85819bda45234d8eb10f63f6f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "app_runner_default.png": {
+      "icon_name": "app_runner",
+      "variant": "default",
+      "source_script": "aws/app_runner_default.py",
+      "size_bytes": 5162,
+      "sha256": "6ab2cfcb93f5db9eee60f93eccd8767e4f3b71a385bd31e6fc96d9d92cb47009",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "app_studio_default.png": {
+      "icon_name": "app_studio",
+      "variant": "default",
+      "source_script": "aws/app_studio_default.py",
+      "size_bytes": 19719,
+      "sha256": "60b6ee6f3e9467bcadc9af2f7b1c1527f5ce55520d7cc540740830b1f5c8d5d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "appconfig_default.png": {
+      "icon_name": "appconfig",
+      "variant": "default",
+      "source_script": "aws/appconfig_default.py",
+      "size_bytes": 21133,
+      "sha256": "a0e53ca0692544b1101512f7185466a95562481b695898928d3067f380ac0dec",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "appfabric_default.png": {
+      "icon_name": "appfabric",
+      "variant": "default",
+      "source_script": "aws/appfabric_default.py",
+      "size_bytes": 14169,
+      "sha256": "581f56f06b6b832cf03d018bb8b53996634b8edc89b0b110b1ba382178c6a51e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "appflow_default.png": {
+      "icon_name": "appflow",
+      "variant": "default",
+      "source_script": "aws/appflow_default.py",
+      "size_bytes": 15263,
+      "sha256": "8ec4990d24a34e9fb286c017154fc1d96981203614581378a27b1d7805885f21",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "application_auto_scaling_default.png": {
+      "icon_name": "application_auto_scaling",
+      "variant": "default",
+      "source_script": "aws/application_auto_scaling_default.py",
+      "size_bytes": 12327,
+      "sha256": "89fbb7a9b862c4f38c408813fd3f5d0e20cc9e779acaf09bd9a419d9639d46b7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "application_discovery_service_default.png": {
+      "icon_name": "application_discovery_service",
+      "variant": "default",
+      "source_script": "aws/application_discovery_service_default.py",
+      "size_bytes": 24653,
+      "sha256": "72959eb60791adb17e4e6c63d82c58b0fd091e4e1bce278e14554674a78ecaf8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "application_migration_service_default.png": {
+      "icon_name": "application_migration_service",
+      "variant": "default",
+      "source_script": "aws/application_migration_service_default.py",
+      "size_bytes": 16387,
+      "sha256": "7d3dd727e5806eb43ff3c29e845190f43a49a183bdfc6a6ff3c5f8cacbc2c283",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "application_recovery_controller_default.png": {
+      "icon_name": "application_recovery_controller",
+      "variant": "default",
+      "source_script": "aws/application_recovery_controller_default.py",
+      "size_bytes": 12309,
+      "sha256": "743cd9d30546cb4d3584ad089f35667cd2c0395834755a2449c64891444222ff",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "appsync_default.png": {
+      "icon_name": "appsync",
+      "variant": "default",
+      "source_script": "aws/appsync_default.py",
+      "size_bytes": 20164,
+      "sha256": "2b033b162731d864b0cc1a9cbb4e28698db4e21800b462931aee1877e8b1d6b4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "artifact_default.png": {
+      "icon_name": "artifact",
+      "variant": "default",
+      "source_script": "aws/artifact_default.py",
+      "size_bytes": 16788,
+      "sha256": "9c9014e626dbddbdc98d3516a02db4a699b65651f86f3839b120c81ac73209e6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "athena_default.png": {
+      "icon_name": "athena",
+      "variant": "default",
+      "source_script": "aws/athena_default.py",
+      "size_bytes": 23717,
+      "sha256": "4b65d0a8eec284def30d8eb108a1d1ac4b9906b2ef26bc1a8751a1fb357a53e6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "audit_manager_default.png": {
+      "icon_name": "audit_manager",
+      "variant": "default",
+      "source_script": "aws/audit_manager_default.py",
+      "size_bytes": 6196,
+      "sha256": "40fda82d30020a6d5743cb588c63ab814c46363cfc8e097af0d229fa973d889f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "augmented_ai_a2i_default.png": {
+      "icon_name": "augmented_ai_a2i",
+      "variant": "default",
+      "source_script": "aws/augmented_ai_a2i_default.py",
+      "size_bytes": 25763,
+      "sha256": "715493b9748a75503d2dd7138dfc461bc693804667dc666d3155bdd9e614c702",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "aurora_default.png": {
+      "icon_name": "aurora",
+      "variant": "default",
+      "source_script": "aws/aurora_default.py",
+      "size_bytes": 19730,
+      "sha256": "d940d65edb49cd17fb6c9f214e2a881f2c6ad7f1308ac2ea37dbf04d660ecfd0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "auto_scaling_default.png": {
+      "icon_name": "auto_scaling",
+      "variant": "default",
+      "source_script": "aws/auto_scaling_default.py",
+      "size_bytes": 14345,
+      "sha256": "f5e8a596e9af66e332d078bebcd5d6ddca4724a649e4fbbd5561f12ca8ecfae7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "aws_lambda_default.png": {
+      "icon_name": "aws_lambda",
+      "variant": "default",
+      "source_script": "aws/aws_lambda_default.py",
+      "size_bytes": 16258,
+      "sha256": "467948ed673fc317b06a7eab8f66d6dc426668f0d4b6b737a18b62c78abff214",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "b2b_data_interchange_default.png": {
+      "icon_name": "b2b_data_interchange",
+      "variant": "default",
+      "source_script": "aws/b2b_data_interchange_default.py",
+      "size_bytes": 7259,
+      "sha256": "3e5b7949e9ffca87dbe07d3ab8f295a618a6c5003a05510f3c53a94f1c2c7006",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "backint_agent_default.png": {
+      "icon_name": "backint_agent",
+      "variant": "default",
+      "source_script": "aws/backint_agent_default.py",
+      "size_bytes": 26164,
+      "sha256": "c96397e9307f7e7a503570917f21844adade0bdbd68e6df0839eb8cdbd504a89",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "backup_default.png": {
+      "icon_name": "backup",
+      "variant": "default",
+      "source_script": "aws/backup_default.py",
+      "size_bytes": 24606,
+      "sha256": "1fa1035b34bac233f8d004c9ec69749a1a268e4728d78f901d65edd5a7d62eaf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "batch_default.png": {
+      "icon_name": "batch",
+      "variant": "default",
+      "source_script": "aws/batch_default.py",
+      "size_bytes": 22215,
+      "sha256": "b6f4449ff36bd14ce1075d55ef0be1e6823b46044626dc79610c7303285fa801",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "bedrock_agentcore_default.png": {
+      "icon_name": "bedrock_agentcore",
+      "variant": "default",
+      "source_script": "aws/bedrock_agentcore_default.py",
+      "size_bytes": 21921,
+      "sha256": "0b892ff28eaf3fda6290591741a120c76242deb91d914a58120968a0b07bef2e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "bedrock_default.png": {
+      "icon_name": "bedrock",
+      "variant": "default",
+      "source_script": "aws/bedrock_default.py",
+      "size_bytes": 20449,
+      "sha256": "660d863f63334822ed758724b47f612e36af3211d66b4a743083e625e6a25ede",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "billing_conductor_default.png": {
+      "icon_name": "billing_conductor",
+      "variant": "default",
+      "source_script": "aws/billing_conductor_default.py",
+      "size_bytes": 5019,
+      "sha256": "f7efadb027d806317070a99475138bf6a8256dc7f6ea1907217c85c3388c223b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "bottlerocket_default.png": {
+      "icon_name": "bottlerocket",
+      "variant": "default",
+      "source_script": "aws/bottlerocket_default.py",
+      "size_bytes": 15804,
+      "sha256": "53d4a4e4dc6e5f3ce7f162cb67209d7139aaeaf4a33319c1f10763c4c687a6fe",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "braket_default.png": {
+      "icon_name": "braket",
+      "variant": "default",
+      "source_script": "aws/braket_default.py",
+      "size_bytes": 13300,
+      "sha256": "d6762007585883532e2ced55df2e4248fa718084ca5b2f0cf43d4de03d3a6265",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "budgets_default.png": {
+      "icon_name": "budgets",
+      "variant": "default",
+      "source_script": "aws/budgets_default.py",
+      "size_bytes": 16439,
+      "sha256": "716be103b057d1af971ea361dc65fb3bccfd60b43510cc75e15997e871055d26",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_analytics_default.png": {
+      "icon_name": "category_analytics",
+      "variant": "default",
+      "source_script": "aws/category_analytics_default.py",
+      "size_bytes": 6778,
+      "sha256": "ca62f72ec48f2d4e20beab10039816435ebbe776a5f707d9e8e375ed9df22207",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_application_integration_default.png": {
+      "icon_name": "category_application_integration",
+      "variant": "default",
+      "source_script": "aws/category_application_integration_default.py",
+      "size_bytes": 10621,
+      "sha256": "78f1a9ba99f42e71d444349442b56837d5617ae7016378b1145a946b3f38c32e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_artificial_intelligence_default.png": {
+      "icon_name": "category_artificial_intelligence",
+      "variant": "default",
+      "source_script": "aws/category_artificial_intelligence_default.py",
+      "size_bytes": 24161,
+      "sha256": "0bf7221b8e8ad7041fee2939b6732dcb766cc532882c914b155aaffe22319ec9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_blockchain_default.png": {
+      "icon_name": "category_blockchain",
+      "variant": "default",
+      "source_script": "aws/category_blockchain_default.py",
+      "size_bytes": 6130,
+      "sha256": "536421def10a6aff85025dd8e1939d25181ebd15592b9c64b7a5ab3a9a6e8369",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_business_applications_default.png": {
+      "icon_name": "category_business_applications",
+      "variant": "default",
+      "source_script": "aws/category_business_applications_default.py",
+      "size_bytes": 4477,
+      "sha256": "79159895dac25fca48ad36ddbaf15ba1e6e0820a0450495fbaa0a9dbb1e72e1d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_cloud_financial_management_default.png": {
+      "icon_name": "category_cloud_financial_management",
+      "variant": "default",
+      "source_script": "aws/category_cloud_financial_management_default.py",
+      "size_bytes": 5245,
+      "sha256": "2fab5d5e726dd79f47015fe37228139dfaf698cc5780e1b9db828e34fd9fb390",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_compute_default.png": {
+      "icon_name": "category_compute",
+      "variant": "default",
+      "source_script": "aws/category_compute_default.py",
+      "size_bytes": 3693,
+      "sha256": "14795ed7ca6cec1b2fed66862f7f38ce6d549faa8258e5f3100d69afec0f3dd2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_containers_default.png": {
+      "icon_name": "category_containers",
+      "variant": "default",
+      "source_script": "aws/category_containers_default.py",
+      "size_bytes": 8353,
+      "sha256": "5fbb48a63f6f9b0bbcc4ae8f81a61d7ea71d9a39af1097a6e1b0ec3fdcd27961",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_customer_enablement_default.png": {
+      "icon_name": "category_customer_enablement",
+      "variant": "default",
+      "source_script": "aws/category_customer_enablement_default.py",
+      "size_bytes": 18223,
+      "sha256": "4f11fdd19927bb23245c9bce4121ccca491ddbf29113a47be523050bd5e2cf29",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_customer_experience_default.png": {
+      "icon_name": "category_customer_experience",
+      "variant": "default",
+      "source_script": "aws/category_customer_experience_default.py",
+      "size_bytes": 19897,
+      "sha256": "cd9507b00753ca346d540c0f329552bccab1831377cdf62707428593e9dc5403",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_databases_default.png": {
+      "icon_name": "category_databases",
+      "variant": "default",
+      "source_script": "aws/category_databases_default.py",
+      "size_bytes": 13526,
+      "sha256": "9216e726bfa82e67cd77341ce3668e19579e24e394bb88b8a723e9f9cbaf9af7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_developer_tools_default.png": {
+      "icon_name": "category_developer_tools",
+      "variant": "default",
+      "source_script": "aws/category_developer_tools_default.py",
+      "size_bytes": 21919,
+      "sha256": "f41d3835c45bb69a156792649e4b48dcce03c9a7bad4b7c8a543273ab8c2e099",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_end_user_computing_default.png": {
+      "icon_name": "category_end_user_computing",
+      "variant": "default",
+      "source_script": "aws/category_end_user_computing_default.py",
+      "size_bytes": 9805,
+      "sha256": "23d94fd21bc9c28b797c843b13f9087ee71334d55e66a4f7f34cbd6b3c1d874d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_front_end_web_mobile_default.png": {
+      "icon_name": "category_front_end_web_mobile",
+      "variant": "default",
+      "source_script": "aws/category_front_end_web_mobile_default.py",
+      "size_bytes": 4224,
+      "sha256": "ea4f8554cdedbbb1adabd44f9c38d02a7e64be47a97c5ffaebb356914a336170",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_games_default.png": {
+      "icon_name": "category_games",
+      "variant": "default",
+      "source_script": "aws/category_games_default.py",
+      "size_bytes": 14232,
+      "sha256": "c8b1e9ceeb8829ff1a459e37070f2a805a70e635465cf06ca76d420362792e7c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_internet_of_things_default.png": {
+      "icon_name": "category_internet_of_things",
+      "variant": "default",
+      "source_script": "aws/category_internet_of_things_default.py",
+      "size_bytes": 18938,
+      "sha256": "64c732baa48e881eca93199b154f3b75d62b5f466104c57ab21d0d738f09c2ae",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_management_tools_default.png": {
+      "icon_name": "category_management_tools",
+      "variant": "default",
+      "source_script": "aws/category_management_tools_default.py",
+      "size_bytes": 4421,
+      "sha256": "04cb0ef864ca4cdbbf9d00d85f1f3a960abc389c8ed8c34d6b96247c6e5e4f95",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_media_services_default.png": {
+      "icon_name": "category_media_services",
+      "variant": "default",
+      "source_script": "aws/category_media_services_default.py",
+      "size_bytes": 8994,
+      "sha256": "403e40c316ed5be1acac2bba369e472db3920657761df971ed924035eaf71091",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_migration_modernization_default.png": {
+      "icon_name": "category_migration_modernization",
+      "variant": "default",
+      "source_script": "aws/category_migration_modernization_default.py",
+      "size_bytes": 14705,
+      "sha256": "61f7a3bc6a7b347c1fe6889b1424313cac4950e3541f79ed1e776e0a5fc3bbcf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_multicloud_and_hybrid_default.png": {
+      "icon_name": "category_multicloud_and_hybrid",
+      "variant": "default",
+      "source_script": "aws/category_multicloud_and_hybrid_default.py",
+      "size_bytes": 18651,
+      "sha256": "9463bb5cec39624cff66d40ab348b1b58bd5caf9fb99641a26d3340668283575",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_networking_content_delivery_default.png": {
+      "icon_name": "category_networking_content_delivery",
+      "variant": "default",
+      "source_script": "aws/category_networking_content_delivery_default.py",
+      "size_bytes": 14589,
+      "sha256": "5cff45665e0847214e57f16b7f81cff50eeb3ecbf4ca9f7c781bba509b3751db",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_quantum_technologies_default.png": {
+      "icon_name": "category_quantum_technologies",
+      "variant": "default",
+      "source_script": "aws/category_quantum_technologies_default.py",
+      "size_bytes": 25250,
+      "sha256": "66eb63e6bf4c314d5f669b01a0331cd5a7f496c1b7771ddd19704c464f395930",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_satellite_default.png": {
+      "icon_name": "category_satellite",
+      "variant": "default",
+      "source_script": "aws/category_satellite_default.py",
+      "size_bytes": 18345,
+      "sha256": "9faaf759fd3c3191cc1badea50f1b1bd5a94de0589b7a4c6204d02ca1cb2e8a4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_security_identity_default.png": {
+      "icon_name": "category_security_identity",
+      "variant": "default",
+      "source_script": "aws/category_security_identity_default.py",
+      "size_bytes": 16297,
+      "sha256": "046dfcc2e5e6901efcf8c84c1301335c039761547c1a93ba48fa4afcc0bff73a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_serverless_default.png": {
+      "icon_name": "category_serverless",
+      "variant": "default",
+      "source_script": "aws/category_serverless_default.py",
+      "size_bytes": 12781,
+      "sha256": "91e3dc23ebea23c34269b188c3e54ef34df913d557d78f3d9b5f51b400d2a69d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_storage_default.png": {
+      "icon_name": "category_storage",
+      "variant": "default",
+      "source_script": "aws/category_storage_default.py",
+      "size_bytes": 4735,
+      "sha256": "33f26a17979c1a019a3e3182a8210c0d65a37c1cc4fbe53ea3060528f2ba1377",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "certificate_manager_default.png": {
+      "icon_name": "certificate_manager",
+      "variant": "default",
+      "source_script": "aws/certificate_manager_default.py",
+      "size_bytes": 8458,
+      "sha256": "0de3e333347672c0135d89b5cf04a0e4a7240e0d2246c9a5d03999e1b57df17a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "chatbot_default.png": {
+      "icon_name": "chatbot",
+      "variant": "default",
+      "source_script": "aws/chatbot_default.py",
+      "size_bytes": 12834,
+      "sha256": "c3469b73690d70869d5005ee4dae52a50e10e9d9a62d28f0f84e67602f525ce6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "chime_default.png": {
+      "icon_name": "chime",
+      "variant": "default",
+      "source_script": "aws/chime_default.py",
+      "size_bytes": 28060,
+      "sha256": "eec4d2d8af0ddf419860d3e18fc4a0d2188a9fae8ec71c61ec23b36dced9e4dd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "chime_sdk_default.png": {
+      "icon_name": "chime_sdk",
+      "variant": "default",
+      "source_script": "aws/chime_sdk_default.py",
+      "size_bytes": 15366,
+      "sha256": "d200822aced1ff8c9078c673eb24e2e29ec77ee5bf2f8e4681a2c0831832aa3e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "clean_rooms_default.png": {
+      "icon_name": "clean_rooms",
+      "variant": "default",
+      "source_script": "aws/clean_rooms_default.py",
+      "size_bytes": 15403,
+      "sha256": "11e6020ea503021d6dc8870fc34a943fc0d73ae573dcdd015f64903a9e4bee91",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "client_vpn_default.png": {
+      "icon_name": "client_vpn",
+      "variant": "default",
+      "source_script": "aws/client_vpn_default.py",
+      "size_bytes": 12569,
+      "sha256": "82d5a666f4d7198c2f15ec8bec6cf394db6a54689dd9ec8c54ed1d99ef5174b0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud9_default.png": {
+      "icon_name": "cloud9",
+      "variant": "default",
+      "source_script": "aws/cloud9_default.py",
+      "size_bytes": 14495,
+      "sha256": "fdd68ec8665f81a5463f6f280af5a7f31f415eca7f4ee4967532f7e6d9bedc80",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_control_api_default.png": {
+      "icon_name": "cloud_control_api",
+      "variant": "default",
+      "source_script": "aws/cloud_control_api_default.py",
+      "size_bytes": 12985,
+      "sha256": "ae674035b4a9260d6a8c46a466a28daa76bdb28366e8ac537dd956b9b539bb13",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_development_kit_default.png": {
+      "icon_name": "cloud_development_kit",
+      "variant": "default",
+      "source_script": "aws/cloud_development_kit_default.py",
+      "size_bytes": 23065,
+      "sha256": "dd25b3db25f1ee887c45a0ddc13c90d8086c7bbf5a94ae461987e5cdfd1cf024",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_directory_default.png": {
+      "icon_name": "cloud_directory",
+      "variant": "default",
+      "source_script": "aws/cloud_directory_default.py",
+      "size_bytes": 15090,
+      "sha256": "f4aee3350386f276825c4506655c0edc6a6da2f435d9471b528d05170bf99014",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_map_default.png": {
+      "icon_name": "cloud_map",
+      "variant": "default",
+      "source_script": "aws/cloud_map_default.py",
+      "size_bytes": 15732,
+      "sha256": "c6aca4d4e1d5aa8af433d3803d85766190a67e3b758d444ce44642346e7cdf5d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_wan_default.png": {
+      "icon_name": "cloud_wan",
+      "variant": "default",
+      "source_script": "aws/cloud_wan_default.py",
+      "size_bytes": 24368,
+      "sha256": "3b593e0a95390ba4a4eeb07c8cca2c430b7a5505ab99e119c60eeaf311be671d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudformation_default.png": {
+      "icon_name": "cloudformation",
+      "variant": "default",
+      "source_script": "aws/cloudformation_default.py",
+      "size_bytes": 8473,
+      "sha256": "50bc7a0fdb98a539cb261ed145800dddb09d148fd6f8f7f733b873ebf34c2fbc",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudfront_default.png": {
+      "icon_name": "cloudfront",
+      "variant": "default",
+      "source_script": "aws/cloudfront_default.py",
+      "size_bytes": 22825,
+      "sha256": "b7ce68ca1d16f0ea1d113d4752fd80737c3d56a53783e6ff13de1549921eb9f2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudhsm_default.png": {
+      "icon_name": "cloudhsm",
+      "variant": "default",
+      "source_script": "aws/cloudhsm_default.py",
+      "size_bytes": 16849,
+      "sha256": "40663f58c968967b23baeca18482aab6e04a5157f60f997d6048e208d811e902",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudsearch_default.png": {
+      "icon_name": "cloudsearch",
+      "variant": "default",
+      "source_script": "aws/cloudsearch_default.py",
+      "size_bytes": 24516,
+      "sha256": "5db11f1a88991e666baca3e2ed256ca44d811c69994edc21b7863c60e7398328",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudshell_default.png": {
+      "icon_name": "cloudshell",
+      "variant": "default",
+      "source_script": "aws/cloudshell_default.py",
+      "size_bytes": 10353,
+      "sha256": "9ff10ce6201673bed937909c2e2d0498ee2c0eb93c06f26c62e77f99a4f6ecf6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudtrail_default.png": {
+      "icon_name": "cloudtrail",
+      "variant": "default",
+      "source_script": "aws/cloudtrail_default.py",
+      "size_bytes": 9608,
+      "sha256": "2d1cc57aa1eccb6e0f7dff516cd1bac6928170722bd19e61bfce0078aa28b8cd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudwatch_default.png": {
+      "icon_name": "cloudwatch",
+      "variant": "default",
+      "source_script": "aws/cloudwatch_default.py",
+      "size_bytes": 22469,
+      "sha256": "32ad99d019bba69412940b8941f37f1aa996f74997c55e9eaab7b3df9a1b3f3e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codeartifact_default.png": {
+      "icon_name": "codeartifact",
+      "variant": "default",
+      "source_script": "aws/codeartifact_default.py",
+      "size_bytes": 16612,
+      "sha256": "6f413141acb700745731c4a65f86b09e76cea3e1c2f4a117601159ebd53213d3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codebuild_default.png": {
+      "icon_name": "codebuild",
+      "variant": "default",
+      "source_script": "aws/codebuild_default.py",
+      "size_bytes": 18146,
+      "sha256": "5aff53b886ce5afd12eddb418c7586ae7b9c527c7c6586066f9c27b9919e2c51",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codecatalyst_default.png": {
+      "icon_name": "codecatalyst",
+      "variant": "default",
+      "source_script": "aws/codecatalyst_default.py",
+      "size_bytes": 29491,
+      "sha256": "caa6456ed47d7cb74f3778e487b85831f05baee9f65da9b44998edc36bea572a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codecommit_default.png": {
+      "icon_name": "codecommit",
+      "variant": "default",
+      "source_script": "aws/codecommit_default.py",
+      "size_bytes": 17384,
+      "sha256": "2e866e67538aca4132e15bd2cc6b40ae7563b2b1b758e6298a719be93a8384c6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codedeploy_default.png": {
+      "icon_name": "codedeploy",
+      "variant": "default",
+      "source_script": "aws/codedeploy_default.py",
+      "size_bytes": 23074,
+      "sha256": "6ef122ba25b281596c2e7941baa5e297d72ce0070956ca07c7cac58af824bfd1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codeguru_default.png": {
+      "icon_name": "codeguru",
+      "variant": "default",
+      "source_script": "aws/codeguru_default.py",
+      "size_bytes": 14682,
+      "sha256": "9150a0a533fafef71bb94270938f4a07a11563e0b79f3b7761d05fc0cd64424c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codepipeline_default.png": {
+      "icon_name": "codepipeline",
+      "variant": "default",
+      "source_script": "aws/codepipeline_default.py",
+      "size_bytes": 9993,
+      "sha256": "4d04ce65873c150418750cf0d17bc38c1e4e66ac2e389a79cf5cd8cbba1d383b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "codewhisperer_default.png": {
+      "icon_name": "codewhisperer",
+      "variant": "default",
+      "source_script": "aws/codewhisperer_default.py",
+      "size_bytes": 16145,
+      "sha256": "d2adb4e57c299d2f8caf6968edafcdca65aa57c55bbb3cb8189ef08c56d935d9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cognito_default.png": {
+      "icon_name": "cognito",
+      "variant": "default",
+      "source_script": "aws/cognito_default.py",
+      "size_bytes": 14925,
+      "sha256": "d7f03c2541b279ed9dbd32dc9b685b5f93c53ad0abe35ad22f2c62d03028952f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "command_line_interface_default.png": {
+      "icon_name": "command_line_interface",
+      "variant": "default",
+      "source_script": "aws/command_line_interface_default.py",
+      "size_bytes": 3498,
+      "sha256": "89cf172cd41d680bd0b5550a06e39d25e00d496e50e1236ac9ab7912df208e61",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "comprehend_default.png": {
+      "icon_name": "comprehend",
+      "variant": "default",
+      "source_script": "aws/comprehend_default.py",
+      "size_bytes": 9446,
+      "sha256": "6359ab8460632eb2509b826415b71e549c369fde16d7e9e124952ef0e5dcea37",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "comprehend_medical_default.png": {
+      "icon_name": "comprehend_medical",
+      "variant": "default",
+      "source_script": "aws/comprehend_medical_default.py",
+      "size_bytes": 8221,
+      "sha256": "57415857ff82ac7c8195d90a42bc7af5bb37ef0311f49776b14809be368a592e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "compute_optimizer_default.png": {
+      "icon_name": "compute_optimizer",
+      "variant": "default",
+      "source_script": "aws/compute_optimizer_default.py",
+      "size_bytes": 23065,
+      "sha256": "fe2a17f0100b2006484f733ce479377be74079c5c404d5987ef0d9470b07b6c4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "config_default.png": {
+      "icon_name": "config",
+      "variant": "default",
+      "source_script": "aws/config_default.py",
+      "size_bytes": 15049,
+      "sha256": "3e6ddb1568909d258313437f2af9df194289317b12a54b5e3125fbd9f2bdb5c4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "connect_default.png": {
+      "icon_name": "connect",
+      "variant": "default",
+      "source_script": "aws/connect_default.py",
+      "size_bytes": 20902,
+      "sha256": "1bbf8201a97700ecccb0e21f788116826aacfef4c95bfbb983f527b3fcc74f37",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "console_mobile_application_default.png": {
+      "icon_name": "console_mobile_application",
+      "variant": "default",
+      "source_script": "aws/console_mobile_application_default.py",
+      "size_bytes": 8277,
+      "sha256": "ca24bfaf4b5f898d3d4fb078ef1d5ce9cae2584af71753e483dacb37ae0b8ce9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "control_tower_default.png": {
+      "icon_name": "control_tower",
+      "variant": "default",
+      "source_script": "aws/control_tower_default.py",
+      "size_bytes": 18899,
+      "sha256": "58197a396beff8926b7681c9e75adc957227f3ace1ad6ae9160f369380d272d0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "corretto_default.png": {
+      "icon_name": "corretto",
+      "variant": "default",
+      "source_script": "aws/corretto_default.py",
+      "size_bytes": 14358,
+      "sha256": "c397039cb75f00fd46bcc78682109fd12fa7a28f17c9aad0690f88331989d481",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cost_and_usage_report_default.png": {
+      "icon_name": "cost_and_usage_report",
+      "variant": "default",
+      "source_script": "aws/cost_and_usage_report_default.py",
+      "size_bytes": 12302,
+      "sha256": "2d1ad358d51677560ab7f55e1ed312a45bbf312f67494b72e7ae4ebd31a6bd6b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cost_explorer_default.png": {
+      "icon_name": "cost_explorer",
+      "variant": "default",
+      "source_script": "aws/cost_explorer_default.py",
+      "size_bytes": 23276,
+      "sha256": "dc07f80d1490081b465f337c84d56c69f02c4f5517aa515680413355f4edf7e6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "data_exchange_default.png": {
+      "icon_name": "data_exchange",
+      "variant": "default",
+      "source_script": "aws/data_exchange_default.py",
+      "size_bytes": 8516,
+      "sha256": "1290cf82ea52f370b54abc365ef7fb33e6d47eb69e34371b26513316b4128524",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "data_firehose_default.png": {
+      "icon_name": "data_firehose",
+      "variant": "default",
+      "source_script": "aws/data_firehose_default.py",
+      "size_bytes": 11680,
+      "sha256": "40a4a21dfb8a89a2bc45def650c3a2162271b99b07799d879881284335124927",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "data_transfer_terminal_default.png": {
+      "icon_name": "data_transfer_terminal",
+      "variant": "default",
+      "source_script": "aws/data_transfer_terminal_default.py",
+      "size_bytes": 21760,
+      "sha256": "e341941de9352402bf244e72edd0c6532ae7a3df71973f0484022c64c5a947c4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "database_migration_service_default.png": {
+      "icon_name": "database_migration_service",
+      "variant": "default",
+      "source_script": "aws/database_migration_service_default.py",
+      "size_bytes": 11230,
+      "sha256": "afe0736d04c955013f3aac9568968ce43e61644ac2a62d8ccaa641d647821521",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "datasync_default.png": {
+      "icon_name": "datasync",
+      "variant": "default",
+      "source_script": "aws/datasync_default.py",
+      "size_bytes": 14895,
+      "sha256": "e3a89d735c3a66c1562d44cc0981826470dcbfd37f49d59023b140ad9ea349e5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "datazone_default.png": {
+      "icon_name": "datazone",
+      "variant": "default",
+      "source_script": "aws/datazone_default.py",
+      "size_bytes": 12370,
+      "sha256": "1fe1dded29af3991f9bcc22da22c1d1ff1d0fd8f68a841b188ba1babfe34987f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "dcv_default.png": {
+      "icon_name": "dcv",
+      "variant": "default",
+      "source_script": "aws/dcv_default.py",
+      "size_bytes": 16949,
+      "sha256": "1254d17771f66ec93c0008268ce9ee96f251420a1e5cc04de0e5c68e1d4f17fc",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "deadline_cloud_default.png": {
+      "icon_name": "deadline_cloud",
+      "variant": "default",
+      "source_script": "aws/deadline_cloud_default.py",
+      "size_bytes": 23295,
+      "sha256": "54e44ec1101f7ebc4ca0c933ce6cbbf57b82260ad2847c7898cdf85435e91e8a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "deep_learning_amis_default.png": {
+      "icon_name": "deep_learning_amis",
+      "variant": "default",
+      "source_script": "aws/deep_learning_amis_default.py",
+      "size_bytes": 30111,
+      "sha256": "42dee560f6cdbfd19a75ace5b62d04e922baaefdea8469ef30a204d86167829e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "deep_learning_containers_default.png": {
+      "icon_name": "deep_learning_containers",
+      "variant": "default",
+      "source_script": "aws/deep_learning_containers_default.py",
+      "size_bytes": 17099,
+      "sha256": "a631c0ad95e620fcf585912a584e2dadfa1e69c32a393f0267d4100b0b9f4166",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "deepracer_default.png": {
+      "icon_name": "deepracer",
+      "variant": "default",
+      "source_script": "aws/deepracer_default.py",
+      "size_bytes": 23004,
+      "sha256": "1bf73c2f7d29ee5791c671e7c8d73612b45bc2423194749f063a7d6086cb409e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "detective_default.png": {
+      "icon_name": "detective",
+      "variant": "default",
+      "source_script": "aws/detective_default.py",
+      "size_bytes": 26287,
+      "sha256": "3c424c03bed55acc869df40525b6c036b0ed7dec565b7519034c1a86ae0b3a0c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "device_farm_default.png": {
+      "icon_name": "device_farm",
+      "variant": "default",
+      "source_script": "aws/device_farm_default.py",
+      "size_bytes": 25788,
+      "sha256": "8f3d870eb0a86fe25ecc88a06c5e53eacf07a01aadf74c6deeba6a087cc4302a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "devops_agent_default.png": {
+      "icon_name": "devops_agent",
+      "variant": "default",
+      "source_script": "aws/devops_agent_default.py",
+      "size_bytes": 24903,
+      "sha256": "e317c79f51966e0915ab5a228dd414f725920545bb50544c1968487a9aee2153",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "devops_guru_default.png": {
+      "icon_name": "devops_guru",
+      "variant": "default",
+      "source_script": "aws/devops_guru_default.py",
+      "size_bytes": 25196,
+      "sha256": "b4a12e088a3a70e2254ef43c5d35db9ea786687d9b9b0bedf3cf4ecaffb0d605",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "direct_connect_default.png": {
+      "icon_name": "direct_connect",
+      "variant": "default",
+      "source_script": "aws/direct_connect_default.py",
+      "size_bytes": 14620,
+      "sha256": "fc467fb54b62bf739b075e8ed97e34ae60c814b00ed928b0a3ecac7495a770e2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "directory_service_default.png": {
+      "icon_name": "directory_service",
+      "variant": "default",
+      "source_script": "aws/directory_service_default.py",
+      "size_bytes": 7144,
+      "sha256": "4ecf02789191abc487f61230dd0b475ef359bbba08c1e04a477e200c480df481",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "distro_for_opentelemetry_default.png": {
+      "icon_name": "distro_for_opentelemetry",
+      "variant": "default",
+      "source_script": "aws/distro_for_opentelemetry_default.py",
+      "size_bytes": 11834,
+      "sha256": "c3cedf3ced338c9a5587e23a5f05e7ad36e11aa84d29cf85c4ebd2393b8e46c0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "documentdb_default.png": {
+      "icon_name": "documentdb",
+      "variant": "default",
+      "source_script": "aws/documentdb_default.py",
+      "size_bytes": 16737,
+      "sha256": "11b59f03ba4f5e781d0dd616cd554123bd461c25ca1c07e62d8b5821d901e342",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "dynamodb_default.png": {
+      "icon_name": "dynamodb",
+      "variant": "default",
+      "source_script": "aws/dynamodb_default.py",
+      "size_bytes": 24941,
+      "sha256": "345c7a99aa167441a4835811ce981f88a2f79a34bd0620dc4dbc7c2396bef62b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ec2_auto_scaling_default.png": {
+      "icon_name": "ec2_auto_scaling",
+      "variant": "default",
+      "source_script": "aws/ec2_auto_scaling_default.py",
+      "size_bytes": 10614,
+      "sha256": "7beb07519e6fce31f6cee2a9883fa3d5babf699349c7dbee51acde8a41aa4495",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ec2_default.png": {
+      "icon_name": "ec2",
+      "variant": "default",
+      "source_script": "aws/ec2_default.py",
+      "size_bytes": 4387,
+      "sha256": "c96736bd1f3137a3ff812f1bd73f6b3cca68191298df21efc06f6480b7feb1a7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ec2_image_builder_default.png": {
+      "icon_name": "ec2_image_builder",
+      "variant": "default",
+      "source_script": "aws/ec2_image_builder_default.py",
+      "size_bytes": 17613,
+      "sha256": "c5794a599805068d7c42b8aeeb8152fbd0292dd9401497da3a1fc95be0af1a92",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ecs_anywhere_default.png": {
+      "icon_name": "ecs_anywhere",
+      "variant": "default",
+      "source_script": "aws/ecs_anywhere_default.py",
+      "size_bytes": 22857,
+      "sha256": "3fea581a49d7e6c4c9b79508bb4b79724dd1f36c7fa8252a9e87c957ce4893b6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "efs_default.png": {
+      "icon_name": "efs",
+      "variant": "default",
+      "source_script": "aws/efs_default.py",
+      "size_bytes": 17436,
+      "sha256": "c11a4889fa75fb0c977172cd16b86f4631ce233d400a83362b4e87beace44ef8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "eks_anywhere_default.png": {
+      "icon_name": "eks_anywhere",
+      "variant": "default",
+      "source_script": "aws/eks_anywhere_default.py",
+      "size_bytes": 18409,
+      "sha256": "2065d4f4679147b2d68855cb62a1847b665936254f4b861ad197d1e0e84fdf26",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "eks_distro_default.png": {
+      "icon_name": "eks_distro",
+      "variant": "default",
+      "source_script": "aws/eks_distro_default.py",
+      "size_bytes": 24929,
+      "sha256": "4e12325b7386ae5bb0d6138afef224bd47d081c908771f0861c3f1c482239dde",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_beanstalk_default.png": {
+      "icon_name": "elastic_beanstalk",
+      "variant": "default",
+      "source_script": "aws/elastic_beanstalk_default.py",
+      "size_bytes": 17040,
+      "sha256": "0dbaae26e6f18e93a70db77732b93a65881c6d5b00361669104299d0501b46c1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_block_store_default.png": {
+      "icon_name": "elastic_block_store",
+      "variant": "default",
+      "source_script": "aws/elastic_block_store_default.py",
+      "size_bytes": 10141,
+      "sha256": "3517c1b64029a146c939caa188597ae65aef0bb55321c3fcb41284b2777a9adf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_container_registry_default.png": {
+      "icon_name": "elastic_container_registry",
+      "variant": "default",
+      "source_script": "aws/elastic_container_registry_default.py",
+      "size_bytes": 16338,
+      "sha256": "8fb2a930775f6ff8015bd476a59797e8729d9afa21f217cbd595c8c503b46be5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_container_service_default.png": {
+      "icon_name": "elastic_container_service",
+      "variant": "default",
+      "source_script": "aws/elastic_container_service_default.py",
+      "size_bytes": 18355,
+      "sha256": "24df82549ef552c900d74c49cec8723f79088e1395290aad6c23f5b00b186398",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_disaster_recovery_default.png": {
+      "icon_name": "elastic_disaster_recovery",
+      "variant": "default",
+      "source_script": "aws/elastic_disaster_recovery_default.py",
+      "size_bytes": 17472,
+      "sha256": "9411c653ac014f14f2d1369e7d7790bf5c49eb8eb2f183471f2d6f95c4e12579",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_fabric_adapter_default.png": {
+      "icon_name": "elastic_fabric_adapter",
+      "variant": "default",
+      "source_script": "aws/elastic_fabric_adapter_default.py",
+      "size_bytes": 12196,
+      "sha256": "2e6193ab6fe852e1e986e1ae3688130db4b61a3a78f4cf79d969cd29a5e150a3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_inference_default.png": {
+      "icon_name": "elastic_inference",
+      "variant": "default",
+      "source_script": "aws/elastic_inference_default.py",
+      "size_bytes": 26406,
+      "sha256": "493a4976293dfff351c3007b89ded8738b0f73ff30499d02f0ce1f0d6014ec1e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_kubernetes_service_default.png": {
+      "icon_name": "elastic_kubernetes_service",
+      "variant": "default",
+      "source_script": "aws/elastic_kubernetes_service_default.py",
+      "size_bytes": 20414,
+      "sha256": "660213a1a93caa9364799fd43dd8639715c7074157dcdfde7158dd2e5fcd5994",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_load_balancing_default.png": {
+      "icon_name": "elastic_load_balancing",
+      "variant": "default",
+      "source_script": "aws/elastic_load_balancing_default.py",
+      "size_bytes": 14978,
+      "sha256": "8d8928dc9bbdac764a1fa5929ab8a2c51b455d578267f79624ee4d0b70ee7bac",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elastic_vmware_service_default.png": {
+      "icon_name": "elastic_vmware_service",
+      "variant": "default",
+      "source_script": "aws/elastic_vmware_service_default.py",
+      "size_bytes": 15039,
+      "sha256": "7ea4ee41f20c42c5544b550948c3fd49d24d6af07c84d9a1a9f9105221ae5d28",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elasticache_default.png": {
+      "icon_name": "elasticache",
+      "variant": "default",
+      "source_script": "aws/elasticache_default.py",
+      "size_bytes": 13311,
+      "sha256": "45a107dd45ec804531878df8b36d020e0a0534e1c0defb495e45fbcf7037e5ab",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_appliances_software_default.png": {
+      "icon_name": "elemental_appliances_software",
+      "variant": "default",
+      "source_script": "aws/elemental_appliances_software_default.py",
+      "size_bytes": 5371,
+      "sha256": "53debf3927d4990c19f0f7d69958a4185a955e09612364ccaa1728873a17b6d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_conductor_default.png": {
+      "icon_name": "elemental_conductor",
+      "variant": "default",
+      "source_script": "aws/elemental_conductor_default.py",
+      "size_bytes": 5371,
+      "sha256": "53debf3927d4990c19f0f7d69958a4185a955e09612364ccaa1728873a17b6d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_delta_default.png": {
+      "icon_name": "elemental_delta",
+      "variant": "default",
+      "source_script": "aws/elemental_delta_default.py",
+      "size_bytes": 5371,
+      "sha256": "53debf3927d4990c19f0f7d69958a4185a955e09612364ccaa1728873a17b6d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_inference_default.png": {
+      "icon_name": "elemental_inference",
+      "variant": "default",
+      "source_script": "aws/elemental_inference_default.py",
+      "size_bytes": 18118,
+      "sha256": "a7084747b1426ba74e503514a5b6d97a7abce0a55e13650c8ccdc9fd5c861dd6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_link_default.png": {
+      "icon_name": "elemental_link",
+      "variant": "default",
+      "source_script": "aws/elemental_link_default.py",
+      "size_bytes": 6974,
+      "sha256": "7fd7f4f0aa6b92762c785aa5921da64443cb6191ad0b861f61a071028fd8dcde",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_live_default.png": {
+      "icon_name": "elemental_live",
+      "variant": "default",
+      "source_script": "aws/elemental_live_default.py",
+      "size_bytes": 5371,
+      "sha256": "53debf3927d4990c19f0f7d69958a4185a955e09612364ccaa1728873a17b6d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_mediaconnect_default.png": {
+      "icon_name": "elemental_mediaconnect",
+      "variant": "default",
+      "source_script": "aws/elemental_mediaconnect_default.py",
+      "size_bytes": 19978,
+      "sha256": "8c0bf2924ce45a119f116617ad221b6ed3be665a0c0f6f062a0cb061f19ac5e7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_mediaconvert_default.png": {
+      "icon_name": "elemental_mediaconvert",
+      "variant": "default",
+      "source_script": "aws/elemental_mediaconvert_default.py",
+      "size_bytes": 17493,
+      "sha256": "c542d0606136d13fbd2c003da313e6cd7ce09d25b34b653febf1b0b29878ca3d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_medialive_default.png": {
+      "icon_name": "elemental_medialive",
+      "variant": "default",
+      "source_script": "aws/elemental_medialive_default.py",
+      "size_bytes": 20072,
+      "sha256": "b429b00c162272d002c2976feb830396d6f0d2ae4b68952d499a82034a7377c6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_mediapackage_default.png": {
+      "icon_name": "elemental_mediapackage",
+      "variant": "default",
+      "source_script": "aws/elemental_mediapackage_default.py",
+      "size_bytes": 20433,
+      "sha256": "496d472161cc6c539a47674a30c81bb25488324a2d89fd683eb04b77901a6586",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_mediastore_default.png": {
+      "icon_name": "elemental_mediastore",
+      "variant": "default",
+      "source_script": "aws/elemental_mediastore_default.py",
+      "size_bytes": 20034,
+      "sha256": "5d616b42b07ff27823061da507967d0e2a407bbb6abbff38156de89d6af97ab8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_mediatailor_default.png": {
+      "icon_name": "elemental_mediatailor",
+      "variant": "default",
+      "source_script": "aws/elemental_mediatailor_default.py",
+      "size_bytes": 20326,
+      "sha256": "b108e8726baf0d52d20c093c667689f663b20844a5498402160aedd0adbfb003",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "elemental_server_default.png": {
+      "icon_name": "elemental_server",
+      "variant": "default",
+      "source_script": "aws/elemental_server_default.py",
+      "size_bytes": 5371,
+      "sha256": "53debf3927d4990c19f0f7d69958a4185a955e09612364ccaa1728873a17b6d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "emr_default.png": {
+      "icon_name": "emr",
+      "variant": "default",
+      "source_script": "aws/emr_default.py",
+      "size_bytes": 20978,
+      "sha256": "cf03253e604f58223645409f47e16602dbae31491141b20743caf017514e1626",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "end_user_messaging_default.png": {
+      "icon_name": "end_user_messaging",
+      "variant": "default",
+      "source_script": "aws/end_user_messaging_default.py",
+      "size_bytes": 11950,
+      "sha256": "65c38c6946b6372a5d1aa013724afd158eb2202b76bdd07b5074b75fba641913",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "entity_resolution_default.png": {
+      "icon_name": "entity_resolution",
+      "variant": "default",
+      "source_script": "aws/entity_resolution_default.py",
+      "size_bytes": 20510,
+      "sha256": "e174f7a0846e2d6375fcf5f5f35f49c2cd56c3b8dda4f875ceec655e9f6dc795",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "eventbridge_default.png": {
+      "icon_name": "eventbridge",
+      "variant": "default",
+      "source_script": "aws/eventbridge_default.py",
+      "size_bytes": 21535,
+      "sha256": "7e2f3586048965da2625b085f809baf94e1a4d23b2bb2f46d41835a2eb73b38f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "express_workflows_default.png": {
+      "icon_name": "express_workflows",
+      "variant": "default",
+      "source_script": "aws/express_workflows_default.py",
+      "size_bytes": 10755,
+      "sha256": "12b1c5067b22c0e62f74960e157c07a11c69db19b26da394b11e8547bee592f2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fargate_default.png": {
+      "icon_name": "fargate",
+      "variant": "default",
+      "source_script": "aws/fargate_default.py",
+      "size_bytes": 18786,
+      "sha256": "d1d60c6af443c1c9913fa262b0b4a0bdbfffec86b39cd919905e952f9676c778",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fault_injection_service_default.png": {
+      "icon_name": "fault_injection_service",
+      "variant": "default",
+      "source_script": "aws/fault_injection_service_default.py",
+      "size_bytes": 16788,
+      "sha256": "4206ed0de21fc3a66f6796346cd3f9d70c4bcd068970fd946d15e68eb06acef9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "file_cache_default.png": {
+      "icon_name": "file_cache",
+      "variant": "default",
+      "source_script": "aws/file_cache_default.py",
+      "size_bytes": 11040,
+      "sha256": "7e1970849f939484b18a4e922ced6caf1b7b78a0b693baa2fa73a851833f1522",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "finops_agent_default.png": {
+      "icon_name": "finops_agent",
+      "variant": "default",
+      "source_script": "aws/finops_agent_default.py",
+      "size_bytes": 22856,
+      "sha256": "8e151651aa559acd1f35b559caaf55d8f4d0825bff6a833e1a1b0860d58bce1a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "finspace_default.png": {
+      "icon_name": "finspace",
+      "variant": "default",
+      "source_script": "aws/finspace_default.py",
+      "size_bytes": 9465,
+      "sha256": "e76ca2286abae7097740b5f329652253bc42e36a48800f10ceac218b06beacd6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "firewall_manager_default.png": {
+      "icon_name": "firewall_manager",
+      "variant": "default",
+      "source_script": "aws/firewall_manager_default.py",
+      "size_bytes": 26862,
+      "sha256": "3207f19795bd04ee47356d0a55fc1e6b675b76291eaec4091290a066a9b3e50a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "forecast_default.png": {
+      "icon_name": "forecast",
+      "variant": "default",
+      "source_script": "aws/forecast_default.py",
+      "size_bytes": 5019,
+      "sha256": "3157d9dddc31d720422d25a6f5f2faf3717e6dd3cd2920ba72de1a2e116c505f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fraud_detector_default.png": {
+      "icon_name": "fraud_detector",
+      "variant": "default",
+      "source_script": "aws/fraud_detector_default.py",
+      "size_bytes": 31989,
+      "sha256": "3aafc1bb4ae10cc1de2984b9fd43e689c1a677d578301d3552dffa46319b4d1e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "freertos_default.png": {
+      "icon_name": "freertos",
+      "variant": "default",
+      "source_script": "aws/freertos_default.py",
+      "size_bytes": 12449,
+      "sha256": "bcf1d2ec9b8c839e696d07c9248d1d7f7e54dc4d54bc3f775089b0d77de2e242",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fsx_default.png": {
+      "icon_name": "fsx",
+      "variant": "default",
+      "source_script": "aws/fsx_default.py",
+      "size_bytes": 12213,
+      "sha256": "8b3878852abd1b3c4c046c64c1fb6bb7ba0f27cc5e76cd0d12bdd3ed5e5b2d2e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fsx_for_lustre_default.png": {
+      "icon_name": "fsx_for_lustre",
+      "variant": "default",
+      "source_script": "aws/fsx_for_lustre_default.py",
+      "size_bytes": 11650,
+      "sha256": "774fe368ba2cfd2adc3023492d1c0f67832a36a44c6231a18a6e76f0a1d958a1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fsx_for_netapp_ontap_default.png": {
+      "icon_name": "fsx_for_netapp_ontap",
+      "variant": "default",
+      "source_script": "aws/fsx_for_netapp_ontap_default.py",
+      "size_bytes": 14224,
+      "sha256": "8a915a887ad4fe6bb440478c50994168beee49ecc2932581d210ea2c3efd709c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fsx_for_openzfs_default.png": {
+      "icon_name": "fsx_for_openzfs",
+      "variant": "default",
+      "source_script": "aws/fsx_for_openzfs_default.py",
+      "size_bytes": 10184,
+      "sha256": "fea211ca4ac5de3af3e764aacab3b47f2de55270b9352c7a190e66b92391a0da",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fsx_for_wfs_default.png": {
+      "icon_name": "fsx_for_wfs",
+      "variant": "default",
+      "source_script": "aws/fsx_for_wfs_default.py",
+      "size_bytes": 10544,
+      "sha256": "a7d70ccc1838e20e908161a2a8418ecbced4790496bf68cf0f8efd6e4c5bce31",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "gamelift_servers_default.png": {
+      "icon_name": "gamelift_servers",
+      "variant": "default",
+      "source_script": "aws/gamelift_servers_default.py",
+      "size_bytes": 22162,
+      "sha256": "bc3c349dfd5f22d369d73af592dbc49bf77baa29720d841faafa337f8ef1ec14",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "gamelift_streams_default.png": {
+      "icon_name": "gamelift_streams",
+      "variant": "default",
+      "source_script": "aws/gamelift_streams_default.py",
+      "size_bytes": 20945,
+      "sha256": "50c928313cd909d8bf88f4be963a25a37e389113f13167c59ccd62f2d1443d9d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "global_accelerator_default.png": {
+      "icon_name": "global_accelerator",
+      "variant": "default",
+      "source_script": "aws/global_accelerator_default.py",
+      "size_bytes": 21947,
+      "sha256": "bca61d70e8e106a049910f9abf13f77d9d948a5821e26be580016a62271aaa72",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "glue_databrew_default.png": {
+      "icon_name": "glue_databrew",
+      "variant": "default",
+      "source_script": "aws/glue_databrew_default.py",
+      "size_bytes": 15773,
+      "sha256": "fdae1b101d50e84788e8409d5c0524d50acaa67595168ccb4b576c98ecdf93bd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "glue_default.png": {
+      "icon_name": "glue",
+      "variant": "default",
+      "source_script": "aws/glue_default.py",
+      "size_bytes": 9255,
+      "sha256": "415f24c105c2257f95e9d26c03a1b85f06572eb9307a90bbaae03b8f9c47b676",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ground_station_default.png": {
+      "icon_name": "ground_station",
+      "variant": "default",
+      "source_script": "aws/ground_station_default.py",
+      "size_bytes": 15505,
+      "sha256": "c1e101ef4ff506a936bc77d11b2a68feb654b641a8ab8b363624eca44ffa5cb7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "guardduty_default.png": {
+      "icon_name": "guardduty",
+      "variant": "default",
+      "source_script": "aws/guardduty_default.py",
+      "size_bytes": 22924,
+      "sha256": "d247af0651b102b565e5a5e0ec873ef2468d5cb98a4eef4ae50142b95bf7e343",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "health_dashboard_default.png": {
+      "icon_name": "health_dashboard",
+      "variant": "default",
+      "source_script": "aws/health_dashboard_default.py",
+      "size_bytes": 19163,
+      "sha256": "69b0c7eb21a50c1d85b633314906ce19a772bdd8c70e317622d09ad17ce5ed47",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "healthimaging_default.png": {
+      "icon_name": "healthimaging",
+      "variant": "default",
+      "source_script": "aws/healthimaging_default.py",
+      "size_bytes": 11785,
+      "sha256": "86c2b7fb616c0ab0f1ff562b75c39bf47db52b62d08771f4dee3b46780fd15d0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "healthlake_default.png": {
+      "icon_name": "healthlake",
+      "variant": "default",
+      "source_script": "aws/healthlake_default.py",
+      "size_bytes": 8306,
+      "sha256": "d27e308d665f74c442982ff890ac0c83d3c5b2806687922591f80f1782ce8e99",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "healthomics_default.png": {
+      "icon_name": "healthomics",
+      "variant": "default",
+      "source_script": "aws/healthomics_default.py",
+      "size_bytes": 13158,
+      "sha256": "adde703f298dd70a2b38df39564681be0ed6dc01c4376a2e2a207c1e829d0956",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "healthscribe_default.png": {
+      "icon_name": "healthscribe",
+      "variant": "default",
+      "source_script": "aws/healthscribe_default.py",
+      "size_bytes": 14172,
+      "sha256": "99e72db759ad71dccc01fa35fd233b29e414ab839914e5cce5aaadd3fa29b809",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iam_identity_center_default.png": {
+      "icon_name": "iam_identity_center",
+      "variant": "default",
+      "source_script": "aws/iam_identity_center_default.py",
+      "size_bytes": 20413,
+      "sha256": "bb3f5797f7dcb76096612051e6c18d77b587ae3578dcf219af6dd00daa4692b8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "identity_and_access_management_default.png": {
+      "icon_name": "identity_and_access_management",
+      "variant": "default",
+      "source_script": "aws/identity_and_access_management_default.py",
+      "size_bytes": 6025,
+      "sha256": "7b225a2e00e4c915a7a96888b803cc66dfd600f72775b17a9c1166b40cb92291",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "infrastructure_composer_default.png": {
+      "icon_name": "infrastructure_composer",
+      "variant": "default",
+      "source_script": "aws/infrastructure_composer_default.py",
+      "size_bytes": 21456,
+      "sha256": "2a419062b2de3e78ddf7d062634934c77fb632531694550b72f1d2078a1ccbb1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "inspector_default.png": {
+      "icon_name": "inspector",
+      "variant": "default",
+      "source_script": "aws/inspector_default.py",
+      "size_bytes": 28719,
+      "sha256": "08c855265f4d5be65c9ad762690c30be87700b7b4c131f4966ffa30e7787e791",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "interactive_video_service_default.png": {
+      "icon_name": "interactive_video_service",
+      "variant": "default",
+      "source_script": "aws/interactive_video_service_default.py",
+      "size_bytes": 22444,
+      "sha256": "2b28e833edf1309a3f18500c3affd52baf20d658a7851e8e02a4a82455c3452d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "interconnect_default.png": {
+      "icon_name": "interconnect",
+      "variant": "default",
+      "source_script": "aws/interconnect_default.py",
+      "size_bytes": 22287,
+      "sha256": "801b4270bfeafaba0f1159d3cb693e6ca273795a240fbda54d4dee0cc799f8f1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_core_default.png": {
+      "icon_name": "iot_core",
+      "variant": "default",
+      "source_script": "aws/iot_core_default.py",
+      "size_bytes": 18767,
+      "sha256": "ff1887c57779d25e4edfc7038c90a251a2d2defe1154662324bdda4e3664aff8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_device_defender_default.png": {
+      "icon_name": "iot_device_defender",
+      "variant": "default",
+      "source_script": "aws/iot_device_defender_default.py",
+      "size_bytes": 18045,
+      "sha256": "92ab84c629f7771b64641227885bd76fe2f41c3191c161a1efa41f19ac7041f7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_device_management_default.png": {
+      "icon_name": "iot_device_management",
+      "variant": "default",
+      "source_script": "aws/iot_device_management_default.py",
+      "size_bytes": 27003,
+      "sha256": "7ca87487ec24ff07b0b7abdb335519f9d9226ee1ed2188d9990e6abd17ca4625",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_events_default.png": {
+      "icon_name": "iot_events",
+      "variant": "default",
+      "source_script": "aws/iot_events_default.py",
+      "size_bytes": 23194,
+      "sha256": "a9f2187d2d59444aaa1eca6ded28d97d4661266b866f3fd86a54ec6cb6d87707",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_expresslink_default.png": {
+      "icon_name": "iot_expresslink",
+      "variant": "default",
+      "source_script": "aws/iot_expresslink_default.py",
+      "size_bytes": 13153,
+      "sha256": "d6b9108c777753e9f9253b81c4158cced9b719661d10cac2878399573d4fe769",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_fleetwise_default.png": {
+      "icon_name": "iot_fleetwise",
+      "variant": "default",
+      "source_script": "aws/iot_fleetwise_default.py",
+      "size_bytes": 28965,
+      "sha256": "3baa6e0796e6161361ec4bb071278bd0278202526f8b7d0c9d7721bae6c01f3d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_greengrass_default.png": {
+      "icon_name": "iot_greengrass",
+      "variant": "default",
+      "source_script": "aws/iot_greengrass_default.py",
+      "size_bytes": 17840,
+      "sha256": "705993f6d71ccaade3cf2abf1dfd17fecbb739cfc5950ef0d0d0f90da020e585",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_sitewise_default.png": {
+      "icon_name": "iot_sitewise",
+      "variant": "default",
+      "source_script": "aws/iot_sitewise_default.py",
+      "size_bytes": 17883,
+      "sha256": "901aef352d6d5963e4c81aa157f4b2851ffc285b99e9b98eff4c2af6f8b112ed",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iot_twinmaker_default.png": {
+      "icon_name": "iot_twinmaker",
+      "variant": "default",
+      "source_script": "aws/iot_twinmaker_default.py",
+      "size_bytes": 12976,
+      "sha256": "5082f55bbc5787cab5236882dc0131f9f8041866726c9318dc3237e51faeb4c9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iq_default.png": {
+      "icon_name": "iq",
+      "variant": "default",
+      "source_script": "aws/iq_default.py",
+      "size_bytes": 21353,
+      "sha256": "f19c01b06431495404bb280adf25501b1e594045c0e103f152db1eeb193720eb",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kendra_default.png": {
+      "icon_name": "kendra",
+      "variant": "default",
+      "source_script": "aws/kendra_default.py",
+      "size_bytes": 17099,
+      "sha256": "c7f6f5dcd2aa44b87f1efb84c260c11afe314f7bfffc503f9ec8033be974c874",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "key_management_service_default.png": {
+      "icon_name": "key_management_service",
+      "variant": "default",
+      "source_script": "aws/key_management_service_default.py",
+      "size_bytes": 15450,
+      "sha256": "82bfaa312f26fa3379fdc239e4ccb84d0d87600b79292d243fdc29c09dad6143",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "keyspaces_default.png": {
+      "icon_name": "keyspaces",
+      "variant": "default",
+      "source_script": "aws/keyspaces_default.py",
+      "size_bytes": 18169,
+      "sha256": "c994c68c7ea442f50f9df7c6a47b10da92a64da4c86425fdf86d3b0e125f9051",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kinesis_data_streams_default.png": {
+      "icon_name": "kinesis_data_streams",
+      "variant": "default",
+      "source_script": "aws/kinesis_data_streams_default.py",
+      "size_bytes": 18940,
+      "sha256": "e91865069dc8a60a6e3e23f104bfbf469651fd3450245ff4323d2d5339575ab5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kinesis_default.png": {
+      "icon_name": "kinesis",
+      "variant": "default",
+      "source_script": "aws/kinesis_default.py",
+      "size_bytes": 15185,
+      "sha256": "23314fba995172a5860d817b1c0dff3b3f4038cd75ba7aab49976513cd3c6d04",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kinesis_video_streams_default.png": {
+      "icon_name": "kinesis_video_streams",
+      "variant": "default",
+      "source_script": "aws/kinesis_video_streams_default.py",
+      "size_bytes": 15845,
+      "sha256": "add3cfc847b6ec7449e45f0289f19bce2ea1900550173ae10342a989d7e044bd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lake_formation_default.png": {
+      "icon_name": "lake_formation",
+      "variant": "default",
+      "source_script": "aws/lake_formation_default.py",
+      "size_bytes": 19606,
+      "sha256": "62609a4e692a6d3ab3b7dd04e4594f5f9b9903b7271e4a892f09443e90aac527",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "launch_wizard_default.png": {
+      "icon_name": "launch_wizard",
+      "variant": "default",
+      "source_script": "aws/launch_wizard_default.py",
+      "size_bytes": 6882,
+      "sha256": "125fff6b48895444423de8d1c31f4166f253adc2cf642b3e25c36e1768cfa283",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lex_default.png": {
+      "icon_name": "lex",
+      "variant": "default",
+      "source_script": "aws/lex_default.py",
+      "size_bytes": 12323,
+      "sha256": "71558fe1f843cf67751819cc74142601d36e694c9f8260c944e20bc3ac42a39d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "license_manager_default.png": {
+      "icon_name": "license_manager",
+      "variant": "default",
+      "source_script": "aws/license_manager_default.py",
+      "size_bytes": 14484,
+      "sha256": "2a9e4d341894f2235a841da8042f4f3c340bcbdacc4e5a0d9b3ec2944f54e9a7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lightsail_default.png": {
+      "icon_name": "lightsail",
+      "variant": "default",
+      "source_script": "aws/lightsail_default.py",
+      "size_bytes": 20164,
+      "sha256": "5c6f91581c7342002648f02edb613a229273621969451d23bdb6154afd6251e2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lightsail_for_research_default.png": {
+      "icon_name": "lightsail_for_research",
+      "variant": "default",
+      "source_script": "aws/lightsail_for_research_default.py",
+      "size_bytes": 15573,
+      "sha256": "3c14d392fe1325979457f544decf968903775295ebc5ae64f2fbe9eecdbc534d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "local_zones_default.png": {
+      "icon_name": "local_zones",
+      "variant": "default",
+      "source_script": "aws/local_zones_default.py",
+      "size_bytes": 23408,
+      "sha256": "463cf61bd75c84f966cbc55a6dc95f978ff2971ae3b61901067529ecedd9921b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "location_service_default.png": {
+      "icon_name": "location_service",
+      "variant": "default",
+      "source_script": "aws/location_service_default.py",
+      "size_bytes": 22751,
+      "sha256": "9635fcee8c4b76426ee7019d06203633ac9788150477f0abfe023ea3c199a178",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lookout_for_equipment_default.png": {
+      "icon_name": "lookout_for_equipment",
+      "variant": "default",
+      "source_script": "aws/lookout_for_equipment_default.py",
+      "size_bytes": 19044,
+      "sha256": "d5a3dd0017a6a38c5f24d30d1eec4f7bf3a9def0c1fb9deddbc3f59ef57db0d8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lookout_for_vision_default.png": {
+      "icon_name": "lookout_for_vision",
+      "variant": "default",
+      "source_script": "aws/lookout_for_vision_default.py",
+      "size_bytes": 29833,
+      "sha256": "4c9ced7942dc73b458236dc5f510f16cbb057b78da9bf4c64b28dbcbd491e1b2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "macie_default.png": {
+      "icon_name": "macie",
+      "variant": "default",
+      "source_script": "aws/macie_default.py",
+      "size_bytes": 16962,
+      "sha256": "963f2aa35bdd93405a58432b2f1064d1213f24aab3ab0b9ca9ffd2de7324c63e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "mainframe_modernization_default.png": {
+      "icon_name": "mainframe_modernization",
+      "variant": "default",
+      "source_script": "aws/mainframe_modernization_default.py",
+      "size_bytes": 21214,
+      "sha256": "3aab87a329356964d773ac3c131469067771a8e46c57732dea0140bda51b5017",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_blockchain_default.png": {
+      "icon_name": "managed_blockchain",
+      "variant": "default",
+      "source_script": "aws/managed_blockchain_default.py",
+      "size_bytes": 12185,
+      "sha256": "9d099105ca4a6d5a31f87134c3fd318c8846a0f91362c53cf2a615e4cc47c17e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_grafana_default.png": {
+      "icon_name": "managed_grafana",
+      "variant": "default",
+      "source_script": "aws/managed_grafana_default.py",
+      "size_bytes": 12125,
+      "sha256": "6e26a576fa7d6b8b0cb37df3e5323e4e8e06682693c3000b32845c99e5c331ca",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_service_for_apache_flink_default.png": {
+      "icon_name": "managed_service_for_apache_flink",
+      "variant": "default",
+      "source_script": "aws/managed_service_for_apache_flink_default.py",
+      "size_bytes": 20001,
+      "sha256": "77deef498a1179a8ecdc905b0bf3eb36045f0775f1b1af22cd875105818bc0a8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_service_for_prometheus_default.png": {
+      "icon_name": "managed_service_for_prometheus",
+      "variant": "default",
+      "source_script": "aws/managed_service_for_prometheus_default.py",
+      "size_bytes": 14660,
+      "sha256": "98c47f11270ac0255be5e7f320e953b54a55cf9b9828dba6631c4ad622cd796e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_services_default.png": {
+      "icon_name": "managed_services",
+      "variant": "default",
+      "source_script": "aws/managed_services_default.py",
+      "size_bytes": 25630,
+      "sha256": "083e89ca389d4d44fdd2b9d3ce93e75a855d09df5a91a890d574b7396653e399",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_streaming_for_apache_kafka_default.png": {
+      "icon_name": "managed_streaming_for_apache_kafka",
+      "variant": "default",
+      "source_script": "aws/managed_streaming_for_apache_kafka_default.py",
+      "size_bytes": 18547,
+      "sha256": "0539f0077a1bd4a31c7e39f0b11fb11e918a323493e6f198c347ddfcf1d353d3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_workflows_for_apache_airflow_default.png": {
+      "icon_name": "managed_workflows_for_apache_airflow",
+      "variant": "default",
+      "source_script": "aws/managed_workflows_for_apache_airflow_default.py",
+      "size_bytes": 18514,
+      "sha256": "5a524f7e9d12c707e10ff5df70a63bdfb7435d9dab16b985a3fe52fc43ea6407",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "management_console_default.png": {
+      "icon_name": "management_console",
+      "variant": "default",
+      "source_script": "aws/management_console_default.py",
+      "size_bytes": 14086,
+      "sha256": "acc27361ce326d4790abf2ec06a8ce76c907c2be766659794cdca837f28a7878",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "marketplace_dark_default.png": {
+      "icon_name": "marketplace_dark",
+      "variant": "default",
+      "source_script": "aws/marketplace_dark_default.py",
+      "size_bytes": 16142,
+      "sha256": "ac962fc3f5789a19f086533aa54106bd3a04639c4df5fa96ed334ca46ff586f3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "marketplace_light_default.png": {
+      "icon_name": "marketplace_light",
+      "variant": "default",
+      "source_script": "aws/marketplace_light_default.py",
+      "size_bytes": 17080,
+      "sha256": "8a50ba0535318cf927d2bb7d637a2745559a4541cf88c6bd5e30e44b76301a53",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "memorydb_default.png": {
+      "icon_name": "memorydb",
+      "variant": "default",
+      "source_script": "aws/memorydb_default.py",
+      "size_bytes": 21015,
+      "sha256": "5f8bc2d34ef560759bbc5c2d7295af065fa99413cbd03b70fe05864aaaf42bb4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "migration_evaluator_default.png": {
+      "icon_name": "migration_evaluator",
+      "variant": "default",
+      "source_script": "aws/migration_evaluator_default.py",
+      "size_bytes": 25028,
+      "sha256": "040f887185e85c51722049f52d9a55a9fbb736613811da4b61d797e65d689f56",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "monitron_default.png": {
+      "icon_name": "monitron",
+      "variant": "default",
+      "source_script": "aws/monitron_default.py",
+      "size_bytes": 26013,
+      "sha256": "556a35531d6a075310dc1ff354c1df1e33fe346939e5dd362a89643e35df6499",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "mq_default.png": {
+      "icon_name": "mq",
+      "variant": "default",
+      "source_script": "aws/mq_default.py",
+      "size_bytes": 24573,
+      "sha256": "bc3b3b62e407dea4a555f2424b5bb4ea99880cbfde3aa93c3c82d0bb8b3ff389",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "neptune_default.png": {
+      "icon_name": "neptune",
+      "variant": "default",
+      "source_script": "aws/neptune_default.py",
+      "size_bytes": 22885,
+      "sha256": "7735eb2a31f81c0c5d13d1ec10936ad87f29e3070d6a7ad235a95594e8af47c3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "network_firewall_default.png": {
+      "icon_name": "network_firewall",
+      "variant": "default",
+      "source_script": "aws/network_firewall_default.py",
+      "size_bytes": 19062,
+      "sha256": "b89b54910af9a7708c255c761780f98ee2550425b23146c38db5051d794e762d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "neuron_default.png": {
+      "icon_name": "neuron",
+      "variant": "default",
+      "source_script": "aws/neuron_default.py",
+      "size_bytes": 24986,
+      "sha256": "bbdaff4bb457d3fbef12c663db2a7abfafa3f10bea03a52a9d0a1b9b1fa76795",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "nitro_enclaves_default.png": {
+      "icon_name": "nitro_enclaves",
+      "variant": "default",
+      "source_script": "aws/nitro_enclaves_default.py",
+      "size_bytes": 9270,
+      "sha256": "312fe15fd93ff01570b0a4425b97292ea05912c1d40267b0789b45b2fc498f8a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "nova_default.png": {
+      "icon_name": "nova",
+      "variant": "default",
+      "source_script": "aws/nova_default.py",
+      "size_bytes": 16333,
+      "sha256": "183d8ea4b018e8673a4e77f5456eb270cb963842051360617843007896d51e69",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "open_3d_engine_default.png": {
+      "icon_name": "open_3d_engine",
+      "variant": "default",
+      "source_script": "aws/open_3d_engine_default.py",
+      "size_bytes": 21040,
+      "sha256": "abec45a81c959c7ce444e11599c34d7072d39fe606c5c2810781d04cf6e8490f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "opensearch_service_default.png": {
+      "icon_name": "opensearch_service",
+      "variant": "default",
+      "source_script": "aws/opensearch_service_default.py",
+      "size_bytes": 14387,
+      "sha256": "221146653d9e6e72095bc78d4c96d3df131000905a1f6f5fb52a1f76b9e19a19",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "oracle_database_at_aws_default.png": {
+      "icon_name": "oracle_database_at_aws",
+      "variant": "default",
+      "source_script": "aws/oracle_database_at_aws_default.py",
+      "size_bytes": 15779,
+      "sha256": "fa8ae8dfa2da3b620fe00e35bd70b9568fcbe7cbc7cfff14fc29f86e63842e7c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "organizations_default.png": {
+      "icon_name": "organizations",
+      "variant": "default",
+      "source_script": "aws/organizations_default.py",
+      "size_bytes": 9985,
+      "sha256": "5b0b24673025a55e90995aae4f122b68daeedefd87e37719cc07fdd5e94dd1d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "outposts_family_default.png": {
+      "icon_name": "outposts_family",
+      "variant": "default",
+      "source_script": "aws/outposts_family_default.py",
+      "size_bytes": 15456,
+      "sha256": "a286086e9070db52bc2c21e7507931dd969155b1686809e8c44032a30b88ba5f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "outposts_rack_default.png": {
+      "icon_name": "outposts_rack",
+      "variant": "default",
+      "source_script": "aws/outposts_rack_default.py",
+      "size_bytes": 8623,
+      "sha256": "9cfeb5798c0ebd6751541be48691140b87399ed9b9d9b8d9e7e60e0b07be7277",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "outposts_servers_default.png": {
+      "icon_name": "outposts_servers",
+      "variant": "default",
+      "source_script": "aws/outposts_servers_default.py",
+      "size_bytes": 9353,
+      "sha256": "6996a621e7ebc9b2b7701a7c0744044748ead59bb6ab043d17ec60298df17e29",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "panorama_default.png": {
+      "icon_name": "panorama",
+      "variant": "default",
+      "source_script": "aws/panorama_default.py",
+      "size_bytes": 12278,
+      "sha256": "60154eabf3db3234e3dc0ac72dc90b721719ca0f3680bb89b5299db4e7c75ca8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "parallel_cluster_default.png": {
+      "icon_name": "parallel_cluster",
+      "variant": "default",
+      "source_script": "aws/parallel_cluster_default.py",
+      "size_bytes": 12788,
+      "sha256": "a5b758c04a9aa350b61a479c7f23dd5483c98710a9c96169ccae567787fd979c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "parallel_computing_service_default.png": {
+      "icon_name": "parallel_computing_service",
+      "variant": "default",
+      "source_script": "aws/parallel_computing_service_default.py",
+      "size_bytes": 26272,
+      "sha256": "86599c9e97891ce8aa49a3ed47cf8ec7a0256fd986f2f6786eee5e5c72c6d05d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "partner_central_default.png": {
+      "icon_name": "partner_central",
+      "variant": "default",
+      "source_script": "aws/partner_central_default.py",
+      "size_bytes": 19646,
+      "sha256": "5bad6fb705b677330a8b04950b3cb038cbbcb40c83839fd4f71552471b877c4f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "payment_cryptography_default.png": {
+      "icon_name": "payment_cryptography",
+      "variant": "default",
+      "source_script": "aws/payment_cryptography_default.py",
+      "size_bytes": 13855,
+      "sha256": "b94f37856b8ae1a2b483cde8ea223a2d76817c30348fc78acb29187cddfd91bc",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "personalize_default.png": {
+      "icon_name": "personalize",
+      "variant": "default",
+      "source_script": "aws/personalize_default.py",
+      "size_bytes": 24811,
+      "sha256": "5d5c2e7244d6561a90f6c74826002558c49c2bbd6ead90370ffc27e6a2737d4b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pinpoint_apis_default.png": {
+      "icon_name": "pinpoint_apis",
+      "variant": "default",
+      "source_script": "aws/pinpoint_apis_default.py",
+      "size_bytes": 24453,
+      "sha256": "4ee61b6b7c2c1f5c183c8ea7083912fde165f3bbd73ad72cfc3f18563365af83",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pinpoint_default.png": {
+      "icon_name": "pinpoint",
+      "variant": "default",
+      "source_script": "aws/pinpoint_default.py",
+      "size_bytes": 24453,
+      "sha256": "4ee61b6b7c2c1f5c183c8ea7083912fde165f3bbd73ad72cfc3f18563365af83",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "polly_default.png": {
+      "icon_name": "polly",
+      "variant": "default",
+      "source_script": "aws/polly_default.py",
+      "size_bytes": 11948,
+      "sha256": "29f85e81675d6394b140ea364026686f48f672bd81b93cd664f63e167eed231a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "private_certificate_authority_default.png": {
+      "icon_name": "private_certificate_authority",
+      "variant": "default",
+      "source_script": "aws/private_certificate_authority_default.py",
+      "size_bytes": 12298,
+      "sha256": "7cb33030af013da6258682bb1d572340c27d306f826e2166489e8bb6f533c5be",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "privatelink_default.png": {
+      "icon_name": "privatelink",
+      "variant": "default",
+      "source_script": "aws/privatelink_default.py",
+      "size_bytes": 13966,
+      "sha256": "ef8831b8a7adcfe7c4d5333605ce870247bb8fc63173a54b034e9d29bcdb95d5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "professional_services_default.png": {
+      "icon_name": "professional_services",
+      "variant": "default",
+      "source_script": "aws/professional_services_default.py",
+      "size_bytes": 18384,
+      "sha256": "e444303e93c832cef0b01d876da3bb36ec75a3f9f5c48a0895abcd69eafb9608",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "proton_default.png": {
+      "icon_name": "proton",
+      "variant": "default",
+      "source_script": "aws/proton_default.py",
+      "size_bytes": 16145,
+      "sha256": "d974a1ad734c477b724ed48e8b93c1478fbe8e8e6d3c17cd7ad59d5b455e001b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pytorch_on_aws_default.png": {
+      "icon_name": "pytorch_on_aws",
+      "variant": "default",
+      "source_script": "aws/pytorch_on_aws_default.py",
+      "size_bytes": 14503,
+      "sha256": "f2dab647bc73d74d163f5b4ce7dccd71ae097098dbb7b4790df8dbef8ce730b2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "q_default.png": {
+      "icon_name": "q",
+      "variant": "default",
+      "source_script": "aws/q_default.py",
+      "size_bytes": 15321,
+      "sha256": "501ce991110fb06178b5e5459dee283574b5afa7544281f90f6301c73c2e10ab",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "quick_default.png": {
+      "icon_name": "quick",
+      "variant": "default",
+      "source_script": "aws/quick_default.py",
+      "size_bytes": 15722,
+      "sha256": "9aa0f10e40c19c7b477abc38de8590d2605b5a16ba0ebf875fc110fac3bb46d7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "rds_default.png": {
+      "icon_name": "rds",
+      "variant": "default",
+      "source_script": "aws/rds_default.py",
+      "size_bytes": 17854,
+      "sha256": "408c7801822f66d81c02b5a04cb5260de962366a5c07b42f06a50397ab5b808f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "red_hat_openshift_service_on_aws_default.png": {
+      "icon_name": "red_hat_openshift_service_on_aws",
+      "variant": "default",
+      "source_script": "aws/red_hat_openshift_service_on_aws_default.py",
+      "size_bytes": 25979,
+      "sha256": "262bb35d37ea8d23d52f89d9bf9b3e12ab6cf6b60d29ac3ead5feb881c7cee3d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "redshift_default.png": {
+      "icon_name": "redshift",
+      "variant": "default",
+      "source_script": "aws/redshift_default.py",
+      "size_bytes": 13718,
+      "sha256": "90bccac70d4ee323a7b85c6b7432682a17deb58c8f3c9d5a12e9f9e54cb93b27",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "rekognition_default.png": {
+      "icon_name": "rekognition",
+      "variant": "default",
+      "source_script": "aws/rekognition_default.py",
+      "size_bytes": 24233,
+      "sha256": "93b9759e463e892fee1a00a584b3f81a3b633db959ef726ec545efd4bd1c47a7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "repost_default.png": {
+      "icon_name": "repost",
+      "variant": "default",
+      "source_script": "aws/repost_default.py",
+      "size_bytes": 19188,
+      "sha256": "b9ae53a09da70dc2c73794e68d56c14b09d25065c06a0daa6604ed16ffa53528",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "repost_private_default.png": {
+      "icon_name": "repost_private",
+      "variant": "default",
+      "source_script": "aws/repost_private_default.py",
+      "size_bytes": 18873,
+      "sha256": "9b3806b6a66aa43b3603849c9b583bcd6efcec5e4a8ac160d2675035db224370",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "reserved_instance_reporting_default.png": {
+      "icon_name": "reserved_instance_reporting",
+      "variant": "default",
+      "source_script": "aws/reserved_instance_reporting_default.py",
+      "size_bytes": 20986,
+      "sha256": "e2471b7ee946e20fcca5f11c8888c3458c48adebfe820a224b76f2825ef191bd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "resilience_hub_default.png": {
+      "icon_name": "resilience_hub",
+      "variant": "default",
+      "source_script": "aws/resilience_hub_default.py",
+      "size_bytes": 19248,
+      "sha256": "de894245d7d14441ec4c14a0f9801e06c59fde69dbe7a9f7a26c5f12bc41a3ab",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "resource_access_manager_default.png": {
+      "icon_name": "resource_access_manager",
+      "variant": "default",
+      "source_script": "aws/resource_access_manager_default.py",
+      "size_bytes": 16177,
+      "sha256": "780b56d375ee034d91cc77f18cc4c8ef9889ec9814cbba33070f2afffa618e5e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "resource_explorer_default.png": {
+      "icon_name": "resource_explorer",
+      "variant": "default",
+      "source_script": "aws/resource_explorer_default.py",
+      "size_bytes": 23774,
+      "sha256": "95a94583f1dd630017b4bda2b003a559d2dfef305a67225fb8a9396f972767b7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "route_53_default.png": {
+      "icon_name": "route_53",
+      "variant": "default",
+      "source_script": "aws/route_53_default.py",
+      "size_bytes": 24507,
+      "sha256": "1e9468aa239a39e93a889b776e606c9078b28173b7880f1f8aa1afdc212e932f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "rtb_fabric_default.png": {
+      "icon_name": "rtb_fabric",
+      "variant": "default",
+      "source_script": "aws/rtb_fabric_default.py",
+      "size_bytes": 4313,
+      "sha256": "fab81ca3545f3d6de8e832f5b9aa97b13bf97acbc76fde8da747ed94298f78f7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "s3_on_outposts_default.png": {
+      "icon_name": "s3_on_outposts",
+      "variant": "default",
+      "source_script": "aws/s3_on_outposts_default.py",
+      "size_bytes": 16837,
+      "sha256": "74731c2103668980daf40b31a86b5726b3e50cbbe0fb48db1d8633ef2b9533ea",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sagemaker_ai_default.png": {
+      "icon_name": "sagemaker_ai",
+      "variant": "default",
+      "source_script": "aws/sagemaker_ai_default.py",
+      "size_bytes": 23531,
+      "sha256": "9cf98bbb7ee26af7cf58eb56de4fdb857950cdb53aad7432d35d116a616344cd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sagemaker_default.png": {
+      "icon_name": "sagemaker",
+      "variant": "default",
+      "source_script": "aws/sagemaker_default.py",
+      "size_bytes": 10408,
+      "sha256": "1a777dda28bc09994a333a594e5e1286024ee749e54725ef6e6b89f43035884a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sagemaker_ground_truth_default.png": {
+      "icon_name": "sagemaker_ground_truth",
+      "variant": "default",
+      "source_script": "aws/sagemaker_ground_truth_default.py",
+      "size_bytes": 20335,
+      "sha256": "80770ef5213b2077f5060401003ce52ebcbed0833e8a5b1f0f5a5e33a4d9f92a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sagemaker_studio_lab_default.png": {
+      "icon_name": "sagemaker_studio_lab",
+      "variant": "default",
+      "source_script": "aws/sagemaker_studio_lab_default.py",
+      "size_bytes": 13309,
+      "sha256": "5862aba2c9fc96e8eb9f85279e2d931b97a0b868de0a3b05d910aff374b55209",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "savings_plans_default.png": {
+      "icon_name": "savings_plans",
+      "variant": "default",
+      "source_script": "aws/savings_plans_default.py",
+      "size_bytes": 25999,
+      "sha256": "1bd5237463bebc315a79c683a7c178e9192ce2299052d8819850018a81f6b92a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "secrets_manager_default.png": {
+      "icon_name": "secrets_manager",
+      "variant": "default",
+      "source_script": "aws/secrets_manager_default.py",
+      "size_bytes": 19838,
+      "sha256": "34d31978d79ae55384d9fd5d2d6c59b250b5bca4822490284f046c2bd0e9bc94",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "security_agent_default.png": {
+      "icon_name": "security_agent",
+      "variant": "default",
+      "source_script": "aws/security_agent_default.py",
+      "size_bytes": 20093,
+      "sha256": "4ff110da8f5a3ebed61af60499228af7b9a6ef974b78d1e81b42059a0b44768e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "security_hub_default.png": {
+      "icon_name": "security_hub",
+      "variant": "default",
+      "source_script": "aws/security_hub_default.py",
+      "size_bytes": 23245,
+      "sha256": "6c2b5507df96813b95caed27c21768d9f54acefb13c962039deef1ba0540b050",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "security_incident_response_default.png": {
+      "icon_name": "security_incident_response",
+      "variant": "default",
+      "source_script": "aws/security_incident_response_default.py",
+      "size_bytes": 22556,
+      "sha256": "8513cadfdad2d24e28f598e8b7f2e5c0a2afc7110f11038d4999af7812c15590",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "security_lake_default.png": {
+      "icon_name": "security_lake",
+      "variant": "default",
+      "source_script": "aws/security_lake_default.py",
+      "size_bytes": 21139,
+      "sha256": "d5fb4a2306260dc8559a93d8cb116302f004223d929e815391027b282e602e00",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "serverless_application_repository_default.png": {
+      "icon_name": "serverless_application_repository",
+      "variant": "default",
+      "source_script": "aws/serverless_application_repository_default.py",
+      "size_bytes": 15392,
+      "sha256": "bea0c9e83282c401fc645bd08266b9a8c8a8578f84a2d834af0367ff06e34a04",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "service_catalog_default.png": {
+      "icon_name": "service_catalog",
+      "variant": "default",
+      "source_script": "aws/service_catalog_default.py",
+      "size_bytes": 28520,
+      "sha256": "69ca78320ae22b09e248bdb8c4adff8c3c609799881d148f200eb38b41f29de0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "service_management_connector_default.png": {
+      "icon_name": "service_management_connector",
+      "variant": "default",
+      "source_script": "aws/service_management_connector_default.py",
+      "size_bytes": 16863,
+      "sha256": "9979e4667a6c8eaaaa6bf18f973fd7ecaf9c974e30b4252f2ae7e7291f881c86",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "shield_default.png": {
+      "icon_name": "shield",
+      "variant": "default",
+      "source_script": "aws/shield_default.py",
+      "size_bytes": 16931,
+      "sha256": "1d0caedea24b978906e383af82266a40e74038849d3c0e321687093a7268e2ad",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "signer_default.png": {
+      "icon_name": "signer",
+      "variant": "default",
+      "source_script": "aws/signer_default.py",
+      "size_bytes": 24145,
+      "sha256": "4108267bc3f2abe808524916cc6d169e0c4485cf09ed9dd4c5fdc288ab8a1413",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "simple_email_service_default.png": {
+      "icon_name": "simple_email_service",
+      "variant": "default",
+      "source_script": "aws/simple_email_service_default.py",
+      "size_bytes": 20562,
+      "sha256": "a21c049e7c712a0935f7b649cc4fca215f45da2307311a12914f350a8957ad8c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "simple_notification_service_default.png": {
+      "icon_name": "simple_notification_service",
+      "variant": "default",
+      "source_script": "aws/simple_notification_service_default.py",
+      "size_bytes": 19787,
+      "sha256": "900369605823768e93d249dd9e90284324ed1fee756b1d8768314620783bff5b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "simple_queue_service_default.png": {
+      "icon_name": "simple_queue_service",
+      "variant": "default",
+      "source_script": "aws/simple_queue_service_default.py",
+      "size_bytes": 21748,
+      "sha256": "75849ca4250fa6b7814e8449df3d1dcb78900af58830f1b6665b1cb46bd30233",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "simple_storage_service_default.png": {
+      "icon_name": "simple_storage_service",
+      "variant": "default",
+      "source_script": "aws/simple_storage_service_default.py",
+      "size_bytes": 19435,
+      "sha256": "82a998c7da75d7f2d48eee5c9f0091d01a3798fb8689135947836dbe0dab86f3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "simple_storage_service_glacier_default.png": {
+      "icon_name": "simple_storage_service_glacier",
+      "variant": "default",
+      "source_script": "aws/simple_storage_service_glacier_default.py",
+      "size_bytes": 24026,
+      "sha256": "59d826f15ca15be66ce57f136e61f29898b8889ddf443b866cf06d884ae1d5c2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "simspace_weaver_default.png": {
+      "icon_name": "simspace_weaver",
+      "variant": "default",
+      "source_script": "aws/simspace_weaver_default.py",
+      "size_bytes": 22966,
+      "sha256": "c331076214c64e74fd7a997a52d3287356b884d3f530a88324405d4019ba0ccb",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "site_to_site_vpn_default.png": {
+      "icon_name": "site_to_site_vpn",
+      "variant": "default",
+      "source_script": "aws/site_to_site_vpn_default.py",
+      "size_bytes": 7764,
+      "sha256": "f5524c83c09c8cd34430a1858a0b085a7af2e06a0ca2eafe348744b97a7ead18",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "snowball_default.png": {
+      "icon_name": "snowball",
+      "variant": "default",
+      "source_script": "aws/snowball_default.py",
+      "size_bytes": 7303,
+      "sha256": "69438d0d8196b7bc3ed639b072b9dd20132f234c5ffc6c3a095daaf00f4190e6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "snowball_edge_default.png": {
+      "icon_name": "snowball_edge",
+      "variant": "default",
+      "source_script": "aws/snowball_edge_default.py",
+      "size_bytes": 14961,
+      "sha256": "7984626a32efd20d91c23d643fef357fceef767196ea20a06d47d781f51099a1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "step_functions_default.png": {
+      "icon_name": "step_functions",
+      "variant": "default",
+      "source_script": "aws/step_functions_default.py",
+      "size_bytes": 8197,
+      "sha256": "725b4c2fa34468f6b561bf695770a5493ac9184cda6503285ae8bcf01836e8ad",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "storage_gateway_default.png": {
+      "icon_name": "storage_gateway",
+      "variant": "default",
+      "source_script": "aws/storage_gateway_default.py",
+      "size_bytes": 16276,
+      "sha256": "82f85545ac37549ccc2dbf58af2e59313c138ea8fd591c452ecd76cffa048099",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "supply_chain_default.png": {
+      "icon_name": "supply_chain",
+      "variant": "default",
+      "source_script": "aws/supply_chain_default.py",
+      "size_bytes": 23726,
+      "sha256": "2b85b2ebcce9dcba35d3eb1841729aa9bdad948fd7669dce97ceaf9d1893b217",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "support_default.png": {
+      "icon_name": "support",
+      "variant": "default",
+      "source_script": "aws/support_default.py",
+      "size_bytes": 23110,
+      "sha256": "e96ca9c0517139a7559540fc653ec7b29a296f12eb380ae01224377df3e90bb3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sustainability_default.png": {
+      "icon_name": "sustainability",
+      "variant": "default",
+      "source_script": "aws/sustainability_default.py",
+      "size_bytes": 9830,
+      "sha256": "b4a794b70ef0660a47cfd26aff14a0423c4c188906e9b7f3384e317b7e131a5d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "systems_manager_default.png": {
+      "icon_name": "systems_manager",
+      "variant": "default",
+      "source_script": "aws/systems_manager_default.py",
+      "size_bytes": 19737,
+      "sha256": "2ea12947b545c022239cca30b5452932afbc0cc551ffff44cf2e7c28c23a1ffb",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "telco_network_builder_default.png": {
+      "icon_name": "telco_network_builder",
+      "variant": "default",
+      "source_script": "aws/telco_network_builder_default.py",
+      "size_bytes": 27826,
+      "sha256": "c7335a3d58d2dbbf91e13e52fa2a010e584fc23fbdb8b372995f74c636f28ea7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "tensorflow_on_aws_default.png": {
+      "icon_name": "tensorflow_on_aws",
+      "variant": "default",
+      "source_script": "aws/tensorflow_on_aws_default.py",
+      "size_bytes": 22559,
+      "sha256": "fb1f7337cbe13f500be82f99abb7f6b5a1aa6a5d4bd236fd317dffca9cc3e403",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "textract_default.png": {
+      "icon_name": "textract",
+      "variant": "default",
+      "source_script": "aws/textract_default.py",
+      "size_bytes": 17042,
+      "sha256": "dd4c18c2bb3a6ba55f77c75f5e0d3bc40506557509bbea6f3b6acb75b5070aa1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "thinkbox_deadline_default.png": {
+      "icon_name": "thinkbox_deadline",
+      "variant": "default",
+      "source_script": "aws/thinkbox_deadline_default.py",
+      "size_bytes": 18282,
+      "sha256": "403bd620003b377893dbcd10c7efdec8159a5a1b50e6fee76c2fdc09d5239083",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "thinkbox_frost_default.png": {
+      "icon_name": "thinkbox_frost",
+      "variant": "default",
+      "source_script": "aws/thinkbox_frost_default.py",
+      "size_bytes": 23006,
+      "sha256": "4d5ab6f7be385be35d5b88ea55f3e64b1be11b07d1a4ffbc374f3099d8d8eada",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "thinkbox_krakatoa_default.png": {
+      "icon_name": "thinkbox_krakatoa",
+      "variant": "default",
+      "source_script": "aws/thinkbox_krakatoa_default.py",
+      "size_bytes": 23934,
+      "sha256": "c9a204b79857de1490b68818dca4d9922ba9427e20a5aede5abbce776e6a65e5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "thinkbox_stoke_default.png": {
+      "icon_name": "thinkbox_stoke",
+      "variant": "default",
+      "source_script": "aws/thinkbox_stoke_default.py",
+      "size_bytes": 28174,
+      "sha256": "d5b8f5e8be4aa6a4de2c2b5579bd8ce329b4462f1548d0ce06a07131c0f66a49",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "thinkbox_xmesh_default.png": {
+      "icon_name": "thinkbox_xmesh",
+      "variant": "default",
+      "source_script": "aws/thinkbox_xmesh_default.py",
+      "size_bytes": 26777,
+      "sha256": "3a0e3a56bc132c3144e5b492545f1c117d2eaa9701f2d8e6788e5cf17dc9bc9d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "timestream_default.png": {
+      "icon_name": "timestream",
+      "variant": "default",
+      "source_script": "aws/timestream_default.py",
+      "size_bytes": 18550,
+      "sha256": "0156b5baaad8e332117c9e950d1ad4da764c6c12e01cc8eedee7528e0ecdbe36",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "tools_and_sdks_default.png": {
+      "icon_name": "tools_and_sdks",
+      "variant": "default",
+      "source_script": "aws/tools_and_sdks_default.py",
+      "size_bytes": 19347,
+      "sha256": "f9c50b370fdf58f740f5d2eb5eb41fd5384be689f38929e0613951d03f9ba793",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "training_certification_default.png": {
+      "icon_name": "training_certification",
+      "variant": "default",
+      "source_script": "aws/training_certification_default.py",
+      "size_bytes": 21007,
+      "sha256": "f157b106d93c5d0cd597c17327c519831cc0759b209edaa028222ede42c2386b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "transcribe_default.png": {
+      "icon_name": "transcribe",
+      "variant": "default",
+      "source_script": "aws/transcribe_default.py",
+      "size_bytes": 11959,
+      "sha256": "773bfc8b7454c7884d0710d1e3d6cd58c7f29ec980d59d3f60a6c53c6c1c2dec",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "transfer_family_default.png": {
+      "icon_name": "transfer_family",
+      "variant": "default",
+      "source_script": "aws/transfer_family_default.py",
+      "size_bytes": 9085,
+      "sha256": "0f8a7a1c7ab46a9a154ac704106cd004f050133fedef0597acaabc4c1d33ffbf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "transform_default.png": {
+      "icon_name": "transform",
+      "variant": "default",
+      "source_script": "aws/transform_default.py",
+      "size_bytes": 18286,
+      "sha256": "98e45e373e42fc7f7cf14409a17b3c656908ef863449309154260e4e3937ec4f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "transit_gateway_default.png": {
+      "icon_name": "transit_gateway",
+      "variant": "default",
+      "source_script": "aws/transit_gateway_default.py",
+      "size_bytes": 19604,
+      "sha256": "a2fab20d7231545849005cd989d530e4d4186dc1728b225653a5b030f3f65f30",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "translate_default.png": {
+      "icon_name": "translate",
+      "variant": "default",
+      "source_script": "aws/translate_default.py",
+      "size_bytes": 13891,
+      "sha256": "fcd5354b1f42b2d9dbf238f1ed0e738c3107d12e2090b48dfeec1785d4206ee6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "trusted_advisor_default.png": {
+      "icon_name": "trusted_advisor",
+      "variant": "default",
+      "source_script": "aws/trusted_advisor_default.py",
+      "size_bytes": 20422,
+      "sha256": "98a894ef4eeb6f76347cec626560226c28caaf93852ee5085edeeadeca07e696",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "user_notifications_default.png": {
+      "icon_name": "user_notifications",
+      "variant": "default",
+      "source_script": "aws/user_notifications_default.py",
+      "size_bytes": 15324,
+      "sha256": "596b1cd8ec9963d7362ed96ac6818fdbc9b0407b0ff5599a39f0e570f7774d98",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "verified_access_default.png": {
+      "icon_name": "verified_access",
+      "variant": "default",
+      "source_script": "aws/verified_access_default.py",
+      "size_bytes": 17376,
+      "sha256": "edaceecc2bc9f9476eb37f5f8485df089f5326bb61a8a6e66ceda0f3c4edd311",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "verified_permissions_default.png": {
+      "icon_name": "verified_permissions",
+      "variant": "default",
+      "source_script": "aws/verified_permissions_default.py",
+      "size_bytes": 15381,
+      "sha256": "efbaa9f2b1a89d7b14a2a2310237ef369bf9796bb8ce4ca7cdaf10f809172046",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "virtual_private_cloud_default.png": {
+      "icon_name": "virtual_private_cloud",
+      "variant": "default",
+      "source_script": "aws/virtual_private_cloud_default.py",
+      "size_bytes": 15350,
+      "sha256": "4241f87b9c4a31d1c4bae60cd803e494e7a5516bbac12a6fa6ce068c741fd365",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vpc_lattice_default.png": {
+      "icon_name": "vpc_lattice",
+      "variant": "default",
+      "source_script": "aws/vpc_lattice_default.py",
+      "size_bytes": 12211,
+      "sha256": "bbe9c3f2612f1248e2a8bd744110b9c8b6f322ed55608b407ad478e2a69b86b4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "waf_default.png": {
+      "icon_name": "waf",
+      "variant": "default",
+      "source_script": "aws/waf_default.py",
+      "size_bytes": 25714,
+      "sha256": "26a4452bc0d376271092c53af4db339b4c96691b43af2b5c7f2da82f420837f4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "wavelength_default.png": {
+      "icon_name": "wavelength",
+      "variant": "default",
+      "source_script": "aws/wavelength_default.py",
+      "size_bytes": 26644,
+      "sha256": "1e80df949124747e519211327149f123e15959539b8367df4dde114fcb9aee8e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "well_architected_tool_default.png": {
+      "icon_name": "well_architected_tool",
+      "variant": "default",
+      "source_script": "aws/well_architected_tool_default.py",
+      "size_bytes": 23890,
+      "sha256": "1a5f046e0405e87cd60aad868f31b6f1971a3df61f161bf76382c9a6f4f947cd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "wickr_default.png": {
+      "icon_name": "wickr",
+      "variant": "default",
+      "source_script": "aws/wickr_default.py",
+      "size_bytes": 10555,
+      "sha256": "afba218a9e1c7dee292f14d6d02427dd7c4be2dfcc0fe3c5a1957b6e08491f16",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "workdocs_default.png": {
+      "icon_name": "workdocs",
+      "variant": "default",
+      "source_script": "aws/workdocs_default.py",
+      "size_bytes": 3635,
+      "sha256": "29931534441c8e15894a8c3043562ddf3e5d985af1f661e36c13bb9687b38c1b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "workdocs_sdk_default.png": {
+      "icon_name": "workdocs_sdk",
+      "variant": "default",
+      "source_script": "aws/workdocs_sdk_default.py",
+      "size_bytes": 3635,
+      "sha256": "29931534441c8e15894a8c3043562ddf3e5d985af1f661e36c13bb9687b38c1b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "workmail_default.png": {
+      "icon_name": "workmail",
+      "variant": "default",
+      "source_script": "aws/workmail_default.py",
+      "size_bytes": 4623,
+      "sha256": "bb32fed711bf20807146cb03c4b401091f39ebeebfaf1da357f4cd16e179284c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "workspaces_default.png": {
+      "icon_name": "workspaces",
+      "variant": "default",
+      "source_script": "aws/workspaces_default.py",
+      "size_bytes": 21722,
+      "sha256": "99d07368f0b3bff174704dc0265b6f5aeec64d4339dcfa554d5a72885dd0390c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "x_ray_default.png": {
+      "icon_name": "x_ray",
+      "variant": "default",
+      "source_script": "aws/x_ray_default.py",
+      "size_bytes": 18487,
+      "sha256": "64da3647ad338da19aa3af39154c7cffbfdd11e993e490fbd1e4a5a69696f62a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    }
+  }
+}

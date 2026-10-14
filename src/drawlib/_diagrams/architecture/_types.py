@@ -19,6 +19,8 @@ from PIL.Image import Image
 
 from drawlib._core.l3_images import Dimage
 from drawlib._diagrams.architecture._icons import (
+    AwsIcon,
+    AzureIcon,
     CustomIcon,
     GcpIcon,
     OriginalAiIcon,
@@ -55,6 +57,8 @@ IconType: TypeAlias = (
     OriginalAiIcon
     | OriginalCloudIcon
     | OriginalDevopsIcon
+    | AwsIcon
+    | AzureIcon
     | GcpIcon
     | PhosphorIcon
     | CustomIcon

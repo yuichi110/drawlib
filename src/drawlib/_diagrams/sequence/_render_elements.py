@@ -27,7 +27,15 @@ from drawlib._diagrams._common import (
 from drawlib._diagrams._common import (
     draw_enum_icon as _common_draw_enum_icon,
 )
-from drawlib._diagrams.architecture._icons import GcpIcon, PhosphorIcon
+from drawlib._diagrams.architecture._icons import (
+    AwsIcon,
+    AzureIcon,
+    GcpIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 from drawlib._diagrams.sequence._block import Block
 from drawlib._diagrams.sequence._group import ParticipantGroup
 from drawlib._diagrams.sequence._layout import estimate_note_size, parse_message_padding
@@ -38,12 +46,12 @@ from drawlib._diagrams.sequence._types import IconType, PaddingType
 
 
 def draw_enum_icon(
-    icon: GcpIcon | PhosphorIcon,
+    icon: OriginalAiIcon | OriginalCloudIcon | OriginalDevopsIcon | AwsIcon | AzureIcon | GcpIcon | PhosphorIcon,
     canvas_xy: tuple[float, float],
     icon_size: float,
     applied_style: Style,
 ) -> None:
-    """Draw a phosphor or GCP icon enum."""
+    """Draw an Original, AWS, Azure, GCP, or Phosphor icon enum."""
     _common_draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=True)
 
 

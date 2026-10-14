@@ -14,6 +14,8 @@ from __future__ import annotations
 import sys
 
 from drawlib._icons import (
+    aws,
+    azure,
     font_icon,
     gcp,
     original_ai,
@@ -24,12 +26,16 @@ from drawlib._icons import (
 
 # Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`, etc.
 sys.modules["drawlib.icons.phosphor"] = phosphor
+sys.modules["drawlib.icons.aws"] = aws
+sys.modules["drawlib.icons.azure"] = azure
 sys.modules["drawlib.icons.gcp"] = gcp
 sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
 sys.modules["drawlib.icons.original_devops"] = original_devops
 
 __all__ = [
+    "aws",
+    "azure",
     "font_icon",
     "gcp",
     "original_ai",

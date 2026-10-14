@@ -12,7 +12,16 @@
 from __future__ import annotations
 
 from drawlib._diagrams.architecture import _icons as icons
-from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib._diagrams.architecture._icons import (
+    AwsIcon,
+    AzureIcon,
+    CustomIcon,
+    GcpIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 from drawlib._diagrams.sequence import (
     Block,
     Message,
@@ -23,11 +32,16 @@ from drawlib._diagrams.sequence import (
 )
 
 __all__ = [
+    "AwsIcon",
+    "AzureIcon",
     "Block",
     "CustomIcon",
     "GcpIcon",
     "Message",
     "Note",
+    "OriginalAiIcon",
+    "OriginalCloudIcon",
+    "OriginalDevopsIcon",
     "Participant",
     "ParticipantGroup",
     "PhosphorIcon",

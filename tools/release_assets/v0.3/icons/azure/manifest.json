@@ -1,0 +1,3304 @@
+{
+  "format_version": "2.0",
+  "provider": "azure",
+  "created_at": "2026-10-14T16:43:38.976353+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 250,
+  "aliases": {
+    "aad": "entra_id",
+    "aca": "worker_container_app",
+    "aci": "container_instances",
+    "acr": "container_registries",
+    "active_directory": "entra_id",
+    "adf": "data_factories",
+    "ai_search": "cognitive_search",
+    "aks": "kubernetes_services",
+    "api_management": "api_management_services",
+    "apim": "api_management_services",
+    "app_insights": "application_insights",
+    "appgw": "application_gateways",
+    "application_gateway": "application_gateways",
+    "avd": "virtual_desktop",
+    "azure_files": "storage_azure_files",
+    "bastion": "bastions",
+    "blob_storage": "storage_container",
+    "cdn": "front_door_and_cdn_profiles",
+    "container_apps": "worker_container_app",
+    "data_factory": "data_factories",
+    "event_grid": "event_grid_topics",
+    "expressroute": "expressroute_circuits",
+    "front_door": "front_door_and_cdn_profiles",
+    "functions": "function_apps",
+    "key_vault": "key_vaults",
+    "kv": "key_vaults",
+    "lb": "load_balancers",
+    "log_analytics": "log_analytics_workspaces",
+    "nat_gateway": "nat",
+    "redis": "cache_redis",
+    "synapse": "synapse_analytics",
+    "virtual_machines": "virtual_machine",
+    "vm": "virtual_machine",
+    "vmss": "vm_scale_sets",
+    "vnet": "virtual_networks",
+    "waf": "web_application_firewall_policies_waf"
+  },
+  "files": {
+    "access_point_default.png": {
+      "icon_name": "access_point",
+      "variant": "default",
+      "source_script": "azure/access_point_default.py",
+      "size_bytes": 25880,
+      "sha256": "83451903ec78fbf3ed84ded3337fe7305d12deabc90f462e8c4d86b7ff3d7893",
+      "bbox": [
+        26,
+        31,
+        486,
+        481
+      ]
+    },
+    "activity_log_default.png": {
+      "icon_name": "activity_log",
+      "variant": "default",
+      "source_script": "azure/activity_log_default.py",
+      "size_bytes": 5723,
+      "sha256": "20caa6b6b68a66d0e6b09a661a4f45d8970a06286ccb9f46b6cb61a8b5826507",
+      "bbox": [
+        64,
+        26,
+        447,
+        486
+      ]
+    },
+    "ad_b2c_default.png": {
+      "icon_name": "ad_b2c",
+      "variant": "default",
+      "source_script": "azure/ad_b2c_default.py",
+      "size_bytes": 25207,
+      "sha256": "9773c8e09f3a2496c366d294e0133453ca9c4312b4e015044e79ee06b7a4776d",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
+    "advisor_default.png": {
+      "icon_name": "advisor",
+      "variant": "default",
+      "source_script": "azure/advisor_default.py",
+      "size_bytes": 21845,
+      "sha256": "86accff3241ed887d48653a56791d1f29d053ece43ae74fd458028da64b76a18",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "agentic_web_apps_default.png": {
+      "icon_name": "agentic_web_apps",
+      "variant": "default",
+      "source_script": "azure/agentic_web_apps_default.py",
+      "size_bytes": 24169,
+      "sha256": "18c0b0c92374895cb2ba0b12d0a7b181830759086b9a328d0d456fae79cbaec8",
+      "bbox": [
+        26,
+        56,
+        486,
+        455
+      ]
+    },
+    "ai_at_edge_default.png": {
+      "icon_name": "ai_at_edge",
+      "variant": "default",
+      "source_script": "azure/ai_at_edge_default.py",
+      "size_bytes": 20330,
+      "sha256": "4ac6b58d9c6ee84c70515e9b42abc80a2fe655d389e4759b0a828af56dc6b408",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "ai_foundry_default.png": {
+      "icon_name": "ai_foundry",
+      "variant": "default",
+      "source_script": "azure/ai_foundry_default.py",
+      "size_bytes": 11780,
+      "sha256": "3e60747389aa3054b490279faa0197bbb6b39971c709cc1ce4c92756c4892764",
+      "bbox": [
+        40,
+        26,
+        471,
+        486
+      ]
+    },
+    "ai_foundry_iq_default.png": {
+      "icon_name": "ai_foundry_iq",
+      "variant": "default",
+      "source_script": "azure/ai_foundry_iq_default.py",
+      "size_bytes": 15935,
+      "sha256": "f10926685e538e2817e6901340b99362c75ccd34d334e7704f98973167fab54e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ai_gateway_default.png": {
+      "icon_name": "ai_gateway",
+      "variant": "default",
+      "source_script": "azure/ai_gateway_default.py",
+      "size_bytes": 15606,
+      "sha256": "83d3b326620bd8d9f0af4d400876c94b34b87f3e9052a99de05bed390417ed01",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ai_studio_default.png": {
+      "icon_name": "ai_studio",
+      "variant": "default",
+      "source_script": "azure/ai_studio_default.py",
+      "size_bytes": 11308,
+      "sha256": "d43c33212b7499e99c7ede0ce3c58cf19058cebafbafe52ab3536af630779c48",
+      "bbox": [
+        42,
+        26,
+        469,
+        486
+      ]
+    },
+    "aks_automatic_default.png": {
+      "icon_name": "aks_automatic",
+      "variant": "default",
+      "source_script": "azure/aks_automatic_default.py",
+      "size_bytes": 25358,
+      "sha256": "364b4c624c084cfb267619d6cd24e88b71a81c6b33ae0f94e8bd160ecb6873d8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "alerts_default.png": {
+      "icon_name": "alerts",
+      "variant": "default",
+      "source_script": "azure/alerts_default.py",
+      "size_bytes": 6068,
+      "sha256": "429538586b9dd015327261859ed4ff1e8cc0a91b3b2948df3bcb11b3f529771e",
+      "bbox": [
+        26,
+        64,
+        486,
+        448
+      ]
+    },
+    "analysis_services_default.png": {
+      "icon_name": "analysis_services",
+      "variant": "default",
+      "source_script": "azure/analysis_services_default.py",
+      "size_bytes": 16010,
+      "sha256": "cba3bbc537efaecbbc97f7982071a26bd71028ab2a53c5172bff7f07c5f0edf6",
+      "bbox": [
+        26,
+        80,
+        486,
+        431
+      ]
+    },
+    "anomaly_detector_default.png": {
+      "icon_name": "anomaly_detector",
+      "variant": "default",
+      "source_script": "azure/anomaly_detector_default.py",
+      "size_bytes": 27761,
+      "sha256": "4a71a443804c24ee657a200da49b3d0a56ee315caa64cbd1641ecee622f92a0e",
+      "bbox": [
+        26,
+        40,
+        486,
+        472
+      ]
+    },
+    "api_center_default.png": {
+      "icon_name": "api_center",
+      "variant": "default",
+      "source_script": "azure/api_center_default.py",
+      "size_bytes": 21166,
+      "sha256": "3af64b031ffda8c643c332f2217f870d0b69d42888ba0b0583c41107503a78ea",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "api_for_fhir_default.png": {
+      "icon_name": "api_for_fhir",
+      "variant": "default",
+      "source_script": "azure/api_for_fhir_default.py",
+      "size_bytes": 25739,
+      "sha256": "fef92fac67d8e431ca418d064f73481d437a079bc3f5171a8197eca93e0679bd",
+      "bbox": [
+        26,
+        37,
+        486,
+        474
+      ]
+    },
+    "api_management_services_default.png": {
+      "icon_name": "api_management_services",
+      "variant": "default",
+      "source_script": "azure/api_management_services_default.py",
+      "size_bytes": 21516,
+      "sha256": "ea394ad0d1be2000b9fa04474234a4115d0e64d931f88f3eeea22d80dffae5c1",
+      "bbox": [
+        26,
+        44,
+        486,
+        467
+      ]
+    },
+    "api_proxy_default.png": {
+      "icon_name": "api_proxy",
+      "variant": "default",
+      "source_script": "azure/api_proxy_default.py",
+      "size_bytes": 16931,
+      "sha256": "c33729c50d4f2701472acc0389f7d53dfe3724c39db1ae8d991faec2d2be0dfb",
+      "bbox": [
+        26,
+        128,
+        486,
+        383
+      ]
+    },
+    "app_configuration_default.png": {
+      "icon_name": "app_configuration",
+      "variant": "default",
+      "source_script": "azure/app_configuration_default.py",
+      "size_bytes": 20632,
+      "sha256": "759e9fe3ae24a7c85ad7cc2f8ed0da495286aa9d32c0e8a4295d11f4dd814daa",
+      "bbox": [
+        42,
+        26,
+        469,
+        486
+      ]
+    },
+    "app_registrations_default.png": {
+      "icon_name": "app_registrations",
+      "variant": "default",
+      "source_script": "azure/app_registrations_default.py",
+      "size_bytes": 13049,
+      "sha256": "472bbc6a3fa83012728f841cefd13514265ca8103813be9a669a6ca099a48646",
+      "bbox": [
+        28,
+        26,
+        483,
+        486
+      ]
+    },
+    "app_service_environments_default.png": {
+      "icon_name": "app_service_environments",
+      "variant": "default",
+      "source_script": "azure/app_service_environments_default.py",
+      "size_bytes": 9742,
+      "sha256": "d88d0859d629dba00d0404043ec97a822660d4e000cefd8f9907a8b6dbe87ce6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "app_services_default.png": {
+      "icon_name": "app_services",
+      "variant": "default",
+      "source_script": "azure/app_services_default.py",
+      "size_bytes": 30347,
+      "sha256": "a83951677ae06e340be0ab1ac6c9b78f8a6921a5f07d125bae078f00c4448384",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "app_testing_default.png": {
+      "icon_name": "app_testing",
+      "variant": "default",
+      "source_script": "azure/app_testing_default.py",
+      "size_bytes": 23721,
+      "sha256": "8cfc4621aedccce2b7dc98b6b5afa6caef7a10dc3ba727e8d2d161a6abb2cbc3",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "application_gateway_containers_default.png": {
+      "icon_name": "application_gateway_containers",
+      "variant": "default",
+      "source_script": "azure/application_gateway_containers_default.py",
+      "size_bytes": 21324,
+      "sha256": "781e0aba7e9c782e053d0e4d93699110072b6c3a15cc17f867ef977d505aadf7",
+      "bbox": [
+        26,
+        39,
+        486,
+        472
+      ]
+    },
+    "application_gateways_default.png": {
+      "icon_name": "application_gateways",
+      "variant": "default",
+      "source_script": "azure/application_gateways_default.py",
+      "size_bytes": 21031,
+      "sha256": "a4259248d92305b86e04df9f05cdd1b512c0ff5e4e36f16b0946f9f558a9123c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "application_insights_default.png": {
+      "icon_name": "application_insights",
+      "variant": "default",
+      "source_script": "azure/application_insights_default.py",
+      "size_bytes": 14655,
+      "sha256": "b6cf2c54eecca319fbdc2c11fcf32dc7b4ccd47d1d611564808dd37ae67e8cb5",
+      "bbox": [
+        96,
+        26,
+        416,
+        486
+      ]
+    },
+    "application_security_groups_default.png": {
+      "icon_name": "application_security_groups",
+      "variant": "default",
+      "source_script": "azure/application_security_groups_default.py",
+      "size_bytes": 14819,
+      "sha256": "d537464585db8586eefa3b3127b2c81b592c5c8f908ee1d9f9152a1a34c4c6ba",
+      "bbox": [
+        66,
+        26,
+        445,
+        486
+      ]
+    },
+    "applied_ai_services_default.png": {
+      "icon_name": "applied_ai_services",
+      "variant": "default",
+      "source_script": "azure/applied_ai_services_default.py",
+      "size_bytes": 18013,
+      "sha256": "c5b7071853aa8de4f0d3109e2dac3808029a04106474b91edc9a29ca3162bb63",
+      "bbox": [
+        26,
+        77,
+        486,
+        434
+      ]
+    },
+    "arc_default.png": {
+      "icon_name": "arc",
+      "variant": "default",
+      "source_script": "azure/arc_default.py",
+      "size_bytes": 17549,
+      "sha256": "5eb946fbeddf82987e22de901d1d5af6c4b3177b62b86c29adf93b4099050514",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "arc_kubernetes_default.png": {
+      "icon_name": "arc_kubernetes",
+      "variant": "default",
+      "source_script": "azure/arc_kubernetes_default.py",
+      "size_bytes": 24965,
+      "sha256": "d4f1f72b717a3c181ba43101374e9c2876e022bc1ce484f315bedbab7c9e5188",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "arc_machines_default.png": {
+      "icon_name": "arc_machines",
+      "variant": "default",
+      "source_script": "azure/arc_machines_default.py",
+      "size_bytes": 13876,
+      "sha256": "9dceb27796e34a2a1ed2436f8823867c361a251136fc6f753b13aac9c63e2627",
+      "bbox": [
+        37,
+        26,
+        475,
+        486
+      ]
+    },
+    "auto_scale_default.png": {
+      "icon_name": "auto_scale",
+      "variant": "default",
+      "source_script": "azure/auto_scale_default.py",
+      "size_bytes": 7762,
+      "sha256": "f790aa0ec003af964c10b4c823d50843430a68b85c185b5473662f3b1c575850",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "automation_accounts_default.png": {
+      "icon_name": "automation_accounts",
+      "variant": "default",
+      "source_script": "azure/automation_accounts_default.py",
+      "size_bytes": 22370,
+      "sha256": "c57a165f7392c7bb5edcc2d7193401f014ea31b4f83fd4e7d7530cf2c8b9262a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "availability_sets_default.png": {
+      "icon_name": "availability_sets",
+      "variant": "default",
+      "source_script": "azure/availability_sets_default.py",
+      "size_bytes": 8911,
+      "sha256": "3246c9b4349259458679fb8bc010238da7251589c72402c3e8bba0eb9cc1cffd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "azureattestation_default.png": {
+      "icon_name": "azureattestation",
+      "variant": "default",
+      "source_script": "azure/azureattestation_default.py",
+      "size_bytes": 13006,
+      "sha256": "55f66cf81a7dfb61d13bfc55e6a8763eb6f14fe18a7ede385783e87353067d5f",
+      "bbox": [
+        68,
+        26,
+        444,
+        486
+      ]
+    },
+    "backup_center_default.png": {
+      "icon_name": "backup_center",
+      "variant": "default",
+      "source_script": "azure/backup_center_default.py",
+      "size_bytes": 20099,
+      "sha256": "4aaa8307ae01a3bd4ba10fc40f968a656931a326dbf75e5731a646ef882864f5",
+      "bbox": [
+        26,
+        46,
+        486,
+        466
+      ]
+    },
+    "backup_vault_default.png": {
+      "icon_name": "backup_vault",
+      "variant": "default",
+      "source_script": "azure/backup_vault_default.py",
+      "size_bytes": 18359,
+      "sha256": "013fe3bb5f891140111c65cb7bf450b77f6dc3029fabdbd7300c92d4eb0c0178",
+      "bbox": [
+        26,
+        60,
+        486,
+        452
+      ]
+    },
+    "bastions_default.png": {
+      "icon_name": "bastions",
+      "variant": "default",
+      "source_script": "azure/bastions_default.py",
+      "size_bytes": 17182,
+      "sha256": "9f429901a45b6169e27953671f810016bdf1fe1d0460571902310bffdc8da364",
+      "bbox": [
+        58,
+        26,
+        454,
+        486
+      ]
+    },
+    "batch_accounts_default.png": {
+      "icon_name": "batch_accounts",
+      "variant": "default",
+      "source_script": "azure/batch_accounts_default.py",
+      "size_bytes": 8478,
+      "sha256": "d26b174fd4e332dc6c2179b5c812d23313be95c1d60511b1ae3590adf42d9774",
+      "bbox": [
+        26,
+        38,
+        486,
+        474
+      ]
+    },
+    "batch_ai_default.png": {
+      "icon_name": "batch_ai",
+      "variant": "default",
+      "source_script": "azure/batch_ai_default.py",
+      "size_bytes": 20228,
+      "sha256": "412de04add7de6ffea3a7d21293da82368c3de0fa69232f7361a10bd7f74d9ca",
+      "bbox": [
+        97,
+        26,
+        414,
+        486
+      ]
+    },
+    "blockchain_applications_default.png": {
+      "icon_name": "blockchain_applications",
+      "variant": "default",
+      "source_script": "azure/blockchain_applications_default.py",
+      "size_bytes": 14757,
+      "sha256": "5ad08b9c3a0879914bab2f36e84159eb456133a2ee088b90d01acf50abd8ec4c",
+      "bbox": [
+        91,
+        26,
+        420,
+        486
+      ]
+    },
+    "blockchain_service_default.png": {
+      "icon_name": "blockchain_service",
+      "variant": "default",
+      "source_script": "azure/blockchain_service_default.py",
+      "size_bytes": 27320,
+      "sha256": "9aaa1cf9db0ab6e3194cbee72f7d77cc768590342ab15bdb34e988a32d2812e2",
+      "bbox": [
+        26,
+        28,
+        486,
+        484
+      ]
+    },
+    "blueprints_default.png": {
+      "icon_name": "blueprints",
+      "variant": "default",
+      "source_script": "azure/blueprints_default.py",
+      "size_bytes": 13532,
+      "sha256": "260612a636f2aa5caaff2bbf043769674ceba6adce54cddc4cd8e1715d1c4896",
+      "bbox": [
+        26,
+        30,
+        486,
+        482
+      ]
+    },
+    "bonsai_default.png": {
+      "icon_name": "bonsai",
+      "variant": "default",
+      "source_script": "azure/bonsai_default.py",
+      "size_bytes": 25051,
+      "sha256": "975f3b3e54b97c2f11f8d4d875ace6f2966d543640c376cfe7a40129df093b65",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
+      ]
+    },
+    "bot_services_default.png": {
+      "icon_name": "bot_services",
+      "variant": "default",
+      "source_script": "azure/bot_services_default.py",
+      "size_bytes": 21055,
+      "sha256": "5cecce3204eb36d94c51140b4bc0448fc9a04ce48c63556a4215e754fcb52721",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cache_redis_default.png": {
+      "icon_name": "cache_redis",
+      "variant": "default",
+      "source_script": "azure/cache_redis_default.py",
+      "size_bytes": 18729,
+      "sha256": "a22734c1b458cd7226302a01fb9f3037fe16c023b300608fcb8fdab5de115ab7",
+      "bbox": [
+        26,
+        68,
+        486,
+        443
+      ]
+    },
+    "cdn_profiles_default.png": {
+      "icon_name": "cdn_profiles",
+      "variant": "default",
+      "source_script": "azure/cdn_profiles_default.py",
+      "size_bytes": 8976,
+      "sha256": "eb93a12a653eec4ed99cfe8d6106a53977354f2f63c7b0e2e35852129bbae233",
+      "bbox": [
+        26,
+        122,
+        486,
+        390
+      ]
+    },
+    "chaos_studio_default.png": {
+      "icon_name": "chaos_studio",
+      "variant": "default",
+      "source_script": "azure/chaos_studio_default.py",
+      "size_bytes": 6520,
+      "sha256": "81f07ae184b3d45b989734f973c852ac9bf0bcaaff0df693ff60e2d37e096511",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_shell_default.png": {
+      "icon_name": "cloud_shell",
+      "variant": "default",
+      "source_script": "azure/cloud_shell_default.py",
+      "size_bytes": 8472,
+      "sha256": "e47c8facfd34daeb1b9e9ead1a695b306b8169e39c6388e2de911b92cd1e4c05",
+      "bbox": [
+        26,
+        95,
+        486,
+        416
+      ]
+    },
+    "cognitive_search_default.png": {
+      "icon_name": "cognitive_search",
+      "variant": "default",
+      "source_script": "azure/cognitive_search_default.py",
+      "size_bytes": 16154,
+      "sha256": "634d323c0ac7c9fd9bfcb371a2ef157b1e9a6e8630508b0b76ffd6e1b125480d",
+      "bbox": [
+        26,
+        88,
+        486,
+        423
+      ]
+    },
+    "cognitive_services_default.png": {
+      "icon_name": "cognitive_services",
+      "variant": "default",
+      "source_script": "azure/cognitive_services_default.py",
+      "size_bytes": 18482,
+      "sha256": "8c657b90895fa6c092bd6f2cf38ea2a3477df10148d7693b0ac27ecb9a3b5ecf",
+      "bbox": [
+        26,
+        92,
+        486,
+        419
+      ]
+    },
+    "communication_services_default.png": {
+      "icon_name": "communication_services",
+      "variant": "default",
+      "source_script": "azure/communication_services_default.py",
+      "size_bytes": 13543,
+      "sha256": "736ed788ea0b475d382b280d3e272b19bcc986e7a7c0c6f3ccea0c5a1f798378",
+      "bbox": [
+        26,
+        89,
+        486,
+        423
+      ]
+    },
+    "communications_gateway_default.png": {
+      "icon_name": "communications_gateway",
+      "variant": "default",
+      "source_script": "azure/communications_gateway_default.py",
+      "size_bytes": 25072,
+      "sha256": "a3a134720554f451f87b74d5f7f79546fa9ee784743c42103aba10fbf14e0e32",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "compliance_default.png": {
+      "icon_name": "compliance",
+      "variant": "default",
+      "source_script": "azure/compliance_default.py",
+      "size_bytes": 11766,
+      "sha256": "2445d69327250cf928d5c1ed34c45239b766db8231688f128144974f6a7e1085",
+      "bbox": [
+        68,
+        26,
+        443,
+        486
+      ]
+    },
+    "compute_fleet_default.png": {
+      "icon_name": "compute_fleet",
+      "variant": "default",
+      "source_script": "azure/compute_fleet_default.py",
+      "size_bytes": 36275,
+      "sha256": "8dfdf9e903d3d239929a3a2565b6a0f7088c8ac9e7a04a94dfc694853bacbd36",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "compute_galleries_default.png": {
+      "icon_name": "compute_galleries",
+      "variant": "default",
+      "source_script": "azure/compute_galleries_default.py",
+      "size_bytes": 10757,
+      "sha256": "e88198933cb79ff1bfad3824834b0afd303ebac6f3d2afafd5e9adecb7bbe82a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "computer_vision_default.png": {
+      "icon_name": "computer_vision",
+      "variant": "default",
+      "source_script": "azure/computer_vision_default.py",
+      "size_bytes": 24071,
+      "sha256": "7dd3e4d3f2c13d6a4964134a77ce5bf56d33c8b814c0446d5df78fe9d348a8f3",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "conditional_access_default.png": {
+      "icon_name": "conditional_access",
+      "variant": "default",
+      "source_script": "azure/conditional_access_default.py",
+      "size_bytes": 13819,
+      "sha256": "be69c50bd55f5485673d53e251357ba52ab6faae5d2ce9406fa3a5b889806ee5",
+      "bbox": [
+        64,
+        26,
+        447,
+        486
+      ]
+    },
+    "container_apps_environments_default.png": {
+      "icon_name": "container_apps_environments",
+      "variant": "default",
+      "source_script": "azure/container_apps_environments_default.py",
+      "size_bytes": 9745,
+      "sha256": "1eef60538b9bc0106cfcad27c20123e5c2463ab97d25a3e582b0bb3611fd6e86",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "container_instances_default.png": {
+      "icon_name": "container_instances",
+      "variant": "default",
+      "source_script": "azure/container_instances_default.py",
+      "size_bytes": 14219,
+      "sha256": "a746510237830f8b0bc8e0e3d54022741f7cd6bf20ea1580a7c8650ed8b768e5",
+      "bbox": [
+        40,
+        26,
+        472,
+        486
+      ]
+    },
+    "container_registries_default.png": {
+      "icon_name": "container_registries",
+      "variant": "default",
+      "source_script": "azure/container_registries_default.py",
+      "size_bytes": 20526,
+      "sha256": "48eb534ac4d374cc4d4aabaaecef2006e819f12c000ff5541702e3fb324dc757",
+      "bbox": [
+        26,
+        50,
+        486,
+        462
+      ]
+    },
+    "container_storage_default.png": {
+      "icon_name": "container_storage",
+      "variant": "default",
+      "source_script": "azure/container_storage_default.py",
+      "size_bytes": 26438,
+      "sha256": "8f8cf87498a2b29aa190fe45dbcf14ae0cb1b43f75686fc12a4ad0806c89b727",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "content_moderators_default.png": {
+      "icon_name": "content_moderators",
+      "variant": "default",
+      "source_script": "azure/content_moderators_default.py",
+      "size_bytes": 10056,
+      "sha256": "471f16929a3b0faaad397f57ef5680c9ae6ae77a6fd011954e14df4315cab437",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "content_safety_default.png": {
+      "icon_name": "content_safety",
+      "variant": "default",
+      "source_script": "azure/content_safety_default.py",
+      "size_bytes": 16314,
+      "sha256": "4a07e51f12fa78a1fabd5c3dfc3c8f3a57cc939e0141cf5311ddb32ae5cedf23",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cosmos_db_default.png": {
+      "icon_name": "cosmos_db",
+      "variant": "default",
+      "source_script": "azure/cosmos_db_default.py",
+      "size_bytes": 26053,
+      "sha256": "f7e4a621d75968eaf6762ba33e99d379340112b7015b3b324e543ca9619a27c3",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "cost_management_and_billing_default.png": {
+      "icon_name": "cost_management_and_billing",
+      "variant": "default",
+      "source_script": "azure/cost_management_and_billing_default.py",
+      "size_bytes": 22345,
+      "sha256": "646dfe8d584066bc10f18ea3736193fc50d4112547d85090a4e410ebb8ad1c3d",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "custom_vision_default.png": {
+      "icon_name": "custom_vision",
+      "variant": "default",
+      "source_script": "azure/custom_vision_default.py",
+      "size_bytes": 30534,
+      "sha256": "0f8012ea072324a7127007b08b8586e428ed691cd8d6758d09d72277e420b809",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "data_box_default.png": {
+      "icon_name": "data_box",
+      "variant": "default",
+      "source_script": "azure/data_box_default.py",
+      "size_bytes": 12717,
+      "sha256": "841499cf35d3a85bf9b6dc980aeea68afea20f81dbe988990047dad8776ff3ac",
+      "bbox": [
+        26,
+        36,
+        486,
+        476
+      ]
+    },
+    "data_catalog_default.png": {
+      "icon_name": "data_catalog",
+      "variant": "default",
+      "source_script": "azure/data_catalog_default.py",
+      "size_bytes": 10340,
+      "sha256": "442abdc0b820289ee780bb530b00747d6ad482078e92e4072f5c34f932b38d09",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    },
+    "data_explorer_clusters_default.png": {
+      "icon_name": "data_explorer_clusters",
+      "variant": "default",
+      "source_script": "azure/data_explorer_clusters_default.py",
+      "size_bytes": 13698,
+      "sha256": "51c6d6c3f8d72bce941aaef3f7e36d037493e2cd60b4c261d0b7d87e1056183d",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "data_factories_default.png": {
+      "icon_name": "data_factories",
+      "variant": "default",
+      "source_script": "azure/data_factories_default.py",
+      "size_bytes": 10951,
+      "sha256": "fb6edeb621e1b423776ab9f68910ac6d0c98620e4c37982b26875408057a80f0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "data_lake_analytics_default.png": {
+      "icon_name": "data_lake_analytics",
+      "variant": "default",
+      "source_script": "azure/data_lake_analytics_default.py",
+      "size_bytes": 13205,
+      "sha256": "ef3e3dd552e2d3f728f1a2299a3d15106fdfe0d27addbdea261bdf7ec44cb2f3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "data_shares_default.png": {
+      "icon_name": "data_shares",
+      "variant": "default",
+      "source_script": "azure/data_shares_default.py",
+      "size_bytes": 20775,
+      "sha256": "bb38a712358f56d900d809403d94aceb5c924bd99fe44d79d2a5aa2f77876d74",
+      "bbox": [
+        26,
+        60,
+        486,
+        452
+      ]
+    },
+    "data_sharing_default.png": {
+      "icon_name": "data_sharing",
+      "variant": "default",
+      "source_script": "azure/data_sharing_default.py",
+      "size_bytes": 9018,
+      "sha256": "42ca751667d33928960fd5d9f319d41362e80599b6129a5924ddf1e0a40ceef6",
+      "bbox": [
+        26,
+        95,
+        486,
+        417
+      ]
+    },
+    "data_transfer_default.png": {
+      "icon_name": "data_transfer",
+      "variant": "default",
+      "source_script": "azure/data_transfer_default.py",
+      "size_bytes": 17383,
+      "sha256": "2743a5ad1cd80a8e81166414edf8f42f9a4665093d25c92eb1c0cf3b16292b37",
+      "bbox": [
+        26,
+        61,
+        486,
+        450
+      ]
+    },
+    "database_mariadb_server_default.png": {
+      "icon_name": "database_mariadb_server",
+      "variant": "default",
+      "source_script": "azure/database_mariadb_server_default.py",
+      "size_bytes": 19785,
+      "sha256": "8c66bcc9be5bae6f47554183bb29c9c008966670d0ab2c27f77550c1e1dba76f",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "database_migration_services_default.png": {
+      "icon_name": "database_migration_services",
+      "variant": "default",
+      "source_script": "azure/database_migration_services_default.py",
+      "size_bytes": 16532,
+      "sha256": "5f5cd57c8f3d4bcff9404af993850da85d3f9b1e897200720204dadd8409e445",
+      "bbox": [
+        42,
+        26,
+        469,
+        486
+      ]
+    },
+    "database_mysql_server_default.png": {
+      "icon_name": "database_mysql_server",
+      "variant": "default",
+      "source_script": "azure/database_mysql_server_default.py",
+      "size_bytes": 16428,
+      "sha256": "a5948dd9be26d905f2cf31385fa3b85ed63647877fd854b28af8af6b036f8fe4",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "database_postgresql_server_default.png": {
+      "icon_name": "database_postgresql_server",
+      "variant": "default",
+      "source_script": "azure/database_postgresql_server_default.py",
+      "size_bytes": 25819,
+      "sha256": "e73120cb4cf4728c5c39a814c4943e7fcba7b24efb9fca0e54bf80f63b1ca8a1",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "databox_gateway_default.png": {
+      "icon_name": "databox_gateway",
+      "variant": "default",
+      "source_script": "azure/databox_gateway_default.py",
+      "size_bytes": 11318,
+      "sha256": "d35b41fdd10e660f1464293449c4cd27b2a6e1cf21e00a7508a0757bdc97174c",
+      "bbox": [
+        26,
+        93,
+        486,
+        419
+      ]
+    },
+    "databricks_default.png": {
+      "icon_name": "databricks",
+      "variant": "default",
+      "source_script": "azure/databricks_default.py",
+      "size_bytes": 30018,
+      "sha256": "ac8db62e04755295dc173515011c451ace5fb7fc2b5b9c434ba13c890146c9da",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "ddos_custom_policy_default.png": {
+      "icon_name": "ddos_custom_policy",
+      "variant": "default",
+      "source_script": "azure/ddos_custom_policy_default.py",
+      "size_bytes": 19892,
+      "sha256": "6b53a5bac7e0f1dd2bc3217763868bf1d11adff43ee7b87989638c27b4cf880f",
+      "bbox": [
+        26,
+        34,
+        486,
+        478
+      ]
+    },
+    "ddos_protection_plans_default.png": {
+      "icon_name": "ddos_protection_plans",
+      "variant": "default",
+      "source_script": "azure/ddos_protection_plans_default.py",
+      "size_bytes": 17304,
+      "sha256": "f5513760b62aa9159dc4758c6486f9ed9a443320b94d29eb358f72e300e16f7f",
+      "bbox": [
+        68,
+        26,
+        444,
+        486
+      ]
+    },
+    "defender_easm_default.png": {
+      "icon_name": "defender_easm",
+      "variant": "default",
+      "source_script": "azure/defender_easm_default.py",
+      "size_bytes": 15963,
+      "sha256": "7ca14d893a420e623b79d81d7b988abea04cbb47a4595e132f17de3c08e6bdbf",
+      "bbox": [
+        68,
+        26,
+        443,
+        486
+      ]
+    },
+    "defender_for_cloud_default.png": {
+      "icon_name": "defender_for_cloud",
+      "variant": "default",
+      "source_script": "azure/defender_for_cloud_default.py",
+      "size_bytes": 18894,
+      "sha256": "74a0014dfde893b8c58303c781c5c1d69a41f202239b2ba692939afae97ce9cb",
+      "bbox": [
+        64,
+        26,
+        447,
+        486
+      ]
+    },
+    "defender_for_iot_default.png": {
+      "icon_name": "defender_for_iot",
+      "variant": "default",
+      "source_script": "azure/defender_for_iot_default.py",
+      "size_bytes": 15619,
+      "sha256": "6590ff15ccecf70881da94d2cad5db6ae4a1c0d93ebb61ee09fb41ec945c9760",
+      "bbox": [
+        67,
+        26,
+        444,
+        486
+      ]
+    },
+    "deployment_environments_default.png": {
+      "icon_name": "deployment_environments",
+      "variant": "default",
+      "source_script": "azure/deployment_environments_default.py",
+      "size_bytes": 13596,
+      "sha256": "03534c258514025182e43b434ccc83aa24d80e81b9f1b64ff9cce8da1193a48d",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "device_provisioning_services_default.png": {
+      "icon_name": "device_provisioning_services",
+      "variant": "default",
+      "source_script": "azure/device_provisioning_services_default.py",
+      "size_bytes": 32082,
+      "sha256": "db97205bb72c9112ae18d6fa3df6ad0e5ac142ca1ab5b0458afd10fdcf61321d",
+      "bbox": [
+        33,
+        26,
+        478,
+        486
+      ]
+    },
+    "devops_default.png": {
+      "icon_name": "devops",
+      "variant": "default",
+      "source_script": "azure/devops_default.py",
+      "size_bytes": 11803,
+      "sha256": "2307955d4911f705b7a36accca6ea3cbf0b34d337874eaf786eb50e2730f06b3",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "devops_starter_default.png": {
+      "icon_name": "devops_starter",
+      "variant": "default",
+      "source_script": "azure/devops_starter_default.py",
+      "size_bytes": 32461,
+      "sha256": "8171be82523d3b3bb2b432e78803c1196126682af5c3ae8aff7217b7c4e2cbef",
+      "bbox": [
+        26,
+        40,
+        486,
+        472
+      ]
+    },
+    "devtest_labs_default.png": {
+      "icon_name": "devtest_labs",
+      "variant": "default",
+      "source_script": "azure/devtest_labs_default.py",
+      "size_bytes": 15096,
+      "sha256": "6b1b78b251ce66d673653530fbb2068faacefff84c72527075a7d886e835ad6a",
+      "bbox": [
+        26,
+        34,
+        486,
+        477
+      ]
+    },
+    "diagnostics_settings_default.png": {
+      "icon_name": "diagnostics_settings",
+      "variant": "default",
+      "source_script": "azure/diagnostics_settings_default.py",
+      "size_bytes": 11068,
+      "sha256": "d7f6e76cbe8fa7ce864764036069c738a6720a9040326ca3d0f112075caa273e",
+      "bbox": [
+        64,
+        26,
+        447,
+        486
+      ]
+    },
+    "digital_twins_default.png": {
+      "icon_name": "digital_twins",
+      "variant": "default",
+      "source_script": "azure/digital_twins_default.py",
+      "size_bytes": 19924,
+      "sha256": "a95d266d8cdc145fab460d3c832411b46a552bc746aec666027194d093c9a5d5",
+      "bbox": [
+        28,
+        26,
+        483,
+        486
+      ]
+    },
+    "disks_default.png": {
+      "icon_name": "disks",
+      "variant": "default",
+      "source_script": "azure/disks_default.py",
+      "size_bytes": 16561,
+      "sha256": "4ce6d1186ed0fdf5ffdfdb970c9209d30624e04a74955b3eff4ea7da9af9d8d3",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "disks_snapshots_default.png": {
+      "icon_name": "disks_snapshots",
+      "variant": "default",
+      "source_script": "azure/disks_snapshots_default.py",
+      "size_bytes": 14948,
+      "sha256": "4933d8f895f067cbee105d518d7699311717634a74608640ac0ef8af891a52eb",
+      "bbox": [
+        34,
+        26,
+        477,
+        486
+      ]
+    },
+    "dns_private_resolver_default.png": {
+      "icon_name": "dns_private_resolver",
+      "variant": "default",
+      "source_script": "azure/dns_private_resolver_default.py",
+      "size_bytes": 42595,
+      "sha256": "bb179267514e4746d00b24288f1fc1e580afcfc69bb83fbf02fe0f4f000d68ff",
+      "bbox": [
+        26,
+        53,
+        486,
+        458
+      ]
+    },
+    "dns_zones_default.png": {
+      "icon_name": "dns_zones",
+      "variant": "default",
+      "source_script": "azure/dns_zones_default.py",
+      "size_bytes": 19420,
+      "sha256": "b900f2a43a48176e0970a56f4495d5ef42e2d6d8456dbf5ec64a25b4ca527246",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "documentdb_default.png": {
+      "icon_name": "documentdb",
+      "variant": "default",
+      "source_script": "azure/documentdb_default.py",
+      "size_bytes": 16706,
+      "sha256": "d3c368533a09aa93b003fb1be9310ec92078f6ddcaa0fbd9294b6a9c0f7e769f",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "edge_storage_accelerator_default.png": {
+      "icon_name": "edge_storage_accelerator",
+      "variant": "default",
+      "source_script": "azure/edge_storage_accelerator_default.py",
+      "size_bytes": 23689,
+      "sha256": "526b710208072d8b6f9ea4c1771ce6062f6238d570010c2280ec54743f3ac425",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "endpoint_analytics_default.png": {
+      "icon_name": "endpoint_analytics",
+      "variant": "default",
+      "source_script": "azure/endpoint_analytics_default.py",
+      "size_bytes": 14374,
+      "sha256": "e95d89b45bd2d427855e4c1e7b53a256f7ff738cf95fbabcbd6bbba40116bdbb",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "enterprise_applications_default.png": {
+      "icon_name": "enterprise_applications",
+      "variant": "default",
+      "source_script": "azure/enterprise_applications_default.py",
+      "size_bytes": 17832,
+      "sha256": "5a32ecafdfd21f4bb86ee276991aac004b3db1e9ed3a74a4c7c89e6df454ffb0",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "entra_connect_default.png": {
+      "icon_name": "entra_connect",
+      "variant": "default",
+      "source_script": "azure/entra_connect_default.py",
+      "size_bytes": 26435,
+      "sha256": "f231979362d2d3b5610595c7e47f58a3b132802fb9b2bfe83b172c018ed6a737",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "entra_connect_health_default.png": {
+      "icon_name": "entra_connect_health",
+      "variant": "default",
+      "source_script": "azure/entra_connect_health_default.py",
+      "size_bytes": 25726,
+      "sha256": "86c65e9cda5569c3c1a62b5871cd46aceb1fd48d51749d945e12508141c2d6f0",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
+    "entra_connect_sync_default.png": {
+      "icon_name": "entra_connect_sync",
+      "variant": "default",
+      "source_script": "azure/entra_connect_sync_default.py",
+      "size_bytes": 22515,
+      "sha256": "296e34955fe4393831eefac5e12e4c155e61c68c3c9465334a67ffa2f860f01e",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "entra_domain_services_default.png": {
+      "icon_name": "entra_domain_services",
+      "variant": "default",
+      "source_script": "azure/entra_domain_services_default.py",
+      "size_bytes": 22357,
+      "sha256": "27ad6fc1d7d4993ae00e3bfb6ad71d0e630d7a30c943628cfa28d1f6d8f784db",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
+      ]
+    },
+    "entra_global_secure_access_default.png": {
+      "icon_name": "entra_global_secure_access",
+      "variant": "default",
+      "source_script": "azure/entra_global_secure_access_default.py",
+      "size_bytes": 21807,
+      "sha256": "2005251b3a48aafd95b5b4865a279dc98516d1225c6b4b9c2dfd5ddbf337755d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "entra_id_default.png": {
+      "icon_name": "entra_id",
+      "variant": "default",
+      "source_script": "azure/entra_id_default.py",
+      "size_bytes": 19255,
+      "sha256": "a44b32f6f657b9a11ae695dbe09e7cea058995a36af5c3a5f42f21ba373a6a95",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
+      ]
+    },
+    "entra_id_protection_default.png": {
+      "icon_name": "entra_id_protection",
+      "variant": "default",
+      "source_script": "azure/entra_id_protection_default.py",
+      "size_bytes": 19663,
+      "sha256": "477d0957b9d051469bd3f686bdda0cca247580656131a7962f0e568eae5e4375",
+      "bbox": [
+        26,
+        46,
+        486,
+        466
+      ]
+    },
+    "entra_internet_access_default.png": {
+      "icon_name": "entra_internet_access",
+      "variant": "default",
+      "source_script": "azure/entra_internet_access_default.py",
+      "size_bytes": 23691,
+      "sha256": "68a206a07754f21478bc6458320aedbfbbc56be32f21e6d0f0dc37b2fd544f12",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "entra_managed_identities_default.png": {
+      "icon_name": "entra_managed_identities",
+      "variant": "default",
+      "source_script": "azure/entra_managed_identities_default.py",
+      "size_bytes": 23845,
+      "sha256": "af91d329da5b020f845e38fc73d8435009d9ecb91d4c44b2097f8fb2446d63ac",
+      "bbox": [
+        26,
+        50,
+        486,
+        462
+      ]
+    },
+    "entra_private_access_default.png": {
+      "icon_name": "entra_private_access",
+      "variant": "default",
+      "source_script": "azure/entra_private_access_default.py",
+      "size_bytes": 23598,
+      "sha256": "91ccd8621885117d4f2298e41c6319b40ee0ddddb5513fe966b97ade8319e275",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "entra_privleged_identity_management_default.png": {
+      "icon_name": "entra_privleged_identity_management",
+      "variant": "default",
+      "source_script": "azure/entra_privleged_identity_management_default.py",
+      "size_bytes": 24016,
+      "sha256": "4eae107ee931c795e8a68a443f250403d4e198d2cbf139bfc97439dfef7d8f04",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "entra_verified_id_default.png": {
+      "icon_name": "entra_verified_id",
+      "variant": "default",
+      "source_script": "azure/entra_verified_id_default.py",
+      "size_bytes": 16525,
+      "sha256": "009f09821a15d35b0d5112a5cf746d3cf5f9c0685679a4c0b6d08fe679a72cec",
+      "bbox": [
+        26,
+        47,
+        486,
+        464
+      ]
+    },
+    "event_grid_domains_default.png": {
+      "icon_name": "event_grid_domains",
+      "variant": "default",
+      "source_script": "azure/event_grid_domains_default.py",
+      "size_bytes": 13161,
+      "sha256": "b49e6597fa43a95271c9e730d184d6f2365d1e4b4b20e1b059de53c94509b02f",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "event_grid_topics_default.png": {
+      "icon_name": "event_grid_topics",
+      "variant": "default",
+      "source_script": "azure/event_grid_topics_default.py",
+      "size_bytes": 11147,
+      "sha256": "3fa874c34e65ad08307e46cd3b21d833b1e76ae658ccdef9102cb36481208b9b",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "event_hub_clusters_default.png": {
+      "icon_name": "event_hub_clusters",
+      "variant": "default",
+      "source_script": "azure/event_hub_clusters_default.py",
+      "size_bytes": 7641,
+      "sha256": "f3a9a33631438efc1e4028a338bbbd2d733a62d92bc08894f88694b3e2122095",
+      "bbox": [
+        26,
+        68,
+        486,
+        443
+      ]
+    },
+    "event_hubs_default.png": {
+      "icon_name": "event_hubs",
+      "variant": "default",
+      "source_script": "azure/event_hubs_default.py",
+      "size_bytes": 5632,
+      "sha256": "e4e607de1a25144773779d97a6112c664e95e91ade9bc8d29167843725960e3a",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
+      ]
+    },
+    "expressroute_circuits_default.png": {
+      "icon_name": "expressroute_circuits",
+      "variant": "default",
+      "source_script": "azure/expressroute_circuits_default.py",
+      "size_bytes": 17504,
+      "sha256": "cfba6a288ab660f14af3e22a0ac66b1dd0818552c86af6b2e5645cca7534b60d",
+      "bbox": [
+        26,
+        44,
+        486,
+        467
+      ]
+    },
+    "external_id_default.png": {
+      "icon_name": "external_id",
+      "variant": "default",
+      "source_script": "azure/external_id_default.py",
+      "size_bytes": 21809,
+      "sha256": "4039109a2c9912a740e1550a60c49342eb3dda9759e9bed87c26cadb47e1aed3",
+      "bbox": [
+        26,
+        60,
+        486,
+        452
+      ]
+    },
+    "external_identities_default.png": {
+      "icon_name": "external_identities",
+      "variant": "default",
+      "source_script": "azure/external_identities_default.py",
+      "size_bytes": 10299,
+      "sha256": "f1d631a876aa4f99152279de14ccbded64cc41efb30429ed285c93355d086184",
+      "bbox": [
+        44,
+        26,
+        467,
+        486
+      ]
+    },
+    "face_apis_default.png": {
+      "icon_name": "face_apis",
+      "variant": "default",
+      "source_script": "azure/face_apis_default.py",
+      "size_bytes": 13589,
+      "sha256": "6019c1d9fb46117c786d71db4ac9d654af31d4a1ca0169008526de715d05b993",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "fileshares_default.png": {
+      "icon_name": "fileshares",
+      "variant": "default",
+      "source_script": "azure/fileshares_default.py",
+      "size_bytes": 11980,
+      "sha256": "29f4e079f1d8e7d29f954f84166672ad95debf0cf983ef7b888dc5339a0e4d28",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "firewall_manager_default.png": {
+      "icon_name": "firewall_manager",
+      "variant": "default",
+      "source_script": "azure/firewall_manager_default.py",
+      "size_bytes": 12423,
+      "sha256": "b0d47ba7cf62033d0cf7ea84fc8075af18b2bb6906a7825790573bf5982acaa6",
+      "bbox": [
+        26,
+        59,
+        486,
+        452
+      ]
+    },
+    "firewall_policy_default.png": {
+      "icon_name": "firewall_policy",
+      "variant": "default",
+      "source_script": "azure/firewall_policy_default.py",
+      "size_bytes": 6045,
+      "sha256": "05e7d5cbb9a7454c39a8d63d0473fb107c3d6b206c484da66e280230391b9c2f",
+      "bbox": [
+        26,
+        89,
+        486,
+        423
+      ]
+    },
+    "firewalls_default.png": {
+      "icon_name": "firewalls",
+      "variant": "default",
+      "source_script": "azure/firewalls_default.py",
+      "size_bytes": 9712,
+      "sha256": "00a28ec1da73ba06d5a6a96a9073a2b0aa47ea0c4a383d0d32a6c7937a408440",
+      "bbox": [
+        26,
+        61,
+        486,
+        450
+      ]
+    },
+    "form_recognizers_default.png": {
+      "icon_name": "form_recognizers",
+      "variant": "default",
+      "source_script": "azure/form_recognizers_default.py",
+      "size_bytes": 15493,
+      "sha256": "e6c1b637446968e383f1f51c0fc478ab7c81a3af4da39275a29183886efaea75",
+      "bbox": [
+        41,
+        26,
+        470,
+        486
+      ]
+    },
+    "foundry_agent_service_default.png": {
+      "icon_name": "foundry_agent_service",
+      "variant": "default",
+      "source_script": "azure/foundry_agent_service_default.py",
+      "size_bytes": 20577,
+      "sha256": "04088c44fa1085b0e88acd071863f182c6e35148aafac4ec97e6bdd540efc2b0",
+      "bbox": [
+        49,
+        26,
+        462,
+        486
+      ]
+    },
+    "foundry_models_default.png": {
+      "icon_name": "foundry_models",
+      "variant": "default",
+      "source_script": "azure/foundry_models_default.py",
+      "size_bytes": 22756,
+      "sha256": "352b868b815cb78800ca53e226e0e639713a68e571e4371f49b8fcdd17a0bd5c",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "front_door_and_cdn_profiles_default.png": {
+      "icon_name": "front_door_and_cdn_profiles",
+      "variant": "default",
+      "source_script": "azure/front_door_and_cdn_profiles_default.py",
+      "size_bytes": 10866,
+      "sha256": "14e8121f1753cd777b3b8b0efb1eb5f6674afad7cee8d4a07369891e53ca527c",
+      "bbox": [
+        26,
+        53,
+        486,
+        459
+      ]
+    },
+    "function_apps_default.png": {
+      "icon_name": "function_apps",
+      "variant": "default",
+      "source_script": "azure/function_apps_default.py",
+      "size_bytes": 21116,
+      "sha256": "f7be486f6500a00c17d15608cd05083af110d5c5e2f69f836daf838ff7d673c4",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "genomics_default.png": {
+      "icon_name": "genomics",
+      "variant": "default",
+      "source_script": "azure/genomics_default.py",
+      "size_bytes": 19634,
+      "sha256": "77b9a774fb8c5a4ad710f6a6653d63cce589726756583726dc2679e8b270f00c",
+      "bbox": [
+        136,
+        26,
+        375,
+        486
+      ]
+    },
+    "hd_insight_clusters_default.png": {
+      "icon_name": "hd_insight_clusters",
+      "variant": "default",
+      "source_script": "azure/hd_insight_clusters_default.py",
+      "size_bytes": 23398,
+      "sha256": "fd3fc266a6c52e2762355578946e2d58987f4bbf79952b23757cc472dae17ec4",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "hybrid_connectivity_hub_default.png": {
+      "icon_name": "hybrid_connectivity_hub",
+      "variant": "default",
+      "source_script": "azure/hybrid_connectivity_hub_default.py",
+      "size_bytes": 15031,
+      "sha256": "3144008e2543c63585b5190b7455c9938e86c3a5b81aea47432c2d32430ffe4e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "identity_governance_default.png": {
+      "icon_name": "identity_governance",
+      "variant": "default",
+      "source_script": "azure/identity_governance_default.py",
+      "size_bytes": 31244,
+      "sha256": "8277e41f5a57a24bb88de1ebfb6fcd21aa674da2dd7e5895f2acc80035e21cda",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "images_default.png": {
+      "icon_name": "images",
+      "variant": "default",
+      "source_script": "azure/images_default.py",
+      "size_bytes": 12852,
+      "sha256": "a541ce771f5fcb1b8cef0070374aff5bffc21758e7a087b48608b86224a23909",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "immersive_readers_default.png": {
+      "icon_name": "immersive_readers",
+      "variant": "default",
+      "source_script": "azure/immersive_readers_default.py",
+      "size_bytes": 16767,
+      "sha256": "925e96b7696e0165311e526a71d2c070d8e759b51dbc6277a234c1e686b68196",
+      "bbox": [
+        26,
+        38,
+        486,
+        473
+      ]
+    },
+    "industrial_iot_default.png": {
+      "icon_name": "industrial_iot",
+      "variant": "default",
+      "source_script": "azure/industrial_iot_default.py",
+      "size_bytes": 18753,
+      "sha256": "5d780f6223450617ff3a0a23e58aecf885d8073b4d024244084df374af9de7c9",
+      "bbox": [
+        44,
+        26,
+        467,
+        486
+      ]
+    },
+    "information_protection_default.png": {
+      "icon_name": "information_protection",
+      "variant": "default",
+      "source_script": "azure/information_protection_default.py",
+      "size_bytes": 18439,
+      "sha256": "eb3b00f9d30e88064aa5ddaafb8df247d51c062fca091dbd522aa4d46a3299c3",
+      "bbox": [
+        83,
+        26,
+        429,
+        486
+      ]
+    },
+    "iot_central_applications_default.png": {
+      "icon_name": "iot_central_applications",
+      "variant": "default",
+      "source_script": "azure/iot_central_applications_default.py",
+      "size_bytes": 23221,
+      "sha256": "8556b08cbde1a781dd6a33f5831b54f52741a9cfb444e35a333e81127364b34a",
+      "bbox": [
+        55,
+        26,
+        456,
+        486
+      ]
+    },
+    "iot_edge_default.png": {
+      "icon_name": "iot_edge",
+      "variant": "default",
+      "source_script": "azure/iot_edge_default.py",
+      "size_bytes": 13010,
+      "sha256": "c284cd5c8bf250836e80544a06eee8f7f23350d6e1ee280b8b4cd4bc0fab0d81",
+      "bbox": [
+        26,
+        28,
+        486,
+        484
+      ]
+    },
+    "iot_hub_default.png": {
+      "icon_name": "iot_hub",
+      "variant": "default",
+      "source_script": "azure/iot_hub_default.py",
+      "size_bytes": 18987,
+      "sha256": "e7b356a12c4916a7b8809cfaea50be650286e30a77676c435764a7ed9766e10c",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "iot_operations_default.png": {
+      "icon_name": "iot_operations",
+      "variant": "default",
+      "source_script": "azure/iot_operations_default.py",
+      "size_bytes": 32331,
+      "sha256": "d0d00d06c19c37e759332776b16563e17bdae1f606a94c13f1d3a55ff552de0a",
+      "bbox": [
+        26,
+        34,
+        486,
+        478
+      ]
+    },
+    "ip_address_manager_default.png": {
+      "icon_name": "ip_address_manager",
+      "variant": "default",
+      "source_script": "azure/ip_address_manager_default.py",
+      "size_bytes": 13939,
+      "sha256": "7f15159b6900ce07f8233e94a7248fbc76438d37608f0bcf9254749628d0c3c3",
+      "bbox": [
+        26,
+        53,
+        486,
+        459
+      ]
+    },
+    "key_vaults_default.png": {
+      "icon_name": "key_vaults",
+      "variant": "default",
+      "source_script": "azure/key_vaults_default.py",
+      "size_bytes": 26959,
+      "sha256": "cea2e8e797cfda4f33e5cfd792d5825fb04af0aa0ad8560b82c332c0be3fab86",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kubernetes_services_default.png": {
+      "icon_name": "kubernetes_services",
+      "variant": "default",
+      "source_script": "azure/kubernetes_services_default.py",
+      "size_bytes": 20206,
+      "sha256": "26782c9603f59486dfa8baeafea00cef02b9ef3ff33954112f80e96f9326d1d5",
+      "bbox": [
+        26,
+        53,
+        486,
+        458
+      ]
+    },
+    "lab_services_default.png": {
+      "icon_name": "lab_services",
+      "variant": "default",
+      "source_script": "azure/lab_services_default.py",
+      "size_bytes": 14937,
+      "sha256": "865c8738446e92068a84187c670a3f8e8ad261c6713c0b1e498dda4b5a9c2709",
+      "bbox": [
+        26,
+        34,
+        486,
+        477
+      ]
+    },
+    "landing_zone_default.png": {
+      "icon_name": "landing_zone",
+      "variant": "default",
+      "source_script": "azure/landing_zone_default.py",
+      "size_bytes": 15813,
+      "sha256": "0e0563b5f6e4bedab1691f0b264523164548b02047e316c9f6cc09b13f1b24c8",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "language_default.png": {
+      "icon_name": "language",
+      "variant": "default",
+      "source_script": "azure/language_default.py",
+      "size_bytes": 8450,
+      "sha256": "326fc54dd96567dd3fd4ffaf9850d992a3442f7d94fb806fc0a4441235f26183",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "language_understanding_default.png": {
+      "icon_name": "language_understanding",
+      "variant": "default",
+      "source_script": "azure/language_understanding_default.py",
+      "size_bytes": 21658,
+      "sha256": "ec94faa42ba1189d9b87227a35e85945bd5e414f738494fc7d27ac92e8684340",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "lighthouse_default.png": {
+      "icon_name": "lighthouse",
+      "variant": "default",
+      "source_script": "azure/lighthouse_default.py",
+      "size_bytes": 15462,
+      "sha256": "7ad4a300e462c62ec7b9d845f6a0596bae624cfa54620881c4dd3b50e07e738f",
+      "bbox": [
+        56,
+        26,
+        456,
+        486
+      ]
+    },
+    "linux_default.png": {
+      "icon_name": "linux",
+      "variant": "default",
+      "source_script": "azure/linux_default.py",
+      "size_bytes": 17125,
+      "sha256": "64094d0926e42fa92e8b2fd7659eee5667fefe590d1eb056ef61357f18a2a1af",
+      "bbox": [
+        31,
+        26,
+        480,
+        486
+      ]
+    },
+    "load_balancers_default.png": {
+      "icon_name": "load_balancers",
+      "variant": "default",
+      "source_script": "azure/load_balancers_default.py",
+      "size_bytes": 18259,
+      "sha256": "ded4737630d5f3d27b599032470fb5da6f1b54128d6db89b4742fabcb564f842",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "load_testing_default.png": {
+      "icon_name": "load_testing",
+      "variant": "default",
+      "source_script": "azure/load_testing_default.py",
+      "size_bytes": 18900,
+      "sha256": "0fed8bd92beb1e49ab381a2c41b5e3c37488f8bd42d0d094fa78418e2c83b474",
+      "bbox": [
+        55,
+        26,
+        456,
+        486
+      ]
+    },
+    "local_default.png": {
+      "icon_name": "local",
+      "variant": "default",
+      "source_script": "azure/local_default.py",
+      "size_bytes": 11948,
+      "sha256": "55b7522894c210455c40551bae23eed32b4c71d45c800330b61be120ba30a5a9",
+      "bbox": [
+        26,
+        28,
+        486,
+        483
+      ]
+    },
+    "log_analytics_workspaces_default.png": {
+      "icon_name": "log_analytics_workspaces",
+      "variant": "default",
+      "source_script": "azure/log_analytics_workspaces_default.py",
+      "size_bytes": 7425,
+      "sha256": "196f5e9499bc2155efb5430332cf9062cd23910f457f324874c4bdcaaad8208e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "logic_apps_default.png": {
+      "icon_name": "logic_apps",
+      "variant": "default",
+      "source_script": "azure/logic_apps_default.py",
+      "size_bytes": 6320,
+      "sha256": "6ffd17e294f790092a1e6cb519c758291d1d89e6de5e62df4b34d810ee95d44d",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "machine_learning_default.png": {
+      "icon_name": "machine_learning",
+      "variant": "default",
+      "source_script": "azure/machine_learning_default.py",
+      "size_bytes": 17889,
+      "sha256": "8d620ad282d96b35eff8a19f236ad2de918dcbb1b81621bbce6b307e9a859bce",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
+      ]
+    },
+    "managed_database_default.png": {
+      "icon_name": "managed_database",
+      "variant": "default",
+      "source_script": "azure/managed_database_default.py",
+      "size_bytes": 18360,
+      "sha256": "bc9502403980f97917060d65a5a3d893752731d25188f443d6448d15d103c254",
+      "bbox": [
+        26,
+        40,
+        486,
+        472
+      ]
+    },
+    "managed_devops_pools_default.png": {
+      "icon_name": "managed_devops_pools",
+      "variant": "default",
+      "source_script": "azure/managed_devops_pools_default.py",
+      "size_bytes": 27242,
+      "sha256": "19f881fc0247a9e59f56c1922aeb9d0f4b3385a6f112e47cb9d7780a32b7fb82",
+      "bbox": [
+        26,
+        34,
+        486,
+        478
+      ]
+    },
+    "managed_file_shares_default.png": {
+      "icon_name": "managed_file_shares",
+      "variant": "default",
+      "source_script": "azure/managed_file_shares_default.py",
+      "size_bytes": 12634,
+      "sha256": "7b121d5066d0ad4c138a619bc6e54cb0c89d21818939c3df0682097251acf073",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_grafana_default.png": {
+      "icon_name": "managed_grafana",
+      "variant": "default",
+      "source_script": "azure/managed_grafana_default.py",
+      "size_bytes": 14126,
+      "sha256": "69c16d699e5766ac6bbfb437afde73813ea8a97561ab97c189256e7015869626",
+      "bbox": [
+        26,
+        77,
+        486,
+        435
+      ]
+    },
+    "managed_identities_default.png": {
+      "icon_name": "managed_identities",
+      "variant": "default",
+      "source_script": "azure/managed_identities_default.py",
+      "size_bytes": 23860,
+      "sha256": "e60c9094c10af76628c6d3dd073b9dcd2679935f34f6b770e65c525030f70b88",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "managed_redis_default.png": {
+      "icon_name": "managed_redis",
+      "variant": "default",
+      "source_script": "azure/managed_redis_default.py",
+      "size_bytes": 18015,
+      "sha256": "ad5c0f3aa89c4ac5ae2a453ae1d25ed898f3c845da4a1eaf5f264ed96f974689",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "managed_service_fabric_default.png": {
+      "icon_name": "managed_service_fabric",
+      "variant": "default",
+      "source_script": "azure/managed_service_fabric_default.py",
+      "size_bytes": 21790,
+      "sha256": "ca5877401b2d8a54e15697845665b71604aebbd54a4c092d90370c57204e4d54",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "maps_accounts_default.png": {
+      "icon_name": "maps_accounts",
+      "variant": "default",
+      "source_script": "azure/maps_accounts_default.py",
+      "size_bytes": 21009,
+      "sha256": "48b1125e4e0a3d9847fd6dd3424d5ea6acaed2a6f179d2de340d64a32a52708c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "media_service_default.png": {
+      "icon_name": "media_service",
+      "variant": "default",
+      "source_script": "azure/media_service_default.py",
+      "size_bytes": 24927,
+      "sha256": "28af3874fc186966864002e5e616bc0a2ca8e641c0a66a702cc00f8d50720c56",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "mesh_applications_default.png": {
+      "icon_name": "mesh_applications",
+      "variant": "default",
+      "source_script": "azure/mesh_applications_default.py",
+      "size_bytes": 20461,
+      "sha256": "4adce3f2439204b0cc72c6b6cf69e24f7e29d96b961254f39e0c231232b30417",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "metrics_advisor_default.png": {
+      "icon_name": "metrics_advisor",
+      "variant": "default",
+      "source_script": "azure/metrics_advisor_default.py",
+      "size_bytes": 21455,
+      "sha256": "a1497b15703c4f0d49c7d91ac0d5c3275f7782e7a23f58fee9cf8cdd3b518ab6",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
+      ]
+    },
+    "metrics_default.png": {
+      "icon_name": "metrics",
+      "variant": "default",
+      "source_script": "azure/metrics_default.py",
+      "size_bytes": 16789,
+      "sha256": "bc45f4d2d446a7758d933bd512b46b53e7f8485ae781612ae2575e4671c0373b",
+      "bbox": [
+        45,
+        26,
+        466,
+        486
+      ]
+    },
+    "migrate_default.png": {
+      "icon_name": "migrate",
+      "variant": "default",
+      "source_script": "azure/migrate_default.py",
+      "size_bytes": 17640,
+      "sha256": "45e56adbdcb40c9477b840a0f9cd0c24479ebe52b7c31d99ae96239c1ac132ec",
+      "bbox": [
+        26,
+        114,
+        486,
+        397
+      ]
+    },
+    "monitor_default.png": {
+      "icon_name": "monitor",
+      "variant": "default",
+      "source_script": "azure/monitor_default.py",
+      "size_bytes": 28659,
+      "sha256": "3bc5dd67aee87744d23413bec198980b6ab6153ca762560f7705a1fd7de27566",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "monitor_pipeline_default.png": {
+      "icon_name": "monitor_pipeline",
+      "variant": "default",
+      "source_script": "azure/monitor_pipeline_default.py",
+      "size_bytes": 13805,
+      "sha256": "3c53dd05070f0b103b5260f462568ae9836eb7e42a62879885bab57a53a109f9",
+      "bbox": [
+        26,
+        94,
+        486,
+        418
+      ]
+    },
+    "multi_factor_authentication_default.png": {
+      "icon_name": "multi_factor_authentication",
+      "variant": "default",
+      "source_script": "azure/multi_factor_authentication_default.py",
+      "size_bytes": 10943,
+      "sha256": "9a9b514ae9b97b526c93cf4e7f256b2a2895239d20985dc99b93bb36e04cc652",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "multi_tenancy_default.png": {
+      "icon_name": "multi_tenancy",
+      "variant": "default",
+      "source_script": "azure/multi_tenancy_default.py",
+      "size_bytes": 19103,
+      "sha256": "c2c19b0286d679d00a29eeb96c70b2a8c0f61722afa01532b87a2bcbfac92a3b",
+      "bbox": [
+        26,
+        37,
+        486,
+        475
+      ]
+    },
+    "multifactor_authentication_default.png": {
+      "icon_name": "multifactor_authentication",
+      "variant": "default",
+      "source_script": "azure/multifactor_authentication_default.py",
+      "size_bytes": 18487,
+      "sha256": "21e4de5fd5caf6d5101207c47f505861cfcdb9679a934a2604ea54c6e5d6fc3d",
+      "bbox": [
+        90,
+        26,
+        422,
+        486
+      ]
+    },
+    "nat_default.png": {
+      "icon_name": "nat",
+      "variant": "default",
+      "source_script": "azure/nat_default.py",
+      "size_bytes": 19075,
+      "sha256": "c480ce797060e59d5702bcc7c4e6bb4269cae6f28d9d430ec330858466e4c31d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "netapp_files_default.png": {
+      "icon_name": "netapp_files",
+      "variant": "default",
+      "source_script": "azure/netapp_files_default.py",
+      "size_bytes": 4542,
+      "sha256": "11cc027730f8e130003983b36c32b99ff1c96c0574ae56be341488b0849496f6",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "network_security_groups_default.png": {
+      "icon_name": "network_security_groups",
+      "variant": "default",
+      "source_script": "azure/network_security_groups_default.py",
+      "size_bytes": 15116,
+      "sha256": "f0f7bfd5ba5f8ce0480adbc10013d1b541a0626f822aa5306de6c0fc2aed97fe",
+      "bbox": [
+        68,
+        26,
+        444,
+        486
+      ]
+    },
+    "network_watcher_default.png": {
+      "icon_name": "network_watcher",
+      "variant": "default",
+      "source_script": "azure/network_watcher_default.py",
+      "size_bytes": 28124,
+      "sha256": "5ab899f0f355a05b09eee586077f748cd0900d45478470f0ab3a67f293cae2bf",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "notification_hub_namespaces_default.png": {
+      "icon_name": "notification_hub_namespaces",
+      "variant": "default",
+      "source_script": "azure/notification_hub_namespaces_default.py",
+      "size_bytes": 5262,
+      "sha256": "3746b46f0cd8963f4b7941c2ab66c133fa59546615d1f2d9f7a3fed277e0d9a3",
+      "bbox": [
+        26,
+        64,
+        486,
+        447
+      ]
+    },
+    "notification_hubs_default.png": {
+      "icon_name": "notification_hubs",
+      "variant": "default",
+      "source_script": "azure/notification_hubs_default.py",
+      "size_bytes": 5262,
+      "sha256": "3746b46f0cd8963f4b7941c2ab66c133fa59546615d1f2d9f7a3fed277e0d9a3",
+      "bbox": [
+        26,
+        64,
+        486,
+        447
+      ]
+    },
+    "on_premises_data_gateways_default.png": {
+      "icon_name": "on_premises_data_gateways",
+      "variant": "default",
+      "source_script": "azure/on_premises_data_gateways_default.py",
+      "size_bytes": 12278,
+      "sha256": "ecea413b59a503cd67b7c02c87fd15f930b3ab16aff006fed2e4119106c706d5",
+      "bbox": [
+        26,
+        36,
+        486,
+        476
+      ]
+    },
+    "openai_default.png": {
+      "icon_name": "openai",
+      "variant": "default",
+      "source_script": "azure/openai_default.py",
+      "size_bytes": 13340,
+      "sha256": "7446ec1f1bf009adc3089582cfc5bdd4a8d54719faa641cc3e2f2ae9eb475efd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "operator_5g_core_default.png": {
+      "icon_name": "operator_5g_core",
+      "variant": "default",
+      "source_script": "azure/operator_5g_core_default.py",
+      "size_bytes": 17513,
+      "sha256": "1a797b318bf8d14d62b9c2ed73d8a6ed48a821554d4bea30063dd07662d9befc",
+      "bbox": [
+        26,
+        102,
+        486,
+        409
+      ]
+    },
+    "operator_nexus_default.png": {
+      "icon_name": "operator_nexus",
+      "variant": "default",
+      "source_script": "azure/operator_nexus_default.py",
+      "size_bytes": 18766,
+      "sha256": "dd386763642aed7ba0eb132eed3393f0f6f254aeaf68308ec4188072778c3cc5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "oracle_database_default.png": {
+      "icon_name": "oracle_database",
+      "variant": "default",
+      "source_script": "azure/oracle_database_default.py",
+      "size_bytes": 22905,
+      "sha256": "8347fd7e3025906084df3d7c82a8593e5f1d145940c8d9462e59d76774b4803d",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "personalizers_default.png": {
+      "icon_name": "personalizers",
+      "variant": "default",
+      "source_script": "azure/personalizers_default.py",
+      "size_bytes": 18331,
+      "sha256": "ccf75be70ddc279bc3f59d3b0de24731870c12ccaf3a29afb988025eba26696a",
+      "bbox": [
+        26,
+        69,
+        486,
+        443
+      ]
+    },
+    "policy_default.png": {
+      "icon_name": "policy",
+      "variant": "default",
+      "source_script": "azure/policy_default.py",
+      "size_bytes": 24421,
+      "sha256": "5d04a7ae9f66f8251fbdb2ea187ea2005405f18a884be9cc450e88e1f50cd521",
+      "bbox": [
+        39,
+        26,
+        473,
+        486
+      ]
+    },
+    "power_bi_embedded_default.png": {
+      "icon_name": "power_bi_embedded",
+      "variant": "default",
+      "source_script": "azure/power_bi_embedded_default.py",
+      "size_bytes": 2305,
+      "sha256": "41a6cf2d37e768b50823db3f923b7803c4527b8bc7fedec610d0eaff8ac2867a",
+      "bbox": [
+        83,
+        26,
+        428,
+        486
+      ]
+    },
+    "power_platform_default.png": {
+      "icon_name": "power_platform",
+      "variant": "default",
+      "source_script": "azure/power_platform_default.py",
+      "size_bytes": 13944,
+      "sha256": "258bc80dcbe6ea726e3ff2713ccb8d771b8601cb505263ced3a90e4effc5ba65",
+      "bbox": [
+        36,
+        26,
+        475,
+        486
+      ]
+    },
+    "private_link_default.png": {
+      "icon_name": "private_link",
+      "variant": "default",
+      "source_script": "azure/private_link_default.py",
+      "size_bytes": 23734,
+      "sha256": "bfa4c073decf3d4d1c694e3f1ab52220495c4c42b4b3007a8603e9ebf5ad91d6",
+      "bbox": [
+        26,
+        42,
+        486,
+        469
+      ]
+    },
+    "private_link_service_default.png": {
+      "icon_name": "private_link_service",
+      "variant": "default",
+      "source_script": "azure/private_link_service_default.py",
+      "size_bytes": 21745,
+      "sha256": "6c3483e1d7ad54751e0c4ce858f2bd28bc61bacdf0fe6acd5dbe253c9fde7a92",
+      "bbox": [
+        26,
+        123,
+        486,
+        389
+      ]
+    },
+    "public_ip_addresses_default.png": {
+      "icon_name": "public_ip_addresses",
+      "variant": "default",
+      "source_script": "azure/public_ip_addresses_default.py",
+      "size_bytes": 7250,
+      "sha256": "da7704c79e7ea503eceb804bf0bd00f43cdfc702352172d7b26eea8b988a9b05",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "pubsub_default.png": {
+      "icon_name": "pubsub",
+      "variant": "default",
+      "source_script": "azure/pubsub_default.py",
+      "size_bytes": 13591,
+      "sha256": "d0127a501c7d904c73336d1e0e69286d5288dae7dfa3c80c0e50e816223a5145",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "qna_makers_default.png": {
+      "icon_name": "qna_makers",
+      "variant": "default",
+      "source_script": "azure/qna_makers_default.py",
+      "size_bytes": 7991,
+      "sha256": "baea617966bdd47c5d1e3fab9a6c7b09bffb069033c9acf2c356518be817ca4d",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "recovery_services_vaults_default.png": {
+      "icon_name": "recovery_services_vaults",
+      "variant": "default",
+      "source_script": "azure/recovery_services_vaults_default.py",
+      "size_bytes": 15022,
+      "sha256": "82d5d35988794b24a24725f3c0e49ba3a370484b610e8fbcf7e1ebed06b9f7d9",
+      "bbox": [
+        26,
+        56,
+        486,
+        455
+      ]
+    },
+    "red_hat_openshift_default.png": {
+      "icon_name": "red_hat_openshift",
+      "variant": "default",
+      "source_script": "azure/red_hat_openshift_default.py",
+      "size_bytes": 22627,
+      "sha256": "e8dd25fb7c46d7f9dd2d1631a5f97311b81f37e2ca9c8c34443f3476f16626d5",
+      "bbox": [
+        26,
+        45,
+        486,
+        466
+      ]
+    },
+    "relays_default.png": {
+      "icon_name": "relays",
+      "variant": "default",
+      "source_script": "azure/relays_default.py",
+      "size_bytes": 11502,
+      "sha256": "21a66527b2262b4132875650316d2cb0fd623cbe90dc258dbac41b6efc571089",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "remote_rendering_default.png": {
+      "icon_name": "remote_rendering",
+      "variant": "default",
+      "source_script": "azure/remote_rendering_default.py",
+      "size_bytes": 21622,
+      "sha256": "8d65b3822e889738d1c0bafbc8d1757fe32fd1b423d40a12f577ef1f89628d03",
+      "bbox": [
+        26,
+        93,
+        486,
+        419
+      ]
+    },
+    "resiliency_default.png": {
+      "icon_name": "resiliency",
+      "variant": "default",
+      "source_script": "azure/resiliency_default.py",
+      "size_bytes": 19741,
+      "sha256": "124826351ba31593046f539d1d18d1bb90d0de743da47287e304ff039f37c1a1",
+      "bbox": [
+        59,
+        26,
+        452,
+        486
+      ]
+    },
+    "resource_graph_explorer_default.png": {
+      "icon_name": "resource_graph_explorer",
+      "variant": "default",
+      "source_script": "azure/resource_graph_explorer_default.py",
+      "size_bytes": 15485,
+      "sha256": "8a6775f826a66d7eb0fc596dc3fece0859f6aa2255eddb06b9d8f946654f8929",
+      "bbox": [
+        26,
+        35,
+        486,
+        476
+      ]
+    },
+    "route_tables_default.png": {
+      "icon_name": "route_tables",
+      "variant": "default",
+      "source_script": "azure/route_tables_default.py",
+      "size_bytes": 14639,
+      "sha256": "1fde9dcc2b33b6e7ffe8c31473c3a2e4f8d936a186cb091ff1557a1a3b401c10",
+      "bbox": [
+        26,
+        34,
+        486,
+        478
+      ]
+    },
+    "security_default.png": {
+      "icon_name": "security",
+      "variant": "default",
+      "source_script": "azure/security_default.py",
+      "size_bytes": 8681,
+      "sha256": "a19ea9c19e91e76ae176b6abedb6f198842faba33565405a4b61af245fcc7ee5",
+      "bbox": [
+        64,
+        26,
+        448,
+        486
+      ]
+    },
+    "sendgrid_accounts_default.png": {
+      "icon_name": "sendgrid_accounts",
+      "variant": "default",
+      "source_script": "azure/sendgrid_accounts_default.py",
+      "size_bytes": 4124,
+      "sha256": "5244e43fb670f2d7db6df711e4ed5642a7faa568a28c54f2e94f3cf62637de7c",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "sentinel_default.png": {
+      "icon_name": "sentinel",
+      "variant": "default",
+      "source_script": "azure/sentinel_default.py",
+      "size_bytes": 17039,
+      "sha256": "9a110dcf5a20f1ae801b957b5e023996d3749d1c1bcaf9de40e448c136fdbb33",
+      "bbox": [
+        66,
+        26,
+        445,
+        486
+      ]
+    },
+    "service_bus_default.png": {
+      "icon_name": "service_bus",
+      "variant": "default",
+      "source_script": "azure/service_bus_default.py",
+      "size_bytes": 10591,
+      "sha256": "28ec7b253a811cfc15823622a7671d4625879578f6434f7cb9b9d73944237766",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "service_fabric_clusters_default.png": {
+      "icon_name": "service_fabric_clusters",
+      "variant": "default",
+      "source_script": "azure/service_fabric_clusters_default.py",
+      "size_bytes": 18575,
+      "sha256": "9e60c26707f71b9d50ccc54de213b4ab33dfa5c727ed35e10baeef85e3a4f03a",
+      "bbox": [
+        26,
+        36,
+        486,
+        476
+      ]
+    },
+    "signalr_default.png": {
+      "icon_name": "signalr",
+      "variant": "default",
+      "source_script": "azure/signalr_default.py",
+      "size_bytes": 17400,
+      "sha256": "df388a76875c91748ec55943a9d886b72023ff19d360c38e2f399d8b318234de",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "spatial_anchor_accounts_default.png": {
+      "icon_name": "spatial_anchor_accounts",
+      "variant": "default",
+      "source_script": "azure/spatial_anchor_accounts_default.py",
+      "size_bytes": 24054,
+      "sha256": "59df6096a3b5da59c278f0a9f4bb9b19fdb0e70ed7a6f462b3000b8c554bd05b",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "speech_services_default.png": {
+      "icon_name": "speech_services",
+      "variant": "default",
+      "source_script": "azure/speech_services_default.py",
+      "size_bytes": 11606,
+      "sha256": "06a148a8fac0f754f82c15a9293447131f9e37cd88e50ba8f0d11cc483e26e0d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sphere_default.png": {
+      "icon_name": "sphere",
+      "variant": "default",
+      "source_script": "azure/sphere_default.py",
+      "size_bytes": 26942,
+      "sha256": "ea05de602971e053e32c2065e94c81c84bd79d223897cf9450b17e49ca6e80e6",
+      "bbox": [
+        34,
+        26,
+        477,
+        486
+      ]
+    },
+    "spring_apps_default.png": {
+      "icon_name": "spring_apps",
+      "variant": "default",
+      "source_script": "azure/spring_apps_default.py",
+      "size_bytes": 20117,
+      "sha256": "db47047dc76e2e1d9ddbb0ec52b94e6b355b37669180f048dd64434e7b8a918a",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "sql_data_warehouses_default.png": {
+      "icon_name": "sql_data_warehouses",
+      "variant": "default",
+      "source_script": "azure/sql_data_warehouses_default.py",
+      "size_bytes": 12705,
+      "sha256": "36b3c714c21e6b2b2e65d71d04ab9f0c22caa5f4772e01914cac95eaae23eeed",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "sql_database_default.png": {
+      "icon_name": "sql_database",
+      "variant": "default",
+      "source_script": "azure/sql_database_default.py",
+      "size_bytes": 19962,
+      "sha256": "e73c53df7a0d4cb8032434daf023c9f53db2f907c2caa555e1fd0c13b31c080c",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "sql_default.png": {
+      "icon_name": "sql",
+      "variant": "default",
+      "source_script": "azure/sql_default.py",
+      "size_bytes": 15714,
+      "sha256": "8d2ae97c8fc9d8f1a21774b99f3e550f901946ebda877b821f9c87003a693457",
+      "bbox": [
+        26,
+        89,
+        486,
+        423
+      ]
+    },
+    "sql_edge_default.png": {
+      "icon_name": "sql_edge",
+      "variant": "default",
+      "source_script": "azure/sql_edge_default.py",
+      "size_bytes": 27366,
+      "sha256": "d6694f2e56015b5528ec0f36a940c6993940299baaa1ba61f93b88b195800e03",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "sql_elastic_pools_default.png": {
+      "icon_name": "sql_elastic_pools",
+      "variant": "default",
+      "source_script": "azure/sql_elastic_pools_default.py",
+      "size_bytes": 17452,
+      "sha256": "db5b873b46f6566960709b06f0e4ab43e088b4bdf5f01a542c6efbbd4b4725a2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "sql_managed_instance_default.png": {
+      "icon_name": "sql_managed_instance",
+      "variant": "default",
+      "source_script": "azure/sql_managed_instance_default.py",
+      "size_bytes": 20164,
+      "sha256": "29d3318ac66373eda4328cb4e875254be5605ecc7643639f316bea0f40e3fe08",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "sql_server_default.png": {
+      "icon_name": "sql_server",
+      "variant": "default",
+      "source_script": "azure/sql_server_default.py",
+      "size_bytes": 24952,
+      "sha256": "a1a42cfbedbafa834a2af0c547ad7d6dd7191ed83c69955ce7d83b47b49c66ed",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "sql_vm_default.png": {
+      "icon_name": "sql_vm",
+      "variant": "default",
+      "source_script": "azure/sql_vm_default.py",
+      "size_bytes": 12330,
+      "sha256": "01aac69de2ef36b9556048e60a87ca9e451bdeb1135de2c2077e9f6b0848dc5a",
+      "bbox": [
+        26,
+        42,
+        486,
+        469
+      ]
+    },
+    "stack_hci_premium_default.png": {
+      "icon_name": "stack_hci_premium",
+      "variant": "default",
+      "source_script": "azure/stack_hci_premium_default.py",
+      "size_bytes": 14374,
+      "sha256": "6f851d75299dba69b4646918a680fe454002e90eb9f43e9710bedf31469003db",
+      "bbox": [
+        26,
+        53,
+        486,
+        458
+      ]
+    },
+    "static_apps_default.png": {
+      "icon_name": "static_apps",
+      "variant": "default",
+      "source_script": "azure/static_apps_default.py",
+      "size_bytes": 14050,
+      "sha256": "383ca0e101892ab7004db97e8cd26458d118b8d57ec91d838838939ad719d713",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "storage_accounts_default.png": {
+      "icon_name": "storage_accounts",
+      "variant": "default",
+      "source_script": "azure/storage_accounts_default.py",
+      "size_bytes": 3468,
+      "sha256": "265d10f545c01f39572a50640891d49801bd8249aef2af44410b366879280c72",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "storage_azure_files_default.png": {
+      "icon_name": "storage_azure_files",
+      "variant": "default",
+      "source_script": "azure/storage_azure_files_default.py",
+      "size_bytes": 3606,
+      "sha256": "d90a650a424a0ac577eced634b8af9ec515288782a2d0da261ddf5d86800c8e5",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "storage_container_default.png": {
+      "icon_name": "storage_container",
+      "variant": "default",
+      "source_script": "azure/storage_container_default.py",
+      "size_bytes": 3807,
+      "sha256": "c3ae36434d01ad0564ecf9dcb48635463a756d9ead9a8ef9257e0af501789d6d",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "storage_mover_default.png": {
+      "icon_name": "storage_mover",
+      "variant": "default",
+      "source_script": "azure/storage_mover_default.py",
+      "size_bytes": 14831,
+      "sha256": "00c007fbfbabbe0252aa974f3588f3ef44a8721fa34cd892be67f60403ddef97",
+      "bbox": [
+        26,
+        30,
+        486,
+        482
+      ]
+    },
+    "storage_queue_default.png": {
+      "icon_name": "storage_queue",
+      "variant": "default",
+      "source_script": "azure/storage_queue_default.py",
+      "size_bytes": 3412,
+      "sha256": "67abe64ca6012ba31c79421e44d63e5fdd4c03e049f02670c599f95491e811c3",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "storage_sync_services_default.png": {
+      "icon_name": "storage_sync_services",
+      "variant": "default",
+      "source_script": "azure/storage_sync_services_default.py",
+      "size_bytes": 14062,
+      "sha256": "dd1220bd7e183c506c31226f9e98cbd7c74360d007931920394b1bf616d5dd8e",
+      "bbox": [
+        26,
+        64,
+        486,
+        448
+      ]
+    },
+    "stream_analytics_jobs_default.png": {
+      "icon_name": "stream_analytics_jobs",
+      "variant": "default",
+      "source_script": "azure/stream_analytics_jobs_default.py",
+      "size_bytes": 24328,
+      "sha256": "dc11b59dada4518c71e22a7b61956fb91ab2052d825cb6635915012c64e34291",
+      "bbox": [
+        26,
+        59,
+        486,
+        452
+      ]
+    },
+    "subnet_default.png": {
+      "icon_name": "subnet",
+      "variant": "default",
+      "source_script": "azure/subnet_default.py",
+      "size_bytes": 15113,
+      "sha256": "c2f5c5514e08a2edd71dc45d1ab7ca9da74e28abcdcda3a634e0838621c5b47a",
+      "bbox": [
+        26,
+        118,
+        486,
+        393
+      ]
+    },
+    "synapse_analytics_default.png": {
+      "icon_name": "synapse_analytics",
+      "variant": "default",
+      "source_script": "azure/synapse_analytics_default.py",
+      "size_bytes": 24377,
+      "sha256": "59ff7d74039cc8df5f9767b76c3bae8c00d11db3178361061aeae7c06dee9ad8",
+      "bbox": [
+        55,
+        26,
+        456,
+        486
+      ]
+    },
+    "token_service_default.png": {
+      "icon_name": "token_service",
+      "variant": "default",
+      "source_script": "azure/token_service_default.py",
+      "size_bytes": 19058,
+      "sha256": "1afa8f9e6bad830e99d91d9606d24f666e84d02aabd8cbd69c259ca7f8ac5677",
+      "bbox": [
+        56,
+        26,
+        456,
+        486
+      ]
+    },
+    "toolchain_orchestrator_default.png": {
+      "icon_name": "toolchain_orchestrator",
+      "variant": "default",
+      "source_script": "azure/toolchain_orchestrator_default.py",
+      "size_bytes": 32364,
+      "sha256": "dd85dae116b9223a0475d8c27e0aaa3ffa0056bbd5f644c40b1f9a63a1392106",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
+      ]
+    },
+    "traffic_manager_profiles_default.png": {
+      "icon_name": "traffic_manager_profiles",
+      "variant": "default",
+      "source_script": "azure/traffic_manager_profiles_default.py",
+      "size_bytes": 16838,
+      "sha256": "ab2fb9bc14784bd25185984f65defc770083a62faf693549f847880eb24405b8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "translator_text_default.png": {
+      "icon_name": "translator_text",
+      "variant": "default",
+      "source_script": "azure/translator_text_default.py",
+      "size_bytes": 21022,
+      "sha256": "d764a667a1fe6881271fe8d3a660762bbdac93583c900caf2623695f9cffb5de",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "users_default.png": {
+      "icon_name": "users",
+      "variant": "default",
+      "source_script": "azure/users_default.py",
+      "size_bytes": 14007,
+      "sha256": "4ba7b8b51c5ba0d40b4f3debffbc207d450c4cb86384c1de7c1092b47f65a393",
+      "bbox": [
+        47,
+        26,
+        465,
+        486
+      ]
+    },
+    "verifiable_credentials_default.png": {
+      "icon_name": "verifiable_credentials",
+      "variant": "default",
+      "source_script": "azure/verifiable_credentials_default.py",
+      "size_bytes": 14622,
+      "sha256": "1c1d0528410c4b2c24f93bf0f6ee828cf9f8dcd82ab93833d75385afb934a320",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
+      ]
+    },
+    "virtual_desktop_default.png": {
+      "icon_name": "virtual_desktop",
+      "variant": "default",
+      "source_script": "azure/virtual_desktop_default.py",
+      "size_bytes": 26341,
+      "sha256": "f19367d8c903fd116dcd114de0d2a9e5b93889d6f9d356f98e7a5ebdb3243f65",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "virtual_machine_default.png": {
+      "icon_name": "virtual_machine",
+      "variant": "default",
+      "source_script": "azure/virtual_machine_default.py",
+      "size_bytes": 10134,
+      "sha256": "02a1e01a02a13811f993b977c9a0f09c8988d37b916914d093e2aa6e0de2ca51",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "virtual_network_gateways_default.png": {
+      "icon_name": "virtual_network_gateways",
+      "variant": "default",
+      "source_script": "azure/virtual_network_gateways_default.py",
+      "size_bytes": 15420,
+      "sha256": "79679c2d99ed6eb69a21705a4f43ed3cf4e7a7e1c7dc12c46e7cdc880b10a05a",
+      "bbox": [
+        83,
+        26,
+        429,
+        486
+      ]
+    },
+    "virtual_networks_default.png": {
+      "icon_name": "virtual_networks",
+      "variant": "default",
+      "source_script": "azure/virtual_networks_default.py",
+      "size_bytes": 18050,
+      "sha256": "6b9e0d7145b4665d3c077163f2f02a100c2406ae3ca4d80b64a49f646b47c0ce",
+      "bbox": [
+        26,
+        118,
+        486,
+        394
+      ]
+    },
+    "virtual_router_default.png": {
+      "icon_name": "virtual_router",
+      "variant": "default",
+      "source_script": "azure/virtual_router_default.py",
+      "size_bytes": 16190,
+      "sha256": "247459f893b981e0093fdd0dcdad2787955a22fee916e02f869557dc2211ac6a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "virtual_wan_hub_default.png": {
+      "icon_name": "virtual_wan_hub",
+      "variant": "default",
+      "source_script": "azure/virtual_wan_hub_default.py",
+      "size_bytes": 21517,
+      "sha256": "6e409f5f0a6feea5740ecdc82ce1d0267ac3bd54b22a54b80f1a873dbd52963a",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "virtual_wans_default.png": {
+      "icon_name": "virtual_wans",
+      "variant": "default",
+      "source_script": "azure/virtual_wans_default.py",
+      "size_bytes": 29043,
+      "sha256": "93129fd580b8cbd6bfce82b753b698fb13964786799dc2a7074297372b00615a",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "vm_scale_sets_default.png": {
+      "icon_name": "vm_scale_sets",
+      "variant": "default",
+      "source_script": "azure/vm_scale_sets_default.py",
+      "size_bytes": 11245,
+      "sha256": "bc372e74cbc9949d7d8eb66e18924c1b241e827cb8d1b3b18c5be88de7538959",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vmware_solution_default.png": {
+      "icon_name": "vmware_solution",
+      "variant": "default",
+      "source_script": "azure/vmware_solution_default.py",
+      "size_bytes": 14124,
+      "sha256": "17a2fc7e85819b45e1b01b6f08794c28caa83252ed88d6c3d5cce5fc605f6baa",
+      "bbox": [
+        26,
+        72,
+        486,
+        439
+      ]
+    },
+    "web_application_firewall_policies_waf_default.png": {
+      "icon_name": "web_application_firewall_policies_waf",
+      "variant": "default",
+      "source_script": "azure/web_application_firewall_policies_waf_default.py",
+      "size_bytes": 21379,
+      "sha256": "9c38246c289901a56b4cf6c8bb250ac855eba801dad30a950420edcd6bf9c811",
+      "bbox": [
+        26,
+        27,
+        486,
+        484
+      ]
+    },
+    "workbooks_default.png": {
+      "icon_name": "workbooks",
+      "variant": "default",
+      "source_script": "azure/workbooks_default.py",
+      "size_bytes": 9297,
+      "sha256": "152ea158f089e1aab5f1802821afacb20b9d6093a64705af6ac7f19e3f11c87f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "worker_container_app_default.png": {
+      "icon_name": "worker_container_app",
+      "variant": "default",
+      "source_script": "azure/worker_container_app_default.py",
+      "size_bytes": 25744,
+      "sha256": "9854e94368582e77dbb0fcb9d6323abfb372c14f79b5c5a1738f0cb8a7e5ab94",
+      "bbox": [
+        26,
+        33,
+        486,
+        479
+      ]
+    },
+    "workload_orchestration_default.png": {
+      "icon_name": "workload_orchestration",
+      "variant": "default",
+      "source_script": "azure/workload_orchestration_default.py",
+      "size_bytes": 32364,
+      "sha256": "dd85dae116b9223a0475d8c27e0aaa3ffa0056bbd5f644c40b1f9a63a1392106",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
+      ]
+    }
+  }
+}

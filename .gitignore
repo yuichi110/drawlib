@@ -22,6 +22,8 @@ tests/**/*.webp
 
 # others
 .drawlib/
+tools/original_assets/aws/
+tools/original_assets/azure/
 sandbox/*
 scratch/
 test_build_target/**/*.png

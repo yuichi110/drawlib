@@ -16,6 +16,8 @@ from drawlib._icons.font_icons import (
     phosphor,
 )
 from drawlib._icons.png_icons import (
+    aws,
+    azure,
     gcp,
     original_ai,
     original_cloud,
@@ -23,6 +25,8 @@ from drawlib._icons.png_icons import (
 )
 
 __all__ = [
+    "aws",
+    "azure",
     "font_icon",
     "gcp",
     "original_ai",

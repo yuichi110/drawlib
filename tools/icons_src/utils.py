@@ -78,6 +78,41 @@ GCP_HEX_LEFT = "#5C85DE"
 GCP_HEX_RIGHT = "#4285F4"
 GCP_HEX_SHADOW = "#3367D6"
 
+# AWS Official Category Palette (Service & Category Icons)
+AWS_ORANGE = "#ED7100"
+AWS_TEAL = "#01A88D"
+AWS_RED = "#DD344C"
+AWS_PURPLE = "#8C4FFF"
+AWS_PINK = "#E7157B"
+AWS_MAGENTA = "#C925D1"
+AWS_GREEN = "#7AA116"
+AWS_SQUID_INK = "#232F3E"
+AWS_GRAY_BORDER = "#7D8998"
+
+# Azure Official Multi-Tone Palette
+AZURE_BLUE = "#0078D4"
+AZURE_DARK_BLUE = "#005BA1"
+AZURE_LIGHT_BLUE = "#5EA0EF"
+AZURE_PALE_BLUE = "#83B9F9"
+AZURE_CYAN = "#50E6FF"
+AZURE_LIGHT_CYAN = "#9CEBFF"
+AZURE_PALE_CYAN = "#C3F1FF"
+AZURE_TEAL = "#32BEDD"
+AZURE_DARK_TEAL = "#198AB3"
+AZURE_PURPLE = "#773ADC"
+AZURE_LIGHT_PURPLE = "#A67AF4"
+AZURE_DARK_PURPLE = "#341A6E"
+AZURE_GREEN = "#76BC2D"
+AZURE_LIGHT_GREEN = "#86D633"
+AZURE_DARK_GREEN = "#5E9624"
+AZURE_ORANGE = "#F78D1E"
+AZURE_YELLOW = "#FFB900"
+AZURE_RED = "#E62325"
+AZURE_GRAY = "#949494"
+AZURE_DARK_GRAY = "#707070"
+AZURE_LIGHT_GRAY = "#CCCCCC"
+AZURE_PALE_GRAY = "#F2F2F2"
+
 # ==============================================================================
 # 3. Style Factory Helpers
 # ==============================================================================
@@ -90,6 +125,7 @@ def fill_style(
     border_units: float = 0.0,
     shape_r: float | tuple[float, ...] | None = None,
     angle: float | None = None,
+    alpha: float | None = None,
 ) -> Style:
     """Create a shape Style with unit-converted border width."""
     b_col = fill_color if border_color is None else border_color
@@ -103,6 +139,8 @@ def fill_style(
         kw["shape_r"] = shape_r
     if angle is not None:
         kw["angle"] = angle
+    if alpha is not None:
+        kw["alpha"] = alpha
     return Style(**kw)
 
 
@@ -662,10 +700,57 @@ def _orient_ring(ring: list[tuple[float, float]], *, ccw: bool) -> list[tuple[fl
     return pts
 
 
+def _ring_inside_ring(inner: list[tuple[float, float]], outer: list[tuple[float, float]]) -> bool:
+    """Return True if inner ring is contained inside outer ring (tolerant of shared boundary vertices)."""
+    cx = sum(p[0] for p in inner) / len(inner)
+    cy = sum(p[1] for p in inner) / len(inner)
+    step = max(1, len(inner) // 8)
+    samples = [(cx, cy), *(inner[k] for k in range(0, len(inner), step))]
+    inside_cnt = sum(1 for pt in samples if _point_in_ring(pt, outer))
+    return inside_cnt > len(samples) // 2
+
+
+def _splice_holes_into_outer(
+    outer: list[tuple[float, float]],
+    holes: list[list[tuple[float, float]]],
+) -> list[tuple[float, float]]:
+    """Bridge inner CW hole rings into a CCW outer polygon ring at closest edge points."""
+    pts: list[tuple[float, float]] = list(outer)
+    prepared_holes: list[list[tuple[float, float]]] = []
+    for raw_hole in holes:
+        hole = _orient_ring(raw_hole, ccw=False)
+        rmost = max(range(len(hole)), key=lambda k: hole[k][0])
+        prepared_holes.append(hole[rmost:] + hole[:rmost])
+    prepared_holes.sort(key=lambda h: -h[0][0])
+
+    for hole in prepared_holes:
+        hx, hy = hole[0]
+        best_k = 0
+        best_dist2 = float("inf")
+        best_q = pts[0]
+        m_pts = len(pts)
+        for k in range(m_pts):
+            ax, ay = pts[k]
+            bx, by = pts[(k + 1) % m_pts]
+            dx, dy = bx - ax, by - ay
+            seg_len2 = dx * dx + dy * dy
+            t = max(0.0, min(1.0, ((hx - ax) * dx + (hy - ay) * dy) / seg_len2)) if seg_len2 > 1e-12 else 0.0
+            qx = round(ax + t * dx, 2)
+            qy = round(ay + t * dy, 2)
+            d2 = (hx - qx) ** 2 + (hy - qy) ** 2
+            if d2 < best_dist2:
+                best_dist2 = d2
+                best_k = k
+                best_q = (qx, qy)
+        pts = pts[: best_k + 1] + [best_q, *hole, hole[0], best_q] + pts[best_k + 1 :]
+    return pts
+
+
 def draw_compound_polygon(
     rings: list[list[tuple[float, float]]],
     *,
     color: Any,
+    alpha: float | None = None,
 ) -> None:
     """Draw a single or multi-contour polygon with transparent cutout holes using `polygon()`.
 
@@ -676,8 +761,9 @@ def draw_compound_polygon(
     valid_rings = [r for r in rings if len(r) >= 3 and abs(_signed_area(r)) > 1e-5]
     if not valid_rings:
         return
+    st = fill_style(color, alpha=alpha)
     if len(valid_rings) == 1:
-        polygon(valid_rings[0], style=fill_style(color))
+        polygon(valid_rings[0], style=st)
         return
 
     n = len(valid_rings)
@@ -686,9 +772,8 @@ def draw_compound_polygon(
     depths: list[int] = [0] * n
 
     for i in range(n):
-        sample = valid_rings[i][0]
         containing = [
-            j for j in range(n) if j != i and areas[j] > areas[i] and _point_in_ring(sample, valid_rings[j])
+            j for j in range(n) if j != i and areas[j] > areas[i] and _ring_inside_ring(valid_rings[i], valid_rings[j])
         ]
         depths[i] = len(containing)
         if containing:
@@ -698,14 +783,43 @@ def draw_compound_polygon(
         if depths[i] % 2 != 0:
             continue
         outer = _orient_ring(valid_rings[i], ccw=True)
-        child_holes = [j for j in range(n) if parents[j] == i and depths[j] == depths[i] + 1]
-        if not child_holes:
-            polygon(outer, style=fill_style(color))
-            continue
+        child_holes = [valid_rings[j] for j in range(n) if parents[j] == i and depths[j] == depths[i] + 1]
+        pts = _splice_holes_into_outer(outer, child_holes) if child_holes else outer
+        polygon(pts, style=st)
 
-        pts: list[tuple[float, float]] = [*outer, outer[0]]
-        for hj in child_holes:
-            hole = _orient_ring(valid_rings[hj], ccw=False)
-            pts.extend([hole[0], *hole, hole[0], outer[0]])
-        polygon(pts, style=fill_style(color))
+
+def draw_layered_polygons(
+    rings: list[list[tuple[float, float]]],
+    *,
+    fg_color: Any,
+    bg_color: Any,
+) -> None:
+    """Draw multi-contour rings on a solid background by alternating fg_color and bg_color by containment depth."""
+    valid_rings = [r for r in rings if len(r) >= 3 and abs(_signed_area(r)) > 1e-5]
+    if not valid_rings:
+        return
+    n = len(valid_rings)
+    areas = [abs(_signed_area(r)) for r in valid_rings]
+    order = sorted(range(n), key=lambda i: -areas[i])
+    for i in order:
+        depth = sum(
+            1 for j in range(n) if j != i and areas[j] > areas[i] and _ring_inside_ring(valid_rings[i], valid_rings[j])
+        )
+        col = fg_color if depth % 2 == 0 else bg_color
+        polygon(valid_rings[i], style=fill_style(col))
+
+
+def draw_aws_service_plate(color: Any) -> None:
+    """Draw a standard AWS Architecture Service square background tile in [8.0, 92.0]."""
+    rectangle((50.0, 50.0), width=84.0, height=84.0, style=fill_style(color))
+
+
+def draw_aws_category_plate(color: Any, *, border_color: Any = "#879196") -> None:
+    """Draw a standard AWS Category framed background tile in [8.0, 92.0]."""
+    outer = [(8.0, 8.0), (92.0, 8.0), (92.0, 92.0), (8.0, 92.0)]
+    inner = [(9.87, 9.87), (90.13, 9.87), (90.13, 90.13), (9.87, 90.13)]
+    draw_compound_polygon([outer, inner], color=border_color)
+    rectangle((50.0, 50.0), width=74.67, height=74.67, style=fill_style(color))
+
+
 

@@ -102,6 +102,26 @@ def gen_icon_original_ai() -> None:
     console.print("[bold green]✓ Original AI icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-aws")
+def gen_icon_aws() -> None:
+    """Normalize native Drawlib AWS icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/aws"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/aws"
+    manifest_file = write_provider_manifest("aws", src_path, dest_path)
+    generate_original_provider_code("aws", manifest_file=manifest_file)
+    console.print("[bold green]✓ AWS icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-azure")
+def gen_icon_azure() -> None:
+    """Normalize native Drawlib Azure icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/azure"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/azure"
+    manifest_file = write_provider_manifest("azure", src_path, dest_path)
+    generate_original_provider_code("azure", manifest_file=manifest_file)
+    console.print("[bold green]✓ Azure icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(
