@@ -65,6 +65,7 @@ GCP_RED = "#EA4335"
 GCP_YELLOW = "#FBBC04"
 GCP_GREEN = "#34A853"
 GCP_DARK_BLUE = "#1A73E8"
+GCP_GREY = "#9AA0A6"
 
 # 3-Tone GCP Tech Blues (legacy & blue-toned services)
 GCP_TECH_DARK = "#3367D6"
@@ -624,3 +625,87 @@ def draw_gcp_hex_plate(
         [v_top, v_bot, v_br, v_tr],
         style=fill_style(right_color, shape_r=(0.0, 0.0, corner_r, corner_r)),
     )
+
+
+def _signed_area(ring: list[tuple[float, float]]) -> float:
+    """Compute signed area of a 2D polygon ring (>0 for CCW, <0 for CW)."""
+    n = len(ring)
+    if n < 3:
+        return 0.0
+    area = 0.0
+    for i in range(n):
+        x1, y1 = ring[i]
+        x2, y2 = ring[(i + 1) % n]
+        area += x1 * y2 - x2 * y1
+    return 0.5 * area
+
+
+def _point_in_ring(pt_xy: tuple[float, float], ring: list[tuple[float, float]]) -> bool:
+    """Ray-casting point-in-polygon check."""
+    px, py = pt_xy
+    inside = False
+    n = len(ring)
+    for i in range(n):
+        x1, y1 = ring[i]
+        x2, y2 = ring[(i + 1) % n]
+        if ((y1 > py) != (y2 > py)) and (px < (x2 - x1) * (py - y1) / (y2 - y1 + 1e-12) + x1):
+            inside = not inside
+    return inside
+
+
+def _orient_ring(ring: list[tuple[float, float]], *, ccw: bool) -> list[tuple[float, float]]:
+    """Return a copy of ring oriented counter-clockwise (ccw=True) or clockwise (ccw=False)."""
+    pts = list(ring)
+    is_ccw = _signed_area(pts) > 0
+    if is_ccw != ccw:
+        pts.reverse()
+    return pts
+
+
+def draw_compound_polygon(
+    rings: list[list[tuple[float, float]]],
+    *,
+    color: Any,
+) -> None:
+    """Draw a single or multi-contour polygon with transparent cutout holes using `polygon()`.
+
+    Automatically determines outer contours (even containment depth, oriented CCW)
+    and inner holes (odd containment depth, oriented CW) and bridges each hole to its
+    parent outer contour with zero-width opposite-winding segments.
+    """
+    valid_rings = [r for r in rings if len(r) >= 3 and abs(_signed_area(r)) > 1e-5]
+    if not valid_rings:
+        return
+    if len(valid_rings) == 1:
+        polygon(valid_rings[0], style=fill_style(color))
+        return
+
+    n = len(valid_rings)
+    areas = [abs(_signed_area(r)) for r in valid_rings]
+    parents: list[int | None] = [None] * n
+    depths: list[int] = [0] * n
+
+    for i in range(n):
+        sample = valid_rings[i][0]
+        containing = [
+            j for j in range(n) if j != i and areas[j] > areas[i] and _point_in_ring(sample, valid_rings[j])
+        ]
+        depths[i] = len(containing)
+        if containing:
+            parents[i] = min(containing, key=lambda j: areas[j])
+
+    for i in range(n):
+        if depths[i] % 2 != 0:
+            continue
+        outer = _orient_ring(valid_rings[i], ccw=True)
+        child_holes = [j for j in range(n) if parents[j] == i and depths[j] == depths[i] + 1]
+        if not child_holes:
+            polygon(outer, style=fill_style(color))
+            continue
+
+        pts: list[tuple[float, float]] = [*outer, outer[0]]
+        for hj in child_holes:
+            hole = _orient_ring(valid_rings[hj], ccw=False)
+            pts.extend([hole[0], *hole, hole[0], outer[0]])
+        polygon(pts, style=fill_style(color))
+
