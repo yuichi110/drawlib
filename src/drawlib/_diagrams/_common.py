@@ -28,6 +28,7 @@ import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
 import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
+import drawlib._icons.png_icons.original_server._generated as original_server_gen
 import drawlib._icons.png_icons.server._generated as server_gen
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_fonts import Font
@@ -46,6 +47,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalCloudIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
+    OriginalServerIcon,
     PhosphorIcon,
     ServerIcon,
 )
@@ -59,6 +61,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalCloudIcon: original_cloud_gen,
     OriginalDevopsIcon: original_devops_gen,
     OriginalNetworkIcon: original_network_gen,
+    OriginalServerIcon: original_server_gen,
     AwsIcon: aws_gen,
     AzureIcon: azure_gen,
     GcpIcon: gcp_gen,
@@ -186,6 +189,7 @@ def draw_enum_icon(
         | OriginalCloudIcon
         | OriginalDevopsIcon
         | OriginalNetworkIcon
+        | OriginalServerIcon
         | AwsIcon
         | AzureIcon
         | GcpIcon
@@ -260,6 +264,7 @@ def draw_diagram_icon(
             OriginalCloudIcon,
             OriginalDevopsIcon,
             OriginalNetworkIcon,
+            OriginalServerIcon,
             AwsIcon,
             AzureIcon,
             GcpIcon,

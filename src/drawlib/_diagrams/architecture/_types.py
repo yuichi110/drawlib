@@ -28,6 +28,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalCloudIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
+    OriginalServerIcon,
     PhosphorIcon,
     ServerIcon,
 )
@@ -61,6 +62,7 @@ IconType: TypeAlias = (
     | OriginalCloudIcon
     | OriginalDevopsIcon
     | OriginalNetworkIcon
+    | OriginalServerIcon
     | AwsIcon
     | AzureIcon
     | GcpIcon

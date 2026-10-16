@@ -23,6 +23,7 @@ from drawlib._icons import (
     original_cloud,
     original_devops,
     original_network,
+    original_server,
     phosphor,
     server,
 )
@@ -37,6 +38,7 @@ sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
 sys.modules["drawlib.icons.original_devops"] = original_devops
 sys.modules["drawlib.icons.original_network"] = original_network
+sys.modules["drawlib.icons.original_server"] = original_server
 sys.modules["drawlib.icons.server"] = server
 
 __all__ = [
@@ -49,6 +51,7 @@ __all__ = [
     "original_cloud",
     "original_devops",
     "original_network",
+    "original_server",
     "phosphor",
     "server",
 ]

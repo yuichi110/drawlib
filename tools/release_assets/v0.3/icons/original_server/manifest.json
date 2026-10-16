@@ -1,0 +1,384 @@
+{
+  "format_version": "2.0",
+  "provider": "original_server",
+  "created_at": "2026-10-16T08:14:22.180957+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 24,
+  "aliases": {
+    "accelerated_server": "gpu_server",
+    "ai_server": "gpu_server",
+    "backup_server": "backup_appliance",
+    "blade_server": "blade_chassis",
+    "block_storage": "san_storage",
+    "block_storage_array": "san_storage",
+    "checkpoint": "vm_snapshot",
+    "cluster": "host_cluster",
+    "compute_pool": "resource_pool",
+    "dedup_appliance": "backup_appliance",
+    "disk_array": "san_storage",
+    "distributed_switch": "virtual_switch",
+    "drs_cluster": "host_cluster",
+    "dvs": "virtual_switch",
+    "esxi_host": "hypervisor_host",
+    "fibre_channel_switch": "fc_switch",
+    "file_server": "nas_storage",
+    "file_storage": "nas_storage",
+    "golden_image": "vm_template",
+    "guest_os": "virtual_machine",
+    "ha_cluster": "host_cluster",
+    "hci_storage": "virtual_san",
+    "hyperconverged_node": "hci_appliance",
+    "kvm_host": "hypervisor_host",
+    "lto_tape": "tape_library",
+    "lun": "datastore",
+    "modular_chassis": "blade_chassis",
+    "object_store": "object_storage",
+    "pedestal_server": "tower_server",
+    "physical_server": "rack_server",
+    "s3_appliance": "object_storage",
+    "san_switch": "fc_switch",
+    "scale_out_nas": "nas_storage",
+    "server": "rack_server",
+    "shared_volume": "datastore",
+    "snapshot": "vm_snapshot",
+    "software_defined_storage": "virtual_san",
+    "storage_array": "san_storage",
+    "tape_archive": "tape_library",
+    "tape_drive": "tape_library",
+    "template": "vm_template",
+    "vapp": "vm_group",
+    "vcenter": "management_server",
+    "vcpu_pool": "resource_pool",
+    "virtualization_host": "hypervisor_host",
+    "virtualization_manager": "management_server",
+    "vm": "virtual_machine",
+    "vm_folder": "vm_group",
+    "vm_migration": "live_migration",
+    "vmfs_datastore": "datastore",
+    "vmotion": "live_migration",
+    "vsan": "virtual_san",
+    "vswitch": "virtual_switch",
+    "x86_server": "rack_server"
+  },
+  "files": {
+    "backup_appliance_default.png": {
+      "icon_name": "backup_appliance",
+      "variant": "default",
+      "source_script": "original_server/backup_appliance_default.py",
+      "size_bytes": 30789,
+      "sha256": "dd48c41bb8ee8a38931d74c179b15c204e0de48fda93075413680f8efe7f030f",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
+      ]
+    },
+    "blade_chassis_default.png": {
+      "icon_name": "blade_chassis",
+      "variant": "default",
+      "source_script": "original_server/blade_chassis_default.py",
+      "size_bytes": 18150,
+      "sha256": "3a644f460ed5d46f1bdc113764830fc89ec62fa109761c8f7532c0f6711fceaa",
+      "bbox": [
+        26,
+        66,
+        486,
+        446
+      ]
+    },
+    "bmc_default.png": {
+      "icon_name": "bmc",
+      "variant": "default",
+      "source_script": "original_server/bmc_default.py",
+      "size_bytes": 17804,
+      "sha256": "a51da362f149f8732b61325c99cdd8d7e73829acc6cfe4531223c1d82b48c986",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "datastore_default.png": {
+      "icon_name": "datastore",
+      "variant": "default",
+      "source_script": "original_server/datastore_default.py",
+      "size_bytes": 38019,
+      "sha256": "de1cd2249f0cbc9dedea12b3e0e5525fefae6f4eb3d30d3d4fff6c84660e2f06",
+      "bbox": [
+        31,
+        26,
+        481,
+        486
+      ]
+    },
+    "fc_switch_default.png": {
+      "icon_name": "fc_switch",
+      "variant": "default",
+      "source_script": "original_server/fc_switch_default.py",
+      "size_bytes": 16718,
+      "sha256": "edd9fe0f4e6de1fe9f280d25919a577ef59d146b22574b3161b5826c797c22b9",
+      "bbox": [
+        26,
+        123,
+        486,
+        389
+      ]
+    },
+    "gpu_server_default.png": {
+      "icon_name": "gpu_server",
+      "variant": "default",
+      "source_script": "original_server/gpu_server_default.py",
+      "size_bytes": 13690,
+      "sha256": "fe3f3895764c20ca07d302c091da52df959d33daa4b59988f477bebf7fa314d4",
+      "bbox": [
+        26,
+        77,
+        486,
+        434
+      ]
+    },
+    "hci_appliance_default.png": {
+      "icon_name": "hci_appliance",
+      "variant": "default",
+      "source_script": "original_server/hci_appliance_default.py",
+      "size_bytes": 23079,
+      "sha256": "cdc064e3bb464a1dc7236bd05bb2f5e78b53b28ae375e315bdc8e6290a0b3334",
+      "bbox": [
+        26,
+        47,
+        486,
+        464
+      ]
+    },
+    "host_cluster_default.png": {
+      "icon_name": "host_cluster",
+      "variant": "default",
+      "source_script": "original_server/host_cluster_default.py",
+      "size_bytes": 29748,
+      "sha256": "bf3a5f26684ef9f6380c78e99ec3e762fb684f54d9ea6b9a1ae553b6f77588fc",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "hypervisor_host_default.png": {
+      "icon_name": "hypervisor_host",
+      "variant": "default",
+      "source_script": "original_server/hypervisor_host_default.py",
+      "size_bytes": 26571,
+      "sha256": "45d684ae66a33d6022e28a9153c24b6b604bbc8e599bbba4ca457705cb87ca70",
+      "bbox": [
+        26,
+        58,
+        486,
+        453
+      ]
+    },
+    "live_migration_default.png": {
+      "icon_name": "live_migration",
+      "variant": "default",
+      "source_script": "original_server/live_migration_default.py",
+      "size_bytes": 24138,
+      "sha256": "60297b7d91bb96df7994d75c95229583a39edbad85c711831669151c7459f3ab",
+      "bbox": [
+        26,
+        140,
+        486,
+        372
+      ]
+    },
+    "management_server_default.png": {
+      "icon_name": "management_server",
+      "variant": "default",
+      "source_script": "original_server/management_server_default.py",
+      "size_bytes": 33764,
+      "sha256": "2edb22b3b0076c3009a4510ecde4f9dc34328aabfd37a4adcdb2c422b0ca3d20",
+      "bbox": [
+        28,
+        26,
+        483,
+        486
+      ]
+    },
+    "nas_storage_default.png": {
+      "icon_name": "nas_storage",
+      "variant": "default",
+      "source_script": "original_server/nas_storage_default.py",
+      "size_bytes": 34721,
+      "sha256": "f4b3e1bef2fdc48110d3477f21461670769bf03a02f3b83bab106a05f9f52759",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    },
+    "object_storage_default.png": {
+      "icon_name": "object_storage",
+      "variant": "default",
+      "source_script": "original_server/object_storage_default.py",
+      "size_bytes": 40250,
+      "sha256": "d88132e08cc9cf9aeb81551eae6d30a4d004e8ca61dec3fc1bb576493b9b8659",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    },
+    "rack_server_default.png": {
+      "icon_name": "rack_server",
+      "variant": "default",
+      "source_script": "original_server/rack_server_default.py",
+      "size_bytes": 15264,
+      "sha256": "15c7e19b51077ce850966a441080a67d4a5f7153398ee05d0abdf5eca40690fb",
+      "bbox": [
+        26,
+        151,
+        486,
+        360
+      ]
+    },
+    "resource_pool_default.png": {
+      "icon_name": "resource_pool",
+      "variant": "default",
+      "source_script": "original_server/resource_pool_default.py",
+      "size_bytes": 44336,
+      "sha256": "4169f09473c68aa14027bcb448f9969f50e9f3dad31342ecf5896f21909ce2d5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "san_storage_default.png": {
+      "icon_name": "san_storage",
+      "variant": "default",
+      "source_script": "original_server/san_storage_default.py",
+      "size_bytes": 35765,
+      "sha256": "e78a85078af3c1c2327a3d012404d9ce457de49939084fa0e42ec898eeaa6eb4",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    },
+    "tape_library_default.png": {
+      "icon_name": "tape_library",
+      "variant": "default",
+      "source_script": "original_server/tape_library_default.py",
+      "size_bytes": 23733,
+      "sha256": "95ecb4d9b107aae3caf1060fd4c235d1db73a6c09285ef7c37fba38c389cd06e",
+      "bbox": [
+        26,
+        94,
+        486,
+        417
+      ]
+    },
+    "tower_server_default.png": {
+      "icon_name": "tower_server",
+      "variant": "default",
+      "source_script": "original_server/tower_server_default.py",
+      "size_bytes": 13932,
+      "sha256": "f72e630c58898150f96e9f6cc588f060826f2caf42a6d20498a809bf89a01723",
+      "bbox": [
+        80,
+        26,
+        431,
+        486
+      ]
+    },
+    "virtual_machine_default.png": {
+      "icon_name": "virtual_machine",
+      "variant": "default",
+      "source_script": "original_server/virtual_machine_default.py",
+      "size_bytes": 24110,
+      "sha256": "d2340f7f37fb6cf9b440191d27cd18d050eaf7dc852b2794b53af44d9ed4099d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "virtual_san_default.png": {
+      "icon_name": "virtual_san",
+      "variant": "default",
+      "source_script": "original_server/virtual_san_default.py",
+      "size_bytes": 32794,
+      "sha256": "e6877e8e938f440fb08ca956a48c5be7b16394b8f87c3e014b3e279be30c20fb",
+      "bbox": [
+        26,
+        28,
+        486,
+        484
+      ]
+    },
+    "virtual_switch_default.png": {
+      "icon_name": "virtual_switch",
+      "variant": "default",
+      "source_script": "original_server/virtual_switch_default.py",
+      "size_bytes": 23953,
+      "sha256": "cfa5dbd06a7349c894ed66e2685e06c98751e001a1b168dea6cb8c3ff5e57871",
+      "bbox": [
+        26,
+        50,
+        486,
+        462
+      ]
+    },
+    "vm_group_default.png": {
+      "icon_name": "vm_group",
+      "variant": "default",
+      "source_script": "original_server/vm_group_default.py",
+      "size_bytes": 28747,
+      "sha256": "a332a5340871f87adc5e1662ce88642efec481cae9a389114ffc92df5fa42e39",
+      "bbox": [
+        26,
+        40,
+        486,
+        471
+      ]
+    },
+    "vm_snapshot_default.png": {
+      "icon_name": "vm_snapshot",
+      "variant": "default",
+      "source_script": "original_server/vm_snapshot_default.py",
+      "size_bytes": 32048,
+      "sha256": "5ccb36646c6d86297858c83a44aba228859c918ac0412c0ee838574ce26aefb2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vm_template_default.png": {
+      "icon_name": "vm_template",
+      "variant": "default",
+      "source_script": "original_server/vm_template_default.py",
+      "size_bytes": 26943,
+      "sha256": "3f6708c253100ffd1d09dc761f97968e92e6c1333ac6f05baa86159915f41528",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    }
+  }
+}

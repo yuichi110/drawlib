@@ -55,6 +55,7 @@ DARK = Colors.Dark  # #323A48 (Deep Slate structural outline)
 ORIG_STROKE: float = 2.7  # Refined structural stroke width in 100x100 units
 
 PASTEL_BLUE = "#86A4F7"  # Soft Pastel Cornflower Blue (primary surface)
+PASTEL_BLUE_DARK = "#5C7CE6"  # Deeper cornflower blue for high-contrast white glyphs
 PASTEL_BLUE_LIGHT = "#ACC2FA"  # Lighter pastel blue companion tint
 PASTEL_GREEN = "#7AD69E"  # Soft Pastel Mint/Sage Green (secondary/accent surface)
 WHITE = Colors.White  # Crisp white fill (#FFFFFF)

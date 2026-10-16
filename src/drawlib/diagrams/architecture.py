@@ -25,6 +25,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalCloudIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
+    OriginalServerIcon,
     PhosphorIcon,
     ServerIcon,
 )
@@ -46,6 +47,7 @@ __all__ = [
     "OriginalCloudIcon",
     "OriginalDevopsIcon",
     "OriginalNetworkIcon",
+    "OriginalServerIcon",
     "PhosphorIcon",
     "ServerIcon",
     "icons",

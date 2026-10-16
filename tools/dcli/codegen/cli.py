@@ -112,6 +112,16 @@ def gen_icon_original_network() -> None:
     console.print("[bold green]✓ Original Network icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-original-server")
+def gen_icon_original_server() -> None:
+    """Normalize native Drawlib Original Server icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_server"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_server"
+    manifest_file = write_provider_manifest("original_server", src_path, dest_path)
+    generate_original_provider_code("original_server", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Server icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-aws")
 def gen_icon_aws() -> None:
     """Normalize native Drawlib AWS icons and generate Python bindings."""

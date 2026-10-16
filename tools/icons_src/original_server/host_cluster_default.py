@@ -1,0 +1,78 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Original Server concept icon: host_cluster."""
+
+from drawlib.canvas import save
+from drawlib.shapes import circle, rectangle
+from drawlib.utils import (
+    DARK,
+    ORIG_STROKE,
+    PASTEL_BLUE,
+    PASTEL_BLUE_LIGHT,
+    PASTEL_GREEN,
+    WHITE,
+    draw_iso_cube,
+    draw_round_segment,
+    fill_style,
+    setup_icon,
+)
+
+setup_icon()
+
+w = ORIG_STROKE
+
+# Shared horizontal cluster interconnect bus and vertical stems
+draw_round_segment((24.0, 41.0), (76.0, 41.0), width_units=w, color=DARK)
+for x_host in (31.0, 69.0):
+    draw_round_segment((x_host, 22.0), (x_host, 41.0), width_units=w, color=DARK)
+for x_vm, y_vm in ((24.0, 64.0), (50.0, 73.0), (76.0, 64.0)):
+    draw_round_segment((x_vm, 41.0), (x_vm, y_vm), width_units=w, color=DARK)
+
+# Central PASTEL_GREEN HA cluster hub on the interconnect bus
+circle(
+    (50.0, 41.0),
+    radius=5.0,
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+)
+
+# 2 physical PASTEL_BLUE host blades at bottom
+for x_host in (31.0, 69.0):
+    rectangle(
+        (x_host, 22.0),
+        width=34.0,
+        height=14.0,
+        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=3.5),
+    )
+    draw_round_segment((x_host - 10.0, 22.0), (x_host + 1.0, 22.0), width_units=2.2, color=DARK)
+    circle(
+        (x_host + 9.5, 22.0),
+        radius=2.7,
+        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+    )
+
+# 3 coordinated isometric 3D VM cubes above the cluster bus
+vms = [
+    (24.0, 64.0, PASTEL_GREEN),
+    (50.0, 73.0, PASTEL_BLUE_LIGHT),
+    (76.0, 64.0, PASTEL_GREEN),
+]
+for cx, cy, r_col in vms:
+    draw_iso_cube(
+        cx,
+        cy,
+        radius=12.5,
+        top_color=WHITE,
+        left_color=PASTEL_BLUE,
+        right_color=r_col,
+        border_color=DARK,
+        border_units=2.3,
+    )
+
+save()

@@ -93,6 +93,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_CLOUD = "icon_original_cloud"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     ICON_ORIGINAL_NETWORK = "icon_original_network"
+    ICON_ORIGINAL_SERVER = "icon_original_server"
     ICON_SERVER = "icon_server"
     MAP_CITIES = "map_cities"
     MAP_COUNTRIES = "map_countries"
@@ -161,6 +162,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_cloud: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
     icon_original_network: ReleaseAssetPackage
+    icon_original_server: ReleaseAssetPackage
     icon_server: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
     map_countries: ReleaseAssetPackage
@@ -612,7 +614,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AWS,
         category="icon",
         archive_name="icon_aws.zip",
-        archive_sha256="a5440cd87628eee0f28e143022c153bec95d5785f0cacbc5415d3fd50b6f5556",
+        archive_sha256="3b218c60700b872f35d6e5796581c368bcbac03dee251806fb7b2273f717a11d",
         source_rel_path="icons/aws",
         target_rel_path="icons/aws",
         files=(
@@ -952,7 +954,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AZURE,
         category="icon",
         archive_name="icon_azure.zip",
-        archive_sha256="63e3fc91251ba7b5cb76d67ed325e84d2bbd92afde83704becd2cabee009c7bb",
+        archive_sha256="bcc9689f83bf86a8df0fcb1b22ec92f4e09c1253ce488b91d5f5ea720ee3e4af",
         source_rel_path="icons/azure",
         target_rel_path="icons/azure",
         files=(
@@ -1213,7 +1215,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
         archive_name="icon_gcp.zip",
-        archive_sha256="491ea3708a3170066014a902fdd5c71ada574d50d6faee46861db4aeaefd89e8",
+        archive_sha256="52929624da9001feb680b5393234d5653c30edfe9f71699ba18a690ecb1d14d2",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
         files=(
@@ -1519,7 +1521,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_NETWORK,
         category="icon",
         archive_name="icon_network.zip",
-        archive_sha256="9377cd802412cd568b8119bcf27726649f00499474022c032a3a813ce538205c",
+        archive_sha256="dddae411b8f5df1697bf364769ab3ed52d802453a28bc08694060054651998f2",
         source_rel_path="icons/network",
         target_rel_path="icons/network",
         files=(
@@ -1574,7 +1576,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_AI,
         category="icon",
         archive_name="icon_original_ai.zip",
-        archive_sha256="53e403ec0ba74f9a706737e869eee56e4f87ac56b0d942becdbba5f61c46062c",
+        archive_sha256="236c4263dcb954c05b7f8953004909c7ddfcb9f9897b756e770d16fc1d962c75",
         source_rel_path="icons/original_ai",
         target_rel_path="icons/original_ai",
         files=(
@@ -1605,7 +1607,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CLOUD,
         category="icon",
         archive_name="icon_original_cloud.zip",
-        archive_sha256="ccfe363364d11bd4ab2f80530cbf9c6090134b12f07adda4ee3c2b0680fd605e",
+        archive_sha256="7c7c4c0b8fb3b260006f7fca0b4c49396bdf570f44d25196e1f6af58e03d77b3",
         source_rel_path="icons/original_cloud",
         target_rel_path="icons/original_cloud",
         files=(
@@ -1713,7 +1715,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_DEVOPS,
         category="icon",
         archive_name="icon_original_devops.zip",
-        archive_sha256="3b8dd4a93a7736f42bd56e8afde824f658a8f410f0633f61095b61215b3d34fb",
+        archive_sha256="c15f56ff47d4727e414c5f189b596bf214a512846746531e47fdca2c889e4617",
         source_rel_path="icons/original_devops",
         target_rel_path="icons/original_devops",
         files=(
@@ -1744,7 +1746,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_NETWORK,
         category="icon",
         archive_name="icon_original_network.zip",
-        archive_sha256="f0ed3abff462a8777cacd80f4c8167b627fe0a6ba37941990638e7ca3ac767f3",
+        archive_sha256="a397412c84e38875581df1ef26e4e8948329764a11101163a27e21869193a48f",
         source_rel_path="icons/original_network",
         target_rel_path="icons/original_network",
         files=(
@@ -1773,11 +1775,46 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "wireless_router_default.png",
         ),
     ),
+    icon_original_server=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_SERVER,
+        category="icon",
+        archive_name="icon_original_server.zip",
+        archive_sha256="b0ef3cf83e66e038a77a8d5020219150f51a39ed34e6fa22601ed31270836477",
+        source_rel_path="icons/original_server",
+        target_rel_path="icons/original_server",
+        files=(
+            "backup_appliance_default.png",
+            "blade_chassis_default.png",
+            "bmc_default.png",
+            "datastore_default.png",
+            "fc_switch_default.png",
+            "gpu_server_default.png",
+            "hci_appliance_default.png",
+            "host_cluster_default.png",
+            "hypervisor_host_default.png",
+            "live_migration_default.png",
+            "management_server_default.png",
+            "manifest.json",
+            "nas_storage_default.png",
+            "object_storage_default.png",
+            "rack_server_default.png",
+            "resource_pool_default.png",
+            "san_storage_default.png",
+            "tape_library_default.png",
+            "tower_server_default.png",
+            "virtual_machine_default.png",
+            "virtual_san_default.png",
+            "virtual_switch_default.png",
+            "vm_group_default.png",
+            "vm_snapshot_default.png",
+            "vm_template_default.png",
+        ),
+    ),
     icon_server=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_SERVER,
         category="icon",
         archive_name="icon_server.zip",
-        archive_sha256="92ba9b334b96e749e66c38fd6ea8518ddd467394b8575a5df4c53970e0294a5e",
+        archive_sha256="ee7b58c69b2a75bad5610169e5584ea9cdbef35c1c199792769649864143cac2",
         source_rel_path="icons/server",
         target_rel_path="icons/server",
         files=(

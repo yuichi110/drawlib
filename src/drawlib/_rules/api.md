@@ -513,7 +513,7 @@ pie.draw((104, 26))
 ## 10. Icons & Media (`drawlib.icons`, `drawlib.images`, `drawlib.fonts`)
 
 ### 10.1 Icons
-Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `network`, `original_cloud`, `original_devops`, `original_ai`, `original_network`). `network` provides Cisco topology icons with `variant="default" | "classic" | "modern"`, while `original_network` provides 2D flat Drawlib pastel network topology icons:
+Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `network`, `server`, `original_cloud`, `original_devops`, `original_ai`, `original_network`, `original_server`). `network` provides Cisco topology icons with `variant="default" | "classic" | "modern"`, `server` provides Dell EMC & VMware hybrid infrastructure icons, while `original_network` and `original_server` provide 2D flat Drawlib pastel network and server/virtualization/storage icons:
 
 ```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup
