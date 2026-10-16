@@ -68,11 +68,13 @@ PROVIDER_LABELS: dict[str, str] = {
     "original_network": "Original Network",
     "original_server": "Original Server",
     "original_cnative": "Original Cloud Native",
+    "original_data": "Original Data",
     "aws": "AWS",
     "azure": "Azure",
     "network": "Network",
     "server": "Server",
     "cnative": "Cloud Native",
+    "data": "Data",
 }
 
 
@@ -122,11 +124,13 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "original_network": "OriginalNetworkIcon",
     "original_server": "OriginalServerIcon",
     "original_cnative": "OriginalCnativeIcon",
+    "original_data": "OriginalDataIcon",
     "aws": "AwsIcon",
     "azure": "AzureIcon",
     "network": "NetworkIcon",
     "server": "ServerIcon",
     "cnative": "CnativeIcon",
+    "data": "DataIcon",
 }
 
 

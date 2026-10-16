@@ -88,11 +88,13 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_AWS = "icon_aws"
     ICON_AZURE = "icon_azure"
     ICON_CNATIVE = "icon_cnative"
+    ICON_DATA = "icon_data"
     ICON_GCP = "icon_gcp"
     ICON_NETWORK = "icon_network"
     ICON_ORIGINAL_AI = "icon_original_ai"
     ICON_ORIGINAL_CLOUD = "icon_original_cloud"
     ICON_ORIGINAL_CNATIVE = "icon_original_cnative"
+    ICON_ORIGINAL_DATA = "icon_original_data"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     ICON_ORIGINAL_NETWORK = "icon_original_network"
     ICON_ORIGINAL_SERVER = "icon_original_server"
@@ -159,11 +161,13 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_aws: ReleaseAssetPackage
     icon_azure: ReleaseAssetPackage
     icon_cnative: ReleaseAssetPackage
+    icon_data: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
     icon_network: ReleaseAssetPackage
     icon_original_ai: ReleaseAssetPackage
     icon_original_cloud: ReleaseAssetPackage
     icon_original_cnative: ReleaseAssetPackage
+    icon_original_data: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
     icon_original_network: ReleaseAssetPackage
     icon_original_server: ReleaseAssetPackage
@@ -1274,6 +1278,67 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "rook_default.png",
         ),
     ),
+    icon_data=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_DATA,
+        category="icon",
+        archive_name="icon_data.zip",
+        archive_sha256="a8e1e3b9be6eac94d0a1580d31e93a6cf928e70feb825350e166e2dd6603cc03",
+        source_rel_path="icons/data",
+        target_rel_path="icons/data",
+        files=(
+            "airbyte_default.png",
+            "airflow_default.png",
+            "beam_default.png",
+            "cassandra_default.png",
+            "clickhouse_default.png",
+            "cockroachdb_default.png",
+            "couchbase_default.png",
+            "dagster_default.png",
+            "databricks_default.png",
+            "dbt_default.png",
+            "debezium_default.png",
+            "delta_lake_default.png",
+            "druid_default.png",
+            "duckdb_default.png",
+            "elasticsearch_default.png",
+            "flink_default.png",
+            "hadoop_default.png",
+            "iceberg_default.png",
+            "influxdb_default.png",
+            "kafka_default.png",
+            "manifest.json",
+            "mariadb_default.png",
+            "meilisearch_default.png",
+            "memcached_default.png",
+            "milvus_default.png",
+            "minio_default.png",
+            "mongodb_default.png",
+            "mysql_default.png",
+            "nats_default.png",
+            "neo4j_default.png",
+            "nifi_default.png",
+            "opensearch_default.png",
+            "oracle_db_default.png",
+            "postgresql_default.png",
+            "pulsar_default.png",
+            "qdrant_default.png",
+            "rabbitmq_default.png",
+            "redis_default.png",
+            "redpanda_default.png",
+            "scylladb_default.png",
+            "snowflake_default.png",
+            "spark_default.png",
+            "sql_server_default.png",
+            "sqlite_default.png",
+            "supabase_default.png",
+            "superset_default.png",
+            "tidb_default.png",
+            "timescaledb_default.png",
+            "trino_default.png",
+            "valkey_default.png",
+            "weaviate_default.png",
+        ),
+    ),
     icon_gcp=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
@@ -1778,7 +1843,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CNATIVE,
         category="icon",
         archive_name="icon_original_cnative.zip",
-        archive_sha256="3f46ea33a2634f851d9945b0aa573e57b329147397576ccbbb32820015350173",
+        archive_sha256="44c03cd8d6d50a3a29a7abd399d46239a2cb3eb8ec2a879cd5daa1be9061b5a6",
         source_rel_path="icons/original_cnative",
         target_rel_path="icons/original_cnative",
         files=(
@@ -1831,6 +1896,67 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "opentelemetry_default.png",
             "prometheus_default.png",
             "rook_default.png",
+        ),
+    ),
+    icon_original_data=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_DATA,
+        category="icon",
+        archive_name="icon_original_data.zip",
+        archive_sha256="88f2f5343f073ff100f2fa5e0d8374888987ed87847b39192a9a6b309f1fda79",
+        source_rel_path="icons/original_data",
+        target_rel_path="icons/original_data",
+        files=(
+            "airbyte_default.png",
+            "airflow_default.png",
+            "beam_default.png",
+            "cassandra_default.png",
+            "clickhouse_default.png",
+            "cockroachdb_default.png",
+            "couchbase_default.png",
+            "dagster_default.png",
+            "databricks_default.png",
+            "dbt_default.png",
+            "debezium_default.png",
+            "delta_lake_default.png",
+            "druid_default.png",
+            "duckdb_default.png",
+            "elasticsearch_default.png",
+            "flink_default.png",
+            "hadoop_default.png",
+            "iceberg_default.png",
+            "influxdb_default.png",
+            "kafka_default.png",
+            "manifest.json",
+            "mariadb_default.png",
+            "meilisearch_default.png",
+            "memcached_default.png",
+            "milvus_default.png",
+            "minio_default.png",
+            "mongodb_default.png",
+            "mysql_default.png",
+            "nats_default.png",
+            "neo4j_default.png",
+            "nifi_default.png",
+            "opensearch_default.png",
+            "oracle_db_default.png",
+            "postgresql_default.png",
+            "pulsar_default.png",
+            "qdrant_default.png",
+            "rabbitmq_default.png",
+            "redis_default.png",
+            "redpanda_default.png",
+            "scylladb_default.png",
+            "snowflake_default.png",
+            "spark_default.png",
+            "sql_server_default.png",
+            "sqlite_default.png",
+            "supabase_default.png",
+            "superset_default.png",
+            "tidb_default.png",
+            "timescaledb_default.png",
+            "trino_default.png",
+            "valkey_default.png",
+            "weaviate_default.png",
         ),
     ),
     icon_original_devops=ReleaseAssetPackage(

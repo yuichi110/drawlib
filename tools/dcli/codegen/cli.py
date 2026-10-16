@@ -182,6 +182,26 @@ def gen_icon_original_cnative() -> None:
     console.print("[bold green]✓ Original Cloud Native icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-data")
+def gen_icon_data() -> None:
+    """Normalize native Drawlib Data icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/data"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/data"
+    manifest_file = write_provider_manifest("data", src_path, dest_path)
+    generate_original_provider_code("data", manifest_file=manifest_file)
+    console.print("[bold green]✓ Data icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-data")
+def gen_icon_original_data() -> None:
+    """Normalize native Drawlib Original Data icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_data"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_data"
+    manifest_file = write_provider_manifest("original_data", src_path, dest_path)
+    generate_original_provider_code("original_data", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Data icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

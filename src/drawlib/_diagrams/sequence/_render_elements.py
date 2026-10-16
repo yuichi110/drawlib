@@ -31,11 +31,13 @@ from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
     CnativeIcon,
+    DataIcon,
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
+    OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     OriginalServerIcon,
@@ -56,12 +58,14 @@ def draw_enum_icon(
         OriginalAiIcon
         | OriginalCloudIcon
         | OriginalCnativeIcon
+        | OriginalDataIcon
         | OriginalDevopsIcon
         | OriginalNetworkIcon
         | OriginalServerIcon
         | AwsIcon
         | AzureIcon
         | CnativeIcon
+        | DataIcon
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon
@@ -71,7 +75,7 @@ def draw_enum_icon(
     icon_size: float,
     applied_style: Style,
 ) -> None:
-    """Draw an Original, AWS, Azure, GCP, Network, Server, or Phosphor icon enum."""
+    """Draw an Original, AWS, Azure, Cloud Native, Data, GCP, Network, Server, or Phosphor icon enum."""
     _common_draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=True)
 
 
