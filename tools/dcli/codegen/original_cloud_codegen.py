@@ -67,6 +67,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "original_ai": "Original AI",
     "aws": "AWS",
     "azure": "Azure",
+    "network": "Network",
 }
 
 
@@ -90,6 +91,9 @@ def generate_code(
 
     for func_name in sorted(all_functions.keys()):
         target_name, variants = all_functions[func_name]
+        if provider == "network" and "default" in variants and "classic" not in variants:
+            idx = variants.index("default")
+            variants = [*variants[: idx + 1], "classic", *variants[idx + 1 :]]
         display_name = func_name.replace("_", " ")
         variant_literal = ", ".join(f'"{v}"' for v in variants)
         variant_doc = " or ".join(f"'{v}'" for v in variants)
@@ -112,6 +116,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "original_ai": "OriginalAiIcon",
     "aws": "AwsIcon",
     "azure": "AzureIcon",
+    "network": "NetworkIcon",
 }
 
 

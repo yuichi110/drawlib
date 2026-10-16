@@ -31,6 +31,7 @@ from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
     GcpIcon,
+    NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalDevopsIcon,
@@ -46,12 +47,21 @@ from drawlib._diagrams.sequence._types import IconType, PaddingType
 
 
 def draw_enum_icon(
-    icon: OriginalAiIcon | OriginalCloudIcon | OriginalDevopsIcon | AwsIcon | AzureIcon | GcpIcon | PhosphorIcon,
+    icon: (
+        OriginalAiIcon
+        | OriginalCloudIcon
+        | OriginalDevopsIcon
+        | AwsIcon
+        | AzureIcon
+        | GcpIcon
+        | NetworkIcon
+        | PhosphorIcon
+    ),
     canvas_xy: tuple[float, float],
     icon_size: float,
     applied_style: Style,
 ) -> None:
-    """Draw an Original, AWS, Azure, GCP, or Phosphor icon enum."""
+    """Draw an Original, AWS, Azure, GCP, Network, or Phosphor icon enum."""
     _common_draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=True)
 
 

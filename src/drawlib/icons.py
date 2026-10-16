@@ -18,6 +18,7 @@ from drawlib._icons import (
     azure,
     font_icon,
     gcp,
+    network,
     original_ai,
     original_cloud,
     original_devops,
@@ -29,6 +30,7 @@ sys.modules["drawlib.icons.phosphor"] = phosphor
 sys.modules["drawlib.icons.aws"] = aws
 sys.modules["drawlib.icons.azure"] = azure
 sys.modules["drawlib.icons.gcp"] = gcp
+sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
 sys.modules["drawlib.icons.original_devops"] = original_devops
@@ -38,6 +40,7 @@ __all__ = [
     "azure",
     "font_icon",
     "gcp",
+    "network",
     "original_ai",
     "original_cloud",
     "original_devops",

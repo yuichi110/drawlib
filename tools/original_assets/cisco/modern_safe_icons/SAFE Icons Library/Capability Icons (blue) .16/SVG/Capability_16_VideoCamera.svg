@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 11.52 11.52" style="enable-background:new 0 0 11.52 11.52;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#28A8E0;}
+	.st1{fill:none;stroke:#FFFFFF;stroke-width:0.4233;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#FFFFFF;stroke-width:0.4233;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:none;stroke:#FFFFFF;stroke-width:0.4233;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#FFFFFF;stroke-width:0.4233;stroke-linecap:round;stroke-miterlimit:10;}
+</style>
+<g>
+	<g>
+		<g>
+			<path class="st0" d="M11.52,5.76c0,3.18-2.58,5.76-5.76,5.76S0,8.94,0,5.76C0,2.58,2.58,0,5.76,0S11.52,2.58,11.52,5.76z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<line class="st1" x1="7.63" y1="6.28" x2="9.2" y2="6.28"/>
+	<path class="st1" d="M9.2,7.13H7.54c-0.33,0-0.6-0.19-0.6-0.43"/>
+	<polyline class="st2" points="3.79,6.08 4.22,6.78 4.91,6.39 	"/>
+	<path class="st3" d="M7.14,2.31c0.31-0.19,0.7-0.09,0.88,0.2l0.66,1.11L5.7,5.44c0,0-0.67-0.64-1.1-0.37C4.18,5.33,3.03,6,3.03,6
+		L2.05,5.39L7.14,2.31z"/>
+	<line class="st4" x1="9.22" y1="5.43" x2="9.22" y2="8"/>
+	<path class="st2" d="M8.3,3.86l0.21,0.34c0.11,0.19,0.05,0.43-0.09,0.52L7.74,5.14c-0.5,0.3-0.21,0.63-0.21,0.63l0.01,0.02
+		C7.56,5.8,7.58,5.83,7.6,5.86c0.16,0.26,0.07,0.6-0.19,0.76C7.14,6.79,6.8,6.71,6.64,6.45C6.62,6.42,6.61,6.4,6.6,6.37L6.59,6.35
+		c0,0-0.18-0.41-0.68-0.11l-0.4,0.31C5.32,6.67,5.08,6.61,4.96,6.42L4.52,5.7"/>
+</g>
+<path class="st3" d="M4.02,7.95c-0.26,0-0.52-0.11-0.72-0.31C3.1,7.44,3,7.18,3,6.93"/>
+<path class="st3" d="M4.01,8.77C3.52,8.79,3.04,8.62,2.68,8.26S2.15,7.42,2.17,6.93"/>
+</svg>

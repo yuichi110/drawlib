@@ -822,4 +822,280 @@ def draw_aws_category_plate(color: Any, *, border_color: Any = "#879196") -> Non
     rectangle((50.0, 50.0), width=74.67, height=74.67, style=fill_style(color))
 
 
+# ==============================================================================
+# 8. Cisco Network Topology Palette & 3D / 2D Helpers
+# ==============================================================================
 
+CISCO_BLUE = "#1877B8"
+CISCO_LIGHT_BLUE = "#7CC0EE"
+CISCO_DARK_BLUE = "#0E5688"
+CISCO_BORDER = "#0A3D62"
+CISCO_CYAN = "#00BCEB"
+
+
+def draw_cisco_3d_box(
+    x0: float,
+    y0: float,
+    w_front: float,
+    h_front: float,
+    dx: float,
+    dy: float,
+    *,
+    front_color: Any = CISCO_BLUE,
+    top_color: Any = CISCO_LIGHT_BLUE,
+    side_color: Any = CISCO_DARK_BLUE,
+    seam_color: Any = WHITE,
+    border_color: Any = CISCO_BORDER,
+    seam_units: float = 1.6,
+    border_units: float = 1.8,
+) -> None:
+    """Draw a 3-face oblique 3D Cisco box with white internal seams and dark outer contour."""
+    x1 = x0 + w_front
+    y1 = y0 + h_front
+
+    front_pts = [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+    top_pts = [(x0, y1), (x1, y1), (x1 + dx, y1 + dy), (x0 + dx, y1 + dy)]
+    side_pts = [(x1, y0), (x1 + dx, y0 + dy), (x1 + dx, y1 + dy), (x1, y1)]
+
+    polygon(front_pts, style=no_border_fill(front_color))
+    polygon(top_pts, style=no_border_fill(top_color))
+    polygon(side_pts, style=no_border_fill(side_color))
+
+    # Internal white edge seams
+    draw_round_segment((x0, y1), (x1, y1), width_units=seam_units, color=seam_color)
+    draw_round_segment((x1, y0), (x1, y1), width_units=seam_units, color=seam_color)
+    draw_round_segment((x1, y1), (x1 + dx, y1 + dy), width_units=seam_units, color=seam_color)
+
+    # Outer silhouette contour
+    outer_pts = [
+        (x0, y0),
+        (x1, y0),
+        (x1 + dx, y0 + dy),
+        (x1 + dx, y1 + dy),
+        (x0 + dx, y1 + dy),
+        (x0, y1),
+    ]
+    draw_round_polyline(outer_pts, width_units=border_units, color=border_color, closed=True)
+
+
+def draw_cisco_3d_cylinder(
+    cx: float,
+    y_bot: float,
+    width: float,
+    body_h: float,
+    ry: float,
+    *,
+    body_color: Any = CISCO_BLUE,
+    top_color: Any = CISCO_LIGHT_BLUE,
+    side_shadow_color: Any = CISCO_DARK_BLUE,
+    seam_color: Any = WHITE,
+    border_color: Any = CISCO_BORDER,
+    seam_units: float = 1.7,
+    border_units: float = 1.8,
+) -> None:
+    """Draw a 3D Cisco cylinder with shaded body, light top ellipse, white seam, and dark contour."""
+    w_half = width / 2.0
+    eh = ry * 2.0
+    y_top = y_bot + body_h
+
+    # Base cylinder body (bottom ellipse + middle rectangle)
+    ellipse((cx, y_bot), width=width, height=eh, style=no_border_fill(body_color))
+    if body_h > 0:
+        rectangle((cx, y_bot + body_h / 2.0), width=width, height=body_h, style=no_border_fill(body_color))
+
+    # Right-side shadow band following exact bottom ellipse contour
+    shadow_w = width * 0.24
+    x_s = cx + w_half - shadow_w
+    x_r = cx + w_half
+    steps = 16
+    shadow_pts: list[tuple[float, float]] = [(x_s, y_top), (x_r, y_top)]
+    for i in range(steps + 1):
+        px = x_r - shadow_w * (i / steps)
+        dx_norm = (px - cx) / w_half
+        py = y_bot - ry * math.sqrt(max(0.0, 1.0 - dx_norm * dx_norm))
+        shadow_pts.append((px, py))
+    polygon(shadow_pts, style=no_border_fill(side_shadow_color))
+
+    # Outer bottom arc and vertical side walls
+    arc(
+        (cx, y_bot),
+        width=width,
+        height=eh,
+        angle_start=180.0,
+        angle_end=360.0,
+        style=stroke_style(border_color, width_units=border_units),
+    )
+    if body_h > 0:
+        draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=border_units, color=border_color)
+        draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=border_units, color=border_color)
+
+    # Top ellipse + white front seam + dark back contour
+    ellipse((cx, y_top), width=width, height=eh, style=no_border_fill(top_color))
+    arc(
+        (cx, y_top),
+        width=width,
+        height=eh,
+        angle_start=180.0,
+        angle_end=360.0,
+        style=stroke_style(seam_color, width_units=seam_units),
+    )
+    arc(
+        (cx, y_top),
+        width=width,
+        height=eh,
+        angle_start=0.0,
+        angle_end=180.0,
+        style=stroke_style(border_color, width_units=border_units),
+    )
+
+
+def draw_cisco_arrow(
+    xy1: tuple[float, float],
+    xy2: tuple[float, float],
+    *,
+    shaft_w: float = 3.6,
+    head_len: float = 7.5,
+    head_w: float = 9.2,
+    color: Any = WHITE,
+) -> None:
+    """Draw a crisp filled polygon arrow from xy1 to xy2."""
+    x1, y1 = xy1
+    x2, y2 = xy2
+    dx = x2 - x1
+    dy = y2 - y1
+    dist = math.hypot(dx, dy)
+    if dist < 1e-6:
+        return
+    ux = dx / dist
+    uy = dy / dist
+    nx = -uy
+    ny = ux
+
+    hl = min(head_len, dist * 0.65)
+    bx = x2 - ux * hl
+    by = y2 - uy * hl
+    sh = shaft_w / 2.0
+    hw = head_w / 2.0
+
+    pts = [
+        (x1 + nx * sh, y1 + ny * sh),
+        (bx + nx * sh, by + ny * sh),
+        (bx + nx * hw, by + ny * hw),
+        (x2, y2),
+        (bx - nx * hw, by - ny * hw),
+        (bx - nx * sh, by - ny * sh),
+        (x1 - nx * sh, y1 - ny * sh),
+    ]
+    polygon(pts, style=no_border_fill(color))
+
+
+def draw_cisco_modern_badge(
+    *,
+    color: Any = CISCO_BLUE,
+    border_color: Any = CISCO_BORDER,
+    border_units: float = 1.6,
+) -> None:
+    """Draw a standard 78x78 rounded-square badge for Modern 2D Cisco icons."""
+    rectangle(
+        (50.0, 50.0),
+        width=78.0,
+        height=78.0,
+        style=fill_style(color, border_color=border_color, border_units=border_units, shape_r=16.0),
+    )
+
+
+def draw_cisco_sine_waves(
+    cx: float,
+    cy: float,
+    width: float,
+    amp: float,
+    *,
+    cycles: float = 3.0,
+    stroke_w: float = 2.8,
+    color: Any = WHITE,
+    steps: int = 48,
+) -> None:
+    """Draw the signature Cisco intertwined dual sine-wave symbol (used on Wireless APs)."""
+    x_start = cx - width / 2.0
+    pts1: list[tuple[float, float]] = []
+    pts2: list[tuple[float, float]] = []
+    for i in range(steps + 1):
+        t = i / steps
+        x = x_start + width * t
+        ang = t * cycles * 2.0 * math.pi
+        pts1.append((x, cy + amp * math.sin(ang)))
+        pts2.append((x, cy - amp * math.sin(ang)))
+    draw_round_polyline(pts1, width_units=stroke_w, color=color)
+    draw_round_polyline(pts2, width_units=stroke_w, color=color)
+
+
+def draw_cisco_router_top_arrows(
+    cx: float,
+    cy: float,
+    rx: float,
+    ry: float,
+    *,
+    color: Any = WHITE,
+) -> None:
+    """Draw the classic 4 Cisco router arrows on a 3D top ellipse (2 inward horizontal, 2 outward vertical)."""
+    # Left & right horizontal arrows pointing inward toward (cx, cy)
+    draw_cisco_arrow(
+        (cx - rx * 0.78, cy),
+        (cx - rx * 0.14, cy),
+        shaft_w=ry * 0.25,
+        head_len=rx * 0.24,
+        head_w=ry * 0.62,
+        color=color,
+    )
+    draw_cisco_arrow(
+        (cx + rx * 0.78, cy),
+        (cx + rx * 0.14, cy),
+        shaft_w=ry * 0.25,
+        head_len=rx * 0.24,
+        head_w=ry * 0.62,
+        color=color,
+    )
+    # Top & bottom vertical arrows pointing outward away from (cx, cy)
+    draw_cisco_arrow(
+        (cx, cy + ry * 0.16),
+        (cx, cy + ry * 0.82),
+        shaft_w=rx * 0.095,
+        head_len=ry * 0.36,
+        head_w=rx * 0.25,
+        color=color,
+    )
+    draw_cisco_arrow(
+        (cx, cy - ry * 0.16),
+        (cx, cy - ry * 0.82),
+        shaft_w=rx * 0.095,
+        head_len=ry * 0.36,
+        head_w=rx * 0.25,
+        color=color,
+    )
+
+
+def draw_cisco_l3_star(
+    cx: float,
+    cy: float,
+    r_center: float,
+    r_outer: float,
+    *,
+    shaft_w: float = 2.6,
+    head_len: float = 5.2,
+    head_w: float = 7.2,
+    color: Any = WHITE,
+) -> None:
+    """Draw the signature Cisco Layer-3 center circle with 8 radial outward arrows."""
+    circle((cx, cy), radius=r_center, style=no_border_fill(color))
+    for k in range(8):
+        ang = math.radians(k * 45.0)
+        ux = math.cos(ang)
+        uy = math.sin(ang)
+        draw_cisco_arrow(
+            (cx + ux * (r_center * 0.85), cy + uy * (r_center * 0.85)),
+            (cx + ux * r_outer, cy + uy * r_outer),
+            shaft_w=shaft_w,
+            head_len=head_len,
+            head_w=head_w,
+            color=color,
+        )

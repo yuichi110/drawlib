@@ -53,7 +53,17 @@ All icon functions and modules are imported directly from `drawlib.icons`:
 
 ```python
 # Primary icon modules and universal function
-from drawlib.icons import font_icon, gcp, phosphor
+from drawlib.icons import (
+    aws,
+    azure,
+    font_icon,
+    gcp,
+    network,
+    original_ai,
+    original_cloud,
+    original_devops,
+    phosphor,
+)
 
 # Supporting styling and color modules
 from drawlib.preset_colors import (
@@ -70,6 +80,7 @@ Drawlib also registers submodules in `sys.modules` to support explicit submodule
 
 ```python
 import drawlib.icons.gcp as gcp
+import drawlib.icons.network as network
 import drawlib.icons.phosphor as phosphor
 ```
 
@@ -338,6 +349,17 @@ GCP icons are normalized `512x512` PNG assets (`<service>_<variant>.png`) packag
 1. **Local Asset Check**: When `gcp.<service>()` is called, `PngIconProvider` checks `drawlib._cached_assets/icons/gcp/<service>_<variant>.png`.
 2. **Developer Workspace Fallback**: If running in developer mode, it checks `tools/release_assets/v0.3/icons/gcp/`.
 3. **Automated Lazy Download**: If missing, `ensure_asset_available()` downloads the verified package archive from GitHub Releases and extracts it to the local cache.
+
+### 5.4. Network (Cisco), AWS, Azure & Original Icon Suites
+
+Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width, *, style, variant=...)` contract:
+
+- **Network (`drawlib.icons.network` / `NetworkIcon`)**: 22 canonical Cisco network topology icons + 30 shorthand aliases (`cisco_router`, `cisco_wan_router`, `cisco_core_router`, `cisco_l2_switch`, `cisco_l3_switch`, `cisco_nexus_switch`, `cisco_core_switch`, `cisco_optical_transport`, `cisco_wireless_ap`, `cisco_wireless_controller`, `cisco_wireless_router`, `cisco_firewall`, `cisco_vpn_gateway`, `cisco_ids_ips`, `cisco_ise`, `cisco_web_security`, `cisco_load_balancer`, `cisco_wan_cloud`, `cisco_ip_phone`, `cisco_voice_gateway`, `cisco_server`, `cisco_client_pc`).
+  - `variant="default"` (or `variant="classic"`): Classic 3D Cisco Blue topology icons.
+  - `variant="modern"`: Modern 2D flat Cisco SAFE rounded-badge icons.
+- **AWS (`drawlib.icons.aws` / `AwsIcon`)**: Official AWS service & category icons.
+- **Azure (`drawlib.icons.azure` / `AzureIcon`)**: Official Microsoft Azure service icons.
+- **Original (`original_cloud`, `original_devops`, `original_ai`)**: Vendor-neutral Drawlib pastel icons.
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_ai",
-  "created_at": "2026-10-15T04:07:48.774980+00:00",
+  "created_at": "2026-10-16T02:18:35.838875+00:00",
   "canvas_size": [
     512,
     512
@@ -208,13 +208,13 @@
       "icon_name": "notebook",
       "variant": "default",
       "source_script": "original_ai/notebook_default.py",
-      "size_bytes": 15314,
-      "sha256": "227fafafb7e10535e7fadad2df1ebc28499aed6bc7a88e7f682b7128b254f0c7",
+      "size_bytes": 13848,
+      "sha256": "478a3f6fa48970bd6d50a49f53954e79a51da75cb6cc02e519113d4fe1aa2058",
       "bbox": [
-        33,
         26,
-        478,
-        486
+        28,
+        486,
+        483
       ]
     },
     "npu_node_default.png": {
@@ -260,13 +260,13 @@
       "icon_name": "rag_knowledge_base",
       "variant": "default",
       "source_script": "original_ai/rag_knowledge_base_default.py",
-      "size_bytes": 20106,
-      "sha256": "798623f5bdad0dbe6d145f1f13c666f290a89e9ca5fb72a639882f5852044bca",
+      "size_bytes": 21262,
+      "sha256": "d7ba6b1c4a9cf21535a2a32d4670a7e1b4e42aecdef8343507ee07020e8efffa",
       "bbox": [
         26,
-        35,
+        50,
         486,
-        476
+        462
       ]
     },
     "training_pipeline_default.png": {

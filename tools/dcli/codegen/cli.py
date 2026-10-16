@@ -122,6 +122,16 @@ def gen_icon_azure() -> None:
     console.print("[bold green]✓ Azure icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-network")
+def gen_icon_network() -> None:
+    """Normalize native Drawlib Network icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/network"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/network"
+    manifest_file = write_provider_manifest("network", src_path, dest_path)
+    generate_original_provider_code("network", manifest_file=manifest_file)
+    console.print("[bold green]✓ Network icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

@@ -22,6 +22,7 @@ import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.aws._generated as aws_gen
 import drawlib._icons.png_icons.azure._generated as azure_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
+import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
 import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
@@ -37,6 +38,7 @@ from drawlib._diagrams.architecture._icons import (
     AzureIcon,
     CustomIcon,
     GcpIcon,
+    NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalDevopsIcon,
@@ -161,14 +163,23 @@ def render_diagram_title(
 
 
 def draw_enum_icon(
-    icon: OriginalAiIcon | OriginalCloudIcon | OriginalDevopsIcon | AwsIcon | AzureIcon | GcpIcon | PhosphorIcon,
+    icon: (
+        OriginalAiIcon
+        | OriginalCloudIcon
+        | OriginalDevopsIcon
+        | AwsIcon
+        | AzureIcon
+        | GcpIcon
+        | NetworkIcon
+        | PhosphorIcon
+    ),
     canvas_xy: tuple[float, float],
     icon_size: float,
     applied_style: Style,
     *,
     fallback_box: bool = False,
 ) -> None:
-    """Draw an Original, AWS, Azure, GCP, or Phosphor enum icon from generated function modules."""
+    """Draw an Original, AWS, Azure, GCP, Network, or Phosphor enum icon from generated function modules."""
     if isinstance(icon, OriginalAiIcon):
         module = original_ai_gen
     elif isinstance(icon, OriginalCloudIcon):
@@ -181,6 +192,8 @@ def draw_enum_icon(
         module = azure_gen
     elif isinstance(icon, GcpIcon):
         module = gcp_gen
+    elif isinstance(icon, NetworkIcon):
+        module = network_gen
     else:
         module = phosphor_gen
     func = getattr(module, icon.value, None) or getattr(module, icon.name.lower(), None)
@@ -237,7 +250,16 @@ def draw_diagram_icon(
 
     if isinstance(
         icon,
-        (OriginalAiIcon, OriginalCloudIcon, OriginalDevopsIcon, AwsIcon, AzureIcon, GcpIcon, PhosphorIcon),
+        (
+            OriginalAiIcon,
+            OriginalCloudIcon,
+            OriginalDevopsIcon,
+            AwsIcon,
+            AzureIcon,
+            GcpIcon,
+            NetworkIcon,
+            PhosphorIcon,
+        ),
     ):
         draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=fallback_box)
     elif isinstance(icon, (CustomIcon, Dimage, Image, str, Path)):

@@ -1,0 +1,620 @@
+{
+  "format_version": "2.0",
+  "provider": "network",
+  "created_at": "2026-10-16T02:18:35.443901+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 44,
+  "aliases": {
+    "cisco_aaa_server": "cisco_ise",
+    "cisco_access_switch": "cisco_l2_switch",
+    "cisco_ap": "cisco_wireless_ap",
+    "cisco_asa": "cisco_firewall",
+    "cisco_carrier_router": "cisco_core_router",
+    "cisco_chassis_router": "cisco_core_router",
+    "cisco_chassis_switch": "cisco_core_switch",
+    "cisco_content_switch": "cisco_load_balancer",
+    "cisco_cucm": "cisco_voice_gateway",
+    "cisco_datacenter_switch": "cisco_nexus_switch",
+    "cisco_dwdm": "cisco_optical_transport",
+    "cisco_edge_router": "cisco_wan_router",
+    "cisco_firepower": "cisco_firewall",
+    "cisco_internet_cloud": "cisco_wan_cloud",
+    "cisco_ips": "cisco_ids_ips",
+    "cisco_isr_router": "cisco_router",
+    "cisco_mpls_cloud": "cisco_wan_cloud",
+    "cisco_multilayer_switch": "cisco_l3_switch",
+    "cisco_nac": "cisco_ise",
+    "cisco_roadm": "cisco_optical_transport",
+    "cisco_sd_wan": "cisco_wan_router",
+    "cisco_ucs_server": "cisco_server",
+    "cisco_umbrella": "cisco_web_security",
+    "cisco_voip_phone": "cisco_ip_phone",
+    "cisco_vpn_concentrator": "cisco_vpn_gateway",
+    "cisco_wifi_ap": "cisco_wireless_ap",
+    "cisco_wlc": "cisco_wireless_controller",
+    "cisco_workgroup_switch": "cisco_l2_switch",
+    "cisco_workstation": "cisco_client_pc",
+    "cisco_wsa": "cisco_web_security"
+  },
+  "files": {
+    "cisco_client_pc_default.png": {
+      "icon_name": "cisco_client_pc",
+      "variant": "default",
+      "source_script": "network/cisco_client_pc_default.py",
+      "size_bytes": 16191,
+      "sha256": "dd4231212fb4669ea983073d7158e04580dd47c6a69388544cf4dbb82be72ef0",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "cisco_client_pc_modern.png": {
+      "icon_name": "cisco_client_pc",
+      "variant": "modern",
+      "source_script": "network/cisco_client_pc_modern.py",
+      "size_bytes": 13213,
+      "sha256": "3a4a59196d366858ae023bb441852998227d47c45b4afeab7172bf572ffcc0f3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_core_router_default.png": {
+      "icon_name": "cisco_core_router",
+      "variant": "default",
+      "source_script": "network/cisco_core_router_default.py",
+      "size_bytes": 31049,
+      "sha256": "f8c17132180d3c91c3d38bfc1e0375bb259bf32f648c5e1901409e0ce6e3e3d8",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "cisco_core_router_modern.png": {
+      "icon_name": "cisco_core_router",
+      "variant": "modern",
+      "source_script": "network/cisco_core_router_modern.py",
+      "size_bytes": 14299,
+      "sha256": "9eb7c91ccc31d407cb7a90ec5954546e342c8e9804b5463349ddc030bb54fe18",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_core_switch_default.png": {
+      "icon_name": "cisco_core_switch",
+      "variant": "default",
+      "source_script": "network/cisco_core_switch_default.py",
+      "size_bytes": 21519,
+      "sha256": "59d81d2157c81dc5d4ca49a2439be669317ad9a30bf70678c846e4132fe02c46",
+      "bbox": [
+        66,
+        26,
+        445,
+        486
+      ]
+    },
+    "cisco_core_switch_modern.png": {
+      "icon_name": "cisco_core_switch",
+      "variant": "modern",
+      "source_script": "network/cisco_core_switch_modern.py",
+      "size_bytes": 24589,
+      "sha256": "fa7feebe9b75794b39e4a1589ef1309c9451182eb84a15ad073c7394adbdabc6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_firewall_default.png": {
+      "icon_name": "cisco_firewall",
+      "variant": "default",
+      "source_script": "network/cisco_firewall_default.py",
+      "size_bytes": 18073,
+      "sha256": "c79783e1acb00d3798334e3565cd0031a4dd24b6f79dff9d1f8bc69ac274b9d9",
+      "bbox": [
+        76,
+        26,
+        435,
+        486
+      ]
+    },
+    "cisco_firewall_modern.png": {
+      "icon_name": "cisco_firewall",
+      "variant": "modern",
+      "source_script": "network/cisco_firewall_modern.py",
+      "size_bytes": 13026,
+      "sha256": "934f2f90d4b5fb3183bedae2bc34ef4d13f9f2a09dbd3863e3313e58e9116853",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_ids_ips_default.png": {
+      "icon_name": "cisco_ids_ips",
+      "variant": "default",
+      "source_script": "network/cisco_ids_ips_default.py",
+      "size_bytes": 19801,
+      "sha256": "6c96c6707513bddcadfc7c9214bf16b07cd38e26b1686743cd671e04f0210a26",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
+      ]
+    },
+    "cisco_ids_ips_modern.png": {
+      "icon_name": "cisco_ids_ips",
+      "variant": "modern",
+      "source_script": "network/cisco_ids_ips_modern.py",
+      "size_bytes": 19951,
+      "sha256": "49e8d5a96b552a1238c7f84fd948b1c149a8d161a131ba037e7ee8dfb68d6b07",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_ip_phone_default.png": {
+      "icon_name": "cisco_ip_phone",
+      "variant": "default",
+      "source_script": "network/cisco_ip_phone_default.py",
+      "size_bytes": 16382,
+      "sha256": "af7ba0048b2b91c0a0aa97cd6b0d470ee42cae4d95ad8f111168bf5d6afa228e",
+      "bbox": [
+        26,
+        62,
+        486,
+        450
+      ]
+    },
+    "cisco_ip_phone_modern.png": {
+      "icon_name": "cisco_ip_phone",
+      "variant": "modern",
+      "source_script": "network/cisco_ip_phone_modern.py",
+      "size_bytes": 18429,
+      "sha256": "8d9e66b5be7fd7763bba38bcb7497f6bd54edb90470e4e1792c370b08b4bc0bc",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_ise_default.png": {
+      "icon_name": "cisco_ise",
+      "variant": "default",
+      "source_script": "network/cisco_ise_default.py",
+      "size_bytes": 17541,
+      "sha256": "bc067748bd08972a2a62631c20d1f8f340a3743b18626b44d73a7ba8a88bb123",
+      "bbox": [
+        64,
+        26,
+        448,
+        486
+      ]
+    },
+    "cisco_ise_modern.png": {
+      "icon_name": "cisco_ise",
+      "variant": "modern",
+      "source_script": "network/cisco_ise_modern.py",
+      "size_bytes": 20688,
+      "sha256": "ce5d158d35fdeb494db8753347ce0024cf9fcae8a0fc06a85c8b31d713988de2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_l2_switch_default.png": {
+      "icon_name": "cisco_l2_switch",
+      "variant": "default",
+      "source_script": "network/cisco_l2_switch_default.py",
+      "size_bytes": 10152,
+      "sha256": "17f551053330385b64a41894ff0ffe73e2dc50bdb1f99a3031dab74490912718",
+      "bbox": [
+        26,
+        144,
+        486,
+        368
+      ]
+    },
+    "cisco_l2_switch_modern.png": {
+      "icon_name": "cisco_l2_switch",
+      "variant": "modern",
+      "source_script": "network/cisco_l2_switch_modern.py",
+      "size_bytes": 13999,
+      "sha256": "9c9cdc785a04457622bbdf4d817359b198a6dd8b15e74323640ffd90f4984bbd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_l3_switch_default.png": {
+      "icon_name": "cisco_l3_switch",
+      "variant": "default",
+      "source_script": "network/cisco_l3_switch_default.py",
+      "size_bytes": 11516,
+      "sha256": "3f2d128d1b3ebec2dc30573035d5dbcacc0e83129bdfc448a7370fafff273572",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_l3_switch_modern.png": {
+      "icon_name": "cisco_l3_switch",
+      "variant": "modern",
+      "source_script": "network/cisco_l3_switch_modern.py",
+      "size_bytes": 18641,
+      "sha256": "a2ac3518993cc47d621b0d08bf5f8935c030961b5e989ba003aee9cc84874883",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_load_balancer_default.png": {
+      "icon_name": "cisco_load_balancer",
+      "variant": "default",
+      "source_script": "network/cisco_load_balancer_default.py",
+      "size_bytes": 11239,
+      "sha256": "e2754f68cbdd6c6aa8d7a75f6a67a8a45fa6938dc281b46059776bd8ae9e6e32",
+      "bbox": [
+        26,
+        99,
+        486,
+        413
+      ]
+    },
+    "cisco_load_balancer_modern.png": {
+      "icon_name": "cisco_load_balancer",
+      "variant": "modern",
+      "source_script": "network/cisco_load_balancer_modern.py",
+      "size_bytes": 21657,
+      "sha256": "a2401eaff0e9c63339ba3d4fb0d58e63028353c2b40219bc7126385356aaf27e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_nexus_switch_default.png": {
+      "icon_name": "cisco_nexus_switch",
+      "variant": "default",
+      "source_script": "network/cisco_nexus_switch_default.py",
+      "size_bytes": 17004,
+      "sha256": "c0641aa860e1010cf9bbe0f458d36bb16a59ce78f9cd94da35adb217284fae65",
+      "bbox": [
+        26,
+        127,
+        486,
+        385
+      ]
+    },
+    "cisco_nexus_switch_modern.png": {
+      "icon_name": "cisco_nexus_switch",
+      "variant": "modern",
+      "source_script": "network/cisco_nexus_switch_modern.py",
+      "size_bytes": 21522,
+      "sha256": "c8885d2d7bff9e1d534c603238a480371956ec35558d46f5d325fa42f933288c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_optical_transport_default.png": {
+      "icon_name": "cisco_optical_transport",
+      "variant": "default",
+      "source_script": "network/cisco_optical_transport_default.py",
+      "size_bytes": 15524,
+      "sha256": "ae8fa7160e3aa6afb6f0a2f4129b5731cce3118e106dd92e7be5c70fb15dd1bc",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "cisco_optical_transport_modern.png": {
+      "icon_name": "cisco_optical_transport",
+      "variant": "modern",
+      "source_script": "network/cisco_optical_transport_modern.py",
+      "size_bytes": 25263,
+      "sha256": "b49c478aca86ab34d7a1b76b8ee06a102cc02c2e5a484fd3a96f36b83c11165c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_router_default.png": {
+      "icon_name": "cisco_router",
+      "variant": "default",
+      "source_script": "network/cisco_router_default.py",
+      "size_bytes": 21717,
+      "sha256": "9affbfa4f877028e6a5fe5ceb77046948f475aa78d27db2bffe80f680807a454",
+      "bbox": [
+        26,
+        101,
+        486,
+        411
+      ]
+    },
+    "cisco_router_modern.png": {
+      "icon_name": "cisco_router",
+      "variant": "modern",
+      "source_script": "network/cisco_router_modern.py",
+      "size_bytes": 15537,
+      "sha256": "b7efd1e9be7818045db29ab6890ed9ae1c0e00418c224e2927d662f346f04b3f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_server_default.png": {
+      "icon_name": "cisco_server",
+      "variant": "default",
+      "source_script": "network/cisco_server_default.py",
+      "size_bytes": 11463,
+      "sha256": "ea5bb0bff56b93a7c67d47e956dd7f895e0d92cb8799976e43b641086e178598",
+      "bbox": [
+        97,
+        26,
+        415,
+        486
+      ]
+    },
+    "cisco_server_modern.png": {
+      "icon_name": "cisco_server",
+      "variant": "modern",
+      "source_script": "network/cisco_server_modern.py",
+      "size_bytes": 15703,
+      "sha256": "63ac3c98d40b3ad1e0ccb2d46b3931230a1b10f707529171c81aa91858eef36d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_voice_gateway_default.png": {
+      "icon_name": "cisco_voice_gateway",
+      "variant": "default",
+      "source_script": "network/cisco_voice_gateway_default.py",
+      "size_bytes": 25447,
+      "sha256": "42acea13a4b18e306e44693d7701d132acee6fd048f74d4ceb7528ef0aba16c1",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "cisco_voice_gateway_modern.png": {
+      "icon_name": "cisco_voice_gateway",
+      "variant": "modern",
+      "source_script": "network/cisco_voice_gateway_modern.py",
+      "size_bytes": 15969,
+      "sha256": "ead729f2c5a4d02340d6d247953a675326bad0e532332c6960da8fb4e472fc58",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_vpn_gateway_default.png": {
+      "icon_name": "cisco_vpn_gateway",
+      "variant": "default",
+      "source_script": "network/cisco_vpn_gateway_default.py",
+      "size_bytes": 18734,
+      "sha256": "f97391c61c33bbfb0be3fe5a4ab57bf5a64847f7452a51de23a112cfd5795792",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
+    "cisco_vpn_gateway_modern.png": {
+      "icon_name": "cisco_vpn_gateway",
+      "variant": "modern",
+      "source_script": "network/cisco_vpn_gateway_modern.py",
+      "size_bytes": 21315,
+      "sha256": "0b3207fcaf854c28cdd40dd1d3db016136de281ff2c30a4c048d4b407a68a859",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_wan_cloud_default.png": {
+      "icon_name": "cisco_wan_cloud",
+      "variant": "default",
+      "source_script": "network/cisco_wan_cloud_default.py",
+      "size_bytes": 26671,
+      "sha256": "116a32b714f5d96c4308492ccc46fe9db8a32f3112fcf2629c35bedce81af550",
+      "bbox": [
+        26,
+        89,
+        486,
+        423
+      ]
+    },
+    "cisco_wan_cloud_modern.png": {
+      "icon_name": "cisco_wan_cloud",
+      "variant": "modern",
+      "source_script": "network/cisco_wan_cloud_modern.py",
+      "size_bytes": 19402,
+      "sha256": "2d3b9501c049dddc3b0340ecb980e841705b3e1fd3889bba0ed92bc0561a6fb1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_wan_router_default.png": {
+      "icon_name": "cisco_wan_router",
+      "variant": "default",
+      "source_script": "network/cisco_wan_router_default.py",
+      "size_bytes": 29059,
+      "sha256": "56be0a8e5e1e95a0d60b621568b0cb05f5d1f1e74c11610150c02eebb61e4f1c",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "cisco_wan_router_modern.png": {
+      "icon_name": "cisco_wan_router",
+      "variant": "modern",
+      "source_script": "network/cisco_wan_router_modern.py",
+      "size_bytes": 22822,
+      "sha256": "1edee2b0971650cf52c06e8e3a78b4fe202e146b2993f6d553c00fa65e184a52",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_web_security_default.png": {
+      "icon_name": "cisco_web_security",
+      "variant": "default",
+      "source_script": "network/cisco_web_security_default.py",
+      "size_bytes": 23569,
+      "sha256": "1fb3022e57ee53e0f94a302b23fc12ceaf8062663a2649f04779b6e705a102bb",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
+      ]
+    },
+    "cisco_web_security_modern.png": {
+      "icon_name": "cisco_web_security",
+      "variant": "modern",
+      "source_script": "network/cisco_web_security_modern.py",
+      "size_bytes": 26862,
+      "sha256": "04fd8fd741dc3ac8449b57e63fec56334e9d012c4d13f008626e9c5bc2b8dcb3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_wireless_ap_default.png": {
+      "icon_name": "cisco_wireless_ap",
+      "variant": "default",
+      "source_script": "network/cisco_wireless_ap_default.py",
+      "size_bytes": 14559,
+      "sha256": "d6e9739f1572353886ed03c6c056702b233cf33da2dee1ef281d7bd74a3c9505",
+      "bbox": [
+        26,
+        149,
+        486,
+        362
+      ]
+    },
+    "cisco_wireless_ap_modern.png": {
+      "icon_name": "cisco_wireless_ap",
+      "variant": "modern",
+      "source_script": "network/cisco_wireless_ap_modern.py",
+      "size_bytes": 20381,
+      "sha256": "6c5b009f9ac596274ed59a82cb35ac0c6bcb64e83bee57032e931b3c9d774ae2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_wireless_controller_default.png": {
+      "icon_name": "cisco_wireless_controller",
+      "variant": "default",
+      "source_script": "network/cisco_wireless_controller_default.py",
+      "size_bytes": 23715,
+      "sha256": "a7461c1dd76172bad0540f729c253831406bc5618c48f1ef569e6fd7c80759f4",
+      "bbox": [
+        26,
+        104,
+        486,
+        407
+      ]
+    },
+    "cisco_wireless_controller_modern.png": {
+      "icon_name": "cisco_wireless_controller",
+      "variant": "modern",
+      "source_script": "network/cisco_wireless_controller_modern.py",
+      "size_bytes": 22410,
+      "sha256": "37d49b268dd28a4938364dfd79c209a755bb289aabb59faed6886c790c2c231e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cisco_wireless_router_default.png": {
+      "icon_name": "cisco_wireless_router",
+      "variant": "default",
+      "source_script": "network/cisco_wireless_router_default.py",
+      "size_bytes": 21808,
+      "sha256": "c19bb58b0faa4662bdb9939fd4139eadc22e4b058424b40635738f49708f6fef",
+      "bbox": [
+        38,
+        26,
+        474,
+        486
+      ]
+    },
+    "cisco_wireless_router_modern.png": {
+      "icon_name": "cisco_wireless_router",
+      "variant": "modern",
+      "source_script": "network/cisco_wireless_router_modern.py",
+      "size_bytes": 19308,
+      "sha256": "fdc89a56131cc0db3aa927dae8555642d1dad1693e00d100399fdd72276e3264",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    }
+  }
+}

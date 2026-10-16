@@ -60,7 +60,7 @@ from drawlib.charts.scatter import Point, ScatterChart, Series
 from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Section, Task
 
 # 7. Icons & Media
-from drawlib.icons import font_icon, gcp, phosphor
+from drawlib.icons import aws, azure, font_icon, gcp, network, original_ai, original_cloud, original_devops, phosphor
 from drawlib.images import Dimage, get_dimage_from_code, image
 from drawlib.fonts import Font, FontFile, get_font, list_fonts, list_system_fonts
 
@@ -513,7 +513,7 @@ pie.draw((104, 26))
 ## 10. Icons & Media (`drawlib.icons`, `drawlib.images`, `drawlib.fonts`)
 
 ### 10.1 Icons
-Drawlib integrates Phosphor vector icons and Google Cloud architecture icons (`variant="default"` 3-tone blue and `variant="modern"` 4-color):
+Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `network`, `original_cloud`, `original_devops`, `original_ai`). `network` provides Cisco topology icons with `variant="default" | "classic" | "modern"`:
 
 ```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup

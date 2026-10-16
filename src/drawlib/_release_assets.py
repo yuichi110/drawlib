@@ -88,6 +88,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_AWS = "icon_aws"
     ICON_AZURE = "icon_azure"
     ICON_GCP = "icon_gcp"
+    ICON_NETWORK = "icon_network"
     ICON_ORIGINAL_AI = "icon_original_ai"
     ICON_ORIGINAL_CLOUD = "icon_original_cloud"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
@@ -153,6 +154,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_aws: ReleaseAssetPackage
     icon_azure: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
+    icon_network: ReleaseAssetPackage
     icon_original_ai: ReleaseAssetPackage
     icon_original_cloud: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
@@ -606,7 +608,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AWS,
         category="icon",
         archive_name="icon_aws.zip",
-        archive_sha256="a774451962c36ae6b766e69c88b29c6802c426c467f6e2eda1331cad10c074fc",
+        archive_sha256="5353cd3e25ab095fb24a3e25310a2d7e7507475f74777627e8b7f66f113deb06",
         source_rel_path="icons/aws",
         target_rel_path="icons/aws",
         files=(
@@ -946,7 +948,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AZURE,
         category="icon",
         archive_name="icon_azure.zip",
-        archive_sha256="82dac183e56146f88414b42eb72814dd88ab5dc58ec34cf9b5da2646a9c4f08c",
+        archive_sha256="ce73ef808dd7a340011f8a1a68b0cb8cb0301d1624d9c544a9d446db6373b01c",
         source_rel_path="icons/azure",
         target_rel_path="icons/azure",
         files=(
@@ -1207,7 +1209,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
         archive_name="icon_gcp.zip",
-        archive_sha256="525e77b025de857eea319ea30a165ab30eb01c71c0996e7135eda0a3e99b5e30",
+        archive_sha256="bd05291d8e3e0a6872615f098497513f62db1b3b9dded54b2bacd348a8035a6f",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
         files=(
@@ -1509,11 +1511,66 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "workload_identity_pool_default.png",
         ),
     ),
+    icon_network=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_NETWORK,
+        category="icon",
+        archive_name="icon_network.zip",
+        archive_sha256="4332a06b7125b02d52bc7d8fee62539538c91bae4024866d9f540c63f5114e0e",
+        source_rel_path="icons/network",
+        target_rel_path="icons/network",
+        files=(
+            "cisco_client_pc_default.png",
+            "cisco_client_pc_modern.png",
+            "cisco_core_router_default.png",
+            "cisco_core_router_modern.png",
+            "cisco_core_switch_default.png",
+            "cisco_core_switch_modern.png",
+            "cisco_firewall_default.png",
+            "cisco_firewall_modern.png",
+            "cisco_ids_ips_default.png",
+            "cisco_ids_ips_modern.png",
+            "cisco_ip_phone_default.png",
+            "cisco_ip_phone_modern.png",
+            "cisco_ise_default.png",
+            "cisco_ise_modern.png",
+            "cisco_l2_switch_default.png",
+            "cisco_l2_switch_modern.png",
+            "cisco_l3_switch_default.png",
+            "cisco_l3_switch_modern.png",
+            "cisco_load_balancer_default.png",
+            "cisco_load_balancer_modern.png",
+            "cisco_nexus_switch_default.png",
+            "cisco_nexus_switch_modern.png",
+            "cisco_optical_transport_default.png",
+            "cisco_optical_transport_modern.png",
+            "cisco_router_default.png",
+            "cisco_router_modern.png",
+            "cisco_server_default.png",
+            "cisco_server_modern.png",
+            "cisco_voice_gateway_default.png",
+            "cisco_voice_gateway_modern.png",
+            "cisco_vpn_gateway_default.png",
+            "cisco_vpn_gateway_modern.png",
+            "cisco_wan_cloud_default.png",
+            "cisco_wan_cloud_modern.png",
+            "cisco_wan_router_default.png",
+            "cisco_wan_router_modern.png",
+            "cisco_web_security_default.png",
+            "cisco_web_security_modern.png",
+            "cisco_wireless_ap_default.png",
+            "cisco_wireless_ap_modern.png",
+            "cisco_wireless_controller_default.png",
+            "cisco_wireless_controller_modern.png",
+            "cisco_wireless_router_default.png",
+            "cisco_wireless_router_modern.png",
+            "manifest.json",
+        ),
+    ),
     icon_original_ai=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_AI,
         category="icon",
         archive_name="icon_original_ai.zip",
-        archive_sha256="7d3f391215eeb3fb5bcea5573e0f454038e02eb628cffbd26dba2fc4d2b864fb",
+        archive_sha256="aef878c637c9fcc6bc896c4140623d0cae05152d0e2c76e303ec0621af768363",
         source_rel_path="icons/original_ai",
         target_rel_path="icons/original_ai",
         files=(
@@ -1544,7 +1601,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CLOUD,
         category="icon",
         archive_name="icon_original_cloud.zip",
-        archive_sha256="768be4e9ce68c70a72d47503bbae9ab10f89531a4db7ebc21a80ad9bcc23e653",
+        archive_sha256="c10195fac6b132eb7256621152d4a6ad7db861c04890909d05b75332fe692bd7",
         source_rel_path="icons/original_cloud",
         target_rel_path="icons/original_cloud",
         files=(
@@ -1651,7 +1708,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_DEVOPS,
         category="icon",
         archive_name="icon_original_devops.zip",
-        archive_sha256="fe6dab034dc55c0f4c62598f03bbe06c4501b7a3387a4e5a0d2d07e71bd5dddf",
+        archive_sha256="7fa4ec84f7435c0cc26cba62cb8fbc779195d296bd5be938727514d8f9e52864",
         source_rel_path="icons/original_devops",
         target_rel_path="icons/original_devops",
         files=(

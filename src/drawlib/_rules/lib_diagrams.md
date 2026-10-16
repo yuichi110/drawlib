@@ -152,7 +152,17 @@ All six diagram classes (`ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`
 
 ```python
 from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, Node, NodeGroup
-from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib.diagrams.architecture import (
+    AwsIcon,
+    AzureIcon,
+    CustomIcon,
+    GcpIcon,
+    NetworkIcon,
+    OriginalAiIcon,
+    OriginalCloudIcon,
+    OriginalDevopsIcon,
+    PhosphorIcon,
+)
 ```
 
 #### `ArchitectureDiagram` Class:
@@ -180,7 +190,7 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 | `text` | `str` | `""` | Node label text (supports `\n`). |
 | `width` | `float` | `20.0` | Card bounding box width in canvas units. |
 | `height` | `float` | `16.0` | Card bounding box height in canvas units. |
-| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AwsIcon`, `AzureIcon`, `NetworkIcon`, `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text (supports `xy_shift`, `angle`). |
@@ -205,8 +215,11 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 
 #### Built-in Icons & Images:
 - `GcpIcon`: 259 official Google Cloud icons (`GcpIcon.COMPUTE_ENGINE`, `GcpIcon.CLOUD_RUN`, `GcpIcon.CLOUD_SQL`, `GcpIcon.BIGQUERY`, etc.).
+- `AwsIcon` & `AzureIcon`: Official AWS (`AwsIcon.EC2`, `AwsIcon.S3`) and Azure (`AzureIcon.VIRTUAL_MACHINE`, `AzureIcon.AKS`) architecture icons.
+- `NetworkIcon`: 22 Cisco network topology icons + 30 shorthand aliases (`NetworkIcon.CISCO_ROUTER`, `NetworkIcon.CISCO_CORE_SWITCH`, `NetworkIcon.CISCO_FIREWALL`, etc.).
+- `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`: Vendor-neutral Drawlib pastel icon suites.
 - `PhosphorIcon`: 1,531 modern interface icons (`PhosphorIcon.USER`, `PhosphorIcon.DATABASE`, `PhosphorIcon.BROWSER`, etc.).
-- Direct callables/images: `phosphor.*` or `gcp.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
+- Direct callables/images: `phosphor.*`, `gcp.*`, `aws.*`, `azure.*`, `network.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
 
 ### 3.3 Production Examples
 
