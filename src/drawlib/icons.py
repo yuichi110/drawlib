@@ -24,6 +24,7 @@ from drawlib._icons import (
     original_devops,
     original_network,
     phosphor,
+    server,
 )
 
 # Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`, etc.
@@ -36,6 +37,7 @@ sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
 sys.modules["drawlib.icons.original_devops"] = original_devops
 sys.modules["drawlib.icons.original_network"] = original_network
+sys.modules["drawlib.icons.server"] = server
 
 __all__ = [
     "aws",
@@ -48,4 +50,5 @@ __all__ = [
     "original_devops",
     "original_network",
     "phosphor",
+    "server",
 ]

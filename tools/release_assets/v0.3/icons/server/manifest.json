@@ -1,0 +1,387 @@
+{
+  "format_version": "2.0",
+  "provider": "server",
+  "created_at": "2026-10-16T05:36:51.277162+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 26,
+  "aliases": {
+    "dell_ai_server": "dell_gpu_server",
+    "dell_connectrix": "dell_fc_switch",
+    "dell_datadomain": "dell_backup_appliance",
+    "dell_ecs": "dell_object_storage",
+    "dell_idrac": "dell_bmc_management",
+    "dell_isilon": "dell_nas_storage",
+    "dell_lto_tape": "dell_tape_library",
+    "dell_mx_chassis": "dell_blade_chassis",
+    "dell_openmanage": "dell_bmc_management",
+    "dell_poweredge": "dell_rack_server",
+    "dell_powermax": "dell_san_storage",
+    "dell_powerscale": "dell_nas_storage",
+    "dell_powerstore": "dell_san_storage",
+    "dell_san_switch": "dell_fc_switch",
+    "dell_server": "dell_rack_server",
+    "dell_vxrail": "dell_hci_appliance",
+    "vmware_drs_cluster": "vmware_cluster",
+    "vmware_dvs": "vmware_vswitch",
+    "vmware_ha_cluster": "vmware_cluster",
+    "vmware_hci_storage": "vmware_vsan",
+    "vmware_hypervisor": "vmware_esxi_host",
+    "vmware_live_migration": "vmware_vmotion",
+    "vmware_management_server": "vmware_vcenter",
+    "vmware_nsx_switch": "vmware_vswitch",
+    "vmware_physical_server": "vmware_rack_server",
+    "vmware_san_nas": "vmware_storage_array",
+    "vmware_vapp": "vmware_vm_group",
+    "vmware_virtual_machine": "vmware_vm",
+    "vmware_vm_snapshot": "vmware_snapshot",
+    "vmware_vm_template": "vmware_template",
+    "vmware_vmfs": "vmware_datastore"
+  },
+  "files": {
+    "dell_backup_appliance_default.png": {
+      "icon_name": "dell_backup_appliance",
+      "variant": "default",
+      "source_script": "server/dell_backup_appliance_default.py",
+      "size_bytes": 18219,
+      "sha256": "f12aa6bbfbcfcd5f00f974e3d0ae3a1fcfdc1c2ca1a500283c43ead6fcf50f13",
+      "bbox": [
+        45,
+        26,
+        466,
+        486
+      ]
+    },
+    "dell_blade_chassis_default.png": {
+      "icon_name": "dell_blade_chassis",
+      "variant": "default",
+      "source_script": "server/dell_blade_chassis_default.py",
+      "size_bytes": 3111,
+      "sha256": "ae0a04414ff4463cf8f9eddd9f2828170f6ee4b8b7a6d7d3870a6d2643c2e196",
+      "bbox": [
+        26,
+        41,
+        486,
+        471
+      ]
+    },
+    "dell_bmc_management_default.png": {
+      "icon_name": "dell_bmc_management",
+      "variant": "default",
+      "source_script": "server/dell_bmc_management_default.py",
+      "size_bytes": 12118,
+      "sha256": "630aaf8e6ddd961103f29cec6bba4da7f65676b3e61863ad78f6753b4471f6c6",
+      "bbox": [
+        39,
+        26,
+        473,
+        486
+      ]
+    },
+    "dell_fc_switch_default.png": {
+      "icon_name": "dell_fc_switch",
+      "variant": "default",
+      "source_script": "server/dell_fc_switch_default.py",
+      "size_bytes": 4106,
+      "sha256": "7319a78bedbb029dec87c397c3309f8792520d025aba756ec5bff5354d4cc052",
+      "bbox": [
+        26,
+        60,
+        486,
+        451
+      ]
+    },
+    "dell_gpu_server_default.png": {
+      "icon_name": "dell_gpu_server",
+      "variant": "default",
+      "source_script": "server/dell_gpu_server_default.py",
+      "size_bytes": 11643,
+      "sha256": "0870efda9ef502ba4c0965c0ef115d5b92dd27eacc52bd6b76d6cc97c9ef6e44",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
+      ]
+    },
+    "dell_hci_appliance_default.png": {
+      "icon_name": "dell_hci_appliance",
+      "variant": "default",
+      "source_script": "server/dell_hci_appliance_default.py",
+      "size_bytes": 12945,
+      "sha256": "7fa5a27c2f99417f8597adca225cc26bac7e914a105322e4131c9b04691067e2",
+      "bbox": [
+        35,
+        26,
+        477,
+        486
+      ]
+    },
+    "dell_nas_storage_default.png": {
+      "icon_name": "dell_nas_storage",
+      "variant": "default",
+      "source_script": "server/dell_nas_storage_default.py",
+      "size_bytes": 17229,
+      "sha256": "74cab97c6640341395fa592d936648b92a2b7fa10b8410b6620520e5cedd7a75",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "dell_object_storage_default.png": {
+      "icon_name": "dell_object_storage",
+      "variant": "default",
+      "source_script": "server/dell_object_storage_default.py",
+      "size_bytes": 16894,
+      "sha256": "525018acd04d415e6dbcc270654d897cf3402edea288451d672b36ee25819c59",
+      "bbox": [
+        29,
+        26,
+        482,
+        486
+      ]
+    },
+    "dell_rack_server_default.png": {
+      "icon_name": "dell_rack_server",
+      "variant": "default",
+      "source_script": "server/dell_rack_server_default.py",
+      "size_bytes": 4486,
+      "sha256": "b238d06daf5432812cf2728b10e7471dd6b99271f661edaa99f66fe29a93201d",
+      "bbox": [
+        34,
+        26,
+        478,
+        486
+      ]
+    },
+    "dell_san_storage_default.png": {
+      "icon_name": "dell_san_storage",
+      "variant": "default",
+      "source_script": "server/dell_san_storage_default.py",
+      "size_bytes": 3220,
+      "sha256": "92470959c9a5ecd438205593b2762cb352d626b799fb1ab391c3a8288d2cc46c",
+      "bbox": [
+        26,
+        89,
+        486,
+        423
+      ]
+    },
+    "dell_tape_library_default.png": {
+      "icon_name": "dell_tape_library",
+      "variant": "default",
+      "source_script": "server/dell_tape_library_default.py",
+      "size_bytes": 21208,
+      "sha256": "bb92431a2c30386bed50eb020996a1a04399e07a26ff485594146ae129ff06a7",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "dell_tower_server_default.png": {
+      "icon_name": "dell_tower_server",
+      "variant": "default",
+      "source_script": "server/dell_tower_server_default.py",
+      "size_bytes": 3102,
+      "sha256": "ff2bf8060c12ef17e0ba3e79c43a83a367a16743de18a1f0fe9a5212ff703391",
+      "bbox": [
+        112,
+        26,
+        400,
+        486
+      ]
+    },
+    "vmware_cluster_default.png": {
+      "icon_name": "vmware_cluster",
+      "variant": "default",
+      "source_script": "server/vmware_cluster_default.py",
+      "size_bytes": 6727,
+      "sha256": "2dec1d867c904c34a8c4e646a5dbfee1dc609e00aa279ba8c0606c9b117c9548",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
+      ]
+    },
+    "vmware_datastore_default.png": {
+      "icon_name": "vmware_datastore",
+      "variant": "default",
+      "source_script": "server/vmware_datastore_default.py",
+      "size_bytes": 21823,
+      "sha256": "92f1578cd747a25748f8681474714cf6db7f6e438d1da2d0a373aa651e7996e3",
+      "bbox": [
+        37,
+        26,
+        475,
+        486
+      ]
+    },
+    "vmware_esxi_host_default.png": {
+      "icon_name": "vmware_esxi_host",
+      "variant": "default",
+      "source_script": "server/vmware_esxi_host_default.py",
+      "size_bytes": 13767,
+      "sha256": "32ddb7178605e04fe2d0113f55df18c68c9f84c0027af8fb85ddab4b5854d958",
+      "bbox": [
+        26,
+        45,
+        486,
+        466
+      ]
+    },
+    "vmware_rack_server_default.png": {
+      "icon_name": "vmware_rack_server",
+      "variant": "default",
+      "source_script": "server/vmware_rack_server_default.py",
+      "size_bytes": 7811,
+      "sha256": "434747d04b451e0785a6fd676a783c5cbe9a124541e52e76a47ab171031ef635",
+      "bbox": [
+        26,
+        48,
+        486,
+        464
+      ]
+    },
+    "vmware_resource_pool_default.png": {
+      "icon_name": "vmware_resource_pool",
+      "variant": "default",
+      "source_script": "server/vmware_resource_pool_default.py",
+      "size_bytes": 22398,
+      "sha256": "548c97394cd611622670c81601eacb5ae945456e9f95619a8853053d0067cb14",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vmware_snapshot_default.png": {
+      "icon_name": "vmware_snapshot",
+      "variant": "default",
+      "source_script": "server/vmware_snapshot_default.py",
+      "size_bytes": 15939,
+      "sha256": "1a67f14a950cf940f881461a5b8e3b6cc3a5eec6c3e48c298fee321fcd6f139b",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
+    "vmware_storage_array_default.png": {
+      "icon_name": "vmware_storage_array",
+      "variant": "default",
+      "source_script": "server/vmware_storage_array_default.py",
+      "size_bytes": 16148,
+      "sha256": "e5df3db298aa24b10a19cac8cd527e54ac1cbb764e7e69a4f4c39370f4b01643",
+      "bbox": [
+        26,
+        53,
+        486,
+        458
+      ]
+    },
+    "vmware_template_default.png": {
+      "icon_name": "vmware_template",
+      "variant": "default",
+      "source_script": "server/vmware_template_default.py",
+      "size_bytes": 10180,
+      "sha256": "76c13dc12683b6e6648f4eca68ac85c7be3966f50d9cddedd335d66181065e99",
+      "bbox": [
+        37,
+        26,
+        475,
+        486
+      ]
+    },
+    "vmware_vcenter_default.png": {
+      "icon_name": "vmware_vcenter",
+      "variant": "default",
+      "source_script": "server/vmware_vcenter_default.py",
+      "size_bytes": 7245,
+      "sha256": "8a44301660b60140ef646ffe96de67947947f33865ad8b6b5566990c2e1d39ec",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vmware_vm_default.png": {
+      "icon_name": "vmware_vm",
+      "variant": "default",
+      "source_script": "server/vmware_vm_default.py",
+      "size_bytes": 9332,
+      "sha256": "eb163d346756e6b8da2774e028c65a73d6f6ed3d4e8aacfbda2b3c2a4438a16c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vmware_vm_group_default.png": {
+      "icon_name": "vmware_vm_group",
+      "variant": "default",
+      "source_script": "server/vmware_vm_group_default.py",
+      "size_bytes": 5984,
+      "sha256": "41f83a65e2cdd9bf177b8b8940726cdddffb03ab501f3851eef1aa383e101010",
+      "bbox": [
+        37,
+        26,
+        475,
+        486
+      ]
+    },
+    "vmware_vmotion_default.png": {
+      "icon_name": "vmware_vmotion",
+      "variant": "default",
+      "source_script": "server/vmware_vmotion_default.py",
+      "size_bytes": 9757,
+      "sha256": "302d590372222acae31e040d04275c5b6bcc2fafd4c59167c2ad3143657c0d66",
+      "bbox": [
+        26,
+        53,
+        486,
+        459
+      ]
+    },
+    "vmware_vsan_default.png": {
+      "icon_name": "vmware_vsan",
+      "variant": "default",
+      "source_script": "server/vmware_vsan_default.py",
+      "size_bytes": 36859,
+      "sha256": "75524452b8b2fec02a330cae535423f5a4b88bfb2e51247c0cf1f275f357f4e0",
+      "bbox": [
+        33,
+        26,
+        479,
+        486
+      ]
+    },
+    "vmware_vswitch_default.png": {
+      "icon_name": "vmware_vswitch",
+      "variant": "default",
+      "source_script": "server/vmware_vswitch_default.py",
+      "size_bytes": 5930,
+      "sha256": "8679c7dc62cd17002e1533c74abf6976e2495268e4b1aeb530ceb000fe220e6c",
+      "bbox": [
+        26,
+        113,
+        486,
+        399
+      ]
+    }
+  }
+}

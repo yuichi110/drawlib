@@ -25,6 +25,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     PhosphorIcon,
+    ServerIcon,
 )
 from drawlib._diagrams.architecture._junction import Junction
 from drawlib._diagrams.architecture._node import Node
@@ -45,4 +46,5 @@ __all__ = [
     "OriginalDevopsIcon",
     "OriginalNetworkIcon",
     "PhosphorIcon",
+    "ServerIcon",
 ]

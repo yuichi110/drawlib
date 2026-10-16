@@ -60,7 +60,7 @@ from drawlib.charts.scatter import Point, ScatterChart, Series
 from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Section, Task
 
 # 7. Icons & Media
-from drawlib.icons import aws, azure, font_icon, gcp, network, original_ai, original_cloud, original_devops, phosphor
+from drawlib.icons import aws, azure, font_icon, gcp, network, original_ai, original_cloud, original_devops, phosphor, server
 from drawlib.images import Dimage, get_dimage_from_code, image
 from drawlib.fonts import Font, FontFile, get_font, list_fonts, list_system_fonts
 

@@ -69,6 +69,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "aws": "AWS",
     "azure": "Azure",
     "network": "Network",
+    "server": "Server",
 }
 
 
@@ -119,6 +120,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "aws": "AwsIcon",
     "azure": "AzureIcon",
     "network": "NetworkIcon",
+    "server": "ServerIcon",
 }
 
 

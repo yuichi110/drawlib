@@ -1099,3 +1099,21 @@ def draw_cisco_l3_star(
             head_w=head_w,
             color=color,
         )
+
+
+# ==============================================================================
+# 9. Dell EMC & VMware Server / Virtualization / Storage Palettes
+# ==============================================================================
+
+# Dell EMC Palette (Physical Servers, Storage & Backup)
+DELL_BLUE = "#0076CE"
+DELL_SLATE = "#1E293B"
+DELL_STEEL = "#E2E8F0"
+DELL_TEAL = "#00B2A9"
+
+# VMware Palette (Server Virtualization, Clusters & Virtual Storage)
+VMWARE_NAVY = "#1D428A"
+VMWARE_CYAN = "#0091DA"
+VMWARE_GREEN = "#64B145"
+VMWARE_LIGHT = "#E6F4FA"
+

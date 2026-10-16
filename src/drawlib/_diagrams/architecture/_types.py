@@ -29,6 +29,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     PhosphorIcon,
+    ServerIcon,
 )
 
 if TYPE_CHECKING:
@@ -65,6 +66,7 @@ IconType: TypeAlias = (
     | GcpIcon
     | NetworkIcon
     | PhosphorIcon
+    | ServerIcon
     | CustomIcon
     | Dimage
     | Image

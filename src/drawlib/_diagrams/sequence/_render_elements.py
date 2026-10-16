@@ -37,6 +37,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     PhosphorIcon,
+    ServerIcon,
 )
 from drawlib._diagrams.sequence._block import Block
 from drawlib._diagrams.sequence._group import ParticipantGroup
@@ -58,12 +59,13 @@ def draw_enum_icon(
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon
+        | ServerIcon
     ),
     canvas_xy: tuple[float, float],
     icon_size: float,
     applied_style: Style,
 ) -> None:
-    """Draw an Original, AWS, Azure, GCP, Network, or Phosphor icon enum."""
+    """Draw an Original, AWS, Azure, GCP, Network, Server, or Phosphor icon enum."""
     _common_draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=True)
 
 

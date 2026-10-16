@@ -93,6 +93,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_CLOUD = "icon_original_cloud"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     ICON_ORIGINAL_NETWORK = "icon_original_network"
+    ICON_SERVER = "icon_server"
     MAP_CITIES = "map_cities"
     MAP_COUNTRIES = "map_countries"
     MAP_WORLD = "map_world"
@@ -160,6 +161,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_cloud: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
     icon_original_network: ReleaseAssetPackage
+    icon_server: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
     map_countries: ReleaseAssetPackage
     map_world: ReleaseAssetPackage
@@ -610,7 +612,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AWS,
         category="icon",
         archive_name="icon_aws.zip",
-        archive_sha256="16a9ba50e97dd9b82c88d7b66319dfba61bc0ed885806f658e6637c70e18a45f",
+        archive_sha256="a5440cd87628eee0f28e143022c153bec95d5785f0cacbc5415d3fd50b6f5556",
         source_rel_path="icons/aws",
         target_rel_path="icons/aws",
         files=(
@@ -950,7 +952,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AZURE,
         category="icon",
         archive_name="icon_azure.zip",
-        archive_sha256="b3d970262d200d91d60bec7a41ffe93c60ae6e50fd5acae8203094fc6f3c894f",
+        archive_sha256="63e3fc91251ba7b5cb76d67ed325e84d2bbd92afde83704becd2cabee009c7bb",
         source_rel_path="icons/azure",
         target_rel_path="icons/azure",
         files=(
@@ -1211,7 +1213,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
         archive_name="icon_gcp.zip",
-        archive_sha256="7aa4e4cfd359843e2c99b275ae5992d45d6af208f1d8863b0f9874786e1d8650",
+        archive_sha256="491ea3708a3170066014a902fdd5c71ada574d50d6faee46861db4aeaefd89e8",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
         files=(
@@ -1517,7 +1519,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_NETWORK,
         category="icon",
         archive_name="icon_network.zip",
-        archive_sha256="88923b27a65513f18e9b93d0eba51faba87b3152b962ec70a2bf64d4e1b0131a",
+        archive_sha256="9377cd802412cd568b8119bcf27726649f00499474022c032a3a813ce538205c",
         source_rel_path="icons/network",
         target_rel_path="icons/network",
         files=(
@@ -1572,7 +1574,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_AI,
         category="icon",
         archive_name="icon_original_ai.zip",
-        archive_sha256="d674d5c47fb529273d5e4ce097eaa4bc8ebe94005c85e2f5e80a3c0d4a88ba98",
+        archive_sha256="53e403ec0ba74f9a706737e869eee56e4f87ac56b0d942becdbba5f61c46062c",
         source_rel_path="icons/original_ai",
         target_rel_path="icons/original_ai",
         files=(
@@ -1603,7 +1605,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CLOUD,
         category="icon",
         archive_name="icon_original_cloud.zip",
-        archive_sha256="bcfa2984b2bf7ba8bca0a7b258a5db89f872a243b42a9f2d2ad0c0befb283d3c",
+        archive_sha256="ccfe363364d11bd4ab2f80530cbf9c6090134b12f07adda4ee3c2b0680fd605e",
         source_rel_path="icons/original_cloud",
         target_rel_path="icons/original_cloud",
         files=(
@@ -1711,7 +1713,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_DEVOPS,
         category="icon",
         archive_name="icon_original_devops.zip",
-        archive_sha256="9d18e6a8f68cb48299a831c950c4634fee287e1950d682eb7d2919cea3af78ad",
+        archive_sha256="3b8dd4a93a7736f42bd56e8afde824f658a8f410f0633f61095b61215b3d34fb",
         source_rel_path="icons/original_devops",
         target_rel_path="icons/original_devops",
         files=(
@@ -1742,7 +1744,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_NETWORK,
         category="icon",
         archive_name="icon_original_network.zip",
-        archive_sha256="505a2e5c7dd7bb935f25d5fb70b6ab40caa312bc3185b6b5b1235dc2a66e42d9",
+        archive_sha256="f0ed3abff462a8777cacd80f4c8167b627fe0a6ba37941990638e7ca3ac767f3",
         source_rel_path="icons/original_network",
         target_rel_path="icons/original_network",
         files=(
@@ -1769,6 +1771,43 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "wireless_ap_default.png",
             "wireless_controller_default.png",
             "wireless_router_default.png",
+        ),
+    ),
+    icon_server=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_SERVER,
+        category="icon",
+        archive_name="icon_server.zip",
+        archive_sha256="92ba9b334b96e749e66c38fd6ea8518ddd467394b8575a5df4c53970e0294a5e",
+        source_rel_path="icons/server",
+        target_rel_path="icons/server",
+        files=(
+            "dell_backup_appliance_default.png",
+            "dell_blade_chassis_default.png",
+            "dell_bmc_management_default.png",
+            "dell_fc_switch_default.png",
+            "dell_gpu_server_default.png",
+            "dell_hci_appliance_default.png",
+            "dell_nas_storage_default.png",
+            "dell_object_storage_default.png",
+            "dell_rack_server_default.png",
+            "dell_san_storage_default.png",
+            "dell_tape_library_default.png",
+            "dell_tower_server_default.png",
+            "manifest.json",
+            "vmware_cluster_default.png",
+            "vmware_datastore_default.png",
+            "vmware_esxi_host_default.png",
+            "vmware_rack_server_default.png",
+            "vmware_resource_pool_default.png",
+            "vmware_snapshot_default.png",
+            "vmware_storage_array_default.png",
+            "vmware_template_default.png",
+            "vmware_vcenter_default.png",
+            "vmware_vm_default.png",
+            "vmware_vm_group_default.png",
+            "vmware_vmotion_default.png",
+            "vmware_vsan_default.png",
+            "vmware_vswitch_default.png",
         ),
     ),
     map_cities=ReleaseAssetPackage(
