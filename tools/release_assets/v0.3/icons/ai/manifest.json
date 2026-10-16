@@ -1,0 +1,551 @@
+{
+  "format_version": "2.0",
+  "provider": "ai",
+  "created_at": "2026-10-16T14:56:00.343652+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 40,
+  "aliases": {
+    "anthropic": "claude",
+    "chatgpt": "openai",
+    "google_gemini": "gemini",
+    "hf": "huggingface",
+    "hugging_face": "huggingface",
+    "llama": "meta_llama",
+    "meta": "meta_llama",
+    "mistral_ai": "mistral",
+    "open_hands": "openhands",
+    "sk": "semantic_kernel",
+    "sklearn": "scikit_learn",
+    "tf": "tensorflow",
+    "weights_and_biases": "wandb"
+  },
+  "files": {
+    "a2a_default.png": {
+      "icon_name": "a2a",
+      "variant": "default",
+      "source_script": "ai/a2a_default.py",
+      "size_bytes": 33810,
+      "sha256": "e89559c0c31130246f282b50dd89861ab06f7f6c6a058d71d76900b6ebe5b518",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "autogen_default.png": {
+      "icon_name": "autogen",
+      "variant": "default",
+      "source_script": "ai/autogen_default.py",
+      "size_bytes": 11715,
+      "sha256": "1ca9f6a461c77bc3641c98953d746e9c5f9cedd50c7539e6c01c4e9d9b5bcbda",
+      "bbox": [
+        26,
+        52,
+        486,
+        459
+      ]
+    },
+    "claude_default.png": {
+      "icon_name": "claude",
+      "variant": "default",
+      "source_script": "ai/claude_default.py",
+      "size_bytes": 29988,
+      "sha256": "4a7ea43a6d2676da8bb03e10fc313e0e168d8b2710793cea0d53f359262344cb",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cohere_default.png": {
+      "icon_name": "cohere",
+      "variant": "default",
+      "source_script": "ai/cohere_default.py",
+      "size_bytes": 16459,
+      "sha256": "cc5e0e8fd5e03bf3ff338e555183cda62b17eb60f0282b8d5e666901b9928d57",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "crewai_default.png": {
+      "icon_name": "crewai",
+      "variant": "default",
+      "source_script": "ai/crewai_default.py",
+      "size_bytes": 25709,
+      "sha256": "1ebc52111b8af64ccc99bd3b8825c4c171882918995b1a0870e452e9a90093a5",
+      "bbox": [
+        51,
+        26,
+        461,
+        486
+      ]
+    },
+    "deepseek_default.png": {
+      "icon_name": "deepseek",
+      "variant": "default",
+      "source_script": "ai/deepseek_default.py",
+      "size_bytes": 20101,
+      "sha256": "424a7b64ca6ff15e0775223e3cc803782d9a9b001fb29f6b69e45ef071f0e338",
+      "bbox": [
+        26,
+        86,
+        486,
+        425
+      ]
+    },
+    "dify_default.png": {
+      "icon_name": "dify",
+      "variant": "default",
+      "source_script": "ai/dify_default.py",
+      "size_bytes": 4291,
+      "sha256": "092b975a4db9b087c5b5cb05d181ecc14100caa5eb9e6d09c52a5cbbeb38cb66",
+      "bbox": [
+        26,
+        56,
+        486,
+        455
+      ]
+    },
+    "gemini_default.png": {
+      "icon_name": "gemini",
+      "variant": "default",
+      "source_script": "ai/gemini_default.py",
+      "size_bytes": 17599,
+      "sha256": "f129c1bd1eb1acf1f88fb1eea1324e3b0d17b32c6ce5df72b9e92ed87205f73f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "gradio_default.png": {
+      "icon_name": "gradio",
+      "variant": "default",
+      "source_script": "ai/gradio_default.py",
+      "size_bytes": 24457,
+      "sha256": "cb6ca3a8251f12376eedeed8d8fbafacc52a9e6d11e5993e3c4a30c808b5b34f",
+      "bbox": [
+        26,
+        55,
+        486,
+        457
+      ]
+    },
+    "grok_default.png": {
+      "icon_name": "grok",
+      "variant": "default",
+      "source_script": "ai/grok_default.py",
+      "size_bytes": 12129,
+      "sha256": "24438387c415cf67f25d73f41a972cb054323828492bb297c6209e5864d71f73",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "haystack_default.png": {
+      "icon_name": "haystack",
+      "variant": "default",
+      "source_script": "ai/haystack_default.py",
+      "size_bytes": 5198,
+      "sha256": "5a81c151498220b5622ef5fa14683f33b1b7820bd95aaf7b332de68e92128e5b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "huggingface_default.png": {
+      "icon_name": "huggingface",
+      "variant": "default",
+      "source_script": "ai/huggingface_default.py",
+      "size_bytes": 31037,
+      "sha256": "67c2cdf4edf3de229612cf37570997d3314d7010786cc98d7750b353c144984b",
+      "bbox": [
+        26,
+        47,
+        486,
+        465
+      ]
+    },
+    "jax_default.png": {
+      "icon_name": "jax",
+      "variant": "default",
+      "source_script": "ai/jax_default.py",
+      "size_bytes": 35913,
+      "sha256": "ad2d3ed8cbd7cd91eb1c7836b978b9b53ebe958c586da95570d8474839539894",
+      "bbox": [
+        26,
+        123,
+        486,
+        389
+      ]
+    },
+    "jupyter_default.png": {
+      "icon_name": "jupyter",
+      "variant": "default",
+      "source_script": "ai/jupyter_default.py",
+      "size_bytes": 15774,
+      "sha256": "a7aa385ec9bb18444c2d15143e242b7f22253af092034b705e7f956dc70d2125",
+      "bbox": [
+        81,
+        26,
+        430,
+        486
+      ]
+    },
+    "keras_default.png": {
+      "icon_name": "keras",
+      "variant": "default",
+      "source_script": "ai/keras_default.py",
+      "size_bytes": 8542,
+      "sha256": "cfd7bc85525a6ad902f248e886a038a94662b47607bfb4972e919e0531f73245",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "langchain_default.png": {
+      "icon_name": "langchain",
+      "variant": "default",
+      "source_script": "ai/langchain_default.py",
+      "size_bytes": 15039,
+      "sha256": "3ad30bb100edfeebeea2410e8da494924bc118a10f703da8375a473941a19053",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "langfuse_default.png": {
+      "icon_name": "langfuse",
+      "variant": "default",
+      "source_script": "ai/langfuse_default.py",
+      "size_bytes": 26222,
+      "sha256": "bcaa2b78428dd831b097b0d4bdfd681e03d2fd7fb3da553a8a2b2611c6b0f675",
+      "bbox": [
+        26,
+        112,
+        486,
+        400
+      ]
+    },
+    "langgraph_default.png": {
+      "icon_name": "langgraph",
+      "variant": "default",
+      "source_script": "ai/langgraph_default.py",
+      "size_bytes": 15076,
+      "sha256": "1052184e444ba6cb3a1f143e6e0e154e778641f0a7c9d49170279d4ebf57dece",
+      "bbox": [
+        26,
+        141,
+        486,
+        371
+      ]
+    },
+    "litellm_default.png": {
+      "icon_name": "litellm",
+      "variant": "default",
+      "source_script": "ai/litellm_default.py",
+      "size_bytes": 19361,
+      "sha256": "b3622f409503aac69476f3a10750a984c2e0db694c2da670aed04dbd895accae",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "llamaindex_default.png": {
+      "icon_name": "llamaindex",
+      "variant": "default",
+      "source_script": "ai/llamaindex_default.py",
+      "size_bytes": 27886,
+      "sha256": "4fe7380ed58f8581a7aa96d5dea6e47346a0bccd36abaf8c5c4bcc126a30e1f2",
+      "bbox": [
+        73,
+        26,
+        439,
+        486
+      ]
+    },
+    "mcp_default.png": {
+      "icon_name": "mcp",
+      "variant": "default",
+      "source_script": "ai/mcp_default.py",
+      "size_bytes": 14651,
+      "sha256": "9a92888e2207790d0bf92f77204cc55f03b32c7e760c3427963b087d1182b40b",
+      "bbox": [
+        45,
+        26,
+        467,
+        486
+      ]
+    },
+    "meta_llama_default.png": {
+      "icon_name": "meta_llama",
+      "variant": "default",
+      "source_script": "ai/meta_llama_default.py",
+      "size_bytes": 21149,
+      "sha256": "b119ff97cab3658bbb2ef95b1b36fc5ecbcb38547d3615ec7bc32250af950691",
+      "bbox": [
+        26,
+        102,
+        486,
+        409
+      ]
+    },
+    "mistral_default.png": {
+      "icon_name": "mistral",
+      "variant": "default",
+      "source_script": "ai/mistral_default.py",
+      "size_bytes": 1835,
+      "sha256": "76699d2d6d72716b583c0b1a9680a3fa945c90e2795f70ae3112e72acd9bb42c",
+      "bbox": [
+        26,
+        91,
+        486,
+        420
+      ]
+    },
+    "mlflow_default.png": {
+      "icon_name": "mlflow",
+      "variant": "default",
+      "source_script": "ai/mlflow_default.py",
+      "size_bytes": 18832,
+      "sha256": "904a7c5935a9d36820496978ff866c2724220d6c64c8593e83a5ae9722db287e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "n8n_default.png": {
+      "icon_name": "n8n",
+      "variant": "default",
+      "source_script": "ai/n8n_default.py",
+      "size_bytes": 16008,
+      "sha256": "9de8470647783f8c1f565d1f38dd259019c78a351ba43ed98579d9aabef896c2",
+      "bbox": [
+        26,
+        141,
+        486,
+        371
+      ]
+    },
+    "nvidia_default.png": {
+      "icon_name": "nvidia",
+      "variant": "default",
+      "source_script": "ai/nvidia_default.py",
+      "size_bytes": 20563,
+      "sha256": "0dec2b3999f59f8671c559af0d0e3626fbe4d7da8ceb39cc36f47770a4585f91",
+      "bbox": [
+        26,
+        99,
+        486,
+        413
+      ]
+    },
+    "ollama_default.png": {
+      "icon_name": "ollama",
+      "variant": "default",
+      "source_script": "ai/ollama_default.py",
+      "size_bytes": 15672,
+      "sha256": "990912ff13e25b1c3749b4b26b9a2c49743edd3c87361f458a330c4cb9efa343",
+      "bbox": [
+        78,
+        26,
+        434,
+        486
+      ]
+    },
+    "onnx_default.png": {
+      "icon_name": "onnx",
+      "variant": "default",
+      "source_script": "ai/onnx_default.py",
+      "size_bytes": 39768,
+      "sha256": "e3c250d1b6a1d2393c84065681ebe238c0accd1e4585399f0ba13cdc013513c3",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "openai_default.png": {
+      "icon_name": "openai",
+      "variant": "default",
+      "source_script": "ai/openai_default.py",
+      "size_bytes": 19220,
+      "sha256": "2198f109e2d3000bc4c61b6bca667515ceff005657ff4746e412443342a011ac",
+      "bbox": [
+        26,
+        28,
+        486,
+        484
+      ]
+    },
+    "openhands_default.png": {
+      "icon_name": "openhands",
+      "variant": "default",
+      "source_script": "ai/openhands_default.py",
+      "size_bytes": 22358,
+      "sha256": "a850e3404776c0e33a53862ce556846b4e6b8b18eb625256d09a2c890762d19c",
+      "bbox": [
+        26,
+        99,
+        486,
+        413
+      ]
+    },
+    "perplexity_default.png": {
+      "icon_name": "perplexity",
+      "variant": "default",
+      "source_script": "ai/perplexity_default.py",
+      "size_bytes": 18667,
+      "sha256": "51a27ac0f23b8b2a75a311d188a7bb34ff88b2492a0467b95a887575ddfba315",
+      "bbox": [
+        54,
+        26,
+        457,
+        486
+      ]
+    },
+    "pytorch_default.png": {
+      "icon_name": "pytorch",
+      "variant": "default",
+      "source_script": "ai/pytorch_default.py",
+      "size_bytes": 15603,
+      "sha256": "f6b866f4c3232b5b8693c1d6a1188b5e83724f72b4caaf5fffc5b546f0bcc304",
+      "bbox": [
+        66,
+        26,
+        446,
+        486
+      ]
+    },
+    "qwen_default.png": {
+      "icon_name": "qwen",
+      "variant": "default",
+      "source_script": "ai/qwen_default.py",
+      "size_bytes": 22925,
+      "sha256": "98aa9c75bdbccf3f83bfac8299e38c699ea44813eb7ebb5f4d8defa701c9bade",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ray_default.png": {
+      "icon_name": "ray",
+      "variant": "default",
+      "source_script": "ai/ray_default.py",
+      "size_bytes": 3428,
+      "sha256": "5f8d05e92ed10ef4463680b716f7b183d983fe72c7cdfa23c1a375c2c8c3038a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "scikit_learn_default.png": {
+      "icon_name": "scikit_learn",
+      "variant": "default",
+      "source_script": "ai/scikit_learn_default.py",
+      "size_bytes": 22382,
+      "sha256": "03240ec383be408b765dd5fc5f2aa0681594995224d633ae3e5be80d462ecead",
+      "bbox": [
+        26,
+        132,
+        486,
+        380
+      ]
+    },
+    "semantic_kernel_default.png": {
+      "icon_name": "semantic_kernel",
+      "variant": "default",
+      "source_script": "ai/semantic_kernel_default.py",
+      "size_bytes": 39144,
+      "sha256": "b6d2eaca1215d6ca01d8df9a74d6ae7766bd2ee2e448587a20bd92c491983737",
+      "bbox": [
+        78,
+        26,
+        433,
+        486
+      ]
+    },
+    "streamlit_default.png": {
+      "icon_name": "streamlit",
+      "variant": "default",
+      "source_script": "ai/streamlit_default.py",
+      "size_bytes": 14116,
+      "sha256": "d1b08d76f6d51cf01eba0103da488f54578ad70b4e5632bc725818ce44361205",
+      "bbox": [
+        26,
+        131,
+        486,
+        381
+      ]
+    },
+    "tensorflow_default.png": {
+      "icon_name": "tensorflow",
+      "variant": "default",
+      "source_script": "ai/tensorflow_default.py",
+      "size_bytes": 9893,
+      "sha256": "b096cf868012dc763b70902da8acc422f022b404a8f45b59c00ddfe580dd5e9a",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    },
+    "vllm_default.png": {
+      "icon_name": "vllm",
+      "variant": "default",
+      "source_script": "ai/vllm_default.py",
+      "size_bytes": 12242,
+      "sha256": "243400da516163e34fc72969d3edf494c9acacdcefe6572ed42872121a472b52",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "wandb_default.png": {
+      "icon_name": "wandb",
+      "variant": "default",
+      "source_script": "ai/wandb_default.py",
+      "size_bytes": 20280,
+      "sha256": "a6e46bc06337625cdd3b8f615f9d8274e257998a482cbde41e16f513461f3cd0",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    }
+  }
+}

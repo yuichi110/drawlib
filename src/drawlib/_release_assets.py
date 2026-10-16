@@ -85,6 +85,7 @@ class ReleaseAssetPackageName(StrEnum):
     FONT_THAI_NOTO_SANS = "font_thai_noto_sans"
     FONT_THAI_NOTO_SERIF = "font_thai_noto_serif"
     ICON_PHOSPHOR = "icon_phosphor"
+    ICON_AI = "icon_ai"
     ICON_AWS = "icon_aws"
     ICON_AZURE = "icon_azure"
     ICON_CNATIVE = "icon_cnative"
@@ -158,6 +159,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     font_thai_noto_sans: ReleaseAssetPackage
     font_thai_noto_serif: ReleaseAssetPackage
     icon_phosphor: ReleaseAssetPackage
+    icon_ai: ReleaseAssetPackage
     icon_aws: ReleaseAssetPackage
     icon_azure: ReleaseAssetPackage
     icon_cnative: ReleaseAssetPackage
@@ -616,6 +618,57 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "thin.css",
             "thin.ttf",
             "version.txt",
+        ),
+    ),
+    icon_ai=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_AI,
+        category="icon",
+        archive_name="icon_ai.zip",
+        archive_sha256="a04cede403848817f6bc7961d3f8d8bca71e2bbaa8b1e3d701a13d0e98302493",
+        source_rel_path="icons/ai",
+        target_rel_path="icons/ai",
+        files=(
+            "a2a_default.png",
+            "autogen_default.png",
+            "claude_default.png",
+            "cohere_default.png",
+            "crewai_default.png",
+            "deepseek_default.png",
+            "dify_default.png",
+            "gemini_default.png",
+            "gradio_default.png",
+            "grok_default.png",
+            "haystack_default.png",
+            "huggingface_default.png",
+            "jax_default.png",
+            "jupyter_default.png",
+            "keras_default.png",
+            "langchain_default.png",
+            "langfuse_default.png",
+            "langgraph_default.png",
+            "litellm_default.png",
+            "llamaindex_default.png",
+            "manifest.json",
+            "mcp_default.png",
+            "meta_llama_default.png",
+            "mistral_default.png",
+            "mlflow_default.png",
+            "n8n_default.png",
+            "nvidia_default.png",
+            "ollama_default.png",
+            "onnx_default.png",
+            "openai_default.png",
+            "openhands_default.png",
+            "perplexity_default.png",
+            "pytorch_default.png",
+            "qwen_default.png",
+            "ray_default.png",
+            "scikit_learn_default.png",
+            "semantic_kernel_default.png",
+            "streamlit_default.png",
+            "tensorflow_default.png",
+            "vllm_default.png",
+            "wandb_default.png",
         ),
     ),
     icon_aws=ReleaseAssetPackage(

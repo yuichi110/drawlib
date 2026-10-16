@@ -202,6 +202,16 @@ def gen_icon_original_data() -> None:
     console.print("[bold green]✓ Original Data icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-ai")
+def gen_icon_ai() -> None:
+    """Normalize native Drawlib AI icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/ai"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/ai"
+    manifest_file = write_provider_manifest("ai", src_path, dest_path)
+    generate_original_provider_code("ai", manifest_file=manifest_file)
+    console.print("[bold green]✓ AI icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

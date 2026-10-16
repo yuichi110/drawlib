@@ -16,6 +16,7 @@ from drawlib._icons.font_icons import (
     phosphor,
 )
 from drawlib._icons.png_icons import (
+    ai,
     aws,
     azure,
     cnative,
@@ -33,6 +34,7 @@ from drawlib._icons.png_icons import (
 )
 
 __all__ = [
+    "ai",
     "aws",
     "azure",
     "cnative",

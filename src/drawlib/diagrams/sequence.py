@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from drawlib._diagrams.architecture import _icons as icons
 from drawlib._diagrams.architecture._icons import (
+    AiIcon,
     AwsIcon,
     AzureIcon,
     CnativeIcon,
@@ -40,6 +41,7 @@ from drawlib._diagrams.sequence import (
 )
 
 __all__ = [
+    "AiIcon",
     "AwsIcon",
     "AzureIcon",
     "Block",

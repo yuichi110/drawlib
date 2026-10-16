@@ -19,6 +19,7 @@ from PIL.Image import Image
 
 from drawlib._core.l3_images import Dimage
 from drawlib._diagrams.architecture._icons import (
+    AiIcon,
     AwsIcon,
     AzureIcon,
     CnativeIcon,
@@ -69,6 +70,7 @@ IconType: TypeAlias = (
     | OriginalDevopsIcon
     | OriginalNetworkIcon
     | OriginalServerIcon
+    | AiIcon
     | AwsIcon
     | AzureIcon
     | CnativeIcon

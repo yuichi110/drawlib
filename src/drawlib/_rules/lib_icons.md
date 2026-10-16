@@ -54,6 +54,7 @@ All icon functions and modules are imported directly from `drawlib.icons`:
 ```python
 # Primary icon modules and universal function
 from drawlib.icons import (
+    ai,
     aws,
     azure,
     cnative,
@@ -86,6 +87,7 @@ from drawlib.types import Style
 Drawlib also registers submodules in `sys.modules` to support explicit submodule import styles:
 
 ```python
+import drawlib.icons.ai as ai
 import drawlib.icons.cnative as cnative
 import drawlib.icons.data as data
 import drawlib.icons.gcp as gcp
@@ -364,10 +366,11 @@ GCP icons are normalized `512x512` PNG assets (`<service>_<variant>.png`) packag
 2. **Developer Workspace Fallback**: If running in developer mode, it checks `tools/release_assets/v0.3/icons/gcp/`.
 3. **Automated Lazy Download**: If missing, `ensure_asset_available()` downloads the verified package archive from GitHub Releases and extracts it to the local cache.
 
-### 5.4. Cloud Native, Data, Network, Server, AWS, Azure & Original Icon Suites
+### 5.4. AI, Cloud Native, Data, Network, Server, AWS, Azure & Original Icon Suites
 
 Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width, *, style, variant=...)` contract:
 
+- **AI (`drawlib.icons.ai` / `AiIcon`)**: 40 canonical official AI, LLM, Agent framework, Protocol, and ML ecosystem icons + 13 shorthand aliases (`a2a`, `autogen`, `claude`, `cohere`, `crewai`, `deepseek`, `dify`, `gemini`, `gradio`, `grok`, `haystack`, `huggingface`, `jax`, `jupyter`, `keras`, `langchain`, `langfuse`, `langgraph`, `litellm`, `llamaindex`, `mcp`, `meta_llama`, `mistral`, `mlflow`, `n8n`, `nvidia`, `ollama`, `onnx`, `openai`, `openhands`, `perplexity`, `pytorch`, `qwen`, `ray`, `scikit_learn`, `semantic_kernel`, `streamlit`, `tensorflow`, `vllm`, `wandb`).
 - **Cloud Native (`drawlib.icons.cnative` / `CnativeIcon`)**: 48 canonical Kubernetes & Cloud Native ecosystem icons + 72 shorthand aliases (20 Kubernetes resources: `k8s_api_server`, `k8s_configmap`, `k8s_control_plane`, `k8s_crd`, `k8s_cronjob`, `k8s_daemonset`, `k8s_deployment`, `k8s_endpoint`, `k8s_hpa`, `k8s_ingress`, `k8s_job`, `k8s_namespace`, `k8s_network_policy`, `k8s_node`, `k8s_pod`, `k8s_pv`, `k8s_pvc`, `k8s_secret`, `k8s_service`, `k8s_statefulset`; 28 Cloud Native projects: `argo`, `backstage`, `cert_manager`, `cilium`, `containerd`, `coredns`, `crossplane`, `dapr`, `docker`, `envoy`, `etcd`, `falco`, `fluentd`, `flux`, `grafana`, `harbor`, `helm`, `istio`, `jaeger`, `keda`, `knative`, `kubernetes`, `kyverno`, `linkerd`, `opa`, `opentelemetry`, `prometheus`, `rook`).
 - **Data (`drawlib.icons.data` / `DataIcon`)**: 50 canonical Database & Data Platform icons + 28 shorthand aliases (`airbyte`, `airflow`, `beam`, `cassandra`, `clickhouse`, `cockroachdb`, `couchbase`, `dagster`, `databricks`, `dbt`, `debezium`, `delta_lake`, `druid`, `duckdb`, `elasticsearch`, `flink`, `hadoop`, `iceberg`, `influxdb`, `kafka`, `mariadb`, `meilisearch`, `memcached`, `milvus`, `minio`, `mongodb`, `mysql`, `nats`, `neo4j`, `nifi`, `opensearch`, `oracle_db`, `postgresql`, `pulsar`, `qdrant`, `rabbitmq`, `redis`, `redpanda`, `scylladb`, `snowflake`, `spark`, `sql_server`, `sqlite`, `supabase`, `superset`, `tidb`, `timescaledb`, `trino`, `valkey`, `weaviate`).
 - **Network (`drawlib.icons.network` / `NetworkIcon`)**: 22 canonical Cisco network topology icons + 30 shorthand aliases (`cisco_router`, `cisco_wan_router`, `cisco_core_router`, `cisco_l2_switch`, `cisco_l3_switch`, `cisco_nexus_switch`, `cisco_core_switch`, `cisco_optical_transport`, `cisco_wireless_ap`, `cisco_wireless_controller`, `cisco_wireless_router`, `cisco_firewall`, `cisco_vpn_gateway`, `cisco_ids_ips`, `cisco_ise`, `cisco_web_security`, `cisco_load_balancer`, `cisco_wan_cloud`, `cisco_ip_phone`, `cisco_voice_gateway`, `cisco_server`, `cisco_client_pc`).

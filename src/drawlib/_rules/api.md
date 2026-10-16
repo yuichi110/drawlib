@@ -61,7 +61,7 @@ from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Sect
 
 # 7. Icons & Media
 from drawlib.icons import (
-    aws, azure, cnative, data, font_icon, gcp, network,
+    ai, aws, azure, cnative, data, font_icon, gcp, network,
     original_ai, original_cloud, original_cnative, original_data,
     original_devops, original_network, original_server, phosphor, server,
 )
@@ -517,7 +517,7 @@ pie.draw((104, 26))
 ## 10. Icons & Media (`drawlib.icons`, `drawlib.images`, `drawlib.fonts`)
 
 ### 10.1 Icons
-Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `cnative`, `data`, `network`, `server`, `original_cloud`, `original_cnative`, `original_data`, `original_devops`, `original_ai`, `original_network`, `original_server`). `cnative` provides 48 Kubernetes & Cloud Native (CNCF / Observability) icons, `data` provides 50 Database & Data Platform icons, `network` provides Cisco topology icons with `variant="default" | "classic" | "modern"`, `server` provides Dell EMC & VMware hybrid infrastructure icons, while `original_cnative`, `original_data`, `original_network`, and `original_server` provide 2D flat Drawlib pastel counterparts:
+Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `ai`, `cnative`, `data`, `network`, `server`, `original_cloud`, `original_cnative`, `original_data`, `original_devops`, `original_ai`, `original_network`, `original_server`). `ai` provides 40 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons, `cnative` provides 48 Kubernetes & Cloud Native (CNCF / Observability) icons, `data` provides 50 Database & Data Platform icons, `network` provides Cisco topology icons with `variant="default" | "classic" | "modern"`, `server` provides Dell EMC & VMware hybrid infrastructure icons, while `original_ai`, `original_cnative`, `original_data`, `original_network`, and `original_server` provide 2D flat Drawlib pastel counterparts:
 
 ```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup

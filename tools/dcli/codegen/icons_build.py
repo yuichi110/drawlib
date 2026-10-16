@@ -666,6 +666,21 @@ PROVIDER_ALIASES: dict[str, dict[str, str]] = {
         "sqlserver": "sql_server",
         "timescale": "timescaledb",
     },
+    "ai": {
+        "anthropic": "claude",
+        "chatgpt": "openai",
+        "google_gemini": "gemini",
+        "hf": "huggingface",
+        "hugging_face": "huggingface",
+        "llama": "meta_llama",
+        "meta": "meta_llama",
+        "mistral_ai": "mistral",
+        "open_hands": "openhands",
+        "sk": "semantic_kernel",
+        "sklearn": "scikit_learn",
+        "tf": "tensorflow",
+        "weights_and_biases": "wandb",
+    },
 }
 
 
