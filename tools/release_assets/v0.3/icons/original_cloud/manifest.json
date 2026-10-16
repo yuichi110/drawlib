@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-14T16:43:28.500871+00:00",
+  "created_at": "2026-10-15T03:47:52.429330+00:00",
   "canvas_size": [
     512,
     512
@@ -10,54 +10,74 @@
     460,
     460
   ],
-  "total_files": 56,
+  "total_files": 96,
   "aliases": {
+    "ad": "directory_service",
+    "agent": "ai_agent",
     "apigw": "api_gateway",
     "audit": "audit_compliance",
     "auth": "identity_auth",
     "backup": "backup_archive",
+    "bastion": "bastion_host",
     "batch": "batch_job",
     "bi": "bi_dashboard",
     "browser": "web_browser",
     "bucket": "object_storage",
-    "bus": "service_bus",
     "cache": "in_memory_cache",
+    "cicd": "cicd_pipeline",
     "cluster": "container_cluster",
     "cron": "scheduler",
     "db": "database",
     "ddos": "ddos_protection",
     "desktop": "desktop_app",
     "disk": "block_storage",
+    "dr": "disaster_recovery",
     "dwh": "data_warehouse",
     "etl": "etl_pipeline",
     "filestore": "file_storage",
     "function": "serverless_function",
+    "git": "git_repository",
+    "gpu": "gpu_node",
     "graph_db": "graph_database",
     "iam": "identity_auth",
     "iap": "zero_trust_proxy",
+    "igw": "internet_gateway",
     "iot": "iot_device",
     "k8s": "container_cluster",
-    "kms": "secret_vault",
+    "kms": "key_management",
+    "kubernetes_cluster": "container_cluster",
     "lb": "load_balancer",
+    "llm": "llm_model",
+    "logs": "logging",
     "mesh": "service_mesh",
+    "metrics": "monitoring",
     "mobile": "mobile_app",
     "mq": "message_queue",
+    "nat": "nat_gateway",
     "nfs": "file_storage",
     "nosql": "nosql_database",
+    "npu": "npu_node",
     "on_prem": "on_premises",
-    "pubsub": "pub_sub",
+    "peering": "network_peering",
+    "pipeline": "cicd_pipeline",
     "queue": "message_queue",
     "rdbms": "database",
     "redis": "in_memory_cache",
     "replica": "db_replica",
+    "repo": "git_repository",
     "search": "search_engine",
+    "secret_manager": "secret_vault",
     "stream": "event_stream",
     "tls": "certificate_tls",
-    "tsdb": "time_series_db",
+    "tpu": "npu_node",
+    "tsdb": "time_series_database",
     "users": "user_group",
     "vault": "secret_vault",
+    "vcenter": "virtualization_controller",
+    "vdi": "virtual_desktop",
     "vector_db": "vector_database",
     "vm": "virtual_machine",
+    "vnet": "virtual_network",
     "vpc": "virtual_network",
     "vpn": "vpn_tunnel",
     "worker": "batch_job",
@@ -65,6 +85,32 @@
     "zero_trust": "zero_trust_proxy"
   },
   "files": {
+    "ai_agent_default.png": {
+      "icon_name": "ai_agent",
+      "variant": "default",
+      "source_script": "original_cloud/ai_agent_default.py",
+      "size_bytes": 36773,
+      "sha256": "ca3b5f8c2736c0a2e376cfaeaccce413e46d52443b2bfc4e6e298e6f3bc4b274",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "analytics_engine_default.png": {
+      "icon_name": "analytics_engine",
+      "variant": "default",
+      "source_script": "original_cloud/analytics_engine_default.py",
+      "size_bytes": 40782,
+      "sha256": "8b1eb9fa6f84e94a2ebe06375bb8e95f45c76cb95b111c89f658a94ac95cacba",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "api_gateway_default.png": {
       "icon_name": "api_gateway",
       "variant": "default",
@@ -76,6 +122,32 @@
         49,
         486,
         462
+      ]
+    },
+    "app_service_default.png": {
+      "icon_name": "app_service",
+      "variant": "default",
+      "source_script": "original_cloud/app_service_default.py",
+      "size_bytes": 24378,
+      "sha256": "d66c40e8d4209ad8adcac5b105ba5a78310812ac5775eef31f92352e2fbe7993",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
+      ]
+    },
+    "artifact_registry_default.png": {
+      "icon_name": "artifact_registry",
+      "variant": "default",
+      "source_script": "original_cloud/artifact_registry_default.py",
+      "size_bytes": 18948,
+      "sha256": "c672df8f9c72f29b6cb5007d853a76d0d0bc1992921e226a72a88e00ae5f35e4",
+      "bbox": [
+        26,
+        38,
+        486,
+        473
       ]
     },
     "audit_compliance_default.png": {
@@ -117,6 +189,32 @@
         446
       ]
     },
+    "bare_metal_default.png": {
+      "icon_name": "bare_metal",
+      "variant": "default",
+      "source_script": "original_cloud/bare_metal_default.py",
+      "size_bytes": 16963,
+      "sha256": "5e19c7d534c9e33918c385a48e2bc52d675aa21e35a96c95851e553b1c76c8db",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "bastion_host_default.png": {
+      "icon_name": "bastion_host",
+      "variant": "default",
+      "source_script": "original_cloud/bastion_host_default.py",
+      "size_bytes": 10960,
+      "sha256": "8d02d5787f48b1e84031a398936e1340b6f2fba667ce65d569925160f8a111b6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "batch_job_default.png": {
       "icon_name": "batch_job",
       "variant": "default",
@@ -143,6 +241,19 @@
         451
       ]
     },
+    "billing_default.png": {
+      "icon_name": "billing",
+      "variant": "default",
+      "source_script": "original_cloud/billing_default.py",
+      "size_bytes": 18172,
+      "sha256": "cb25fd9ab6666b7bfe3a8c542554624742752984b7bc680421ff597989a28e6a",
+      "bbox": [
+        26,
+        73,
+        486,
+        438
+      ]
+    },
     "block_storage_default.png": {
       "icon_name": "block_storage",
       "variant": "default",
@@ -154,6 +265,19 @@
         26,
         456,
         486
+      ]
+    },
+    "blockchain_ledger_default.png": {
+      "icon_name": "blockchain_ledger",
+      "variant": "default",
+      "source_script": "original_cloud/blockchain_ledger_default.py",
+      "size_bytes": 28872,
+      "sha256": "99a5986574c0ee6b7b1455148218d451dce1cc9c31755116a8c4cf0a4215c612",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
       ]
     },
     "cdn_default.png": {
@@ -180,6 +304,19 @@
         32,
         486,
         479
+      ]
+    },
+    "cicd_pipeline_default.png": {
+      "icon_name": "cicd_pipeline",
+      "variant": "default",
+      "source_script": "original_cloud/cicd_pipeline_default.py",
+      "size_bytes": 28933,
+      "sha256": "338f0939a4b5ad824a20da4a9809b73508bdb80afd6b164cdb5b4b89052f6254",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
       ]
     },
     "compute_default.png": {
@@ -221,6 +358,32 @@
         486
       ]
     },
+    "cost_management_default.png": {
+      "icon_name": "cost_management",
+      "variant": "default",
+      "source_script": "original_cloud/cost_management_default.py",
+      "size_bytes": 27022,
+      "sha256": "206d3358ae8cdf36ec7809c7adef3c9d47f75055702ded54aff9f847fb19e1db",
+      "bbox": [
+        26,
+        45,
+        486,
+        467
+      ]
+    },
+    "data_catalog_default.png": {
+      "icon_name": "data_catalog",
+      "variant": "default",
+      "source_script": "original_cloud/data_catalog_default.py",
+      "size_bytes": 23384,
+      "sha256": "66be9dd9b53bebc52bc0ae2af514e00ccd0ff096d0b2b0fcb1f784de4dbd6b1a",
+      "bbox": [
+        42,
+        26,
+        469,
+        486
+      ]
+    },
     "data_lake_default.png": {
       "icon_name": "data_lake",
       "variant": "default",
@@ -232,6 +395,19 @@
         26,
         468,
         486
+      ]
+    },
+    "data_migration_default.png": {
+      "icon_name": "data_migration",
+      "variant": "default",
+      "source_script": "original_cloud/data_migration_default.py",
+      "size_bytes": 24950,
+      "sha256": "97d9dad7a6e6f996bf43e692fedf9097a8161552fd434d89ff96a446c2235777",
+      "bbox": [
+        26,
+        80,
+        486,
+        431
       ]
     },
     "data_warehouse_default.png": {
@@ -277,13 +453,26 @@
       "icon_name": "ddos_protection",
       "variant": "default",
       "source_script": "original_cloud/ddos_protection_default.py",
-      "size_bytes": 29069,
-      "sha256": "4c70fe36ec1134652ba3914f80ecbf6ce8a5bd7000f2a806ed771e97b781c84f",
+      "size_bytes": 27026,
+      "sha256": "d76b7ac8dbe8343e654182a6dbf99b316c50b1b7f4a2e96d7bd7ed780046f685",
       "bbox": [
         26,
-        50,
+        56,
         486,
-        461
+        456
+      ]
+    },
+    "dedicated_interconnect_default.png": {
+      "icon_name": "dedicated_interconnect",
+      "variant": "default",
+      "source_script": "original_cloud/dedicated_interconnect_default.py",
+      "size_bytes": 18337,
+      "sha256": "413db47189b645cab87658cac774e99c61f20533de738bf5c4afb1f9c7e5e77c",
+      "bbox": [
+        26,
+        102,
+        486,
+        410
       ]
     },
     "desktop_app_default.png": {
@@ -299,17 +488,69 @@
         462
       ]
     },
+    "digital_twin_default.png": {
+      "icon_name": "digital_twin",
+      "variant": "default",
+      "source_script": "original_cloud/digital_twin_default.py",
+      "size_bytes": 27440,
+      "sha256": "c3cc6d56ff57b1a138eab8079b758909954d73f92931e16c1cb9aa3c0b124adb",
+      "bbox": [
+        26,
+        43,
+        486,
+        469
+      ]
+    },
+    "directory_service_default.png": {
+      "icon_name": "directory_service",
+      "variant": "default",
+      "source_script": "original_cloud/directory_service_default.py",
+      "size_bytes": 28356,
+      "sha256": "f720365fa79eb72c3c034d432e4c75e2d7d348de7c3ced499e13fbb9d183a209",
+      "bbox": [
+        32,
+        26,
+        479,
+        486
+      ]
+    },
+    "disaster_recovery_default.png": {
+      "icon_name": "disaster_recovery",
+      "variant": "default",
+      "source_script": "original_cloud/disaster_recovery_default.py",
+      "size_bytes": 32257,
+      "sha256": "87fb6fe3618eaa06b48d9d2733cffcb0ed5419f426d6895f903e08e7e18e6823",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "distributed_database_default.png": {
+      "icon_name": "distributed_database",
+      "variant": "default",
+      "source_script": "original_cloud/distributed_database_default.py",
+      "size_bytes": 32504,
+      "sha256": "12522955c0bd67ca07ecedcda1d9105e151445128170cb1c1d76e5b098394dbf",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
     "dns_default.png": {
       "icon_name": "dns",
       "variant": "default",
       "source_script": "original_cloud/dns_default.py",
-      "size_bytes": 19060,
-      "sha256": "f66d711cf08ebd424a6fe42c7af347ca46ef1dfdf5379d975317e4558bcfc90b",
+      "size_bytes": 28995,
+      "sha256": "c7fe3d77de4548f7d9000dbb7a90c6c41892dbeb50999f27a2e8ee45d9fdc090",
       "bbox": [
         26,
-        35,
+        37,
         486,
-        476
+        474
       ]
     },
     "edge_location_default.png": {
@@ -323,6 +564,19 @@
         26,
         464,
         486
+      ]
+    },
+    "email_service_default.png": {
+      "icon_name": "email_service",
+      "variant": "default",
+      "source_script": "original_cloud/email_service_default.py",
+      "size_bytes": 25101,
+      "sha256": "71285fce59c5e3e1c3c057c12f95f1a206e11d28e57816a70b6d32f29614cd2f",
+      "bbox": [
+        26,
+        77,
+        486,
+        435
       ]
     },
     "etl_pipeline_default.png": {
@@ -351,6 +605,19 @@
         434
       ]
     },
+    "external_saas_default.png": {
+      "icon_name": "external_saas",
+      "variant": "default",
+      "source_script": "original_cloud/external_saas_default.py",
+      "size_bytes": 27443,
+      "sha256": "52ceb4674ba31e898ee3bf52971ef5ec8c47a61beca3e1fb161f4210f399fa67",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
     "file_storage_default.png": {
       "icon_name": "file_storage",
       "variant": "default",
@@ -374,6 +641,45 @@
         63,
         26,
         449,
+        486
+      ]
+    },
+    "git_repository_default.png": {
+      "icon_name": "git_repository",
+      "variant": "default",
+      "source_script": "original_cloud/git_repository_default.py",
+      "size_bytes": 21634,
+      "sha256": "1b3c428f87e842431397ba3aecf533a369beca38e30f5e393cf1ad4f285d2899",
+      "bbox": [
+        82,
+        26,
+        430,
+        486
+      ]
+    },
+    "gpu_cluster_default.png": {
+      "icon_name": "gpu_cluster",
+      "variant": "default",
+      "source_script": "original_cloud/gpu_cluster_default.py",
+      "size_bytes": 26195,
+      "sha256": "c6a0c6f832d02b00ea17f28ecbb3eba07471cbee757793f887b77d790f5a3d67",
+      "bbox": [
+        26,
+        47,
+        486,
+        464
+      ]
+    },
+    "gpu_node_default.png": {
+      "icon_name": "gpu_node",
+      "variant": "default",
+      "source_script": "original_cloud/gpu_node_default.py",
+      "size_bytes": 11831,
+      "sha256": "79f62579ff6c84597a326c0ba40a34aec498883f9995277aee8bf6dda29048c6",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -416,6 +722,19 @@
         486
       ]
     },
+    "internet_gateway_default.png": {
+      "icon_name": "internet_gateway",
+      "variant": "default",
+      "source_script": "original_cloud/internet_gateway_default.py",
+      "size_bytes": 33560,
+      "sha256": "7f5318a5b1c7c9d49b458369f165aaae7575db0190d30bc0ac743b68901a4f1a",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
     "iot_device_default.png": {
       "icon_name": "iot_device",
       "variant": "default",
@@ -429,6 +748,45 @@
         479
       ]
     },
+    "iot_hub_default.png": {
+      "icon_name": "iot_hub",
+      "variant": "default",
+      "source_script": "original_cloud/iot_hub_default.py",
+      "size_bytes": 40963,
+      "sha256": "1e3b3cceee6bedc6126f76d131342948aea01e562873e8a3d4cfbefc5c5eb25b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "key_management_default.png": {
+      "icon_name": "key_management",
+      "variant": "default",
+      "source_script": "original_cloud/key_management_default.py",
+      "size_bytes": 27030,
+      "sha256": "c218bfa813fdc77c3ef161d9cf07d71553f9b5e5a129130257c5b5559ffaec5c",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
+      ]
+    },
+    "llm_model_default.png": {
+      "icon_name": "llm_model",
+      "variant": "default",
+      "source_script": "original_cloud/llm_model_default.py",
+      "size_bytes": 21586,
+      "sha256": "66358af85451120ec7e9c5a4d29994beb3ccd4ac55993d63d2008d9a22319434",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "load_balancer_default.png": {
       "icon_name": "load_balancer",
       "variant": "default",
@@ -440,6 +798,32 @@
         27,
         486,
         484
+      ]
+    },
+    "logging_default.png": {
+      "icon_name": "logging",
+      "variant": "default",
+      "source_script": "original_cloud/logging_default.py",
+      "size_bytes": 23527,
+      "sha256": "eaf34b13f9f4a803162fea41ac42c41a2a880104393229c51c29fc67dbe8b7d6",
+      "bbox": [
+        41,
+        26,
+        471,
+        486
+      ]
+    },
+    "media_streaming_default.png": {
+      "icon_name": "media_streaming",
+      "variant": "default",
+      "source_script": "original_cloud/media_streaming_default.py",
+      "size_bytes": 15268,
+      "sha256": "06616db5c5de9cf5b115429ad9a1a9d099c6bb3c2518d2886c774a77f0d2f404",
+      "bbox": [
+        26,
+        43,
+        486,
+        469
       ]
     },
     "message_queue_default.png": {
@@ -468,6 +852,45 @@
         486
       ]
     },
+    "monitoring_default.png": {
+      "icon_name": "monitoring",
+      "variant": "default",
+      "source_script": "original_cloud/monitoring_default.py",
+      "size_bytes": 15051,
+      "sha256": "99bd9e473d3fd4551349267054b66674ea23d0ece076b383bde498e647adfe86",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "nat_gateway_default.png": {
+      "icon_name": "nat_gateway",
+      "variant": "default",
+      "source_script": "original_cloud/nat_gateway_default.py",
+      "size_bytes": 25438,
+      "sha256": "4765fbdaa6ff1b5f068be639e309289e9dc397ebffd6a379a653f70d20089a44",
+      "bbox": [
+        26,
+        70,
+        486,
+        442
+      ]
+    },
+    "network_peering_default.png": {
+      "icon_name": "network_peering",
+      "variant": "default",
+      "source_script": "original_cloud/network_peering_default.py",
+      "size_bytes": 23842,
+      "sha256": "1e6ca0f608041b747a3b48a36ae58aa467aa30c31e5ac82f4d622414acb1c55d",
+      "bbox": [
+        26,
+        96,
+        486,
+        416
+      ]
+    },
     "nosql_database_default.png": {
       "icon_name": "nosql_database",
       "variant": "default",
@@ -491,6 +914,19 @@
         51,
         26,
         461,
+        486
+      ]
+    },
+    "npu_node_default.png": {
+      "icon_name": "npu_node",
+      "variant": "default",
+      "source_script": "original_cloud/npu_node_default.py",
+      "size_bytes": 23043,
+      "sha256": "ded933cf21ef6d5e629629d5311092e83ea4a0580310b81d5bf061145e34cfa2",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -520,17 +956,43 @@
         462
       ]
     },
-    "pub_sub_default.png": {
-      "icon_name": "pub_sub",
+    "organization_account_default.png": {
+      "icon_name": "organization_account",
       "variant": "default",
-      "source_script": "original_cloud/pub_sub_default.py",
-      "size_bytes": 25276,
-      "sha256": "7ac08a8cd9d99c965a92db35fadb6a41c16dbd0e68115e8004dbca86a1b7c6e0",
+      "source_script": "original_cloud/organization_account_default.py",
+      "size_bytes": 13364,
+      "sha256": "f79d3f4c7003167ef007cd37139c04c6211f155a0b25c3acde82a571acfacc0d",
       "bbox": [
         26,
-        35,
+        51,
         486,
-        477
+        460
+      ]
+    },
+    "private_endpoint_default.png": {
+      "icon_name": "private_endpoint",
+      "variant": "default",
+      "source_script": "original_cloud/private_endpoint_default.py",
+      "size_bytes": 19493,
+      "sha256": "e8d04a19d89b640a41edc424c7562d46579eddd77a25279039dfac3f0784327f",
+      "bbox": [
+        26,
+        135,
+        486,
+        377
+      ]
+    },
+    "reverse_proxy_default.png": {
+      "icon_name": "reverse_proxy",
+      "variant": "default",
+      "source_script": "original_cloud/reverse_proxy_default.py",
+      "size_bytes": 20438,
+      "sha256": "8192b006f67b29a2a0b58e57f4b31d73c8f2eb9bbfb230aabd14842a72e76d8a",
+      "bbox": [
+        26,
+        71,
+        486,
+        440
       ]
     },
     "router_default.png": {
@@ -585,6 +1047,19 @@
         486
       ]
     },
+    "security_center_default.png": {
+      "icon_name": "security_center",
+      "variant": "default",
+      "source_script": "original_cloud/security_center_default.py",
+      "size_bytes": 27578,
+      "sha256": "e6d6cb839f51cabce11c33b43f8b4bf4c5728d9afa6052f26b6b8d16d87a7e5b",
+      "bbox": [
+        63,
+        26,
+        449,
+        486
+      ]
+    },
     "serverless_function_default.png": {
       "icon_name": "serverless_function",
       "variant": "default",
@@ -598,17 +1073,17 @@
         486
       ]
     },
-    "service_bus_default.png": {
-      "icon_name": "service_bus",
+    "service_discovery_default.png": {
+      "icon_name": "service_discovery",
       "variant": "default",
-      "source_script": "original_cloud/service_bus_default.py",
-      "size_bytes": 11490,
-      "sha256": "059f07667463f363048db2fce80bded097424e51bb85828c9d9c142059d14982",
+      "source_script": "original_cloud/service_discovery_default.py",
+      "size_bytes": 43836,
+      "sha256": "e163246e4c592031768129bdbdd5f8e6bf4a57573bca5e3a36911f160f52d9e7",
       "bbox": [
         26,
-        49,
+        26,
         486,
-        462
+        486
       ]
     },
     "service_mesh_default.png": {
@@ -628,19 +1103,19 @@
       "icon_name": "switch",
       "variant": "default",
       "source_script": "original_cloud/switch_default.py",
-      "size_bytes": 12104,
-      "sha256": "fe15db286b7c0349d1b4a19def3eae2abed1942db22a562ad2a22cce6bd26bf1",
+      "size_bytes": 15553,
+      "sha256": "3ed7db7ee24a118b6289af2e13c633b290cb3cd9686351613fbd8a6ddedc6391",
       "bbox": [
         26,
-        108,
+        106,
         486,
-        404
+        406
       ]
     },
-    "time_series_db_default.png": {
-      "icon_name": "time_series_db",
+    "time_series_database_default.png": {
+      "icon_name": "time_series_database",
       "variant": "default",
-      "source_script": "original_cloud/time_series_db_default.py",
+      "source_script": "original_cloud/time_series_database_default.py",
       "size_bytes": 28846,
       "sha256": "ad1c61fee94618cee60840b36494d453579e93b2b368d56ecfd1e23ff8eb9822",
       "bbox": [
@@ -648,6 +1123,19 @@
         35,
         486,
         476
+      ]
+    },
+    "transit_hub_default.png": {
+      "icon_name": "transit_hub",
+      "variant": "default",
+      "source_script": "original_cloud/transit_hub_default.py",
+      "size_bytes": 36334,
+      "sha256": "3a3cbbb44321a08937ba4efd4c81965be3458b3509e4d501c58c4e14bfe391e4",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
       ]
     },
     "user_default.png": {
@@ -680,13 +1168,26 @@
       "icon_name": "vector_database",
       "variant": "default",
       "source_script": "original_cloud/vector_database_default.py",
-      "size_bytes": 27503,
-      "sha256": "97e26382aa4480bf9a856c2f5ad572cbf2af037c59341dc2d7c40e18a1da6779",
+      "size_bytes": 31445,
+      "sha256": "0bb107df7b81b49800d2ffcce19689d6bf075c4210cf0fcafe7abd575234b482",
       "bbox": [
         26,
-        39,
+        44,
         486,
-        473
+        468
+      ]
+    },
+    "virtual_desktop_default.png": {
+      "icon_name": "virtual_desktop",
+      "variant": "default",
+      "source_script": "original_cloud/virtual_desktop_default.py",
+      "size_bytes": 15153,
+      "sha256": "4b1afa7c145804cd71d12ddf19bf833eff23c409927205399238c82a153db8c4",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
       ]
     },
     "virtual_machine_default.png": {
@@ -715,17 +1216,56 @@
         419
       ]
     },
+    "virtualization_cluster_default.png": {
+      "icon_name": "virtualization_cluster",
+      "variant": "default",
+      "source_script": "original_cloud/virtualization_cluster_default.py",
+      "size_bytes": 30880,
+      "sha256": "3fab80c6951bba8ef9c20866f534bda586db80961b67c5df93be9e420e42a62b",
+      "bbox": [
+        26,
+        41,
+        486,
+        470
+      ]
+    },
+    "virtualization_controller_default.png": {
+      "icon_name": "virtualization_controller",
+      "variant": "default",
+      "source_script": "original_cloud/virtualization_controller_default.py",
+      "size_bytes": 34093,
+      "sha256": "3d6b80db1dad6195ed46e97e79f8ff75bc67e77cb75368b1652631c05dfc129d",
+      "bbox": [
+        29,
+        26,
+        482,
+        486
+      ]
+    },
+    "virtualization_host_default.png": {
+      "icon_name": "virtualization_host",
+      "variant": "default",
+      "source_script": "original_cloud/virtualization_host_default.py",
+      "size_bytes": 26035,
+      "sha256": "a4095e5aa0cb7456993d71205b314946ca075f5594856287e054e1e96f2d08a8",
+      "bbox": [
+        26,
+        53,
+        486,
+        458
+      ]
+    },
     "vpn_tunnel_default.png": {
       "icon_name": "vpn_tunnel",
       "variant": "default",
       "source_script": "original_cloud/vpn_tunnel_default.py",
-      "size_bytes": 11675,
-      "sha256": "8d84d9c6bb7eaa464536a37d33241aeccb8cc07beb13d2b311f001cebdf5c428",
+      "size_bytes": 17467,
+      "sha256": "4e965af96d9c6bb4dd1d3a4aee5ff1b325343f48b81beb9bdd021ff78eee5876",
       "bbox": [
         26,
-        107,
+        103,
         486,
-        405
+        408
       ]
     },
     "waf_default.png": {

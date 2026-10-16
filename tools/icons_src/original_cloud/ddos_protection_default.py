@@ -12,7 +12,7 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import arc, circle, polygon
+from drawlib.shapes import circle, polygon
 from drawlib.utils import (
     DARK,
     ORIG_STROKE,
@@ -20,20 +20,18 @@ from drawlib.utils import (
     PASTEL_GREEN,
     WHITE,
     build_shield_half_points,
-    draw_cap,
     draw_round_polyline,
     draw_round_segment,
     fill_style,
     no_border_fill,
     setup_icon,
-    stroke_style,
 )
 
 setup_icon()
 
 w = ORIG_STROKE
 
-# Right-side heraldic shield
+# Right-side heraldic shield (left edge at x = 62 - 22 = 40.0)
 cx = 62.0
 y_bot, y_top = 18.0, 82.0
 half_w = 22.0
@@ -56,29 +54,38 @@ circle(
     style=fill_style(PASTEL_GREEN),
 )
 
-# Vertical curved deflection barrier with round end caps
-arc_cx, arc_cy = 52.0, 50.0
-rx, ry = 21.0, 34.0
-arc(
-    (arc_cx, arc_cy),
-    width=rx * 2.0,
-    height=ry * 2.0,
-    angle_start=125.0,
-    angle_end=235.0,
-    style=stroke_style(DARK, width_units=w),
-)
-for deg in (125.0, 235.0):
-    rad = math.radians(deg)
-    t = math.atan2(rx * math.sin(rad), ry * math.cos(rad))
-    draw_cap((arc_cx + rx * math.cos(t), arc_cy + ry * math.sin(t)), width_units=w, color=DARK)
 
-# 3 incoming horizontal attack arrows on the left
-for y in (68.0, 50.0, 32.0):
-    draw_round_segment((12.0, y), (27.0, y), width_units=w, color=DARK)
-    draw_round_polyline(
-        [(21.0, y + 5.0), (27.0, y), (21.0, y - 5.0)],
-        width_units=w,
-        color=DARK,
-    )
+def _draw_arrow_head(
+    tip: tuple[float, float],
+    from_pt: tuple[float, float],
+    *,
+    head_len: float = 7.2,
+    head_angle_deg: float = 36.0,
+) -> None:
+    """Draw a rounded open arrowhead at `tip` oriented along `from_pt -> tip`."""
+    ang = math.atan2(tip[1] - from_pt[1], tip[0] - from_pt[0])
+    a1 = ang + math.radians(180.0 - head_angle_deg)
+    a2 = ang - math.radians(180.0 - head_angle_deg)
+    p1 = (tip[0] + head_len * math.cos(a1), tip[1] + head_len * math.sin(a1))
+    p2 = (tip[0] + head_len * math.cos(a2), tip[1] + head_len * math.sin(a2))
+    draw_round_polyline([p1, tip, p2], width_units=w, color=DARK)
+
+
+# 1. Top attack arrow hitting shield and bouncing up-left
+top_hit = (35.5, 62.0)
+top_tip = (20.0, 79.0)
+draw_round_polyline([(12.0, 62.0), top_hit, top_tip], width_units=w, color=DARK)
+_draw_arrow_head(top_tip, top_hit)
+
+# 2. Middle incoming attack arrow approaching shield
+mid_tip = (32.0, 50.0)
+draw_round_segment((10.0, 50.0), mid_tip, width_units=w, color=DARK)
+_draw_arrow_head(mid_tip, (10.0, 50.0))
+
+# 3. Bottom attack arrow hitting shield and bouncing down-left
+bot_hit = (36.5, 38.0)
+bot_tip = (20.0, 21.0)
+draw_round_polyline([(12.0, 38.0), bot_hit, bot_tip], width_units=w, color=DARK)
+_draw_arrow_head(bot_tip, bot_hit)
 
 save()

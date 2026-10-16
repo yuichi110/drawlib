@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_ai",
-  "created_at": "2026-10-14T16:43:20.499840+00:00",
+  "created_at": "2026-10-15T04:07:48.774980+00:00",
   "canvas_size": [
     512,
     512
@@ -10,16 +10,44 @@
     460,
     460
   ],
-  "total_files": 8,
+  "total_files": 20,
   "aliases": {
     "agent": "ai_agent",
+    "agent_swarm": "multi_agent",
+    "benchmark": "evaluation",
     "embedding": "embedding_vector",
+    "eval": "evaluation",
+    "gpu": "gpu_node",
     "guardrail": "prompt_guardrail",
     "inference": "inference_endpoint",
+    "jupyter": "notebook",
     "llm": "llm_model",
-    "rag": "rag_knowledge_base"
+    "lora": "fine_tuning",
+    "mcp": "function_calling",
+    "memory": "agent_memory",
+    "npu": "npu_node",
+    "prompt": "prompt_template",
+    "rag": "rag_knowledge_base",
+    "tool_use": "function_calling",
+    "tpu": "npu_node",
+    "training": "training_pipeline",
+    "training_data": "dataset",
+    "vector_db": "vector_database"
   },
   "files": {
+    "agent_memory_default.png": {
+      "icon_name": "agent_memory",
+      "variant": "default",
+      "source_script": "original_ai/agent_memory_default.py",
+      "size_bytes": 16683,
+      "sha256": "26b9be4871089b610e9d01a8dc8bf52eb415ae694fb46e404266f23224f8e6cb",
+      "bbox": [
+        87,
+        26,
+        424,
+        486
+      ]
+    },
     "ai_agent_default.png": {
       "icon_name": "ai_agent",
       "variant": "default",
@@ -30,6 +58,19 @@
         27,
         26,
         485,
+        486
+      ]
+    },
+    "dataset_default.png": {
+      "icon_name": "dataset",
+      "variant": "default",
+      "source_script": "original_ai/dataset_default.py",
+      "size_bytes": 15612,
+      "sha256": "8157dbc22b7527452d61164498a77f906d67245adf2ce53a0733ad72ba55b626",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -44,6 +85,71 @@
         65,
         486,
         447
+      ]
+    },
+    "evaluation_default.png": {
+      "icon_name": "evaluation",
+      "variant": "default",
+      "source_script": "original_ai/evaluation_default.py",
+      "size_bytes": 13967,
+      "sha256": "310e1bb8979dd528192bc43ffd215e1960ef296177bd7c6f348f0c0015e6dbe3",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "feature_store_default.png": {
+      "icon_name": "feature_store",
+      "variant": "default",
+      "source_script": "original_ai/feature_store_default.py",
+      "size_bytes": 33608,
+      "sha256": "2d7d13c7a94052a5e17c9b513ad9b001fca704cb752066d30069d904a4137e68",
+      "bbox": [
+        26,
+        46,
+        486,
+        465
+      ]
+    },
+    "fine_tuning_default.png": {
+      "icon_name": "fine_tuning",
+      "variant": "default",
+      "source_script": "original_ai/fine_tuning_default.py",
+      "size_bytes": 22922,
+      "sha256": "f2549ad3cf970ea4df82da669daf08c7b9b8365a809692a7d862882fc9f461d0",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "function_calling_default.png": {
+      "icon_name": "function_calling",
+      "variant": "default",
+      "source_script": "original_ai/function_calling_default.py",
+      "size_bytes": 23183,
+      "sha256": "dc9f1468d85f9fc4c8a45b0bcbbe3eee5d0d1256417549499352a44e51e03129",
+      "bbox": [
+        26,
+        118,
+        486,
+        394
+      ]
+    },
+    "gpu_node_default.png": {
+      "icon_name": "gpu_node",
+      "variant": "default",
+      "source_script": "original_ai/gpu_node_default.py",
+      "size_bytes": 11831,
+      "sha256": "79f62579ff6c84597a326c0ba40a34aec498883f9995277aee8bf6dda29048c6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "inference_endpoint_default.png": {
@@ -85,6 +191,45 @@
         486
       ]
     },
+    "multi_agent_default.png": {
+      "icon_name": "multi_agent",
+      "variant": "default",
+      "source_script": "original_ai/multi_agent_default.py",
+      "size_bytes": 22817,
+      "sha256": "95a20fb8da7cadd8c7f4e568cc19517d1e41838f36217aa9148b10e58aeaa019",
+      "bbox": [
+        26,
+        43,
+        486,
+        469
+      ]
+    },
+    "notebook_default.png": {
+      "icon_name": "notebook",
+      "variant": "default",
+      "source_script": "original_ai/notebook_default.py",
+      "size_bytes": 15314,
+      "sha256": "227fafafb7e10535e7fadad2df1ebc28499aed6bc7a88e7f682b7128b254f0c7",
+      "bbox": [
+        33,
+        26,
+        478,
+        486
+      ]
+    },
+    "npu_node_default.png": {
+      "icon_name": "npu_node",
+      "variant": "default",
+      "source_script": "original_ai/npu_node_default.py",
+      "size_bytes": 23043,
+      "sha256": "ded933cf21ef6d5e629629d5311092e83ea4a0580310b81d5bf061145e34cfa2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "prompt_guardrail_default.png": {
       "icon_name": "prompt_guardrail",
       "variant": "default",
@@ -96,6 +241,19 @@
         51,
         486,
         461
+      ]
+    },
+    "prompt_template_default.png": {
+      "icon_name": "prompt_template",
+      "variant": "default",
+      "source_script": "original_ai/prompt_template_default.py",
+      "size_bytes": 21002,
+      "sha256": "37d795da53221b72241c0ab0bae73e77821e1d392468733ffffba357accf38d9",
+      "bbox": [
+        26,
+        41,
+        486,
+        470
       ]
     },
     "rag_knowledge_base_default.png": {
@@ -122,6 +280,19 @@
         26,
         471,
         486
+      ]
+    },
+    "vector_database_default.png": {
+      "icon_name": "vector_database",
+      "variant": "default",
+      "source_script": "original_ai/vector_database_default.py",
+      "size_bytes": 31445,
+      "sha256": "0bb107df7b81b49800d2ffcce19689d6bf075c4210cf0fcafe7abd575234b482",
+      "bbox": [
+        26,
+        44,
+        486,
+        468
       ]
     }
   }

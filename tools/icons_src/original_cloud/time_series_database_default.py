@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Original concept icon: time_series_db."""
+"""Original concept icon: time_series_database."""
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle

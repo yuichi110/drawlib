@@ -16,14 +16,14 @@ import pytest
 from drawlib._icons.png_icons.aws._base import AWS_PROVIDER
 from drawlib._icons.png_icons.azure._base import AZURE_PROVIDER
 from drawlib.canvas import clear, save
-from drawlib.diagrams.architecture import ArchitectureDiagram, AwsIcon, AzureIcon, Node
-from drawlib.icons import aws, azure
+from drawlib.diagrams.architecture import ArchitectureDiagram, AwsIcon, AzureIcon, Node, OriginalCloudIcon
+from drawlib.icons import aws, azure, original_cloud
 from drawlib.styles import Styles
 from drawlib.types import Style
 
 
 class TestAwsAndAzureIcons:
-    """Tests for AWS and Azure icon providers and architecture diagram enums."""
+    """Tests for AWS, Azure, and Original Cloud icon providers and architecture diagram enums."""
 
     def test_aws_icons_and_aliases(self, tmp_path: Path) -> None:
         """Verify AWS service icons, category icons, and shorthand aliases."""
@@ -55,8 +55,27 @@ class TestAwsAndAzureIcons:
         save(str(out))
         assert out.is_file()
 
+    def test_original_cloud_reorganized_icons(self, tmp_path: Path) -> None:
+        """Verify newly added and renamed Original Cloud icons and aliases."""
+        clear()
+        original_cloud.gpu_node(xy=(15, 75), width=12, style=Style())
+        original_cloud.gpu_cluster(xy=(35, 75), width=12, style=Style())
+        original_cloud.npu_node(xy=(55, 75), width=12, style=Style())
+        original_cloud.bare_metal(xy=(75, 75), width=12, style=Style())
+        original_cloud.virtualization_host(xy=(15, 50), width=12, style=Style())
+        original_cloud.virtualization_cluster(xy=(35, 50), width=12, style=Style())
+        original_cloud.virtualization_controller(xy=(55, 50), width=12, style=Style())
+        original_cloud.directory_service(xy=(75, 50), width=12, style=Style())
+        original_cloud.internet_gateway(xy=(15, 25), width=12, style=Style())
+        original_cloud.nat_gateway(xy=(35, 25), width=12, style=Style())
+        original_cloud.time_series_database(xy=(55, 25), width=12, style=Style())
+        original_cloud.tpu(xy=(75, 25), width=12, style=Style())
+        out = tmp_path / "test_original_cloud.png"
+        save(str(out))
+        assert out.is_file()
+
     def test_aws_azure_architecture_diagram_enums(self, tmp_path: Path) -> None:
-        """Verify AwsIcon and AzureIcon work inside ArchitectureDiagram nodes."""
+        """Verify AwsIcon, AzureIcon, and OriginalCloudIcon work inside ArchitectureDiagram nodes."""
         clear()
         diag = ArchitectureDiagram(
             node_style=Styles.PrimaryFlat,
@@ -64,10 +83,12 @@ class TestAwsAndAzureIcons:
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
         )
-        n1 = diag.add(Node("EC2", width=20, height=20, icon=AwsIcon.EC2), (25, 50))
-        n2 = diag.add(Node("AKS", width=20, height=20, icon=AzureIcon.AKS), (75, 50))
+        n1 = diag.add(Node("EC2", width=20, height=20, icon=AwsIcon.EC2), (20, 50))
+        n2 = diag.add(Node("AKS", width=20, height=20, icon=AzureIcon.AKS), (50, 50))
+        n3 = diag.add(Node("NPU", width=20, height=20, icon=OriginalCloudIcon.NPU_NODE), (80, 50))
         diag.connect(n1, n2)
-        diag.draw((10, 10))
+        diag.connect(n2, n3)
+        diag.draw((5, 10))
         out = tmp_path / "test_arch_aws_azure.png"
         save(str(out))
         assert out.is_file()

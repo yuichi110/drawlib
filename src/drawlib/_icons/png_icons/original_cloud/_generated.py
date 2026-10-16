@@ -18,6 +18,86 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.original_cloud._base import _write
 
 
+def ad(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing ad.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="directory_service", style=style, variant=variant)
+
+
+def agent(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing agent.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="ai_agent", style=style, variant=variant)
+
+
+def ai_agent(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing ai agent.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="ai_agent", style=style, variant=variant)
+
+
+def analytics_engine(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing analytics engine.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="analytics_engine", style=style, variant=variant)
+
+
 def api_gateway(
     xy: Coordinate,
     width: PosFloat,
@@ -56,6 +136,46 @@ def apigw(
 
     """
     _write(xy=xy, width=width, name="api_gateway", style=style, variant=variant)
+
+
+def app_service(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing app service.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="app_service", style=style, variant=variant)
+
+
+def artifact_registry(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing artifact registry.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="artifact_registry", style=style, variant=variant)
 
 
 def audit(
@@ -178,6 +298,66 @@ def backup_archive(
     _write(xy=xy, width=width, name="backup_archive", style=style, variant=variant)
 
 
+def bare_metal(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing bare metal.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="bare_metal", style=style, variant=variant)
+
+
+def bastion(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing bastion.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="bastion_host", style=style, variant=variant)
+
+
+def bastion_host(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing bastion host.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="bastion_host", style=style, variant=variant)
+
+
 def batch(
     xy: Coordinate,
     width: PosFloat,
@@ -258,6 +438,26 @@ def bi_dashboard(
     _write(xy=xy, width=width, name="bi_dashboard", style=style, variant=variant)
 
 
+def billing(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing billing.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="billing", style=style, variant=variant)
+
+
 def block_storage(
     xy: Coordinate,
     width: PosFloat,
@@ -276,6 +476,26 @@ def block_storage(
 
     """
     _write(xy=xy, width=width, name="block_storage", style=style, variant=variant)
+
+
+def blockchain_ledger(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing blockchain ledger.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="blockchain_ledger", style=style, variant=variant)
 
 
 def browser(
@@ -316,26 +536,6 @@ def bucket(
 
     """
     _write(xy=xy, width=width, name="object_storage", style=style, variant=variant)
-
-
-def bus(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Original Cloud concept icon representing bus.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="service_bus", style=style, variant=variant)
 
 
 def cache(
@@ -396,6 +596,46 @@ def certificate_tls(
 
     """
     _write(xy=xy, width=width, name="certificate_tls", style=style, variant=variant)
+
+
+def cicd(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing cicd.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cicd_pipeline", style=style, variant=variant)
+
+
+def cicd_pipeline(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing cicd pipeline.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cicd_pipeline", style=style, variant=variant)
 
 
 def cluster(
@@ -478,6 +718,26 @@ def container_cluster(
     _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
 
 
+def cost_management(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing cost management.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cost_management", style=style, variant=variant)
+
+
 def cron(
     xy: Coordinate,
     width: PosFloat,
@@ -498,6 +758,26 @@ def cron(
     _write(xy=xy, width=width, name="scheduler", style=style, variant=variant)
 
 
+def data_catalog(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing data catalog.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="data_catalog", style=style, variant=variant)
+
+
 def data_lake(
     xy: Coordinate,
     width: PosFloat,
@@ -516,6 +796,26 @@ def data_lake(
 
     """
     _write(xy=xy, width=width, name="data_lake", style=style, variant=variant)
+
+
+def data_migration(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing data migration.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="data_migration", style=style, variant=variant)
 
 
 def data_warehouse(
@@ -638,6 +938,26 @@ def ddos_protection(
     _write(xy=xy, width=width, name="ddos_protection", style=style, variant=variant)
 
 
+def dedicated_interconnect(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing dedicated interconnect.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="dedicated_interconnect", style=style, variant=variant)
+
+
 def desktop(
     xy: Coordinate,
     width: PosFloat,
@@ -678,6 +998,66 @@ def desktop_app(
     _write(xy=xy, width=width, name="desktop_app", style=style, variant=variant)
 
 
+def digital_twin(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing digital twin.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="digital_twin", style=style, variant=variant)
+
+
+def directory_service(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing directory service.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="directory_service", style=style, variant=variant)
+
+
+def disaster_recovery(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing disaster recovery.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="disaster_recovery", style=style, variant=variant)
+
+
 def disk(
     xy: Coordinate,
     width: PosFloat,
@@ -698,6 +1078,26 @@ def disk(
     _write(xy=xy, width=width, name="block_storage", style=style, variant=variant)
 
 
+def distributed_database(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing distributed database.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="distributed_database", style=style, variant=variant)
+
+
 def dns(
     xy: Coordinate,
     width: PosFloat,
@@ -716,6 +1116,26 @@ def dns(
 
     """
     _write(xy=xy, width=width, name="dns", style=style, variant=variant)
+
+
+def dr(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing dr.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="disaster_recovery", style=style, variant=variant)
 
 
 def dwh(
@@ -756,6 +1176,26 @@ def edge_location(
 
     """
     _write(xy=xy, width=width, name="edge_location", style=style, variant=variant)
+
+
+def email_service(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing email service.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="email_service", style=style, variant=variant)
 
 
 def etl(
@@ -816,6 +1256,26 @@ def event_stream(
 
     """
     _write(xy=xy, width=width, name="event_stream", style=style, variant=variant)
+
+
+def external_saas(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing external saas.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="external_saas", style=style, variant=variant)
 
 
 def file_storage(
@@ -896,6 +1356,106 @@ def function(
 
     """
     _write(xy=xy, width=width, name="serverless_function", style=style, variant=variant)
+
+
+def git(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing git.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="git_repository", style=style, variant=variant)
+
+
+def git_repository(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing git repository.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="git_repository", style=style, variant=variant)
+
+
+def gpu(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing gpu.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="gpu_node", style=style, variant=variant)
+
+
+def gpu_cluster(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing gpu cluster.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="gpu_cluster", style=style, variant=variant)
+
+
+def gpu_node(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing gpu node.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="gpu_node", style=style, variant=variant)
 
 
 def graph_database(
@@ -998,6 +1558,26 @@ def identity_auth(
     _write(xy=xy, width=width, name="identity_auth", style=style, variant=variant)
 
 
+def igw(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing igw.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="internet_gateway", style=style, variant=variant)
+
+
 def in_memory_cache(
     xy: Coordinate,
     width: PosFloat,
@@ -1016,6 +1596,26 @@ def in_memory_cache(
 
     """
     _write(xy=xy, width=width, name="in_memory_cache", style=style, variant=variant)
+
+
+def internet_gateway(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing internet gateway.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="internet_gateway", style=style, variant=variant)
 
 
 def iot(
@@ -1058,6 +1658,26 @@ def iot_device(
     _write(xy=xy, width=width, name="iot_device", style=style, variant=variant)
 
 
+def iot_hub(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing iot hub.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="iot_hub", style=style, variant=variant)
+
+
 def k8s(
     xy: Coordinate,
     width: PosFloat,
@@ -1078,6 +1698,26 @@ def k8s(
     _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
 
 
+def key_management(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing key management.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="key_management", style=style, variant=variant)
+
+
 def kms(
     xy: Coordinate,
     width: PosFloat,
@@ -1095,7 +1735,27 @@ def kms(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+    _write(xy=xy, width=width, name="key_management", style=style, variant=variant)
+
+
+def kubernetes_cluster(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing kubernetes cluster.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
 
 
 def lb(
@@ -1118,6 +1778,46 @@ def lb(
     _write(xy=xy, width=width, name="load_balancer", style=style, variant=variant)
 
 
+def llm(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing llm.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="llm_model", style=style, variant=variant)
+
+
+def llm_model(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing llm model.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="llm_model", style=style, variant=variant)
+
+
 def load_balancer(
     xy: Coordinate,
     width: PosFloat,
@@ -1136,6 +1836,66 @@ def load_balancer(
 
     """
     _write(xy=xy, width=width, name="load_balancer", style=style, variant=variant)
+
+
+def logging(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing logging.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="logging", style=style, variant=variant)
+
+
+def logs(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing logs.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="logging", style=style, variant=variant)
+
+
+def media_streaming(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing media streaming.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="media_streaming", style=style, variant=variant)
 
 
 def mesh(
@@ -1178,6 +1938,26 @@ def message_queue(
     _write(xy=xy, width=width, name="message_queue", style=style, variant=variant)
 
 
+def metrics(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing metrics.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="monitoring", style=style, variant=variant)
+
+
 def mobile(
     xy: Coordinate,
     width: PosFloat,
@@ -1218,6 +1998,26 @@ def mobile_app(
     _write(xy=xy, width=width, name="mobile_app", style=style, variant=variant)
 
 
+def monitoring(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing monitoring.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="monitoring", style=style, variant=variant)
+
+
 def mq(
     xy: Coordinate,
     width: PosFloat,
@@ -1236,6 +2036,66 @@ def mq(
 
     """
     _write(xy=xy, width=width, name="message_queue", style=style, variant=variant)
+
+
+def nat(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing nat.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="nat_gateway", style=style, variant=variant)
+
+
+def nat_gateway(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing nat gateway.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="nat_gateway", style=style, variant=variant)
+
+
+def network_peering(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing network peering.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="network_peering", style=style, variant=variant)
 
 
 def nfs(
@@ -1318,6 +2178,46 @@ def notification(
     _write(xy=xy, width=width, name="notification", style=style, variant=variant)
 
 
+def npu(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing npu.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="npu_node", style=style, variant=variant)
+
+
+def npu_node(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing npu node.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="npu_node", style=style, variant=variant)
+
+
 def object_storage(
     xy: Coordinate,
     width: PosFloat,
@@ -1378,14 +2278,14 @@ def on_premises(
     _write(xy=xy, width=width, name="on_premises", style=style, variant=variant)
 
 
-def pub_sub(
+def organization_account(
     xy: Coordinate,
     width: PosFloat,
     *,
     style: Style,
     variant: Literal["default"] = "default",
 ) -> None:
-    """Draws an Original Cloud concept icon representing pub sub.
+    """Draws an Original Cloud concept icon representing organization account.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1395,17 +2295,17 @@ def pub_sub(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="pub_sub", style=style, variant=variant)
+    _write(xy=xy, width=width, name="organization_account", style=style, variant=variant)
 
 
-def pubsub(
+def peering(
     xy: Coordinate,
     width: PosFloat,
     *,
     style: Style,
     variant: Literal["default"] = "default",
 ) -> None:
-    """Draws an Original Cloud concept icon representing pubsub.
+    """Draws an Original Cloud concept icon representing peering.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1415,7 +2315,47 @@ def pubsub(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="pub_sub", style=style, variant=variant)
+    _write(xy=xy, width=width, name="network_peering", style=style, variant=variant)
+
+
+def pipeline(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing pipeline.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cicd_pipeline", style=style, variant=variant)
+
+
+def private_endpoint(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing private endpoint.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="private_endpoint", style=style, variant=variant)
 
 
 def queue(
@@ -1498,6 +2438,46 @@ def replica(
     _write(xy=xy, width=width, name="db_replica", style=style, variant=variant)
 
 
+def repo(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing repo.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="git_repository", style=style, variant=variant)
+
+
+def reverse_proxy(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing reverse proxy.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="reverse_proxy", style=style, variant=variant)
+
+
 def router(
     xy: Coordinate,
     width: PosFloat,
@@ -1578,6 +2558,26 @@ def search_engine(
     _write(xy=xy, width=width, name="search_engine", style=style, variant=variant)
 
 
+def secret_manager(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing secret manager.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
 def secret_vault(
     xy: Coordinate,
     width: PosFloat,
@@ -1596,6 +2596,26 @@ def secret_vault(
 
     """
     _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
+def security_center(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing security center.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="security_center", style=style, variant=variant)
 
 
 def serverless_function(
@@ -1618,14 +2638,14 @@ def serverless_function(
     _write(xy=xy, width=width, name="serverless_function", style=style, variant=variant)
 
 
-def service_bus(
+def service_discovery(
     xy: Coordinate,
     width: PosFloat,
     *,
     style: Style,
     variant: Literal["default"] = "default",
 ) -> None:
-    """Draws an Original Cloud concept icon representing service bus.
+    """Draws an Original Cloud concept icon representing service discovery.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1635,7 +2655,7 @@ def service_bus(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="service_bus", style=style, variant=variant)
+    _write(xy=xy, width=width, name="service_discovery", style=style, variant=variant)
 
 
 def service_mesh(
@@ -1698,14 +2718,14 @@ def switch(
     _write(xy=xy, width=width, name="switch", style=style, variant=variant)
 
 
-def time_series_db(
+def time_series_database(
     xy: Coordinate,
     width: PosFloat,
     *,
     style: Style,
     variant: Literal["default"] = "default",
 ) -> None:
-    """Draws an Original Cloud concept icon representing time series db.
+    """Draws an Original Cloud concept icon representing time series database.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1715,7 +2735,7 @@ def time_series_db(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="time_series_db", style=style, variant=variant)
+    _write(xy=xy, width=width, name="time_series_database", style=style, variant=variant)
 
 
 def tls(
@@ -1738,6 +2758,46 @@ def tls(
     _write(xy=xy, width=width, name="certificate_tls", style=style, variant=variant)
 
 
+def tpu(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing tpu.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="npu_node", style=style, variant=variant)
+
+
+def transit_hub(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing transit hub.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="transit_hub", style=style, variant=variant)
+
+
 def tsdb(
     xy: Coordinate,
     width: PosFloat,
@@ -1755,7 +2815,7 @@ def tsdb(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="time_series_db", style=style, variant=variant)
+    _write(xy=xy, width=width, name="time_series_database", style=style, variant=variant)
 
 
 def user(
@@ -1838,6 +2898,46 @@ def vault(
     _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
 
 
+def vcenter(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing vcenter.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtualization_controller", style=style, variant=variant)
+
+
+def vdi(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing vdi.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtual_desktop", style=style, variant=variant)
+
+
 def vector_database(
     xy: Coordinate,
     width: PosFloat,
@@ -1876,6 +2976,26 @@ def vector_db(
 
     """
     _write(xy=xy, width=width, name="vector_database", style=style, variant=variant)
+
+
+def virtual_desktop(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing virtual desktop.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtual_desktop", style=style, variant=variant)
 
 
 def virtual_machine(
@@ -1918,6 +3038,66 @@ def virtual_network(
     _write(xy=xy, width=width, name="virtual_network", style=style, variant=variant)
 
 
+def virtualization_cluster(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing virtualization cluster.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtualization_cluster", style=style, variant=variant)
+
+
+def virtualization_controller(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing virtualization controller.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtualization_controller", style=style, variant=variant)
+
+
+def virtualization_host(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing virtualization host.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtualization_host", style=style, variant=variant)
+
+
 def vm(
     xy: Coordinate,
     width: PosFloat,
@@ -1936,6 +3116,26 @@ def vm(
 
     """
     _write(xy=xy, width=width, name="virtual_machine", style=style, variant=variant)
+
+
+def vnet(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing vnet.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="virtual_network", style=style, variant=variant)
 
 
 def vpc(

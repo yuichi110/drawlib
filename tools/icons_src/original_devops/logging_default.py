@@ -35,7 +35,7 @@ rectangle(
 
 rows = [
     (68.0, PASTEL_BLUE),
-    (52.0, PASTEL_BLUE),
+    (52.0, PASTEL_GREEN),
     (36.0, PASTEL_GREEN),
 ]
 for y, dot_color in rows:
@@ -50,7 +50,7 @@ draw_round_segment((70.0, 28.0), (85.0, 13.0), width_units=3.5, color=DARK)
 circle(
     (70.0, 28.0),
     radius=13.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
 )
 circle(
     (70.0, 28.0),

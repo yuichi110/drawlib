@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from tools.dcli.codegen.gcp_codegen import format_code, load_gcp_manifest
@@ -105,6 +106,47 @@ def generate_code(
     return "".join(code_parts)
 
 
+PROVIDER_ENUM_NAMES: dict[str, str] = {
+    "original_cloud": "OriginalCloudIcon",
+    "original_devops": "OriginalDevopsIcon",
+    "original_ai": "OriginalAiIcon",
+    "aws": "AwsIcon",
+    "azure": "AzureIcon",
+}
+
+
+def _update_architecture_enum(provider: str, func_names: list[str]) -> None:
+    """Synchronize the provider's Enum class in `src/drawlib/_diagrams/architecture/_icons.py`."""
+    enum_name = PROVIDER_ENUM_NAMES.get(provider)
+    if not enum_name:
+        return
+    icons_py = PROJECT_ROOT / "src/drawlib/_diagrams/architecture/_icons.py"
+    if not icons_py.is_file():
+        return
+
+    text = icons_py.read_text(encoding="utf-8")
+    pattern = re.compile(
+        rf"(class {enum_name}\(str, Enum\):\n"
+        rf'    """[^\n]+"""\n\n)'
+        rf"(?:    [A-Z0-9_]+ = \"[^\"]+\"(?:  # noqa: S105)?\n)+",
+    )
+    match = pattern.search(text)
+    if not match:
+        return
+
+    lines: list[str] = []
+    for fn in sorted(func_names):
+        const_name = fn.upper()
+        suffix = "  # noqa: S105" if "secret" in fn or "password" in fn or "token" in fn else ""
+        lines.append(f'    {const_name} = "{fn}"{suffix}\n')
+
+    replacement = match.group(1) + "".join(lines)
+    new_text = text[: match.start()] + replacement + text[match.end() :]
+    if new_text != text:
+        icons_py.write_text(new_text, encoding="utf-8")
+        format_code(icons_py)
+
+
 def generate_original_provider_code(
     provider: str,
     manifest_file: Path | None = None,
@@ -119,7 +161,8 @@ def generate_original_provider_code(
     provider_label = PROVIDER_LABELS.get(provider, provider)
     print(f"Reading {provider_label} icon manifest from {m_file}...")
     icon_variants, aliases = load_gcp_manifest(m_file)
-    total_funcs = len(set(icon_variants.keys()) | set(aliases.keys()))
+    all_func_names = sorted(set(icon_variants.keys()) | {k for k, v in aliases.items() if v in icon_variants})
+    total_funcs = len(all_func_names)
     print(f"Loaded {len(icon_variants)} canonical icons and {len(aliases)} aliases ({total_funcs} functions).")
 
     print(f"Generating Python code into {o_file}...")
@@ -129,6 +172,7 @@ def generate_original_provider_code(
 
     print(f"Formatting {o_file} with ruff...")
     format_code(o_file)
+    _update_architecture_enum(provider, all_func_names)
     print(f"Successfully generated {total_funcs} {provider_label} icon functions in {o_file}!")
 
 
@@ -138,3 +182,4 @@ def generate_original_cloud_code(
 ) -> None:
     """Generate Python code for Original Cloud icons from manifest."""
     generate_original_provider_code("original_cloud", manifest_file=manifest_file, output_file=output_file)
+

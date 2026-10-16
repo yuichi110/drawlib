@@ -78,6 +78,26 @@ def artifact_registry(
     _write(xy=xy, width=width, name="artifact_registry", style=style, variant=variant)
 
 
+def build_runner(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing build runner.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="build_runner", style=style, variant=variant)
+
+
 def cicd(
     xy: Coordinate,
     width: PosFloat,
@@ -116,6 +136,26 @@ def cicd_pipeline(
 
     """
     _write(xy=xy, width=width, name="cicd_pipeline", style=style, variant=variant)
+
+
+def code_review(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing code review.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pull_request", style=style, variant=variant)
 
 
 def config(
@@ -158,6 +198,66 @@ def config_management(
     _write(xy=xy, width=width, name="config_management", style=style, variant=variant)
 
 
+def container(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing container.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="container", style=style, variant=variant)
+
+
+def container_cluster(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing container cluster.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
+
+
+def dashboard(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing dashboard.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="dashboard", style=style, variant=variant)
+
+
 def distributed_tracing(
     xy: Coordinate,
     width: PosFloat,
@@ -176,6 +276,46 @@ def distributed_tracing(
 
     """
     _write(xy=xy, width=width, name="distributed_tracing", style=style, variant=variant)
+
+
+def feature_flag(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing feature flag.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="feature_flag", style=style, variant=variant)
+
+
+def feature_toggle(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing feature toggle.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="feature_flag", style=style, variant=variant)
 
 
 def git(
@@ -218,6 +358,46 @@ def git_repository(
     _write(xy=xy, width=width, name="git_repository", style=style, variant=variant)
 
 
+def gitops(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing gitops.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="gitops_controller", style=style, variant=variant)
+
+
+def gitops_controller(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing gitops controller.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="gitops_controller", style=style, variant=variant)
+
+
 def iac(
     xy: Coordinate,
     width: PosFloat,
@@ -236,6 +416,86 @@ def iac(
 
     """
     _write(xy=xy, width=width, name="config_management", style=style, variant=variant)
+
+
+def incident(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing incident.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="alert_incident", style=style, variant=variant)
+
+
+def k8s(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing k8s.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
+
+
+def kubernetes(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing kubernetes.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
+
+
+def kubernetes_cluster(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing kubernetes cluster.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="container_cluster", style=style, variant=variant)
 
 
 def logging(
@@ -318,6 +578,86 @@ def monitoring(
     _write(xy=xy, width=width, name="monitoring", style=style, variant=variant)
 
 
+def on_call(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing on call.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="on_call", style=style, variant=variant)
+
+
+def package(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing package.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="package_dependency", style=style, variant=variant)
+
+
+def package_dependency(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing package dependency.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="package_dependency", style=style, variant=variant)
+
+
+def pager(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing pager.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="on_call", style=style, variant=variant)
+
+
 def pipeline(
     xy: Coordinate,
     width: PosFloat,
@@ -336,6 +676,66 @@ def pipeline(
 
     """
     _write(xy=xy, width=width, name="cicd_pipeline", style=style, variant=variant)
+
+
+def pr(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing pr.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pull_request", style=style, variant=variant)
+
+
+def pull_request(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing pull request.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pull_request", style=style, variant=variant)
+
+
+def qa(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing qa.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="test_automation", style=style, variant=variant)
 
 
 def registry(
@@ -378,6 +778,166 @@ def repo(
     _write(xy=xy, width=width, name="git_repository", style=style, variant=variant)
 
 
+def runner(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing runner.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="build_runner", style=style, variant=variant)
+
+
+def sbom(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing sbom.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="package_dependency", style=style, variant=variant)
+
+
+def secret(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing secret.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
+def secret_manager(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing secret manager.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
+def secret_vault(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing secret vault.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
+def security_scan(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing security scan.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="security_scan", style=style, variant=variant)
+
+
+def test_automation(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing test automation.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="test_automation", style=style, variant=variant)
+
+
+def testing(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing testing.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="test_automation", style=style, variant=variant)
+
+
 def tracing(
     xy: Coordinate,
     width: PosFloat,
@@ -396,3 +956,43 @@ def tracing(
 
     """
     _write(xy=xy, width=width, name="distributed_tracing", style=style, variant=variant)
+
+
+def vault(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing vault.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
+def vulnerability_scan(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original DevOps concept icon representing vulnerability scan.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="security_scan", style=style, variant=variant)

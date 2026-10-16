@@ -9,8 +9,10 @@
 
 """Original concept icon: dns."""
 
+import math
+
 from drawlib.canvas import save
-from drawlib.shapes import circle, rectangle
+from drawlib.shapes import circle, ellipse, rectangle
 from drawlib.utils import (
     DARK,
     ORIG_STROKE,
@@ -21,43 +23,65 @@ from drawlib.utils import (
     draw_round_segment,
     fill_style,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
 
 w = ORIG_STROKE
 
-draw_round_segment((50.0, 62.0), (50.0, 42.0), width_units=w, color=DARK)
-draw_round_polyline(
-    [(43.5, 48.5), (50.0, 42.0), (56.5, 48.5)],
-    width_units=w,
-    color=DARK,
-)
+# 1. Upper wireframe globe / sphere at (50, 56), radius=31.0 -> y=25..87
+gx, gy = 50.0, 56.0
+gr = 31.0
 
-rectangle(
-    (50.0, 72.0),
-    width=70.0,
-    height=20.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=6.0),
-)
 circle(
-    (26.0, 72.0),
-    radius=5.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
+    (gx, gy),
+    radius=gr,
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
 )
-draw_round_segment((36.0, 72.0), (74.0, 72.0), width_units=w, color=DARK)
+ellipse(
+    (gx, gy),
+    width=gr,
+    height=gr * 2.0,
+    style=fill_style(WHITE, border_color=DARK, border_units=w),
+)
 
-rectangle(
-    (50.0, 26.0),
-    width=56.0,
-    height=22.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=5.0),
+# Vertical prime meridian and horizontal latitude lines
+draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.3, color=DARK)
+draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.3, color=DARK)
+
+lat_dy = 14.5
+lat_dx = math.sqrt(gr * gr - lat_dy * lat_dy)
+draw_round_segment((gx - lat_dx, gy + lat_dy), (gx + lat_dx, gy + lat_dy), width_units=2.3, color=DARK)
+
+# Re-stroke outer globe ring for crisp intersections
+circle(
+    (gx, gy),
+    radius=gr,
+    style=stroke_style(DARK, width_units=w),
 )
-for dot_x in (34.0, 50.0, 66.0):
-    circle(
-        (dot_x, 26.0),
-        radius=4.0,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
-    )
+
+# 2. Front "WWW" domain banner at (50, 27), width=76.0, height=24.0
+by = 27.0
+rectangle(
+    (50.0, by),
+    width=76.0,
+    height=24.0,
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w, shape_r=6.0),
+)
+
+# Three crisp vector "W" glyphs inside the banner
+y_top = by + 6.2
+y_mid = by + 2.2
+y_bot = by - 6.2
+for wx in (29.0, 50.0, 71.0):
+    w_pts = [
+        (wx - 6.8, y_top),
+        (wx - 3.4, y_bot),
+        (wx, y_mid),
+        (wx + 3.4, y_bot),
+        (wx + 6.8, y_top),
+    ]
+    draw_round_polyline(w_pts, width_units=2.3, color=DARK)
 
 save()

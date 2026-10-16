@@ -10,14 +10,13 @@
 """Original concept icon: vector_database."""
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, ellipse, rectangle
 from drawlib.utils import (
     DARK,
     ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_GREEN,
     WHITE,
-    draw_round_polyline,
     draw_round_segment,
     fill_style,
     setup_icon,
@@ -26,50 +25,66 @@ from drawlib.utils import (
 setup_icon()
 
 w = ORIG_STROKE
-origin = (38.0, 42.0)
 
-# 1. 3D orthogonal coordinate axes with arrow tips
-y_tip = (38.0, 84.0)
-x_tip = (84.0, 42.0)
-z_tip = (16.0, 20.0)
+# 1. 3-tier database cylinder (left/back, matching database & time_series_database)
+cx = 41.0
+width = 54.0
+w_half = width / 2.0
+ry = 8.5
+eh = ry * 2.0
+tier_bottoms = [20.0, 37.0, 54.0]
+tier_h = 17.0
+y_bot = tier_bottoms[0]
+y_top = tier_bottoms[-1] + tier_h
 
-draw_round_segment(origin, y_tip, width_units=w, color=DARK)
-draw_round_segment(origin, x_tip, width_units=w, color=DARK)
-draw_round_segment(origin, z_tip, width_units=w, color=DARK)
+for yb in tier_bottoms:
+    ellipse(
+        (cx, yb),
+        width=width,
+        height=eh,
+        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    )
+    rectangle(
+        (cx, yb + tier_h / 2.0),
+        width=width,
+        height=tier_h,
+        style=fill_style(PASTEL_BLUE),
+    )
 
-draw_round_polyline([(33.5, 78.5), y_tip, (42.5, 78.5)], width_units=w, color=DARK)
-draw_round_polyline([(78.5, 46.5), x_tip, (78.5, 37.5)], width_units=w, color=DARK)
-draw_round_polyline([(16.0, 26.8), z_tip, (22.8, 20.0)], width_units=w, color=DARK)
+draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=DARK)
+draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=DARK)
 
-# 2. Vector rays from origin to embedding nodes
-v1 = (70.0, 75.0)
-v2 = (72.0, 55.0)
-v3 = (49.0, 70.0)
+ellipse(
+    (cx, y_top),
+    width=width,
+    height=eh,
+    style=fill_style(WHITE, border_color=DARK, border_units=w),
+)
 
-draw_round_segment(origin, v1, width_units=2.3, color=DARK)
-draw_round_segment(origin, v2, width_units=2.3, color=DARK)
-draw_round_segment(origin, v3, width_units=2.3, color=DARK)
+# 2. Overlapping bottom-right vector space badge
+badge_c = (68.0, 33.0)
+circle(
+    badge_c,
+    radius=20.0,
+    style=fill_style(WHITE, border_color=DARK, border_units=w),
+)
 
-# 3. Origin node and vector embedding nodes
+origin = (59.5, 24.5)
+draw_round_segment(origin, (59.5, 43.5), width_units=2.2, color=DARK)
+draw_round_segment(origin, (78.5, 24.5), width_units=2.2, color=DARK)
+
+v_main = (74.5, 39.5)
+draw_round_segment(origin, v_main, width_units=2.4, color=DARK)
+
 circle(
     origin,
-    radius=5.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    radius=3.0,
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=1.8),
 )
 circle(
-    v3,
-    radius=6.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
-)
-circle(
-    v2,
-    radius=7.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
-)
-circle(
-    v1,
-    radius=8.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    v_main,
+    radius=5.2,
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
 )
 
 save()

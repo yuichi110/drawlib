@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_devops",
-  "created_at": "2026-10-14T16:43:29.641322+00:00",
+  "created_at": "2026-10-15T03:32:01.934348+00:00",
   "canvas_size": [
     512,
     512
@@ -10,19 +10,37 @@
     460,
     460
   ],
-  "total_files": 8,
+  "total_files": 20,
   "aliases": {
     "alert": "alert_incident",
     "cicd": "cicd_pipeline",
+    "code_review": "pull_request",
     "config": "config_management",
+    "feature_toggle": "feature_flag",
     "git": "git_repository",
+    "gitops": "gitops_controller",
     "iac": "config_management",
+    "incident": "alert_incident",
+    "k8s": "container_cluster",
+    "kubernetes": "container_cluster",
+    "kubernetes_cluster": "container_cluster",
     "logs": "logging",
     "metrics": "monitoring",
+    "package": "package_dependency",
+    "pager": "on_call",
     "pipeline": "cicd_pipeline",
+    "pr": "pull_request",
+    "qa": "test_automation",
     "registry": "artifact_registry",
     "repo": "git_repository",
-    "tracing": "distributed_tracing"
+    "runner": "build_runner",
+    "sbom": "package_dependency",
+    "secret": "secret_vault",
+    "secret_manager": "secret_vault",
+    "testing": "test_automation",
+    "tracing": "distributed_tracing",
+    "vault": "secret_vault",
+    "vulnerability_scan": "security_scan"
   },
   "files": {
     "alert_incident_default.png": {
@@ -51,6 +69,19 @@
         473
       ]
     },
+    "build_runner_default.png": {
+      "icon_name": "build_runner",
+      "variant": "default",
+      "source_script": "original_devops/build_runner_default.py",
+      "size_bytes": 30047,
+      "sha256": "007432206b6c7c4e0d5802fb25bf00cb66d3596c370710dfba572e4f21d15c49",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
+      ]
+    },
     "cicd_pipeline_default.png": {
       "icon_name": "cicd_pipeline",
       "variant": "default",
@@ -77,6 +108,45 @@
         468
       ]
     },
+    "container_cluster_default.png": {
+      "icon_name": "container_cluster",
+      "variant": "default",
+      "source_script": "original_devops/container_cluster_default.py",
+      "size_bytes": 32883,
+      "sha256": "29e3090a55b1c9749e9084868b063edd3b5610c9d2cc98d5de2ebf42030deaa1",
+      "bbox": [
+        26,
+        33,
+        486,
+        479
+      ]
+    },
+    "container_default.png": {
+      "icon_name": "container",
+      "variant": "default",
+      "source_script": "original_devops/container_default.py",
+      "size_bytes": 24594,
+      "sha256": "7a00502c7626b6191f6c9773f978f32553ee68b463894ee58c3368b28f4ad853",
+      "bbox": [
+        56,
+        26,
+        456,
+        486
+      ]
+    },
+    "dashboard_default.png": {
+      "icon_name": "dashboard",
+      "variant": "default",
+      "source_script": "original_devops/dashboard_default.py",
+      "size_bytes": 18813,
+      "sha256": "5f39184413b772155be9cc806fd0fa460cc104a96d37ae67b398869e4a225f14",
+      "bbox": [
+        26,
+        74,
+        486,
+        438
+      ]
+    },
     "distributed_tracing_default.png": {
       "icon_name": "distributed_tracing",
       "variant": "default",
@@ -90,6 +160,19 @@
         451
       ]
     },
+    "feature_flag_default.png": {
+      "icon_name": "feature_flag",
+      "variant": "default",
+      "source_script": "original_devops/feature_flag_default.py",
+      "size_bytes": 22213,
+      "sha256": "2c234137c8d74a18ae7d3f5a3a741d2d6a8237a08cb29a459156036127ab545f",
+      "bbox": [
+        26,
+        134,
+        486,
+        378
+      ]
+    },
     "git_repository_default.png": {
       "icon_name": "git_repository",
       "variant": "default",
@@ -101,6 +184,19 @@
         26,
         430,
         486
+      ]
+    },
+    "gitops_controller_default.png": {
+      "icon_name": "gitops_controller",
+      "variant": "default",
+      "source_script": "original_devops/gitops_controller_default.py",
+      "size_bytes": 28336,
+      "sha256": "e8d58eff02762c84ad4c7c3fcea5aaacbd79aa218f8b36176f2239c6d647f288",
+      "bbox": [
+        26,
+        105,
+        486,
+        407
       ]
     },
     "logging_default.png": {
@@ -127,6 +223,84 @@
         49,
         486,
         462
+      ]
+    },
+    "on_call_default.png": {
+      "icon_name": "on_call",
+      "variant": "default",
+      "source_script": "original_devops/on_call_default.py",
+      "size_bytes": 25311,
+      "sha256": "57ea771170674b7c5ef8326628a65b0270646e4f3bd0b88484476dee2d6d6cf7",
+      "bbox": [
+        26,
+        39,
+        486,
+        472
+      ]
+    },
+    "package_dependency_default.png": {
+      "icon_name": "package_dependency",
+      "variant": "default",
+      "source_script": "original_devops/package_dependency_default.py",
+      "size_bytes": 24950,
+      "sha256": "c5995f0b03d21168b5a2248332bf6430b9ebed48235d525ca56a140c3ff53c15",
+      "bbox": [
+        44,
+        26,
+        468,
+        486
+      ]
+    },
+    "pull_request_default.png": {
+      "icon_name": "pull_request",
+      "variant": "default",
+      "source_script": "original_devops/pull_request_default.py",
+      "size_bytes": 22240,
+      "sha256": "0749c021431ef13b68ee2db424e1a0baa5bde2a6b97411f1671e0ee0ce9e80c6",
+      "bbox": [
+        59,
+        26,
+        452,
+        486
+      ]
+    },
+    "secret_vault_default.png": {
+      "icon_name": "secret_vault",
+      "variant": "default",
+      "source_script": "original_devops/secret_vault_default.py",
+      "size_bytes": 19829,
+      "sha256": "93436d3ba0d831108268382136d3c90a9681b56a8509161730250bf5dba3386f",
+      "bbox": [
+        52,
+        26,
+        460,
+        486
+      ]
+    },
+    "security_scan_default.png": {
+      "icon_name": "security_scan",
+      "variant": "default",
+      "source_script": "original_devops/security_scan_default.py",
+      "size_bytes": 27652,
+      "sha256": "107b7354df7776fa89db6292f380f9dfa45380e524e417d8d152d7d46dc2ef56",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "test_automation_default.png": {
+      "icon_name": "test_automation",
+      "variant": "default",
+      "source_script": "original_devops/test_automation_default.py",
+      "size_bytes": 24029,
+      "sha256": "0007ff73306b689717817da37828f495de4dab94731ec98329ea1a0aeb584390",
+      "bbox": [
+        51,
+        26,
+        460,
+        486
       ]
     }
   }
