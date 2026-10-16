@@ -27,6 +27,7 @@ import drawlib._icons.png_icons.gcp._generated as gcp_gen
 import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
 import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
+import drawlib._icons.png_icons.original_cnative._generated as original_cnative_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
@@ -47,6 +48,7 @@ from drawlib._diagrams.architecture._icons import (
     NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
+    OriginalCnativeIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     OriginalServerIcon,
@@ -61,6 +63,7 @@ EdgeT = TypeVar("EdgeT")
 _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalAiIcon: original_ai_gen,
     OriginalCloudIcon: original_cloud_gen,
+    OriginalCnativeIcon: original_cnative_gen,
     OriginalDevopsIcon: original_devops_gen,
     OriginalNetworkIcon: original_network_gen,
     OriginalServerIcon: original_server_gen,
@@ -190,6 +193,7 @@ def draw_enum_icon(
     icon: (
         OriginalAiIcon
         | OriginalCloudIcon
+        | OriginalCnativeIcon
         | OriginalDevopsIcon
         | OriginalNetworkIcon
         | OriginalServerIcon
@@ -266,6 +270,7 @@ def draw_diagram_icon(
         (
             OriginalAiIcon,
             OriginalCloudIcon,
+            OriginalCnativeIcon,
             OriginalDevopsIcon,
             OriginalNetworkIcon,
             OriginalServerIcon,

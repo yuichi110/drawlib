@@ -22,6 +22,7 @@ from drawlib._icons import (
     network,
     original_ai,
     original_cloud,
+    original_cnative,
     original_devops,
     original_network,
     original_server,
@@ -38,6 +39,7 @@ sys.modules["drawlib.icons.gcp"] = gcp
 sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
+sys.modules["drawlib.icons.original_cnative"] = original_cnative
 sys.modules["drawlib.icons.original_devops"] = original_devops
 sys.modules["drawlib.icons.original_network"] = original_network
 sys.modules["drawlib.icons.original_server"] = original_server
@@ -52,6 +54,7 @@ __all__ = [
     "network",
     "original_ai",
     "original_cloud",
+    "original_cnative",
     "original_devops",
     "original_network",
     "original_server",

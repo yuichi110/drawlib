@@ -172,6 +172,16 @@ def gen_icon_cnative() -> None:
     console.print("[bold green]✓ Cloud Native icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-original-cnative")
+def gen_icon_original_cnative() -> None:
+    """Normalize native Drawlib Original Cloud Native icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_cnative"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_cnative"
+    manifest_file = write_provider_manifest("original_cnative", src_path, dest_path)
+    generate_original_provider_code("original_cnative", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Cloud Native icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

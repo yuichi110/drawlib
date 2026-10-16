@@ -62,6 +62,7 @@ from drawlib.icons import (
     network,
     original_ai,
     original_cloud,
+    original_cnative,
     original_devops,
     original_network,
     original_server,
@@ -86,6 +87,7 @@ Drawlib also registers submodules in `sys.modules` to support explicit submodule
 import drawlib.icons.cnative as cnative
 import drawlib.icons.gcp as gcp
 import drawlib.icons.network as network
+import drawlib.icons.original_cnative as original_cnative
 import drawlib.icons.original_network as original_network
 import drawlib.icons.original_server as original_server
 import drawlib.icons.phosphor as phosphor
@@ -369,7 +371,7 @@ Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width
 - **Server (`drawlib.icons.server` / `ServerIcon`)**: 26 canonical Dell EMC & VMware server, virtualization, and storage icons + 31 shorthand aliases (`dell_rack_server`, `dell_blade_chassis`, `dell_tower_server`, `dell_gpu_server`, `dell_hci_appliance`, `dell_bmc_management`, `dell_san_storage`, `dell_nas_storage`, `dell_object_storage`, `dell_backup_appliance`, `dell_tape_library`, `dell_fc_switch`, `vmware_rack_server`, `vmware_esxi_host`, `vmware_vm`, `vmware_vm_group`, `vmware_template`, `vmware_snapshot`, `vmware_vcenter`, `vmware_cluster`, `vmware_resource_pool`, `vmware_vmotion`, `vmware_vswitch`, `vmware_datastore`, `vmware_vsan`, `vmware_storage_array`).
 - **AWS (`drawlib.icons.aws` / `AwsIcon`)**: Official AWS service & category icons.
 - **Azure (`drawlib.icons.azure` / `AzureIcon`)**: Official Microsoft Azure service icons.
-- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_network`, `original_server`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_network` provides 22 network topology icons + 48 shorthand aliases; `original_server` provides 24 server, virtualization, and storage icons + 54 shorthand aliases).
+- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_cnative`, `original_network`, `original_server`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_cnative` provides 48 Kubernetes & Cloud Native ecosystem icons + 72 shorthand aliases; `original_network` provides 22 network topology icons + 48 shorthand aliases; `original_server` provides 24 server, virtualization, and storage icons + 54 shorthand aliases).
 
 ---
 

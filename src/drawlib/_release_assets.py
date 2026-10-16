@@ -92,6 +92,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_NETWORK = "icon_network"
     ICON_ORIGINAL_AI = "icon_original_ai"
     ICON_ORIGINAL_CLOUD = "icon_original_cloud"
+    ICON_ORIGINAL_CNATIVE = "icon_original_cnative"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     ICON_ORIGINAL_NETWORK = "icon_original_network"
     ICON_ORIGINAL_SERVER = "icon_original_server"
@@ -162,6 +163,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_network: ReleaseAssetPackage
     icon_original_ai: ReleaseAssetPackage
     icon_original_cloud: ReleaseAssetPackage
+    icon_original_cnative: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
     icon_original_network: ReleaseAssetPackage
     icon_original_server: ReleaseAssetPackage
@@ -1770,6 +1772,65 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "webhook_default.png",
             "workflow_orchestrator_default.png",
             "zero_trust_proxy_default.png",
+        ),
+    ),
+    icon_original_cnative=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_CNATIVE,
+        category="icon",
+        archive_name="icon_original_cnative.zip",
+        archive_sha256="3f46ea33a2634f851d9945b0aa573e57b329147397576ccbbb32820015350173",
+        source_rel_path="icons/original_cnative",
+        target_rel_path="icons/original_cnative",
+        files=(
+            "argo_default.png",
+            "backstage_default.png",
+            "cert_manager_default.png",
+            "cilium_default.png",
+            "containerd_default.png",
+            "coredns_default.png",
+            "crossplane_default.png",
+            "dapr_default.png",
+            "docker_default.png",
+            "envoy_default.png",
+            "etcd_default.png",
+            "falco_default.png",
+            "fluentd_default.png",
+            "flux_default.png",
+            "grafana_default.png",
+            "harbor_default.png",
+            "helm_default.png",
+            "istio_default.png",
+            "jaeger_default.png",
+            "k8s_api_server_default.png",
+            "k8s_configmap_default.png",
+            "k8s_control_plane_default.png",
+            "k8s_crd_default.png",
+            "k8s_cronjob_default.png",
+            "k8s_daemonset_default.png",
+            "k8s_deployment_default.png",
+            "k8s_endpoint_default.png",
+            "k8s_hpa_default.png",
+            "k8s_ingress_default.png",
+            "k8s_job_default.png",
+            "k8s_namespace_default.png",
+            "k8s_network_policy_default.png",
+            "k8s_node_default.png",
+            "k8s_pod_default.png",
+            "k8s_pv_default.png",
+            "k8s_pvc_default.png",
+            "k8s_secret_default.png",
+            "k8s_service_default.png",
+            "k8s_statefulset_default.png",
+            "keda_default.png",
+            "knative_default.png",
+            "kubernetes_default.png",
+            "kyverno_default.png",
+            "linkerd_default.png",
+            "manifest.json",
+            "opa_default.png",
+            "opentelemetry_default.png",
+            "prometheus_default.png",
+            "rook_default.png",
         ),
     ),
     icon_original_devops=ReleaseAssetPackage(

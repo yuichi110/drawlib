@@ -67,6 +67,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "original_ai": "Original AI",
     "original_network": "Original Network",
     "original_server": "Original Server",
+    "original_cnative": "Original Cloud Native",
     "aws": "AWS",
     "azure": "Azure",
     "network": "Network",
@@ -120,6 +121,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "original_ai": "OriginalAiIcon",
     "original_network": "OriginalNetworkIcon",
     "original_server": "OriginalServerIcon",
+    "original_cnative": "OriginalCnativeIcon",
     "aws": "AwsIcon",
     "azure": "AzureIcon",
     "network": "NetworkIcon",
@@ -195,4 +197,3 @@ def generate_original_cloud_code(
 ) -> None:
     """Generate Python code for Original Cloud icons from manifest."""
     generate_original_provider_code("original_cloud", manifest_file=manifest_file, output_file=output_file)
-

@@ -35,6 +35,7 @@ from drawlib._diagrams.architecture._icons import (
     NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
+    OriginalCnativeIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     OriginalServerIcon,
@@ -54,6 +55,7 @@ def draw_enum_icon(
     icon: (
         OriginalAiIcon
         | OriginalCloudIcon
+        | OriginalCnativeIcon
         | OriginalDevopsIcon
         | OriginalNetworkIcon
         | OriginalServerIcon

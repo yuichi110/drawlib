@@ -27,6 +27,7 @@ from drawlib._diagrams.architecture._icons import (
     NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
+    OriginalCnativeIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
     OriginalServerIcon,
@@ -61,6 +62,7 @@ IconFunction = Callable[..., object]
 IconType: TypeAlias = (
     OriginalAiIcon
     | OriginalCloudIcon
+    | OriginalCnativeIcon
     | OriginalDevopsIcon
     | OriginalNetworkIcon
     | OriginalServerIcon
