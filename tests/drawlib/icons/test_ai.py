@@ -14,10 +14,11 @@ from pathlib import Path
 import pytest
 
 from drawlib._icons.png_icons.ai._base import AI_PROVIDER
+from drawlib._icons.png_icons.original_ai._base import ORIGINAL_AI_PROVIDER
 from drawlib.canvas import clear, save
-from drawlib.diagrams.architecture import AiIcon, ArchitectureDiagram, Node
+from drawlib.diagrams.architecture import AiIcon, ArchitectureDiagram, Node, OriginalAiIcon
 from drawlib.diagrams.sequence import Participant, SequenceDiagram
-from drawlib.icons import ai
+from drawlib.icons import ai, original_ai
 from drawlib.styles import Styles
 from drawlib.types import Style
 
@@ -120,3 +121,36 @@ class TestAiIcons:
         """Verify FileNotFoundError when requesting an invalid AI icon file."""
         with pytest.raises(FileNotFoundError):
             AI_PROVIDER.get_icon_path("non_existent_ai_icon_xyz")
+
+    def test_original_ai_stylized_icons_and_aliases(self, tmp_path: Path) -> None:
+        """Verify Drawlib-stylized Original AI icons and aliases."""
+        clear()
+        original_ai.openai(xy=(15, 75), width=12, style=Style())
+        original_ai.claude(xy=(35, 75), width=12, style=Style())
+        original_ai.gemini(xy=(55, 75), width=12, style=Style())
+        original_ai.mcp(xy=(75, 75), width=12, style=Style())
+
+        original_ai.anthropic(xy=(15, 45), width=12, style=Style())
+        original_ai.chatgpt(xy=(35, 45), width=12, style=Style())
+        original_ai.sk(xy=(55, 45), width=12, style=Style())
+        original_ai.agent(xy=(75, 45), width=12, style=Style())
+
+        diag = ArchitectureDiagram(
+            node_style=Styles.Neutral,
+            node_text_style=Styles.Dark,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
+        n1 = diag.add(Node("Agent", width=22, height=20, icon=OriginalAiIcon.AI_AGENT), (25, 18))
+        n2 = diag.add(Node("LlamaIndex", width=22, height=20, icon=OriginalAiIcon.LLAMAINDEX), (65, 18))
+        diag.connect(n1, n2)
+        diag.draw((5, 5))
+
+        out = tmp_path / "test_original_ai_stylized.png"
+        save(str(out))
+        assert out.is_file()
+
+    def test_nonexistent_original_ai_icon_error(self) -> None:
+        """Verify FileNotFoundError when requesting an invalid Original AI icon file."""
+        with pytest.raises(FileNotFoundError):
+            ORIGINAL_AI_PROVIDER.get_icon_path("non_existent_original_ai_icon_xyz")

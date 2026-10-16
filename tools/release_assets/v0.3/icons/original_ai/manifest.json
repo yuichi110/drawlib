@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_ai",
-  "created_at": "2026-10-16T07:15:04.309143+00:00",
+  "created_at": "2026-10-16T23:34:10.731481+00:00",
   "canvas_size": [
     512,
     512
@@ -10,31 +10,55 @@
     460,
     460
   ],
-  "total_files": 20,
+  "total_files": 60,
   "aliases": {
     "agent": "ai_agent",
     "agent_swarm": "multi_agent",
+    "anthropic": "claude",
     "benchmark": "evaluation",
+    "chatgpt": "openai",
     "embedding": "embedding_vector",
     "eval": "evaluation",
+    "google_gemini": "gemini",
     "gpu": "gpu_node",
     "guardrail": "prompt_guardrail",
+    "hf": "huggingface",
+    "hugging_face": "huggingface",
     "inference": "inference_endpoint",
-    "jupyter": "notebook",
+    "llama": "meta_llama",
     "llm": "llm_model",
     "lora": "fine_tuning",
-    "mcp": "function_calling",
     "memory": "agent_memory",
+    "meta": "meta_llama",
+    "mistral_ai": "mistral",
     "npu": "npu_node",
+    "open_hands": "openhands",
     "prompt": "prompt_template",
     "rag": "rag_knowledge_base",
+    "sk": "semantic_kernel",
+    "sklearn": "scikit_learn",
+    "tf": "tensorflow",
     "tool_use": "function_calling",
     "tpu": "npu_node",
     "training": "training_pipeline",
     "training_data": "dataset",
-    "vector_db": "vector_database"
+    "vector_db": "vector_database",
+    "weights_and_biases": "wandb"
   },
   "files": {
+    "a2a_default.png": {
+      "icon_name": "a2a",
+      "variant": "default",
+      "source_script": "original_ai/a2a_default.py",
+      "size_bytes": 51844,
+      "sha256": "f1eca94bcff596dcd41b0a954eec377c91e10474f65ee97685cc2f63d02e73cb",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "agent_memory_default.png": {
       "icon_name": "agent_memory",
       "variant": "default",
@@ -61,6 +85,58 @@
         486
       ]
     },
+    "autogen_default.png": {
+      "icon_name": "autogen",
+      "variant": "default",
+      "source_script": "original_ai/autogen_default.py",
+      "size_bytes": 20961,
+      "sha256": "4df66d0af5e78b279e96ec5482331596da2b787a2c4fdb5cef42e51b7be250b2",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
+      ]
+    },
+    "claude_default.png": {
+      "icon_name": "claude",
+      "variant": "default",
+      "source_script": "original_ai/claude_default.py",
+      "size_bytes": 51690,
+      "sha256": "658af49a0cd75f3184eb6f90c572313c4b334722026ac7553aef8371161d3880",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cohere_default.png": {
+      "icon_name": "cohere",
+      "variant": "default",
+      "source_script": "original_ai/cohere_default.py",
+      "size_bytes": 28287,
+      "sha256": "2ffdebd0b78b0e9b863c8d733ee0fd4a1a8c9449aa642cc0f8bc7962365b0f7a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "crewai_default.png": {
+      "icon_name": "crewai",
+      "variant": "default",
+      "source_script": "original_ai/crewai_default.py",
+      "size_bytes": 40699,
+      "sha256": "19f17ab917efe8aa23a3f625c2e76d1b1b9f23a3bc4eeedd0fdab50bc941e0b6",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    },
     "dataset_default.png": {
       "icon_name": "dataset",
       "variant": "default",
@@ -72,6 +148,32 @@
         26,
         486,
         486
+      ]
+    },
+    "deepseek_default.png": {
+      "icon_name": "deepseek",
+      "variant": "default",
+      "source_script": "original_ai/deepseek_default.py",
+      "size_bytes": 38238,
+      "sha256": "ff0fe91061679d1dd7ae97243c4ce2591e86ef00f89caf0263a188de1a74eb1b",
+      "bbox": [
+        26,
+        85,
+        486,
+        427
+      ]
+    },
+    "dify_default.png": {
+      "icon_name": "dify",
+      "variant": "default",
+      "source_script": "original_ai/dify_default.py",
+      "size_bytes": 9855,
+      "sha256": "51d836f3bc36b817f2ed67d70cd64a2db21847133548e58fa7988d7bd816503e",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
       ]
     },
     "embedding_vector_default.png": {
@@ -139,6 +241,19 @@
         394
       ]
     },
+    "gemini_default.png": {
+      "icon_name": "gemini",
+      "variant": "default",
+      "source_script": "original_ai/gemini_default.py",
+      "size_bytes": 35365,
+      "sha256": "439f0cf88ba32a1822aef4425bd32b34768fd81f033663abeb406c219c1a7fe3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "gpu_node_default.png": {
       "icon_name": "gpu_node",
       "variant": "default",
@@ -150,6 +265,58 @@
         26,
         486,
         486
+      ]
+    },
+    "gradio_default.png": {
+      "icon_name": "gradio",
+      "variant": "default",
+      "source_script": "original_ai/gradio_default.py",
+      "size_bytes": 46023,
+      "sha256": "ee3f05129ad93441fa87cf153c5fad7b30dc625042250d6ac058fd7598923188",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
+      ]
+    },
+    "grok_default.png": {
+      "icon_name": "grok",
+      "variant": "default",
+      "source_script": "original_ai/grok_default.py",
+      "size_bytes": 36545,
+      "sha256": "50e0b83fb24504ac4fb436567465cbed5e8d75e998445df5b5d36f96740fe90c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "haystack_default.png": {
+      "icon_name": "haystack",
+      "variant": "default",
+      "source_script": "original_ai/haystack_default.py",
+      "size_bytes": 10347,
+      "sha256": "7481c4e73686e802509f9ef94ee9168ad11af1240cdff29c57e9251b48af1e3c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "huggingface_default.png": {
+      "icon_name": "huggingface",
+      "variant": "default",
+      "source_script": "original_ai/huggingface_default.py",
+      "size_bytes": 43829,
+      "sha256": "d8ed805bafec00fded22114a3bafb99ecdb3497943f425c26a754594f5a3b69c",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
       ]
     },
     "inference_endpoint_default.png": {
@@ -165,12 +332,168 @@
         432
       ]
     },
+    "jax_default.png": {
+      "icon_name": "jax",
+      "variant": "default",
+      "source_script": "original_ai/jax_default.py",
+      "size_bytes": 33377,
+      "sha256": "4d501a03b21e2719eeacebb4a7bee115601155df40cbeeb213058902ab6b04ef",
+      "bbox": [
+        26,
+        120,
+        486,
+        391
+      ]
+    },
+    "jupyter_default.png": {
+      "icon_name": "jupyter",
+      "variant": "default",
+      "source_script": "original_ai/jupyter_default.py",
+      "size_bytes": 27681,
+      "sha256": "2d33b35567556b9c177870e6a5f12af12bec5f16a8a4d3a39e362efc888e6505",
+      "bbox": [
+        80,
+        26,
+        432,
+        486
+      ]
+    },
+    "keras_default.png": {
+      "icon_name": "keras",
+      "variant": "default",
+      "source_script": "original_ai/keras_default.py",
+      "size_bytes": 18330,
+      "sha256": "4ac9a0ec8a27e6da8af387317d5df6b350b378b6acff58b324cf6e9b1f164441",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "langchain_default.png": {
+      "icon_name": "langchain",
+      "variant": "default",
+      "source_script": "original_ai/langchain_default.py",
+      "size_bytes": 32196,
+      "sha256": "a574f69a8edcac73d96c5e20c6e176b0ce4c83bdca2ffe34f68ae4d97df39a19",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "langfuse_default.png": {
+      "icon_name": "langfuse",
+      "variant": "default",
+      "source_script": "original_ai/langfuse_default.py",
+      "size_bytes": 48757,
+      "sha256": "2e708c8752d835483bb5911811391b59b29fe81213b4f8c0ce952c516f8586a3",
+      "bbox": [
+        26,
+        109,
+        486,
+        402
+      ]
+    },
+    "langgraph_default.png": {
+      "icon_name": "langgraph",
+      "variant": "default",
+      "source_script": "original_ai/langgraph_default.py",
+      "size_bytes": 23895,
+      "sha256": "617865d5ce68e794dae9535072f1d9e5f1bc1fd39eaa32cdb34bc882f921c753",
+      "bbox": [
+        26,
+        138,
+        486,
+        373
+      ]
+    },
+    "litellm_default.png": {
+      "icon_name": "litellm",
+      "variant": "default",
+      "source_script": "original_ai/litellm_default.py",
+      "size_bytes": 26888,
+      "sha256": "a82467c4602d12f9785bf9adf8090404ee768576829cd71917ed4c70c2e58d2c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "llamaindex_default.png": {
+      "icon_name": "llamaindex",
+      "variant": "default",
+      "source_script": "original_ai/llamaindex_default.py",
+      "size_bytes": 38137,
+      "sha256": "2700e66354ecd1fa58a6b6fce98b044f34002df386ca4fde6013843f17489d5b",
+      "bbox": [
+        72,
+        26,
+        440,
+        486
+      ]
+    },
     "llm_model_default.png": {
       "icon_name": "llm_model",
       "variant": "default",
       "source_script": "original_ai/llm_model_default.py",
       "size_bytes": 21586,
       "sha256": "66358af85451120ec7e9c5a4d29994beb3ccd4ac55993d63d2008d9a22319434",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "mcp_default.png": {
+      "icon_name": "mcp",
+      "variant": "default",
+      "source_script": "original_ai/mcp_default.py",
+      "size_bytes": 31652,
+      "sha256": "49a529d4323370717abf60092c435c3ae630b60f656996308c913d17cb766dee",
+      "bbox": [
+        42,
+        26,
+        470,
+        486
+      ]
+    },
+    "meta_llama_default.png": {
+      "icon_name": "meta_llama",
+      "variant": "default",
+      "source_script": "original_ai/meta_llama_default.py",
+      "size_bytes": 37725,
+      "sha256": "f4baf964995d1159fea1fc7d75d1cc038b2e98d927c7bac50777154d6c987f31",
+      "bbox": [
+        26,
+        101,
+        486,
+        411
+      ]
+    },
+    "mistral_default.png": {
+      "icon_name": "mistral",
+      "variant": "default",
+      "source_script": "original_ai/mistral_default.py",
+      "size_bytes": 3480,
+      "sha256": "caaf79cd4f5a9564bef072d4ea79837494dd8c7fe0fe1ea2d2a9bc600007b5b8",
+      "bbox": [
+        26,
+        90,
+        486,
+        422
+      ]
+    },
+    "mlflow_default.png": {
+      "icon_name": "mlflow",
+      "variant": "default",
+      "source_script": "original_ai/mlflow_default.py",
+      "size_bytes": 33892,
+      "sha256": "ad590a4318084dc2fded10498dc25317f56c98848c2c51687aa7183e2fb7a496",
       "bbox": [
         26,
         26,
@@ -204,6 +527,19 @@
         469
       ]
     },
+    "n8n_default.png": {
+      "icon_name": "n8n",
+      "variant": "default",
+      "source_script": "original_ai/n8n_default.py",
+      "size_bytes": 29039,
+      "sha256": "f6d1685e60aff02f236c297e6aedcf634814f683ae6564ddde5dd6c918d7263c",
+      "bbox": [
+        26,
+        135,
+        486,
+        376
+      ]
+    },
     "notebook_default.png": {
       "icon_name": "notebook",
       "variant": "default",
@@ -227,6 +563,84 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "nvidia_default.png": {
+      "icon_name": "nvidia",
+      "variant": "default",
+      "source_script": "original_ai/nvidia_default.py",
+      "size_bytes": 35241,
+      "sha256": "6c30f67587437662690d1c727e2571ccbd800f65f5b6fcea85e1ab5c96348a8a",
+      "bbox": [
+        26,
+        97,
+        486,
+        414
+      ]
+    },
+    "ollama_default.png": {
+      "icon_name": "ollama",
+      "variant": "default",
+      "source_script": "original_ai/ollama_default.py",
+      "size_bytes": 33593,
+      "sha256": "5ca9d37b7dd4468c0e694690cc033d3257fb411958ef394232d63cdd4fe45b1b",
+      "bbox": [
+        75,
+        26,
+        437,
+        486
+      ]
+    },
+    "onnx_default.png": {
+      "icon_name": "onnx",
+      "variant": "default",
+      "source_script": "original_ai/onnx_default.py",
+      "size_bytes": 38904,
+      "sha256": "2af19d7783f68171623da41ee30ff3e7edac139d9ae01546171014db963f8193",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
+    "openai_default.png": {
+      "icon_name": "openai",
+      "variant": "default",
+      "source_script": "original_ai/openai_default.py",
+      "size_bytes": 34789,
+      "sha256": "46fa65054293f0d78de2e9af97d8c62687be6663e156d491b1901606360a39af",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "openhands_default.png": {
+      "icon_name": "openhands",
+      "variant": "default",
+      "source_script": "original_ai/openhands_default.py",
+      "size_bytes": 31255,
+      "sha256": "ef3bc5bb85e1f10f6073f7fdeb72e07f05be445efc7a52a2174d9d397b0586f5",
+      "bbox": [
+        26,
+        93,
+        486,
+        418
+      ]
+    },
+    "perplexity_default.png": {
+      "icon_name": "perplexity",
+      "variant": "default",
+      "source_script": "original_ai/perplexity_default.py",
+      "size_bytes": 34603,
+      "sha256": "7c0901657d3edeef1fa1512c41c90f0d31b3901af54cc7ebbd2b6eb1ed309544",
+      "bbox": [
+        54,
+        26,
+        458,
         486
       ]
     },
@@ -256,6 +670,32 @@
         470
       ]
     },
+    "pytorch_default.png": {
+      "icon_name": "pytorch",
+      "variant": "default",
+      "source_script": "original_ai/pytorch_default.py",
+      "size_bytes": 24835,
+      "sha256": "db673963dd604d115911cbc2c40ad486dda1480ebc60ecbcc660291ddcd6f0e2",
+      "bbox": [
+        64,
+        26,
+        447,
+        486
+      ]
+    },
+    "qwen_default.png": {
+      "icon_name": "qwen",
+      "variant": "default",
+      "source_script": "original_ai/qwen_default.py",
+      "size_bytes": 40489,
+      "sha256": "27a15fac1a718f7606cb42b321eb69e646c9b760c9e0996be0300806e802231c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "rag_knowledge_base_default.png": {
       "icon_name": "rag_knowledge_base",
       "variant": "default",
@@ -267,6 +707,71 @@
         50,
         486,
         462
+      ]
+    },
+    "ray_default.png": {
+      "icon_name": "ray",
+      "variant": "default",
+      "source_script": "original_ai/ray_default.py",
+      "size_bytes": 8981,
+      "sha256": "2d47c023ca58036f42db21291e4e60901d362970bddc10ae29ebf2fc6b2dfb1e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "scikit_learn_default.png": {
+      "icon_name": "scikit_learn",
+      "variant": "default",
+      "source_script": "original_ai/scikit_learn_default.py",
+      "size_bytes": 29035,
+      "sha256": "f72f30afff1a2e6a1ea377210596f2dae265eed43566ccfc4ece8cf7e15971bd",
+      "bbox": [
+        26,
+        128,
+        486,
+        384
+      ]
+    },
+    "semantic_kernel_default.png": {
+      "icon_name": "semantic_kernel",
+      "variant": "default",
+      "source_script": "original_ai/semantic_kernel_default.py",
+      "size_bytes": 33653,
+      "sha256": "90b25813c2b4ad85c4fdcfe5be4f20d1cb5fa77a79465d0b23786652c379c66a",
+      "bbox": [
+        68,
+        26,
+        443,
+        486
+      ]
+    },
+    "streamlit_default.png": {
+      "icon_name": "streamlit",
+      "variant": "default",
+      "source_script": "original_ai/streamlit_default.py",
+      "size_bytes": 25073,
+      "sha256": "f0b1cc4860c94f16585ba566ade552942b2dc80e27230203aa127f87582d28b4",
+      "bbox": [
+        26,
+        128,
+        486,
+        383
+      ]
+    },
+    "tensorflow_default.png": {
+      "icon_name": "tensorflow",
+      "variant": "default",
+      "source_script": "original_ai/tensorflow_default.py",
+      "size_bytes": 20051,
+      "sha256": "007a149bc07abdefdb0fab4e26dd4e505555b0773ebc4c8446c05b05aedc19ca",
+      "bbox": [
+        49,
+        26,
+        462,
+        486
       ]
     },
     "training_pipeline_default.png": {
@@ -293,6 +798,32 @@
         44,
         486,
         468
+      ]
+    },
+    "vllm_default.png": {
+      "icon_name": "vllm",
+      "variant": "default",
+      "source_script": "original_ai/vllm_default.py",
+      "size_bytes": 20690,
+      "sha256": "314960edd9a412039430463638c2cc0f2c063fc39344c521e4b8318fe6fdfe01",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "wandb_default.png": {
+      "icon_name": "wandb",
+      "variant": "default",
+      "source_script": "original_ai/wandb_default.py",
+      "size_bytes": 37703,
+      "sha256": "e6e060d4aab3ec68cd2b5ea688534558d877678f0f194ba2629ec5acee8cc018",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
       ]
     }
   }
