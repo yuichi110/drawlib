@@ -14,6 +14,7 @@ from __future__ import annotations
 import math
 from collections.abc import Sequence
 from pathlib import Path
+from types import ModuleType
 from typing import Literal, TypeVar
 
 from PIL.Image import Image
@@ -26,6 +27,7 @@ import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
 import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
+import drawlib._icons.png_icons.original_network._generated as original_network_gen
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
@@ -42,12 +44,25 @@ from drawlib._diagrams.architecture._icons import (
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalDevopsIcon,
+    OriginalNetworkIcon,
     PhosphorIcon,
 )
 from drawlib._diagrams.architecture._types import IconType
 from drawlib._preset_colors import DefaultColors as Colors
 
 EdgeT = TypeVar("EdgeT")
+
+_ENUM_ICON_MODULES: dict[type, ModuleType] = {
+    OriginalAiIcon: original_ai_gen,
+    OriginalCloudIcon: original_cloud_gen,
+    OriginalDevopsIcon: original_devops_gen,
+    OriginalNetworkIcon: original_network_gen,
+    AwsIcon: aws_gen,
+    AzureIcon: azure_gen,
+    GcpIcon: gcp_gen,
+    NetworkIcon: network_gen,
+    PhosphorIcon: phosphor_gen,
+}
 
 
 def parse_padding(padding: float | tuple[float, float]) -> tuple[float, float]:
@@ -167,6 +182,7 @@ def draw_enum_icon(
         OriginalAiIcon
         | OriginalCloudIcon
         | OriginalDevopsIcon
+        | OriginalNetworkIcon
         | AwsIcon
         | AzureIcon
         | GcpIcon
@@ -180,22 +196,7 @@ def draw_enum_icon(
     fallback_box: bool = False,
 ) -> None:
     """Draw an Original, AWS, Azure, GCP, Network, or Phosphor enum icon from generated function modules."""
-    if isinstance(icon, OriginalAiIcon):
-        module = original_ai_gen
-    elif isinstance(icon, OriginalCloudIcon):
-        module = original_cloud_gen
-    elif isinstance(icon, OriginalDevopsIcon):
-        module = original_devops_gen
-    elif isinstance(icon, AwsIcon):
-        module = aws_gen
-    elif isinstance(icon, AzureIcon):
-        module = azure_gen
-    elif isinstance(icon, GcpIcon):
-        module = gcp_gen
-    elif isinstance(icon, NetworkIcon):
-        module = network_gen
-    else:
-        module = phosphor_gen
+    module = _ENUM_ICON_MODULES.get(type(icon), phosphor_gen)
     func = getattr(module, icon.value, None) or getattr(module, icon.name.lower(), None)
     if func is not None:
         func(xy=canvas_xy, width=icon_size, style=applied_style)
@@ -254,6 +255,7 @@ def draw_diagram_icon(
             OriginalAiIcon,
             OriginalCloudIcon,
             OriginalDevopsIcon,
+            OriginalNetworkIcon,
             AwsIcon,
             AzureIcon,
             GcpIcon,

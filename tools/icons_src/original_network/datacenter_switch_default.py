@@ -1,0 +1,86 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Original Network concept icon: datacenter_switch."""
+
+from drawlib.canvas import save
+from drawlib.shapes import circle, rectangle
+from drawlib.utils import (
+    DARK,
+    ORIG_STROKE,
+    PASTEL_BLUE,
+    PASTEL_BLUE_LIGHT,
+    PASTEL_GREEN,
+    WHITE,
+    draw_cisco_arrow,
+    draw_round_segment,
+    fill_style,
+    setup_icon,
+)
+
+setup_icon()
+
+w = ORIG_STROKE
+
+# Wide spine/leaf fabric switch chassis
+rectangle(
+    (50.0, 50.0),
+    width=78.0,
+    height=54.0,
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=8.0),
+)
+
+# Inner white fabric panel
+rectangle(
+    (50.0, 50.0),
+    width=66.0,
+    height=42.0,
+    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+)
+
+# Crossing X-fabric lines between the 4 corner port nodes
+draw_round_segment((34.0, 39.0), (66.0, 61.0), width_units=2.8, color=DARK)
+draw_round_segment((34.0, 61.0), (66.0, 39.0), width_units=2.8, color=DARK)
+
+# Outward horizontal fabric arrows from the 4 X-corners
+for y_port in (39.0, 61.0):
+    draw_cisco_arrow(
+        (34.0, y_port),
+        (21.0, y_port),
+        shaft_w=2.8,
+        head_len=5.5,
+        head_w=7.2,
+        color=DARK,
+    )
+    draw_cisco_arrow(
+        (66.0, y_port),
+        (79.0, y_port),
+        shaft_w=2.8,
+        head_len=5.5,
+        head_w=7.2,
+        color=DARK,
+    )
+
+# 4 corner port dots at the X junctions
+for x_port in (34.0, 66.0):
+    for y_port in (39.0, 61.0):
+        circle(
+            (x_port, y_port),
+            radius=3.2,
+            style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=1.8),
+        )
+
+# Central pastel green fabric hub node
+circle(
+    (50.0, 50.0),
+    radius=6.5,
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+)
+
+save()

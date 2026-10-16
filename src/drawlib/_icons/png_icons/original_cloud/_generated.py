@@ -1558,6 +1558,46 @@ def identity_auth(
     _write(xy=xy, width=width, name="identity_auth", style=style, variant=variant)
 
 
+def ids(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing ids.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="ids_ips", style=style, variant=variant)
+
+
+def ids_ips(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing ids ips.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="ids_ips", style=style, variant=variant)
+
+
 def igw(
     xy: Coordinate,
     width: PosFloat,
@@ -1676,6 +1716,26 @@ def iot_hub(
 
     """
     _write(xy=xy, width=width, name="iot_hub", style=style, variant=variant)
+
+
+def ips(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud concept icon representing ips.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="ids_ips", style=style, variant=variant)
 
 
 def k8s(

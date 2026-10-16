@@ -92,6 +92,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_AI = "icon_original_ai"
     ICON_ORIGINAL_CLOUD = "icon_original_cloud"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
+    ICON_ORIGINAL_NETWORK = "icon_original_network"
     MAP_CITIES = "map_cities"
     MAP_COUNTRIES = "map_countries"
     MAP_WORLD = "map_world"
@@ -158,6 +159,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_ai: ReleaseAssetPackage
     icon_original_cloud: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
+    icon_original_network: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
     map_countries: ReleaseAssetPackage
     map_world: ReleaseAssetPackage
@@ -608,7 +610,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AWS,
         category="icon",
         archive_name="icon_aws.zip",
-        archive_sha256="5353cd3e25ab095fb24a3e25310a2d7e7507475f74777627e8b7f66f113deb06",
+        archive_sha256="16a9ba50e97dd9b82c88d7b66319dfba61bc0ed885806f658e6637c70e18a45f",
         source_rel_path="icons/aws",
         target_rel_path="icons/aws",
         files=(
@@ -948,7 +950,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AZURE,
         category="icon",
         archive_name="icon_azure.zip",
-        archive_sha256="ce73ef808dd7a340011f8a1a68b0cb8cb0301d1624d9c544a9d446db6373b01c",
+        archive_sha256="b3d970262d200d91d60bec7a41ffe93c60ae6e50fd5acae8203094fc6f3c894f",
         source_rel_path="icons/azure",
         target_rel_path="icons/azure",
         files=(
@@ -1209,7 +1211,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
         archive_name="icon_gcp.zip",
-        archive_sha256="bd05291d8e3e0a6872615f098497513f62db1b3b9dded54b2bacd348a8035a6f",
+        archive_sha256="7aa4e4cfd359843e2c99b275ae5992d45d6af208f1d8863b0f9874786e1d8650",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
         files=(
@@ -1515,7 +1517,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_NETWORK,
         category="icon",
         archive_name="icon_network.zip",
-        archive_sha256="4332a06b7125b02d52bc7d8fee62539538c91bae4024866d9f540c63f5114e0e",
+        archive_sha256="88923b27a65513f18e9b93d0eba51faba87b3152b962ec70a2bf64d4e1b0131a",
         source_rel_path="icons/network",
         target_rel_path="icons/network",
         files=(
@@ -1570,7 +1572,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_AI,
         category="icon",
         archive_name="icon_original_ai.zip",
-        archive_sha256="aef878c637c9fcc6bc896c4140623d0cae05152d0e2c76e303ec0621af768363",
+        archive_sha256="d674d5c47fb529273d5e4ce097eaa4bc8ebe94005c85e2f5e80a3c0d4a88ba98",
         source_rel_path="icons/original_ai",
         target_rel_path="icons/original_ai",
         files=(
@@ -1601,7 +1603,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CLOUD,
         category="icon",
         archive_name="icon_original_cloud.zip",
-        archive_sha256="c10195fac6b132eb7256621152d4a6ad7db861c04890909d05b75332fe692bd7",
+        archive_sha256="bcfa2984b2bf7ba8bca0a7b258a5db89f872a243b42a9f2d2ad0c0befb283d3c",
         source_rel_path="icons/original_cloud",
         target_rel_path="icons/original_cloud",
         files=(
@@ -1653,6 +1655,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "gpu_node_default.png",
             "graph_database_default.png",
             "identity_auth_default.png",
+            "ids_ips_default.png",
             "in_memory_cache_default.png",
             "internet_gateway_default.png",
             "iot_device_default.png",
@@ -1708,7 +1711,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_DEVOPS,
         category="icon",
         archive_name="icon_original_devops.zip",
-        archive_sha256="7fa4ec84f7435c0cc26cba62cb8fbc779195d296bd5be938727514d8f9e52864",
+        archive_sha256="9d18e6a8f68cb48299a831c950c4634fee287e1950d682eb7d2919cea3af78ad",
         source_rel_path="icons/original_devops",
         target_rel_path="icons/original_devops",
         files=(
@@ -1733,6 +1736,39 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "secret_vault_default.png",
             "security_scan_default.png",
             "test_automation_default.png",
+        ),
+    ),
+    icon_original_network=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_NETWORK,
+        category="icon",
+        archive_name="icon_original_network.zip",
+        archive_sha256="505a2e5c7dd7bb935f25d5fb70b6ab40caa312bc3185b6b5b1235dc2a66e42d9",
+        source_rel_path="icons/original_network",
+        target_rel_path="icons/original_network",
+        files=(
+            "client_pc_default.png",
+            "core_router_default.png",
+            "core_switch_default.png",
+            "datacenter_switch_default.png",
+            "firewall_default.png",
+            "ids_ips_default.png",
+            "ip_phone_default.png",
+            "l2_switch_default.png",
+            "l3_switch_default.png",
+            "load_balancer_default.png",
+            "manifest.json",
+            "nac_server_default.png",
+            "optical_transport_default.png",
+            "router_default.png",
+            "server_default.png",
+            "voice_gateway_default.png",
+            "vpn_gateway_default.png",
+            "wan_cloud_default.png",
+            "wan_router_default.png",
+            "web_security_default.png",
+            "wireless_ap_default.png",
+            "wireless_controller_default.png",
+            "wireless_router_default.png",
         ),
     ),
     map_cities=ReleaseAssetPackage(

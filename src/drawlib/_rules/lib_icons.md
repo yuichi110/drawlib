@@ -62,6 +62,7 @@ from drawlib.icons import (
     original_ai,
     original_cloud,
     original_devops,
+    original_network,
     phosphor,
 )
 
@@ -81,6 +82,7 @@ Drawlib also registers submodules in `sys.modules` to support explicit submodule
 ```python
 import drawlib.icons.gcp as gcp
 import drawlib.icons.network as network
+import drawlib.icons.original_network as original_network
 import drawlib.icons.phosphor as phosphor
 ```
 
@@ -359,7 +361,7 @@ Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width
   - `variant="modern"`: Modern 2D flat Cisco SAFE rounded-badge icons.
 - **AWS (`drawlib.icons.aws` / `AwsIcon`)**: Official AWS service & category icons.
 - **Azure (`drawlib.icons.azure` / `AzureIcon`)**: Official Microsoft Azure service icons.
-- **Original (`original_cloud`, `original_devops`, `original_ai`)**: Vendor-neutral Drawlib pastel icons.
+- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_network`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_network` provides 22 network topology icons + 48 shorthand aliases).
 
 ---
 

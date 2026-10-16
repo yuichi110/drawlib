@@ -70,6 +70,9 @@ class TestAwsAndAzureIcons:
         original_cloud.nat_gateway(xy=(35, 25), width=12, style=Style())
         original_cloud.time_series_database(xy=(55, 25), width=12, style=Style())
         original_cloud.tpu(xy=(75, 25), width=12, style=Style())
+        original_cloud.ids_ips(xy=(25, 10), width=12, style=Style())
+        original_cloud.ids(xy=(50, 10), width=12, style=Style())
+        original_cloud.ips(xy=(75, 10), width=12, style=Style())
         out = tmp_path / "test_original_cloud.png"
         save(str(out))
         assert out.is_file()

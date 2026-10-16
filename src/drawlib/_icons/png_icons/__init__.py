@@ -11,7 +11,16 @@
 
 from __future__ import annotations
 
-from drawlib._icons.png_icons import aws, azure, gcp, network, original_ai, original_cloud, original_devops
+from drawlib._icons.png_icons import (
+    aws,
+    azure,
+    gcp,
+    network,
+    original_ai,
+    original_cloud,
+    original_devops,
+    original_network,
+)
 
 __all__ = [
     "aws",
@@ -21,4 +30,5 @@ __all__ = [
     "original_ai",
     "original_cloud",
     "original_devops",
+    "original_network",
 ]

@@ -35,6 +35,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalDevopsIcon,
+    OriginalNetworkIcon,
     PhosphorIcon,
 )
 from drawlib._diagrams.sequence._block import Block
@@ -51,6 +52,7 @@ def draw_enum_icon(
         OriginalAiIcon
         | OriginalCloudIcon
         | OriginalDevopsIcon
+        | OriginalNetworkIcon
         | AwsIcon
         | AzureIcon
         | GcpIcon

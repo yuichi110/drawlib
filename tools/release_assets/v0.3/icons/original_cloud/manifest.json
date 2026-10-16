@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-16T02:18:37.792575+00:00",
+  "created_at": "2026-10-16T03:49:42.425085+00:00",
   "canvas_size": [
     512,
     512
@@ -10,7 +10,7 @@
     460,
     460
   ],
-  "total_files": 96,
+  "total_files": 97,
   "aliases": {
     "ad": "directory_service",
     "agent": "ai_agent",
@@ -41,8 +41,10 @@
     "graph_db": "graph_database",
     "iam": "identity_auth",
     "iap": "zero_trust_proxy",
+    "ids": "ids_ips",
     "igw": "internet_gateway",
     "iot": "iot_device",
+    "ips": "ids_ips",
     "k8s": "container_cluster",
     "kms": "key_management",
     "kubernetes_cluster": "container_cluster",
@@ -709,6 +711,19 @@
         442
       ]
     },
+    "ids_ips_default.png": {
+      "icon_name": "ids_ips",
+      "variant": "default",
+      "source_script": "original_cloud/ids_ips_default.py",
+      "size_bytes": 23888,
+      "sha256": "eb63fb87147b3aa53ef5e6edecd3dd80f696f982e07baf35c9d1d4caefb41da1",
+      "bbox": [
+        26,
+        54,
+        486,
+        458
+      ]
+    },
     "in_memory_cache_default.png": {
       "icon_name": "in_memory_cache",
       "variant": "default",
@@ -999,13 +1014,13 @@
       "icon_name": "router",
       "variant": "default",
       "source_script": "original_cloud/router_default.py",
-      "size_bytes": 30362,
-      "sha256": "292f5b97e53942bf96d6159da93bbdcfbb8f55ff9c8e5e39f8083d741c823908",
+      "size_bytes": 40513,
+      "sha256": "b567f636913741349a6ad355565791a1fb02474555fc8080bbe78e5aa95f01a7",
       "bbox": [
         26,
-        81,
+        26,
         486,
-        430
+        486
       ]
     },
     "scheduler_default.png": {
@@ -1103,13 +1118,13 @@
       "icon_name": "switch",
       "variant": "default",
       "source_script": "original_cloud/switch_default.py",
-      "size_bytes": 15553,
-      "sha256": "3ed7db7ee24a118b6289af2e13c633b290cb3cd9686351613fbd8a6ddedc6391",
+      "size_bytes": 11883,
+      "sha256": "750923e3fb336a19d8e2916cbfe4e3f1506c8aa797aa6229b92dca99b2b06f6c",
       "bbox": [
         26,
-        106,
+        117,
         486,
-        406
+        395
       ]
     },
     "time_series_database_default.png": {

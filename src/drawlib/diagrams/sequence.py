@@ -21,6 +21,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalDevopsIcon,
+    OriginalNetworkIcon,
     PhosphorIcon,
 )
 from drawlib._diagrams.sequence import (
@@ -44,6 +45,7 @@ __all__ = [
     "OriginalAiIcon",
     "OriginalCloudIcon",
     "OriginalDevopsIcon",
+    "OriginalNetworkIcon",
     "Participant",
     "ParticipantGroup",
     "PhosphorIcon",

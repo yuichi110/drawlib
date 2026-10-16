@@ -14,9 +14,10 @@ from pathlib import Path
 import pytest
 
 from drawlib._icons.png_icons.network._base import NETWORK_PROVIDER
+from drawlib._icons.png_icons.original_network._base import ORIGINAL_NETWORK_PROVIDER
 from drawlib.canvas import clear, save
-from drawlib.diagrams.architecture import ArchitectureDiagram, NetworkIcon, Node
-from drawlib.icons import network
+from drawlib.diagrams.architecture import ArchitectureDiagram, NetworkIcon, Node, OriginalNetworkIcon
+from drawlib.icons import network, original_network
 from drawlib.styles import Styles
 from drawlib.types import Style
 
@@ -94,3 +95,69 @@ class TestNetworkIcons:
         """Verify FileNotFoundError when requesting an invalid Network icon file."""
         with pytest.raises(FileNotFoundError):
             NETWORK_PROVIDER.get_icon_path("non_existent_cisco_icon_xyz")
+
+
+class TestOriginalNetworkIcons:
+    """Tests for Original Network (2D pastel) icon provider and architecture diagram enum."""
+
+    def test_original_network_canonical_icons(self, tmp_path: Path) -> None:
+        """Verify canonical 2D Original Network icons."""
+        clear()
+        original_network.router(xy=(15, 75), width=12, style=Style())
+        original_network.wan_router(xy=(35, 75), width=12, style=Style())
+        original_network.core_router(xy=(55, 75), width=12, style=Style())
+        original_network.l2_switch(xy=(75, 75), width=12, style=Style())
+
+        original_network.l3_switch(xy=(15, 50), width=12, style=Style())
+        original_network.datacenter_switch(xy=(35, 50), width=12, style=Style())
+        original_network.core_switch(xy=(55, 50), width=12, style=Style())
+        original_network.firewall(xy=(75, 50), width=12, style=Style())
+
+        original_network.wireless_ap(xy=(15, 25), width=12, style=Style())
+        original_network.wan_cloud(xy=(35, 25), width=12, style=Style())
+        original_network.ip_phone(xy=(55, 25), width=12, style=Style())
+        original_network.client_pc(xy=(75, 25), width=12, style=Style())
+
+        out = tmp_path / "test_original_network.png"
+        save(str(out))
+        assert out.is_file()
+
+    def test_original_network_aliases(self, tmp_path: Path) -> None:
+        """Verify Original Network shorthand aliases."""
+        clear()
+        original_network.switch(xy=(20, 60), width=12, style=Style())
+        original_network.ap(xy=(40, 60), width=12, style=Style())
+        original_network.wlc(xy=(60, 60), width=12, style=Style())
+        original_network.ngfw(xy=(80, 60), width=12, style=Style())
+        original_network.vpn(xy=(20, 30), width=12, style=Style())
+        original_network.adc(xy=(40, 30), width=12, style=Style())
+        original_network.pbx(xy=(60, 30), width=12, style=Style())
+        original_network.workstation(xy=(80, 30), width=12, style=Style())
+        out = tmp_path / "test_original_network_aliases.png"
+        save(str(out))
+        assert out.is_file()
+
+    def test_original_network_architecture_diagram_enum(self, tmp_path: Path) -> None:
+        """Verify OriginalNetworkIcon works inside ArchitectureDiagram nodes."""
+        clear()
+        diag = ArchitectureDiagram(
+            node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.Dark,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
+        n1 = diag.add(Node("WAN", width=20, height=20, icon=OriginalNetworkIcon.WAN_ROUTER), (20, 50))
+        n2 = diag.add(Node("Switch", width=20, height=20, icon=OriginalNetworkIcon.L3_SWITCH), (50, 50))
+        n3 = diag.add(Node("FW", width=20, height=20, icon=OriginalNetworkIcon.FIREWALL), (80, 50))
+        diag.connect(n1, n2)
+        diag.connect(n2, n3)
+        diag.draw((5, 10))
+        out = tmp_path / "test_arch_original_network.png"
+        save(str(out))
+        assert out.is_file()
+
+    def test_nonexistent_original_network_icon_error(self) -> None:
+        """Verify FileNotFoundError when requesting an invalid Original Network icon file."""
+        with pytest.raises(FileNotFoundError):
+            ORIGINAL_NETWORK_PROVIDER.get_icon_path("non_existent_orig_network_icon_xyz")
+

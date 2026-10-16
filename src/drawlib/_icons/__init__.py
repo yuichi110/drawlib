@@ -23,6 +23,7 @@ from drawlib._icons.png_icons import (
     original_ai,
     original_cloud,
     original_devops,
+    original_network,
 )
 
 __all__ = [
@@ -34,5 +35,6 @@ __all__ = [
     "original_ai",
     "original_cloud",
     "original_devops",
+    "original_network",
     "phosphor",
 ]

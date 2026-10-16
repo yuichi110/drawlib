@@ -1,0 +1,352 @@
+{
+  "format_version": "2.0",
+  "provider": "original_network",
+  "created_at": "2026-10-16T03:31:09.435740+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 22,
+  "aliases": {
+    "aaa_server": "nac_server",
+    "access_point": "wireless_ap",
+    "access_switch": "l2_switch",
+    "adc": "load_balancer",
+    "ap": "wireless_ap",
+    "branch_router": "router",
+    "call_manager": "voice_gateway",
+    "carrier_cloud": "wan_cloud",
+    "carrier_router": "core_router",
+    "chassis_router": "core_router",
+    "chassis_switch": "core_switch",
+    "desktop_pc": "client_pc",
+    "dwdm": "optical_transport",
+    "edge_router": "wan_router",
+    "fabric_switch": "datacenter_switch",
+    "fiber_switch": "optical_transport",
+    "ids": "ids_ips",
+    "internet_cloud": "wan_cloud",
+    "intrusion_prevention": "ids_ips",
+    "ips": "ids_ips",
+    "ise": "nac_server",
+    "isr_router": "router",
+    "mpls_cloud": "wan_cloud",
+    "multilayer_switch": "l3_switch",
+    "network_firewall": "firewall",
+    "network_server": "server",
+    "ngfw": "firewall",
+    "pbx": "voice_gateway",
+    "proxy_appliance": "web_security",
+    "rack_server": "server",
+    "radius_server": "nac_server",
+    "roadm": "optical_transport",
+    "sd_wan": "wan_router",
+    "secure_web_gateway": "web_security",
+    "sip_gateway": "voice_gateway",
+    "spine_leaf_switch": "datacenter_switch",
+    "swg": "web_security",
+    "switch": "l2_switch",
+    "traffic_manager": "load_balancer",
+    "voip_phone": "ip_phone",
+    "vpn": "vpn_gateway",
+    "vpn_concentrator": "vpn_gateway",
+    "wifi_ap": "wireless_ap",
+    "wifi_router": "wireless_router",
+    "wlan_controller": "wireless_controller",
+    "wlc": "wireless_controller",
+    "workgroup_switch": "l2_switch",
+    "workstation": "client_pc"
+  },
+  "files": {
+    "client_pc_default.png": {
+      "icon_name": "client_pc",
+      "variant": "default",
+      "source_script": "original_network/client_pc_default.py",
+      "size_bytes": 12914,
+      "sha256": "65850b76d4a4d6b7dfcf0648393f038264a7bd35c671fc9b8ddd8c57d71d750d",
+      "bbox": [
+        26,
+        38,
+        486,
+        473
+      ]
+    },
+    "core_router_default.png": {
+      "icon_name": "core_router",
+      "variant": "default",
+      "source_script": "original_network/core_router_default.py",
+      "size_bytes": 19522,
+      "sha256": "7ec1914f1e0ac712b84d0aecf2bd0131d9408e9c02276009c6335dd2e7f01c58",
+      "bbox": [
+        66,
+        26,
+        446,
+        486
+      ]
+    },
+    "core_switch_default.png": {
+      "icon_name": "core_switch",
+      "variant": "default",
+      "source_script": "original_network/core_switch_default.py",
+      "size_bytes": 22617,
+      "sha256": "4ec744de68b2b48fb1b3721919a7ed6bcd4ccbba0f37f3031ac7187c1c45ea92",
+      "bbox": [
+        60,
+        26,
+        452,
+        486
+      ]
+    },
+    "datacenter_switch_default.png": {
+      "icon_name": "datacenter_switch",
+      "variant": "default",
+      "source_script": "original_network/datacenter_switch_default.py",
+      "size_bytes": 23222,
+      "sha256": "b8878d4fa9e8132a36cf80144f38bb8e04e8f3cf7ff001dc9131aefd35b2199d",
+      "bbox": [
+        26,
+        94,
+        486,
+        417
+      ]
+    },
+    "firewall_default.png": {
+      "icon_name": "firewall",
+      "variant": "default",
+      "source_script": "original_network/firewall_default.py",
+      "size_bytes": 19780,
+      "sha256": "2226bbff0aacea8be4680cbbc98386967e8b25e5b1f6440e3a0c98cccf326b7b",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
+    "ids_ips_default.png": {
+      "icon_name": "ids_ips",
+      "variant": "default",
+      "source_script": "original_network/ids_ips_default.py",
+      "size_bytes": 22032,
+      "sha256": "f5c2930828cdbdeae1d43029c785023c101a920da9d762d45e6946507b1ab2bb",
+      "bbox": [
+        26,
+        100,
+        486,
+        412
+      ]
+    },
+    "ip_phone_default.png": {
+      "icon_name": "ip_phone",
+      "variant": "default",
+      "source_script": "original_network/ip_phone_default.py",
+      "size_bytes": 14277,
+      "sha256": "96af931fc403d11fa5e2e4443ea93eb7ef5493266faada05db4aa578974b1d63",
+      "bbox": [
+        36,
+        26,
+        476,
+        486
+      ]
+    },
+    "l2_switch_default.png": {
+      "icon_name": "l2_switch",
+      "variant": "default",
+      "source_script": "original_network/l2_switch_default.py",
+      "size_bytes": 14852,
+      "sha256": "c5d561c16bb8859cb0bd9db80552bd9b7b707068bf6d8bf93dbb9c29bfae09f6",
+      "bbox": [
+        26,
+        117,
+        486,
+        395
+      ]
+    },
+    "l3_switch_default.png": {
+      "icon_name": "l3_switch",
+      "variant": "default",
+      "source_script": "original_network/l3_switch_default.py",
+      "size_bytes": 22682,
+      "sha256": "ca0bb3dc0f090182df0d5fab67853541b4a65c44ca911e30d98c2380428186f0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "load_balancer_default.png": {
+      "icon_name": "load_balancer",
+      "variant": "default",
+      "source_script": "original_network/load_balancer_default.py",
+      "size_bytes": 16351,
+      "sha256": "5518489d6762f221faf33e71da8b2b762ecb89cd22a291992840b95723660a7a",
+      "bbox": [
+        26,
+        61,
+        486,
+        451
+      ]
+    },
+    "nac_server_default.png": {
+      "icon_name": "nac_server",
+      "variant": "default",
+      "source_script": "original_network/nac_server_default.py",
+      "size_bytes": 24592,
+      "sha256": "dd89963333645992b88a20e496b43b032cdcbabfba350344f3b29a60e571cca0",
+      "bbox": [
+        49,
+        26,
+        462,
+        486
+      ]
+    },
+    "optical_transport_default.png": {
+      "icon_name": "optical_transport",
+      "variant": "default",
+      "source_script": "original_network/optical_transport_default.py",
+      "size_bytes": 12450,
+      "sha256": "660aed70a809e623e00a01b71016e69128b476a09d319333f3c86a4d944d4f17",
+      "bbox": [
+        26,
+        100,
+        486,
+        412
+      ]
+    },
+    "router_default.png": {
+      "icon_name": "router",
+      "variant": "default",
+      "source_script": "original_network/router_default.py",
+      "size_bytes": 40513,
+      "sha256": "b567f636913741349a6ad355565791a1fb02474555fc8080bbe78e5aa95f01a7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "server_default.png": {
+      "icon_name": "server",
+      "variant": "default",
+      "source_script": "original_network/server_default.py",
+      "size_bytes": 15798,
+      "sha256": "e4fbc2bb2594d40ab7d24c5b726ea36cbee275036cb530aee1267fdfc1b98ab1",
+      "bbox": [
+        96,
+        26,
+        416,
+        486
+      ]
+    },
+    "voice_gateway_default.png": {
+      "icon_name": "voice_gateway",
+      "variant": "default",
+      "source_script": "original_network/voice_gateway_default.py",
+      "size_bytes": 29406,
+      "sha256": "cafea06d12a58725582c8ba4a148a2c93ee29aa0982e9c58c7e14b8b4ce9a884",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vpn_gateway_default.png": {
+      "icon_name": "vpn_gateway",
+      "variant": "default",
+      "source_script": "original_network/vpn_gateway_default.py",
+      "size_bytes": 21064,
+      "sha256": "e003bf3a54c6c4ca834a5bbe42fc2a63fd706cbd7b61620e30154a0c4d02e2e5",
+      "bbox": [
+        26,
+        134,
+        486,
+        377
+      ]
+    },
+    "wan_cloud_default.png": {
+      "icon_name": "wan_cloud",
+      "variant": "default",
+      "source_script": "original_network/wan_cloud_default.py",
+      "size_bytes": 27383,
+      "sha256": "418d852d2d6edff6cf71ab67204539c7af6c22668524890f3024c24733177011",
+      "bbox": [
+        26,
+        87,
+        486,
+        424
+      ]
+    },
+    "wan_router_default.png": {
+      "icon_name": "wan_router",
+      "variant": "default",
+      "source_script": "original_network/wan_router_default.py",
+      "size_bytes": 28529,
+      "sha256": "bfc4621852a945100d3c0a453138394b30994ca485deadc8c2ba71652d6945d3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "web_security_default.png": {
+      "icon_name": "web_security",
+      "variant": "default",
+      "source_script": "original_network/web_security_default.py",
+      "size_bytes": 34660,
+      "sha256": "6080a6b6f57525ec8bd9912c1000e7af45e273849a046a52b0a4a3c927d5cf8b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "wireless_ap_default.png": {
+      "icon_name": "wireless_ap",
+      "variant": "default",
+      "source_script": "original_network/wireless_ap_default.py",
+      "size_bytes": 24814,
+      "sha256": "368e131cff9eb1b7f231410e05182b51b102f32b04601429215dfbf51ff67d47",
+      "bbox": [
+        62,
+        26,
+        449,
+        486
+      ]
+    },
+    "wireless_controller_default.png": {
+      "icon_name": "wireless_controller",
+      "variant": "default",
+      "source_script": "original_network/wireless_controller_default.py",
+      "size_bytes": 28067,
+      "sha256": "164debc0b2ddc6074c5ac2b9e1722f0ea4467a6204f364fc36b8cbb08cf8c9b1",
+      "bbox": [
+        26,
+        55,
+        486,
+        457
+      ]
+    },
+    "wireless_router_default.png": {
+      "icon_name": "wireless_router",
+      "variant": "default",
+      "source_script": "original_network/wireless_router_default.py",
+      "size_bytes": 25608,
+      "sha256": "3dd906632797148a0c1486bf7bf0f944ee7546f6c89eba96a5c2d3f9b8b3e893",
+      "bbox": [
+        26,
+        38,
+        486,
+        474
+      ]
+    }
+  }
+}
