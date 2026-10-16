@@ -16,6 +16,7 @@ import sys
 from drawlib._icons import (
     aws,
     azure,
+    cnative,
     font_icon,
     gcp,
     network,
@@ -32,6 +33,7 @@ from drawlib._icons import (
 sys.modules["drawlib.icons.phosphor"] = phosphor
 sys.modules["drawlib.icons.aws"] = aws
 sys.modules["drawlib.icons.azure"] = azure
+sys.modules["drawlib.icons.cnative"] = cnative
 sys.modules["drawlib.icons.gcp"] = gcp
 sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
@@ -44,6 +46,7 @@ sys.modules["drawlib.icons.server"] = server
 __all__ = [
     "aws",
     "azure",
+    "cnative",
     "font_icon",
     "gcp",
     "network",

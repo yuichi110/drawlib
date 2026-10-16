@@ -155,6 +155,7 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, N
 from drawlib.diagrams.architecture import (
     AwsIcon,
     AzureIcon,
+    CnativeIcon,
     CustomIcon,
     GcpIcon,
     NetworkIcon,
@@ -193,7 +194,7 @@ from drawlib.diagrams.architecture import (
 | `text` | `str` | `""` | Node label text (supports `\n`). |
 | `width` | `float` | `20.0` | Card bounding box width in canvas units. |
 | `height` | `float` | `16.0` | Card bounding box height in canvas units. |
-| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AwsIcon`, `AzureIcon`, `NetworkIcon`, `ServerIcon`, `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalServerIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AwsIcon`, `AzureIcon`, `CnativeIcon`, `NetworkIcon`, `ServerIcon`, `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalServerIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text (supports `xy_shift`, `angle`). |
@@ -219,11 +220,12 @@ from drawlib.diagrams.architecture import (
 #### Built-in Icons & Images:
 - `GcpIcon`: 259 official Google Cloud icons (`GcpIcon.COMPUTE_ENGINE`, `GcpIcon.CLOUD_RUN`, `GcpIcon.CLOUD_SQL`, `GcpIcon.BIGQUERY`, etc.).
 - `AwsIcon` & `AzureIcon`: Official AWS (`AwsIcon.EC2`, `AwsIcon.S3`) and Azure (`AzureIcon.VIRTUAL_MACHINE`, `AzureIcon.AKS`) architecture icons.
+- `CnativeIcon`: 48 Cloud Native icons (20 Kubernetes resources + 28 CNCF/Observability ecosystem projects) + 72 shorthand aliases (`CnativeIcon.KUBERNETES`, `CnativeIcon.POD`, `CnativeIcon.DEPLOYMENT`, `CnativeIcon.PROMETHEUS`, `CnativeIcon.GRAFANA`, `CnativeIcon.ISTIO`, `CnativeIcon.ARGO`, etc.).
 - `NetworkIcon`: 22 Cisco network topology icons + 30 shorthand aliases (`NetworkIcon.CISCO_ROUTER`, `NetworkIcon.CISCO_CORE_SWITCH`, `NetworkIcon.CISCO_FIREWALL`, etc.).
 - `ServerIcon`: 26 Dell EMC & VMware server, virtualization, and storage icons + 31 shorthand aliases (`ServerIcon.DELL_RACK_SERVER`, `ServerIcon.VMWARE_VCENTER`, `ServerIcon.VMWARE_ESXI_HOST`, etc.).
 - `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalServerIcon`: Vendor-neutral Drawlib 2D pastel icon suites (`OriginalNetworkIcon.ROUTER`, `OriginalServerIcon.RACK_SERVER`, `OriginalServerIcon.HYPERVISOR_HOST`, `OriginalServerIcon.SAN_SWITCH`, etc.).
 - `PhosphorIcon`: 1,531 modern interface icons (`PhosphorIcon.USER`, `PhosphorIcon.DATABASE`, `PhosphorIcon.BROWSER`, etc.).
-- Direct callables/images: `phosphor.*`, `gcp.*`, `aws.*`, `azure.*`, `network.*`, `server.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
+- Direct callables/images: `phosphor.*`, `gcp.*`, `aws.*`, `azure.*`, `cnative.*`, `network.*`, `server.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
 
 ### 3.3 Production Examples
 

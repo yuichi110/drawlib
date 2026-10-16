@@ -22,6 +22,7 @@ from PIL.Image import Image
 import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.aws._generated as aws_gen
 import drawlib._icons.png_icons.azure._generated as azure_gen
+import drawlib._icons.png_icons.cnative._generated as cnative_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
 import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
@@ -40,6 +41,7 @@ from drawlib._core.l4_canvas import text as canvas_text
 from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
+    CnativeIcon,
     CustomIcon,
     GcpIcon,
     NetworkIcon,
@@ -64,6 +66,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalServerIcon: original_server_gen,
     AwsIcon: aws_gen,
     AzureIcon: azure_gen,
+    CnativeIcon: cnative_gen,
     GcpIcon: gcp_gen,
     NetworkIcon: network_gen,
     PhosphorIcon: phosphor_gen,
@@ -192,6 +195,7 @@ def draw_enum_icon(
         | OriginalServerIcon
         | AwsIcon
         | AzureIcon
+        | CnativeIcon
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon
@@ -203,7 +207,7 @@ def draw_enum_icon(
     *,
     fallback_box: bool = False,
 ) -> None:
-    """Draw an Original, AWS, Azure, GCP, Network, Server, or Phosphor enum icon from generated modules."""
+    """Draw an Original, AWS, Azure, Cloud Native, GCP, Network, Server, or Phosphor enum icon."""
     module = _ENUM_ICON_MODULES.get(type(icon), phosphor_gen)
     func = getattr(module, icon.value, None) or getattr(module, icon.name.lower(), None)
     if func is not None:
@@ -267,6 +271,7 @@ def draw_diagram_icon(
             OriginalServerIcon,
             AwsIcon,
             AzureIcon,
+            CnativeIcon,
             GcpIcon,
             NetworkIcon,
             PhosphorIcon,

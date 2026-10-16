@@ -30,6 +30,7 @@ from drawlib._diagrams._common import (
 from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
+    CnativeIcon,
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
@@ -58,6 +59,7 @@ def draw_enum_icon(
         | OriginalServerIcon
         | AwsIcon
         | AzureIcon
+        | CnativeIcon
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon

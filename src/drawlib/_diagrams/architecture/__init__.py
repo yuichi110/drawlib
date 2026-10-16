@@ -17,6 +17,7 @@ from drawlib._diagrams.architecture._group import NodeGroup
 from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
+    CnativeIcon,
     CustomIcon,
     GcpIcon,
     NetworkIcon,
@@ -35,6 +36,7 @@ __all__ = [
     "ArchitectureDiagram",
     "AwsIcon",
     "AzureIcon",
+    "CnativeIcon",
     "CustomIcon",
     "Edge",
     "GcpIcon",

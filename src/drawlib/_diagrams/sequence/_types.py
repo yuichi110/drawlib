@@ -21,6 +21,7 @@ from drawlib._core.l3_images import Dimage
 from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
+    CnativeIcon,
     CustomIcon,
     GcpIcon,
     NetworkIcon,
@@ -65,6 +66,7 @@ IconType: TypeAlias = (
     | OriginalServerIcon
     | AwsIcon
     | AzureIcon
+    | CnativeIcon
     | GcpIcon
     | NetworkIcon
     | PhosphorIcon

@@ -14,6 +14,7 @@ from __future__ import annotations
 from drawlib._icons.png_icons import (
     aws,
     azure,
+    cnative,
     gcp,
     network,
     original_ai,
@@ -27,6 +28,7 @@ from drawlib._icons.png_icons import (
 __all__ = [
     "aws",
     "azure",
+    "cnative",
     "gcp",
     "network",
     "original_ai",

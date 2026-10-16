@@ -15,6 +15,7 @@ from drawlib._diagrams.architecture import _icons as icons
 from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
+    CnativeIcon,
     CustomIcon,
     GcpIcon,
     NetworkIcon,
@@ -39,6 +40,7 @@ __all__ = [
     "AwsIcon",
     "AzureIcon",
     "Block",
+    "CnativeIcon",
     "CustomIcon",
     "GcpIcon",
     "Message",
