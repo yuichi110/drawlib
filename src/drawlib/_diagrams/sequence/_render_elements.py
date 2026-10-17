@@ -48,6 +48,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
+    OriginalWorkspaceIcon,
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
@@ -74,6 +75,7 @@ def draw_enum_icon(
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
+        | OriginalWorkspaceIcon
         | AiIcon
         | AwsIcon
         | AzureIcon

@@ -40,6 +40,7 @@ import drawlib._icons.png_icons.original_facility._generated as original_facilit
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
 import drawlib._icons.png_icons.original_security._generated as original_security_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
+import drawlib._icons.png_icons.original_workspace._generated as original_workspace_gen
 import drawlib._icons.png_icons.security._generated as security_gen
 import drawlib._icons.png_icons.server._generated as server_gen
 import drawlib._icons.png_icons.workspace._generated as workspace_gen
@@ -72,6 +73,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
+    OriginalWorkspaceIcon,
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
@@ -93,6 +95,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalNetworkIcon: original_network_gen,
     OriginalSecurityIcon: original_security_gen,
     OriginalServerIcon: original_server_gen,
+    OriginalWorkspaceIcon: original_workspace_gen,
     AiIcon: ai_gen,
     AwsIcon: aws_gen,
     AzureIcon: azure_gen,
@@ -234,6 +237,7 @@ def draw_enum_icon(
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
+        | OriginalWorkspaceIcon
         | AiIcon
         | AwsIcon
         | AzureIcon
@@ -322,6 +326,7 @@ def draw_diagram_icon(
             OriginalNetworkIcon,
             OriginalSecurityIcon,
             OriginalServerIcon,
+            OriginalWorkspaceIcon,
             AiIcon,
             AwsIcon,
             AzureIcon,

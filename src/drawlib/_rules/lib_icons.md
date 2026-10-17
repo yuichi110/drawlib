@@ -75,6 +75,7 @@ from drawlib.icons import (
     original_network,
     original_security,
     original_server,
+    original_workspace,
     phosphor,
     security,
     server,
@@ -109,6 +110,7 @@ import drawlib.icons.original_facility as original_facility
 import drawlib.icons.original_network as original_network
 import drawlib.icons.original_security as original_security
 import drawlib.icons.original_server as original_server
+import drawlib.icons.original_workspace as original_workspace
 import drawlib.icons.phosphor as phosphor
 import drawlib.icons.security as security
 import drawlib.icons.server as server
@@ -399,7 +401,7 @@ Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width
 - **Workspace (`drawlib.icons.workspace` / `WorkspaceIcon`)**: 50 canonical official Workplace, Productivity, Collaboration, CRM/ERP, and Business SaaS icons + 31 shorthand aliases (`adobe_acrobat`, `airtable`, `asana`, `box`, `canva`, `confluence`, `discord`, `docusign`, `dropbox`, `dynamics_365`, `excel`, `figma`, `gmail`, `google_calendar`, `google_chat`, `google_docs`, `google_drive`, `google_forms`, `google_meet`, `google_sheets`, `google_slides`, `google_workspace`, `hubspot`, `jira`, `linear`, `microsoft_365`, `microsoft_teams`, `miro`, `monday`, `notion`, `onedrive`, `outlook`, `power_automate`, `power_bi`, `powerpoint`, `salesforce`, `sap`, `servicenow`, `sharepoint`, `shopify`, `slack`, `stripe`, `tableau`, `trello`, `webex`, `word`, `workday`, `zapier`, `zendesk`, `zoom`).
 - **AWS (`drawlib.icons.aws` / `AwsIcon`)**: Official AWS service & category icons.
 - **Azure (`drawlib.icons.azure` / `AzureIcon`)**: Official Microsoft Azure service icons.
-- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_cnative`, `original_code`, `original_data`, `original_facility`, `original_network`, `original_security`, `original_server`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_devops` provides 60 DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 44 shorthand aliases; `original_ai` provides 60 AI, LLM, Agent, and ML ecosystem icons + 32 shorthand aliases; `original_cnative` provides 48 Kubernetes & Cloud Native ecosystem icons + 72 shorthand aliases; `original_code` provides 96 programming, software architecture, framework, API, and IDE icons + 90 shorthand aliases; `original_data` provides 50 Database & Data Platform icons + 28 shorthand aliases; `original_facility` provides 76 facility, site, utility, cabling, transport, and vendor icons + 107 shorthand aliases; `original_network` provides 70 network topology & vendor/OSS icons + 82 shorthand aliases; `original_security` provides 84 security concept & vendor/OSS icons + 96 shorthand aliases; `original_server` provides 80 server, hardware, OS, virtualization, and storage icons + 86 shorthand aliases).
+- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_cnative`, `original_code`, `original_data`, `original_facility`, `original_network`, `original_security`, `original_server`, `original_workspace`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_devops` provides 60 DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 44 shorthand aliases; `original_ai` provides 60 AI, LLM, Agent, and ML ecosystem icons + 32 shorthand aliases; `original_cnative` provides 48 Kubernetes & Cloud Native ecosystem icons + 72 shorthand aliases; `original_code` provides 96 programming, software architecture, framework, API, and IDE icons + 90 shorthand aliases; `original_data` provides 50 Database & Data Platform icons + 28 shorthand aliases; `original_facility` provides 76 facility, site, utility, cabling, transport, and vendor icons + 107 shorthand aliases; `original_network` provides 70 network topology & vendor/OSS icons + 82 shorthand aliases; `original_security` provides 84 security concept & vendor/OSS icons + 96 shorthand aliases; `original_server` provides 80 server, hardware, OS, virtualization, and storage icons + 86 shorthand aliases; `original_workspace` provides 74 workplace concept & business SaaS icons + 79 shorthand aliases).
 
 ---
 
