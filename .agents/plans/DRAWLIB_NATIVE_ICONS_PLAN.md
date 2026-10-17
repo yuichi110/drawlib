@@ -161,30 +161,27 @@ tools/
 
 ---
 
-## 3. モジュール全体マップ（全20モジュール：`original_*` 3種 ＋ 3大クラウド ＋ 14カテゴリ `*_icons`）
+## 3. モジュール全体マップ（3大クラウド ＋ `original_cloud` ＋ 11組の `<domain>` / `original_<domain>` ペア）
 
-| # | モジュール名 (`drawlib.icons.*`) | `tools/icons_src/` ディレクトリ | `ArchitectureDiagram` Enum | 対象技術領域（混在なしの単一責務） | 収録数目安 |
+各技術ドメインは、公式ベンダー・OSSロゴを収録する **`<domain>`** と、ベンダー非依存の概念アイコン＋2Dフラットパステルロゴを収録する **`original_<domain>`** のペア構成とする。
+
+| # | モジュール名 (`drawlib.icons.*`) | `ArchitectureDiagram` Enum | 対象技術領域（単一責務） | 収録数 | 状態 |
 | :- | :--- | :--- | :--- | :--- | :--- |
-| **1** | **`original_cloud`** | `tools/icons_src/original_cloud/` | `OriginalCloudIcon` | **ベンダー非依存のクラウド・システム設計一般概念（7カテゴリ × 8種）** | **56** (+ 51 エイリアス) |
-| **2** | **`original_devops`** | `tools/icons_src/original_devops/` | `OriginalDevopsIcon` | **ベンダー非依存の監視・CI/CD・Git・構成管理概念（8種）** | **8** (+ 11 エイリアス) |
-| **3** | **`original_ai`** | `tools/icons_src/original_ai/` | `OriginalAiIcon` | **ベンダー非依存の生成AI・LLM・RAG・機械学習概念（8種）** | **8** (+ 6 エイリアス) |
-| **4** | **`gcp`** | `tools/icons_src/gcp/` | `GcpIcon` | **Google Cloud Platform** (全250種 `_default` 3トーン青＋45種 `_modern` 4色＋10エイリアス) | 250 + Modern 45 |
-| **5** | **`aws`** | `tools/icons_src/aws/` | `AwsIcon` | **Amazon Web Services** (50+ 独立) | 約 52 |
-| **6** | **`azure`** | `tools/icons_src/azure/` | `AzureIcon` | **Microsoft Azure** (50+ 独立) | 約 50 |
-| **7** | **`network_icons`** | `tools/icons_src/network/` | `NetworkIcon` | **ネットワーク機器・CDN・LB・プロキシ** | 約 28 |
-| **8** | **`security_icons`** | `tools/icons_src/security/` | `SecurityIcon` | **ファイアウォール・EDR・IDaaS・ゼロトラスト** | 約 22 |
-| **9** | **`virtualization_icons`** | `tools/icons_src/virtualization/` | `VirtualizationIcon` | **仮想化・ハイパーバイザ・HCI・プライベートクラウド** | 約 18 |
-| **10** | **`container_icons`** | `tools/icons_src/container/` | `ContainerIcon` | **Kubernetes・Docker・サービスメッシュ** | 約 28 |
-| **11** | **`hardware_icons`** | `tools/icons_src/hardware/` | `HardwareIcon` | **物理サーバー・ストレージ機器・PC/スマホ端末枠** | 約 18 |
-| **12** | **`os_icons`** | `tools/icons_src/os/` | `OsIcon` | **OS (Linux/Windows/Mac/iOS/Android) & ブラウザ** | 約 28 |
-| **13** | **`workspace_icons`** | `tools/icons_src/workspace/` | `WorkspaceIcon` | **M365・Google Workspace・チャット・業務 SaaS** | 約 36 |
-| **14** | **`git_icons`** | `tools/icons_src/git/` | `GitIcon` | **Git・GitHub・GitLab・Bitbucket** | 約 18 |
-| **15** | **`devops_icons`** | `tools/icons_src/devops/` | `DevopsIcon` | **IaC (Terraform/Ansible)・CI/CD 自動化** | 約 18 |
-| **16** | **`observability_icons`** | `tools/icons_src/observability/` | `ObservabilityIcon` | **監視・APM・ログ分析・インシデント管理** | 約 22 |
-| **17** | **`database_icons`** | `tools/icons_src/database/` | `DatabaseIcon` | **RDBMS・NoSQL・インメモリ DB・DWH** | 約 20 |
-| **18** | **`data_pipeline_icons`** | `tools/icons_src/data_pipeline/` | `DataPipelineIcon` | **ストリーミング (Kafka)・分散処理 (Spark)・ETL** | 約 16 |
-| **19** | **`ai_icons`** | `tools/icons_src/ai/` | `AiIcon` | **生成 AI・LLM・AI エージェント/フレームワーク** | 約 18 |
-| **20** | **`programming_icons`** | `tools/icons_src/programming/` | `ProgrammingIcon` | **プログラミング言語・Web FW・IDE** | 約 26 |
+| **1** | **`original_cloud`** | `OriginalCloudIcon` | **クラウド・システム設計一般概念** | **97** | **完了** |
+| **2** | **`gcp`** | `GcpIcon` | **Google Cloud Platform** (`_default` 250 + `_modern` 45) | **250 + 45** | **完了** |
+| **3** | **`aws`** | `AwsIcon` | **Amazon Web Services** | **329** | **完了** |
+| **4** | **`azure`** | `AzureIcon` | **Microsoft Azure** | **250** | **完了** |
+| **5** | **`cnative` / `original_cnative`** | `CnativeIcon` / `OriginalCnativeIcon` | **Kubernetes・Docker・CNCF・サービスメッシュ** | **48 / 48** | **完了** |
+| **6** | **`data` / `original_data`** | `DataIcon` / `OriginalDataIcon` | **RDBMS・NoSQL・データパイプライン・DWH** | **50 / 50** | **完了** |
+| **7** | **`ai` / `original_ai`** | `AiIcon` / `OriginalAiIcon` | **生成AI・LLM・AIエージェント・ML基盤** | **40 / 60** | **完了** |
+| **8** | **`devops` / `original_devops`** | `DevopsIcon` / `OriginalDevopsIcon` | **Git・CI/CD・IaC・テスト・監視・コラボ** | **40 / 60** | **完了** |
+| **9** | **`network` / `original_network`** | `NetworkIcon` / `OriginalNetworkIcon` | **Cisco等の通信機器・LB・CDN・VPN** | **92 / 70** | **完了** |
+| **10** | **`server` / `original_server`** | `ServerIcon` / `OriginalServerIcon` | **物理サーバー・ストレージ・仮想化・サーバーOS** | **82 / 80** | **完了** |
+| **11** | **`security` / `original_security`** | `SecurityIcon` / `OriginalSecurityIcon` | **IAM・EDR・NGFW・SIEM・CNAPP・PKI** | **60 / 84** | **完了** |
+| **12** | **`code` / `original_code`** | `CodeIcon` / `OriginalCodeIcon` | **プログラミング言語・Web/App FW・ランタイム・API・IDE** | **60 / 84** | **計画済（次期着手）** |
+| **13** | **`facility` / `original_facility`** | `FacilityIcon` / `OriginalFacilityIcon` | **ビル・DC・コロケーション・通信キャリア・電源/空調設備** | **40 / 64** | **計画済** |
+| **14** | **`workspace` / `original_workspace`** | `WorkspaceIcon` / `OriginalWorkspaceIcon` | **M365・Google Workspace・CRM/ERP・業務 SaaS** | **約 50 / 74** | **未着手** |
+| **15** | **`client` / `original_client`** | `ClientIcon` / `OriginalClientIcon` | **Webブラウザ・モバイルOS・PC/スマホ/周辺端末** | **約 40 / 64** | **未着手** |
 
 ---
 
@@ -237,7 +234,8 @@ tools/
 | **Phase 1: `tools/icons_src/` 基盤構築 ＆ 先行アイコンの移行 (完了)** | `tools/icons_src/` 初期化 ＆ パイプライン確立 | 1. `uv run drawlib init images tools/icons_src` でプロジェクトを初期化。<br>2. `tools/icons_src/styles.py` と `tools/icons_src/utils.py` に確定したパステルパレット・GCP パレット・共通幾何学プリミティブを配置。<br>3. 先行アイコンを `tools/icons_src/{original_cloud,original_devops,original_ai,gcp}/*.py`（1アイコンバリアント＝1 `.py` ファイル）へ移植。<br>4. `tools/icons_src/build.sh`（`drawlib build image` ＋ `512×512` 正規化 ＆ `manifest.json` 更新）を構築し、動作と出力画像を検証。 |
 | **Phase 2: オリジナル概念アイコン (`original_cloud/`, `original_devops/`, `original_ai/`) 全 72 種の完成** | `original_cloud` (56種) / `original_devops` (8種) / `original_ai` (8種) 完成 ＆ バインディング統合 | 1. オリジナル概念アイコン全 72 種をパステル3色（`#86A4F7` / `#7AD69E` / `#FFFFFF`）＋ `2.7`-unit ダーク構造線で作成・視覚レビュー。<br>2. `tools/release_assets/v0.3/icons/{original_cloud,original_devops,original_ai}/` の生成、`drawlib.icons.{original_cloud,original_devops,original_ai}` および `OriginalCloudIcon`, `OriginalDevopsIcon`, `OriginalAiIcon` Enum のコード生成・単体テスト・ドキュメント実装。 |
 | **Phase 3: GCP アイコン (`gcp/`) 全 250 種 (`_default.py`) ＋ 45 種 (`_modern.py`) の完全ネイティブ化 (完了)** | `tools/icons_src/gcp/` 全 295 スクリプト完成、`icon_gcp.zip` 更新 ＆ API/Docs 統合完了 | 1. **完了**: 全 250 種の `<name>_default.py`（3トーン青）および `core_products` (19種) / `category_*` (26種) の `<name>_modern.py`（4色、計 45 種）＝ **全 295 スクリプト**を `tools/icons_src/gcp/*.py` として作成・公式リファレンスとのマルチモーダル比較検証完了。<br>2. **完了**: 旧 PNG および `tools/original_assets/gcp/` を廃止し、全 295 個の `512×512` 透過 PNG ＋ `manifest.json` を `icon_gcp.zip` として GitHub Releases (`v0.3`) および `_release_assets.py` へ反映完了。<br>3. **完了**: `drawlib.icons.gcp` への `variant: Literal["default", "modern"] = "default"` 引数追加・10個の短縮エイリアス関数生成・単体テストおよび公式ドキュメント更新完了。 |
-| **Phase 4: `aws`, `azure` および 14 カテゴリ `*_icons` の順次拡張** | マルチクラウド ＆ IT ベンダーアイコン拡張 | 1. `tools/icons_src/{aws,azure,<category>}/` サブディレクトリを追加し、同一の `images` プロジェクト基盤上で順次ビルド・公開。<br>2. `src/drawlib/_rules/` および公式ドキュメントを更新し、`./dcli code-check all` と `./dcli test all` をパスさせる。 |
+| **Phase 4: `aws`, `azure` およびインフラ・データ・セキュリティ系 7 ペアの実装 (完了)** | マルチクラウド ＆ 主要技術領域ペア完成 | 1. **完了**: `aws` (329), `azure` (250) および 7 ペア（`cnative` / `original_cnative`, `data` / `original_data`, `ai` / `original_ai`, `devops` / `original_devops`, `network` / `original_network`, `server` / `original_server`, `security` / `original_security`）の全スクリプト・PNG・バインディング・テストを実装完了。 |
+| **Phase 5: `code`, `facility`, `workspace`, `client` ペアの順次拡張** | 言語・拠点設備・SaaS・クライアント拡張 | 1. **`code` / `original_code`**（計画書: `CODE_ICONS_PLAN.md`）: 言語・FW・API・IDE 公式 60 種＋概念 24 種＋2D パステル 60 種。<br>2. **`facility` / `original_facility`**（計画書: `FACILITY_ICONS_PLAN.md`）: DC・IX・通信キャリア・設備メーカー公式 40 種＋ビル・拠点・設備概念 24 種＋2D パステル 40 種。<br>3. 続いて **`workspace` / `original_workspace`**（業務 SaaS・コラボ）および **`client` / `original_client`**（ブラウザ・モバイル・端末）を順次実装。 |
 
 ---
 
