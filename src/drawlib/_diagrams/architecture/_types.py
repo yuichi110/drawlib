@@ -43,6 +43,7 @@ from drawlib._diagrams.architecture._icons import (
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    WorkspaceIcon,
 )
 
 if TYPE_CHECKING:
@@ -93,6 +94,7 @@ IconType: TypeAlias = (
     | PhosphorIcon
     | SecurityIcon
     | ServerIcon
+    | WorkspaceIcon
     | CustomIcon
     | Dimage
     | Image

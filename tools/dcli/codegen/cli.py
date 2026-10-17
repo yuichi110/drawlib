@@ -282,6 +282,16 @@ def gen_icon_original_facility() -> None:
     console.print("[bold green]✓ Original Facility icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-workspace")
+def gen_icon_workspace() -> None:
+    """Normalize native Drawlib Workspace icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/workspace"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/workspace"
+    manifest_file = write_provider_manifest("workspace", src_path, dest_path)
+    generate_original_provider_code("workspace", manifest_file=manifest_file)
+    console.print("[bold green]✓ Workspace icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

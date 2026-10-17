@@ -42,6 +42,7 @@ import drawlib._icons.png_icons.original_security._generated as original_securit
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
 import drawlib._icons.png_icons.security._generated as security_gen
 import drawlib._icons.png_icons.server._generated as server_gen
+import drawlib._icons.png_icons.workspace._generated as workspace_gen
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
@@ -74,6 +75,7 @@ from drawlib._diagrams.architecture._icons import (
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    WorkspaceIcon,
 )
 from drawlib._diagrams.architecture._types import IconType
 from drawlib._preset_colors import DefaultColors as Colors
@@ -104,6 +106,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     PhosphorIcon: phosphor_gen,
     SecurityIcon: security_gen,
     ServerIcon: server_gen,
+    WorkspaceIcon: workspace_gen,
 }
 
 
@@ -244,6 +247,7 @@ def draw_enum_icon(
         | PhosphorIcon
         | SecurityIcon
         | ServerIcon
+        | WorkspaceIcon
     ),
     canvas_xy: tuple[float, float],
     icon_size: float,
@@ -331,6 +335,7 @@ def draw_diagram_icon(
             PhosphorIcon,
             SecurityIcon,
             ServerIcon,
+            WorkspaceIcon,
         ),
     ):
         draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=fallback_box)

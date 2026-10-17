@@ -37,6 +37,7 @@ from drawlib._diagrams.architecture._icons import (
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    WorkspaceIcon,
 )
 from drawlib._diagrams.sequence import (
     Block,
@@ -78,5 +79,6 @@ __all__ = [
     "SecurityIcon",
     "SequenceDiagram",
     "ServerIcon",
+    "WorkspaceIcon",
     "icons",
 ]

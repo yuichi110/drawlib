@@ -107,6 +107,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_SERVER = "icon_original_server"
     ICON_SECURITY = "icon_security"
     ICON_SERVER = "icon_server"
+    ICON_WORKSPACE = "icon_workspace"
     MAP_CITIES = "map_cities"
     MAP_COUNTRIES = "map_countries"
     MAP_WORLD = "map_world"
@@ -188,6 +189,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_server: ReleaseAssetPackage
     icon_security: ReleaseAssetPackage
     icon_server: ReleaseAssetPackage
+    icon_workspace: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
     map_countries: ReleaseAssetPackage
     map_world: ReleaseAssetPackage
@@ -2993,6 +2995,67 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "western_digital_default.png",
             "windows_default.png",
             "xen_default.png",
+        ),
+    ),
+    icon_workspace=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_WORKSPACE,
+        category="icon",
+        archive_name="icon_workspace.zip",
+        archive_sha256="5b81fa69244d12609daab4b75cb2699ec10eed68b8cfa603cb8b3d18c8e99220",
+        source_rel_path="icons/workspace",
+        target_rel_path="icons/workspace",
+        files=(
+            "adobe_acrobat_default.png",
+            "airtable_default.png",
+            "asana_default.png",
+            "box_default.png",
+            "canva_default.png",
+            "confluence_default.png",
+            "discord_default.png",
+            "docusign_default.png",
+            "dropbox_default.png",
+            "dynamics_365_default.png",
+            "excel_default.png",
+            "figma_default.png",
+            "gmail_default.png",
+            "google_calendar_default.png",
+            "google_chat_default.png",
+            "google_docs_default.png",
+            "google_drive_default.png",
+            "google_forms_default.png",
+            "google_meet_default.png",
+            "google_sheets_default.png",
+            "google_slides_default.png",
+            "google_workspace_default.png",
+            "hubspot_default.png",
+            "jira_default.png",
+            "linear_default.png",
+            "manifest.json",
+            "microsoft_365_default.png",
+            "microsoft_teams_default.png",
+            "miro_default.png",
+            "monday_default.png",
+            "notion_default.png",
+            "onedrive_default.png",
+            "outlook_default.png",
+            "power_automate_default.png",
+            "power_bi_default.png",
+            "powerpoint_default.png",
+            "salesforce_default.png",
+            "sap_default.png",
+            "servicenow_default.png",
+            "sharepoint_default.png",
+            "shopify_default.png",
+            "slack_default.png",
+            "stripe_default.png",
+            "tableau_default.png",
+            "trello_default.png",
+            "webex_default.png",
+            "word_default.png",
+            "workday_default.png",
+            "zapier_default.png",
+            "zendesk_default.png",
+            "zoom_default.png",
         ),
     ),
     map_cities=ReleaseAssetPackage(

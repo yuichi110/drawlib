@@ -38,6 +38,7 @@ from drawlib._icons.png_icons import (
     original_server,
     security,
     server,
+    workspace,
 )
 
 __all__ = [
@@ -65,4 +66,5 @@ __all__ = [
     "phosphor",
     "security",
     "server",
+    "workspace",
 ]

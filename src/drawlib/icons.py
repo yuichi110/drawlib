@@ -38,6 +38,7 @@ from drawlib._icons import (
     phosphor,
     security,
     server,
+    workspace,
 )
 
 # Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`, etc.
@@ -64,6 +65,7 @@ sys.modules["drawlib.icons.original_security"] = original_security
 sys.modules["drawlib.icons.original_server"] = original_server
 sys.modules["drawlib.icons.security"] = security
 sys.modules["drawlib.icons.server"] = server
+sys.modules["drawlib.icons.workspace"] = workspace
 
 __all__ = [
     "ai",
@@ -90,4 +92,5 @@ __all__ = [
     "phosphor",
     "security",
     "server",
+    "workspace",
 ]

@@ -1,0 +1,699 @@
+{
+  "format_version": "2.0",
+  "provider": "workspace",
+  "created_at": "2026-10-17T15:04:37.426045+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 50,
+  "aliases": {
+    "acrobat": "adobe_acrobat",
+    "adobe": "adobe_acrobat",
+    "box_storage": "box",
+    "cisco_webex": "webex",
+    "dynamics": "dynamics_365",
+    "gcal": "google_calendar",
+    "gchat": "google_chat",
+    "gdocs": "google_docs",
+    "gdrive": "google_drive",
+    "gforms": "google_forms",
+    "gmeet": "google_meet",
+    "gsheets": "google_sheets",
+    "gslides": "google_slides",
+    "gsuite": "google_workspace",
+    "m365": "microsoft_365",
+    "monday_com": "monday",
+    "ms_excel": "excel",
+    "ms_flow": "power_automate",
+    "ms_onedrive": "onedrive",
+    "ms_outlook": "outlook",
+    "ms_powerpoint": "powerpoint",
+    "ms_sharepoint": "sharepoint",
+    "ms_teams": "microsoft_teams",
+    "ms_word": "word",
+    "office_365": "microsoft_365",
+    "power_apps": "power_automate",
+    "powerbi": "power_bi",
+    "ppt": "powerpoint",
+    "sfdc": "salesforce",
+    "snow": "servicenow",
+    "teams": "microsoft_teams"
+  },
+  "files": {
+    "adobe_acrobat_default.png": {
+      "icon_name": "adobe_acrobat",
+      "variant": "default",
+      "source_script": "workspace/adobe_acrobat_default.py",
+      "size_bytes": 15775,
+      "sha256": "3c56e82efd6e53464c142055a6036c48dfbeb8b0fda405839474c745158a95e1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "airtable_default.png": {
+      "icon_name": "airtable",
+      "variant": "default",
+      "source_script": "workspace/airtable_default.py",
+      "size_bytes": 14105,
+      "sha256": "c4788a71caad46e9040907252f53990977d979a34db259040a10c6558f1fcb30",
+      "bbox": [
+        26,
+        63,
+        486,
+        448
+      ]
+    },
+    "asana_default.png": {
+      "icon_name": "asana",
+      "variant": "default",
+      "source_script": "workspace/asana_default.py",
+      "size_bytes": 14403,
+      "sha256": "e0b3df92e4f11621205a1892126db8e84208b968bd3db637d9d9052a23b34664",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "box_default.png": {
+      "icon_name": "box",
+      "variant": "default",
+      "source_script": "workspace/box_default.py",
+      "size_bytes": 16747,
+      "sha256": "377d43eb6d2cedf9aa3932732fbac617a6d9185693f5f6701d5747b21cc93cb9",
+      "bbox": [
+        26,
+        131,
+        486,
+        380
+      ]
+    },
+    "canva_default.png": {
+      "icon_name": "canva",
+      "variant": "default",
+      "source_script": "workspace/canva_default.py",
+      "size_bytes": 37529,
+      "sha256": "ed1962c5194d2b375af6041f2a361328064d4f64bf212635a855b760c565f463",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "confluence_default.png": {
+      "icon_name": "confluence",
+      "variant": "default",
+      "source_script": "workspace/confluence_default.py",
+      "size_bytes": 23969,
+      "sha256": "3c3d2202e5153f4a7d7dcbdcbe067ce5e4bb616121cd64821facc9797ab36bd8",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "discord_default.png": {
+      "icon_name": "discord",
+      "variant": "default",
+      "source_script": "workspace/discord_default.py",
+      "size_bytes": 16391,
+      "sha256": "a7b3bfa28885a7aee3d3dba8190d7deabd8621b950eadb01a8721aaa2ccc87bd",
+      "bbox": [
+        26,
+        78,
+        486,
+        434
+      ]
+    },
+    "docusign_default.png": {
+      "icon_name": "docusign",
+      "variant": "default",
+      "source_script": "workspace/docusign_default.py",
+      "size_bytes": 6218,
+      "sha256": "69c68321e3587b0f68328a8f4dbf451d922c757c734a02100a2c57de7d0f2a21",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "dropbox_default.png": {
+      "icon_name": "dropbox",
+      "variant": "default",
+      "source_script": "workspace/dropbox_default.py",
+      "size_bytes": 11865,
+      "sha256": "1b7a5dfb59ca867e5f46025f3068d787429dab76f87a71226826ead96e3893b5",
+      "bbox": [
+        26,
+        60,
+        486,
+        451
+      ]
+    },
+    "dynamics_365_default.png": {
+      "icon_name": "dynamics_365",
+      "variant": "default",
+      "source_script": "workspace/dynamics_365_default.py",
+      "size_bytes": 23798,
+      "sha256": "9872366f85d5b77a2d23abae213222e8b33f740c65e274b0faa5189b29ec3c16",
+      "bbox": [
+        85,
+        26,
+        426,
+        486
+      ]
+    },
+    "excel_default.png": {
+      "icon_name": "excel",
+      "variant": "default",
+      "source_script": "workspace/excel_default.py",
+      "size_bytes": 13217,
+      "sha256": "1e3bd0b9cc8d3a5f66e81a463427705b824b07512d914631a0a6091795a5a83c",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "figma_default.png": {
+      "icon_name": "figma",
+      "variant": "default",
+      "source_script": "workspace/figma_default.py",
+      "size_bytes": 12821,
+      "sha256": "2a438bc73b5aa0cca6f420af93b7919e2dcd23ab39870393717f8ff5a2757107",
+      "bbox": [
+        102,
+        26,
+        409,
+        486
+      ]
+    },
+    "gmail_default.png": {
+      "icon_name": "gmail",
+      "variant": "default",
+      "source_script": "workspace/gmail_default.py",
+      "size_bytes": 12554,
+      "sha256": "de58337eaea473f30b56e0ac9a826208d435b70b08b51b2e5074c4bc9488b000",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "google_calendar_default.png": {
+      "icon_name": "google_calendar",
+      "variant": "default",
+      "source_script": "workspace/google_calendar_default.py",
+      "size_bytes": 9552,
+      "sha256": "3e80c5dbc37db5a8daad7b8370a7c444ea152638561429c309fadc44701ef485",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "google_chat_default.png": {
+      "icon_name": "google_chat",
+      "variant": "default",
+      "source_script": "workspace/google_chat_default.py",
+      "size_bytes": 5301,
+      "sha256": "7192a153414fa9fcc10041d2ef42fffcb10a4f4f58cddaf04440b8b90c8d179d",
+      "bbox": [
+        35,
+        26,
+        476,
+        486
+      ]
+    },
+    "google_docs_default.png": {
+      "icon_name": "google_docs",
+      "variant": "default",
+      "source_script": "workspace/google_docs_default.py",
+      "size_bytes": 3694,
+      "sha256": "6ffe0d499a4c4192d9c1804ff2c078e871845a839ddc7b956a85be4c59e37160",
+      "bbox": [
+        88,
+        26,
+        423,
+        486
+      ]
+    },
+    "google_drive_default.png": {
+      "icon_name": "google_drive",
+      "variant": "default",
+      "source_script": "workspace/google_drive_default.py",
+      "size_bytes": 16203,
+      "sha256": "5d22361017c02a90c39b179e66564d967516e1d7192d786a1ffa408ebc30c098",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
+    "google_forms_default.png": {
+      "icon_name": "google_forms",
+      "variant": "default",
+      "source_script": "workspace/google_forms_default.py",
+      "size_bytes": 6103,
+      "sha256": "cf3f425fe3ea935d6df2a69200d2acec6af128d8234933f685e1deda84696cf9",
+      "bbox": [
+        88,
+        26,
+        423,
+        486
+      ]
+    },
+    "google_meet_default.png": {
+      "icon_name": "google_meet",
+      "variant": "default",
+      "source_script": "workspace/google_meet_default.py",
+      "size_bytes": 7524,
+      "sha256": "c30e4a84052bd1a301310494ab3b1b3d385cebffcd13c8c3946b012e2fcab52c",
+      "bbox": [
+        26,
+        66,
+        486,
+        445
+      ]
+    },
+    "google_sheets_default.png": {
+      "icon_name": "google_sheets",
+      "variant": "default",
+      "source_script": "workspace/google_sheets_default.py",
+      "size_bytes": 3803,
+      "sha256": "eacdf2a54380d81f60fd472ea91f2d7ae9392a87c6cfe29d790b18e5695a9214",
+      "bbox": [
+        88,
+        26,
+        423,
+        486
+      ]
+    },
+    "google_slides_default.png": {
+      "icon_name": "google_slides",
+      "variant": "default",
+      "source_script": "workspace/google_slides_default.py",
+      "size_bytes": 3600,
+      "sha256": "b93b55029009e3b5f0c219c832feb2ecfe8b1cd64035999d5c0cd76eb1f2b154",
+      "bbox": [
+        88,
+        26,
+        423,
+        486
+      ]
+    },
+    "google_workspace_default.png": {
+      "icon_name": "google_workspace",
+      "variant": "default",
+      "source_script": "workspace/google_workspace_default.py",
+      "size_bytes": 18168,
+      "sha256": "40eba8d65ddf487b0a5106d1c5d91652e7a95b8a4c86e2d3ed57693c59c1a45c",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "hubspot_default.png": {
+      "icon_name": "hubspot",
+      "variant": "default",
+      "source_script": "workspace/hubspot_default.py",
+      "size_bytes": 17466,
+      "sha256": "73348828a9fef2904186a5b890434eb9ead7a77fbe3399d2f293bd57f023dc8a",
+      "bbox": [
+        49,
+        26,
+        463,
+        486
+      ]
+    },
+    "jira_default.png": {
+      "icon_name": "jira",
+      "variant": "default",
+      "source_script": "workspace/jira_default.py",
+      "size_bytes": 21275,
+      "sha256": "8190d4561ff9f7f9ec2babaf5e383ab880044a25758de69f9c92f7e61ddd3f60",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "linear_default.png": {
+      "icon_name": "linear",
+      "variant": "default",
+      "source_script": "workspace/linear_default.py",
+      "size_bytes": 15834,
+      "sha256": "d403d19456a9e333322e63dab58286956e766921a7d6b4955355d72c53c48626",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "microsoft_365_default.png": {
+      "icon_name": "microsoft_365",
+      "variant": "default",
+      "source_script": "workspace/microsoft_365_default.py",
+      "size_bytes": 45797,
+      "sha256": "0d5eca6222b5bcc923ef051dc738e93c09a0bfa176485e55f9b67b07addf3e6b",
+      "bbox": [
+        47,
+        26,
+        465,
+        486
+      ]
+    },
+    "microsoft_teams_default.png": {
+      "icon_name": "microsoft_teams",
+      "variant": "default",
+      "source_script": "workspace/microsoft_teams_default.py",
+      "size_bytes": 16772,
+      "sha256": "e01f9bee81529d2a58d4fb5d37647bdbebf9dc0c7a0f41cd00cfcb612ad5131a",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "miro_default.png": {
+      "icon_name": "miro",
+      "variant": "default",
+      "source_script": "workspace/miro_default.py",
+      "size_bytes": 19282,
+      "sha256": "98c9f51a714e8babb42558ac0d315a28f195b3db1ea4ed2a59063ddfc0b2c7d2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "monday_default.png": {
+      "icon_name": "monday",
+      "variant": "default",
+      "source_script": "workspace/monday_default.py",
+      "size_bytes": 13942,
+      "sha256": "78ad64ab685a8de1fbfab5fba20b5c7ff6968139cbf88c725220af7a7fa17404",
+      "bbox": [
+        26,
+        117,
+        486,
+        394
+      ]
+    },
+    "notion_default.png": {
+      "icon_name": "notion",
+      "variant": "default",
+      "source_script": "workspace/notion_default.py",
+      "size_bytes": 14077,
+      "sha256": "05915d2d4a98e0262a2a65023df4cacc14c3e96cb9e14a035490165ad64cd08f",
+      "bbox": [
+        36,
+        26,
+        476,
+        486
+      ]
+    },
+    "onedrive_default.png": {
+      "icon_name": "onedrive",
+      "variant": "default",
+      "source_script": "workspace/onedrive_default.py",
+      "size_bytes": 13079,
+      "sha256": "9dd930803f0a7f7e2b91a6908d94de55b1b0fb074797e9f7e945237be797d05a",
+      "bbox": [
+        26,
+        108,
+        486,
+        403
+      ]
+    },
+    "outlook_default.png": {
+      "icon_name": "outlook",
+      "variant": "default",
+      "source_script": "workspace/outlook_default.py",
+      "size_bytes": 20543,
+      "sha256": "a7282d2c12854e7dff1424d2c18a4c3c9f31ce94016d4ff39f8a4e6ba791d72f",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "power_automate_default.png": {
+      "icon_name": "power_automate",
+      "variant": "default",
+      "source_script": "workspace/power_automate_default.py",
+      "size_bytes": 21283,
+      "sha256": "7a7f5fba22f0ba0adba64cc270ff276920070d329906fba2e58671f0fb547f15",
+      "bbox": [
+        26,
+        73,
+        486,
+        438
+      ]
+    },
+    "power_bi_default.png": {
+      "icon_name": "power_bi",
+      "variant": "default",
+      "source_script": "workspace/power_bi_default.py",
+      "size_bytes": 5807,
+      "sha256": "0601fae6159252d07fffdd18b690543ee8b0f2d63ee1f7b305a5cb24a0d91ef1",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "powerpoint_default.png": {
+      "icon_name": "powerpoint",
+      "variant": "default",
+      "source_script": "workspace/powerpoint_default.py",
+      "size_bytes": 16220,
+      "sha256": "beb03d53b6e105a282fa5ee249be06573e215303cb29c373eb4d638b040921d6",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "salesforce_default.png": {
+      "icon_name": "salesforce",
+      "variant": "default",
+      "source_script": "workspace/salesforce_default.py",
+      "size_bytes": 19698,
+      "sha256": "ac26bb0b537101444bcaa9d7eea866481544e39ad3e6d772a063dbd8b90e602e",
+      "bbox": [
+        26,
+        95,
+        486,
+        417
+      ]
+    },
+    "sap_default.png": {
+      "icon_name": "sap",
+      "variant": "default",
+      "source_script": "workspace/sap_default.py",
+      "size_bytes": 14112,
+      "sha256": "1eabd46b3d875b75f112e5b32a14e94fd8dfe84144ba70b3369d153349e375c7",
+      "bbox": [
+        26,
+        142,
+        486,
+        370
+      ]
+    },
+    "servicenow_default.png": {
+      "icon_name": "servicenow",
+      "variant": "default",
+      "source_script": "workspace/servicenow_default.py",
+      "size_bytes": 16519,
+      "sha256": "d34f6830db71e2f4bb7e882ff48b38eeef4ae8ce7cf2ea1e1e2a223330735184",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "sharepoint_default.png": {
+      "icon_name": "sharepoint",
+      "variant": "default",
+      "source_script": "workspace/sharepoint_default.py",
+      "size_bytes": 21562,
+      "sha256": "54ac85722f0ed5dc5895f064630f59ff3ce8c40401084e9f8932b07b1acb4311",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "shopify_default.png": {
+      "icon_name": "shopify",
+      "variant": "default",
+      "source_script": "workspace/shopify_default.py",
+      "size_bytes": 22698,
+      "sha256": "0c95a94f94fe3e8efcad22f9930fedf6f0d79084f91e3fbe0c02a8f50e68b1c9",
+      "bbox": [
+        54,
+        26,
+        458,
+        486
+      ]
+    },
+    "slack_default.png": {
+      "icon_name": "slack",
+      "variant": "default",
+      "source_script": "workspace/slack_default.py",
+      "size_bytes": 17016,
+      "sha256": "9ba63a9c29934e761d6e0bfaff08981449a95c28281a45b1657c35f06ad88397",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "stripe_default.png": {
+      "icon_name": "stripe",
+      "variant": "default",
+      "source_script": "workspace/stripe_default.py",
+      "size_bytes": 14017,
+      "sha256": "cf2f1f53069a51f32fa5a04de96b23314c54d05a98954a022b956af55beb4bce",
+      "bbox": [
+        91,
+        26,
+        420,
+        486
+      ]
+    },
+    "tableau_default.png": {
+      "icon_name": "tableau",
+      "variant": "default",
+      "source_script": "workspace/tableau_default.py",
+      "size_bytes": 3130,
+      "sha256": "1f9df2ce4c9b228055df91afdf584c0208b59c42fc998ed4a78c2bafeabd8308",
+      "bbox": [
+        26,
+        31,
+        486,
+        481
+      ]
+    },
+    "trello_default.png": {
+      "icon_name": "trello",
+      "variant": "default",
+      "source_script": "workspace/trello_default.py",
+      "size_bytes": 6089,
+      "sha256": "2a424af08fc0c8a9569f0cb89d4ec6441f334d155c66aae29bbd2200c1dd3c0c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "webex_default.png": {
+      "icon_name": "webex",
+      "variant": "default",
+      "source_script": "workspace/webex_default.py",
+      "size_bytes": 60514,
+      "sha256": "b8b8824858d9234213fc6ce8e65594cc840a3d1d984a78605aba4c29f35fd5c9",
+      "bbox": [
+        26,
+        88,
+        486,
+        424
+      ]
+    },
+    "word_default.png": {
+      "icon_name": "word",
+      "variant": "default",
+      "source_script": "workspace/word_default.py",
+      "size_bytes": 14632,
+      "sha256": "fe810d6ac20223a24e887fac0a49506299739471530b7b9e4269cfa9361a3ba0",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "workday_default.png": {
+      "icon_name": "workday",
+      "variant": "default",
+      "source_script": "workspace/workday_default.py",
+      "size_bytes": 17654,
+      "sha256": "77782e1588677a3313229a1e78a44b97e78fd3ca1e06ceff0eb2c3ef38d2ccf5",
+      "bbox": [
+        82,
+        26,
+        430,
+        486
+      ]
+    },
+    "zapier_default.png": {
+      "icon_name": "zapier",
+      "variant": "default",
+      "source_script": "workspace/zapier_default.py",
+      "size_bytes": 12160,
+      "sha256": "ebde43cee1bdb9493ef430ac40377f6626c0b5f68731dc09c63e2db7e13da7a5",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "zendesk_default.png": {
+      "icon_name": "zendesk",
+      "variant": "default",
+      "source_script": "workspace/zendesk_default.py",
+      "size_bytes": 12256,
+      "sha256": "79500ce887c87fd6f856aca6ba30762471b8ab5ede036bb939ba4e1e21b2b7d4",
+      "bbox": [
+        26,
+        81,
+        486,
+        430
+      ]
+    },
+    "zoom_default.png": {
+      "icon_name": "zoom",
+      "variant": "default",
+      "source_script": "workspace/zoom_default.py",
+      "size_bytes": 13645,
+      "sha256": "520140260cad137cc9ff207d0c0818b799de963b5cc2173c813c34c4f6f62835",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    }
+  }
+}

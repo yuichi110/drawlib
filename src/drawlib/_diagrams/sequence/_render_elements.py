@@ -51,6 +51,7 @@ from drawlib._diagrams.architecture._icons import (
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    WorkspaceIcon,
 )
 from drawlib._diagrams.sequence._block import Block
 from drawlib._diagrams.sequence._group import ParticipantGroup
@@ -86,6 +87,7 @@ def draw_enum_icon(
         | PhosphorIcon
         | SecurityIcon
         | ServerIcon
+        | WorkspaceIcon
     ),
     canvas_xy: tuple[float, float],
     icon_size: float,

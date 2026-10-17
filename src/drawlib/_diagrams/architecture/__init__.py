@@ -39,6 +39,7 @@ from drawlib._diagrams.architecture._icons import (
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    WorkspaceIcon,
 )
 from drawlib._diagrams.architecture._junction import Junction
 from drawlib._diagrams.architecture._node import Node
@@ -73,4 +74,5 @@ __all__ = [
     "PhosphorIcon",
     "SecurityIcon",
     "ServerIcon",
+    "WorkspaceIcon",
 ]
