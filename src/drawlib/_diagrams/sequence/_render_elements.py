@@ -45,6 +45,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalSecurityIcon,
     OriginalServerIcon,
     PhosphorIcon,
+    SecurityIcon,
     ServerIcon,
 )
 from drawlib._diagrams.sequence._block import Block
@@ -75,6 +76,7 @@ def draw_enum_icon(
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon
+        | SecurityIcon
         | ServerIcon
     ),
     canvas_xy: tuple[float, float],

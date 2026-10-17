@@ -28,6 +28,7 @@ from drawlib._icons.png_icons import (
     original_network,
     original_security,
     original_server,
+    security,
     server,
 )
 
@@ -48,5 +49,6 @@ __all__ = [
     "original_network",
     "original_security",
     "original_server",
+    "security",
     "server",
 ]

@@ -37,6 +37,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalSecurityIcon,
     OriginalServerIcon,
     PhosphorIcon,
+    SecurityIcon,
     ServerIcon,
 )
 
@@ -82,6 +83,7 @@ IconType: TypeAlias = (
     | GcpIcon
     | NetworkIcon
     | PhosphorIcon
+    | SecurityIcon
     | ServerIcon
     | CustomIcon
     | Dimage

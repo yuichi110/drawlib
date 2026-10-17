@@ -36,6 +36,7 @@ import drawlib._icons.png_icons.original_devops._generated as original_devops_ge
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
 import drawlib._icons.png_icons.original_security._generated as original_security_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
+import drawlib._icons.png_icons.security._generated as security_gen
 import drawlib._icons.png_icons.server._generated as server_gen
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_fonts import Font
@@ -63,6 +64,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalSecurityIcon,
     OriginalServerIcon,
     PhosphorIcon,
+    SecurityIcon,
     ServerIcon,
 )
 from drawlib._diagrams.architecture._types import IconType
@@ -88,6 +90,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     GcpIcon: gcp_gen,
     NetworkIcon: network_gen,
     PhosphorIcon: phosphor_gen,
+    SecurityIcon: security_gen,
     ServerIcon: server_gen,
 }
 
@@ -223,6 +226,7 @@ def draw_enum_icon(
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon
+        | SecurityIcon
         | ServerIcon
     ),
     canvas_xy: tuple[float, float],
@@ -305,6 +309,7 @@ def draw_diagram_icon(
             GcpIcon,
             NetworkIcon,
             PhosphorIcon,
+            SecurityIcon,
             ServerIcon,
         ),
     ):

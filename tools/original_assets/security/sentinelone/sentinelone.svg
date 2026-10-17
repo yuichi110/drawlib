@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.09 95.88">
+  <title>SentinelOne icon</title>
+  <rect fill="#6b0aea" x="32.08" y="0" width="12.92" height="77.25"/>
+  <path fill="#6b0aea" fill-rule="evenodd" d="M48.13,95.88l12.91-8V21a32.21,32.21,0,0,0-12.91-5.72Z"/>
+  <path fill="#6b0aea" fill-rule="evenodd" d="M16,87.92l12.92,8V15.32A32.19,32.19,0,0,0,16,21Z"/>
+  <path fill="#6b0aea" fill-rule="evenodd" d="M64.17,3.67V86.48l6-3.72a15.3,15.3,0,0,0,6.89-13V30.65C77.09,19.37,64.17,3.67,64.17,3.67Z"/>
+  <path fill="#6b0aea" fill-rule="evenodd" d="M0,69.73a15.27,15.27,0,0,0,6.89,13l6,3.72V3.67S0,19.37,0,30.65Z"/>
+</svg>

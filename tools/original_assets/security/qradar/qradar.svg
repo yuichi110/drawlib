@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="ibm_sec_grad" x1="6" y1="28" x2="26" y2="4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6929C4"/>
+      <stop offset="0.5" stop-color="#4589FF"/>
+      <stop offset="1" stop-color="#33B1FF"/>
+    </linearGradient>
+  </defs>
+  <path d="M16.02,.0005,4,5.9784V20.0443A12,12,0,0,0,16.02,32.0443V30.0468A10.0025,10.0025,0,0,1,6,20.0443V7.21L16.02,2.2184Z" fill="url(#ibm_sec_grad)"/>
+  <path d="M16,.0005,28,5.9784V20.0443A12,12,0,0,1,16,32.0443V30.0468A10.0025,10.0025,0,0,0,21.0361,28.6488L16,26.14V23.9119L22.83,27.3143A10.0252,10.0252,0,0,0,24.8952,24.5932L16,20.1619V17.934L25.63,22.7314A9.9045,9.9045,0,0,0,26,20.0443V19.1656L16,14.1841V11.9562L26,16.9378V13.1878L16,8.2062V5.9783L26,10.96V7.21L16,2.2284Z" fill="url(#ibm_sec_grad)"/>
+</svg>

@@ -32,6 +32,7 @@ from drawlib._icons import (
     original_security,
     original_server,
     phosphor,
+    security,
     server,
 )
 
@@ -53,6 +54,7 @@ sys.modules["drawlib.icons.original_devops"] = original_devops
 sys.modules["drawlib.icons.original_network"] = original_network
 sys.modules["drawlib.icons.original_security"] = original_security
 sys.modules["drawlib.icons.original_server"] = original_server
+sys.modules["drawlib.icons.security"] = security
 sys.modules["drawlib.icons.server"] = server
 
 __all__ = [
@@ -74,5 +76,6 @@ __all__ = [
     "original_security",
     "original_server",
     "phosphor",
+    "security",
     "server",
 ]

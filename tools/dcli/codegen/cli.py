@@ -162,6 +162,16 @@ def gen_icon_network() -> None:
     console.print("[bold green]✓ Network icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-security")
+def gen_icon_security() -> None:
+    """Normalize native Drawlib Security icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/security"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/security"
+    manifest_file = write_provider_manifest("security", src_path, dest_path)
+    generate_original_provider_code("security", manifest_file=manifest_file)
+    console.print("[bold green]✓ Security icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-server")
 def gen_icon_server() -> None:
     """Normalize native Drawlib Server icons and generate Python bindings."""

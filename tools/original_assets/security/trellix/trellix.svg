@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="754.55 0 245.45 247.66">
+  <title>Trellix icon</title>
+  <defs>
+    <linearGradient id="trellix-grad" x1="856.63" y1="123.19" x2="995.5" y2="5.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0.07" stop-color="#2814ff"/>
+      <stop offset="0.08" stop-color="#2718ff"/>
+      <stop offset="0.23" stop-color="#1654ff"/>
+      <stop offset="0.35" stop-color="#0a80ff"/>
+      <stop offset="0.45" stop-color="#039bff"/>
+      <stop offset="0.5" stop-color="#00a5ff"/>
+      <stop offset="1" stop-color="#00cd00"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#trellix-grad)" d="M904.59,122.12H852.4L947.81,0H1000Z"/>
+  <polygon fill="#1a1a1a" points="951.24 247.66 806.74 62.8 754.55 62.8 826.77 155.19 754.55 247.66 806.74 247.66 852.88 188.59 899.05 247.66 951.24 247.66"/>
+</svg>
