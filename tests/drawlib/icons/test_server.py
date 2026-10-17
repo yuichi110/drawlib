@@ -103,6 +103,34 @@ class TestServerIcons:
         save(str(out))
         assert out.is_file()
 
+    def test_server_vendor_and_os_icons_and_aliases(self, tmp_path: Path) -> None:
+        """Verify official server vendor, chip, SBC, OS, virtualization, and storage icons."""
+        clear()
+        server.dell(xy=(15, 80), width=12, style=Style())
+        server.hpe(xy=(35, 80), width=12, style=Style())
+        server.asus(xy=(55, 80), width=12, style=Style())
+        server.mac_mini(xy=(75, 80), width=12, style=Style())
+
+        server.raspberry_pi(xy=(15, 60), width=12, style=Style())
+        server.linux(xy=(35, 60), width=12, style=Style())
+        server.ubuntu(xy=(55, 60), width=12, style=Style())
+        server.windows(xy=(75, 60), width=12, style=Style())
+
+        server.proxmox(xy=(15, 40), width=12, style=Style())
+        server.kvm(xy=(35, 40), width=12, style=Style())
+        server.synology(xy=(55, 40), width=12, style=Style())
+        server.veeam(xy=(75, 40), width=12, style=Style())
+
+        # Shorthand aliases
+        server.rpi(xy=(15, 20), width=12, style=Style())
+        server.tux(xy=(35, 20), width=12, style=Style())
+        server.pve(xy=(55, 20), width=12, style=Style())
+        server.zfs(xy=(75, 20), width=12, style=Style())
+
+        out = tmp_path / "test_server_vendors_os.png"
+        save(str(out))
+        assert out.is_file()
+
     def test_nonexistent_server_icon_error(self) -> None:
         """Verify FileNotFoundError when requesting an invalid Server icon file."""
         with pytest.raises(FileNotFoundError):
@@ -165,6 +193,34 @@ class TestOriginalServerIcons:
         diag.connect(n2, n3)
         diag.draw((5, 10))
         out = tmp_path / "test_arch_original_server.png"
+        save(str(out))
+        assert out.is_file()
+
+    def test_original_server_vendor_and_os_icons_and_aliases(self, tmp_path: Path) -> None:
+        """Verify 2D pastel server vendor, chip, SBC, OS, virtualization, and storage icons."""
+        clear()
+        original_server.dell(xy=(15, 80), width=12, style=Style())
+        original_server.hpe(xy=(35, 80), width=12, style=Style())
+        original_server.mac_mini(xy=(55, 80), width=12, style=Style())
+        original_server.beaglebone(xy=(75, 80), width=12, style=Style())
+
+        original_server.linux(xy=(15, 60), width=12, style=Style())
+        original_server.redhat(xy=(35, 60), width=12, style=Style())
+        original_server.openbsd(xy=(55, 60), width=12, style=Style())
+        original_server.windows(xy=(75, 60), width=12, style=Style())
+
+        original_server.proxmox(xy=(15, 40), width=12, style=Style())
+        original_server.kvm(xy=(35, 40), width=12, style=Style())
+        original_server.synology(xy=(55, 40), width=12, style=Style())
+        original_server.openzfs(xy=(75, 40), width=12, style=Style())
+
+        # Shorthand aliases
+        original_server.rpi(xy=(15, 20), width=12, style=Style())
+        original_server.tux(xy=(35, 20), width=12, style=Style())
+        original_server.pve(xy=(55, 20), width=12, style=Style())
+        original_server.beagleboard(xy=(75, 20), width=12, style=Style())
+
+        out = tmp_path / "test_original_server_vendors_os.png"
         save(str(out))
         assert out.is_file()
 

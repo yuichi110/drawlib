@@ -14,6 +14,10 @@ from __future__ import annotations
 from drawlib._icons.png_icons._base import PngIconProvider
 
 SERVER_ALIASES: dict[str, str] = {
+    "alma": "almalinux",
+    "alpine": "alpine_linux",
+    "arch": "arch_linux",
+    "beagleboard": "beaglebone",
     "dell_ai_server": "dell_gpu_server",
     "dell_connectrix": "dell_fc_switch",
     "dell_datadomain": "dell_backup_appliance",
@@ -30,6 +34,26 @@ SERVER_ALIASES: dict[str, str] = {
     "dell_san_switch": "dell_fc_switch",
     "dell_server": "dell_rack_server",
     "dell_vxrail": "dell_hci_appliance",
+    "esxi": "vmware",
+    "hp_enterprise": "hpe",
+    "incus": "lxc",
+    "kali": "kali_linux",
+    "lxd": "lxc",
+    "macos": "apple",
+    "microsoft_windows": "windows",
+    "nix": "nixos",
+    "opensuse": "suse",
+    "proxmox_ve": "proxmox",
+    "pve": "proxmox",
+    "raspi": "raspberry_pi",
+    "red_hat": "redhat",
+    "rhel": "redhat",
+    "riscv": "risc_v",
+    "rocky": "rocky_linux",
+    "rpi": "raspberry_pi",
+    "sles": "suse",
+    "tux": "linux",
+    "vbox": "virtualbox",
     "vmware_drs_cluster": "vmware_cluster",
     "vmware_dvs": "vmware_vswitch",
     "vmware_ha_cluster": "vmware_cluster",
@@ -45,6 +69,9 @@ SERVER_ALIASES: dict[str, str] = {
     "vmware_vm_snapshot": "vmware_snapshot",
     "vmware_vm_template": "vmware_template",
     "vmware_vmfs": "vmware_datastore",
+    "wd": "western_digital",
+    "windows_server": "windows",
+    "zfs": "openzfs",
 }
 
 SERVER_PROVIDER = PngIconProvider(

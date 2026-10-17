@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_server",
-  "created_at": "2026-10-17T00:24:30.252945+00:00",
+  "created_at": "2026-10-17T07:57:55.417419+00:00",
   "canvas_size": [
     512,
     512
@@ -10,14 +10,19 @@
     460,
     460
   ],
-  "total_files": 24,
+  "total_files": 80,
   "aliases": {
     "accelerated_server": "gpu_server",
     "ai_server": "gpu_server",
+    "alma": "almalinux",
+    "alpine": "alpine_linux",
+    "arch": "arch_linux",
     "backup_server": "backup_appliance",
+    "beagleboard": "beaglebone",
     "blade_server": "blade_chassis",
     "block_storage": "san_storage",
     "block_storage_array": "san_storage",
+    "bmc_management": "bmc",
     "checkpoint": "vm_snapshot",
     "cluster": "host_cluster",
     "compute_pool": "resource_pool",
@@ -26,6 +31,7 @@
     "distributed_switch": "virtual_switch",
     "drs_cluster": "host_cluster",
     "dvs": "virtual_switch",
+    "esxi": "vmware",
     "esxi_host": "hypervisor_host",
     "fibre_channel_switch": "fc_switch",
     "file_server": "nas_storage",
@@ -34,26 +40,49 @@
     "guest_os": "virtual_machine",
     "ha_cluster": "host_cluster",
     "hci_storage": "virtual_san",
+    "hp_enterprise": "hpe",
     "hyperconverged_node": "hci_appliance",
+    "idrac": "bmc",
+    "ilo": "bmc",
+    "incus": "lxc",
+    "ipmi": "bmc",
+    "kali": "kali_linux",
     "kvm_host": "hypervisor_host",
     "lto_tape": "tape_library",
     "lun": "datastore",
+    "lxd": "lxc",
+    "macos": "apple",
+    "microsoft_windows": "windows",
     "modular_chassis": "blade_chassis",
+    "nix": "nixos",
     "object_store": "object_storage",
+    "opensuse": "suse",
+    "out_of_band_management": "bmc",
     "pedestal_server": "tower_server",
     "physical_server": "rack_server",
+    "proxmox_ve": "proxmox",
+    "pve": "proxmox",
+    "raspi": "raspberry_pi",
+    "red_hat": "redhat",
+    "rhel": "redhat",
+    "riscv": "risc_v",
+    "rocky": "rocky_linux",
+    "rpi": "raspberry_pi",
     "s3_appliance": "object_storage",
     "san_switch": "fc_switch",
     "scale_out_nas": "nas_storage",
     "server": "rack_server",
     "shared_volume": "datastore",
+    "sles": "suse",
     "snapshot": "vm_snapshot",
     "software_defined_storage": "virtual_san",
     "storage_array": "san_storage",
     "tape_archive": "tape_library",
     "tape_drive": "tape_library",
     "template": "vm_template",
+    "tux": "linux",
     "vapp": "vm_group",
+    "vbox": "virtualbox",
     "vcenter": "management_server",
     "vcpu_pool": "resource_pool",
     "virtualization_host": "hypervisor_host",
@@ -65,9 +94,129 @@
     "vmotion": "live_migration",
     "vsan": "virtual_san",
     "vswitch": "virtual_switch",
-    "x86_server": "rack_server"
+    "wd": "western_digital",
+    "windows_server": "windows",
+    "x86_server": "rack_server",
+    "zfs": "openzfs"
   },
   "files": {
+    "almalinux_default.png": {
+      "icon_name": "almalinux",
+      "variant": "default",
+      "source_script": "original_server/almalinux_default.py",
+      "size_bytes": 54307,
+      "sha256": "ec62241d26c849fedfb44efb28294be89ad3a20d3244ab9f5bce964ccedc4f6a",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    },
+    "alpine_linux_default.png": {
+      "icon_name": "alpine_linux",
+      "variant": "default",
+      "source_script": "original_server/alpine_linux_default.py",
+      "size_bytes": 31977,
+      "sha256": "6de01084f71adabeae15be3718d9ee99f753c294bd63552dcc01ec3d5212fc6b",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
+      ]
+    },
+    "amd_default.png": {
+      "icon_name": "amd",
+      "variant": "default",
+      "source_script": "original_server/amd_default.py",
+      "size_bytes": 6384,
+      "sha256": "e89650250eadc9310f9157d9a4d04345f6ccd0c96d82b1bab249b8f0e306c543",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "apc_default.png": {
+      "icon_name": "apc",
+      "variant": "default",
+      "source_script": "original_server/apc_default.py",
+      "size_bytes": 18607,
+      "sha256": "867002d668047bdd9d51516aed197dc3440b2842d1a68dfc5aaffc7ef3ea5d69",
+      "bbox": [
+        26,
+        189,
+        486,
+        323
+      ]
+    },
+    "apple_default.png": {
+      "icon_name": "apple",
+      "variant": "default",
+      "source_script": "original_server/apple_default.py",
+      "size_bytes": 20560,
+      "sha256": "0b5f4961990d20ff94e85b9b2affc2a546b377339d5bea06155acd7cefd343b2",
+      "bbox": [
+        67,
+        26,
+        444,
+        486
+      ]
+    },
+    "arch_linux_default.png": {
+      "icon_name": "arch_linux",
+      "variant": "default",
+      "source_script": "original_server/arch_linux_default.py",
+      "size_bytes": 28586,
+      "sha256": "8e60efe691e736de9fda9393d4825700ee2bf29e6f5c00ff09dbffa25d2bdbc6",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "arduino_default.png": {
+      "icon_name": "arduino",
+      "variant": "default",
+      "source_script": "original_server/arduino_default.py",
+      "size_bytes": 32010,
+      "sha256": "b03e90f3010b3e7ab570268a64b65c947d58c93da3df2191621a472ba3a14960",
+      "bbox": [
+        26,
+        141,
+        486,
+        371
+      ]
+    },
+    "arm_default.png": {
+      "icon_name": "arm",
+      "variant": "default",
+      "source_script": "original_server/arm_default.py",
+      "size_bytes": 17505,
+      "sha256": "45e70ca303a1bd3500cbe1231ff768df2186f929c1d43ee9f7f0d1a62529d930",
+      "bbox": [
+        26,
+        182,
+        486,
+        330
+      ]
+    },
+    "asus_default.png": {
+      "icon_name": "asus",
+      "variant": "default",
+      "source_script": "original_server/asus_default.py",
+      "size_bytes": 15486,
+      "sha256": "d859bddf2079e1becdfe3111d3b6e9cbd9c672f4561a63e1bb5c159ba7d2c223",
+      "bbox": [
+        26,
+        201,
+        486,
+        310
+      ]
+    },
     "backup_appliance_default.png": {
       "icon_name": "backup_appliance",
       "variant": "default",
@@ -79,6 +228,19 @@
         32,
         486,
         479
+      ]
+    },
+    "beaglebone_default.png": {
+      "icon_name": "beaglebone",
+      "variant": "default",
+      "source_script": "original_server/beaglebone_default.py",
+      "size_bytes": 56297,
+      "sha256": "fbea50a889fb303ee797f56ee111f5f395c182549cd651c8cd5b483c03e4b894",
+      "bbox": [
+        28,
+        26,
+        484,
+        486
       ]
     },
     "blade_chassis_default.png": {
@@ -107,6 +269,45 @@
         486
       ]
     },
+    "buffalo_default.png": {
+      "icon_name": "buffalo",
+      "variant": "default",
+      "source_script": "original_server/buffalo_default.py",
+      "size_bytes": 21456,
+      "sha256": "81329eacfc9f994aad9db319061e87ae1520fd502bfc4383c28d983b44732404",
+      "bbox": [
+        26,
+        209,
+        486,
+        303
+      ]
+    },
+    "centos_default.png": {
+      "icon_name": "centos",
+      "variant": "default",
+      "source_script": "original_server/centos_default.py",
+      "size_bytes": 22567,
+      "sha256": "5819041997f3f405e9efa66aae982480b21b18cd7dde4fdc40c99de169511a45",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "citrix_default.png": {
+      "icon_name": "citrix",
+      "variant": "default",
+      "source_script": "original_server/citrix_default.py",
+      "size_bytes": 23612,
+      "sha256": "d49a97f9d9ffb776212fac4b3970234b16eed6341572d3d8a53a980a996d61ef",
+      "bbox": [
+        26,
+        173,
+        486,
+        338
+      ]
+    },
     "datastore_default.png": {
       "icon_name": "datastore",
       "variant": "default",
@@ -117,6 +318,32 @@
         31,
         26,
         481,
+        486
+      ]
+    },
+    "debian_default.png": {
+      "icon_name": "debian",
+      "variant": "default",
+      "source_script": "original_server/debian_default.py",
+      "size_bytes": 35472,
+      "sha256": "0a5800d4e62214b9d7d7938f72efa958a0e41be6fa71562ab358b5f438842082",
+      "bbox": [
+        71,
+        26,
+        440,
+        486
+      ]
+    },
+    "dell_default.png": {
+      "icon_name": "dell",
+      "variant": "default",
+      "source_script": "original_server/dell_default.py",
+      "size_bytes": 48769,
+      "sha256": "d14c0c1b2c02fa2482d77dbb444aae43183c3961326d0b3311863c72d99ca93d",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -131,6 +358,45 @@
         123,
         486,
         389
+      ]
+    },
+    "fedora_default.png": {
+      "icon_name": "fedora",
+      "variant": "default",
+      "source_script": "original_server/fedora_default.py",
+      "size_bytes": 38181,
+      "sha256": "8b95b27086bd70bf9e12864e9f068e8e16bb6b301d6f095ea5c18be892460d64",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "freebsd_default.png": {
+      "icon_name": "freebsd",
+      "variant": "default",
+      "source_script": "original_server/freebsd_default.py",
+      "size_bytes": 27851,
+      "sha256": "457ad72bba6d96df1b6eee8893a64a824a59ce7a2a28fd75d1e9d6d586598673",
+      "bbox": [
+        26,
+        28,
+        486,
+        484
+      ]
+    },
+    "fujitsu_default.png": {
+      "icon_name": "fujitsu",
+      "variant": "default",
+      "source_script": "original_server/fujitsu_default.py",
+      "size_bytes": 24212,
+      "sha256": "46426a080339ce14e102dfb64412f439f9094a46cef4bd2d428cec0ef4533fdf",
+      "bbox": [
+        26,
+        141,
+        486,
+        370
       ]
     },
     "gpu_server_default.png": {
@@ -159,6 +425,19 @@
         464
       ]
     },
+    "hitachi_default.png": {
+      "icon_name": "hitachi",
+      "variant": "default",
+      "source_script": "original_server/hitachi_default.py",
+      "size_bytes": 11408,
+      "sha256": "b50bab8d5308de034bea77c00d6d47ac77bdc41ddaf320c3993e1ee2d28c2bdc",
+      "bbox": [
+        26,
+        215,
+        486,
+        297
+      ]
+    },
     "host_cluster_default.png": {
       "icon_name": "host_cluster",
       "variant": "default",
@@ -170,6 +449,19 @@
         35,
         486,
         477
+      ]
+    },
+    "hpe_default.png": {
+      "icon_name": "hpe",
+      "variant": "default",
+      "source_script": "original_server/hpe_default.py",
+      "size_bytes": 7007,
+      "sha256": "b18c109cff47830faddea2d56e7ab06cce21b2e440af6335c1959b24bf58108b",
+      "bbox": [
+        26,
+        186,
+        486,
+        325
       ]
     },
     "hypervisor_host_default.png": {
@@ -185,6 +477,84 @@
         453
       ]
     },
+    "ibm_default.png": {
+      "icon_name": "ibm",
+      "variant": "default",
+      "source_script": "original_server/ibm_default.py",
+      "size_bytes": 15297,
+      "sha256": "bda09b156064d59a4cae15b96bee61058c3c7453cffdbf33e3d9fcd30eb326a6",
+      "bbox": [
+        26,
+        161,
+        486,
+        351
+      ]
+    },
+    "intel_default.png": {
+      "icon_name": "intel",
+      "variant": "default",
+      "source_script": "original_server/intel_default.py",
+      "size_bytes": 17247,
+      "sha256": "a65f0051e7ed781eb6d81a816a6471bbe0aae00368d6b8b46276de489848868b",
+      "bbox": [
+        26,
+        156,
+        486,
+        356
+      ]
+    },
+    "kali_linux_default.png": {
+      "icon_name": "kali_linux",
+      "variant": "default",
+      "source_script": "original_server/kali_linux_default.py",
+      "size_bytes": 30946,
+      "sha256": "758cf8b40558ef08b6e9783cad1757ddb08c17954e09378cbbc564cbc2b7ecff",
+      "bbox": [
+        26,
+        85,
+        486,
+        427
+      ]
+    },
+    "kvm_default.png": {
+      "icon_name": "kvm",
+      "variant": "default",
+      "source_script": "original_server/kvm_default.py",
+      "size_bytes": 28156,
+      "sha256": "a50ae54a5ecd76e3d76bac30f073eb8bd37a4db9cd6be97fa77322084a20175c",
+      "bbox": [
+        26,
+        174,
+        486,
+        338
+      ]
+    },
+    "lenovo_default.png": {
+      "icon_name": "lenovo",
+      "variant": "default",
+      "source_script": "original_server/lenovo_default.py",
+      "size_bytes": 20338,
+      "sha256": "71e9b5da097bcb5bfad400d5bcfc7222eca1737770d5ad2a28e97c04b3d7da4a",
+      "bbox": [
+        26,
+        178,
+        486,
+        334
+      ]
+    },
+    "linux_default.png": {
+      "icon_name": "linux",
+      "variant": "default",
+      "source_script": "original_server/linux_default.py",
+      "size_bytes": 40916,
+      "sha256": "15f60a171399b04211ef0ecc0b6c76b90f8d8bddea899a588228b2946688f1c7",
+      "bbox": [
+        61,
+        26,
+        451,
+        486
+      ]
+    },
     "live_migration_default.png": {
       "icon_name": "live_migration",
       "variant": "default",
@@ -196,6 +566,32 @@
         140,
         486,
         372
+      ]
+    },
+    "lxc_default.png": {
+      "icon_name": "lxc",
+      "variant": "default",
+      "source_script": "original_server/lxc_default.py",
+      "size_bytes": 44182,
+      "sha256": "b13a10cdeb2f5e985a27c90f5e3179f0e4b513cc6718dc889cfd4ef3deea4226",
+      "bbox": [
+        26,
+        39,
+        486,
+        472
+      ]
+    },
+    "mac_mini_default.png": {
+      "icon_name": "mac_mini",
+      "variant": "default",
+      "source_script": "original_server/mac_mini_default.py",
+      "size_bytes": 35994,
+      "sha256": "ae00641c838645f73907dfda0263fecb371aa08f2c0c6cc2f4df22572907cd0e",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
       ]
     },
     "management_server_default.png": {
@@ -224,6 +620,58 @@
         481
       ]
     },
+    "nec_default.png": {
+      "icon_name": "nec",
+      "variant": "default",
+      "source_script": "original_server/nec_default.py",
+      "size_bytes": 15725,
+      "sha256": "be646570f5a144c4e35410cd754d61b3768137dd7d7617a273ab045ae2359b65",
+      "bbox": [
+        26,
+        191,
+        486,
+        320
+      ]
+    },
+    "netapp_default.png": {
+      "icon_name": "netapp",
+      "variant": "default",
+      "source_script": "original_server/netapp_default.py",
+      "size_bytes": 2242,
+      "sha256": "089f89320c68e65cee70f7f42f1bd619fd26061db42d3678e439413d6f38a5a5",
+      "bbox": [
+        26,
+        64,
+        486,
+        447
+      ]
+    },
+    "nixos_default.png": {
+      "icon_name": "nixos",
+      "variant": "default",
+      "source_script": "original_server/nixos_default.py",
+      "size_bytes": 40575,
+      "sha256": "bd445f288d7f63660046b51e06087d7c4112c5f60097fadd465eeb0ff9c6cb71",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "nutanix_default.png": {
+      "icon_name": "nutanix",
+      "variant": "default",
+      "source_script": "original_server/nutanix_default.py",
+      "size_bytes": 32282,
+      "sha256": "8ee493826af51542d28e4e25d7ad57fcf1ed096c01e62fd22a54947b3c360c26",
+      "bbox": [
+        26,
+        97,
+        486,
+        414
+      ]
+    },
     "object_storage_default.png": {
       "icon_name": "object_storage",
       "variant": "default",
@@ -235,6 +683,97 @@
         30,
         486,
         481
+      ]
+    },
+    "openbsd_default.png": {
+      "icon_name": "openbsd",
+      "variant": "default",
+      "source_script": "original_server/openbsd_default.py",
+      "size_bytes": 55567,
+      "sha256": "0f39ac1c23d5bf47a67aa68b82399fcd0e2a62b9ea3679e2d75262061008b7f3",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "openstack_default.png": {
+      "icon_name": "openstack",
+      "variant": "default",
+      "source_script": "original_server/openstack_default.py",
+      "size_bytes": 9021,
+      "sha256": "3a41293cf991d14248e1ae4eae2d3730ef45daad6407469f382c1afecee6d820",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    },
+    "openzfs_default.png": {
+      "icon_name": "openzfs",
+      "variant": "default",
+      "source_script": "original_server/openzfs_default.py",
+      "size_bytes": 44124,
+      "sha256": "0e6315ec5d3ec91b7887e16c22ef6f1fbd60abbbd44349570b12ee964feadd54",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "proxmox_default.png": {
+      "icon_name": "proxmox",
+      "variant": "default",
+      "source_script": "original_server/proxmox_default.py",
+      "size_bytes": 54420,
+      "sha256": "6159e896fab91328ae4c94d0f2ab84b531c1b625e6ccb976b75bf15ef1188cea",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
+      ]
+    },
+    "pure_storage_default.png": {
+      "icon_name": "pure_storage",
+      "variant": "default",
+      "source_script": "original_server/pure_storage_default.py",
+      "size_bytes": 23862,
+      "sha256": "f1130b4db8050a146b1af9590aa63e5917a7d7fa25ad4455fb44a06413965ef5",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "qemu_default.png": {
+      "icon_name": "qemu",
+      "variant": "default",
+      "source_script": "original_server/qemu_default.py",
+      "size_bytes": 38794,
+      "sha256": "ef9e593f9bc264b5bd50c53a06908eb92e1fad3a45e2749abcb31f8716cf784f",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "qnap_default.png": {
+      "icon_name": "qnap",
+      "variant": "default",
+      "source_script": "original_server/qnap_default.py",
+      "size_bytes": 17160,
+      "sha256": "3e6ed56c5f4acb1e787c9abe92be13c1b958855a1b6ade353675e5c6b0539a06",
+      "bbox": [
+        26,
+        84,
+        486,
+        427
       ]
     },
     "rack_server_default.png": {
@@ -250,6 +789,32 @@
         360
       ]
     },
+    "raspberry_pi_default.png": {
+      "icon_name": "raspberry_pi",
+      "variant": "default",
+      "source_script": "original_server/raspberry_pi_default.py",
+      "size_bytes": 38522,
+      "sha256": "813726c51c4186592cc914ce2a105d90d428de3cb6c836ec478bf8a050a4d8af",
+      "bbox": [
+        76,
+        26,
+        436,
+        486
+      ]
+    },
+    "redhat_default.png": {
+      "icon_name": "redhat",
+      "variant": "default",
+      "source_script": "original_server/redhat_default.py",
+      "size_bytes": 44642,
+      "sha256": "b56936251b567bb310ea988495880194307edba19e0e477a266de2f57b2a7e37",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "resource_pool_default.png": {
       "icon_name": "resource_pool",
       "variant": "default",
@@ -263,6 +828,45 @@
         486
       ]
     },
+    "risc_v_default.png": {
+      "icon_name": "risc_v",
+      "variant": "default",
+      "source_script": "original_server/risc_v_default.py",
+      "size_bytes": 27942,
+      "sha256": "2554ac3529235898c7649098e15f3674ba732108e44b651a59600fee04550146",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "rocky_linux_default.png": {
+      "icon_name": "rocky_linux",
+      "variant": "default",
+      "source_script": "original_server/rocky_linux_default.py",
+      "size_bytes": 24366,
+      "sha256": "d8f85f3ec6d1154e5740a11c0e142bf19954c28a27f3e9e7e73f229ee64a21ac",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "rubrik_default.png": {
+      "icon_name": "rubrik",
+      "variant": "default",
+      "source_script": "original_server/rubrik_default.py",
+      "size_bytes": 41373,
+      "sha256": "16ce0c8dedc07c9ff8bf30584d42930434374c49bf23c32aa391564b4c55383e",
+      "bbox": [
+        26,
+        29,
+        486,
+        482
+      ]
+    },
     "san_storage_default.png": {
       "icon_name": "san_storage",
       "variant": "default",
@@ -274,6 +878,58 @@
         30,
         486,
         481
+      ]
+    },
+    "seagate_default.png": {
+      "icon_name": "seagate",
+      "variant": "default",
+      "source_script": "original_server/seagate_default.py",
+      "size_bytes": 46403,
+      "sha256": "9b6123f1fd019fc8f8d0c06777096cbe9b4aa0f2d036a7caa54863b3fb07966b",
+      "bbox": [
+        26,
+        50,
+        486,
+        462
+      ]
+    },
+    "supermicro_default.png": {
+      "icon_name": "supermicro",
+      "variant": "default",
+      "source_script": "original_server/supermicro_default.py",
+      "size_bytes": 37438,
+      "sha256": "661e4707807db92c71a42522ace05c161b5ec5e1bc266c22367eff506592bde4",
+      "bbox": [
+        26,
+        135,
+        486,
+        376
+      ]
+    },
+    "suse_default.png": {
+      "icon_name": "suse",
+      "variant": "default",
+      "source_script": "original_server/suse_default.py",
+      "size_bytes": 31692,
+      "sha256": "5c699a23e0f24b6cf42774ff0a6421bfc73431a55bbc21d9e5b4f40e3bab5859",
+      "bbox": [
+        26,
+        140,
+        486,
+        371
+      ]
+    },
+    "synology_default.png": {
+      "icon_name": "synology",
+      "variant": "default",
+      "source_script": "original_server/synology_default.py",
+      "size_bytes": 27363,
+      "sha256": "cd15bd347a42ac3c63c75e7424e8eeb7398dfdfdb776774e4404f51b15551801",
+      "bbox": [
+        26,
+        191,
+        486,
+        321
       ]
     },
     "tape_library_default.png": {
@@ -299,6 +955,45 @@
         80,
         26,
         431,
+        486
+      ]
+    },
+    "truenas_default.png": {
+      "icon_name": "truenas",
+      "variant": "default",
+      "source_script": "original_server/truenas_default.py",
+      "size_bytes": 34383,
+      "sha256": "84415f60cac741e66163dcd3074e3d809d799177aec502a872bce16e74c09c88",
+      "bbox": [
+        26,
+        73,
+        486,
+        438
+      ]
+    },
+    "ubuntu_default.png": {
+      "icon_name": "ubuntu",
+      "variant": "default",
+      "source_script": "original_server/ubuntu_default.py",
+      "size_bytes": 49225,
+      "sha256": "a9cb969e36e02f538ed6ffa64b656ca4b89f109c56b31083a677bda88d5a593e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "veeam_default.png": {
+      "icon_name": "veeam",
+      "variant": "default",
+      "source_script": "original_server/veeam_default.py",
+      "size_bytes": 22201,
+      "sha256": "10776b9d9d4a9b0fc477799cd31e316ab65d8f1e6030624eb7f37a02b5935faa",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -341,6 +1036,19 @@
         462
       ]
     },
+    "virtualbox_default.png": {
+      "icon_name": "virtualbox",
+      "variant": "default",
+      "source_script": "original_server/virtualbox_default.py",
+      "size_bytes": 23943,
+      "sha256": "f53f8a36683fc168d92a4cf00170e796be50a0bce90223aac84b0999d0b61503",
+      "bbox": [
+        26,
+        58,
+        486,
+        453
+      ]
+    },
     "vm_group_default.png": {
       "icon_name": "vm_group",
       "variant": "default",
@@ -378,6 +1086,58 @@
         26,
         486,
         486
+      ]
+    },
+    "vmware_default.png": {
+      "icon_name": "vmware",
+      "variant": "default",
+      "source_script": "original_server/vmware_default.py",
+      "size_bytes": 15894,
+      "sha256": "015c6b666274f305aa5aff3a2834391382fd43e4f322dd38587e7a6b8ba4faf9",
+      "bbox": [
+        26,
+        33,
+        486,
+        479
+      ]
+    },
+    "western_digital_default.png": {
+      "icon_name": "western_digital",
+      "variant": "default",
+      "source_script": "original_server/western_digital_default.py",
+      "size_bytes": 23248,
+      "sha256": "ea9e722cf873bca6431009e356de0befda44779e28482b1eb7541dc42ab87c14",
+      "bbox": [
+        26,
+        112,
+        486,
+        399
+      ]
+    },
+    "windows_default.png": {
+      "icon_name": "windows",
+      "variant": "default",
+      "source_script": "original_server/windows_default.py",
+      "size_bytes": 2939,
+      "sha256": "3ae6962f6f0b856bcf8dc3003542defe99f594d9752e4805c1d9081418f766f2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "xen_default.png": {
+      "icon_name": "xen",
+      "variant": "default",
+      "source_script": "original_server/xen_default.py",
+      "size_bytes": 27123,
+      "sha256": "f2da1d8651e60a5f2fcb3bcc6be3c02ddb60a14a72d3da8762f5137fe85f7daa",
+      "bbox": [
+        26,
+        139,
+        486,
+        373
       ]
     }
   }
