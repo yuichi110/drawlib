@@ -24,6 +24,7 @@ import drawlib._icons.png_icons.ai._generated as ai_gen
 import drawlib._icons.png_icons.aws._generated as aws_gen
 import drawlib._icons.png_icons.azure._generated as azure_gen
 import drawlib._icons.png_icons.cnative._generated as cnative_gen
+import drawlib._icons.png_icons.code._generated as code_gen
 import drawlib._icons.png_icons.data._generated as data_gen
 import drawlib._icons.png_icons.devops._generated as devops_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
@@ -31,6 +32,7 @@ import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
 import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
 import drawlib._icons.png_icons.original_cnative._generated as original_cnative_gen
+import drawlib._icons.png_icons.original_code._generated as original_code_gen
 import drawlib._icons.png_icons.original_data._generated as original_data_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
@@ -50,6 +52,7 @@ from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
     CnativeIcon,
+    CodeIcon,
     CustomIcon,
     DataIcon,
     DevopsIcon,
@@ -58,6 +61,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
+    OriginalCodeIcon,
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
@@ -76,6 +80,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalAiIcon: original_ai_gen,
     OriginalCloudIcon: original_cloud_gen,
     OriginalCnativeIcon: original_cnative_gen,
+    OriginalCodeIcon: original_code_gen,
     OriginalDataIcon: original_data_gen,
     OriginalDevopsIcon: original_devops_gen,
     OriginalNetworkIcon: original_network_gen,
@@ -85,6 +90,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     AwsIcon: aws_gen,
     AzureIcon: azure_gen,
     CnativeIcon: cnative_gen,
+    CodeIcon: code_gen,
     DataIcon: data_gen,
     DevopsIcon: devops_gen,
     GcpIcon: gcp_gen,
@@ -212,6 +218,7 @@ def draw_enum_icon(
         OriginalAiIcon
         | OriginalCloudIcon
         | OriginalCnativeIcon
+        | OriginalCodeIcon
         | OriginalDataIcon
         | OriginalDevopsIcon
         | OriginalNetworkIcon
@@ -221,6 +228,7 @@ def draw_enum_icon(
         | AwsIcon
         | AzureIcon
         | CnativeIcon
+        | CodeIcon
         | DataIcon
         | DevopsIcon
         | GcpIcon
@@ -295,6 +303,7 @@ def draw_diagram_icon(
             OriginalAiIcon,
             OriginalCloudIcon,
             OriginalCnativeIcon,
+            OriginalCodeIcon,
             OriginalDataIcon,
             OriginalDevopsIcon,
             OriginalNetworkIcon,
@@ -304,6 +313,7 @@ def draw_diagram_icon(
             AwsIcon,
             AzureIcon,
             CnativeIcon,
+            CodeIcon,
             DataIcon,
             DevopsIcon,
             GcpIcon,

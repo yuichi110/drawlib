@@ -69,6 +69,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "original_security": "Original Security",
     "original_server": "Original Server",
     "original_cnative": "Original Cloud Native",
+    "original_code": "Original Code",
     "original_data": "Original Data",
     "aws": "AWS",
     "azure": "Azure",
@@ -79,6 +80,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "data": "Data",
     "devops": "DevOps",
     "ai": "AI",
+    "code": "Code",
 }
 
 
@@ -129,6 +131,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "original_security": "OriginalSecurityIcon",
     "original_server": "OriginalServerIcon",
     "original_cnative": "OriginalCnativeIcon",
+    "original_code": "OriginalCodeIcon",
     "original_data": "OriginalDataIcon",
     "aws": "AwsIcon",
     "azure": "AzureIcon",
@@ -139,6 +142,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "data": "DataIcon",
     "devops": "DevopsIcon",
     "ai": "AiIcon",
+    "code": "CodeIcon",
 }
 
 

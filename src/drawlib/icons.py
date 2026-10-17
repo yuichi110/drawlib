@@ -18,6 +18,7 @@ from drawlib._icons import (
     aws,
     azure,
     cnative,
+    code,
     data,
     devops,
     font_icon,
@@ -26,6 +27,7 @@ from drawlib._icons import (
     original_ai,
     original_cloud,
     original_cnative,
+    original_code,
     original_data,
     original_devops,
     original_network,
@@ -42,6 +44,7 @@ sys.modules["drawlib.icons.ai"] = ai
 sys.modules["drawlib.icons.aws"] = aws
 sys.modules["drawlib.icons.azure"] = azure
 sys.modules["drawlib.icons.cnative"] = cnative
+sys.modules["drawlib.icons.code"] = code
 sys.modules["drawlib.icons.data"] = data
 sys.modules["drawlib.icons.devops"] = devops
 sys.modules["drawlib.icons.gcp"] = gcp
@@ -49,6 +52,7 @@ sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
 sys.modules["drawlib.icons.original_cnative"] = original_cnative
+sys.modules["drawlib.icons.original_code"] = original_code
 sys.modules["drawlib.icons.original_data"] = original_data
 sys.modules["drawlib.icons.original_devops"] = original_devops
 sys.modules["drawlib.icons.original_network"] = original_network
@@ -62,6 +66,7 @@ __all__ = [
     "aws",
     "azure",
     "cnative",
+    "code",
     "data",
     "devops",
     "font_icon",
@@ -70,6 +75,7 @@ __all__ = [
     "original_ai",
     "original_cloud",
     "original_cnative",
+    "original_code",
     "original_data",
     "original_devops",
     "original_network",

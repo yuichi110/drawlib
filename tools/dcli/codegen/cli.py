@@ -242,6 +242,26 @@ def gen_icon_devops() -> None:
     console.print("[bold green]✓ DevOps icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-code")
+def gen_icon_code() -> None:
+    """Normalize native Drawlib Code icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/code"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/code"
+    manifest_file = write_provider_manifest("code", src_path, dest_path)
+    generate_original_provider_code("code", manifest_file=manifest_file)
+    console.print("[bold green]✓ Code icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-code")
+def gen_icon_original_code() -> None:
+    """Normalize native Drawlib Original Code icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_code"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_code"
+    manifest_file = write_provider_manifest("original_code", src_path, dest_path)
+    generate_original_provider_code("original_code", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Code icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

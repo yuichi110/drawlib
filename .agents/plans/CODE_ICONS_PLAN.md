@@ -2,88 +2,126 @@
 
 ## 1. Objective & Scope
 
-Add a dedicated programming, framework, runtime, API, and developer-tool icon suite under `drawlib.icons.code` (`CodeIcon`) for official brand/OSS logos, and `drawlib.icons.original_code` (`OriginalCodeIcon`) combining vendor-neutral software architecture / code concept icons with 2D flat pastel counterparts of the official logos.
+Add a dedicated programming, framework, runtime, API, and IDE icon suite under `drawlib.icons.code` (`CodeIcon`) for official brand/OSS logos, and `drawlib.icons.original_code` (`OriginalCodeIcon`) combining vendor-neutral software architecture / code concept icons with 2D flat pastel counterparts of the official logos.
 
 - **Modules**:
-  - `drawlib.icons.code` (`CodeIcon`) — 60 official language, runtime, framework, API, and IDE logos (+ shorthand aliases).
-  - `drawlib.icons.original_code` (`OriginalCodeIcon`) — 24 vendor-neutral software/code concept icons + 60 2D flat pastel counterparts (84 canonical icons total + shorthand aliases).
+  - `drawlib.icons.code` (`CodeIcon`) — 72 official language, runtime, framework, API, Google platform, and IDE logos (+ shorthand aliases).
+  - `drawlib.icons.original_code` (`OriginalCodeIcon`) — 24 vendor-neutral software/code concept icons + 72 2D flat pastel counterparts (96 canonical icons total + shorthand aliases).
+- **Tiered Priority Design**:
+  - **Tier 1 (Heavily Weighted)**: **Python** (14 icons + Colab) and **JavaScript / TypeScript** (21 icons) cover languages, runtimes, major frontend/backend frameworks (`react`, `fastapi`, `htmx`, `jquery`, etc.), ORMs, validation, testing, and package tools.
+  - **Tier 2 (Priority 5 Ecosystems)**: **Go**, **Java / Kotlin**, **Rust**, **C# / .NET**, and **PHP / Ruby** (17 icons) include both the language logos and their flagship frameworks/build tools.
+  - **Tier 3 (Systems, Mobile, Web, APIs & Google/IDEs)**: Covers C/C++, Swift/Dart/Flutter, HTML/CSS/Wasm, GraphQL/gRPC/Protobuf, Google developer stack (`firebase`, `colab`, `android_studio`, `antigravity`), and IDEs (`vscode`, `intellij`).
 - **Release Asset Packages**:
   - `icon_code` (`tools/release_assets/v0.3/icons/code/`)
   - `icon_original_code` (`tools/release_assets/v0.3/icons/original_code/`)
 - **Separation & Zero-Overlap Policy**:
-  - Zero overlap with `cnative` (`docker`, `kubernetes`, `helm`, `envoy`), `data` (`postgresql`, `redis`, `kafka`, `graphql` is NOT in `data`), `devops` (`git`, `github`, `postman`, `playwright`), or `ai` (`pytorch`, `tensorflow`, `jupyter`, `streamlit`).
+  - Zero overlap with `cnative` (`docker`, `kubernetes`, `helm`, `envoy`), `data` (`postgresql`, `redis`, `kafka`), `devops` (`git`, `github`, `postman`, `playwright`), or `ai` (`pytorch`, `tensorflow`, `jupyter`, `streamlit`).
   - If any icon script is ever shared across suites, the Python script may be reused, while output PNG asset folders (`code/`, `original_code/`) remain completely independent.
 
 ---
 
-## 2. Canonical `code` Icons (60 Official Language, Framework, API & IDE Logos)
+## 2. Canonical `code` Icons (72 Official Logos — 6 Rows × 12 Columns)
 
-| Category | # | Canonical Name | Language / Framework / Tool | Shorthand Aliases |
+### Tier 1A: Python Ecosystem (14 Icons)
+
+| # | Canonical Name | Library / Tool | Shorthand Aliases | Role |
+| :- | :--- | :--- | :--- | :--- |
+| 1 | `python` | Python | `py` | Core Language |
+| 2 | `fastapi` | FastAPI | — | Modern Async API Framework |
+| 3 | `django` | Django | — | Full-Stack Web Framework |
+| 4 | `flask` | Flask | — | Lightweight Web Framework |
+| 5 | `uvicorn` | Uvicorn | — | ASGI Web Server |
+| 6 | `uv` | Astral uv | — | Fast Python Package & Project Manager |
+| 7 | `poetry` | Poetry | — | Python Dependency Manager |
+| 8 | `pypi` | PyPI | — | Python Package Index |
+| 9 | `pydantic` | Pydantic | — | Data Validation & Settings |
+| 10 | `sqlalchemy` | SQLAlchemy | — | Python SQL Toolkit & ORM |
+| 11 | `celery` | Celery | — | Distributed Task Queue |
+| 12 | `pytest` | pytest | — | Python Testing Framework |
+| 13 | `numpy` | NumPy | — | Scientific Array Computing |
+| 14 | `pandas` | pandas | — | DataFrame & Data Analysis |
+
+### Tier 1B: JavaScript & TypeScript Ecosystem (21 Icons)
+
+| # | Canonical Name | Library / Tool | Shorthand Aliases | Role |
+| :- | :--- | :--- | :--- | :--- |
+| 15 | `javascript` | JavaScript | `js` | Core Web Language |
+| 16 | `typescript` | TypeScript | `ts` | Typed JavaScript |
+| 17 | `nodejs` | Node.js | `node` | JS Server Runtime |
+| 18 | `deno` | Deno | — | Secure TS/JS Runtime |
+| 19 | `bun` | Bun | — | All-in-One JS Runtime & Bundler |
+| 20 | `react` | React | `reactjs` | Component UI Library |
+| 21 | `nextjs` | Next.js | `next` | React Full-Stack Framework |
+| 22 | `vuejs` | Vue.js | `vue` | Progressive UI Framework |
+| 23 | `nuxt` | Nuxt | `nuxtjs` | Vue Full-Stack Framework |
+| 24 | `angular` | Angular | — | Google Enterprise Web Framework |
+| 25 | `svelte` | Svelte | — | Compiler-Based UI Framework |
+| 26 | `astro` | Astro | — | Content-Driven Web Framework |
+| 27 | `htmx` | htmx | — | Hypermedia-Driven HTML Extensions |
+| 28 | `jquery` | jQuery | — | Classic DOM & Utility Library |
+| 29 | `tailwind_css` | Tailwind CSS | `tailwind` | Utility-First CSS Framework |
+| 30 | `vite` | Vite | `vitejs` | Next-Gen Frontend Build Tool |
+| 31 | `nestjs` | NestJS | `nest` | Enterprise Node.js Framework |
+| 32 | `express` | Express | `expressjs` | Classic Node.js Web Framework |
+| 33 | `hono` | Hono | — | Ultrafast Edge / Web Standard Framework |
+| 34 | `prisma` | Prisma | — | TypeScript / Node.js ORM |
+| 35 | `npm` | npm | — | Node Package Manager |
+
+### Tier 2: Priority 5 Backend Ecosystems (17 Icons)
+
+| Ecosystem | # | Canonical Name | Language / Framework / Tool | Shorthand Aliases |
 | :--- | :- | :--- | :--- | :--- |
-| **1. Core & Systems Languages** | 1 | `python` | Python | `py` |
-| | 2 | `javascript` | JavaScript (ES6+) | `js` |
-| | 3 | `typescript` | TypeScript | `ts` |
-| | 4 | `go` | Go (Golang) | `golang` |
-| | 5 | `rust` | Rust | `rs` |
-| | 6 | `java` | Java | — |
-| | 7 | `c` | C Language | `c_lang` |
-| | 8 | `cpp` | C++ | `cplusplus` |
-| | 9 | `csharp` | C# | `cs` |
-| | 10 | `zig` | Zig | — |
-| **2. App, Scripting & Functional** | 11 | `kotlin` | Kotlin | `kt` |
-| | 12 | `swift` | Swift | — |
-| | 13 | `dart` | Dart | — |
-| | 14 | `php` | PHP | — |
-| | 15 | `ruby` | Ruby | `rb` |
-| | 16 | `scala` | Scala | — |
-| | 17 | `elixir` | Elixir | `ex` |
-| | 18 | `lua` | Lua | — |
-| | 19 | `r_lang` | R Project | `r` |
-| | 20 | `bash` | GNU Bash / Shell | `sh`, `shell` |
-| **3. Runtimes, Web & Compilers** | 21 | `nodejs` | Node.js | `node` |
-| | 22 | `deno` | Deno | — |
-| | 23 | `bun` | Bun | — |
-| | 24 | `webassembly` | WebAssembly (Wasm) | `wasm` |
-| | 25 | `html5` | HTML5 | `html` |
-| | 26 | `css3` | CSS3 | `css` |
-| | 27 | `markdown` | Markdown | `md` |
-| | 28 | `llvm` | LLVM Compiler Infrastructure | — |
-| | 29 | `openjdk` | OpenJDK / JVM | `jvm` |
-| | 30 | `dotnet` | Microsoft .NET | `net` |
-| **4. Frontend & UI Frameworks** | 31 | `react` | React | `reactjs` |
-| | 32 | `nextjs` | Next.js | `next` |
-| | 33 | `vuejs` | Vue.js | `vue` |
-| | 34 | `nuxt` | Nuxt | `nuxtjs` |
-| | 35 | `angular` | Angular | — |
-| | 36 | `svelte` | Svelte | — |
-| | 37 | `solidjs` | SolidJS | `solid` |
-| | 38 | `astro` | Astro | — |
-| | 39 | `tailwind_css` | Tailwind CSS | `tailwind` |
-| | 40 | `vite` | Vite | `vitejs` |
-| **5. Backend & Mobile Frameworks** | 41 | `fastapi` | FastAPI | — |
-| | 42 | `django` | Django | — |
-| | 43 | `flask` | Flask | — |
-| | 44 | `spring` | Spring / Spring Boot | `spring_boot` |
-| | 45 | `nestjs` | NestJS | `nest` |
-| | 46 | `express` | Express.js | `expressjs` |
-| | 47 | `rails` | Ruby on Rails | `ruby_on_rails` |
-| | 48 | `laravel` | Laravel | — |
-| | 49 | `flutter` | Flutter | — |
-| | 50 | `react_native` | React Native | `rn` |
-| **6. APIs, Package Tools & IDEs** | 51 | `graphql` | GraphQL | `gql` |
-| | 52 | `grpc` | gRPC | — |
-| | 53 | `openapi` | OpenAPI / Swagger | `swagger` |
-| | 54 | `npm` | npm | — |
-| | 55 | `pnpm` | pnpm | — |
-| | 56 | `yarn` | Yarn | — |
-| | 57 | `uv` | Astral uv | — |
-| | 58 | `vscode` | Visual Studio Code | `vs_code` |
-| | 59 | `intellij` | JetBrains IntelliJ IDEA | `jetbrains` |
-| | 60 | `neovim` | Neovim | `nvim`, `vim` |
+| **Go** | 36 | `go` | Go (Golang) | `golang` |
+| | 37 | `gin` | Gin Web Framework | `gin_gonic` |
+| | 38 | `echo` | Echo Go Framework | `echo_go` |
+| **Java / Kotlin** | 39 | `java` | Java | `openjdk`, `jvm` |
+| | 40 | `kotlin` | Kotlin | `kt` |
+| | 41 | `spring` | Spring / Spring Boot | `spring_boot` |
+| | 42 | `gradle` | Gradle Build Tool | — |
+| **Rust** | 43 | `rust` | Rust | `rs` |
+| | 44 | `cargo` | Cargo | — |
+| | 45 | `tokio` | Tokio Async Runtime | — |
+| **C# / .NET** | 46 | `csharp` | C# | `cs` |
+| | 47 | `dotnet` | Microsoft .NET | `net`, `aspnet` |
+| | 48 | `blazor` | Blazor | — |
+| **PHP / Ruby** | 49 | `php` | PHP | — |
+| | 50 | `laravel` | Laravel | — |
+| | 51 | `ruby` | Ruby | `rb` |
+| | 52 | `rails` | Ruby on Rails | `ruby_on_rails` |
+
+### Tier 3A: Systems, Mobile & Web Standards (10 Icons)
+
+| # | Canonical Name | Language / Standard | Shorthand Aliases | Role |
+| :- | :--- | :--- | :--- | :--- |
+| 53 | `c` | C Language | `c_lang` | Systems Programming |
+| 54 | `cpp` | C++ | `cplusplus` | High-Performance Systems |
+| 55 | `bash` | GNU Bash / Shell | `sh`, `shell` | Shell Scripting |
+| 56 | `swift` | Swift | — | Apple iOS / macOS Language |
+| 57 | `dart` | Dart | — | Google Client-Optimized Language |
+| 58 | `flutter` | Flutter | — | Google Cross-Platform UI SDK |
+| 59 | `react_native` | React Native | `rn` | Cross-Platform Mobile Framework |
+| 60 | `html5` | HTML5 | `html` | Web Markup Standard |
+| 61 | `css3` | CSS3 | `css` | Web Styling Standard |
+| 62 | `webassembly` | WebAssembly | `wasm` | Portable Binary Instruction Format |
+
+### Tier 3B: APIs, Google Platforms & IDEs (10 Icons)
+
+| # | Canonical Name | Platform / Tool | Shorthand Aliases | Role |
+| :- | :--- | :--- | :--- | :--- |
+| 63 | `graphql` | GraphQL | `gql` | Query Language for APIs |
+| 64 | `grpc` | gRPC | — | High-Performance RPC (Google-originated) |
+| 65 | `openapi` | OpenAPI / Swagger | `swagger` | REST API Specification |
+| 66 | `protobuf` | Protocol Buffers | `proto` | Binary Serialization (Google) |
+| 67 | `firebase` | Firebase | — | Google App Development Platform & SDK |
+| 68 | `colab` | Google Colaboratory | `google_colab` | Hosted Python Notebook Environment |
+| 69 | `antigravity` | Antigravity | — | Agentic AI Coding IDE (Google DeepMind) |
+| 70 | `android_studio` | Android Studio | — | Official Android & Kotlin/Flutter IDE |
+| 71 | `vscode` | Visual Studio Code | `vs_code` | Lightweight Extensible Code Editor |
+| 72 | `intellij` | JetBrains IntelliJ IDEA | `jetbrains` | JVM & Polyglot IDE |
 
 ---
 
-## 3. Canonical `original_code` Icons (24 Concept Icons + 60 Pastel Logos = 84 Icons)
+## 3. Canonical `original_code` Icons (24 Concept Icons + 72 Pastel Logos = 96 Icons)
 
 ### Part A: Vendor-Neutral Software & Code Concept Icons (24 Icons)
 
@@ -114,8 +152,8 @@ Add a dedicated programming, framework, runtime, API, and developer-tool icon su
 | | 23 | `binary_executable` | `binary`, `executable`, `bytecode` | Chip/module frame (`PASTEL_BLUE`) containing crisp `0 1 / 1 0` geometric shapes |
 | | 24 | `regex_parser` | `regex`, `lexer`, `parser` | Filter lens (`PASTEL_GREEN`) over text lines highlighting a matched pattern segment |
 
-### Part B: 2D Flat Pastel Logos (60 Icons)
-- Every icon in `code` (1–60) has a matching 2D flat pastel counterpart in `original_code`.
+### Part B: 2D Flat Pastel Logos (72 Icons)
+- Every icon in `code` (1–72) has a matching 2D flat pastel counterpart in `original_code`.
 - **Mandatory Brand Color Rule**: Each `original_code` logo preserves its official brand color palette softened into Drawlib pastel tones with `DARK = "#323A48"` outlines (`w = 1.9`).
 
 ---
@@ -123,11 +161,11 @@ Add a dedicated programming, framework, runtime, API, and developer-tool icon su
 ## 4. Implementation & Verification Workflow
 
 1. **Phase 1 — Official Reference Collection & Provider Wiring**:
-   - Download official SVG/PNG brand logos for all 60 `code` icons into `tools/original_assets/code/` and rasterize `.drawlib/scratch/code_ref/<name>_ref.png`.
+   - Download official SVG/PNG brand logos for all 72 `code` icons into `tools/original_assets/code/` and rasterize `.drawlib/scratch/code_ref/<name>_ref.png`.
    - Wire `code` (`CodeIcon`) and `original_code` (`OriginalCodeIcon`) in `src/drawlib/_icons/png_icons/`, `src/drawlib/icons.py`, `src/drawlib/diagrams/architecture.py`, `src/drawlib/diagrams/sequence.py`, and `tools/dcli/codegen/`.
-2. **Phase 2 — `code` Official Logos (6 Parallel Batches of 10)**:
+2. **Phase 2 — `code` Official Logos (6 Parallel Batches of 12)**:
    - Author `tools/icons_src/code/<name>_default.py` using pure Drawlib vector primitives (no `image()`, no `text()`).
-   - Verify each with `-g` grid inspection against `_ref.png` and render the 60-icon `code_icons_contact_sheet.png`.
-3. **Phase 3 — `original_code` Concepts (24) & Pastel Logos (60)**:
-   - Author the 24 concept icons first, verify on a 24-icon concept sheet, then author the 60 2D flat pastel vendor logos.
+   - Verify each with `-g` grid inspection against `_ref.png` and render the 72-icon (6×12) `code_icons_contact_sheet.png`.
+3. **Phase 3 — `original_code` Concepts (24) & Pastel Logos (72)**:
+   - Author the 24 concept icons first, verify on a 24-icon (2×12) concept sheet, then author the 72 2D flat pastel vendor logos.
    - Run `./dcli codegen icon-code` and `./dcli codegen icon-original-code`, sync `_cached_assets` and `_release_assets.py`, run `./dcli code-check all` and `./dcli test target icons diagrams`.

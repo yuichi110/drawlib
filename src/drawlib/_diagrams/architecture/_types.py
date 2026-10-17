@@ -23,6 +23,7 @@ from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
     CnativeIcon,
+    CodeIcon,
     CustomIcon,
     DataIcon,
     DevopsIcon,
@@ -31,6 +32,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalAiIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
+    OriginalCodeIcon,
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
@@ -69,6 +71,7 @@ IconType: TypeAlias = (
     OriginalAiIcon
     | OriginalCloudIcon
     | OriginalCnativeIcon
+    | OriginalCodeIcon
     | OriginalDataIcon
     | OriginalDevopsIcon
     | OriginalNetworkIcon
@@ -78,6 +81,7 @@ IconType: TypeAlias = (
     | AwsIcon
     | AzureIcon
     | CnativeIcon
+    | CodeIcon
     | DataIcon
     | DevopsIcon
     | GcpIcon
