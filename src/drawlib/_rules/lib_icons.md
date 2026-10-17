@@ -71,6 +71,7 @@ from drawlib.icons import (
     original_code,
     original_data,
     original_devops,
+    original_facility,
     original_network,
     original_security,
     original_server,
@@ -103,6 +104,7 @@ import drawlib.icons.network as network
 import drawlib.icons.original_cnative as original_cnative
 import drawlib.icons.original_code as original_code
 import drawlib.icons.original_data as original_data
+import drawlib.icons.original_facility as original_facility
 import drawlib.icons.original_network as original_network
 import drawlib.icons.original_security as original_security
 import drawlib.icons.original_server as original_server
@@ -394,7 +396,7 @@ Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width
 - **Server (`drawlib.icons.server` / `ServerIcon`)**: 82 canonical Server icons + 58 shorthand aliases (56 official vendor, chip, SBC, OS, virtualization & storage logos: `almalinux`, `alpine_linux`, `amd`, `apc`, `apple`, `arch_linux`, `arduino`, `arm`, `asus`, `beaglebone`, `buffalo`, `centos`, `citrix`, `debian`, `dell`, `fedora`, `freebsd`, `fujitsu`, `hitachi`, `hpe`, `ibm`, `intel`, `kali_linux`, `kvm`, `lenovo`, `linux`, `lxc`, `mac_mini`, `nec`, `netapp`, `nixos`, `nutanix`, `openbsd`, `openstack`, `openzfs`, `proxmox`, `pure_storage`, `qemu`, `qnap`, `raspberry_pi`, `redhat`, `risc_v`, `rocky_linux`, `rubrik`, `seagate`, `supermicro`, `suse`, `synology`, `truenas`, `ubuntu`, `veeam`, `virtualbox`, `vmware`, `western_digital`, `windows`, `xen`; 26 Dell EMC & VMware server, virtualization, and storage icons: `dell_rack_server`, `dell_blade_chassis`, `dell_tower_server`, `dell_gpu_server`, `dell_hci_appliance`, `dell_bmc_management`, `dell_san_storage`, `dell_nas_storage`, `dell_object_storage`, `dell_backup_appliance`, `dell_tape_library`, `dell_fc_switch`, `vmware_rack_server`, `vmware_esxi_host`, `vmware_vm`, `vmware_vm_group`, `vmware_template`, `vmware_snapshot`, `vmware_vcenter`, `vmware_cluster`, `vmware_resource_pool`, `vmware_vmotion`, `vmware_vswitch`, `vmware_datastore`, `vmware_vsan`, `vmware_storage_array`).
 - **AWS (`drawlib.icons.aws` / `AwsIcon`)**: Official AWS service & category icons.
 - **Azure (`drawlib.icons.azure` / `AzureIcon`)**: Official Microsoft Azure service icons.
-- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_cnative`, `original_code`, `original_data`, `original_network`, `original_security`, `original_server`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_devops` provides 60 DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 44 shorthand aliases; `original_ai` provides 60 AI, LLM, Agent, and ML ecosystem icons + 32 shorthand aliases; `original_cnative` provides 48 Kubernetes & Cloud Native ecosystem icons + 72 shorthand aliases; `original_code` provides 96 programming, software architecture, framework, API, and IDE icons + 90 shorthand aliases; `original_data` provides 50 Database & Data Platform icons + 28 shorthand aliases; `original_network` provides 70 network topology & vendor/OSS icons + 82 shorthand aliases; `original_security` provides 84 security concept & vendor/OSS icons + 96 shorthand aliases; `original_server` provides 80 server, hardware, OS, virtualization, and storage icons + 86 shorthand aliases).
+- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_cnative`, `original_code`, `original_data`, `original_facility`, `original_network`, `original_security`, `original_server`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 97 cloud icons + 73 aliases; `original_devops` provides 60 DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 44 shorthand aliases; `original_ai` provides 60 AI, LLM, Agent, and ML ecosystem icons + 32 shorthand aliases; `original_cnative` provides 48 Kubernetes & Cloud Native ecosystem icons + 72 shorthand aliases; `original_code` provides 96 programming, software architecture, framework, API, and IDE icons + 90 shorthand aliases; `original_data` provides 50 Database & Data Platform icons + 28 shorthand aliases; `original_facility` provides 76 facility, site, utility, cabling, transport, and vendor icons + 107 shorthand aliases; `original_network` provides 70 network topology & vendor/OSS icons + 82 shorthand aliases; `original_security` provides 84 security concept & vendor/OSS icons + 96 shorthand aliases; `original_server` provides 80 server, hardware, OS, virtualization, and storage icons + 86 shorthand aliases).
 
 ---
 

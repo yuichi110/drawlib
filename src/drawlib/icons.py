@@ -31,6 +31,7 @@ from drawlib._icons import (
     original_code,
     original_data,
     original_devops,
+    original_facility,
     original_network,
     original_security,
     original_server,
@@ -57,6 +58,7 @@ sys.modules["drawlib.icons.original_cnative"] = original_cnative
 sys.modules["drawlib.icons.original_code"] = original_code
 sys.modules["drawlib.icons.original_data"] = original_data
 sys.modules["drawlib.icons.original_devops"] = original_devops
+sys.modules["drawlib.icons.original_facility"] = original_facility
 sys.modules["drawlib.icons.original_network"] = original_network
 sys.modules["drawlib.icons.original_security"] = original_security
 sys.modules["drawlib.icons.original_server"] = original_server
@@ -81,6 +83,7 @@ __all__ = [
     "original_code",
     "original_data",
     "original_devops",
+    "original_facility",
     "original_network",
     "original_security",
     "original_server",

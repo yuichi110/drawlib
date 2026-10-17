@@ -272,6 +272,16 @@ def gen_icon_facility() -> None:
     console.print("[bold green]✓ Facility icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-original-facility")
+def gen_icon_original_facility() -> None:
+    """Normalize native Drawlib Original Facility icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_facility"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_facility"
+    manifest_file = write_provider_manifest("original_facility", src_path, dest_path)
+    generate_original_provider_code("original_facility", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Facility icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

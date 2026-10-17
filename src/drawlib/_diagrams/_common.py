@@ -36,6 +36,7 @@ import drawlib._icons.png_icons.original_cnative._generated as original_cnative_
 import drawlib._icons.png_icons.original_code._generated as original_code_gen
 import drawlib._icons.png_icons.original_data._generated as original_data_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
+import drawlib._icons.png_icons.original_facility._generated as original_facility_gen
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
 import drawlib._icons.png_icons.original_security._generated as original_security_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
@@ -66,6 +67,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalCodeIcon,
     OriginalDataIcon,
     OriginalDevopsIcon,
+    OriginalFacilityIcon,
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
@@ -85,6 +87,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalCodeIcon: original_code_gen,
     OriginalDataIcon: original_data_gen,
     OriginalDevopsIcon: original_devops_gen,
+    OriginalFacilityIcon: original_facility_gen,
     OriginalNetworkIcon: original_network_gen,
     OriginalSecurityIcon: original_security_gen,
     OriginalServerIcon: original_server_gen,
@@ -224,6 +227,7 @@ def draw_enum_icon(
         | OriginalCodeIcon
         | OriginalDataIcon
         | OriginalDevopsIcon
+        | OriginalFacilityIcon
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
@@ -310,6 +314,7 @@ def draw_diagram_icon(
             OriginalCodeIcon,
             OriginalDataIcon,
             OriginalDevopsIcon,
+            OriginalFacilityIcon,
             OriginalNetworkIcon,
             OriginalSecurityIcon,
             OriginalServerIcon,

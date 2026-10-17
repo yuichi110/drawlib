@@ -72,7 +72,7 @@ Add a dedicated physical site, building, data center, telecom carrier, and facil
 | **1. IT & Telecom Sites** | 1 | `datacenter` | `data_center`, `dc_site` | Heavy windowless fortress building (`PASTEL_BLUE`) + `WHITE` / `PASTEL_GREEN` server rack bay |
 | | 2 | `server_room` | `computer_room`, `mdf_idf` | Room interior frame (`WHITE`) containing dual `PASTEL_BLUE` 19-inch racks & `PASTEL_GREEN` LEDs |
 | | 3 | `colocation` | `carrier_hotel`, `ix_site` | Multi-tenant DC building (`PASTEL_BLUE`) + `PASTEL_GREEN` cross-connect hub ring |
-| | 4 | `cell_tower` | `base_station`, `radio_mast`, `5g_tower` | Lattice radio tower (`PASTEL_BLUE` / `DARK`) + radiating `PASTEL_GREEN` wireless signal arcs |
+| | 4 | `cell_tower` | `base_station`, `radio_mast`, `tower_5g` | Lattice radio tower (`PASTEL_BLUE` / `DARK`) + radiating `PASTEL_GREEN` wireless signal arcs |
 | | 5 | `satellite_station` | `earth_station`, `ground_station` | Parabolic satellite dish (`WHITE` / `PASTEL_BLUE`) pointing skyward with `PASTEL_GREEN` beam |
 | | 6 | `cable_landing` | `submarine_cable`, `landing_station` | Coastal station (`WHITE` / `PASTEL_BLUE`) + undersea `PASTEL_GREEN` fiber cable under waves |
 | **2. Power & Energy Utilities** | 7 | `power_plant` | `generation_plant`, `thermal_plant` | Power station building (`PASTEL_BLUE` / `WHITE`) + twin cooling towers & `PASTEL_GREEN` bolt |
@@ -85,7 +85,7 @@ Add a dedicated physical site, building, data center, telecom carrier, and facil
 | | 14 | `patch_panel` | `wiring_closet`, `odf`, `cross_connect` | 1U/2U rack patch panel (`WHITE` / `PASTEL_BLUE`) + row of ports & `PASTEL_GREEN` patch cord arc |
 | | 15 | `utility_pole` | `telegraph_pole`, `aerial_cable` | Roadside utility pole (`PASTEL_BLUE` / `WHITE`) with crossarms, transformer can & `PASTEL_GREEN` drop line |
 | | 16 | `underground_conduit` | `manhole`, `duct_bank`, `buried_cable` | Ground cross-section with manhole cover (`WHITE`) + underground `PASTEL_BLUE` / `PASTEL_GREEN` conduits |
-| | 17 | `rack_cabinet` | `server_rack`, `19inch_rack` | Tall 42U rack cabinet (`PASTEL_BLUE` frame, `WHITE` rails) with `PASTEL_GREEN` status bar |
+| | 17 | `rack_cabinet` | `server_rack`, `rack_19inch` | Tall 42U rack cabinet (`PASTEL_BLUE` frame, `WHITE` rails) with `PASTEL_GREEN` status bar |
 | | 18 | `cooling_hvac` | `crac`, `chiller`, `air_conditioning` | HVAC / fan unit (`WHITE` / `PASTEL_BLUE`) + `PASTEL_GREEN` snowflake / cool air waves |
 | **4. Offices, Workplaces & Public** | 19 | `headquarters` | `hq`, `corporate_tower`, `skyscraper` | Tall stepped glass skyscraper (`PASTEL_BLUE` / `PASTEL_BLUE_LIGHT` + `WHITE` window grid) |
 | | 20 | `branch_office` | `office`, `office_building` | Clean 3-story mid-rise office building (`WHITE` facade, `PASTEL_BLUE` roof & door) |
