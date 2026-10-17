@@ -6,7 +6,7 @@ Add a dedicated web browser, client operating system, PC/mobile OEM, smart devic
 
 - **Modules**:
   - `drawlib.icons.client` (`ClientIcon`) — 60 official web browser, client OS, app store, PC/mobile OEM, smart device, wearable, gaming, streaming, connected car, heavy machinery, factory automation, peripheral, printer, and connectivity logos (+ 73 shorthand aliases = 133 functions).
-  - `drawlib.icons.original_client` (`OriginalClientIcon`) — 30 vendor-neutral client device, display, smart home, vehicle, machinery, industrial & token concept icons + 60 2D flat pastel vendor counterparts (90 canonical icons total + shorthand aliases).
+  - `drawlib.icons.original_client` (`OriginalClientIcon`) — 32 vendor-neutral client device, wearable, display, smart home, vehicle, machinery, industrial & token concept icons + 60 2D flat pastel vendor counterparts (92 canonical icons total + shorthand aliases).
 - **Release Asset Packages**:
   - `icon_client` (`tools/release_assets/v0.3/icons/client/`)
   - `icon_original_client` (`tools/release_assets/v0.3/icons/original_client/`)
@@ -83,42 +83,44 @@ Add a dedicated web browser, client operating system, PC/mobile OEM, smart devic
 
 ---
 
-## 3. Canonical `original_client` Icons (30 Concept Icons + 60 Pastel Logos = 90 Icons)
+## 3. Canonical `original_client` Icons (32 Concept Icons + 60 Pastel Logos = 92 Icons)
 
-### Part A: Vendor-Neutral Client Device, Display, Smart Home, Vehicle, Machinery & Token Concept Icons (30 Icons)
+### Part A: Vendor-Neutral Client Device, Wearable, Display, Smart Home, Vehicle, Machinery & Token Concept Icons (32 Icons)
 
 | Category | # | Canonical Name | Shorthand Aliases | 2D Pastel Motif (`PASTEL_BLUE` / `PASTEL_GREEN` / `WHITE`) |
 | :--- | :- | :--- | :--- | :--- |
-| **1. Personal Computers & Mobile** | 1 | `desktop_pc` | `pc`, `workstation` | Desktop tower + monitor (`WHITE` screen, `PASTEL_BLUE` stand/tower) + `PASTEL_GREEN` LED |
+| **1. Personal Computers, Mobile & Wearables** | 1 | `desktop_pc` | `pc`, `workstation` | Desktop tower + monitor (`WHITE` screen, `PASTEL_BLUE` stand/tower) + `PASTEL_GREEN` LED |
 | | 2 | `laptop` | `notebook_pc`, `macbook` | Open clamshell laptop (`WHITE` screen, `PASTEL_BLUE` base) + `PASTEL_GREEN` screen bar |
 | | 3 | `smartphone` | `mobile_phone`, `cell_phone` | Vertical phone bezel (`WHITE` screen, `PASTEL_BLUE` body) + `PASTEL_GREEN` app badge |
 | | 4 | `tablet` | `ipad`, `slate_tablet` | Wide/portrait tablet (`WHITE` screen, `PASTEL_BLUE` frame) + `PASTEL_GREEN` stylus / widget |
 | | 5 | `ereader` | `ebook_reader`, `digital_paper` | E-ink reader (`WHITE` paper screen, `PASTEL_BLUE` bezel) + `PASTEL_GREEN` bookmark / page lines |
 | | 6 | `smartwatch` | `wearable`, `fitness_watch` | Rounded watch dial (`WHITE` face, `PASTEL_BLUE` straps) + `PASTEL_GREEN` activity ring |
-| | 7 | `vr_headset` | `xr_headset`, `ar_glasses`, `hmd` | Front VR visor (`PASTEL_BLUE` / `PASTEL_BLUE_LIGHT`) + `PASTEL_GREEN` lens highlight |
-| **2. Displays, Media & Smart Home** | 8 | `external_monitor` | `display`, `ultrawide_monitor` | Widescreen monitor on stand (`WHITE` screen, `PASTEL_BLUE` bezel) + `PASTEL_GREEN` window |
-| | 9 | `smart_tv` | `television`, `digital_signage` | Large display on V-legs (`WHITE` screen, `PASTEL_BLUE` bezel) + `PASTEL_GREEN` play button |
-| | 10 | `smart_speaker` | `voice_assistant`, `smart_home_hub` | Cylindrical smart speaker (`PASTEL_BLUE` body, `WHITE` top) + `PASTEL_GREEN` glowing voice ring |
-| | 11 | `projector` | `beamer`, `meeting_projector` | Projector unit (`WHITE` chassis, `PASTEL_BLUE` lens barrel) + `PASTEL_GREEN` light beam |
-| | 12 | `game_console` | `gamepad`, `controller` | Gamepad controller (`PASTEL_BLUE` body, `WHITE` D-pad) + `PASTEL_GREEN` action buttons |
-| | 13 | `kiosk_terminal` | `self_service_kiosk`, `digital_kiosk` | Floor pedestal touch kiosk (`PASTEL_BLUE` stand, `WHITE` screen) + `PASTEL_GREEN` button |
-| | 14 | `pos_terminal` | `cash_register`, `payment_terminal` | Countertop POS terminal (`WHITE` / `PASTEL_BLUE`) + `PASTEL_GREEN` card reader / receipt |
-| **3. Office, Audio/Video & Desk Peripherals** | 15 | `printer` | `mfp`, `office_printer` | Office printer (`PASTEL_BLUE` chassis, `WHITE` top/bottom paper sheets) + `PASTEL_GREEN` LED |
-| | 16 | `barcode_scanner` | `handheld_scanner`, `pda_terminal` | Handheld barcode scanner (`PASTEL_BLUE` grip, `WHITE` window) + `PASTEL_GREEN` laser beam |
-| | 17 | `ip_phone` | `desk_phone`, `voip_phone` | Desk VoIP phone (`PASTEL_BLUE` base & handset, `WHITE` LCD) + `PASTEL_GREEN` call key |
-| | 18 | `webcam` | `conference_camera`, `usb_camera` | Monitor-clip circular webcam (`WHITE` body, `PASTEL_BLUE` lens ring) + `PASTEL_GREEN` LED |
-| | 19 | `headset` | `headphones`, `usb_headset` | Over-ear headset (`PASTEL_BLUE` band/cups) + boom mic with `PASTEL_GREEN` tip |
-| | 20 | `keyboard_mouse` | `input_devices`, `peripherals` | Compact keyboard (`WHITE` / `PASTEL_BLUE`) + wireless mouse with `PASTEL_GREEN` wheel |
-| **4. Tokens, Cards, Tags & Field Endpoints** | 21 | `usb_drive` | `flash_drive`, `security_key`, `yubikey` | USB drive / security key (`PASTEL_BLUE` casing, `WHITE` connector) + `PASTEL_GREEN` touch/LED |
-| | 22 | `smart_card` | `ic_card`, `sim_card`, `id_card_chip` | Contact chip card (`WHITE` card, `PASTEL_BLUE` stripe) + `PASTEL_GREEN` EMV contact pad |
-| | 23 | `qr_code` | `matrix_barcode`, `two_d_code` | 2D QR finder squares (`PASTEL_BLUE` & `PASTEL_GREEN`) + `DARK` modules on `WHITE` plate |
-| | 24 | `nfc_tag` | `rfid_tag`, `contactless` | Contactless card/tag (`WHITE` / `PASTEL_BLUE`) + `PASTEL_GREEN` radio wave arcs |
-| | 25 | `gps_tracker` | `location_device`, `navigation_device` | Portable GPS receiver (`WHITE` body, `PASTEL_BLUE` map) + `PASTEL_GREEN` location pin |
-| | 26 | `drone` | `uav`, `quadcopter` | Quadcopter drone (`PASTEL_BLUE` body, 4 arms) + `PASTEL_GREEN` rotor discs & camera |
-| | 27 | `connected_car` | `smart_car`, `electric_vehicle`, `ev`, `automobile` | Front/side modern car (`PASTEL_BLUE` body, `WHITE` windshield) + `PASTEL_GREEN` connectivity arcs |
-| | 28 | `heavy_machinery` | `excavator`, `tractor`, `construction_machine` | Tracked excavator / heavy tractor (`PASTEL_BLUE` cab/arm, `WHITE` window) + `PASTEL_GREEN` sensor arc |
-| | 29 | `industrial_robot` | `robot_arm`, `factory_robot` | Articulated 6-axis robot arm (`PASTEL_BLUE` segments, `WHITE` joints) + `PASTEL_GREEN` gripper |
-| | 30 | `plc_controller` | `industrial_controller`, `hmi_panel` | DIN-rail PLC / HMI controller (`PASTEL_BLUE` module, `WHITE` panel) + `PASTEL_GREEN` status LEDs |
+| | 7 | `smart_ring` | `wearable_ring`, `fitness_ring`, `oura_ring` | Angled 3D band (`PASTEL_BLUE` / `WHITE` rim) + 3 inner `PASTEL_GREEN` biometric sensors & pulse arcs |
+| | 8 | `smart_glasses` | `smart_glass`, `ar_glasses`, `ai_glasses`, `smart_eyewear` | Eyeglass frame (`PASTEL_BLUE`, `WHITE` lenses) + temple camera & `PASTEL_GREEN` AR HUD overlay |
+| | 9 | `vr_headset` | `xr_headset`, `hmd` | Front VR visor (`PASTEL_BLUE` / `PASTEL_BLUE_LIGHT`) + `PASTEL_GREEN` lens highlight |
+| **2. Displays, Media & Smart Home** | 10 | `external_monitor` | `display`, `ultrawide_monitor` | Widescreen monitor on stand (`WHITE` screen, `PASTEL_BLUE` bezel) + `PASTEL_GREEN` window |
+| | 11 | `smart_tv` | `television`, `digital_signage` | Large display on V-legs (`WHITE` screen, `PASTEL_BLUE` bezel) + `PASTEL_GREEN` play button |
+| | 12 | `smart_speaker` | `voice_assistant`, `smart_home_hub` | Cylindrical smart speaker (`PASTEL_BLUE` body, `WHITE` top) + `PASTEL_GREEN` glowing voice ring |
+| | 13 | `projector` | `beamer`, `meeting_projector` | Projector unit (`WHITE` chassis, `PASTEL_BLUE` lens barrel) + `PASTEL_GREEN` light beam |
+| | 14 | `game_console` | `gamepad`, `controller` | Gamepad controller (`PASTEL_BLUE` body, `WHITE` D-pad) + `PASTEL_GREEN` action buttons |
+| | 15 | `kiosk_terminal` | `self_service_kiosk`, `digital_kiosk` | Floor pedestal touch kiosk (`PASTEL_BLUE` stand, `WHITE` screen) + `PASTEL_GREEN` button |
+| | 16 | `pos_terminal` | `cash_register`, `payment_terminal` | Countertop POS terminal (`WHITE` / `PASTEL_BLUE`) + `PASTEL_GREEN` card reader / receipt |
+| **3. Office, Audio/Video & Desk Peripherals** | 17 | `printer` | `mfp`, `office_printer` | Office printer (`PASTEL_BLUE` chassis, `WHITE` top/bottom paper sheets) + `PASTEL_GREEN` LED |
+| | 18 | `barcode_scanner` | `handheld_scanner`, `pda_terminal` | Handheld barcode scanner (`PASTEL_BLUE` grip, `WHITE` window) + `PASTEL_GREEN` laser beam |
+| | 19 | `ip_phone` | `desk_phone`, `voip_phone` | Desk VoIP phone (`PASTEL_BLUE` base & handset, `WHITE` LCD) + `PASTEL_GREEN` call key |
+| | 20 | `webcam` | `conference_camera`, `usb_camera` | Monitor-clip circular webcam (`WHITE` body, `PASTEL_BLUE` lens ring) + `PASTEL_GREEN` LED |
+| | 21 | `headset` | `headphones`, `usb_headset` | Over-ear headset (`PASTEL_BLUE` band/cups) + boom mic with `PASTEL_GREEN` tip |
+| | 22 | `keyboard_mouse` | `input_devices`, `peripherals` | Compact keyboard (`WHITE` / `PASTEL_BLUE`) + wireless mouse with `PASTEL_GREEN` wheel |
+| **4. Tokens, Cards, Tags & Field Endpoints** | 23 | `usb_drive` | `flash_drive`, `security_key`, `yubikey` | USB drive / security key (`PASTEL_BLUE` casing, `WHITE` connector) + `PASTEL_GREEN` touch/LED |
+| | 24 | `smart_card` | `ic_card`, `sim_card`, `id_card_chip` | Contact chip card (`WHITE` card, `PASTEL_BLUE` stripe) + `PASTEL_GREEN` EMV contact pad |
+| | 25 | `qr_code` | `matrix_barcode`, `two_d_code` | 2D QR finder squares (`PASTEL_BLUE` & `PASTEL_GREEN`) + `DARK` modules on `WHITE` plate |
+| | 26 | `nfc_tag` | `rfid_tag`, `contactless` | Contactless card/tag (`WHITE` / `PASTEL_BLUE`) + `PASTEL_GREEN` radio wave arcs |
+| | 27 | `gps_tracker` | `location_device`, `navigation_device` | Portable GPS receiver (`WHITE` body, `PASTEL_BLUE` map) + `PASTEL_GREEN` location pin |
+| | 28 | `drone` | `uav`, `quadcopter` | Quadcopter drone (`PASTEL_BLUE` body, 4 arms) + `PASTEL_GREEN` rotor discs & camera |
+| | 29 | `connected_car` | `smart_car`, `electric_vehicle`, `ev`, `automobile` | Front/side modern car (`PASTEL_BLUE` body, `WHITE` windshield) + `PASTEL_GREEN` connectivity arcs |
+| | 30 | `heavy_machinery` | `excavator`, `tractor`, `construction_machine` | Tracked excavator / heavy tractor (`PASTEL_BLUE` cab/arm, `WHITE` window) + `PASTEL_GREEN` sensor arc |
+| | 31 | `industrial_robot` | `robot_arm`, `factory_robot` | Articulated 6-axis robot arm (`PASTEL_BLUE` segments, `WHITE` joints) + `PASTEL_GREEN` gripper |
+| | 32 | `plc_controller` | `industrial_controller`, `hmi_panel` | DIN-rail PLC / HMI controller (`PASTEL_BLUE` module, `WHITE` panel) + `PASTEL_GREEN` status LEDs |
 
 ### Part B: 2D Flat Pastel Logos (60 Icons)
 - Every icon in `client` (1–60) has a matching 2D flat pastel counterpart in `original_client`.

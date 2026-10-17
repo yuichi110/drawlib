@@ -32,6 +32,7 @@ from drawlib._diagrams.architecture._icons import (
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
+    OriginalClientIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
     OriginalCodeIcon,
@@ -74,6 +75,7 @@ PaddingType = float | tuple[float, float]
 IconFunction = Callable[..., object]
 IconType: TypeAlias = (
     OriginalAiIcon
+    | OriginalClientIcon
     | OriginalCloudIcon
     | OriginalCnativeIcon
     | OriginalCodeIcon

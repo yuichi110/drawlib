@@ -312,6 +312,16 @@ def gen_icon_client() -> None:
     console.print("[bold green]✓ Client icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-original-client")
+def gen_icon_original_client() -> None:
+    """Normalize native Drawlib Original Client icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_client"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_client"
+    manifest_file = write_provider_manifest("original_client", src_path, dest_path)
+    generate_original_provider_code("original_client", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Client icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

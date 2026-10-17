@@ -40,6 +40,7 @@ from drawlib._diagrams.architecture._icons import (
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
+    OriginalClientIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
     OriginalCodeIcon,
@@ -67,6 +68,7 @@ from drawlib._diagrams.sequence._types import IconType, PaddingType
 def draw_enum_icon(
     icon: (
         OriginalAiIcon
+        | OriginalClientIcon
         | OriginalCloudIcon
         | OriginalCnativeIcon
         | OriginalCodeIcon
