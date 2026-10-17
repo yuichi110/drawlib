@@ -16,23 +16,14 @@ from drawlib.utils import (
     ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_GREEN,
-    WHITE,
     draw_round_segment,
     fill_style,
-    no_border_fill,
     setup_icon,
 )
 
 setup_icon()
 
 w = ORIG_STROKE
-
-rectangle(
-    (50.0, 50.0),
-    width=72.0,
-    height=48.0,
-    style=no_border_fill(WHITE),
-)
 
 draw_round_segment((12.0, 74.0), (88.0, 74.0), width_units=w, color=DARK)
 draw_round_segment((12.0, 26.0), (88.0, 26.0), width_units=w, color=DARK)

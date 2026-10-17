@@ -16,11 +16,11 @@ from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -45,6 +45,15 @@ def _arc_pts(r: float, deg_start: float, deg_end: float, steps: int) -> list[tup
     for i in range(steps + 1):
         a = math.radians(deg_start + (deg_end - deg_start) * (i / steps))
         pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    return pts
+
+
+def _circle_pts(xc: float, yc: float, r: float, steps: int = 36) -> list[tuple[float, float]]:
+    """Sample full circle polygon around (xc, yc) with radius r."""
+    pts: list[tuple[float, float]] = []
+    for i in range(steps):
+        a = 2.0 * math.pi * (i / steps)
+        pts.append((xc + r * math.cos(a), yc + r * math.sin(a)))
     return pts
 
 
@@ -104,7 +113,7 @@ polygon(outer_pts, style=no_border_fill(Colors.Purple3))
 draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
 
 # ------------------------------------------------------------------------------
-# 2. Inner comet head + Leg 3 (Colors.Purple2)
+# 2. Inner comet head + Leg 3 (Colors.Purple2) with transparent center hole
 # ------------------------------------------------------------------------------
 s_leg3_end = 44.4
 deg_leg3_join = -30.0 - math.degrees(math.acos(r_hole / r_head))
@@ -115,17 +124,10 @@ inner_pts: list[tuple[float, float]] = [
     _pt(r_head, s_leg3_end),
     *_arc_pts(r_head, -30.0, 360.0 + deg_leg3_join, 36),
 ]
+hole_pts = _circle_pts(cx, cy, r_hole, 36)
 
-polygon(inner_pts, style=no_border_fill(Colors.Purple2))
+draw_compound_polygon([inner_pts, hole_pts], color=Colors.Purple2)
 draw_round_polyline(inner_pts, width_units=w, color=DARK, closed=True)
-
-# ------------------------------------------------------------------------------
-# 3. Inner circular hole cutout (WHITE)
-# ------------------------------------------------------------------------------
-circle(
-    (cx, cy),
-    radius=r_hole,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.7),
-)
+circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=1.7))
 
 save()

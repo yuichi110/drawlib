@@ -14,7 +14,6 @@ from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
     draw_round_polyline,
     no_border_fill,
     setup_icon,
@@ -33,9 +32,22 @@ def _cubic(
     steps: int = 24,
 ) -> list[tuple[float, float]]:
     """Sample cubic Bezier curve excluding p0."""
+    return _cubic_slice(p0, p1, p2, p3, 0.0, 1.0, steps)
+
+
+def _cubic_slice(
+    p0: tuple[float, float],
+    p1: tuple[float, float],
+    p2: tuple[float, float],
+    p3: tuple[float, float],
+    t0: float,
+    t1: float,
+    steps: int = 16,
+) -> list[tuple[float, float]]:
+    """Sample cubic Bezier curve from t0 (excluded) to t1 (included)."""
     pts: list[tuple[float, float]] = []
     for i in range(1, steps + 1):
-        t = i / steps
+        t = t0 + (t1 - t0) * (i / steps)
         mt = 1.0 - t
         x = (mt**3) * p0[0] + 3.0 * (mt**2) * t * p1[0] + 3.0 * mt * (t**2) * p2[0] + (t**3) * p3[0]
         y = (mt**3) * p0[1] + 3.0 * (mt**2) * t * p1[1] + 3.0 * mt * (t**2) * p2[1] + (t**3) * p3[1]
@@ -48,12 +60,14 @@ def _mirror_x(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
 
 
 # 1. Crossed curved antennae ribbons at top (Colors.Purple2)
-# Base roots sit cleanly inside the top shoulders (x=35..40, y=61) so outer transition is flush
+# Inner lower edges follow the triangular window cutout so the window stays transparent
 ant_l_to_r = [
     (34.2, 63.5),
     *_cubic((34.2, 63.5), (42.5, 79.5), (64.0, 90.0), (86.5, 84.5), 24),
     (84.5, 79.5),
-    *_cubic((84.5, 79.5), (64.5, 84.5), (46.0, 74.5), (39.0, 61.0), 24),
+    *_cubic_slice((84.5, 79.5), (64.5, 84.5), (46.0, 74.5), (39.0, 61.0), 0.0, 0.616, 16),
+    *_cubic_slice((61.5, 63.8), (57.2, 69.5), (53.5, 73.2), (50.0, 75.5), 0.85, 1.0, 4),
+    *_cubic((50.0, 75.5), (46.5, 73.2), (42.8, 69.5), (38.5, 63.8), 12),
 ]
 ant_r_to_l = _mirror_x(ant_l_to_r)
 
@@ -61,14 +75,13 @@ for ant_pts in (ant_r_to_l, ant_l_to_r):
     polygon(ant_pts, style=no_border_fill(Colors.Purple2))
     draw_round_polyline(ant_pts, width_units=1.8, color=DARK, closed=True)
 
-# 2. White triangular window between head collar and crossing antennae
+# 2. Transparent triangular window border between head collar and crossing antennae
 window_pts = [
     (38.5, 63.8),
     *_cubic((38.5, 63.8), (45.0, 62.5), (55.0, 62.5), (61.5, 63.8), 12),
     *_cubic((61.5, 63.8), (57.2, 69.5), (53.5, 73.2), (50.0, 75.5), 12),
     *_cubic((50.0, 75.5), (46.5, 73.2), (42.8, 69.5), (38.5, 63.8), 12),
 ]
-polygon(window_pts, style=no_border_fill(WHITE))
 draw_round_polyline(window_pts, width_units=1.7, color=DARK, closed=True)
 
 # 3. Main oval beetle shield body (Colors.Gray6)

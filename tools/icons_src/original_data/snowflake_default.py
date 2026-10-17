@@ -12,16 +12,58 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import polygon, rectangle
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
 )
+
+
+def _rounded_diamond(
+    cx: float,
+    cy: float,
+    side: float,
+    r: float,
+    steps: int = 12,
+) -> list[tuple[float, float]]:
+    """Build a 45-degree rotated square (diamond) polygon with rounded corners."""
+    d = side / math.sqrt(2.0)
+    vertices = [
+        (cx, cy + d),
+        (cx - d, cy),
+        (cx, cy - d),
+        (cx + d, cy),
+    ]
+    n = len(vertices)
+    pts: list[tuple[float, float]] = []
+    for i in range(n):
+        v_prev = vertices[(i - 1) % n]
+        v_curr = vertices[i]
+        v_next = vertices[(i + 1) % n]
+
+        dx_in = v_prev[0] - v_curr[0]
+        dy_in = v_prev[1] - v_curr[1]
+        d_in = math.hypot(dx_in, dy_in)
+
+        dx_out = v_next[0] - v_curr[0]
+        dy_out = v_next[1] - v_curr[1]
+        d_out = math.hypot(dx_out, dy_out)
+
+        r_eff = min(r, d_in / 2.0, d_out / 2.0)
+        p_in = (v_curr[0] + (dx_in / d_in) * r_eff, v_curr[1] + (dy_in / d_in) * r_eff)
+        p_out = (v_curr[0] + (dx_out / d_out) * r_eff, v_curr[1] + (dy_out / d_out) * r_eff)
+
+        for s in range(steps + 1):
+            t = s / steps
+            mt = 1.0 - t
+            bx = (mt**2) * p_in[0] + 2.0 * mt * t * v_curr[0] + (t**2) * p_out[0]
+            by = (mt**2) * p_in[1] + 2.0 * mt * t * v_curr[1] + (t**2) * p_out[1]
+            pts.append((bx, by))
+    return pts
 
 
 def _chevron_branch_polygon(
@@ -91,18 +133,11 @@ for idx in range(6):
     polygon(branch_pts, style=no_border_fill(col))
     draw_round_polyline(branch_pts, width_units=w, color=DARK, closed=True)
 
-# 2. Center rounded diamond (Colors.Teal2) + inner WHITE diamond core
-rectangle(
-    (cx, cy),
-    width=14.8,
-    height=14.8,
-    style=fill_style(Colors.Teal2, border_color=DARK, border_units=w, shape_r=2.6, angle=45.0),
-)
-rectangle(
-    (cx, cy),
-    width=6.0,
-    height=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.5, shape_r=1.0, angle=45.0),
-)
+# 2. Center rounded diamond (Colors.Teal2) with transparent inner diamond hole
+outer_diamond_pts = _rounded_diamond(cx, cy, side=14.8, r=2.6)
+inner_diamond_pts = _rounded_diamond(cx, cy, side=6.0, r=1.0)
+draw_compound_polygon([outer_diamond_pts, inner_diamond_pts], color=Colors.Teal2)
+draw_round_polyline(outer_diamond_pts, width_units=w, color=DARK, closed=True)
+draw_round_polyline(inner_diamond_pts, width_units=1.5, color=DARK, closed=True)
 
 save()

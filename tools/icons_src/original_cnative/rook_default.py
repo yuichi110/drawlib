@@ -19,7 +19,7 @@ from drawlib.utils import (
     PASTEL_BLUE,
     PASTEL_BLUE_LIGHT,
     PASTEL_GREEN,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     fill_style,
     no_border_fill,
@@ -30,15 +30,22 @@ setup_icon()
 
 w = ORIG_STROKE
 
-# 1. Tapered tower shaft (PASTEL_BLUE, y=26..66)
+# 1. Tapered tower shaft (PASTEL_BLUE, y=26..66) with arched transparent window cutout
 shaft_pts = [
     (29.5, 25.5),
     (70.5, 25.5),
     (66.5, 66.5),
     (33.5, 66.5),
 ]
-polygon(shaft_pts, style=no_border_fill(PASTEL_BLUE))
+win_pts: list[tuple[float, float]] = [(43.0, 35.0), (57.0, 35.0), (57.0, 48.0)]
+steps_arch = 16
+for i in range(steps_arch + 1):
+    ang = math.radians(180.0 * (i / steps_arch))
+    win_pts.append((50.0 + 7.0 * math.cos(ang), 48.0 + 7.0 * math.sin(ang)))
+
+draw_compound_polygon([shaft_pts, win_pts], color=PASTEL_BLUE)
 draw_round_polyline(shaft_pts, width_units=w, color=DARK, closed=True)
+draw_round_polyline(win_pts, width_units=2.3, color=DARK, closed=True)
 
 # 2. Stepped base (y=14..26)
 # Upper base step (PASTEL_BLUE_LIGHT)
@@ -55,15 +62,6 @@ rectangle(
     height=6.5,
     style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=2.2),
 )
-
-# 3. Arched WHITE window cutout centered around (50, 45)
-win_pts: list[tuple[float, float]] = [(43.0, 35.0), (57.0, 35.0), (57.0, 48.0)]
-steps_arch = 16
-for i in range(steps_arch + 1):
-    ang = math.radians(180.0 * (i / steps_arch))
-    win_pts.append((50.0 + 7.0 * math.cos(ang), 48.0 + 7.0 * math.sin(ang)))
-polygon(win_pts, style=no_border_fill(WHITE))
-draw_round_polyline(win_pts, width_units=2.3, color=DARK, closed=True)
 
 # 4. Top crenellations / battlements crown (PASTEL_GREEN, y=66..84)
 crown_pts = [

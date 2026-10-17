@@ -16,11 +16,12 @@ from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     fill_style,
     no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -77,9 +78,13 @@ chin_pts = [
 polygon(chin_pts, style=no_border_fill(Colors.Amber2))
 draw_round_polyline(chin_pts, width_units=w, color=DARK, closed=True)
 
-# 4. Main circular tiger head rim (Colors.Amber3) & inner clock face (WHITE)
-circle((cx, cy), radius=34.2, style=fill_style(Colors.Amber3, border_color=DARK, border_units=w))
-circle((cx, cy), radius=26.6, style=fill_style(WHITE, border_color=DARK, border_units=1.8))
+# 4. Main circular tiger head rim (Colors.Amber3) with transparent inner clock face
+draw_compound_polygon(
+    [_arc_pts(34.2, 0.0, 360.0, 64)[:-1], _arc_pts(26.6, 0.0, 360.0, 64)[:-1]],
+    color=Colors.Amber3,
+)
+circle((cx, cy), radius=34.2, style=stroke_style(DARK, width_units=w))
+circle((cx, cy), radius=26.6, style=stroke_style(DARK, width_units=1.8))
 
 # 5. Concentric curved tiger-stripe / clock-scale arcs inside face
 stripes = [

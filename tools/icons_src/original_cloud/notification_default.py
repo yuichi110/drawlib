@@ -21,6 +21,7 @@ from drawlib.utils import (
     WHITE,
     fill_style,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -36,7 +37,7 @@ circle(
 circle(
     (50.0, 81.5),
     radius=5.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=stroke_style(DARK, width_units=w),
 )
 
 # Smooth bell body polygon: upper dome (cx=50, cy=56, r=22) + lower flared skirt to y=29

@@ -16,7 +16,7 @@ from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     fill_style,
     no_border_fill,
@@ -46,14 +46,12 @@ setup_icon()
 
 w = 1.9
 
-# 1. Outer left-pointing teardrop body (Colors.Teal2)
+# 1. Outer left-pointing teardrop body (Colors.Teal2) with transparent inner teardrop moat
 outer_pts = _build_left_teardrop(cx_right=47.5, cy=50.0, r_right=28.0, r_tip=2.6)
-polygon(outer_pts, style=no_border_fill(Colors.Teal2))
-draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
-
-# 2. Inner left-pointing teardrop cutout (WHITE)
 inner_pts = _build_left_teardrop(cx_right=48.2, cy=50.0, r_right=20.0, r_tip=1.8)
-polygon(inner_pts, style=no_border_fill(WHITE))
+
+draw_compound_polygon([outer_pts, inner_pts], color=Colors.Teal2)
+draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
 draw_round_polyline(inner_pts, width_units=1.8, color=DARK, closed=True)
 
 # 3. Central circular core (Colors.Blue3)

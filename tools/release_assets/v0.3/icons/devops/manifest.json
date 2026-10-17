@@ -1,0 +1,555 @@
+{
+  "format_version": "2.0",
+  "provider": "devops",
+  "created_at": "2026-10-17T01:02:34.964774+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 40,
+  "aliases": {
+    "actions": "github_actions",
+    "artifactory": "jfrog",
+    "bb": "bitbucket",
+    "circle": "circleci",
+    "dd": "datadog",
+    "gh": "github",
+    "gha": "github_actions",
+    "gl": "gitlab",
+    "hashicorp_consul": "consul",
+    "hashicorp_vault": "vault",
+    "nr": "new_relic",
+    "pd": "pagerduty",
+    "pw": "playwright",
+    "sonar": "sonarqube",
+    "sonatype_nexus": "nexus",
+    "tf": "terraform",
+    "tofu": "opentofu"
+  },
+  "files": {
+    "ansible_default.png": {
+      "icon_name": "ansible",
+      "variant": "default",
+      "source_script": "devops/ansible_default.py",
+      "size_bytes": 20707,
+      "sha256": "e347be80686b641b20b4b321e570cecaf57c994f450d1a4cbe62505e5c0ceb74",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "bitbucket_default.png": {
+      "icon_name": "bitbucket",
+      "variant": "default",
+      "source_script": "devops/bitbucket_default.py",
+      "size_bytes": 13656,
+      "sha256": "30d7cded82508176c7d96864e41048d73a4687030e988795bd4ad9c98ced5030",
+      "bbox": [
+        26,
+        49,
+        486,
+        463
+      ]
+    },
+    "buildkite_default.png": {
+      "icon_name": "buildkite",
+      "variant": "default",
+      "source_script": "devops/buildkite_default.py",
+      "size_bytes": 10878,
+      "sha256": "9407a1c5f0dc5fc692ebc1f382ad4bf5f79ae0635103fbd733c5393df6ea0e5d",
+      "bbox": [
+        26,
+        102,
+        486,
+        409
+      ]
+    },
+    "circleci_default.png": {
+      "icon_name": "circleci",
+      "variant": "default",
+      "source_script": "devops/circleci_default.py",
+      "size_bytes": 17735,
+      "sha256": "7af92ee195e6d0c0fc3b7ba2b0fbba4b05973f786717d319c5682fd0438dec19",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
+      ]
+    },
+    "consul_default.png": {
+      "icon_name": "consul",
+      "variant": "default",
+      "source_script": "devops/consul_default.py",
+      "size_bytes": 21694,
+      "sha256": "88e84f2c5b784126eb4441f0eda89086ddeb54b8fcd96303163af9a8a3311a03",
+      "bbox": [
+        28,
+        26,
+        484,
+        486
+      ]
+    },
+    "cypress_default.png": {
+      "icon_name": "cypress",
+      "variant": "default",
+      "source_script": "devops/cypress_default.py",
+      "size_bytes": 37014,
+      "sha256": "9d068aef0489d0176eb986ec299be1274798eb5333be7d2ced08a779cc11c9cf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "datadog_default.png": {
+      "icon_name": "datadog",
+      "variant": "default",
+      "source_script": "devops/datadog_default.py",
+      "size_bytes": 36635,
+      "sha256": "a68ea7ea7029f0b20565b04bbf57f5edffe892af4c77d689967a668a83a8a6da",
+      "bbox": [
+        41,
+        26,
+        471,
+        486
+      ]
+    },
+    "dynatrace_default.png": {
+      "icon_name": "dynatrace",
+      "variant": "default",
+      "source_script": "devops/dynatrace_default.py",
+      "size_bytes": 20623,
+      "sha256": "a80c896d2ffef596688f4f722cfd9225a48f8e25c1037d90c726daf70a602c88",
+      "bbox": [
+        28,
+        26,
+        483,
+        486
+      ]
+    },
+    "git_default.png": {
+      "icon_name": "git",
+      "variant": "default",
+      "source_script": "devops/git_default.py",
+      "size_bytes": 12515,
+      "sha256": "237ba8367a1521473d6f104c76d54b7ad59db74b49220e877632575ca57da1c8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "github_actions_default.png": {
+      "icon_name": "github_actions",
+      "variant": "default",
+      "source_script": "devops/github_actions_default.py",
+      "size_bytes": 36951,
+      "sha256": "ad129349133ce45272931d9fae019a855d60f67bde4efa3c2dd12b774cd9f395",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "github_default.png": {
+      "icon_name": "github",
+      "variant": "default",
+      "source_script": "devops/github_default.py",
+      "size_bytes": 19723,
+      "sha256": "f957e52d0c85bc6b155c257ca47323d5bd4320b3199d00cb9cc0119e3a824dd0",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "gitlab_default.png": {
+      "icon_name": "gitlab",
+      "variant": "default",
+      "source_script": "devops/gitlab_default.py",
+      "size_bytes": 17869,
+      "sha256": "bc93cfaad6d60b208259ab5bad7fbe3a13ab6872ec0aaacc5df59c1fb40413f2",
+      "bbox": [
+        26,
+        34,
+        486,
+        477
+      ]
+    },
+    "jenkins_default.png": {
+      "icon_name": "jenkins",
+      "variant": "default",
+      "source_script": "devops/jenkins_default.py",
+      "size_bytes": 58680,
+      "sha256": "1599b83165c4ef2a79579148537a5b957bfe1499b1569f3bb8901bfdf15ddd59",
+      "bbox": [
+        89,
+        26,
+        422,
+        486
+      ]
+    },
+    "jfrog_default.png": {
+      "icon_name": "jfrog",
+      "variant": "default",
+      "source_script": "devops/jfrog_default.py",
+      "size_bytes": 24243,
+      "sha256": "6a3de0692b99da6e0ca22374da201db07230c137fbfe17db62805a64abbe04b6",
+      "bbox": [
+        26,
+        126,
+        486,
+        385
+      ]
+    },
+    "jira_default.png": {
+      "icon_name": "jira",
+      "variant": "default",
+      "source_script": "devops/jira_default.py",
+      "size_bytes": 21275,
+      "sha256": "8190d4561ff9f7f9ec2babaf5e383ab880044a25758de69f9c92f7e61ddd3f60",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "k6_default.png": {
+      "icon_name": "k6",
+      "variant": "default",
+      "source_script": "devops/k6_default.py",
+      "size_bytes": 15897,
+      "sha256": "4a9357c139c4bd9d0909b637b2d56dcbc9858723e649f9521ace808997e5f01c",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "keycloak_default.png": {
+      "icon_name": "keycloak",
+      "variant": "default",
+      "source_script": "devops/keycloak_default.py",
+      "size_bytes": 22134,
+      "sha256": "fec310b307c89706e8308e19cf8349dc7778657bfe308f7bc7882483ed6f2ae3",
+      "bbox": [
+        26,
+        48,
+        486,
+        463
+      ]
+    },
+    "kibana_default.png": {
+      "icon_name": "kibana",
+      "variant": "default",
+      "source_script": "devops/kibana_default.py",
+      "size_bytes": 12463,
+      "sha256": "eb7df4574b748b971e6fdb37a4d3447a5d36bd0eeec91ab04e6260e496cd46cd",
+      "bbox": [
+        76,
+        26,
+        436,
+        486
+      ]
+    },
+    "loki_default.png": {
+      "icon_name": "loki",
+      "variant": "default",
+      "source_script": "devops/loki_default.py",
+      "size_bytes": 35227,
+      "sha256": "4f57fbace5ac9787738ba98c674963d16f2025426519b877584f467f277d8015",
+      "bbox": [
+        57,
+        26,
+        454,
+        486
+      ]
+    },
+    "new_relic_default.png": {
+      "icon_name": "new_relic",
+      "variant": "default",
+      "source_script": "devops/new_relic_default.py",
+      "size_bytes": 14703,
+      "sha256": "564dd2c75fe4e445732e0c0486341969cb1923ed254a386523e2494fa8161669",
+      "bbox": [
+        56,
+        26,
+        455,
+        486
+      ]
+    },
+    "nexus_default.png": {
+      "icon_name": "nexus",
+      "variant": "default",
+      "source_script": "devops/nexus_default.py",
+      "size_bytes": 23688,
+      "sha256": "dbba81c9e00cf2cbef2774472b86abb5c770db013fdea133fca927910e7a7396",
+      "bbox": [
+        43,
+        26,
+        469,
+        486
+      ]
+    },
+    "opentofu_default.png": {
+      "icon_name": "opentofu",
+      "variant": "default",
+      "source_script": "devops/opentofu_default.py",
+      "size_bytes": 23710,
+      "sha256": "a48aba6d90e99ca2770485709215dc732f4123736bf9ee8eb5877d0d86c4537b",
+      "bbox": [
+        43,
+        26,
+        469,
+        486
+      ]
+    },
+    "packer_default.png": {
+      "icon_name": "packer",
+      "variant": "default",
+      "source_script": "devops/packer_default.py",
+      "size_bytes": 9148,
+      "sha256": "41b23ed65c726a7f8701b6eaaf18a9d95730782e4e728e2697ae741c258fe11f",
+      "bbox": [
+        114,
+        26,
+        398,
+        486
+      ]
+    },
+    "pagerduty_default.png": {
+      "icon_name": "pagerduty",
+      "variant": "default",
+      "source_script": "devops/pagerduty_default.py",
+      "size_bytes": 7279,
+      "sha256": "fa4bb0c22c20ea40e5845ddae7fb21556f1c10b620110b3fd1f4b7a651561d9f",
+      "bbox": [
+        97,
+        26,
+        414,
+        486
+      ]
+    },
+    "playwright_default.png": {
+      "icon_name": "playwright",
+      "variant": "default",
+      "source_script": "devops/playwright_default.py",
+      "size_bytes": 28881,
+      "sha256": "010de24842162bef68498d054d0d5816ae131464cc070a663a3592b7fe696e4d",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "podman_default.png": {
+      "icon_name": "podman",
+      "variant": "default",
+      "source_script": "devops/podman_default.py",
+      "size_bytes": 61567,
+      "sha256": "934315ab691d6d3db7652fcf8f99ce3c769468eb12d436b8b68a974cdf7e435b",
+      "bbox": [
+        26,
+        31,
+        486,
+        481
+      ]
+    },
+    "postman_default.png": {
+      "icon_name": "postman",
+      "variant": "default",
+      "source_script": "devops/postman_default.py",
+      "size_bytes": 21771,
+      "sha256": "e2d37344a199a152648302f657741a244641bc745e50adc09eb357f99e3ed4bb",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pulumi_default.png": {
+      "icon_name": "pulumi",
+      "variant": "default",
+      "source_script": "devops/pulumi_default.py",
+      "size_bytes": 27666,
+      "sha256": "9f5c1fbde7763fba51338758fc2c9072966d34d11f19a38891bb931a0eb1b4fe",
+      "bbox": [
+        38,
+        26,
+        473,
+        486
+      ]
+    },
+    "selenium_default.png": {
+      "icon_name": "selenium",
+      "variant": "default",
+      "source_script": "devops/selenium_default.py",
+      "size_bytes": 19013,
+      "sha256": "da245106c59961870f297172f5d2a5585afcbb0e3efb1f0aa52a1fd7c2e6cfeb",
+      "bbox": [
+        36,
+        26,
+        475,
+        486
+      ]
+    },
+    "sentry_default.png": {
+      "icon_name": "sentry",
+      "variant": "default",
+      "source_script": "devops/sentry_default.py",
+      "size_bytes": 25540,
+      "sha256": "9d33684e56cea575f1732090eee55992c4ad97e70ed9db2222cbd919244e10fd",
+      "bbox": [
+        26,
+        53,
+        486,
+        459
+      ]
+    },
+    "slack_default.png": {
+      "icon_name": "slack",
+      "variant": "default",
+      "source_script": "devops/slack_default.py",
+      "size_bytes": 17016,
+      "sha256": "9ba63a9c29934e761d6e0bfaff08981449a95c28281a45b1657c35f06ad88397",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "snyk_default.png": {
+      "icon_name": "snyk",
+      "variant": "default",
+      "source_script": "devops/snyk_default.py",
+      "size_bytes": 29408,
+      "sha256": "a1e410e093917c41d361a80a3199f8b1db18e28cee25651016f8a231d2a957fd",
+      "bbox": [
+        115,
+        26,
+        397,
+        486
+      ]
+    },
+    "sonarqube_default.png": {
+      "icon_name": "sonarqube",
+      "variant": "default",
+      "source_script": "devops/sonarqube_default.py",
+      "size_bytes": 20221,
+      "sha256": "3cc0c4e4c3865bf703b85f817c93b32395bd4cd36785154262f62fee767491e6",
+      "bbox": [
+        26,
+        37,
+        486,
+        474
+      ]
+    },
+    "spinnaker_default.png": {
+      "icon_name": "spinnaker",
+      "variant": "default",
+      "source_script": "devops/spinnaker_default.py",
+      "size_bytes": 19055,
+      "sha256": "c9d622e35a3e8f7ae7a7ca93f5f5bc1f161f894f14b7f4ca1f1f9db472e8bad1",
+      "bbox": [
+        41,
+        26,
+        471,
+        486
+      ]
+    },
+    "splunk_default.png": {
+      "icon_name": "splunk",
+      "variant": "default",
+      "source_script": "devops/splunk_default.py",
+      "size_bytes": 19417,
+      "sha256": "15a7ea36e78c06c817d03d49d4b5b6e1fed175941ae70acc67626df481448297",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "tekton_default.png": {
+      "icon_name": "tekton",
+      "variant": "default",
+      "source_script": "devops/tekton_default.py",
+      "size_bytes": 68488,
+      "sha256": "c031a43a9f0b8f4297735754530625c8026068608f019abb890c272d1a19de96",
+      "bbox": [
+        40,
+        26,
+        471,
+        486
+      ]
+    },
+    "terraform_default.png": {
+      "icon_name": "terraform",
+      "variant": "default",
+      "source_script": "devops/terraform_default.py",
+      "size_bytes": 12278,
+      "sha256": "1fda4fd241ff3c1b221c2a84c6766bf7c9fd5d4a5d12ce24994abef0e258dec2",
+      "bbox": [
+        53,
+        26,
+        458,
+        486
+      ]
+    },
+    "trivy_default.png": {
+      "icon_name": "trivy",
+      "variant": "default",
+      "source_script": "devops/trivy_default.py",
+      "size_bytes": 29542,
+      "sha256": "5eae89d1d1c5ace9dd687333be13b5808e43048013bc97b82f2054dea3cb55c0",
+      "bbox": [
+        56,
+        26,
+        455,
+        486
+      ]
+    },
+    "vagrant_default.png": {
+      "icon_name": "vagrant",
+      "variant": "default",
+      "source_script": "devops/vagrant_default.py",
+      "size_bytes": 19025,
+      "sha256": "594dfc35a02c6341d722cc18ea02f6ea8ace9d3d9a12d618415f72782da34c59",
+      "bbox": [
+        34,
+        26,
+        478,
+        486
+      ]
+    },
+    "vault_default.png": {
+      "icon_name": "vault",
+      "variant": "default",
+      "source_script": "devops/vault_default.py",
+      "size_bytes": 10119,
+      "sha256": "9545734c6d5d93bee4783b760c9a9ac1b06ed773ef3104b94e3cfd317f59f307",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    }
+  }
+}

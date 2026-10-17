@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_data",
-  "created_at": "2026-10-16T12:18:05.667961+00:00",
+  "created_at": "2026-10-17T00:24:19.575982+00:00",
   "canvas_size": [
     512,
     512
@@ -46,8 +46,8 @@
       "icon_name": "airbyte",
       "variant": "default",
       "source_script": "original_data/airbyte_default.py",
-      "size_bytes": 48916,
-      "sha256": "abd922b3eaba54c06daff67b347c0fe6e075d2e6808e79ce0ef7f703f0e0100b",
+      "size_bytes": 49004,
+      "sha256": "a729be24ddcb891f8b3fcb02c02b4adeee002ab55db5551eb1b2d59195e2b5ff",
       "bbox": [
         41,
         26,
@@ -59,8 +59,8 @@
       "icon_name": "airflow",
       "variant": "default",
       "source_script": "original_data/airflow_default.py",
-      "size_bytes": 33650,
-      "sha256": "d8695a6cabada34f51474b5ca6ae88853b2756daecb645597289f12a4f272126",
+      "size_bytes": 34650,
+      "sha256": "03b187fa0bd9b74ad006077f42b786e5b06d087184463354c4e99d9e3c1c7fab",
       "bbox": [
         26,
         26,
@@ -72,12 +72,12 @@
       "icon_name": "beam",
       "variant": "default",
       "source_script": "original_data/beam_default.py",
-      "size_bytes": 27107,
-      "sha256": "310af92c9b13228034477ddcf10b2abedfde9e148e376909dfb1a91d77da530b",
+      "size_bytes": 27568,
+      "sha256": "e22d6b39a6dccae2ab8e20ab43bb1570f579c71df342536cda6d760d5986ea88",
       "bbox": [
         67,
         26,
-        445,
+        444,
         486
       ]
     },
@@ -85,11 +85,11 @@
       "icon_name": "cassandra",
       "variant": "default",
       "source_script": "original_data/cassandra_default.py",
-      "size_bytes": 43212,
-      "sha256": "fbc9c6226129002f9150886842f54a311fbe667166f0c723774258f5050ff09f",
+      "size_bytes": 44954,
+      "sha256": "375010aba89b8c2b5cce61c54c1591a51389fb4a2e9f505d9e86abeef715b5b1",
       "bbox": [
         26,
-        87,
+        88,
         486,
         424
       ]
@@ -98,8 +98,8 @@
       "icon_name": "clickhouse",
       "variant": "default",
       "source_script": "original_data/clickhouse_default.py",
-      "size_bytes": 8995,
-      "sha256": "2df4c4af71f526ef11a30be4b404b429503a6f510954394848bf1e089000c689",
+      "size_bytes": 9267,
+      "sha256": "6d6a5e15a93a7a465a1af52f0e768f6c52ccc623437117850ee15918121477a4",
       "bbox": [
         26,
         26,
@@ -111,12 +111,12 @@
       "icon_name": "cockroachdb",
       "variant": "default",
       "source_script": "original_data/cockroachdb_default.py",
-      "size_bytes": 32759,
-      "sha256": "66d7d536c756253183b427e7ac9d53cb4524a02958df0db07f2c3a600bc5a93e",
+      "size_bytes": 34660,
+      "sha256": "929d10cc154616fd63127c21b541bf687a5c8cf4754f488f0b69fb07250adff5",
       "bbox": [
         29,
         26,
-        482,
+        483,
         486
       ]
     },
@@ -124,8 +124,8 @@
       "icon_name": "couchbase",
       "variant": "default",
       "source_script": "original_data/couchbase_default.py",
-      "size_bytes": 40920,
-      "sha256": "75439ef2b0f5a3458120855be2533215b856b62fc40f387ca4ab451639975d14",
+      "size_bytes": 41504,
+      "sha256": "ee3208fbeb705d1dd51fd9331bb601f866ae54f5f7cec00b613e30b7a823181f",
       "bbox": [
         26,
         26,
@@ -137,8 +137,8 @@
       "icon_name": "dagster",
       "variant": "default",
       "source_script": "original_data/dagster_default.py",
-      "size_bytes": 49038,
-      "sha256": "9090a6fab89111c2a02c7fbc6ce295bcb95e3d67b71ec6aa5c9cfbd49a15fcc6",
+      "size_bytes": 50880,
+      "sha256": "826d5caedaad7da45c5746c892b4ea71ae353c5e89f34d79def6630b55387358",
       "bbox": [
         26,
         28,
@@ -150,8 +150,8 @@
       "icon_name": "databricks",
       "variant": "default",
       "source_script": "original_data/databricks_default.py",
-      "size_bytes": 54334,
-      "sha256": "dc121fa49dcf55130cace81deaed506a01999551627ed813b689930cbb3bcc84",
+      "size_bytes": 55049,
+      "sha256": "129323d7475ad040927b9357f5d76e8245a0f341b7db92e192e32b6623db6167",
       "bbox": [
         28,
         26,
@@ -163,8 +163,8 @@
       "icon_name": "dbt",
       "variant": "default",
       "source_script": "original_data/dbt_default.py",
-      "size_bytes": 36386,
-      "sha256": "b1fe0e82d76bc5e9f58cb2a06aa97db568ddae569d67078eeb6aaf15c67232f3",
+      "size_bytes": 37482,
+      "sha256": "1594bf0a78b9af5d82e64e49affbd84f80c5c67d2f167a2ea2557e4057d05d00",
       "bbox": [
         26,
         26,
@@ -176,8 +176,8 @@
       "icon_name": "debezium",
       "variant": "default",
       "source_script": "original_data/debezium_default.py",
-      "size_bytes": 39819,
-      "sha256": "c0f680bf9e7062625d525a428d4c3fc6ae48fdef1ace6c7a7a5dec952bc2a345",
+      "size_bytes": 39974,
+      "sha256": "119f1e501c9af6c9dd6336bdaf155be630c1dbb01d7fafe5cf4e89bbbf84b442",
       "bbox": [
         26,
         26,
@@ -189,8 +189,8 @@
       "icon_name": "delta_lake",
       "variant": "default",
       "source_script": "original_data/delta_lake_default.py",
-      "size_bytes": 34219,
-      "sha256": "ae572fcc22c70178a05b08b6f508fb2812c84400ed94f3553ce10fd397877ec2",
+      "size_bytes": 34539,
+      "sha256": "9f9dc1dffc8b9d8bfcd3944ef04a67d423b03767c32923cdbb6aa116a2d510b0",
       "bbox": [
         26,
         34,
@@ -202,11 +202,11 @@
       "icon_name": "druid",
       "variant": "default",
       "source_script": "original_data/druid_default.py",
-      "size_bytes": 30572,
-      "sha256": "19a10737d5e297a88887cbf995c4156b8a0b6d83f687dd772e3870d20a844a09",
+      "size_bytes": 30516,
+      "sha256": "be9ae26e574a2d28d22af17452807657a2181ebccb538cc36b82683017baf7d9",
       "bbox": [
         26,
-        64,
+        65,
         486,
         447
       ]
@@ -215,8 +215,8 @@
       "icon_name": "duckdb",
       "variant": "default",
       "source_script": "original_data/duckdb_default.py",
-      "size_bytes": 28586,
-      "sha256": "801cc8aa99360ac5900e21837f0a5f5c3176386d6ffbd601356e9c39996b3db8",
+      "size_bytes": 29036,
+      "sha256": "9784562619bc243a428ca64d857391b2794f2cd76f28e0a0252aa61b954051db",
       "bbox": [
         26,
         26,
@@ -228,12 +228,12 @@
       "icon_name": "elasticsearch",
       "variant": "default",
       "source_script": "original_data/elasticsearch_default.py",
-      "size_bytes": 25130,
-      "sha256": "7a31c64aa86930ae4cbb0b9d06d2913c0d1f107d2b91293521ab13a58693c056",
+      "size_bytes": 20723,
+      "sha256": "2a2497abeec7bf5ca1e7f45b033faf51e80b48c8f2ca58784a812eee8eb6e6c7",
       "bbox": [
+        47,
         26,
-        26,
-        486,
+        465,
         486
       ]
     },
@@ -241,34 +241,34 @@
       "icon_name": "flink",
       "variant": "default",
       "source_script": "original_data/flink_default.py",
-      "size_bytes": 33808,
-      "sha256": "e8b059cb83292261256ce4ace54491a7140f475703423f716dbd9ac110336e12",
+      "size_bytes": 47794,
+      "sha256": "53dcfd6d47bd6554b3abe15b343c9c17e0e8a6daa2dd0cda6e4c10675619481a",
       "bbox": [
+        27,
         26,
-        34,
-        486,
-        477
+        484,
+        486
       ]
     },
     "hadoop_default.png": {
       "icon_name": "hadoop",
       "variant": "default",
       "source_script": "original_data/hadoop_default.py",
-      "size_bytes": 34882,
-      "sha256": "30ef6b2709e733566ff4579e57f02fdc7204c55dbdbcafe17d9fda58f802a6dc",
+      "size_bytes": 39448,
+      "sha256": "cb45461f0aad6dbae0a99c40fc7f69890555aed64d95ca7a7f5db5a7376757b4",
       "bbox": [
         26,
-        54,
+        68,
         486,
-        458
+        444
       ]
     },
     "iceberg_default.png": {
       "icon_name": "iceberg",
       "variant": "default",
       "source_script": "original_data/iceberg_default.py",
-      "size_bytes": 40165,
-      "sha256": "fa736e3252b8f3d2f326cc4ca8f91c471573c69d724414bc24161c294d44cc9a",
+      "size_bytes": 41092,
+      "sha256": "d16bf3b9ddac155c977211c6ec6922ff4cd0ef88db8546e665aa36a4137dc8c3",
       "bbox": [
         26,
         26,
@@ -280,8 +280,8 @@
       "icon_name": "influxdb",
       "variant": "default",
       "source_script": "original_data/influxdb_default.py",
-      "size_bytes": 37810,
-      "sha256": "0ca36a14348715b39fabba76b719608a7bab5b8837260d0b74b2288562aed880",
+      "size_bytes": 38100,
+      "sha256": "551ae500481a3e67620b010ac49b29fb18f4baf60b79d30473fee24848566999",
       "bbox": [
         29,
         26,
@@ -293,12 +293,12 @@
       "icon_name": "kafka",
       "variant": "default",
       "source_script": "original_data/kafka_default.py",
-      "size_bytes": 41838,
-      "sha256": "c76206f9b42ebbc782b19968a4fc59c4b3ace948150cbbdc926b3ee0055c3591",
+      "size_bytes": 41862,
+      "sha256": "aca9596c923ccb86795bd1de667e6fb6275bf3e4391624b07be35e52df06d6bd",
       "bbox": [
-        108,
+        109,
         26,
-        403,
+        402,
         486
       ]
     },
@@ -306,34 +306,34 @@
       "icon_name": "mariadb",
       "variant": "default",
       "source_script": "original_data/mariadb_default.py",
-      "size_bytes": 23701,
-      "sha256": "2c29c0be3ad35ea352e989dcd8d76a250041cde8bbd7220d52af2cbc54152e16",
+      "size_bytes": 23769,
+      "sha256": "525006ecfd15a5a0b02b70add2c1ec8492da8f8815f75f42df4f91ee86cde8ca",
       "bbox": [
         26,
-        94,
+        100,
         486,
-        417
+        412
       ]
     },
     "meilisearch_default.png": {
       "icon_name": "meilisearch",
       "variant": "default",
       "source_script": "original_data/meilisearch_default.py",
-      "size_bytes": 23405,
-      "sha256": "73e7cd690debe12b913b5027e7c4c2d0d5ffca087cbaf9d3032180210728af47",
+      "size_bytes": 28444,
+      "sha256": "c4b579c7edadd53db013abc758d321c1cf852d81188d623b9beeb96bcaf0c134",
       "bbox": [
         26,
-        106,
+        107,
         486,
-        406
+        405
       ]
     },
     "memcached_default.png": {
       "icon_name": "memcached",
       "variant": "default",
       "source_script": "original_data/memcached_default.py",
-      "size_bytes": 28050,
-      "sha256": "96c667a17a786be8ade10dcc12938539909566d4ad43692a28ad911c2c5a9588",
+      "size_bytes": 28390,
+      "sha256": "6774e01603bf154fa6321e29dc6e379eee686563c5a2677240f32f0ba1358090",
       "bbox": [
         26,
         26,
@@ -345,25 +345,25 @@
       "icon_name": "milvus",
       "variant": "default",
       "source_script": "original_data/milvus_default.py",
-      "size_bytes": 31842,
-      "sha256": "308b366527ceaeeefe09aba11a14a4046279150877ac6975a2a35e96b65fe029",
+      "size_bytes": 31249,
+      "sha256": "d2e1eadac6de3d2657e421c82d5673742fea0ed4a9e4e152d863a0c9c6051ff3",
       "bbox": [
         26,
-        96,
+        97,
         486,
-        415
+        414
       ]
     },
     "minio_default.png": {
       "icon_name": "minio",
       "variant": "default",
       "source_script": "original_data/minio_default.py",
-      "size_bytes": 23768,
-      "sha256": "67840ae3d6d39de383ccd5251e1ba3e054d021af73415bd3f347c73063ee7a99",
+      "size_bytes": 24193,
+      "sha256": "4127c3b6ff59a0e02d72c585284f0867fd66b0e8f340b92d227fe772c6f2a427",
       "bbox": [
-        126,
+        127,
         26,
-        386,
+        385,
         486
       ]
     },
@@ -371,12 +371,12 @@
       "icon_name": "mongodb",
       "variant": "default",
       "source_script": "original_data/mongodb_default.py",
-      "size_bytes": 20080,
-      "sha256": "7d77206ad030bc53ddf794cb118cdc8daacd1439efd15c6bdb3adc77f80ba97b",
+      "size_bytes": 20494,
+      "sha256": "15ec9f57379f16f988ea8a08d341a2c375df2c9fc58c02b26ccb860486e9f5e1",
       "bbox": [
-        131,
+        132,
         26,
-        381,
+        379,
         486
       ]
     },
@@ -384,25 +384,25 @@
       "icon_name": "mysql",
       "variant": "default",
       "source_script": "original_data/mysql_default.py",
-      "size_bytes": 33887,
-      "sha256": "b27aed46642509e7e71f5308caefbefca7b6612c98d016044b054981495b174e",
+      "size_bytes": 29473,
+      "sha256": "a16628c242c6966d5f9b6ec87f4cd7680f11f7d9dde2509200c9c299833618e4",
       "bbox": [
         26,
-        31,
+        43,
         486,
-        481
+        469
       ]
     },
     "nats_default.png": {
       "icon_name": "nats",
       "variant": "default",
       "source_script": "original_data/nats_default.py",
-      "size_bytes": 12633,
-      "sha256": "72e6f39de9dfa38ae387641f2566a6e07f1c6caed551c3ea870f82ce94664467",
+      "size_bytes": 12786,
+      "sha256": "a96e3094dac0904d221e60f39ad51f52294fd5fc1dc9764691319bc5bced05a3",
       "bbox": [
         34,
         26,
-        478,
+        477,
         486
       ]
     },
@@ -410,8 +410,8 @@
       "icon_name": "neo4j",
       "variant": "default",
       "source_script": "original_data/neo4j_default.py",
-      "size_bytes": 27782,
-      "sha256": "cfb31de840610097b7e93b7b4517a065db5a93ce6cdff884bee57cb156c51e7c",
+      "size_bytes": 28473,
+      "sha256": "506a5a3a922ae7232b36429e8300314e55392b1f499789822c020b47fd1d8949",
       "bbox": [
         26,
         39,
@@ -423,12 +423,12 @@
       "icon_name": "nifi",
       "variant": "default",
       "source_script": "original_data/nifi_default.py",
-      "size_bytes": 26410,
-      "sha256": "34c8f145ad70d21199070dcaf8204508d1c56e375920602ea714fc4881a914f7",
+      "size_bytes": 26716,
+      "sha256": "3d464ed3ade97944bd9b6ad3738ad753e4f42a85ec020353a6228c01bb3754ac",
       "bbox": [
         88,
         26,
-        424,
+        423,
         486
       ]
     },
@@ -436,8 +436,8 @@
       "icon_name": "opensearch",
       "variant": "default",
       "source_script": "original_data/opensearch_default.py",
-      "size_bytes": 35494,
-      "sha256": "6a7261dd49dc06c9c702dc9f1ce8060e5d8fe616a46641c58b3c67bee41af94b",
+      "size_bytes": 36284,
+      "sha256": "ee57da6a3713dcc849bfbad58bc9070fcd4c7bcffb88e4e6b8f15d32d4428c24",
       "bbox": [
         26,
         26,
@@ -449,12 +449,12 @@
       "icon_name": "oracle_db",
       "variant": "default",
       "source_script": "original_data/oracle_db_default.py",
-      "size_bytes": 26705,
-      "sha256": "5bd0c4cbe9b7b5608793b82b3cbbe6375d4be85af32d6d72cb2f4a18ab287620",
+      "size_bytes": 27212,
+      "sha256": "a7df4dca6ca28e16858d3febd1ab19d9fc2ab513f355d5c8ffae3272469b2855",
       "bbox": [
         35,
         26,
-        477,
+        476,
         486
       ]
     },
@@ -462,21 +462,21 @@
       "icon_name": "postgresql",
       "variant": "default",
       "source_script": "original_data/postgresql_default.py",
-      "size_bytes": 44965,
-      "sha256": "7ea654f8807aa7eadef752552f85a222391468fea862504edfd550db3cb09231",
+      "size_bytes": 39849,
+      "sha256": "6f9f7db101c118a4427867a5253bab626d451656ba614fe8be5c80594cc2c3ee",
       "bbox": [
+        28,
         26,
-        33,
-        486,
-        479
+        484,
+        486
       ]
     },
     "pulsar_default.png": {
       "icon_name": "pulsar",
       "variant": "default",
       "source_script": "original_data/pulsar_default.py",
-      "size_bytes": 38702,
-      "sha256": "1afa43db94abc741e709dfec3f5f3401fd0ebc85515f02a084238242f5b30036",
+      "size_bytes": 39403,
+      "sha256": "9ef9884b4e4ce328d8ab3bf0acb455205f4879afda84f378c8332d2d120aa905",
       "bbox": [
         26,
         26,
@@ -488,10 +488,10 @@
       "icon_name": "qdrant",
       "variant": "default",
       "source_script": "original_data/qdrant_default.py",
-      "size_bytes": 32756,
-      "sha256": "9185183c5db335c02638217e3ac16e3216c38861c34d71fe250704c1dabbc6a5",
+      "size_bytes": 33541,
+      "sha256": "1662d1c6c42f084933a362d302bb2ffdc73dd775bec0d6b88ca0f457016a63ea",
       "bbox": [
-        55,
+        56,
         26,
         456,
         486
@@ -501,8 +501,8 @@
       "icon_name": "rabbitmq",
       "variant": "default",
       "source_script": "original_data/rabbitmq_default.py",
-      "size_bytes": 12969,
-      "sha256": "0bca617be9868790cfecacdc8059d7aa941891620c9ffd193dd3783433995798",
+      "size_bytes": 11741,
+      "sha256": "987545e8d447f2d2ae242dd8ea53eb6b1a258638e6aea56b8f4f88f1a4956a47",
       "bbox": [
         26,
         26,
@@ -514,8 +514,8 @@
       "icon_name": "redis",
       "variant": "default",
       "source_script": "original_data/redis_default.py",
-      "size_bytes": 45116,
-      "sha256": "9703db3ea4ec9678542c6301b1ab0325a459dc0cb861a358da2d8d199e367f22",
+      "size_bytes": 46446,
+      "sha256": "8afadcafbd5dd220ef3befd1e3e35f4fd51b89a07f84fdba345630a9c3cb4fd8",
       "bbox": [
         26,
         42,
@@ -527,8 +527,8 @@
       "icon_name": "redpanda",
       "variant": "default",
       "source_script": "original_data/redpanda_default.py",
-      "size_bytes": 53187,
-      "sha256": "2afe592aec1a364b140a7fcdcaf508e2f5829ee68b1a78ab355a7a68bae55c3a",
+      "size_bytes": 54654,
+      "sha256": "b406814a54949afca781e6d48ca689337deb34e7fa33ce44a31953dbeddcfd6b",
       "bbox": [
         29,
         26,
@@ -540,8 +540,8 @@
       "icon_name": "scylladb",
       "variant": "default",
       "source_script": "original_data/scylladb_default.py",
-      "size_bytes": 42283,
-      "sha256": "f406be3c1821d02a5b66e95f7ac44a63f53c0342105d4e9d697f2a9c96813995",
+      "size_bytes": 42858,
+      "sha256": "2e77316eca062bd857f9cc4f17a09b97695b372f75c445e2acf108c0c624fb8c",
       "bbox": [
         39,
         26,
@@ -553,8 +553,8 @@
       "icon_name": "snowflake",
       "variant": "default",
       "source_script": "original_data/snowflake_default.py",
-      "size_bytes": 45950,
-      "sha256": "7c3b15af6bf2c99984a016ed0ba50ce36e61799c2302a3c7d9a8e8b8f68e2b44",
+      "size_bytes": 46404,
+      "sha256": "58baf06122c87ce4442d39441a8bcacbac60b880f054c897cbef30dbc1d1f966",
       "bbox": [
         27,
         26,
@@ -566,8 +566,8 @@
       "icon_name": "spark",
       "variant": "default",
       "source_script": "original_data/spark_default.py",
-      "size_bytes": 38584,
-      "sha256": "72c7008c6491590cfc244fca5a8e1c70a990bf5e98a11f511e0beb6757256c56",
+      "size_bytes": 38554,
+      "sha256": "2fe0ce52b9c3bab80f76b5ac5adc08740c44d8fce15e972fda9ea37ac5f7171c",
       "bbox": [
         29,
         26,
@@ -579,12 +579,12 @@
       "icon_name": "sql_server",
       "variant": "default",
       "source_script": "original_data/sql_server_default.py",
-      "size_bytes": 45004,
-      "sha256": "70378e0b09c8f13ec78612cd51c2be290b33e067e900305e44bbf728b2778a9d",
+      "size_bytes": 46057,
+      "sha256": "f5bdbf25195f0013067f16dd3540bf4a6be1962753b002480918dfa5af4ca080",
       "bbox": [
         54,
         26,
-        458,
+        457,
         486
       ]
     },
@@ -592,8 +592,8 @@
       "icon_name": "sqlite",
       "variant": "default",
       "source_script": "original_data/sqlite_default.py",
-      "size_bytes": 29644,
-      "sha256": "ce6699f4aefbac06c92f435535f986ee88cec5186238d2758a8c971c8af24494",
+      "size_bytes": 31060,
+      "sha256": "54958dbd57d4d3d1181d9f786cc78776fd90b8dbb890732b51816338114c3875",
       "bbox": [
         28,
         26,
@@ -605,8 +605,8 @@
       "icon_name": "supabase",
       "variant": "default",
       "source_script": "original_data/supabase_default.py",
-      "size_bytes": 8287,
-      "sha256": "fbe6cc12c6ff39dbfe002f6a906827c330a3e1f2207e29d344b19f510a6048b7",
+      "size_bytes": 13998,
+      "sha256": "11492ceca1566492eb9112d0541b93fd4ae0ef15d4710b48c4d737db9b76f9e6",
       "bbox": [
         36,
         26,
@@ -618,21 +618,21 @@
       "icon_name": "superset",
       "variant": "default",
       "source_script": "original_data/superset_default.py",
-      "size_bytes": 26860,
-      "sha256": "076fa11c4efed248ebfb07f7058115e182763c9ceb5762e1787708b46072bfcd",
+      "size_bytes": 26032,
+      "sha256": "527768bfc144ee9cdfe0342401a81c9965eab3e46cdf32327574cf57feb70a54",
       "bbox": [
         26,
-        137,
+        138,
         486,
-        374
+        373
       ]
     },
     "tidb_default.png": {
       "icon_name": "tidb",
       "variant": "default",
       "source_script": "original_data/tidb_default.py",
-      "size_bytes": 24559,
-      "sha256": "ab58e6fb388fd82666f1276e3d41c3d7cda4f282d99fe1bf9574e3434ac22102",
+      "size_bytes": 25457,
+      "sha256": "74390934d6f768dccc8511058b7d905ed50ca46f4e775c59ad0fe388cb7aaeae",
       "bbox": [
         50,
         26,
@@ -644,23 +644,23 @@
       "icon_name": "timescaledb",
       "variant": "default",
       "source_script": "original_data/timescaledb_default.py",
-      "size_bytes": 65191,
-      "sha256": "5be55cb8fbbf3ade5c6cb8d15dd22609dda0fb56633c336331ecc4bd0dbb28d4",
+      "size_bytes": 64649,
+      "sha256": "dcbf43270d67e10a548c8657bd962199b8c4b8acf3031ab3244a62b3d6f57412",
       "bbox": [
         26,
         42,
         486,
-        470
+        469
       ]
     },
     "trino_default.png": {
       "icon_name": "trino",
       "variant": "default",
       "source_script": "original_data/trino_default.py",
-      "size_bytes": 45548,
-      "sha256": "3d932272fb596b4c09ed8cfb6b575a9b38f92b732dc2323ddc6465b6af28c48e",
+      "size_bytes": 46580,
+      "sha256": "a4dbbec14fa4ca83f5dd65800996bd5517b83da5dc6258cea9493aba7d9f3d7f",
       "bbox": [
-        74,
+        75,
         26,
         437,
         486
@@ -670,8 +670,8 @@
       "icon_name": "valkey",
       "variant": "default",
       "source_script": "original_data/valkey_default.py",
-      "size_bytes": 38975,
-      "sha256": "5317a9a709876ee34f2898040a3cafb1afeb69f87599f96666586fbd9f8f9a46",
+      "size_bytes": 38685,
+      "sha256": "4fec748a3441ffb37fa135e7d4617c94995e2628afdc00566067dd1a3cc440ae",
       "bbox": [
         55,
         26,
@@ -683,13 +683,13 @@
       "icon_name": "weaviate",
       "variant": "default",
       "source_script": "original_data/weaviate_default.py",
-      "size_bytes": 24308,
-      "sha256": "7eede004ed8bd62197063ad0a88ad9bb7c46cb29682f41cd40c294df9f2b5a8f",
+      "size_bytes": 25137,
+      "sha256": "343ad74fb47dc80e38fc085dcae52c4d0ee2533211d2638421e98bb7221259ba",
       "bbox": [
         26,
-        119,
+        120,
         486,
-        393
+        392
       ]
     }
   }

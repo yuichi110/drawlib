@@ -12,13 +12,11 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle, polygon
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
 )
@@ -65,14 +63,7 @@ w = 1.9
 cx, cy = 50.0, 50.0
 r = 40.0
 
-# 1. White circular backing plate so the segmented E-badge forms a complete medallion
-circle(
-    (cx, cy),
-    radius=r,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
-)
-
-# 2. Top dome (Colors.Amber3): chord at y = 66.5 with curved right lip up to 36 deg
+# 1. Top dome (Colors.Amber3): chord at y = 66.5 with curved right lip up to 36 deg
 y_top_chord = 66.5
 ang_top_l = math.degrees(math.asin((y_top_chord - cy) / r))  # ~24.36 deg -> 155.64 deg on left
 deg_tl = 180.0 - ang_top_l

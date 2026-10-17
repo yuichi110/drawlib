@@ -18,11 +18,11 @@ from drawlib.utils import (
     ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_GREEN,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -64,15 +64,15 @@ for k in range(num_fins):
         ang = math.radians(a_end + t * (a_next - a_end))
         gear_pts.append((cx + r_base * math.cos(ang), cy + r_base * math.sin(ang)))
 
-polygon(gear_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
+r_hole = 25.5
+hole_pts = [
+    (cx + r_hole * math.cos(math.radians(360.0 * i / 64)), cy + r_hole * math.sin(math.radians(360.0 * i / 64)))
+    for i in range(64)
+]
 
-# Inner white circular cutout
-circle(
-    (cx, cy),
-    radius=25.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
-)
+draw_compound_polygon([gear_pts, hole_pts], color=PASTEL_BLUE)
+draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
+circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=2.4))
 
 # Clean pastel green spiral coil inside the white circle (center fixed at 50.0, 49.0)
 spiral_cx, spiral_cy = 50.0, 49.0

@@ -9,18 +9,63 @@
 
 """Original Data concept icon: spark."""
 
+import math
+
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     draw_round_segment,
     fill_style,
-    no_border_fill,
     setup_icon,
 )
+
+
+def _round_polygon_radii(
+    vertices: list[tuple[float, float]],
+    radii: tuple[float, ...],
+    steps: int = 12,
+) -> list[tuple[float, float]]:
+    """Sample rounded-corner polygon matching Drawlib per-vertex shape_r."""
+    n = len(vertices)
+    pts: list[tuple[float, float]] = []
+    for i in range(n):
+        v_prev = vertices[(i - 1) % n]
+        v_curr = vertices[i]
+        v_next = vertices[(i + 1) % n]
+        r_curr = radii[i]
+        r_prev = radii[(i - 1) % n]
+        r_next = radii[(i + 1) % n]
+
+        dx_in = v_prev[0] - v_curr[0]
+        dy_in = v_prev[1] - v_curr[1]
+        d_in = math.hypot(dx_in, dy_in)
+
+        dx_out = v_next[0] - v_curr[0]
+        dy_out = v_next[1] - v_curr[1]
+        d_out = math.hypot(dx_out, dy_out)
+
+        if r_curr <= 0.0 or d_in == 0.0 or d_out == 0.0:
+            pts.append(v_curr)
+            continue
+
+        avail_in = d_in * (r_curr / (r_prev + r_curr)) if (r_prev + r_curr) > d_in else r_curr
+        avail_out = d_out * (r_curr / (r_curr + r_next)) if (r_curr + r_next) > d_out else r_curr
+        r_eff = min(r_curr, avail_in, avail_out)
+        p_in = (v_curr[0] + (dx_in / d_in) * r_eff, v_curr[1] + (dy_in / d_in) * r_eff)
+        p_out = (v_curr[0] + (dx_out / d_out) * r_eff, v_curr[1] + (dy_out / d_out) * r_eff)
+
+        for s in range(steps + 1):
+            t = s / steps
+            mt = 1.0 - t
+            bx = (mt**2) * p_in[0] + 2.0 * mt * t * v_curr[0] + (t**2) * p_out[0]
+            by = (mt**2) * p_in[1] + 2.0 * mt * t * v_curr[1] + (t**2) * p_out[1]
+            pts.append((bx, by))
+    return pts
+
 
 setup_icon()
 
@@ -55,12 +100,10 @@ inner_pts = [
 ]
 
 outer_radii = (4.2, 1.0, 4.2, 1.0, 4.2, 1.0, 4.2, 1.0, 4.2, 1.0)
+outer_poly = _round_polygon_radii(outer_pts, outer_radii)
 
-# 1. Base tilted star filled in Colors.Orange3
-polygon(
-    outer_pts,
-    style=fill_style(Colors.Orange3, shape_r=outer_radii),
-)
+# 1. Base tilted star with transparent hollow star center (Colors.Orange3)
+draw_compound_polygon([outer_poly, inner_pts], color=Colors.Orange3)
 
 # 2. Dynamic top-right burst ray accented in Colors.Amber3
 burst_ray = [
@@ -73,24 +116,13 @@ burst_ray = [
 ]
 polygon(
     burst_ray,
-    style=fill_style(Colors.Amber3, shape_r=(0.0, 4.2, 0.0, 0.0, 1.2, 0.0)),
+    style=fill_style(Colors.Amber3, shape_r=(0.0, 4.2, 0.0, 0.0, 0.0, 0.0)),
 )
 
-# 3. Inner hollow star filled in WHITE
-polygon(inner_pts, style=no_border_fill(WHITE))
-
-# 4. Crisp seam lines and inner/outer structural outlines
+# 3. Crisp seam lines and inner/outer structural outlines
 draw_round_segment(inner_pts[1], outer_pts[1], width_units=1.7, color=DARK)
 draw_round_segment(inner_pts[3], outer_pts[3], width_units=1.7, color=DARK)
 draw_round_polyline(inner_pts, width_units=1.8, color=DARK, closed=True)
-polygon(
-    outer_pts,
-    style=fill_style(
-        (0, 0, 0, 0),
-        border_color=DARK,
-        border_units=w,
-        shape_r=outer_radii,
-    ),
-)
+draw_round_polyline(outer_poly, width_units=w, color=DARK, closed=True)
 
 save()

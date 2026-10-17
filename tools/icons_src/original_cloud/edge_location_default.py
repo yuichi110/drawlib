@@ -12,16 +12,17 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle, ellipse, polygon
+from drawlib.shapes import circle, ellipse
 from drawlib.utils import (
     DARK,
     ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_GREEN,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     fill_style,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -52,14 +53,23 @@ for i in range(steps + 1):
     ang = math.radians(ang_start + (ang_end - ang_start) * (i / steps))
     pin_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
-polygon(pin_pts, style=fill_style(PASTEL_BLUE))
+hole_r = 9.5
+hole_pts = [
+    (
+        cx + hole_r * math.cos(math.radians(360.0 * i / steps)),
+        cy + hole_r * math.sin(math.radians(360.0 * i / steps)),
+    )
+    for i in range(steps)
+]
+
+draw_compound_polygon([pin_pts, hole_pts], color=PASTEL_BLUE)
 draw_round_polyline(pin_pts, width_units=w, color=DARK, closed=True)
 
-# Inner pin cutout circle
+# Inner pin cutout circle border
 circle(
     (cx, cy),
-    radius=9.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
+    radius=hole_r,
+    style=stroke_style(DARK, width_units=2.4),
 )
 
 save()

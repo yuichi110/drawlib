@@ -12,16 +12,13 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle, polygon
+from drawlib.shapes import polygon
 from drawlib.utils import (
     DARK,
-    ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_BLUE_LIGHT,
     PASTEL_GREEN,
-    WHITE,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
 )
@@ -61,15 +58,6 @@ def _rounded_bar(
 
 
 setup_icon()
-
-w = ORIG_STROKE
-
-# Outer white circular medallion
-circle(
-    (50.0, 50.0),
-    radius=40.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
-)
 
 # Slight down-right offset inside the circular medallion for balanced visual margins
 dx, dy = 2.2, -2.2

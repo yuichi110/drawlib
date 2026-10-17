@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cnative",
-  "created_at": "2026-10-16T10:34:23.682352+00:00",
+  "created_at": "2026-10-17T00:24:23.120316+00:00",
   "canvas_size": [
     512,
     512
@@ -103,8 +103,8 @@
       "icon_name": "backstage",
       "variant": "default",
       "source_script": "original_cnative/backstage_default.py",
-      "size_bytes": 30995,
-      "sha256": "26709a453bb48461b7e66c31a8b347a099ce1d3dea42fb1fa65e8d5bf8069695",
+      "size_bytes": 30882,
+      "sha256": "fc53ab50cddc6d8b118d72ec2a21a7d4f9f3d338001d6f7d77cd1f229b015b95",
       "bbox": [
         60,
         26,
@@ -207,8 +207,8 @@
       "icon_name": "envoy",
       "variant": "default",
       "source_script": "original_cnative/envoy_default.py",
-      "size_bytes": 26084,
-      "sha256": "12dcf2c8318a9d790d5305020a76a3dab11b4bee78e8da575e669fcac6a79cc7",
+      "size_bytes": 25797,
+      "sha256": "4dd5a2280a29913da1e02297e3305a997916f97a53880c5dc1c81b0c675b298d",
       "bbox": [
         56,
         26,
@@ -220,8 +220,8 @@
       "icon_name": "etcd",
       "variant": "default",
       "source_script": "original_cnative/etcd_default.py",
-      "size_bytes": 40893,
-      "sha256": "1ae1db10ab63045afa09770fcb4aa24cdf875a7eb4c51a869faba1176203ce08",
+      "size_bytes": 40116,
+      "sha256": "957ffbdb5da9011d41c2ea8825acd980bc758c51597576fd1929c2f3dcbc2c67",
       "bbox": [
         26,
         26,
@@ -233,12 +233,12 @@
       "icon_name": "falco",
       "variant": "default",
       "source_script": "original_cnative/falco_default.py",
-      "size_bytes": 39398,
-      "sha256": "204c701bb54e81985e250ed50f974dcabd4184ba4442840f0d247ba74f597756",
+      "size_bytes": 24917,
+      "sha256": "b8f6a6c2782385c9b95d2067ce79dd4e4bc0b27c9d70cd281aa76d6d30720a36",
       "bbox": [
+        42,
         26,
-        26,
-        486,
+        470,
         486
       ]
     },
@@ -272,8 +272,8 @@
       "icon_name": "grafana",
       "variant": "default",
       "source_script": "original_cnative/grafana_default.py",
-      "size_bytes": 55415,
-      "sha256": "f0d78bf31d5ac775679fecab673de02362eb992ee5cbcabe09cca289207cf934",
+      "size_bytes": 54164,
+      "sha256": "1a46f5128cee41aeaf6a474eccbe5006702973261b24ce2b223ed1cecc3c86c3",
       "bbox": [
         26,
         28,
@@ -298,8 +298,8 @@
       "icon_name": "helm",
       "variant": "default",
       "source_script": "original_cnative/helm_default.py",
-      "size_bytes": 45092,
-      "sha256": "411b6592d070f6f66b0b04b22e0ffbc6f8a32de986bf0624e947706155595aeb",
+      "size_bytes": 44045,
+      "sha256": "3d4645683680f858ada34d0bc62dc4073f5b5bf8f515bfd52f61fc48672bafa1",
       "bbox": [
         26,
         26,
@@ -675,8 +675,8 @@
       "icon_name": "opentelemetry",
       "variant": "default",
       "source_script": "original_cnative/opentelemetry_default.py",
-      "size_bytes": 35805,
-      "sha256": "763ab15825da99f457dbc608e3c4088d5d072e8e931b699df9eca32f0b09edd3",
+      "size_bytes": 35887,
+      "sha256": "7209de2ae6bb35818e6b701a20022e222ebe4aa1520f28abc1f7e57d67681b71",
       "bbox": [
         26,
         76,
@@ -688,8 +688,8 @@
       "icon_name": "prometheus",
       "variant": "default",
       "source_script": "original_cnative/prometheus_default.py",
-      "size_bytes": 46221,
-      "sha256": "afcae70b6a95dbd6e5e51bc1536099a27a8caea998efce9c4f0543731dd9f7bb",
+      "size_bytes": 45299,
+      "sha256": "2eda3e1dfd6a1754c523b4cf91c7852cfa6fce7a63a04dd576acc8210674636f",
       "bbox": [
         26,
         26,
@@ -701,8 +701,8 @@
       "icon_name": "rook",
       "variant": "default",
       "source_script": "original_cnative/rook_default.py",
-      "size_bytes": 11656,
-      "sha256": "8a319b4633664c9c6d2b7694787b772f2576b73e978afaaafecc2e61a4d192c1",
+      "size_bytes": 11590,
+      "sha256": "897a29e9f64c1d4283d7dcd5702ecd72dd26d40f95adb2ea5fac2f24bee4ebd1",
       "bbox": [
         83,
         26,

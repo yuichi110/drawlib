@@ -12,15 +12,14 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle, polygon
+from drawlib.shapes import circle
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
-    fill_style,
-    no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -33,6 +32,14 @@ def _arc(xc: float, yc: float, r: float, deg0: float, deg1: float, steps: int = 
     pts: list[tuple[float, float]] = []
     for i in range(steps + 1):
         a = math.radians(deg0 + (deg1 - deg0) * (i / steps))
+        pts.append((xc + r * math.cos(a), yc + r * math.sin(a)))
+    return pts
+
+
+def _circle_pts(xc: float, yc: float, r: float, steps: int = 64) -> list[tuple[float, float]]:
+    pts: list[tuple[float, float]] = []
+    for i in range(steps):
+        a = 2.0 * math.pi * (i / steps)
         pts.append((xc + r * math.cos(a), yc + r * math.sin(a)))
     return pts
 
@@ -54,19 +61,7 @@ def _quad(
     return pts
 
 
-# 1. Outer circular medallion (Colors.Red2 outer ring + Colors.Red3 inner circle)
-circle(
-    (cx, cy),
-    radius=40.5,
-    style=fill_style(Colors.Red2, border_color=DARK, border_units=w),
-)
-circle(
-    (cx, cy),
-    radius=34.0,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=1.7),
-)
-
-# 2. Iconic Couchbase rounded U-shaped couch block (WHITE)
+# 1. Iconic Couchbase rounded U-shaped couch cutout contour
 # Left armrest x = 24.5..36.5, Right armrest x = 63.5..75.5
 # Top y = 62.5, Seat y = 50.8, Bottom base y = 38.8 (curving down to 37.2 at center)
 r_out = 4.8
@@ -96,7 +91,15 @@ couch_pts: list[tuple[float, float]] = [
     *_arc(24.5 + r_out, 62.0 - r_out, r_out, 90.0, 180.0),
 ]
 
-polygon(couch_pts, style=no_border_fill(WHITE))
+# 2. Outer circular medallion (Colors.Red2 outer ring + Colors.Red3 inner circle) with transparent couch hole
+outer_circle_pts = _circle_pts(cx, cy, 40.5, 64)
+inner_circle_pts = _circle_pts(cx, cy, 34.0, 64)
+
+draw_compound_polygon([outer_circle_pts, couch_pts], color=Colors.Red2)
+draw_compound_polygon([inner_circle_pts, couch_pts], color=Colors.Red3)
+
+circle((cx, cy), radius=40.5, style=stroke_style(DARK, width_units=w))
+circle((cx, cy), radius=34.0, style=stroke_style(DARK, width_units=1.7))
 draw_round_polyline(couch_pts, width_units=1.8, color=DARK, closed=True)
 
 save()

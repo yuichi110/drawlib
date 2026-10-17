@@ -17,6 +17,7 @@ from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
     WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     no_border_fill,
     setup_icon,
@@ -103,16 +104,15 @@ body_pts = [
     *_bezier(p_neck_mid_out, (67.8, 63.64), (68.8, 52.0), p_neck_low_out, 20),
     p_wing_tip,
 ]
-polygon(body_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
 
-# 4. Inner triangular wing cutout (WHITE)
+# 4. Inner triangular wing cutout (transparent hole inside body_pts)
 hole_pts = [
     (36.8, 39.8),
     *_bezier((36.8, 39.8), (40.5, 48.2), (45.5, 53.8), (50.6, 57.4), 14),
     (50.6, 47.0),
 ]
-polygon(hole_pts, style=no_border_fill(WHITE))
+draw_compound_polygon([body_pts, hole_pts], color=Colors.Red3)
+draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
 draw_round_polyline(hole_pts, width_units=1.7, color=DARK, closed=True)
 
 save()

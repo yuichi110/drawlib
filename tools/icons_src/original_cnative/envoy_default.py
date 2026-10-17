@@ -19,7 +19,6 @@ from drawlib.utils import (
     PASTEL_BLUE,
     PASTEL_BLUE_LIGHT,
     PASTEL_GREEN,
-    WHITE,
     draw_round_polyline,
     draw_round_segment,
     no_border_fill,
@@ -45,9 +44,6 @@ facet_tl = [v_in[4], v_out[4], v_out[5], v_out[0], v_in[0], v_in[5]]
 polygon(facet_tr, style=no_border_fill(PASTEL_BLUE))
 polygon(facet_bot, style=no_border_fill(PASTEL_GREEN))
 polygon(facet_tl, style=no_border_fill(PASTEL_BLUE_LIGHT))
-
-# Center white hexagon
-polygon(v_in, style=no_border_fill(WHITE))
 
 # Seam lines between the 3 ribbon facets
 for idx in (0, 2, 4):

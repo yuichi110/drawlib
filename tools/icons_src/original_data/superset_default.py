@@ -16,7 +16,7 @@ from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     draw_round_segment,
     no_border_fill,
@@ -54,14 +54,22 @@ def _arc_pts(
     return pts
 
 
-# 1. Exact outer infinity silhouette with top/bottom crossing valleys (Colors.Teal3 base)
+# 1. Exact outer infinity silhouette with transparent left/right teardrop holes (Colors.Teal3)
 outer_loop = [
     (50.0, cy + v_off),
     *_arc_pts(cx_l, cy, r_out, 45.0, 315.0, 36),
     (50.0, cy - v_off),
     *_arc_pts(cx_r, cy, r_out, 225.0, 495.0, 36),
 ]
-polygon(outer_loop, style=no_border_fill(Colors.Teal3))
+left_hole = [
+    (50.0 - v_off, cy),
+    *_arc_pts(cx_l, cy, r_in, 45.0, 315.0, 28),
+]
+right_hole = [
+    (50.0 + v_off, cy),
+    *_arc_pts(cx_r, cy, r_in, 135.0, -135.0, 28),
+]
+draw_compound_polygon([outer_loop, left_hole, right_hole], color=Colors.Teal3)
 
 # 2. Under-strand accent segments (Colors.Gray5) flanking the central crossing
 # Top-left accent segment (between 82 deg on left lobe and the over-strand top-left edge)
@@ -82,19 +90,7 @@ br_accent = [
 ]
 polygon(br_accent, style=no_border_fill(Colors.Gray5))
 
-# 3. Left and right inner teardrop holes (WHITE)
-left_hole = [
-    (50.0 - v_off, cy),
-    *_arc_pts(cx_l, cy, r_in, 45.0, 315.0, 28),
-]
-right_hole = [
-    (50.0 + v_off, cy),
-    *_arc_pts(cx_r, cy, r_in, 135.0, -135.0, 28),
-]
-polygon(left_hole, style=no_border_fill(WHITE))
-polygon(right_hole, style=no_border_fill(WHITE))
-
-# 4. Internal seam lines for accent bands and over-strand crossing
+# 3. Internal seam lines for accent bands and over-strand crossing
 draw_round_segment(
     (cx_l + r_in * math.cos(math.radians(82.0)), cy + r_in * math.sin(math.radians(82.0))),
     (cx_l + r_out * math.cos(math.radians(82.0)), cy + r_out * math.sin(math.radians(82.0))),

@@ -12,17 +12,17 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle, polygon
+from drawlib.shapes import circle
 from drawlib.utils import (
     DARK,
     ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_GREEN,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     fill_style,
-    no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -50,15 +50,15 @@ for k in range(8):
     ang_end = math.radians(center_deg + 12.0)
     gear_pts.append((cx + r_base * math.cos(ang_end), cy + r_base * math.sin(ang_end)))
 
-polygon(gear_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
+r_hole = 21.0
+hole_pts = [
+    (cx + r_hole * math.cos(math.radians(360.0 * i / 64)), cy + r_hole * math.sin(math.radians(360.0 * i / 64)))
+    for i in range(64)
+]
 
-# Inner white circular face
-circle(
-    (cx, cy),
-    radius=21.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
-)
+draw_compound_polygon([gear_pts, hole_pts], color=PASTEL_BLUE)
+draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
+circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=2.4))
 
 # Two friendly pastel green circular eyes/nodes
 circle(

@@ -75,8 +75,6 @@ shackle_w = 13.6
 shackle_r = shackle_w / 2.0
 shackle_top_y = 74.2
 
-rectangle((lock_cx, 70.5), width=shackle_w, height=8.0, style=no_border_fill(WHITE))
-ellipse((lock_cx, shackle_top_y), width=shackle_w, height=shackle_w, style=no_border_fill(WHITE))
 draw_round_segment((lock_cx - shackle_r, 66.5), (lock_cx - shackle_r, shackle_top_y), width_units=2.7, color=DARK)
 draw_round_segment((lock_cx + shackle_r, 66.5), (lock_cx + shackle_r, shackle_top_y), width_units=2.7, color=DARK)
 arc(

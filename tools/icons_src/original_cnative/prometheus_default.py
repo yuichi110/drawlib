@@ -19,11 +19,12 @@ from drawlib.utils import (
     PASTEL_BLUE,
     PASTEL_BLUE_LIGHT,
     PASTEL_GREEN,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
     fill_style,
     no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -49,17 +50,18 @@ def _quad_curve(
     return pts
 
 
-# 1. Circular medallion (PASTEL_BLUE outer ring + WHITE inner circle)
-circle(
-    (cx, cy),
-    radius=40.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
-)
-circle(
-    (cx, cy),
-    radius=31.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.3),
-)
+# 1. Circular medallion ring (PASTEL_BLUE annulus r=31.5..40.5)
+outer_c = [
+    (cx + 40.5 * math.cos(math.radians(360.0 * i / 72)), cy + 40.5 * math.sin(math.radians(360.0 * i / 72)))
+    for i in range(72)
+]
+inner_c = [
+    (cx + 31.5 * math.cos(math.radians(360.0 * i / 72)), cy + 31.5 * math.sin(math.radians(360.0 * i / 72)))
+    for i in range(72)
+]
+draw_compound_polygon([outer_c, inner_c], color=PASTEL_BLUE)
+circle((cx, cy), radius=40.5, style=stroke_style(DARK, width_units=w))
+circle((cx, cy), radius=31.5, style=stroke_style(DARK, width_units=2.3))
 
 # 2. Lower torch dish (PASTEL_BLUE_LIGHT semicircular bowl at bottom)
 dish_pts: list[tuple[float, float]] = [(41.0, 27.8)]

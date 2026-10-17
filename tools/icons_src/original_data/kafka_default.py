@@ -17,26 +17,41 @@ from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
+    draw_compound_polygon,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
+    stroke_style,
 )
 
 
+def _circle_pts(xc: float, yc: float, r: float, steps: int = 48) -> list[tuple[float, float]]:
+    """Sample full circle polygon around (xc, yc) with radius r."""
+    pts: list[tuple[float, float]] = []
+    for i in range(steps):
+        a = 2.0 * math.pi * (i / steps)
+        pts.append((xc + r * math.cos(a), yc + r * math.sin(a)))
+    return pts
+
+
 def _draw_spoke_bar(
-    p1: tuple[float, float],
-    p2: tuple[float, float],
+    hub_center: tuple[float, float],
+    sat_center: tuple[float, float],
+    r_hub_trim: float,
+    r_sat_trim: float,
     width_units: float,
     fill_color: Any,
 ) -> None:
-    """Draw a clean rectangular spoke bar connecting two ring centers."""
-    dx = p2[0] - p1[0]
-    dy = p2[1] - p1[1]
+    """Draw a trimmed rectangular spoke bar between solid ring bands."""
+    dx = sat_center[0] - hub_center[0]
+    dy = sat_center[1] - hub_center[1]
     dist = math.hypot(dx, dy)
-    nx = -dy / dist * (width_units / 2.0)
-    ny = dx / dist * (width_units / 2.0)
+    ux = dx / dist
+    uy = dy / dist
+    p1 = (hub_center[0] + ux * r_hub_trim, hub_center[1] + uy * r_hub_trim)
+    p2 = (sat_center[0] - ux * r_sat_trim, sat_center[1] - uy * r_sat_trim)
+    nx = -uy * (width_units / 2.0)
+    ny = ux * (width_units / 2.0)
     pts = [
         (p1[0] + nx, p1[1] + ny),
         (p2[0] + nx, p2[1] + ny),
@@ -53,6 +68,8 @@ w = 1.9
 
 hub_xy = (39.0, 50.0)
 spoke_dist = 29.0
+r_hub_trim = 10.3
+r_sat_trim = 7.7
 
 satellites = [
     (90.0, Colors.Gray6),
@@ -68,33 +85,19 @@ for ang_deg, col in satellites:
     sy = hub_xy[1] + spoke_dist * math.sin(ang)
     sat_coords.append(((sx, sy), col))
 
-# 1. Draw the 4 connecting spokes behind all rings
+# 1. Draw the 4 connecting spokes behind all rings (trimmed to solid bands)
 for sat_xy, _ in sat_coords:
-    _draw_spoke_bar(hub_xy, sat_xy, width_units=6.0, fill_color=Colors.Gray4)
+    _draw_spoke_bar(hub_xy, sat_xy, r_hub_trim, r_sat_trim, width_units=6.0, fill_color=Colors.Gray4)
 
-# 2. Central hub ring (Colors.Gray6 outer + WHITE inner hole)
-circle(
-    hub_xy,
-    radius=14.0,
-    style=fill_style(Colors.Gray6, border_color=DARK, border_units=w),
-)
-circle(
-    hub_xy,
-    radius=6.6,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.7),
-)
+# 2. Central hub ring (Colors.Gray6 outer + transparent inner hole)
+draw_compound_polygon([_circle_pts(*hub_xy, 14.0), _circle_pts(*hub_xy, 6.6)], color=Colors.Gray6)
+circle(hub_xy, radius=14.0, style=stroke_style(DARK, width_units=w))
+circle(hub_xy, radius=6.6, style=stroke_style(DARK, width_units=1.7))
 
-# 3. Four satellite ring nodes
+# 3. Four satellite ring nodes (transparent inner holes)
 for sat_xy, sat_col in sat_coords:
-    circle(
-        sat_xy,
-        radius=10.6,
-        style=fill_style(sat_col, border_color=DARK, border_units=w),
-    )
-    circle(
-        sat_xy,
-        radius=4.8,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.7),
-    )
+    draw_compound_polygon([_circle_pts(*sat_xy, 10.6), _circle_pts(*sat_xy, 4.8)], color=sat_col)
+    circle(sat_xy, radius=10.6, style=stroke_style(DARK, width_units=w))
+    circle(sat_xy, radius=4.8, style=stroke_style(DARK, width_units=1.7))
 
 save()

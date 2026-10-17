@@ -75,6 +75,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "server": "Server",
     "cnative": "Cloud Native",
     "data": "Data",
+    "devops": "DevOps",
     "ai": "AI",
 }
 
@@ -132,6 +133,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "server": "ServerIcon",
     "cnative": "CnativeIcon",
     "data": "DataIcon",
+    "devops": "DevopsIcon",
     "ai": "AiIcon",
 }
 

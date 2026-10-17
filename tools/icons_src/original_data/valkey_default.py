@@ -16,7 +16,6 @@ from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
     draw_round_polyline,
     draw_round_segment,
     fill_style,
@@ -37,20 +36,7 @@ def _svg_pt(sx: float, sy: float) -> tuple[float, float]:
     return (x, y)
 
 
-# 1. White hexagonal backing inside the frame so track and keyhole are crisp WHITE
-hex_bg = [
-    _svg_pt(0.0, 215.3),
-    _svg_pt(0.0, 74.0),
-    _svg_pt(130.0, 0.0),
-    _svg_pt(256.0, 74.0),
-    _svg_pt(256.0, 222.7),
-    _svg_pt(127.7, 295.0),
-    _svg_pt(83.1, 267.3),
-    _svg_pt(53.1, 248.7),
-]
-polygon(hex_bg, style=no_border_fill(WHITE))
-
-# 2. Inner hexagon facet around the keyhole (Colors.Blue3)
+# 1. Inner hexagon facet around the keyhole (Colors.Blue3)
 inner_hex_pts = [
     _svg_pt(83.1, 199.5),
     _svg_pt(58.8, 184.2),

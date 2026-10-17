@@ -1,0 +1,99 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Original DevOps concept icon: kibana."""
+
+from drawlib.canvas import save
+from drawlib.shapes import polygon
+from drawlib.styles import Colors
+from drawlib.utils import (
+    DARK,
+    draw_round_polyline,
+    no_border_fill,
+    setup_icon,
+)
+
+setup_icon()
+
+w = 1.9
+s = 38.8 / 41.0
+
+
+def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
+    """Scale points around (50, 50) to fit safely within [10, 90]."""
+    return [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in pts]
+
+
+# Shared arc between top-left pink block and middle gray wedge
+mid_arc: list[tuple[float, float]] = [
+    (48.55, 52.44),
+    (47.17, 53.17),
+    (45.78, 53.86),
+    (44.37, 54.53),
+    (42.94, 55.16),
+    (41.49, 55.75),
+    (40.03, 56.31),
+    (38.55, 56.84),
+    (37.05, 57.33),
+    (35.53, 57.79),
+    (34.0, 58.21),
+    (32.46, 58.59),
+    (30.9, 58.93),
+    (29.33, 59.23),
+    (27.74, 59.5),
+    (26.14, 59.73),
+    (24.53, 59.91),
+    (22.91, 60.06),
+    (21.27, 60.16),
+    (19.63, 60.23),
+    (17.97, 60.25),
+]
+
+# Outer arc of bottom-right teal block
+bot_arc: list[tuple[float, float]] = [
+    (80.75, 9.0),
+    (80.21, 11.4),
+    (79.58, 13.78),
+    (78.87, 16.11),
+    (78.07, 18.4),
+    (77.18, 20.66),
+    (76.22, 22.87),
+    (75.17, 25.04),
+    (74.05, 27.16),
+    (72.85, 29.23),
+    (71.57, 31.25),
+    (70.22, 33.22),
+    (68.81, 35.14),
+    (67.32, 37.0),
+    (65.77, 38.8),
+    (64.15, 40.55),
+    (62.47, 42.23),
+    (60.73, 43.85),
+    (58.93, 45.41),
+    (57.07, 46.9),
+    (55.15, 48.32),
+]
+
+top_pink_pts = _sc([(17.97, 91.0), (82.03, 91.0), *mid_arc])
+mid_gray_pts = _sc([(17.97, 17.23), *mid_arc])
+bot_teal_pts = _sc([(21.0, 9.0), *bot_arc])
+
+blocks = [
+    (top_pink_pts, Colors.Pink3),
+    (mid_gray_pts, Colors.Gray6),
+    (bot_teal_pts, Colors.Teal2),
+]
+
+for pts, col in blocks:
+    polygon(pts, style=no_border_fill(col))
+
+for pts, _ in blocks:
+    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+
+save()

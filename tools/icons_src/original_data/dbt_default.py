@@ -12,13 +12,11 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import polygon, rectangle
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
     draw_round_polyline,
-    fill_style,
     no_border_fill,
     setup_icon,
 )
@@ -59,8 +57,22 @@ def _rot180(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
     return [(100.0 - x, 100.0 - y) for x, y in pts]
 
 
-# Left boomerang (Top-Left + Bottom-Left lobes) with exact dbt propeller hook
-# Lobe centers at (21.5, 78.5) and (21.5, 21.5), radius 9.8
+# Central rotated rounded-diamond cutout (width=11.0, height=11.0, shape_r=2.0, angle=45.0)
+r_diamond = 2.0
+d_diamond = 3.5 * math.sqrt(2.0)  # Corner arc center offset from (50.0, 50.0)
+# Diagonal seam (38.50, 33.30) -> (61.50, 66.70) hits bottom-left flat edge at (46.828, 45.394)
+# and exits top-right flat edge at (53.172, 54.606).
+seam_hit_bl = (46.828, 45.394)
+seam_hit_tr = (53.172, 54.606)
+
+diamond_pts: list[tuple[float, float]] = [
+    *_arc(cx, cy + d_diamond, r_diamond, 45.0, 135.0, 10),
+    *_arc(cx - d_diamond, cy, r_diamond, 135.0, 225.0, 10),
+    *_arc(cx, cy - d_diamond, r_diamond, 225.0, 315.0, 10),
+    *_arc(cx + d_diamond, cy, r_diamond, 315.0, 405.0, 10),
+]
+
+# Left boomerang (Top-Left + Bottom-Left lobes) with central diamond cutout along diagonal seam
 r_lobe = 9.8
 left_half: list[tuple[float, float]] = [
     # Top-Left lobe arc (from top-right tangent 60 deg CCW to bottom-left tangent 210 deg)
@@ -73,7 +85,12 @@ left_half: list[tuple[float, float]] = [
     (44.20, 23.29),
     # Concave hook curve up-left to diagonal seam start (38.50, 33.30)
     *_cubic((44.20, 23.29), (40.5, 26.5), (38.8, 29.8), (38.50, 33.30), 10),
-    # Straight diagonal seam across center to top-right hook tip (61.50, 66.70)
+    # Diagonal seam up to diamond bottom-left edge, then detour around Left & Top diamond corners
+    seam_hit_bl,
+    *_arc(cx - d_diamond, cy, r_diamond, 225.0, 135.0, 10),
+    *_arc(cx, cy + d_diamond, r_diamond, 135.0, 45.0, 10),
+    seam_hit_tr,
+    # Diagonal seam from diamond top-right edge to top-right hook tip (61.50, 66.70)
     (61.50, 66.70),
 ]
 
@@ -86,12 +103,7 @@ polygon(left_half, style=no_border_fill(Colors.Orange3))
 draw_round_polyline(right_half, width_units=w, color=DARK, closed=True)
 draw_round_polyline(left_half, width_units=w, color=DARK, closed=True)
 
-# 2. Central rounded diamond cutout hole (WHITE, rotated 45 deg)
-rectangle(
-    (cx, cy),
-    width=11.0,
-    height=11.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.8, shape_r=2.0, angle=45.0),
-)
+# 2. Continuous DARK outline on central transparent diamond hole
+draw_round_polyline(diamond_pts, width_units=1.8, color=DARK, closed=True)
 
 save()

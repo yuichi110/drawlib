@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_server",
-  "created_at": "2026-10-16T08:14:22.180957+00:00",
+  "created_at": "2026-10-17T00:24:30.252945+00:00",
   "canvas_size": [
     512,
     512
@@ -254,8 +254,8 @@
       "icon_name": "resource_pool",
       "variant": "default",
       "source_script": "original_server/resource_pool_default.py",
-      "size_bytes": 44336,
-      "sha256": "4169f09473c68aa14027bcb448f9969f50e9f3dad31342ecf5896f21909ce2d5",
+      "size_bytes": 42752,
+      "sha256": "08c1c394679d9ea3a99e213a8ba2b1e38b138e59bb5f351d75232760da6df5ff",
       "bbox": [
         26,
         26,

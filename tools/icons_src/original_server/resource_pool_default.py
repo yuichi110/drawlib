@@ -9,16 +9,18 @@
 
 """Original Server concept icon: resource_pool."""
 
+import math
+
 from drawlib.canvas import save
-from drawlib.shapes import circle, wedge
+from drawlib.shapes import circle, polygon
 from drawlib.utils import (
     DARK,
     ORIG_STROKE,
     PASTEL_BLUE,
     PASTEL_BLUE_LIGHT,
     PASTEL_GREEN,
-    WHITE,
-    fill_style,
+    draw_round_segment,
+    no_border_fill,
     setup_icon,
     stroke_style,
 )
@@ -26,41 +28,53 @@ from drawlib.utils import (
 setup_icon()
 
 w = ORIG_STROKE
+cx, cy = 50.0, 50.0
 
-# Outer circular pool ring
+# Outer circular pool ring border (transparent moat)
 circle(
-    (50.0, 50.0),
+    (cx, cy),
     radius=38.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=stroke_style(DARK, width_units=w),
 )
 
-# 3-slice pie/gauge chart representing CPU / Memory / IOPS allocation
+# 3-slice donut gauge chart (r=9.5..30.0) representing CPU / Memory / IOPS allocation
 slices = [
     (90.0, 220.0, PASTEL_BLUE),
     (220.0, 330.0, PASTEL_BLUE_LIGHT),
     (330.0, 90.0, PASTEL_GREEN),
 ]
+r_in, r_out = 9.5, 30.0
 for ang_start, ang_end, fill_col in slices:
-    wedge(
-        (50.0, 50.0),
-        radius=30.0,
-        angle_start=ang_start,
-        angle_end=ang_end,
-        style=fill_style(fill_col, border_color=DARK, border_units=2.2),
-    )
+    span = ang_end - ang_start if ang_end > ang_start else (ang_end + 360.0) - ang_start
+    steps = 28
+    outer_arc = [
+        (
+            cx + r_out * math.cos(math.radians(ang_start + span * (i / steps))),
+            cy + r_out * math.sin(math.radians(ang_start + span * (i / steps))),
+        )
+        for i in range(steps + 1)
+    ]
+    inner_arc = [
+        (
+            cx + r_in * math.cos(math.radians(ang_start + span * (i / steps))),
+            cy + r_in * math.sin(math.radians(ang_start + span * (i / steps))),
+        )
+        for i in range(steps, -1, -1)
+    ]
+    polygon([*outer_arc, *inner_arc], style=no_border_fill(fill_col))
+    draw_round_segment(inner_arc[-1], outer_arc[0], width_units=2.2, color=DARK)
+    draw_round_segment(inner_arc[0], outer_arc[-1], width_units=2.2, color=DARK)
 
-# Crisp continuous outer perimeter stroke around the 3 slices
+# Crisp continuous outer and inner perimeter strokes around the 3 donut slices
 circle(
-    (50.0, 50.0),
-    radius=30.0,
+    (cx, cy),
+    radius=r_out,
     style=stroke_style(DARK, width_units=2.2),
 )
-
-# Central WHITE hub circle
 circle(
-    (50.0, 50.0),
-    radius=9.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    (cx, cy),
+    radius=r_in,
+    style=stroke_style(DARK, width_units=2.2),
 )
 
 save()

@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-16T07:15:05.989022+00:00",
+  "created_at": "2026-10-17T00:24:26.753408+00:00",
   "canvas_size": [
     512,
     512
@@ -559,8 +559,8 @@
       "icon_name": "edge_location",
       "variant": "default",
       "source_script": "original_cloud/edge_location_default.py",
-      "size_bytes": 29854,
-      "sha256": "d285463026e589a1853f424920cf2bc4ee33fd86be71923ce64b1b125021ae84",
+      "size_bytes": 29582,
+      "sha256": "8edf8b89ad514f4e828e380d71499075d79bc2f4c2cdbbc41ad024d914032d8d",
       "bbox": [
         47,
         26,
@@ -845,8 +845,8 @@
       "icon_name": "message_queue",
       "variant": "default",
       "source_script": "original_cloud/message_queue_default.py",
-      "size_bytes": 7664,
-      "sha256": "851cee9d845c8d64892741ec27c1f80ca7325ba9706a0d8e32a092fad5308715",
+      "size_bytes": 7374,
+      "sha256": "0d6d99aa6bd1948e48a1ccbb70976919236107961185b844cb3b0aab0a013427",
       "bbox": [
         26,
         108,
@@ -923,8 +923,8 @@
       "icon_name": "notification",
       "variant": "default",
       "source_script": "original_cloud/notification_default.py",
-      "size_bytes": 17114,
-      "sha256": "e7a6618247a023c14b021bf906b844536e6b7e0bdbecc6c4ab385f10f8afb419",
+      "size_bytes": 17027,
+      "sha256": "39e71ea81faa9d5da98374d9f91895ee8949a49ee8eef765300a3e305f27f71d",
       "bbox": [
         51,
         26,
@@ -1274,8 +1274,8 @@
       "icon_name": "vpn_tunnel",
       "variant": "default",
       "source_script": "original_cloud/vpn_tunnel_default.py",
-      "size_bytes": 17467,
-      "sha256": "4e965af96d9c6bb4dd1d3a4aee5ff1b325343f48b81beb9bdd021ff78eee5876",
+      "size_bytes": 17343,
+      "sha256": "d17529747eec20ed32f777a8383a323c1110e48de213105af33d1251002fa8b1",
       "bbox": [
         26,
         103,

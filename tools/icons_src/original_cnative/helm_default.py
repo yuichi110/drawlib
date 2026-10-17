@@ -19,10 +19,11 @@ from drawlib.utils import (
     PASTEL_BLUE,
     PASTEL_BLUE_LIGHT,
     PASTEL_GREEN,
-    WHITE,
+    draw_compound_polygon,
     draw_round_segment,
     fill_style,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -31,6 +32,16 @@ w = ORIG_STROKE
 cx, cy = 50.0, 50.0
 r_ring_outer = 27.5
 r_ring_inner = 18.0
+r_hub_outer = 8.5
+r_hub_inner = 3.0
+
+
+def _circle_pts(r: float, steps: int = 64) -> list[tuple[float, float]]:
+    """Sample a circle polygon centered at (cx, cy)."""
+    return [
+        (cx + r * math.cos(math.radians(360.0 * i / steps)), cy + r * math.sin(math.radians(360.0 * i / steps)))
+        for i in range(steps)
+    ]
 
 
 def _build_handle_points(angle_deg: float) -> list[tuple[float, float]]:
@@ -65,35 +76,23 @@ for k in range(8):
         style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.4),
     )
 
-# 2. Main ship's wheel ring (PASTEL_BLUE outer circle + WHITE inner circle)
-circle(
-    (cx, cy),
-    radius=r_ring_outer,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
-)
-circle(
-    (cx, cy),
-    radius=r_ring_inner,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
-)
-
-# 3. 8 inner radial spokes across the white interior
+# 2. 8 inner radial spokes across the transparent interior (r=8.5..18.0)
 for k in range(8):
     theta = math.radians(k * 45.0)
+    x_start = cx + r_hub_outer * math.cos(theta)
+    y_start = cy + r_hub_outer * math.sin(theta)
     x_end = cx + r_ring_inner * math.cos(theta)
     y_end = cy + r_ring_inner * math.sin(theta)
-    draw_round_segment((cx, cy), (x_end, y_end), width_units=2.6, color=DARK)
+    draw_round_segment((x_start, y_start), (x_end, y_end), width_units=2.6, color=DARK)
 
-# 4. Central hub circle (PASTEL_GREEN + small WHITE center pin)
-circle(
-    (cx, cy),
-    radius=8.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
-)
-circle(
-    (cx, cy),
-    radius=3.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
-)
+# 3. Main ship's wheel ring (PASTEL_BLUE annulus r=18.0..27.5)
+draw_compound_polygon([_circle_pts(r_ring_outer), _circle_pts(r_ring_inner)], color=PASTEL_BLUE)
+circle((cx, cy), radius=r_ring_outer, style=stroke_style(DARK, width_units=w))
+circle((cx, cy), radius=r_ring_inner, style=stroke_style(DARK, width_units=2.4))
+
+# 4. Central hub ring (PASTEL_GREEN annulus r=3.0..8.5 with transparent pin hole)
+draw_compound_polygon([_circle_pts(r_hub_outer), _circle_pts(r_hub_inner)], color=PASTEL_GREEN)
+circle((cx, cy), radius=r_hub_outer, style=stroke_style(DARK, width_units=2.4))
+circle((cx, cy), radius=r_hub_inner, style=stroke_style(DARK, width_units=2.0))
 
 save()

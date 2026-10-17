@@ -22,6 +22,7 @@ from drawlib.utils import (
     draw_round_polyline,
     fill_style,
     setup_icon,
+    stroke_style,
 )
 
 setup_icon()
@@ -56,7 +57,7 @@ circle(
 circle(
     (50.0, 74.5),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=stroke_style(DARK, width_units=w),
 )
 
 # Bell dome (cx=50, cy=53, r=18) + flared skirt down to y=32 (width=48 at base)

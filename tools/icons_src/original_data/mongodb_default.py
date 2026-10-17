@@ -14,7 +14,6 @@ from drawlib.shapes import polygon
 from drawlib.styles import Colors
 from drawlib.utils import (
     DARK,
-    WHITE,
     draw_round_polyline,
     draw_round_segment,
     no_border_fill,
@@ -44,22 +43,30 @@ setup_icon()
 
 w = 1.9
 
-# 1. Bottom tapered leaf stem (Colors.Amber3)
-stem_pts = [
-    (46.5, 21.0),
-    (47.6, 9.5),
-    (52.4, 9.5),
-    (53.5, 21.0),
-]
-polygon(stem_pts, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(stem_pts, width_units=1.8, color=DARK, closed=True)
-
-# 2. Left and right leaf blade halves
 p_top = (50.0, 90.5)
 p_base_l = (46.8, 19.8)
 p_base_c = (50.0, 18.8)
 p_base_r = (53.2, 19.8)
 
+# 1. Bottom tapered leaf stem (Colors.Amber3) capped along the leaf base
+stem_pts = [
+    p_base_l,
+    (47.6, 9.5),
+    (52.4, 9.5),
+    p_base_r,
+    p_base_c,
+]
+polygon(stem_pts, style=no_border_fill(Colors.Amber3))
+draw_round_polyline(stem_pts, width_units=1.8, color=DARK, closed=True)
+
+# 2. Central tapered vein cutout vertices
+vein_bot = (50.0, 19.8)
+vein_l = (46.6, 25.0)
+vein_top = (50.0, 56.5)
+vein_r = (53.4, 25.0)
+vein_pts = [vein_bot, vein_l, vein_top, vein_r]
+
+# 3. Left and right leaf blade halves routed around vein_pts
 left_edge = [
     p_top,
     *_bezier(p_top, (35.5, 74.0), (28.0, 58.0), (28.8, 44.5), 20),
@@ -73,24 +80,18 @@ right_edge = [
     *_bezier((71.2, 44.5), (72.0, 58.0), (64.5, 74.0), p_top, 20),
 ]
 
-polygon([*left_edge, p_top], style=no_border_fill(Colors.Green3))
-polygon([*right_edge, p_base_c], style=no_border_fill(Colors.Green2))
+left_poly = [*left_edge, vein_bot, vein_l, vein_top]
+right_poly = [*right_edge, vein_top, vein_r, vein_bot]
 
-# 3. Upper center fold line above central vein
+polygon(left_poly, style=no_border_fill(Colors.Green3))
+polygon(right_poly, style=no_border_fill(Colors.Green2))
+
+# 4. Upper center fold line above central vein
 draw_round_segment((50.0, 56.0), p_top, width_units=1.6, color=DARK)
 
-# 4. Outer leaf blade border
+# 5. Outer leaf blade border and transparent central vein border
 outer_leaf = [*left_edge[:-1], p_base_c, *right_edge[1:]]
 draw_round_polyline(outer_leaf, width_units=w, color=DARK, closed=True)
-
-# 5. Central tapered vein cutout (WHITE)
-vein_pts = [
-    (50.0, 19.8),
-    (46.6, 25.0),
-    (50.0, 56.5),
-    (53.4, 25.0),
-]
-polygon(vein_pts, style=no_border_fill(WHITE))
 draw_round_polyline(vein_pts, width_units=1.5, color=DARK, closed=True)
 
 save()
