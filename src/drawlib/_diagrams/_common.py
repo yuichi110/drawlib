@@ -34,6 +34,7 @@ import drawlib._icons.png_icons.original_cnative._generated as original_cnative_
 import drawlib._icons.png_icons.original_data._generated as original_data_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
+import drawlib._icons.png_icons.original_security._generated as original_security_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
 import drawlib._icons.png_icons.server._generated as server_gen
 from drawlib._core.l3_colors import ColorType
@@ -59,6 +60,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
+    OriginalSecurityIcon,
     OriginalServerIcon,
     PhosphorIcon,
     ServerIcon,
@@ -75,6 +77,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalDataIcon: original_data_gen,
     OriginalDevopsIcon: original_devops_gen,
     OriginalNetworkIcon: original_network_gen,
+    OriginalSecurityIcon: original_security_gen,
     OriginalServerIcon: original_server_gen,
     AiIcon: ai_gen,
     AwsIcon: aws_gen,
@@ -209,6 +212,7 @@ def draw_enum_icon(
         | OriginalDataIcon
         | OriginalDevopsIcon
         | OriginalNetworkIcon
+        | OriginalSecurityIcon
         | OriginalServerIcon
         | AiIcon
         | AwsIcon
@@ -227,7 +231,7 @@ def draw_enum_icon(
     *,
     fallback_box: bool = False,
 ) -> None:
-    """Draw an Original, AI, AWS, Azure, Cloud Native, Data, DevOps, GCP, Network, Server, or Phosphor enum icon."""
+    """Draw a diagram icon from a supported icon enum."""
     module = _ENUM_ICON_MODULES.get(type(icon), phosphor_gen)
     func = getattr(module, icon.value, None) or getattr(module, icon.name.lower(), None)
     if func is not None:
@@ -290,6 +294,7 @@ def draw_diagram_icon(
             OriginalDataIcon,
             OriginalDevopsIcon,
             OriginalNetworkIcon,
+            OriginalSecurityIcon,
             OriginalServerIcon,
             AiIcon,
             AwsIcon,

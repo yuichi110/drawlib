@@ -1,0 +1,398 @@
+{
+  "format_version": "2.0",
+  "provider": "original_security",
+  "created_at": "2026-10-17T09:12:51.970755+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 24,
+  "aliases": {
+    "active_directory": "directory_service",
+    "ad": "directory_service",
+    "anti_ddos": "ddos_protection",
+    "anti_phishing": "email_security",
+    "antivirus": "edr_xdr",
+    "bastion": "pam_bastion",
+    "bastion_host": "pam_bastion",
+    "ca": "pki_ca",
+    "certificate_authority": "pki_ca",
+    "certificate_tls": "pki_ca",
+    "cipher": "encryption",
+    "cloud_access_security": "casb",
+    "cti": "threat_intel",
+    "dast": "vulnerability_scan",
+    "data_encryption": "encryption",
+    "data_loss_prevention": "dlp",
+    "ddos": "ddos_protection",
+    "deception": "honeypot",
+    "decoy": "honeypot",
+    "edr": "edr_xdr",
+    "endpoint_security": "edr_xdr",
+    "hsm": "hsm_kms",
+    "iam": "iam_sso",
+    "identity": "iam_sso",
+    "identity_auth": "iam_sso",
+    "ids": "ids_ips",
+    "intrusion_prevention": "ids_ips",
+    "ips": "ids_ips",
+    "ipsec_vpn": "vpn_gateway",
+    "key_management": "hsm_kms",
+    "kms": "hsm_kms",
+    "ldap": "directory_service",
+    "log_analytics": "siem",
+    "mfa": "mfa_auth",
+    "ndr": "ids_ips",
+    "network_firewall": "firewall",
+    "ngfw": "firewall",
+    "pam": "pam_bastion",
+    "passkey": "mfa_auth",
+    "password_vault": "secret_vault",
+    "playbook": "soar",
+    "privileged_access": "pam_bastion",
+    "sase": "zero_trust",
+    "sast": "vulnerability_scan",
+    "scrubbing_center": "ddos_protection",
+    "sdp": "zero_trust",
+    "secrets_manager": "secret_vault",
+    "secure_email_gateway": "email_security",
+    "security_analytics": "siem",
+    "security_automation": "soar",
+    "security_operations": "soc_center",
+    "security_scan": "vulnerability_scan",
+    "seg": "email_security",
+    "single_sign_on": "iam_sso",
+    "soc": "soc_center",
+    "sso": "iam_sso",
+    "threat_hunting": "threat_intel",
+    "threat_intelligence": "threat_intel",
+    "tls_cert": "pki_ca",
+    "totp": "mfa_auth",
+    "two_factor": "mfa_auth",
+    "vpn": "vpn_gateway",
+    "vpn_tunnel": "vpn_gateway",
+    "vuln_scanner": "vulnerability_scan",
+    "web_application_firewall": "waf",
+    "xdr": "edr_xdr",
+    "zero_trust_proxy": "zero_trust",
+    "ztna": "zero_trust"
+  },
+  "files": {
+    "casb_default.png": {
+      "icon_name": "casb",
+      "variant": "default",
+      "source_script": "original_security/casb_default.py",
+      "size_bytes": 22412,
+      "sha256": "76770e9b286b424b60957ef68f4590992ae8b9f033f54f1179a824c434903fec",
+      "bbox": [
+        26,
+        62,
+        486,
+        449
+      ]
+    },
+    "ddos_protection_default.png": {
+      "icon_name": "ddos_protection",
+      "variant": "default",
+      "source_script": "original_security/ddos_protection_default.py",
+      "size_bytes": 28031,
+      "sha256": "fd7f3de14436af51c57d0975ce08f264fca00ca3dea235c02e7c7c4588e87078",
+      "bbox": [
+        26,
+        48,
+        486,
+        464
+      ]
+    },
+    "directory_service_default.png": {
+      "icon_name": "directory_service",
+      "variant": "default",
+      "source_script": "original_security/directory_service_default.py",
+      "size_bytes": 22606,
+      "sha256": "2b53b2ccd906339484b92db19e373fa2a7b6cf46aacd85ba313bf5655d6cb4f0",
+      "bbox": [
+        26,
+        46,
+        486,
+        466
+      ]
+    },
+    "dlp_default.png": {
+      "icon_name": "dlp",
+      "variant": "default",
+      "source_script": "original_security/dlp_default.py",
+      "size_bytes": 19621,
+      "sha256": "2c86cb5256f5abbdd4625e1b7b48d0d9be969fcf667ac224924a1ebd04acd816",
+      "bbox": [
+        26,
+        52,
+        486,
+        459
+      ]
+    },
+    "edr_xdr_default.png": {
+      "icon_name": "edr_xdr",
+      "variant": "default",
+      "source_script": "original_security/edr_xdr_default.py",
+      "size_bytes": 23617,
+      "sha256": "fe43c82192112f8dbbd20ed4d0ea21099efb832df2bc86feecd07dd8d4566603",
+      "bbox": [
+        26,
+        60,
+        486,
+        451
+      ]
+    },
+    "email_security_default.png": {
+      "icon_name": "email_security",
+      "variant": "default",
+      "source_script": "original_security/email_security_default.py",
+      "size_bytes": 28134,
+      "sha256": "485870ddd412a47f2be13950727657d2f341119d0841fbdbf9665da7cfe71b17",
+      "bbox": [
+        26,
+        58,
+        486,
+        453
+      ]
+    },
+    "encryption_default.png": {
+      "icon_name": "encryption",
+      "variant": "default",
+      "source_script": "original_security/encryption_default.py",
+      "size_bytes": 16357,
+      "sha256": "6fc5ad8edfd95a8a52714af08ee3c6d8b06c4868de7fa03b75a7864e1c38176c",
+      "bbox": [
+        26,
+        104,
+        486,
+        408
+      ]
+    },
+    "firewall_default.png": {
+      "icon_name": "firewall",
+      "variant": "default",
+      "source_script": "original_security/firewall_default.py",
+      "size_bytes": 20026,
+      "sha256": "6870f0c520de36898d3058993ab53e8e2d12880db1225ed96cae7ff0ac20dc94",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
+      ]
+    },
+    "honeypot_default.png": {
+      "icon_name": "honeypot",
+      "variant": "default",
+      "source_script": "original_security/honeypot_default.py",
+      "size_bytes": 30652,
+      "sha256": "5d5f6acdd701853ba0dc75f2f3cdfc9fcd5d8ac9263023fdeec1820a1194616c",
+      "bbox": [
+        26,
+        73,
+        486,
+        438
+      ]
+    },
+    "hsm_kms_default.png": {
+      "icon_name": "hsm_kms",
+      "variant": "default",
+      "source_script": "original_security/hsm_kms_default.py",
+      "size_bytes": 16576,
+      "sha256": "06cbd7a13507786f56f86179446c74b6963691c0cb5bdd1babf49e5b3b198f24",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "iam_sso_default.png": {
+      "icon_name": "iam_sso",
+      "variant": "default",
+      "source_script": "original_security/iam_sso_default.py",
+      "size_bytes": 22061,
+      "sha256": "e3bee3df0a2a4f731a5f087b034836feb0b25933cf45ee1fbf759bbc1aa71074",
+      "bbox": [
+        26,
+        47,
+        486,
+        465
+      ]
+    },
+    "ids_ips_default.png": {
+      "icon_name": "ids_ips",
+      "variant": "default",
+      "source_script": "original_security/ids_ips_default.py",
+      "size_bytes": 27678,
+      "sha256": "aa37e1df7b8cdf171f6d1ebb6998dda72822b3ce5dac7b91991852ae96a6e963",
+      "bbox": [
+        26,
+        56,
+        486,
+        455
+      ]
+    },
+    "mfa_auth_default.png": {
+      "icon_name": "mfa_auth",
+      "variant": "default",
+      "source_script": "original_security/mfa_auth_default.py",
+      "size_bytes": 22767,
+      "sha256": "ab905387a373b6f774cbd424557ab77e056c9db6f1d92f722b9ffb26f886b435",
+      "bbox": [
+        55,
+        26,
+        456,
+        486
+      ]
+    },
+    "pam_bastion_default.png": {
+      "icon_name": "pam_bastion",
+      "variant": "default",
+      "source_script": "original_security/pam_bastion_default.py",
+      "size_bytes": 10292,
+      "sha256": "bc03e4fad73bf7df4afdb1ec2631a4a510eb5d0cb29c74147cabdfff1e8411a9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pki_ca_default.png": {
+      "icon_name": "pki_ca",
+      "variant": "default",
+      "source_script": "original_security/pki_ca_default.py",
+      "size_bytes": 19040,
+      "sha256": "35e7e318b75a66c1e35b4c6cea181f492872494253a2c726b669d135f1c7600a",
+      "bbox": [
+        26,
+        32,
+        486,
+        479
+      ]
+    },
+    "secret_vault_default.png": {
+      "icon_name": "secret_vault",
+      "variant": "default",
+      "source_script": "original_security/secret_vault_default.py",
+      "size_bytes": 24534,
+      "sha256": "3425e0ae0cafe4ccb8c7db4737ae6f253d887e4f9a518c8f40186649dde8b66c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "siem_default.png": {
+      "icon_name": "siem",
+      "variant": "default",
+      "source_script": "original_security/siem_default.py",
+      "size_bytes": 23089,
+      "sha256": "27334cc344af61e90bfc7d80ba4f251eb8c0683c70cf6a264f16064a6be31b9e",
+      "bbox": [
+        62,
+        26,
+        450,
+        486
+      ]
+    },
+    "soar_default.png": {
+      "icon_name": "soar",
+      "variant": "default",
+      "source_script": "original_security/soar_default.py",
+      "size_bytes": 29323,
+      "sha256": "67cd3af19299d6934ecaa4c68dfc8dc351c308458cf87a68e1035b63ca352dae",
+      "bbox": [
+        26,
+        80,
+        486,
+        431
+      ]
+    },
+    "soc_center_default.png": {
+      "icon_name": "soc_center",
+      "variant": "default",
+      "source_script": "original_security/soc_center_default.py",
+      "size_bytes": 16381,
+      "sha256": "f535e102c81d0ee3317189616a33be390a9888c2a56ad1350ab2c443d8824c49",
+      "bbox": [
+        26,
+        69,
+        486,
+        443
+      ]
+    },
+    "threat_intel_default.png": {
+      "icon_name": "threat_intel",
+      "variant": "default",
+      "source_script": "original_security/threat_intel_default.py",
+      "size_bytes": 46942,
+      "sha256": "6e9d3d08945ff3e2726e91ddb11e61149ba05085bf8d31f9318aaabc5947255a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vpn_gateway_default.png": {
+      "icon_name": "vpn_gateway",
+      "variant": "default",
+      "source_script": "original_security/vpn_gateway_default.py",
+      "size_bytes": 21243,
+      "sha256": "2a02cf0c1be772c2b8f25b8567b6faeb3c1e9751e586a8d6283a85a78e6cae20",
+      "bbox": [
+        26,
+        135,
+        486,
+        376
+      ]
+    },
+    "vulnerability_scan_default.png": {
+      "icon_name": "vulnerability_scan",
+      "variant": "default",
+      "source_script": "original_security/vulnerability_scan_default.py",
+      "size_bytes": 28081,
+      "sha256": "9d54584cdc0c080b3a17de2090cd99e23a5c0ac99feab9b9418fa4cf77907f93",
+      "bbox": [
+        26,
+        47,
+        486,
+        465
+      ]
+    },
+    "waf_default.png": {
+      "icon_name": "waf",
+      "variant": "default",
+      "source_script": "original_security/waf_default.py",
+      "size_bytes": 24621,
+      "sha256": "d091267cf23ea68d681f0c7f6da2b22532689b6085e929270e4ded2ea2d57753",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "zero_trust_default.png": {
+      "icon_name": "zero_trust",
+      "variant": "default",
+      "source_script": "original_security/zero_trust_default.py",
+      "size_bytes": 41204,
+      "sha256": "be307e5b76062bc79826e686d34bd5771ab56b98a481a679c3ae152b6f99dbf8",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
+      ]
+    }
+  }
+}

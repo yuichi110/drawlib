@@ -122,6 +122,16 @@ def gen_icon_original_server() -> None:
     console.print("[bold green]✓ Original Server icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-original-security")
+def gen_icon_original_security() -> None:
+    """Normalize native Drawlib Original Security icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_security"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_security"
+    manifest_file = write_provider_manifest("original_security", src_path, dest_path)
+    generate_original_provider_code("original_security", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Security icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-aws")
 def gen_icon_aws() -> None:
     """Normalize native Drawlib AWS icons and generate Python bindings."""

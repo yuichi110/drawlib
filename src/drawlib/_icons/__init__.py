@@ -30,6 +30,7 @@ from drawlib._icons.png_icons import (
     original_data,
     original_devops,
     original_network,
+    original_security,
     original_server,
     server,
 )
@@ -50,6 +51,7 @@ __all__ = [
     "original_data",
     "original_devops",
     "original_network",
+    "original_security",
     "original_server",
     "phosphor",
     "server",

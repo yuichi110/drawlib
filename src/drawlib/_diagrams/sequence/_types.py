@@ -34,6 +34,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalNetworkIcon,
+    OriginalSecurityIcon,
     OriginalServerIcon,
     PhosphorIcon,
     ServerIcon,
@@ -70,6 +71,7 @@ IconType: TypeAlias = (
     | OriginalDataIcon
     | OriginalDevopsIcon
     | OriginalNetworkIcon
+    | OriginalSecurityIcon
     | OriginalServerIcon
     | AiIcon
     | AwsIcon

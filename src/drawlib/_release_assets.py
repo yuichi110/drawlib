@@ -99,6 +99,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_DATA = "icon_original_data"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     ICON_ORIGINAL_NETWORK = "icon_original_network"
+    ICON_ORIGINAL_SECURITY = "icon_original_security"
     ICON_ORIGINAL_SERVER = "icon_original_server"
     ICON_SERVER = "icon_server"
     MAP_CITIES = "map_cities"
@@ -174,6 +175,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_data: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
     icon_original_network: ReleaseAssetPackage
+    icon_original_security: ReleaseAssetPackage
     icon_original_server: ReleaseAssetPackage
     icon_server: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
@@ -2303,6 +2305,41 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "yamaha_default.png",
             "zerotier_default.png",
             "zscaler_default.png",
+        ),
+    ),
+    icon_original_security=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_SECURITY,
+        category="icon",
+        archive_name="icon_original_security.zip",
+        archive_sha256="ce2d8cdf4243b41b267b6cdc639874b1eff259cfc3a06bc6b10fd4fc06a28f18",
+        source_rel_path="icons/original_security",
+        target_rel_path="icons/original_security",
+        files=(
+            "casb_default.png",
+            "ddos_protection_default.png",
+            "directory_service_default.png",
+            "dlp_default.png",
+            "edr_xdr_default.png",
+            "email_security_default.png",
+            "encryption_default.png",
+            "firewall_default.png",
+            "honeypot_default.png",
+            "hsm_kms_default.png",
+            "iam_sso_default.png",
+            "ids_ips_default.png",
+            "manifest.json",
+            "mfa_auth_default.png",
+            "pam_bastion_default.png",
+            "pki_ca_default.png",
+            "secret_vault_default.png",
+            "siem_default.png",
+            "soar_default.png",
+            "soc_center_default.png",
+            "threat_intel_default.png",
+            "vpn_gateway_default.png",
+            "vulnerability_scan_default.png",
+            "waf_default.png",
+            "zero_trust_default.png",
         ),
     ),
     icon_original_server=ReleaseAssetPackage(
