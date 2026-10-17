@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "network",
-  "created_at": "2026-10-16T07:15:03.963088+00:00",
+  "created_at": "2026-10-17T05:54:18.117540+00:00",
   "canvas_size": [
     512,
     512
@@ -10,8 +10,18 @@
     460,
     460
   ],
-  "total_files": 44,
+  "total_files": 92,
   "aliases": {
+    "adguard_home": "adguard",
+    "apache_apisix": "apisix",
+    "arista_networks": "arista",
+    "aruba_networks": "aruba",
+    "asus_router": "asus",
+    "big_ip": "f5",
+    "bind9": "bind",
+    "certbot": "lets_encrypt",
+    "cf": "cloudflare",
+    "check_point": "checkpoint",
     "cisco_aaa_server": "cisco_ise",
     "cisco_access_switch": "cisco_l2_switch",
     "cisco_ap": "cisco_wireless_ap",
@@ -28,6 +38,7 @@
     "cisco_internet_cloud": "cisco_wan_cloud",
     "cisco_ips": "cisco_ids_ips",
     "cisco_isr_router": "cisco_router",
+    "cisco_meraki": "meraki",
     "cisco_mpls_cloud": "cisco_wan_cloud",
     "cisco_multilayer_switch": "cisco_l3_switch",
     "cisco_nac": "cisco_ise",
@@ -41,9 +52,149 @@
     "cisco_wlc": "cisco_wireless_controller",
     "cisco_workgroup_switch": "cisco_l2_switch",
     "cisco_workstation": "cisco_client_pc",
-    "cisco_wsa": "cisco_web_security"
+    "cisco_wsa": "cisco_web_security",
+    "dlink": "d_link",
+    "f5_big_ip": "f5",
+    "fortigate": "fortinet",
+    "frr": "frrouting",
+    "hpe_aruba": "aruba",
+    "isc_bind": "bind",
+    "juniper_networks": "juniper",
+    "kong_gateway": "kong",
+    "letsencrypt": "lets_encrypt",
+    "nlnet_unbound": "unbound",
+    "omada": "tp_link",
+    "palo_alto_networks": "palo_alto",
+    "pan_os": "palo_alto",
+    "pdns": "powerdns",
+    "pihole": "pi_hole",
+    "routeros": "mikrotik",
+    "squid_cache": "squid",
+    "tplink": "tp_link",
+    "traefik_proxy": "traefik",
+    "unifi": "ubiquiti",
+    "varnish_cache": "varnish",
+    "wg": "wireguard",
+    "yamaha_rtx": "yamaha"
   },
   "files": {
+    "adguard_default.png": {
+      "icon_name": "adguard",
+      "variant": "default",
+      "source_script": "network/adguard_default.py",
+      "size_bytes": 17873,
+      "sha256": "4a83e27d784854705dff6f2eca1be1446117f249041ce12d2277c39e28b058ff",
+      "bbox": [
+        31,
+        26,
+        480,
+        486
+      ]
+    },
+    "akamai_default.png": {
+      "icon_name": "akamai",
+      "variant": "default",
+      "source_script": "network/akamai_default.py",
+      "size_bytes": 23045,
+      "sha256": "ca44786b3eb0793c545861b118892d3bd8fc3fc13b4f197b8c040c3c57ac5549",
+      "bbox": [
+        45,
+        26,
+        466,
+        486
+      ]
+    },
+    "apisix_default.png": {
+      "icon_name": "apisix",
+      "variant": "default",
+      "source_script": "network/apisix_default.py",
+      "size_bytes": 20577,
+      "sha256": "fc8b7b0a2a77810428a903dd316b5164fd0b3a458fad3968f3176353404e0d89",
+      "bbox": [
+        26,
+        62,
+        486,
+        449
+      ]
+    },
+    "arista_default.png": {
+      "icon_name": "arista",
+      "variant": "default",
+      "source_script": "network/arista_default.py",
+      "size_bytes": 10360,
+      "sha256": "24dd2fcfa392ea747f2b843705b752e128fc98e676b890859376327195bedb05",
+      "bbox": [
+        26,
+        220,
+        486,
+        292
+      ]
+    },
+    "aruba_default.png": {
+      "icon_name": "aruba",
+      "variant": "default",
+      "source_script": "network/aruba_default.py",
+      "size_bytes": 13504,
+      "sha256": "00f5274802e4bfd6098df75425e78bd966b356b936c1bfac6e9857473d30b655",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
+    "asus_default.png": {
+      "icon_name": "asus",
+      "variant": "default",
+      "source_script": "network/asus_default.py",
+      "size_bytes": 20677,
+      "sha256": "9cb56d3a9ea3cb7e301b1f5826963f31647c4cc5cf6b1e4a4b4028e92d552964",
+      "bbox": [
+        26,
+        29,
+        486,
+        483
+      ]
+    },
+    "bind_default.png": {
+      "icon_name": "bind",
+      "variant": "default",
+      "source_script": "network/bind_default.py",
+      "size_bytes": 25648,
+      "sha256": "e4655ee015f9f361e80353067ab9da77f68275eb7bffa879eba9fbf9c7f271a7",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "caddy_default.png": {
+      "icon_name": "caddy",
+      "variant": "default",
+      "source_script": "network/caddy_default.py",
+      "size_bytes": 28811,
+      "sha256": "fffcee8f15579b53ee9ce3b727dc9a2d3f60811ea6920d79881d878c08d74f95",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "checkpoint_default.png": {
+      "icon_name": "checkpoint",
+      "variant": "default",
+      "source_script": "network/checkpoint_default.py",
+      "size_bytes": 18757,
+      "sha256": "7b66a44d759c580c182bb32842a0ea457c96deeedcdd9444c277639aca428f06",
+      "bbox": [
+        26,
+        35,
+        486,
+        476
+      ]
+    },
     "cisco_client_pc_default.png": {
       "icon_name": "cisco_client_pc",
       "variant": "default",
@@ -120,6 +271,19 @@
         26,
         486,
         486
+      ]
+    },
+    "cisco_default.png": {
+      "icon_name": "cisco",
+      "variant": "default",
+      "source_script": "network/cisco_default.py",
+      "size_bytes": 5168,
+      "sha256": "a86397bb3fa5e41a7736049967560c2ddd8e65a6bffd1a197c663e13854aaae1",
+      "bbox": [
+        26,
+        192,
+        486,
+        319
       ]
     },
     "cisco_firewall_default.png": {
@@ -614,6 +778,500 @@
         26,
         486,
         486
+      ]
+    },
+    "cloudflare_default.png": {
+      "icon_name": "cloudflare",
+      "variant": "default",
+      "source_script": "network/cloudflare_default.py",
+      "size_bytes": 10139,
+      "sha256": "4d2c084d2a9df93e0f1dbec199dba8123c73ec6df61aefb128014fb1e6ff87cf",
+      "bbox": [
+        26,
+        151,
+        486,
+        361
+      ]
+    },
+    "d_link_default.png": {
+      "icon_name": "d_link",
+      "variant": "default",
+      "source_script": "network/d_link_default.py",
+      "size_bytes": 10154,
+      "sha256": "047ae69aae189267318ae63aa1444d358f2668f54ba037e9a1935d58175814fd",
+      "bbox": [
+        26,
+        209,
+        486,
+        302
+      ]
+    },
+    "digicert_default.png": {
+      "icon_name": "digicert",
+      "variant": "default",
+      "source_script": "network/digicert_default.py",
+      "size_bytes": 12661,
+      "sha256": "8eda16815fd63888649682fc2e6b1fe46dff45aae4114666c21b9ed051352207",
+      "bbox": [
+        26,
+        189,
+        486,
+        323
+      ]
+    },
+    "f5_default.png": {
+      "icon_name": "f5",
+      "variant": "default",
+      "source_script": "network/f5_default.py",
+      "size_bytes": 27157,
+      "sha256": "063d61da99bace906b4730f2e5356cb24ab8ad2ce15e8bd868a2b41b2cf79d62",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "fastly_default.png": {
+      "icon_name": "fastly",
+      "variant": "default",
+      "source_script": "network/fastly_default.py",
+      "size_bytes": 14939,
+      "sha256": "80a8a8a95693e8cfb9e1648aa10f83d96e755676650ef33db8c6f8834a6fdf4b",
+      "bbox": [
+        41,
+        26,
+        470,
+        486
+      ]
+    },
+    "fortinet_default.png": {
+      "icon_name": "fortinet",
+      "variant": "default",
+      "source_script": "network/fortinet_default.py",
+      "size_bytes": 5112,
+      "sha256": "21c13cb2a7d0626c75076e4634531fe3d34372004445fc193fee450da53c761d",
+      "bbox": [
+        26,
+        91,
+        486,
+        421
+      ]
+    },
+    "frrouting_default.png": {
+      "icon_name": "frrouting",
+      "variant": "default",
+      "source_script": "network/frrouting_default.py",
+      "size_bytes": 26481,
+      "sha256": "f5e4a12f9679b5cf2ffb6a37dd1463c6d18131015fad0068d6451d46f951971d",
+      "bbox": [
+        34,
+        26,
+        478,
+        486
+      ]
+    },
+    "godaddy_default.png": {
+      "icon_name": "godaddy",
+      "variant": "default",
+      "source_script": "network/godaddy_default.py",
+      "size_bytes": 24345,
+      "sha256": "dca89bf479c0ef56ccf24f5f050f5a8d6095e2a0bf2874f2f3da17241e1af0df",
+      "bbox": [
+        26,
+        51,
+        486,
+        461
+      ]
+    },
+    "haproxy_default.png": {
+      "icon_name": "haproxy",
+      "variant": "default",
+      "source_script": "network/haproxy_default.py",
+      "size_bytes": 53368,
+      "sha256": "d02f4ed433b102a28aab6624a781491ab8d673ed3e54e0fe852b623385ab6375",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "juniper_default.png": {
+      "icon_name": "juniper",
+      "variant": "default",
+      "source_script": "network/juniper_default.py",
+      "size_bytes": 9303,
+      "sha256": "1bdde6a7305f967228ff52acc075758b2ac2680e536622ca305750b9c560fa0e",
+      "bbox": [
+        26,
+        193,
+        486,
+        319
+      ]
+    },
+    "kong_default.png": {
+      "icon_name": "kong",
+      "variant": "default",
+      "source_script": "network/kong_default.py",
+      "size_bytes": 18219,
+      "sha256": "712cbe50d449ee18bb6d18855902c710306dc93a1c4ca85b672b478556814e8c",
+      "bbox": [
+        26,
+        54,
+        486,
+        458
+      ]
+    },
+    "lets_encrypt_default.png": {
+      "icon_name": "lets_encrypt",
+      "variant": "default",
+      "source_script": "network/lets_encrypt_default.py",
+      "size_bytes": 11087,
+      "sha256": "2f31e7e0491ef5e439339a1c9d36794fa3ec115775cce98f49454fa6e7560fdc",
+      "bbox": [
+        39,
+        26,
+        473,
+        486
+      ]
+    },
+    "linksys_default.png": {
+      "icon_name": "linksys",
+      "variant": "default",
+      "source_script": "network/linksys_default.py",
+      "size_bytes": 6237,
+      "sha256": "7dbf3b9250b627f80470c1b7462cdc892e28be867a986c4db487659fe9d3a82b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "meraki_default.png": {
+      "icon_name": "meraki",
+      "variant": "default",
+      "source_script": "network/meraki_default.py",
+      "size_bytes": 24461,
+      "sha256": "28b86dc83ab6f96ac5772712b78997f849f722f92d55549401fe2b8a39efd34d",
+      "bbox": [
+        26,
+        68,
+        486,
+        443
+      ]
+    },
+    "mikrotik_default.png": {
+      "icon_name": "mikrotik",
+      "variant": "default",
+      "source_script": "network/mikrotik_default.py",
+      "size_bytes": 17541,
+      "sha256": "7cdeb418d3ed11006f279f53e5ccc450570a76232af4bec959058a5d76581ae7",
+      "bbox": [
+        40,
+        26,
+        472,
+        486
+      ]
+    },
+    "namecheap_default.png": {
+      "icon_name": "namecheap",
+      "variant": "default",
+      "source_script": "network/namecheap_default.py",
+      "size_bytes": 19961,
+      "sha256": "fce813619aaba82e85fcd1bd8fb5dd19be44a90b41f6f9118c017cffc3203c40",
+      "bbox": [
+        26,
+        128,
+        486,
+        383
+      ]
+    },
+    "netbird_default.png": {
+      "icon_name": "netbird",
+      "variant": "default",
+      "source_script": "network/netbird_default.py",
+      "size_bytes": 13283,
+      "sha256": "b07dc2462fa2cd94e6d76b3179e5173ccd03f972dcee16ab44e6aab14458834a",
+      "bbox": [
+        26,
+        88,
+        486,
+        423
+      ]
+    },
+    "netgear_default.png": {
+      "icon_name": "netgear",
+      "variant": "default",
+      "source_script": "network/netgear_default.py",
+      "size_bytes": 10320,
+      "sha256": "c25ebf2d13561adfb5e6531a9bd012857be7ea19c01432b67eb10380dbbad592",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "nginx_default.png": {
+      "icon_name": "nginx",
+      "variant": "default",
+      "source_script": "network/nginx_default.py",
+      "size_bytes": 13371,
+      "sha256": "6e29acc4180fdd38b3f17cf7425c12a9419998dd49b09047084f43898115f96d",
+      "bbox": [
+        53,
+        26,
+        458,
+        486
+      ]
+    },
+    "openvpn_default.png": {
+      "icon_name": "openvpn",
+      "variant": "default",
+      "source_script": "network/openvpn_default.py",
+      "size_bytes": 20789,
+      "sha256": "8b02e626d57fe30b7d71c56c250152018ea44bc9e535dd427958d7ffd2094368",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "openwrt_default.png": {
+      "icon_name": "openwrt",
+      "variant": "default",
+      "source_script": "network/openwrt_default.py",
+      "size_bytes": 22677,
+      "sha256": "90b7746e2bf3ccabccf36bc2547b2ad5c8847fc20f6281d6c20ba57fb387a49a",
+      "bbox": [
+        64,
+        26,
+        448,
+        486
+      ]
+    },
+    "opnsense_default.png": {
+      "icon_name": "opnsense",
+      "variant": "default",
+      "source_script": "network/opnsense_default.py",
+      "size_bytes": 3392,
+      "sha256": "91fd70038f5d30e934cb67e7e040286bfe08edcb1e084bbfba8b235ac17f090a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "palo_alto_default.png": {
+      "icon_name": "palo_alto",
+      "variant": "default",
+      "source_script": "network/palo_alto_default.py",
+      "size_bytes": 17473,
+      "sha256": "1e9fdb406c69ba2c12c138a5a48643a20b6b7984f569a4be6510f05e8c13fce5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pfsense_default.png": {
+      "icon_name": "pfsense",
+      "variant": "default",
+      "source_script": "network/pfsense_default.py",
+      "size_bytes": 16924,
+      "sha256": "c2e5656b4a393255e85401a3da0e7d69513cba310b952f7629f9d476bc305219",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pi_hole_default.png": {
+      "icon_name": "pi_hole",
+      "variant": "default",
+      "source_script": "network/pi_hole_default.py",
+      "size_bytes": 21797,
+      "sha256": "8cbd8625e21a8b45a70a546a97bb1bbe40df177e0c9e47f5a378449a9e58bc37",
+      "bbox": [
+        99,
+        26,
+        412,
+        486
+      ]
+    },
+    "porkbun_default.png": {
+      "icon_name": "porkbun",
+      "variant": "default",
+      "source_script": "network/porkbun_default.py",
+      "size_bytes": 20403,
+      "sha256": "3611cdeaf06882edbb24c79f4774e3dc4ed47ca06ecc122ab7892fb9506d0257",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "powerdns_default.png": {
+      "icon_name": "powerdns",
+      "variant": "default",
+      "source_script": "network/powerdns_default.py",
+      "size_bytes": 17773,
+      "sha256": "3569539b57ebf3369903f778205db9e6fd109c7b69b8992dc40f33cdac6b11b5",
+      "bbox": [
+        26,
+        109,
+        486,
+        403
+      ]
+    },
+    "squid_default.png": {
+      "icon_name": "squid",
+      "variant": "default",
+      "source_script": "network/squid_default.py",
+      "size_bytes": 23795,
+      "sha256": "e2cceaa93aa3e55272c4653a71a264246ef008ac693640500ba6498ac963bd03",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "tailscale_default.png": {
+      "icon_name": "tailscale",
+      "variant": "default",
+      "source_script": "network/tailscale_default.py",
+      "size_bytes": 13207,
+      "sha256": "5e5d557de4f58443453c653282ccc2905757d8d4a6fb49dac017ec175a6daa2a",
+      "bbox": [
+        27,
+        26,
+        484,
+        486
+      ]
+    },
+    "tp_link_default.png": {
+      "icon_name": "tp_link",
+      "variant": "default",
+      "source_script": "network/tp_link_default.py",
+      "size_bytes": 10884,
+      "sha256": "fd687e0c13800973ca4d9bbd9ae66fe1bbd8d3ceab623611942fe12a35cf5282",
+      "bbox": [
+        28,
+        26,
+        483,
+        486
+      ]
+    },
+    "traefik_default.png": {
+      "icon_name": "traefik",
+      "variant": "default",
+      "source_script": "network/traefik_default.py",
+      "size_bytes": 24225,
+      "sha256": "e9b49297d7336c8fc8a05d9e63e61b1bc425e2c6fa8c62d32e25e02586cc4df7",
+      "bbox": [
+        26,
+        48,
+        486,
+        463
+      ]
+    },
+    "ubiquiti_default.png": {
+      "icon_name": "ubiquiti",
+      "variant": "default",
+      "source_script": "network/ubiquiti_default.py",
+      "size_bytes": 17347,
+      "sha256": "470aa68995e07185f178c4188ea69445e00fef634674bab4a37fd1ffef51bf88",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "unbound_default.png": {
+      "icon_name": "unbound",
+      "variant": "default",
+      "source_script": "network/unbound_default.py",
+      "size_bytes": 14513,
+      "sha256": "59d397828ff886842f00b1d579b20304efe2910570b8332eb3dc8889ff4888d9",
+      "bbox": [
+        84,
+        26,
+        428,
+        486
+      ]
+    },
+    "varnish_default.png": {
+      "icon_name": "varnish",
+      "variant": "default",
+      "source_script": "network/varnish_default.py",
+      "size_bytes": 11981,
+      "sha256": "5756b3094a003d04f4ac6415c0626395b0c5e57fb125e6dc318018fde107d6bc",
+      "bbox": [
+        28,
+        26,
+        484,
+        486
+      ]
+    },
+    "wireguard_default.png": {
+      "icon_name": "wireguard",
+      "variant": "default",
+      "source_script": "network/wireguard_default.py",
+      "size_bytes": 33410,
+      "sha256": "659027750efc666df9d8dfa0b0f8839521801682b52fc1d6da6c4083b8e72937",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "yamaha_default.png": {
+      "icon_name": "yamaha",
+      "variant": "default",
+      "source_script": "network/yamaha_default.py",
+      "size_bytes": 17168,
+      "sha256": "46b9e5fc6fb11dca5ef0e8f0c17434711bd6d2bd9c72a58f1dd264434c03436c",
+      "bbox": [
+        26,
+        206,
+        486,
+        306
+      ]
+    },
+    "zerotier_default.png": {
+      "icon_name": "zerotier",
+      "variant": "default",
+      "source_script": "network/zerotier_default.py",
+      "size_bytes": 12573,
+      "sha256": "650181e0900d837666f2e049ca51c62a0ae5c4584b20b05693a94906bce22d5a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "zscaler_default.png": {
+      "icon_name": "zscaler",
+      "variant": "default",
+      "source_script": "network/zscaler_default.py",
+      "size_bytes": 15977,
+      "sha256": "3dc68b6280177af72954c7c6e48df6400b02dffb9d247c6b36fba1f8d45214e3",
+      "bbox": [
+        26,
+        115,
+        486,
+        397
       ]
     }
   }

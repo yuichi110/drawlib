@@ -100,7 +100,7 @@ def generate_code(
 
     for func_name in sorted(all_functions.keys()):
         target_name, variants = all_functions[func_name]
-        if provider == "network" and "default" in variants and "classic" not in variants:
+        if provider == "network" and "default" in variants and "modern" in variants and "classic" not in variants:
             idx = variants.index("default")
             variants = [*variants[: idx + 1], "classic", *variants[idx + 1 :]]
         display_name = func_name.replace("_", " ")
