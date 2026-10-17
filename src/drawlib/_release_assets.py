@@ -88,6 +88,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_AI = "icon_ai"
     ICON_AWS = "icon_aws"
     ICON_AZURE = "icon_azure"
+    ICON_CLIENT = "icon_client"
     ICON_CNATIVE = "icon_cnative"
     ICON_CODE = "icon_code"
     ICON_DATA = "icon_data"
@@ -171,6 +172,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_ai: ReleaseAssetPackage
     icon_aws: ReleaseAssetPackage
     icon_azure: ReleaseAssetPackage
+    icon_client: ReleaseAssetPackage
     icon_cnative: ReleaseAssetPackage
     icon_code: ReleaseAssetPackage
     icon_data: ReleaseAssetPackage
@@ -1288,6 +1290,77 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "workbooks_default.png",
             "worker_container_app_default.png",
             "workload_orchestration_default.png",
+        ),
+    ),
+    icon_client=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_CLIENT,
+        category="icon",
+        archive_name="icon_client.zip",
+        archive_sha256="2711e11118abc8600e03a0508450e55ae8bada45c0a92123c3a55d5ca36afe65",
+        source_rel_path="icons/client",
+        target_rel_path="icons/client",
+        files=(
+            "abb_default.png",
+            "acer_default.png",
+            "alexa_default.png",
+            "amazon_fire_default.png",
+            "android_default.png",
+            "app_store_default.png",
+            "apple_default.png",
+            "arc_default.png",
+            "asus_default.png",
+            "bluetooth_default.png",
+            "bmw_default.png",
+            "brave_default.png",
+            "brother_default.png",
+            "canon_default.png",
+            "caterpillar_default.png",
+            "chrome_default.png",
+            "chromeos_default.png",
+            "chromium_default.png",
+            "dell_default.png",
+            "edge_default.png",
+            "epson_default.png",
+            "fanuc_default.png",
+            "fire_tv_default.png",
+            "firefox_default.png",
+            "fitbit_default.png",
+            "honeywell_default.png",
+            "hp_default.png",
+            "ios_default.png",
+            "john_deere_default.png",
+            "kindle_default.png",
+            "komatsu_default.png",
+            "lenovo_default.png",
+            "linux_default.png",
+            "logitech_default.png",
+            "macos_default.png",
+            "manifest.json",
+            "meta_default.png",
+            "microsoft_default.png",
+            "microsoft_store_default.png",
+            "netflix_default.png",
+            "nintendo_default.png",
+            "opera_default.png",
+            "panasonic_default.png",
+            "play_store_default.png",
+            "playstation_default.png",
+            "ricoh_default.png",
+            "safari_default.png",
+            "samsung_default.png",
+            "siemens_default.png",
+            "sony_default.png",
+            "switchbot_default.png",
+            "tesla_default.png",
+            "tor_browser_default.png",
+            "toyota_default.png",
+            "ubuntu_default.png",
+            "usb_default.png",
+            "vivaldi_default.png",
+            "windows_default.png",
+            "xbox_default.png",
+            "youtube_default.png",
+            "zebra_default.png",
         ),
     ),
     icon_cnative=ReleaseAssetPackage(

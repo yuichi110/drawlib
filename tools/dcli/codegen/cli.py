@@ -302,6 +302,16 @@ def gen_icon_original_workspace() -> None:
     console.print("[bold green]✓ Original Workspace icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-client")
+def gen_icon_client() -> None:
+    """Normalize native Drawlib Client icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/client"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/client"
+    manifest_file = write_provider_manifest("client", src_path, dest_path)
+    generate_original_provider_code("client", manifest_file=manifest_file)
+    console.print("[bold green]✓ Client icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

@@ -163,6 +163,7 @@ from drawlib.diagrams.architecture import (
     DevopsIcon,
     FacilityIcon,
     GcpIcon,
+    ClientIcon,
     NetworkIcon,
     OriginalAiIcon,
     OriginalCloudIcon,
@@ -207,7 +208,7 @@ from drawlib.diagrams.architecture import (
 | `text` | `str` | `""` | Node label text (supports `\n`). |
 | `width` | `float` | `20.0` | Card bounding box width in canvas units. |
 | `height` | `float` | `16.0` | Card bounding box height in canvas units. |
-| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AiIcon`, `AwsIcon`, `AzureIcon`, `CnativeIcon`, `CodeIcon`, `DataIcon`, `DevopsIcon`, `FacilityIcon`, `NetworkIcon`, `SecurityIcon`, `ServerIcon`, `WorkspaceIcon`, `OriginalCloudIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AiIcon`, `AwsIcon`, `AzureIcon`, `ClientIcon`, `CnativeIcon`, `CodeIcon`, `DataIcon`, `DevopsIcon`, `FacilityIcon`, `NetworkIcon`, `SecurityIcon`, `ServerIcon`, `WorkspaceIcon`, `OriginalCloudIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text (supports `xy_shift`, `angle`). |
@@ -234,6 +235,7 @@ from drawlib.diagrams.architecture import (
 - `GcpIcon`: 259 official Google Cloud icons (`GcpIcon.COMPUTE_ENGINE`, `GcpIcon.CLOUD_RUN`, `GcpIcon.CLOUD_SQL`, `GcpIcon.BIGQUERY`, etc.).
 - `AwsIcon` & `AzureIcon`: Official AWS (`AwsIcon.EC2`, `AwsIcon.S3`) and Azure (`AzureIcon.VIRTUAL_MACHINE`, `AzureIcon.AKS`) architecture icons.
 - `AiIcon`: 40 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons + 13 shorthand aliases (`AiIcon.OPENAI`, `AiIcon.CLAUDE`, `AiIcon.GEMINI`, `AiIcon.LANGCHAIN`, `AiIcon.MCP`, `AiIcon.A2A`, `AiIcon.PYTORCH`, `AiIcon.HUGGINGFACE`, etc.).
+- `ClientIcon`: 51 official Web Browser, Client OS, App Store, PC/Mobile Brand, Smart Device, Streaming, Connected Car & Peripheral icons + 59 shorthand aliases (`ClientIcon.CHROME`, `ClientIcon.SAFARI`, `ClientIcon.WINDOWS`, `ClientIcon.MACOS`, `ClientIcon.IOS`, `ClientIcon.ANDROID`, `ClientIcon.PLAY_STORE`, `ClientIcon.APPLE`, `ClientIcon.KINDLE`, `ClientIcon.ALEXA`, `ClientIcon.TESLA`, etc.).
 - `CnativeIcon`: 48 Cloud Native icons (20 Kubernetes resources + 28 CNCF/Observability ecosystem projects) + 72 shorthand aliases (`CnativeIcon.KUBERNETES`, `CnativeIcon.POD`, `CnativeIcon.DEPLOYMENT`, `CnativeIcon.PROMETHEUS`, `CnativeIcon.GRAFANA`, `CnativeIcon.ISTIO`, `CnativeIcon.ARGO`, etc.).
 - `CodeIcon`: 72 official Programming Language, Framework, Runtime, API & IDE icons + 39 shorthand aliases (`CodeIcon.PYTHON`, `CodeIcon.FASTAPI`, `CodeIcon.REACT`, `CodeIcon.TYPESCRIPT`, `CodeIcon.GO`, `CodeIcon.RUST`, `CodeIcon.FIREBASE`, `CodeIcon.COLAB`, `CodeIcon.ANTIGRAVITY`, `CodeIcon.ANDROID_STUDIO`, etc.).
 - `DataIcon`: 50 Database & Data Platform icons + 28 shorthand aliases (`DataIcon.POSTGRESQL`, `DataIcon.REDIS`, `DataIcon.KAFKA`, `DataIcon.SNOWFLAKE`, `DataIcon.DATABRICKS`, `DataIcon.SPARK`, `DataIcon.DUCKDB`, etc.).
@@ -245,7 +247,7 @@ from drawlib.diagrams.architecture import (
 - `WorkspaceIcon`: 50 official Workplace, Productivity, Collaboration, CRM/ERP, and Business SaaS icons + 31 shorthand aliases (`WorkspaceIcon.MICROSOFT_365`, `WorkspaceIcon.MICROSOFT_TEAMS`, `WorkspaceIcon.GOOGLE_WORKSPACE`, `WorkspaceIcon.GMAIL`, `WorkspaceIcon.SLACK`, `WorkspaceIcon.NOTION`, `WorkspaceIcon.FIGMA`, `WorkspaceIcon.SALESFORCE`, `WorkspaceIcon.SAP`, `WorkspaceIcon.STRIPE`, etc.).
 - `OriginalCloudIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`: Vendor-neutral Drawlib 2D pastel icon suites (`OriginalCnativeIcon.KUBERNETES`, `OriginalCodeIcon.PYTHON`, `OriginalCodeIcon.FASTAPI`, `OriginalDataIcon.POSTGRESQL`, `OriginalDataIcon.KAFKA`, `OriginalFacilityIcon.DATACENTER`, `OriginalFacilityIcon.POWER_PLANT`, `OriginalNetworkIcon.ROUTER`, `OriginalSecurityIcon.FIREWALL`, `OriginalSecurityIcon.ZERO_TRUST`, `OriginalServerIcon.RACK_SERVER`, `OriginalWorkspaceIcon.EMAIL`, `OriginalWorkspaceIcon.SLACK`, etc.).
 - `PhosphorIcon`: 1,531 modern interface icons (`PhosphorIcon.USER`, `PhosphorIcon.DATABASE`, `PhosphorIcon.BROWSER`, etc.).
-- Direct callables/images: `phosphor.*`, `gcp.*`, `ai.*`, `aws.*`, `azure.*`, `cnative.*`, `code.*`, `data.*`, `devops.*`, `facility.*`, `network.*`, `security.*`, `server.*`, `workspace.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
+- Direct callables/images: `phosphor.*`, `gcp.*`, `ai.*`, `aws.*`, `azure.*`, `client.*`, `cnative.*`, `code.*`, `data.*`, `devops.*`, `facility.*`, `network.*`, `security.*`, `server.*`, `workspace.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
 
 ### 3.3 Production Examples
 

@@ -22,6 +22,7 @@ from drawlib._diagrams.architecture._icons import (
     AiIcon,
     AwsIcon,
     AzureIcon,
+    ClientIcon,
     CnativeIcon,
     CodeIcon,
     CustomIcon,
@@ -86,6 +87,7 @@ IconType: TypeAlias = (
     | AiIcon
     | AwsIcon
     | AzureIcon
+    | ClientIcon
     | CnativeIcon
     | CodeIcon
     | DataIcon

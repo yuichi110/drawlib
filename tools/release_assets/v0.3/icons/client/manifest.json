@@ -1,0 +1,871 @@
+{
+  "format_version": "2.0",
+  "provider": "client",
+  "created_at": "2026-10-17T22:29:00.942942+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 60,
+  "aliases": {
+    "abb_robotics": "abb",
+    "amazon_alexa": "alexa",
+    "amazon_echo": "alexa",
+    "amazon_fire_tv": "fire_tv",
+    "amazon_kindle": "kindle",
+    "apple_app_store": "app_store",
+    "apple_safari": "safari",
+    "arc_browser": "arc",
+    "ble": "bluetooth",
+    "bmw_connected": "bmw",
+    "brave_browser": "brave",
+    "cat": "caterpillar",
+    "chrome_os": "chromeos",
+    "chromebook_os": "chromeos",
+    "chromium_browser": "chromium",
+    "deere": "john_deere",
+    "dell_client": "dell",
+    "echo": "alexa",
+    "fanuc_robot": "fanuc",
+    "finder": "macos",
+    "fire_os": "amazon_fire",
+    "fire_tablet": "amazon_fire",
+    "fire_tv_stick": "fire_tv",
+    "galaxy": "samsung",
+    "google_android": "android",
+    "google_chrome": "chrome",
+    "google_fitbit": "fitbit",
+    "google_play": "play_store",
+    "google_play_store": "play_store",
+    "honeywell_scanner": "honeywell",
+    "hp_inc": "hp",
+    "ipados": "ios",
+    "iphone_brand": "apple",
+    "kindle_fire": "amazon_fire",
+    "komatsu_ltd": "komatsu",
+    "lets_note": "panasonic",
+    "linux_desktop": "linux",
+    "logicool": "logitech",
+    "mac": "apple",
+    "mac_os": "macos",
+    "meta_quest": "meta",
+    "microsoft_edge": "edge",
+    "mozilla_firefox": "firefox",
+    "ms": "microsoft",
+    "ms_edge": "edge",
+    "ms_store": "microsoft_store",
+    "ms_windows": "windows",
+    "nintendo_switch": "nintendo",
+    "oculus": "meta",
+    "opera_browser": "opera",
+    "play_station": "playstation",
+    "ps": "playstation",
+    "ps4": "playstation",
+    "ps5": "playstation",
+    "simatic": "siemens",
+    "surface": "microsoft",
+    "switch": "nintendo",
+    "switch_bot": "switchbot",
+    "tesla_motors": "tesla",
+    "thinkpad": "lenovo",
+    "tor": "tor_browser",
+    "toughbook": "panasonic",
+    "toyota_motor": "toyota",
+    "ubuntu_desktop": "ubuntu",
+    "usb_c": "usb",
+    "vivaldi_browser": "vivaldi",
+    "windows_11": "windows",
+    "xbox_one": "xbox",
+    "xbox_series": "xbox",
+    "xperia": "sony",
+    "yt": "youtube",
+    "zebra_scanner": "zebra",
+    "zenbook": "asus"
+  },
+  "files": {
+    "abb_default.png": {
+      "icon_name": "abb",
+      "variant": "default",
+      "source_script": "client/abb_default.py",
+      "size_bytes": 7205,
+      "sha256": "86ac1d735851b61b2ad47e818bee117ac5272d61486d4c17c1868e6d63604cba",
+      "bbox": [
+        26,
+        168,
+        486,
+        344
+      ]
+    },
+    "acer_default.png": {
+      "icon_name": "acer",
+      "variant": "default",
+      "source_script": "client/acer_default.py",
+      "size_bytes": 13480,
+      "sha256": "037d13b806747fb555da0030a6cf797734aae8d095eed48f8f817eb70e72c224",
+      "bbox": [
+        26,
+        200,
+        486,
+        311
+      ]
+    },
+    "alexa_default.png": {
+      "icon_name": "alexa",
+      "variant": "default",
+      "source_script": "client/alexa_default.py",
+      "size_bytes": 20445,
+      "sha256": "73d5cfbfdc00901bbf36527bd79cf1dc8a7264c3bf09c51d23deb9617b00b797",
+      "bbox": [
+        26,
+        108,
+        486,
+        403
+      ]
+    },
+    "amazon_fire_default.png": {
+      "icon_name": "amazon_fire",
+      "variant": "default",
+      "source_script": "client/amazon_fire_default.py",
+      "size_bytes": 16222,
+      "sha256": "58705d8f64bf0be861620a9a13da391f0085a3f37066e1c0418328b5fd7e2e5d",
+      "bbox": [
+        26,
+        77,
+        486,
+        435
+      ]
+    },
+    "android_default.png": {
+      "icon_name": "android",
+      "variant": "default",
+      "source_script": "client/android_default.py",
+      "size_bytes": 11330,
+      "sha256": "f493559c519dcb9822821af016ead53f8c107886e4b883b2027db7f884713a40",
+      "bbox": [
+        26,
+        122,
+        486,
+        390
+      ]
+    },
+    "app_store_default.png": {
+      "icon_name": "app_store",
+      "variant": "default",
+      "source_script": "client/app_store_default.py",
+      "size_bytes": 16326,
+      "sha256": "1f8971a45fdf9ba15e8bfaf741e8a8cd69c19d967235a9654cf000f5694a1734",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "apple_default.png": {
+      "icon_name": "apple",
+      "variant": "default",
+      "source_script": "client/apple_default.py",
+      "size_bytes": 8712,
+      "sha256": "4e90a71f1a8942271d63c71e82f29d413252bc70327e8c206d927417caaf1750",
+      "bbox": [
+        68,
+        26,
+        443,
+        486
+      ]
+    },
+    "arc_default.png": {
+      "icon_name": "arc",
+      "variant": "default",
+      "source_script": "client/arc_default.py",
+      "size_bytes": 23823,
+      "sha256": "f8d664ed0590988304f41bcfbe28af5130a1242c0b396227379faf1245e630dd",
+      "bbox": [
+        26,
+        60,
+        486,
+        452
+      ]
+    },
+    "asus_default.png": {
+      "icon_name": "asus",
+      "variant": "default",
+      "source_script": "client/asus_default.py",
+      "size_bytes": 8905,
+      "sha256": "019f7f09c9bc34faf867ae33aa3fb71e05a3f8b68d4f43169e3169a08a90135f",
+      "bbox": [
+        26,
+        210,
+        486,
+        301
+      ]
+    },
+    "bluetooth_default.png": {
+      "icon_name": "bluetooth",
+      "variant": "default",
+      "source_script": "client/bluetooth_default.py",
+      "size_bytes": 16299,
+      "sha256": "2e8ff167f20caaf1bf5704008b06b80aea93a0fd42153981abbba8c701319f66",
+      "bbox": [
+        86,
+        26,
+        425,
+        486
+      ]
+    },
+    "bmw_default.png": {
+      "icon_name": "bmw",
+      "variant": "default",
+      "source_script": "client/bmw_default.py",
+      "size_bytes": 81099,
+      "sha256": "007cdc098f52102f8bf36876390d82a3918fa5af7b0cb9e96bd57301bd6bb492",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "brave_default.png": {
+      "icon_name": "brave",
+      "variant": "default",
+      "source_script": "client/brave_default.py",
+      "size_bytes": 23085,
+      "sha256": "c06f601059909a0d5ecb17cd41d0b2ca89c9795343656773f0f6dfb280e09189",
+      "bbox": [
+        60,
+        26,
+        452,
+        486
+      ]
+    },
+    "brother_default.png": {
+      "icon_name": "brother",
+      "variant": "default",
+      "source_script": "client/brother_default.py",
+      "size_bytes": 12221,
+      "sha256": "7bacf9b0361f3111c5ac3a03e79dce18f5f98454b84bc0422cd582a24ae19af6",
+      "bbox": [
+        26,
+        205,
+        486,
+        307
+      ]
+    },
+    "canon_default.png": {
+      "icon_name": "canon",
+      "variant": "default",
+      "source_script": "client/canon_default.py",
+      "size_bytes": 12616,
+      "sha256": "5ef4376c66b2b80caa81587cace8d26d519ba3d7d7a1c9221f61316697cb490a",
+      "bbox": [
+        26,
+        208,
+        486,
+        304
+      ]
+    },
+    "caterpillar_default.png": {
+      "icon_name": "caterpillar",
+      "variant": "default",
+      "source_script": "client/caterpillar_default.py",
+      "size_bytes": 11939,
+      "sha256": "debb0ce297a7b1073562c796968b1c22ad889ffc6f7a45285b7fc6df8b5a021e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "chrome_default.png": {
+      "icon_name": "chrome",
+      "variant": "default",
+      "source_script": "client/chrome_default.py",
+      "size_bytes": 28623,
+      "sha256": "b6364162064609b73ec5505ff00f87b0bc6b016c2dee936cde8b2f350670654b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "chromeos_default.png": {
+      "icon_name": "chromeos",
+      "variant": "default",
+      "source_script": "client/chromeos_default.py",
+      "size_bytes": 17764,
+      "sha256": "b0896070c4a617c485002fb39840e68dc7fc41261fe3cda90bd102ad710058ef",
+      "bbox": [
+        26,
+        207,
+        486,
+        305
+      ]
+    },
+    "chromium_default.png": {
+      "icon_name": "chromium",
+      "variant": "default",
+      "source_script": "client/chromium_default.py",
+      "size_bytes": 22787,
+      "sha256": "450522127800c479a2b3b332e64625040cba8d43c7caec64ea2302c195a3b646",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "dell_default.png": {
+      "icon_name": "dell",
+      "variant": "default",
+      "source_script": "client/dell_default.py",
+      "size_bytes": 23095,
+      "sha256": "7f8a8f63f5f43ee293825c000ad6eb22cdb78ca47b0cea4ce63837db57bf07a2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "edge_default.png": {
+      "icon_name": "edge",
+      "variant": "default",
+      "source_script": "client/edge_default.py",
+      "size_bytes": 27701,
+      "sha256": "b14d9dc949d197ca9575b165a47a5e679ae74fb55cedddc82fdbaa4db1a5d326",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "epson_default.png": {
+      "icon_name": "epson",
+      "variant": "default",
+      "source_script": "client/epson_default.py",
+      "size_bytes": 11299,
+      "sha256": "a7219769b23ce745f74257ff7ad76b49dc4cfb1b5ace9fb7bcb624dd15e3b0fe",
+      "bbox": [
+        26,
+        200,
+        486,
+        311
+      ]
+    },
+    "fanuc_default.png": {
+      "icon_name": "fanuc",
+      "variant": "default",
+      "source_script": "client/fanuc_default.py",
+      "size_bytes": 8966,
+      "sha256": "071b7d2e13a721c9b7dbd8a7b624a7f15386ce5f14087a37c83211c9d77fc833",
+      "bbox": [
+        26,
+        217,
+        486,
+        295
+      ]
+    },
+    "fire_tv_default.png": {
+      "icon_name": "fire_tv",
+      "variant": "default",
+      "source_script": "client/fire_tv_default.py",
+      "size_bytes": 15986,
+      "sha256": "08fd34408b1d0f7fdcdf9ea44e1b48718dfb866825fed6a22cc7f0f43bc8dfa4",
+      "bbox": [
+        26,
+        125,
+        486,
+        387
+      ]
+    },
+    "firefox_default.png": {
+      "icon_name": "firefox",
+      "variant": "default",
+      "source_script": "client/firefox_default.py",
+      "size_bytes": 39795,
+      "sha256": "f08d6c28095fa4cbafa1218d839b07b0a969d9653a953d65c2d97b2e72538180",
+      "bbox": [
+        33,
+        26,
+        478,
+        486
+      ]
+    },
+    "fitbit_default.png": {
+      "icon_name": "fitbit",
+      "variant": "default",
+      "source_script": "client/fitbit_default.py",
+      "size_bytes": 11712,
+      "sha256": "52054fd41f55dc15599d476e93dc95036afd2a4a1c266d55150206197f15c0c1",
+      "bbox": [
+        26,
+        196,
+        486,
+        316
+      ]
+    },
+    "honeywell_default.png": {
+      "icon_name": "honeywell",
+      "variant": "default",
+      "source_script": "client/honeywell_default.py",
+      "size_bytes": 10193,
+      "sha256": "a68923bbbbd3766e90cea0be569276a130ab6415f9b84b73523efe78df03bcf9",
+      "bbox": [
+        26,
+        215,
+        486,
+        297
+      ]
+    },
+    "hp_default.png": {
+      "icon_name": "hp",
+      "variant": "default",
+      "source_script": "client/hp_default.py",
+      "size_bytes": 23994,
+      "sha256": "708ffa755e92ce0081f0f3632dab2f48bc7e1f690c8bfba99201928d6b1aa7cd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ios_default.png": {
+      "icon_name": "ios",
+      "variant": "default",
+      "source_script": "client/ios_default.py",
+      "size_bytes": 28384,
+      "sha256": "585cb8536ed95a4405038ec2121b16128272035a9d72ece7dad0378e87240747",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "john_deere_default.png": {
+      "icon_name": "john_deere",
+      "variant": "default",
+      "source_script": "client/john_deere_default.py",
+      "size_bytes": 25461,
+      "sha256": "95a0d7c00bad81f082823c0ad253e1033592da469306b50b64b4cc91e49c6891",
+      "bbox": [
+        26,
+        100,
+        486,
+        412
+      ]
+    },
+    "kindle_default.png": {
+      "icon_name": "kindle",
+      "variant": "default",
+      "source_script": "client/kindle_default.py",
+      "size_bytes": 16743,
+      "sha256": "19ef183d13accf78d2f469b9f45f59278a323fe6f0168b0fa8eb4ad7f6b6866d",
+      "bbox": [
+        26,
+        123,
+        486,
+        388
+      ]
+    },
+    "komatsu_default.png": {
+      "icon_name": "komatsu",
+      "variant": "default",
+      "source_script": "client/komatsu_default.py",
+      "size_bytes": 10610,
+      "sha256": "1493406d12de4735a6263e09e42346d0e89d703c5c86a4a7fda710595822bc8a",
+      "bbox": [
+        26,
+        212,
+        486,
+        300
+      ]
+    },
+    "lenovo_default.png": {
+      "icon_name": "lenovo",
+      "variant": "default",
+      "source_script": "client/lenovo_default.py",
+      "size_bytes": 10683,
+      "sha256": "9a38596fb12859d009c83086fccd60be598c67a3d9dc4316520af07e9765578b",
+      "bbox": [
+        26,
+        181,
+        486,
+        330
+      ]
+    },
+    "linux_default.png": {
+      "icon_name": "linux",
+      "variant": "default",
+      "source_script": "client/linux_default.py",
+      "size_bytes": 42100,
+      "sha256": "e3d6cf59bd8509a335364b7ae69dea0c4ebae2671aaac8e1e9b08ece59fee0d4",
+      "bbox": [
+        62,
+        26,
+        450,
+        486
+      ]
+    },
+    "logitech_default.png": {
+      "icon_name": "logitech",
+      "variant": "default",
+      "source_script": "client/logitech_default.py",
+      "size_bytes": 9614,
+      "sha256": "68b1d9aa3f3d3311df0fe438c7f73687174da5e7f6ef1f73967985f3222c0456",
+      "bbox": [
+        36,
+        26,
+        476,
+        486
+      ]
+    },
+    "macos_default.png": {
+      "icon_name": "macos",
+      "variant": "default",
+      "source_script": "client/macos_default.py",
+      "size_bytes": 22665,
+      "sha256": "b9363162040e53f755e2715f47e2963e458afb9fa389590c185b6b337af7c283",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "meta_default.png": {
+      "icon_name": "meta",
+      "variant": "default",
+      "source_script": "client/meta_default.py",
+      "size_bytes": 19879,
+      "sha256": "f95d76d7509c3139a7c6015fa4978b73558bbec7bd9c12bc059eec3935f42f49",
+      "bbox": [
+        26,
+        103,
+        486,
+        409
+      ]
+    },
+    "microsoft_default.png": {
+      "icon_name": "microsoft",
+      "variant": "default",
+      "source_script": "client/microsoft_default.py",
+      "size_bytes": 1822,
+      "sha256": "00b8dc39c2318479bef1a77f3f664ebe7cd8c8491128186f1dbb6c49ea1393ea",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "microsoft_store_default.png": {
+      "icon_name": "microsoft_store",
+      "variant": "default",
+      "source_script": "client/microsoft_store_default.py",
+      "size_bytes": 15308,
+      "sha256": "81e9590d23ee16450970e7f9043ac0d309108474ce4dd52571540f7c23c79823",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "netflix_default.png": {
+      "icon_name": "netflix",
+      "variant": "default",
+      "source_script": "client/netflix_default.py",
+      "size_bytes": 11501,
+      "sha256": "2fcac63b7ebf07dd0af89b2dd0bdfe32f84d12e25ee16ac30c7e8bdf3f72915c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "nintendo_default.png": {
+      "icon_name": "nintendo",
+      "variant": "default",
+      "source_script": "client/nintendo_default.py",
+      "size_bytes": 12637,
+      "sha256": "31bf7461c5809345d7c49a73e2dc3ca82f4db1a955fdba41a38b9a16cec3b291",
+      "bbox": [
+        26,
+        199,
+        486,
+        312
+      ]
+    },
+    "opera_default.png": {
+      "icon_name": "opera",
+      "variant": "default",
+      "source_script": "client/opera_default.py",
+      "size_bytes": 20734,
+      "sha256": "ef0fe562d2199c3df46c236016504b2f280474895360d7f4a943cf48bf880ee9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "panasonic_default.png": {
+      "icon_name": "panasonic",
+      "variant": "default",
+      "source_script": "client/panasonic_default.py",
+      "size_bytes": 10656,
+      "sha256": "475348523d8698b50233c7bdf546cfea07f66aec99a63f97a401b305c08a36c7",
+      "bbox": [
+        26,
+        220,
+        486,
+        291
+      ]
+    },
+    "play_store_default.png": {
+      "icon_name": "play_store",
+      "variant": "default",
+      "source_script": "client/play_store_default.py",
+      "size_bytes": 17035,
+      "sha256": "65137ab8b70b9e6f6bf5a79c583358bc7b2aeaa36936e43d8c1135fe3e152a1f",
+      "bbox": [
+        47,
+        26,
+        464,
+        486
+      ]
+    },
+    "playstation_default.png": {
+      "icon_name": "playstation",
+      "variant": "default",
+      "source_script": "client/playstation_default.py",
+      "size_bytes": 12487,
+      "sha256": "f1bbd0bc751937c2e28387f3e567e23da95435078072f88f11f757dfa12fa67c",
+      "bbox": [
+        26,
+        78,
+        486,
+        433
+      ]
+    },
+    "ricoh_default.png": {
+      "icon_name": "ricoh",
+      "variant": "default",
+      "source_script": "client/ricoh_default.py",
+      "size_bytes": 9598,
+      "sha256": "02006d76c93687e05c393ed4ee742ff5ef763e35f26cb06eb17fca5874c7c185",
+      "bbox": [
+        26,
+        214,
+        486,
+        297
+      ]
+    },
+    "safari_default.png": {
+      "icon_name": "safari",
+      "variant": "default",
+      "source_script": "client/safari_default.py",
+      "size_bytes": 45706,
+      "sha256": "0536fe2ab108d0cba25fb697fc0e55d628bd2c89996e576afa14f0506b823b61",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "samsung_default.png": {
+      "icon_name": "samsung",
+      "variant": "default",
+      "source_script": "client/samsung_default.py",
+      "size_bytes": 12474,
+      "sha256": "5d5fd754fefceae369282ed7329f2fad0669d092c5d9e44999a338862778b648",
+      "bbox": [
+        26,
+        220,
+        486,
+        291
+      ]
+    },
+    "siemens_default.png": {
+      "icon_name": "siemens",
+      "variant": "default",
+      "source_script": "client/siemens_default.py",
+      "size_bytes": 7465,
+      "sha256": "e9acbdd868aba7584fb6dfe28bf8dd4cc9b28899c499092462824f9a00dc49fe",
+      "bbox": [
+        26,
+        219,
+        486,
+        292
+      ]
+    },
+    "sony_default.png": {
+      "icon_name": "sony",
+      "variant": "default",
+      "source_script": "client/sony_default.py",
+      "size_bytes": 7078,
+      "sha256": "13f9058009b3fcf7bca5d6abcd176dcb8db98bacdeefc9ffec3aa04b366e2c97",
+      "bbox": [
+        26,
+        215,
+        486,
+        296
+      ]
+    },
+    "switchbot_default.png": {
+      "icon_name": "switchbot",
+      "variant": "default",
+      "source_script": "client/switchbot_default.py",
+      "size_bytes": 12455,
+      "sha256": "e3a06f6fae78340d95479fc16e793f7a7c7e86d03e670057489569980dcbf0e0",
+      "bbox": [
+        26,
+        224,
+        486,
+        288
+      ]
+    },
+    "tesla_default.png": {
+      "icon_name": "tesla",
+      "variant": "default",
+      "source_script": "client/tesla_default.py",
+      "size_bytes": 13637,
+      "sha256": "bf94a47f5c683531b744b2c8b67088a4e3fdde17549dcc600d1b1302fcba6228",
+      "bbox": [
+        78,
+        26,
+        434,
+        486
+      ]
+    },
+    "tor_browser_default.png": {
+      "icon_name": "tor_browser",
+      "variant": "default",
+      "source_script": "client/tor_browser_default.py",
+      "size_bytes": 29074,
+      "sha256": "58d371b8242e6d50065c8b4368ed9ccd90331d8ca4148d22b6dfe2ae7f705261",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "toyota_default.png": {
+      "icon_name": "toyota",
+      "variant": "default",
+      "source_script": "client/toyota_default.py",
+      "size_bytes": 26857,
+      "sha256": "def613f0f398b297cd3e004f9e1397883779fd6a7e01c28807aef0d94c211e5b",
+      "bbox": [
+        26,
+        89,
+        486,
+        422
+      ]
+    },
+    "ubuntu_default.png": {
+      "icon_name": "ubuntu",
+      "variant": "default",
+      "source_script": "client/ubuntu_default.py",
+      "size_bytes": 26950,
+      "sha256": "25da5802fe9002c5f314026bdb7a228c61fb247f155ac197b5a199eb38440680",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "usb_default.png": {
+      "icon_name": "usb",
+      "variant": "default",
+      "source_script": "client/usb_default.py",
+      "size_bytes": 5388,
+      "sha256": "31064e2d5d79a9571b4ca7e62e4d95469c76579bdcfdfd88e72990f235bb0841",
+      "bbox": [
+        26,
+        153,
+        486,
+        358
+      ]
+    },
+    "vivaldi_default.png": {
+      "icon_name": "vivaldi",
+      "variant": "default",
+      "source_script": "client/vivaldi_default.py",
+      "size_bytes": 26848,
+      "sha256": "8873a97331d4743b06c0f074bec058501db51b7144be260682eb833bf56894dc",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "windows_default.png": {
+      "icon_name": "windows",
+      "variant": "default",
+      "source_script": "client/windows_default.py",
+      "size_bytes": 1738,
+      "sha256": "295dc7ec476f31296846a88c9229271344ff13431103b4a099f2f3c00dfb8e9a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "xbox_default.png": {
+      "icon_name": "xbox",
+      "variant": "default",
+      "source_script": "client/xbox_default.py",
+      "size_bytes": 21143,
+      "sha256": "838882e88c04ae937b6e6c36ac3c5059ad495105919b14edac23c7ce5a0b783c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "youtube_default.png": {
+      "icon_name": "youtube",
+      "variant": "default",
+      "source_script": "client/youtube_default.py",
+      "size_bytes": 7300,
+      "sha256": "805ff892c874c6c6098a08785c6bf21652813ce719d6702bd5a9f471ef652805",
+      "bbox": [
+        26,
+        95,
+        486,
+        417
+      ]
+    },
+    "zebra_default.png": {
+      "icon_name": "zebra",
+      "variant": "default",
+      "source_script": "client/zebra_default.py",
+      "size_bytes": 11276,
+      "sha256": "2fc1756533b47dee95990431e2836aa23eb8fa31f39c8e4c9e077fdf67174008",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    }
+  }
+}

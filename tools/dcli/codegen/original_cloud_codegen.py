@@ -85,6 +85,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "code": "Code",
     "facility": "Facility",
     "workspace": "Workspace",
+    "client": "Client",
 }
 
 
@@ -151,6 +152,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "code": "CodeIcon",
     "facility": "FacilityIcon",
     "workspace": "WorkspaceIcon",
+    "client": "ClientIcon",
 }
 
 

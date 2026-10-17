@@ -17,6 +17,7 @@ from drawlib._icons import (
     ai,
     aws,
     azure,
+    client,
     cnative,
     code,
     data,
@@ -47,6 +48,7 @@ sys.modules["drawlib.icons.phosphor"] = phosphor
 sys.modules["drawlib.icons.ai"] = ai
 sys.modules["drawlib.icons.aws"] = aws
 sys.modules["drawlib.icons.azure"] = azure
+sys.modules["drawlib.icons.client"] = client
 sys.modules["drawlib.icons.cnative"] = cnative
 sys.modules["drawlib.icons.code"] = code
 sys.modules["drawlib.icons.data"] = data
@@ -73,6 +75,7 @@ __all__ = [
     "ai",
     "aws",
     "azure",
+    "client",
     "cnative",
     "code",
     "data",
