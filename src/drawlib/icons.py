@@ -21,6 +21,7 @@ from drawlib._icons import (
     code,
     data,
     devops,
+    facility,
     font_icon,
     gcp,
     network,
@@ -47,6 +48,7 @@ sys.modules["drawlib.icons.cnative"] = cnative
 sys.modules["drawlib.icons.code"] = code
 sys.modules["drawlib.icons.data"] = data
 sys.modules["drawlib.icons.devops"] = devops
+sys.modules["drawlib.icons.facility"] = facility
 sys.modules["drawlib.icons.gcp"] = gcp
 sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
@@ -69,6 +71,7 @@ __all__ = [
     "code",
     "data",
     "devops",
+    "facility",
     "font_icon",
     "gcp",
     "network",

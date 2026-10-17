@@ -92,6 +92,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_CODE = "icon_code"
     ICON_DATA = "icon_data"
     ICON_DEVOPS = "icon_devops"
+    ICON_FACILITY = "icon_facility"
     ICON_GCP = "icon_gcp"
     ICON_NETWORK = "icon_network"
     ICON_ORIGINAL_AI = "icon_original_ai"
@@ -171,6 +172,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_code: ReleaseAssetPackage
     icon_data: ReleaseAssetPackage
     icon_devops: ReleaseAssetPackage
+    icon_facility: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
     icon_network: ReleaseAssetPackage
     icon_original_ai: ReleaseAssetPackage
@@ -1534,6 +1536,57 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "trivy_default.png",
             "vagrant_default.png",
             "vault_default.png",
+        ),
+    ),
+    icon_facility=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_FACILITY,
+        category="icon",
+        archive_name="icon_facility.zip",
+        archive_sha256="ab0ab0a2bdd77ce66f9c0c8a242e74cab2076a7db7180d7afec791b8831e4f87",
+        source_rel_path="icons/facility",
+        target_rel_path="icons/facility",
+        files=(
+            "apc_default.png",
+            "at_tokyo_default.png",
+            "att_default.png",
+            "axis_default.png",
+            "bbix_default.png",
+            "colt_default.png",
+            "commscope_default.png",
+            "console_connect_default.png",
+            "coresite_default.png",
+            "corning_default.png",
+            "cyrusone_default.png",
+            "de_cix_default.png",
+            "deutsche_telekom_default.png",
+            "digital_realty_default.png",
+            "eaton_default.png",
+            "equinix_default.png",
+            "hid_global_default.png",
+            "iij_default.png",
+            "intelsat_default.png",
+            "iron_mountain_default.png",
+            "jpix_default.png",
+            "jpnap_default.png",
+            "kddi_default.png",
+            "linx_default.png",
+            "lumen_default.png",
+            "manifest.json",
+            "megaport_default.png",
+            "ntt_default.png",
+            "ntt_gdc_default.png",
+            "orange_default.png",
+            "packetfabric_default.png",
+            "panduit_default.png",
+            "qts_default.png",
+            "rittal_default.png",
+            "schneider_electric_default.png",
+            "softbank_default.png",
+            "starlink_default.png",
+            "switch_dc_default.png",
+            "vantage_dc_default.png",
+            "verizon_default.png",
+            "vertiv_default.png",
         ),
     ),
     icon_gcp=ReleaseAssetPackage(

@@ -1115,6 +1115,25 @@ PROVIDER_ALIASES: dict[str, dict[str, str]] = {
         "zero_trust_proxy": "zero_trust",
         "ztna": "zero_trust",
     },
+    "facility": {
+        "at_and_t": "att",
+        "attokyo": "at_tokyo",
+        "au": "kddi",
+        "axis_camera": "axis",
+        "centurylink": "lumen",
+        "decix": "de_cix",
+        "dlr": "digital_realty",
+        "eqix": "equinix",
+        "hid": "hid_global",
+        "liebert": "vertiv",
+        "ntt_com": "ntt",
+        "ntt_datacenter": "ntt_gdc",
+        "ntt_docomo": "ntt",
+        "orange_business": "orange",
+        "schneider": "schneider_electric",
+        "t_systems": "deutsche_telekom",
+        "vantage": "vantage_dc",
+    },
 }
 
 

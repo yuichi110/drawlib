@@ -161,6 +161,7 @@ from drawlib.diagrams.architecture import (
     CustomIcon,
     DataIcon,
     DevopsIcon,
+    FacilityIcon,
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
@@ -203,7 +204,7 @@ from drawlib.diagrams.architecture import (
 | `text` | `str` | `""` | Node label text (supports `\n`). |
 | `width` | `float` | `20.0` | Card bounding box width in canvas units. |
 | `height` | `float` | `16.0` | Card bounding box height in canvas units. |
-| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AiIcon`, `AwsIcon`, `AzureIcon`, `CnativeIcon`, `CodeIcon`, `DataIcon`, `DevopsIcon`, `NetworkIcon`, `SecurityIcon`, `ServerIcon`, `OriginalCloudIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AiIcon`, `AwsIcon`, `AzureIcon`, `CnativeIcon`, `CodeIcon`, `DataIcon`, `DevopsIcon`, `FacilityIcon`, `NetworkIcon`, `SecurityIcon`, `ServerIcon`, `OriginalCloudIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text (supports `xy_shift`, `angle`). |
@@ -234,12 +235,13 @@ from drawlib.diagrams.architecture import (
 - `CodeIcon`: 72 official Programming Language, Framework, Runtime, API & IDE icons + 39 shorthand aliases (`CodeIcon.PYTHON`, `CodeIcon.FASTAPI`, `CodeIcon.REACT`, `CodeIcon.TYPESCRIPT`, `CodeIcon.GO`, `CodeIcon.RUST`, `CodeIcon.FIREBASE`, `CodeIcon.COLAB`, `CodeIcon.ANTIGRAVITY`, `CodeIcon.ANDROID_STUDIO`, etc.).
 - `DataIcon`: 50 Database & Data Platform icons + 28 shorthand aliases (`DataIcon.POSTGRESQL`, `DataIcon.REDIS`, `DataIcon.KAFKA`, `DataIcon.SNOWFLAKE`, `DataIcon.DATABRICKS`, `DataIcon.SPARK`, `DataIcon.DUCKDB`, etc.).
 - `DevopsIcon`: 40 official DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 17 shorthand aliases (`DevopsIcon.GITHUB`, `DevopsIcon.GITHUB_ACTIONS`, `DevopsIcon.TERRAFORM`, `DevopsIcon.ANSIBLE`, `DevopsIcon.DATADOG`, `DevopsIcon.SENTRY`, `DevopsIcon.JIRA`, `DevopsIcon.SLACK`, etc.).
+- `FacilityIcon`: 40 official Data Center, IX, Telecom Carrier, and Facility Hardware icons + 17 shorthand aliases (`FacilityIcon.EQUINIX`, `FacilityIcon.DIGITAL_REALTY`, `FacilityIcon.MEGAPORT`, `FacilityIcon.STARLINK`, `FacilityIcon.NTT`, `FacilityIcon.KDDI`, `FacilityIcon.SCHNEIDER_ELECTRIC`, `FacilityIcon.VERTIV`, `FacilityIcon.RITTAL`, `FacilityIcon.PANDUIT`, etc.).
 - `NetworkIcon`: 70 Network icons (48 official CDN, DNS, registrar, proxy, VPN, firewall, SOHO & network vendor logos + 22 Cisco topology icons) + 64 shorthand aliases (`NetworkIcon.CLOUDFLARE`, `NetworkIcon.NGINX`, `NetworkIcon.TRAEFIK`, `NetworkIcon.WIREGUARD`, `NetworkIcon.FORTINET`, `NetworkIcon.CISCO`, `NetworkIcon.TP_LINK`, `NetworkIcon.LETS_ENCRYPT`, `NetworkIcon.CISCO_ROUTER`, `NetworkIcon.CISCO_FIREWALL`, etc.).
 - `SecurityIcon`: 60 official Security vendor & OSS icons + 28 shorthand aliases (`SecurityIcon.OKTA`, `SecurityIcon.CROWDSTRIKE`, `SecurityIcon.PALO_ALTO`, `SecurityIcon.QRADAR`, `SecurityIcon.WIZ`, `SecurityIcon.BURP_SUITE`, `SecurityIcon.YUBICO`, etc.).
 - `ServerIcon`: 82 Server icons (56 official server vendor, chip, SBC, OS, virtualization & storage logos + 26 Dell EMC & VMware topology icons) + 58 shorthand aliases (`ServerIcon.LINUX`, `ServerIcon.UBUNTU`, `ServerIcon.WINDOWS`, `ServerIcon.MAC_MINI`, `ServerIcon.RASPBERRY_PI`, `ServerIcon.PROXMOX`, `ServerIcon.SYNOLOGY`, `ServerIcon.DELL_RACK_SERVER`, `ServerIcon.VMWARE_VCENTER`, etc.).
 - `OriginalCloudIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`: Vendor-neutral Drawlib 2D pastel icon suites (`OriginalCnativeIcon.KUBERNETES`, `OriginalCodeIcon.PYTHON`, `OriginalCodeIcon.FASTAPI`, `OriginalDataIcon.POSTGRESQL`, `OriginalDataIcon.KAFKA`, `OriginalNetworkIcon.ROUTER`, `OriginalSecurityIcon.FIREWALL`, `OriginalSecurityIcon.ZERO_TRUST`, `OriginalServerIcon.RACK_SERVER`, etc.).
 - `PhosphorIcon`: 1,531 modern interface icons (`PhosphorIcon.USER`, `PhosphorIcon.DATABASE`, `PhosphorIcon.BROWSER`, etc.).
-- Direct callables/images: `phosphor.*`, `gcp.*`, `ai.*`, `aws.*`, `azure.*`, `cnative.*`, `code.*`, `data.*`, `devops.*`, `network.*`, `security.*`, `server.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
+- Direct callables/images: `phosphor.*`, `gcp.*`, `ai.*`, `aws.*`, `azure.*`, `cnative.*`, `code.*`, `data.*`, `devops.*`, `facility.*`, `network.*`, `security.*`, `server.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
 
 ### 3.3 Production Examples
 

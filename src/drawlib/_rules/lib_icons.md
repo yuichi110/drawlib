@@ -61,6 +61,7 @@ from drawlib.icons import (
     code,
     data,
     devops,
+    facility,
     font_icon,
     gcp,
     network,
@@ -96,6 +97,7 @@ import drawlib.icons.ai as ai
 import drawlib.icons.cnative as cnative
 import drawlib.icons.code as code
 import drawlib.icons.data as data
+import drawlib.icons.facility as facility
 import drawlib.icons.gcp as gcp
 import drawlib.icons.network as network
 import drawlib.icons.original_cnative as original_cnative
@@ -375,7 +377,7 @@ GCP icons are normalized `512x512` PNG assets (`<service>_<variant>.png`) packag
 2. **Developer Workspace Fallback**: If running in developer mode, it checks `tools/release_assets/v0.3/icons/gcp/`.
 3. **Automated Lazy Download**: If missing, `ensure_asset_available()` downloads the verified package archive from GitHub Releases and extracts it to the local cache.
 
-### 5.4. AI, Cloud Native, Code, Data, DevOps, Network, Security, Server, AWS, Azure & Original Icon Suites
+### 5.4. AI, Cloud Native, Code, Data, DevOps, Facility, Network, Security, Server, AWS, Azure & Original Icon Suites
 
 Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width, *, style, variant=...)` contract:
 
@@ -384,6 +386,7 @@ Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width
 - **Code (`drawlib.icons.code` / `CodeIcon`)**: 72 canonical official Programming Language, Framework, Runtime, API & IDE icons + 39 shorthand aliases (`android_studio`, `angular`, `antigravity`, `astro`, `bash`, `blazor`, `bun`, `c`, `cargo`, `celery`, `colab`, `cpp`, `csharp`, `css3`, `dart`, `deno`, `django`, `dotnet`, `echo`, `express`, `fastapi`, `firebase`, `flask`, `flutter`, `gin`, `go`, `gradle`, `graphql`, `grpc`, `hono`, `html5`, `htmx`, `intellij`, `java`, `javascript`, `jquery`, `kotlin`, `laravel`, `nestjs`, `nextjs`, `nodejs`, `npm`, `numpy`, `nuxt`, `openapi`, `pandas`, `php`, `poetry`, `prisma`, `protobuf`, `pydantic`, `pypi`, `pytest`, `python`, `rails`, `react`, `react_native`, `ruby`, `rust`, `spring`, `sqlalchemy`, `svelte`, `swift`, `tailwind_css`, `tokio`, `typescript`, `uv`, `uvicorn`, `vite`, `vscode`, `vuejs`, `webassembly`).
 - **Data (`drawlib.icons.data` / `DataIcon`)**: 50 canonical Database & Data Platform icons + 28 shorthand aliases (`airbyte`, `airflow`, `beam`, `cassandra`, `clickhouse`, `cockroachdb`, `couchbase`, `dagster`, `databricks`, `dbt`, `debezium`, `delta_lake`, `druid`, `duckdb`, `elasticsearch`, `flink`, `hadoop`, `iceberg`, `influxdb`, `kafka`, `mariadb`, `meilisearch`, `memcached`, `milvus`, `minio`, `mongodb`, `mysql`, `nats`, `neo4j`, `nifi`, `opensearch`, `oracle_db`, `postgresql`, `pulsar`, `qdrant`, `rabbitmq`, `redis`, `redpanda`, `scylladb`, `snowflake`, `spark`, `sql_server`, `sqlite`, `supabase`, `superset`, `tidb`, `timescaledb`, `trino`, `valkey`, `weaviate`).
 - **DevOps (`drawlib.icons.devops` / `DevopsIcon`)**: 40 canonical official DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 17 shorthand aliases (`ansible`, `bitbucket`, `buildkite`, `circleci`, `consul`, `cypress`, `datadog`, `dynatrace`, `git`, `github`, `github_actions`, `gitlab`, `jenkins`, `jfrog`, `jira`, `k6`, `keycloak`, `kibana`, `loki`, `new_relic`, `nexus`, `opentofu`, `packer`, `pagerduty`, `playwright`, `podman`, `postman`, `pulumi`, `selenium`, `sentry`, `slack`, `snyk`, `sonarqube`, `spinnaker`, `splunk`, `tekton`, `terraform`, `trivy`, `vagrant`, `vault`).
+- **Facility (`drawlib.icons.facility` / `FacilityIcon`)**: 40 canonical official Data Center, IX, Telecom Carrier, and Facility Hardware icons + 17 shorthand aliases (`apc`, `at_tokyo`, `att`, `axis`, `bbix`, `colt`, `commscope`, `console_connect`, `coresite`, `corning`, `cyrusone`, `de_cix`, `deutsche_telekom`, `digital_realty`, `eaton`, `equinix`, `hid_global`, `iij`, `intelsat`, `iron_mountain`, `jpix`, `jpnap`, `kddi`, `linx`, `lumen`, `megaport`, `ntt`, `ntt_gdc`, `orange`, `packetfabric`, `panduit`, `qts`, `rittal`, `schneider_electric`, `softbank`, `starlink`, `switch_dc`, `vantage_dc`, `verizon`, `vertiv`).
 - **Network (`drawlib.icons.network` / `NetworkIcon`)**: 70 canonical Network icons + 64 shorthand aliases (48 official vendor & OSS logos: `adguard`, `akamai`, `apisix`, `arista`, `aruba`, `asus`, `bind`, `caddy`, `checkpoint`, `cisco`, `cloudflare`, `d_link`, `digicert`, `f5`, `fastly`, `fortinet`, `frrouting`, `godaddy`, `haproxy`, `juniper`, `kong`, `lets_encrypt`, `linksys`, `meraki`, `mikrotik`, `namecheap`, `netbird`, `netgear`, `nginx`, `openvpn`, `openwrt`, `opnsense`, `palo_alto`, `pfsense`, `pi_hole`, `porkbun`, `powerdns`, `squid`, `tailscale`, `tp_link`, `traefik`, `ubiquiti`, `unbound`, `varnish`, `wireguard`, `yamaha`, `zerotier`, `zscaler`; 22 Cisco network topology icons: `cisco_router`, `cisco_wan_router`, `cisco_core_router`, `cisco_l2_switch`, `cisco_l3_switch`, `cisco_nexus_switch`, `cisco_core_switch`, `cisco_optical_transport`, `cisco_wireless_ap`, `cisco_wireless_controller`, `cisco_wireless_router`, `cisco_firewall`, `cisco_vpn_gateway`, `cisco_ids_ips`, `cisco_ise`, `cisco_web_security`, `cisco_load_balancer`, `cisco_wan_cloud`, `cisco_ip_phone`, `cisco_voice_gateway`, `cisco_server`, `cisco_client_pc`).
   - Cisco topology icons (`cisco_*`) support `variant="default"` (or `variant="classic"`, 3D Cisco Blue) and `variant="modern"` (2D flat Cisco SAFE badge).
   - Vendor & OSS logos support `variant="default"`.

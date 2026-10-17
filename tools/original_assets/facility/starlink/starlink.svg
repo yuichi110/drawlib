@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1032 395" width="1032" height="395">
+  <clipPath id="mask_x1">
+    <circle cx="275" cy="85" r="200"/>
+  </clipPath>
+  <clipPath id="mask_x2">
+    <circle cx="230" cy="90" r="80"/>
+  </clipPath>
+  <g transform="matrix(3.3784 0 0 3.3784 -530.93 7.7532)">
+    <g clip-path="url(#mask_x1)">
+      <path d="m168.4 112.2-3.9 3.8h34.5c93-93.4 226.9-110 261-112.8v-0.1c-186.1 10.7-272.1 90.3-291.6 109.1" fill="#000000"/>
+    </g>
+    <g clip-path="url(#mask_x2)">
+      <path d="m263.2 116h34.1l-47.2-34.8c-5.7 3.9-11.6 8.3-17.2 12.7z" fill="#000000"/>
+      <path d="m200.9 44.6h-34.1l40 29.3c5.8-3.9 12.5-8.1 18.7-11.7z" fill="#000000"/>
+    </g>
+  </g>
+</svg>

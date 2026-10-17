@@ -35,6 +35,7 @@ from drawlib._diagrams.architecture._icons import (
     CodeIcon,
     DataIcon,
     DevopsIcon,
+    FacilityIcon,
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
@@ -77,6 +78,7 @@ def draw_enum_icon(
         | CodeIcon
         | DataIcon
         | DevopsIcon
+        | FacilityIcon
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon

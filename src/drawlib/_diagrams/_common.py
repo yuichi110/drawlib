@@ -27,6 +27,7 @@ import drawlib._icons.png_icons.cnative._generated as cnative_gen
 import drawlib._icons.png_icons.code._generated as code_gen
 import drawlib._icons.png_icons.data._generated as data_gen
 import drawlib._icons.png_icons.devops._generated as devops_gen
+import drawlib._icons.png_icons.facility._generated as facility_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
 import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
@@ -56,6 +57,7 @@ from drawlib._diagrams.architecture._icons import (
     CustomIcon,
     DataIcon,
     DevopsIcon,
+    FacilityIcon,
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
@@ -93,6 +95,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     CodeIcon: code_gen,
     DataIcon: data_gen,
     DevopsIcon: devops_gen,
+    FacilityIcon: facility_gen,
     GcpIcon: gcp_gen,
     NetworkIcon: network_gen,
     PhosphorIcon: phosphor_gen,
@@ -231,6 +234,7 @@ def draw_enum_icon(
         | CodeIcon
         | DataIcon
         | DevopsIcon
+        | FacilityIcon
         | GcpIcon
         | NetworkIcon
         | PhosphorIcon
@@ -316,6 +320,7 @@ def draw_diagram_icon(
             CodeIcon,
             DataIcon,
             DevopsIcon,
+            FacilityIcon,
             GcpIcon,
             NetworkIcon,
             PhosphorIcon,

@@ -61,7 +61,7 @@ from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Sect
 
 # 7. Icons & Media
 from drawlib.icons import (
-    ai, aws, azure, cnative, code, data, devops, font_icon, gcp, network,
+    ai, aws, azure, cnative, code, data, devops, facility, font_icon, gcp, network,
     original_ai, original_cloud, original_cnative, original_code,
     original_data, original_devops, original_network, original_security,
     original_server, phosphor, security, server,
@@ -518,7 +518,7 @@ pie.draw((104, 26))
 ## 10. Icons & Media (`drawlib.icons`, `drawlib.images`, `drawlib.fonts`)
 
 ### 10.1 Icons
-Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `ai`, `cnative`, `code`, `data`, `devops`, `network`, `security`, `server`, `original_cloud`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_ai`, `original_network`, `original_security`, `original_server`). `ai` provides 40 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons, `cnative` provides 48 Kubernetes & Cloud Native (CNCF / Observability) icons, `code` provides 72 official Programming Language, Framework, Runtime, API & IDE icons, `data` provides 50 Database & Data Platform icons, `devops` provides 40 official DevOps, CI/CD, IaC, DevSecOps, and Observability icons, `network` provides 70 Network icons (48 official CDN, DNS, registrar, proxy, VPN, firewall, SOHO & network vendor logos + 22 Cisco topology icons with `variant="default" | "classic" | "modern"`), `security` provides 60 official Security vendor & OSS icons, `server` provides 82 Server icons (56 official server vendor, chip, SBC, OS, virtualization & storage logos + 26 Dell EMC & VMware hybrid infrastructure icons), while `original_ai`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_network`, `original_security`, and `original_server` provide 2D flat Drawlib pastel counterparts:
+Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `ai`, `cnative`, `code`, `data`, `devops`, `facility`, `network`, `security`, `server`, `original_cloud`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_ai`, `original_network`, `original_security`, `original_server`). `ai` provides 40 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons, `cnative` provides 48 Kubernetes & Cloud Native (CNCF / Observability) icons, `code` provides 72 official Programming Language, Framework, Runtime, API & IDE icons, `data` provides 50 Database & Data Platform icons, `devops` provides 40 official DevOps, CI/CD, IaC, DevSecOps, and Observability icons, `facility` provides 40 official Data Center, IX, Telecom Carrier, and Facility Hardware icons, `network` provides 70 Network icons (48 official CDN, DNS, registrar, proxy, VPN, firewall, SOHO & network vendor logos + 22 Cisco topology icons with `variant="default" | "classic" | "modern"`), `security` provides 60 official Security vendor & OSS icons, `server` provides 82 Server icons (56 official server vendor, chip, SBC, OS, virtualization & storage logos + 26 Dell EMC & VMware hybrid infrastructure icons), while `original_ai`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_network`, `original_security`, and `original_server` provide 2D flat Drawlib pastel counterparts:
 
 ```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup

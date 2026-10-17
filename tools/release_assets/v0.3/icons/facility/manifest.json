@@ -1,0 +1,555 @@
+{
+  "format_version": "2.0",
+  "provider": "facility",
+  "created_at": "2026-10-17T13:29:09.807948+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 40,
+  "aliases": {
+    "at_and_t": "att",
+    "attokyo": "at_tokyo",
+    "au": "kddi",
+    "axis_camera": "axis",
+    "centurylink": "lumen",
+    "decix": "de_cix",
+    "dlr": "digital_realty",
+    "eqix": "equinix",
+    "hid": "hid_global",
+    "liebert": "vertiv",
+    "ntt_com": "ntt",
+    "ntt_datacenter": "ntt_gdc",
+    "ntt_docomo": "ntt",
+    "orange_business": "orange",
+    "schneider": "schneider_electric",
+    "t_systems": "deutsche_telekom",
+    "vantage": "vantage_dc"
+  },
+  "files": {
+    "apc_default.png": {
+      "icon_name": "apc",
+      "variant": "default",
+      "source_script": "facility/apc_default.py",
+      "size_bytes": 10906,
+      "sha256": "c8a23a416102669b96df300d260daaf9b1da27bb21837570dcb9d4719af49d0d",
+      "bbox": [
+        26,
+        195,
+        486,
+        317
+      ]
+    },
+    "at_tokyo_default.png": {
+      "icon_name": "at_tokyo",
+      "variant": "default",
+      "source_script": "facility/at_tokyo_default.py",
+      "size_bytes": 25263,
+      "sha256": "1f097c98184db30e6d12b5274adab6b052768ab3433dc2114f55c3bf707d1894",
+      "bbox": [
+        26,
+        100,
+        486,
+        411
+      ]
+    },
+    "att_default.png": {
+      "icon_name": "att",
+      "variant": "default",
+      "source_script": "facility/att_default.py",
+      "size_bytes": 34606,
+      "sha256": "b0894e257adc4f479853a0e3cb91b19ed52a788f0541e36d037adbdad44d3498",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "axis_default.png": {
+      "icon_name": "axis",
+      "variant": "default",
+      "source_script": "facility/axis_default.py",
+      "size_bytes": 10941,
+      "sha256": "8a5bf108297a32f3d7ee0ef36408e3432baedd977995a1cb7e1e5828bfcebdaf",
+      "bbox": [
+        26,
+        76,
+        486,
+        435
+      ]
+    },
+    "bbix_default.png": {
+      "icon_name": "bbix",
+      "variant": "default",
+      "source_script": "facility/bbix_default.py",
+      "size_bytes": 20948,
+      "sha256": "f6f2e8d709072ea6080f52ab745a6bc8c1280028aff7d6cceeb3aae425ccadc0",
+      "bbox": [
+        26,
+        168,
+        486,
+        344
+      ]
+    },
+    "colt_default.png": {
+      "icon_name": "colt",
+      "variant": "default",
+      "source_script": "facility/colt_default.py",
+      "size_bytes": 11547,
+      "sha256": "cf4a8396786b7bc2758d3cc7ed41d30906a561a6b00b5a8471bc95a8a1089eb5",
+      "bbox": [
+        26,
+        167,
+        486,
+        344
+      ]
+    },
+    "commscope_default.png": {
+      "icon_name": "commscope",
+      "variant": "default",
+      "source_script": "facility/commscope_default.py",
+      "size_bytes": 17758,
+      "sha256": "33e7b4baf1616475809ac290708c8b09bf96a241194d76f6de0ca5713a253124",
+      "bbox": [
+        26,
+        203,
+        486,
+        309
+      ]
+    },
+    "console_connect_default.png": {
+      "icon_name": "console_connect",
+      "variant": "default",
+      "source_script": "facility/console_connect_default.py",
+      "size_bytes": 20355,
+      "sha256": "59981481b5a5e722939458756501d6cf16a69a13e1f414c7d569eca0b14930b0",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "coresite_default.png": {
+      "icon_name": "coresite",
+      "variant": "default",
+      "source_script": "facility/coresite_default.py",
+      "size_bytes": 4276,
+      "sha256": "6b3e6671bff52bb90e76d60286d4654afe328e4f087efc59f0d5f5b3e3c9b735",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "corning_default.png": {
+      "icon_name": "corning",
+      "variant": "default",
+      "source_script": "facility/corning_default.py",
+      "size_bytes": 13447,
+      "sha256": "be07e8846c688c84e3899cdf332c314b65f25b7cb86969f6896f9c8a27814f32",
+      "bbox": [
+        26,
+        222,
+        486,
+        290
+      ]
+    },
+    "cyrusone_default.png": {
+      "icon_name": "cyrusone",
+      "variant": "default",
+      "source_script": "facility/cyrusone_default.py",
+      "size_bytes": 17737,
+      "sha256": "df767ba86d5795b0536fbbea829bbc587d5aede5eb3cb0cbd380cc8f12827982",
+      "bbox": [
+        26,
+        103,
+        486,
+        409
+      ]
+    },
+    "de_cix_default.png": {
+      "icon_name": "de_cix",
+      "variant": "default",
+      "source_script": "facility/de_cix_default.py",
+      "size_bytes": 19422,
+      "sha256": "59c03f2425f744069affe08f716b4f155f85270c14227b7db364b38e6177e178",
+      "bbox": [
+        26,
+        45,
+        486,
+        467
+      ]
+    },
+    "deutsche_telekom_default.png": {
+      "icon_name": "deutsche_telekom",
+      "variant": "default",
+      "source_script": "facility/deutsche_telekom_default.py",
+      "size_bytes": 5646,
+      "sha256": "3126e0d67df74d988666eef62c1e6303cfd0a8bd663150b4314a83f088e03877",
+      "bbox": [
+        63,
+        26,
+        449,
+        486
+      ]
+    },
+    "digital_realty_default.png": {
+      "icon_name": "digital_realty",
+      "variant": "default",
+      "source_script": "facility/digital_realty_default.py",
+      "size_bytes": 12122,
+      "sha256": "a1c4685dd5629c24c97d5275554fd8a8126b1d7ad488fad8db676bfba4f54dd6",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    },
+    "eaton_default.png": {
+      "icon_name": "eaton",
+      "variant": "default",
+      "source_script": "facility/eaton_default.py",
+      "size_bytes": 7326,
+      "sha256": "c47736a013ed69217561060c8f382dcc13c14f605bf38eff15e786be885b5d05",
+      "bbox": [
+        26,
+        193,
+        486,
+        319
+      ]
+    },
+    "equinix_default.png": {
+      "icon_name": "equinix",
+      "variant": "default",
+      "source_script": "facility/equinix_default.py",
+      "size_bytes": 9050,
+      "sha256": "159bd7fc31d9a9368a8d54b7d13c178af0c2b56d64d669b55c7f31c9009be5db",
+      "bbox": [
+        26,
+        105,
+        486,
+        406
+      ]
+    },
+    "hid_global_default.png": {
+      "icon_name": "hid_global",
+      "variant": "default",
+      "source_script": "facility/hid_global_default.py",
+      "size_bytes": 4793,
+      "sha256": "feabbe36d672c35aaab1d18e8c22d2b70147a4f1c69f1a23a721067474c3f544",
+      "bbox": [
+        26,
+        165,
+        486,
+        346
+      ]
+    },
+    "iij_default.png": {
+      "icon_name": "iij",
+      "variant": "default",
+      "source_script": "facility/iij_default.py",
+      "size_bytes": 11920,
+      "sha256": "958525bd6123d89b301d25864e9d0fb3661518266f07a871150c9c9a32632c45",
+      "bbox": [
+        26,
+        123,
+        486,
+        388
+      ]
+    },
+    "intelsat_default.png": {
+      "icon_name": "intelsat",
+      "variant": "default",
+      "source_script": "facility/intelsat_default.py",
+      "size_bytes": 16940,
+      "sha256": "8d93073e31d5f9adab52c3554be0ee34f5e746d38d78b971f08be4e6eecab326",
+      "bbox": [
+        29,
+        26,
+        482,
+        486
+      ]
+    },
+    "iron_mountain_default.png": {
+      "icon_name": "iron_mountain",
+      "variant": "default",
+      "source_script": "facility/iron_mountain_default.py",
+      "size_bytes": 17922,
+      "sha256": "16d16aa61348defc898cb8b2f9ded4fe34290fb8d2341fc569f6daf25f155395",
+      "bbox": [
+        26,
+        72,
+        486,
+        439
+      ]
+    },
+    "jpix_default.png": {
+      "icon_name": "jpix",
+      "variant": "default",
+      "source_script": "facility/jpix_default.py",
+      "size_bytes": 8156,
+      "sha256": "7e7d23ce96d4f7cc846259c3758324803d4ab969b700867a4f61ca0a45517584",
+      "bbox": [
+        26,
+        186,
+        486,
+        326
+      ]
+    },
+    "jpnap_default.png": {
+      "icon_name": "jpnap",
+      "variant": "default",
+      "source_script": "facility/jpnap_default.py",
+      "size_bytes": 19025,
+      "sha256": "bd03afd8c0e2c622b3f113cc6dcea7a53af9ea4a1c8c1b6953f36580049e16de",
+      "bbox": [
+        26,
+        125,
+        486,
+        386
+      ]
+    },
+    "kddi_default.png": {
+      "icon_name": "kddi",
+      "variant": "default",
+      "source_script": "facility/kddi_default.py",
+      "size_bytes": 27024,
+      "sha256": "2784481911e15073110ec932ec4266599b52049c0235f95e1e54f97b42424d1e",
+      "bbox": [
+        26,
+        183,
+        486,
+        328
+      ]
+    },
+    "linx_default.png": {
+      "icon_name": "linx",
+      "variant": "default",
+      "source_script": "facility/linx_default.py",
+      "size_bytes": 14357,
+      "sha256": "2b7754a26b80434c3edd7e9e0017290849b9e0a2e15dabc8b57b40648aed06ac",
+      "bbox": [
+        26,
+        120,
+        486,
+        392
+      ]
+    },
+    "lumen_default.png": {
+      "icon_name": "lumen",
+      "variant": "default",
+      "source_script": "facility/lumen_default.py",
+      "size_bytes": 5496,
+      "sha256": "0c5112630fb528325ef55e223c60044c736a21f0f4402fb2248c80a6af7ed6b9",
+      "bbox": [
+        26,
+        224,
+        486,
+        287
+      ]
+    },
+    "megaport_default.png": {
+      "icon_name": "megaport",
+      "variant": "default",
+      "source_script": "facility/megaport_default.py",
+      "size_bytes": 16543,
+      "sha256": "7f32409698c132997e7a00de10b7e7d58079dfe76d1ec0842fe7de0dda17a393",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ntt_default.png": {
+      "icon_name": "ntt",
+      "variant": "default",
+      "source_script": "facility/ntt_default.py",
+      "size_bytes": 21259,
+      "sha256": "d0cfb12c3e83396a0110795c88a478c1acbde56892c5f80d569c5cf573057298",
+      "bbox": [
+        26,
+        38,
+        486,
+        474
+      ]
+    },
+    "ntt_gdc_default.png": {
+      "icon_name": "ntt_gdc",
+      "variant": "default",
+      "source_script": "facility/ntt_gdc_default.py",
+      "size_bytes": 10025,
+      "sha256": "6396f0e85154052d85019d355825bbf37730765c5ea3fd25557fb1f80e96fa28",
+      "bbox": [
+        26,
+        186,
+        486,
+        326
+      ]
+    },
+    "orange_default.png": {
+      "icon_name": "orange",
+      "variant": "default",
+      "source_script": "facility/orange_default.py",
+      "size_bytes": 10722,
+      "sha256": "ecd57a907358be8647c4286b9124fb41176d68abce3c1c49b91a93c6ace3e2a8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "packetfabric_default.png": {
+      "icon_name": "packetfabric",
+      "variant": "default",
+      "source_script": "facility/packetfabric_default.py",
+      "size_bytes": 29280,
+      "sha256": "5c5393aba0d2825b4413a2f184b1b72a342540ef04eef78c10859097d26b5d11",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "panduit_default.png": {
+      "icon_name": "panduit",
+      "variant": "default",
+      "source_script": "facility/panduit_default.py",
+      "size_bytes": 7530,
+      "sha256": "69810217997fb2cb8af0e3deef4eaa42e94279e7ee42274defc3c6c316adcc85",
+      "bbox": [
+        26,
+        191,
+        486,
+        321
+      ]
+    },
+    "qts_default.png": {
+      "icon_name": "qts",
+      "variant": "default",
+      "source_script": "facility/qts_default.py",
+      "size_bytes": 21688,
+      "sha256": "8a192c7e6c0ad0a70a42657dafac2379e18eacc2307cc383c518d78970e8b3e2",
+      "bbox": [
+        26,
+        164,
+        486,
+        347
+      ]
+    },
+    "rittal_default.png": {
+      "icon_name": "rittal",
+      "variant": "default",
+      "source_script": "facility/rittal_default.py",
+      "size_bytes": 9579,
+      "sha256": "0dd3118094f95da12fd6f9df41a4da433528fff89efdc4f9cb5e0bae222218ba",
+      "bbox": [
+        90,
+        26,
+        421,
+        486
+      ]
+    },
+    "schneider_electric_default.png": {
+      "icon_name": "schneider_electric",
+      "variant": "default",
+      "source_script": "facility/schneider_electric_default.py",
+      "size_bytes": 16507,
+      "sha256": "4880577ceefe93ef3051f40ae88837fd60a55337f33b4b6040dc57557a6fedd4",
+      "bbox": [
+        26,
+        188,
+        486,
+        324
+      ]
+    },
+    "softbank_default.png": {
+      "icon_name": "softbank",
+      "variant": "default",
+      "source_script": "facility/softbank_default.py",
+      "size_bytes": 7599,
+      "sha256": "3448e39a445fc57a63571e0ddcd5e1405ee5c859d986a8ae2e19196457e29a20",
+      "bbox": [
+        26,
+        222,
+        486,
+        290
+      ]
+    },
+    "starlink_default.png": {
+      "icon_name": "starlink",
+      "variant": "default",
+      "source_script": "facility/starlink_default.py",
+      "size_bytes": 5638,
+      "sha256": "547912f808a115ed75bb05ba2068e752cc5887a6e08da163adac0589dce95c34",
+      "bbox": [
+        26,
+        167,
+        486,
+        344
+      ]
+    },
+    "switch_dc_default.png": {
+      "icon_name": "switch_dc",
+      "variant": "default",
+      "source_script": "facility/switch_dc_default.py",
+      "size_bytes": 13938,
+      "sha256": "0f366d5f5ad25401ac927c197926851475098b9e8f22923199334ebd05692071",
+      "bbox": [
+        26,
+        111,
+        486,
+        401
+      ]
+    },
+    "vantage_dc_default.png": {
+      "icon_name": "vantage_dc",
+      "variant": "default",
+      "source_script": "facility/vantage_dc_default.py",
+      "size_bytes": 13334,
+      "sha256": "b6e019b6f5f47319bd5e9de66b18d73ef759d09d208cbe130d1b369b42cba74c",
+      "bbox": [
+        151,
+        26,
+        361,
+        486
+      ]
+    },
+    "verizon_default.png": {
+      "icon_name": "verizon",
+      "variant": "default",
+      "source_script": "facility/verizon_default.py",
+      "size_bytes": 11395,
+      "sha256": "0b819687b58b546602c50f9176b6bfcf58ec74f7156899557214130d3dd45b03",
+      "bbox": [
+        68,
+        26,
+        444,
+        486
+      ]
+    },
+    "vertiv_default.png": {
+      "icon_name": "vertiv",
+      "variant": "default",
+      "source_script": "facility/vertiv_default.py",
+      "size_bytes": 12361,
+      "sha256": "16391d5b5143c892ae97428ec7543ccc18d10acfbc64428ed11de5b2549409b2",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    }
+  }
+}

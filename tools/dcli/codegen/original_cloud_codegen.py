@@ -81,6 +81,7 @@ PROVIDER_LABELS: dict[str, str] = {
     "devops": "DevOps",
     "ai": "AI",
     "code": "Code",
+    "facility": "Facility",
 }
 
 
@@ -143,6 +144,7 @@ PROVIDER_ENUM_NAMES: dict[str, str] = {
     "devops": "DevopsIcon",
     "ai": "AiIcon",
     "code": "CodeIcon",
+    "facility": "FacilityIcon",
 }
 
 
