@@ -20,7 +20,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 r = 11.67
 
 # 6 circles in 2 rows x 3 columns (Orange2 diagonal accents, Orange3 main nodes)

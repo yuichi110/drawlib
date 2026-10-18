@@ -18,7 +18,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.9
+w = 2.0
 dx = 4.95  # Center the 72.1x70.5 OpenStack O-frame at (50.0, 50.0) without ® mark
 
 _RAW_BLOCKS: list[list[tuple[float, float]]] = [

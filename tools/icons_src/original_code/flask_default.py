@@ -59,7 +59,7 @@ def _catmull_rom(
 
 
 setup_icon()
-w_outer = 1.9
+w_outer = 2.0
 
 # 1. Top finial knob (circle at top of lid)
 circle(

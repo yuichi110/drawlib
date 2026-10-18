@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.8
+w = 2.0
 s = 38.8 / 41.0
 
 raw_pts: list[tuple[float, float]] = [

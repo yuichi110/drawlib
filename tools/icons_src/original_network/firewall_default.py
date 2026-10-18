@@ -101,11 +101,11 @@ draw_round_polyline(full_outline, width_units=w, color=DARK, closed=True)
 circle(
     (cx, 38.0),
     radius=8.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 draw_round_polyline(
     [(59.8, 37.8), (63.0, 34.5), (68.8, 41.2)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 

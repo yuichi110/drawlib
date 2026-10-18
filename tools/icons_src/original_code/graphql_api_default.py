@@ -26,8 +26,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_hex = 2.7
+w_shape = 2.0
+w_hex = 2.0
 w_chord = 2.0
 
 cx, cy = 50.0, 50.0

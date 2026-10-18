@@ -47,7 +47,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # ---------------------------------------------------------------------------
 # 1. Bushy S-curved tail (3 smooth color zones + berry root)

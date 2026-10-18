@@ -83,7 +83,7 @@ for i in range(steps + 1):
 # Stylus cone tip (WHITE) and rounded barrel (PASTEL_GREEN)
 polygon([tip, p_cone_r, p_cone_l], style=fill_style(WHITE))
 polygon([p_cone_l, p_cone_r, *cap_pts], style=fill_style(PASTEL_GREEN))
-draw_round_polyline([tip, p_cone_r, *cap_pts, p_cone_l], width_units=2.2, color=DARK, closed=True)
+draw_round_polyline([tip, p_cone_r, *cap_pts, p_cone_l], width_units=2.0, color=DARK, closed=True)
 draw_round_segment(p_cone_l, p_cone_r, width_units=2.0, color=DARK)
 circle(tip, radius=1.2, style=fill_style(DARK))
 

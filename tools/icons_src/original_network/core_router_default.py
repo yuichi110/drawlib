@@ -39,7 +39,7 @@ rectangle(
     (50.0, 66.0),
     width=52.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 4 routing arrows inside upper bay (left/right inward, top/bottom outward)

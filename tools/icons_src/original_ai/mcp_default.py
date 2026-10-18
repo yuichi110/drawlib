@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 45-degree rotated basis centered at top-left arch C1
 c1_x, c1_y = 55.8, 74.1

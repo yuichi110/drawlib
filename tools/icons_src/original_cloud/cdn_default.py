@@ -37,10 +37,10 @@ ellipse(
     (50.0, 50.0),
     width=26.0,
     height=56.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
-draw_round_segment((22.0, 50.0), (78.0, 50.0), width_units=2.3, color=DARK)
+draw_round_segment((22.0, 50.0), (78.0, 50.0), width_units=2.0, color=DARK)
 
 circle(
     (50.0, 50.0),

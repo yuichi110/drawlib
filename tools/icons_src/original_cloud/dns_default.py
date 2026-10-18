@@ -47,12 +47,12 @@ ellipse(
 )
 
 # Vertical prime meridian and horizontal latitude lines
-draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.3, color=DARK)
-draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.3, color=DARK)
+draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.0, color=DARK)
+draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.0, color=DARK)
 
 lat_dy = 14.5
 lat_dx = math.sqrt(gr * gr - lat_dy * lat_dy)
-draw_round_segment((gx - lat_dx, gy + lat_dy), (gx + lat_dx, gy + lat_dy), width_units=2.3, color=DARK)
+draw_round_segment((gx - lat_dx, gy + lat_dy), (gx + lat_dx, gy + lat_dy), width_units=2.0, color=DARK)
 
 # Re-stroke outer globe ring for crisp intersections
 circle(
@@ -82,6 +82,6 @@ for wx in (29.0, 50.0, 71.0):
         (wx + 3.4, y_bot),
         (wx + 6.8, y_top),
     ]
-    draw_round_polyline(w_pts, width_units=2.3, color=DARK)
+    draw_round_polyline(w_pts, width_units=2.0, color=DARK)
 
 save()

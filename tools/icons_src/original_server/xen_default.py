@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_orbit = 1.35
+w_orbit = 2.0
 w_letter = 1.5
 scale = 1.30
 cx_src, cy_src = 40.11, 50.29

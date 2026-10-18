@@ -90,7 +90,7 @@ rectangle(
     (34.0, 28.5),
     width=30.0,
     height=5.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2, shape_r=1.5),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=1.5),
 )
 
 # 3. Excavator cab & engine house (PASTEL_BLUE) + cab window (WHITE)

@@ -46,7 +46,7 @@ for by in (72.0, 56.0, 40.0):
 
 # Lower control area: two vertical vent lines + pastel green power button
 for vx in (35.0, 41.0):
-    draw_round_segment((vx, 19.0), (vx, 27.0), width_units=2.2, color=DARK)
+    draw_round_segment((vx, 19.0), (vx, 27.0), width_units=2.0, color=DARK)
 
 circle(
     (59.0, 23.0),

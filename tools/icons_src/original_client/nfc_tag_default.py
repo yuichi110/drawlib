@@ -42,7 +42,7 @@ rectangle(
     (50.0, 50.0),
     width=56.0,
     height=56.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=10.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=10.0),
 )
 
 # 3. NFC tag transmitter pad on left (PASTEL_GREEN)
@@ -51,7 +51,7 @@ rectangle(
     (tx_cx, tx_cy),
     width=9.5,
     height=15.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=3.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.5),
 )
 
 # 4. Three concentric contactless radio wave arcs (PASTEL_GREEN with DARK borders)
@@ -83,13 +83,13 @@ for r in (14.0, 23.0, 32.0):
         height=diam,
         angle_start=ang_start,
         angle_end=ang_end,
-        style=stroke_style(PASTEL_GREEN, width_units=2.2),
+        style=stroke_style(PASTEL_GREEN, width_units=2.0),
     )
     for ang_deg in (ang_start, ang_end):
         rad = math.radians(ang_deg)
         draw_cap(
             (tx_cx + r * math.cos(rad), tx_cy + r * math.sin(rad)),
-            width_units=2.2,
+            width_units=2.0,
             color=PASTEL_GREEN,
         )
 

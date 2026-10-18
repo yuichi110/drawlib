@@ -72,7 +72,7 @@ for pts in dog_catch:
 # 2. 'beagleboard' vector wordmark (11 letters, no .org) in bottom [11.5, 25.5]
 # Split DARK outline into 0.425 outside (w_halo=0.85) + 0.275 inside (w_in=0.55)
 # so narrow mouth slots of 'e', 'a', 'g' and counter-holes stay open and transparent.
-w_halo = 0.85
+w_halo = 2.0
 w_in = 0.55
 
 tan_letters: list[list[list[tuple[float, float]]]] = [

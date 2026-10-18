@@ -38,7 +38,7 @@ rectangle(
 
 sparkle_pts = build_sparkle_4pt_polygon(35.0, 50.0, outer_r=14.0, inner_r=4.8)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(sparkle_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 draw_chunky_arrow(
     y_center=50.0,

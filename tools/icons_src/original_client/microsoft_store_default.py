@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w_bag = 1.9
+w_bag = 2.0
 w_handle = 1.8
 w_square = 1.6
 

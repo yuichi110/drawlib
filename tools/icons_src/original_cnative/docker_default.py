@@ -60,7 +60,7 @@ for cx, cy, col in containers:
         (cx, cy),
         width=13.0,
         height=13.0,
-        style=fill_style(col, border_color=DARK, border_units=2.2, shape_r=2.0),
+        style=fill_style(col, border_color=DARK, border_units=2.0, shape_r=2.0),
     )
 
 # Whale body silhouette
@@ -99,7 +99,7 @@ belly_patch = [
 polygon(belly_patch, style=no_border_fill(WHITE))
 draw_round_polyline(
     [p_belly_l, *_bezier(p_belly_l, (28.0, 30.0), (45.0, 28.0), p_belly_r, 18)],
-    width_units=2.1,
+    width_units=2.0,
     color=DARK,
 )
 

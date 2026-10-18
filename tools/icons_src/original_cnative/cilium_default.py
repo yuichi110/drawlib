@@ -36,7 +36,7 @@ def build_flat_hex(cx: float, cy: float, r: float) -> list[tuple[float, float]]:
 # Center hexagon in pastel green
 polygon(
     build_flat_hex(50.0, 50.0, r_hex),
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.5, shape_r=1.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=1.2),
 )
 
 # Six outer honeycomb hexagons with 3-fold rotational symmetry
@@ -55,7 +55,7 @@ for angle_deg, color in outer_specs:
     hy = 50.0 + dist * math.sin(rad)
     polygon(
         build_flat_hex(hx, hy, r_hex),
-        style=fill_style(color, border_color=DARK, border_units=2.5, shape_r=1.2),
+        style=fill_style(color, border_color=DARK, border_units=2.0, shape_r=1.2),
     )
 
 save()

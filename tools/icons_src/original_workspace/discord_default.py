@@ -13,7 +13,7 @@ from drawlib.canvas import save
 from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, setup_icon
 
 setup_icon()
-w = 1.9
+w = 2.0
 w_eye = 1.8
 
 outer = [

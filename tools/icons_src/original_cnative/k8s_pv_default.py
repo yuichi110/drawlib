@@ -33,7 +33,7 @@ draw_cylinder_tier(
     6.5,
     body_color=WHITE,
     border_color=DARK,
-    border_units=2.3,
+    border_units=2.0,
     draw_top_cap=False,
 )
 
@@ -47,7 +47,7 @@ draw_cylinder_tier(
     body_color=PASTEL_BLUE_LIGHT,
     top_color=PASTEL_GREEN,
     border_color=DARK,
-    border_units=2.3,
+    border_units=2.0,
     draw_top_cap=True,
 )
 

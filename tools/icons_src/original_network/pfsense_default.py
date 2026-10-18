@@ -25,7 +25,7 @@ from drawlib.utils import (
 # ruff: noqa: E501
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_inner = 1.5
 s = 80.0 / 82.0
 

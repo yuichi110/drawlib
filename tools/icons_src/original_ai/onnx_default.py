@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_chord = 1.65
 
 # 6 outer perimeter vertices and 2 interior vertices (scaled to fit cleanly with vertex dots)

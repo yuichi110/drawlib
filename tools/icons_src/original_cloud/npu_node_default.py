@@ -48,13 +48,13 @@ c_br = (64.5, 35.5)
 c_bl = (35.5, 35.5)
 
 draw_round_polyline([c_tl, c_tr, c_br, c_bl], width_units=2.0, color=DARK, closed=True)
-draw_round_segment(c_tl, c_br, width_units=2.3, color=DARK)
-draw_round_segment(c_bl, c_tr, width_units=2.3, color=DARK)
+draw_round_segment(c_tl, c_br, width_units=2.0, color=DARK)
+draw_round_segment(c_bl, c_tr, width_units=2.0, color=DARK)
 
 # Central diamond-shaped neural/tensor core
 polygon(
     [(50.0, 60.8), (60.8, 50.0), (50.0, 39.2), (39.2, 50.0)],
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=2.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.5),
 )
 circle(
     (50.0, 50.0),
@@ -67,7 +67,7 @@ for pt_node in (c_tl, c_tr, c_bl, c_br):
     circle(
         pt_node,
         radius=5.2,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2),
+        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
     )
 
 save()

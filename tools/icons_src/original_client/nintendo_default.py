@@ -25,7 +25,7 @@ from drawlib.utils import (
 setup_icon()
 
 PASTEL_RED = "#F28B82"
-w_pill = 1.7
+w_pill = 2.0
 w_inner = 1.4
 w_letter = 1.1
 

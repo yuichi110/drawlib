@@ -32,11 +32,11 @@ right_nodes = [(76.0, 68.0), (76.0, 32.0)]
 
 for p_left in left_nodes:
     for p_mid in mid_nodes:
-        draw_round_segment(p_left, p_mid, width_units=2.3, color=DARK)
+        draw_round_segment(p_left, p_mid, width_units=2.0, color=DARK)
 
 for p_mid in mid_nodes:
     for p_right in right_nodes:
-        draw_round_segment(p_mid, p_right, width_units=2.3, color=DARK)
+        draw_round_segment(p_mid, p_right, width_units=2.0, color=DARK)
 
 for pt in left_nodes:
     circle(

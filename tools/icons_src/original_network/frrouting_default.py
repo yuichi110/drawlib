@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_main = 1.8
+w_main = 2.0
 w_sub = 1.6
 
 # 1. Left outer C-band (Colors.Orange3)

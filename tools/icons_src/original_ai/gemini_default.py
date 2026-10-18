@@ -22,7 +22,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 50.0, 50.0
 
 # Scale from official 24x24 SVG viewBox (half-span 10.9935) to 100x100 canvas (half-span 38.95)

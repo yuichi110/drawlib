@@ -84,7 +84,7 @@ for x_vm in (32.0, 68.0):
         left_color=PASTEL_BLUE,
         right_color=PASTEL_BLUE_LIGHT,
         border_color=DARK,
-        border_units=2.3,
+        border_units=2.0,
     )
 
 save()

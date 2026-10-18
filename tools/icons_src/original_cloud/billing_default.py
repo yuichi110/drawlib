@@ -53,12 +53,12 @@ rectangle(
     (26.0, 45.0),
     width=14.0,
     height=11.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=2.5),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.5),
 )
 
 # Account / billing lines at bottom-left
-draw_round_segment((20.0, 35.0), (34.0, 35.0), width_units=2.4, color=DARK)
-draw_round_segment((40.0, 35.0), (48.0, 35.0), width_units=2.4, color=DARK)
+draw_round_segment((20.0, 35.0), (34.0, 35.0), width_units=2.0, color=DARK)
+draw_round_segment((40.0, 35.0), (48.0, 35.0), width_units=2.0, color=DARK)
 
 # 2. Overlapping bottom-right billing $ badge (70, 34)
 badge_cx, badge_cy = 70.0, 34.0
@@ -69,7 +69,7 @@ circle(
 )
 
 # Currency symbol (vertical bar + S-curve) inside green badge
-draw_round_segment((badge_cx, badge_cy - 9.8), (badge_cx, badge_cy + 9.8), width_units=2.4, color=DARK)
+draw_round_segment((badge_cx, badge_cy - 9.8), (badge_cx, badge_cy + 9.8), width_units=2.0, color=DARK)
 
 s_pts: list[tuple[float, float]] = []
 rx, ry = 4.4, 3.3
@@ -80,6 +80,6 @@ for deg in range(90, -146, -15):
     rad = math.radians(deg)
     s_pts.append((badge_cx + rx * math.cos(rad), (badge_cy - ry) + ry * math.sin(rad)))
 
-draw_round_polyline(s_pts, width_units=2.4, color=DARK)
+draw_round_polyline(s_pts, width_units=2.0, color=DARK)
 
 save()

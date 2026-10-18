@@ -41,7 +41,7 @@ rectangle(
     (50.0, 56.0),
     width=60.0,
     height=38.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2, shape_r=4.0),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 
 # Central right-pointing play triangle
@@ -55,7 +55,7 @@ draw_round_segment((20.0, scrub_y), (80.0, scrub_y), width_units=w, color=DARK)
 circle(
     (46.0, scrub_y),
     radius=5.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

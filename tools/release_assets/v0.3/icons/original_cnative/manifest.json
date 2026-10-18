@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cnative",
-  "created_at": "2026-10-17T00:24:23.120316+00:00",
+  "created_at": "2026-10-18T10:42:32.036912+00:00",
   "canvas_size": [
     512,
     512
@@ -90,12 +90,12 @@
       "icon_name": "argo",
       "variant": "default",
       "source_script": "original_cnative/argo_default.py",
-      "size_bytes": 46554,
-      "sha256": "96f9adcda6d8481667fa48a1707889b62cc54ca5e1e3def3036ae12594694840",
+      "size_bytes": 47845,
+      "sha256": "c2f4f90cea2f09b2db359eb41f02191b55cdf759d294b26396a8e1bcf121053b",
       "bbox": [
         55,
         26,
-        456,
+        457,
         486
       ]
     },
@@ -103,12 +103,12 @@
       "icon_name": "backstage",
       "variant": "default",
       "source_script": "original_cnative/backstage_default.py",
-      "size_bytes": 30882,
-      "sha256": "fc53ab50cddc6d8b118d72ec2a21a7d4f9f3d338001d6f7d77cd1f229b015b95",
+      "size_bytes": 31637,
+      "sha256": "782a40538b74e016dbc9b9c870f20864579b90c1cb9d8297d67d28d037a39e7c",
       "bbox": [
         60,
         26,
-        452,
+        451,
         486
       ]
     },
@@ -116,8 +116,8 @@
       "icon_name": "cert_manager",
       "variant": "default",
       "source_script": "original_cnative/cert_manager_default.py",
-      "size_bytes": 31252,
-      "sha256": "9e4c5f83782f8c124a85c41e797f0dd1b906090bc150c6cc8a802b519b4ab8f9",
+      "size_bytes": 31347,
+      "sha256": "27b3787e719035b29b3de297c7bbd9b64c8396e33693c4b893e785bd36a9f1ed",
       "bbox": [
         26,
         32,
@@ -129,8 +129,8 @@
       "icon_name": "cilium",
       "variant": "default",
       "source_script": "original_cnative/cilium_default.py",
-      "size_bytes": 36713,
-      "sha256": "17b1b329e0bbd1528e2eddd2238a792b75619d3ef9e99a3f47ec8ba211cc3e86",
+      "size_bytes": 37305,
+      "sha256": "9c7e74bf92e4e013f051df2d0b22f5b36d27764221a8a7ab53eb8f5bdec89b46",
       "bbox": [
         38,
         26,
@@ -142,8 +142,8 @@
       "icon_name": "containerd",
       "variant": "default",
       "source_script": "original_cnative/containerd_default.py",
-      "size_bytes": 10749,
-      "sha256": "fe53e960ddcccfde484634932c5b507dca3dad37d5b9d9f251c202404ca286c2",
+      "size_bytes": 10886,
+      "sha256": "3c8f111717267d6f6d91022d0807d23f9b2f8894378f83c7d57954f83603101e",
       "bbox": [
         26,
         26,
@@ -155,8 +155,8 @@
       "icon_name": "coredns",
       "variant": "default",
       "source_script": "original_cnative/coredns_default.py",
-      "size_bytes": 26369,
-      "sha256": "26841cda774b07035aea936e4017721e73b40a79e64bb195aa6e1afd40f93228",
+      "size_bytes": 26540,
+      "sha256": "40c9497295e081877a6ec42806c17186204c65cf7e4c8bda75660cbf0cf56102",
       "bbox": [
         26,
         29,
@@ -168,12 +168,12 @@
       "icon_name": "crossplane",
       "variant": "default",
       "source_script": "original_cnative/crossplane_default.py",
-      "size_bytes": 13987,
-      "sha256": "d197c108d6a4a2ff9f0392074b25fc78e238d62f39027c3032d60a281bf07c80",
+      "size_bytes": 14482,
+      "sha256": "4c9be2ec1c21bb32e5d04ae3f92d4280fabd5db595c48b30bf34e1624cd221d6",
       "bbox": [
-        123,
+        124,
         26,
-        389,
+        388,
         486
       ]
     },
@@ -181,11 +181,11 @@
       "icon_name": "dapr",
       "variant": "default",
       "source_script": "original_cnative/dapr_default.py",
-      "size_bytes": 9656,
-      "sha256": "c0f654695746d5b56085e6cc5f7f04f730b2ad253fb552193092e3bb8a5ea920",
+      "size_bytes": 9788,
+      "sha256": "2db2025a8d165c2572737e22adac93cb6cd93002249e68b1fa6723f407029bf4",
       "bbox": [
         26,
-        94,
+        95,
         486,
         417
       ]
@@ -194,8 +194,8 @@
       "icon_name": "docker",
       "variant": "default",
       "source_script": "original_cnative/docker_default.py",
-      "size_bytes": 21739,
-      "sha256": "482cd80ef4044aab7b5576887f57ea2d77b051d9cbd5c936df614aed23f7c955",
+      "size_bytes": 21707,
+      "sha256": "0506ad468e5d0a5f90d33b88d2cf001aa46652037bc68d0eb2cfebb295e4247c",
       "bbox": [
         26,
         79,
@@ -207,8 +207,8 @@
       "icon_name": "envoy",
       "variant": "default",
       "source_script": "original_cnative/envoy_default.py",
-      "size_bytes": 25797,
-      "sha256": "4dd5a2280a29913da1e02297e3305a997916f97a53880c5dc1c81b0c675b298d",
+      "size_bytes": 26805,
+      "sha256": "e663e140cf94e42d36dcff246d4219484cce81576b2ff17a2a1e1966895691ef",
       "bbox": [
         56,
         26,
@@ -220,8 +220,8 @@
       "icon_name": "etcd",
       "variant": "default",
       "source_script": "original_cnative/etcd_default.py",
-      "size_bytes": 40116,
-      "sha256": "957ffbdb5da9011d41c2ea8825acd980bc758c51597576fd1929c2f3dcbc2c67",
+      "size_bytes": 40554,
+      "sha256": "51fc583ef86a96e964b4da4da8338661d089315bd9a34648b4bfb644b0d2de9e",
       "bbox": [
         26,
         26,
@@ -233,12 +233,12 @@
       "icon_name": "falco",
       "variant": "default",
       "source_script": "original_cnative/falco_default.py",
-      "size_bytes": 24917,
-      "sha256": "b8f6a6c2782385c9b95d2067ce79dd4e4bc0b27c9d70cd281aa76d6d30720a36",
+      "size_bytes": 25035,
+      "sha256": "e4eb9a5c1e858295f23a39a039e1d10281d883340af02de7cccbf0f47299bce6",
       "bbox": [
         42,
         26,
-        470,
+        469,
         486
       ]
     },
@@ -246,8 +246,8 @@
       "icon_name": "fluentd",
       "variant": "default",
       "source_script": "original_cnative/fluentd_default.py",
-      "size_bytes": 30451,
-      "sha256": "8735f00e42697297c214e2488e47e137cb74282b899caca7ced81a2582044948",
+      "size_bytes": 30879,
+      "sha256": "8b64e4ada1a21d7aa8a70f3a1b96c79986fbbe93e0c306e6fae21cfd212bc71b",
       "bbox": [
         26,
         55,
@@ -259,8 +259,8 @@
       "icon_name": "flux",
       "variant": "default",
       "source_script": "original_cnative/flux_default.py",
-      "size_bytes": 42486,
-      "sha256": "e667e8dc045cea26bbe772ee9a76acec74a145fca65f40a03d6f315779f36a48",
+      "size_bytes": 42439,
+      "sha256": "c8c2c63e5e812f0c8b077b15165db6726d78d76fdc87659f18d058f125d399ae",
       "bbox": [
         67,
         26,
@@ -272,8 +272,8 @@
       "icon_name": "grafana",
       "variant": "default",
       "source_script": "original_cnative/grafana_default.py",
-      "size_bytes": 54164,
-      "sha256": "1a46f5128cee41aeaf6a474eccbe5006702973261b24ce2b223ed1cecc3c86c3",
+      "size_bytes": 54364,
+      "sha256": "d19848bc74633755f0ac20ba1f3ecefd1a9721843f753e90ef202d82552b577c",
       "bbox": [
         26,
         28,
@@ -285,8 +285,8 @@
       "icon_name": "harbor",
       "variant": "default",
       "source_script": "original_cnative/harbor_default.py",
-      "size_bytes": 52662,
-      "sha256": "bbe972f3ea5c0412adfc19e203fe6716c2ec9f8aa2b52820cd02e7d7ed2070ba",
+      "size_bytes": 53521,
+      "sha256": "910f0cfa8f8db46ff2d96ab776d42731f2966c2e9b92dc611c3d3f7a244b2e43",
       "bbox": [
         26,
         26,
@@ -298,8 +298,8 @@
       "icon_name": "helm",
       "variant": "default",
       "source_script": "original_cnative/helm_default.py",
-      "size_bytes": 44045,
-      "sha256": "3d4645683680f858ada34d0bc62dc4073f5b5bf8f515bfd52f61fc48672bafa1",
+      "size_bytes": 44933,
+      "sha256": "97ac8af0af81bf4567332566b606a44bd194cef670656eda14aa03ac7af05fce",
       "bbox": [
         26,
         26,
@@ -311,12 +311,12 @@
       "icon_name": "istio",
       "variant": "default",
       "source_script": "original_cnative/istio_default.py",
-      "size_bytes": 19391,
-      "sha256": "281cb9588479be77df1fc75b703e390d1624cf9d40f38307b21a135d3586db86",
+      "size_bytes": 18953,
+      "sha256": "35faa01f2de929960a672a9b5c38d3d072d8f4fc9c2176c2c134277c822e63f5",
       "bbox": [
         68,
         26,
-        444,
+        443,
         486
       ]
     },
@@ -324,12 +324,12 @@
       "icon_name": "jaeger",
       "variant": "default",
       "source_script": "original_cnative/jaeger_default.py",
-      "size_bytes": 38899,
-      "sha256": "36025b99577db315b2edfa23070d56857fc297aafad9e61d532dfc08c8c7f13c",
+      "size_bytes": 39567,
+      "sha256": "9930639055086bf539528968c9a3629b9cef304215221ecf6729c0d045007e17",
       "bbox": [
-        44,
+        45,
         26,
-        468,
+        467,
         486
       ]
     },
@@ -337,8 +337,8 @@
       "icon_name": "k8s_api_server",
       "variant": "default",
       "source_script": "original_cnative/k8s_api_server_default.py",
-      "size_bytes": 28669,
-      "sha256": "10c2a89582b4308e33cdb53ff171a7d89886b5ae55f8898174ed6a1ac79379cf",
+      "size_bytes": 28490,
+      "sha256": "055ee8228cb523371413e130c1bc29b4c91c5c31e66cdb821d5e116854e17672",
       "bbox": [
         26,
         32,
@@ -350,8 +350,8 @@
       "icon_name": "k8s_configmap",
       "variant": "default",
       "source_script": "original_cnative/k8s_configmap_default.py",
-      "size_bytes": 28806,
-      "sha256": "4e816895f2ca2657b4208311471075e64eb6bf06ce53676520d27ad47b48e2f6",
+      "size_bytes": 28539,
+      "sha256": "444f61f2d26edf45fe0f3012d5dede15f949f8668813fdd72806986ae1b127c0",
       "bbox": [
         26,
         32,
@@ -363,8 +363,8 @@
       "icon_name": "k8s_control_plane",
       "variant": "default",
       "source_script": "original_cnative/k8s_control_plane_default.py",
-      "size_bytes": 40790,
-      "sha256": "f3276035474bfd24ed3edd8842a5cff4fb2a0fabb5512997c23b2e8e3e41d9ac",
+      "size_bytes": 41205,
+      "sha256": "f501a22c728c96c446a0daa1fc28cf8b9c0ad24c0911e00920a3b145589b98d2",
       "bbox": [
         26,
         32,
@@ -376,8 +376,8 @@
       "icon_name": "k8s_crd",
       "variant": "default",
       "source_script": "original_cnative/k8s_crd_default.py",
-      "size_bytes": 25810,
-      "sha256": "f4bbcdd3f5f1c8e73937fb6093ae31017193b654c50a059210fa033f3b3259b8",
+      "size_bytes": 25602,
+      "sha256": "f40b6217cc5dd7ccd6688f0759d7ef2a6862fa42462c87975f17380c731e1687",
       "bbox": [
         26,
         32,
@@ -389,8 +389,8 @@
       "icon_name": "k8s_cronjob",
       "variant": "default",
       "source_script": "original_cnative/k8s_cronjob_default.py",
-      "size_bytes": 33270,
-      "sha256": "0931c2fdec845a85f99b44a9643a012227a0400c3ba878f734b573a9d2c27faf",
+      "size_bytes": 33252,
+      "sha256": "3fce79c504abc64491d045c949bc984652be328f55519f68f371ae31b9ee4cd9",
       "bbox": [
         26,
         32,
@@ -402,8 +402,8 @@
       "icon_name": "k8s_daemonset",
       "variant": "default",
       "source_script": "original_cnative/k8s_daemonset_default.py",
-      "size_bytes": 29312,
-      "sha256": "6156847618e914be6a40022d5fffd5e96b559f229554def73f9ea3880817887e",
+      "size_bytes": 29428,
+      "sha256": "e6bc373cd346f2eec9ade8c239e2f94539195f787078c72873e4c9b08e8ec33d",
       "bbox": [
         26,
         32,
@@ -415,8 +415,8 @@
       "icon_name": "k8s_deployment",
       "variant": "default",
       "source_script": "original_cnative/k8s_deployment_default.py",
-      "size_bytes": 35295,
-      "sha256": "68fdd13314671142a9a84222460422c815230302eaf6f39899ac737aa7adde8b",
+      "size_bytes": 35562,
+      "sha256": "5d87c9b0a57ca14727f06e719c4fbc25f36e174bb3f9f990ab7889ca8699cdc9",
       "bbox": [
         26,
         32,
@@ -428,8 +428,8 @@
       "icon_name": "k8s_endpoint",
       "variant": "default",
       "source_script": "original_cnative/k8s_endpoint_default.py",
-      "size_bytes": 33100,
-      "sha256": "642b8d06704cf54dd9bb1dd0c92fed4575c1e52ad8095d9415b09f2937b38f97",
+      "size_bytes": 33001,
+      "sha256": "67b8ca879e3ec382ec1f60dc047777af66525f56a148548dd319d55ca8276329",
       "bbox": [
         26,
         32,
@@ -441,8 +441,8 @@
       "icon_name": "k8s_hpa",
       "variant": "default",
       "source_script": "original_cnative/k8s_hpa_default.py",
-      "size_bytes": 26059,
-      "sha256": "9e8854872600ef927eb7e832a8aa3535c219db7461cbeb7e5334cd9924488c8d",
+      "size_bytes": 25964,
+      "sha256": "a09146f361af5018a56085c0db7e419a47390e009976946f56e143f38dfae8a6",
       "bbox": [
         26,
         32,
@@ -454,8 +454,8 @@
       "icon_name": "k8s_ingress",
       "variant": "default",
       "source_script": "original_cnative/k8s_ingress_default.py",
-      "size_bytes": 32980,
-      "sha256": "6eab2003eb6781fcf46735205b2949c1497fcb864e5219e4117ee8672ac1b16f",
+      "size_bytes": 33231,
+      "sha256": "4bb3a90f9983f87fdf26d04090737697d61e67fdfb3cb2f773e58dfd534e71e2",
       "bbox": [
         26,
         32,
@@ -467,8 +467,8 @@
       "icon_name": "k8s_job",
       "variant": "default",
       "source_script": "original_cnative/k8s_job_default.py",
-      "size_bytes": 30090,
-      "sha256": "4c3288dbee51a5772267e9640c5c1011a3692ed81340e6acbbcd52c9e4160629",
+      "size_bytes": 29995,
+      "sha256": "65f343d766d46e0283e65644910891ca8d72980b9c81ad2ea21fd4d9337b3769",
       "bbox": [
         26,
         32,
@@ -480,8 +480,8 @@
       "icon_name": "k8s_namespace",
       "variant": "default",
       "source_script": "original_cnative/k8s_namespace_default.py",
-      "size_bytes": 25543,
-      "sha256": "1e00cee5ac31770c99c498e2a6c348fe712cf2f0a6d417255d1feef551d02108",
+      "size_bytes": 25421,
+      "sha256": "5dd8c2181073223a6a000112a4f41c1a8a8b2003fde3650ae4bcb9b4193abb10",
       "bbox": [
         26,
         32,
@@ -493,8 +493,8 @@
       "icon_name": "k8s_network_policy",
       "variant": "default",
       "source_script": "original_cnative/k8s_network_policy_default.py",
-      "size_bytes": 34959,
-      "sha256": "ed8af303acca03645a8fe13968638924880a852174b618e9172ea4dbd6bc3cb1",
+      "size_bytes": 34867,
+      "sha256": "19f2b3c7e53ba90c07947d7825736a6e01b20e35aeb8294779c822f033f5e73f",
       "bbox": [
         26,
         32,
@@ -506,8 +506,8 @@
       "icon_name": "k8s_node",
       "variant": "default",
       "source_script": "original_cnative/k8s_node_default.py",
-      "size_bytes": 25928,
-      "sha256": "43379bacbea6cfca5a16500acf24fd9e53f54abb3a83069cb303c54a1d4836fc",
+      "size_bytes": 25932,
+      "sha256": "f7fe89133ddb46a47cd0f891ff1768e6bd4be420f12b2e407aacb37451ca12ae",
       "bbox": [
         26,
         32,
@@ -519,8 +519,8 @@
       "icon_name": "k8s_pod",
       "variant": "default",
       "source_script": "original_cnative/k8s_pod_default.py",
-      "size_bytes": 32364,
-      "sha256": "8b7a9d093b18a4dbf9385d927e8cab78dd0b6fbc19c21fdee32278ac0a5e9a29",
+      "size_bytes": 32679,
+      "sha256": "cc3831b35936ee0fcf005987471faf39249d6c46cb4839e802cb3fee5e2de2b6",
       "bbox": [
         26,
         32,
@@ -532,8 +532,8 @@
       "icon_name": "k8s_pv",
       "variant": "default",
       "source_script": "original_cnative/k8s_pv_default.py",
-      "size_bytes": 30399,
-      "sha256": "5e316385b8e2cc8c1c02dd860a85d16ce14c0dfc85e69cf6254dadf1f8dcbf13",
+      "size_bytes": 30459,
+      "sha256": "7df845a67c7fcfe85ac5183a2d82cce9fa35bf811d8bc439567b96a751ca232b",
       "bbox": [
         26,
         32,
@@ -545,8 +545,8 @@
       "icon_name": "k8s_pvc",
       "variant": "default",
       "source_script": "original_cnative/k8s_pvc_default.py",
-      "size_bytes": 33354,
-      "sha256": "27f3cbd8c767d00a36d28b8c50785fb83d316c98e5a40740e6a57bf6b5fa48cb",
+      "size_bytes": 33390,
+      "sha256": "0fee818cc8d6008ae0d04337c880e5d1a1ebeaefb44830b5649e0a630450e8fd",
       "bbox": [
         26,
         32,
@@ -558,8 +558,8 @@
       "icon_name": "k8s_secret",
       "variant": "default",
       "source_script": "original_cnative/k8s_secret_default.py",
-      "size_bytes": 28980,
-      "sha256": "403697d1a7573d78edeff2455ca8dca3490930e94857cdbedd03cbf03f4d07c1",
+      "size_bytes": 29157,
+      "sha256": "7462b2b1e77365cc224be3bd0ca946be9a2013779c9e01b928393ec61f678907",
       "bbox": [
         26,
         32,
@@ -571,8 +571,8 @@
       "icon_name": "k8s_service",
       "variant": "default",
       "source_script": "original_cnative/k8s_service_default.py",
-      "size_bytes": 28800,
-      "sha256": "31c9a849c0b3e30cbb0f62d35bff227a9aa8ff209ebcb798b2d6120adc2155c4",
+      "size_bytes": 33571,
+      "sha256": "ddb5d4c7685d34e739caaf9fcb304b9cefba5ac29224abc63c8fff3f3ecca6a8",
       "bbox": [
         26,
         32,
@@ -584,8 +584,8 @@
       "icon_name": "k8s_statefulset",
       "variant": "default",
       "source_script": "original_cnative/k8s_statefulset_default.py",
-      "size_bytes": 28103,
-      "sha256": "ada1f45393a78d4e1a8d2ca5d5127a347e61cad9e931dddcf7c99bae9b6bd673",
+      "size_bytes": 28207,
+      "sha256": "8312f9846d1c4c570e116f2b3875f2f61192221ca1ad66e0ad1c05b634f3e7ca",
       "bbox": [
         26,
         32,
@@ -597,8 +597,8 @@
       "icon_name": "keda",
       "variant": "default",
       "source_script": "original_cnative/keda_default.py",
-      "size_bytes": 43749,
-      "sha256": "570bf83ffb6d3f814ddbd898f450dd16db2a2fddb4772a68b8f46c3655a80dc9",
+      "size_bytes": 44695,
+      "sha256": "dad0ca97f08220ee91827925edcced1d6b9900cf5971b3d80d66913e57efcb59",
       "bbox": [
         26,
         30,
@@ -610,8 +610,8 @@
       "icon_name": "knative",
       "variant": "default",
       "source_script": "original_cnative/knative_default.py",
-      "size_bytes": 30195,
-      "sha256": "90bc7f594319b2310ceab9dd18dfe82ca564737c3b503d0222ec60322296fada",
+      "size_bytes": 30691,
+      "sha256": "e774897b9a44c00ff51bad8c89b138eb0042f84c1c02b16367dbfcd6577b44fa",
       "bbox": [
         49,
         26,
@@ -623,8 +623,8 @@
       "icon_name": "kubernetes",
       "variant": "default",
       "source_script": "original_cnative/kubernetes_default.py",
-      "size_bytes": 56773,
-      "sha256": "d961c93263877daf6ca8961028b154d51e3f2e925255caead4b0f17cd1380f13",
+      "size_bytes": 57087,
+      "sha256": "f94aaaa02f7db777147fcaae4b7dfa3e26f498e869b84b888099af39ea5ad7b2",
       "bbox": [
         26,
         32,
@@ -636,8 +636,8 @@
       "icon_name": "kyverno",
       "variant": "default",
       "source_script": "original_cnative/kyverno_default.py",
-      "size_bytes": 30644,
-      "sha256": "5d481cb1912772b2974b39a29bbdd6c6ad496b41f08bf8f781cc031ca99e4054",
+      "size_bytes": 31466,
+      "sha256": "23dd22b3f3cf5884b2e6062b802d5f4fb620b455733c31704fc1b2f60de0f072",
       "bbox": [
         44,
         26,
@@ -649,12 +649,12 @@
       "icon_name": "linkerd",
       "variant": "default",
       "source_script": "original_cnative/linkerd_default.py",
-      "size_bytes": 31779,
-      "sha256": "80bc5c3741a3ab4a42fbebf57a04dbf8a3977850c8031cd247be5ee862d5b18e",
+      "size_bytes": 33168,
+      "sha256": "532358cf194f3d9548a756b0e8f9f3670a52e300d95e3b84d6faf11b875eb133",
       "bbox": [
         33,
         26,
-        479,
+        478,
         486
       ]
     },
@@ -662,8 +662,8 @@
       "icon_name": "opa",
       "variant": "default",
       "source_script": "original_cnative/opa_default.py",
-      "size_bytes": 28935,
-      "sha256": "192b3284525a5111165afb3e1446983f2e1694962dc8fed94934b04ef2162818",
+      "size_bytes": 29724,
+      "sha256": "cfaed1ef125e728e3f4840966419aedc39223fabdc16d4122b47e4e04e17726a",
       "bbox": [
         32,
         26,
@@ -675,8 +675,8 @@
       "icon_name": "opentelemetry",
       "variant": "default",
       "source_script": "original_cnative/opentelemetry_default.py",
-      "size_bytes": 35887,
-      "sha256": "7209de2ae6bb35818e6b701a20022e222ebe4aa1520f28abc1f7e57d67681b71",
+      "size_bytes": 36644,
+      "sha256": "4499f783f1a2142e480d04ba0f9893c08d3c3a161abcd5d7195fa2b79813b20a",
       "bbox": [
         26,
         76,
@@ -688,8 +688,8 @@
       "icon_name": "prometheus",
       "variant": "default",
       "source_script": "original_cnative/prometheus_default.py",
-      "size_bytes": 45299,
-      "sha256": "2eda3e1dfd6a1754c523b4cf91c7852cfa6fce7a63a04dd576acc8210674636f",
+      "size_bytes": 45945,
+      "sha256": "90aa3be745497efb5701bb48c5ea17f780fd25a569f2d39626ad1a4a5fb6ffca",
       "bbox": [
         26,
         26,
@@ -701,10 +701,10 @@
       "icon_name": "rook",
       "variant": "default",
       "source_script": "original_cnative/rook_default.py",
-      "size_bytes": 11590,
-      "sha256": "897a29e9f64c1d4283d7dcd5702ecd72dd26d40f95adb2ea5fac2f24bee4ebd1",
+      "size_bytes": 11302,
+      "sha256": "1db0a66afea6e7b233409c8ecbf994ec0803148fa1aa1d5be91e0f0fdcde1166",
       "bbox": [
-        83,
+        84,
         26,
         428,
         486

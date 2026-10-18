@@ -39,14 +39,14 @@ full_outline = left_pts + list(reversed(right_pts[1:-1]))
 # Split shield: WHITE left half, PASTEL_BLUE right half
 polygon(left_pts, style=no_border_fill(WHITE))
 polygon(right_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_segment((cx, y_bot), (cx, y_top), width_units=2.2, color=DARK)
+draw_round_segment((cx, y_bot), (cx, y_top), width_units=2.0, color=DARK)
 draw_round_polyline(full_outline, width_units=w, color=DARK, closed=True)
 
 # Central PASTEL_GREEN circular badge with DARK checkmark
 circle(
     (cx, 52.0),
     radius=16.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 draw_round_polyline(
     [(42.5, 51.5), (48.0, 46.0), (58.5, 57.5)],

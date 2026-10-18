@@ -38,7 +38,7 @@ rectangle(
     (50.0, 50.0),
     width=66.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # Centered 2x2 Cisco-style switching arrows with uniform y spacing (step = 6.4 around y = 50.0)

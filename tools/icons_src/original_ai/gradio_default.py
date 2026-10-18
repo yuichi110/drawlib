@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Isometric diamond loop geometry (scaled to fit [10.7, 89.3])
 cx = 50.0

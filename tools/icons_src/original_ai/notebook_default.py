@@ -68,6 +68,6 @@ draw_round_segment((41.0, 36.0), (58.0, 36.0), width_units=w, color=DARK)
 # 4. Top-right AI sparkle mark
 sparkle_pts = build_sparkle_4pt_polygon(75.0, 76.0, outer_r=11.5, inner_r=4.0)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(sparkle_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

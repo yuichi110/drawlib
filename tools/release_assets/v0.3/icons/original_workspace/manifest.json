@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_workspace",
-  "created_at": "2026-10-17T15:54:00.730874+00:00",
+  "created_at": "2026-10-18T10:42:49.032887+00:00",
   "canvas_size": [
     512,
     512
@@ -97,8 +97,8 @@
       "icon_name": "adobe_acrobat",
       "variant": "default",
       "source_script": "original_workspace/adobe_acrobat_default.py",
-      "size_bytes": 28977,
-      "sha256": "a02d0b036ab91a89bae8e1f6bdf94a352c38ef5d84bc08ddad8f80b642e94c77",
+      "size_bytes": 29128,
+      "sha256": "99ba02996251b331d08861a7478bd47ba4d1ecdf7a11269f05fae75ba4bc7020",
       "bbox": [
         26,
         26,
@@ -110,8 +110,8 @@
       "icon_name": "airtable",
       "variant": "default",
       "source_script": "original_workspace/airtable_default.py",
-      "size_bytes": 24093,
-      "sha256": "86a227afa689ee0e59cbec2a1843ecc3810c74496eb1f2d155f7ff35f7f07205",
+      "size_bytes": 24305,
+      "sha256": "b71b200a9fa7a6227ae29bda67d28f2f42cbad77169056676f487c97a933ad6c",
       "bbox": [
         26,
         62,
@@ -136,8 +136,8 @@
       "icon_name": "asana",
       "variant": "default",
       "source_script": "original_workspace/asana_default.py",
-      "size_bytes": 25962,
-      "sha256": "a1b9636403fbc8f9596300f0ad5cbd3a257459265c5564a8e482b9cc85723c47",
+      "size_bytes": 26055,
+      "sha256": "cf95af6ff6fafbf48a66bd09b6e22e029c22ed51f5bceae9171a73e272f3fe47",
       "bbox": [
         26,
         43,
@@ -162,13 +162,13 @@
       "icon_name": "box",
       "variant": "default",
       "source_script": "original_workspace/box_default.py",
-      "size_bytes": 32942,
-      "sha256": "835f17ea3df08f3b2112c08cbdc939121fe685ef944c0121f64c5cb33f8392c6",
+      "size_bytes": 32693,
+      "sha256": "98e5de970fa46e6d28d58f7751ced0571d67eb0967d130bbc389826dadb11a71",
       "bbox": [
         26,
         129,
         486,
-        382
+        383
       ]
     },
     "calendar_default.png": {
@@ -188,8 +188,8 @@
       "icon_name": "canva",
       "variant": "default",
       "source_script": "original_workspace/canva_default.py",
-      "size_bytes": 43838,
-      "sha256": "d5d89c29459de41d83a59277b0d143a1454ca7b41fa530e887bd0c80025b8b84",
+      "size_bytes": 44076,
+      "sha256": "6d15d63f01f9a69ab63dfd8ec14a6a8eddb1e895414666b5160198a04e274562",
       "bbox": [
         26,
         26,
@@ -227,8 +227,8 @@
       "icon_name": "confluence",
       "variant": "default",
       "source_script": "original_workspace/confluence_default.py",
-      "size_bytes": 32504,
-      "sha256": "238e25ead1c88bc7bb2d014ea008e7bfdb1aaee502e746eeee3e706613f01e48",
+      "size_bytes": 32802,
+      "sha256": "cb222a5b3d594a70a1da080285f1b3ab2c98ac0e5277edeb9f082beae686ad20",
       "bbox": [
         26,
         35,
@@ -253,8 +253,8 @@
       "icon_name": "discord",
       "variant": "default",
       "source_script": "original_workspace/discord_default.py",
-      "size_bytes": 28743,
-      "sha256": "f687a36ff39b56940824edd13736329147b3fa834f3c7d3b30a1f97eb87c0989",
+      "size_bytes": 28706,
+      "sha256": "cc048d260f91847de83f9149dce56501097686c4426f4f353d5f43ebef21ed84",
       "bbox": [
         26,
         76,
@@ -279,8 +279,8 @@
       "icon_name": "docusign",
       "variant": "default",
       "source_script": "original_workspace/docusign_default.py",
-      "size_bytes": 11120,
-      "sha256": "d506f178c7a5ac1ed953e99aa97210e7ed896301aa3e27afb7db327beabbee98",
+      "size_bytes": 11021,
+      "sha256": "6a02c07a3389be4e24d662434b6cfd1f4ff2a419896de1fe47e403a470a6c8c0",
       "bbox": [
         26,
         26,
@@ -292,8 +292,8 @@
       "icon_name": "dropbox",
       "variant": "default",
       "source_script": "original_workspace/dropbox_default.py",
-      "size_bytes": 38350,
-      "sha256": "f16e43b2c5d4392dfded634b2e16fea7b60e286b0f52393057a668a6e580cf71",
+      "size_bytes": 37195,
+      "sha256": "cdbff15c893dcda94a48b5b706635fbb3361f66240a86db12599a4b34d34e5be",
       "bbox": [
         26,
         59,
@@ -305,12 +305,12 @@
       "icon_name": "dynamics_365",
       "variant": "default",
       "source_script": "original_workspace/dynamics_365_default.py",
-      "size_bytes": 21034,
-      "sha256": "5c29737c3e9a6862e5b194e705a2525eb3c3c742a27378a2bd63b5d576641b56",
+      "size_bytes": 20977,
+      "sha256": "912a1ea712b76d969062a4c9abc8cfe3e1d481a5024c060d42fe666afa515ac6",
       "bbox": [
         84,
         26,
-        427,
+        428,
         486
       ]
     },
@@ -370,8 +370,8 @@
       "icon_name": "excel",
       "variant": "default",
       "source_script": "original_workspace/excel_default.py",
-      "size_bytes": 13978,
-      "sha256": "42d7f0424356a40c254d0d33afe4cf6cd4b2c3930ac205b96a140a0d76c29fdf",
+      "size_bytes": 13967,
+      "sha256": "1d77e5b0b4e1c0107033495d5ab1bd0b36e1abec2926aa0ccfaefc7f589feeaf",
       "bbox": [
         26,
         41,
@@ -383,8 +383,8 @@
       "icon_name": "figma",
       "variant": "default",
       "source_script": "original_workspace/figma_default.py",
-      "size_bytes": 20924,
-      "sha256": "12500db0fb7e37b9ae8d1c8ee4ca290a807b8f3cc2e4f6966585e119013ef204",
+      "size_bytes": 21547,
+      "sha256": "2b1d148a04b65d60db866b771aff14fa85bf01b955b0a48773ebe73056538362",
       "bbox": [
         100,
         26,
@@ -409,8 +409,8 @@
       "icon_name": "gmail",
       "variant": "default",
       "source_script": "original_workspace/gmail_default.py",
-      "size_bytes": 19798,
-      "sha256": "55212f8f1819d0b387e67f7c2eb96c8f5b57239efb33700578e5ac9cb82aae28",
+      "size_bytes": 19503,
+      "sha256": "b0d039185ed933b1399a0da92b1c4df0320f3e4ca5193d225311bfbe5835d6aa",
       "bbox": [
         26,
         82,
@@ -422,8 +422,8 @@
       "icon_name": "google_calendar",
       "variant": "default",
       "source_script": "original_workspace/google_calendar_default.py",
-      "size_bytes": 16399,
-      "sha256": "038023bce94907f63bc13a022e4a55f6e0f56f5e1b1224773728296cfb711f8b",
+      "size_bytes": 16337,
+      "sha256": "b6fcedb58e3d73c8b7d0bbde8571712f36c888281f61078c0263092a91e5187c",
       "bbox": [
         26,
         26,
@@ -435,12 +435,12 @@
       "icon_name": "google_chat",
       "variant": "default",
       "source_script": "original_workspace/google_chat_default.py",
-      "size_bytes": 8287,
-      "sha256": "c169eede981acbbbcc9374aaf142cb650e0b2ad24e167518ad49114f4bd588d7",
+      "size_bytes": 8374,
+      "sha256": "13db1747ea56455fb594aee921e727425595fc88892313af93c6370fd7050a10",
       "bbox": [
         35,
         26,
-        476,
+        477,
         486
       ]
     },
@@ -448,8 +448,8 @@
       "icon_name": "google_docs",
       "variant": "default",
       "source_script": "original_workspace/google_docs_default.py",
-      "size_bytes": 5766,
-      "sha256": "098d6fde8705040d298f6909465b789e25d49165e83bad63f9cb7163412b93f4",
+      "size_bytes": 5933,
+      "sha256": "8c1a91df6c87a8c2ec9e270ddc43467923248e6e88122e35a388e71d39d29855",
       "bbox": [
         87,
         26,
@@ -461,11 +461,11 @@
       "icon_name": "google_drive",
       "variant": "default",
       "source_script": "original_workspace/google_drive_default.py",
-      "size_bytes": 28959,
-      "sha256": "47708a0c4af022a447fb8de64c93b5ea3fb4ce545ac6dbb109745936e51db163",
+      "size_bytes": 28689,
+      "sha256": "c652fc87bc3b3320e100ad59747733624386515c75101fceff6e9ccbb8362d4d",
       "bbox": [
         26,
-        50,
+        49,
         486,
         462
       ]
@@ -474,8 +474,8 @@
       "icon_name": "google_forms",
       "variant": "default",
       "source_script": "original_workspace/google_forms_default.py",
-      "size_bytes": 10374,
-      "sha256": "c31a24848cf5a8ef66621ea6ba7a3dd96376faf6384740cbbb59c11d0bf8b51e",
+      "size_bytes": 10390,
+      "sha256": "ab1fe2866e508e733b14807a9fc4ce8bdaef369e8de7766234f81e7e2d646126",
       "bbox": [
         87,
         26,
@@ -487,8 +487,8 @@
       "icon_name": "google_meet",
       "variant": "default",
       "source_script": "original_workspace/google_meet_default.py",
-      "size_bytes": 13109,
-      "sha256": "21b8f4df9b685729fcdec6c12d93d753d32edbaf4b80163de5b26f9ce362d151",
+      "size_bytes": 13009,
+      "sha256": "fb3a84888840c4957e7bac91a68b7ff046f950c6d7f4866089ae285b1ac0cd36",
       "bbox": [
         26,
         65,
@@ -500,8 +500,8 @@
       "icon_name": "google_sheets",
       "variant": "default",
       "source_script": "original_workspace/google_sheets_default.py",
-      "size_bytes": 6169,
-      "sha256": "dd7d63da3451a44cf6092d55624165cdc4d107b2f30d4d60614b5bd83cfb2353",
+      "size_bytes": 6159,
+      "sha256": "6fb7cb27e81030bed3b7bd9246b3e41e835b21a7409bd6ba52deca713d6aa125",
       "bbox": [
         87,
         26,
@@ -513,8 +513,8 @@
       "icon_name": "google_slides",
       "variant": "default",
       "source_script": "original_workspace/google_slides_default.py",
-      "size_bytes": 5393,
-      "sha256": "5d195011603e0a3dc0472ca24ffa1277904ceea0b57898a3526cc4ca3e56ecdb",
+      "size_bytes": 5365,
+      "sha256": "ee29fccff1f8cf859cf57938e2b6be3eec46f668712c69bc104f2103d8106654",
       "bbox": [
         87,
         26,
@@ -526,8 +526,8 @@
       "icon_name": "google_workspace",
       "variant": "default",
       "source_script": "original_workspace/google_workspace_default.py",
-      "size_bytes": 32220,
-      "sha256": "b1536b4cf167411e3fa8cc2319a596388b744b7f1f62b7af49010fe01643ff15",
+      "size_bytes": 31923,
+      "sha256": "c46bac00a6a256312da30a22885e404fb4494b05b0df07a133bd7a864d393f4e",
       "bbox": [
         30,
         26,
@@ -565,8 +565,8 @@
       "icon_name": "hubspot",
       "variant": "default",
       "source_script": "original_workspace/hubspot_default.py",
-      "size_bytes": 32498,
-      "sha256": "119a7d99c9f4dddd508d21f93c08ce6d2b591d7cca4018243d15d48e489f7a06",
+      "size_bytes": 32467,
+      "sha256": "7c472c48eb00df46e770c701db81aca95b7ab0fb47f888e7e5cd048c34daab32",
       "bbox": [
         48,
         26,
@@ -578,8 +578,8 @@
       "icon_name": "jira",
       "variant": "default",
       "source_script": "original_workspace/jira_default.py",
-      "size_bytes": 17649,
-      "sha256": "9a522a40063cfd53614cda0ead42f7823152b5e4663269914a45f459079f682d",
+      "size_bytes": 17672,
+      "sha256": "0e4abe0d977260914a789a18f340445175f1e003fd4ea3a5d675f3a4900de908",
       "bbox": [
         26,
         26,
@@ -617,8 +617,8 @@
       "icon_name": "linear",
       "variant": "default",
       "source_script": "original_workspace/linear_default.py",
-      "size_bytes": 27521,
-      "sha256": "7daa287576677f4aeb1f973d230e9c4611f2aabf77745fc5f6738cbcf93bdfb0",
+      "size_bytes": 27088,
+      "sha256": "3a3a6b26589d06e8c92fa45534e8b401903acd79fc65b090ce73b72491c4f190",
       "bbox": [
         26,
         26,
@@ -630,8 +630,8 @@
       "icon_name": "microsoft_365",
       "variant": "default",
       "source_script": "original_workspace/microsoft_365_default.py",
-      "size_bytes": 29803,
-      "sha256": "0238348a3a7e13d88d57ede9d4dbfca878d185b447dad519f25afaa61c81cab6",
+      "size_bytes": 29807,
+      "sha256": "d510e66410fadd257230488c52b4fe06465b9f7aeb9741f8409195b756209a1f",
       "bbox": [
         46,
         26,
@@ -643,8 +643,8 @@
       "icon_name": "microsoft_teams",
       "variant": "default",
       "source_script": "original_workspace/microsoft_teams_default.py",
-      "size_bytes": 21155,
-      "sha256": "8f09a41eb5971a52edd5bdb9398230be57ecc5fe899d337c8cf5861dea2edef6",
+      "size_bytes": 21156,
+      "sha256": "02bf7e2799bab6f8870c80cd9dfd30e5d30d12d3a6817fb20b9b791e2cbb847c",
       "bbox": [
         26,
         41,
@@ -656,8 +656,8 @@
       "icon_name": "miro",
       "variant": "default",
       "source_script": "original_workspace/miro_default.py",
-      "size_bytes": 29214,
-      "sha256": "25fc27471659a6eddf15061bacb3931e7990580d9ce817eb037a74a9a9086f26",
+      "size_bytes": 29132,
+      "sha256": "fe1fe517394633870166aff8640bb2383fe3cd662e2ce66625e9706ab76cb0af",
       "bbox": [
         26,
         26,
@@ -669,8 +669,8 @@
       "icon_name": "monday",
       "variant": "default",
       "source_script": "original_workspace/monday_default.py",
-      "size_bytes": 27094,
-      "sha256": "9656afa919a245c153a0ed86cb2cc2a4a304f5df8917beb26f5362e4c17e02fe",
+      "size_bytes": 27108,
+      "sha256": "35dca85af69d6c7621052079e0d02055c7be15f93d2bcd4515038e22dc7e3d83",
       "bbox": [
         26,
         115,
@@ -682,8 +682,8 @@
       "icon_name": "notion",
       "variant": "default",
       "source_script": "original_workspace/notion_default.py",
-      "size_bytes": 25313,
-      "sha256": "ee1dad5ad714137f69b1fb027222d061ec6b4db43d91dc39395536a4539bfa06",
+      "size_bytes": 25281,
+      "sha256": "e1913d6a2f70404168ace3ea33345373f7753ba851eef320e3e56fad309fd8f2",
       "bbox": [
         35,
         26,
@@ -695,8 +695,8 @@
       "icon_name": "onedrive",
       "variant": "default",
       "source_script": "original_workspace/onedrive_default.py",
-      "size_bytes": 22132,
-      "sha256": "74131b0aeea4e28aeb3d5a27a34e49027270a767050a6b14cf489efc27e50376",
+      "size_bytes": 22101,
+      "sha256": "65b2f0f3630f825ebc262705518b0bb42f27b6f3a480a4fd36f0df957f8fe44e",
       "bbox": [
         26,
         106,
@@ -708,8 +708,8 @@
       "icon_name": "outlook",
       "variant": "default",
       "source_script": "original_workspace/outlook_default.py",
-      "size_bytes": 22254,
-      "sha256": "452a8b6d96be37a09f3ba1b56c99472793fa2e76ceff9b3817214867eddacc5e",
+      "size_bytes": 22243,
+      "sha256": "c7f52fa0ef726aeba1d8e40dad08d03d5df8cdaa986ac2d98cab0d1721f91934",
       "bbox": [
         26,
         41,
@@ -734,8 +734,8 @@
       "icon_name": "power_automate",
       "variant": "default",
       "source_script": "original_workspace/power_automate_default.py",
-      "size_bytes": 28013,
-      "sha256": "8392a54dea4202214b40dc150811e1807b9dff0bcf19ef34ea7ddd51e6838a2b",
+      "size_bytes": 28432,
+      "sha256": "2bce898962daca3f592d16c5d1dd0bb9e5052a31ea82b17812b91104f78d3acd",
       "bbox": [
         26,
         72,
@@ -747,8 +747,8 @@
       "icon_name": "power_bi",
       "variant": "default",
       "source_script": "original_workspace/power_bi_default.py",
-      "size_bytes": 5659,
-      "sha256": "1edf56d576d2d8d70158dcfcbb79348c1d4d788aad0933b1c6fc23963bb97580",
+      "size_bytes": 5682,
+      "sha256": "ae9ce0f5060da0af2190922e188fc7b231fb5a55ae43563721343351e1428b7e",
       "bbox": [
         81,
         26,
@@ -760,8 +760,8 @@
       "icon_name": "powerpoint",
       "variant": "default",
       "source_script": "original_workspace/powerpoint_default.py",
-      "size_bytes": 21163,
-      "sha256": "811a6cb6ee3219550ec86a28fa9d6b272b3f2f3daf262bd460ec2bca8a12647c",
+      "size_bytes": 21325,
+      "sha256": "aea2025f587a182e72cd1b74ea30f3f2c8cfcdf0736fe2dbc36577ba7175ada0",
       "bbox": [
         26,
         41,
@@ -799,21 +799,21 @@
       "icon_name": "salesforce",
       "variant": "default",
       "source_script": "original_workspace/salesforce_default.py",
-      "size_bytes": 38956,
-      "sha256": "fc434e44eeb6658c4da68088321efae429f777ebafc18e11823c93e95b532a23",
+      "size_bytes": 39205,
+      "sha256": "0cd6ad3b208f4b5d34e8e74f86b406e68b2437302c03aff4b66b52d34063b6e3",
       "bbox": [
         26,
         93,
         486,
-        418
+        419
       ]
     },
     "sap_default.png": {
       "icon_name": "sap",
       "variant": "default",
       "source_script": "original_workspace/sap_default.py",
-      "size_bytes": 21356,
-      "sha256": "c7dccd72a1498082d56e2b579661d81817bd67079632abbe3315af9775d4fc09",
+      "size_bytes": 21330,
+      "sha256": "ee29763b6072f38213bb4539d99f922e5eb375fa657779677f6a8acd53568d0f",
       "bbox": [
         26,
         139,
@@ -825,8 +825,8 @@
       "icon_name": "servicenow",
       "variant": "default",
       "source_script": "original_workspace/servicenow_default.py",
-      "size_bytes": 29444,
-      "sha256": "64e1f4ab5c8b79bcc64f90226d98bd423cb3b54afbdd42b64d7271ee3ebf70cb",
+      "size_bytes": 29649,
+      "sha256": "b7335952647ab21c3449179a6650d7de27f5edfd60423a8f9b49bcabd671f663",
       "bbox": [
         26,
         49,
@@ -838,8 +838,8 @@
       "icon_name": "sharepoint",
       "variant": "default",
       "source_script": "original_workspace/sharepoint_default.py",
-      "size_bytes": 29323,
-      "sha256": "fdc3bb522a7d8050cfa262d14523eec3f8660d380f4b25d74e06ced42909439d",
+      "size_bytes": 29211,
+      "sha256": "09bb8c5c25560502dcc39416849e49a8720104f1d276c2b7042973c15070fb41",
       "bbox": [
         26,
         31,
@@ -851,8 +851,8 @@
       "icon_name": "shopify",
       "variant": "default",
       "source_script": "original_workspace/shopify_default.py",
-      "size_bytes": 38812,
-      "sha256": "eae16cd8e340aca4c136061da0d4345a414a5828c04221356913f0bb1ef5f3a0",
+      "size_bytes": 38676,
+      "sha256": "105f3601d41dcd28021f97f86e2fb66bdf1cf878ed0f9e425ae4232d9ec020d0",
       "bbox": [
         53,
         26,
@@ -864,8 +864,8 @@
       "icon_name": "slack",
       "variant": "default",
       "source_script": "original_workspace/slack_default.py",
-      "size_bytes": 30799,
-      "sha256": "6d61c1a5e6983ab569ba0aea0f19de0985bac967aa46e055b0d14b9a9fe93286",
+      "size_bytes": 30711,
+      "sha256": "cbed361d39567be6c94b0b0d7c9aa96e05d0098d5fb2361df572bbf7b47694ce",
       "bbox": [
         26,
         26,
@@ -890,8 +890,8 @@
       "icon_name": "stripe",
       "variant": "default",
       "source_script": "original_workspace/stripe_default.py",
-      "size_bytes": 28161,
-      "sha256": "bf92fe1cf06949bec1d8138801d30a5f11d973af2d208e44e0449e2605ae20bf",
+      "size_bytes": 28095,
+      "sha256": "bd2fafabd2ec1dd52621fb1d6ed605862a567c2cd686dcb37db1adfab458ffd0",
       "bbox": [
         90,
         26,
@@ -903,8 +903,8 @@
       "icon_name": "tableau",
       "variant": "default",
       "source_script": "original_workspace/tableau_default.py",
-      "size_bytes": 9735,
-      "sha256": "adaec10441cd5dd9eba0c325a67c67ff5c7e872f9f81420169dad230eefcc77a",
+      "size_bytes": 12092,
+      "sha256": "ae947b0495f7baf8853e8957249d118ce43dc2a6cf3085372d5b76d287ff9cf2",
       "bbox": [
         26,
         30,
@@ -916,8 +916,8 @@
       "icon_name": "trello",
       "variant": "default",
       "source_script": "original_workspace/trello_default.py",
-      "size_bytes": 9930,
-      "sha256": "adcdc88785857f578e3efe14c2f45ebb01e2c979819b98fe98cec240e4557d40",
+      "size_bytes": 9967,
+      "sha256": "74bee57d9c2c2f71cde015897005139e64605703c333e493794730127f1b5daa",
       "bbox": [
         26,
         26,
@@ -955,11 +955,11 @@
       "icon_name": "webex",
       "variant": "default",
       "source_script": "original_workspace/webex_default.py",
-      "size_bytes": 35926,
-      "sha256": "e1f112a309739ed1356e060531625d76dd28d1058847b324eb4af522c2f0fbb7",
+      "size_bytes": 35525,
+      "sha256": "0e3ebbd0171bf2ff64cc6ac4c028c66ce472ccbe9986225847b82964fa5a3435",
       "bbox": [
         26,
-        87,
+        86,
         486,
         425
       ]
@@ -981,8 +981,8 @@
       "icon_name": "word",
       "variant": "default",
       "source_script": "original_workspace/word_default.py",
-      "size_bytes": 15267,
-      "sha256": "bb1eadc2c1f1b8b673d509aebff224ef7c25435a3de8d67e6e1424007cb419fe",
+      "size_bytes": 15223,
+      "sha256": "61c5f4fc74fda85bdf54c4c2fb4aa0b7210bc03f82645cbf4556c5cddfe03595",
       "bbox": [
         26,
         41,
@@ -994,10 +994,10 @@
       "icon_name": "workday",
       "variant": "default",
       "source_script": "original_workspace/workday_default.py",
-      "size_bytes": 33293,
-      "sha256": "3fc8a735811ff890b2a6d82d19aaf7eb2a4f0a207d7f6741a0e634f5a1425cbf",
+      "size_bytes": 33353,
+      "sha256": "0c113fe58b2202a7db8447da17d66d7f13a986fe5ab30ef47c2037d8f0050caa",
       "bbox": [
-        81,
+        80,
         26,
         431,
         486
@@ -1020,8 +1020,8 @@
       "icon_name": "zapier",
       "variant": "default",
       "source_script": "original_workspace/zapier_default.py",
-      "size_bytes": 23421,
-      "sha256": "491a02cd8d04c4460be920d23786ec338969d3e51ce9922f24f0dc94da43ecb1",
+      "size_bytes": 23413,
+      "sha256": "a6e34547159229679c10fe11a1a9d8e0a16cffac6d6285e0f70d4c905a7b09a2",
       "bbox": [
         27,
         26,
@@ -1033,8 +1033,8 @@
       "icon_name": "zendesk",
       "variant": "default",
       "source_script": "original_workspace/zendesk_default.py",
-      "size_bytes": 21586,
-      "sha256": "65502d65b74244279a80a68fcd3e1124aaa68c9c4d2afca08be2f4fe698e7dc9",
+      "size_bytes": 21478,
+      "sha256": "d567ff87b615cbb1372f79455c7d0c4a6d80a7f80dff915764b06f53b76a336f",
       "bbox": [
         26,
         80,
@@ -1046,8 +1046,8 @@
       "icon_name": "zoom",
       "variant": "default",
       "source_script": "original_workspace/zoom_default.py",
-      "size_bytes": 24793,
-      "sha256": "bb310f8391e6b84a65032233e7015f6addb61201a03acde3cd51a9719f99a2e7",
+      "size_bytes": 25080,
+      "sha256": "78716f8d6a9cf652c6ced92c038d2e66d663bb7fe0d1c5c28893880039aee150",
       "bbox": [
         26,
         26,

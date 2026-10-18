@@ -20,7 +20,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_dot = 1.8
+w_dot = 2.0
 scale = 0.94
 
 dot_style = fill_style(Colors.Amber3, border_color=DARK, border_units=w_dot)

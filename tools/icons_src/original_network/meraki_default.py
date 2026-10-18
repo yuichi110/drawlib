@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_cisco = 1.25
+w_cisco = 2.0
 w_meraki = 1.2
 
 cisco_rings: list[list[tuple[float, float]]] = [

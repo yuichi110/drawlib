@@ -17,7 +17,7 @@ from drawlib.shapes import circle, polygon
 from drawlib.utils import DARK, draw_round_polyline, fill_style, no_border_fill, setup_icon
 
 setup_icon()
-w = 1.9
+w = 2.0
 s = 38.8 / 41.0
 r = 41.0 / 3.0
 

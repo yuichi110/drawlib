@@ -27,8 +27,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_line = 2.7
+w_shape = 2.0
+w_line = 2.0
 
 # 1. Fluffy PASTEL_BLUE cloud silhouette (x=10..90, y=34..86)
 bumps = [
@@ -106,6 +106,6 @@ rectangle(
     style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_shape, shape_r=3.5),
 )
 circle((50.0, 31.8), radius=2.2, style=fill_style(DARK))
-draw_round_segment((50.0, 31.8), (50.0, 27.2), width_units=2.4, color=DARK)
+draw_round_segment((50.0, 31.8), (50.0, 27.2), width_units=2.0, color=DARK)
 
 save()

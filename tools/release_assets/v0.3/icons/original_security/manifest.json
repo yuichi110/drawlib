@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_security",
-  "created_at": "2026-10-17T10:30:02.108802+00:00",
+  "created_at": "2026-10-18T10:42:44.799786+00:00",
   "canvas_size": [
     512,
     512
@@ -114,8 +114,8 @@
       "icon_name": "aqua_security",
       "variant": "default",
       "source_script": "original_security/aqua_security_default.py",
-      "size_bytes": 18271,
-      "sha256": "c270ac1537dae1a05b4e3ef1badfe5e73872c08951450cb7217d3b1d6355add3",
+      "size_bytes": 18545,
+      "sha256": "c6cf61965b3e04a99a7cedc8f3efd82384077eb6e8b0cee8a507c89455dc5795",
       "bbox": [
         26,
         26,
@@ -127,8 +127,8 @@
       "icon_name": "auth0",
       "variant": "default",
       "source_script": "original_security/auth0_default.py",
-      "size_bytes": 33254,
-      "sha256": "1681be161922fc08c9637c8161c685b8685b55f0aa96b46f2ffef6fe2217ccb8",
+      "size_bytes": 33487,
+      "sha256": "73dd4298165a2977af28876b9f992b58af273f25a5167c2c89aeb2ff659cb49e",
       "bbox": [
         47,
         26,
@@ -140,8 +140,8 @@
       "icon_name": "bitwarden",
       "variant": "default",
       "source_script": "original_security/bitwarden_default.py",
-      "size_bytes": 15382,
-      "sha256": "358c00b13e88d2f48a8e8498bb145feffd7a24480d195a5ac6fff3d641606426",
+      "size_bytes": 15315,
+      "sha256": "f81fbc6534501cc792c9c029289eb79be26fb90b2e2eb64480a83907985c7fd6",
       "bbox": [
         63,
         26,
@@ -153,8 +153,8 @@
       "icon_name": "burp_suite",
       "variant": "default",
       "source_script": "original_security/burp_suite_default.py",
-      "size_bytes": 14078,
-      "sha256": "c9e405f8869a8daf185643719c3620e2c7166ced5f0d0b22dca8219c58bd0887",
+      "size_bytes": 14291,
+      "sha256": "51404f2cf24e4ad2f2ad21aaa894db008ef89d723a7eea5ef22c21f11b9821b7",
       "bbox": [
         26,
         26,
@@ -166,8 +166,8 @@
       "icon_name": "casb",
       "variant": "default",
       "source_script": "original_security/casb_default.py",
-      "size_bytes": 22412,
-      "sha256": "76770e9b286b424b60957ef68f4590992ae8b9f033f54f1179a824c434903fec",
+      "size_bytes": 22400,
+      "sha256": "cd59521830a6c13f38947f11900deb11b581dbf0aa66ec4a0079c5817e84e7b4",
       "bbox": [
         26,
         62,
@@ -179,8 +179,8 @@
       "icon_name": "checkmarx",
       "variant": "default",
       "source_script": "original_security/checkmarx_default.py",
-      "size_bytes": 29468,
-      "sha256": "7fc11ab1fd29565efc7cd4217a63588d729d12958ad4ac0a75f76c2f7237f2d0",
+      "size_bytes": 29696,
+      "sha256": "e930be67328f0e5fa6d49b6b80953eb111af88acae684d17ce931a7a119bf981",
       "bbox": [
         26,
         28,
@@ -192,8 +192,8 @@
       "icon_name": "checkpoint",
       "variant": "default",
       "source_script": "original_security/checkpoint_default.py",
-      "size_bytes": 34332,
-      "sha256": "1867402de70002e1736f50a6c8b4bcf4e314485b14619867cde144cf483ebefd",
+      "size_bytes": 34346,
+      "sha256": "6d871f9a73917a571f4bd9383fd716a454a913d3b615aa2e7535e74e5e054fd5",
       "bbox": [
         26,
         35,
@@ -205,8 +205,8 @@
       "icon_name": "cloudflare",
       "variant": "default",
       "source_script": "original_security/cloudflare_default.py",
-      "size_bytes": 16362,
-      "sha256": "f418f3bb39c6b1e59939e1839559090db11f195ab4990be9eece1c989acfccca",
+      "size_bytes": 16114,
+      "sha256": "82431e6f389fdb1ccf65d4e4962999bf7902675675375b8ffaccbfe2dede2ae6",
       "bbox": [
         26,
         148,
@@ -218,11 +218,11 @@
       "icon_name": "crowdstrike",
       "variant": "default",
       "source_script": "original_security/crowdstrike_default.py",
-      "size_bytes": 42572,
-      "sha256": "7349f1f19a71a96094f6ba805e42f541e079c55052eb81a22176c2f7470c84ee",
+      "size_bytes": 37792,
+      "sha256": "868684e04c2fda6a0f0c557c5e3542035fc14c4db83c41ea91f616166f5251e0",
       "bbox": [
         26,
-        75,
+        74,
         486,
         437
       ]
@@ -231,10 +231,10 @@
       "icon_name": "cyberark",
       "variant": "default",
       "source_script": "original_security/cyberark_default.py",
-      "size_bytes": 37005,
-      "sha256": "9d500f9b3eadbbc0e50e450808a8918a6abaf5ef2951e006d22edfd9f9345be3",
+      "size_bytes": 35521,
+      "sha256": "ab1635191eff89a5f5d788ea942ac1bc2e79e700c567ebd367bac85a2448f53d",
       "bbox": [
-        56,
+        55,
         26,
         456,
         486
@@ -244,8 +244,8 @@
       "icon_name": "darktrace",
       "variant": "default",
       "source_script": "original_security/darktrace_default.py",
-      "size_bytes": 20158,
-      "sha256": "b4dbe40d6768ed8875c560e5722f84d5f83d4a4ffdfa6d02e30ed72dc8c28975",
+      "size_bytes": 20131,
+      "sha256": "9c78ce9269ff62556c14516ba0e27cf5d642ee02554248239d24b011716d9f6d",
       "bbox": [
         51,
         26,
@@ -257,34 +257,34 @@
       "icon_name": "ddos_protection",
       "variant": "default",
       "source_script": "original_security/ddos_protection_default.py",
-      "size_bytes": 28031,
-      "sha256": "fd7f3de14436af51c57d0975ce08f264fca00ca3dea235c02e7c7c4588e87078",
+      "size_bytes": 28094,
+      "sha256": "6798cf19702ed1cba58216d554828b2be308c5456b8928851167fc74a39c0882",
       "bbox": [
         26,
-        48,
+        47,
         486,
-        464
+        465
       ]
     },
     "digicert_default.png": {
       "icon_name": "digicert",
       "variant": "default",
       "source_script": "original_security/digicert_default.py",
-      "size_bytes": 25190,
-      "sha256": "5bfcff13e74e75e5178d6e28af10e4c18227853f8d3e0f9240aab5652df77d02",
+      "size_bytes": 22768,
+      "sha256": "2d8a823fada2335bae27957f5ad520031179e1ee2ded3d02c6e3d16bdb002cb9",
       "bbox": [
         26,
-        186,
+        185,
         486,
-        325
+        326
       ]
     },
     "directory_service_default.png": {
       "icon_name": "directory_service",
       "variant": "default",
       "source_script": "original_security/directory_service_default.py",
-      "size_bytes": 22606,
-      "sha256": "2b53b2ccd906339484b92db19e373fa2a7b6cf46aacd85ba313bf5655d6cb4f0",
+      "size_bytes": 22724,
+      "sha256": "231a8d4977529f22942b4cc1c6bc1a2f9defa1e04037310ae73d8e9c3bf78121",
       "bbox": [
         26,
         46,
@@ -296,8 +296,8 @@
       "icon_name": "dlp",
       "variant": "default",
       "source_script": "original_security/dlp_default.py",
-      "size_bytes": 19621,
-      "sha256": "2c86cb5256f5abbdd4625e1b7b48d0d9be969fcf667ac224924a1ebd04acd816",
+      "size_bytes": 19437,
+      "sha256": "34a94fad662565208bc9e49bd190aeac69ce92fe89650084c0d96cbd2b79b4bc",
       "bbox": [
         26,
         52,
@@ -309,21 +309,21 @@
       "icon_name": "duo",
       "variant": "default",
       "source_script": "original_security/duo_default.py",
-      "size_bytes": 12697,
-      "sha256": "8f9dae301ef88f2e7528ac034650ef54e7c8e8ee9292e57d5026fdf0c9e93e84",
+      "size_bytes": 12145,
+      "sha256": "a075760d1ebf1c6ca57930119dce47d9b8f2bf0e8f81e1dc44e0f35763a277d9",
       "bbox": [
         26,
-        178,
+        177,
         486,
-        333
+        334
       ]
     },
     "edr_xdr_default.png": {
       "icon_name": "edr_xdr",
       "variant": "default",
       "source_script": "original_security/edr_xdr_default.py",
-      "size_bytes": 23617,
-      "sha256": "fe43c82192112f8dbbd20ed4d0ea21099efb832df2bc86feecd07dd8d4566603",
+      "size_bytes": 23357,
+      "sha256": "5ed7bc889c428e54a77713e4b090afbc0ee004a95b76031d9b5239e9100d966a",
       "bbox": [
         26,
         60,
@@ -335,8 +335,8 @@
       "icon_name": "email_security",
       "variant": "default",
       "source_script": "original_security/email_security_default.py",
-      "size_bytes": 28134,
-      "sha256": "485870ddd412a47f2be13950727657d2f341119d0841fbdbf9665da7cfe71b17",
+      "size_bytes": 27749,
+      "sha256": "94bd7ac45cb3a36ff82a42cad10cae2967abfd2eb7bdb3db8e3d5408c233c9f7",
       "bbox": [
         26,
         58,
@@ -348,11 +348,11 @@
       "icon_name": "encryption",
       "variant": "default",
       "source_script": "original_security/encryption_default.py",
-      "size_bytes": 16357,
-      "sha256": "6fc5ad8edfd95a8a52714af08ee3c6d8b06c4868de7fa03b75a7864e1c38176c",
+      "size_bytes": 15691,
+      "sha256": "154fe825cb39ba3453f4f83334de406790d214f8e37e18544b96107d386fe0f1",
       "bbox": [
         26,
-        104,
+        103,
         486,
         408
       ]
@@ -361,8 +361,8 @@
       "icon_name": "entra_id",
       "variant": "default",
       "source_script": "original_security/entra_id_default.py",
-      "size_bytes": 33814,
-      "sha256": "42c7200b35d09a35ab2e0fb800362e2abf57fedfa61546d64859fee88e893ba7",
+      "size_bytes": 33626,
+      "sha256": "627ac6029cd7557aea2873f7d6ad22849397b5ae37dedaa211ed314c950ce1a7",
       "bbox": [
         26,
         50,
@@ -374,8 +374,8 @@
       "icon_name": "f5",
       "variant": "default",
       "source_script": "original_security/f5_default.py",
-      "size_bytes": 47963,
-      "sha256": "44d6fc5c1d2f4799f6b48cb9e06a4c8db173a05bfd589f8d8371f99b459d0ecf",
+      "size_bytes": 47824,
+      "sha256": "2b266cb59fc2380a5267a9b97dbd6aa6678008f8c7432e9e0df5da483bd60e91",
       "bbox": [
         26,
         26,
@@ -387,8 +387,8 @@
       "icon_name": "firewall",
       "variant": "default",
       "source_script": "original_security/firewall_default.py",
-      "size_bytes": 20026,
-      "sha256": "6870f0c520de36898d3058993ab53e8e2d12880db1225ed96cae7ff0ac20dc94",
+      "size_bytes": 19760,
+      "sha256": "6b548330b67dd8f8502d37bc648ed00d7953b464133f0efde3221ba4db0789dd",
       "bbox": [
         26,
         32,
@@ -400,8 +400,8 @@
       "icon_name": "fortinet",
       "variant": "default",
       "source_script": "original_security/fortinet_default.py",
-      "size_bytes": 9901,
-      "sha256": "b485a1e3e4967187147b1892bc1e226489b93a5ae7da5a33e26fb4ffff986a1e",
+      "size_bytes": 9987,
+      "sha256": "315f58e4e1c6dcf6d1565ef2b9db2d07db26fb70f16488a7ab62d31c5d977a33",
       "bbox": [
         26,
         90,
@@ -413,8 +413,8 @@
       "icon_name": "gnupg",
       "variant": "default",
       "source_script": "original_security/gnupg_default.py",
-      "size_bytes": 31493,
-      "sha256": "a1ef0b33fc4de8ef76c8cc07d361c5bcefd8057c043eb8d239f6104259f126ad",
+      "size_bytes": 31488,
+      "sha256": "3f3c3aff3d44d5c3e696d683ca82137f2d7408d67cf70496b86c2b0b975c7655",
       "bbox": [
         79,
         26,
@@ -426,8 +426,8 @@
       "icon_name": "google_secops",
       "variant": "default",
       "source_script": "original_security/google_secops_default.py",
-      "size_bytes": 33081,
-      "sha256": "f67dd78ff492ea455c14975a755830b2a11cc1673ee863373d551c65b4743ba5",
+      "size_bytes": 33096,
+      "sha256": "806e36a6506fcd3b3ce08cc1e79c55a087424095dd4c612971b6bd9e8202756e",
       "bbox": [
         43,
         26,
@@ -439,8 +439,8 @@
       "icon_name": "graylog",
       "variant": "default",
       "source_script": "original_security/graylog_default.py",
-      "size_bytes": 38629,
-      "sha256": "b10d2b7d2ace59f2e167bb7a5f9200562601f3dffdd57d031671f242816b0103",
+      "size_bytes": 38636,
+      "sha256": "5e347bb09f224bd4c9cf3aeb5c2dbdede20fd04c9b249690034029073a7ed426",
       "bbox": [
         26,
         33,
@@ -452,21 +452,21 @@
       "icon_name": "honeypot",
       "variant": "default",
       "source_script": "original_security/honeypot_default.py",
-      "size_bytes": 30652,
-      "sha256": "5d5f6acdd701853ba0dc75f2f3cdfc9fcd5d8ac9263023fdeec1820a1194616c",
+      "size_bytes": 30113,
+      "sha256": "26717914f681da37834f5403a49ad88eb72513cdf8273838f987842e18a784b7",
       "bbox": [
         26,
-        73,
+        72,
         486,
-        438
+        440
       ]
     },
     "hsm_kms_default.png": {
       "icon_name": "hsm_kms",
       "variant": "default",
       "source_script": "original_security/hsm_kms_default.py",
-      "size_bytes": 16576,
-      "sha256": "06cbd7a13507786f56f86179446c74b6963691c0cb5bdd1babf49e5b3b198f24",
+      "size_bytes": 16563,
+      "sha256": "11b74d6b984af070e99c794613b9f2eb79dba4e7c7729f5c458e294aa20eecef",
       "bbox": [
         26,
         26,
@@ -478,8 +478,8 @@
       "icon_name": "iam_sso",
       "variant": "default",
       "source_script": "original_security/iam_sso_default.py",
-      "size_bytes": 22061,
-      "sha256": "e3bee3df0a2a4f731a5f087b034836feb0b25933cf45ee1fbf759bbc1aa71074",
+      "size_bytes": 21860,
+      "sha256": "0f322bbfa7b70ff946b6d4ea7c1de5f96f235c05aeee3d1e544dad88ff2b2eb8",
       "bbox": [
         26,
         47,
@@ -491,21 +491,21 @@
       "icon_name": "ids_ips",
       "variant": "default",
       "source_script": "original_security/ids_ips_default.py",
-      "size_bytes": 27678,
-      "sha256": "aa37e1df7b8cdf171f6d1ebb6998dda72822b3ce5dac7b91991852ae96a6e963",
+      "size_bytes": 28205,
+      "sha256": "d3bfbe37786ecddcf2be168ca4e4c936cf46a15e5940b1196565c96e3d45f272",
       "bbox": [
         26,
-        56,
+        54,
         486,
-        455
+        458
       ]
     },
     "imperva_default.png": {
       "icon_name": "imperva",
       "variant": "default",
       "source_script": "original_security/imperva_default.py",
-      "size_bytes": 11537,
-      "sha256": "f8bcf9b34280036a213ee0f182a0e43e60186aa2726ad9e0f9bd7f6f68460ba7",
+      "size_bytes": 11583,
+      "sha256": "679260fefac96420bc182a0eb0d817e9f839b4b2d2480096cb98c0273baa515d",
       "bbox": [
         26,
         33,
@@ -517,8 +517,8 @@
       "icon_name": "kaspersky",
       "variant": "default",
       "source_script": "original_security/kaspersky_default.py",
-      "size_bytes": 21174,
-      "sha256": "3c98bc9725b67298800ff80470d7e79749e9950858d298952bd9c07f082c4ceb",
+      "size_bytes": 21368,
+      "sha256": "2c4f6eb35083adbd998826a3e30b71ee707a1932f33e4905c837ecfc230f7df3",
       "bbox": [
         48,
         26,
@@ -530,8 +530,8 @@
       "icon_name": "lacework",
       "variant": "default",
       "source_script": "original_security/lacework_default.py",
-      "size_bytes": 23799,
-      "sha256": "a0daf3deb8bca44f7bf76afd6ce0814f28a486e16e9b106e83a154f01163b84e",
+      "size_bytes": 23828,
+      "sha256": "80eaa77c3eda9c520a9dd27001f896bd2bee5bd402495ede8915b36c32879c42",
       "bbox": [
         45,
         26,
@@ -543,10 +543,10 @@
       "icon_name": "lets_encrypt",
       "variant": "default",
       "source_script": "original_security/lets_encrypt_default.py",
-      "size_bytes": 22926,
-      "sha256": "ea82845e78e776557200f6e479845f0b9a67a9b3a903bc22bf54c1abe742cfe7",
+      "size_bytes": 22742,
+      "sha256": "dbab7d669475c4ce9d5bc47193ffa75f08d8317a03910916461f518e60f8f644",
       "bbox": [
-        39,
+        38,
         26,
         473,
         486
@@ -556,8 +556,8 @@
       "icon_name": "malwarebytes",
       "variant": "default",
       "source_script": "original_security/malwarebytes_default.py",
-      "size_bytes": 31932,
-      "sha256": "c740b82c71d709885d3be108f12e9e5fcb1f98123957283ebac0439882c77b91",
+      "size_bytes": 31747,
+      "sha256": "b197829c56ce2a6df729ab3d73591a14fea9ed0316c3b8afd6c01302407eb4b5",
       "bbox": [
         26,
         51,
@@ -569,12 +569,12 @@
       "icon_name": "metasploit",
       "variant": "default",
       "source_script": "original_security/metasploit_default.py",
-      "size_bytes": 24344,
-      "sha256": "9a3ba3bbbf9fb0a5ecc884b452c614811d9b13d340f33056cf5d39300637f0a5",
+      "size_bytes": 24455,
+      "sha256": "5f960ac8cfca5cc3faed86dc222aa496e107998f12b5bdf1ce53bdafd5212770",
       "bbox": [
         81,
         26,
-        430,
+        431,
         486
       ]
     },
@@ -582,8 +582,8 @@
       "icon_name": "mfa_auth",
       "variant": "default",
       "source_script": "original_security/mfa_auth_default.py",
-      "size_bytes": 22767,
-      "sha256": "ab905387a373b6f774cbd424557ab77e056c9db6f1d92f722b9ffb26f886b435",
+      "size_bytes": 21520,
+      "sha256": "f4779dd45d548d452b175d05378ba0f7cf426622037349c41f5fb80e93d9f8d7",
       "bbox": [
         55,
         26,
@@ -595,8 +595,8 @@
       "icon_name": "microsoft_defender",
       "variant": "default",
       "source_script": "original_security/microsoft_defender_default.py",
-      "size_bytes": 18715,
-      "sha256": "bed8bc98e102918470ee0221db7ae83d2e394876f689b16a59fb8b3838fa406a",
+      "size_bytes": 19858,
+      "sha256": "71f1cc716f89eda74d10ac9eeed6e98ad182000cad28aaf875010b58f14d77e5",
       "bbox": [
         35,
         26,
@@ -608,11 +608,11 @@
       "icon_name": "netskope",
       "variant": "default",
       "source_script": "original_security/netskope_default.py",
-      "size_bytes": 23626,
-      "sha256": "a098aef212cac87cd9c6ceb986710f0f36ee95e34a7afd75746d5beb2f9ffe62",
+      "size_bytes": 23436,
+      "sha256": "d773f46067dd7bd5f643e77c3a11575ff7a467bbe0dcce4d38d225b96473a027",
       "bbox": [
         26,
-        142,
+        141,
         486,
         370
       ]
@@ -621,8 +621,8 @@
       "icon_name": "nmap",
       "variant": "default",
       "source_script": "original_security/nmap_default.py",
-      "size_bytes": 37443,
-      "sha256": "1e4a2e9fb341f57900685b56fddb430a9198c4ac6d1294328b0e1bc24987d82e",
+      "size_bytes": 37011,
+      "sha256": "12dc1f7f5218556ab82644b6cea1630d292dc92b8892d403e4950147624fd5cd",
       "bbox": [
         26,
         146,
@@ -634,8 +634,8 @@
       "icon_name": "okta",
       "variant": "default",
       "source_script": "original_security/okta_default.py",
-      "size_bytes": 30050,
-      "sha256": "0f5bf52c6563fca5bbb89b57c3543f417e4ac5417674d9b0d2d9151530bb1bb5",
+      "size_bytes": 29953,
+      "sha256": "52145180f214edb8e6b7bc795167b7426a4ccb4e58f7519f6e56ee6b54061361",
       "bbox": [
         26,
         26,
@@ -647,8 +647,8 @@
       "icon_name": "onelogin",
       "variant": "default",
       "source_script": "original_security/onelogin_default.py",
-      "size_bytes": 19350,
-      "sha256": "d1d3081bd172acb19d5ea1384fd37a08f363fe812ce81130b8a1bc80d4ee9544",
+      "size_bytes": 19443,
+      "sha256": "0d3688a2a1ac7ebf687002f7dedfcc45e0b7a5088caa70b8f40cc87de30917ac",
       "bbox": [
         26,
         26,
@@ -660,8 +660,8 @@
       "icon_name": "onepassword",
       "variant": "default",
       "source_script": "original_security/onepassword_default.py",
-      "size_bytes": 61760,
-      "sha256": "e0280cdd55ce49d333d35a6c0141aee97c9d2bb5434ebb21c89cda8638916121",
+      "size_bytes": 61837,
+      "sha256": "e41cb6cc1a9a7083c94a0ec67bcda3e3c54aa8a2d856e864297d4dba18003280",
       "bbox": [
         26,
         26,
@@ -673,8 +673,8 @@
       "icon_name": "osquery",
       "variant": "default",
       "source_script": "original_security/osquery_default.py",
-      "size_bytes": 20352,
-      "sha256": "c1fad03553ebbf4c4a006255b755647a7ff50ceb5b0003762d3ede67c7038b17",
+      "size_bytes": 22732,
+      "sha256": "ce8b9394824567b8f259d4dd4483a49415df616f1ab77facaa73a7b011ecaf20",
       "bbox": [
         26,
         26,
@@ -686,8 +686,8 @@
       "icon_name": "owasp",
       "variant": "default",
       "source_script": "original_security/owasp_default.py",
-      "size_bytes": 53802,
-      "sha256": "0759a25ca0900eb0ffa69d88af52ff3e0fec0db48ee9558d575d2160670ccc6e",
+      "size_bytes": 53674,
+      "sha256": "963b45190007f8bc46ae715d80f10fccf85759fac1d6545234baca84c5bcd0dc",
       "bbox": [
         26,
         26,
@@ -699,8 +699,8 @@
       "icon_name": "palo_alto",
       "variant": "default",
       "source_script": "original_security/palo_alto_default.py",
-      "size_bytes": 30561,
-      "sha256": "04d543b9f30d12aff72ff08c295073ccd032fe4586e9c0bfffe9dd94db4ba856",
+      "size_bytes": 30148,
+      "sha256": "a96e3671f6d4402a786a46496cf983b0e3ebe2312946cd250ade3c388a4f813c",
       "bbox": [
         26,
         26,
@@ -712,8 +712,8 @@
       "icon_name": "pam_bastion",
       "variant": "default",
       "source_script": "original_security/pam_bastion_default.py",
-      "size_bytes": 10292,
-      "sha256": "bc03e4fad73bf7df4afdb1ec2631a4a510eb5d0cb29c74147cabdfff1e8411a9",
+      "size_bytes": 9957,
+      "sha256": "10046bebc6bb1be714fc9413501e9acca5936c44eeafb44fdee4c0796305ea26",
       "bbox": [
         26,
         26,
@@ -725,8 +725,8 @@
       "icon_name": "ping_identity",
       "variant": "default",
       "source_script": "original_security/ping_identity_default.py",
-      "size_bytes": 24347,
-      "sha256": "339b3c01f9b3ffac9e6b16fbe05f54bc24bd9d49f05919d681241efbbf1e35cc",
+      "size_bytes": 24358,
+      "sha256": "dd4fcbb59e2f64d3e75aaa6917d3bb80088285571402c1f887848a1a69c5c03f",
       "bbox": [
         26,
         26,
@@ -738,8 +738,8 @@
       "icon_name": "pki_ca",
       "variant": "default",
       "source_script": "original_security/pki_ca_default.py",
-      "size_bytes": 19040,
-      "sha256": "35e7e318b75a66c1e35b4c6cea181f492872494253a2c726b669d135f1c7600a",
+      "size_bytes": 18759,
+      "sha256": "1a6bd918156f3bba4e9b9a58f3ec310682af35de32faf3f07e28381411bcfa36",
       "bbox": [
         26,
         32,
@@ -751,8 +751,8 @@
       "icon_name": "proofpoint",
       "variant": "default",
       "source_script": "original_security/proofpoint_default.py",
-      "size_bytes": 14642,
-      "sha256": "13f4beeb51aff3ade2e168654a8d99f96f04af1b9f5752882dc30160df24d15a",
+      "size_bytes": 14591,
+      "sha256": "21aacf687a803152ecdfb511daab68430646fd4f685480862e206d211f7d174d",
       "bbox": [
         26,
         26,
@@ -764,8 +764,8 @@
       "icon_name": "qradar",
       "variant": "default",
       "source_script": "original_security/qradar_default.py",
-      "size_bytes": 43011,
-      "sha256": "3cdec6b12ba7727a99beb1a29e2eff330475ad27495acd20063de551ab765db6",
+      "size_bytes": 42389,
+      "sha256": "1848c8b68a10637c4460da73054d456cc43ae8c3c7bef34a0a67e28bf6ecc982",
       "bbox": [
         82,
         26,
@@ -777,8 +777,8 @@
       "icon_name": "qualys",
       "variant": "default",
       "source_script": "original_security/qualys_default.py",
-      "size_bytes": 40255,
-      "sha256": "63cfbaefa761e2f85e48953ca4a72bb42e6da7ea384171941233f22a73364df9",
+      "size_bytes": 40256,
+      "sha256": "ba97d13ac6891203d443089921a32f24e070ea7dee359d27e69dba68e9e9a355",
       "bbox": [
         62,
         26,
@@ -790,8 +790,8 @@
       "icon_name": "rapid7",
       "variant": "default",
       "source_script": "original_security/rapid7_default.py",
-      "size_bytes": 21095,
-      "sha256": "6f1f29cde3db1ee7fa86a709b68c95b0e3a3da36f34f340da2cbd37c623f37bd",
+      "size_bytes": 21286,
+      "sha256": "6c118a29db86bb46c94fbf35c7156e24e229b002054770181fef7c9b11b42880",
       "bbox": [
         26,
         89,
@@ -803,8 +803,8 @@
       "icon_name": "secret_vault",
       "variant": "default",
       "source_script": "original_security/secret_vault_default.py",
-      "size_bytes": 24534,
-      "sha256": "3425e0ae0cafe4ccb8c7db4737ae6f253d887e4f9a518c8f40186649dde8b66c",
+      "size_bytes": 24962,
+      "sha256": "dcac13eb27bee3670e5885729a82c7cc63b238e690afbdae77bfca0559906e54",
       "bbox": [
         26,
         26,
@@ -816,8 +816,8 @@
       "icon_name": "sectigo",
       "variant": "default",
       "source_script": "original_security/sectigo_default.py",
-      "size_bytes": 17438,
-      "sha256": "85dda4fb6fc26352b5b20e611d6deecef819229c4670b03edfa1df6269c01954",
+      "size_bytes": 17625,
+      "sha256": "e05b18ce1c63da5c87a653c83934930e6b0ff1c5979588b8da5c5e1934c5764a",
       "bbox": [
         26,
         26,
@@ -829,12 +829,12 @@
       "icon_name": "sentinelone",
       "variant": "default",
       "source_script": "original_security/sentinelone_default.py",
-      "size_bytes": 14859,
-      "sha256": "5f27400dae19868a970432cabc830aadefc1f9ee7b53f6f98a2812d0f9e61d5f",
+      "size_bytes": 14946,
+      "sha256": "234fea3e03775e95743aafbf82f0ab48e97c88333a170e971f8b289daffa6ecc",
       "bbox": [
         70,
         26,
-        441,
+        442,
         486
       ]
     },
@@ -842,8 +842,8 @@
       "icon_name": "siem",
       "variant": "default",
       "source_script": "original_security/siem_default.py",
-      "size_bytes": 23089,
-      "sha256": "27334cc344af61e90bfc7d80ba4f251eb8c0683c70cf6a264f16064a6be31b9e",
+      "size_bytes": 22957,
+      "sha256": "8ac8992f87ad6ced299325982b4f37531cff76dac1a79a7ebcabc5c5ef57f68a",
       "bbox": [
         62,
         26,
@@ -868,8 +868,8 @@
       "icon_name": "soar",
       "variant": "default",
       "source_script": "original_security/soar_default.py",
-      "size_bytes": 29323,
-      "sha256": "67cd3af19299d6934ecaa4c68dfc8dc351c308458cf87a68e1035b63ca352dae",
+      "size_bytes": 29026,
+      "sha256": "0c9b9bc4b5cea151a2d5a3927fa6c036aaf998dab421c87306c6109f731da1f7",
       "bbox": [
         26,
         80,
@@ -881,8 +881,8 @@
       "icon_name": "soc_center",
       "variant": "default",
       "source_script": "original_security/soc_center_default.py",
-      "size_bytes": 16381,
-      "sha256": "f535e102c81d0ee3317189616a33be390a9888c2a56ad1350ab2c443d8824c49",
+      "size_bytes": 15948,
+      "sha256": "ae697b037253e0a07ed4b0cb7d0b2510745d2e9970864fb585f8b9d218aaa577",
       "bbox": [
         26,
         69,
@@ -894,8 +894,8 @@
       "icon_name": "sophos",
       "variant": "default",
       "source_script": "original_security/sophos_default.py",
-      "size_bytes": 33800,
-      "sha256": "ddc677c140fa070851a2beb95cf7e4b1f4f23c423d9d944a633f7ec3b713c488",
+      "size_bytes": 33579,
+      "sha256": "8be7656d0ee494f97465eb85e3c6d3d5a7592ce0606de4bf8ee955fbc8077b2c",
       "bbox": [
         26,
         26,
@@ -907,8 +907,8 @@
       "icon_name": "sumo_logic",
       "variant": "default",
       "source_script": "original_security/sumo_logic_default.py",
-      "size_bytes": 19888,
-      "sha256": "0dbeb4d9be777bc425ed8b54802e5100d3d31c3c531611092567c6579db9de46",
+      "size_bytes": 19782,
+      "sha256": "2303d8b4cc577f0f22aea06a1c5489a3e078ab12aecb807ad0afced13b9d7f19",
       "bbox": [
         26,
         26,
@@ -920,8 +920,8 @@
       "icon_name": "suricata",
       "variant": "default",
       "source_script": "original_security/suricata_default.py",
-      "size_bytes": 33286,
-      "sha256": "35161dc4f3d60db3f3e48b96e4980fa32cfbbbbddfe5651da1b693ccf2f99544",
+      "size_bytes": 33158,
+      "sha256": "088896569ae63f685c758c0fe58630045c1e0498141299d3e907d7a675450d6d",
       "bbox": [
         26,
         64,
@@ -933,8 +933,8 @@
       "icon_name": "symantec",
       "variant": "default",
       "source_script": "original_security/symantec_default.py",
-      "size_bytes": 34146,
-      "sha256": "304282c639583e06a8571ecb890f40950a42fa133dbc5597a2c016be741c90b0",
+      "size_bytes": 34088,
+      "sha256": "aa678df51601ab04b5118114f6d1f2b03a6e426eba4edb601ae32982f26ff18d",
       "bbox": [
         40,
         26,
@@ -946,8 +946,8 @@
       "icon_name": "sysdig",
       "variant": "default",
       "source_script": "original_security/sysdig_default.py",
-      "size_bytes": 49109,
-      "sha256": "8ae563aaf8b0b397b5874ce1ff54900b051baa2a97d5083aca07b4f94ee6c26a",
+      "size_bytes": 49446,
+      "sha256": "fcd50e1cff42499737827a54aa52fce2d1cc2133b82674eab0d55c28572c7128",
       "bbox": [
         69,
         26,
@@ -959,8 +959,8 @@
       "icon_name": "teleport",
       "variant": "default",
       "source_script": "original_security/teleport_default.py",
-      "size_bytes": 46774,
-      "sha256": "b0b9c08a5041a27c72812d84f25e15d8e60ab76c70c3254c7b21c2fd2ee5c40e",
+      "size_bytes": 47008,
+      "sha256": "55099c29ec8c5f45d7dc579f8a542370deaab82638a86dd55f4096f409d39784",
       "bbox": [
         34,
         26,
@@ -985,8 +985,8 @@
       "icon_name": "threat_intel",
       "variant": "default",
       "source_script": "original_security/threat_intel_default.py",
-      "size_bytes": 46942,
-      "sha256": "6e9d3d08945ff3e2726e91ddb11e61149ba05085bf8d31f9318aaabc5947255a",
+      "size_bytes": 47653,
+      "sha256": "0e647bd25cce85225b8f2f274dd8350aeea44c395ecb17e175e8a420dc7ff534",
       "bbox": [
         26,
         26,
@@ -998,8 +998,8 @@
       "icon_name": "trellix",
       "variant": "default",
       "source_script": "original_security/trellix_default.py",
-      "size_bytes": 30719,
-      "sha256": "e2d7938f4fb5ee830f96ac26bec3ab8a46a4950839da93f44d688baccb1fa7ea",
+      "size_bytes": 30077,
+      "sha256": "8e325affc1d73086adfc24c356442d2b2b9306f72f036a12d8891d1bbcf1dcb6",
       "bbox": [
         28,
         26,
@@ -1011,8 +1011,8 @@
       "icon_name": "trend_micro",
       "variant": "default",
       "source_script": "original_security/trend_micro_default.py",
-      "size_bytes": 40558,
-      "sha256": "46dbac15a1fe0199fa611578cf122a7ea49fe3796f8866a4241d06243b881124",
+      "size_bytes": 40510,
+      "sha256": "f23e483499b1a38f1d28389d37348901e2c8bb28b550855877d15f509aff6b12",
       "bbox": [
         26,
         26,
@@ -1024,21 +1024,21 @@
       "icon_name": "vectra_ai",
       "variant": "default",
       "source_script": "original_security/vectra_ai_default.py",
-      "size_bytes": 43849,
-      "sha256": "08e8c54b92745255cadbe09b6967cc3060d3a976326bb6972cbd729cbdc37f0b",
+      "size_bytes": 42321,
+      "sha256": "64af9fef9d81142074458fd59ee8095f758c31c8d16a8b5cb62cdf2d36dc59ec",
       "bbox": [
         26,
         97,
         486,
-        414
+        415
       ]
     },
     "venafi_default.png": {
       "icon_name": "venafi",
       "variant": "default",
       "source_script": "original_security/venafi_default.py",
-      "size_bytes": 35469,
-      "sha256": "98374312da8ff577a7e890959928c296f6769c034ce11d1698c18db6b6474193",
+      "size_bytes": 35182,
+      "sha256": "060bc9ef7b85d47940c8b00e83084daeaf1bbd9836ed75786e06600a4ae0c5ed",
       "bbox": [
         26,
         64,
@@ -1050,8 +1050,8 @@
       "icon_name": "veracode",
       "variant": "default",
       "source_script": "original_security/veracode_default.py",
-      "size_bytes": 26062,
-      "sha256": "07e67d6b3bf92716aa5eef535c8ec739bc8724828fa06a4091fdc5d846f40716",
+      "size_bytes": 25958,
+      "sha256": "8b81a9ae9bf68f3cd0dad0b8e72626acba6db7636eb1c7c622c4191705f881ff",
       "bbox": [
         26,
         26,
@@ -1063,8 +1063,8 @@
       "icon_name": "vpn_gateway",
       "variant": "default",
       "source_script": "original_security/vpn_gateway_default.py",
-      "size_bytes": 21243,
-      "sha256": "2a02cf0c1be772c2b8f25b8567b6faeb3c1e9751e586a8d6283a85a78e6cae20",
+      "size_bytes": 20792,
+      "sha256": "8aa2a88cebd93b3018a58b484428921debc99f68ceb959ec318ea54bb8dbfbe2",
       "bbox": [
         26,
         135,
@@ -1076,8 +1076,8 @@
       "icon_name": "vulnerability_scan",
       "variant": "default",
       "source_script": "original_security/vulnerability_scan_default.py",
-      "size_bytes": 28081,
-      "sha256": "9d54584cdc0c080b3a17de2090cd99e23a5c0ac99feab9b9418fa4cf77907f93",
+      "size_bytes": 27551,
+      "sha256": "a63200d4329440c18f24a30f8d551ad78d492c6dd98d60a05a65ac8f29369a0c",
       "bbox": [
         26,
         47,
@@ -1089,8 +1089,8 @@
       "icon_name": "waf",
       "variant": "default",
       "source_script": "original_security/waf_default.py",
-      "size_bytes": 24621,
-      "sha256": "d091267cf23ea68d681f0c7f6da2b22532689b6085e929270e4ded2ea2d57753",
+      "size_bytes": 24698,
+      "sha256": "a3a8250048deaab7ee180c78418153dbfb76bf09ccd7408fa1b68b539ffeef0f",
       "bbox": [
         26,
         35,
@@ -1102,8 +1102,8 @@
       "icon_name": "wazuh",
       "variant": "default",
       "source_script": "original_security/wazuh_default.py",
-      "size_bytes": 35761,
-      "sha256": "2fd2b698c5d4f5a134858dc8fc2319aece303ab3a5a5f619feaddaf09057f3ea",
+      "size_bytes": 35713,
+      "sha256": "8232676c8f849956308bf50df7b38944bf1f0dc9563e36e4e7c38fd3bbfb53c3",
       "bbox": [
         26,
         26,
@@ -1115,8 +1115,8 @@
       "icon_name": "wireguard",
       "variant": "default",
       "source_script": "original_security/wireguard_default.py",
-      "size_bytes": 52720,
-      "sha256": "920e346df20da6267c2e05a1011c530eca4c5127352541f97db0a2815ddc27ec",
+      "size_bytes": 52543,
+      "sha256": "90912b05ca197503a63a54114f8ddd2f2ff5694a0a3cbab7d2047cd870f6f991",
       "bbox": [
         26,
         26,
@@ -1128,8 +1128,8 @@
       "icon_name": "wireshark",
       "variant": "default",
       "source_script": "original_security/wireshark_default.py",
-      "size_bytes": 13892,
-      "sha256": "b97b9b1cb273c401561e1c63e794e7e7a837266324c7dc8d0824af82fbb6f2f5",
+      "size_bytes": 13868,
+      "sha256": "a0757a6cb98395988ef0a04173b8a454bb08acb24fec2cb7406ce85ddae502c1",
       "bbox": [
         26,
         26,
@@ -1141,11 +1141,11 @@
       "icon_name": "wiz",
       "variant": "default",
       "source_script": "original_security/wiz_default.py",
-      "size_bytes": 20077,
-      "sha256": "a4572b8c7d741d57aee04b84e45eef16495c3050a94c23fd439c261edc1e35a3",
+      "size_bytes": 20161,
+      "sha256": "9f3cf881bbd37e214e470d2d3265ff9ab4255906d68a1dca1c3b9bf1f76ff2c3",
       "bbox": [
         26,
-        143,
+        142,
         486,
         369
       ]
@@ -1154,8 +1154,8 @@
       "icon_name": "yubico",
       "variant": "default",
       "source_script": "original_security/yubico_default.py",
-      "size_bytes": 30168,
-      "sha256": "eac29e398b4b86b03b83a0d155d03e81661cbe936493b5828a92796449830bd3",
+      "size_bytes": 30303,
+      "sha256": "e6dc9f4c6a5047cc878b5ca9f950867bb76bf92613c66723eacc43ea889f815b",
       "bbox": [
         26,
         26,
@@ -1167,8 +1167,8 @@
       "icon_name": "zeek",
       "variant": "default",
       "source_script": "original_security/zeek_default.py",
-      "size_bytes": 25018,
-      "sha256": "336acd4c7b0255a7cafabf21830425af8381a5878640ddad3fed29353a55349a",
+      "size_bytes": 25294,
+      "sha256": "78ad4f46307e0a91b1078a8ab0a9b66fd998c212ef9a018a272961904f9a86d4",
       "bbox": [
         45,
         26,
@@ -1180,8 +1180,8 @@
       "icon_name": "zero_trust",
       "variant": "default",
       "source_script": "original_security/zero_trust_default.py",
-      "size_bytes": 41204,
-      "sha256": "be307e5b76062bc79826e686d34bd5771ab56b98a481a679c3ae152b6f99dbf8",
+      "size_bytes": 40684,
+      "sha256": "c87b4880c13c5b109b749fe0c5d80a8ac57b9aec80ca72c2d81fa401e5558ac1",
       "bbox": [
         29,
         26,
@@ -1193,8 +1193,8 @@
       "icon_name": "zscaler",
       "variant": "default",
       "source_script": "original_security/zscaler_default.py",
-      "size_bytes": 29193,
-      "sha256": "7db0cac7b8181055fc84becafd8a0bbccfe5d087fefba200a320e9dd7cafae97",
+      "size_bytes": 29010,
+      "sha256": "499d841b9938273ca75fa2dec9de746fcce6f6f197d5a2709d373d55b2935e3d",
       "bbox": [
         26,
         113,

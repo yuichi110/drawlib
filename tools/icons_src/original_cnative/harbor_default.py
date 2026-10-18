@@ -72,8 +72,8 @@ beam_bot = _beam_sector((45.0, 56.0), -18.0, 4.0)
 
 for beam in (beam_top, beam_bot):
     polygon(beam, style=no_border_fill(PASTEL_GREEN))
-    draw_round_segment(beam[0], beam[1], width_units=2.2, color=DARK)
-    draw_round_segment(beam[0], beam[-1], width_units=2.2, color=DARK)
+    draw_round_segment(beam[0], beam[1], width_units=2.0, color=DARK)
+    draw_round_segment(beam[0], beam[-1], width_units=2.0, color=DARK)
 
 # Lighthouse tower shaft sitting on bottom-left of inner circle
 # At x=32, y_circle = 50 - sqrt(33^2 - 18^2) = 50 - 27.66 = 22.34
@@ -100,15 +100,15 @@ for sp in (stripe1, stripe2):
     draw_round_segment(sp[3], sp[2], width_units=2.0, color=DARK)
 
 # Lighthouse tower shaft side borders
-draw_round_segment((34.5, 50.0), (32.5, 23.2), width_units=2.3, color=DARK)
-draw_round_segment((43.5, 50.0), (45.5, 17.3), width_units=2.3, color=DARK)
+draw_round_segment((34.5, 50.0), (32.5, 23.2), width_units=2.0, color=DARK)
+draw_round_segment((43.5, 50.0), (45.5, 17.3), width_units=2.0, color=DARK)
 
 # Gallery / balcony overhang bar
 rectangle(
     (39.0, 52.0),
     width=14.0,
     height=4.2,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=1.2),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=1.2),
 )
 
 # Lantern room
@@ -116,15 +116,15 @@ rectangle(
     (39.0, 58.2),
     width=9.5,
     height=8.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Pointed roof cap
 roof_pts = [(32.5, 62.3), (45.5, 62.3), (39.0, 71.5)]
 polygon(roof_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(roof_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(roof_pts, width_units=2.0, color=DARK, closed=True)
 
 # Re-stroke inner circle border cleanly on top of tower base & beam ends
-circle((cx, cy), radius=r_inner, style=stroke_style(DARK, width_units=2.3))
+circle((cx, cy), radius=r_inner, style=stroke_style(DARK, width_units=2.0))
 
 save()

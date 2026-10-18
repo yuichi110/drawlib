@@ -27,7 +27,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 2.6
+w = 2.0
 angle_deg = 38.0
 theta = math.radians(angle_deg)
 ux, uy = math.cos(theta), math.sin(theta)
@@ -59,7 +59,7 @@ def _circle_pts(cx: float, cy: float, r: float, steps: int = 64) -> list[tuple[f
 # 1. Eyepiece flange & lower-left narrower tube (PASTEL_BLUE_LIGHT)
 polygon(
     _tilted_rect(-31.5, -26.0, 9.2),
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.2),
 )
 polygon(
     _tilted_rect(-26.5, -9.0, 7.6),
@@ -73,7 +73,7 @@ draw_compound_polygon(
     [_circle_pts(mount_cx, mount_cy, 9.2), _circle_pts(mount_cx, mount_cy, 4.0)],
     color=PASTEL_GREEN,
 )
-circle((mount_cx, mount_cy), radius=9.2, style=stroke_style(DARK, width_units=2.4))
+circle((mount_cx, mount_cy), radius=9.2, style=stroke_style(DARK, width_units=2.0))
 circle((mount_cx, mount_cy), radius=4.0, style=stroke_style(DARK, width_units=2.0))
 
 # 3. Middle main telescope tube (PASTEL_BLUE)
@@ -93,7 +93,7 @@ ellipse(
     (lens_cx, lens_cy),
     width=6.4,
     height=19.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, angle=angle_deg),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, angle=angle_deg),
 )
 
 # 5. Two small star / signal dots at top-right

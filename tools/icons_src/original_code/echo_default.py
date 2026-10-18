@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_facet = 1.2
+w_facet = 2.0
 s = 40.0 / 41.0
 
 

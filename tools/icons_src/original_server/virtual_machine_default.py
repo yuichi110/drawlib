@@ -44,7 +44,7 @@ draw_iso_cube(
     left_color=PASTEL_BLUE,
     right_color=PASTEL_BLUE_LIGHT,
     border_color=DARK,
-    border_units=2.5,
+    border_units=2.0,
 )
 
 # Bottom-right active status indicator dot

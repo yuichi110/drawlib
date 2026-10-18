@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.9
+w = 2.0
 s = 0.95
 
 _RAW_RIBBON: list[tuple[float, float]] = [

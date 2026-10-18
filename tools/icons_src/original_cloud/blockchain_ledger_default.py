@@ -58,7 +58,7 @@ for p1, p2 in links:
         circle(
             pt_node,
             radius=3.2,
-            style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+            style=fill_style(WHITE, border_color=DARK, border_units=2.0),
         )
     draw_round_segment(p1, p2, width_units=5.0, color=DARK)
     draw_round_segment(p1, p2, width_units=1.8, color=PASTEL_GREEN)

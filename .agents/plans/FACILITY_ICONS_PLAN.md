@@ -5,8 +5,8 @@
 Add a dedicated physical site, building, data center, telecom carrier, and facility infrastructure icon suite under `drawlib.icons.facility` (`FacilityIcon`) for official operator/manufacturer logos, and `drawlib.icons.original_facility` (`OriginalFacilityIcon`) combining vendor-neutral building/site/facility concept icons with 2D flat pastel counterparts of the official logos.
 
 - **Modules**:
-  - `drawlib.icons.facility` (`FacilityIcon`) — 40 official data center, IX, telecom carrier, and facility equipment brand logos (+ shorthand aliases).
-  - `drawlib.icons.original_facility` (`OriginalFacilityIcon`) — 36 vendor-neutral building, site, utility, cabling, and logistics concept icons + 40 2D flat pastel vendor counterparts (76 canonical icons total + shorthand aliases).
+  - `drawlib.icons.facility` (`FacilityIcon`) — 49 official data center, IX, telecom carrier, facility equipment, and semiconductor/electronics manufacturing brand logos (+ shorthand aliases).
+  - `drawlib.icons.original_facility` (`OriginalFacilityIcon`) — 37 vendor-neutral building, site, cleanroom, utility, cabling, and logistics concept icons + 49 2D flat pastel vendor counterparts (86 canonical icons total + shorthand aliases).
 - **Release Asset Packages**:
   - `icon_facility` (`tools/release_assets/v0.3/icons/facility/`)
   - `icon_original_facility` (`tools/release_assets/v0.3/icons/original_facility/`)
@@ -16,7 +16,7 @@ Add a dedicated physical site, building, data center, telecom carrier, and facil
 
 ---
 
-## 2. Canonical `facility` Icons (40 Official Operator, Carrier & Facility Hardware Logos)
+## 2. Canonical `facility` Icons (49 Official Operator, Carrier, Facility Hardware & Semiconductor Logos)
 
 | Category | # | Canonical Name | Operator / Brand | Shorthand Aliases / Overlap |
 | :--- | :- | :--- | :--- | :--- |
@@ -60,12 +60,21 @@ Add a dedicated physical site, building, data center, telecom carrier, and facil
 | | 38 | `corning` | Corning Optical Communications | — |
 | | 39 | `axis` | Axis Communications (Network Cameras) | `axis_camera` |
 | | 40 | `hid_global` | HID Global Physical Access Control | `hid` |
+| **5. Semiconductor, Foundry & Electronics Manufacturing** | 41 | `tsmc` | TSMC (Taiwan Semiconductor) | `taiwan_semiconductor` |
+| | 42 | `globalfoundries` | GlobalFoundries | `gf`, `global_foundries` |
+| | 43 | `rapidus` | Rapidus | `rapidus_corp` |
+| | 44 | `asml` | ASML Holding | `asml_holding` |
+| | 45 | `tokyo_electron` | Tokyo Electron (TEL) | `tel` |
+| | 46 | `applied_materials` | Applied Materials (AMAT) | `amat` |
+| | 47 | `foxconn` | Foxconn (Hon Hai) | `hon_hai` |
+| | 48 | `murata` | Murata Manufacturing (村田製作所) | `murata_mfg` |
+| | 49 | `kyocera` | Kyocera (京セラ) | `kyocera_corp` |
 
 ---
 
-## 3. Canonical `original_facility` Icons (36 Concept Icons + 40 Pastel Logos = 76 Icons)
+## 3. Canonical `original_facility` Icons (37 Concept Icons + 49 Pastel Logos = 86 Icons)
 
-### Part A: Vendor-Neutral Building, Site, Utility & Logistics Concept Icons (36 Icons)
+### Part A: Vendor-Neutral Building, Site, Utility & Logistics Concept Icons (37 Icons)
 
 | Category | # | Canonical Name | Shorthand Aliases | 2D Pastel Motif (`PASTEL_BLUE` / `PASTEL_GREEN` / `WHITE`) |
 | :--- | :- | :--- | :--- | :--- |
@@ -94,21 +103,22 @@ Add a dedicated physical site, building, data center, telecom carrier, and facil
 | | 23 | `home_office` | `remote_worker`, `wfh`, `house` | Residential house with pitched roof (`PASTEL_BLUE` / `WHITE`) + `PASTEL_GREEN` Wi-Fi / laptop |
 | | 24 | `public_building` | `government`, `bank`, `city_hall` | Classical columned building (`WHITE` pillars, `PASTEL_BLUE` pediment & stepped base) |
 | **5. Industrial, Commercial & Fire Safety** | 25 | `factory` | `plant`, `smart_factory`, `manufacturing` | Sawtooth industrial roof (`PASTEL_BLUE` / `WHITE`) + smokestack & `PASTEL_GREEN` automation gear |
-| | 26 | `warehouse` | `logistics_center`, `distribution_center` | Wide gable warehouse (`PASTEL_BLUE` roof, `WHITE` wall) + open bay with `PASTEL_GREEN` boxes |
-| | 27 | `retail_store` | `shop`, `storefront`, `pos_store` | Storefront (`WHITE`) with striped `PASTEL_BLUE` / `PASTEL_GREEN` awning & display window |
-| | 28 | `hospital` | `medical_center`, `clinic` | Multi-story medical building (`WHITE` / `PASTEL_BLUE`) + top `PASTEL_GREEN` medical cross badge |
-| | 29 | `school` | `university`, `education_site` | Classic campus building (`WHITE` / `PASTEL_BLUE`) with pediment & `PASTEL_GREEN` clock / cap |
-| | 30 | `fire_suppression` | `gas_suppression`, `sprinkler`, `fire_safety` | Clean-agent gas cylinder / nozzle (`PASTEL_BLUE` / `WHITE`) + `PASTEL_GREEN` suppression spray shield |
-| **6. Transport & Physical Security** | 31 | `cargo_truck` | `truck`, `freight_truck`, `delivery_truck` | Heavy box / freight truck (`WHITE` cargo box, `PASTEL_BLUE` cab) + `PASTEL_GREEN` logistics stripe |
-| | 32 | `service_van` | `field_vehicle`, `maintenance_van`, `mobile_site` | Field maintenance van (`PASTEL_BLUE` / `WHITE`) with roof rack / `PASTEL_GREEN` dish |
-| | 33 | `cargo_ship` | `container_ship`, `maritime_freight`, `vessel` | Ocean container vessel (`PASTEL_BLUE` hull, `WHITE` bridge) carrying `PASTEL_GREEN` / `WHITE` containers |
-| | 34 | `cargo_plane` | `air_freight`, `freight_aircraft` | Wide-body cargo aircraft (`WHITE` fuselage, `PASTEL_BLUE` wings/tail) + `PASTEL_GREEN` cargo door |
-| | 35 | `security_gate` | `turnstile`, `access_gate`, `badge_gate` | Entry gate pillars (`PASTEL_BLUE` / `WHITE`) + `PASTEL_GREEN` swing barrier & badge sensor |
-| | 36 | `surveillance_camera` | `cctv`, `security_camera`, `ip_camera` | Wall-mounted bullet/dome camera (`WHITE` / `PASTEL_BLUE`) with `PASTEL_GREEN` lens ring |
+| | 26 | `semiconductor_fab` | `chip_fab`, `cleanroom`, `wafer_fab` | Cleanroom building (`WHITE` / `PASTEL_BLUE`) + rooftop HEPA filter bank & `PASTEL_GREEN` silicon wafer grid |
+| | 27 | `warehouse` | `logistics_center`, `distribution_center` | Wide gable warehouse (`PASTEL_BLUE` roof, `WHITE` wall) + open bay with `PASTEL_GREEN` boxes |
+| | 28 | `retail_store` | `shop`, `storefront`, `pos_store` | Storefront (`WHITE`) with striped `PASTEL_BLUE` / `PASTEL_GREEN` awning & display window |
+| | 29 | `hospital` | `medical_center`, `clinic` | Multi-story medical building (`WHITE` / `PASTEL_BLUE`) + top `PASTEL_GREEN` medical cross badge |
+| | 30 | `school` | `university`, `education_site` | Classic campus building (`WHITE` / `PASTEL_BLUE`) with pediment & `PASTEL_GREEN` clock / cap |
+| | 31 | `fire_suppression` | `gas_suppression`, `sprinkler`, `fire_safety` | Clean-agent gas cylinder / nozzle (`PASTEL_BLUE` / `WHITE`) + `PASTEL_GREEN` suppression spray shield |
+| **6. Transport & Physical Security** | 32 | `cargo_truck` | `truck`, `freight_truck`, `delivery_truck` | Heavy box / freight truck (`WHITE` cargo box, `PASTEL_BLUE` cab) + `PASTEL_GREEN` logistics stripe |
+| | 33 | `service_van` | `field_vehicle`, `maintenance_van`, `mobile_site` | Field maintenance van (`PASTEL_BLUE` / `WHITE`) with roof rack / `PASTEL_GREEN` dish |
+| | 34 | `cargo_ship` | `container_ship`, `maritime_freight`, `vessel` | Ocean container vessel (`PASTEL_BLUE` hull, `WHITE` bridge) carrying `PASTEL_GREEN` / `WHITE` containers |
+| | 35 | `cargo_plane` | `air_freight`, `freight_aircraft` | Wide-body cargo aircraft (`WHITE` fuselage, `PASTEL_BLUE` wings/tail) + `PASTEL_GREEN` cargo door |
+| | 36 | `security_gate` | `turnstile`, `access_gate`, `badge_gate` | Entry gate pillars (`PASTEL_BLUE` / `WHITE`) + `PASTEL_GREEN` swing barrier & badge sensor |
+| | 37 | `surveillance_camera` | `cctv`, `security_camera`, `ip_camera` | Wall-mounted bullet/dome camera (`WHITE` / `PASTEL_BLUE`) with `PASTEL_GREEN` lens ring |
 
-### Part B: 2D Flat Pastel Logos (40 Icons)
-- Every icon in `facility` (1–40) has a matching 2D flat pastel counterpart in `original_facility`.
-- **Mandatory Brand Color Rule**: Each `original_facility` vendor icon preserves its official brand color palette softened into Drawlib pastel tones with `DARK = "#323A48"` outlines (`w = 1.9`).
+### Part B: 2D Flat Pastel Logos (49 Icons)
+- Every icon in `facility` (1–49) has a matching 2D flat pastel counterpart in `original_facility`.
+- **Mandatory Brand Color Rule**: Each `original_facility` vendor icon preserves its official brand color palette softened into Drawlib pastel tones with `DARK = "#323A48"` outlines.
 
 ---
 

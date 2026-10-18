@@ -62,6 +62,6 @@ draw_round_segment((34.5, 45.5), (65.0, 45.5), width_units=2.0, color=DARK)
 draw_round_segment((34.5, 37.5), (53.0, 37.5), width_units=2.0, color=DARK)
 
 # Bottom chin page-turn bar
-draw_round_segment((43.0, 21.5), (57.0, 21.5), width_units=2.2, color=DARK)
+draw_round_segment((43.0, 21.5), (57.0, 21.5), width_units=2.0, color=DARK)
 
 save()

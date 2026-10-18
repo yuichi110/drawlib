@@ -55,7 +55,7 @@ draw_round_polyline(wave_pts, width_units=w, color=DARK)
 circle(
     (42.5, 73.0),
     radius=4.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

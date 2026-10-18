@@ -45,7 +45,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Key landmarks of the upward-left leaping dolphin
 p_snout = (9.5, 86.2)

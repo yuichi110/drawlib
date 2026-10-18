@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 50.0, 50.0
 scale = 0.96
 

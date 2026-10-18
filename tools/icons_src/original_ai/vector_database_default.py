@@ -70,11 +70,11 @@ circle(
 )
 
 origin = (59.5, 24.5)
-draw_round_segment(origin, (59.5, 43.5), width_units=2.2, color=DARK)
-draw_round_segment(origin, (78.5, 24.5), width_units=2.2, color=DARK)
+draw_round_segment(origin, (59.5, 43.5), width_units=2.0, color=DARK)
+draw_round_segment(origin, (78.5, 24.5), width_units=2.0, color=DARK)
 
 v_main = (74.5, 39.5)
-draw_round_segment(origin, v_main, width_units=2.4, color=DARK)
+draw_round_segment(origin, v_main, width_units=2.0, color=DARK)
 
 circle(
     origin,
@@ -84,7 +84,7 @@ circle(
 circle(
     v_main,
     radius=5.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

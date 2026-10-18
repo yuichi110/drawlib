@@ -26,9 +26,9 @@ class TestOriginalFacilityIcons:
     """Tests for `drawlib.icons.original_facility` and `OriginalFacilityIcon`."""
 
     def test_original_facility_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 76 canonical icons (36 concepts + 40 brands) and 107 aliases exist and render."""
+        """Verify all 86 canonical icons (37 concepts + 49 brands) and 120 aliases exist and render."""
         clear()
-        canonical_76 = [
+        canonical_86 = [
             "datacenter",
             "server_room",
             "colocation",
@@ -54,6 +54,7 @@ class TestOriginalFacilityIcons:
             "home_office",
             "public_building",
             "factory",
+            "semiconductor_fab",
             "warehouse",
             "retail_store",
             "hospital",
@@ -105,17 +106,26 @@ class TestOriginalFacilityIcons:
             "corning",
             "axis",
             "hid_global",
+            "tsmc",
+            "globalfoundries",
+            "rapidus",
+            "asml",
+            "tokyo_electron",
+            "applied_materials",
+            "foxconn",
+            "murata",
+            "kyocera",
         ]
-        assert len(canonical_76) == 76
-        for idx, name in enumerate(canonical_76):
+        assert len(canonical_86) == 86
+        for idx, name in enumerate(canonical_86):
             assert hasattr(original_facility, name), f"Missing canonical icon: {name}"
             assert hasattr(OriginalFacilityIcon, name.upper()), f"Missing enum: {name.upper()}"
             col = idx % 10
             row = idx // 10
             fn = getattr(original_facility, name)
-            fn(xy=(8 + col * 9.0, 90 - row * 11), width=6.5, style=Style(), variant="default")
+            fn(xy=(8 + col * 9.0, 92 - row * 10), width=6.5, style=Style(), variant="default")
 
-        assert len(ORIGINAL_FACILITY_ALIASES) == 107
+        assert len(ORIGINAL_FACILITY_ALIASES) == 120
         for alias in ORIGINAL_FACILITY_ALIASES:
             assert hasattr(original_facility, alias), f"Missing alias function: {alias}"
             assert hasattr(OriginalFacilityIcon, alias.upper()), f"Missing alias enum: {alias.upper()}"
@@ -135,6 +145,10 @@ class TestOriginalFacilityIcons:
         original_facility.dlr(xy=(90, 70), width=10, style=Style())
         original_facility.schneider(xy=(15, 45), width=10, style=Style())
         original_facility.cctv(xy=(30, 45), width=10, style=Style())
+        original_facility.cleanroom(xy=(45, 45), width=10, style=Style())
+        original_facility.taiwan_semiconductor(xy=(60, 45), width=10, style=Style())
+        original_facility.tel(xy=(75, 45), width=10, style=Style())
+        original_facility.amat(xy=(90, 45), width=10, style=Style())
 
         out = tmp_path / "test_original_facility_aliases.png"
         save(str(out))

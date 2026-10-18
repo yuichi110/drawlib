@@ -40,7 +40,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Upper Delta A-frame ribbon (Colors.Teal3) with hollow center and left wave hook
 p_top_l = (47.8, 86.2)

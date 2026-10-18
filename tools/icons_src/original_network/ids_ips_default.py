@@ -44,7 +44,7 @@ rectangle(
     (50.0, 50.0),
     width=66.0,
     height=40.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.1, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 3. Left status LEDs on the panel
@@ -85,7 +85,7 @@ right_pts = build_shield_half_points(cx, y_bot, y_top, half_w, side="right")
 full_outline = left_pts + list(reversed(right_pts[1:-1]))
 
 polygon(full_outline, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(full_outline, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(full_outline, width_units=2.0, color=DARK, closed=True)
 
 # 6. Almond eye symbol inside the central shield
 ey = 51.2

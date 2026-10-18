@@ -31,7 +31,7 @@ def _square_pts(cx: float, cy: float, half: float) -> list[tuple[float, float]]:
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_hole = 1.4
 
 # 1. Downward-pointing outer triangle

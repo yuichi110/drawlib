@@ -62,7 +62,7 @@ rectangle(
     style=fill_style(
         WHITE,
         border_color=DARK,
-        border_units=2.4,
+        border_units=2.0,
         shape_r=8.8,
         angle=45.0,
     ),

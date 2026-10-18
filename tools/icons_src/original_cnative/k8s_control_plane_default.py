@@ -38,7 +38,7 @@ for deg in angles_deg:
     draw_round_segment(
         (cx + ux * 17.5, cy + uy * 17.5),
         (cx + ux * 24.5, cy + uy * 24.5),
-        width_units=2.8,
+        width_units=2.0,
         color=DARK,
     )
 
@@ -46,14 +46,14 @@ for deg in angles_deg:
 circle(
     (cx, cy),
     radius=18.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Inner hollow cutout matching heptagon fill
 circle(
     (cx, cy),
     radius=11.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.1),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
 )
 
 # Inner wheel spokes radiating from hub to inner rim
@@ -63,7 +63,7 @@ for deg in angles_deg:
     draw_round_segment(
         (cx, cy),
         (cx + ux * 11.0, cy + uy * 11.0),
-        width_units=2.2,
+        width_units=2.0,
         color=DARK,
     )
 
@@ -71,7 +71,7 @@ for deg in angles_deg:
 circle(
     (cx, cy),
     radius=6.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

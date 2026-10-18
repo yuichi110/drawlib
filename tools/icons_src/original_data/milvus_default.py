@@ -44,7 +44,7 @@ def _build_left_teardrop(cx_right: float, cy: float, r_right: float, r_tip: floa
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Outer left-pointing teardrop body (Colors.Teal2) with transparent inner teardrop moat
 outer_pts = _build_left_teardrop(cx_right=47.5, cy=50.0, r_right=28.0, r_tip=2.6)

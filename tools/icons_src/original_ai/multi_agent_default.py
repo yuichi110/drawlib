@@ -32,7 +32,7 @@ draw_round_segment((58.0, 60.0), (69.0, 37.0), width_units=w, color=DARK)
 draw_round_segment((39.0, 28.0), (61.0, 28.0), width_units=w, color=DARK)
 
 # 2. Top orchestrator AI agent node
-draw_round_segment((50.0, 80.0), (50.0, 85.0), width_units=2.4, color=DARK)
+draw_round_segment((50.0, 80.0), (50.0, 85.0), width_units=2.0, color=DARK)
 circle(
     (50.0, 85.5),
     radius=2.2,
@@ -53,7 +53,7 @@ for ex in (44.0, 56.0):
 
 # 3. Bottom peer AI agent nodes
 for px in (26.0, 74.0):
-    draw_round_segment((px, 37.0), (px, 41.5), width_units=2.3, color=DARK)
+    draw_round_segment((px, 37.0), (px, 41.5), width_units=2.0, color=DARK)
     circle(
         (px, 42.0),
         radius=2.0,

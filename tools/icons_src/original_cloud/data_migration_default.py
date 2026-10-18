@@ -99,7 +99,7 @@ for y_arrow in (57.0, 38.0):
         shaft_half_h=3.2,
         head_half_h=6.6,
         fill_color=PASTEL_GREEN,
-        border_units=2.3,
+        border_units=2.0,
         border_color=DARK,
     )
 

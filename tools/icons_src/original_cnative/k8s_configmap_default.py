@@ -31,7 +31,7 @@ rectangle(
     (50.0, 48.0),
     width=44.0,
     height=38.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=6.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Three horizontal slider tracks with alternating pastel knobs
@@ -41,7 +41,7 @@ sliders = [
     (37.5, 54.0, PASTEL_GREEN),
 ]
 for y_pos, knob_x, knob_color in sliders:
-    draw_round_segment((34.5, y_pos), (65.5, y_pos), width_units=2.2, color=DARK)
+    draw_round_segment((34.5, y_pos), (65.5, y_pos), width_units=2.0, color=DARK)
     circle(
         (knob_x, y_pos),
         radius=3.5,

@@ -112,12 +112,12 @@ for bx, bh, bcol in bars:
         (bx, y_base + bh / 2.0),
         width=7.2,
         height=bh,
-        style=fill_style(bcol, border_color=DARK, border_units=2.2, shape_r=1.6),
+        style=fill_style(bcol, border_color=DARK, border_units=2.0, shape_r=1.6),
     )
 
 # 4. Rising trend line above the bars
 trend_pts = [(38.5, 51.0), (49.5, 57.5), (60.5, 64.0)]
-draw_round_polyline(trend_pts, width_units=2.4, color=DARK)
+draw_round_polyline(trend_pts, width_units=2.0, color=DARK)
 circle(
     trend_pts[-1],
     radius=3.2,

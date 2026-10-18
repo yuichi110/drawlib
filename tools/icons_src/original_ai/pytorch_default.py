@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 VERMILION = "#EE6A4E"
 cx, cy = 50.0, 43.2
 r_out = 32.5

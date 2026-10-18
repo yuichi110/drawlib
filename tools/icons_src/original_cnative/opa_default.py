@@ -26,7 +26,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 2.6
+w = 2.0
 
 
 def _bezier_quad(
@@ -75,7 +75,7 @@ rectangle(
     (50.0, 36.5),
     width=8.2,
     height=25.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=3.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.2),
 )
 
 # 4. PASTEL_GREEN horizontal brow band
@@ -83,14 +83,14 @@ rectangle(
     (50.0, 49.0),
     width=46.0,
     height=7.6,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=3.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 # 5. Central WHITE emblem rivet at brow intersection
 circle(
     (50.0, 49.0),
     radius=5.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 save()

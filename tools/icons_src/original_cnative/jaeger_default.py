@@ -28,7 +28,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 2.6
+w = 2.0
 
 # 1. Cute rounded ears peeking near the hat brim
 for ex in (26.5, 73.5):
@@ -52,7 +52,7 @@ feather_pts = [
     (68.0, 68.0),
 ]
 polygon(feather_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(feather_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(feather_pts, width_units=2.0, color=DARK, closed=True)
 
 # 3. Explorer hat crown (PASTEL_GREEN) + WHITE hat band
 crown_pts: list[tuple[float, float]] = [(29.0, 65.0)]
@@ -74,8 +74,8 @@ band_pts = [
     (30.57, 72.4),
 ]
 polygon(band_pts, style=no_border_fill(WHITE))
-draw_round_segment((30.57, 72.4), (69.43, 72.4), width_units=2.2, color=DARK)
-draw_round_segment((29.13, 67.2), (70.87, 67.2), width_units=2.2, color=DARK)
+draw_round_segment((30.57, 72.4), (69.43, 72.4), width_units=2.0, color=DARK)
+draw_round_segment((29.13, 67.2), (70.87, 67.2), width_units=2.0, color=DARK)
 draw_round_polyline(crown_pts, width_units=w, color=DARK, closed=True)
 
 # 4. Gopher rounded body (PASTEL_BLUE)
@@ -99,7 +99,7 @@ for ex, px in ((38.5, 40.0), (61.5, 59.5)):
     circle(
         (ex, 46.5),
         radius=9.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
     circle(
         (px, 45.5),
@@ -126,7 +126,7 @@ ellipse(
     (50.0, 31.0),
     width=23.0,
     height=10.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 ellipse(
     (50.0, 34.0),

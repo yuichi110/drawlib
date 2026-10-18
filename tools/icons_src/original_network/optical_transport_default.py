@@ -40,7 +40,7 @@ rectangle(
     (65.0, 50.0),
     width=28.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 3 parallel horizontal wavelength arrows emerging from prism right edge
@@ -57,6 +57,6 @@ for x_start, y_pos in [(27.5, 60.0), (42.0, 50.0), (27.5, 40.0)]:
 # Left optical prism triangle (drawn over arrow roots for a clean edge)
 prism_pts = [(20.0, 34.0), (20.0, 66.0), (44.0, 50.0)]
 polygon(prism_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(prism_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(prism_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

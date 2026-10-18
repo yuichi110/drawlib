@@ -41,7 +41,7 @@ full_outline = left_pts + list(reversed(right_pts[1:-1]))
 
 polygon(left_pts, style=no_border_fill(PASTEL_BLUE))
 polygon(right_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_segment((cx, y_bottom), (cx, y_top), width_units=2.2, color=DARK)
+draw_round_segment((cx, y_bottom), (cx, y_top), width_units=2.0, color=DARK)
 draw_round_polyline(full_outline, width_units=w, color=DARK, closed=True)
 
 # Overlapping magnifying glass on bottom-right
@@ -54,7 +54,7 @@ circle(
 circle(
     (66.0, 38.0),
     radius=10.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

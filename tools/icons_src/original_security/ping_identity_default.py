@@ -26,7 +26,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outer = 1.9
+w_outer = 2.0
 w_letter = 1.1
 s = 40.0 / 41.0
 badge_r = 7.5

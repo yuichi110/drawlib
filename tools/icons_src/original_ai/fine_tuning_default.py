@@ -48,12 +48,12 @@ for sy, kx, kcol in sliders:
     circle(
         (kx, sy),
         radius=6.2,
-        style=fill_style(kcol, border_color=DARK, border_units=2.4),
+        style=fill_style(kcol, border_color=DARK, border_units=2.0),
     )
 
 # 3. Top-right AI sparkle accent
 sparkle_pts = build_sparkle_4pt_polygon(76.0, 76.0, outer_r=11.5, inner_r=4.0)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(sparkle_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

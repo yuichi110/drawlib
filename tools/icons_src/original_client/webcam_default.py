@@ -39,7 +39,7 @@ rectangle(
     (50.0, 26.0),
     width=24.0,
     height=12.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 # 3. Circular webcam body (WHITE)

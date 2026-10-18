@@ -45,12 +45,12 @@ ellipse(
     (gx, gy),
     width=32.0,
     height=64.0,
-    style=stroke_style(DARK, width_units=2.2),
+    style=stroke_style(DARK, width_units=2.0),
 )
-draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.2, color=DARK)
-draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.2, color=DARK)
-draw_round_segment((gx - 28.7, 68.0), (gx + 28.7, 68.0), width_units=2.2, color=DARK)
-draw_round_segment((gx - 28.7, 40.0), (gx + 28.7, 40.0), width_units=2.2, color=DARK)
+draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.0, color=DARK)
+draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.0, color=DARK)
+draw_round_segment((gx - 28.7, 68.0), (gx + 28.7, 68.0), width_units=2.0, color=DARK)
+draw_round_segment((gx - 28.7, 40.0), (gx + 28.7, 40.0), width_units=2.0, color=DARK)
 
 # Clean outer globe ring over line endpoints
 circle(
@@ -79,7 +79,7 @@ circle(
 )
 draw_round_polyline(
     [(64.3, 35.8), (67.1, 33.0), (72.0, 39.2)],
-    width_units=2.4,
+    width_units=2.0,
     color=DARK,
 )
 

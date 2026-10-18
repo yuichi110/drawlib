@@ -70,9 +70,9 @@ for x_dot, col in ((22.0, PASTEL_GREEN), (30.5, WHITE)):
 circle(
     (32.0, 42.5),
     radius=12.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
-draw_round_segment((32.0, 42.5), (39.5, 50.0), width_units=2.4, color=DARK)
+draw_round_segment((32.0, 42.5), (39.5, 50.0), width_units=2.0, color=DARK)
 circle(
     (32.0, 42.5),
     radius=3.0,
@@ -90,7 +90,7 @@ for bx, bh, bcol in bars:
         (bx, 30.0 + bh / 2.0),
         width=6.5,
         height=bh,
-        style=fill_style(bcol, border_color=DARK, border_units=2.2, shape_r=1.5),
+        style=fill_style(bcol, border_color=DARK, border_units=2.0, shape_r=1.5),
     )
 
 save()

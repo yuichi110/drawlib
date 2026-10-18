@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.8
+w = 2.0
 
 tri_yellow = [(24.64, 42.47), (50.0, 81.97), (91.0, 18.03), (63.09, 18.03), (47.45, 42.47)]
 tri_slate = [(47.45, 42.47), (43.28, 42.47), (59.03, 18.03), (63.09, 18.03)]

@@ -38,7 +38,7 @@ rectangle(
     (31.0, 50.0),
     width=6.0,
     height=15.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 # Active right toggle knob

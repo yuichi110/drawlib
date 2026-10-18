@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Green3 rounded square badge with DARK w=1.9 border
 rectangle(

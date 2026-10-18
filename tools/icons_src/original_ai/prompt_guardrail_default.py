@@ -35,8 +35,8 @@ rectangle(
     style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=8.0),
 )
 
-draw_round_segment((26.0, 64.0), (56.0, 64.0), width_units=2.5, color=DARK)
-draw_round_segment((26.0, 52.0), (56.0, 52.0), width_units=2.5, color=DARK)
+draw_round_segment((26.0, 64.0), (56.0, 64.0), width_units=2.0, color=DARK)
+draw_round_segment((26.0, 52.0), (56.0, 52.0), width_units=2.0, color=DARK)
 
 cx = 66.0
 y_bot, y_top = 16.0, 64.0

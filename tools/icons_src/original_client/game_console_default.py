@@ -35,7 +35,7 @@ for bx in (31.0, 69.0):
         (bx, 68.5),
         width=15.0,
         height=6.5,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=3.0),
+        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=3.0),
     )
 
 # Smooth ergonomic gamepad contour

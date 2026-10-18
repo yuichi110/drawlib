@@ -22,7 +22,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_sq = 1.2
+w_sq = 2.0
 s = 0.97
 
 

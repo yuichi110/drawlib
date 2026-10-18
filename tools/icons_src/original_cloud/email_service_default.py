@@ -41,8 +41,8 @@ rectangle(
 )
 
 # Bottom diagonal fold lines
-draw_round_segment((16.5, 25.5), (38.0, 50.0), width_units=2.3, color=DARK)
-draw_round_segment((83.5, 25.5), (62.0, 50.0), width_units=2.3, color=DARK)
+draw_round_segment((16.5, 25.5), (38.0, 50.0), width_units=2.0, color=DARK)
+draw_round_segment((83.5, 25.5), (62.0, 50.0), width_units=2.0, color=DARK)
 
 # Top V-flap matching the rounded top corners of the envelope
 flap_pts: list[tuple[float, float]] = []
@@ -67,7 +67,7 @@ circle(
 )
 draw_round_polyline(
     [(70.5, 28.0), (74.5, 24.0), (82.0, 32.0)],
-    width_units=2.8,
+    width_units=2.0,
     color=DARK,
 )
 

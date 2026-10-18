@@ -19,12 +19,12 @@ setup_icon()
 
 TEAL = "#62A492"
 SLATE = "#4A5568"
-w_outer = 1.8
+w_outer = 2.0
 w_inner = 1.1
 # Split 1.0-unit DARK outline into 0.7 outside (w_text_halo=1.4) + 0.3 inside (w_text_in=0.6)
 w_text_halo = 1.4
 w_text_in = 0.6
-w_dot = 0.55
+w_dot = 2.0
 
 outer_badge = [(9.0, 61.6), (91.0, 61.6), (91.0, 38.4), (9.0, 38.4)]
 right_white_rect = [(32.7, 60.89), (90.27, 60.89), (90.27, 38.98), (32.7, 38.98)]

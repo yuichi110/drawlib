@@ -48,7 +48,7 @@ def _arc_pts(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_glyph = 1.6
 
 # 1. Circular badge in Colors.Gray6

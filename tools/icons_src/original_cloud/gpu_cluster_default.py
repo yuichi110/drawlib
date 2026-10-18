@@ -33,24 +33,24 @@ p_bl = (27.0, 28.0)
 p_br = (73.0, 28.0)
 p_hub = (50.0, 46.5)
 
-draw_round_polyline([p_top, p_bl, p_br], width_units=2.5, color=DARK, closed=True)
+draw_round_polyline([p_top, p_bl, p_br], width_units=2.0, color=DARK, closed=True)
 for pt_node in (p_top, p_bl, p_br):
-    draw_round_segment(p_hub, pt_node, width_units=2.4, color=DARK)
+    draw_round_segment(p_hub, pt_node, width_units=2.0, color=DARK)
 
 # Outer IC pins on the 3 GPU modules
 for dy_pin in (-5.5, 5.5):
     # Top module left & right pins
-    draw_round_segment((31.0, p_top[1] + dy_pin), (36.0, p_top[1] + dy_pin), width_units=2.2, color=DARK)
-    draw_round_segment((64.0, p_top[1] + dy_pin), (69.0, p_top[1] + dy_pin), width_units=2.2, color=DARK)
+    draw_round_segment((31.0, p_top[1] + dy_pin), (36.0, p_top[1] + dy_pin), width_units=2.0, color=DARK)
+    draw_round_segment((64.0, p_top[1] + dy_pin), (69.0, p_top[1] + dy_pin), width_units=2.0, color=DARK)
     # Bottom-left module outer left pins
-    draw_round_segment((8.0 + 3.0, p_bl[1] + dy_pin), (14.0, p_bl[1] + dy_pin), width_units=2.2, color=DARK)
+    draw_round_segment((8.0 + 3.0, p_bl[1] + dy_pin), (14.0, p_bl[1] + dy_pin), width_units=2.0, color=DARK)
     # Bottom-right module outer right pins
-    draw_round_segment((86.0, p_br[1] + dy_pin), (89.0, p_br[1] + dy_pin), width_units=2.2, color=DARK)
+    draw_round_segment((86.0, p_br[1] + dy_pin), (89.0, p_br[1] + dy_pin), width_units=2.0, color=DARK)
 
 # Central NVSwitch / high-speed link hub
 polygon(
     [(50.0, 53.5), (57.0, 46.5), (50.0, 39.5), (43.0, 46.5)],
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=2.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.0),
 )
 circle((50.0, 46.5), radius=2.1, style=fill_style(WHITE, border_color=DARK, border_units=1.6))
 

@@ -19,7 +19,7 @@ from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, setu
 # fmt: off
 setup_icon()
 
-w = 1.8
+w = 2.0
 
 
 def _arc(xc: float, yc: float, r: float, deg0: float, deg1: float, steps: int = 24) -> list[tuple[float, float]]:

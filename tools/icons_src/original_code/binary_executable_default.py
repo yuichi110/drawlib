@@ -23,8 +23,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-b = 1.8
-w_line = 2.7
+b = 2.0
+w_line = 2.0
 
 # 3 short DARK pins on each of the 4 sides
 for p in (34.0, 50.0, 66.0):

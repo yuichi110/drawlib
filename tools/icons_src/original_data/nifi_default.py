@@ -52,7 +52,7 @@ def _arc_points(cx: float, cy: float, r: float, deg1: float, deg2: float, steps:
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 cx, cy = 49.0, 39.5
 r_drop = 28.5

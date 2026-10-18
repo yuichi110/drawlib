@@ -59,7 +59,7 @@ rectangle(
     (41.5, 55.5),
     width=29.0,
     height=20.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 draw_round_segment((31.5, 58.5), (49.5, 58.5), width_units=1.8, color=DARK)
 draw_round_segment((31.5, 52.5), (43.5, 52.5), width_units=1.8, color=DARK)

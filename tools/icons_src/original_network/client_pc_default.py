@@ -31,7 +31,7 @@ rectangle(
     (50.0, 31.0),
     width=12.0,
     height=10.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0),
 )
 
 # Monitor bezel

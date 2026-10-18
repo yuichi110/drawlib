@@ -72,7 +72,7 @@ for r_idx, ry in enumerate(row_ys):
             (cx, ry),
             width=16.5,
             height=7.5,
-            style=fill_style(cell_col, border_color=DARK, border_units=2.1, shape_r=2.0),
+            style=fill_style(cell_col, border_color=DARK, border_units=2.0, shape_r=2.0),
         )
 
 save()

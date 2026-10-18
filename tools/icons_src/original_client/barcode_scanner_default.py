@@ -32,7 +32,7 @@ rectangle(
     (42.5, 48.0),
     width=10.0,
     height=9.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=2.5),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.5),
 )
 
 # 2. Angled pistol grip handle (PASTEL_BLUE)
@@ -59,12 +59,12 @@ beam_pts = [
 ]
 polygon(
     beam_pts,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=1.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=1.5),
 )
 
 # Vertical scan / barcode bars inside right side of beam
 draw_round_segment((80.0, 58.5), (80.0, 69.5), width_units=1.8, color=DARK)
-draw_round_segment((84.0, 55.5), (84.0, 72.5), width_units=2.2, color=DARK)
+draw_round_segment((84.0, 55.5), (84.0, 72.5), width_units=2.0, color=DARK)
 
 # 4. Scanner head housing (PASTEL_BLUE)
 head_pts = [
@@ -88,7 +88,7 @@ window_pts = [
 ]
 polygon(
     window_pts,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=1.8),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=1.8),
 )
 
 # Side detail line on scanner head

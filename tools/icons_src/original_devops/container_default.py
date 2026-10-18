@@ -46,12 +46,12 @@ for t in (0.35, 0.67):
     x = (1.0 - t) * v_tl[0] + t * v_center[0]
     y_top = (1.0 - t) * v_tl[1] + t * v_center[1] - 8.0
     y_bot = (1.0 - t) * v_bl[1] + t * v_bottom[1] + 8.0
-    draw_round_segment((x, y_bot), (x, y_top), width_units=2.4, color=DARK)
+    draw_round_segment((x, y_bot), (x, y_top), width_units=2.0, color=DARK)
 
 for t in (0.33, 0.65):
     x = (1.0 - t) * v_center[0] + t * v_tr[0]
     y_top = (1.0 - t) * v_center[1] + t * v_tr[1] - 8.0
     y_bot = (1.0 - t) * v_bottom[1] + t * v_br[1] + 8.0
-    draw_round_segment((x, y_bot), (x, y_top), width_units=2.4, color=DARK)
+    draw_round_segment((x, y_bot), (x, y_top), width_units=2.0, color=DARK)
 
 save()

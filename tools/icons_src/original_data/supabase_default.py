@@ -20,7 +20,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Upper-left lightning bolt half (Colors.Green3)
 upper_left_bolt = [

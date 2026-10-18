@@ -58,6 +58,6 @@ play_pts = [
     (61.5, 56.0),
 ]
 polygon(play_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(play_pts, width_units=2.2, color=DARK, corner_r=1.8, closed=True)
+draw_round_polyline(play_pts, width_units=2.0, color=DARK, corner_r=1.8, closed=True)
 
 save()

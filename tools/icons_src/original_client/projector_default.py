@@ -36,7 +36,7 @@ beam_pts = [
     (66.0, 41.0),
 ]
 polygon(beam_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(beam_pts, width_units=2.2, color=DARK, corner_r=2.0, closed=True)
+draw_round_polyline(beam_pts, width_units=2.0, color=DARK, corner_r=2.0, closed=True)
 
 # Protruding PASTEL_BLUE lens barrel
 rectangle(
@@ -52,7 +52,7 @@ for fx in (23.0, 49.0):
         (fx, 30.0),
         width=9.0,
         height=6.5,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=2.0),
+        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.0),
     )
 
 # Main WHITE projector chassis

@@ -47,7 +47,7 @@ shackle_pts.append((cx - r_inner, y_base))
 
 polygon(
     shackle_pts,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Rounded pastel green padlock body
@@ -55,15 +55,15 @@ rectangle(
     (50.0, 39.0),
     width=34.0,
     height=24.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=4.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.5),
 )
 
 # White keyhole circle and dark vertical slot
 circle(
     (50.0, 41.5),
     radius=4.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.1),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
-draw_round_segment((50.0, 37.3), (50.0, 33.0), width_units=2.3, color=DARK)
+draw_round_segment((50.0, 37.3), (50.0, 33.0), width_units=2.0, color=DARK)
 
 save()

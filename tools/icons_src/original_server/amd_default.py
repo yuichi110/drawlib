@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.6
+w = 2.0
 
 top_right_chevron: list[tuple[float, float]] = [(32.93, 67.73), (11.71, 88.95), (88.95, 88.95), (88.95, 11.71), (67.73, 32.91), (67.73, 67.73)]
 bottom_left_arrow: list[tuple[float, float]] = [(32.9, 63.48), (11.05, 41.63), (11.05, 11.05), (41.63, 11.05), (63.48, 32.9), (32.9, 32.9)]

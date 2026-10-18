@@ -39,7 +39,7 @@ rectangle(
 circle(
     (42.0, 42.0),
     radius=12.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
 )
 circle(
     (56.0, 28.0),
@@ -52,7 +52,7 @@ tx, ty = 64.0, 62.0
 circle(
     (tx, ty),
     radius=4.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 for r_arc in (13.0, 22.0):

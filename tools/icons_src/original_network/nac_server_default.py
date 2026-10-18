@@ -44,7 +44,7 @@ rectangle(
     (44.0, 58.0),
     width=40.0,
     height=42.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 3. User avatar inside badge panel (head + shoulder dome)
@@ -65,7 +65,7 @@ polygon(dome_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
 draw_round_polyline(dome_pts, width_units=2.0, color=DARK, closed=True)
 
 # 4. Lower server slot line
-draw_round_segment((28.0, 24.0), (52.0, 24.0), width_units=2.4, color=DARK)
+draw_round_segment((28.0, 24.0), (52.0, 24.0), width_units=2.0, color=DARK)
 
 # 5. Foreground bottom-right verification badge circle
 circle(

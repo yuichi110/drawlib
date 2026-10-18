@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outline = 1.5
+w_outline = 2.0
 s = 40.0 / 41.0
 
 CUP_BLUE = "#6B9EE8"

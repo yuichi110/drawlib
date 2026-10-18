@@ -27,7 +27,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # 1. Wide WHITE editor window body (width=78, height=64, shape_r=6.0 at (50, 50))
 # x=11..89, y=18..82

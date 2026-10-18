@@ -26,7 +26,7 @@ setup_icon()
 
 BADGE_SLATE = "#4A5568"
 CAT_YELLOW = "#FDD663"
-w = 1.6
+w = 2.0
 w_hole = 1.2
 
 badge: list[tuple[float, float]] = [(9.0, 91.0), (91.0, 91.0), (91.0, 9.0), (9.0, 9.0)]

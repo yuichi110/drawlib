@@ -59,7 +59,7 @@ k_pts = [
     (41.5, 29.0),
 ]
 polygon(k_pts, style=no_border_fill(WHITE))
-draw_round_polyline(k_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(k_pts, width_units=2.0, color=DARK, closed=True)
 
 # 3. Right PASTEL_GREEN arrow-wing accent nested in the K opening
 wing_pts = [
@@ -69,6 +69,6 @@ wing_pts = [
     (69.5, 40.5),
 ]
 polygon(wing_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(wing_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(wing_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

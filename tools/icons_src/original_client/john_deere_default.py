@@ -25,7 +25,7 @@ setup_icon()
 
 PASTEL_GREEN = "#81C995"
 PASTEL_YELLOW = "#FDD663"
-w_crest = 1.4
+w_crest = 2.0
 w_deer = 1.2
 w_letter = 1.1
 

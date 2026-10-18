@@ -47,7 +47,7 @@ rectangle(
     (61.0, 63.5),
     width=36.0,
     height=18.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=3.5),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=3.5),
 )
 
 # Lower 3x3 keypad dots

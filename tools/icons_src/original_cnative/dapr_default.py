@@ -46,7 +46,7 @@ rectangle(
     (50.0, 42.5),
     width=52.0,
     height=10.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # Wide curved hat brim at bottom

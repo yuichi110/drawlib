@@ -26,7 +26,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 50.0, 50.0
 
 
@@ -49,7 +49,7 @@ def _draw_a_glyph(gx: float, gy: float) -> None:
     draw_round_segment(
         (gx - 4.3, gy - 2.0),
         (gx + 4.3, gy - 2.0),
-        width_units=2.6,
+        width_units=2.0,
         color=WHITE,
     )
 

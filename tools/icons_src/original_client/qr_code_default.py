@@ -39,7 +39,7 @@ def _draw_finder(cx: float, cy: float, color: str) -> None:
         (cx, cy),
         width=21.0,
         height=21.0,
-        style=fill_style(color, border_color=DARK, border_units=2.2, shape_r=3.5),
+        style=fill_style(color, border_color=DARK, border_units=2.0, shape_r=3.5),
     )
     rectangle(
         (cx, cy),

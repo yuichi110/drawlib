@@ -62,19 +62,19 @@ for ang_start, ang_end, fill_col in slices:
         for i in range(steps, -1, -1)
     ]
     polygon([*outer_arc, *inner_arc], style=no_border_fill(fill_col))
-    draw_round_segment(inner_arc[-1], outer_arc[0], width_units=2.2, color=DARK)
-    draw_round_segment(inner_arc[0], outer_arc[-1], width_units=2.2, color=DARK)
+    draw_round_segment(inner_arc[-1], outer_arc[0], width_units=2.0, color=DARK)
+    draw_round_segment(inner_arc[0], outer_arc[-1], width_units=2.0, color=DARK)
 
 # Crisp continuous outer and inner perimeter strokes around the 3 donut slices
 circle(
     (cx, cy),
     radius=r_out,
-    style=stroke_style(DARK, width_units=2.2),
+    style=stroke_style(DARK, width_units=2.0),
 )
 circle(
     (cx, cy),
     radius=r_in,
-    style=stroke_style(DARK, width_units=2.2),
+    style=stroke_style(DARK, width_units=2.0),
 )
 
 save()

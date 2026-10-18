@@ -25,7 +25,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_pig = 1.8
 w_tail = 2.2
 

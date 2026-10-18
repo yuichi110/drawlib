@@ -51,7 +51,7 @@ for cx, cy, col in cores:
         (cx, cy),
         width=16.0,
         height=16.0,
-        style=fill_style(col, border_color=DARK, border_units=2.3, shape_r=3.0),
+        style=fill_style(col, border_color=DARK, border_units=2.0, shape_r=3.0),
     )
 
 save()

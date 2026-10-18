@@ -61,7 +61,7 @@ rectangle(
     (50.0, 22.0),
     width=14.0,
     height=24.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.5, shape_r=6.5),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=6.5),
 )
 
 # Build smooth popsicle body contour (x=28..72, y=30..88)
@@ -96,8 +96,8 @@ polygon(mid_stripe, style=no_border_fill(PASTEL_BLUE))
 polygon(bot_stripe, style=no_border_fill(PASTEL_GREEN))
 
 # Diagonal stripe dividers
-draw_round_segment((28.0, 48.0), (63.43, 83.43), width_units=2.3, color=DARK)
-draw_round_segment((36.52, 30.52), (72.0, 66.0), width_units=2.3, color=DARK)
+draw_round_segment((28.0, 48.0), (63.43, 83.43), width_units=2.0, color=DARK)
+draw_round_segment((36.52, 30.52), (72.0, 66.0), width_units=2.0, color=DARK)
 
 # Outer popsicle border
 draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)

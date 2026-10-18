@@ -42,14 +42,14 @@ ellipse(
     (gx, gy),
     width=28.0,
     height=gr * 2.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Vertical axis and latitude lines
-draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.2, color=DARK)
-draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.3, color=DARK)
-draw_round_segment((gx - 25.0, gy + 14.0), (gx + 25.0, gy + 14.0), width_units=2.2, color=DARK)
-draw_round_segment((gx - 25.0, gy - 14.0), (gx + 25.0, gy - 14.0), width_units=2.2, color=DARK)
+draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.0, color=DARK)
+draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.0, color=DARK)
+draw_round_segment((gx - 25.0, gy + 14.0), (gx + 25.0, gy + 14.0), width_units=2.0, color=DARK)
+draw_round_segment((gx - 25.0, gy - 14.0), (gx + 25.0, gy - 14.0), width_units=2.0, color=DARK)
 
 # Clean outer globe ring
 circle(

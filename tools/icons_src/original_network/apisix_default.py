@@ -16,7 +16,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_crease = 1.8
 
 v_bl_out = (9.00, 15.54)

@@ -86,7 +86,7 @@ for lx in (35.5, 64.5):
     circle(
         (lx, 49.5),
         radius=11.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
     circle(
         (lx, 49.5),

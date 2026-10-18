@@ -72,14 +72,14 @@ rectangle(
 )
 
 # Internal many-to-one translation funnel lines and core node
-draw_round_segment((38.0, 59.0), (50.0, 50.0), width_units=2.2, color=DARK)
-draw_round_segment((38.0, 50.0), (62.0, 50.0), width_units=2.2, color=DARK)
-draw_round_segment((38.0, 41.0), (50.0, 50.0), width_units=2.2, color=DARK)
+draw_round_segment((38.0, 59.0), (50.0, 50.0), width_units=2.0, color=DARK)
+draw_round_segment((38.0, 50.0), (62.0, 50.0), width_units=2.0, color=DARK)
+draw_round_segment((38.0, 41.0), (50.0, 50.0), width_units=2.0, color=DARK)
 
 circle(
     (50.0, 50.0),
     radius=6.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

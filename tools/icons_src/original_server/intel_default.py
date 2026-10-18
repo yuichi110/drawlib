@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.5
+w = 2.0
 
 i_dot: list[tuple[float, float]] = [(12.3, 65.46), (18.24, 65.46), (18.24, 59.53), (12.3, 59.53)]
 

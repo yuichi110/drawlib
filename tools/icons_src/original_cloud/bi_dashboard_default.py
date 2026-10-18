@@ -42,13 +42,13 @@ for bx, bh, bcol in bars:
         (bx, 26.0 + bh / 2.0),
         width=11.0,
         height=bh,
-        style=fill_style(bcol, border_color=DARK, border_units=2.2, shape_r=2.0),
+        style=fill_style(bcol, border_color=DARK, border_units=2.0, shape_r=2.0),
     )
 
 circle(
     (33.0, 64.0),
     radius=8.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

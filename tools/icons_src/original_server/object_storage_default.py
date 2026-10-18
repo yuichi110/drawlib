@@ -60,7 +60,7 @@ for y_bot in tier_bottoms:
     draw_round_segment(
         (32.0, y_line),
         (43.5, y_line),
-        width_units=2.1,
+        width_units=2.0,
         color=DARK,
     )
 

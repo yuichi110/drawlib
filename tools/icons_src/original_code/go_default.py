@@ -26,7 +26,7 @@ setup_icon()
 CYAN = "#88DDF2"
 BEIGE = "#F7D9B4"
 
-w_body = 1.7
+w_body = 2.0
 w_part = 1.5
 w_small = 1.3
 w_crease = 1.1

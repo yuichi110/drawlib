@@ -20,7 +20,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 SCALE = 0.95
 # Diagonal normal matching official SVG linearGradient (4.021, 2.02) -> (24.613, 19.277)
 SLOPE_X = 20.592 / 17.257

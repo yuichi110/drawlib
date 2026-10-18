@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 
 setup_icon()
 
-w = 1.5
+w = 2.0
 s = 1.01
 hg = 1.05
 hg_d = hg * math.sqrt(2.0)

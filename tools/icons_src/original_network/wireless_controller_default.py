@@ -33,7 +33,7 @@ setup_icon()
 w = ORIG_STROKE
 
 # Stem and diagonal control arrows connecting controller box to upper nodes
-draw_round_segment((50.0, 42.0), (50.0, 50.5), width_units=2.4, color=DARK)
+draw_round_segment((50.0, 42.0), (50.0, 50.5), width_units=2.0, color=DARK)
 draw_cisco_arrow(
     (34.0, 42.0),
     (25.5, 59.0),
@@ -80,7 +80,7 @@ tx_cx, tx_cy = 50.0, 56.0
 circle(
     (tx_cx, tx_cy),
     radius=5.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # 2 upward Wi-Fi arcs above central radio node

@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outer = 1.9
+w_outer = 2.0
 w_face = 1.3
 w_eye = 1.2
 

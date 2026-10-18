@@ -28,7 +28,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-b = 1.8
+b = 2.0
 
 # WHITE code panel
 rectangle(

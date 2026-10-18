@@ -129,7 +129,7 @@ for lcx in (29.0, 71.0):
         (lcx, 40.5),
         width=23.5,
         height=18.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.1, shape_r=4.0),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
     )
 
 # 4. Smart corner camera on outer left frame lug

@@ -42,7 +42,7 @@ circle(
 circle(
     (50.0, 54.0),
     radius=6.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 draw_round_segment((32.0, 24.0), (48.0, 44.0), width_units=w, color=DARK)

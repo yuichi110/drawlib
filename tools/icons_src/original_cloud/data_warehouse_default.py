@@ -42,7 +42,7 @@ for px, ph, pcol in pillars:
         (px, 23.0 + ph / 2.0),
         width=11.0,
         height=ph,
-        style=fill_style(pcol, border_color=DARK, border_units=2.2, shape_r=2.0),
+        style=fill_style(pcol, border_color=DARK, border_units=2.0, shape_r=2.0),
     )
 
 rectangle(

@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.6
+w = 2.0
 GRAY = "#848286"
 CRIMSON = "#E86682"
 

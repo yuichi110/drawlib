@@ -26,7 +26,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_dragon = 1.65
 
 cx, cy = 50.0, 50.0
@@ -44,7 +44,7 @@ circle((cx, cy), radius=r_badge, style=no_border_fill(Colors.Red3))
 
 # 2. WHITE dragon contours (upper coil, tail tip, main S-body) + DARK outlines
 for contour in dragon_contours:
-    draw_round_polyline(contour, width_units=2.1, color=DARK, closed=True)
+    draw_round_polyline(contour, width_units=2.0, color=DARK, closed=True)
 for contour in dragon_contours:
     polygon(contour, style=no_border_fill(WHITE))
     draw_round_polyline(contour, width_units=1.1, color=DARK, closed=True)

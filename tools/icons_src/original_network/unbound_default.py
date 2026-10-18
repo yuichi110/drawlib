@@ -18,7 +18,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.8
+w = 2.0
 
 # Lower V-base (visible lower contour + fold seam under the two upper arms)
 lower_base = [

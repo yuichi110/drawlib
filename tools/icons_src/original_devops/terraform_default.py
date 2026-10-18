@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 t30 = math.tan(math.radians(30.0))
 dx = 20.6

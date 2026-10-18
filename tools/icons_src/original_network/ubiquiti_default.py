@@ -25,9 +25,9 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_badge = 1.9
-w_main = 1.6
-w_sq = 1.3
+w_badge = 2.0
+w_main = 2.0
+w_sq = 2.0
 
 # 1. Pastel blue circular badge
 circle(

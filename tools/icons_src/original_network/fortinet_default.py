@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.8
+w = 2.0
 s = 0.96
 
 _RAW_BLOCKS: list[list[tuple[float, float]]] = [

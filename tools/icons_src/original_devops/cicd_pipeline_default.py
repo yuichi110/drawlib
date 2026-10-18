@@ -46,7 +46,7 @@ circle(
 
 polygon(
     [(45.0, 58.0), (45.0, 42.0), (59.0, 50.0)],
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2, shape_r=1.5),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=1.5),
 )
 
 save()

@@ -26,8 +26,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_line = 2.7
+w_shape = 2.0
+w_line = 2.0
 
 # 1. Isometric 3D parcel cube (PASTEL_BLUE top, WHITE left, PASTEL_BLUE_LIGHT right)
 v = draw_iso_cube(

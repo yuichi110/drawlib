@@ -42,12 +42,12 @@ rectangle(
     (50.0, 68.0),
     width=54.0,
     height=30.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # Crossing X-fabric lines with central hub dot
-draw_round_segment((30.0, 60.0), (70.0, 76.0), width_units=2.4, color=DARK)
-draw_round_segment((30.0, 76.0), (70.0, 60.0), width_units=2.4, color=DARK)
+draw_round_segment((30.0, 60.0), (70.0, 76.0), width_units=2.0, color=DARK)
+draw_round_segment((30.0, 76.0), (70.0, 60.0), width_units=2.0, color=DARK)
 
 for end_pt in [(30.0, 60.0), (70.0, 76.0), (30.0, 76.0), (70.0, 60.0)]:
     circle(end_pt, radius=2.2, style=fill_style(DARK))
@@ -63,7 +63,7 @@ rectangle(
     (50.0, 32.0),
     width=54.0,
     height=30.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 8 radial outward L3 arrows around center dot

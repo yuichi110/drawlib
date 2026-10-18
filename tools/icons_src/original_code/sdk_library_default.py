@@ -28,7 +28,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 
 def _arc_points(

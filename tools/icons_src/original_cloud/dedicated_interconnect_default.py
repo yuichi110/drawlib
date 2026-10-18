@@ -52,7 +52,7 @@ rectangle(
     style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=4.0),
 )
 for wy in (63.0, 54.0, 45.0, 36.0):
-    draw_round_segment((17.5, wy), (26.5, wy), width_units=2.2, color=DARK)
+    draw_round_segment((17.5, wy), (26.5, wy), width_units=2.0, color=DARK)
 
 # Right cloud / VPC block
 rectangle(
@@ -61,7 +61,7 @@ rectangle(
     height=50.0,
     style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.0),
 )
-draw_round_segment((78.0, 39.0), (78.0, 61.0), width_units=2.2, color=DARK)
+draw_round_segment((78.0, 39.0), (78.0, 61.0), width_units=2.0, color=DARK)
 for cy in (61.0, 39.0):
     circle(
         (78.0, cy),

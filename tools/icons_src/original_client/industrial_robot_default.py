@@ -60,7 +60,7 @@ claw_pts = [
     (65.0, 50.5),
 ]
 polygon(claw_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(claw_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(claw_pts, width_units=2.0, color=DARK, closed=True)
 
 # 2. Wrist link, upper forearm, and lower arm segments (PASTEL_BLUE / PASTEL_BLUE_LIGHT)
 _draw_arm_link(64.0, 72.0, 73.5, 56.5, half_w=3.6, color=PASTEL_BLUE_LIGHT)

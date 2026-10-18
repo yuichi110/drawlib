@@ -25,8 +25,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-b = 1.8
-w_line = 2.7
+b = 2.0
+w_line = 2.0
 
 # Horizontal WHITE text strip
 rectangle(

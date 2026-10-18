@@ -75,7 +75,7 @@ for cushion_x in (27.5, 72.5):
         (cushion_x, 42.0),
         width=9.5,
         height=24.0,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=4.2),
+        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=4.2),
     )
 
 # 5. Left and right outer earcup shells (PASTEL_BLUE)
@@ -92,7 +92,7 @@ rectangle(
     (52.5, 17.5),
     width=12.5,
     height=7.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=3.7),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.7),
 )
 
 save()

@@ -49,7 +49,7 @@ rectangle(
     (43.0, 56.0),
     width=50.0,
     height=34.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2, shape_r=3.5),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=3.5),
 )
 
 # Mini desktop window inside the VDI screen
@@ -104,6 +104,6 @@ for i, (cx, cy, r) in enumerate(bumps):
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
 polygon(cloud_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(cloud_pts, width_units=2.5, color=DARK, closed=True)
+draw_round_polyline(cloud_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

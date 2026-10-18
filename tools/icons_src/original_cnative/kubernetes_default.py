@@ -84,19 +84,19 @@ spoke_angles = [90.0 + i * (360.0 / 7.0) for i in range(7)]
 for ang in spoke_angles:
     polygon(
         _build_k8s_handle(ang),
-        style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
 
 # 3. Ship's wheel outer and inner circles (creating the WHITE wheel ring)
 circle(
     (cx, cy),
     radius=r_ring_outer,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 circle(
     (cx, cy),
     radius=r_ring_inner,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
 )
 
 # 4. 7 inner spokes flush with r=15.0 + re-stroke inner ring border
@@ -108,14 +108,14 @@ for ang in spoke_angles:
 circle(
     (cx, cy),
     radius=r_ring_inner,
-    style=stroke_style(DARK, width_units=2.2),
+    style=stroke_style(DARK, width_units=2.0),
 )
 
 # 5. Center PASTEL_GREEN hub circle
 circle(
     (cx, cy),
     radius=r_hub,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

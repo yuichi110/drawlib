@@ -70,8 +70,8 @@ circle(
 )
 
 # Clock hands
-draw_round_segment(clock_center, (68.0, 42.5), width_units=2.5, color=DARK)
-draw_round_segment(clock_center, (76.5, 32.0), width_units=2.5, color=DARK)
+draw_round_segment(clock_center, (68.0, 42.5), width_units=2.0, color=DARK)
+draw_round_segment(clock_center, (76.5, 32.0), width_units=2.0, color=DARK)
 
 # Center PASTEL_GREEN pivot dot
 circle(

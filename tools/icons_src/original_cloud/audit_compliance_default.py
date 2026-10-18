@@ -47,8 +47,8 @@ for y in (54.0, 34.0):
     circle(
         (34.0, y),
         radius=5.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
     )
-    draw_round_segment((46.0, y), (68.0, y), width_units=2.6, color=DARK)
+    draw_round_segment((46.0, y), (68.0, y), width_units=2.0, color=DARK)
 
 save()

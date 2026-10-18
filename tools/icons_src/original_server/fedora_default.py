@@ -24,7 +24,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_f = 1.6
 s = 0.95
 

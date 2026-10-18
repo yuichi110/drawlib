@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-17T00:24:26.753408+00:00",
+  "created_at": "2026-10-18T10:42:30.903597+00:00",
   "canvas_size": [
     512,
     512
@@ -91,8 +91,8 @@
       "icon_name": "ai_agent",
       "variant": "default",
       "source_script": "original_cloud/ai_agent_default.py",
-      "size_bytes": 36773,
-      "sha256": "ca3b5f8c2736c0a2e376cfaeaccce413e46d52443b2bfc4e6e298e6f3bc4b274",
+      "size_bytes": 37752,
+      "sha256": "1f61013df44bdba719b5ad9ae085951b700da6850515b4e8031ad7586946eaf8",
       "bbox": [
         27,
         26,
@@ -104,8 +104,8 @@
       "icon_name": "analytics_engine",
       "variant": "default",
       "source_script": "original_cloud/analytics_engine_default.py",
-      "size_bytes": 40782,
-      "sha256": "8b1eb9fa6f84e94a2ebe06375bb8e95f45c76cb95b111c89f658a94ac95cacba",
+      "size_bytes": 40949,
+      "sha256": "7b30fbaa1a5249343fa784af6d04469de6cf21fcd94deca4a9e5e61c81a43025",
       "bbox": [
         26,
         26,
@@ -117,8 +117,8 @@
       "icon_name": "api_gateway",
       "variant": "default",
       "source_script": "original_cloud/api_gateway_default.py",
-      "size_bytes": 14794,
-      "sha256": "b0d2b9f3c2d18ecd5dd8a159d62db85a315314836090abe65f9e1ba631cb48e4",
+      "size_bytes": 14635,
+      "sha256": "6f2fcacf15deb6c8b6ff82b38e71dc7ff8643213c2cd724d13027d79c5b69743",
       "bbox": [
         26,
         49,
@@ -130,21 +130,21 @@
       "icon_name": "app_service",
       "variant": "default",
       "source_script": "original_cloud/app_service_default.py",
-      "size_bytes": 24378,
-      "sha256": "d66c40e8d4209ad8adcac5b105ba5a78310812ac5775eef31f92352e2fbe7993",
+      "size_bytes": 24660,
+      "sha256": "1115813009262cf808f8eaeb1d87d9bd115af65e815c986abb738e25d8cf6740",
       "bbox": [
         26,
         56,
         486,
-        456
+        455
       ]
     },
     "artifact_registry_default.png": {
       "icon_name": "artifact_registry",
       "variant": "default",
       "source_script": "original_cloud/artifact_registry_default.py",
-      "size_bytes": 18948,
-      "sha256": "c672df8f9c72f29b6cb5007d853a76d0d0bc1992921e226a72a88e00ae5f35e4",
+      "size_bytes": 19247,
+      "sha256": "069d80fcd2427c81b49fa6f97035be486ca54ac41a43718ad7701ee48bb77185",
       "bbox": [
         26,
         38,
@@ -156,10 +156,10 @@
       "icon_name": "audit_compliance",
       "variant": "default",
       "source_script": "original_cloud/audit_compliance_default.py",
-      "size_bytes": 15586,
-      "sha256": "55228dd77be7129f0f1ea94fa4b50056878c959f860619ff28c16a0cebee10ee",
+      "size_bytes": 15491,
+      "sha256": "648f622150c807096061336802c19908d399780f00ded938f888a60f2f86f409",
       "bbox": [
-        57,
+        58,
         26,
         454,
         486
@@ -169,8 +169,8 @@
       "icon_name": "autoscaling",
       "variant": "default",
       "source_script": "original_cloud/autoscaling_default.py",
-      "size_bytes": 14823,
-      "sha256": "e7eaf55e5edd7f8b8207d7ce14d8ea80a4e4580259c57a4f56e5552a102b8c2f",
+      "size_bytes": 14341,
+      "sha256": "74716604d15475c84a8a394e15a1adb53c039f98408fcefaa7a7ad03cec24028",
       "bbox": [
         26,
         26,
@@ -182,25 +182,25 @@
       "icon_name": "backup_archive",
       "variant": "default",
       "source_script": "original_cloud/backup_archive_default.py",
-      "size_bytes": 7711,
-      "sha256": "ade608decc7145c45ef971af805a490aa537f60b85d9b96e1ba538549c975163",
+      "size_bytes": 7770,
+      "sha256": "9193f53124c337a35232ecb0b140e07e1b37b40fd09d9a39b6be9b56dcd63930",
       "bbox": [
         26,
         66,
         486,
-        446
+        445
       ]
     },
     "bare_metal_default.png": {
       "icon_name": "bare_metal",
       "variant": "default",
       "source_script": "original_cloud/bare_metal_default.py",
-      "size_bytes": 16963,
-      "sha256": "5e19c7d534c9e33918c385a48e2bc52d675aa21e35a96c95851e553b1c76c8db",
+      "size_bytes": 16426,
+      "sha256": "afff4b6d536502687f0abfc2bf877c4b9c75bd752f12d48c3cefa0d36906a206",
       "bbox": [
-        27,
+        29,
         26,
-        484,
+        482,
         486
       ]
     },
@@ -208,8 +208,8 @@
       "icon_name": "bastion_host",
       "variant": "default",
       "source_script": "original_cloud/bastion_host_default.py",
-      "size_bytes": 10960,
-      "sha256": "8d02d5787f48b1e84031a398936e1340b6f2fba667ce65d569925160f8a111b6",
+      "size_bytes": 10393,
+      "sha256": "1f5a094d03d27ce93db8bb50f711732da46f046361aa8d507ab92d3f1ecf0cc3",
       "bbox": [
         26,
         26,
@@ -221,8 +221,8 @@
       "icon_name": "batch_job",
       "variant": "default",
       "source_script": "original_cloud/batch_job_default.py",
-      "size_bytes": 17084,
-      "sha256": "080ef5e7968b6027324719e3d16adb4263dcfe0dee024022a4c17aa8a100f791",
+      "size_bytes": 17423,
+      "sha256": "14ee4af9c1daf2171e059c52fb1a0036cbbd03c869e85609a27235ff732f9c56",
       "bbox": [
         38,
         26,
@@ -234,24 +234,24 @@
       "icon_name": "bi_dashboard",
       "variant": "default",
       "source_script": "original_cloud/bi_dashboard_default.py",
-      "size_bytes": 13454,
-      "sha256": "35e1aa7a12be0e71943c5badf609758a84838a39cbf33512d9d080f7e82b0390",
+      "size_bytes": 13517,
+      "sha256": "5bfea5ada2fca6c9d6057131cc7f0ea79d3b07eda88af5626b7fb720e7384f57",
       "bbox": [
         26,
         61,
         486,
-        451
+        450
       ]
     },
     "billing_default.png": {
       "icon_name": "billing",
       "variant": "default",
       "source_script": "original_cloud/billing_default.py",
-      "size_bytes": 18172,
-      "sha256": "cb25fd9ab6666b7bfe3a8c542554624742752984b7bc680421ff597989a28e6a",
+      "size_bytes": 18027,
+      "sha256": "425eb1e38eb0e64d8f18e046338c1642e8e4ea39f02f0324c21706cb796dc7fb",
       "bbox": [
         26,
-        73,
+        74,
         486,
         438
       ]
@@ -260,12 +260,12 @@
       "icon_name": "block_storage",
       "variant": "default",
       "source_script": "original_cloud/block_storage_default.py",
-      "size_bytes": 26882,
-      "sha256": "6e6437745ff1f39185c9d8eed6e1212cda09c0ceedc21f901edc8c9ba3795572",
+      "size_bytes": 27693,
+      "sha256": "dc9fb3554f0dca3c662a7fa9aa5bbc21f6694e58c975527d5ebe5b9a35568211",
       "bbox": [
         56,
         26,
-        456,
+        455,
         486
       ]
     },
@@ -273,8 +273,8 @@
       "icon_name": "blockchain_ledger",
       "variant": "default",
       "source_script": "original_cloud/blockchain_ledger_default.py",
-      "size_bytes": 28872,
-      "sha256": "99a5986574c0ee6b7b1455148218d451dce1cc9c31755116a8c4cf0a4215c612",
+      "size_bytes": 29948,
+      "sha256": "0edc9be34d2fae028c941bc9bd46a28262e171e9bb9e6d6a1bdeb19d2c1bb554",
       "bbox": [
         26,
         49,
@@ -286,21 +286,21 @@
       "icon_name": "cdn",
       "variant": "default",
       "source_script": "original_cloud/cdn_default.py",
-      "size_bytes": 31826,
-      "sha256": "292d1479bf088128dbebc380cfd76aecb9ef80556cca3ed154f658a3a43f216b",
+      "size_bytes": 33287,
+      "sha256": "c00c771c0e475fd487580b91b261db7904c6042c34f52f8f24d97f04a156c234",
       "bbox": [
         26,
         35,
         486,
-        476
+        477
       ]
     },
     "certificate_tls_default.png": {
       "icon_name": "certificate_tls",
       "variant": "default",
       "source_script": "original_cloud/certificate_tls_default.py",
-      "size_bytes": 18902,
-      "sha256": "5e9706db4a256425e2528a66da0dfea432813179c250391a9feae27ab0276fa5",
+      "size_bytes": 18759,
+      "sha256": "1a6bd918156f3bba4e9b9a58f3ec310682af35de32faf3f07e28381411bcfa36",
       "bbox": [
         26,
         32,
@@ -312,8 +312,8 @@
       "icon_name": "cicd_pipeline",
       "variant": "default",
       "source_script": "original_cloud/cicd_pipeline_default.py",
-      "size_bytes": 28933,
-      "sha256": "338f0939a4b5ad824a20da4a9809b73508bdb80afd6b164cdb5b4b89052f6254",
+      "size_bytes": 30942,
+      "sha256": "8a9cac8aedfd4f87665c2ff12570debb12c1cfbecccd0ca6eeeecd0a93da2d01",
       "bbox": [
         26,
         35,
@@ -325,8 +325,8 @@
       "icon_name": "compute",
       "variant": "default",
       "source_script": "original_cloud/compute_default.py",
-      "size_bytes": 12229,
-      "sha256": "99c153b13d241d1402a02562ca462fab40a2071e60c0818e996299ef76ffb121",
+      "size_bytes": 11733,
+      "sha256": "6c43d493caed439f22d82a8dd0993e321b453eb5dc3637875179ae9a88fa2051",
       "bbox": [
         26,
         26,
@@ -338,8 +338,8 @@
       "icon_name": "container_cluster",
       "variant": "default",
       "source_script": "original_cloud/container_cluster_default.py",
-      "size_bytes": 32883,
-      "sha256": "29e3090a55b1c9749e9084868b063edd3b5610c9d2cc98d5de2ebf42030deaa1",
+      "size_bytes": 33606,
+      "sha256": "59f3b12f7255de14f2da9c0e3c1df9c85b07a4dde4344638549cdd327dfd20ec",
       "bbox": [
         26,
         33,
@@ -351,8 +351,8 @@
       "icon_name": "container",
       "variant": "default",
       "source_script": "original_cloud/container_default.py",
-      "size_bytes": 24594,
-      "sha256": "7a00502c7626b6191f6c9773f978f32553ee68b463894ee58c3368b28f4ad853",
+      "size_bytes": 24603,
+      "sha256": "f5ae2e7b8d40c5aa44f83531364529c9d4c10c47d8f7e4393e26f0ead29c1c34",
       "bbox": [
         56,
         26,
@@ -364,8 +364,8 @@
       "icon_name": "cost_management",
       "variant": "default",
       "source_script": "original_cloud/cost_management_default.py",
-      "size_bytes": 27022,
-      "sha256": "206d3358ae8cdf36ec7809c7adef3c9d47f75055702ded54aff9f847fb19e1db",
+      "size_bytes": 27632,
+      "sha256": "66b79fcf3550165cf8d27f0c14da9bbe661d5208b8c8a1508eddf25074407fbd",
       "bbox": [
         26,
         45,
@@ -377,8 +377,8 @@
       "icon_name": "data_catalog",
       "variant": "default",
       "source_script": "original_cloud/data_catalog_default.py",
-      "size_bytes": 23384,
-      "sha256": "66be9dd9b53bebc52bc0ae2af514e00ccd0ff096d0b2b0fcb1f784de4dbd6b1a",
+      "size_bytes": 23611,
+      "sha256": "0d9648f157622dd86f616f240d41c92f079af00a3fe35c707f5d5c474e13a8a6",
       "bbox": [
         42,
         26,
@@ -390,10 +390,10 @@
       "icon_name": "data_lake",
       "variant": "default",
       "source_script": "original_cloud/data_lake_default.py",
-      "size_bytes": 26612,
-      "sha256": "93c69a19852e8928c69a3fa79d073423255da1aa9fba2d12183a8f28ae02ff03",
+      "size_bytes": 26892,
+      "sha256": "9836d58e7d23c807365b7229f10bd37caf0973a8f0fade2491a578d36f0f5b57",
       "bbox": [
-        43,
+        44,
         26,
         468,
         486
@@ -403,11 +403,11 @@
       "icon_name": "data_migration",
       "variant": "default",
       "source_script": "original_cloud/data_migration_default.py",
-      "size_bytes": 24950,
-      "sha256": "97d9dad7a6e6f996bf43e692fedf9097a8161552fd434d89ff96a446c2235777",
+      "size_bytes": 25969,
+      "sha256": "0d6db845016d5dc79a57cdc90616ab5144bc0ef414876110cdcd7c1094b48cd9",
       "bbox": [
         26,
-        80,
+        81,
         486,
         431
       ]
@@ -416,8 +416,8 @@
       "icon_name": "data_warehouse",
       "variant": "default",
       "source_script": "original_cloud/data_warehouse_default.py",
-      "size_bytes": 12518,
-      "sha256": "39fec3d523705661463a95084dc0db51806ff61fb25872917c280fb2b04e59f5",
+      "size_bytes": 12992,
+      "sha256": "e301590e66a2a162ee721b9507edaebbadc3548cadabc574eced5a1689af342a",
       "bbox": [
         26,
         37,
@@ -429,10 +429,10 @@
       "icon_name": "database",
       "variant": "default",
       "source_script": "original_cloud/database_default.py",
-      "size_bytes": 28897,
-      "sha256": "00befcc0f83c953ae224a578e80e19271c2359f0bab225783b8f137b1cbb6779",
+      "size_bytes": 29537,
+      "sha256": "09bdb54f1171b0b1fb81642bb985d64f37be0d03d9fde2d9a8947e8b4001503d",
       "bbox": [
-        51,
+        52,
         26,
         460,
         486
@@ -442,8 +442,8 @@
       "icon_name": "db_replica",
       "variant": "default",
       "source_script": "original_cloud/db_replica_default.py",
-      "size_bytes": 26550,
-      "sha256": "09cc900978b8469875513499bb928eb78b1f888625480e489d311c4bd0992537",
+      "size_bytes": 27378,
+      "sha256": "4ac435ce2b6fbad50edca828253b253ebf126895c84f26f69d303e930b67a401",
       "bbox": [
         26,
         42,
@@ -455,34 +455,34 @@
       "icon_name": "ddos_protection",
       "variant": "default",
       "source_script": "original_cloud/ddos_protection_default.py",
-      "size_bytes": 27026,
-      "sha256": "d76b7ac8dbe8343e654182a6dbf99b316c50b1b7f4a2e96d7bd7ed780046f685",
+      "size_bytes": 27370,
+      "sha256": "083fa2616221214588e8f071950aa50085164be14799d7820ebbaa8340f283b9",
       "bbox": [
         26,
         56,
         486,
-        456
+        455
       ]
     },
     "dedicated_interconnect_default.png": {
       "icon_name": "dedicated_interconnect",
       "variant": "default",
       "source_script": "original_cloud/dedicated_interconnect_default.py",
-      "size_bytes": 18337,
-      "sha256": "413db47189b645cab87658cac774e99c61f20533de738bf5c4afb1f9c7e5e77c",
+      "size_bytes": 18706,
+      "sha256": "82c9fc129d45ec6433bb2e5d2525df0761887584a8b49a8fb74afa7131b07b86",
       "bbox": [
         26,
         102,
         486,
-        410
+        409
       ]
     },
     "desktop_app_default.png": {
       "icon_name": "desktop_app",
       "variant": "default",
       "source_script": "original_cloud/desktop_app_default.py",
-      "size_bytes": 9744,
-      "sha256": "010da2ad945a6b020ccc448f6bc2c413d0e5125ce40f402bf1f986e7e82851f6",
+      "size_bytes": 9683,
+      "sha256": "e74a7c5f33d76fd10fa7e80daa651cf2d4b27a450362b8239fa6ea4088bb8789",
       "bbox": [
         26,
         49,
@@ -494,21 +494,21 @@
       "icon_name": "digital_twin",
       "variant": "default",
       "source_script": "original_cloud/digital_twin_default.py",
-      "size_bytes": 27440,
-      "sha256": "c3cc6d56ff57b1a138eab8079b758909954d73f92931e16c1cb9aa3c0b124adb",
+      "size_bytes": 27241,
+      "sha256": "bd223b16d3179fa1c9a6157e0a3506c7be3832562151db9100dff39c8dec70a5",
       "bbox": [
         26,
-        43,
+        44,
         486,
-        469
+        467
       ]
     },
     "directory_service_default.png": {
       "icon_name": "directory_service",
       "variant": "default",
       "source_script": "original_cloud/directory_service_default.py",
-      "size_bytes": 28356,
-      "sha256": "f720365fa79eb72c3c034d432e4c75e2d7d348de7c3ced499e13fbb9d183a209",
+      "size_bytes": 29715,
+      "sha256": "a26045cda76f506c3369fd63cdfc9fa8fcc6e9412109acd7ab756132fd8a24a2",
       "bbox": [
         32,
         26,
@@ -520,8 +520,8 @@
       "icon_name": "disaster_recovery",
       "variant": "default",
       "source_script": "original_cloud/disaster_recovery_default.py",
-      "size_bytes": 32257,
-      "sha256": "87fb6fe3618eaa06b48d9d2733cffcb0ed5419f426d6895f903e08e7e18e6823",
+      "size_bytes": 32605,
+      "sha256": "297736a66c265767dc522e775e5ed4ececa74c8ed61f753d961321597c590aa3",
       "bbox": [
         27,
         26,
@@ -533,8 +533,8 @@
       "icon_name": "distributed_database",
       "variant": "default",
       "source_script": "original_cloud/distributed_database_default.py",
-      "size_bytes": 32504,
-      "sha256": "12522955c0bd67ca07ecedcda1d9105e151445128170cb1c1d76e5b098394dbf",
+      "size_bytes": 33445,
+      "sha256": "46a94499564d1f5be0df21350e85e653770c5405a48002b64331bc9d40daa956",
       "bbox": [
         26,
         50,
@@ -546,11 +546,11 @@
       "icon_name": "dns",
       "variant": "default",
       "source_script": "original_cloud/dns_default.py",
-      "size_bytes": 28995,
-      "sha256": "c7fe3d77de4548f7d9000dbb7a90c6c41892dbeb50999f27a2e8ee45d9fdc090",
+      "size_bytes": 28908,
+      "sha256": "4bf3301fa96c497d08a33d9608258170a2e4c106b62f8686e29481db9c5a1fe2",
       "bbox": [
         26,
-        37,
+        38,
         486,
         474
       ]
@@ -559,8 +559,8 @@
       "icon_name": "edge_location",
       "variant": "default",
       "source_script": "original_cloud/edge_location_default.py",
-      "size_bytes": 29582,
-      "sha256": "8edf8b89ad514f4e828e380d71499075d79bc2f4c2cdbbc41ad024d914032d8d",
+      "size_bytes": 29648,
+      "sha256": "2ff299b89a083e5d9418317c0de7c01dd9ac2e692dec999eb96995eed511b60d",
       "bbox": [
         47,
         26,
@@ -572,25 +572,25 @@
       "icon_name": "email_service",
       "variant": "default",
       "source_script": "original_cloud/email_service_default.py",
-      "size_bytes": 25101,
-      "sha256": "71285fce59c5e3e1c3c057c12f95f1a206e11d28e57816a70b6d32f29614cd2f",
+      "size_bytes": 25885,
+      "sha256": "3a258b8661e1b550b8052bedae57ac34d37a9cada76d05a07fee93a9a0714ea0",
       "bbox": [
         26,
         77,
         486,
-        435
+        434
       ]
     },
     "etl_pipeline_default.png": {
       "icon_name": "etl_pipeline",
       "variant": "default",
       "source_script": "original_cloud/etl_pipeline_default.py",
-      "size_bytes": 18057,
-      "sha256": "2622386c71027234e3103123152aac2027b002ee7cbee041f91506c129f5b2fc",
+      "size_bytes": 19361,
+      "sha256": "20e78c86f524e78b956cbdc171c6b529005d0610411cf78fc72d6e63f5857348",
       "bbox": [
-        60,
+        61,
         26,
-        452,
+        450,
         486
       ]
     },
@@ -598,21 +598,21 @@
       "icon_name": "event_stream",
       "variant": "default",
       "source_script": "original_cloud/event_stream_default.py",
-      "size_bytes": 26574,
-      "sha256": "358fe1214822c6bdc68ec99c9945179aa9bd294da1b000b04a05b681cd7f52d4",
+      "size_bytes": 26563,
+      "sha256": "75d46e86ef1bf950fdc9f9571ce116b8eee4e10a143b9201c8d1f4698cc71877",
       "bbox": [
         26,
         78,
         486,
-        434
+        433
       ]
     },
     "external_saas_default.png": {
       "icon_name": "external_saas",
       "variant": "default",
       "source_script": "original_cloud/external_saas_default.py",
-      "size_bytes": 27443,
-      "sha256": "52ceb4674ba31e898ee3bf52971ef5ec8c47a61beca3e1fb161f4210f399fa67",
+      "size_bytes": 27522,
+      "sha256": "e384be7de3b3c10da26bd42900864460b25a326f034c14bf587eb19fc9e39e6e",
       "bbox": [
         26,
         32,
@@ -624,25 +624,25 @@
       "icon_name": "file_storage",
       "variant": "default",
       "source_script": "original_cloud/file_storage_default.py",
-      "size_bytes": 9585,
-      "sha256": "44bdda74da6527aa409d0f57fe60b9c2886910f6718aa6f43656fcd562ea4521",
+      "size_bytes": 9671,
+      "sha256": "12bedce1214d32b86ad43408abf6ee5f939132d6c2b9d0f51cb86e4467674356",
       "bbox": [
         26,
         69,
         486,
-        443
+        442
       ]
     },
     "firewall_default.png": {
       "icon_name": "firewall",
       "variant": "default",
       "source_script": "original_cloud/firewall_default.py",
-      "size_bytes": 26845,
-      "sha256": "b2e44a02311fdc1e7226ae61905b6a79ff6c9df5784255847c5e9ff569aaf578",
+      "size_bytes": 27077,
+      "sha256": "9a2df849430e33c14f848b533378b1f19027441d46e5394295b7fbee4f5e5e4e",
       "bbox": [
         63,
         26,
-        449,
+        448,
         486
       ]
     },
@@ -650,12 +650,12 @@
       "icon_name": "git_repository",
       "variant": "default",
       "source_script": "original_cloud/git_repository_default.py",
-      "size_bytes": 21634,
-      "sha256": "1b3c428f87e842431397ba3aecf533a369beca38e30f5e393cf1ad4f285d2899",
+      "size_bytes": 21792,
+      "sha256": "cdeb1279246d8077c2abc025f29e5e05297f937af61f0697a4224c1b070a5279",
       "bbox": [
-        82,
+        83,
         26,
-        430,
+        429,
         486
       ]
     },
@@ -663,21 +663,21 @@
       "icon_name": "gpu_cluster",
       "variant": "default",
       "source_script": "original_cloud/gpu_cluster_default.py",
-      "size_bytes": 26195,
-      "sha256": "c6a0c6f832d02b00ea17f28ecbb3eba07471cbee757793f887b77d790f5a3d67",
+      "size_bytes": 26465,
+      "sha256": "63b419bdad63949f481132e345ba7411a9d2233cb3ec3e8581090695baf7a708",
       "bbox": [
         26,
-        47,
+        49,
         486,
-        464
+        463
       ]
     },
     "gpu_node_default.png": {
       "icon_name": "gpu_node",
       "variant": "default",
       "source_script": "original_cloud/gpu_node_default.py",
-      "size_bytes": 11831,
-      "sha256": "79f62579ff6c84597a326c0ba40a34aec498883f9995277aee8bf6dda29048c6",
+      "size_bytes": 11354,
+      "sha256": "8972630beb6f8ac33fba7ee2364f5b27cc8c507c653c2eeb371bc1a782d7ac7f",
       "bbox": [
         26,
         26,
@@ -689,8 +689,8 @@
       "icon_name": "graph_database",
       "variant": "default",
       "source_script": "original_cloud/graph_database_default.py",
-      "size_bytes": 33294,
-      "sha256": "357cd8c90e41b5ff3e9697c5e2c86b91fc6532ca2b1fd4e0a78877c3d21c1cd0",
+      "size_bytes": 34928,
+      "sha256": "733695b54703c7e9e4eec43335cd5ee7182e9bf174e49c3d61c267ad9d22e451",
       "bbox": [
         26,
         43,
@@ -702,8 +702,8 @@
       "icon_name": "identity_auth",
       "variant": "default",
       "source_script": "original_cloud/identity_auth_default.py",
-      "size_bytes": 15455,
-      "sha256": "56293eb6235bd399f9cc17c06d31912842e206d0b54539a79930a6e17aded194",
+      "size_bytes": 15355,
+      "sha256": "1b969dff69542adffb2f73db8ca5a0f493e494d7383e61f2b4e816bad9287f33",
       "bbox": [
         26,
         70,
@@ -715,21 +715,21 @@
       "icon_name": "ids_ips",
       "variant": "default",
       "source_script": "original_cloud/ids_ips_default.py",
-      "size_bytes": 23888,
-      "sha256": "eb63fb87147b3aa53ef5e6edecd3dd80f696f982e07baf35c9d1d4caefb41da1",
+      "size_bytes": 23828,
+      "sha256": "0911b8c2bcca0d223d4a9530956af615c22e7cbfdd7a19c4cafcbd3c9d5f1ee2",
       "bbox": [
         26,
-        54,
+        56,
         486,
-        458
+        455
       ]
     },
     "in_memory_cache_default.png": {
       "icon_name": "in_memory_cache",
       "variant": "default",
       "source_script": "original_cloud/in_memory_cache_default.py",
-      "size_bytes": 21401,
-      "sha256": "4442a4d23614946f947a3b60d2429adfaf48688ceba17a88351d2e25e72e2186",
+      "size_bytes": 21557,
+      "sha256": "372c89dfdf65cd36130d2e1242d633f248c3554d9e7ead7b72cbc01186bfb546",
       "bbox": [
         38,
         26,
@@ -741,8 +741,8 @@
       "icon_name": "internet_gateway",
       "variant": "default",
       "source_script": "original_cloud/internet_gateway_default.py",
-      "size_bytes": 33560,
-      "sha256": "7f5318a5b1c7c9d49b458369f165aaae7575db0190d30bc0ac743b68901a4f1a",
+      "size_bytes": 34791,
+      "sha256": "b9839eb280b9d05c484e89e8593eb379d1e3e1fd2b13f6a5f8fa7b258ea833f1",
       "bbox": [
         26,
         29,
@@ -754,8 +754,8 @@
       "icon_name": "iot_device",
       "variant": "default",
       "source_script": "original_cloud/iot_device_default.py",
-      "size_bytes": 23340,
-      "sha256": "7634f9fa15405c9d930ec89495399252d6121f850575325593f398406de465f7",
+      "size_bytes": 23337,
+      "sha256": "3047b88e1f75959756b6a1b31660a8aecd1c579e191a377ee43a7b9b1e33b341",
       "bbox": [
         26,
         32,
@@ -767,8 +767,8 @@
       "icon_name": "iot_hub",
       "variant": "default",
       "source_script": "original_cloud/iot_hub_default.py",
-      "size_bytes": 40963,
-      "sha256": "1e3b3cceee6bedc6126f76d131342948aea01e562873e8a3d4cfbefc5c5eb25b",
+      "size_bytes": 38476,
+      "sha256": "ef10697f8728096c4255a70219a9f88a43750ed28fc39eacac102be013079e6b",
       "bbox": [
         26,
         26,
@@ -780,11 +780,11 @@
       "icon_name": "key_management",
       "variant": "default",
       "source_script": "original_cloud/key_management_default.py",
-      "size_bytes": 27030,
-      "sha256": "c218bfa813fdc77c3ef161d9cf07d71553f9b5e5a129130257c5b5559ffaec5c",
+      "size_bytes": 26871,
+      "sha256": "54d38747d0a5ee603a28e96be860dff3f0a55cd4e94404e4ee3a9954711c0a77",
       "bbox": [
         26,
-        55,
+        56,
         486,
         456
       ]
@@ -793,8 +793,8 @@
       "icon_name": "llm_model",
       "variant": "default",
       "source_script": "original_cloud/llm_model_default.py",
-      "size_bytes": 21586,
-      "sha256": "66358af85451120ec7e9c5a4d29994beb3ccd4ac55993d63d2008d9a22319434",
+      "size_bytes": 20600,
+      "sha256": "8241ceba23110f86b56b5d7e92453da713814b47b9a5555baf330f004db0dd78",
       "bbox": [
         26,
         26,
@@ -806,8 +806,8 @@
       "icon_name": "load_balancer",
       "variant": "default",
       "source_script": "original_cloud/load_balancer_default.py",
-      "size_bytes": 28604,
-      "sha256": "85f324a7a187880d30640704b5c6b36eebb7f4e4e2b4549d345a08de04f67e70",
+      "size_bytes": 28698,
+      "sha256": "935d9052a6c0e54b498b28c9a78f53491aa6ce080306a4542d67bc92d7b71608",
       "bbox": [
         26,
         27,
@@ -819,8 +819,8 @@
       "icon_name": "logging",
       "variant": "default",
       "source_script": "original_cloud/logging_default.py",
-      "size_bytes": 23619,
-      "sha256": "5d32759e9ff920c3084eef8d4e3cc5253eb9c4d85052a9774cccc1dc2076368f",
+      "size_bytes": 23301,
+      "sha256": "6adc96d8df26dc33e835fdc368a3d8ef6f18cb5b09b8babf5fd0143a6c24cdbe",
       "bbox": [
         41,
         26,
@@ -832,8 +832,8 @@
       "icon_name": "media_streaming",
       "variant": "default",
       "source_script": "original_cloud/media_streaming_default.py",
-      "size_bytes": 15268,
-      "sha256": "06616db5c5de9cf5b115429ad9a1a9d099c6bb3c2518d2886c774a77f0d2f404",
+      "size_bytes": 15216,
+      "sha256": "9e1b2fa783ba6a797b7f02ceb3332d41d0cf063a0decedb381778526c882c4e5",
       "bbox": [
         26,
         43,
@@ -845,25 +845,25 @@
       "icon_name": "message_queue",
       "variant": "default",
       "source_script": "original_cloud/message_queue_default.py",
-      "size_bytes": 7374,
-      "sha256": "0d6d99aa6bd1948e48a1ccbb70976919236107961185b844cb3b0aab0a013427",
+      "size_bytes": 7205,
+      "sha256": "452f9fe3a81763bdeb0676bf5e8fdcb6441a6ef348c20b650a4d5a68f5057e8f",
       "bbox": [
         26,
         108,
         486,
-        404
+        403
       ]
     },
     "mobile_app_default.png": {
       "icon_name": "mobile_app",
       "variant": "default",
       "source_script": "original_cloud/mobile_app_default.py",
-      "size_bytes": 13216,
-      "sha256": "4809b90c3c27c409c104c016abc9ce180964faaad862fad500398119ac5efaff",
+      "size_bytes": 12899,
+      "sha256": "82a52a21bcaba83ae3ccd1e56f181ba803a02ba480e5a6f6876075cf3f1a55b8",
       "bbox": [
-        113,
+        114,
         26,
-        398,
+        397,
         486
       ]
     },
@@ -871,8 +871,8 @@
       "icon_name": "monitoring",
       "variant": "default",
       "source_script": "original_cloud/monitoring_default.py",
-      "size_bytes": 15051,
-      "sha256": "99bd9e473d3fd4551349267054b66674ea23d0ece076b383bde498e647adfe86",
+      "size_bytes": 14897,
+      "sha256": "2a0866725c44d6b89318a751dae52ddf2346c807ec3637800cd19cbefad5fbe9",
       "bbox": [
         26,
         49,
@@ -884,8 +884,8 @@
       "icon_name": "nat_gateway",
       "variant": "default",
       "source_script": "original_cloud/nat_gateway_default.py",
-      "size_bytes": 25438,
-      "sha256": "4765fbdaa6ff1b5f068be639e309289e9dc397ebffd6a379a653f70d20089a44",
+      "size_bytes": 26659,
+      "sha256": "39f84c69042124c97e357a2e21949e814ef258db88fefb8ea90d8eca082b3670",
       "bbox": [
         26,
         70,
@@ -897,25 +897,25 @@
       "icon_name": "network_peering",
       "variant": "default",
       "source_script": "original_cloud/network_peering_default.py",
-      "size_bytes": 23842,
-      "sha256": "1e6ca0f608041b747a3b48a36ae58aa467aa30c31e5ac82f4d622414acb1c55d",
+      "size_bytes": 24374,
+      "sha256": "201086127ece922ee35dedaa2344940eb6e5c926411433a8003e6023463a0292",
       "bbox": [
         26,
-        96,
+        97,
         486,
-        416
+        415
       ]
     },
     "nosql_database_default.png": {
       "icon_name": "nosql_database",
       "variant": "default",
       "source_script": "original_cloud/nosql_database_default.py",
-      "size_bytes": 22699,
-      "sha256": "0ffbc57f5658bfb701194d789ee5052157b56ff279b3f75130361f0c966c758d",
+      "size_bytes": 22873,
+      "sha256": "1fb31dd475ee7c0dd8007b74900dc441ba707cb24b7f2da7154292dcf66d4fb8",
       "bbox": [
         49,
         26,
-        463,
+        462,
         486
       ]
     },
@@ -923,12 +923,12 @@
       "icon_name": "notification",
       "variant": "default",
       "source_script": "original_cloud/notification_default.py",
-      "size_bytes": 17027,
-      "sha256": "39e71ea81faa9d5da98374d9f91895ee8949a49ee8eef765300a3e305f27f71d",
+      "size_bytes": 17353,
+      "sha256": "4963aa189720df13846d72c18cf95691b2579199d6c2753626dc844a10a9cf78",
       "bbox": [
         51,
         26,
-        461,
+        460,
         486
       ]
     },
@@ -936,8 +936,8 @@
       "icon_name": "npu_node",
       "variant": "default",
       "source_script": "original_cloud/npu_node_default.py",
-      "size_bytes": 23043,
-      "sha256": "ded933cf21ef6d5e629629d5311092e83ea4a0580310b81d5bf061145e34cfa2",
+      "size_bytes": 23572,
+      "sha256": "92ad428f1bf8d012d3e31f7747a2dc215c8e1857eea2dd95ab6e58e1f7a78feb",
       "bbox": [
         26,
         26,
@@ -949,8 +949,8 @@
       "icon_name": "object_storage",
       "variant": "default",
       "source_script": "original_cloud/object_storage_default.py",
-      "size_bytes": 16250,
-      "sha256": "2e5018cedfb5810616754a56484efa64707cf08c8d62a8dbab06f3d24afef96e",
+      "size_bytes": 16810,
+      "sha256": "6d22ed5d1ce169d7baef57438c22b41caa267ac3186997e2ad6bf083ebc4514b",
       "bbox": [
         26,
         50,
@@ -962,8 +962,8 @@
       "icon_name": "on_premises",
       "variant": "default",
       "source_script": "original_cloud/on_premises_default.py",
-      "size_bytes": 11747,
-      "sha256": "182f57b8a64fdeaec853a48b5fb114bae84a76837fa6260c04b1fe3b8d0684d0",
+      "size_bytes": 11824,
+      "sha256": "c5386a6e68ff5211a66dbc87fa318654b5baa9d51cc05775b606880176883cef",
       "bbox": [
         26,
         49,
@@ -975,11 +975,11 @@
       "icon_name": "organization_account",
       "variant": "default",
       "source_script": "original_cloud/organization_account_default.py",
-      "size_bytes": 13364,
-      "sha256": "f79d3f4c7003167ef007cd37139c04c6211f155a0b25c3acde82a571acfacc0d",
+      "size_bytes": 10588,
+      "sha256": "09232bae97b24c2eed6c0957f6293d666f098ef6c5b3640dc4b88a45be60d4fb",
       "bbox": [
         26,
-        51,
+        52,
         486,
         460
       ]
@@ -988,24 +988,24 @@
       "icon_name": "private_endpoint",
       "variant": "default",
       "source_script": "original_cloud/private_endpoint_default.py",
-      "size_bytes": 19493,
-      "sha256": "e8d04a19d89b640a41edc424c7562d46579eddd77a25279039dfac3f0784327f",
+      "size_bytes": 19792,
+      "sha256": "183aa115a335e36af6b4166897f174d1d6be58f3781bcb63a21724e40760b9ac",
       "bbox": [
         26,
-        135,
+        136,
         486,
-        377
+        376
       ]
     },
     "reverse_proxy_default.png": {
       "icon_name": "reverse_proxy",
       "variant": "default",
       "source_script": "original_cloud/reverse_proxy_default.py",
-      "size_bytes": 20438,
-      "sha256": "8192b006f67b29a2a0b58e57f4b31d73c8f2eb9bbfb230aabd14842a72e76d8a",
+      "size_bytes": 20787,
+      "sha256": "eee0c1cbaf099bdaa4e622e49f896f20ca6713b3982acd69fce0680ecd2d5412",
       "bbox": [
         26,
-        71,
+        72,
         486,
         440
       ]
@@ -1014,8 +1014,8 @@
       "icon_name": "router",
       "variant": "default",
       "source_script": "original_cloud/router_default.py",
-      "size_bytes": 40513,
-      "sha256": "b567f636913741349a6ad355565791a1fb02474555fc8080bbe78e5aa95f01a7",
+      "size_bytes": 40477,
+      "sha256": "851f72d40093cf68005c77bcdf45a13e0994796a990788ad2fc6d0b57400a22d",
       "bbox": [
         26,
         26,
@@ -1027,12 +1027,12 @@
       "icon_name": "scheduler",
       "variant": "default",
       "source_script": "original_cloud/scheduler_default.py",
-      "size_bytes": 35779,
-      "sha256": "4aa458d68b8f5e620b026fe66b327446161d75949c2cf62f654ccd7924818628",
+      "size_bytes": 35847,
+      "sha256": "d6661ba23d64f4ccb050ef81e7905e56dd54f5ce6a623eee26c7bfed11820dd5",
       "bbox": [
-        50,
+        51,
         26,
-        462,
+        461,
         486
       ]
     },
@@ -1040,11 +1040,11 @@
       "icon_name": "search_engine",
       "variant": "default",
       "source_script": "original_cloud/search_engine_default.py",
-      "size_bytes": 22927,
-      "sha256": "ef685cd128a60a799b019acab4a74bcf375bb265fca2e025ccc7cd667795e5b1",
+      "size_bytes": 23566,
+      "sha256": "d6fce49cce66baa5d449d09a8035b985ff9f61aaf7feb0c51720838a9fb79201",
       "bbox": [
         26,
-        69,
+        70,
         486,
         442
       ]
@@ -1053,12 +1053,12 @@
       "icon_name": "secret_vault",
       "variant": "default",
       "source_script": "original_cloud/secret_vault_default.py",
-      "size_bytes": 19829,
-      "sha256": "93436d3ba0d831108268382136d3c90a9681b56a8509161730250bf5dba3386f",
+      "size_bytes": 20141,
+      "sha256": "1f36df8b160f395f8ee34684d41eab8e9b70d4299947e5e66b0083381a49bca7",
       "bbox": [
         52,
         26,
-        460,
+        459,
         486
       ]
     },
@@ -1066,12 +1066,12 @@
       "icon_name": "security_center",
       "variant": "default",
       "source_script": "original_cloud/security_center_default.py",
-      "size_bytes": 27578,
-      "sha256": "e6d6cb839f51cabce11c33b43f8b4bf4c5728d9afa6052f26b6b8d16d87a7e5b",
+      "size_bytes": 27973,
+      "sha256": "2b4a5136e0b093e1d9abc315b0de1f9819a3e412b2a7ecb8b37d828e1d241ccd",
       "bbox": [
         63,
         26,
-        449,
+        448,
         486
       ]
     },
@@ -1079,8 +1079,8 @@
       "icon_name": "serverless_function",
       "variant": "default",
       "source_script": "original_cloud/serverless_function_default.py",
-      "size_bytes": 21530,
-      "sha256": "781eae0bc52962824704c386d388413616d601d45ab85c092438477837bd794a",
+      "size_bytes": 22163,
+      "sha256": "3223b35b02412014454c45c9fdf34ac285d2f22cb6fcd7fe66f18c7ce5571b8e",
       "bbox": [
         26,
         26,
@@ -1092,8 +1092,8 @@
       "icon_name": "service_discovery",
       "variant": "default",
       "source_script": "original_cloud/service_discovery_default.py",
-      "size_bytes": 43836,
-      "sha256": "e163246e4c592031768129bdbdd5f8e6bf4a57573bca5e3a36911f160f52d9e7",
+      "size_bytes": 45328,
+      "sha256": "742c9f757ad0d5f8fdd007483662f897793841539ec282658785eee2da42b8e1",
       "bbox": [
         26,
         26,
@@ -1105,12 +1105,12 @@
       "icon_name": "service_mesh",
       "variant": "default",
       "source_script": "original_cloud/service_mesh_default.py",
-      "size_bytes": 33757,
-      "sha256": "ca503075c850c66712e09759748b30cd5c055d52ab425f2db553b74d5f1d5bbe",
+      "size_bytes": 34643,
+      "sha256": "41f69a0d517b66233635ea875d3a91e9803773469a4ee9f3b7bb17edd81a1a8d",
       "bbox": [
         50,
         26,
-        462,
+        461,
         486
       ]
     },
@@ -1118,21 +1118,21 @@
       "icon_name": "switch",
       "variant": "default",
       "source_script": "original_cloud/switch_default.py",
-      "size_bytes": 11883,
-      "sha256": "750923e3fb336a19d8e2916cbfe4e3f1506c8aa797aa6229b92dca99b2b06f6c",
+      "size_bytes": 11890,
+      "sha256": "11b598452201d171d07947a93ca900d05a23d2e85de319b06d3c113f91585b26",
       "bbox": [
         26,
-        117,
+        118,
         486,
-        395
+        394
       ]
     },
     "time_series_database_default.png": {
       "icon_name": "time_series_database",
       "variant": "default",
       "source_script": "original_cloud/time_series_database_default.py",
-      "size_bytes": 28846,
-      "sha256": "ad1c61fee94618cee60840b36494d453579e93b2b368d56ecfd1e23ff8eb9822",
+      "size_bytes": 29465,
+      "sha256": "ae3019341fe39219e2e8e84181ceeab9a867a14281ca39d9cb24970790fc94e7",
       "bbox": [
         26,
         35,
@@ -1144,8 +1144,8 @@
       "icon_name": "transit_hub",
       "variant": "default",
       "source_script": "original_cloud/transit_hub_default.py",
-      "size_bytes": 36334,
-      "sha256": "3a3cbbb44321a08937ba4efd4c81965be3458b3509e4d501c58c4e14bfe391e4",
+      "size_bytes": 36933,
+      "sha256": "a72719b9f3e7dc54b40fd9f90da0da7a4bcb519db31cd5d96de7473dfd235476",
       "bbox": [
         26,
         49,
@@ -1157,8 +1157,8 @@
       "icon_name": "user",
       "variant": "default",
       "source_script": "original_cloud/user_default.py",
-      "size_bytes": 22871,
-      "sha256": "971bc2fb19a2466a3829d7d77c5f695dc34c81e354a8d1cddc009dfc93821f07",
+      "size_bytes": 22904,
+      "sha256": "e9d7445432075dfdfbb8a4010bc26db543aeae2a2fe37c5d64e16e1bd6a254eb",
       "bbox": [
         37,
         26,
@@ -1170,47 +1170,47 @@
       "icon_name": "user_group",
       "variant": "default",
       "source_script": "original_cloud/user_group_default.py",
-      "size_bytes": 25478,
-      "sha256": "2b5888ecf4b9fe63b9e840f57cbfd7bf28aaa9b310f92843a358b9df74d4bf20",
+      "size_bytes": 26075,
+      "sha256": "25a485b0e90e1c3d232f56a8d26f1205cc69d4223953fb54ebf0f809fff7421e",
       "bbox": [
         26,
         59,
         486,
-        453
+        452
       ]
     },
     "vector_database_default.png": {
       "icon_name": "vector_database",
       "variant": "default",
       "source_script": "original_cloud/vector_database_default.py",
-      "size_bytes": 31445,
-      "sha256": "0bb107df7b81b49800d2ffcce19689d6bf075c4210cf0fcafe7abd575234b482",
+      "size_bytes": 32148,
+      "sha256": "b83445c499550f08c6012d9fc944060327d72f2a6bba06c79fc865eb4c29a2b8",
       "bbox": [
         26,
         44,
         486,
-        468
+        467
       ]
     },
     "virtual_desktop_default.png": {
       "icon_name": "virtual_desktop",
       "variant": "default",
       "source_script": "original_cloud/virtual_desktop_default.py",
-      "size_bytes": 15153,
-      "sha256": "4b1afa7c145804cd71d12ddf19bf833eff23c409927205399238c82a153db8c4",
+      "size_bytes": 15334,
+      "sha256": "224d7330c5bbb2a0a56561d5718d9446ac9aabd173c4c5ffac0fe8b31cb53843",
       "bbox": [
         26,
         72,
         486,
-        440
+        439
       ]
     },
     "virtual_machine_default.png": {
       "icon_name": "virtual_machine",
       "variant": "default",
       "source_script": "original_cloud/virtual_machine_default.py",
-      "size_bytes": 23781,
-      "sha256": "76380635bfa034516a69514b755e79c8c2c1e2d445049ef7124f76b485d8b728",
+      "size_bytes": 23930,
+      "sha256": "7e4b83cdea1f7ef53cf93d4d6cb5c47d5de3ec29868d0fd1163399482c7c4357",
       "bbox": [
         26,
         26,
@@ -1222,24 +1222,24 @@
       "icon_name": "virtual_network",
       "variant": "default",
       "source_script": "original_cloud/virtual_network_default.py",
-      "size_bytes": 27699,
-      "sha256": "39a896c7d25283c031180e4b3d4e1ebd26ee7df0f8937681f3d08d20b2c519b3",
+      "size_bytes": 26895,
+      "sha256": "0d55a1c616fe46b6c12b3f42a99f698e759fd7dbefac70a430fa6c9337a1162e",
       "bbox": [
         26,
-        93,
+        94,
         486,
-        419
+        418
       ]
     },
     "virtualization_cluster_default.png": {
       "icon_name": "virtualization_cluster",
       "variant": "default",
       "source_script": "original_cloud/virtualization_cluster_default.py",
-      "size_bytes": 30880,
-      "sha256": "3fab80c6951bba8ef9c20866f534bda586db80961b67c5df93be9e420e42a62b",
+      "size_bytes": 31992,
+      "sha256": "6f36688f6bf20df2c7b8e42ec72c31caa4919959b9dd0d5fa46f483387e8af60",
       "bbox": [
         26,
-        41,
+        42,
         486,
         470
       ]
@@ -1248,12 +1248,12 @@
       "icon_name": "virtualization_controller",
       "variant": "default",
       "source_script": "original_cloud/virtualization_controller_default.py",
-      "size_bytes": 34093,
-      "sha256": "3d6b80db1dad6195ed46e97e79f8ff75bc67e77cb75368b1652631c05dfc129d",
+      "size_bytes": 31275,
+      "sha256": "82a456d5fe5c771c5682fd2943b0be52bc4d9a5a526cf85ccb2ce5915cc810b9",
       "bbox": [
         29,
         26,
-        482,
+        483,
         486
       ]
     },
@@ -1261,34 +1261,34 @@
       "icon_name": "virtualization_host",
       "variant": "default",
       "source_script": "original_cloud/virtualization_host_default.py",
-      "size_bytes": 26035,
-      "sha256": "a4095e5aa0cb7456993d71205b314946ca075f5594856287e054e1e96f2d08a8",
+      "size_bytes": 26407,
+      "sha256": "84a013f7d07702bfcd06e21ae9d63a73f1092e61a48646a23b131083c7c94765",
       "bbox": [
         26,
         53,
         486,
-        458
+        459
       ]
     },
     "vpn_tunnel_default.png": {
       "icon_name": "vpn_tunnel",
       "variant": "default",
       "source_script": "original_cloud/vpn_tunnel_default.py",
-      "size_bytes": 17343,
-      "sha256": "d17529747eec20ed32f777a8383a323c1110e48de213105af33d1251002fa8b1",
+      "size_bytes": 17279,
+      "sha256": "0e10a39e4ae5ba1c075109d7d6f94172b9427a9745e0ae4024e226d709ecac81",
       "bbox": [
         26,
-        103,
+        105,
         486,
-        408
+        406
       ]
     },
     "waf_default.png": {
       "icon_name": "waf",
       "variant": "default",
       "source_script": "original_cloud/waf_default.py",
-      "size_bytes": 31791,
-      "sha256": "7bb32bf261cf385942399b854bd6020f5d46e337bcd2bc7f6b416045cb872be1",
+      "size_bytes": 32028,
+      "sha256": "c60219bed488560afec3cd8d25baeaa765daf67d6f35ce7dcb9a1bcaaae74485",
       "bbox": [
         26,
         38,
@@ -1300,21 +1300,21 @@
       "icon_name": "web_browser",
       "variant": "default",
       "source_script": "original_cloud/web_browser_default.py",
-      "size_bytes": 12749,
-      "sha256": "0b684da684c58e46ec0f8322529922208d2a7dbfb63b328ee945636df2b9c196",
+      "size_bytes": 11736,
+      "sha256": "f17e2264d131488e3204ba2143b41a27724d28bab47b058d690a71c80507df79",
       "bbox": [
         26,
         61,
         486,
-        451
+        450
       ]
     },
     "webhook_default.png": {
       "icon_name": "webhook",
       "variant": "default",
       "source_script": "original_cloud/webhook_default.py",
-      "size_bytes": 41564,
-      "sha256": "276168f9f773609fc34e482080929a4e48c9aac72451ad428e8bdc08663f0770",
+      "size_bytes": 42111,
+      "sha256": "aedad7942be1c6350ad88b4e20826427a5a46ea4425437852f49bcccef047784",
       "bbox": [
         26,
         42,
@@ -1326,8 +1326,8 @@
       "icon_name": "workflow_orchestrator",
       "variant": "default",
       "source_script": "original_cloud/workflow_orchestrator_default.py",
-      "size_bytes": 15856,
-      "sha256": "09c1b4a7eea5ed90c48b22e6bde2514697a63e2c510d5087995c22ed3f7bd290",
+      "size_bytes": 16095,
+      "sha256": "c5dd92ed2c1a451e2363b133a9c61f73020a4293bb7daf7f781e08ad655fda78",
       "bbox": [
         26,
         32,
@@ -1339,11 +1339,11 @@
       "icon_name": "zero_trust_proxy",
       "variant": "default",
       "source_script": "original_cloud/zero_trust_proxy_default.py",
-      "size_bytes": 20147,
-      "sha256": "18d3c3a2e79799cb319f4966c57890f5458527b81a52554d14ef703cd7d6b904",
+      "size_bytes": 19115,
+      "sha256": "2b94945828dea708fc069da9774574e04456e87dce1f36492b521259b60bcb5b",
       "bbox": [
         26,
-        50,
+        51,
         486,
         461
       ]

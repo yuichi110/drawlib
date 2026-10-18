@@ -16,7 +16,7 @@ from drawlib.shapes import polygon
 from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 
 setup_icon()
-w = 1.8
+w = 2.0
 
 p_left = [
     (50.00, 62.44),

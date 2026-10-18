@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 x_l, x_m, x_r = 11.0, 50.0, 89.0
 y_b, y_m, y_t = 26.5, 58.5, 90.5

@@ -44,8 +44,8 @@ rectangle(
 )
 
 # Crossing X-fabric lines between corner port junctions
-draw_round_segment((32.0, 42.0), (68.0, 58.0), width_units=2.4, color=DARK)
-draw_round_segment((32.0, 58.0), (68.0, 42.0), width_units=2.4, color=DARK)
+draw_round_segment((32.0, 42.0), (68.0, 58.0), width_units=2.0, color=DARK)
+draw_round_segment((32.0, 58.0), (68.0, 42.0), width_units=2.0, color=DARK)
 
 # 4 outward horizontal fabric arrows pointing left/right
 for y_port in (42.0, 58.0):
@@ -70,7 +70,7 @@ for y_port in (42.0, 58.0):
 circle(
     (50.0, 50.0),
     radius=6.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

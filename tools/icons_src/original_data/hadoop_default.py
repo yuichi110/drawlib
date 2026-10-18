@@ -45,7 +45,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Far legs (behind the main body)
 # Far hind leg (stepping back-left)

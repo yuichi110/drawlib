@@ -100,11 +100,11 @@ arc(
     height=r_arc * 2.0,
     angle_start=ang_start,
     angle_end=ang_end_white,
-    style=stroke_style(WHITE, width_units=2.6),
+    style=stroke_style(WHITE, width_units=2.0),
 )
 draw_cap(
     (bx + r_arc * math.cos(rad_s), by + r_arc * math.sin(rad_s)),
-    width_units=2.6,
+    width_units=2.0,
     color=WHITE,
 )
 

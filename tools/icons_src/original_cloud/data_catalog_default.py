@@ -90,7 +90,7 @@ rectangle(
 
 # 3. Metadata lines inside the catalog cover
 for ym, x_end in ((72.0, 64.0), (63.5, 60.0), (26.0, 48.0)):
-    draw_round_segment((38.0, ym), (x_end, ym), width_units=2.5, color=DARK)
+    draw_round_segment((38.0, ym), (x_end, ym), width_units=2.0, color=DARK)
 
 # 4. Magnifying glass loupe at (52, 43) inspecting metadata lines
 lens_xy = (51.5, 43.5)
@@ -107,7 +107,7 @@ circle(
 circle(
     lens_xy,
     radius=8.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 rectangle(
     lens_xy,

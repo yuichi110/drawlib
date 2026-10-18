@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Key X coordinates (symmetric around x=50.0)
 x_out_l = 9.0

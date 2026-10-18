@@ -27,7 +27,7 @@ def _scale_pt(pt: tuple[float, float], s: float = 0.94) -> tuple[float, float]:
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Front-left isometric wing (Colors.Blue2)
 raw_front_wing = [

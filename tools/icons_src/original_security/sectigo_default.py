@@ -22,7 +22,7 @@ from drawlib.utils import (
 # ruff: noqa: E501
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_leaf = 1.5
 s = 0.96
 

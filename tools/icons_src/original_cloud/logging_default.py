@@ -44,7 +44,7 @@ for y, dot_color in rows:
         radius=3.8,
         style=fill_style(dot_color, border_color=DARK, border_units=2.0),
     )
-    draw_round_segment((38.0, y), (64.0, y), width_units=2.6, color=DARK)
+    draw_round_segment((38.0, y), (64.0, y), width_units=2.0, color=DARK)
 
 draw_round_segment((70.0, 28.0), (85.0, 13.0), width_units=3.5, color=DARK)
 circle(

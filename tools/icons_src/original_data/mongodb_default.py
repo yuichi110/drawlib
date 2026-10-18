@@ -41,7 +41,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 p_top = (50.0, 90.5)
 p_base_l = (46.8, 19.8)

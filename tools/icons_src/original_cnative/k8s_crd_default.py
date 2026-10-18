@@ -34,7 +34,7 @@ rectangle(
     (44.0 + dx, 44.0 + dy),
     width=30.0,
     height=30.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # Small inner resource block in bottom-left of base card
@@ -50,11 +50,11 @@ rectangle(
     (60.0 + dx, 56.0 + dy),
     width=21.0,
     height=21.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3, shape_r=4.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.5),
 )
 
 # Crisp dark plus sign inside extension block
-draw_round_segment((55.2 + dx, 56.0 + dy), (64.8 + dx, 56.0 + dy), width_units=2.3, color=DARK)
-draw_round_segment((60.0 + dx, 51.2 + dy), (60.0 + dx, 60.8 + dy), width_units=2.3, color=DARK)
+draw_round_segment((55.2 + dx, 56.0 + dy), (64.8 + dx, 56.0 + dy), width_units=2.0, color=DARK)
+draw_round_segment((60.0 + dx, 51.2 + dy), (60.0 + dx, 60.8 + dy), width_units=2.0, color=DARK)
 
 save()

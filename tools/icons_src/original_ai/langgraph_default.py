@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 FOREST_TEAL = "#2D5252"
 
 

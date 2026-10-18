@@ -70,9 +70,9 @@ rectangle(
     (36.0, 41.0),
     width=26.0,
     height=26.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=3.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.5),
 )
-draw_round_segment((57.0, 48.0), (77.0, 48.0), width_units=2.5, color=DARK)
-draw_round_segment((57.0, 34.0), (72.0, 34.0), width_units=2.5, color=DARK)
+draw_round_segment((57.0, 48.0), (77.0, 48.0), width_units=2.0, color=DARK)
+draw_round_segment((57.0, 34.0), (72.0, 34.0), width_units=2.0, color=DARK)
 
 save()

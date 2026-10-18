@@ -36,19 +36,19 @@ rectangle(
     (50.0, 66.0),
     width=56.0,
     height=11.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.4, shape_r=4.0),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 rectangle(
     (44.0, 50.0),
     width=36.0,
     height=11.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.4, shape_r=4.0),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 rectangle(
     (60.0, 34.0),
     width=32.0,
     height=11.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=4.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 
 save()

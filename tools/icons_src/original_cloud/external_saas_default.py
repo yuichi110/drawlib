@@ -102,15 +102,15 @@ circle(
 )
 
 # Plug prongs and body inside the badge
-draw_round_segment((62.5, 33.0), (62.5, 39.5), width_units=2.6, color=DARK)
-draw_round_segment((69.5, 33.0), (69.5, 39.5), width_units=2.6, color=DARK)
-draw_round_segment((66.0, 19.5), (66.0, 24.5), width_units=2.6, color=DARK)
+draw_round_segment((62.5, 33.0), (62.5, 39.5), width_units=2.0, color=DARK)
+draw_round_segment((69.5, 33.0), (69.5, 39.5), width_units=2.0, color=DARK)
+draw_round_segment((66.0, 19.5), (66.0, 24.5), width_units=2.0, color=DARK)
 
 rectangle(
     (66.0, 29.0),
     width=14.0,
     height=9.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3, shape_r=3.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 save()

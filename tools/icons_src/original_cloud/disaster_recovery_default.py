@@ -117,7 +117,7 @@ arrow_pts = [
     (71.0, 82.0),
 ]
 polygon(arrow_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(arrow_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(arrow_pts, width_units=2.0, color=DARK, closed=True)
 
 # 4. Bottom protective shield with heartbeat badge at (50, 26)
 sh_cx = 50.0
@@ -139,6 +139,6 @@ heartbeat_pts = [
     (54.0, 26.5),
     (59.0, 26.5),
 ]
-draw_round_polyline(heartbeat_pts, width_units=2.2, color=DARK)
+draw_round_polyline(heartbeat_pts, width_units=2.0, color=DARK)
 
 save()

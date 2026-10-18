@@ -31,14 +31,14 @@ dy = 3.0
 
 # Vertical connectors binding each pod to the underlying node bar
 for x_pod in (38.0, 62.0):
-    draw_round_segment((x_pod, 33.0 + dy), (x_pod, 42.0 + dy), width_units=2.3, color=DARK)
+    draw_round_segment((x_pod, 33.0 + dy), (x_pod, 42.0 + dy), width_units=2.0, color=DARK)
 
 # Bottom green horizontal node bar
 rectangle(
     (50.0, 31.0 + dy),
     width=46.0,
     height=8.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3, shape_r=3.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 # Two side-by-side white pod squares with light blue inner dots
@@ -47,7 +47,7 @@ for x_pod in (38.0, 62.0):
         (x_pod, 51.5 + dy),
         width=19.0,
         height=19.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.3, shape_r=4.0),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
     )
     circle(
         (x_pod, 51.5 + dy),

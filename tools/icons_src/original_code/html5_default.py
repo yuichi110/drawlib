@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outer = 1.8
+w_outer = 2.0
 w_inner = 1.3
 
 shield_outer = [(21.15, 18.0), (14.73, 90.0), (85.27, 90.0), (78.84, 18.01), (49.96, 10.0)]

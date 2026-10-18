@@ -24,7 +24,7 @@ from drawlib.utils import (
 setup_icon()
 
 SLATE = "#3E4756"
-w_outline = 1.2
+w_outline = 2.0
 s = 40.0 / 41.0
 
 

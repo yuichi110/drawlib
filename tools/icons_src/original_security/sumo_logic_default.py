@@ -24,7 +24,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_letter = 1.1
 
 badge_pts: list[tuple[float, float]] = [(11.05, 88.95), (88.95, 88.95), (88.95, 11.05), (11.05, 11.05)]

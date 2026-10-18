@@ -73,7 +73,7 @@ for rx, ry in rotor_centers:
 circle(
     (50.0, 68.5),
     radius=5.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 circle(
     (50.0, 69.5),

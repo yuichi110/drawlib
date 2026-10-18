@@ -117,7 +117,7 @@ def _crescent_ripple(
 
 setup_icon()
 
-w = 1.7
+w = 2.0
 
 # 1. Three base ripple arcs with clean transparent separation
 # Left small ripple crescent (Colors.Green2)

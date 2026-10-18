@@ -15,7 +15,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 pane_color = "#5C9CE6"
 
 panes = [

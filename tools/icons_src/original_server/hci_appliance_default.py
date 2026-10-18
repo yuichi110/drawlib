@@ -50,7 +50,7 @@ rectangle(
     height=7.0,
     style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=2.0),
 )
-draw_round_segment((49.0, 22.0), (61.0, 22.0), width_units=2.4, color=DARK)
+draw_round_segment((49.0, 22.0), (61.0, 22.0), width_units=2.0, color=DARK)
 circle(
     (75.0, 22.0),
     radius=3.5,
@@ -66,7 +66,7 @@ draw_iso_cube(
     left_color=PASTEL_BLUE,
     right_color=PASTEL_GREEN,
     border_color=DARK,
-    border_units=2.4,
+    border_units=2.0,
 )
 
 # Top-right 3D storage disk cylinder
@@ -79,7 +79,7 @@ draw_cylinder_tier(
     body_color=PASTEL_BLUE,
     top_color=WHITE,
     border_color=DARK,
-    border_units=2.4,
+    border_units=2.0,
 )
 
 save()

@@ -58,7 +58,7 @@ draw_rounded_corner_block(
     round_tr=True,
     color=PASTEL_BLUE,
 )
-draw_round_segment((x0, 61.0), (x1, 61.0), width_units=2.2, color=DARK)
+draw_round_segment((x0, 61.0), (x1, 61.0), width_units=2.0, color=DARK)
 
 # Outer card border following exact circular corner arcs
 steps = 16
@@ -79,7 +79,7 @@ rectangle(
     (30.5, 42.5),
     width=21.0,
     height=17.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 # Vertical chip division lines
 draw_round_segment((27.0, 34.2), (27.0, 50.8), width_units=1.8, color=DARK)
@@ -95,6 +95,6 @@ rectangle(
     height=4.5,
     style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=1.6, shape_r=1.5),
 )
-draw_round_segment((50.5, 36.5), (70.5, 36.5), width_units=2.2, color=DARK)
+draw_round_segment((50.5, 36.5), (70.5, 36.5), width_units=2.0, color=DARK)
 
 save()

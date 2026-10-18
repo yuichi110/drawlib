@@ -14,7 +14,7 @@ from drawlib.shapes import circle, polygon
 from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_border_fill, setup_icon
 
 setup_icon()
-w = 1.9
+w = 2.0
 w_inner = 1.8
 
 cam_body = [

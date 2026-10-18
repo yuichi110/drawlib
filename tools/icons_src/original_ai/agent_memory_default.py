@@ -34,7 +34,7 @@ draw_round_segment((rx, ry + rh / 2.0), (rx, 85.0), width_units=w, color=DARK)
 circle(
     (rx, 87.5),
     radius=3.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
 )
 rectangle(
     (rx, ry),
@@ -46,7 +46,7 @@ for eye_x in (rx - 9.0, rx + 9.0):
     circle(
         (eye_x, ry),
         radius=4.2,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
 
 # 2. Bottom: RAM / Memory module (matching memory module style)
@@ -54,8 +54,8 @@ mcx, mcy = 50.0, 27.0
 mw, mh = 58.0, 22.0
 
 for px in (33.0, 44.3, 55.7, 67.0):
-    draw_round_segment((px, mcy + mh / 2.0), (px, mcy + mh / 2.0 + 5.5), width_units=2.5, color=DARK)
-    draw_round_segment((px, mcy - mh / 2.0 - 5.5), (px, mcy - mh / 2.0), width_units=2.5, color=DARK)
+    draw_round_segment((px, mcy + mh / 2.0), (px, mcy + mh / 2.0 + 5.5), width_units=2.0, color=DARK)
+    draw_round_segment((px, mcy - mh / 2.0 - 5.5), (px, mcy - mh / 2.0), width_units=2.0, color=DARK)
 
 rectangle(
     (mcx, mcy),

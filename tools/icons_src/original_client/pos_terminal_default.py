@@ -41,7 +41,7 @@ receipt_pts = [
     (58.5, 68.0),
 ]
 polygon(receipt_pts, style=fill_style(WHITE))
-draw_round_polyline(receipt_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(receipt_pts, width_units=2.0, color=DARK, closed=True)
 draw_round_segment((36.5, 76.5), (53.5, 76.5), width_units=1.8, color=DARK)
 
 # Countertop POS terminal body
@@ -53,7 +53,7 @@ rectangle(
 )
 
 # Receipt printer slot and WHITE display screen
-draw_round_segment((30.0, 68.0), (60.0, 68.0), width_units=2.4, color=DARK)
+draw_round_segment((30.0, 68.0), (60.0, 68.0), width_units=2.0, color=DARK)
 rectangle(
     (45.0, 54.5),
     width=31.0,

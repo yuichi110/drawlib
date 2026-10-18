@@ -73,13 +73,13 @@ rectangle(
     (53.0, 50.0),
     width=26.0,
     height=11.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3, shape_r=5.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 draw_round_segment((25.0, 33.0), (56.0, 33.0), width_units=w, color=DARK)
 
 # 3. Bottom-right AI sparkle accent
 sparkle_pts = build_sparkle_4pt_polygon(74.0, 28.0, outer_r=12.5, inner_r=4.3)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(sparkle_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

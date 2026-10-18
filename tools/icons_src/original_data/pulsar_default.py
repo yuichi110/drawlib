@@ -50,7 +50,7 @@ def _wave_points_clipped(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Circular dark-bordered sky medallion (Colors.Blue1)
 circle(

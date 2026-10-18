@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.3
+w = 2.0
 w_inf_halo = 1.9
 w_inf_in = 0.45
 

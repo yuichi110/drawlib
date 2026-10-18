@@ -61,6 +61,6 @@ rectangle(
 # 4. AI sparkle mark on front of bucket
 sparkle_pts = build_sparkle_4pt_polygon(50.0, 36.5, outer_r=13.5, inner_r=4.6)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(sparkle_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

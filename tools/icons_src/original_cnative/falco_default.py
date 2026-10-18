@@ -83,7 +83,7 @@ _rounded_bar(
     _s(57.0, 57.0),
     width_units=7.071,
     fill_color=PASTEL_BLUE,
-    border_units=2.3,
+    border_units=2.0,
     cap_end=False,
 )
 
@@ -97,6 +97,6 @@ beak_pts = [
     _s(59.5, 54.5),
 ]
 polygon(beak_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(beak_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(beak_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

@@ -17,7 +17,7 @@ from drawlib.utils import DARK, WHITE, draw_round_polyline, draw_round_segment, 
 
 setup_icon()
 
-w_outer = 1.9
+w_outer = 2.0
 w_face = 1.6
 w_tick = 1.4
 w_needle = 1.6

@@ -101,7 +101,7 @@ def _draw_platter(cx: float, cy: float, rx: float, ry: float, th: float, r_corne
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx = 50.0
 rx = 41.0
 ry = 18.2

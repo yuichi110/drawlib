@@ -18,7 +18,7 @@ from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setu
 # fmt: off
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_ostrich = 1.6
 w_eye = 1.4
 

@@ -37,7 +37,7 @@ rectangle(
     (67.0, 74.0),
     width=10.0,
     height=9.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 # 2. Portable GPS map device housing (PASTEL_BLUE)
@@ -65,7 +65,7 @@ rectangle(
     (50.0, 42.5),
     width=52.0,
     height=40.0,
-    style=fill_style(Colors.Transparent, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(Colors.Transparent, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 4. Location pin drop (PASTEL_GREEN) with tangent circular head
@@ -90,7 +90,7 @@ draw_round_polyline(pin_pts, width_units=w, color=DARK, closed=True)
 circle(
     (pin_cx, pin_cy),
     radius=5.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 save()

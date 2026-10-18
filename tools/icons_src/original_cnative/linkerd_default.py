@@ -27,7 +27,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 2.3
+w = 2.0
 cos30 = math.cos(math.radians(30.0))
 sin30 = math.sin(math.radians(30.0))
 

@@ -79,10 +79,10 @@ n_top = (50.0, 62.0)
 n_bl = (34.0, 42.0)
 n_br = (66.0, 42.0)
 
-draw_round_polyline([n_top, n_bl, n_br], width_units=2.4, color=DARK, closed=True)
+draw_round_polyline([n_top, n_bl, n_br], width_units=2.0, color=DARK, closed=True)
 
 for node in (n_bl, n_br, n_top):
-    circle(node, radius=7.5, style=fill_style(WHITE, border_color=DARK, border_units=2.2))
+    circle(node, radius=7.5, style=fill_style(WHITE, border_color=DARK, border_units=2.0))
 
 circle(n_top, radius=3.2, style=fill_style(PASTEL_GREEN))
 

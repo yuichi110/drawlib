@@ -61,7 +61,7 @@ rectangle(
 )
 
 # Keyhole inside the tunnel body
-draw_round_segment((tx, 45.0), (tx, 39.5), width_units=2.4, color=DARK)
+draw_round_segment((tx, 45.0), (tx, 39.5), width_units=2.0, color=DARK)
 circle(
     (tx, 48.5),
     radius=3.8,

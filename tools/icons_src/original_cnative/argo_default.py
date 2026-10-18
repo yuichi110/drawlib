@@ -37,7 +37,7 @@ for x_tab in (20.0, 80.0):
         (x_tab, 58.0),
         width=6.5,
         height=15.0,
-        style=fill_style(ARGO_RIM, border_color=DARK, border_units=2.3, shape_r=3.0),
+        style=fill_style(ARGO_RIM, border_color=DARK, border_units=2.0, shape_r=3.0),
     )
 
 # Outer white space helmet ring
@@ -66,7 +66,7 @@ for tx, ty, tw, th, tang in tentacles:
         (tx, ty),
         width=tw,
         height=th,
-        style=fill_style(ARGO_CORAL, border_color=DARK, border_units=2.3, shape_r=3.2, angle=tang),
+        style=fill_style(ARGO_CORAL, border_color=DARK, border_units=2.0, shape_r=3.2, angle=tang),
     )
 
 # Rounded octopus head dome inside the helmet
@@ -79,7 +79,7 @@ head_pts.append((64.5, 29.0))
 
 polygon(
     head_pts,
-    style=fill_style(ARGO_CORAL, border_color=DARK, border_units=2.4),
+    style=fill_style(ARGO_CORAL, border_color=DARK, border_units=2.0),
 )
 
 # Pastel blue space-suit neck collar band
@@ -87,7 +87,7 @@ rectangle(
     (50.0, 29.0),
     width=36.0,
     height=7.0,
-    style=fill_style(ARGO_RIM, border_color=DARK, border_units=2.3, shape_r=3.5),
+    style=fill_style(ARGO_RIM, border_color=DARK, border_units=2.0, shape_r=3.5),
 )
 
 # Two big adorable white circular eyes with dark pupils
@@ -95,7 +95,7 @@ for ex, px in ((40.5, 41.5), (59.5, 58.5)):
     circle(
         (ex, 53.5),
         radius=8.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
     circle(
         (px, 53.5),

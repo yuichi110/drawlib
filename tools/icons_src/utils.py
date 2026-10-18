@@ -52,7 +52,7 @@ def setup_icon() -> None:
 # ==============================================================================
 
 DARK = Colors.Dark  # #323A48 (Deep Slate structural outline)
-ORIG_STROKE: float = 2.7  # Refined structural stroke width in 100x100 units
+ORIG_STROKE: float = 2.0  # Unified structural stroke width in 100x100 units
 
 PASTEL_BLUE = "#86A4F7"  # Soft Pastel Cornflower Blue (primary surface)
 PASTEL_BLUE_DARK = "#5C7CE6"  # Deeper cornflower blue for high-contrast white glyphs

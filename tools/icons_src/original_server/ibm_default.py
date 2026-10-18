@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_halo = 1.5
+w_halo = 2.0
 w_in = 0.45
 
 i_bars: list[list[tuple[float, float]]] = [

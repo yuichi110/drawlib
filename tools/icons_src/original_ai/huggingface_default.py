@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 
 def _arc(xc: float, yc: float, r: float, deg0: float, deg1: float, steps: int = 12) -> list[tuple[float, float]]:

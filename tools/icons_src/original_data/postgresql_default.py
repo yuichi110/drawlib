@@ -46,7 +46,7 @@ def _cubic(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # ---------------------------------------------------------------------------
 # 1. Left ear (behind head): outer rim in HEAD_BLUE, inner lobe in EAR_INNER

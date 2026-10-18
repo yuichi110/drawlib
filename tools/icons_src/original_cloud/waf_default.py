@@ -42,12 +42,12 @@ ellipse(
     (gx, gy),
     width=24.0,
     height=52.0,
-    style=stroke_style(DARK, width_units=2.2),
+    style=stroke_style(DARK, width_units=2.0),
 )
 draw_round_segment(
     (14.0, gy),
     (66.0, gy),
-    width_units=2.2,
+    width_units=2.0,
     color=DARK,
 )
 

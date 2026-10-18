@@ -46,7 +46,7 @@ draw_round_polyline(full_outline, width_units=w, color=DARK, closed=True)
 circle(
     (cx, 51.0),
     radius=9.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 circle(
     (cx, 51.0),

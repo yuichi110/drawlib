@@ -24,7 +24,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outer = 1.7
+w_outer = 2.0
 w_inner = 1.4
 s = 40.0 / 41.0
 BLUE = "#6B9EE8"

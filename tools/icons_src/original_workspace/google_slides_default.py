@@ -21,7 +21,7 @@ from drawlib.utils import (
 )
 
 setup_icon()
-w = 1.9
+w = 2.0
 w_frame = 1.6
 
 page_pts = [

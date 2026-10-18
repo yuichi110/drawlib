@@ -44,7 +44,7 @@ draw_round_polyline(
 
 # Radial storage fabric connections from central pool to all 3 hosts
 for hx, hy in hosts:
-    draw_round_segment((50.0, 44.0), (hx, hy), width_units=2.2, color=DARK)
+    draw_round_segment((50.0, 44.0), (hx, hy), width_units=2.0, color=DARK)
 
 # 3 HCI host 3D isometric cubes at the triangle vertices
 for hx, hy in hosts:
@@ -56,7 +56,7 @@ for hx, hy in hosts:
         left_color=PASTEL_BLUE,
         right_color=PASTEL_BLUE_LIGHT,
         border_color=DARK,
-        border_units=2.3,
+        border_units=2.0,
     )
 
 # Shared PASTEL_GREEN 3D storage cylinder at the center
@@ -69,7 +69,7 @@ draw_cylinder_tier(
     body_color=PASTEL_GREEN,
     top_color=WHITE,
     border_color=DARK,
-    border_units=2.4,
+    border_units=2.0,
 )
 
 save()

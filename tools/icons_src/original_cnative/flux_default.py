@@ -48,7 +48,7 @@ bar1 = [
     (77.5, 25.0),
     (70.5, 20.7),
 ]
-polygon(bar1, style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=1.8))
+polygon(bar1, style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=1.8))
 
 # Bar 2 (middle diagonal wave)
 bar2 = [
@@ -57,7 +57,7 @@ bar2 = [
     (67.0, 18.5),
     (60.0, 14.2),
 ]
-polygon(bar2, style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=1.8))
+polygon(bar2, style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=1.8))
 
 # Bar 3 (lower-left diagonal wave)
 bar3 = [
@@ -66,7 +66,7 @@ bar3 = [
     (54.5, 13.8),
     (49.0, 10.5),
 ]
-polygon(bar3, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2, shape_r=1.8))
+polygon(bar3, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=1.8))
 
 # Central upward deployment arrow rising from lower diamond into top diamond
 arrow_pts = [
@@ -79,6 +79,6 @@ arrow_pts = [
     (46.0, 64.0),
 ]
 polygon(arrow_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(arrow_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(arrow_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

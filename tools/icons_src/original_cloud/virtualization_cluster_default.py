@@ -39,7 +39,7 @@ for x_vm, y_vm in ((24.0, 51.0), (50.0, 60.0), (76.0, 51.0)):
 circle(
     (50.0, 41.0),
     radius=4.8,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # 2 physical host blades at the base
@@ -50,7 +50,7 @@ for x_host in (31.0, 69.0):
         height=14.0,
         style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=3.5),
     )
-    draw_round_segment((x_host - 10.0, 23.0), (x_host + 1.0, 23.0), width_units=2.4, color=DARK)
+    draw_round_segment((x_host - 10.0, 23.0), (x_host + 1.0, 23.0), width_units=2.0, color=DARK)
     circle(
         (x_host + 9.5, 23.0),
         radius=2.7,
@@ -72,7 +72,7 @@ for cx, cy, r_col in vms:
         left_color=PASTEL_BLUE,
         right_color=r_col,
         border_color=DARK,
-        border_units=2.3,
+        border_units=2.0,
     )
 
 save()

@@ -71,7 +71,7 @@ draw_iso_cube(
     left_color=PASTEL_GREEN,
     right_color=PASTEL_BLUE_LIGHT,
     border_color=DARK,
-    border_units=2.4,
+    border_units=2.0,
 )
 
 save()

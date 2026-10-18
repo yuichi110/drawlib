@@ -24,7 +24,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # 1. Central horizontal PASTEL_BLUE pipe body (width=52, height=28 at (50, 50))
 rectangle(

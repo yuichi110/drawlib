@@ -45,7 +45,7 @@ rectangle(
 
 # Top earpiece speaker and bottom gesture bar
 draw_round_segment((46.0, 82.5), (54.0, 82.5), width_units=2.0, color=DARK)
-draw_round_segment((44.0, 18.0), (56.0, 18.0), width_units=2.2, color=DARK)
+draw_round_segment((44.0, 18.0), (56.0, 18.0), width_units=2.0, color=DARK)
 
 # App grid with prominent PASTEL_GREEN app badge
 rectangle(

@@ -37,8 +37,8 @@ rectangle(
 )
 
 # 2 horizontal certificate lines on the left
-draw_round_segment((24.0, 66.0), (54.0, 66.0), width_units=2.6, color=DARK)
-draw_round_segment((24.0, 52.0), (54.0, 52.0), width_units=2.6, color=DARK)
+draw_round_segment((24.0, 66.0), (54.0, 66.0), width_units=2.0, color=DARK)
+draw_round_segment((24.0, 52.0), (54.0, 52.0), width_units=2.0, color=DARK)
 
 # Bottom-right ribbon tails extending down from (64.0, 38.0) to (56.0, 16.0) and (72.0, 16.0)
 ribbon_pts = [

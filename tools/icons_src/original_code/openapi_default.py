@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.4
+w = 2.0
 s = 40.0 / 41.0
 GREEN_MID = "#7CB342"
 GREEN_LIGHT = "#9CCC65"

@@ -41,7 +41,7 @@ draw_iso_cube(
     left_color=PASTEL_BLUE,
     right_color=PASTEL_GREEN,
     border_color=DARK,
-    border_units=2.5,
+    border_units=2.0,
 )
 
 circle(

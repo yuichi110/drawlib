@@ -44,8 +44,8 @@ for y_blade, bg_col in blades:
         height=18.0,
         style=fill_style(bg_col, border_color=DARK, border_units=w, shape_r=4.0),
     )
-    draw_round_segment((22.0, y_blade), (36.0, y_blade), width_units=2.6, color=DARK)
-    draw_round_segment((43.0, y_blade), (57.0, y_blade), width_units=2.6, color=DARK)
+    draw_round_segment((22.0, y_blade), (36.0, y_blade), width_units=2.0, color=DARK)
+    draw_round_segment((43.0, y_blade), (57.0, y_blade), width_units=2.0, color=DARK)
     circle(
         (76.0, y_blade),
         radius=3.4,

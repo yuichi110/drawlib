@@ -47,7 +47,7 @@ draw_cisco_arrow((50.0, 24.0), (50.0, 14.0), shaft_w=2.6, head_len=5.0, head_w=6
 circle(
     (50.0, 50.0),
     radius=24.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 
@@ -104,6 +104,6 @@ def _build_handset_pts() -> list[tuple[float, float]]:
 
 handset_pts = _build_handset_pts()
 polygon(handset_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(handset_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(handset_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

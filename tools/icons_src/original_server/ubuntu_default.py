@@ -25,7 +25,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_badge = 1.9
+w_badge = 2.0
 w_inner = 1.5
 
 arcs: list[list[tuple[float, float]]] = [

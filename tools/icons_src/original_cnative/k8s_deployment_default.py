@@ -40,7 +40,7 @@ draw_iso_cube(
     left_color=PASTEL_BLUE_LIGHT,
     right_color=PASTEL_GREEN,
     border_color=DARK,
-    border_units=2.2,
+    border_units=2.0,
 )
 
 # Upper clockwise rollout arc around the cube
@@ -51,14 +51,14 @@ arc(
     height=r_arc * 2.0,
     angle_start=20.0,
     angle_end=205.0,
-    style=stroke_style(DARK, width_units=2.6),
+    style=stroke_style(DARK, width_units=2.0),
 )
 
 # Round cap at the left tail of the arc
 tail_rad = math.radians(205.0)
 draw_cap(
     (cx + r_arc * math.cos(tail_rad), cy + r_arc * math.sin(tail_rad)),
-    width_units=2.6,
+    width_units=2.0,
     color=DARK,
 )
 
@@ -75,6 +75,6 @@ arrow_pts = [
     (bx + head_half_w * nx, by + head_half_w * ny),
 ]
 polygon(arrow_pts, style=fill_style(WHITE))
-draw_round_polyline(arrow_pts, width_units=2.1, color=DARK, closed=True)
+draw_round_polyline(arrow_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

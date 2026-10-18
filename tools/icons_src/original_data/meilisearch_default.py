@@ -86,7 +86,7 @@ def _build_speed_pill(x_bl: float) -> list[tuple[float, float]]:
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 3 slanted parallel speed pills centered at (50, 50)
 pills = [

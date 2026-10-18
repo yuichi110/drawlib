@@ -18,7 +18,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.7
+w = 2.0
 
 # 1. Left leaf (pastel green with transparent inner vein notch)
 left_leaf = [

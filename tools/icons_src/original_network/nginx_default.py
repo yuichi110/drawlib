@@ -22,7 +22,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_hex = 1.9
+w_hex = 2.0
 w_n = 1.7
 s = 0.96
 

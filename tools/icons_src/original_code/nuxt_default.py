@@ -21,7 +21,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.8
+w = 2.0
 s = 40.0 / 41.0
 
 

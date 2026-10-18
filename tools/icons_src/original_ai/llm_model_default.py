@@ -45,7 +45,7 @@ rectangle(
 
 sparkle_pts = build_sparkle_4pt_polygon(50.0, 50.0, outer_r=20.0, inner_r=6.8)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(sparkle_pts, width_units=2.5, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 circle(
     (68.0, 68.0),

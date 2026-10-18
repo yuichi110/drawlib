@@ -14,7 +14,7 @@ from drawlib.shapes import circle
 from drawlib.utils import DARK, fill_style, setup_icon
 
 setup_icon()
-w = 1.9
+w = 2.0
 r = 16.87
 coral = "#F59898"
 

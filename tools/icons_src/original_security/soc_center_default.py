@@ -26,7 +26,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # Monitor stand neck & base
 rectangle(
@@ -70,11 +70,11 @@ circle(
     style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_shape),
 )
 r_line = r_radar - 0.5
-draw_round_segment((rx - r_line, ry), (rx + r_line, ry), width_units=2.2, color=DARK)
-draw_round_segment((rx, ry - r_line), (rx, ry + r_line), width_units=2.2, color=DARK)
+draw_round_segment((rx - r_line, ry), (rx + r_line, ry), width_units=2.0, color=DARK)
+draw_round_segment((rx, ry - r_line), (rx, ry + r_line), width_units=2.0, color=DARK)
 sweep_dx = r_line * math.cos(math.radians(45.0))
 sweep_dy = r_line * math.sin(math.radians(45.0))
-draw_round_segment((rx, ry), (rx + sweep_dx, ry + sweep_dy), width_units=2.2, color=DARK)
+draw_round_segment((rx, ry), (rx + sweep_dx, ry + sweep_dy), width_units=2.0, color=DARK)
 circle((rx, ry), radius=1.8, style=fill_style(DARK))
 
 # Right pane: 3 vertical bar chart columns at x=57, 65, 73

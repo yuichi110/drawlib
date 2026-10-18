@@ -47,7 +47,7 @@ for y_pos, fill_col in (
         (50.0, y_pos),
         width=36.0,
         height=11.0,
-        style=fill_style(fill_col, border_color=DARK, border_units=2.4, shape_r=5.5),
+        style=fill_style(fill_col, border_color=DARK, border_units=2.0, shape_r=5.5),
     )
 
 save()

@@ -75,23 +75,23 @@ shackle_w = 13.6
 shackle_r = shackle_w / 2.0
 shackle_top_y = 74.2
 
-draw_round_segment((lock_cx - shackle_r, 66.5), (lock_cx - shackle_r, shackle_top_y), width_units=2.7, color=DARK)
-draw_round_segment((lock_cx + shackle_r, 66.5), (lock_cx + shackle_r, shackle_top_y), width_units=2.7, color=DARK)
+draw_round_segment((lock_cx - shackle_r, 66.5), (lock_cx - shackle_r, shackle_top_y), width_units=2.0, color=DARK)
+draw_round_segment((lock_cx + shackle_r, 66.5), (lock_cx + shackle_r, shackle_top_y), width_units=2.0, color=DARK)
 arc(
     (lock_cx, shackle_top_y),
     width=shackle_w,
     height=shackle_w,
     angle_start=0.0,
     angle_end=180.0,
-    style=stroke_style(DARK, width_units=2.7),
+    style=stroke_style(DARK, width_units=2.0),
 )
 rectangle(
     (lock_cx, lock_cy),
     width=22.5,
     height=18.8,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.7, shape_r=4.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.2),
 )
-draw_round_segment((lock_cx, lock_cy - 0.5), (lock_cx, lock_cy - 4.6), width_units=2.2, color=DARK)
+draw_round_segment((lock_cx, lock_cy - 0.5), (lock_cx, lock_cy - 4.6), width_units=2.0, color=DARK)
 circle(
     (lock_cx, lock_cy + 1.8),
     radius=2.9,

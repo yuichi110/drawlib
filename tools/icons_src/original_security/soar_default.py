@@ -31,8 +31,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_line = 2.7
+w_shape = 2.0
+w_line = 2.0
 
 # 1. Left PASTEL_BLUE heraldic shield
 cx_s = 32.0

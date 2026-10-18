@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.7
+w = 2.0
 
 dot_tl: list[tuple[float, float]] = [(11.05, 87.74), (22.37, 87.74), (22.37, 76.42), (11.05, 76.42)]
 i_stem: list[tuple[float, float]] = [(22.52, 29.23), (11.05, 29.23), (11.05, 70.77), (16.78, 70.77), (22.52, 70.77)]

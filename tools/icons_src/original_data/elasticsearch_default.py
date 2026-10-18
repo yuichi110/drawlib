@@ -59,7 +59,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 50.0, 50.0
 r = 40.0
 

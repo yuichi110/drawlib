@@ -48,7 +48,7 @@ dragon_eye_hole: list[tuple[float, float]] = [
 all_outer_parts = (dragon_body, dragon_wing_1, dragon_wing_2, dragon_crest)
 
 for part_pts in all_outer_parts:
-    draw_round_polyline(part_pts, width_units=2.1, color=DARK, closed=True)
+    draw_round_polyline(part_pts, width_units=2.0, color=DARK, closed=True)
 
 draw_compound_polygon([dragon_body, dragon_eye_hole], color=Colors.Blue2)
 for part_pts in (dragon_wing_1, dragon_wing_2, dragon_crest):

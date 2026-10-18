@@ -27,10 +27,10 @@ setup_icon()
 draw_original_k8s_heptagon()
 
 # Orthogonal dark routing tree connecting top hub to 3 bottom pods
-draw_round_segment((50.0, 64.0), (50.0, 33.0), width_units=2.4, color=DARK)
+draw_round_segment((50.0, 64.0), (50.0, 33.0), width_units=2.0, color=DARK)
 draw_round_polyline(
     [(33.0, 33.0), (33.0, 49.0), (67.0, 49.0), (67.0, 33.0)],
-    width_units=2.4,
+    width_units=2.0,
     color=DARK,
     corner_r=3.0,
 )
@@ -39,7 +39,7 @@ draw_round_polyline(
 circle(
     (50.0, 64.0),
     radius=8.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # Three bottom pod endpoint circles
@@ -47,7 +47,7 @@ for x_pos in (33.0, 50.0, 67.0):
     circle(
         (x_pos, 33.0),
         radius=6.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.3),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
 
 save()

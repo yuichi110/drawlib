@@ -26,7 +26,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_inner = 1.75
 
 CORAL_PINK = "#F79B86"
@@ -290,7 +290,7 @@ draw_round_polyline(mask_pts, width_units=w, color=DARK, closed=True)
 
 for eye_cx in (31.5, 51.5):
     eye_arc = _arc(eye_cx, 63.2, 3.6, 15.0, 165.0, steps=12)
-    draw_round_polyline(eye_arc, width_units=2.1, color=DARK, closed=False)
+    draw_round_polyline(eye_arc, width_units=2.0, color=DARK, closed=False)
 
 # 8. White muzzle (WHITE) & pink nose (Colors.Pink3)
 muzzle_pts = [

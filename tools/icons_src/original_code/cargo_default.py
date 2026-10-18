@@ -27,7 +27,7 @@ from drawlib.utils import (
 setup_icon()
 
 s = 40.0 / 41.0
-w_outer = 1.8
+w_outer = 2.0
 w_seam = 1.2
 w_tape = 0.85
 

@@ -43,7 +43,7 @@ rectangle(
     (50.0, 50.0),
     width=22.0,
     height=8.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=4.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 
 save()

@@ -55,11 +55,11 @@ for r_arc, half_ang in ((26.5, 24.0), (33.5, 18.0)):
             height=r_arc * 2.0,
             angle_start=a0,
             angle_end=a1,
-            style=stroke_style(DARK, width_units=2.3),
+            style=stroke_style(DARK, width_units=2.0),
         )
         for deg in (a0, a1):
             rad = math.radians(deg)
-            draw_cap((cx + r_arc * math.cos(rad), cy + r_arc * math.sin(rad)), width_units=2.3, color=DARK)
+            draw_cap((cx + r_arc * math.cos(rad), cy + r_arc * math.sin(rad)), width_units=2.0, color=DARK)
 
 # Central pointy-top hexagonal IoT hub
 hex_r = 20.0
@@ -75,7 +75,7 @@ draw_round_polyline(hex_pts, width_units=w, color=DARK, closed=True)
 circle(
     (cx, cy),
     radius=8.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # 4 outer sensor satellite nodes
@@ -83,7 +83,7 @@ for sx, sy in satellites:
     circle(
         (sx, sy),
         radius=8.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.5),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
     circle(
         (sx, sy),

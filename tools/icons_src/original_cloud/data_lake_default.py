@@ -72,7 +72,7 @@ for y_wave in (46.0, 32.0):
         )
         for i in range(steps + 1)
     ]
-    draw_round_polyline(pts, width_units=2.5, color=DARK)
+    draw_round_polyline(pts, width_units=2.0, color=DARK)
 
 circle(
     (68.0, 58.0),

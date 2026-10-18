@@ -16,7 +16,7 @@ from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_borde
 # ruff: noqa: E501
 # fmt: off
 setup_icon()
-w = 1.9
+w = 2.0
 r_badge = 38.8
 
 # 1. Base circle in soft pastel violet-blue (#8BA4F7)

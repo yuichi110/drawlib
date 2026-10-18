@@ -52,7 +52,7 @@ for i in range(7):
     ]
     polygon(
         bar_pts,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2),
+        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0),
     )
 
 # 3. 7 PASTEL_BLUE vertex circles
@@ -60,7 +60,7 @@ for vx, vy in vertices:
     circle(
         (vx, vy),
         radius=6.8,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.3),
+        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
     )
 
 # 4. Bold central PASTEL_GREEN lightning bolt
@@ -73,6 +73,6 @@ bolt_pts = [
     (51.5, 50.5),
 ]
 polygon(bolt_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(bolt_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(bolt_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

@@ -23,7 +23,7 @@ class TestFacilityIcons:
     """Tests for official Facility icon provider and diagram enum."""
 
     def test_facility_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 40 official data center, IX, carrier, and facility hardware icons render cleanly."""
+        """Verify all 49 official facility, carrier, and semiconductor icons render cleanly."""
         clear()
         names = [
             "equinix",
@@ -66,12 +66,22 @@ class TestFacilityIcons:
             "corning",
             "axis",
             "hid_global",
+            "tsmc",
+            "globalfoundries",
+            "rapidus",
+            "asml",
+            "tokyo_electron",
+            "applied_materials",
+            "foxconn",
+            "murata",
+            "kyocera",
         ]
+        assert len(names) == 49
         for idx, name in enumerate(names):
-            col = idx % 8
-            row = idx // 8
+            col = idx % 10
+            row = idx // 10
             fn = getattr(facility, name)
-            fn(xy=(10 + col * 11, 82 - row * 16), width=8, style=Style(), variant="default")
+            fn(xy=(8 + col * 9.2, 85 - row * 17), width=7, style=Style(), variant="default")
 
         out = tmp_path / "test_facility_all.png"
         save(str(out))
@@ -88,6 +98,11 @@ class TestFacilityIcons:
         facility.schneider(xy=(90, 70), width=10, style=Style())
         facility.liebert(xy=(15, 45), width=10, style=Style())
         facility.hid(xy=(30, 45), width=10, style=Style())
+        facility.taiwan_semiconductor(xy=(45, 45), width=10, style=Style())
+        facility.gf(xy=(60, 45), width=10, style=Style())
+        facility.tel(xy=(75, 45), width=10, style=Style())
+        facility.amat(xy=(90, 45), width=10, style=Style())
+        facility.hon_hai(xy=(15, 20), width=10, style=Style())
 
         out = tmp_path / "test_facility_aliases.png"
         save(str(out))

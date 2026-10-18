@@ -41,7 +41,7 @@ rectangle(
     (50.0, 50.0),
     width=60.0,
     height=60.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=8.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=8.0),
 )
 
 # 8 radial outward arrows every 45 degrees
@@ -62,7 +62,7 @@ for k in range(8):
 circle(
     (50.0, 50.0),
     radius=6.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

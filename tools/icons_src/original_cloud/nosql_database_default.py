@@ -64,7 +64,7 @@ rectangle(
     (cx, badge_cy),
     width=42.0,
     height=28.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=6.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
 )
 
 # 3. Geometric curly braces { } and center accent dot
@@ -86,8 +86,8 @@ right_brace = [
     (61.0, 35.0),
     (57.5, 35.0),
 ]
-draw_round_polyline(left_brace, width_units=2.4, color=DARK)
-draw_round_polyline(right_brace, width_units=2.4, color=DARK)
+draw_round_polyline(left_brace, width_units=2.0, color=DARK)
+draw_round_polyline(right_brace, width_units=2.0, color=DARK)
 
 circle(
     (cx, badge_cy),

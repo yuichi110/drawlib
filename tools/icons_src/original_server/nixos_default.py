@@ -18,7 +18,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.6
+w = 2.0
 
 lambdas_blue2: list[list[tuple[float, float]]] = [
     [(41.65, 63.58), (22.69, 28.41), (18.26, 36.44), (23.37, 45.88), (13.21, 45.91), (11.05, 49.92), (13.27, 54.03), (27.74, 53.99), (32.95, 63.58)],

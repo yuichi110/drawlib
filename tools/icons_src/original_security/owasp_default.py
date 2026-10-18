@@ -24,7 +24,7 @@ from drawlib.utils import (
 # ruff: noqa: E501
 setup_icon()
 
-w_ring = 1.9
+w_ring = 2.0
 w_wasp = 1.2
 s = 1.23
 cx0, cy0 = 50.11, 50.88

@@ -22,7 +22,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_glyph = 2.2
 s = 80.0 / 82.0
 

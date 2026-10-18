@@ -50,7 +50,7 @@ rectangle(
 circle(
     (32.0, 52.0),
     radius=7.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
 )
 
 dome_pts = [
@@ -61,10 +61,10 @@ dome_pts = [
     for deg in range(0, 181, 6)
 ]
 polygon(dome_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(dome_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(dome_pts, width_units=2.0, color=DARK, closed=True)
 
 # Right credential lines
-draw_round_segment((52.0, 52.0), (76.0, 52.0), width_units=2.6, color=DARK)
-draw_round_segment((52.0, 38.0), (70.0, 38.0), width_units=2.6, color=DARK)
+draw_round_segment((52.0, 52.0), (76.0, 52.0), width_units=2.0, color=DARK)
+draw_round_segment((52.0, 38.0), (70.0, 38.0), width_units=2.0, color=DARK)
 
 save()

@@ -34,9 +34,9 @@ angles = [90.0, 30.0, 330.0, 270.0, 210.0, 150.0]
 
 nodes = [(cx + mesh_r * math.cos(math.radians(a)), cy + mesh_r * math.sin(math.radians(a))) for a in angles]
 
-draw_round_polyline(nodes, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(nodes, width_units=2.0, color=DARK, closed=True)
 for node in nodes:
-    draw_round_segment((cx, cy), node, width_units=2.4, color=DARK)
+    draw_round_segment((cx, cy), node, width_units=2.0, color=DARK)
 
 circle(
     (cx, cy),
@@ -49,7 +49,7 @@ for idx, node in enumerate(nodes):
     circle(
         node,
         radius=7.5,
-        style=fill_style(node_col, border_color=DARK, border_units=2.5),
+        style=fill_style(node_col, border_color=DARK, border_units=2.0),
     )
 
 save()

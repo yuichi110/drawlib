@@ -31,7 +31,7 @@ def _s_list(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_inner = 1.6
 
 # 1. Sunlit top & front isometric faces (Colors.Blue2)

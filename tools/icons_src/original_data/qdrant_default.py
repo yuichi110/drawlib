@@ -26,7 +26,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 3-unit isometric lattice centered at (50.0, 50.0)
 u = 12.6

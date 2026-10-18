@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_arrow = 2.2
+w_arrow = 2.0
 w_z = 1.6
 
 top_arrow: list[tuple[float, float]] = [(75.43, 70.42), (81.16, 77.58), (33.88, 77.58), (34.96, 87.61), (15.62, 70.42), (34.96, 53.22), (33.88, 63.43), (37.11, 63.43)]

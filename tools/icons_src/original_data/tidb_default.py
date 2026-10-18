@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 50.0, 50.0
 r_hex = 41.0
 u = r_hex * math.cos(math.radians(30.0)) / 3.0

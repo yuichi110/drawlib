@@ -34,12 +34,12 @@ rectangle(
     height=52.0,
     style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=6.0),
 )
-draw_round_segment((23.0, 37.0), (23.0, 63.0), width_units=2.2, color=DARK)
+draw_round_segment((23.0, 37.0), (23.0, 63.0), width_units=2.0, color=DARK)
 for ly in (63.0, 37.0):
     circle(
         (23.0, ly),
         radius=4.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.1),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
 
 # Right virtual network frame
@@ -49,12 +49,12 @@ rectangle(
     height=52.0,
     style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w, shape_r=6.0),
 )
-draw_round_segment((77.0, 37.0), (77.0, 63.0), width_units=2.2, color=DARK)
+draw_round_segment((77.0, 37.0), (77.0, 63.0), width_units=2.0, color=DARK)
 for ry in (63.0, 37.0):
     circle(
         (77.0, ry),
         radius=4.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.1),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
 
 # Bidirectional horizontal peering arrows across the center

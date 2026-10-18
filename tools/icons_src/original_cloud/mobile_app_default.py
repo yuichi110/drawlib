@@ -35,8 +35,8 @@ rectangle(
 )
 
 # Top speaker and bottom home bar
-draw_round_segment((44.0, 80.0), (56.0, 80.0), width_units=2.3, color=DARK)
-draw_round_segment((43.0, 20.0), (57.0, 20.0), width_units=2.3, color=DARK)
+draw_round_segment((44.0, 80.0), (56.0, 80.0), width_units=2.0, color=DARK)
+draw_round_segment((43.0, 20.0), (57.0, 20.0), width_units=2.0, color=DARK)
 
 # 2x2 app tile grid
 tiles = [
@@ -50,7 +50,7 @@ for tx, ty, col in tiles:
         (tx, ty),
         width=12.5,
         height=12.5,
-        style=fill_style(col, border_color=DARK, border_units=2.2, shape_r=3.0),
+        style=fill_style(col, border_color=DARK, border_units=2.0, shape_r=3.0),
     )
 
 save()

@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.7
+w = 2.0
 cx, cy = 10.5, 10.5
 
 

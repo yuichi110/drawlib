@@ -42,7 +42,7 @@ def _cubic(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Pointed red panda ears with fluffy inner pads
 left_ear = [

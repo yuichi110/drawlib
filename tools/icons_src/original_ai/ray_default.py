@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 sq_size = 15.8
 spoke_half_w = 2.15
 RAY_CYAN = "#3DB4D8"

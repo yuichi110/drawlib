@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # 1. Left PASTEL_BLUE service block ((24, 50), width=24, height=48, shape_r=4.0)
 rectangle(

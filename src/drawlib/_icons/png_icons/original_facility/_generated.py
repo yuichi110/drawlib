@@ -98,6 +98,26 @@ def air_freight(
     _write(xy=xy, width=width, name="cargo_plane", style=style, variant=variant)
 
 
+def amat(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing amat.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="applied_materials", style=style, variant=variant)
+
+
 def apc(
     xy: Coordinate,
     width: PosFloat,
@@ -116,6 +136,66 @@ def apc(
 
     """
     _write(xy=xy, width=width, name="apc", style=style, variant=variant)
+
+
+def applied_materials(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing applied materials.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="applied_materials", style=style, variant=variant)
+
+
+def asml(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing asml.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="asml", style=style, variant=variant)
+
+
+def asml_holding(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing asml holding.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="asml", style=style, variant=variant)
 
 
 def at_and_t(
@@ -618,6 +698,26 @@ def chiller(
     _write(xy=xy, width=width, name="cooling_hvac", style=style, variant=variant)
 
 
+def chip_fab(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing chip fab.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="semiconductor_fab", style=style, variant=variant)
+
+
 def city_hall(
     xy: Coordinate,
     width: PosFloat,
@@ -636,6 +736,26 @@ def city_hall(
 
     """
     _write(xy=xy, width=width, name="public_building", style=style, variant=variant)
+
+
+def cleanroom(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing cleanroom.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="semiconductor_fab", style=style, variant=variant)
 
 
 def clinic(
@@ -1398,6 +1518,26 @@ def fire_suppression(
     _write(xy=xy, width=width, name="fire_suppression", style=style, variant=variant)
 
 
+def foxconn(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing foxconn.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="foxconn", style=style, variant=variant)
+
+
 def freight_aircraft(
     xy: Coordinate,
     width: PosFloat,
@@ -1496,6 +1636,66 @@ def generator(
 
     """
     _write(xy=xy, width=width, name="generator", style=style, variant=variant)
+
+
+def gf(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing gf.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="globalfoundries", style=style, variant=variant)
+
+
+def global_foundries(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing global foundries.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="globalfoundries", style=style, variant=variant)
+
+
+def globalfoundries(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing globalfoundries.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="globalfoundries", style=style, variant=variant)
 
 
 def government(
@@ -1636,6 +1836,26 @@ def home_office(
 
     """
     _write(xy=xy, width=width, name="home_office", style=style, variant=variant)
+
+
+def hon_hai(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing hon hai.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="foxconn", style=style, variant=variant)
 
 
 def hospital(
@@ -1876,6 +2096,46 @@ def kddi(
 
     """
     _write(xy=xy, width=width, name="kddi", style=style, variant=variant)
+
+
+def kyocera(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing kyocera.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="kyocera", style=style, variant=variant)
+
+
+def kyocera_corp(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing kyocera corp.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="kyocera", style=style, variant=variant)
 
 
 def landing_station(
@@ -2136,6 +2396,46 @@ def mobile_site(
 
     """
     _write(xy=xy, width=width, name="service_van", style=style, variant=variant)
+
+
+def murata(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing murata.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="murata", style=style, variant=variant)
+
+
+def murata_mfg(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing murata mfg.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="murata", style=style, variant=variant)
 
 
 def ntt(
@@ -2678,6 +2978,46 @@ def radio_mast(
     _write(xy=xy, width=width, name="cell_tower", style=style, variant=variant)
 
 
+def rapidus(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing rapidus.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="rapidus", style=style, variant=variant)
+
+
+def rapidus_corp(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing rapidus corp.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="rapidus", style=style, variant=variant)
+
+
 def remote_worker(
     xy: Coordinate,
     width: PosFloat,
@@ -2876,6 +3216,26 @@ def security_gate(
 
     """
     _write(xy=xy, width=width, name="security_gate", style=style, variant=variant)
+
+
+def semiconductor_fab(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing semiconductor fab.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="semiconductor_fab", style=style, variant=variant)
 
 
 def server_rack(
@@ -3258,6 +3618,26 @@ def t_systems(
     _write(xy=xy, width=width, name="deutsche_telekom", style=style, variant=variant)
 
 
+def taiwan_semiconductor(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing taiwan semiconductor.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="tsmc", style=style, variant=variant)
+
+
 def tech_campus(
     xy: Coordinate,
     width: PosFloat,
@@ -3276,6 +3656,26 @@ def tech_campus(
 
     """
     _write(xy=xy, width=width, name="campus", style=style, variant=variant)
+
+
+def tel(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing tel.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="tokyo_electron", style=style, variant=variant)
 
 
 def telegraph_pole(
@@ -3316,6 +3716,26 @@ def thermal_plant(
 
     """
     _write(xy=xy, width=width, name="power_plant", style=style, variant=variant)
+
+
+def tokyo_electron(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing tokyo electron.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="tokyo_electron", style=style, variant=variant)
 
 
 def tower_5g(
@@ -3396,6 +3816,26 @@ def truck(
 
     """
     _write(xy=xy, width=width, name="cargo_truck", style=style, variant=variant)
+
+
+def tsmc(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing tsmc.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="tsmc", style=style, variant=variant)
 
 
 def turnstile(
@@ -3616,6 +4056,26 @@ def vessel(
 
     """
     _write(xy=xy, width=width, name="cargo_ship", style=style, variant=variant)
+
+
+def wafer_fab(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Facility concept icon representing wafer fab.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="semiconductor_fab", style=style, variant=variant)
 
 
 def warehouse(

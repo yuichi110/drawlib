@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Isometric Databricks geometry:
 # x spans [13.0, 87.0] (half-width 37.0), isometric vertical slope = 20.5 / 37.0 (~0.55405)

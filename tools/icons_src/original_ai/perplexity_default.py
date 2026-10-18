@@ -68,8 +68,8 @@ window_panes = [_s(pane) for pane in raw_window_panes]
 draw_compound_polygon([outer_frame, *window_panes], color=Colors.Teal3)
 
 # 3. Crisp DARK outlines along outer crystal bar perimeter and inner window pane cutouts
-draw_round_polyline(outer_frame, width_units=1.7, color=DARK, closed=True)
+draw_round_polyline(outer_frame, width_units=2.0, color=DARK, closed=True)
 for pane in window_panes:
-    draw_round_polyline(pane, width_units=1.6, color=DARK, closed=True)
+    draw_round_polyline(pane, width_units=2.0, color=DARK, closed=True)
 
 save()

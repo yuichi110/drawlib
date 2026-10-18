@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_halo = 1.8
+w_halo = 2.0
 w_in = 0.5
 
 simple_letters: list[list[tuple[float, float]]] = [

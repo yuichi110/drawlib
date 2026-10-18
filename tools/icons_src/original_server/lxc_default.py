@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, draw_round_segment, no_bord
 # fmt: off
 setup_icon()
 
-w = 1.5
+w = 2.0
 w_inner = 1.3
 
 orange_faces: list[list[tuple[float, float]]] = [

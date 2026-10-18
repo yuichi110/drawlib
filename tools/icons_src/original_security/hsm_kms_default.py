@@ -27,8 +27,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_line = 2.7
+w_shape = 2.0
+w_line = 2.0
 
 # 1. 12 metallic chip pins (3 pins protruding on each of the 4 sides at 36, 50, 64)
 pin_coords = (36.0, 50.0, 64.0)

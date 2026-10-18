@@ -43,7 +43,7 @@ for y, knob_x, knob_color in sliders:
     circle(
         (knob_x, y),
         radius=6.8,
-        style=fill_style(knob_color, border_color=DARK, border_units=2.4),
+        style=fill_style(knob_color, border_color=DARK, border_units=2.0),
     )
 
 save()

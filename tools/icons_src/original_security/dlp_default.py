@@ -27,8 +27,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_line = 2.7
+w_shape = 2.0
+w_line = 2.0
 
 # 1. Left/center 2-tier database cylinder (x=11..51, y=24..78)
 db_cx = 31.0

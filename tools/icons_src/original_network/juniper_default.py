@@ -26,7 +26,7 @@ setup_icon()
 
 # Split 1.3-unit DARK outline into 1.1 outside (w_halo=2.2) + 0.2 inside (w_in=0.4)
 # so thin 1.4-unit stems stay vibrant pastel and adjacent letters do not merge.
-w_halo = 2.2
+w_halo = 2.0
 w_in = 0.4
 
 # Main 'juniper' wordmark contours (omitting microscopic 'NETWORKS' and 'R' mark)

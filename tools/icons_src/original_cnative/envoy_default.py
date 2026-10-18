@@ -47,10 +47,10 @@ polygon(facet_tl, style=no_border_fill(PASTEL_BLUE_LIGHT))
 
 # Seam lines between the 3 ribbon facets
 for idx in (0, 2, 4):
-    draw_round_segment(v_in[idx], v_out[idx], width_units=2.3, color=DARK)
+    draw_round_segment(v_in[idx], v_out[idx], width_units=2.0, color=DARK)
 
 # Inner and outer hexagon borders
-draw_round_polyline(v_in, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(v_in, width_units=2.0, color=DARK, closed=True)
 draw_round_polyline(v_out, width_units=w, color=DARK, closed=True)
 
 save()

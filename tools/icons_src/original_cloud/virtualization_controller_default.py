@@ -65,7 +65,7 @@ for i in range(teeth):
         gear_pts.append((cx_g + rad * math.cos(ang), cy_g + rad * math.sin(ang)))
 
 polygon(gear_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(gear_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(gear_pts, width_units=2.0, color=DARK, closed=True)
 circle(
     (cx_g, cy_g),
     radius=4.2,
@@ -82,7 +82,7 @@ for x_node in (24.0, 50.0, 76.0):
         left_color=PASTEL_BLUE,
         right_color=PASTEL_GREEN,
         border_color=DARK,
-        border_units=2.2,
+        border_units=2.0,
     )
 
 save()

@@ -41,7 +41,7 @@ inner_left = build_shield_half_points(cx, 21.0, 77.5, 24.5, side="left")
 inner_right = build_shield_half_points(cx, 21.0, 77.5, 24.5, side="right")
 inner_outline = inner_left + list(reversed(inner_right[1:-1]))
 polygon(inner_outline, style=no_border_fill(WHITE))
-draw_round_polyline(inner_outline, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(inner_outline, width_units=2.0, color=DARK, closed=True)
 
 # 3. Central PASTEL_GREEN diamond policy badge
 cy_badge = 51.5
@@ -54,13 +54,13 @@ diamond_pts = [
 ]
 polygon(
     diamond_pts,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3, shape_r=2.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.5),
 )
 
 # 4. Crisp DARK checkmark inside the diamond
 draw_round_polyline(
     [(44.2, 51.0), (48.4, 46.8), (56.2, 55.4)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 

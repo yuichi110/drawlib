@@ -24,7 +24,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # 1. Heavy unified outer WHITE frame ((50, 50), width=68, height=74, shape_r=6.0, border 1.8 in DARK)
 # x=16..84, y=13..87

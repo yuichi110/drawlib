@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_devops",
-  "created_at": "2026-10-17T04:59:14.725125+00:00",
+  "created_at": "2026-10-18T10:42:37.623576+00:00",
   "canvas_size": [
     512,
     512
@@ -62,21 +62,21 @@
       "icon_name": "alert_incident",
       "variant": "default",
       "source_script": "original_devops/alert_incident_default.py",
-      "size_bytes": 21085,
-      "sha256": "5c9f6aa432f14b8e98a25d48aadc2c747051b0c7a88f4eb907fa8ae5792e0a0d",
+      "size_bytes": 21677,
+      "sha256": "1a5555df3cdbed1f55c724d037f3dcd98b24a1deb85acea00bd50c2886fc1b3b",
       "bbox": [
         26,
         47,
         486,
-        465
+        464
       ]
     },
     "ansible_default.png": {
       "icon_name": "ansible",
       "variant": "default",
       "source_script": "original_devops/ansible_default.py",
-      "size_bytes": 35032,
-      "sha256": "befa26f0e1c7081fe4a5bb863cae457c1ef15216c02c646800802490b0bea983",
+      "size_bytes": 35131,
+      "sha256": "c8480444766367cbbff100282169c11cb2c284c4026fa3e0edee6caf60601762",
       "bbox": [
         26,
         26,
@@ -88,8 +88,8 @@
       "icon_name": "artifact_registry",
       "variant": "default",
       "source_script": "original_devops/artifact_registry_default.py",
-      "size_bytes": 18948,
-      "sha256": "c672df8f9c72f29b6cb5007d853a76d0d0bc1992921e226a72a88e00ae5f35e4",
+      "size_bytes": 19247,
+      "sha256": "069d80fcd2427c81b49fa6f97035be486ca54ac41a43718ad7701ee48bb77185",
       "bbox": [
         26,
         38,
@@ -101,8 +101,8 @@
       "icon_name": "bitbucket",
       "variant": "default",
       "source_script": "original_devops/bitbucket_default.py",
-      "size_bytes": 15115,
-      "sha256": "ce07b7c9ae0a3bf3064156e73f772808e780208ab72e92af4845e60f84f1cf61",
+      "size_bytes": 15354,
+      "sha256": "c883ad040971b0b14ea008a2c0f64302ffa80c74daf78c5e8567e6f529feeb63",
       "bbox": [
         26,
         48,
@@ -114,8 +114,8 @@
       "icon_name": "build_runner",
       "variant": "default",
       "source_script": "original_devops/build_runner_default.py",
-      "size_bytes": 30047,
-      "sha256": "007432206b6c7c4e0d5802fb25bf00cb66d3596c370710dfba572e4f21d15c49",
+      "size_bytes": 31357,
+      "sha256": "c335c335b7f1025537ade797e61aefba2f94eab28344b4fb022da0bd90192c97",
       "bbox": [
         26,
         51,
@@ -127,8 +127,8 @@
       "icon_name": "buildkite",
       "variant": "default",
       "source_script": "original_devops/buildkite_default.py",
-      "size_bytes": 18477,
-      "sha256": "965cd93e8e9a93c8bd517cfa59624b34c9ac706e971759cba15169b0368083e3",
+      "size_bytes": 18527,
+      "sha256": "40646811febaee8b5fb600d53f5b1ff6dd67b2cec85dde86413cdee7b62ae802",
       "bbox": [
         26,
         100,
@@ -140,8 +140,8 @@
       "icon_name": "cicd_pipeline",
       "variant": "default",
       "source_script": "original_devops/cicd_pipeline_default.py",
-      "size_bytes": 28933,
-      "sha256": "338f0939a4b5ad824a20da4a9809b73508bdb80afd6b164cdb5b4b89052f6254",
+      "size_bytes": 30942,
+      "sha256": "8a9cac8aedfd4f87665c2ff12570debb12c1cfbecccd0ca6eeeecd0a93da2d01",
       "bbox": [
         26,
         35,
@@ -153,8 +153,8 @@
       "icon_name": "circleci",
       "variant": "default",
       "source_script": "original_devops/circleci_default.py",
-      "size_bytes": 32436,
-      "sha256": "c7cb2621940e8ded703f496cd9d19e400ebf5ac94dcac0e1be75015a88dd8944",
+      "size_bytes": 32233,
+      "sha256": "9e2098766d3b4d31c706ba07eaa5ac04b129324ccc618cc9b693b7e617a5816c",
       "bbox": [
         29,
         26,
@@ -166,8 +166,8 @@
       "icon_name": "config_management",
       "variant": "default",
       "source_script": "original_devops/config_management_default.py",
-      "size_bytes": 17465,
-      "sha256": "5a8945660169ff13997b90981e26c454e071c3964a303442aa75230c6857d216",
+      "size_bytes": 18191,
+      "sha256": "60da89d80100434ab7eff5f6ecc5be1bca5c43d51cbc302cf766ef87ab37e2ed",
       "bbox": [
         26,
         44,
@@ -179,12 +179,12 @@
       "icon_name": "consul",
       "variant": "default",
       "source_script": "original_devops/consul_default.py",
-      "size_bytes": 40727,
-      "sha256": "53d848438300eeeb6bc2e0119a01aa4118e47fbbbb950d2db9b6c79b80604b35",
+      "size_bytes": 40626,
+      "sha256": "bae40f873c375cd3b18587ff346d081ff44a808095559565c507cf85aad42b96",
       "bbox": [
         28,
         26,
-        483,
+        484,
         486
       ]
     },
@@ -192,8 +192,8 @@
       "icon_name": "container_cluster",
       "variant": "default",
       "source_script": "original_devops/container_cluster_default.py",
-      "size_bytes": 32883,
-      "sha256": "29e3090a55b1c9749e9084868b063edd3b5610c9d2cc98d5de2ebf42030deaa1",
+      "size_bytes": 33606,
+      "sha256": "59f3b12f7255de14f2da9c0e3c1df9c85b07a4dde4344638549cdd327dfd20ec",
       "bbox": [
         26,
         33,
@@ -205,8 +205,8 @@
       "icon_name": "container",
       "variant": "default",
       "source_script": "original_devops/container_default.py",
-      "size_bytes": 24594,
-      "sha256": "7a00502c7626b6191f6c9773f978f32553ee68b463894ee58c3368b28f4ad853",
+      "size_bytes": 24603,
+      "sha256": "f5ae2e7b8d40c5aa44f83531364529c9d4c10c47d8f7e4393e26f0ead29c1c34",
       "bbox": [
         56,
         26,
@@ -218,8 +218,8 @@
       "icon_name": "cypress",
       "variant": "default",
       "source_script": "original_devops/cypress_default.py",
-      "size_bytes": 52062,
-      "sha256": "22287636845437943e0e6f599d997ad271642695bfa21314f0f94ac7bb1e264d",
+      "size_bytes": 52299,
+      "sha256": "14565735a840ec3e83a62cffa45e02c40fe93e2a621783c41fe95a9819735d26",
       "bbox": [
         26,
         26,
@@ -231,21 +231,21 @@
       "icon_name": "dashboard",
       "variant": "default",
       "source_script": "original_devops/dashboard_default.py",
-      "size_bytes": 18813,
-      "sha256": "5f39184413b772155be9cc806fd0fa460cc104a96d37ae67b398869e4a225f14",
+      "size_bytes": 19592,
+      "sha256": "146bb503f791d67031097910b08f791e8c118ff99867a25ee69dd699da160483",
       "bbox": [
         26,
         74,
         486,
-        438
+        437
       ]
     },
     "datadog_default.png": {
       "icon_name": "datadog",
       "variant": "default",
       "source_script": "original_devops/datadog_default.py",
-      "size_bytes": 51982,
-      "sha256": "ed1038f628de106a080897835b7a6ca3b6e3904a9647a280918a5490fa6a4910",
+      "size_bytes": 51813,
+      "sha256": "bc602d4e624612c00ec99d1f320843c465f3c72f6e1026aead6f2c9f69df086d",
       "bbox": [
         26,
         26,
@@ -257,21 +257,21 @@
       "icon_name": "distributed_tracing",
       "variant": "default",
       "source_script": "original_devops/distributed_tracing_default.py",
-      "size_bytes": 11923,
-      "sha256": "522b75bbb37e0c6b13d17b23137c427244c66676f57cd9a15ab59cb28c97dd8f",
+      "size_bytes": 12026,
+      "sha256": "323152a7916a260e97cd6da222c516a1b8c0c7d8612a50fb741f86220d2a0039",
       "bbox": [
         26,
         61,
         486,
-        451
+        450
       ]
     },
     "dynatrace_default.png": {
       "icon_name": "dynatrace",
       "variant": "default",
       "source_script": "original_devops/dynatrace_default.py",
-      "size_bytes": 34351,
-      "sha256": "9e5a7a228fef97355070444e3ee55b57973f7c9bedc3689a08f75d20dcd45992",
+      "size_bytes": 34640,
+      "sha256": "a779209ec0067ded04c304eac9642c850258045c5fdd3f424d8f36499a8bbb92",
       "bbox": [
         28,
         26,
@@ -283,21 +283,21 @@
       "icon_name": "feature_flag",
       "variant": "default",
       "source_script": "original_devops/feature_flag_default.py",
-      "size_bytes": 22213,
-      "sha256": "2c234137c8d74a18ae7d3f5a3a741d2d6a8237a08cb29a459156036127ab545f",
+      "size_bytes": 22360,
+      "sha256": "1badf0586d71a9fef78bc9f3531dd149458bcdaa17e696be581a96bc0507b10d",
       "bbox": [
         26,
-        134,
+        135,
         486,
-        378
+        377
       ]
     },
     "git_default.png": {
       "icon_name": "git",
       "variant": "default",
       "source_script": "original_devops/git_default.py",
-      "size_bytes": 21452,
-      "sha256": "287961b52fa5d8f5541bb572073b8bcb76f34085e5d07d65553988f27ef07a7f",
+      "size_bytes": 21445,
+      "sha256": "0234d130f64d20b5eac0c1c8eef0ad87fee65c5dac9ec8b7f54bb68bd3bbb009",
       "bbox": [
         26,
         26,
@@ -309,12 +309,12 @@
       "icon_name": "git_repository",
       "variant": "default",
       "source_script": "original_devops/git_repository_default.py",
-      "size_bytes": 21634,
-      "sha256": "1b3c428f87e842431397ba3aecf533a369beca38e30f5e393cf1ad4f285d2899",
+      "size_bytes": 21792,
+      "sha256": "cdeb1279246d8077c2abc025f29e5e05297f937af61f0697a4224c1b070a5279",
       "bbox": [
-        82,
+        83,
         26,
-        430,
+        429,
         486
       ]
     },
@@ -322,8 +322,8 @@
       "icon_name": "github_actions",
       "variant": "default",
       "source_script": "original_devops/github_actions_default.py",
-      "size_bytes": 70813,
-      "sha256": "264ef7d5312705dec1bdcb83803b0edbcd0afb7f6ef67606de8e7f68f7ef3c72",
+      "size_bytes": 71018,
+      "sha256": "cb59f3f8ff00e65039fece5f24a94026ddf553d6176046a4f0713c653a3b1a6e",
       "bbox": [
         26,
         26,
@@ -335,8 +335,8 @@
       "icon_name": "github",
       "variant": "default",
       "source_script": "original_devops/github_default.py",
-      "size_bytes": 35936,
-      "sha256": "f4b6a99e873c24918a7c5ceeb3b7c02ad057801d413170d012de1481ce7253b8",
+      "size_bytes": 35578,
+      "sha256": "3814af068d5488dcde858e528c9d1dbb947e12b742485a608b940c02da5fe55c",
       "bbox": [
         26,
         26,
@@ -348,8 +348,8 @@
       "icon_name": "gitlab",
       "variant": "default",
       "source_script": "original_devops/gitlab_default.py",
-      "size_bytes": 42775,
-      "sha256": "64563273f0243c1770176264d3b8a672e85b08d1d7268fbc64be4f90bd1c9985",
+      "size_bytes": 42517,
+      "sha256": "6f3d5b7af6b9da0c78be1f6b57fff8da784b048f9c5176adb730d1ea387054f5",
       "bbox": [
         26,
         34,
@@ -361,21 +361,21 @@
       "icon_name": "gitops_controller",
       "variant": "default",
       "source_script": "original_devops/gitops_controller_default.py",
-      "size_bytes": 28336,
-      "sha256": "e8d58eff02762c84ad4c7c3fcea5aaacbd79aa218f8b36176f2239c6d647f288",
+      "size_bytes": 28709,
+      "sha256": "d1e240db7c32d0b75069addc06ab3bf0b38d2759b40f4e59f46c20bddf19bae5",
       "bbox": [
         26,
-        105,
+        106,
         486,
-        407
+        406
       ]
     },
     "jenkins_default.png": {
       "icon_name": "jenkins",
       "variant": "default",
       "source_script": "original_devops/jenkins_default.py",
-      "size_bytes": 51550,
-      "sha256": "f8d24504a6888dbb4727e4b471d19d7481c910268c1fa89b7c7399d036b3dd14",
+      "size_bytes": 51245,
+      "sha256": "84d3eb2636fbb6202ff3ab59d6800fa421d4ebd97f35faf77244093f1cfcf194",
       "bbox": [
         72,
         26,
@@ -387,11 +387,11 @@
       "icon_name": "jfrog",
       "variant": "default",
       "source_script": "original_devops/jfrog_default.py",
-      "size_bytes": 41667,
-      "sha256": "324726b0a586631780b8fc6a76121a51233b95c6885d444b9402d82f8118af78",
+      "size_bytes": 40840,
+      "sha256": "45f09a785b4d590ca1c65cd2176da14d2ab473e92c4d8a80b1eda077e6be0d3e",
       "bbox": [
         26,
-        124,
+        123,
         486,
         388
       ]
@@ -400,8 +400,8 @@
       "icon_name": "jira",
       "variant": "default",
       "source_script": "original_devops/jira_default.py",
-      "size_bytes": 17649,
-      "sha256": "9a522a40063cfd53614cda0ead42f7823152b5e4663269914a45f459079f682d",
+      "size_bytes": 17672,
+      "sha256": "0e4abe0d977260914a789a18f340445175f1e003fd4ea3a5d675f3a4900de908",
       "bbox": [
         26,
         26,
@@ -413,8 +413,8 @@
       "icon_name": "k6",
       "variant": "default",
       "source_script": "original_devops/k6_default.py",
-      "size_bytes": 29721,
-      "sha256": "8becfd2dd4d99e53de02bc42e11b26a6375214645ce4269018b45f2d39b5285b",
+      "size_bytes": 29682,
+      "sha256": "fd54eb24aa7b497c6ed7e3216053446c175c9f0fde961bdc65c6f524921c3685",
       "bbox": [
         26,
         26,
@@ -426,8 +426,8 @@
       "icon_name": "keycloak",
       "variant": "default",
       "source_script": "original_devops/keycloak_default.py",
-      "size_bytes": 38975,
-      "sha256": "6a06d494e7d12ea73a5d32d05ce95d2029a40da8af4b17c643dae88113eb404a",
+      "size_bytes": 39050,
+      "sha256": "9ea707bc9ca753a766b660bcd426563ca70d3e1696369a222981cfd338123c26",
       "bbox": [
         26,
         48,
@@ -439,8 +439,8 @@
       "icon_name": "kibana",
       "variant": "default",
       "source_script": "original_devops/kibana_default.py",
-      "size_bytes": 22091,
-      "sha256": "4fc7d0848cf33a9cc024242ca3ef0098cffc851ee2cc271c6ddf2d0eb78495aa",
+      "size_bytes": 21868,
+      "sha256": "2ec8d0ebe21d74eddfa15322b208e2fe2a51cc4b24869b63728b11591b1345c5",
       "bbox": [
         75,
         26,
@@ -452,8 +452,8 @@
       "icon_name": "logging",
       "variant": "default",
       "source_script": "original_devops/logging_default.py",
-      "size_bytes": 23619,
-      "sha256": "5d32759e9ff920c3084eef8d4e3cc5253eb9c4d85052a9774cccc1dc2076368f",
+      "size_bytes": 23301,
+      "sha256": "6adc96d8df26dc33e835fdc368a3d8ef6f18cb5b09b8babf5fd0143a6c24cdbe",
       "bbox": [
         41,
         26,
@@ -465,10 +465,10 @@
       "icon_name": "loki",
       "variant": "default",
       "source_script": "original_devops/loki_default.py",
-      "size_bytes": 48533,
-      "sha256": "869aad4746c245c2b6351c13509514214c8ea353db8ed1e7941df6dff20b4017",
+      "size_bytes": 42626,
+      "sha256": "c0bfc646ca891c918c23e256b29344a7eacf5612e2845356c891121c03731408",
       "bbox": [
-        56,
+        55,
         26,
         456,
         486
@@ -478,8 +478,8 @@
       "icon_name": "monitoring",
       "variant": "default",
       "source_script": "original_devops/monitoring_default.py",
-      "size_bytes": 15051,
-      "sha256": "99bd9e473d3fd4551349267054b66674ea23d0ece076b383bde498e647adfe86",
+      "size_bytes": 14897,
+      "sha256": "2a0866725c44d6b89318a751dae52ddf2346c807ec3637800cd19cbefad5fbe9",
       "bbox": [
         26,
         49,
@@ -491,8 +491,8 @@
       "icon_name": "new_relic",
       "variant": "default",
       "source_script": "original_devops/new_relic_default.py",
-      "size_bytes": 25250,
-      "sha256": "d713fa892e7c43f66e5567dca734db732a205d4a2681f06222d633b3a87a347a",
+      "size_bytes": 25318,
+      "sha256": "248fbd188c7cb9e0e3f2d19c06f88fbf8047c54b62df7062751a8cd705de438d",
       "bbox": [
         56,
         26,
@@ -504,8 +504,8 @@
       "icon_name": "nexus",
       "variant": "default",
       "source_script": "original_devops/nexus_default.py",
-      "size_bytes": 40125,
-      "sha256": "a54191208499d5c54642dabb9cd05b4e5cdf9ebb9b4eed87495de6db0ac61317",
+      "size_bytes": 39682,
+      "sha256": "4d03ce58640940adcbbf67d39b52c63115054c31bc84e8294a16f0773b1e2bd2",
       "bbox": [
         40,
         26,
@@ -517,8 +517,8 @@
       "icon_name": "on_call",
       "variant": "default",
       "source_script": "original_devops/on_call_default.py",
-      "size_bytes": 25172,
-      "sha256": "94128df6121adfcb33ea316b61623f53fb247d11a428d80fbe4e8b897a991991",
+      "size_bytes": 25639,
+      "sha256": "afefc76777a5fa829f059d836697fab118d615d24b660eef8fb832587b8c0d3c",
       "bbox": [
         26,
         39,
@@ -530,8 +530,8 @@
       "icon_name": "opentofu",
       "variant": "default",
       "source_script": "original_devops/opentofu_default.py",
-      "size_bytes": 25012,
-      "sha256": "6be00469be66e5665ea4266ff34e933813475a0f9df2f5b157c36d0d97ee8875",
+      "size_bytes": 25200,
+      "sha256": "eccbf020db966019884d18703cb9e59de8aabd13b2474d5560d6bd7a4cb2f947",
       "bbox": [
         56,
         26,
@@ -543,10 +543,10 @@
       "icon_name": "package_dependency",
       "variant": "default",
       "source_script": "original_devops/package_dependency_default.py",
-      "size_bytes": 24950,
-      "sha256": "c5995f0b03d21168b5a2248332bf6430b9ebed48235d525ca56a140c3ff53c15",
+      "size_bytes": 24585,
+      "sha256": "0f8693180139c639fdd888fe140740b1feea477d75ad25d096f18a8c2e84373c",
       "bbox": [
-        44,
+        43,
         26,
         468,
         486
@@ -556,8 +556,8 @@
       "icon_name": "packer",
       "variant": "default",
       "source_script": "original_devops/packer_default.py",
-      "size_bytes": 18921,
-      "sha256": "765e70bc70398c65d648c74027eb5e6bbfcbdf90a897bd9dda60eaf9d35619d7",
+      "size_bytes": 18932,
+      "sha256": "ad9ce5df3c42653f1779ba1e9f62a139af53570c07ef7c5e4964ab9c57aa21ba",
       "bbox": [
         111,
         26,
@@ -569,8 +569,8 @@
       "icon_name": "pagerduty",
       "variant": "default",
       "source_script": "original_devops/pagerduty_default.py",
-      "size_bytes": 12877,
-      "sha256": "35ea3a26a380db142e7678736c320ad3dbcefa72dc01a423ef4b8f4e2d60fcea",
+      "size_bytes": 12855,
+      "sha256": "4fc92f5ba1401d3dc9e0a08769382fbee9847c1d41fa6ed19341effc6549ef33",
       "bbox": [
         95,
         26,
@@ -582,21 +582,21 @@
       "icon_name": "playwright",
       "variant": "default",
       "source_script": "original_devops/playwright_default.py",
-      "size_bytes": 34035,
-      "sha256": "c422cebd02a2a5b13c2221b099d9571849568b7268890628bd0eaf1958be1008",
+      "size_bytes": 33979,
+      "sha256": "a07427f64790e3a26f3e60b32b3ba0c233d48721779840bab81da31cea4b5654",
       "bbox": [
         26,
         87,
         486,
-        424
+        425
       ]
     },
     "podman_default.png": {
       "icon_name": "podman",
       "variant": "default",
       "source_script": "original_devops/podman_default.py",
-      "size_bytes": 69125,
-      "sha256": "c5df309e969c84fff85e7865baa4629bc63a004c19c9efd478c817726feb069e",
+      "size_bytes": 68356,
+      "sha256": "a0015bf8c9a6449c12798689f402669bf191014b68d1ebdcb96faf70da7c3de4",
       "bbox": [
         26,
         26,
@@ -608,8 +608,8 @@
       "icon_name": "postman",
       "variant": "default",
       "source_script": "original_devops/postman_default.py",
-      "size_bytes": 37044,
-      "sha256": "d907d8346cac142f0bea9473c1395dcafae65c48f0bdc11f70fe002c8e858a5d",
+      "size_bytes": 36753,
+      "sha256": "c43bedc3678f93b92bb5cccdbbed1acd3d6413db7d4d0264af086cafb767b8b3",
       "bbox": [
         26,
         26,
@@ -621,8 +621,8 @@
       "icon_name": "pull_request",
       "variant": "default",
       "source_script": "original_devops/pull_request_default.py",
-      "size_bytes": 22240,
-      "sha256": "0749c021431ef13b68ee2db424e1a0baa5bde2a6b97411f1671e0ee0ce9e80c6",
+      "size_bytes": 22359,
+      "sha256": "e16b5317d096094f6da6a4ca1d27c4ebfaa194149e6e3d2916cba5f12d666ac8",
       "bbox": [
         59,
         26,
@@ -634,8 +634,8 @@
       "icon_name": "pulumi",
       "variant": "default",
       "source_script": "original_devops/pulumi_default.py",
-      "size_bytes": 48720,
-      "sha256": "ec39a593b64d2618266965c20c621e6b00f2ff81ac553d15872bbe87bbbd3904",
+      "size_bytes": 48751,
+      "sha256": "0770029cbe20a610af2b2a5bf2f2d335f48efdb60edb40d30f302edc6e8e9e04",
       "bbox": [
         38,
         26,
@@ -647,12 +647,12 @@
       "icon_name": "secret_vault",
       "variant": "default",
       "source_script": "original_devops/secret_vault_default.py",
-      "size_bytes": 19829,
-      "sha256": "93436d3ba0d831108268382136d3c90a9681b56a8509161730250bf5dba3386f",
+      "size_bytes": 20141,
+      "sha256": "1f36df8b160f395f8ee34684d41eab8e9b70d4299947e5e66b0083381a49bca7",
       "bbox": [
         52,
         26,
-        460,
+        459,
         486
       ]
     },
@@ -660,8 +660,8 @@
       "icon_name": "security_scan",
       "variant": "default",
       "source_script": "original_devops/security_scan_default.py",
-      "size_bytes": 27652,
-      "sha256": "107b7354df7776fa89db6292f380f9dfa45380e524e417d8d152d7d46dc2ef56",
+      "size_bytes": 27242,
+      "sha256": "a59237e42c55f54401e12937785506c46a67633887329dc5018cfd0f715726ac",
       "bbox": [
         26,
         39,
@@ -673,8 +673,8 @@
       "icon_name": "selenium",
       "variant": "default",
       "source_script": "original_devops/selenium_default.py",
-      "size_bytes": 35928,
-      "sha256": "79d8b70f5d6453089018f125f79208d84e59629b7ff80ca0c696aa9c02609c84",
+      "size_bytes": 35884,
+      "sha256": "78b3dfb8226b79b9272609900a7b22815c16ed775eaba58b063a411ad2e081c0",
       "bbox": [
         26,
         26,
@@ -686,8 +686,8 @@
       "icon_name": "sentry",
       "variant": "default",
       "source_script": "original_devops/sentry_default.py",
-      "size_bytes": 48798,
-      "sha256": "df0c95a8c61863666ec59e745a8f02211985473b829328b40c176876795b16e8",
+      "size_bytes": 48624,
+      "sha256": "9e6920058e66939e46fe60fd5c6c1652b6a6d8eb0eab3e18c083d796cc2bf84d",
       "bbox": [
         26,
         52,
@@ -699,8 +699,8 @@
       "icon_name": "slack",
       "variant": "default",
       "source_script": "original_devops/slack_default.py",
-      "size_bytes": 30799,
-      "sha256": "6d61c1a5e6983ab569ba0aea0f19de0985bac967aa46e055b0d14b9a9fe93286",
+      "size_bytes": 30711,
+      "sha256": "cbed361d39567be6c94b0b0d7c9aa96e05d0098d5fb2361df572bbf7b47694ce",
       "bbox": [
         26,
         26,
@@ -712,8 +712,8 @@
       "icon_name": "snyk",
       "variant": "default",
       "source_script": "original_devops/snyk_default.py",
-      "size_bytes": 39167,
-      "sha256": "36d7e51855dc82a071b03b7e4a762aa46e7ff9568c38a7958d56602d69b18dfd",
+      "size_bytes": 38776,
+      "sha256": "7bbd58344089debd9817a835068f78e2f9020e50a43d4c39b1e999703663d1bd",
       "bbox": [
         75,
         26,
@@ -725,8 +725,8 @@
       "icon_name": "sonarqube",
       "variant": "default",
       "source_script": "original_devops/sonarqube_default.py",
-      "size_bytes": 45116,
-      "sha256": "9ccbef2d3d1d81b3043599977db53ad7a3df1ca57a9aecd6fce033e30e8fa1e0",
+      "size_bytes": 45040,
+      "sha256": "c5f10b3c6002da7cf57bfde6fe7d7f1fa3c93c3fe2b1447cc359f0b55f2e1d13",
       "bbox": [
         26,
         26,
@@ -738,8 +738,8 @@
       "icon_name": "spinnaker",
       "variant": "default",
       "source_script": "original_devops/spinnaker_default.py",
-      "size_bytes": 30414,
-      "sha256": "afcd76638709984a4eafc4b47dec787d85550f557bec305ab97e6d9f6097a9ee",
+      "size_bytes": 30215,
+      "sha256": "7c362c8cb44a02f82fee4b9e6cd906954a25d28a773669184e113d7908e82157",
       "bbox": [
         41,
         26,
@@ -751,8 +751,8 @@
       "icon_name": "splunk",
       "variant": "default",
       "source_script": "original_devops/splunk_default.py",
-      "size_bytes": 19599,
-      "sha256": "655b18e18d0e75af10b9b54ea83383a91d8e3ecbccbf3fe23bf633690bd7b7f7",
+      "size_bytes": 19462,
+      "sha256": "08630a809f9c7cecaea36ce4e19f061ad6848c9996c95514fd472d8417532573",
       "bbox": [
         26,
         26,
@@ -764,8 +764,8 @@
       "icon_name": "tekton",
       "variant": "default",
       "source_script": "original_devops/tekton_default.py",
-      "size_bytes": 60502,
-      "sha256": "cee1192b46e8a8e7aa7ac37cb650700488be7f114b1e1f11a9ccc44433ab7b1d",
+      "size_bytes": 59781,
+      "sha256": "01c9e6f6760dfa7a6002f3943c51f0851fc39458189667f8f70d2a9210fb902f",
       "bbox": [
         29,
         26,
@@ -777,8 +777,8 @@
       "icon_name": "terraform",
       "variant": "default",
       "source_script": "original_devops/terraform_default.py",
-      "size_bytes": 20894,
-      "sha256": "26d9899ef85de95b230cdee4b638868442651199d473f663bc855fc61320134e",
+      "size_bytes": 21942,
+      "sha256": "7385a6522d658361aa13106b3d52a71731be6da71e3fb3dbe2e95c857c6bc712",
       "bbox": [
         49,
         26,
@@ -790,8 +790,8 @@
       "icon_name": "test_automation",
       "variant": "default",
       "source_script": "original_devops/test_automation_default.py",
-      "size_bytes": 24029,
-      "sha256": "0007ff73306b689717817da37828f495de4dab94731ec98329ea1a0aeb584390",
+      "size_bytes": 24069,
+      "sha256": "98983f25a6eb83cce69fa7c2aabc4ec0abcab5d571a9a9a62096d72e3631ebcc",
       "bbox": [
         51,
         26,
@@ -803,8 +803,8 @@
       "icon_name": "trivy",
       "variant": "default",
       "source_script": "original_devops/trivy_default.py",
-      "size_bytes": 55222,
-      "sha256": "62c6f72b2ae70a608bffbf72503148aabb50ed793d9e6d1769c522e1a9e6812a",
+      "size_bytes": 55501,
+      "sha256": "645f1578f09f9337b6da09fe028a66fd9bf1322089d6d4cac18c0368a664ce65",
       "bbox": [
         56,
         26,
@@ -816,8 +816,8 @@
       "icon_name": "vagrant",
       "variant": "default",
       "source_script": "original_devops/vagrant_default.py",
-      "size_bytes": 37101,
-      "sha256": "9d9cdf8017b74751f3a7e19de07577c3a99f4a221f32f7021255d62ec596df44",
+      "size_bytes": 37471,
+      "sha256": "91459386ca79231c874ce438d1c2430b19e933f5143eb8d6823af7be9799e770",
       "bbox": [
         33,
         26,
@@ -829,8 +829,8 @@
       "icon_name": "vault",
       "variant": "default",
       "source_script": "original_devops/vault_default.py",
-      "size_bytes": 10030,
-      "sha256": "52a9791cbda8e03322815e4a46cfe65c78de4ff33933093275715aaa7b0cc342",
+      "size_bytes": 11654,
+      "sha256": "0edcc82f1937ed27620610d23cd02f61d1e45a8cc6dfcbae02b50024a1e38031",
       "bbox": [
         26,
         26,

@@ -39,7 +39,7 @@ rectangle(
 circle(
     (50.0, 50.0),
     radius=21.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 ellipse(
     (50.0, 50.0),

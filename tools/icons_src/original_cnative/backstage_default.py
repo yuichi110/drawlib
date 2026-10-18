@@ -147,6 +147,6 @@ for lx, ly, color in (
 
 # Crisp DARK outlines around both transparent D-shaped counter holes
 for hole_pts in (hole1, hole2):
-    draw_round_polyline(hole_pts, width_units=2.4, color=DARK, closed=True)
+    draw_round_polyline(hole_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

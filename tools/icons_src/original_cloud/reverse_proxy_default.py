@@ -59,10 +59,10 @@ rectangle(
 circle(
     (36.0, 50.0),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.1),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
-draw_round_segment((33.0, 66.0), (39.0, 66.0), width_units=2.2, color=DARK)
-draw_round_segment((33.0, 34.0), (39.0, 34.0), width_units=2.2, color=DARK)
+draw_round_segment((33.0, 66.0), (39.0, 66.0), width_units=2.0, color=DARK)
+draw_round_segment((33.0, 34.0), (39.0, 34.0), width_units=2.0, color=DARK)
 
 # 2 protected backend server nodes on the right
 for by in (69.0, 31.0):
@@ -72,7 +72,7 @@ for by in (69.0, 31.0):
         height=20.0,
         style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.5),
     )
-    draw_round_segment((71.5, by + 3.5), (80.5, by + 3.5), width_units=2.1, color=DARK)
+    draw_round_segment((71.5, by + 3.5), (80.5, by + 3.5), width_units=2.0, color=DARK)
     circle(
         (73.0, by - 3.5),
         radius=2.5,

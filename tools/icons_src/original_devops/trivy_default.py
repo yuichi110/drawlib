@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_outer = 1.7
+w_outer = 2.0
 w_inner = 1.5
 cx, cy = 50.0, 50.0
 

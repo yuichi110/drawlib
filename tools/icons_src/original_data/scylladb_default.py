@@ -26,7 +26,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Sea monster domed head + 5 scalloped tentacle lobes at bottom (Colors.Teal3)
 body_pts: list[tuple[float, float]] = []

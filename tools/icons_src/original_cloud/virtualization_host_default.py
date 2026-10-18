@@ -44,7 +44,7 @@ rectangle(
     height=6.5,
     style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=2.0),
 )
-draw_round_segment((50.0, 24.0), (62.0, 24.0), width_units=2.6, color=DARK)
+draw_round_segment((50.0, 24.0), (62.0, 24.0), width_units=2.0, color=DARK)
 circle(
     (75.0, 24.0),
     radius=3.5,
@@ -61,7 +61,7 @@ for cx in (32.0, 68.0):
         left_color=PASTEL_BLUE,
         right_color=PASTEL_GREEN,
         border_color=DARK,
-        border_units=2.4,
+        border_units=2.0,
     )
 
 save()

@@ -24,7 +24,7 @@ from drawlib.utils import (
 # ruff: noqa: E501
 setup_icon()
 
-w = 1.9
+w = 2.0
 SCALE = 0.95
 BLUE_BLOB = "#54A6D4"
 

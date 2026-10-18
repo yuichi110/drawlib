@@ -20,7 +20,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 scale = 0.945
 MLFLOW_CYAN = "#6AD0EE"
 MLFLOW_BLUE = "#45A4E5"

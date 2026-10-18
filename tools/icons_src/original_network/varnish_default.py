@@ -16,7 +16,7 @@ from drawlib.utils import DARK, fill_style, setup_icon
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 3 circles from Varnish logo geometry
 circle((71.33, 71.69), radius=19.31, style=fill_style(Colors.Blue3, border_color=DARK, border_units=w))

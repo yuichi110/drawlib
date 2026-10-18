@@ -41,7 +41,7 @@ draw_cylinder_tier(
     body_color=WHITE,
     top_color=PASTEL_BLUE_LIGHT,
     border_color=DARK,
-    border_units=2.3,
+    border_units=2.0,
     draw_top_cap=True,
 )
 
@@ -49,14 +49,14 @@ draw_cylinder_tier(
 circle(
     (64.0 + dx, 35.0 + dy),
     radius=11.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # Inward claim arrow pointing left into the volume
-draw_round_segment((68.5 + dx, 35.0 + dy), (59.5 + dx, 35.0 + dy), width_units=2.2, color=DARK)
+draw_round_segment((68.5 + dx, 35.0 + dy), (59.5 + dx, 35.0 + dy), width_units=2.0, color=DARK)
 draw_round_polyline(
     [(63.2 + dx, 38.6 + dy), (59.5 + dx, 35.0 + dy), (63.2 + dx, 31.4 + dy)],
-    width_units=2.2,
+    width_units=2.0,
     color=DARK,
 )
 

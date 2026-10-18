@@ -48,7 +48,7 @@ for y in (60.0, 44.0, 28.0):
     circle(
         (32.0, y),
         radius=6.0,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
     )
     draw_round_polyline(
         [(29.3, y - 0.2), (31.3, y - 2.2), (35.0, y + 1.8)],

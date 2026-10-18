@@ -31,7 +31,7 @@ rectangle(
     (50.0, 17.5),
     width=20.0,
     height=9.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=4.2),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=4.2),
 )
 rectangle(
     (50.0, 16.5),
@@ -67,7 +67,7 @@ rectangle(
 circle(
     (50.0, 45.0),
     radius=10.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 circle(
     (50.0, 45.0),

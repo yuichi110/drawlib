@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 57.5, 58.8
 
 # Unit basis vectors for the -120 deg comet tail direction (u) and -30 deg normal (n)

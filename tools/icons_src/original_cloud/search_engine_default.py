@@ -56,7 +56,7 @@ circle(
 circle(
     lens_center,
     radius=11.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 save()

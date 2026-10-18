@@ -70,12 +70,12 @@ for x_dot, col in ((23.0, PASTEL_GREEN), (32.0, WHITE), (41.0, WHITE)):
 # Code brackets flanking the central launch badge
 draw_round_polyline(
     [(29.0, 49.5), (21.5, 41.5), (29.0, 33.5)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 draw_round_polyline(
     [(71.0, 49.5), (78.5, 41.5), (71.0, 33.5)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 
@@ -83,7 +83,7 @@ draw_round_polyline(
 circle(
     (50.0, 41.5),
     radius=14.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 play_pts = [(46.0, 48.0), (46.0, 35.0), (57.5, 41.5)]
 polygon(play_pts, style=no_border_fill(WHITE))

@@ -16,7 +16,7 @@ from drawlib.utils import DARK, fill_style, setup_icon
 
 setup_icon()
 
-w = 1.8
+w = 2.0
 r_dot = 10.23
 xs = (19.50, 50.18, 80.49)
 ys = (80.78, 50.29, 19.23)

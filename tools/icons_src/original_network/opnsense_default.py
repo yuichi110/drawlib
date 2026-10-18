@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 4 interlocking L-bracket segments around a transparent center square (27.04..72.96)
 top_seg = [

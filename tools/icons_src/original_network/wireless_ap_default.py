@@ -58,7 +58,7 @@ tx_cx, tx_cy = 50.0, 49.5
 circle(
     (tx_cx, tx_cy),
     radius=5.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # 3 concentric upward Wi-Fi radio wave arcs

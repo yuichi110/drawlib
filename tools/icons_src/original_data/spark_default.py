@@ -69,7 +69,7 @@ def _round_polygon_radii(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # Outer 5-pointed tilted star vertices (tips P0..P4, valleys V0..V4)
 outer_pts = [

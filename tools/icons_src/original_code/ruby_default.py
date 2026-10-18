@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outer = 1.8
+w_outer = 2.0
 w_inner = 1.2
 
 f0 = [(85.44, 14.13), (90.0, 73.76), (71.98, 37.23), (26.3, 10.11)]

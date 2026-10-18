@@ -16,7 +16,7 @@ from drawlib.shapes import polygon
 from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setup_icon
 
 setup_icon()
-w = 1.8
+w = 2.0
 w_digit = 1.4
 
 center_sq = [

@@ -41,14 +41,14 @@ circle(
 circle(
     (cx, cy),
     radius=26.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0),
 )
 
 # 4 cardinal tick marks
-draw_round_segment((50.0, 86.0), (50.0, 79.5), width_units=2.3, color=DARK)
-draw_round_segment((50.0, 14.0), (50.0, 20.5), width_units=2.3, color=DARK)
-draw_round_segment((86.0, 50.0), (79.5, 50.0), width_units=2.3, color=DARK)
-draw_round_segment((14.0, 50.0), (20.5, 50.0), width_units=2.3, color=DARK)
+draw_round_segment((50.0, 86.0), (50.0, 79.5), width_units=2.0, color=DARK)
+draw_round_segment((50.0, 14.0), (50.0, 20.5), width_units=2.0, color=DARK)
+draw_round_segment((86.0, 50.0), (79.5, 50.0), width_units=2.0, color=DARK)
+draw_round_segment((14.0, 50.0), (20.5, 50.0), width_units=2.0, color=DARK)
 
 # Two-tone compass diamond needle (NE pointing to discovered service node, SW tail)
 p_ne = (61.5, 61.5)
@@ -58,14 +58,14 @@ p_se = (56.0, 44.0)
 
 polygon([p_nw, p_ne, p_se], style=fill_style(PASTEL_GREEN))
 polygon([p_nw, p_sw, p_se], style=fill_style(PASTEL_BLUE))
-draw_round_polyline([p_nw, p_ne, p_se, p_sw], width_units=2.4, color=DARK, closed=True)
-draw_round_segment(p_nw, p_se, width_units=2.2, color=DARK)
+draw_round_polyline([p_nw, p_ne, p_se, p_sw], width_units=2.0, color=DARK, closed=True)
+draw_round_segment(p_nw, p_se, width_units=2.0, color=DARK)
 
 # Center pivot
 circle(
     (cx, cy),
     radius=3.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.1),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Discovered target service node at NE (70, 70)

@@ -45,7 +45,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Far front flipper behind chest (drawn first so chest cleanly overlaps its top attachment)
 p_far_back = (68.5, 33.2)

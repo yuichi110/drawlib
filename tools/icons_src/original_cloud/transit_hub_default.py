@@ -60,7 +60,7 @@ draw_round_polyline(hex_pts, width_units=w, color=DARK, closed=True)
 circle(
     (cx, cy),
     radius=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # 6 outer network spoke nodes alternating PASTEL_BLUE and WHITE

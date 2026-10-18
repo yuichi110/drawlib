@@ -41,7 +41,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Outer rounded square badge (Colors.Gray5)
 rectangle(

@@ -82,7 +82,7 @@ for deg in (0.0, 45.0, 90.0, 135.0):
 circle(
     (gx, gy),
     radius=10.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
 )
 circle(
     (gx, gy),
@@ -98,6 +98,6 @@ circle(
 )
 play_pts = [(65.5, 39.0), (65.5, 25.0), (77.5, 32.0)]
 polygon(play_pts, style=no_border_fill(WHITE))
-draw_round_polyline(play_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(play_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

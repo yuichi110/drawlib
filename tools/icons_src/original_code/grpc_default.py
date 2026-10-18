@@ -23,7 +23,9 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.1
+w = 2.0
+w_halo = 2.0
+w_in = 0.5
 s = 40.0 / 41.0
 TEAL_MID = "#4DB6AC"
 TEAL_LIGHT = "#80CBC4"
@@ -70,11 +72,13 @@ polygon(arrow, style=no_border_fill(SLATE))
 draw_round_polyline(arrow, width_units=0.6, color=DARK, closed=True)
 
 # 3. Flat dark slate 'gRPC' letters with transparent counters
+for contour in (g_outer, g_hole, r_outer, r_hole, p_outer, p_hole, c_outer):
+    draw_round_polyline(contour, width_units=w_halo, color=DARK, closed=True)
 draw_compound_polygon(
     [g_outer, g_hole, r_outer, r_hole, p_outer, p_hole, c_outer],
     color=SLATE,
 )
 for contour in (g_outer, g_hole, r_outer, r_hole, p_outer, p_hole, c_outer):
-    draw_round_polyline(contour, width_units=w, color=DARK, closed=True)
+    draw_round_polyline(contour, width_units=w_in, color=DARK, closed=True)
 
 save()

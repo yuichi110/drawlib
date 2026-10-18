@@ -16,7 +16,7 @@ from drawlib.utils import DARK, WHITE, draw_compound_polygon, draw_round_polylin
 # ruff: noqa: E501
 # fmt: off
 setup_icon()
-w_badge = 1.9
+w_badge = 2.0
 w_text = 1.4
 trap_pts = [(11.2, 30.81), (50.42, 30.81), (88.8, 69.19), (11.2, 69.19)]
 polygon(trap_pts, style=no_border_fill("#66B8E8"))

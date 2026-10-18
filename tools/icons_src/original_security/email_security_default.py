@@ -28,7 +28,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # 1. WHITE rounded mail envelope body: (45, 54), width=66, height=46, shape_r=5.0 -> x=12..78, y=31..77
 x0, y0, x1, y1 = 12.0, 31.0, 78.0, 77.0
@@ -41,8 +41,8 @@ rectangle(
 )
 
 # 2. Subtle DARK bottom corner fold lines
-draw_round_segment((14.5, 33.5), (34.0, 51.0), width_units=2.2, color=DARK)
-draw_round_segment((75.5, 33.5), (56.0, 51.0), width_units=2.2, color=DARK)
+draw_round_segment((14.5, 33.5), (34.0, 51.0), width_units=2.0, color=DARK)
+draw_round_segment((75.5, 33.5), (56.0, 51.0), width_units=2.0, color=DARK)
 
 # 3. Top PASTEL_BLUE_LIGHT V-flap triangle ((13, 75) -> (45, 50) -> (77, 75))
 #    Follows the rounded top corners from (13, 75) over y=77 to (77, 75) for a flush edge.
@@ -80,7 +80,7 @@ circle(
 )
 draw_round_polyline(
     [(66.3, 35.8), (69.1, 33.0), (74.0, 39.2)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 

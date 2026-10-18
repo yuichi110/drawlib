@@ -47,7 +47,7 @@ polygon(
     style=fill_style(
         WHITE,
         border_color=DARK,
-        border_units=2.3,
+        border_units=2.0,
         shape_r=(2.5, 2.5, 2.5, 2.5, 0.0, 2.5),
     ),
 )

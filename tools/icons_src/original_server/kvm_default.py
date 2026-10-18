@@ -26,7 +26,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_letter = 1.7
+w_letter = 2.0
 w_tux = 1.5
 w_detail = 1.2
 tux_slate = "#607085"

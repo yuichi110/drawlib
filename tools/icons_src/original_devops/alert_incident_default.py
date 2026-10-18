@@ -33,12 +33,12 @@ rectangle(
     (50.0, 52.0),
     width=8.0,
     height=22.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=4.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 circle(
     (50.0, 29.0),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 save()

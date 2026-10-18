@@ -40,19 +40,19 @@ rectangle(
     (50.0, 50.0),
     width=62.0,
     height=50.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=6.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Split branches from x=46.0 to top (y=63.0) and bottom (y=37.0) output arrows
 draw_round_polyline(
     [(46.0, 50.0), (46.0, 63.0), (63.0, 63.0)],
-    width_units=2.4,
+    width_units=2.0,
     color=DARK,
     corner_r=4.5,
 )
 draw_round_polyline(
     [(46.0, 50.0), (46.0, 37.0), (63.0, 37.0)],
-    width_units=2.4,
+    width_units=2.0,
     color=DARK,
     corner_r=4.5,
 )

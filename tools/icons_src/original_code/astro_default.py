@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_outer = 1.8
+w_outer = 2.0
 
 a_frame = [
     (55.26, 90.0), (56.21, 90.0), (57.03, 89.99), (57.74, 89.96), (58.35, 89.91),

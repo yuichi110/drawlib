@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 7x5 pixel-block grid (step = 11.2, width = 78.4, height = 56.0, centered at (50, 50))
 s = 11.2

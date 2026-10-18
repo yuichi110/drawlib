@@ -19,7 +19,7 @@ setup_icon()
 
 GREEN = "#5CC48A"
 # Split 1.1-unit DARK outline into 0.8 outside (w_halo=1.6) + 0.3 inside (w_in=0.6)
-w_halo = 1.6
+w_halo = 2.0
 w_in = 0.6
 w_sub_halo = 1.0
 w_sub_in = 0.3

@@ -50,7 +50,7 @@ rectangle(
     (61.5, 65.5),
     width=36.0,
     height=17.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=3.5),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=3.5),
 )
 # Display lines inside LCD screen
 draw_round_segment((49.0, 68.0), (65.0, 68.0), width_units=1.8, color=DARK)

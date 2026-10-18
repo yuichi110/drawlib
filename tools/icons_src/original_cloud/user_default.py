@@ -68,7 +68,7 @@ circle(
 circle(
     (67.0, 26.0),
     radius=5.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

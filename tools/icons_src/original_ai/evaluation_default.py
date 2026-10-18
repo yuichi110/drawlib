@@ -49,13 +49,13 @@ for bx, bh, bcol in bars:
         (bx, 27.0 + bh / 2.0),
         width=10.5,
         height=bh,
-        style=fill_style(bcol, border_color=DARK, border_units=2.2, shape_r=2.0),
+        style=fill_style(bcol, border_color=DARK, border_units=2.0, shape_r=2.0),
     )
 draw_round_segment((23.0, 27.0), (72.0, 27.0), width_units=w, color=DARK)
 
 # 3. Top-right AI sparkle mark (matching fine_tuning & prompt_template)
 sparkle_pts = build_sparkle_4pt_polygon(76.0, 76.0, outer_r=11.5, inner_r=4.0)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(sparkle_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

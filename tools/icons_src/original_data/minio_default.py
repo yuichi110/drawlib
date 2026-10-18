@@ -44,7 +44,7 @@ def _bezier(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Lower standing leg tucked behind the wing crossbar (Colors.Pink2)
 leg_pts = [

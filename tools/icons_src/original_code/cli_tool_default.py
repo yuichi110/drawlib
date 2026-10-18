@@ -28,7 +28,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
+w_shape = 2.0
 
 # 1. Rounded WHITE terminal window body (width=76, height=64, shape_r=6.0 at (50, 50))
 # x=12..88, y=18..82

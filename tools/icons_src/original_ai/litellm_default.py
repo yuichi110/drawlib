@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 x0, y0, x1, y1 = 10.5, 10.5, 89.5, 89.5
 r_badge = 12.0
 

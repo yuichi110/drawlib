@@ -24,7 +24,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_letter = 1.25
+w_letter = 2.0
 w_roundel = 0.65
 w_forks = 0.45
 

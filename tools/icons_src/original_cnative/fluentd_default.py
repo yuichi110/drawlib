@@ -98,8 +98,8 @@ body_pts = [
 polygon(body_pts, style=no_border_fill(PASTEL_BLUE))
 
 # Internal facet seams
-draw_round_polyline([p_wing_mid, *seam_wing_mid_to_center], width_units=2.2, color=DARK)
-draw_round_polyline([p_tail_tip, *seam_tail_to_center, *seam_center_to_back], width_units=2.2, color=DARK)
+draw_round_polyline([p_wing_mid, *seam_wing_mid_to_center], width_units=2.0, color=DARK)
+draw_round_polyline([p_tail_tip, *seam_tail_to_center, *seam_center_to_back], width_units=2.0, color=DARK)
 
 # Outer silhouette border
 outer_pts = [

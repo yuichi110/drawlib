@@ -25,7 +25,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Top-right rounded 'n' arch (Colors.Blue4)
 cx_arch, cy_arch = 63.8, 61.5

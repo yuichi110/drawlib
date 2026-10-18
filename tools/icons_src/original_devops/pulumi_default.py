@@ -45,7 +45,7 @@ def _iso_ellipse_pts(
 
 setup_icon()
 
-w_ellipse = 1.7
+w_ellipse = 2.0
 
 # Isometric circle projections (rx / ry = sqrt(3))
 rx = 10.1

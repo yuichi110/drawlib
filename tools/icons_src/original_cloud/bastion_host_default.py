@@ -59,15 +59,15 @@ rectangle(
     (50.0, 40.0),
     width=48.0,
     height=32.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=4.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.5),
 )
 
 # Terminal prompt `>_`
 draw_round_polyline(
     [(35.0, 46.5), (44.0, 40.0), (35.0, 33.5)],
-    width_units=2.9,
+    width_units=2.0,
     color=DARK,
 )
-draw_round_segment((49.0, 33.5), (62.0, 33.5), width_units=2.9, color=DARK)
+draw_round_segment((49.0, 33.5), (62.0, 33.5), width_units=2.0, color=DARK)
 
 save()

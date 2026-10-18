@@ -45,7 +45,7 @@ for i in range(steps_arch + 1):
 
 draw_compound_polygon([shaft_pts, win_pts], color=PASTEL_BLUE)
 draw_round_polyline(shaft_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(win_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(win_pts, width_units=2.0, color=DARK, closed=True)
 
 # 2. Stepped base (y=14..26)
 # Upper base step (PASTEL_BLUE_LIGHT)
@@ -53,7 +53,7 @@ rectangle(
     (50.0, 23.0),
     width=45.0,
     height=5.5,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.5, shape_r=1.8),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=1.8),
 )
 # Lower wider plinth (PASTEL_BLUE)
 rectangle(

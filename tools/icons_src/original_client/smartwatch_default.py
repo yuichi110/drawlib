@@ -45,7 +45,7 @@ rectangle(
     (73.0, 56.0),
     width=6.0,
     height=10.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.2, shape_r=2.0),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.0),
 )
 
 # Rounded watch case and WHITE face

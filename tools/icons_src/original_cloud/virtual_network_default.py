@@ -79,10 +79,10 @@ n_top = (50.0, 60.0)
 n_bl = (35.0, 41.0)
 n_br = (65.0, 41.0)
 
-draw_round_polyline([n_top, n_bl, n_br], width_units=2.4, color=DARK, closed=True)
+draw_round_polyline([n_top, n_bl, n_br], width_units=2.0, color=DARK, closed=True)
 
-circle(n_top, radius=6.5, style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2))
-circle(n_bl, radius=6.5, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2))
-circle(n_br, radius=6.5, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2))
+circle(n_top, radius=6.5, style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0))
+circle(n_bl, radius=6.5, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0))
+circle(n_br, radius=6.5, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0))
 
 save()

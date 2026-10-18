@@ -106,6 +106,6 @@ for cell_chain, fill_col in bands:
         r_concave,
     )
     polygon(poly_pts, style=no_border_fill(fill_col))
-    draw_round_polyline(poly_pts, width_units=1.9, color=DARK, closed=True)
+    draw_round_polyline(poly_pts, width_units=2.0, color=DARK, closed=True)
 
 save()

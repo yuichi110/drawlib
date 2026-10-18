@@ -18,7 +18,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 setup_icon()
 
 BLUE = "#64A2DE"
-w = 1.5
+w = 2.0
 
 part_0 = [(35.54, 56.9), (37.53, 49.75), (33.41, 49.75)]
 part_1 = [(31.93, 44.74), (30.13, 38.81), (40.69, 38.81), (38.99, 44.74)]

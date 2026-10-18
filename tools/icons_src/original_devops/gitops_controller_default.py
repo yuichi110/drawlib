@@ -41,7 +41,7 @@ upper_arc = [
 draw_round_polyline(upper_arc, width_units=w, color=DARK)
 draw_round_polyline(
     [(65.5, 66.5), upper_arc[-1], (72.5, 71.5)],
-    width_units=2.4,
+    width_units=2.0,
     color=DARK,
 )
 
@@ -56,7 +56,7 @@ lower_arc = [
 draw_round_polyline(lower_arc, width_units=w, color=DARK)
 draw_round_polyline(
     [(34.5, 33.5), lower_arc[-1], (27.5, 28.5)],
-    width_units=2.4,
+    width_units=2.0,
     color=DARK,
 )
 
@@ -82,7 +82,7 @@ draw_iso_cube(
     left_color=PASTEL_BLUE,
     right_color=PASTEL_BLUE_LIGHT,
     border_color=DARK,
-    border_units=2.4,
+    border_units=2.0,
 )
 
 # Central GitOps sync hub

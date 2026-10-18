@@ -20,7 +20,7 @@ setup_icon()
 
 CX, CY = 50.0, 50.0
 RADIUS = 38.5
-W = 2.2
+W = 2.0
 
 # 1. Base pastel blue circle fill
 circle((CX, CY), radius=RADIUS, style=no_border_fill(Colors.Blue2))

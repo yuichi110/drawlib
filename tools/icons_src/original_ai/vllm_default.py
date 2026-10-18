@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Left tilted golden-orange triangle wing (Colors.Amber3)
 left_wing = [

@@ -54,7 +54,7 @@ shaft_pts = [
     (42.0, 48.0),
 ]
 polygon(shaft_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(shaft_pts, width_units=2.5, color=DARK, closed=True)
+draw_round_polyline(shaft_pts, width_units=2.0, color=DARK, closed=True)
 
 # Circular key bow on the left with inner keyhole
 bow_xy = (34.0, 51.5)
@@ -66,7 +66,7 @@ circle(
 circle(
     (32.5, 51.5),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 save()

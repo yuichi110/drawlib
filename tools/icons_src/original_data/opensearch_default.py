@@ -48,7 +48,7 @@ def _svg_pt(sx: float, sy: float) -> tuple[float, float]:
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 1. Upper-left sweeping comma wave (Colors.Blue4)
 upper_segs = [

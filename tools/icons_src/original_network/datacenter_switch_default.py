@@ -41,12 +41,12 @@ rectangle(
     (50.0, 50.0),
     width=66.0,
     height=42.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2, shape_r=5.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
 )
 
 # Crossing X-fabric lines between the 4 corner port nodes
-draw_round_segment((34.0, 39.0), (66.0, 61.0), width_units=2.8, color=DARK)
-draw_round_segment((34.0, 61.0), (66.0, 39.0), width_units=2.8, color=DARK)
+draw_round_segment((34.0, 39.0), (66.0, 61.0), width_units=2.0, color=DARK)
+draw_round_segment((34.0, 61.0), (66.0, 39.0), width_units=2.0, color=DARK)
 
 # Outward horizontal fabric arrows from the 4 X-corners
 for y_port in (39.0, 61.0):
@@ -80,7 +80,7 @@ for x_port in (34.0, 66.0):
 circle(
     (50.0, 50.0),
     radius=6.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

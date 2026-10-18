@@ -72,7 +72,7 @@ hole_pts = [
 
 draw_compound_polygon([gear_pts, hole_pts], color=PASTEL_BLUE)
 draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
-circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=2.4))
+circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=2.0))
 
 # Clean pastel green spiral coil inside the white circle (center fixed at 50.0, 49.0)
 spiral_cx, spiral_cy = 50.0, 49.0
@@ -116,6 +116,6 @@ for i in range(1, 9):
 
 spiral_poly = [*outer_wall, *cap_outer, *reversed(inner_wall), *cap_inner]
 polygon(spiral_poly, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(spiral_poly, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(spiral_poly, width_units=2.0, color=DARK, closed=True)
 
 save()

@@ -26,8 +26,8 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_shape = 1.8
-w_line = 2.7
+w_shape = 2.0
+w_line = 2.0
 
 # Vertical flow connector from funnel outlet into dashboard card
 draw_round_segment((50.0, 52.0), (50.0, 44.0), width_units=w_line, color=DARK)
@@ -74,7 +74,7 @@ circle(
     radius=8.0,
     style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_shape),
 )
-draw_round_segment((32.0, 32.0), (32.0, 27.0), width_units=2.4, color=DARK)
+draw_round_segment((32.0, 32.0), (32.0, 27.0), width_units=2.0, color=DARK)
 circle((32.0, 23.6), radius=1.3, style=fill_style(DARK))
 
 # 2 horizontal DARK metric bars on the right side of the dashboard

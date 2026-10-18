@@ -31,19 +31,19 @@ rectangle(
     (50.0, 48.0),
     width=46.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=6.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Left and right horizontal bidirectional routing arrows
-draw_round_segment((33.0, 48.0), (67.0, 48.0), width_units=2.3, color=DARK)
+draw_round_segment((33.0, 48.0), (67.0, 48.0), width_units=2.0, color=DARK)
 draw_round_polyline(
     [(37.5, 52.2), (32.5, 48.0), (37.5, 43.8)],
-    width_units=2.3,
+    width_units=2.0,
     color=DARK,
 )
 draw_round_polyline(
     [(62.5, 52.2), (67.5, 48.0), (62.5, 43.8)],
-    width_units=2.3,
+    width_units=2.0,
     color=DARK,
 )
 
@@ -51,7 +51,7 @@ draw_round_polyline(
 circle(
     (50.0, 48.0),
     radius=6.8,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 save()

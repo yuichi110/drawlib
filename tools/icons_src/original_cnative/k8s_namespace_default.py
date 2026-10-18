@@ -30,7 +30,7 @@ rectangle(
     (50.0, 48.0),
     width=46.0,
     height=36.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=6.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Four dark corner L-brackets framing the isolated namespace scope
@@ -41,7 +41,7 @@ brackets = [
     [(61.0, 36.0), (67.0, 36.0), (67.0, 42.0)],
 ]
 for pts in brackets:
-    draw_round_polyline(pts, width_units=2.2, color=DARK)
+    draw_round_polyline(pts, width_units=2.0, color=DARK)
 
 # Central green scoped resource block
 rectangle(

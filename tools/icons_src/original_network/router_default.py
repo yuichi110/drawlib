@@ -37,7 +37,7 @@ circle(
 circle(
     (50.0, 50.0),
     radius=28.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Left and right horizontal arrows pointing inward toward center

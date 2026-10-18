@@ -80,7 +80,7 @@ def _build_capsule_dash(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 t = 8.4
 cx_d = 56.0
 cy_d = 50.0

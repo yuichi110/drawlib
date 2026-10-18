@@ -59,7 +59,7 @@ def _round_polygon(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 5x5 modular grid mapped to [12.0, 88.0] x [12.0, 88.0] (1 block = 15.2 units)
 x0, x1, x2, x3, x4, x5 = 12.0, 27.2, 42.4, 57.6, 72.8, 88.0

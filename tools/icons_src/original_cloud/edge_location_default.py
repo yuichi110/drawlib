@@ -69,7 +69,7 @@ draw_round_polyline(pin_pts, width_units=w, color=DARK, closed=True)
 circle(
     (cx, cy),
     radius=hole_r,
-    style=stroke_style(DARK, width_units=2.4),
+    style=stroke_style(DARK, width_units=2.0),
 )
 
 save()

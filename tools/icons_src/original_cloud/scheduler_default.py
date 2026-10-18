@@ -33,7 +33,7 @@ rectangle(
     (cx, 86.5),
     width=18.0,
     height=6.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=2.5),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.5),
 )
 
 # Outer clock casing and inner clock face
@@ -45,7 +45,7 @@ circle(
 circle(
     (cx, cy),
     radius=25.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Clock hands and center pivot

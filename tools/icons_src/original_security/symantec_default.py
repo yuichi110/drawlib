@@ -25,7 +25,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.6
+w = 2.0
 w_pixel = 0.85
 s = 0.96
 

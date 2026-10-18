@@ -22,7 +22,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_seam = 1.6
 scale = 0.945
 

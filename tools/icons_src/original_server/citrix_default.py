@@ -19,7 +19,7 @@ setup_icon()
 
 # Split 1.5-unit DARK outline into 1.15 outside (w_halo=2.3) + 0.35 inside (w_in=0.7)
 # so 2.4-unit stems stay flat dark slate-gray (#4A5568) with crisp letter spacing.
-w_halo = 2.3
+w_halo = 2.0
 w_in = 0.7
 
 letters: list[list[tuple[float, float]]] = [

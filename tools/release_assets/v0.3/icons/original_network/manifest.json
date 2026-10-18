@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_network",
-  "created_at": "2026-10-17T06:26:30.006651+00:00",
+  "created_at": "2026-10-18T10:42:42.383043+00:00",
   "canvas_size": [
     512,
     512
@@ -100,8 +100,8 @@
       "icon_name": "adguard",
       "variant": "default",
       "source_script": "original_network/adguard_default.py",
-      "size_bytes": 31442,
-      "sha256": "7e5d0268eeb1d06373bc70077cf4aafc2c4cbd6ac589e548e5783def31d0ef82",
+      "size_bytes": 31429,
+      "sha256": "7e3cccd5afbde24ac43f8824dd8c4f04a31ee3fde95a21a6d42f4d770713daf6",
       "bbox": [
         31,
         26,
@@ -113,8 +113,8 @@
       "icon_name": "akamai",
       "variant": "default",
       "source_script": "original_network/akamai_default.py",
-      "size_bytes": 44585,
-      "sha256": "9a53c7faec8fb1a26cc57db6028c7eeb5559ee8340c3c0f2886bf95afbb976f6",
+      "size_bytes": 44324,
+      "sha256": "46d96559e7132bd9a646e3069bc9fbf7e38a34bafd6ed7c8482494da769fb27d",
       "bbox": [
         45,
         26,
@@ -126,8 +126,8 @@
       "icon_name": "apisix",
       "variant": "default",
       "source_script": "original_network/apisix_default.py",
-      "size_bytes": 29575,
-      "sha256": "d0930b46e388d74475469e67b556c02c3fef2b58b8f85e00fa2fec429f3fc35c",
+      "size_bytes": 29779,
+      "sha256": "126d2ce5d40ef45764cca548f1d03c943953226b57ea54055e62f060f0e7fdc5",
       "bbox": [
         26,
         61,
@@ -152,8 +152,8 @@
       "icon_name": "aruba",
       "variant": "default",
       "source_script": "original_network/aruba_default.py",
-      "size_bytes": 28624,
-      "sha256": "eb89241be898d9a8f2b950d6b2a77d1ee721dfb90756151f7532430507027435",
+      "size_bytes": 28374,
+      "sha256": "6f2e1841cc7c73186ab0f2f7287300b932e4ffd4cf9dc9a971e19c0c6a6720c5",
       "bbox": [
         26,
         32,
@@ -165,8 +165,8 @@
       "icon_name": "asus",
       "variant": "default",
       "source_script": "original_network/asus_default.py",
-      "size_bytes": 44768,
-      "sha256": "17ca612aaef11b83f4c5d74ae8f957d4b85d3eb583d31c63a9b7dcbe0721019e",
+      "size_bytes": 44194,
+      "sha256": "482e79ca0dfc0ec70fa8e3b9d530bf5024d4ac188bc29b75915d807635662a77",
       "bbox": [
         26,
         28,
@@ -178,8 +178,8 @@
       "icon_name": "bind",
       "variant": "default",
       "source_script": "original_network/bind_default.py",
-      "size_bytes": 53711,
-      "sha256": "771bf1786d3f34644b5985d81a78a4ca8a56de841dd473ded2fd8010cfee6355",
+      "size_bytes": 53481,
+      "sha256": "f287445747f05cc1cb9877c070b232d8b8d4b02e2bc8e5922234ec6aac3d63b0",
       "bbox": [
         26,
         26,
@@ -191,8 +191,8 @@
       "icon_name": "caddy",
       "variant": "default",
       "source_script": "original_network/caddy_default.py",
-      "size_bytes": 52348,
-      "sha256": "1dbf21bb2f45b0be9563336215290c76b0d896b95538bd44967bf9967bfeedb7",
+      "size_bytes": 52219,
+      "sha256": "60f6e96971e175d832ab563bd1e18e93df1a90d9734fca56ad0afcd30aa03a2d",
       "bbox": [
         26,
         35,
@@ -204,8 +204,8 @@
       "icon_name": "checkpoint",
       "variant": "default",
       "source_script": "original_network/checkpoint_default.py",
-      "size_bytes": 34332,
-      "sha256": "1867402de70002e1736f50a6c8b4bcf4e314485b14619867cde144cf483ebefd",
+      "size_bytes": 34346,
+      "sha256": "6d871f9a73917a571f4bd9383fd716a454a913d3b615aa2e7535e74e5e054fd5",
       "bbox": [
         26,
         35,
@@ -217,11 +217,11 @@
       "icon_name": "cisco",
       "variant": "default",
       "source_script": "original_network/cisco_default.py",
-      "size_bytes": 10003,
-      "sha256": "a07e976d0197399b8de5f3f6f56c705e395bdbb2ba039e333e28f5c814f8e84b",
+      "size_bytes": 10050,
+      "sha256": "56e5f7c3b95088ded79e2acb357c9fbfdf077cd01179a3265ab850dc2e3ec4af",
       "bbox": [
         26,
-        189,
+        188,
         486,
         323
       ]
@@ -230,8 +230,8 @@
       "icon_name": "client_pc",
       "variant": "default",
       "source_script": "original_network/client_pc_default.py",
-      "size_bytes": 12914,
-      "sha256": "65850b76d4a4d6b7dfcf0648393f038264a7bd35c671fc9b8ddd8c57d71d750d",
+      "size_bytes": 12846,
+      "sha256": "c7b2388df1b6b26c50b2b8070228bd7115352fce3cbfa709d0bf9c85f1ae8e2c",
       "bbox": [
         26,
         38,
@@ -243,8 +243,8 @@
       "icon_name": "cloudflare",
       "variant": "default",
       "source_script": "original_network/cloudflare_default.py",
-      "size_bytes": 16362,
-      "sha256": "f418f3bb39c6b1e59939e1839559090db11f195ab4990be9eece1c989acfccca",
+      "size_bytes": 16114,
+      "sha256": "82431e6f389fdb1ccf65d4e4962999bf7902675675375b8ffaccbfe2dede2ae6",
       "bbox": [
         26,
         148,
@@ -256,12 +256,12 @@
       "icon_name": "core_router",
       "variant": "default",
       "source_script": "original_network/core_router_default.py",
-      "size_bytes": 19522,
-      "sha256": "7ec1914f1e0ac712b84d0aecf2bd0131d9408e9c02276009c6335dd2e7f01c58",
+      "size_bytes": 21096,
+      "sha256": "b104d5381015387d9fed7972aec0e14234cb7ea1ca9f8ac740ea1239e971b120",
       "bbox": [
         66,
         26,
-        446,
+        445,
         486
       ]
     },
@@ -269,12 +269,12 @@
       "icon_name": "core_switch",
       "variant": "default",
       "source_script": "original_network/core_switch_default.py",
-      "size_bytes": 22617,
-      "sha256": "4ec744de68b2b48fb1b3721919a7ed6bcd4ccbba0f37f3031ac7187c1c45ea92",
+      "size_bytes": 24141,
+      "sha256": "5d26d40b5eb0da8ce58a8ae202d2ca58d2d485933e22a0d615f8e00a36f5c998",
       "bbox": [
         60,
         26,
-        452,
+        451,
         486
       ]
     },
@@ -282,24 +282,24 @@
       "icon_name": "d_link",
       "variant": "default",
       "source_script": "original_network/d_link_default.py",
-      "size_bytes": 16360,
-      "sha256": "d3ab0b8e323a309ca57dcddbcef19ffcc8413927e74e0b9d5503f1ebb3c1931c",
+      "size_bytes": 14950,
+      "sha256": "0a09a9ec07ee7755d40433765307971aef51bd79b74b0f9cff691670e4f63feb",
       "bbox": [
         26,
-        207,
+        205,
         486,
-        305
+        306
       ]
     },
     "datacenter_switch_default.png": {
       "icon_name": "datacenter_switch",
       "variant": "default",
       "source_script": "original_network/datacenter_switch_default.py",
-      "size_bytes": 23222,
-      "sha256": "b8878d4fa9e8132a36cf80144f38bb8e04e8f3cf7ff001dc9131aefd35b2199d",
+      "size_bytes": 20979,
+      "sha256": "ee75046226aa80639e18c6984204d2802e25c3e3cc8b41bba78e830367f2c4ca",
       "bbox": [
         26,
-        94,
+        95,
         486,
         417
       ]
@@ -308,21 +308,21 @@
       "icon_name": "digicert",
       "variant": "default",
       "source_script": "original_network/digicert_default.py",
-      "size_bytes": 25190,
-      "sha256": "5bfcff13e74e75e5178d6e28af10e4c18227853f8d3e0f9240aab5652df77d02",
+      "size_bytes": 22768,
+      "sha256": "2d8a823fada2335bae27957f5ad520031179e1ee2ded3d02c6e3d16bdb002cb9",
       "bbox": [
         26,
-        186,
+        185,
         486,
-        325
+        326
       ]
     },
     "f5_default.png": {
       "icon_name": "f5",
       "variant": "default",
       "source_script": "original_network/f5_default.py",
-      "size_bytes": 47963,
-      "sha256": "44d6fc5c1d2f4799f6b48cb9e06a4c8db173a05bfd589f8d8371f99b459d0ecf",
+      "size_bytes": 47824,
+      "sha256": "2b266cb59fc2380a5267a9b97dbd6aa6678008f8c7432e9e0df5da483bd60e91",
       "bbox": [
         26,
         26,
@@ -334,8 +334,8 @@
       "icon_name": "fastly",
       "variant": "default",
       "source_script": "original_network/fastly_default.py",
-      "size_bytes": 27313,
-      "sha256": "08fab8cf8c36c7f8ff7b4578775420919e578a33c05c57dc7c7f7a4dcdbb8ad0",
+      "size_bytes": 27513,
+      "sha256": "33c0f6bfea0e4364b72d32a5f7d3ec943ca5b7820ccc18a21255c4a1d98d5470",
       "bbox": [
         41,
         26,
@@ -347,21 +347,21 @@
       "icon_name": "firewall",
       "variant": "default",
       "source_script": "original_network/firewall_default.py",
-      "size_bytes": 19780,
-      "sha256": "2226bbff0aacea8be4680cbbc98386967e8b25e5b1f6440e3a0c98cccf326b7b",
+      "size_bytes": 20058,
+      "sha256": "12ab41d9197ab32f7d6976f3c51985affe4b4b0760746f3019b3b4a1148e1537",
       "bbox": [
         26,
         32,
         486,
-        480
+        479
       ]
     },
     "fortinet_default.png": {
       "icon_name": "fortinet",
       "variant": "default",
       "source_script": "original_network/fortinet_default.py",
-      "size_bytes": 9901,
-      "sha256": "b485a1e3e4967187147b1892bc1e226489b93a5ae7da5a33e26fb4ffff986a1e",
+      "size_bytes": 9987,
+      "sha256": "315f58e4e1c6dcf6d1565ef2b9db2d07db26fb70f16488a7ab62d31c5d977a33",
       "bbox": [
         26,
         90,
@@ -373,8 +373,8 @@
       "icon_name": "frrouting",
       "variant": "default",
       "source_script": "original_network/frrouting_default.py",
-      "size_bytes": 50099,
-      "sha256": "91a6cf8bb66cf30b6c9eae0b7dfd8fdb41f8861fa7572b5dc4f71a12abfdf9fa",
+      "size_bytes": 50188,
+      "sha256": "dd85eb0e9590dbfb8308a9bc93a5a437b4605fecd0df70016d762acca5fd2605",
       "bbox": [
         33,
         26,
@@ -386,8 +386,8 @@
       "icon_name": "godaddy",
       "variant": "default",
       "source_script": "original_network/godaddy_default.py",
-      "size_bytes": 46078,
-      "sha256": "d6b1cd1ca7adc9059b793324a1e0f66c155e8ebee3e44e2073b539bee8e62ada",
+      "size_bytes": 45772,
+      "sha256": "79584b4ba6827b645f227b116bd6df9ba961a46a7dd96cb7183f5a305177e1ef",
       "bbox": [
         26,
         50,
@@ -399,8 +399,8 @@
       "icon_name": "haproxy",
       "variant": "default",
       "source_script": "original_network/haproxy_default.py",
-      "size_bytes": 78304,
-      "sha256": "fd81794964b91b021576bca9973b1fa358ee47c24c9e1f4ba56043a6539416da",
+      "size_bytes": 73396,
+      "sha256": "a556d10bfdb8ac1a092601a5cc558117879f27b1cb26cd5b9b5a00f9627dd840",
       "bbox": [
         27,
         26,
@@ -412,21 +412,21 @@
       "icon_name": "ids_ips",
       "variant": "default",
       "source_script": "original_network/ids_ips_default.py",
-      "size_bytes": 22032,
-      "sha256": "f5c2930828cdbdeae1d43029c785023c101a920da9d762d45e6946507b1ab2bb",
+      "size_bytes": 22127,
+      "sha256": "944f5969027672c202f3e6d851546700867e2ee6d771c8aeb021834b6a948108",
       "bbox": [
         26,
-        100,
+        101,
         486,
-        412
+        411
       ]
     },
     "ip_phone_default.png": {
       "icon_name": "ip_phone",
       "variant": "default",
       "source_script": "original_network/ip_phone_default.py",
-      "size_bytes": 14277,
-      "sha256": "96af931fc403d11fa5e2e4443ea93eb7ef5493266faada05db4aa578974b1d63",
+      "size_bytes": 17361,
+      "sha256": "5f2d8186c0343c37ac586dedfa3526c7064385477741c9c159503bfca7b5ab92",
       "bbox": [
         36,
         26,
@@ -438,11 +438,11 @@
       "icon_name": "juniper",
       "variant": "default",
       "source_script": "original_network/juniper_default.py",
-      "size_bytes": 18915,
-      "sha256": "fb3a5b52ebd316faae135028b23b40d181d4246107f1ad6001dcd1c121e0e7eb",
+      "size_bytes": 18924,
+      "sha256": "9241bec0fd4df2fd60e7b4042c3abda7baf4a76bf72aa5e5c606aec882915419",
       "bbox": [
         26,
-        196,
+        197,
         486,
         315
       ]
@@ -452,7 +452,7 @@
       "variant": "default",
       "source_script": "original_network/kong_default.py",
       "size_bytes": 35051,
-      "sha256": "89790ac68219217423a130801fc476712770955a6e8d0932881e4932efd038c5",
+      "sha256": "704ce80c7cba5343ed87a40b7ce3f86000f5e5dd15ef43f33586b6a2cea9df99",
       "bbox": [
         26,
         53,
@@ -464,21 +464,21 @@
       "icon_name": "l2_switch",
       "variant": "default",
       "source_script": "original_network/l2_switch_default.py",
-      "size_bytes": 14852,
-      "sha256": "c5d561c16bb8859cb0bd9db80552bd9b7b707068bf6d8bf93dbb9c29bfae09f6",
+      "size_bytes": 14688,
+      "sha256": "da56df0537ca301856f212d65c1e7677d9ec3f780bc9ce9fdd1ecbed5e313e2e",
       "bbox": [
         26,
-        117,
+        118,
         486,
-        395
+        394
       ]
     },
     "l3_switch_default.png": {
       "icon_name": "l3_switch",
       "variant": "default",
       "source_script": "original_network/l3_switch_default.py",
-      "size_bytes": 22682,
-      "sha256": "ca0bb3dc0f090182df0d5fab67853541b4a65c44ca911e30d98c2380428186f0",
+      "size_bytes": 22497,
+      "sha256": "0ca270002343f80d23bae356975e5b5bbf3744ffbc862337a9a22b2ee2d17a28",
       "bbox": [
         26,
         26,
@@ -490,10 +490,10 @@
       "icon_name": "lets_encrypt",
       "variant": "default",
       "source_script": "original_network/lets_encrypt_default.py",
-      "size_bytes": 22926,
-      "sha256": "ea82845e78e776557200f6e479845f0b9a67a9b3a903bc22bf54c1abe742cfe7",
+      "size_bytes": 22742,
+      "sha256": "dbab7d669475c4ce9d5bc47193ffa75f08d8317a03910916461f518e60f8f644",
       "bbox": [
-        39,
+        38,
         26,
         473,
         486
@@ -503,8 +503,8 @@
       "icon_name": "linksys",
       "variant": "default",
       "source_script": "original_network/linksys_default.py",
-      "size_bytes": 10660,
-      "sha256": "4e7b99159a59d5902f738dee644bcdd324043b5e31be0171a5ed4cbea13cbe99",
+      "size_bytes": 10647,
+      "sha256": "ccb4ed27e923e05ddc61c4425a00c9f06f58cc80ece18662994356c375d3a5a6",
       "bbox": [
         26,
         26,
@@ -516,34 +516,34 @@
       "icon_name": "load_balancer",
       "variant": "default",
       "source_script": "original_network/load_balancer_default.py",
-      "size_bytes": 16351,
-      "sha256": "5518489d6762f221faf33e71da8b2b762ecb89cd22a291992840b95723660a7a",
+      "size_bytes": 16569,
+      "sha256": "975482952be645cdd1b7c714fb0bc14f38571ea1f823e87c5ef3811fa90d51e7",
       "bbox": [
         26,
         61,
         486,
-        451
+        450
       ]
     },
     "meraki_default.png": {
       "icon_name": "meraki",
       "variant": "default",
       "source_script": "original_network/meraki_default.py",
-      "size_bytes": 42085,
-      "sha256": "3bfd395947a6bda3df1f480d06787cba6ecf53778634015868019b549a8a0f1c",
+      "size_bytes": 42296,
+      "sha256": "4193e2a49f4ce50e1adbf78bcea34f11f971817c7ff643750f3e2e591ea4dd7b",
       "bbox": [
         26,
-        68,
+        67,
         486,
-        444
+        445
       ]
     },
     "mikrotik_default.png": {
       "icon_name": "mikrotik",
       "variant": "default",
       "source_script": "original_network/mikrotik_default.py",
-      "size_bytes": 29834,
-      "sha256": "19ef7cf8539d54fc180937ec1d0ae050bca45552dc7d687b980ac1f93fa6c9b8",
+      "size_bytes": 30574,
+      "sha256": "4fbd492a66d5793c23d3da895498a0f7a479f7f3dae1592385f99b6b0d9633fe",
       "bbox": [
         40,
         26,
@@ -555,8 +555,8 @@
       "icon_name": "nac_server",
       "variant": "default",
       "source_script": "original_network/nac_server_default.py",
-      "size_bytes": 24592,
-      "sha256": "dd89963333645992b88a20e496b43b032cdcbabfba350344f3b29a60e571cca0",
+      "size_bytes": 24633,
+      "sha256": "af26dda998bb0bd9b94c1e05cacb4e5bea9e2fe701add81750679822d13c0b3d",
       "bbox": [
         49,
         26,
@@ -568,8 +568,8 @@
       "icon_name": "namecheap",
       "variant": "default",
       "source_script": "original_network/namecheap_default.py",
-      "size_bytes": 24172,
-      "sha256": "b2401a19675d37e1b38d8311784b3ae73b5418ea08977aad8d20bb2ce4d7b89e",
+      "size_bytes": 24394,
+      "sha256": "d952d107098c8c0106ab4d2dcbf44f52d76f7ddb0593c522641ae8a00f90765e",
       "bbox": [
         26,
         126,
@@ -581,8 +581,8 @@
       "icon_name": "netbird",
       "variant": "default",
       "source_script": "original_network/netbird_default.py",
-      "size_bytes": 25383,
-      "sha256": "c7908ded381062e6bd465e399f63ae526b1cd9b91eed24f0deae298327e638ec",
+      "size_bytes": 25152,
+      "sha256": "4e23b9df2ebeaf92a6366efd63fa44c2325ca7f6b71f430deaf751e944bd3aa4",
       "bbox": [
         26,
         87,
@@ -594,8 +594,8 @@
       "icon_name": "netgear",
       "variant": "default",
       "source_script": "original_network/netgear_default.py",
-      "size_bytes": 17771,
-      "sha256": "0eb368034ec51c6cb65b180becd2e0685ec9bc2df9bb73218152039f1f0751ba",
+      "size_bytes": 17632,
+      "sha256": "87d2cc4f38db1da6cfabc85dfd23404ce9fbc19bfdf997ea4e4366e01f00ba73",
       "bbox": [
         26,
         26,
@@ -607,8 +607,8 @@
       "icon_name": "nginx",
       "variant": "default",
       "source_script": "original_network/nginx_default.py",
-      "size_bytes": 24543,
-      "sha256": "4b79161b02c65949d9c49152816fc1350f1459fedc8e78db919e26c7bc5d82a8",
+      "size_bytes": 24677,
+      "sha256": "1db7c7981c751c7114d29ddc1f272850ca09cfed51f08def36baf0034d62558d",
       "bbox": [
         53,
         26,
@@ -620,8 +620,8 @@
       "icon_name": "openvpn",
       "variant": "default",
       "source_script": "original_network/openvpn_default.py",
-      "size_bytes": 35461,
-      "sha256": "262369fd1f6660351992e6db0b541dd3f80797dd2f8d918c264b1012e7a36ff5",
+      "size_bytes": 35176,
+      "sha256": "ddc04bcd57f9872eb2f123e09bb1ad642d2a1a17780b23d8385048946cdf5a33",
       "bbox": [
         26,
         38,
@@ -633,8 +633,8 @@
       "icon_name": "openwrt",
       "variant": "default",
       "source_script": "original_network/openwrt_default.py",
-      "size_bytes": 45574,
-      "sha256": "8aa1d7ab29e26799db8fca6449a66d7d2e9f437594701bda0108e3d44fee47ea",
+      "size_bytes": 45323,
+      "sha256": "2a907feb28ce7df443afa543eb733a57e061d3584cd4997269b7c7247d087bda",
       "bbox": [
         63,
         26,
@@ -646,8 +646,8 @@
       "icon_name": "opnsense",
       "variant": "default",
       "source_script": "original_network/opnsense_default.py",
-      "size_bytes": 5279,
-      "sha256": "5247207ccfd1aa4d9f0f6ba54427efba4f579e99fea36154ec6639787b73cd81",
+      "size_bytes": 5158,
+      "sha256": "114c1ea99af5bfb2195303ac96331c66a4ce5a7b7c4fffa918cf40fc58119a38",
       "bbox": [
         26,
         26,
@@ -659,21 +659,21 @@
       "icon_name": "optical_transport",
       "variant": "default",
       "source_script": "original_network/optical_transport_default.py",
-      "size_bytes": 12450,
-      "sha256": "660aed70a809e623e00a01b71016e69128b476a09d319333f3c86a4d944d4f17",
+      "size_bytes": 13141,
+      "sha256": "f6fa99ed3fb1d2594ab569ecdce94b0d0640839a1470e3882a25d0cf709f0a22",
       "bbox": [
         26,
-        100,
+        101,
         486,
-        412
+        411
       ]
     },
     "palo_alto_default.png": {
       "icon_name": "palo_alto",
       "variant": "default",
       "source_script": "original_network/palo_alto_default.py",
-      "size_bytes": 30561,
-      "sha256": "04d543b9f30d12aff72ff08c295073ccd032fe4586e9c0bfffe9dd94db4ba856",
+      "size_bytes": 30148,
+      "sha256": "a96e3671f6d4402a786a46496cf983b0e3ebe2312946cd250ade3c388a4f813c",
       "bbox": [
         26,
         26,
@@ -685,8 +685,8 @@
       "icon_name": "pfsense",
       "variant": "default",
       "source_script": "original_network/pfsense_default.py",
-      "size_bytes": 28890,
-      "sha256": "0431d2adedb55335fe56a48e69f719c896e7d8279b7c80d8689ca295ce168dd5",
+      "size_bytes": 28665,
+      "sha256": "6367b5821e0d17894206846da570d2d2d9ebfa624263bea07445eec1eeb4a5d6",
       "bbox": [
         26,
         26,
@@ -698,10 +698,10 @@
       "icon_name": "pi_hole",
       "variant": "default",
       "source_script": "original_network/pi_hole_default.py",
-      "size_bytes": 32958,
-      "sha256": "d4723fae8fd5e1a0c2c9c72c94e62d67950b930060454eaf6f4493ad0aa90f77",
+      "size_bytes": 31972,
+      "sha256": "c8ea621a42efc39785dd3bc4744358d90902411208d5870f018f06e26bac2544",
       "bbox": [
-        98,
+        97,
         26,
         414,
         486
@@ -711,8 +711,8 @@
       "icon_name": "porkbun",
       "variant": "default",
       "source_script": "original_network/porkbun_default.py",
-      "size_bytes": 34131,
-      "sha256": "373b66aaf57bbe31ab9d1c94658c39b56ccae46f4072f1cf8c44be98f1934f8f",
+      "size_bytes": 34181,
+      "sha256": "e450b2677aef232a6c77125e25cb5709eda83d33076cfd03ab5fd95550fb46a0",
       "bbox": [
         26,
         26,
@@ -724,11 +724,11 @@
       "icon_name": "powerdns",
       "variant": "default",
       "source_script": "original_network/powerdns_default.py",
-      "size_bytes": 28823,
-      "sha256": "c0b0005a8d3a814636f6054c42fad1688f1714fab61bc579bbacbda0d808e877",
+      "size_bytes": 33387,
+      "sha256": "7d8cc0a56817f8830ca652d17e88ad424229db73ae3957ec530453dd5e4c3d8f",
       "bbox": [
         26,
-        108,
+        107,
         486,
         404
       ]
@@ -737,8 +737,8 @@
       "icon_name": "router",
       "variant": "default",
       "source_script": "original_network/router_default.py",
-      "size_bytes": 40513,
-      "sha256": "b567f636913741349a6ad355565791a1fb02474555fc8080bbe78e5aa95f01a7",
+      "size_bytes": 40477,
+      "sha256": "851f72d40093cf68005c77bcdf45a13e0994796a990788ad2fc6d0b57400a22d",
       "bbox": [
         26,
         26,
@@ -750,12 +750,12 @@
       "icon_name": "server",
       "variant": "default",
       "source_script": "original_network/server_default.py",
-      "size_bytes": 15798,
-      "sha256": "e4fbc2bb2594d40ab7d24c5b726ea36cbee275036cb530aee1267fdfc1b98ab1",
+      "size_bytes": 15839,
+      "sha256": "56dc25bcd9f6a90b8fde448c73382950155cda459720b8711553b7111b9e2a09",
       "bbox": [
-        96,
+        97,
         26,
-        416,
+        415,
         486
       ]
     },
@@ -763,8 +763,8 @@
       "icon_name": "squid",
       "variant": "default",
       "source_script": "original_network/squid_default.py",
-      "size_bytes": 30437,
-      "sha256": "85b93c399caf317f0902edb7fd820fcff18925bc76bf92f0af3d886ab924dd41",
+      "size_bytes": 30505,
+      "sha256": "40e23dabecb3ee58ee27692c126900edceec6af543f8f377a1a2efaee598b22e",
       "bbox": [
         26,
         26,
@@ -776,8 +776,8 @@
       "icon_name": "tailscale",
       "variant": "default",
       "source_script": "original_network/tailscale_default.py",
-      "size_bytes": 41761,
-      "sha256": "1ad3fc159178c87c3467789ae66223a92a3436a9749f0e01a4b85dad3fc167e6",
+      "size_bytes": 41382,
+      "sha256": "ea794cea87f4c77840b7f4cdac2124c4de1c267f7a1efa6abc636deb6ff4cdd8",
       "bbox": [
         27,
         26,
@@ -789,8 +789,8 @@
       "icon_name": "tp_link",
       "variant": "default",
       "source_script": "original_network/tp_link_default.py",
-      "size_bytes": 19482,
-      "sha256": "f5ce7aca949cb86fc22cf77702f96346602af75d965758aa280aeffd9fe2c695",
+      "size_bytes": 19554,
+      "sha256": "7534e1a0842d1246fdb41572df0290adf24f43313abbd85774c0baf23ae0a0f0",
       "bbox": [
         28,
         26,
@@ -802,8 +802,8 @@
       "icon_name": "traefik",
       "variant": "default",
       "source_script": "original_network/traefik_default.py",
-      "size_bytes": 44114,
-      "sha256": "9e1d599a6952eda2348f7f4826e7ae6bef16356f1663c3cbc05ef89fda27facb",
+      "size_bytes": 43969,
+      "sha256": "b10c08f1bc11fb2b92c8eb47e441c9a234f09943aaa014bd6080462eae0bbd2b",
       "bbox": [
         26,
         48,
@@ -815,8 +815,8 @@
       "icon_name": "ubiquiti",
       "variant": "default",
       "source_script": "original_network/ubiquiti_default.py",
-      "size_bytes": 31086,
-      "sha256": "a09cad651bb0943442ca0015f6181171b87971bb69df610f8a1c80800715dee7",
+      "size_bytes": 30697,
+      "sha256": "b122322a4f81a63c7d047b98cbc8d6d5382df276189cf0f21afd3dff67c17c2f",
       "bbox": [
         26,
         26,
@@ -828,8 +828,8 @@
       "icon_name": "unbound",
       "variant": "default",
       "source_script": "original_network/unbound_default.py",
-      "size_bytes": 22205,
-      "sha256": "a1caabe557428740536f493d350566dfdb2edb75869ee05ed91e265be3a601e8",
+      "size_bytes": 22029,
+      "sha256": "429f7576f36609bc0ab6c896053d7ac49083ad989b6cc5ade80f59e67a2860da",
       "bbox": [
         83,
         26,
@@ -841,8 +841,8 @@
       "icon_name": "varnish",
       "variant": "default",
       "source_script": "original_network/varnish_default.py",
-      "size_bytes": 21891,
-      "sha256": "d12ec6f535ae20540bc32a350d2a256cdd22e4109503c3501ffa9386e7977f5c",
+      "size_bytes": 21837,
+      "sha256": "86cb741fbb9ab0b7af4be0adab7c55bae0b4e45f1e448f2f669a1e71b26b59f9",
       "bbox": [
         28,
         26,
@@ -854,8 +854,8 @@
       "icon_name": "voice_gateway",
       "variant": "default",
       "source_script": "original_network/voice_gateway_default.py",
-      "size_bytes": 29406,
-      "sha256": "cafea06d12a58725582c8ba4a148a2c93ee29aa0982e9c58c7e14b8b4ce9a884",
+      "size_bytes": 29544,
+      "sha256": "1d92eab1859d864e113dceb9aea3dcd2db58468c2c32f904ae642f3f5930ef21",
       "bbox": [
         26,
         26,
@@ -867,24 +867,24 @@
       "icon_name": "vpn_gateway",
       "variant": "default",
       "source_script": "original_network/vpn_gateway_default.py",
-      "size_bytes": 21064,
-      "sha256": "e003bf3a54c6c4ca834a5bbe42fc2a63fd706cbd7b61620e30154a0c4d02e2e5",
+      "size_bytes": 20789,
+      "sha256": "8b8625a730e5a811ab9673ffae3353a6c228739a0e95b89c3819a76e9c5b37cc",
       "bbox": [
         26,
-        134,
+        135,
         486,
-        377
+        376
       ]
     },
     "wan_cloud_default.png": {
       "icon_name": "wan_cloud",
       "variant": "default",
       "source_script": "original_network/wan_cloud_default.py",
-      "size_bytes": 27383,
-      "sha256": "418d852d2d6edff6cf71ab67204539c7af6c22668524890f3024c24733177011",
+      "size_bytes": 29539,
+      "sha256": "085a47dca2a763d3e8da0fb4ffd0e972a868cfcac12366df34e0ae4dda345ecd",
       "bbox": [
         26,
-        87,
+        88,
         486,
         424
       ]
@@ -893,8 +893,8 @@
       "icon_name": "wan_router",
       "variant": "default",
       "source_script": "original_network/wan_router_default.py",
-      "size_bytes": 28529,
-      "sha256": "bfc4621852a945100d3c0a453138394b30994ca485deadc8c2ba71652d6945d3",
+      "size_bytes": 28081,
+      "sha256": "70905abd144440bfafc11ae90d17fa5613ef5ddb654a9443ba7e5e3c99ce1fdf",
       "bbox": [
         26,
         26,
@@ -906,8 +906,8 @@
       "icon_name": "web_security",
       "variant": "default",
       "source_script": "original_network/web_security_default.py",
-      "size_bytes": 34660,
-      "sha256": "6080a6b6f57525ec8bd9912c1000e7af45e273849a046a52b0a4a3c927d5cf8b",
+      "size_bytes": 35376,
+      "sha256": "0f7edbfdba6ade5a215500120f8682b460fee7d9e772645bfb481f7bc9e1fc24",
       "bbox": [
         26,
         26,
@@ -919,8 +919,8 @@
       "icon_name": "wireguard",
       "variant": "default",
       "source_script": "original_network/wireguard_default.py",
-      "size_bytes": 52720,
-      "sha256": "920e346df20da6267c2e05a1011c530eca4c5127352541f97db0a2815ddc27ec",
+      "size_bytes": 52543,
+      "sha256": "90912b05ca197503a63a54114f8ddd2f2ff5694a0a3cbab7d2047cd870f6f991",
       "bbox": [
         26,
         26,
@@ -932,12 +932,12 @@
       "icon_name": "wireless_ap",
       "variant": "default",
       "source_script": "original_network/wireless_ap_default.py",
-      "size_bytes": 24814,
-      "sha256": "368e131cff9eb1b7f231410e05182b51b102f32b04601429215dfbf51ff67d47",
+      "size_bytes": 24919,
+      "sha256": "5c2106ce411d2d7b330ab241c45be2cf1ee8269e640a5f052f502b7227b8929e",
       "bbox": [
-        62,
+        64,
         26,
-        449,
+        448,
         486
       ]
     },
@@ -945,11 +945,11 @@
       "icon_name": "wireless_controller",
       "variant": "default",
       "source_script": "original_network/wireless_controller_default.py",
-      "size_bytes": 28067,
-      "sha256": "164debc0b2ddc6074c5ac2b9e1722f0ea4467a6204f364fc36b8cbb08cf8c9b1",
+      "size_bytes": 27065,
+      "sha256": "fe39afaaa64d1d34940ff5ed3aa888be4b6be510636f3fc8cd3b6d44a0e4f918",
       "bbox": [
         26,
-        55,
+        54,
         486,
         457
       ]
@@ -958,21 +958,21 @@
       "icon_name": "wireless_router",
       "variant": "default",
       "source_script": "original_network/wireless_router_default.py",
-      "size_bytes": 25608,
-      "sha256": "3dd906632797148a0c1486bf7bf0f944ee7546f6c89eba96a5c2d3f9b8b3e893",
+      "size_bytes": 24543,
+      "sha256": "ec002eddcef0987ecccd9d8f590086ed97374fcaa02b058bcdeffca998223a28",
       "bbox": [
         26,
-        38,
+        37,
         486,
-        474
+        475
       ]
     },
     "yamaha_default.png": {
       "icon_name": "yamaha",
       "variant": "default",
       "source_script": "original_network/yamaha_default.py",
-      "size_bytes": 30203,
-      "sha256": "a6a8744165c09a9e2534f29fc07a55683e84079aa203be07bc6f0b6c45fb46bd",
+      "size_bytes": 29999,
+      "sha256": "8570083d4b58fb4f8d0eeac63de452fc3cb09f8827b86de384f4972c7bb72f17",
       "bbox": [
         26,
         204,
@@ -984,8 +984,8 @@
       "icon_name": "zerotier",
       "variant": "default",
       "source_script": "original_network/zerotier_default.py",
-      "size_bytes": 16280,
-      "sha256": "be45964b9a8023f7dc95ba7567d246f111f9e3b0e5753a8aa98ccbf9adbcffb9",
+      "size_bytes": 16257,
+      "sha256": "749ac14538633fe32c2bfa8f71873c759534638fb4d005038dbf838a8008713f",
       "bbox": [
         26,
         26,
@@ -997,8 +997,8 @@
       "icon_name": "zscaler",
       "variant": "default",
       "source_script": "original_network/zscaler_default.py",
-      "size_bytes": 29193,
-      "sha256": "7db0cac7b8181055fc84becafd8a0bbccfe5d087fefba200a320e9dd7cafae97",
+      "size_bytes": 29010,
+      "sha256": "499d841b9938273ca75fa2dec9de746fcce6f6f197d5a2709d373d55b2935e3d",
       "bbox": [
         26,
         113,

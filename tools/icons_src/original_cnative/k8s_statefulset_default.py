@@ -31,7 +31,7 @@ rectangle(
     (55.0, 53.0),
     width=36.0,
     height=28.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.3, shape_r=4.5),
+    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=4.5),
 )
 
 # Front replica card
@@ -39,7 +39,7 @@ rectangle(
     (45.0, 43.0),
     width=36.0,
     height=28.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=4.5),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.5),
 )
 
 # Persistent storage cylinder inside the front replica card
@@ -52,7 +52,7 @@ draw_cylinder_tier(
     body_color=PASTEL_GREEN,
     top_color=PASTEL_GREEN,
     border_color=DARK,
-    border_units=2.1,
+    border_units=2.0,
     draw_top_cap=True,
 )
 

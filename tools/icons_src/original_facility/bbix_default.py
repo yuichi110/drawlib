@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.4
+w = 2.0
 w_hole = 1.15
 w_idot = 1.0
 w_idot_hole = 0.8

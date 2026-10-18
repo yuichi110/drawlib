@@ -27,17 +27,17 @@ setup_icon()
 draw_original_k8s_heptagon()
 
 # Outward left and right horizontal scaling arrows
-draw_round_segment((36.0, 48.0), (23.0, 48.0), width_units=2.5, color=DARK)
+draw_round_segment((36.0, 48.0), (23.0, 48.0), width_units=2.0, color=DARK)
 draw_round_polyline(
     [(28.5, 53.0), (23.0, 48.0), (28.5, 43.0)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 
-draw_round_segment((64.0, 48.0), (77.0, 48.0), width_units=2.5, color=DARK)
+draw_round_segment((64.0, 48.0), (77.0, 48.0), width_units=2.0, color=DARK)
 draw_round_polyline(
     [(71.5, 53.0), (77.0, 48.0), (71.5, 43.0)],
-    width_units=2.5,
+    width_units=2.0,
     color=DARK,
 )
 
@@ -46,7 +46,7 @@ rectangle(
     (50.0, 48.0),
     width=23.0,
     height=23.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4, shape_r=4.0),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 
 # Inner green workload square

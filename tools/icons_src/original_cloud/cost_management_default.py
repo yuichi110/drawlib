@@ -49,7 +49,7 @@ for bx, bh, bcol in bars:
         (bx, 35.0 + bh / 2.0),
         width=9.0,
         height=bh,
-        style=fill_style(bcol, border_color=DARK, border_units=2.2, shape_r=2.0),
+        style=fill_style(bcol, border_color=DARK, border_units=2.0, shape_r=2.0),
     )
 
 # Bottom-right financial coin badge at (68, 34), radius=18.0 -> x=50..86, y=16..52
@@ -62,11 +62,11 @@ circle(
 circle(
     (coin_cx, coin_cy),
     radius=13.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Currency symbol (vertical bar + S-curve) inside coin
-draw_round_segment((coin_cx, 24.5), (coin_cx, 43.5), width_units=2.3, color=DARK)
+draw_round_segment((coin_cx, 24.5), (coin_cx, 43.5), width_units=2.0, color=DARK)
 
 s_pts: list[tuple[float, float]] = []
 rx, ry = 4.2, 3.2
@@ -79,6 +79,6 @@ for deg in range(90, -146, -15):
     rad = math.radians(deg)
     s_pts.append((coin_cx + rx * math.cos(rad), (coin_cy - ry) + ry * math.sin(rad)))
 
-draw_round_polyline(s_pts, width_units=2.3, color=DARK)
+draw_round_polyline(s_pts, width_units=2.0, color=DARK)
 
 save()

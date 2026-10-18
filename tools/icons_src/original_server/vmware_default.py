@@ -24,7 +24,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.5
+w = 2.0
 
 
 def _rounded_rect_ring(

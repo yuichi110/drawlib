@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-w = 1.9
+w = 2.0
 v_pts = [(16.45, 50.0), (35.46, 9.0), (45.53, 9.0), (83.55, 91.0), (71.06, 91.0), (40.5, 24.84), (28.94, 50.0)]
 
 polygon(v_pts, style=no_border_fill("#F87272"))

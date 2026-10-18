@@ -22,7 +22,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w_border = 1.6
+w_border = 2.0
 
 top_bar = [(17.69, 49.87), (57.69, 90.0), (82.31, 90.0), (30.06, 37.75)]
 mid_top_arm = [(48.5, 43.81), (57.69, 53.06), (82.31, 53.06), (61.0, 31.32)]

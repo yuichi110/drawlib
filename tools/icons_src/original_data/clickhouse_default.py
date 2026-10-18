@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 # 4 tall vertical column bars + 1 short right accent bar (centered in [13, 87] x [13, 87])
 bar_w = 10.4

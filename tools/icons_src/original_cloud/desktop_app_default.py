@@ -48,14 +48,14 @@ rectangle(
     (28.0, 56.0),
     width=16.0,
     height=36.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 rectangle(
     (60.0, 62.0),
     width=34.0,
     height=22.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.2, shape_r=3.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
-draw_round_segment((44.0, 42.0), (76.0, 42.0), width_units=2.4, color=DARK)
+draw_round_segment((44.0, 42.0), (76.0, 42.0), width_units=2.0, color=DARK)
 
 save()

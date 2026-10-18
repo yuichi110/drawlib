@@ -24,7 +24,7 @@ from drawlib.utils import (
 # ruff: noqa: E501
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_inner = 1.4
 r_badge = 40.0
 s = r_badge / 41.0

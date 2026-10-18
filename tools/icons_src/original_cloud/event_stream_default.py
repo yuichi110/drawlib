@@ -44,7 +44,7 @@ circle(
 circle(
     (62.0, 70.0),
     radius=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Middle stream (y=50.0)
@@ -58,7 +58,7 @@ circle(
 circle(
     (32.0, 30.0),
     radius=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.4),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 circle(
     (64.0, 30.0),

@@ -23,7 +23,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.5
+w = 2.0
 s = 0.935
 
 # Tilted 'L' axis basis (~8.78 degrees counter-clockwise)

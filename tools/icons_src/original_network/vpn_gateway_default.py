@@ -72,15 +72,15 @@ shackle_cy = 56.5
 rectangle((50.0, 54.0), width=shackle_w, height=5.0, style=no_border_fill(WHITE))
 ellipse((50.0, shackle_cy), width=shackle_w, height=shackle_h, style=no_border_fill(WHITE))
 
-draw_round_segment((50.0 - shackle_r, 52.0), (50.0 - shackle_r, shackle_cy), width_units=2.8, color=DARK)
-draw_round_segment((50.0 + shackle_r, 52.0), (50.0 + shackle_r, shackle_cy), width_units=2.8, color=DARK)
+draw_round_segment((50.0 - shackle_r, 52.0), (50.0 - shackle_r, shackle_cy), width_units=2.0, color=DARK)
+draw_round_segment((50.0 + shackle_r, 52.0), (50.0 + shackle_r, shackle_cy), width_units=2.0, color=DARK)
 arc(
     (50.0, shackle_cy),
     width=shackle_w,
     height=shackle_h,
     angle_start=0.0,
     angle_end=180.0,
-    style=stroke_style(DARK, width_units=2.8),
+    style=stroke_style(DARK, width_units=2.0),
 )
 
 # 5. Lock body in PASTEL_GREEN
@@ -88,11 +88,11 @@ rectangle(
     (50.0, 44.0),
     width=22.0,
     height=18.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=4.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.0),
 )
 
 # 6. Keyhole dot + stem
 circle((50.0, 45.6), radius=2.1, style=fill_style(DARK))
-draw_round_segment((50.0, 45.6), (50.0, 41.2), width_units=2.3, color=DARK)
+draw_round_segment((50.0, 45.6), (50.0, 41.2), width_units=2.0, color=DARK)
 
 save()

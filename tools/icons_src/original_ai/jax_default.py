@@ -24,7 +24,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 w_seam = 1.45
 
 # 60-degree isometric lattice: ix in [0..18], iy in [0..6], centered at (9, 3) -> (50.0, 50.0)

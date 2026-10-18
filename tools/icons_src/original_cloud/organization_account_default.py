@@ -48,7 +48,7 @@ circle(
     radius=3.5,
     style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
-draw_round_segment((47.5, 76.0), (61.5, 76.0), width_units=2.5, color=DARK)
+draw_round_segment((47.5, 76.0), (61.5, 76.0), width_units=2.0, color=DARK)
 
 # 3 child account/subscription cards
 child_configs = [
@@ -63,6 +63,6 @@ for cx, fill_col in child_configs:
         height=20.0,
         style=fill_style(fill_col, border_color=DARK, border_units=w, shape_r=3.5),
     )
-    draw_round_segment((cx - 5.5, 26.0), (cx + 5.5, 26.0), width_units=2.4, color=DARK)
+    draw_round_segment((cx - 5.5, 26.0), (cx + 5.5, 26.0), width_units=2.0, color=DARK)
 
 save()

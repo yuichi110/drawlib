@@ -22,7 +22,7 @@ arch_pts: list[tuple[float, float]] = [
 ]
 # fmt: on
 
-draw_round_polyline(arch_pts, width_units=2.5, color=DARK, closed=True)
+draw_round_polyline(arch_pts, width_units=2.0, color=DARK, closed=True)
 polygon(arch_pts, style=no_border_fill("#58B4E3"))
 draw_round_polyline(arch_pts, width_units=1.3, color=DARK, closed=True)
 

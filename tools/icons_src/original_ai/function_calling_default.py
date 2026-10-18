@@ -40,7 +40,7 @@ rectangle(
 )
 sparkle_pts = build_sparkle_4pt_polygon(29.0, 50.0, outer_r=11.0, inner_r=3.8)
 polygon(sparkle_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(sparkle_pts, width_units=2.3, color=DARK, closed=True)
+draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
 
 # 2. Invocation arrow connecting model to tool box
 draw_round_segment((45.0, 50.0), (57.0, 50.0), width_units=w, color=DARK)
@@ -70,7 +70,7 @@ for deg in range(0, 360, 45):
 circle(
     (gx, gy),
     radius=8.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.3),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 circle(
     (gx, gy),

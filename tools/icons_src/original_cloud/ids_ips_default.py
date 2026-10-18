@@ -82,7 +82,7 @@ for i in range(1, steps):
     eye_pts.append((cx + arc_r * math.cos(ang), yc_bot + arc_r * math.sin(ang)))
 
 polygon(eye_pts, style=no_border_fill(WHITE))
-draw_round_polyline(eye_pts, width_units=2.4, color=DARK, closed=True)
+draw_round_polyline(eye_pts, width_units=2.0, color=DARK, closed=True)
 
 circle((cx, ey), radius=5.0, style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0))
 circle((cx, ey), radius=2.1, style=fill_style(DARK))

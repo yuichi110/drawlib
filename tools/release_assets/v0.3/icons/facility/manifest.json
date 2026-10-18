@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "facility",
-  "created_at": "2026-10-17T13:29:09.807948+00:00",
+  "created_at": "2026-10-18T10:42:14.090670+00:00",
   "canvas_size": [
     512,
     512
@@ -10,8 +10,10 @@
     460,
     460
   ],
-  "total_files": 40,
+  "total_files": 49,
   "aliases": {
+    "amat": "applied_materials",
+    "asml_holding": "asml",
     "at_and_t": "att",
     "attokyo": "at_tokyo",
     "au": "kddi",
@@ -20,14 +22,22 @@
     "decix": "de_cix",
     "dlr": "digital_realty",
     "eqix": "equinix",
+    "gf": "globalfoundries",
+    "global_foundries": "globalfoundries",
     "hid": "hid_global",
+    "hon_hai": "foxconn",
+    "kyocera_corp": "kyocera",
     "liebert": "vertiv",
+    "murata_mfg": "murata",
     "ntt_com": "ntt",
     "ntt_datacenter": "ntt_gdc",
     "ntt_docomo": "ntt",
     "orange_business": "orange",
+    "rapidus_corp": "rapidus",
     "schneider": "schneider_electric",
     "t_systems": "deutsche_telekom",
+    "taiwan_semiconductor": "tsmc",
+    "tel": "tokyo_electron",
     "vantage": "vantage_dc"
   },
   "files": {
@@ -42,6 +52,32 @@
         195,
         486,
         317
+      ]
+    },
+    "applied_materials_default.png": {
+      "icon_name": "applied_materials",
+      "variant": "default",
+      "source_script": "facility/applied_materials_default.py",
+      "size_bytes": 16240,
+      "sha256": "97428cb16e04e70b915ec9cdbd0a452bb4cb68e08ab516877ac20798ec867e9d",
+      "bbox": [
+        26,
+        198,
+        486,
+        314
+      ]
+    },
+    "asml_default.png": {
+      "icon_name": "asml",
+      "variant": "default",
+      "source_script": "facility/asml_default.py",
+      "size_bytes": 12440,
+      "sha256": "cada804ed2f619af579bc9aafd2589aae46674d1b5fb81487808035fa0b105c4",
+      "bbox": [
+        26,
+        191,
+        486,
+        320
       ]
     },
     "at_tokyo_default.png": {
@@ -239,6 +275,32 @@
         406
       ]
     },
+    "foxconn_default.png": {
+      "icon_name": "foxconn",
+      "variant": "default",
+      "source_script": "facility/foxconn_default.py",
+      "size_bytes": 6891,
+      "sha256": "004b8a988aabd77fd961d617d95696987d8805ae4a36324fe2732febaf4ba47a",
+      "bbox": [
+        26,
+        224,
+        486,
+        287
+      ]
+    },
+    "globalfoundries_default.png": {
+      "icon_name": "globalfoundries",
+      "variant": "default",
+      "source_script": "facility/globalfoundries_default.py",
+      "size_bytes": 9485,
+      "sha256": "873055cf32bae9d5d06fdeb7dc20691214c1cb3f7881470ed71d7670cee70887",
+      "bbox": [
+        26,
+        211,
+        486,
+        301
+      ]
+    },
     "hid_global_default.png": {
       "icon_name": "hid_global",
       "variant": "default",
@@ -330,6 +392,19 @@
         328
       ]
     },
+    "kyocera_default.png": {
+      "icon_name": "kyocera",
+      "variant": "default",
+      "source_script": "facility/kyocera_default.py",
+      "size_bytes": 7954,
+      "sha256": "85d19312b631d9e3cf6dde8411b2476795605cebb8ed76a65b1ef1908ace58dd",
+      "bbox": [
+        26,
+        207,
+        486,
+        305
+      ]
+    },
     "linx_default.png": {
       "icon_name": "linx",
       "variant": "default",
@@ -367,6 +442,19 @@
         26,
         486,
         486
+      ]
+    },
+    "murata_default.png": {
+      "icon_name": "murata",
+      "variant": "default",
+      "source_script": "facility/murata_default.py",
+      "size_bytes": 20352,
+      "sha256": "992bc0a241147a5fce2e8ac709ef8ee3ac5b9ae305dd7ea7a6097c7e4f054f78",
+      "bbox": [
+        26,
+        176,
+        486,
+        335
       ]
     },
     "ntt_default.png": {
@@ -447,6 +535,19 @@
         347
       ]
     },
+    "rapidus_default.png": {
+      "icon_name": "rapidus",
+      "variant": "default",
+      "source_script": "facility/rapidus_default.py",
+      "size_bytes": 18921,
+      "sha256": "bd1204f8393785106a53c246fb75b862ff432c29ae5fbd5df4a68787956128cb",
+      "bbox": [
+        26,
+        212,
+        486,
+        300
+      ]
+    },
     "rittal_default.png": {
       "icon_name": "rittal",
       "variant": "default",
@@ -510,6 +611,32 @@
         111,
         486,
         401
+      ]
+    },
+    "tokyo_electron_default.png": {
+      "icon_name": "tokyo_electron",
+      "variant": "default",
+      "source_script": "facility/tokyo_electron_default.py",
+      "size_bytes": 10187,
+      "sha256": "45929954014db45f1e0e47c7ac4de0c91b2de9a027a59f9b8bf09693f97e8b93",
+      "bbox": [
+        26,
+        119,
+        486,
+        393
+      ]
+    },
+    "tsmc_default.png": {
+      "icon_name": "tsmc",
+      "variant": "default",
+      "source_script": "facility/tsmc_default.py",
+      "size_bytes": 31286,
+      "sha256": "b74732dcfe81b97ae0284933609f29bb33756ccc28d14ff09a11b5f3f12e8de7",
+      "bbox": [
+        26,
+        75,
+        486,
+        437
       ]
     },
     "vantage_dc_default.png": {

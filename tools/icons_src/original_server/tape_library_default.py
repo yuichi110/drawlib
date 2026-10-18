@@ -53,17 +53,17 @@ recess_pts = [
     (31.0, 32.0),
 ]
 polygon(recess_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(recess_pts, width_units=2.2, color=DARK, closed=True)
+draw_round_polyline(recess_pts, width_units=2.0, color=DARK, closed=True)
 
 # Horizontal dark tape line linking the top of the two reels
-draw_round_segment((33.0, 57.5), (67.0, 57.5), width_units=2.2, color=DARK)
+draw_round_segment((33.0, 57.5), (67.0, 57.5), width_units=2.0, color=DARK)
 
 # Two symmetric tape reels
 for x_reel in (33.0, 67.0):
     circle(
         (x_reel, 46.0),
         radius=11.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
     )
     circle(
         (x_reel, 46.0),

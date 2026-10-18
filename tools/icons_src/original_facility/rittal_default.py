@@ -17,7 +17,7 @@ from drawlib.utils import DARK, WHITE, draw_compound_polygon, draw_round_polylin
 # fmt: off
 setup_icon()
 
-w_emblem = 1.8
+w_emblem = 2.0
 w_band = 1.1
 w_text = 0.9
 

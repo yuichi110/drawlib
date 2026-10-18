@@ -115,7 +115,7 @@ def _chevron_branch_polygon(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 cx, cy = 50.0, 50.0
 
 # 1. Six symmetrical V-chevron crystal branches at 0, 60, 120, 180, 240, 300 deg

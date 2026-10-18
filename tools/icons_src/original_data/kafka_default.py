@@ -64,7 +64,7 @@ def _draw_spoke_bar(
 
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 hub_xy = (39.0, 50.0)
 spoke_dist = 29.0

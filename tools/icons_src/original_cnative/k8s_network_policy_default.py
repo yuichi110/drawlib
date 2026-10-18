@@ -32,20 +32,20 @@ right_pts = build_shield_half_points(50.0, 24.0, 70.0, 20.0, side="right")
 shield_pts = left_pts + list(reversed(right_pts[1:-1]))
 polygon(
     shield_pts,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
 )
 
 # Center white policy badge circle
 circle(
     (50.0, 48.5),
     radius=10.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.2),
+    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
 )
 
 # Crisp dark checkmark inside the circle
 draw_round_polyline(
     [(45.5, 48.0), (48.8, 44.8), (54.8, 51.8)],
-    width_units=2.3,
+    width_units=2.0,
     color=DARK,
 )
 

@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-w = 1.9
+w = 2.0
 
 outer_l_pts: list[tuple[float, float]] = [(9.11, 87.27), (9.0, 9.0), (87.27, 9.0), (87.27, 22.05), (23.91, 22.05), (23.91, 87.27)]
 inner_l_pts: list[tuple[float, float]] = [(35.09, 87.27), (35.09, 33.1), (87.27, 33.1), (87.27, 46.27), (50.0, 46.27), (50.0, 87.27)]

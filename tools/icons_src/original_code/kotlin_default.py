@@ -20,7 +20,7 @@ from drawlib.utils import (
 
 setup_icon()
 
-w_outer = 1.8
+w_outer = 2.0
 w_seam = 1.3
 
 CORAL_PINK = "#F06A78"

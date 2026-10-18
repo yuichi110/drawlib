@@ -35,7 +35,7 @@ for nx, ny, ncol in nodes:
     circle(
         (nx, ny),
         radius=5.0,
-        style=fill_style(ncol, border_color=DARK, border_units=2.2),
+        style=fill_style(ncol, border_color=DARK, border_units=2.0),
     )
 
 funnel_pts = [
@@ -60,7 +60,7 @@ rectangle(
     (50.0, 16.0),
     width=28.0,
     height=10.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.4, shape_r=3.0),
+    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
 )
 
 save()
