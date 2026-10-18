@@ -87,6 +87,35 @@ class TestCnativeIcons:
         save(str(out))
         assert out.is_file()
 
+    def test_cnative_k8s_distributions(self, tmp_path: Path) -> None:
+        """Verify Kubernetes distribution icons and their shorthand aliases."""
+        clear()
+        cnative.openshift(xy=(15, 75), width=10, style=Style())
+        cnative.rancher(xy=(35, 75), width=10, style=Style())
+        cnative.tanzu(xy=(55, 75), width=10, style=Style())
+        cnative.okd(xy=(75, 75), width=10, style=Style())
+
+        cnative.k3s(xy=(15, 50), width=10, style=Style())
+        cnative.microk8s(xy=(35, 50), width=10, style=Style())
+        cnative.talos(xy=(55, 50), width=10, style=Style())
+        cnative.k0s(xy=(75, 50), width=10, style=Style())
+
+        cnative.minikube(xy=(15, 25), width=10, style=Style())
+        cnative.kind(xy=(35, 25), width=10, style=Style())
+        cnative.kubevirt(xy=(55, 25), width=10, style=Style())
+        cnative.vcluster(xy=(75, 25), width=10, style=Style())
+
+        # Shorthand aliases
+        cnative.ocp(xy=(15, 10), width=8, style=Style())
+        cnative.rke(xy=(30, 10), width=8, style=Style())
+        cnative.rke2(xy=(45, 10), width=8, style=Style())
+        cnative.tkg(xy=(60, 10), width=8, style=Style())
+        cnative.talos_linux(xy=(75, 10), width=8, style=Style())
+
+        out = tmp_path / "test_cnative_k8s_distros.png"
+        save(str(out))
+        assert out.is_file()
+
     def test_cnative_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify CnativeIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -190,6 +219,35 @@ class TestOriginalCnativeIcons:
         original_cnative.gatekeeper(xy=(80, 30), width=12, style=Style())
 
         out = tmp_path / "test_original_cnative_aliases.png"
+        save(str(out))
+        assert out.is_file()
+
+    def test_original_cnative_k8s_distributions(self, tmp_path: Path) -> None:
+        """Verify Original Kubernetes distribution icons and their shorthand aliases."""
+        clear()
+        original_cnative.openshift(xy=(15, 75), width=10, style=Style())
+        original_cnative.rancher(xy=(35, 75), width=10, style=Style())
+        original_cnative.tanzu(xy=(55, 75), width=10, style=Style())
+        original_cnative.okd(xy=(75, 75), width=10, style=Style())
+
+        original_cnative.k3s(xy=(15, 50), width=10, style=Style())
+        original_cnative.microk8s(xy=(35, 50), width=10, style=Style())
+        original_cnative.talos(xy=(55, 50), width=10, style=Style())
+        original_cnative.k0s(xy=(75, 50), width=10, style=Style())
+
+        original_cnative.minikube(xy=(15, 25), width=10, style=Style())
+        original_cnative.kind(xy=(35, 25), width=10, style=Style())
+        original_cnative.kubevirt(xy=(55, 25), width=10, style=Style())
+        original_cnative.vcluster(xy=(75, 25), width=10, style=Style())
+
+        # Shorthand aliases
+        original_cnative.ocp(xy=(15, 10), width=8, style=Style())
+        original_cnative.rke(xy=(30, 10), width=8, style=Style())
+        original_cnative.rke2(xy=(45, 10), width=8, style=Style())
+        original_cnative.tkg(xy=(60, 10), width=8, style=Style())
+        original_cnative.talos_linux(xy=(75, 10), width=8, style=Style())
+
+        out = tmp_path / "test_original_cnative_k8s_distros.png"
         save(str(out))
         assert out.is_file()
 

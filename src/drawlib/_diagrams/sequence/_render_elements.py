@@ -32,6 +32,7 @@ from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
     ClientIcon,
+    CloudIcon,
     CnativeIcon,
     CodeIcon,
     DataIcon,
@@ -83,6 +84,7 @@ def draw_enum_icon(
         | AwsIcon
         | AzureIcon
         | ClientIcon
+        | CloudIcon
         | CnativeIcon
         | CodeIcon
         | DataIcon

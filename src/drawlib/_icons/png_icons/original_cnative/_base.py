@@ -69,6 +69,7 @@ ORIGINAL_CNATIVE_ALIASES: dict[str, str] = {
     "network_policy": "k8s_network_policy",
     "node": "k8s_node",
     "ns": "k8s_namespace",
+    "ocp": "openshift",
     "open_policy_agent": "opa",
     "open_telemetry": "opentelemetry",
     "otel": "opentelemetry",
@@ -79,12 +80,16 @@ ORIGINAL_CNATIVE_ALIASES: dict[str, str] = {
     "prom": "prometheus",
     "pv": "k8s_pv",
     "pvc": "k8s_pvc",
+    "rke": "rancher",
+    "rke2": "rancher",
     "rook_ceph": "rook",
     "secret": "k8s_secret",  # noqa: S105
     "service": "k8s_service",
     "statefulset": "k8s_statefulset",
     "sts": "k8s_statefulset",
     "svc": "k8s_service",
+    "talos_linux": "talos",
+    "tkg": "tanzu",
     "worker_node": "k8s_node",
 }
 

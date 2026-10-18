@@ -64,10 +64,7 @@ for r_arc, half_ang in ((26.5, 24.0), (33.5, 18.0)):
 # Central pointy-top hexagonal IoT hub
 hex_r = 20.0
 hex_angles = [90.0, 30.0, 330.0, 270.0, 210.0, 150.0]
-hex_pts = [
-    (cx + hex_r * math.cos(math.radians(a)), cy + hex_r * math.sin(math.radians(a)))
-    for a in hex_angles
-]
+hex_pts = [(cx + hex_r * math.cos(math.radians(a)), cy + hex_r * math.sin(math.radians(a))) for a in hex_angles]
 polygon(hex_pts, style=no_border_fill(PASTEL_BLUE))
 draw_round_polyline(hex_pts, width_units=w, color=DARK, closed=True)
 

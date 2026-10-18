@@ -322,6 +322,16 @@ def gen_icon_original_client() -> None:
     console.print("[bold green]✓ Original Client icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-cloud")
+def gen_icon_cloud() -> None:
+    """Normalize native Drawlib Cloud icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/cloud"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/cloud"
+    manifest_file = write_provider_manifest("cloud", src_path, dest_path)
+    generate_original_provider_code("cloud", manifest_file=manifest_file)
+    console.print("[bold green]✓ Cloud icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-gcp")
 def gen_icon_gcp(
     build_images: bool = typer.Option(

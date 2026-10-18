@@ -1,0 +1,562 @@
+{
+  "format_version": "2.0",
+  "provider": "cloud",
+  "created_at": "2026-10-18T12:36:15.575997+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 40,
+  "aliases": {
+    "alibaba_group": "alibaba",
+    "aliyun": "alibaba_cloud",
+    "alphabet": "google",
+    "amazon_corp": "amazon",
+    "amazon_web_services": "aws",
+    "cf": "cloudflare",
+    "do": "digitalocean",
+    "fjcloud": "nifcloud",
+    "flyio": "fly_io",
+    "gcp": "google_cloud",
+    "gmo_conoha": "conoha",
+    "huawei_corp": "huawei",
+    "idcf_cloud": "idcf",
+    "kagoya_cloud": "kagoya",
+    "microsoft_azure": "azure",
+    "ms_azure": "azure",
+    "oci": "oracle_cloud",
+    "oracle_corp": "oracle",
+    "ovh": "ovhcloud",
+    "railway_app": "railway",
+    "render_cloud": "render",
+    "sakura_cloud": "sakura",
+    "sakura_internet": "sakura",
+    "tencent_corp": "tencent"
+  },
+  "files": {
+    "akamai_default.png": {
+      "icon_name": "akamai",
+      "variant": "default",
+      "source_script": "cloud/akamai_default.py",
+      "size_bytes": 23045,
+      "sha256": "ca44786b3eb0793c545861b118892d3bd8fc3fc13b4f197b8c040c3c57ac5549",
+      "bbox": [
+        45,
+        26,
+        466,
+        486
+      ]
+    },
+    "alibaba_cloud_default.png": {
+      "icon_name": "alibaba_cloud",
+      "variant": "default",
+      "source_script": "cloud/alibaba_cloud_default.py",
+      "size_bytes": 8494,
+      "sha256": "dcd347a739504419bc00fba90c6d0ff229adf20b2cb1212168991cf61bfdd82f",
+      "bbox": [
+        26,
+        110,
+        486,
+        401
+      ]
+    },
+    "alibaba_default.png": {
+      "icon_name": "alibaba",
+      "variant": "default",
+      "source_script": "cloud/alibaba_default.py",
+      "size_bytes": 14149,
+      "sha256": "7a0527a81f148a543f06cbf64fc95e2449ffd72713b1c54cfd9c0ab5577a7a7f",
+      "bbox": [
+        26,
+        141,
+        486,
+        371
+      ]
+    },
+    "amazon_default.png": {
+      "icon_name": "amazon",
+      "variant": "default",
+      "source_script": "cloud/amazon_default.py",
+      "size_bytes": 14104,
+      "sha256": "7f6ed881ec49d9f856aef9d21cc0f508afb9905659d2584772077400dd0c3544",
+      "bbox": [
+        32,
+        26,
+        479,
+        486
+      ]
+    },
+    "aws_default.png": {
+      "icon_name": "aws",
+      "variant": "default",
+      "source_script": "cloud/aws_default.py",
+      "size_bytes": 22243,
+      "sha256": "da2da27827afcc7ded5b3a7e3756a0da1652667e9785a23f1e68f55bcb3f4cab",
+      "bbox": [
+        26,
+        118,
+        486,
+        393
+      ]
+    },
+    "azure_default.png": {
+      "icon_name": "azure",
+      "variant": "default",
+      "source_script": "cloud/azure_default.py",
+      "size_bytes": 28148,
+      "sha256": "e123e3b5c514564b66c6e78999de667b3619879cb611fe7b2df9551cb6c4cfd8",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "cloudflare_default.png": {
+      "icon_name": "cloudflare",
+      "variant": "default",
+      "source_script": "cloud/cloudflare_default.py",
+      "size_bytes": 10139,
+      "sha256": "4d2c084d2a9df93e0f1dbec199dba8123c73ec6df61aefb128014fb1e6ff87cf",
+      "bbox": [
+        26,
+        151,
+        486,
+        361
+      ]
+    },
+    "conoha_default.png": {
+      "icon_name": "conoha",
+      "variant": "default",
+      "source_script": "cloud/conoha_default.py",
+      "size_bytes": 15915,
+      "sha256": "4944ce1bc9045bdd506db92e1e889abc2814a1cbc4d761f3e91a2b1b2740ecb5",
+      "bbox": [
+        50,
+        26,
+        462,
+        486
+      ]
+    },
+    "digitalocean_default.png": {
+      "icon_name": "digitalocean",
+      "variant": "default",
+      "source_script": "cloud/digitalocean_default.py",
+      "size_bytes": 11082,
+      "sha256": "8b01b714da9e7ef1f47fc6808bff8e256c50e89cdd0be7e9890ffa3bbb59962e",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "fastly_default.png": {
+      "icon_name": "fastly",
+      "variant": "default",
+      "source_script": "cloud/fastly_default.py",
+      "size_bytes": 14939,
+      "sha256": "80a8a8a95693e8cfb9e1648aa10f83d96e755676650ef33db8c6f8834a6fdf4b",
+      "bbox": [
+        41,
+        26,
+        470,
+        486
+      ]
+    },
+    "firebase_default.png": {
+      "icon_name": "firebase",
+      "variant": "default",
+      "source_script": "cloud/firebase_default.py",
+      "size_bytes": 14765,
+      "sha256": "4d82521bab0da06bdb39aa528c71a75cf76dcb0dacf4086dac8fa8503f7fb760",
+      "bbox": [
+        73,
+        26,
+        439,
+        486
+      ]
+    },
+    "fly_io_default.png": {
+      "icon_name": "fly_io",
+      "variant": "default",
+      "source_script": "cloud/fly_io_default.py",
+      "size_bytes": 33536,
+      "sha256": "b2a736ce0b5ca1438924b760412647cb92a440e8c417649260ac3c740233cdcc",
+      "bbox": [
+        26,
+        49,
+        486,
+        463
+      ]
+    },
+    "google_cloud_default.png": {
+      "icon_name": "google_cloud",
+      "variant": "default",
+      "source_script": "cloud/google_cloud_default.py",
+      "size_bytes": 17784,
+      "sha256": "7ee4671e938808302c05edaed006e8775d8efaf6124689b232e9424a9c7ca3d6",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "google_default.png": {
+      "icon_name": "google",
+      "variant": "default",
+      "source_script": "cloud/google_default.py",
+      "size_bytes": 20936,
+      "sha256": "77559ac7644e733d4f8f37f2093f10046bdf4dc5d3bf0b272de34770065ea058",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "heroku_default.png": {
+      "icon_name": "heroku",
+      "variant": "default",
+      "source_script": "cloud/heroku_default.py",
+      "size_bytes": 10645,
+      "sha256": "adb35e40e5828a3ad8df3d65e42ddea30dbb0783793aa374186207aa6cc6f6a1",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
+      ]
+    },
+    "hetzner_default.png": {
+      "icon_name": "hetzner",
+      "variant": "default",
+      "source_script": "cloud/hetzner_default.py",
+      "size_bytes": 2949,
+      "sha256": "470485e0b03137e48e18c0e464893838b1e15b737a624c08c10cf2cbad1fabee",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "huawei_cloud_default.png": {
+      "icon_name": "huawei_cloud",
+      "variant": "default",
+      "source_script": "cloud/huawei_cloud_default.py",
+      "size_bytes": 23743,
+      "sha256": "1daa9cd7150a0ca9e4f842e36191dec42dfa16a34123a6470f726e18429ac9d4",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "huawei_default.png": {
+      "icon_name": "huawei",
+      "variant": "default",
+      "source_script": "cloud/huawei_default.py",
+      "size_bytes": 27008,
+      "sha256": "1578ae43a9dd239cfe431469a88ddc1f03af27664030d94e082b911539c5d424",
+      "bbox": [
+        26,
+        82,
+        486,
+        429
+      ]
+    },
+    "ibm_cloud_default.png": {
+      "icon_name": "ibm_cloud",
+      "variant": "default",
+      "source_script": "cloud/ibm_cloud_default.py",
+      "size_bytes": 28957,
+      "sha256": "34427af76cd28518c9cf98c509e71a8ed0961c72e7764aa9e98e8ef63a56ac33",
+      "bbox": [
+        26,
+        52,
+        486,
+        459
+      ]
+    },
+    "ibm_default.png": {
+      "icon_name": "ibm",
+      "variant": "default",
+      "source_script": "cloud/ibm_default.py",
+      "size_bytes": 6297,
+      "sha256": "770f77f849950dc868d91df2d55ba4324c1fbbcc12c1ba346a9f442344e5badd",
+      "bbox": [
+        26,
+        170,
+        486,
+        342
+      ]
+    },
+    "idcf_default.png": {
+      "icon_name": "idcf",
+      "variant": "default",
+      "source_script": "cloud/idcf_default.py",
+      "size_bytes": 13058,
+      "sha256": "11ecf907ac9e3ec4dda51430e1ca2d1cafcaf516328e093bb108cb0665bfe004",
+      "bbox": [
+        26,
+        84,
+        486,
+        427
+      ]
+    },
+    "ionos_default.png": {
+      "icon_name": "ionos",
+      "variant": "default",
+      "source_script": "cloud/ionos_default.py",
+      "size_bytes": 3254,
+      "sha256": "c74f00226469bcf2ad50210b4bad91a16343960a31e628b11560f462c4166cac",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kagoya_default.png": {
+      "icon_name": "kagoya",
+      "variant": "default",
+      "source_script": "cloud/kagoya_default.py",
+      "size_bytes": 18752,
+      "sha256": "d74d8abefaa08001dff273dd442dd9cbc38f5bb7fb69611a53c5bf6f8672e0be",
+      "bbox": [
+        26,
+        109,
+        486,
+        402
+      ]
+    },
+    "linode_default.png": {
+      "icon_name": "linode",
+      "variant": "default",
+      "source_script": "cloud/linode_default.py",
+      "size_bytes": 35399,
+      "sha256": "b6043d3e8b387f064c0484a2493c496587e79fb5a5953cb24ed3fc7601cb8556",
+      "bbox": [
+        64,
+        26,
+        448,
+        486
+      ]
+    },
+    "microsoft_default.png": {
+      "icon_name": "microsoft",
+      "variant": "default",
+      "source_script": "cloud/microsoft_default.py",
+      "size_bytes": 1822,
+      "sha256": "00b8dc39c2318479bef1a77f3f664ebe7cd8c8491128186f1dbb6c49ea1393ea",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "netlify_default.png": {
+      "icon_name": "netlify",
+      "variant": "default",
+      "source_script": "cloud/netlify_default.py",
+      "size_bytes": 5033,
+      "sha256": "913eb0b91c1c3bf3aedb45913ddfa529f6492d3f2d4a7f4e1dff349d6c0066e5",
+      "bbox": [
+        26,
+        53,
+        486,
+        458
+      ]
+    },
+    "nifcloud_default.png": {
+      "icon_name": "nifcloud",
+      "variant": "default",
+      "source_script": "cloud/nifcloud_default.py",
+      "size_bytes": 7567,
+      "sha256": "98869a91ce6768b55806c526ecc8c727c254ff3fab34b50b11b72ecc3f39356f",
+      "bbox": [
+        26,
+        132,
+        486,
+        380
+      ]
+    },
+    "oracle_cloud_default.png": {
+      "icon_name": "oracle_cloud",
+      "variant": "default",
+      "source_script": "cloud/oracle_cloud_default.py",
+      "size_bytes": 16139,
+      "sha256": "6e69d2400e3163165669f47fd85490f43ff5b20c562742951f6b556ce4203103",
+      "bbox": [
+        26,
+        135,
+        486,
+        376
+      ]
+    },
+    "oracle_default.png": {
+      "icon_name": "oracle",
+      "variant": "default",
+      "source_script": "cloud/oracle_default.py",
+      "size_bytes": 12566,
+      "sha256": "91e746899200609c1fcda28c0a12d8f024fec7bd9b1490335ab82a835dfb2eb3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ovhcloud_default.png": {
+      "icon_name": "ovhcloud",
+      "variant": "default",
+      "source_script": "cloud/ovhcloud_default.py",
+      "size_bytes": 12177,
+      "sha256": "cd405a720e3ee73d7fc0f33b88982d03f8d426848a4a6f2d13c81892dd821793",
+      "bbox": [
+        26,
+        117,
+        486,
+        395
+      ]
+    },
+    "railway_default.png": {
+      "icon_name": "railway",
+      "variant": "default",
+      "source_script": "cloud/railway_default.py",
+      "size_bytes": 14431,
+      "sha256": "716a99fc6f21a514bcc18f1ee81d4780aa11eef8e9ff998dec0c94f7089cef9a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "render_default.png": {
+      "icon_name": "render",
+      "variant": "default",
+      "source_script": "cloud/render_default.py",
+      "size_bytes": 8368,
+      "sha256": "bb5cf211a2c48229a540ef8bb0c5e21f84de40f3a7ef8c5344d049dc8fa44d33",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "sakura_default.png": {
+      "icon_name": "sakura",
+      "variant": "default",
+      "source_script": "cloud/sakura_default.py",
+      "size_bytes": 9668,
+      "sha256": "baa76dc718afe9e7a8961674acb0996ebed409bc8affc5c7072298ed380d4c64",
+      "bbox": [
+        26,
+        48,
+        486,
+        463
+      ]
+    },
+    "scaleway_default.png": {
+      "icon_name": "scaleway",
+      "variant": "default",
+      "source_script": "cloud/scaleway_default.py",
+      "size_bytes": 10774,
+      "sha256": "e6c361bac6894b82a73d576f81fcd62062c91415183fed9d426874d5ae6709b6",
+      "bbox": [
+        73,
+        26,
+        439,
+        486
+      ]
+    },
+    "supabase_default.png": {
+      "icon_name": "supabase",
+      "variant": "default",
+      "source_script": "cloud/supabase_default.py",
+      "size_bytes": 10998,
+      "sha256": "632a73939c9f86660ce738478db8020ac5c8f9c3c829272627c9ed1efd12b709",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "tencent_cloud_default.png": {
+      "icon_name": "tencent_cloud",
+      "variant": "default",
+      "source_script": "cloud/tencent_cloud_default.py",
+      "size_bytes": 16683,
+      "sha256": "886198a0d436b2d1c7f95dee3768b083c41f98b69ee96ca6000bb51552d17140",
+      "bbox": [
+        26,
+        91,
+        486,
+        420
+      ]
+    },
+    "tencent_default.png": {
+      "icon_name": "tencent",
+      "variant": "default",
+      "source_script": "cloud/tencent_default.py",
+      "size_bytes": 21540,
+      "sha256": "b72777eb712f263c872562b23013d2a3e13aef2a99984c31f6f9b76a4b3f7ca9",
+      "bbox": [
+        26,
+        142,
+        486,
+        370
+      ]
+    },
+    "vercel_default.png": {
+      "icon_name": "vercel",
+      "variant": "default",
+      "source_script": "cloud/vercel_default.py",
+      "size_bytes": 6983,
+      "sha256": "a9aac7c167e6b4c89344d8ac836ff98d7c25d92a1fe4dd681d9a75306864a61f",
+      "bbox": [
+        26,
+        57,
+        486,
+        455
+      ]
+    },
+    "vultr_default.png": {
+      "icon_name": "vultr",
+      "variant": "default",
+      "source_script": "cloud/vultr_default.py",
+      "size_bytes": 13273,
+      "sha256": "ebf7d7a2d5e9f3e6d06fb67ba33a31a698fb481a3bd61b746dc4f1f3b1c9d98e",
+      "bbox": [
+        26,
+        58,
+        486,
+        453
+      ]
+    },
+    "xserver_default.png": {
+      "icon_name": "xserver",
+      "variant": "default",
+      "source_script": "cloud/xserver_default.py",
+      "size_bytes": 17036,
+      "sha256": "b59b89a280bf90bb158fec5c8fe391ad6a9e60ed9f91e62b295ebf1f420ea0f5",
+      "bbox": [
+        36,
+        26,
+        476,
+        486
+      ]
+    }
+  }
+}

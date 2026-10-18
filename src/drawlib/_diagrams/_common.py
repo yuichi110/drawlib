@@ -24,6 +24,7 @@ import drawlib._icons.png_icons.ai._generated as ai_gen
 import drawlib._icons.png_icons.aws._generated as aws_gen
 import drawlib._icons.png_icons.azure._generated as azure_gen
 import drawlib._icons.png_icons.client._generated as client_gen
+import drawlib._icons.png_icons.cloud._generated as cloud_gen
 import drawlib._icons.png_icons.cnative._generated as cnative_gen
 import drawlib._icons.png_icons.code._generated as code_gen
 import drawlib._icons.png_icons.data._generated as data_gen
@@ -58,6 +59,7 @@ from drawlib._diagrams.architecture._icons import (
     AwsIcon,
     AzureIcon,
     ClientIcon,
+    CloudIcon,
     CnativeIcon,
     CodeIcon,
     CustomIcon,
@@ -105,6 +107,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     AwsIcon: aws_gen,
     AzureIcon: azure_gen,
     ClientIcon: client_gen,
+    CloudIcon: cloud_gen,
     CnativeIcon: cnative_gen,
     CodeIcon: code_gen,
     DataIcon: data_gen,
@@ -249,6 +252,7 @@ def draw_enum_icon(
         | AwsIcon
         | AzureIcon
         | ClientIcon
+        | CloudIcon
         | CnativeIcon
         | CodeIcon
         | DataIcon
@@ -340,6 +344,7 @@ def draw_diagram_icon(
             AwsIcon,
             AzureIcon,
             ClientIcon,
+            CloudIcon,
             CnativeIcon,
             CodeIcon,
             DataIcon,

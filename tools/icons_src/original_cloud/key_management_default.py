@@ -33,10 +33,7 @@ w = ORIG_STROKE
 cx, cy = 50.0, 50.0
 hex_r = 38.0
 hex_angles = [0.0, 60.0, 120.0, 180.0, 240.0, 300.0]
-hex_pts = [
-    (cx + hex_r * math.cos(math.radians(a)), cy + hex_r * math.sin(math.radians(a)))
-    for a in hex_angles
-]
+hex_pts = [(cx + hex_r * math.cos(math.radians(a)), cy + hex_r * math.sin(math.radians(a))) for a in hex_angles]
 polygon(hex_pts, style=no_border_fill(WHITE))
 draw_round_polyline(hex_pts, width_units=w, color=DARK, closed=True)
 

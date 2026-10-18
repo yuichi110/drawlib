@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cnative",
-  "created_at": "2026-10-18T11:48:26.534385+00:00",
+  "created_at": "2026-10-18T13:11:17.519728+00:00",
   "canvas_size": [
     512,
     512
@@ -10,7 +10,7 @@
     460,
     460
   ],
-  "total_files": 48,
+  "total_files": 60,
   "aliases": {
     "api_server": "k8s_api_server",
     "apiserver": "k8s_api_server",
@@ -67,6 +67,7 @@
     "network_policy": "k8s_network_policy",
     "node": "k8s_node",
     "ns": "k8s_namespace",
+    "ocp": "openshift",
     "open_policy_agent": "opa",
     "open_telemetry": "opentelemetry",
     "otel": "opentelemetry",
@@ -77,12 +78,16 @@
     "prom": "prometheus",
     "pv": "k8s_pv",
     "pvc": "k8s_pvc",
+    "rke": "rancher",
+    "rke2": "rancher",
     "rook_ceph": "rook",
     "secret": "k8s_secret",
     "service": "k8s_service",
     "statefulset": "k8s_statefulset",
     "sts": "k8s_statefulset",
     "svc": "k8s_service",
+    "talos_linux": "talos",
+    "tkg": "tanzu",
     "worker_node": "k8s_node"
   },
   "files": {
@@ -331,6 +336,32 @@
         26,
         467,
         486
+      ]
+    },
+    "k0s_default.png": {
+      "icon_name": "k0s",
+      "variant": "default",
+      "source_script": "original_cnative/k0s_default.py",
+      "size_bytes": 15159,
+      "sha256": "f2a41da319f2e27ef33adff6653843d4e06ccd98a6e57119b1195e103d7accb8",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "k3s_default.png": {
+      "icon_name": "k3s",
+      "variant": "default",
+      "source_script": "original_cnative/k3s_default.py",
+      "size_bytes": 19167,
+      "sha256": "a15887ba457a269a78727fc06cc3e9d9332d9ce9832e4a6a6ebd0705beb20991",
+      "bbox": [
+        26,
+        66,
+        486,
+        445
       ]
     },
     "k8s_api_server_default.png": {
@@ -606,6 +637,19 @@
         481
       ]
     },
+    "kind_default.png": {
+      "icon_name": "kind",
+      "variant": "default",
+      "source_script": "original_cnative/kind_default.py",
+      "size_bytes": 32073,
+      "sha256": "03a456900e679fec3972d0ac90d959443372697bc17dfa952d7b8aec46511607",
+      "bbox": [
+        26,
+        115,
+        486,
+        397
+      ]
+    },
     "knative_default.png": {
       "icon_name": "knative",
       "variant": "default",
@@ -628,6 +672,19 @@
       "bbox": [
         26,
         32,
+        486,
+        479
+      ]
+    },
+    "kubevirt_default.png": {
+      "icon_name": "kubevirt",
+      "variant": "default",
+      "source_script": "original_cnative/kubevirt_default.py",
+      "size_bytes": 36715,
+      "sha256": "ec2f07de14fbedb70c610f26e8fda2436c65f8df023a716e2529b1765f75709e",
+      "bbox": [
+        26,
+        33,
         486,
         479
       ]
@@ -658,6 +715,45 @@
         486
       ]
     },
+    "microk8s_default.png": {
+      "icon_name": "microk8s",
+      "variant": "default",
+      "source_script": "original_cnative/microk8s_default.py",
+      "size_bytes": 15884,
+      "sha256": "0681e96d1fa0eec2003972e5b62d5ec0e945b51f4d6780672e806a1d3b4bded8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "minikube_default.png": {
+      "icon_name": "minikube",
+      "variant": "default",
+      "source_script": "original_cnative/minikube_default.py",
+      "size_bytes": 69609,
+      "sha256": "e18221ce193ad844be3e89105e67cc80ee67059e3b985cde9653d25ff32bf32c",
+      "bbox": [
+        26,
+        32,
+        486,
+        480
+      ]
+    },
+    "okd_default.png": {
+      "icon_name": "okd",
+      "variant": "default",
+      "source_script": "original_cnative/okd_default.py",
+      "size_bytes": 25869,
+      "sha256": "15018e3d12b553589f40d851d44d4d577bcf0acb9dfd3d5b92069c54f5b1eae8",
+      "bbox": [
+        26,
+        144,
+        486,
+        368
+      ]
+    },
     "opa_default.png": {
       "icon_name": "opa",
       "variant": "default",
@@ -669,6 +765,19 @@
         26,
         480,
         486
+      ]
+    },
+    "openshift_default.png": {
+      "icon_name": "openshift",
+      "variant": "default",
+      "source_script": "original_cnative/openshift_default.py",
+      "size_bytes": 35258,
+      "sha256": "b8ec857e4d5f1a399345723d949533cf57bd344046e8188f7d99b2bc48bcee8d",
+      "bbox": [
+        26,
+        44,
+        486,
+        468
       ]
     },
     "opentelemetry_default.png": {
@@ -697,6 +806,19 @@
         486
       ]
     },
+    "rancher_default.png": {
+      "icon_name": "rancher",
+      "variant": "default",
+      "source_script": "original_cnative/rancher_default.py",
+      "size_bytes": 10859,
+      "sha256": "7ead0609e3b2f682e3985824671097880aa400debe835f8a2bcc7bdeed671a8f",
+      "bbox": [
+        26,
+        145,
+        486,
+        366
+      ]
+    },
     "rook_default.png": {
       "icon_name": "rook",
       "variant": "default",
@@ -708,6 +830,45 @@
         26,
         428,
         486
+      ]
+    },
+    "talos_default.png": {
+      "icon_name": "talos",
+      "variant": "default",
+      "source_script": "original_cnative/talos_default.py",
+      "size_bytes": 41412,
+      "sha256": "1f61eb16d082f6b9e62d5de7bdaa4282fdb2c0143218a5e17884d955f910acae",
+      "bbox": [
+        48,
+        26,
+        464,
+        486
+      ]
+    },
+    "tanzu_default.png": {
+      "icon_name": "tanzu",
+      "variant": "default",
+      "source_script": "original_cnative/tanzu_default.py",
+      "size_bytes": 54031,
+      "sha256": "3c258e331875365492146a4e8a90a90250b0e925d730b876c6744bb52bb2b6b1",
+      "bbox": [
+        26,
+        31,
+        486,
+        480
+      ]
+    },
+    "vcluster_default.png": {
+      "icon_name": "vcluster",
+      "variant": "default",
+      "source_script": "original_cnative/vcluster_default.py",
+      "size_bytes": 24305,
+      "sha256": "bf01aaa1c00de9bcb30f27dfc91a4d03956e7045f779c5790e3df08bf668e4f1",
+      "bbox": [
+        26,
+        46,
+        486,
+        466
       ]
     }
   }
