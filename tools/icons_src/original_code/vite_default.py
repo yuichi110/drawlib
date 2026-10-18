@@ -33,13 +33,13 @@ bolt = [(69.1, 88.69), (69.13, 88.87), (69.14, 89.04), (69.11, 89.21), (69.06, 8
 # fmt: on
 
 # 1. 2-tone flat pastel blue/purple V-shield
-polygon(shield_left, style=no_border_fill("#64B5F6"))
-polygon(shield_right, style=no_border_fill("#8E84F5"))
+polygon(shield_left, style=no_border_fill("#4DA8F2"))
+polygon(shield_right, style=no_border_fill("#675AF3"))
 draw_round_segment((50.39, 74.43), (50.38, 10.0), width_units=w_seam, color=DARK)
 draw_round_polyline(shield_outer, width_units=w_outer, color=DARK, closed=True)
 
 # 2. Flat pastel yellow lightning bolt on top
-polygon(bolt, style=no_border_fill("#FFD54F"))
+polygon(bolt, style=no_border_fill("#F1C948"))
 draw_round_polyline(bolt, width_units=w_outer, color=DARK, closed=True)
 
 save()

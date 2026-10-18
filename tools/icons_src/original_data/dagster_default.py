@@ -165,12 +165,12 @@ for i in range(29):
     pupil_pts.append((px + r_pup * math.cos(ang), py + r_pup * math.sin(ang)))
 polygon(pupil_pts, style=fill_style(DARK))
 
-# 4. Three circular node spots on left cheek (Colors.Teal2)
+# 4. Three circular node spots on left cheek (Colors.Teal3)
 for sx, sy in ((26.8, 57.5), (20.5, 51.0), (26.8, 44.5)):
     circle(
         (sx, sy),
         radius=3.4,
-        style=fill_style(Colors.Teal2, border_color=DARK, border_units=1.5),
+        style=fill_style(Colors.Teal3, border_color=DARK, border_units=1.5),
     )
 
 save()

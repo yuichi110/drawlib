@@ -152,11 +152,11 @@ seg_dred = _sc(
 )
 
 for pts, col in [
-    (seg_blue, "#7BAEF7"),
-    (seg_green, "#81C995"),
-    (seg_yellow, "#FDD663"),
-    (seg_dred, "#E06C62"),
-    (seg_red, "#F28B82"),
+    (seg_blue, "#5797F2"),
+    (seg_green, "#71C789"),
+    (seg_yellow, "#F2C94F"),
+    (seg_dred, "#E35C51"),
+    (seg_red, "#F26458"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

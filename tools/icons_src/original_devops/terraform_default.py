@@ -67,10 +67,10 @@ center_face = [(x_c0, y_c_tl), (x_c1, y_c_tr), (x_c1, y_c_br), (x_c0, y_c_bl)]
 bottom_face = [(x_c0, y_b_tl), (x_c1, y_b_tr), (x_c1, y_b_br), (x_c0, y_b_bl)]
 right_face = [(x_r0, y_r_tl), (x_r1, y_r_tr), (x_r1, y_r_br), (x_r0, y_r_bl)]
 
-# 1. Fill 3 left/center faces in Colors.Purple2 and right face in Colors.Purple3
+# 1. Fill 3 left/center faces in Colors.Purple3 and right face in Colors.Purple4
 for pts in (left_face, center_face, bottom_face):
-    polygon(pts, style=no_border_fill(Colors.Purple2))
-polygon(right_face, style=no_border_fill(Colors.Purple3))
+    polygon(pts, style=no_border_fill(Colors.Purple3))
+polygon(right_face, style=no_border_fill(Colors.Purple4))
 
 # 2. Crisp DARK w=1.9 outlines on all 4 parallelograms
 for pts in (left_face, center_face, bottom_face, right_face):

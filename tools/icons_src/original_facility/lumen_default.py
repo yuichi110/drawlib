@@ -39,7 +39,7 @@ for pts in (letter_l, letter_u, letter_m, letter_e_body, letter_n):
 
 # 2. Pastel sky blue top bar on E (draw DARK outline behind fill)
 draw_round_polyline(letter_e_top, width_units=w, color=DARK, closed=True)
-polygon(letter_e_top, style=no_border_fill("#64BAE4"))
+polygon(letter_e_top, style=no_border_fill("#4FB5E7"))
 
 # 3. Tiny registered trademark mark
 draw_compound_polygon(reg_mark, color="#546072")

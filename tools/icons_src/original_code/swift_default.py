@@ -31,7 +31,7 @@ bird = [(63.46, 29.14), (62.56, 28.66), (61.63, 28.23), (60.67, 27.83), (59.69, 
 # fmt: on
 
 # 1. Flat pastel coral-orange rounded square badge
-polygon(badge, style=no_border_fill("#F77B55"))
+polygon(badge, style=no_border_fill("#F16F47"))
 draw_round_polyline(badge, width_units=w_outer, color=DARK, closed=True)
 
 # 2. Crisp WHITE swift bird silhouette with DARK outline

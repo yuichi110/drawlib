@@ -24,7 +24,7 @@ setup_icon()
 
 w = 2.0
 SCALE = 0.94
-SKY_BLUE = "#8AC8FA"
+SKY_BLUE = "#5EB1F3"
 
 
 def _scale_pt(x: float, y: float, dx: float = 0.0, dy: float = 0.0) -> tuple[float, float]:

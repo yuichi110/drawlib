@@ -46,7 +46,7 @@ inner_creases: list[tuple[tuple[float, float], tuple[float, float]]] = [
 ]
 
 for pts in orange_faces:
-    polygon(pts, style=no_border_fill("#F07C54"))
+    polygon(pts, style=no_border_fill("#F17044"))
 for pts in mid_gray_faces:
     polygon(pts, style=no_border_fill("#9BA8B8"))
 for pts in dark_gray_faces:

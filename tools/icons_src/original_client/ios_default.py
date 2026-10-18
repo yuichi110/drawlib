@@ -32,9 +32,9 @@ draw_round_polyline(tile_pts, width_units=w_tile, color=DARK, closed=True)
 
 # 2. 'i' glyph in pastel blue (#7BAEF7) with DARK outer outline
 circle((21.63, 66.77), radius=1.55 + 1.5, style=fill_style(DARK))
-circle((21.63, 66.77), radius=1.55, style=fill_style("#7BAEF7"))
+circle((21.63, 66.77), radius=1.55, style=fill_style("#5797F2"))
 draw_round_polyline(i_stem, width_units=w_glyph_bg, color=DARK, closed=True)
-polygon(i_stem, style=no_border_fill("#7BAEF7"))
+polygon(i_stem, style=no_border_fill("#5797F2"))
 
 # 3. 'O' glyph in pastel teal (#4FD1C5) with DARK outer & inner outlines
 draw_round_polyline(o_outer, width_units=w_glyph_bg, color=DARK, closed=True)
@@ -43,7 +43,7 @@ draw_compound_polygon([o_outer, o_inner], color="#4FD1C5")
 
 # 4. 'S' glyph in pastel green (#81C995) with DARK outer outline
 draw_round_polyline(s_pts, width_units=w_glyph_bg, color=DARK, closed=True)
-polygon(s_pts, style=no_border_fill("#81C995"))
+polygon(s_pts, style=no_border_fill("#71C789"))
 
 save()
 # fmt: on

@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-TESLA_RED = "#F28B82"
+TESLA_RED = "#F26458"
 w_crest = 2.0
 w_letter = 1.1
 

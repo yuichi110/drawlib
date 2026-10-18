@@ -31,7 +31,7 @@ s_curve = [(44.51, 19.59), (43.89, 19.44), (43.28, 19.33), (42.65, 19.23), (42.0
 # fmt: on
 
 # 1. Flat pastel orange-red outer badge
-polygon(badge, style=no_border_fill("#FF7043"))
+polygon(badge, style=no_border_fill("#F16C43"))
 draw_round_polyline(badge, width_units=w_outer, color=DARK, closed=True)
 
 # 2. Clean WHITE inner 'S' curve with DARK outline

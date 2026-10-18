@@ -154,9 +154,9 @@ bar_left = _sc(
 )
 
 for pts, col in [
-    (bar_right, "#F2C960"),
-    (bar_mid, "#F7DA7E"),
-    (bar_left, "#FCE8A4"),
+    (bar_right, "#F1C249"),
+    (bar_mid, "#F2CD58"),
+    (bar_left, "#F5D97A"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

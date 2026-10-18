@@ -57,10 +57,10 @@ for lobe_idx in range(5):
 
 polygon(body_pts, style=no_border_fill(Colors.Teal3))
 
-# 2. Cute pastel forehead spots (Colors.Teal2 & Colors.Blue2)
+# 2. Cute pastel forehead spots (Colors.Teal2 & Colors.Blue3)
 ellipse((50.0, 78.0), width=14.0, height=6.5, style=fill_style(Colors.Teal2, border_color=DARK, border_units=1.5))
 for sx in (34.0, 66.0):
-    circle((sx, 73.5), radius=3.5, style=fill_style(Colors.Blue2, border_color=DARK, border_units=1.5))
+    circle((sx, 73.5), radius=3.5, style=fill_style(Colors.Blue3, border_color=DARK, border_units=1.5))
 
 # 3. Outer border + vertical tentacle division creases
 draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)

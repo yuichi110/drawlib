@@ -177,25 +177,25 @@ iris_glint = _sc([
 ])
 # fmt: on
 
-# 1. Outer eyelid rim in pastel cyan-blue (Colors.Blue2)
-polygon(outer_eye, style=no_border_fill(Colors.Blue2))
+# 1. Outer eyelid rim in pastel cyan-blue (Colors.Blue3)
+polygon(outer_eye, style=no_border_fill(Colors.Blue3))
 
 # 2. Eyelash/eyelid rib strokes in DARK (w=1.4)
 for rib in eyelash_ribs:
     draw_round_polyline(rib, width_units=w_rib, color=DARK, closed=False)
 
-# 3. Sclera in light pastel blue/cyan (Colors.Blue1)
-polygon(inner_sclera, style=no_border_fill(Colors.Blue1))
+# 3. Sclera in light pastel blue/cyan (Colors.Blue2)
+polygon(inner_sclera, style=no_border_fill(Colors.Blue2))
 
-# 4. Iris in pastel blue (Colors.Blue3) with DARK w=1.6 outline
-polygon(iris_pts, style=no_border_fill(Colors.Blue3))
+# 4. Iris in pastel blue (Colors.Blue4) with DARK w=1.6 outline
+polygon(iris_pts, style=no_border_fill(Colors.Blue4))
 draw_round_polyline(iris_pts, width_units=w_inner, color=DARK, closed=True)
 
 # 5. Pupil in DARK
 pupil_xy = _sc([(49.95, 50.97)])[0]
 circle(pupil_xy, radius=5.7 * s, style=fill_style(DARK))
 
-# 6. Iconic Nmap target crosshair & inner ring in Colors.Blue1 / WHITE
+# 6. Iconic Nmap target crosshair & inner ring in Colors.Blue2 / WHITE
 ch_v = _sc([(49.91, 59.06), (49.9, 42.9)])
 ch_h = _sc([(41.8, 50.92), (58.0, 50.92)])
 draw_round_segment(ch_v[0], ch_v[1], width_units=0.9, color=WHITE)

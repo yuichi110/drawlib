@@ -95,7 +95,7 @@ mid_sail = _build_sail(
     l_c2=(63.20, 53.00),
 )
 
-# 3. Front overlapping sail (Colors.Teal2)
+# 3. Front overlapping sail (Colors.Teal3)
 front_sail = _build_sail(
     tip=(69.07, 71.18),
     r_c1=(72.80, 57.50),
@@ -111,7 +111,7 @@ front_sail = _build_sail(
 for sail_pts, fill_col in (
     (back_sail, Colors.Blue3),
     (mid_sail, Colors.Blue2),
-    (front_sail, Colors.Teal2),
+    (front_sail, Colors.Teal3),
 ):
     polygon(sail_pts, style=no_border_fill(fill_col))
     draw_round_polyline(sail_pts, width_units=w, color=DARK, closed=True)

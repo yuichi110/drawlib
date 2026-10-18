@@ -23,7 +23,7 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-CORAL_RED = "#F28B82"
+CORAL_RED = "#F26458"
 w_outer = 2.0
 w_hole = 1.1
 

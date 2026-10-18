@@ -23,8 +23,8 @@ tri_right = [(61.0, 81.91), (75.5, 49.94), (90.0, 18.09), (61.0, 18.09), (31.99,
 tri_center = [(49.94, 72.76), (64.44, 45.42), (78.95, 18.09), (49.94, 18.09), (21.05, 18.09), (35.56, 45.42)]
 
 polygon(tri_left, style=fill_style("#5E84B4", alpha=0.82))
-polygon(tri_right, style=fill_style("#6CA6DC", alpha=0.82))
-polygon(tri_center, style=fill_style("#9ADCF7", alpha=0.82))
+polygon(tri_right, style=fill_style("#599EDE", alpha=0.82))
+polygon(tri_center, style=fill_style("#64CAF3", alpha=0.82))
 
 draw_round_polyline(tri_left, width_units=w, color=DARK, closed=True)
 draw_round_polyline(tri_right, width_units=w, color=DARK, closed=True)

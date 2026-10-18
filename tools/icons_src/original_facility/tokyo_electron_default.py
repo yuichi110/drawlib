@@ -16,8 +16,8 @@ from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, no_b
 # ruff: noqa: E501
 # fmt: off
 setup_icon()
-PASTEL_CYAN = "#74C4E8"
-PASTEL_LIME = "#A3D672"
+PASTEL_CYAN = "#56BCE9"
+PASTEL_LIME = "#9AD660"
 PASTEL_SLATE = "#9AA5B4"
 w_halo = 2.0
 w_in = 0.6

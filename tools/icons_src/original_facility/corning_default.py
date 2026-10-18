@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, no_b
 # fmt: off
 setup_icon()
 
-BLUE = "#6498E2"
+BLUE = "#518EE5"
 # Split 1.3-unit DARK outline into 1.0 outside (w_halo=2.0) + 0.3 inside (w_in=0.6)
 w_halo = 2.0
 w_in = 0.6

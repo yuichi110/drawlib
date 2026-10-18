@@ -46,11 +46,11 @@ n_facet = _sc([(47.29, 51.46), (36.45, 56.92), (36.45, 33.36), (36.38, 33.5), (3
 
 # 1. Pastel cyan top and right cube facets
 for facet in cyan_facets:
-    polygon(facet, style=no_border_fill("#6EC1E4"))
+    polygon(facet, style=no_border_fill("#55BBE6"))
     draw_round_polyline(facet, width_units=w, color=DARK, closed=True)
 
 # 2. Pastel blue left 'N' facet
-polygon(n_facet, style=no_border_fill("#6B97E2"))
+polygon(n_facet, style=no_border_fill("#558AE4"))
 draw_round_polyline(n_facet, width_units=w, color=DARK, closed=True)
 
 save()

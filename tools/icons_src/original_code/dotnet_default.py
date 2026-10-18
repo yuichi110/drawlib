@@ -32,7 +32,7 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
     return [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in pts]
 
 
-INDIGO_PURPLE = "#7E68E6"
+INDIGO_PURPLE = "#6B50E9"
 
 badge = _sc([(9.0, 91.0), (91.0, 91.0), (91.0, 9.0), (9.0, 9.0)])
 

@@ -68,7 +68,7 @@ for p0, p1, p2, p3 in upper_segs:
 polygon(upper_pts, style=no_border_fill(Colors.Blue4))
 draw_round_polyline(upper_pts, width_units=w, color=DARK, closed=True)
 
-# 2. Lower-right inner sweeping comma wave (Colors.Blue2), 180-deg reflection around (104, 104)
+# 2. Lower-right inner sweeping comma wave (Colors.Blue3), 180-deg reflection around (104, 104)
 lower_pts: list[tuple[float, float]] = [_svg_pt(208.0 - upper_segs[0][0][0], 208.0 - upper_segs[0][0][1])]
 for p0, p1, p2, p3 in upper_segs:
     rp0 = _svg_pt(208.0 - p0[0], 208.0 - p0[1])
@@ -77,7 +77,7 @@ for p0, p1, p2, p3 in upper_segs:
     rp3 = _svg_pt(208.0 - p3[0], 208.0 - p3[1])
     lower_pts.extend(_cubic(rp0, rp1, rp2, rp3, steps=16))
 
-polygon(lower_pts, style=no_border_fill(Colors.Blue2))
+polygon(lower_pts, style=no_border_fill(Colors.Blue3))
 draw_round_polyline(lower_pts, width_units=w, color=DARK, closed=True)
 
 # 3. Outer bottom-right concentric ring wave (Colors.Teal3)

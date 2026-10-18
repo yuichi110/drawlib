@@ -54,10 +54,10 @@ def setup_icon() -> None:
 DARK = Colors.Dark  # #323A48 (Deep Slate structural outline)
 ORIG_STROKE: float = 2.0  # Unified structural stroke width in 100x100 units
 
-PASTEL_BLUE = "#86A4F7"  # Soft Pastel Cornflower Blue (primary surface)
-PASTEL_BLUE_DARK = "#5C7CE6"  # Deeper cornflower blue for high-contrast white glyphs
-PASTEL_BLUE_LIGHT = "#ACC2FA"  # Lighter pastel blue companion tint
-PASTEL_GREEN = "#7AD69E"  # Soft Pastel Mint/Sage Green (secondary/accent surface)
+PASTEL_BLUE = "#6888F0"  # Medium Cornflower Blue (primary surface, Tone 3)
+PASTEL_BLUE_DARK = "#4862DA"  # Deeper cornflower blue for high-contrast white glyphs (Tone 4)
+PASTEL_BLUE_LIGHT = "#9AB6F8"  # Lighter blue companion tint (Tone 2)
+PASTEL_GREEN = "#5CC46E"  # Medium Mint/Sage Green (secondary/accent surface, Tone 3)
 WHITE = Colors.White  # Crisp white fill (#FFFFFF)
 
 # Modern 4-Color GCP Palette (core_products & category_*)

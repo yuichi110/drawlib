@@ -33,16 +33,16 @@ e_rings: list[list[tuple[float, float]]] = [[(79.15, 45.27), (79.15, 45.5), (79.
 
 # 1. Letters i-stem, n, t, l in pastel Intel blue (#5C9CE6)
 for pts in solid_letters:
-    polygon(pts, style=no_border_fill("#5C9CE6"))
+    polygon(pts, style=no_border_fill("#4A94EA"))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 # 2. Letter e in pastel Intel blue (#5C9CE6) with transparent hole
-draw_compound_polygon(e_rings, color="#5C9CE6")
+draw_compound_polygon(e_rings, color="#4A94EA")
 for ring in e_rings:
     draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
 
 # 3. Square dot on i in the same pastel Intel blue (#5C9CE6)
-polygon(i_dot, style=no_border_fill("#5C9CE6"))
+polygon(i_dot, style=no_border_fill("#4A94EA"))
 draw_round_polyline(i_dot, width_units=w, color=DARK, closed=True)
 
 save()

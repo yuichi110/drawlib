@@ -94,9 +94,9 @@ q_outer = [
 q_hole = [p_top_in, p_tr_in, p_br_in, p_bot_in, p_bl_in, p_tl_in]
 draw_compound_polygon([q_outer, q_hole], color=Colors.Red3)
 
-# 5. Inner center cube (WHITE top, Colors.Pink2 left, Colors.Red2 right)
+# 5. Inner center cube (WHITE top, Colors.Pink3 left, Colors.Red2 right)
 polygon([p_center, p_tl_in, p_top_in, p_tr_in], style=no_border_fill(WHITE))
-polygon([p_center, p_bot_in, p_bl_in, p_tl_in], style=no_border_fill(Colors.Pink2))
+polygon([p_center, p_bot_in, p_bl_in, p_tl_in], style=no_border_fill(Colors.Pink3))
 polygon([p_center, p_tr_in, p_br_in, p_bot_in], style=no_border_fill(Colors.Red2))
 
 # 6. Structural seam lines & outer silhouette border

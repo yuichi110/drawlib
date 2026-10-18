@@ -472,11 +472,11 @@ ribbon_b = [
     (82.64, 69.49),
 ]
 
-polygon(ribbon_a, style=no_border_fill("#6CD4F0"))
-polygon(ribbon_a_right, style=no_border_fill("#7AD69E"))
+polygon(ribbon_a, style=no_border_fill("#4ECFF2"))
+polygon(ribbon_a_right, style=no_border_fill("#65D591"))
 draw_round_polyline(ribbon_a, width_units=w, color=DARK, closed=True)
 
-polygon(ribbon_b, style=no_border_fill("#7BAEF7"))
+polygon(ribbon_b, style=no_border_fill("#5797F2"))
 draw_round_polyline(ribbon_b, width_units=w, color=DARK, closed=True)
 
 save()

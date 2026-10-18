@@ -28,7 +28,7 @@ w_halo = 2.0
 w_in = 0.5
 s = 40.0 / 41.0
 TEAL_MID = "#4DB6AC"
-TEAL_LIGHT = "#80CBC4"
+TEAL_LIGHT = "#6FC9C0"
 SLATE = "#375A64"
 
 

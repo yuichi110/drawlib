@@ -24,7 +24,7 @@ w_needle = 1.6
 
 # 1. White outer bezel ring and pastel blue compass face
 circle((50.0, 50.0), radius=41.0, style=fill_style(WHITE, border_color=DARK, border_units=w_outer))
-circle((50.0, 50.0), radius=35.8, style=fill_style("#7BAEF7", border_color=DARK, border_units=w_face))
+circle((50.0, 50.0), radius=35.8, style=fill_style("#5797F2", border_color=DARK, border_units=w_face))
 
 # 2. 16 crisp compass ticks (8 major + 8 minor)
 for i in range(16):
@@ -40,7 +40,7 @@ needle_ne = [(78.01, 78.21), (46.52, 53.48), (53.87, 46.13)]
 needle_sw = [(21.79, 21.99), (53.87, 46.13), (46.52, 53.48)]
 needle_outline = [(78.01, 78.21), (53.87, 46.13), (21.79, 21.99), (46.52, 53.48)]
 
-polygon(needle_ne, style=no_border_fill("#F28B82"))
+polygon(needle_ne, style=no_border_fill("#F26458"))
 polygon(needle_sw, style=no_border_fill(WHITE))
 draw_round_segment((46.52, 53.48), (53.87, 46.13), width_units=w_needle, color=DARK)
 draw_round_polyline(needle_outline, width_units=w_needle, color=DARK, closed=True)

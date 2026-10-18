@@ -63,7 +63,7 @@ p_center = (50.0, 50.0)
 p_inner_tl = _s(39.0, 61.0)
 p_inner_br = _s(61.0, 39.0)
 
-SKY_CYAN = "#78D2FA"
+SKY_CYAN = "#57C2F2"
 
 # 1. Top-left to top-right sweeping arch (SKY_CYAN, +45 deg loop upper)
 top_arch = [

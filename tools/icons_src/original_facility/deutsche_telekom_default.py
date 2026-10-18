@@ -23,7 +23,7 @@ left_sq = [(31.97, 36.87), (15.63, 36.87), (15.63, 53.27), (31.97, 53.27)]
 right_sq = [(84.37, 36.87), (68.03, 36.87), (68.03, 53.27), (84.37, 53.27)]
 
 for pts in (t_pts, left_sq, right_sq):
-    polygon(pts, style=no_border_fill("#EC66A8"))
+    polygon(pts, style=no_border_fill("#F04B9C"))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 save()

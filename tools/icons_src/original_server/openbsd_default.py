@@ -60,7 +60,7 @@ left_fin = [
     *bezier3((19.8, 55.4), (14.5, 57.5), (11.5, 54.0), (11.5, 49.0), 12),
     *bezier3((11.5, 49.0), (11.5, 43.8), (14.5, 40.5), (20.2, 42.6), 12)[1:],
 ]
-polygon(left_fin, style=no_border_fill(Colors.Amber2))
+polygon(left_fin, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(left_fin, width_units=w, color=DARK, closed=True)
 
 # 2. Right tail fin with 3 fin lines (drawn behind body)
@@ -68,7 +68,7 @@ right_tail = [
     *bezier3((75.8, 57.2), (83.2, 62.5), (88.4, 60.5), (88.6, 50.0), 14),
     *bezier3((88.6, 50.0), (88.4, 39.5), (83.2, 37.5), (75.8, 42.8), 14)[1:],
 ]
-polygon(right_tail, style=no_border_fill(Colors.Amber2))
+polygon(right_tail, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(right_tail, width_units=w, color=DARK, closed=True)
 for y_in, y_out in ((53.0, 55.2), (50.0, 50.0), (47.0, 44.8)):
     draw_round_segment((77.2, y_in), (83.0, y_out), width_units=w, color=DARK)
@@ -77,11 +77,11 @@ for y_in, y_out in ((53.0, 55.2), (50.0, 50.0), (47.0, 44.8)):
 bg_spike_angles = [68.0, 108.0, 147.0, 210.0, 251.0, 290.0, 333.0]
 for ang in bg_spike_angles:
     sp = [polar(r_body - 1.0, ang - 8.0), polar(r_body + 6.6, ang), polar(r_body - 1.0, ang + 8.0)]
-    polygon(sp, style=no_border_fill(Colors.Amber2))
+    polygon(sp, style=no_border_fill(Colors.Amber3))
     draw_round_polyline(sp, width_units=w, color=DARK, closed=True)
 
 # 4. Main Amber2 body circle fill + 7 foreground open-base spikes
-circle((cx, cy), radius=r_body, style=no_border_fill(Colors.Amber2))
+circle((cx, cy), radius=r_body, style=no_border_fill(Colors.Amber3))
 
 # Foreground spikes: (angle_deg, tip_radius, half_base_angle_deg)
 fg_spikes = [
@@ -95,7 +95,7 @@ fg_spikes = [
 ]
 for ang, r_tip, h_ang in fg_spikes:
     sp_fill = [polar(r_body - 1.8, ang - h_ang), polar(r_tip, ang), polar(r_body - 1.8, ang + h_ang)]
-    polygon(sp_fill, style=no_border_fill(Colors.Amber2))
+    polygon(sp_fill, style=no_border_fill(Colors.Amber3))
 
 # Draw body circle DARK outline arcs between the 7 foreground spikes
 n_fg = len(fg_spikes)
@@ -131,7 +131,7 @@ for ex, ey in ((25.2, 59.5), (43.5, 59.5)):
         )
         for a in range(0, 181, 6)
     ]
-    polygon(lid_pts, style=no_border_fill(Colors.Amber2))
+    polygon(lid_pts, style=no_border_fill(Colors.Amber3))
     pupil_pts = [
         (
             round(ex + 0.8 + 2.6 * math.cos(math.radians(a)), 2),
@@ -143,7 +143,7 @@ for ex, ey in ((25.2, 59.5), (43.5, 59.5)):
     draw_round_segment((ex - r_eye, ey), (ex + r_eye, ey), width_units=w, color=DARK)
     circle((ex, ey), radius=r_eye, style=stroke_style(DARK, width_units=w))
 
-# 6. Plump yellow lips (Colors.Amber3 fill + DARK outline)
+# 6. Plump yellow lips (Colors.Amber4 fill + DARK outline)
 lip_mid = [
     *bezier3((26.5, 47.0), (28.5, 48.0), (31.5, 47.2), (33.5, 46.6), 8),
     *bezier3((33.5, 46.6), (35.5, 47.2), (38.5, 47.6), (41.2, 46.7), 8)[1:],
@@ -158,8 +158,8 @@ lower_lip_bot = bezier3((41.2, 46.7), (38.8, 41.8), (28.0, 41.8), (26.5, 47.0), 
 
 upper_lip = [*lip_mid, *upper_lip_top[1:-1]]
 lower_lip = [*lip_mid, *lower_lip_bot[1:-1]]
-polygon(upper_lip, style=no_border_fill(Colors.Amber3))
-polygon(lower_lip, style=no_border_fill(Colors.Amber3))
+polygon(upper_lip, style=no_border_fill(Colors.Amber4))
+polygon(lower_lip, style=no_border_fill(Colors.Amber4))
 draw_round_polyline(upper_lip, width_units=w, color=DARK, closed=True)
 draw_round_polyline(lower_lip, width_units=w, color=DARK, closed=True)
 

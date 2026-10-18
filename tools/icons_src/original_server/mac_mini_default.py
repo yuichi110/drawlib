@@ -42,7 +42,7 @@ polygon(front_wall_pts, style=no_border_fill("#EEF2F7"))
 draw_round_polyline(front_wall_pts, width_units=w, color=DARK, closed=True)
 
 # 3. Soft pastel blue-silver top lid
-polygon(top_lid_pts, style=no_border_fill("#CFD9E6"))
+polygon(top_lid_pts, style=no_border_fill("#CBD7E6"))
 draw_round_polyline(top_lid_pts, width_units=w, color=DARK, closed=True)
 
 # 4. Flat DARK Apple silhouette projected in isometric perspective on top lid

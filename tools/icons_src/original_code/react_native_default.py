@@ -42,7 +42,7 @@ rings = [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14]
 # fmt: on
 
 # 1. Flat pastel cyan elliptical atom rings with transparent holes and center nucleus
-draw_compound_polygon(rings, color="#7EE0FA")
+draw_compound_polygon(rings, color="#59D2F3")
 
 # 2. Crisp DARK outlines on outer rings, inner orbit holes, and center nucleus
 for ring in rings:

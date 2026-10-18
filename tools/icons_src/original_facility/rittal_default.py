@@ -32,10 +32,10 @@ band_2 = [(21.61, 20.16), (46.61, 20.16), (46.61, 10.12), (21.61, 10.12)]
 polygon(band_2, style=no_border_fill("#5EC28E"))
 draw_round_polyline(band_2, width_units=w_band, color=DARK, closed=True)
 band_3 = [(47.42, 46.6), (54.56, 46.6), (54.56, 66.19), (21.61, 66.19), (21.61, 59.1), (47.42, 59.1)]
-polygon(band_3, style=no_border_fill("#64B4E4"))
+polygon(band_3, style=no_border_fill("#4FAEE7"))
 draw_round_polyline(band_3, width_units=w_band, color=DARK, closed=True)
 band_4 = [(47.41, 20.16), (54.56, 20.16), (54.56, 10.12), (47.41, 10.12)]
-polygon(band_4, style=no_border_fill("#64B4E4"))
+polygon(band_4, style=no_border_fill("#4FAEE7"))
 draw_round_polyline(band_4, width_units=w_band, color=DARK, closed=True)
 band_5 = [(55.35, 46.6), (62.5, 46.6), (62.5, 74.09), (21.61, 74.09), (21.61, 67.0), (55.35, 67.0)]
 polygon(band_5, style=no_border_fill("#5E90CA"))
@@ -50,10 +50,10 @@ band_8 = [(63.3, 20.16), (70.44, 20.16), (70.44, 10.12), (63.3, 10.12)]
 polygon(band_8, style=no_border_fill("#B86CA8"))
 draw_round_polyline(band_8, width_units=w_band, color=DARK, closed=True)
 band_9 = [(21.61, 89.88), (21.61, 82.78), (71.25, 82.78), (71.25, 46.6), (78.39, 46.6), (78.39, 89.88)]
-polygon(band_9, style=no_border_fill("#EC6888"))
+polygon(band_9, style=no_border_fill("#EF4C74"))
 draw_round_polyline(band_9, width_units=w_band, color=DARK, closed=True)
 band_10 = [(71.25, 20.16), (78.39, 20.16), (78.39, 10.12), (71.25, 10.12)]
-polygon(band_10, style=no_border_fill("#EC6888"))
+polygon(band_10, style=no_border_fill("#EF4C74"))
 draw_round_polyline(band_10, width_units=w_band, color=DARK, closed=True)
 
 txt_11 = [(21.61, 25.77), (78.39, 25.77), (78.39, 23.51), (21.61, 23.51)]

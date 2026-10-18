@@ -52,8 +52,8 @@ polygon(tux_belly, style=no_border_fill(WHITE))
 draw_round_polyline(tux_belly, width_units=w_detail, color=DARK, closed=True)
 
 # Cute flat Amber2 webbed feet at sitting base
-ellipse((14.0, 36.9), width=3.8, height=2.2, style=fill_style(Colors.Amber2, border_color=DARK, border_units=w_detail, angle=8.0))
-ellipse((23.1, 36.9), width=3.8, height=2.2, style=fill_style(Colors.Amber2, border_color=DARK, border_units=w_detail, angle=-8.0))
+ellipse((14.0, 36.9), width=3.8, height=2.2, style=fill_style(Colors.Amber3, border_color=DARK, border_units=w_detail, angle=8.0))
+ellipse((23.1, 36.9), width=3.8, height=2.2, style=fill_style(Colors.Amber3, border_color=DARK, border_units=w_detail, angle=-8.0))
 
 # Bright white eyes & crisp pupils
 ellipse((17.35, 47.65), width=2.25, height=2.95, style=fill_style(WHITE, border_color=DARK, border_units=0.85, angle=5.0))
@@ -62,7 +62,7 @@ circle((17.55, 47.7), radius=0.48, style=fill_style(DARK))
 circle((19.45, 47.7), radius=0.48, style=fill_style(DARK))
 
 # Amber2 beak
-polygon(tux_beak, style=no_border_fill(Colors.Amber2))
+polygon(tux_beak, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(tux_beak, width_units=1.05, color=DARK, closed=True)
 
 # 3. Three flat pastel juggling circles with WHITE vector K, V, M inside
@@ -75,14 +75,14 @@ draw_round_segment((cx_k - 0.9, cy_k - 1.25), (cx_k - 0.9, cy_k + 1.25), width_u
 draw_round_segment((cx_k - 0.9, cy_k), (cx_k + 0.9, cy_k + 1.25), width_units=0.82, color=WHITE)
 draw_round_segment((cx_k - 0.3, cy_k + 0.35), (cx_k + 0.9, cy_k - 1.25), width_units=0.82, color=WHITE)
 
-# Circle V (Colors.Blue2)
+# Circle V (Colors.Blue3)
 cx_v, cy_v = 15.8, 61.2
-circle((cx_v, cy_v), radius=r_ball, style=fill_style(Colors.Blue2, border_color=DARK, border_units=w_tux))
+circle((cx_v, cy_v), radius=r_ball, style=fill_style(Colors.Blue3, border_color=DARK, border_units=w_tux))
 draw_round_polyline([(cx_v - 1.0, cy_v + 1.2), (cx_v, cy_v - 1.2), (cx_v + 1.0, cy_v + 1.2)], width_units=0.82, color=WHITE)
 
-# Circle M (Colors.Green2)
+# Circle M (Colors.Green3)
 cx_m, cy_m = 25.0, 55.2
-circle((cx_m, cy_m), radius=r_ball, style=fill_style(Colors.Green2, border_color=DARK, border_units=w_tux))
+circle((cx_m, cy_m), radius=r_ball, style=fill_style(Colors.Green3, border_color=DARK, border_units=w_tux))
 draw_round_polyline(
     [(cx_m - 1.2, cy_m - 1.1), (cx_m - 1.2, cy_m + 1.1), (cx_m, cy_m - 0.3), (cx_m + 1.2, cy_m + 1.1), (cx_m + 1.2, cy_m - 1.1)],
     width_units=0.72,

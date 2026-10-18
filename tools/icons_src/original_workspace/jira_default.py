@@ -66,9 +66,9 @@ def _build_chevron(
 
 
 chevrons: list[tuple[list[tuple[float, float]], Any]] = [
-    (_build_chevron(51.0, 51.0), Colors.Blue3),
-    (_build_chevron(69.8, 69.8), Colors.Blue2),
-    (_build_chevron(88.6, 88.6), "#7EB0F7"),
+    (_build_chevron(51.0, 51.0), Colors.Blue4),
+    (_build_chevron(69.8, 69.8), Colors.Blue3),
+    (_build_chevron(88.6, 88.6), Colors.Blue2),
 ]
 
 for pts, col in chevrons:

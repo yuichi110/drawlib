@@ -35,7 +35,7 @@ letter_c = [(57.18, 28.62), (57.2, 28.62), (57.23, 28.62), (57.24, 28.62), (57.2
 letter_i = [(66.44, 31.82), (70.49, 31.82), (70.49, 13.35), (66.44, 13.35)]
 letter_x = [(90.0, 31.82), (85.12, 31.82), (81.42, 26.11), (77.73, 31.82), (72.85, 31.82), (79.01, 22.59), (72.85, 13.35), (77.73, 13.35), (81.42, 19.07), (85.12, 13.35), (90.0, 13.35), (83.82, 22.59)]
 
-polygon(sym_red, style=no_border_fill("#F46876"))
+polygon(sym_red, style=no_border_fill("#F24E5E"))
 draw_round_polyline(sym_red, width_units=w_sym, color=DARK, closed=True)
 
 polygon(sym_teal, style=no_border_fill("#4F7B88"))

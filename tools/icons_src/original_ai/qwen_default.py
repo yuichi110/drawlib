@@ -601,9 +601,9 @@ outer_star = _s(raw_outer_star)
 woven_channel = _s(raw_woven_channel)
 center_triangle = _s(raw_center_triangle)
 
-QWEN_INDIGO = "#7A68F0"
+QWEN_INDIGO = "#624CF2"
 
-# 1. Fill woven star and central downward triangle in unified "#7A68F0" with transparent channel cutout
+# 1. Fill woven star and central downward triangle in unified "#624CF2" with transparent channel cutout
 draw_compound_polygon(
     [outer_star, woven_channel, center_triangle],
     color=QWEN_INDIGO,

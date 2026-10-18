@@ -27,7 +27,7 @@ setup_icon()
 
 w = 2.0
 w_inner = 1.7
-CORAL_RED = "#F2836B"
+CORAL_RED = "#F26B4E"
 
 
 def _arc(xc: float, yc: float, r: float, deg0: float, deg1: float, steps: int = 16) -> list[tuple[float, float]]:

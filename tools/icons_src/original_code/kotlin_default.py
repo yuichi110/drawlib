@@ -23,9 +23,9 @@ setup_icon()
 w_outer = 2.0
 w_seam = 1.3
 
-CORAL_PINK = "#F06A78"
-MAGENTA = "#D966E3"
-PURPLE = "#9B7AF8"
+CORAL_PINK = "#F24D5E"
+MAGENTA = "#DA51E6"
+PURPLE = "#8057F2"
 
 # Classic 3 diagonal Kotlin 'K' facets scaled inside [10.0, 90.0]
 top_left = [(10.0, 50.0), (10.0, 90.0), (50.0, 90.0)]

@@ -49,19 +49,19 @@ hi_r = _sc([(59.1, 51.49), (59.28, 51.49), (59.47, 51.51), (59.64, 51.54), (59.8
 
 # 1. Cream dumpling body and bottom shadow
 polygon(body, style=no_border_fill("#FDF3E3"))
-polygon(shadow, style=no_border_fill("#F3DFC1"))
+polygon(shadow, style=no_border_fill("#F4DDB9"))
 
 # 2. Top dumpling pinch folds
 for fold in folds:
-    polygon(fold, style=no_border_fill("#D5C0A3"))
+    polygon(fold, style=no_border_fill("#CAAC82"))
 
 # 3. Pink cheeks
-polygon(cheek_l, style=no_border_fill("#F48FB1"))
-polygon(cheek_r, style=no_border_fill("#F48FB1"))
+polygon(cheek_l, style=no_border_fill("#F35E90"))
+polygon(cheek_r, style=no_border_fill("#F35E90"))
 
 # 4. Mouth and tongue with DARK outline
 polygon(mouth_bg, style=no_border_fill(DARK))
-polygon(tongue, style=no_border_fill("#F48FB1"))
+polygon(tongue, style=no_border_fill("#F35E90"))
 polygon(tongue_line, style=no_border_fill(DARK))
 draw_round_polyline(mouth_bg, width_units=w_inner, color=DARK, closed=True)
 

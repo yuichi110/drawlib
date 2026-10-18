@@ -41,7 +41,7 @@ polygon(slate_pts, style=no_border_fill(Colors.Gray5))
 draw_round_polyline(slate_pts, width_units=w, color=DARK, closed=True)
 
 # 3. Right cyan node and bridge with transparent circular hole
-draw_compound_polygon([cyan_outer, cyan_hole], color=Colors.Teal2)
+draw_compound_polygon([cyan_outer, cyan_hole], color=Colors.Teal3)
 draw_round_polyline(cyan_outer, width_units=w, color=DARK, closed=True)
 draw_round_polyline(cyan_hole, width_units=w, color=DARK, closed=True)
 

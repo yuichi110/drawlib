@@ -24,7 +24,7 @@ bot_arrow = [(48.21, 29.44), (47.54, 29.72), (46.88, 29.98), (46.22, 30.24), (45
 polygon(top_arrow, style=no_border_fill("#5A6578"))
 draw_round_polyline(top_arrow, width_units=w, color=DARK, closed=True)
 
-polygon(bot_arrow, style=no_border_fill("#EA686E"))
+polygon(bot_arrow, style=no_border_fill("#ED4E55"))
 draw_round_polyline(bot_arrow, width_units=w, color=DARK, closed=True)
 
 save()

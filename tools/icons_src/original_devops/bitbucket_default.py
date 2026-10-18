@@ -93,11 +93,11 @@ outer_bucket = [_sc(x, y) for x, y in _RAW_OUTER]
 inner_hole = [_sc(x, y) for x, y in _RAW_HOLE]
 shadow_band = [_sc(x, y) for x, y in _RAW_SHADOW_BAND]
 
-# 1. Main bucket (Colors.Blue2) with transparent center trapezoid hole
-draw_compound_polygon([outer_bucket, inner_hole], color=Colors.Blue2)
+# 1. Main bucket (Colors.Blue3) with transparent center trapezoid hole
+draw_compound_polygon([outer_bucket, inner_hole], color=Colors.Blue3)
 
-# 2. Right flat shadow band (Colors.Blue3)
-polygon(shadow_band, style=no_border_fill(Colors.Blue3))
+# 2. Right flat shadow band (Colors.Blue4)
+polygon(shadow_band, style=no_border_fill(Colors.Blue4))
 
 # 3. Crisp DARK w=1.9 outlines on outer bucket and inner hole
 draw_round_polyline(outer_bucket, width_units=w, color=DARK, closed=True)

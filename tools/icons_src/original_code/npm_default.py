@@ -29,7 +29,7 @@ n_hole = [(25.69, 73.43), (74.45, 73.43), (74.45, 24.67), (62.27, 24.67), (62.27
 # fmt: on
 
 # Flat pastel red square with transparent 'n' cutout
-draw_compound_polygon([outer_sq, n_hole], color="#E56B6B")
+draw_compound_polygon([outer_sq, n_hole], color="#E75353")
 draw_round_polyline(outer_sq, width_units=w_outer, color=DARK, closed=True)
 draw_round_polyline(n_hole, width_units=w_inner, color=DARK, closed=True)
 

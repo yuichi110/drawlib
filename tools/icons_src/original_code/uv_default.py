@@ -28,7 +28,7 @@ uv_block = [(10.0, 89.64), (10.16, 49.81), (10.3, 17.94), (10.34, 17.29), (10.42
 # fmt: on
 
 # 1. Flat pastel purple 'uv' block with center slot cutout and DARK border
-polygon(uv_block, style=no_border_fill("#E28AF0"))
+polygon(uv_block, style=no_border_fill("#DC5CF0"))
 draw_round_polyline(uv_block, width_units=w_outer, color=DARK, closed=True)
 
 save()

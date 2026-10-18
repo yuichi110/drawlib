@@ -30,7 +30,7 @@ lion = [(63.64, 88.63), (63.61, 88.36), (63.61, 88.18), (63.6, 88.17), (63.6, 88
 
 # Flat pastel crimson/pink geometric lion silhouette + DARK outline
 for part in (horn, lion):
-    polygon(part, style=no_border_fill("#EC5B78"))
+    polygon(part, style=no_border_fill("#F14568"))
     draw_round_polyline(part, width_units=w, color=DARK, closed=True)
 
 save()

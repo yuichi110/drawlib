@@ -23,9 +23,9 @@ tri_yellow = [(24.64, 42.47), (50.0, 81.97), (91.0, 18.03), (63.09, 18.03), (47.
 tri_slate = [(47.45, 42.47), (43.28, 42.47), (59.03, 18.03), (63.09, 18.03)]
 tri_red = [(43.28, 42.47), (59.03, 18.03), (9.0, 18.03), (24.64, 42.47)]
 
-polygon(tri_yellow, style=no_border_fill("#F8D866"))
+polygon(tri_yellow, style=no_border_fill("#F2CE4E"))
 polygon(tri_slate, style=no_border_fill("#546072"))
-polygon(tri_red, style=no_border_fill("#F46B7A"))
+polygon(tri_red, style=no_border_fill("#F24F61"))
 
 for tri in (tri_yellow, tri_slate, tri_red):
     draw_round_polyline(tri, width_units=w, color=DARK, closed=True)

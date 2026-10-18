@@ -30,7 +30,7 @@ x_mid = 50.0
 x_in_r = 68.8
 x_out_r = 91.0
 
-# 1. Left & right vertical wing pillars (Colors.Amber2)
+# 1. Left & right vertical wing pillars (Colors.Amber3)
 left_pillar = [
     (x_out_l, 39.5),
     (x_out_l, 61.5),
@@ -47,11 +47,11 @@ right_pillar = [
 ]
 polygon(
     left_pillar,
-    style=fill_style(Colors.Amber2, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
+    style=fill_style(Colors.Amber3, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
 )
 polygon(
     right_pillar,
-    style=fill_style(Colors.Amber2, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
+    style=fill_style(Colors.Amber3, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
 )
 
 # 2. Lower central inner chevron fold (Colors.Green4)

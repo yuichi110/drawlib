@@ -46,14 +46,14 @@ setup_icon()
 
 w = 2.0
 
-# 1. Lower standing leg tucked behind the wing crossbar (Colors.Pink2)
+# 1. Lower standing leg tucked behind the wing crossbar (Colors.Pink3)
 leg_pts = [
     (50.6, 43.5),
     (50.6, 16.5),
     (56.6, 10.5),
     (56.6, 46.2),
 ]
-polygon(leg_pts, style=no_border_fill(Colors.Pink2))
+polygon(leg_pts, style=no_border_fill(Colors.Pink3))
 draw_round_polyline(leg_pts, width_units=1.8, color=DARK, closed=True)
 
 # 2. Pointed flamingo beak (WHITE with DARK tip border)

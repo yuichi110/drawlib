@@ -27,7 +27,7 @@ for spoke in spokes:
     polygon(spoke, style=no_border_fill("#5C7FD1"))
 
 for letter in letters:
-    polygon(letter, style=no_border_fill("#E86B78"))
+    polygon(letter, style=no_border_fill("#EA5161"))
     draw_round_polyline(letter, width_units=w_letter, color=DARK, closed=True)
 
 save()

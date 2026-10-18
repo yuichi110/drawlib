@@ -36,7 +36,7 @@ rectangle(
     (50.0, 50.0),
     width=80.0,
     height=80.0,
-    style=fill_style(Colors.Orange2, border_color=DARK, border_units=w, shape_r=8.0),
+    style=fill_style(Colors.Orange3, border_color=DARK, border_units=w, shape_r=8.0),
 )
 
 # 2. Inner circle glyph

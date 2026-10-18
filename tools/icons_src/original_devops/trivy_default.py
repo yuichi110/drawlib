@@ -110,14 +110,14 @@ bl_pill = _pill_pts(p_bl_in[0], p_bl_in[1], p_bl_out[0], p_bl_out[1], width=3.1)
 polygon(bl_pill, style=no_border_fill(Colors.Blue3))
 draw_round_polyline(bl_pill, width_units=w_inner, color=DARK, closed=True)
 
-# 4. Bottom-right spoke (330 deg) in Colors.Amber2
+# 4. Bottom-right spoke (330 deg) in Colors.Amber3
 p_br_in = _hex_pt(r_stop, 330.0)
 p_br_out = _hex_pt(r_in - 1.8, 330.0)
 br_pill = _pill_pts(p_br_in[0], p_br_in[1], p_br_out[0], p_br_out[1], width=3.1)
-polygon(br_pill, style=no_border_fill(Colors.Amber2))
+polygon(br_pill, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(br_pill, width_units=w_inner, color=DARK, closed=True)
 
-# 5. Top vertical spoke + top-right sector cyan ribs (Colors.Teal2)
+# 5. Top vertical spoke + top-right sector cyan ribs (Colors.Teal3)
 # Unified branched polygon for top vertical spoke + 3 parallel ribs at -30 deg
 ux_r = math.cos(math.radians(-30.0))
 uy_r = math.sin(math.radians(-30.0))
@@ -173,7 +173,7 @@ for i in range(9):
     a = math.radians(60.0 + 120.0 * (i / 8))
     cyan_branch.append((50.0 + rw * math.cos(a), 84.4 + rw * math.sin(a)))
 
-polygon(cyan_branch, style=no_border_fill(Colors.Teal2))
+polygon(cyan_branch, style=no_border_fill(Colors.Teal3))
 draw_round_polyline(cyan_branch, width_units=w_inner, color=DARK, closed=True)
 
 # Detached cyan dot on Rib 2 line (y0=77.8, d=18.8)
@@ -182,14 +182,14 @@ dot_cy = 77.8 + 18.8 * uy_r
 circle(
     (dot_cx, dot_cy),
     radius=1.6,
-    style=fill_style(Colors.Teal2, border_color=DARK, border_units=w_inner),
+    style=fill_style(Colors.Teal3, border_color=DARK, border_units=w_inner),
 )
 
 # Detached cyan short pill on Rib 3 line (y0=71.2, d from 10.2 to 13.5)
 p3_a = (50.0 + 10.2 * ux_r, 71.2 + 10.2 * uy_r)
 p3_b = (50.0 + 13.5 * ux_r, 71.2 + 13.5 * uy_r)
 short_pill = _pill_pts(p3_a[0], p3_a[1], p3_b[0], p3_b[1], width=2.8)
-polygon(short_pill, style=no_border_fill(Colors.Teal2))
+polygon(short_pill, style=no_border_fill(Colors.Teal3))
 draw_round_polyline(short_pill, width_units=w_inner, color=DARK, closed=True)
 
 # 6. Center circle (Colors.Red3)

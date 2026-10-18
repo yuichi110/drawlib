@@ -33,7 +33,7 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
 TOP_SLATE = "#546E7A"
 TOP_GRAY = "#CFD8DC"
 LEFT_CYAN = "#4BB8D4"
-RIGHT_CYAN = "#64D2EB"
+RIGHT_CYAN = "#4BD0EF"
 
 top_slate_facets = [
     _sc([(10.71, 82.44), (22.06, 88.86), (33.19, 82.44), (21.63, 76.01)]),

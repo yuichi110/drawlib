@@ -59,7 +59,7 @@ def _mirror_x(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
     return [(100.0 - x, y) for x, y in pts]
 
 
-# 1. Crossed curved antennae ribbons at top (Colors.Purple2)
+# 1. Crossed curved antennae ribbons at top (Colors.Purple3)
 # Inner lower edges follow the triangular window cutout so the window stays transparent
 ant_l_to_r = [
     (34.2, 63.5),
@@ -72,7 +72,7 @@ ant_l_to_r = [
 ant_r_to_l = _mirror_x(ant_l_to_r)
 
 for ant_pts in (ant_r_to_l, ant_l_to_r):
-    polygon(ant_pts, style=no_border_fill(Colors.Purple2))
+    polygon(ant_pts, style=no_border_fill(Colors.Purple3))
     draw_round_polyline(ant_pts, width_units=1.8, color=DARK, closed=True)
 
 # 2. Transparent triangular window border between head collar and crossing antennae

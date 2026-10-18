@@ -143,12 +143,12 @@ _RAW_TOP_LAYER: list[tuple[float, float]] = [
 bottom_layer = _sc(_RAW_BOTTOM_LAYER)
 top_layer = _sc(_RAW_TOP_LAYER)
 
-# 1. Bottom diamond/chevron layer in Colors.Teal3 with transparent inner hole
-polygon(bottom_layer, style=no_border_fill(Colors.Teal3))
+# 1. Bottom diamond/chevron layer in Colors.Teal4 with transparent inner hole
+polygon(bottom_layer, style=no_border_fill(Colors.Teal4))
 draw_round_polyline(bottom_layer, width_units=w, color=DARK, closed=True)
 
-# 2. Top chevron/diamond layer in Colors.Teal2 with transparent inner hole
-polygon(top_layer, style=no_border_fill(Colors.Teal2))
+# 2. Top chevron/diamond layer in Colors.Teal3 with transparent inner hole
+polygon(top_layer, style=no_border_fill(Colors.Teal3))
 draw_round_polyline(top_layer, width_units=w, color=DARK, closed=True)
 
 save()

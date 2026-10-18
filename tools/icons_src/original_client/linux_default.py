@@ -59,10 +59,10 @@ draw_round_polyline(left_crease, width_units=w_detail, color=DARK, closed=False)
 draw_round_polyline(right_crease, width_units=w_detail, color=DARK, closed=False)
 
 # 4. Pastel amber-yellow webbed feet
-polygon(left_foot_pts, style=no_border_fill(Colors.Amber2))
+polygon(left_foot_pts, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(left_foot_pts, width_units=w_outer, color=DARK, closed=True)
 
-polygon(right_foot_pts, style=no_border_fill(Colors.Amber2))
+polygon(right_foot_pts, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(right_foot_pts, width_units=w_outer, color=DARK, closed=True)
 
 # 5. Right flipper hand resting over right foot
@@ -79,7 +79,7 @@ draw_round_polyline(right_eye_white, width_units=w_detail, color=DARK, closed=Tr
 polygon(right_pupil, style=no_border_fill(DARK))
 
 # 7. Pastel amber-yellow beak + DARK smile line and nostril dots
-polygon(beak_pts, style=no_border_fill(Colors.Amber2))
+polygon(beak_pts, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(beak_pts, width_units=w_inner, color=DARK, closed=True)
 draw_round_polyline(beak_smile, width_units=w_detail, color=DARK, closed=False)
 ellipse((45.2, 70.8), width=1.3, height=0.9, style=fill_style(DARK, angle=-20.0))

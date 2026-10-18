@@ -29,7 +29,7 @@ a_rings = [[(68.04, 44.46), (68.04, 44.49), (68.05, 44.53), (68.06, 44.57), (68.
 
 # 1. Flat slate 'SQL' letters + pastel red 'A' with transparent letter holes
 draw_compound_polygon(sql_rings, color="#4A5568")
-draw_compound_polygon(a_rings, color="#E57373")
+draw_compound_polygon(a_rings, color="#E65757")
 
 # 2. Crisp DARK outlines on all outer and inner letter contours
 for contour in (*sql_rings, *a_rings):

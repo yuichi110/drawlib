@@ -35,7 +35,7 @@ inner_v = _sc([(25.31, 85.13), (40.25, 85.12), (50.02, 68.9), (59.76, 85.12), (7
 # fmt: on
 
 # 1. Pastel mint green outer 'V'
-polygon(outer_v, style=no_border_fill("#68CEA1"))
+polygon(outer_v, style=no_border_fill("#5ED09E"))
 
 # 2. Flat slate inner 'V'
 polygon(inner_v, style=no_border_fill("#4A5D73"))

@@ -16,7 +16,7 @@ from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, no_b
 # ruff: noqa: E501
 # fmt: off
 setup_icon()
-PASTEL_INDIGO = "#7B93E8"
+PASTEL_INDIGO = "#5A79E8"
 w_halo = 2.0
 w_in = 0.6
 pts_0 = [(63.38, 39.36), (66.12, 52.64), (67.16, 39.36), (73.07, 39.36), (70.33, 60.43), (64.01, 60.43), (61.06, 47.79), (58.11, 60.43), (51.79, 60.43), (49.05, 39.36), (54.95, 39.36), (56.0, 52.64), (58.74, 39.36)]

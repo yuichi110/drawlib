@@ -51,7 +51,7 @@ bar_right: list[tuple[float, float]] = [
     (cx + dx_out, cy + dy_out),
 ]
 
-# 2. Top ribbon bar (Colors.Green2)
+# 2. Top ribbon bar (Colors.Green3)
 bar_top: list[tuple[float, float]] = [
     (cx, cy + r_in),
     (cx + dx_in, cy + dy_in),
@@ -73,7 +73,7 @@ bar_left: list[tuple[float, float]] = [
 
 facets = [
     (bar_right, Colors.Teal3),
-    (bar_top, Colors.Green2),
+    (bar_top, Colors.Green3),
     (bar_left, Colors.Gray6),
 ]
 

@@ -40,7 +40,7 @@ facets = [
     (f_bot_wing, "#48C9B0"),
     (f_left_wing, "#3B86C4"),
     (f_upper_right, "#3B86C4"),
-    (f_right_wing, "#50B5E8"),
+    (f_right_wing, "#42B4ED"),
     (f_top_wing, "#48C9B0"),
 ]
 for pts, color in facets:

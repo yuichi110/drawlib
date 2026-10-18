@@ -16,7 +16,7 @@ from drawlib.utils import DARK, fill_style, setup_icon
 setup_icon()
 w = 2.0
 r = 16.87
-coral = "#F59898"
+coral = "#F36262"
 
 for center in ((71.93, 31.02), (28.07, 31.02), (50.0, 68.98)):
     circle(center, radius=r, style=fill_style(coral, border_color=DARK, border_units=w))

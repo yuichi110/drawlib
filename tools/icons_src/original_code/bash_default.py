@@ -43,7 +43,7 @@ draw_round_polyline(divider, width_units=w_outer, color=DARK, closed=False)
 # 3. WHITE '$' prompt and flat pastel green (#68CEA1) '_' bar with DARK outlines
 polygon(dollar, style=no_border_fill(WHITE))
 draw_round_polyline(dollar, width_units=w_mark, color=DARK, closed=True)
-polygon(underscore, style=no_border_fill("#68CEA1"))
+polygon(underscore, style=no_border_fill("#5ED09E"))
 draw_round_polyline(underscore, width_units=1.2, color=DARK, closed=True)
 
 # 4. Crisp DARK outer cube outline

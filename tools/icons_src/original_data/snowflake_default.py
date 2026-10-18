@@ -121,7 +121,7 @@ cx, cy = 50.0, 50.0
 # 1. Six symmetrical V-chevron crystal branches at 0, 60, 120, 180, 240, 300 deg
 for idx in range(6):
     theta_deg = idx * 60.0
-    col = Colors.Teal3 if idx % 2 == 0 else Colors.Blue2
+    col = Colors.Teal3 if idx % 2 == 0 else Colors.Blue3
     branch_pts = _chevron_branch_polygon(
         cx=cx,
         cy=cy,

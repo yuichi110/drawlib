@@ -36,7 +36,7 @@ draw_round_polyline(left_bracket, width_units=w, color=DARK, closed=True)
 draw_round_polyline(right_bracket, width_units=w, color=DARK, closed=True)
 
 # 2. Flat pastel blue '/' slash
-polygon(slash, style=no_border_fill("#64B5F6"))
+polygon(slash, style=no_border_fill("#4DA8F2"))
 draw_round_polyline(slash, width_units=w, color=DARK, closed=True)
 
 save()

@@ -412,15 +412,15 @@ w_pts = _sc(
 )
 
 for pts, col in [
-    (band1, "#AED6FA"),
-    (band2, "#8BC1F7"),
-    (band3, "#6AA9F2"),
-    (band4, "#4D8FE8"),
+    (band1, "#90C6F7"),
+    (band2, "#5EA8F3"),
+    (band3, "#4E9AF2"),
+    (band4, "#408AEE"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
-polygon(tile_pts, style=no_border_fill("#6AA9F2"))
+polygon(tile_pts, style=no_border_fill("#4E9AF2"))
 draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
 
 polygon(w_pts, style=no_border_fill(WHITE))

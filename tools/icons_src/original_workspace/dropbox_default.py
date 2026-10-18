@@ -15,7 +15,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 
 setup_icon()
 w = 2.0
-pastel_blue = "#66A3FF"
+pastel_blue = "#5191F2"
 
 diamonds = [
     [(30.6, 82.97), (11.2, 70.61), (30.6, 58.25), (50.0, 70.61)],

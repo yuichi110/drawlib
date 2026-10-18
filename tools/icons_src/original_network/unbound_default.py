@@ -62,9 +62,9 @@ left_arm = [(19.35, 75.67), (19.36, 76.0), (19.38, 76.32), (19.43, 76.64), (19.4
 polygon(lower_base, style=no_border_fill(Colors.Blue4))
 draw_round_polyline(lower_base, width_units=w, color=DARK, closed=True)
 
-# 2. Upper arms in pastel teal (Colors.Teal2) with transparent center channel
+# 2. Upper arms in pastel teal (Colors.Teal3) with transparent center channel
 for arm in (right_arm, left_arm):
-    polygon(arm, style=no_border_fill(Colors.Teal2))
+    polygon(arm, style=no_border_fill(Colors.Teal3))
     draw_round_polyline(arm, width_units=w, color=DARK, closed=True)
 
 save()

@@ -35,10 +35,10 @@ horn_contours = [[(57.05, 81.36), (57.55, 81.36), (58.16, 81.12), (58.4, 80.87),
 
 # 1. Four flat pastel diagonal color bands clipped to the unicorn silhouette
 for ring_list, col in (
-    (band_pink, "#F48FB1"),
-    (band_indigo, "#7986CB"),
-    (band_blue, "#64B5F6"),
-    (band_cyan, "#80DEEA"),
+    (band_pink, "#F35E90"),
+    (band_indigo, "#6A79CA"),
+    (band_blue, "#4DA8F2"),
+    (band_cyan, "#5BDAEA"),
 ):
     for pts in ring_list:
         polygon(pts, style=no_border_fill(col))

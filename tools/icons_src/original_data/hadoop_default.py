@@ -22,7 +22,7 @@ from drawlib.utils import (
 )
 
 # Warm golden yellow slightly darker than Colors.Amber2 (#F8D88C), paired with Colors.Amber3 (#F2B43A)
-BODY_YELLOW = "#F5C768"
+BODY_YELLOW = "#F2BC4E"
 
 
 def _bezier(

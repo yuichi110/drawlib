@@ -75,8 +75,8 @@ leaf_left = _sc([
 polygon(badge_outer, style=no_border_fill(Colors.Teal6))
 draw_round_polyline(badge_outer, width_units=w_badge, color=DARK, closed=True)
 
-# 2. Two pastel green/mint curved leaves (Colors.Teal2, Colors.Green3 + DARK 1.5 outlines)
-polygon(leaf_left, style=no_border_fill(Colors.Teal2))
+# 2. Two pastel green/mint curved leaves (Colors.Teal3, Colors.Green3 + DARK 1.5 outlines)
+polygon(leaf_left, style=no_border_fill(Colors.Teal3))
 draw_round_polyline(leaf_left, width_units=w_leaf, color=DARK, closed=True)
 
 polygon(leaf_right, style=no_border_fill(Colors.Green3))

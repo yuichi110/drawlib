@@ -25,8 +25,8 @@ setup_icon()
 w_outline = 2.0
 s = 40.0 / 41.0
 
-CUP_BLUE = "#6B9EE8"
-STEAM_RED = "#EF6C62"
+CUP_BLUE = "#518FEA"
+STEAM_RED = "#F15549"
 
 
 def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:

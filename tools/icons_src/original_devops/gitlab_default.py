@@ -95,16 +95,16 @@ right_cheek = [p_fr, p_cr, p_nose]
 polygon(left_cheek, style=no_border_fill(Colors.Orange3))
 polygon(right_cheek, style=no_border_fill(Colors.Orange3))
 
-# 3. Outer ears and outer sides (Colors.Amber2)
+# 3. Outer ears and outer sides (Colors.Amber3)
 left_ear = [p_cl, *ear_l_tip, p_fl]
 right_ear = [p_fr, *ear_r_tip, p_cr]
 left_outer_side = [*left_side, *nose_tip[: len(nose_tip) // 2 + 1]]
 right_outer_side = [*nose_tip[len(nose_tip) // 2 :], *right_side]
 
-polygon(left_ear, style=no_border_fill(Colors.Amber2))
-polygon(right_ear, style=no_border_fill(Colors.Amber2))
-polygon(left_outer_side, style=no_border_fill(Colors.Amber2))
-polygon(right_outer_side, style=no_border_fill(Colors.Amber2))
+polygon(left_ear, style=no_border_fill(Colors.Amber3))
+polygon(right_ear, style=no_border_fill(Colors.Amber3))
+polygon(left_outer_side, style=no_border_fill(Colors.Amber3))
+polygon(right_outer_side, style=no_border_fill(Colors.Amber3))
 
 # 4. Internal facet seams (DARK, w_inner)
 for p_start, p_end in (

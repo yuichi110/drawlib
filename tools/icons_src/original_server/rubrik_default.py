@@ -50,11 +50,11 @@ blue_tiles: list[list[tuple[float, float]]] = [
 
 # Hexagonal geometric cube/star weave with transparent inner gaps
 for pts in teal_tiles:
-    polygon(pts, style=no_border_fill(Colors.Teal2))
+    polygon(pts, style=no_border_fill(Colors.Teal3))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 for pts in blue_tiles:
-    polygon(pts, style=no_border_fill(Colors.Blue2))
+    polygon(pts, style=no_border_fill(Colors.Blue3))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 save()

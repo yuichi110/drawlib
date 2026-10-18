@@ -26,7 +26,7 @@ rectangle(
     (50.0, 50.0),
     width=82.0,
     height=82.0,
-    style=fill_style("#7BAEF7", border_color=DARK, border_units=w_outer, shape_r=16.5),
+    style=fill_style("#5797F2", border_color=DARK, border_units=w_outer, shape_r=16.5),
 )
 
 for pts in bars:

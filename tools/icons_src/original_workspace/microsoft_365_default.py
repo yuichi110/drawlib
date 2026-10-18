@@ -303,9 +303,9 @@ lobe_tr = _sc(
 )
 
 for pts, col in [
-    (lobe_left, "#7EB4F7"),
-    (lobe_bot, "#B494F0"),
-    (lobe_tr, "#6CD4F0"),
+    (lobe_left, "#589DF2"),
+    (lobe_bot, "#9362EF"),
+    (lobe_tr, "#4ECFF2"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

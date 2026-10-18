@@ -38,7 +38,7 @@ letter_p = [(82.52, 28.12), (82.54, 28.08), (82.55, 28.05), (82.55, 28.01), (82.
 
 circle((32.53, 50.14), radius=22.48, style=fill_style(WHITE, border_color=DARK, border_units=w_emblem))
 
-polygon(red_arc, style=no_border_fill("#EC6670"))
+polygon(red_arc, style=no_border_fill("#F04B58"))
 draw_round_polyline(red_arc, width_units=w_emblem, color=DARK, closed=True)
 
 for pts in (emblem_p_bowl, emblem_right):

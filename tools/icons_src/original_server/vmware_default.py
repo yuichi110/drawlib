@@ -73,9 +73,9 @@ band_w = 3.8
 r_outer = 5.9
 r_inner = 2.4
 
-frame1_color = "#94A3B8"
-frame2_color = "#A8B5C4"
-frame3_color = "#BAC6D4"
+frame1_color = "#8899B0"
+frame2_color = "#92A2B5"
+frame3_color = "#97A9BE"
 
 # 1. Bottom-left frame (slate-gray 1)
 _draw_frame(9.0, 10.33, 64.79, 64.32, band_w, r_outer, r_inner, frame1_color)

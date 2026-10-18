@@ -48,11 +48,11 @@ r_pts = [(89.55, 61.14), (88.68, 61.12), (87.89, 61.06), (87.18, 60.96), (86.55,
 
 # Simple letters (j, u, n, i, r)
 for pts, col in [
-    (j_pts, Colors.Teal2),
-    (u_pts, Colors.Teal2),
-    (n_pts, Colors.Teal2),
-    (i_pts, Colors.Blue2),
-    (r_pts, Colors.Teal2),
+    (j_pts, Colors.Teal3),
+    (u_pts, Colors.Teal3),
+    (n_pts, Colors.Teal3),
+    (i_pts, Colors.Blue3),
+    (r_pts, Colors.Teal3),
 ]:
     draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
     polygon(pts, style=no_border_fill(col))
@@ -62,7 +62,7 @@ for pts, col in [
 for outer, hole in [(p_outer, p_hole), (e_outer, e_hole)]:
     draw_round_polyline(outer, width_units=w_halo, color=DARK, closed=True)
     draw_round_polyline(hole, width_units=w_halo, color=DARK, closed=True)
-    draw_compound_polygon([outer, hole], color=Colors.Teal2)
+    draw_compound_polygon([outer, hole], color=Colors.Teal3)
     draw_round_polyline(outer, width_units=w_in, color=DARK, closed=True)
     draw_round_polyline(hole, width_units=w_in, color=DARK, closed=True)
 

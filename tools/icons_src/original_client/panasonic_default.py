@@ -37,11 +37,11 @@ for rings in compound_letters:
         draw_round_polyline(ring, width_units=w_halo, color=DARK, closed=True)
 
 for pts in simple_letters:
-    polygon(pts, style=no_border_fill("#7BAEF7"))
+    polygon(pts, style=no_border_fill("#5797F2"))
     draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
 
 for rings in compound_letters:
-    draw_compound_polygon(rings, color="#7BAEF7")
+    draw_compound_polygon(rings, color="#5797F2")
     for ring in rings:
         draw_round_polyline(ring, width_units=w_in, color=DARK, closed=True)
 

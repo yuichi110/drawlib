@@ -190,7 +190,7 @@ raw_pts: list[tuple[float, float]] = [
 
 burst_pts = [(cx + (x - cx) * scale, cy + (y - cy) * scale) for x, y in raw_pts]
 
-TERRACOTTA = "#E08568"
+TERRACOTTA = "#E27654"
 polygon(burst_pts, style=no_border_fill(TERRACOTTA))
 draw_round_polyline(burst_pts, width_units=w, color=DARK, closed=True)
 

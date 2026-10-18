@@ -23,7 +23,7 @@ RADIUS = 38.5
 W = 2.0
 
 # 1. Base pastel blue circle fill
-circle((CX, CY), radius=RADIUS, style=no_border_fill(Colors.Blue2))
+circle((CX, CY), radius=RADIUS, style=no_border_fill(Colors.Blue3))
 
 # 2. Vertical S-curve centerline inside border (97 deg -> 258 deg)
 s_curve: list[tuple[float, float]] = [
@@ -55,7 +55,7 @@ for i in range(steps + 1):
     left_arc.append((CX + RADIUS * math.cos(ang), CY + RADIUS * math.sin(ang)))
 
 crescent_pts = [*left_arc, *reversed(s_curve)]
-polygon(crescent_pts, style=no_border_fill(Colors.Orange2))
+polygon(crescent_pts, style=no_border_fill(Colors.Orange3))
 
 # 4. Smooth DARK vertical S-curve divider
 draw_round_polyline(s_curve, width_units=W, color=DARK, corner_r=2.0)

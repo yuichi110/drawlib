@@ -57,16 +57,16 @@ def _quad(
     return pts
 
 
-# 1. Cheerful round face (Colors.Amber2)
+# 1. Cheerful round face (Colors.Amber3)
 circle(
     (50.0, 52.5),
     radius=34.5,
-    style=fill_style(Colors.Amber2, border_color=DARK, border_units=w),
+    style=fill_style(Colors.Amber3, border_color=DARK, border_units=w),
 )
 
-# 2. Cute rosy cheeks (Colors.Amber3)
-circle((28.0, 58.0), radius=3.3, style=no_border_fill(Colors.Amber3))
-circle((72.0, 58.0), radius=3.3, style=no_border_fill(Colors.Amber3))
+# 2. Cute rosy cheeks (Colors.Amber4)
+circle((28.0, 58.0), radius=3.3, style=no_border_fill(Colors.Amber4))
+circle((72.0, 58.0), radius=3.3, style=no_border_fill(Colors.Amber4))
 
 # 3. Smiling arched eyes (DARK)
 for ex in (37.5, 62.5):
@@ -99,7 +99,7 @@ tongue_pts = [
 polygon(tongue_pts, style=no_border_fill(Colors.Red3))
 draw_round_polyline(mouth_pts, width_units=1.7, color=DARK, closed=True)
 
-# 5. Two cute open hands in front (Colors.Amber3)
+# 5. Two cute open hands in front (Colors.Amber4)
 # Build left hand polygon with 4 splayed fingers + inward thumb + rounded palm
 left_hand: list[tuple[float, float]] = [
     # Thumb tip (inner top)
@@ -125,7 +125,7 @@ left_hand: list[tuple[float, float]] = [
 right_hand = [(100.0 - x, y) for x, y in left_hand]
 
 for hand in (left_hand, right_hand):
-    polygon(hand, style=no_border_fill(Colors.Amber3))
+    polygon(hand, style=no_border_fill(Colors.Amber4))
     draw_round_polyline(hand, width_units=w, color=DARK, closed=True)
 
 # Finger crease lines on left and right hands

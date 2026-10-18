@@ -23,7 +23,7 @@ from drawlib.utils import (
 )
 
 SLATE_LID = "#62738B"
-SLATE_SHADOW = "#8899B3"
+SLATE_SHADOW = "#8293AF"
 
 
 def _catmull_rom(

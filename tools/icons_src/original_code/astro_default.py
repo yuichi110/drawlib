@@ -50,8 +50,8 @@ polygon(a_frame, style=no_border_fill("#3E4756"))
 draw_round_polyline(a_frame, width_units=w_outer, color=DARK, closed=True)
 
 # 2. Flat pastel coral/orange 2-tone bottom flame
-polygon(flame_outer, style=no_border_fill("#FF8A65"))
-polygon(flame_inner, style=no_border_fill("#FFAB91"))
+polygon(flame_outer, style=no_border_fill("#F27851"))
+polygon(flame_inner, style=no_border_fill("#F38563"))
 draw_round_polyline(flame_inner, width_units=1.2, color=DARK, closed=True)
 draw_round_polyline(flame_outer, width_units=w_outer, color=DARK, closed=True)
 

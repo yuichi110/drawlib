@@ -51,7 +51,7 @@ three_outline = _sc([
 
 # 1. Flat pastel blue shield halves
 polygon(outer_shield, style=no_border_fill("#4F94D4"))
-polygon(inner_right, style=no_border_fill("#6EAEE6"))
+polygon(inner_right, style=no_border_fill("#54A3E8"))
 draw_round_polyline(inner_right, width_units=w_inner, color=DARK, closed=True)
 
 # 2. WHITE and #F2F4F7 '3' chevrons

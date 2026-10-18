@@ -31,8 +31,8 @@ cx = 50.0
 
 SHIELD_LEFT = Colors.Gray2
 SHIELD_RIGHT = "#DFE6EE"
-COAT = "#7E8CE0"
-TAN = "#F7C59F"
+COAT = "#6173DF"
+TAN = "#F3A366"
 
 
 def _cubic(

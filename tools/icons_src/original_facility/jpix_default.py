@@ -41,7 +41,7 @@ draw_round_polyline(letter_p_hole, width_units=w, color=DARK, closed=True)
 polygon(letter_i, style=no_border_fill("#546072"))
 draw_round_polyline(letter_i, width_units=w, color=DARK, closed=True)
 
-polygon(letter_x, style=no_border_fill("#68A6DC"))
+polygon(letter_x, style=no_border_fill("#569FDE"))
 draw_round_polyline(letter_x, width_units=w, color=DARK, closed=True)
 
 save()

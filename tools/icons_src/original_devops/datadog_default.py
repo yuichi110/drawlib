@@ -26,7 +26,7 @@ from drawlib.utils import (
 setup_icon()
 
 w = 2.0
-EAR_SHADOW = "#C5B3E6"
+EAR_SHADOW = "#A182DA"
 
 
 def _cubic(
@@ -81,9 +81,9 @@ def _tilted_rounded_rect(
     return pts
 
 
-# 1. Slightly tilted rounded square backdrop in Colors.Purple2
+# 1. Slightly tilted rounded square backdrop in Colors.Purple3
 backdrop_pts = _tilted_rounded_rect(47.5, 52.2, width=66.5, height=68.0, r=7.0, deg=7.2)
-polygon(backdrop_pts, style=no_border_fill(Colors.Purple2))
+polygon(backdrop_pts, style=no_border_fill(Colors.Purple3))
 draw_round_polyline(backdrop_pts, width_units=w, color=DARK, closed=True)
 
 # 2. Right floppy ear (drawn behind right forehead curve for seamless overlap)
@@ -183,7 +183,7 @@ smile_pts: list[tuple[float, float]] = [
 ]
 draw_round_polyline(smile_pts, width_units=w, color=DARK, closed=False)
 
-# 6. Tilted WHITE chart card at bottom-right + Colors.Purple2 mountain area chart
+# 6. Tilted WHITE chart card at bottom-right + Colors.Purple3 mountain area chart
 card_pts = _tilted_rounded_rect(67.2, 28.5, width=41.5, height=29.2, r=4.2, deg=7.2)
 polygon(card_pts, style=no_border_fill(WHITE))
 draw_round_polyline(card_pts, width_units=w, color=DARK, closed=True)
@@ -198,7 +198,7 @@ chart_pts: list[tuple[float, float]] = [
     (58.0, 27.9),
     (51.8, 18.5),
 ]
-polygon(chart_pts, style=no_border_fill(Colors.Purple2))
+polygon(chart_pts, style=no_border_fill(Colors.Purple3))
 draw_round_polyline(chart_pts, width_units=1.7, color=DARK, closed=True)
 
 # 7. Round WHITE paw at bottom-left overlapping chart card

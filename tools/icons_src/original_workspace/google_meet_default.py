@@ -150,12 +150,12 @@ green_lens = [
 ]
 
 segments: list[tuple[list[tuple[float, float]], Any]] = [
-    (red_seg, "#F28B82"),
-    (blue_seg, "#7BAEF7"),
-    (yellow_seg, "#FDD663"),
-    (green_body, "#81C995"),
+    (red_seg, "#F26458"),
+    (blue_seg, "#5797F2"),
+    (yellow_seg, "#F2C94F"),
+    (green_body, "#71C789"),
     (green_cone, "#60B078"),
-    (green_lens, "#81C995"),
+    (green_lens, "#71C789"),
 ]
 
 for pts, col in segments:

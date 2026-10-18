@@ -293,12 +293,12 @@ p_bl = [
 ]
 
 segments: list[tuple[list[tuple[float, float]], Any]] = [
-    (p_left, "#81C995"),
-    (p_top, "#81C995"),
-    (p_right, "#FDD663"),
-    (p_br, "#F28B82"),
-    (p_bot, "#7BAEF7"),
-    (p_bl, "#7BAEF7"),
+    (p_left, "#71C789"),
+    (p_top, "#71C789"),
+    (p_right, "#F2C94F"),
+    (p_br, "#F26458"),
+    (p_bot, "#5797F2"),
+    (p_bl, "#5797F2"),
 ]
 
 for pts, col in segments:

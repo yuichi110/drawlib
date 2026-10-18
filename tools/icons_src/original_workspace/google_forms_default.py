@@ -87,10 +87,10 @@ bar3 = [
 
 dot_centers = [(36.77, 35.45), (36.77, 46.03), (36.77, 56.61)]
 
-polygon(page_pts, style=no_border_fill("#B388EB"))
+polygon(page_pts, style=no_border_fill("#9C5FEA"))
 draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#9568D4"))
+polygon(fold_pts, style=no_border_fill("#8E5BD6"))
 draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
 
 for cx, cy in dot_centers:

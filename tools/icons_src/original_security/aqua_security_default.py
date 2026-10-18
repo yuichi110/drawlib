@@ -37,7 +37,7 @@ polygon(badge, style=no_border_fill("#2C3A4E"))
 draw_round_polyline(badge, width_units=w_badge, color=DARK, closed=True)
 
 # 2. Pastel cyan 'a' mark with transparent center hole
-draw_compound_polygon([a_outer, a_hole], color=Colors.Teal2)
+draw_compound_polygon([a_outer, a_hole], color=Colors.Teal3)
 draw_round_polyline(a_outer, width_units=w_mark, color=DARK, closed=True)
 draw_round_polyline(a_hole, width_units=w_mark, color=DARK, closed=True)
 

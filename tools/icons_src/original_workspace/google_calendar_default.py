@@ -211,10 +211,10 @@ digit_1 = [
 
 segments: list[tuple[list[tuple[float, float]], Any]] = [
     (center_sq, WHITE),
-    (blue_seg, "#7BAEF7"),
-    (yellow_seg, "#FDD663"),
-    (red_seg, "#F28B82"),
-    (green_seg, "#81C995"),
+    (blue_seg, "#5797F2"),
+    (yellow_seg, "#F2C94F"),
+    (red_seg, "#F26458"),
+    (green_seg, "#71C789"),
 ]
 
 for pts, col in segments:
@@ -222,7 +222,7 @@ for pts, col in segments:
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 for d_pts in (digit_3, digit_1):
-    polygon(d_pts, style=no_border_fill("#669DF6"))
+    polygon(d_pts, style=no_border_fill("#4E8CF2"))
     draw_round_polyline(d_pts, width_units=w_digit, color=DARK, closed=True)
 
 save()

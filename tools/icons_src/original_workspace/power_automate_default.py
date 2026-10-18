@@ -152,9 +152,9 @@ band3 = _sc(
 )
 
 for pts, col in [
-    (band1, "#5588E0"),
-    (band2, "#76AAFA"),
-    (band3, "#9BC6FC"),
+    (band1, "#4982E5"),
+    (band2, "#5694F2"),
+    (band3, "#66A5F4"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

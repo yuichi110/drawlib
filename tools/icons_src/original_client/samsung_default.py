@@ -25,7 +25,7 @@ letters: list[list[tuple[float, float]]] = [[(86.85, 50.76), (86.85, 49.05), (88
 for pts in letters:
     draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
 for pts in letters:
-    polygon(pts, style=no_border_fill("#7BAEF7"))
+    polygon(pts, style=no_border_fill("#5797F2"))
     draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
 
 save()

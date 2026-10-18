@@ -16,10 +16,10 @@ from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, no_b
 # ruff: noqa: E501
 # fmt: off
 setup_icon()
-PASTEL_SLATE = "#94A3B8"
-PASTEL_LIME = "#A8DC76"
-PASTEL_LIME_MID = "#8FD16A"
-PASTEL_GREEN = "#7AD69E"
+PASTEL_SLATE = "#8899B0"
+PASTEL_LIME = "#9CDC5F"
+PASTEL_LIME_MID = "#88D35E"
+PASTEL_GREEN = "#65D591"
 PASTEL_EMERALD = "#66C792"
 w_halo = 2.0
 w_in = 0.3

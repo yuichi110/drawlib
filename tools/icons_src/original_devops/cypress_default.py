@@ -36,13 +36,13 @@ def _circle_pts(xc: float, yc: float, r: float, steps: int = 72) -> list[tuple[f
     ]
 
 
-# 1. Circular ring (Colors.Green2) with transparent interior
+# 1. Circular ring (Colors.Green3) with transparent interior
 r_out = 40.0
 r_in = 34.4
 outer_ring = _circle_pts(cx, cy, r_out, 80)
 inner_ring = _circle_pts(cx, cy, r_in, 80)
 
-draw_compound_polygon([outer_ring, inner_ring], color=Colors.Green2)
+draw_compound_polygon([outer_ring, inner_ring], color=Colors.Green3)
 draw_round_polyline(outer_ring, width_units=w, color=DARK, closed=True)
 draw_round_polyline(inner_ring, width_units=w, color=DARK, closed=True)
 

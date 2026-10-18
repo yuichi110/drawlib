@@ -50,9 +50,9 @@ all_outer_parts = (dragon_body, dragon_wing_1, dragon_wing_2, dragon_crest)
 for part_pts in all_outer_parts:
     draw_round_polyline(part_pts, width_units=2.0, color=DARK, closed=True)
 
-draw_compound_polygon([dragon_body, dragon_eye_hole], color=Colors.Blue2)
+draw_compound_polygon([dragon_body, dragon_eye_hole], color=Colors.Blue3)
 for part_pts in (dragon_wing_1, dragon_wing_2, dragon_crest):
-    polygon(part_pts, style=no_border_fill(Colors.Blue3))
+    polygon(part_pts, style=no_border_fill(Colors.Blue4))
 
 for part_pts in all_outer_parts:
     draw_round_polyline(part_pts, width_units=0.75, color=DARK, closed=True)

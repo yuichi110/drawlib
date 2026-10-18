@@ -46,7 +46,7 @@ def _uv_rect(u0: float, v0: float, u1: float, v1: float) -> list[tuple[float, fl
 sq_size = 7.10
 pitch = 10.65
 
-# 1. Six bottom grid squares (3 cols x 2 rows) and two right horizontal bars in Colors.Amber2
+# 1. Six bottom grid squares (3 cols x 2 rows) and two right horizontal bars in Colors.Amber3
 amber_blocks: list[list[tuple[float, float]]] = []
 for row in range(2):
     v0 = row * pitch
@@ -77,7 +77,7 @@ for col, (h_left, h_right) in enumerate(upper_heights):
     orange_bars.append(_uv_rect(u_right, v_upper0, u_right + bar_w, v_upper0 + h_right))
 
 for pts in amber_blocks:
-    polygon(pts, style=no_border_fill(Colors.Amber2))
+    polygon(pts, style=no_border_fill(Colors.Amber3))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 for pts in orange_bars:

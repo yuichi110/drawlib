@@ -74,14 +74,14 @@ shapes: list[tuple[list[tuple[float, float]], Any]] = [
     (_droplet(17.68, 39.17, r_slack, "tr"), Colors.Red3),
     (_pill_v(39.20, 17.64, 39.17, r_slack), Colors.Red3),
     # Top-left pair (Blue2)
-    (_droplet(39.20, 82.36, r_slack, "br"), Colors.Blue2),
-    (_pill_h(17.61, 39.20, 60.76, r_slack), Colors.Blue2),
+    (_droplet(39.20, 82.36, r_slack, "br"), Colors.Blue3),
+    (_pill_h(17.61, 39.20, 60.76, r_slack), Colors.Blue3),
     # Top-right pair (Green3)
     (_droplet(82.32, 60.76, r_slack, "bl"), Colors.Green3),
     (_pill_v(60.80, 60.76, 82.36, r_slack), Colors.Green3),
     # Bottom-right pair (Amber2)
-    (_droplet(60.80, 17.64, r_slack, "tl"), Colors.Amber2),
-    (_pill_h(60.80, 82.39, 39.17, r_slack), Colors.Amber2),
+    (_droplet(60.80, 17.64, r_slack, "tl"), Colors.Amber3),
+    (_pill_h(60.80, 82.39, 39.17, r_slack), Colors.Amber3),
 ]
 
 for pts, col in shapes:

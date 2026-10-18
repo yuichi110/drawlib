@@ -34,7 +34,7 @@ setup_icon()
 w = 2.0
 w_inner = 1.6
 
-# 1. Sunlit top & front isometric faces (Colors.Blue2)
+# 1. Sunlit top & front isometric faces (Colors.Blue3)
 left_top = _s_list([
     (21.20, 91.00),
     (10.40, 84.69),
@@ -65,7 +65,7 @@ front_face = _s_list([
     (28.40, 74.22),
 ])
 
-# 2. Shaded side & inner valley faces (Colors.Blue3)
+# 2. Shaded side & inner valley faces (Colors.Blue4)
 left_inner_shade = _s_list([
     (39.21, 80.44),
     (28.40, 74.22),
@@ -87,9 +87,9 @@ right_outer_shade = _s_list([
 ])
 
 for pts in (left_top, right_top, front_face):
-    polygon(pts, style=no_border_fill(Colors.Blue2))
-for pts in (left_inner_shade, right_outer_shade):
     polygon(pts, style=no_border_fill(Colors.Blue3))
+for pts in (left_inner_shade, right_outer_shade):
+    polygon(pts, style=no_border_fill(Colors.Blue4))
 
 # 3. Inner isometric crease lines (DARK, 1.6)
 creases = [

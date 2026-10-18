@@ -27,8 +27,8 @@ setup_icon()
 w_outer = 2.0
 w_inner = 1.4
 s = 40.0 / 41.0
-BLUE = "#6B9EE8"
-GREEN = "#7AD69E"
+BLUE = "#518FEA"
+GREEN = "#65D591"
 SLATE = "#4A5568"
 
 

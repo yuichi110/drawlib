@@ -410,14 +410,14 @@ p_inner = _sc(
 )
 
 for pts, col in [
-    (wedge_tl, "#F49673"),
-    (wedge_tr, "#F9B99C"),
-    (wedge_bot, "#EA7855"),
+    (wedge_tl, "#F27E52"),
+    (wedge_tr, "#F39265"),
+    (wedge_bot, "#EF6C43"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
-polygon(tile_pts, style=no_border_fill("#EA7855"))
+polygon(tile_pts, style=no_border_fill("#EF6C43"))
 draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
 
 draw_compound_polygon([p_outer, p_inner], color=WHITE)

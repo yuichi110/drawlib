@@ -56,7 +56,7 @@ s = 22.8
 dx = s * math.cos(math.radians(30.0))  # 19.745
 dy = s * math.sin(math.radians(30.0))  # 11.4
 
-# Top 4 ellipses (Colors.Amber2, horizontal 0 deg)
+# Top 4 ellipses (Colors.Amber3, horizontal 0 deg)
 top_centers = [
     (50.0, 83.2),
     (50.0 - dx, 83.2 - dy),
@@ -83,7 +83,7 @@ right_centers = [
 groups: list[tuple[list[tuple[float, float]], float, Any]] = [
     (left_centers, -60.0, Colors.Pink3),
     (right_centers, 60.0, Colors.Purple3),
-    (top_centers, 0.0, Colors.Amber2),
+    (top_centers, 0.0, Colors.Amber3),
 ]
 
 for centers, ang, col in groups:

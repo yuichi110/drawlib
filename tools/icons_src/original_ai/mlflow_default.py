@@ -22,7 +22,7 @@ setup_icon()
 
 w = 2.0
 scale = 0.945
-MLFLOW_CYAN = "#6AD0EE"
+MLFLOW_CYAN = "#4CCCF1"
 MLFLOW_BLUE = "#45A4E5"
 
 

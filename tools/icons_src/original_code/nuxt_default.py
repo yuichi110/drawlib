@@ -34,7 +34,7 @@ inner_hole = _sc([(33.32, 31.42), (19.94, 31.42), (39.88, 65.86), (50.0, 48.64),
 # fmt: on
 
 # 1. Flat pastel green twin mountains with transparent hole
-draw_compound_polygon([outer_mountain, inner_hole], color="#5AE0A0")
+draw_compound_polygon([outer_mountain, inner_hole], color="#4CE49B")
 
 # 2. Crisp DARK outlines on outer mountain and hole
 draw_round_polyline(outer_mountain, width_units=w, color=DARK, closed=True)

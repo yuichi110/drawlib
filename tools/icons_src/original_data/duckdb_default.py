@@ -33,14 +33,14 @@ circle(
     style=fill_style(Colors.Gray6, border_color=DARK, border_units=w),
 )
 
-# 2. Iconic circular duck head profile on the left (Colors.Amber2)
+# 2. Iconic circular duck head profile on the left (Colors.Amber3)
 circle(
     (40.2, 50.0),
     radius=17.0,
-    style=fill_style(Colors.Amber2, border_color=DARK, border_units=1.8),
+    style=fill_style(Colors.Amber3, border_color=DARK, border_units=1.8),
 )
 
-# 3. Rounded D-shaped duck beak on the right (Colors.Amber3)
+# 3. Rounded D-shaped duck beak on the right (Colors.Amber4)
 beak_x0 = 62.7
 beak_arc_cx = 70.7
 beak_r = 6.2
@@ -53,7 +53,7 @@ for i in range(steps + 1):
     ang = math.radians(90.0 - 180.0 * (i / steps))
     beak_pts.append((beak_arc_cx + beak_r * math.cos(ang), 50.0 + beak_r * math.sin(ang)))
 
-polygon(beak_pts, style=no_border_fill(Colors.Amber3))
+polygon(beak_pts, style=no_border_fill(Colors.Amber4))
 draw_round_polyline(beak_pts, width_units=1.8, color=DARK, closed=True)
 
 save()

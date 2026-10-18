@@ -29,7 +29,7 @@ setup_icon()
 
 w = 2.0
 
-# 1. Front-left isometric wing (Colors.Blue2)
+# 1. Front-left isometric wing (Colors.Blue3)
 raw_front_wing = [
     (24.66, 80.98),
     (51.52, 65.62),
@@ -37,7 +37,7 @@ raw_front_wing = [
     (24.66, 24.36),
 ]
 
-# 2. Back-right interlocking isometric wing (Colors.Blue3)
+# 2. Back-right interlocking isometric wing (Colors.Blue4)
 raw_back_wing = [
     (64.82, 74.36),
     (35.62, 91.0),
@@ -70,8 +70,8 @@ raw_back_wing = [
 front_wing = [_scale_pt(p) for p in raw_front_wing]
 back_wing = [_scale_pt(p) for p in raw_back_wing]
 
-polygon(front_wing, style=no_border_fill(Colors.Blue2))
-polygon(back_wing, style=no_border_fill(Colors.Blue3))
+polygon(front_wing, style=no_border_fill(Colors.Blue3))
+polygon(back_wing, style=no_border_fill(Colors.Blue4))
 
 draw_round_polyline(front_wing, width_units=w, color=DARK, closed=True)
 draw_round_polyline(back_wing, width_units=w, color=DARK, closed=True)

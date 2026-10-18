@@ -48,7 +48,7 @@ draw_round_polyline(q_outer, width_units=w, color=DARK, closed=True)
 draw_round_polyline(q_hole, width_units=w, color=DARK, closed=True)
 
 # 2. Sweeping Q tail in pastel red on top
-polygon(q_tail, style=no_border_fill("#E56B6F"))
+polygon(q_tail, style=no_border_fill("#E75358"))
 draw_round_polyline(q_tail, width_units=w, color=DARK, closed=True)
 
 save()

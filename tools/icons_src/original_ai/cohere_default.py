@@ -86,7 +86,7 @@ top_pebble = _s(
     ]
 )
 
-# 2. Bottom-right lilac capsule pebble (Colors.Purple2)
+# 2. Bottom-right lilac capsule pebble (Colors.Purple3)
 right_pebble = _s(
     [
         (42.22, 25.36),
@@ -131,7 +131,7 @@ right_pebble = _s(
     ]
 )
 
-# 3. Bottom-left coral pebble ("#F2826B")
+# 3. Bottom-left coral pebble ("#F26A4E")
 left_pebble = _s(
     [
         (23.07, 38.95),
@@ -168,11 +168,11 @@ left_pebble = _s(
 )
 
 FOREST_SAGE = "#4D6E60"
-CORAL = "#F2826B"
+CORAL = "#F26A4E"
 
 for pts, col in (
     (top_pebble, FOREST_SAGE),
-    (right_pebble, Colors.Purple2),
+    (right_pebble, Colors.Purple3),
     (left_pebble, CORAL),
 ):
     polygon(pts, style=no_border_fill(col))

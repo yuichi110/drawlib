@@ -33,16 +33,16 @@ compound_letters: list[list[list[tuple[float, float]]]] = [[[(50.06, 57.51), (50
 
 # 1. Pastel amber smile arrow
 for pts in smile_parts:
-    polygon(pts, style=no_border_fill("#F6AD55"))
+    polygon(pts, style=no_border_fill("#F1A447"))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 # 2. Pastel slate kindle wordmark
 for pts in simple_letters:
-    polygon(pts, style=no_border_fill("#94A3B8"))
+    polygon(pts, style=no_border_fill("#8899B0"))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 for rings in compound_letters:
-    draw_compound_polygon(rings, color="#94A3B8")
+    draw_compound_polygon(rings, color="#8899B0")
     for ring in rings:
         draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
 

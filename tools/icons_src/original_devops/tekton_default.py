@@ -29,8 +29,8 @@ setup_icon()
 w = 2.0
 w_inner = 1.75
 
-CORAL_PINK = "#F79B86"
-ROSE_PINK = "#F4B0C2"
+CORAL_PINK = "#F3785B"
+ROSE_PINK = "#F388A4"
 cx = 41.5
 
 
@@ -83,7 +83,7 @@ def _arc(xc: float, yc: float, r: float, deg0: float, deg1: float, steps: int = 
     ]
 
 
-# 1. Curved segmented tail behind right hip (alternating Colors.Purple2 and CORAL_PINK)
+# 1. Curved segmented tail behind right hip (alternating Colors.Purple3 and CORAL_PINK)
 t_p0 = (55.5, 28.0)
 t_p1 = (64.5, 45.0)
 t_p2 = (79.5, 48.0)
@@ -116,7 +116,7 @@ tip_cap = _arc(t_p3[0], t_p3[1], r_tail, ang_top, ang_bot, steps=16)
 
 # Split tail into 4 alternating color segments
 seg_splits = [0, 13, 25, 37, tail_steps]
-seg_colors = [Colors.Purple2, CORAL_PINK, Colors.Purple2, CORAL_PINK]
+seg_colors = [Colors.Purple3, CORAL_PINK, Colors.Purple3, CORAL_PINK]
 for idx in range(4):
     i0 = seg_splits[idx]
     i1 = seg_splits[idx + 1]

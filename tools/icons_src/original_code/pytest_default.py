@@ -38,14 +38,14 @@ bar_red = [(68.43, 74.19), (81.23, 74.19), (81.23, 52.54), (68.43, 52.54)]
 # 1. Pastel 4-color top caps, bottom bars, and slate-gray divider
 shapes = (
     (divider, "#90A4AE"),
-    (cap_cyan, "#4FC3F7"),
-    (cap_lime, "#D4E157"),
-    (cap_orange, "#FFB74D"),
-    (cap_red, "#E57373"),
-    (bar_cyan, "#4FC3F7"),
-    (bar_lime, "#D4E157"),
-    (bar_orange, "#FFB74D"),
-    (bar_red, "#E57373"),
+    (cap_cyan, "#44BCF1"),
+    (cap_lime, "#D7E54A"),
+    (cap_orange, "#F1AC47"),
+    (cap_red, "#E65757"),
+    (bar_cyan, "#44BCF1"),
+    (bar_lime, "#D7E54A"),
+    (bar_orange, "#F1AC47"),
+    (bar_red, "#E65757"),
 )
 
 for pts, col in shapes:

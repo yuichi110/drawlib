@@ -36,7 +36,7 @@ rings = [r0, r1, r2, r3, r4, r5, r6, r7, r8]
 # fmt: on
 
 # 1. Flat pastel coral-red wireframe cubes with transparent interiors
-draw_compound_polygon(rings, color="#F46A5E")
+draw_compound_polygon(rings, color="#F15749")
 
 # 2. Crisp DARK border outlines on outer silhouette and all inner cube faces
 for ring in rings:

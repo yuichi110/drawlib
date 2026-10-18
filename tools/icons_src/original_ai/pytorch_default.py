@@ -24,7 +24,7 @@ from drawlib.utils import (
 setup_icon()
 
 w = 2.0
-VERMILION = "#EE6A4E"
+VERMILION = "#F15F40"
 cx, cy = 50.0, 43.2
 r_out = 32.5
 r_in = 24.1
@@ -39,7 +39,7 @@ def _arc(r: float, deg0: float, deg1: float, steps: int = 36) -> list[tuple[floa
     return pts
 
 
-# 1. Circular flame-loop ring ("#EE6A4E") with pointed upper-left flame tip
+# 1. Circular flame-loop ring ("#F15F40") with pointed upper-left flame tip
 inv_s2 = 1.0 / math.sqrt(2.0)
 x_tl_out = cx - r_out * inv_s2
 y_tl_out = cy + r_out * inv_s2
@@ -63,7 +63,7 @@ flame_ring_pts: list[tuple[float, float]] = [
 polygon(flame_ring_pts, style=no_border_fill(VERMILION))
 draw_round_polyline(flame_ring_pts, width_units=w, color=DARK, closed=True)
 
-# 2. Top-right circular flame dot ("#EE6A4E")
+# 2. Top-right circular flame dot ("#F15F40")
 circle(
     (61.6, 72.2),
     radius=4.3,

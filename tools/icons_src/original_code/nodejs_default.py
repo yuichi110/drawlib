@@ -63,7 +63,7 @@ fold_c_right = _sc([(50.63, 90.93), (85.65, 30.75)])
 # 1. Flat pastel green hexagon facets
 polygon(hex_outer, style=no_border_fill("#68B35B"))
 polygon(ribbon_b, style=no_border_fill("#68B35B"))
-polygon(ribbon_c, style=no_border_fill("#7CC46E"))
+polygon(ribbon_c, style=no_border_fill("#76C666"))
 
 # 2. Internal facet DARK fold lines
 draw_round_polyline(fold_bl, width_units=w_inner, color=DARK)

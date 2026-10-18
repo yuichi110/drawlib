@@ -31,7 +31,7 @@ crescent_small = [(55.56, 85.41), (55.13, 84.74), (54.73, 84.06), (54.38, 83.36)
 
 # 3 flat pastel blue crescents with crisp DARK outlines
 for crescent in (crescent_large, crescent_mid, crescent_small):
-    polygon(crescent, style=no_border_fill("#5BA4E5"))
+    polygon(crescent, style=no_border_fill("#4A9EE9"))
     draw_round_polyline(crescent, width_units=w, color=DARK, closed=True)
 
 save()

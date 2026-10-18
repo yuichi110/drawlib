@@ -813,7 +813,7 @@ s_pts = _sc(
 # 3 overlapping teal circles
 circle(_p(50.95, 67.16), radius=22.88 * s, style=fill_style("#4BA8AC", border_color=DARK, border_units=w))
 circle(_p(70.02, 46.19), radius=20.98 * s, style=fill_style("#6CC0C2", border_color=DARK, border_units=w))
-circle(_p(53.81, 26.16), radius=16.21 * s, style=fill_style("#94D6D6", border_color=DARK, border_units=w))
+circle(_p(53.81, 26.16), radius=16.21 * s, style=fill_style("#76CFCF", border_color=DARK, border_units=w))
 
 # Left tile
 polygon(tile_pts, style=no_border_fill("#4BA8AC"))

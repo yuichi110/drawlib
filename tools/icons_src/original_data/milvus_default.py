@@ -46,11 +46,11 @@ setup_icon()
 
 w = 2.0
 
-# 1. Outer left-pointing teardrop body (Colors.Teal2) with transparent inner teardrop moat
+# 1. Outer left-pointing teardrop body (Colors.Teal3) with transparent inner teardrop moat
 outer_pts = _build_left_teardrop(cx_right=47.5, cy=50.0, r_right=28.0, r_tip=2.6)
 inner_pts = _build_left_teardrop(cx_right=48.2, cy=50.0, r_right=20.0, r_tip=1.8)
 
-draw_compound_polygon([outer_pts, inner_pts], color=Colors.Teal2)
+draw_compound_polygon([outer_pts, inner_pts], color=Colors.Teal3)
 draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
 draw_round_polyline(inner_pts, width_units=1.8, color=DARK, closed=True)
 
@@ -61,7 +61,7 @@ circle(
     style=fill_style(Colors.Blue3, border_color=DARK, border_units=1.8),
 )
 
-# 4. Right tail wing triangle (Colors.Teal3)
+# 4. Right tail wing triangle (Colors.Teal4)
 tail_pts: list[tuple[float, float]] = []
 # Concave left edge from top (81.5, 60.0) down to bottom (81.5, 40.0)
 steps_curve = 12
@@ -78,7 +78,7 @@ for i in range(10):
     ang = math.radians(-45.0 + 90.0 * (i / 9.0))
     tail_pts.append((cx_tail_tip + r_tail_tip * math.cos(ang), 50.0 + r_tail_tip * math.sin(ang)))
 
-polygon(tail_pts, style=no_border_fill(Colors.Teal3))
+polygon(tail_pts, style=no_border_fill(Colors.Teal4))
 draw_round_polyline(tail_pts, width_units=1.8, color=DARK, closed=True)
 
 save()

@@ -59,7 +59,7 @@ def _build_tile_bottom_wave(x0: float, y0: float, x1: float, r: float) -> list[t
     return pts
 
 
-# 1. Rounded square tile background (Colors.Blue4 upper-left + Colors.Blue2 lower-right wave)
+# 1. Rounded square tile background (Colors.Blue4 upper-left + Colors.Blue3 lower-right wave)
 tile_cx, tile_cy = 41.0, 50.0
 tile_w, tile_h = 58.0, 68.0
 tile_r = 9.0
@@ -72,7 +72,7 @@ rectangle(
     height=tile_h,
     style=fill_style(Colors.Blue4, shape_r=tile_r),
 )
-polygon(_build_tile_bottom_wave(x0, y0, x1, tile_r), style=no_border_fill(Colors.Blue2))
+polygon(_build_tile_bottom_wave(x0, y0, x1, tile_r), style=no_border_fill(Colors.Blue3))
 draw_round_polyline(
     [(x0, 29.0), *_bezier((x0, 29.0), (28.0, 35.5), (48.0, 39.5), (x1, 39.0), 18)],
     width_units=1.6,
@@ -85,7 +85,7 @@ rectangle(
     style=fill_style((0, 0, 0, 0), border_color=DARK, border_units=w, shape_r=tile_r),
 )
 
-# 2. Diagonal quill feather silhouette (Colors.Teal2) with iconic barbs
+# 2. Diagonal quill feather silhouette (Colors.Teal3) with iconic barbs
 p_quill_tip = (59.5, 11.5)
 p_vane_bot_l = (57.2, 31.0)
 p_notch1_out = (53.2, 41.5)
@@ -117,7 +117,7 @@ feather_pts: list[tuple[float, float]] = [
     *_bezier(p_vane_bot_r, (61.5, 24.5), (60.2, 18.0), p_quill_tip, 12),
 ]
 
-polygon(feather_pts, style=no_border_fill(Colors.Teal2))
+polygon(feather_pts, style=no_border_fill(Colors.Teal3))
 draw_round_polyline(feather_pts, width_units=w, color=DARK, closed=True)
 
 # 3. Tapered central feather shaft (WHITE with clear DARK border)

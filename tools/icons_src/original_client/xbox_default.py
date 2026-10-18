@@ -17,7 +17,7 @@ from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setu
 # fmt: off
 setup_icon()
 
-XBOX_GREEN = "#81C995"
+XBOX_GREEN = "#71C789"
 w = 2.0
 
 x_backing: list[tuple[float, float]] = [(29.43, 85.46), (71.25, 85.23), (78.02, 79.6), (82.81, 25.27), (78.22, 21.66), (22.08, 22.32), (17.54, 25.17), (19.84, 77.68)]

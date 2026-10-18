@@ -304,17 +304,17 @@ t_pts = _sc(
 )
 
 # Back person
-circle(_p(80.51, 71.93), radius=8.58 * s, style=fill_style("#8E90E8", border_color=DARK, border_units=w))
-polygon(back_body, style=no_border_fill("#8E90E8"))
+circle(_p(80.51, 71.93), radius=8.58 * s, style=fill_style("#6668E5", border_color=DARK, border_units=w))
+polygon(back_body, style=no_border_fill("#6668E5"))
 draw_round_polyline(back_body, width_units=w, color=DARK, closed=True)
 
 # Front person
-circle(_p(53.81, 75.74), radius=12.40 * s, style=fill_style("#A8ABF2", border_color=DARK, border_units=w))
-polygon(front_body, style=no_border_fill("#A8ABF2"))
+circle(_p(53.81, 75.74), radius=12.40 * s, style=fill_style("#7075EF", border_color=DARK, border_units=w))
+polygon(front_body, style=no_border_fill("#7075EF"))
 draw_round_polyline(front_body, width_units=w, color=DARK, closed=True)
 
 # Left tile
-polygon(tile_pts, style=no_border_fill("#8E90E8"))
+polygon(tile_pts, style=no_border_fill("#6668E5"))
 draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
 
 # Letter T

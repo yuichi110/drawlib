@@ -26,8 +26,8 @@ setup_icon()
 
 w = 2.0
 s = 40.0 / 41.0
-YELLOW = "#FCE073"
-ORANGE = "#F8AD62"
+YELLOW = "#F2D256"
+ORANGE = "#F29F4D"
 
 
 def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:

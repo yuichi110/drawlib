@@ -37,10 +37,10 @@ right_red = _sc([(51.72, 91.0), (50.79, 90.24), (49.89, 89.45), (49.0, 88.65), (
 # fmt: on
 
 # 1. Flat pastel yellow, orange, and coral-red flame facets
-polygon(bot_orange, style=no_border_fill("#F8AD62"))
-polygon(left_yellow, style=no_border_fill("#FCE073"))
-polygon(mid_orange, style=no_border_fill("#F8AD62"))
-polygon(right_red, style=no_border_fill("#F27B72"))
+polygon(bot_orange, style=no_border_fill("#F29F4D"))
+polygon(left_yellow, style=no_border_fill("#F2D256"))
+polygon(mid_orange, style=no_border_fill("#F29F4D"))
+polygon(right_red, style=no_border_fill("#F25C51"))
 
 # 2. Crisp DARK outlines on all 4 flame facets
 for facet in (bot_orange, left_yellow, mid_orange, right_red):

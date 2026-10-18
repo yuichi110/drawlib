@@ -127,7 +127,7 @@ front_bubble = [
 polygon(back_bubble, style=no_border_fill("#60B078"))
 draw_round_polyline(back_bubble, width_units=w, color=DARK, closed=True)
 
-polygon(front_bubble, style=no_border_fill("#81C995"))
+polygon(front_bubble, style=no_border_fill("#71C789"))
 draw_round_polyline(front_bubble, width_units=w, color=DARK, closed=True)
 
 save()

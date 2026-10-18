@@ -26,7 +26,7 @@ from drawlib.utils import (
 setup_icon()
 
 RING_SLATE = "#64748B"
-QUAD_BLUE = "#7BAEF7"
+QUAD_BLUE = "#5797F2"
 w_ring = 2.0
 w_letter = 1.1
 

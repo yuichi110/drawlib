@@ -36,8 +36,8 @@ five_outer = [(27.85, 75.28), (30.23, 48.58), (60.84, 48.58), (59.81, 37.12), (4
 # fmt: on
 
 # 1. Flat pastel orange shield halves
-polygon(shield_outer, style=no_border_fill("#EF7D54"))
-polygon(shield_right, style=no_border_fill("#F5956C"))
+polygon(shield_outer, style=no_border_fill("#F17143"))
+polygon(shield_right, style=no_border_fill("#F28050"))
 draw_round_polyline(shield_right, width_units=w_inner, color=DARK, closed=True)
 
 # 2. Two-tone '#F2F4F7' (left) and WHITE (right) '5' chevrons

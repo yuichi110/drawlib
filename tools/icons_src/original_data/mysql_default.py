@@ -22,7 +22,7 @@ from drawlib.utils import (
 )
 
 # Soft aqua-teal between Colors.Teal2 (#9EDEDE) and Colors.Teal3 (#55C3C3), paired with Colors.Teal4 (#2A989A)
-BELLY_AQUA = "#86D0CC"
+BELLY_AQUA = "#70CCC7"
 
 
 def _bezier(

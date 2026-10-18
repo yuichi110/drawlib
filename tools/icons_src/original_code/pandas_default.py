@@ -49,10 +49,10 @@ for bar in navy_bars:
     draw_round_polyline(bar, width_units=w, color=DARK, closed=True)
 
 # 2. Pastel yellow and pink accent squares
-polygon(yellow_block, style=no_border_fill("#FCD34D"))
+polygon(yellow_block, style=no_border_fill("#F1C946"))
 draw_round_polyline(yellow_block, width_units=w, color=DARK, closed=True)
 
-polygon(pink_block, style=no_border_fill("#EC6B9E"))
+polygon(pink_block, style=no_border_fill("#EF4E8E"))
 draw_round_polyline(pink_block, width_units=w, color=DARK, closed=True)
 
 save()

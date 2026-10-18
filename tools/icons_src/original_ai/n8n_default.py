@@ -24,7 +24,7 @@ from drawlib.utils import (
 setup_icon()
 
 w = 2.0
-ROSE_PINK = "#EC6888"
+ROSE_PINK = "#EF4C74"
 
 
 def _circle_pts(xc: float, yc: float, r: float, steps: int = 44) -> list[tuple[float, float]]:

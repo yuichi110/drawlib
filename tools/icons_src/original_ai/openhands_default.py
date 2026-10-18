@@ -142,7 +142,7 @@ raw_left_hand = [
 left_hand_pts = [_s(x, y) for x, y in raw_left_hand]
 right_hand_pts = _mirror_x(left_hand_pts)
 
-PALE_YELLOW = "#FFF08A"
+PALE_YELLOW = "#F3E060"
 
 # 1. Fill left and right hands (PALE_YELLOW)
 polygon(left_hand_pts, style=no_border_fill(PALE_YELLOW))

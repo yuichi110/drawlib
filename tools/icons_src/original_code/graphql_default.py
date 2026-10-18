@@ -25,7 +25,7 @@ setup_icon()
 
 w = 2.0
 s = 40.0 / 41.0
-PINK = "#EC64A8"
+PINK = "#F04A9D"
 
 
 def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:

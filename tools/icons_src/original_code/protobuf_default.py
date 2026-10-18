@@ -37,14 +37,14 @@ green_top_right = _sc([(54.97, 72.65), (74.2, 72.65), (76.5, 69.65), (78.58, 66.
 # fmt: on
 
 # 1. Left '<' angle segments (Google red & blue)
-polygon(red_top_left, style=no_border_fill("#EF6C62"))
-polygon(blue_bot_left, style=no_border_fill("#6B9EE8"))
+polygon(red_top_left, style=no_border_fill("#F15549"))
+polygon(blue_bot_left, style=no_border_fill("#518FEA"))
 draw_round_polyline(red_top_left, width_units=w, color=DARK, closed=True)
 draw_round_polyline(blue_bot_left, width_units=w, color=DARK, closed=True)
 
 # 2. Right '>' angle segments (Google yellow & green)
-polygon(yellow_bot_right, style=no_border_fill("#FCD34D"))
-polygon(green_top_right, style=no_border_fill("#68CEA1"))
+polygon(yellow_bot_right, style=no_border_fill("#F1C946"))
+polygon(green_top_right, style=no_border_fill("#5ED09E"))
 draw_round_polyline(yellow_bot_right, width_units=w, color=DARK, closed=True)
 draw_round_polyline(green_top_right, width_units=w, color=DARK, closed=True)
 

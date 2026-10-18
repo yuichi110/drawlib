@@ -33,10 +33,10 @@ outer_silhouette = [(17.99, 90.0), (82.01, 90.0), (81.98, 87.9), (81.87, 85.81),
 # fmt: on
 
 # 1. Four flat pastel origami cone facets
-polygon(bottom_skirt, style=no_border_fill("#7986CB"))
-polygon(left_facet, style=no_border_fill("#64B5F6"))
-polygon(fold_wedge, style=no_border_fill("#5C7CE6"))
-polygon(top_facet, style=no_border_fill("#4FC3F7"))
+polygon(bottom_skirt, style=no_border_fill("#6A79CA"))
+polygon(left_facet, style=no_border_fill("#4DA8F2"))
+polygon(fold_wedge, style=no_border_fill("#4A6FEA"))
+polygon(top_facet, style=no_border_fill("#44BCF1"))
 
 # 2. Internal DARK facet borders
 for facet in (left_facet, fold_wedge, top_facet):

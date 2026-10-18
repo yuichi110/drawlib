@@ -25,7 +25,7 @@ from drawlib.utils import (
 setup_icon()
 
 BADGE_SLATE = "#4A5568"
-CAT_YELLOW = "#FDD663"
+CAT_YELLOW = "#F2C94F"
 w = 2.0
 w_hole = 1.2
 

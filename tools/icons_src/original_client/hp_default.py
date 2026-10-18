@@ -28,11 +28,11 @@ p_hole: list[tuple[float, float]] = [(74.81, 62.54), (68.28, 62.54), (59.14, 37.
 circle((50.0, 50.0), radius=41.0, style=fill_style(WHITE, border_color=DARK, border_units=w_outer))
 
 # 2. Pastel HP blue emblem with h and p cutouts
-polygon(main_poly, style=no_border_fill("#63B3ED"))
+polygon(main_poly, style=no_border_fill("#49AAF1"))
 draw_round_polyline(main_poly, width_units=w_outer, color=DARK, closed=True)
 
 # 3. Inner p-bowl parallelogram cutout
-polygon(p_hole, style=no_border_fill("#63B3ED"))
+polygon(p_hole, style=no_border_fill("#49AAF1"))
 draw_round_polyline(p_hole, width_units=w_inner, color=DARK, closed=True)
 
 save()

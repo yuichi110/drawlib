@@ -126,12 +126,12 @@ rectangle(
     style=fill_style(Colors.Purple3, border_color=DARK, border_units=1.6, shape_r=1.6),
 )
 
-# 8. Inner glass visor (Colors.Teal2)
+# 8. Inner glass visor (Colors.Teal3)
 ellipse(
     (cx, 32.5),
     width=39.0,
     height=29.0,
-    style=fill_style(Colors.Teal2, border_color=DARK, border_units=1.7),
+    style=fill_style(Colors.Teal3, border_color=DARK, border_units=1.7),
 )
 
 # 9. Cute bunny face inside visor

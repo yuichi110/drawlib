@@ -21,8 +21,8 @@ from drawlib.utils import (
 
 # Brand-harmonized Flink palette
 BODY_BERRY = "#D4456E"
-TAIL_PURPLE = "#9875D8"
-TAIL_CORAL = "#FB7A6E"
+TAIL_PURPLE = "#8B61D8"
+TAIL_CORAL = "#F26153"
 TAIL_AMBER = "#F6B836"
 ACORN_GOLD = "#F6B836"
 

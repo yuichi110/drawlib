@@ -34,14 +34,14 @@ eye_pupil = [(83.03, 61.31), (83.52, 61.25), (84.0, 61.02), (84.23, 60.74), (84.
 # fmt: on
 
 # 1. Chameleon body with spiral tail and mouth smile
-polygon(body, style=no_border_fill(Colors.Green2))
+polygon(body, style=no_border_fill(Colors.Green3))
 draw_round_polyline(body, width_units=w_body, color=DARK, closed=True)
 
 # 2. Eye layers (white sclera, deeper green iris, dark pupil)
 polygon(eye_outer, style=no_border_fill(WHITE))
 draw_round_polyline(eye_outer, width_units=w_eye, color=DARK, closed=True)
 
-polygon(eye_iris, style=no_border_fill(Colors.Green3))
+polygon(eye_iris, style=no_border_fill(Colors.Green4))
 draw_round_polyline(eye_iris, width_units=w_eye, color=DARK, closed=True)
 
 polygon(eye_pupil, style=no_border_fill(DARK))

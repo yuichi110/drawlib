@@ -27,9 +27,9 @@ setup_icon()
 w = ORIG_STROKE
 
 # Soft pastel Argo palette matching Drawlib Original tone
-ARGO_CORAL = "#F8A07E"  # Pastel coral-orange octopus (softened from official #FE733E)
+ARGO_CORAL = "#F28359"  # Pastel coral-orange octopus (softened from official #FE733E)
 ARGO_SKY = "#D6ECFA"  # Pale ice-blue helmet glass (softened from official #CDECF6)
-ARGO_RIM = "#ACC2FA"  # Pastel blue helmet latches & collar (matching #B5D2F3 / PASTEL_BLUE_LIGHT)
+ARGO_RIM = "#8AA9F6"  # Pastel blue helmet latches & collar (matching #B5D2F3 / PASTEL_BLUE_LIGHT)
 
 # Side helmet latch tabs behind the main helmet ring
 for x_tab in (20.0, 80.0):

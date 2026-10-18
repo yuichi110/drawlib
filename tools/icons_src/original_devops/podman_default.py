@@ -166,7 +166,7 @@ def _clip_to_cw_convex(
     return out
 
 
-# 1. Outer 7-sided Podman shield (Colors.Purple2) and inner sky (WHITE)
+# 1. Outer 7-sided Podman shield (Colors.Purple3) and inner sky (WHITE)
 raw_outer = [
     (32.2, 89.2),
     (67.8, 89.2),
@@ -181,7 +181,7 @@ raw_inner = _inset_poly(raw_outer, 4.5)
 outer_shield = _round_corners(raw_outer, 3.6, 10)
 inner_shield = _round_corners(raw_inner, 1.8, 8)
 
-polygon(outer_shield, style=no_border_fill(Colors.Purple2))
+polygon(outer_shield, style=no_border_fill(Colors.Purple3))
 polygon(inner_shield, style=no_border_fill(WHITE))
 
 # 2. Pastel sky-blue water fill (#D6F0FF) in the lower half of inner shield
@@ -190,14 +190,14 @@ polygon(water_poly, style=no_border_fill(WATER_SKY))
 
 
 def _wave_bar(x0: float, x1: float, yc: float, h: float = 2.0) -> None:
-    """Draw a crisp flat horizontal wave bar in Colors.Blue2 clipped to inner shield."""
+    """Draw a crisp flat horizontal wave bar in Colors.Blue3 clipped to inner shield."""
     raw = [(x0, yc - h / 2.0), (x1, yc - h / 2.0), (x1, yc + h / 2.0), (x0, yc + h / 2.0)]
     clipped = _clip_to_cw_convex(raw, inner_shield)
     if len(clipped) >= 3:
-        polygon(clipped, style=no_border_fill(Colors.Blue2))
+        polygon(clipped, style=no_border_fill(Colors.Blue3))
 
 
-# 3. Background wave bars (Colors.Blue2) behind seals
+# 3. Background wave bars (Colors.Blue3) behind seals
 _wave_bar(14.0, 29.0, 50.0, 2.0)
 _wave_bar(68.5, 76.5, 50.0, 2.0)
 _wave_bar(19.0, 26.5, 45.2, 2.0)
@@ -207,8 +207,8 @@ _wave_bar(73.5, 84.5, 40.2, 2.0)
 
 
 def _draw_seal_eye(xc: float, yc: float, r_ring: float, r_pupil: float, r_light: float) -> None:
-    """Draw a Podman seal eye: Colors.Purple2 ring + DARK pupil + WHITE catchlight."""
-    circle((xc, yc), radius=r_ring, style=no_border_fill(Colors.Purple2))
+    """Draw a Podman seal eye: Colors.Purple3 ring + DARK pupil + WHITE catchlight."""
+    circle((xc, yc), radius=r_ring, style=no_border_fill(Colors.Purple3))
     circle((xc, yc), radius=r_pupil, style=no_border_fill(DARK))
     circle((xc - r_pupil * 0.3, yc + r_pupil * 0.3), radius=r_light, style=no_border_fill(WHITE))
 
@@ -348,7 +348,7 @@ fr_muzzle = _clip_y_between(fr_muzzle_raw, y_fr, 90.0)
 polygon(fr_muzzle, style=no_border_fill(WHITE))
 _draw_nose_and_smile(60.6, 33.1, 4.6, 3.3, 2.9, 1.65, 1.5)
 
-# 7. Foreground wave bars (Colors.Blue2)
+# 7. Foreground wave bars (Colors.Blue3)
 _wave_bar(34.5, 81.8, 27.5, 2.0)
 _wave_bar(30.5, 53.0, 22.2, 2.0)
 _wave_bar(43.5, 61.5, 17.5, 2.0)

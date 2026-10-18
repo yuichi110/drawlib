@@ -38,7 +38,7 @@ for pts in leaf_polys:
 
 # 3. Pastel berry segments in uniform crimson-rose (#E05A7A) with smooth DARK inner outlines
 for pts in (*berry_red3, *berry_pink3):
-    polygon(pts, style=no_border_fill("#E05A7A"))
+    polygon(pts, style=no_border_fill("#E44C70"))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
 
 save()

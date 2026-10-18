@@ -44,7 +44,7 @@ rectangle(
     (50.0, 50.0),
     width=80.0,
     height=80.0,
-    style=no_border_fill("#5BA4E5", shape_r=badge_r),
+    style=no_border_fill("#4A9EE9", shape_r=badge_r),
 )
 
 # 2. WHITE 'T' and 'S' letters with DARK outlines

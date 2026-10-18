@@ -17,7 +17,7 @@ from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
 # fmt: off
 setup_icon()
 
-BLUE = "#64A2DE"
+BLUE = "#539BE1"
 w = 2.0
 
 part_0 = [(35.54, 56.9), (37.53, 49.75), (33.41, 49.75)]

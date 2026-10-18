@@ -24,7 +24,7 @@ inner_sq = [(32.76, 32.76), (67.24, 32.76), (67.24, 67.24), (32.76, 67.24)]
 polygon(outer_c, style=no_border_fill("#9BA4B0"))
 draw_round_polyline(outer_c, width_units=w, color=DARK, closed=True)
 
-polygon(inner_sq, style=no_border_fill("#689FD8"))
+polygon(inner_sq, style=no_border_fill("#5998DA"))
 draw_round_polyline(inner_sq, width_units=w, color=DARK, closed=True)
 
 save()

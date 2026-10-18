@@ -39,7 +39,7 @@ a_inner_island = _sc([(69.86, 39.65), (67.49, 29.0), (74.87, 29.0), (72.14, 39.6
 # 1. Flat pastel purple notched square with transparent WA holes
 draw_compound_polygon(
     [outer_notched, w_hole, a_outer_hole, a_inner_island],
-    color="#8274F0",
+    color="#6351F2",
 )
 
 # 2. Inner letter hole outlines and outer border

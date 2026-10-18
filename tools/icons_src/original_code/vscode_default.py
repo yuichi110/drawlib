@@ -40,11 +40,11 @@ polygon(ribbon_back, style=no_border_fill("#2E86C1"))
 draw_round_polyline(ribbon_back, width_units=w, color=DARK, closed=True)
 
 # 2. Mid blue crossing ribbon fold
-polygon(ribbon_mid, style=no_border_fill("#42A5F5"))
+polygon(ribbon_mid, style=no_border_fill("#3EA1F0"))
 draw_round_polyline(ribbon_mid, width_units=w, color=DARK, closed=True)
 
 # 3. Light blue vertical front ribbon fold
-polygon(ribbon_front, style=no_border_fill("#64B5F6"))
+polygon(ribbon_front, style=no_border_fill("#4DA8F2"))
 draw_round_polyline(ribbon_front, width_units=w, color=DARK, closed=True)
 
 save()

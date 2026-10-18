@@ -91,7 +91,7 @@ def rot90(pts: list[tuple[float, float]], k: int) -> list[tuple[float, float]]:
 
 YELLOW_GREEN = "#A3D65C"
 PURPLE_MAGENTA = "#B565A7"
-ORANGE_AMBER = "#F5B856"
+ORANGE_AMBER = "#F1B047"
 INDIGO_BLUE = "#6366B5"
 
 # Color cycle for k = 0, 1, 2, 3 (90-degree CCW steps)

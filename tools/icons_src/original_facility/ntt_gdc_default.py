@@ -26,13 +26,13 @@ letter_n = [(53.62, 45.53), (53.58, 45.6), (53.49, 45.77), (53.37, 46.02), (53.1
 letter_t1 = [(73.87, 58.55), (73.87, 54.96), (68.38, 54.96), (68.38, 41.5), (64.5, 41.5), (64.5, 54.96), (59.01, 54.96), (59.01, 58.55), (73.82, 58.55)]
 letter_t2 = [(75.14, 58.55), (75.14, 54.96), (80.62, 54.96), (80.62, 41.5), (84.51, 41.5), (84.51, 54.96), (90.0, 54.96), (90.0, 58.55), (75.18, 58.55)]
 
-draw_compound_polygon([loop_outer, *loop_holes], color="#64A0E0")
+draw_compound_polygon([loop_outer, *loop_holes], color="#5298E3")
 draw_round_polyline(loop_outer, width_units=w_outer, color=DARK, closed=True)
 for hole in loop_holes:
     draw_round_polyline(hole, width_units=w_inner, color=DARK, closed=True)
 
 for pts in (letter_n, letter_t1, letter_t2):
-    polygon(pts, style=no_border_fill("#64A0E0"))
+    polygon(pts, style=no_border_fill("#5298E3"))
     draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
 
 save()

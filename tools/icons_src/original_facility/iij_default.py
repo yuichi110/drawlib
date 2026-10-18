@@ -25,7 +25,7 @@ setup_icon()
 
 w = 2.0
 GRAY = "#848286"
-CRIMSON = "#E86682"
+CRIMSON = "#EB4E70"
 
 # 1. Tiny 'Internet Initiative Japan' subtext (zero outline for legibility)
 polygon([(9.0, 33.15), (10.03, 33.15), (10.03, 27.99), (9.0, 27.99)], style=no_border_fill(GRAY))

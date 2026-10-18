@@ -36,10 +36,10 @@ stalk_outline = [(86.0, 65.98), (25.98, 65.98), (25.09, 65.96), (24.2, 65.88), (
 # fmt: on
 
 # 1. Alternating pastel green horizontal celery stalk stripes
-polygon(stripe1, style=no_border_fill("#C5E17A"))
-polygon(stripe2, style=no_border_fill("#AED581"))
-polygon(stripe3, style=no_border_fill("#C5E17A"))
-polygon(stripe4, style=no_border_fill("#AED581"))
+polygon(stripe1, style=no_border_fill("#BDE15E"))
+polygon(stripe2, style=no_border_fill("#A2D36A"))
+polygon(stripe3, style=no_border_fill("#BDE15E"))
+polygon(stripe4, style=no_border_fill("#A2D36A"))
 
 # 2. Internal horizontal DARK stripe seams
 for p1, p2 in seams:
@@ -49,7 +49,7 @@ for p1, p2 in seams:
 draw_round_polyline(stalk_outline, width_units=w_outer, color=DARK, closed=True)
 
 # 4. Pale pastel green C-shaped cross-section cap with DARK border on top
-polygon(c_cap, style=no_border_fill("#E6F4B8"))
+polygon(c_cap, style=no_border_fill("#E0F49F"))
 draw_round_polyline(c_cap, width_units=w_outer, color=DARK, closed=True)
 
 save()

@@ -85,10 +85,10 @@ bar3 = [
     (34.13, 37.65),
 ]
 
-polygon(page_pts, style=no_border_fill("#7BAEF7"))
+polygon(page_pts, style=no_border_fill("#5797F2"))
 draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#5E97E8"))
+polygon(fold_pts, style=no_border_fill("#498DEC"))
 draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
 
 for b_pts in (bar1, bar2, bar3):

@@ -49,10 +49,10 @@ tl_orange = _sc([(50.0, 50.0 + 3.0 * r), *_arc(50.0 - r, 50.0 + 2.0 * r, r, 90.0
 tr_coral = _sc([(50.0, 50.0 + r), *_arc(50.0 + r, 50.0 + 2.0 * r, r, -90.0, 90.0, 24), (50.0, 50.0 + 3.0 * r)])
 
 blocks: list[tuple[list[tuple[float, float]], Any]] = [
-    (bl_green, "#6BE2B4"),
-    (ml_purple, "#C494FF"),
-    (tl_orange, "#F78C6B"),
-    (tr_coral, "#FFA399"),
+    (bl_green, "#55E4AD"),
+    (ml_purple, "#A565F3"),
+    (tl_orange, "#F27650"),
+    (tr_coral, "#F47567"),
 ]
 
 for pts, col in blocks:
@@ -61,6 +61,6 @@ for pts, col in blocks:
 
 # 5. Middle-right circle (cyan #73D6FE)
 cx_mr, cy_mr = _sc([(50.0 + r, 50.0)])[0]
-circle((cx_mr, cy_mr), radius=r * s, style=fill_style("#73D6FE", border_color=DARK, border_units=w))
+circle((cx_mr, cy_mr), radius=r * s, style=fill_style("#56C5F2", border_color=DARK, border_units=w))
 
 save()

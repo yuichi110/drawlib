@@ -73,7 +73,7 @@ m_bars: list[list[tuple[float, float]]] = [
 
 for bar in (*i_bars, *b_bars, *m_bars):
     draw_round_polyline(bar, width_units=w_halo, color=DARK, closed=True)
-    polygon(bar, style=no_border_fill("#64A0E8"))
+    polygon(bar, style=no_border_fill("#4D95EB"))
     draw_round_polyline(bar, width_units=w_in, color=DARK, closed=True)
 
 save()

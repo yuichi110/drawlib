@@ -36,12 +36,12 @@ atom_rings = [_sc(r) for r in [[(78.36, 62.31), (78.18, 62.38), (78.0, 62.44), (
 # fmt: on
 
 # 1. Pastel cyan elliptical atom rings with transparent holes
-draw_compound_polygon(atom_rings, color="#7EE0FA")
+draw_compound_polygon(atom_rings, color="#59D2F3")
 for ring in atom_rings:
     draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
 
 # 2. Pastel cyan center circle
-polygon(center_dot, style=no_border_fill("#7EE0FA"))
+polygon(center_dot, style=no_border_fill("#59D2F3"))
 draw_round_polyline(center_dot, width_units=w, color=DARK, closed=True)
 
 save()

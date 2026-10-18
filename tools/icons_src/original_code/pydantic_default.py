@@ -29,7 +29,7 @@ inner_holes = [[(50.0, 76.42), (64.8, 55.9), (50.96, 60.43), (50.95, 60.44), (50
 # fmt: on
 
 # 1. Pastel pink/magenta chevron pyramid with transparent triangular holes
-draw_compound_polygon([outer_chevron, *inner_holes], color="#F06292")
+draw_compound_polygon([outer_chevron, *inner_holes], color="#F14982")
 
 # 2. Crisp DARK outlines on outer pyramid and inner hole cutouts
 draw_round_polyline(outer_chevron, width_units=w_outer, color=DARK, closed=True)

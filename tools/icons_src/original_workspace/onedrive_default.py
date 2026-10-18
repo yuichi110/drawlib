@@ -250,9 +250,9 @@ lobe_right = _sc(
 )
 
 for pts, col in [
-    (lobe_top, "#5EA0EF"),
-    (lobe_left, "#7BB8F7"),
-    (lobe_right, "#A0CEFA"),
+    (lobe_top, "#4795F1"),
+    (lobe_left, "#57A3F2"),
+    (lobe_right, "#6BB1F4"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

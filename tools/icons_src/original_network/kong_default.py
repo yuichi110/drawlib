@@ -55,7 +55,7 @@ facets = [
             (70.60, 54.62),
             (56.19, 71.69),
         ],
-        Colors.Green2,
+        Colors.Green3,
     ),
     (
         [

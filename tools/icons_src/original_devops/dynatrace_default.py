@@ -30,7 +30,7 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
     return [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in pts]
 
 
-# 1. Left ribbon facet (Colors.Blue2)
+# 1. Left ribbon facet (Colors.Blue3)
 left_facet = _sc(
     [
         (36.83, 84.13),
@@ -68,7 +68,7 @@ left_facet = _sc(
     ]
 )
 
-# 2. Top ribbon facet (Colors.Green2) - overlaps top-left fold of left facet
+# 2. Top ribbon facet (Colors.Green3) - overlaps top-left fold of left facet
 top_facet = _sc(
     [
         (9.48, 60.48),
@@ -113,7 +113,7 @@ top_facet = _sc(
     ]
 )
 
-# 3. Bottom ribbon facet (Colors.Purple2)
+# 3. Bottom ribbon facet (Colors.Purple3)
 bottom_facet = _sc(
     [
         (83.43, 35.24),
@@ -147,7 +147,7 @@ bottom_facet = _sc(
     ]
 )
 
-# 4. Right ribbon facet (Colors.Green2) - overlaps bottom-right fold of bottom facet
+# 4. Right ribbon facet (Colors.Green3) - overlaps bottom-right fold of bottom facet
 right_facet = _sc(
     [
         (58.37, 9.02),
@@ -193,10 +193,10 @@ right_facet = _sc(
 
 # Draw each facet in interlocking Z-order so fold seams and transparent center hole are crisp
 for pts, col in [
-    (left_facet, Colors.Blue2),
-    (top_facet, Colors.Green2),
-    (bottom_facet, Colors.Purple2),
-    (right_facet, Colors.Green2),
+    (left_facet, Colors.Blue3),
+    (top_facet, Colors.Green3),
+    (bottom_facet, Colors.Purple3),
+    (right_facet, Colors.Green3),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

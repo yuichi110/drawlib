@@ -21,7 +21,7 @@ from drawlib.utils import (
 
 # Warm caramel-brown palette harmonized with Drawlib's Amber/Orange tones
 BODY_CARAMEL = "#CA8B42"
-BELLY_TAN = "#E6B65C"
+BELLY_TAN = "#EAB24A"
 FAR_FLIPPER_BRONZE = "#B47834"
 
 

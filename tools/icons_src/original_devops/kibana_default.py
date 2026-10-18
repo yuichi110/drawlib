@@ -87,7 +87,7 @@ bot_teal_pts = _sc([(21.0, 9.0), *bot_arc])
 blocks = [
     (top_pink_pts, Colors.Pink3),
     (mid_gray_pts, Colors.Gray6),
-    (bot_teal_pts, Colors.Teal2),
+    (bot_teal_pts, Colors.Teal3),
 ]
 
 for pts, col in blocks:

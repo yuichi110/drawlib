@@ -23,8 +23,8 @@ from drawlib.utils import (
 # fmt: off
 setup_icon()
 
-CYAN = "#88DDF2"
-BEIGE = "#F7D9B4"
+CYAN = "#5AD4F3"
+BEIGE = "#F7CD98"
 
 w_body = 2.0
 w_part = 1.5

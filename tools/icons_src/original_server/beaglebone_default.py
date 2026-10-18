@@ -17,9 +17,9 @@ from drawlib.utils import DARK, WHITE, draw_compound_polygon, draw_round_polylin
 # fmt: off
 setup_icon()
 
-TAN = "#E0B97D"
-PINK = "#FF8A80"
-ORANGE = "#FF9E80"
+TAN = "#DFAD61"
+PINK = "#F3685C"
+ORANGE = "#F3805C"
 
 # 1. Sitting Beagle Dog (Option 2) in top [31.5, 88.5]
 dog_base: list[list[tuple[float, float]]] = [

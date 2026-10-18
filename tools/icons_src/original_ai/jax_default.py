@@ -38,11 +38,11 @@ def _iso(ix: float, iy: float) -> tuple[float, float]:
 
 
 # 1. Letter "J" facets (Blue2 top faces, Blue3 front/right faces)
-polygon([_iso(1, 2), _iso(2, 3), _iso(4, 3), _iso(3, 2)], style=no_border_fill(Colors.Blue2))
-polygon([_iso(0, 1), _iso(1, 2), _iso(7, 2), _iso(6, 1)], style=no_border_fill(Colors.Blue2))
-polygon([_iso(5, 2), _iso(9, 6), _iso(11, 6), _iso(7, 2)], style=no_border_fill(Colors.Blue2))
-polygon([_iso(0, 1), _iso(6, 1), _iso(7, 0), _iso(1, 0)], style=no_border_fill(Colors.Blue3))
-polygon([_iso(3, 2), _iso(4, 3), _iso(5, 2)], style=no_border_fill(Colors.Blue3))
+polygon([_iso(1, 2), _iso(2, 3), _iso(4, 3), _iso(3, 2)], style=no_border_fill(Colors.Blue3))
+polygon([_iso(0, 1), _iso(1, 2), _iso(7, 2), _iso(6, 1)], style=no_border_fill(Colors.Blue3))
+polygon([_iso(5, 2), _iso(9, 6), _iso(11, 6), _iso(7, 2)], style=no_border_fill(Colors.Blue3))
+polygon([_iso(0, 1), _iso(6, 1), _iso(7, 0), _iso(1, 0)], style=no_border_fill(Colors.Blue4))
+polygon([_iso(3, 2), _iso(4, 3), _iso(5, 2)], style=no_border_fill(Colors.Blue4))
 
 # 2. Letter "A" facets (Teal2 top crossbar, Teal3 right-facing walls, Teal4 down-left undersides)
 polygon([_iso(7, 2), _iso(8, 3), _iso(12, 3), _iso(11, 2)], style=no_border_fill(Colors.Teal2))

@@ -30,9 +30,9 @@ wedge_green = [(56.95, 55.09), (43.11, 53.01), (10.65, 48.12), (10.85, 46.07), (
 overlap_top = [(57.61, 74.36), (41.92, 69.72), (42.55, 61.04), (57.0, 60.56)]
 overlap_bottom = [(43.11, 53.01), (45.28, 22.66), (55.89, 20.95), (56.95, 55.09)]
 
-polygon(wedge_sky, style=no_border_fill("#74C4EA"))
-polygon(wedge_cyan, style=no_border_fill("#5EC8D6"))
-polygon(wedge_green, style=no_border_fill("#84CC89"))
+polygon(wedge_sky, style=no_border_fill("#55BBEC"))
+polygon(wedge_cyan, style=no_border_fill("#54CADA"))
+polygon(wedge_green, style=no_border_fill("#71C977"))
 polygon(overlap_top, style=no_border_fill("#56729E"))
 polygon(overlap_bottom, style=no_border_fill("#56729E"))
 

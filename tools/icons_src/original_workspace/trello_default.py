@@ -48,7 +48,7 @@ left_bar = _rrect(33.28, 33.28, 78.08, 176.0, 12.0)
 right_bar = _rrect(144.64, 33.28, 78.08, 112.0, 12.0)
 
 for pts, col in (
-    (bg_sq, "#66B2E8"),
+    (bg_sq, "#4EAAEB"),
     (left_bar, WHITE),
     (right_bar, WHITE),
 ):

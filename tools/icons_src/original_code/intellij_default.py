@@ -44,16 +44,16 @@ ij_j = _sc([(49.89, 49.83), (49.33, 49.83), (48.78, 49.88), (48.23, 49.96), (47.
 # fmt: on
 
 # 1. Flat pastel orange, blue, and pink outer shards
-polygon(shard_orange, style=no_border_fill("#FFB74D"))
+polygon(shard_orange, style=no_border_fill("#F1AC47"))
 draw_round_polyline(shard_orange, width_units=w_outer, color=DARK, closed=True)
 
-polygon(shard_blue_bot, style=no_border_fill("#64B5F6"))
+polygon(shard_blue_bot, style=no_border_fill("#4DA8F2"))
 draw_round_polyline(shard_blue_bot, width_units=w_outer, color=DARK, closed=True)
 
-polygon(shard_blue_top, style=no_border_fill("#64B5F6"))
+polygon(shard_blue_top, style=no_border_fill("#4DA8F2"))
 draw_round_polyline(shard_blue_top, width_units=w_outer, color=DARK, closed=True)
 
-polygon(shard_pink, style=no_border_fill("#F06292"))
+polygon(shard_pink, style=no_border_fill("#F14982"))
 draw_round_polyline(shard_pink, width_units=w_outer, color=DARK, closed=True)
 
 # 2. Flat dark slate inner square

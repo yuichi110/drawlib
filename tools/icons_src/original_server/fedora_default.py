@@ -115,8 +115,8 @@ right_bridge = [
     *reversed(right_bar_cap),
 ]
 
-polygon(left_bridge, style=no_border_fill("#6B9EE8"))
-polygon(right_bridge, style=no_border_fill("#6B9EE8"))
+polygon(left_bridge, style=no_border_fill("#518FEA"))
+polygon(right_bridge, style=no_border_fill("#518FEA"))
 
 for ring in (outer_inf, hole_bl, hole_tr):
     draw_round_polyline(ring, width_units=w_f, color=DARK, closed=True)

@@ -43,7 +43,7 @@ p2_dark_outer = [(71.4, 59.31), (71.72, 59.3), (72.04, 59.29), (72.35, 59.27), (
 
 # 1. White outer oval base (forms crisp WHITE inner rim) and flat pastel indigo-purple oval
 polygon(outer_oval, style=no_border_fill(WHITE))
-polygon(inner_oval, style=no_border_fill("#8B90C7"))
+polygon(inner_oval, style=no_border_fill("#797FC2"))
 
 # 2. WHITE outlines behind the 'php' letters
 draw_compound_polygon([p1_w_outer, p1_w_hole_in], color=WHITE)

@@ -56,7 +56,7 @@ for ry in row_ys:
 holes.append(_square_pts(50.0, 58.0 - step, half_sq))
 
 # 3. Compound Amber2 fill with transparent holes + DARK borders
-draw_compound_polygon([tri_pts, *holes], color=Colors.Amber2)
+draw_compound_polygon([tri_pts, *holes], color=Colors.Amber3)
 draw_round_polyline(tri_pts, width_units=w, color=DARK, closed=True)
 for hole in holes:
     draw_round_polyline(hole, width_units=w_hole, color=DARK, closed=True)

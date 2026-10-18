@@ -86,10 +86,10 @@ frame_hole = [
     (63.23, 53.97),
 ]
 
-polygon(page_pts, style=no_border_fill("#FDD663"))
+polygon(page_pts, style=no_border_fill("#F2C94F"))
 draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#F2BC46"))
+polygon(fold_pts, style=no_border_fill("#F1B93F"))
 draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
 
 draw_compound_polygon([frame_outer, frame_hole], color=WHITE)

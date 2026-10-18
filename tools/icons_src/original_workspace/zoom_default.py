@@ -78,7 +78,7 @@ cam_lens = [
     (63.05, 56.02),
 ]
 
-circle((50.0, 50.0), radius=38.8, style=fill_style("#6DB8F7", border_color=DARK, border_units=w))
+circle((50.0, 50.0), radius=38.8, style=fill_style("#51A8F2", border_color=DARK, border_units=w))
 
 for pts in (cam_body, cam_lens):
     polygon(pts, style=no_border_fill(WHITE))

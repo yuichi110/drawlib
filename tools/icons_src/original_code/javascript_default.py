@@ -36,7 +36,7 @@ s_pts = _sc([(84.29, 28.55), (84.21, 29.02), (84.1, 29.48), (83.97, 29.93), (83.
 # fmt: on
 
 # 1. Flat pastel yellow square
-polygon(square, style=no_border_fill("#F9E45B"))
+polygon(square, style=no_border_fill("#F1DB4A"))
 
 # 2. Solid DARK 'J' and 'S' letters
 polygon(j_pts, style=no_border_fill(DARK))

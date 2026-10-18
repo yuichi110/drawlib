@@ -32,14 +32,14 @@ left_wing = [
 polygon(left_wing, style=no_border_fill(Colors.Amber3))
 draw_round_polyline(left_wing, width_units=w, color=DARK, closed=True)
 
-# 2. Right tall sky-blue parallelogram wing ("#58AEFA")
+# 2. Right tall sky-blue parallelogram wing ("#49A3F1")
 right_wing = [
     (59.5, 74.1),
     (87.8, 88.6),
     (66.8, 11.4),
     (43.8, 11.4),
 ]
-polygon(right_wing, style=no_border_fill("#58AEFA"))
+polygon(right_wing, style=no_border_fill("#49A3F1"))
 draw_round_polyline(right_wing, width_units=w, color=DARK, closed=True)
 
 save()

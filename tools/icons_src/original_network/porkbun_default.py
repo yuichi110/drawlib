@@ -33,7 +33,7 @@ w_tail = 2.2
 circle(
     (50.0, 50.0),
     radius=41.0,
-    style=fill_style(Colors.Red2, border_color=DARK, border_units=w_badge),
+    style=fill_style(Colors.Red3, border_color=DARK, border_units=w_badge),
 )
 
 # 2. Pig ears (authentic Porkbun ear tips, tucked slightly behind the body dome)
@@ -105,7 +105,7 @@ pig_body = [
 polygon(pig_body, style=no_border_fill(WHITE))
 draw_round_polyline(pig_body, width_units=w_pig, color=DARK, closed=True)
 
-# 4. Curly pig tail: inner loop filled in Colors.Red2, centerline stroked in DARK (2.2 units)
+# 4. Curly pig tail: inner loop filled in Colors.Red3, centerline stroked in DARK (2.2 units)
 tail_loop_pts = [
     (56.85, 49.0),
     (57.7, 49.9),
@@ -121,7 +121,7 @@ tail_loop_pts = [
     (54.3, 49.85),
     (55.55, 49.15),
 ]
-polygon(tail_loop_pts, style=no_border_fill(Colors.Red2))
+polygon(tail_loop_pts, style=no_border_fill(Colors.Red3))
 
 tail_centerline = [
     (53.15, 46.54),

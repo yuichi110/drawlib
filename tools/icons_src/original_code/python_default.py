@@ -31,12 +31,12 @@ yellow_eye = [(60.67, 23.57), (60.89, 23.57), (61.09, 23.55), (61.3, 23.52), (61
 # fmt: on
 
 # 1. Top-left pastel blue snake with transparent eye hole
-draw_compound_polygon([blue_outer, blue_eye], color="#6B9EE8")
+draw_compound_polygon([blue_outer, blue_eye], color="#518FEA")
 draw_round_polyline(blue_outer, width_units=w_outer, color=DARK, closed=True)
 draw_round_polyline(blue_eye, width_units=w_inner, color=DARK, closed=True)
 
 # 2. Bottom-right pastel yellow snake with transparent eye hole
-draw_compound_polygon([yellow_outer, yellow_eye], color="#FCD34D")
+draw_compound_polygon([yellow_outer, yellow_eye], color="#F1C946")
 draw_round_polyline(yellow_outer, width_units=w_outer, color=DARK, closed=True)
 draw_round_polyline(yellow_eye, width_units=w_inner, color=DARK, closed=True)
 

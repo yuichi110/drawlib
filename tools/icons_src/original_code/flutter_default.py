@@ -32,8 +32,8 @@ bot_leg = [(82.31, 10.0), (61.0, 31.32), (48.5, 19.32), (57.69, 10.0)]
 
 # 1. Flat pastel light/medium/deep blue Flutter 'F' chevron facets
 facets = [
-    (top_bar, "#72C8F8"),
-    (mid_top_arm, "#72C8F8"),
+    (top_bar, "#53B9F2"),
+    (mid_top_arm, "#53B9F2"),
     (mid_diamond, "#4FA3E3"),
     (bot_leg, "#3A78B8"),
 ]

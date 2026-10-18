@@ -104,7 +104,7 @@ hole_tr = [
     (63.23, 54.41),
 ]
 
-polygon(page_pts, style=no_border_fill("#81C995"))
+polygon(page_pts, style=no_border_fill("#71C789"))
 draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
 
 polygon(fold_pts, style=no_border_fill("#60B078"))

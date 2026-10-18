@@ -287,9 +287,9 @@ for pts, col in [
     (cell_bot, "#48AD77"),
     (cell_l2, "#5CC08A"),
     (cell_r3, "#5CC08A"),
-    (cell_tl, "#7DD1A3"),
-    (cell_r2, "#7DD1A3"),
-    (cell_tr, "#A3E2BF"),
+    (cell_tl, "#6ACF98"),
+    (cell_r2, "#6ACF98"),
+    (cell_tr, "#78D9A3"),
 ]:
     polygon(pts, style=no_border_fill(col))
     draw_round_polyline(pts, width_units=w, color=DARK, closed=True)

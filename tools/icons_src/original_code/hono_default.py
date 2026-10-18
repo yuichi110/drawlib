@@ -30,11 +30,11 @@ inner_core = [(50.36, 76.99), (51.25, 75.95), (52.12, 74.92), (52.98, 73.87), (5
 # fmt: on
 
 # 1. Flat pastel orange outer flame
-polygon(outer_flame, style=no_border_fill("#FF8A50"))
+polygon(outer_flame, style=no_border_fill("#F18048"))
 draw_round_polyline(outer_flame, width_units=w_outer, color=DARK, closed=True)
 
 # 2. Flat pastel amber inner core
-polygon(inner_core, style=no_border_fill("#FFD54F"))
+polygon(inner_core, style=no_border_fill("#F1C948"))
 draw_round_polyline(inner_core, width_units=w_inner, color=DARK, closed=True)
 
 save()

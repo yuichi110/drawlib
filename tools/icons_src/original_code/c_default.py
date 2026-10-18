@@ -36,7 +36,7 @@ rays = [((50.0, 50.0), (84.64, 70.0)), ((50.0, 50.0), (84.64, 30.0)), ((50.0, 50
 # fmt: on
 
 # 1. Flat pastel blue hexagon facets
-polygon(hex_top_left, style=no_border_fill("#7B9FD9"))
+polygon(hex_top_left, style=no_border_fill("#6490D8"))
 polygon(hex_right, style=no_border_fill("#537EC5"))
 polygon(hex_bottom, style=no_border_fill("#3E64A8"))
 

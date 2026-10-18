@@ -74,8 +74,8 @@ upper_lid = _cubic_bezier(p_left, (29.0, 76.0), (68.0, 77.0), p_right, 28)
 lower_lid = _cubic_bezier(p_right, (68.0, 24.0), (31.0, 25.0), p_left, 28)
 eye_pts = [p_left, *upper_lid, *lower_lid]
 
-# Sclera background (Colors.Teal2 outer eyelid ring + WHITE inner sclera)
-polygon(eye_pts, style=no_border_fill(Colors.Teal2))
+# Sclera background (Colors.Teal3 outer eyelid ring + WHITE inner sclera)
+polygon(eye_pts, style=no_border_fill(Colors.Teal3))
 
 inner_upper = _cubic_bezier((16.5, 47.5), (32.0, 70.0), (65.0, 71.0), (83.0, 50.5), 24)
 inner_lower = _cubic_bezier((83.0, 50.5), (65.0, 29.0), (33.0, 29.5), (16.5, 47.5), 24)
@@ -107,11 +107,11 @@ arc(
     style=stroke_style(WHITE, width_units=1.6),
 )
 
-# 4. Inner iris ring (Colors.Teal3) + dark pupil (DARK) + crisp white catchlight
+# 4. Inner iris ring (Colors.Teal4) + dark pupil (DARK) + crisp white catchlight
 circle(
     (cx, cy),
     radius=9.8,
-    style=fill_style(Colors.Teal3, border_color=DARK, border_units=1.7),
+    style=fill_style(Colors.Teal4, border_color=DARK, border_units=1.7),
 )
 circle(
     (cx, cy),

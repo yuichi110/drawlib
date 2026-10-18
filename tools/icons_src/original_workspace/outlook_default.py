@@ -1186,22 +1186,22 @@ o_inner = _sc(
 )
 
 # 1. Envelope back diamond
-polygon(env_back, style=no_border_fill("#6CAEF5"))
+polygon(env_back, style=no_border_fill("#509EF2"))
 draw_round_polyline(env_back, width_units=w, color=DARK, closed=True)
 
 # 2. Calendar card header & 3x3 cells
-polygon(cal_header, style=no_border_fill("#6CAEF5"))
+polygon(cal_header, style=no_border_fill("#509EF2"))
 
 cells = [
-    ([(31.88, 59.53), (50.95, 59.53), (50.95, 76.70), (31.88, 76.70)], "#8CC4FA"),
-    ([(50.95, 59.53), (70.02, 59.53), (70.02, 76.70), (50.95, 76.70)], "#A8D5FC"),
-    ([(70.02, 59.53), (87.19, 59.53), (87.19, 76.70), (70.02, 76.70)], "#A8D5FC"),
-    ([(31.88, 42.37), (50.95, 42.37), (50.95, 59.53), (31.88, 59.53)], "#6CAEF5"),
-    ([(50.95, 42.37), (70.02, 42.37), (70.02, 59.53), (50.95, 59.53)], "#8CC4FA"),
-    ([(70.02, 42.37), (87.19, 42.37), (87.19, 59.53), (70.02, 59.53)], "#8CC4FA"),
-    ([(31.88, 25.21), (50.95, 25.21), (50.95, 42.37), (31.88, 42.37)], "#6CAEF5"),
-    ([(50.95, 25.21), (70.02, 25.21), (70.02, 42.37), (50.95, 42.37)], "#6CAEF5"),
-    ([(70.02, 25.21), (87.19, 25.21), (87.19, 42.37), (70.02, 42.37)], "#6CAEF5"),
+    ([(31.88, 59.53), (50.95, 59.53), (50.95, 76.70), (31.88, 76.70)], "#5FAAF3"),
+    ([(50.95, 59.53), (70.02, 59.53), (70.02, 76.70), (50.95, 76.70)], "#85C1F6"),
+    ([(70.02, 59.53), (87.19, 59.53), (87.19, 76.70), (70.02, 76.70)], "#85C1F6"),
+    ([(31.88, 42.37), (50.95, 42.37), (50.95, 59.53), (31.88, 59.53)], "#509EF2"),
+    ([(50.95, 42.37), (70.02, 42.37), (70.02, 59.53), (50.95, 59.53)], "#5FAAF3"),
+    ([(70.02, 42.37), (87.19, 42.37), (87.19, 59.53), (70.02, 59.53)], "#5FAAF3"),
+    ([(31.88, 25.21), (50.95, 25.21), (50.95, 42.37), (31.88, 42.37)], "#509EF2"),
+    ([(50.95, 25.21), (70.02, 25.21), (70.02, 42.37), (50.95, 42.37)], "#509EF2"),
+    ([(70.02, 25.21), (87.19, 25.21), (87.19, 42.37), (70.02, 42.37)], "#509EF2"),
 ]
 for c_pts, c_col in cells:
     polygon(_sc(c_pts), style=no_border_fill(c_col))
@@ -1227,14 +1227,14 @@ draw_round_polyline(
 )
 
 # 3. Envelope front flaps
-polygon(env_right, style=no_border_fill("#8CC4FA"))
+polygon(env_right, style=no_border_fill("#5FAAF3"))
 draw_round_polyline(env_right, width_units=w, color=DARK, closed=True)
 
-polygon(env_left, style=no_border_fill("#A8D5FC"))
+polygon(env_left, style=no_border_fill("#85C1F6"))
 draw_round_polyline(env_left, width_units=w, color=DARK, closed=True)
 
 # 4. Left tile
-polygon(tile_pts, style=no_border_fill("#6CAEF5"))
+polygon(tile_pts, style=no_border_fill("#509EF2"))
 draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
 
 # 5. Letter O
