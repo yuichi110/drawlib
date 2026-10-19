@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 scale = 0.95
@@ -94,13 +88,13 @@ inner_hole = [_sc(x, y) for x, y in _RAW_HOLE]
 shadow_band = [_sc(x, y) for x, y in _RAW_SHADOW_BAND]
 
 # 1. Main bucket (Colors.Blue3) with transparent center trapezoid hole
-draw_compound_polygon([outer_bucket, inner_hole], color=Colors.Blue3)
+polygon(outer_bucket, holes=[inner_hole], style=Icon.fill_style(Colors.Blue3))
 
 # 2. Right flat shadow band (Colors.Blue4)
-polygon(shadow_band, style=no_border_fill(Colors.Blue4))
+polygon(shadow_band, style=Icon.no_border_fill(Colors.Blue4))
 
 # 3. Crisp DARK w=1.9 outlines on outer bucket and inner hole
-draw_round_polyline(outer_bucket, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_hole, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_bucket, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

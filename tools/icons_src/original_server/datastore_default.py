@@ -11,22 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cylinder_tier,
-    draw_iso_cube,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx = 46.0
 width = 56.0
 ry = 8.5
@@ -36,15 +25,15 @@ tier_bottoms = (20.0, 38.0, 56.0)
 for i, y_bot in enumerate(tier_bottoms):
     is_top = i == len(tier_bottoms) - 1
     tier_h = body_h if is_top else tier_bottoms[i + 1] - y_bot
-    draw_cylinder_tier(
+    Icon.draw_cylinder_tier(
         cx,
         y_bot,
         width=width,
         body_h=tier_h,
         ry=ry,
-        body_color=PASTEL_BLUE,
-        top_color=WHITE if is_top else None,
-        border_color=DARK,
+        body_color=Icon.PASTEL_BLUE,
+        top_color=Icon.WHITE if is_top else None,
+        border_color=Icon.DARK,
         border_units=w,
         draw_top_cap=is_top,
     )
@@ -54,23 +43,23 @@ for y_bot in tier_bottoms:
     circle(
         (28.0, y_bot + 2.0),
         radius=2.6,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
     )
     circle(
         (36.5, y_bot + 0.5),
         radius=2.6,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8),
     )
 
 # Overlapping bottom-right 3D VM cube badge
-draw_iso_cube(
+Icon.draw_iso_cube(
     72.0,
     30.0,
     radius=14.5,
-    top_color=WHITE,
-    left_color=PASTEL_GREEN,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_GREEN,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 

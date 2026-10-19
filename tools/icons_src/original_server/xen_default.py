@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_orbit = 2.0
 w_letter = 1.5
@@ -55,21 +49,21 @@ n_letter: list[tuple[float, float]] = [(66.97, 55.19), (66.6, 55.17), (66.23, 55
 # 1. Draw slate-gray orbit arcs (#64748B)
 for raw_arc in orbit_arcs:
     pts = _tx(raw_arc)
-    polygon(pts, style=no_border_fill("#64748B"))
-    draw_round_polyline(pts, width_units=w_orbit, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#64748B"))
+    Icon.draw_round_polyline(pts, width_units=w_orbit, color=Icon.DARK, closed=True)
 
 # 2. Draw dark slate-gray X and n letters (#4A5568)
 for raw_letter in (x_letter, n_letter):
     pts = _tx(raw_letter)
-    polygon(pts, style=no_border_fill("#4A5568"))
-    draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#4A5568"))
+    Icon.draw_round_polyline(pts, width_units=w_letter, color=Icon.DARK, closed=True)
 
 # 3. Draw dark slate-gray e letter with transparent hole (#4A5568)
 e_outer_tx = _tx(e_outer)
 e_hole_tx = _tx(e_hole)
-draw_compound_polygon([e_outer_tx, e_hole_tx], color="#4A5568")
-draw_round_polyline(e_outer_tx, width_units=w_letter, color=DARK, closed=True)
-draw_round_polyline(e_hole_tx, width_units=w_letter, color=DARK, closed=True)
+polygon(e_outer_tx, holes=[e_hole_tx], style=Icon.fill_style("#4A5568"))
+Icon.draw_round_polyline(e_outer_tx, width_units=w_letter, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(e_hole_tx, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

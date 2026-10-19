@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -61,17 +56,17 @@ fold_c_right = _sc([(50.63, 90.93), (85.65, 30.75)])
 # fmt: on
 
 # 1. Flat pastel green hexagon facets
-polygon(hex_outer, style=no_border_fill("#68B35B"))
-polygon(ribbon_b, style=no_border_fill("#68B35B"))
-polygon(ribbon_c, style=no_border_fill("#76C666"))
+polygon(hex_outer, style=Icon.no_border_fill("#68B35B"))
+polygon(ribbon_b, style=Icon.no_border_fill("#68B35B"))
+polygon(ribbon_c, style=Icon.no_border_fill("#76C666"))
 
 # 2. Internal facet DARK fold lines
-draw_round_polyline(fold_bl, width_units=w_inner, color=DARK)
-draw_round_polyline(fold_tr, width_units=w_inner, color=DARK)
-draw_round_polyline(fold_c_left, width_units=w_inner, color=DARK)
-draw_round_polyline(fold_c_right, width_units=w_inner, color=DARK)
+Icon.draw_round_polyline(fold_bl, width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline(fold_tr, width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline(fold_c_left, width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline(fold_c_right, width_units=w_inner, color=Icon.DARK)
 
 # 3. Outer hexagon DARK border
-draw_round_polyline(hex_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(hex_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

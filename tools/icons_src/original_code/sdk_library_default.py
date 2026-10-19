@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 
@@ -46,21 +35,21 @@ def _arc_points(
 # 1. Bottom two modular horizontal book/layer slabs
 slabs = [
     # (cx, cy, width, height, fill_color)
-    (43.0, 22.0, 58.0, 16.0, WHITE),
-    (43.0, 42.0, 58.0, 16.0, PASTEL_BLUE_LIGHT),
+    (43.0, 22.0, 58.0, 16.0, Icon.WHITE),
+    (43.0, 42.0, 58.0, 16.0, Icon.PASTEL_BLUE_LIGHT),
 ]
 for cx, cy, sw, sh, col in slabs:
     rectangle(
         (cx, cy),
         width=sw,
         height=sh,
-        style=fill_style(col, border_color=DARK, border_units=w_shape, shape_r=4.0),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w_shape, shape_r=4.0),
     )
-    draw_round_segment(
+    Icon.draw_round_segment(
         (24.0, cy - sh / 2.0),
         (24.0, cy + sh / 2.0),
         width_units=w_shape,
-        color=DARK,
+        color=Icon.DARK,
     )
 
 # 2. Top PASTEL_BLUE slab (x=14..60, y=54..70, rounded on left, flat on right at x=60 to interlock cleanly)
@@ -71,9 +60,9 @@ top_slab_pts: list[tuple[float, float]] = [
     (60.0, 70.0),
     *_arc_points(14.0 + r_s, 70.0 - r_s, r_s, 90.0, 180.0, 6),
 ]
-polygon(top_slab_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(top_slab_pts, width_units=w_shape, color=DARK, closed=True)
-draw_round_segment((24.0, 54.0), (24.0, 70.0), width_units=w_shape, color=DARK)
+polygon(top_slab_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(top_slab_pts, width_units=w_shape, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((24.0, 54.0), (24.0, 70.0), width_units=w_shape, color=Icon.DARK)
 
 # 3. Interlocking PASTEL_GREEN puzzle piece / connector block on top-right
 # Main body x=60..86, y=54..80, flat bottom-left corner at (60, 54) flush with top slab!
@@ -99,7 +88,7 @@ puzzle_pts: list[tuple[float, float]] = [
     (x0, 58.8),
 ]
 
-polygon(puzzle_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(puzzle_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(puzzle_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(puzzle_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 save()

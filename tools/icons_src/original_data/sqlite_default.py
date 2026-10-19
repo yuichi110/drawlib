@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -70,19 +63,19 @@ rectangle(
     (tile_cx, tile_cy),
     width=tile_w,
     height=tile_h,
-    style=fill_style(Colors.Blue4, shape_r=tile_r),
+    style=Icon.fill_style(Colors.Blue4, shape_r=tile_r),
 )
-polygon(_build_tile_bottom_wave(x0, y0, x1, tile_r), style=no_border_fill(Colors.Blue3))
-draw_round_polyline(
+polygon(_build_tile_bottom_wave(x0, y0, x1, tile_r), style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(
     [(x0, 29.0), *_bezier((x0, 29.0), (28.0, 35.5), (48.0, 39.5), (x1, 39.0), 18)],
     width_units=1.6,
-    color=DARK,
+    color=Icon.DARK,
 )
 rectangle(
     (tile_cx, tile_cy),
     width=tile_w,
     height=tile_h,
-    style=fill_style((0, 0, 0, 0), border_color=DARK, border_units=w, shape_r=tile_r),
+    style=Icon.fill_style((0, 0, 0, 0), border_color=Icon.DARK, border_units=w, shape_r=tile_r),
 )
 
 # 2. Diagonal quill feather silhouette (Colors.Teal3) with iconic barbs
@@ -117,14 +110,14 @@ feather_pts: list[tuple[float, float]] = [
     *_bezier(p_vane_bot_r, (61.5, 24.5), (60.2, 18.0), p_quill_tip, 12),
 ]
 
-polygon(feather_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(feather_pts, width_units=w, color=DARK, closed=True)
+polygon(feather_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(feather_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Tapered central feather shaft (WHITE with clear DARK border)
 shaft_l = [(58.8, 26.0), *_bezier((58.8, 26.0), (61.5, 46.5), (69.5, 68.5), (81.2, 82.0), 18)]
 shaft_r = [(81.2, 82.0), *_bezier((81.2, 82.0), (73.5, 66.0), (66.0, 44.5), (62.2, 26.0), 18)]
 shaft_pts = [*shaft_l, *shaft_r]
-polygon(shaft_pts, style=no_border_fill(WHITE))
-draw_round_polyline(shaft_pts, width_units=1.5, color=DARK, closed=True)
+polygon(shaft_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(shaft_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 save()

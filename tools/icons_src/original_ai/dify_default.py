@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.94
@@ -64,8 +59,8 @@ raw_dot = [
     (30.72, 70.48),
 ]
 dot_pts = [_s(x, y) for x, y in raw_dot]
-polygon(dot_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(dot_pts, width_units=w, color=DARK, closed=True)
+polygon(dot_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(dot_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Geometric "if" stem and hooked crossbar (Colors.Blue4)
 hook_arc: list[tuple[float, float]] = []
@@ -101,7 +96,7 @@ raw_if_body = [
     *hook_arc,
 ]
 if_pts = [_s(x, y) for x, y in raw_if_body]
-polygon(if_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(if_pts, width_units=w, color=DARK, closed=True)
+polygon(if_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(if_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

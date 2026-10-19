@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -29,8 +24,8 @@ left_wing = [
     (43.8, 72.0),
     (43.8, 11.4),
 ]
-polygon(left_wing, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(left_wing, width_units=w, color=DARK, closed=True)
+polygon(left_wing, style=Icon.no_border_fill(Colors.Amber3))
+Icon.draw_round_polyline(left_wing, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right tall sky-blue parallelogram wing ("#49A3F1")
 right_wing = [
@@ -39,7 +34,7 @@ right_wing = [
     (66.8, 11.4),
     (43.8, 11.4),
 ]
-polygon(right_wing, style=no_border_fill("#49A3F1"))
-draw_round_polyline(right_wing, width_units=w, color=DARK, closed=True)
+polygon(right_wing, style=Icon.no_border_fill("#49A3F1"))
+Icon.draw_round_polyline(right_wing, width_units=w, color=Icon.DARK, closed=True)
 
 save()

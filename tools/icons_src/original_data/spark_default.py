@@ -14,14 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _round_polygon_radii(
@@ -67,7 +60,7 @@ def _round_polygon_radii(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -103,7 +96,7 @@ outer_radii = (4.2, 1.0, 4.2, 1.0, 4.2, 1.0, 4.2, 1.0, 4.2, 1.0)
 outer_poly = _round_polygon_radii(outer_pts, outer_radii)
 
 # 1. Base tilted star with transparent hollow star center (Colors.Orange3)
-draw_compound_polygon([outer_poly, inner_pts], color=Colors.Orange3)
+polygon(outer_poly, holes=[inner_pts], style=Icon.fill_style(Colors.Orange3))
 
 # 2. Dynamic top-right burst ray accented in Colors.Amber3
 burst_ray = [
@@ -116,13 +109,13 @@ burst_ray = [
 ]
 polygon(
     burst_ray,
-    style=fill_style(Colors.Amber3, shape_r=(0.0, 4.2, 0.0, 0.0, 0.0, 0.0)),
+    style=Icon.fill_style(Colors.Amber3, shape_r=(0.0, 4.2, 0.0, 0.0, 0.0, 0.0)),
 )
 
 # 3. Crisp seam lines and inner/outer structural outlines
-draw_round_segment(inner_pts[1], outer_pts[1], width_units=1.7, color=DARK)
-draw_round_segment(inner_pts[3], outer_pts[3], width_units=1.7, color=DARK)
-draw_round_polyline(inner_pts, width_units=1.8, color=DARK, closed=True)
-draw_round_polyline(outer_poly, width_units=w, color=DARK, closed=True)
+Icon.draw_round_segment(inner_pts[1], outer_pts[1], width_units=1.7, color=Icon.DARK)
+Icon.draw_round_segment(inner_pts[3], outer_pts[3], width_units=1.7, color=Icon.DARK)
+Icon.draw_round_polyline(inner_pts, width_units=1.8, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_poly, width_units=w, color=Icon.DARK, closed=True)
 
 save()

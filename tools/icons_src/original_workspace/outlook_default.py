@@ -11,17 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.7
@@ -1186,11 +1178,11 @@ o_inner = _sc(
 )
 
 # 1. Envelope back diamond
-polygon(env_back, style=no_border_fill("#509EF2"))
-draw_round_polyline(env_back, width_units=w, color=DARK, closed=True)
+polygon(env_back, style=Icon.no_border_fill("#509EF2"))
+Icon.draw_round_polyline(env_back, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Calendar card header & 3x3 cells
-polygon(cal_header, style=no_border_fill("#509EF2"))
+polygon(cal_header, style=Icon.no_border_fill("#509EF2"))
 
 cells = [
     ([(31.88, 59.53), (50.95, 59.53), (50.95, 76.70), (31.88, 76.70)], "#5FAAF3"),
@@ -1204,13 +1196,13 @@ cells = [
     ([(70.02, 25.21), (87.19, 25.21), (87.19, 42.37), (70.02, 42.37)], "#509EF2"),
 ]
 for c_pts, c_col in cells:
-    polygon(_sc(c_pts), style=no_border_fill(c_col))
+    polygon(_sc(c_pts), style=Icon.no_border_fill(c_col))
 
 # Calendar grid lines and card outline
 for y_grid in (76.70, 59.53, 42.37):
-    draw_round_segment(_p(31.88, y_grid), _p(87.19, y_grid), width_units=w_in, color=DARK)
+    Icon.draw_round_segment(_p(31.88, y_grid), _p(87.19, y_grid), width_units=w_in, color=Icon.DARK)
 for x_grid in (50.95, 70.02):
-    draw_round_segment(_p(x_grid, 25.21), _p(x_grid, 76.70), width_units=w_in, color=DARK)
+    Icon.draw_round_segment(_p(x_grid, 25.21), _p(x_grid, 76.70), width_units=w_in, color=Icon.DARK)
 
 cal_outline = _sc(
     [
@@ -1219,27 +1211,27 @@ cal_outline = _sc(
         *[(x, y) for x, y in _sc([])],
     ]
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [*_sc([(31.88, 25.21), (87.19, 25.21)]), *cal_header[2:]],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
     closed=True,
 )
 
 # 3. Envelope front flaps
-polygon(env_right, style=no_border_fill("#5FAAF3"))
-draw_round_polyline(env_right, width_units=w, color=DARK, closed=True)
+polygon(env_right, style=Icon.no_border_fill("#5FAAF3"))
+Icon.draw_round_polyline(env_right, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(env_left, style=no_border_fill("#85C1F6"))
-draw_round_polyline(env_left, width_units=w, color=DARK, closed=True)
+polygon(env_left, style=Icon.no_border_fill("#85C1F6"))
+Icon.draw_round_polyline(env_left, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Left tile
-polygon(tile_pts, style=no_border_fill("#509EF2"))
-draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
+polygon(tile_pts, style=Icon.no_border_fill("#509EF2"))
+Icon.draw_round_polyline(tile_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 5. Letter O
-draw_compound_polygon([o_outer, o_inner], color=WHITE)
-draw_round_polyline(o_outer, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(o_inner, width_units=w_in, color=DARK, closed=True)
+polygon(o_outer, holes=[o_inner], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(o_outer, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(o_inner, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

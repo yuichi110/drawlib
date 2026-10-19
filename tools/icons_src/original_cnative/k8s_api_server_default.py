@@ -11,47 +11,38 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Inner white API gateway card
 rectangle(
     (50.0, 48.0),
     width=46.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Left and right horizontal bidirectional routing arrows
-draw_round_segment((33.0, 48.0), (67.0, 48.0), width_units=2.0, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((33.0, 48.0), (67.0, 48.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(37.5, 52.2), (32.5, 48.0), (37.5, 43.8)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(62.5, 52.2), (67.5, 48.0), (62.5, 43.8)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Central green routing hub
 circle(
     (50.0, 48.0),
     radius=6.8,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

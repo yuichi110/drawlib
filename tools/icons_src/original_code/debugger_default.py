@@ -11,17 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 b = 2.0
 w_line = 2.0
@@ -33,19 +25,19 @@ rectangle(
     (72.5, 25.5),
     width=27.0,
     height=9.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=b, shape_r=3.5, angle=-45.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=b, shape_r=3.5, angle=-45.0),
 )
 
 # Outer PASTEL_BLUE magnifying bezel and inner WHITE lens
 circle(
     (cx, cy),
     radius=31.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=b),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=b),
 )
 circle(
     (cx, cy),
     radius=26.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b),
 )
 
 # 3 pairs of DARK bug legs
@@ -55,14 +47,14 @@ leg_pairs = [
     ((35.5, 42.0), (27.5, 38.0), (56.5, 42.0), (64.5, 38.0)),
 ]
 for l_in, l_out, r_in, r_out in leg_pairs:
-    draw_round_segment(l_in, l_out, width_units=w_line, color=DARK)
-    draw_round_segment(r_in, r_out, width_units=w_line, color=DARK)
+    Icon.draw_round_segment(l_in, l_out, width_units=w_line, color=Icon.DARK)
+    Icon.draw_round_segment(r_in, r_out, width_units=w_line, color=Icon.DARK)
 
 # Small PASTEL_BLUE bug head
 circle(
     (cx, 68.5),
     radius=5.8,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=b),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=b),
 )
 
 # Central PASTEL_GREEN oval bug body + wing split line
@@ -70,8 +62,8 @@ ellipse(
     (cx, 50.5),
     width=25.0,
     height=31.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=b),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=b),
 )
-draw_round_segment((cx, 35.5), (cx, 65.5), width_units=b, color=DARK)
+Icon.draw_round_segment((cx, 35.5), (cx, 65.5), width_units=b, color=Icon.DARK)
 
 save()

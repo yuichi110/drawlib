@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.95
@@ -39,7 +34,7 @@ _RAW_RIBBON: list[tuple[float, float]] = [
 
 pts = [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in _RAW_RIBBON]
 
-polygon(pts, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+polygon(pts, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

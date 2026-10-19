@@ -11,12 +11,13 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import WHITE, draw_compound_polygon, fill_style, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-polygon([(14.49, 70.5), (14.49, 29.5), (50.0, 9.0), (85.51, 29.5), (85.51, 70.5), (50.0, 91.0)], style=fill_style("#E30C34"))
-draw_compound_polygon([[(49.98, 77.31), (26.39, 63.7), (26.39, 50.08), (38.19, 56.9), (38.19, 29.48), (49.98, 22.69), (49.98, 63.7), (61.77, 70.51), (49.98, 77.32)], [(61.84, 56.82), (61.84, 29.5), (73.67, 36.33), (73.67, 63.67)]], color=WHITE)
+Icon.setup()
+polygon([(14.49, 70.5), (14.49, 29.5), (50.0, 9.0), (85.51, 29.5), (85.51, 70.5), (50.0, 91.0)], style=Icon.fill_style("#E30C34"))
+polygon([(49.98, 77.31), (26.39, 63.7), (26.39, 50.08), (38.19, 56.9), (38.19, 29.48), (49.98, 22.69), (49.98, 63.7), (61.77, 70.51), (49.98, 77.32)], style=Icon.fill_style(Icon.WHITE))
+polygon([(61.84, 56.82), (61.84, 29.5), (73.67, 36.33), (73.67, 63.67)], style=Icon.fill_style(Icon.WHITE))
 save()
 # fmt: on

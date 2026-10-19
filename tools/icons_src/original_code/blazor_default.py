@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -38,11 +33,11 @@ inner_island = _sc([(38.75, 51.4), (38.14, 51.37), (37.55, 51.3), (36.96, 51.18)
 # fmt: on
 
 # 1. Flat pastel purple '@' flame silhouette and inner 'a' counter island
-polygon(flame_spiral, style=no_border_fill(BLAZOR_PURPLE))
-polygon(inner_island, style=no_border_fill(BLAZOR_PURPLE))
+polygon(flame_spiral, style=Icon.no_border_fill(BLAZOR_PURPLE))
+polygon(inner_island, style=Icon.no_border_fill(BLAZOR_PURPLE))
 
 # 2. Crisp DARK outlines
-draw_round_polyline(flame_spiral, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(inner_island, width_units=w_inner, color=DARK, closed=True)
+Icon.draw_round_polyline(flame_spiral, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_island, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

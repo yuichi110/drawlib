@@ -12,18 +12,12 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    VMWARE_CYAN,
-    VMWARE_NAVY,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, Vmware
 
-setup_icon()
+Icon.setup()
 
 # Middle-right square stroke: top bar starts at x=49.0 (inside top-center) to (42.0, 44.0) (inside bottom-left)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [
         (49.0, 72.0),
         (88.0, 72.0),
@@ -32,12 +26,12 @@ draw_round_polyline(
         (42.0, 44.0),
     ],
     width_units=4.6,
-    color=VMWARE_NAVY,
+    color=Vmware.NAVY,
     corner_r=5.5,
 )
 
 # Top-center square stroke: left leg from y=58.0 (top of bottom-left) up/right to y=56.0 (inside middle-right)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [
         (27.0, 58.0),
         (27.0, 88.0),
@@ -45,7 +39,7 @@ draw_round_polyline(
         (70.0, 56.0),
     ],
     width_units=4.6,
-    color=VMWARE_CYAN,
+    color=Vmware.CYAN,
     corner_r=5.5,
 )
 
@@ -54,7 +48,7 @@ rectangle(
     (35.0, 35.0),
     width=46.0,
     height=46.0,
-    style=fill_style(Colors.Transparent, border_color=VMWARE_NAVY, border_units=4.6, shape_r=5.5),
+    style=Icon.fill_style(Colors.Transparent, border_color=Vmware.NAVY, border_units=4.6, shape_r=5.5),
 )
 
 save()

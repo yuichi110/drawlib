@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 w_line = 2.0
@@ -33,17 +23,17 @@ w_line = 2.0
 # 1. 12 metallic chip pins (3 pins protruding on each of the 4 sides at 36, 50, 64)
 pin_coords = (36.0, 50.0, 64.0)
 for c in pin_coords:
-    draw_round_segment((c, 78.0), (c, 88.0), width_units=w_line, color=DARK)
-    draw_round_segment((c, 12.0), (c, 22.0), width_units=w_line, color=DARK)
-    draw_round_segment((12.0, c), (22.0, c), width_units=w_line, color=DARK)
-    draw_round_segment((78.0, c), (88.0, c), width_units=w_line, color=DARK)
+    Icon.draw_round_segment((c, 78.0), (c, 88.0), width_units=w_line, color=Icon.DARK)
+    Icon.draw_round_segment((c, 12.0), (c, 22.0), width_units=w_line, color=Icon.DARK)
+    Icon.draw_round_segment((12.0, c), (22.0, c), width_units=w_line, color=Icon.DARK)
+    Icon.draw_round_segment((78.0, c), (88.0, c), width_units=w_line, color=Icon.DARK)
 
 # 2. PASTEL_BLUE square microchip package
 rectangle(
     (50.0, 50.0),
     width=60.0,
     height=60.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_shape, shape_r=7.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_shape, shape_r=7.0),
 )
 
 # 3. Inner WHITE silicon die square
@@ -51,7 +41,7 @@ rectangle(
     (50.0, 50.0),
     width=44.0,
     height=44.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape, shape_r=4.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape, shape_r=4.0),
 )
 
 # 4. Horizontal PASTEL_GREEN cryptographic key inside the die
@@ -80,13 +70,13 @@ key_pts.extend(
     ]
 )
 
-polygon(key_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(key_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(key_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(key_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 circle(
     (bow_cx, bow_cy),
     radius=3.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape),
 )
 
 save()

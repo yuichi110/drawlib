@@ -13,9 +13,9 @@ from typing import Any
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 
 p_left = [
@@ -302,7 +302,7 @@ segments: list[tuple[list[tuple[float, float]], Any]] = [
 ]
 
 for pts, col in segments:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

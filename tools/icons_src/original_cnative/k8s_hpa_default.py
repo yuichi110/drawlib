@@ -11,34 +11,25 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Outward left and right horizontal scaling arrows
-draw_round_segment((36.0, 48.0), (23.0, 48.0), width_units=2.0, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((36.0, 48.0), (23.0, 48.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(28.5, 53.0), (23.0, 48.0), (28.5, 43.0)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
-draw_round_segment((64.0, 48.0), (77.0, 48.0), width_units=2.0, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((64.0, 48.0), (77.0, 48.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(71.5, 53.0), (77.0, 48.0), (71.5, 43.0)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Central white pod square
@@ -46,7 +37,7 @@ rectangle(
     (50.0, 48.0),
     width=23.0,
     height=23.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=4.0),
 )
 
 # Inner green workload square
@@ -54,7 +45,7 @@ rectangle(
     (50.0, 48.0),
     width=10.5,
     height=10.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=2.0),
 )
 
 save()

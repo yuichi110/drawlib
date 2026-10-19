@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 10.5, 10.5
@@ -79,7 +74,7 @@ arcs = [
 
 for r_mid, thick, deg0, deg1, col in arcs:
     band_pts = _curved_pill(r_mid, thick, deg0, deg1)
-    polygon(band_pts, style=no_border_fill(col))
-    draw_round_polyline(band_pts, width_units=w, color=DARK, closed=True)
+    polygon(band_pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(band_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

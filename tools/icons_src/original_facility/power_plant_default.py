@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -81,19 +71,19 @@ def _top_rounded_box(x0: float, y0: float, x1: float, y1: float, r: float) -> li
 
 # 1. Twin hyperboloid cooling towers in back (right: PASTEL_BLUE_LIGHT, center: WHITE)
 tower_r = _hyperboloid_tower(73.0, 14.0, 76.0, w_bot=28.0, w_waist=15.0, w_top=20.0)
-polygon(tower_r, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(tower_r, width_units=w_outer, color=DARK, closed=True)
-draw_round_segment((63.6, 70.0), (82.4, 70.0), width_units=w_inner, color=DARK)
+polygon(tower_r, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(tower_r, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((63.6, 70.0), (82.4, 70.0), width_units=w_inner, color=Icon.DARK)
 
 tower_l = _hyperboloid_tower(47.0, 14.0, 82.0, w_bot=30.0, w_waist=16.5, w_top=22.0)
-polygon(tower_l, style=no_border_fill(WHITE))
-draw_round_polyline(tower_l, width_units=w_outer, color=DARK, closed=True)
-draw_round_segment((36.6, 75.5), (57.4, 75.5), width_units=w_inner, color=DARK)
+polygon(tower_l, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(tower_l, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((36.6, 75.5), (57.4, 75.5), width_units=w_inner, color=Icon.DARK)
 
 # 2. Foreground power station turbine hall building (PASTEL_BLUE)
 hall_pts = _top_rounded_box(13.0, 14.0, 61.0, 51.0, r=4.0)
-polygon(hall_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(hall_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(hall_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(hall_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. PASTEL_GREEN lightning bolt emblem on turbine hall facade
 bolt_pts = [
@@ -104,10 +94,10 @@ bolt_pts = [
     (45.0, 33.5),
     (37.0, 33.5),
 ]
-polygon(bolt_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(bolt_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(bolt_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(bolt_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. Ground foundation line
-draw_round_segment((11.5, 14.0), (88.5, 14.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((11.5, 14.0), (88.5, 14.0), width_units=w_outer, color=Icon.DARK)
 
 save()

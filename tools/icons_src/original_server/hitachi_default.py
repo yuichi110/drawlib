@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_halo = 2.0
 w_in = 0.5
@@ -40,16 +34,16 @@ a_hole: list[tuple[float, float]] = [(48.12, 54.16), (50.43, 48.54), (45.8, 48.5
 
 # 1. H, I, T, C, H, I letters in flat dark slate-gray (#4A5568)
 for pts in simple_letters:
-    draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill("#4A5568"))
-    draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#4A5568"))
+    Icon.draw_round_polyline(pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 2. A letter with transparent triangular hole in flat dark slate-gray (#4A5568)
-draw_round_polyline(a_outer, width_units=w_halo, color=DARK, closed=True)
-draw_round_polyline(a_hole, width_units=w_halo, color=DARK, closed=True)
-draw_compound_polygon([a_outer, a_hole], color="#4A5568")
-draw_round_polyline(a_outer, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(a_hole, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(a_outer, width_units=w_halo, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(a_outer, holes=[a_hole], style=Icon.fill_style("#4A5568"))
+Icon.draw_round_polyline(a_outer, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

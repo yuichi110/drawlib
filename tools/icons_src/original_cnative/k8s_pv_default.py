@@ -10,43 +10,35 @@
 """Original Cloud Native concept icon: k8s_pv."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cylinder_tier,
-    draw_original_k8s_heptagon,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Lower storage cylinder tier in white
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     50.0,
     35.0,
     40.0,
     11.0,
     6.5,
-    body_color=WHITE,
-    border_color=DARK,
+    body_color=Icon.WHITE,
+    border_color=Icon.DARK,
     border_units=2.0,
     draw_top_cap=False,
 )
 
 # Upper storage cylinder tier in light blue with mint green top cap
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     50.0,
     46.0,
     40.0,
     11.0,
     6.5,
-    body_color=PASTEL_BLUE_LIGHT,
-    top_color=PASTEL_GREEN,
-    border_color=DARK,
+    body_color=Icon.PASTEL_BLUE_LIGHT,
+    top_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=2.0,
     draw_top_cap=True,
 )

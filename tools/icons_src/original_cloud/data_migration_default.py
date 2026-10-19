@@ -11,22 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_chunky_arrow,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 width = 28.0
 w_half = width / 2.0
 ry = 5.5
@@ -43,64 +32,64 @@ for yb in tier_bottoms:
         (cx_src, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx_src, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_BLUE_LIGHT),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT),
     )
 
-draw_round_segment((cx_src - w_half, y_bot), (cx_src - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx_src + w_half, y_bot), (cx_src + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx_src - w_half, y_bot), (cx_src - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx_src + w_half, y_bot), (cx_src + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx_src, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Right target database cylinder (cx=75, y=24..72, PASTEL_BLUE & PASTEL_GREEN)
 cx_tgt = 75.0
-tgt_colors = [PASTEL_BLUE, PASTEL_BLUE, PASTEL_GREEN]
+tgt_colors = [Icon.PASTEL_BLUE, Icon.PASTEL_BLUE, Icon.PASTEL_GREEN]
 for yb, t_col in zip(tier_bottoms, tgt_colors, strict=True):
     ellipse(
         (cx_tgt, yb),
         width=width,
         height=eh,
-        style=fill_style(t_col, border_color=DARK, border_units=w),
+        style=Icon.fill_style(t_col, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx_tgt, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(t_col),
+        style=Icon.fill_style(t_col),
     )
 
-draw_round_segment((cx_tgt - w_half, y_bot), (cx_tgt - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx_tgt + w_half, y_bot), (cx_tgt + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx_tgt - w_half, y_bot), (cx_tgt - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx_tgt + w_half, y_bot), (cx_tgt + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx_tgt, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Two chunky horizontal transfer arrows centered cleanly between the cylinders
 for y_arrow in (57.0, 38.0):
-    draw_chunky_arrow(
+    Icon.draw_chunky_arrow(
         y_center=y_arrow,
         x_tail=41.5,
         x_head_base=51.5,
         x_tip=59.5,
         shaft_half_h=3.2,
         head_half_h=6.6,
-        fill_color=PASTEL_GREEN,
+        fill_color=Icon.PASTEL_GREEN,
         border_units=2.0,
-        border_color=DARK,
+        border_color=Icon.DARK,
     )
 
 save()

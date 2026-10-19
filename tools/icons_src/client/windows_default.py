@@ -10,11 +10,15 @@
 """Client icon: windows (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import draw_compound_polygon, setup_icon
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-draw_compound_polygon([[(52.13, 47.87), (91.0, 47.87), (91.0, 9.0), (52.13, 9.0)], [(9.0, 47.87), (47.87, 47.87), (47.87, 9.0), (9.0, 9.0)], [(52.13, 91.0), (91.0, 91.0), (91.0, 52.13), (52.13, 52.13)], [(9.0, 91.0), (47.87, 91.0), (47.87, 52.13), (9.0, 52.13)]], color='#0078D4')
+Icon.setup()
+polygon([(52.13, 47.87), (91.0, 47.87), (91.0, 9.0), (52.13, 9.0)], style=Icon.fill_style('#0078D4'))
+polygon([(9.0, 47.87), (47.87, 47.87), (47.87, 9.0), (9.0, 9.0)], style=Icon.fill_style('#0078D4'))
+polygon([(52.13, 91.0), (91.0, 91.0), (91.0, 52.13), (52.13, 52.13)], style=Icon.fill_style('#0078D4'))
+polygon([(9.0, 91.0), (47.87, 91.0), (47.87, 52.13), (9.0, 52.13)], style=Icon.fill_style('#0078D4'))
 save()
 # fmt: on

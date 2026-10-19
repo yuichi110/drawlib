@@ -11,28 +11,28 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 # 1. Left speed chevron (upper light blue, lower medium blue)
 polygon(
     [(24.0, 49.8), (37.0, 49.8), (27.5, 82.5), (14.5, 89.0)],
-    style=fill_style(GCP_TECH_LIGHT),
+    style=Icon.fill_style(Gcp.TECH_LIGHT),
 )
 polygon(
     [(24.0, 50.0), (37.0, 50.0), (27.5, 17.5), (14.5, 11.0)],
-    style=fill_style(GCP_TECH_MID),
+    style=Icon.fill_style(Gcp.TECH_MID),
 )
 
 # 2. Right main delta arrowhead (upper light blue, lower medium blue)
 polygon(
     [(50.0, 49.8), (89.0, 49.8), (37.0, 89.0)],
-    style=fill_style(GCP_TECH_LIGHT),
+    style=Icon.fill_style(Gcp.TECH_LIGHT),
 )
 polygon(
     [(50.0, 50.0), (89.0, 50.0), (37.0, 11.0)],
-    style=fill_style(GCP_TECH_MID),
+    style=Icon.fill_style(Gcp.TECH_MID),
 )
 
 save()

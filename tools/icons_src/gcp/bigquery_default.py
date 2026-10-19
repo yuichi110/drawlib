@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, wedge
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 45.0, 55.0
 r_clip = 25.0
@@ -29,18 +29,18 @@ def _draw_clipped_bar(x0: float, x1: float, y_top: float, color: str) -> None:
         dx = x - cx
         dy = math.sqrt(max(0.0, r_clip * r_clip - dx * dx))
         pts.append((x, cy - dy))
-    polygon(pts, style=fill_style(color))
+    polygon(pts, style=Icon.fill_style(color))
 
 
 # 1. Three interior vertical bars clipped cleanly along a concentric bottom arc
-_draw_clipped_bar(27.5, 35.0, 54.0, GCP_TECH_LIGHT)
-_draw_clipped_bar(40.5, 49.5, 66.0, GCP_TECH_MED_LIGHT)
-_draw_clipped_bar(55.0, 62.5, 50.0, GCP_TECH_LIGHT)
+_draw_clipped_bar(27.5, 35.0, 54.0, Gcp.TECH_LIGHT)
+_draw_clipped_bar(40.5, 49.5, 66.0, Gcp.TECH_MED_LIGHT)
+_draw_clipped_bar(55.0, 62.5, 50.0, Gcp.TECH_LIGHT)
 
 # 2. Diagonal handle at bottom-right in GCP_TECH_MID
 polygon(
     [(67.0, 26.0), (74.0, 33.0), (92.0, 15.0), (85.0, 8.0)],
-    style=fill_style(GCP_TECH_MID, shape_r=(0.0, 0.0, 2.5, 2.5)),
+    style=Icon.fill_style(Gcp.TECH_MID, shape_r=(0.0, 0.0, 2.5, 2.5)),
 )
 
 # 3. Magnifying glass ring in GCP_TECH_MED_LIGHT
@@ -50,7 +50,7 @@ wedge(
     angle_start=0.0,
     angle_end=360.0,
     width=8.5,
-    style=fill_style(GCP_TECH_MED_LIGHT),
+    style=Icon.fill_style(Gcp.TECH_MED_LIGHT),
 )
 
 save()

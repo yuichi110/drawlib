@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.65
@@ -87,13 +81,13 @@ right_side = [_sc(100.0 - x, y) for x, y in reversed(_LEFT_SIDE_RAW)]
 
 # 1. Center facet (Colors.Red3)
 center_facet = [p_fl, p_fr, p_nose]
-polygon(center_facet, style=no_border_fill(Colors.Red3))
+polygon(center_facet, style=Icon.no_border_fill(Colors.Red3))
 
 # 2. Inner cheek facets (Colors.Orange3)
 left_cheek = [p_cl, p_fl, p_nose]
 right_cheek = [p_fr, p_cr, p_nose]
-polygon(left_cheek, style=no_border_fill(Colors.Orange3))
-polygon(right_cheek, style=no_border_fill(Colors.Orange3))
+polygon(left_cheek, style=Icon.no_border_fill(Colors.Orange3))
+polygon(right_cheek, style=Icon.no_border_fill(Colors.Orange3))
 
 # 3. Outer ears and outer sides (Colors.Amber3)
 left_ear = [p_cl, *ear_l_tip, p_fl]
@@ -101,10 +95,10 @@ right_ear = [p_fr, *ear_r_tip, p_cr]
 left_outer_side = [*left_side, *nose_tip[: len(nose_tip) // 2 + 1]]
 right_outer_side = [*nose_tip[len(nose_tip) // 2 :], *right_side]
 
-polygon(left_ear, style=no_border_fill(Colors.Amber3))
-polygon(right_ear, style=no_border_fill(Colors.Amber3))
-polygon(left_outer_side, style=no_border_fill(Colors.Amber3))
-polygon(right_outer_side, style=no_border_fill(Colors.Amber3))
+polygon(left_ear, style=Icon.no_border_fill(Colors.Amber3))
+polygon(right_ear, style=Icon.no_border_fill(Colors.Amber3))
+polygon(left_outer_side, style=Icon.no_border_fill(Colors.Amber3))
+polygon(right_outer_side, style=Icon.no_border_fill(Colors.Amber3))
 
 # 4. Internal facet seams (DARK, w_inner)
 for p_start, p_end in (
@@ -115,7 +109,7 @@ for p_start, p_end in (
     (p_cl, p_nose),
     (p_cr, p_nose),
 ):
-    draw_round_segment(p_start, p_end, width_units=w_inner, color=DARK)
+    Icon.draw_round_segment(p_start, p_end, width_units=w_inner, color=Icon.DARK)
 
 # 5. Outer fox silhouette border (DARK, w=1.9)
 outer_fox = [
@@ -127,6 +121,6 @@ outer_fox = [
     *reversed(nose_tip),
     *reversed(left_side),
 ]
-draw_round_polyline(outer_fox, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_fox, width_units=w, color=Icon.DARK, closed=True)
 
 save()

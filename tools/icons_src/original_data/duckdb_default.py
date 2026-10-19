@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,14 +24,14 @@ w = 2.0
 circle(
     (50.0, 50.0),
     radius=40.5,
-    style=fill_style(Colors.Gray6, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray6, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Iconic circular duck head profile on the left (Colors.Amber3)
 circle(
     (40.2, 50.0),
     radius=17.0,
-    style=fill_style(Colors.Amber3, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Colors.Amber3, border_color=Icon.DARK, border_units=1.8),
 )
 
 # 3. Rounded D-shaped duck beak on the right (Colors.Amber4)
@@ -53,7 +47,7 @@ for i in range(steps + 1):
     ang = math.radians(90.0 - 180.0 * (i / steps))
     beak_pts.append((beak_arc_cx + beak_r * math.cos(ang), 50.0 + beak_r * math.sin(ang)))
 
-polygon(beak_pts, style=no_border_fill(Colors.Amber4))
-draw_round_polyline(beak_pts, width_units=1.8, color=DARK, closed=True)
+polygon(beak_pts, style=Icon.no_border_fill(Colors.Amber4))
+Icon.draw_round_polyline(beak_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

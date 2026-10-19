@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -61,12 +54,12 @@ def _quad(
 circle(
     (50.0, 52.5),
     radius=34.5,
-    style=fill_style(Colors.Amber3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Amber3, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Cute rosy cheeks (Colors.Amber4)
-circle((28.0, 58.0), radius=3.3, style=no_border_fill(Colors.Amber4))
-circle((72.0, 58.0), radius=3.3, style=no_border_fill(Colors.Amber4))
+circle((28.0, 58.0), radius=3.3, style=Icon.no_border_fill(Colors.Amber4))
+circle((72.0, 58.0), radius=3.3, style=Icon.no_border_fill(Colors.Amber4))
 
 # 3. Smiling arched eyes (DARK)
 for ex in (37.5, 62.5):
@@ -74,8 +67,8 @@ for ex in (37.5, 62.5):
         *_arc(ex, 61.8, 4.8, 195.0, -15.0, 16),
         *_quad((ex + 4.6, 60.6), (ex, 63.8), (ex - 4.6, 60.6), 12),
     ]
-    polygon(eye_pts, style=no_border_fill(DARK))
-    draw_round_polyline(eye_pts, width_units=1.2, color=DARK, closed=True)
+    polygon(eye_pts, style=Icon.no_border_fill(Icon.DARK))
+    Icon.draw_round_polyline(eye_pts, width_units=1.2, color=Icon.DARK, closed=True)
 
 # 4. Smiling open mouth (DARK) + cute heart-notched tongue (Colors.Red3)
 mouth_l = (37.5, 51.5)
@@ -86,7 +79,7 @@ mouth_pts = [
     *_quad(mouth_r, (59.5, 37.5), (50.0, 37.5), 12),
     *_quad((50.0, 37.5), (40.5, 37.5), mouth_l, 12),
 ]
-polygon(mouth_pts, style=no_border_fill(DARK))
+polygon(mouth_pts, style=Icon.no_border_fill(Icon.DARK))
 
 tongue_pts = [
     (42.2, 40.2),
@@ -96,8 +89,8 @@ tongue_pts = [
     *_quad((51.2, 44.2), (54.8, 45.2), (57.8, 40.2), 8),
     *_quad((57.8, 40.2), (50.0, 37.0), (42.2, 40.2), 12),
 ]
-polygon(tongue_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(mouth_pts, width_units=1.7, color=DARK, closed=True)
+polygon(tongue_pts, style=Icon.no_border_fill(Colors.Red3))
+Icon.draw_round_polyline(mouth_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 5. Two cute open hands in front (Colors.Amber4)
 # Build left hand polygon with 4 splayed fingers + inward thumb + rounded palm
@@ -125,8 +118,8 @@ left_hand: list[tuple[float, float]] = [
 right_hand = [(100.0 - x, y) for x, y in left_hand]
 
 for hand in (left_hand, right_hand):
-    polygon(hand, style=no_border_fill(Colors.Amber4))
-    draw_round_polyline(hand, width_units=w, color=DARK, closed=True)
+    polygon(hand, style=Icon.no_border_fill(Colors.Amber4))
+    Icon.draw_round_polyline(hand, width_units=w, color=Icon.DARK, closed=True)
 
 # Finger crease lines on left and right hands
 left_creases = [
@@ -136,7 +129,7 @@ left_creases = [
     ((20.5, 24.0), (24.5, 22.2)),
 ]
 for p1, p2 in left_creases:
-    draw_round_segment(p1, p2, width_units=1.6, color=DARK)
-    draw_round_segment((100.0 - p1[0], p1[1]), (100.0 - p2[0], p2[1]), width_units=1.6, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=1.6, color=Icon.DARK)
+    Icon.draw_round_segment((100.0 - p1[0], p1[1]), (100.0 - p2[0], p2[1]), width_units=1.6, color=Icon.DARK)
 
 save()

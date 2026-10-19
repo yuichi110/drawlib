@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -28,16 +28,16 @@ eye_r: list[tuple[float, float]] = [(65.0, 65.74), (65.04, 66.11), (65.16, 66.46
 smile: list[tuple[float, float]] = [(23.71, 35.46), (24.67, 34.37), (25.73, 33.32), (26.84, 32.33), (28.02, 31.41), (29.26, 30.55), (30.54, 29.76), (31.87, 29.03), (33.25, 28.36), (34.66, 27.77), (36.11, 27.23), (37.58, 26.76), (39.09, 26.35), (40.61, 26.0), (42.16, 25.72), (43.72, 25.5), (45.29, 25.35), (46.87, 25.25), (48.46, 25.22), (50.04, 25.25), (51.62, 25.35), (53.19, 25.5), (54.75, 25.72), (56.3, 26.0), (57.83, 26.35), (59.33, 26.76), (60.81, 27.23), (62.25, 27.77), (63.66, 28.36), (65.04, 29.03), (66.37, 29.76), (67.65, 30.55), (68.89, 31.41), (70.07, 32.33), (71.19, 33.32), (72.24, 34.37), (73.21, 35.46), (73.37, 35.7), (73.46, 35.98), (73.48, 36.27), (73.43, 36.56), (73.3, 36.82), (73.11, 37.04), (72.86, 37.2), (72.59, 37.29), (72.3, 37.31), (72.01, 37.26), (71.75, 37.13), (71.53, 36.94), (70.62, 35.9), (69.66, 34.94), (68.64, 34.04), (67.56, 33.2), (66.43, 32.42), (65.25, 31.69), (64.02, 31.01), (62.74, 30.4), (61.43, 29.84), (60.08, 29.34), (58.7, 28.9), (57.29, 28.52), (55.85, 28.19), (54.4, 27.93), (52.93, 27.72), (51.44, 27.57), (49.95, 27.48), (48.46, 27.45), (46.96, 27.48), (45.47, 27.57), (43.99, 27.72), (42.51, 27.93), (41.06, 28.19), (39.62, 28.52), (38.21, 28.9), (36.83, 29.34), (35.48, 29.84), (34.17, 30.4), (32.89, 31.01), (31.66, 31.69), (30.48, 32.42), (29.35, 33.2), (28.27, 34.04), (27.25, 34.94), (26.3, 35.9), (25.38, 36.94), (25.16, 37.13), (24.9, 37.26), (24.61, 37.31), (24.32, 37.29), (24.05, 37.2), (23.81, 37.04), (23.61, 36.82), (23.49, 36.56), (23.43, 36.27), (23.45, 35.98), (23.54, 35.7)]
 
 # 1. Two-tone Finder face (left cornflower blue, right light sky blue)
-polygon(left_half, style=no_border_fill("#5797F2"))
-polygon(right_half, style=no_border_fill("#A4CAF8"))
+polygon(left_half, style=Icon.no_border_fill("#5797F2"))
+polygon(right_half, style=Icon.no_border_fill("#A4CAF8"))
 
 # 2. Outer rounded square border and center nose divider
-draw_round_polyline(outer_sq, width_units=w, color=DARK, closed=True)
-draw_round_polyline(divider, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(outer_sq, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(divider, width_units=w, color=Icon.DARK, closed=False)
 
 # 3. Finder eyes and smile in DARK
 for feature_pts in (eye_l, eye_r, smile):
-    polygon(feature_pts, style=no_border_fill(DARK))
+    polygon(feature_pts, style=Icon.no_border_fill(Icon.DARK))
 
 save()
 # fmt: on

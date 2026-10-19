@@ -11,44 +11,31 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    build_sparkle_4pt_polygon,
-    draw_iso_cube,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
-draw_iso_cube(
+Icon.draw_iso_cube(
     46.0,
     46.0,
     radius=34.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=w,
 )
 
 circle(
     (72.0, 70.0),
     radius=16.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 
-sparkle_pts = build_sparkle_4pt_polygon(72.0, 70.0, outer_r=9.5, inner_r=3.3)
-polygon(sparkle_pts, style=no_border_fill(WHITE))
-draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
+sparkle_pts = Icon.build_sparkle_4pt_polygon(72.0, 70.0, outer_r=9.5, inner_r=3.3)
+polygon(sparkle_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(sparkle_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

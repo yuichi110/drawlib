@@ -12,17 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import arc, ellipse, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 BORDER = 4.8
 
@@ -31,9 +23,9 @@ rectangle(
     (50.0, 74.5),
     width=70.0 - BORDER,
     height=25.0 - BORDER,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Transparent,
-        border_color=DELL_BLUE,
+        border_color=Dell.BLUE,
         border_units=BORDER,
         shape_r=2.5,
     ),
@@ -42,14 +34,14 @@ rectangle(
     (50.0, 74.5),
     width=28.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Middle-left half-server C-bracket (outer x=15..36, y=30..55, open on right)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(36.0, 52.6), (17.4, 52.6), (17.4, 32.4), (36.0, 32.4)],
     width_units=BORDER,
-    color=DELL_BLUE,
+    color=Dell.BLUE,
     corner_r=2.5,
 )
 
@@ -58,7 +50,7 @@ rectangle(
     (25.5, 14.5),
     width=21.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Bottom-right storage cylinder (cx=66.0, outer y=12..55, outer width=42.0)
@@ -74,7 +66,7 @@ ellipse(
     (CYL_CX, CYL_Y_TOP),
     width=CYL_W,
     height=CYL_EH,
-    style=stroke_style(DELL_BLUE, width_units=CYL_STROKE),
+    style=Icon.stroke_style(Dell.BLUE, width_units=CYL_STROKE),
 )
 arc(
     (CYL_CX, CYL_Y_BOT),
@@ -82,14 +74,14 @@ arc(
     height=CYL_EH,
     angle_start=180.0,
     angle_end=360.0,
-    style=stroke_style(DELL_BLUE, width_units=CYL_STROKE),
+    style=Icon.stroke_style(Dell.BLUE, width_units=CYL_STROKE),
 )
 for side_x in (CYL_CX - CYL_W / 2.0, CYL_CX + CYL_W / 2.0):
-    draw_round_segment(
+    Icon.draw_round_segment(
         (side_x, CYL_Y_BOT),
         (side_x, CYL_Y_TOP),
         width_units=CYL_STROKE,
-        color=DELL_BLUE,
+        color=Dell.BLUE,
     )
 
 save()

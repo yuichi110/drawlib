@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import arc, ellipse, polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 # Left storage cylinder (outer cx=46.0, width=62.0 -> centerline width=57.2, outer y=12..88)
 cx_cyl = 46.0
@@ -36,7 +30,7 @@ ellipse(
     (cx_cyl, cy_top),
     width=w_cyl,
     height=ry_cyl * 2.0,
-    style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8),
+    style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8),
 )
 
 # Cylinder left and right vertical walls with flat ends (smooth C1 join at bottom-left, crisp flat cut on right)
@@ -44,17 +38,17 @@ rectangle(
     (cx_cyl - rx_cyl, (cy_bot - 0.3 + cy_top + 0.3) / 2.0),
     width=4.8,
     height=(cy_top + 0.3) - (cy_bot - 0.3),
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 rectangle(
     (cx_cyl + rx_cyl, (55.5 + cy_top + 0.3) / 2.0),
     width=4.8,
     height=(cy_top + 0.3) - 55.5,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Cylinder horizontal waist curves (middle and bottom, stopping cleanly left of the shield)
-st_stroke = stroke_style(DELL_BLUE, width_units=4.8)
+st_stroke = Icon.stroke_style(Dell.BLUE, width_units=4.8)
 for cy_arc in (cy_mid, cy_bot):
     arc(
         (cx_cyl, cy_arc),
@@ -100,7 +94,7 @@ shield_pts = [
 ]
 polygon(
     shield_pts,
-    style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8, shape_r=0.8),
+    style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8, shape_r=0.8),
 )
 
 save()

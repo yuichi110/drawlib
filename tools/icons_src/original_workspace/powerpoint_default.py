@@ -11,16 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.8
@@ -414,14 +407,14 @@ for pts, col in [
     (wedge_tr, "#F39265"),
     (wedge_bot, "#EF6C43"),
 ]:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(tile_pts, style=no_border_fill("#EF6C43"))
-draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
+polygon(tile_pts, style=Icon.no_border_fill("#EF6C43"))
+Icon.draw_round_polyline(tile_pts, width_units=w, color=Icon.DARK, closed=True)
 
-draw_compound_polygon([p_outer, p_inner], color=WHITE)
-draw_round_polyline(p_outer, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(p_inner, width_units=w_in, color=DARK, closed=True)
+polygon(p_outer, holes=[p_inner], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(p_outer, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(p_inner, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_sq = 2.0
 s = 0.97
@@ -158,11 +152,11 @@ _SQ_TIER4: list[list[tuple[float, float]]] = [
 
 # 1. Subtle radial network links behind the square grid
 for p0, p1 in _LINES_INNER:
-    draw_round_segment(_pt(p0), _pt(p1), width_units=0.45, color=DARK)
+    Icon.draw_round_segment(_pt(p0), _pt(p1), width_units=0.45, color=Icon.DARK)
 for p0, p1 in _LINES_MID:
-    draw_round_segment(_pt(p0), _pt(p1), width_units=0.35, color=DARK)
+    Icon.draw_round_segment(_pt(p0), _pt(p1), width_units=0.35, color=Icon.DARK)
 for p0, p1 in _LINES_OUTER:
-    draw_round_segment(_pt(p0), _pt(p1), width_units=0.25, color=DARK)
+    Icon.draw_round_segment(_pt(p0), _pt(p1), width_units=0.25, color=Icon.DARK)
 
 # 2. Concentric square tiers in Colors.Blue4, Colors.Blue3, Colors.Blue2 with DARK 1.2 outlines
 for sq_list, col in (
@@ -173,7 +167,7 @@ for sq_list, col in (
 ):
     for raw_sq in sq_list:
         sq = _sc(raw_sq)
-        polygon(sq, style=no_border_fill(col))
-        draw_round_polyline(sq, width_units=w_sq, color=DARK, closed=True)
+        polygon(sq, style=Icon.no_border_fill(col))
+        Icon.draw_round_polyline(sq, width_units=w_sq, color=Icon.DARK, closed=True)
 
 save()

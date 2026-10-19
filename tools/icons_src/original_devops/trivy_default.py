@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -99,23 +92,23 @@ inner_cutout: list[tuple[float, float]] = [
     *_inward_spoke_detour(30.0),
 ]
 
-draw_compound_polygon([outer_hex, inner_cutout], color=Colors.Gray6)
-draw_round_polyline(outer_hex, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(inner_cutout, width_units=w_inner, color=DARK, closed=True)
+polygon(outer_hex, holes=[inner_cutout], style=Icon.fill_style(Colors.Gray6))
+Icon.draw_round_polyline(outer_hex, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_cutout, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Bottom-left spoke (210 deg) in Colors.Blue3
 p_bl_in = _hex_pt(r_stop, 210.0)
 p_bl_out = _hex_pt(r_in - 1.8, 210.0)
 bl_pill = _pill_pts(p_bl_in[0], p_bl_in[1], p_bl_out[0], p_bl_out[1], width=3.1)
-polygon(bl_pill, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(bl_pill, width_units=w_inner, color=DARK, closed=True)
+polygon(bl_pill, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(bl_pill, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. Bottom-right spoke (330 deg) in Colors.Amber3
 p_br_in = _hex_pt(r_stop, 330.0)
 p_br_out = _hex_pt(r_in - 1.8, 330.0)
 br_pill = _pill_pts(p_br_in[0], p_br_in[1], p_br_out[0], p_br_out[1], width=3.1)
-polygon(br_pill, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(br_pill, width_units=w_inner, color=DARK, closed=True)
+polygon(br_pill, style=Icon.no_border_fill(Colors.Amber3))
+Icon.draw_round_polyline(br_pill, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 5. Top vertical spoke + top-right sector cyan ribs (Colors.Teal3)
 # Unified branched polygon for top vertical spoke + 3 parallel ribs at -30 deg
@@ -173,8 +166,8 @@ for i in range(9):
     a = math.radians(60.0 + 120.0 * (i / 8))
     cyan_branch.append((50.0 + rw * math.cos(a), 84.4 + rw * math.sin(a)))
 
-polygon(cyan_branch, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(cyan_branch, width_units=w_inner, color=DARK, closed=True)
+polygon(cyan_branch, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(cyan_branch, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # Detached cyan dot on Rib 2 line (y0=77.8, d=18.8)
 dot_cx = 50.0 + 18.8 * ux_r
@@ -182,21 +175,21 @@ dot_cy = 77.8 + 18.8 * uy_r
 circle(
     (dot_cx, dot_cy),
     radius=1.6,
-    style=fill_style(Colors.Teal3, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Colors.Teal3, border_color=Icon.DARK, border_units=w_inner),
 )
 
 # Detached cyan short pill on Rib 3 line (y0=71.2, d from 10.2 to 13.5)
 p3_a = (50.0 + 10.2 * ux_r, 71.2 + 10.2 * uy_r)
 p3_b = (50.0 + 13.5 * ux_r, 71.2 + 13.5 * uy_r)
 short_pill = _pill_pts(p3_a[0], p3_a[1], p3_b[0], p3_b[1], width=2.8)
-polygon(short_pill, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(short_pill, width_units=w_inner, color=DARK, closed=True)
+polygon(short_pill, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(short_pill, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 6. Center circle (Colors.Red3)
 circle(
     (cx, cy),
     radius=4.8,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w_inner),
 )
 
 save()

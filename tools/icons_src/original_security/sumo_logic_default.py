@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_letter = 1.1
@@ -36,17 +29,17 @@ o_hole: list[tuple[float, float]] = [(68.69, 33.52), (68.61, 33.32), (68.52, 33.
 # fmt: on
 
 # 1. Pastel deep-blue square badge
-polygon(badge_pts, style=no_border_fill("#4A5BB8"))
-draw_round_polyline(badge_pts, width_units=w_badge, color=DARK, closed=True)
+polygon(badge_pts, style=Icon.no_border_fill("#4A5BB8"))
+Icon.draw_round_polyline(badge_pts, width_units=w_badge, color=Icon.DARK, closed=True)
 
 # 2. White 's', 'u', 'm' letters with thin DARK 1.1 outlines
 for pts in (s_pts, u_pts, m_pts):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_letter, color=Icon.DARK, closed=True)
 
 # 3. White 'o' letter with transparent hole and DARK 1.1 outlines
-draw_compound_polygon([o_outer, o_hole], color=WHITE)
-draw_round_polyline(o_outer, width_units=w_letter, color=DARK, closed=True)
-draw_round_polyline(o_hole, width_units=w_letter, color=DARK, closed=True)
+polygon(o_outer, holes=[o_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(o_outer, width_units=w_letter, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(o_hole, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()

@@ -11,17 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -32,17 +24,17 @@ for wing_x in (25.0, 75.0):
         (wing_x, 33.0),
         width=16.0,
         height=38.0,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=2.0),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=2.0),
     )
     for wy in (44.0, 34.0, 24.0):
-        draw_round_segment((wing_x - 3.2, wy), (wing_x + 3.2, wy), width_units=w_inner, color=DARK)
+        Icon.draw_round_segment((wing_x - 3.2, wy), (wing_x + 3.2, wy), width_units=w_inner, color=Icon.DARK)
 
 # 2. Central main glass tower (PASTEL_BLUE)
 rectangle(
     (50.0, 44.5),
     width=36.0,
     height=61.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_outer, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_outer, shape_r=2.5),
 )
 
 # 3. Upper stepped crown tier (PASTEL_BLUE_LIGHT) + rooftop spire
@@ -50,9 +42,9 @@ rectangle(
     (50.0, 79.5),
     width=22.0,
     height=9.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=2.0),
 )
-draw_round_segment((50.0, 84.0), (50.0, 89.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((50.0, 84.0), (50.0, 89.0), width_units=w_outer, color=Icon.DARK)
 
 # 4. Crisp 3x4 WHITE window grid on the central skyscraper
 for wx in (40.5, 50.0, 59.5):
@@ -61,7 +53,7 @@ for wx in (40.5, 50.0, 59.5):
             (wx, wy),
             width=6.2,
             height=6.2,
-            style=fill_style(WHITE, border_color=DARK, border_units=w_inner, shape_r=1.2),
+            style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.2),
         )
 
 # 5. Grand lobby doorway at bottom center (WHITE)
@@ -69,11 +61,11 @@ rectangle(
     (50.0, 20.5),
     width=12.0,
     height=13.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner, shape_r=1.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
 )
-draw_round_segment((50.0, 14.0), (50.0, 27.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((50.0, 14.0), (50.0, 27.0), width_units=w_inner, color=Icon.DARK)
 
 # 6. Ground baseline
-draw_round_segment((13.0, 14.0), (87.0, 14.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((13.0, 14.0), (87.0, 14.0), width_units=w_outer, color=Icon.DARK)
 
 save()

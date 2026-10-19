@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Left and right shoulder bumper buttons
 for bx in (31.0, 69.0):
@@ -35,7 +25,7 @@ for bx in (31.0, 69.0):
         (bx, 68.5),
         width=15.0,
         height=6.5,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=3.0),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=3.0),
     )
 
 # Smooth ergonomic gamepad contour
@@ -72,8 +62,8 @@ for i in range(steps + 1):
     ang = math.radians(8.0 + 82.0 * (i / steps))
     body_pts.append((69.0 + 15.0 * math.cos(ang), 53.0 + 15.0 * math.sin(ang)))
 
-polygon(body_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
+polygon(body_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # WHITE D-pad cross on left side
 cx_d, cy_d = 31.0, 53.0
@@ -92,19 +82,19 @@ dpad_pts = [
     (cx_d - arm, cy_d + half_w),
     (cx_d - half_w, cy_d + half_w),
 ]
-polygon(dpad_pts, style=fill_style(WHITE))
-draw_round_polyline(dpad_pts, width_units=1.9, color=DARK, closed=True)
+polygon(dpad_pts, style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(dpad_pts, width_units=1.9, color=Icon.DARK, closed=True)
 
 # 4 PASTEL_GREEN action buttons on right side
 for ax, ay in ((69.0, 59.0), (75.0, 53.0), (69.0, 47.0), (63.0, 53.0)):
     circle(
         (ax, ay),
         radius=3.2,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
     )
 
 # Center menu dots
 for mx in (46.5, 53.5):
-    circle((mx, 54.0), radius=1.5, style=fill_style(DARK))
+    circle((mx, 54.0), radius=1.5, style=Icon.fill_style(Icon.DARK))
 
 save()

@@ -11,18 +11,7 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -43,24 +32,24 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 5 container squares stacked on whale back (3 bottom + 2 top)
 containers = [
-    (25.0, 55.5, PASTEL_BLUE_LIGHT),
-    (40.0, 55.5, WHITE),
-    (55.0, 55.5, PASTEL_GREEN),
-    (40.0, 70.5, PASTEL_GREEN),
-    (55.0, 70.5, WHITE),
+    (25.0, 55.5, Icon.PASTEL_BLUE_LIGHT),
+    (40.0, 55.5, Icon.WHITE),
+    (55.0, 55.5, Icon.PASTEL_GREEN),
+    (40.0, 70.5, Icon.PASTEL_GREEN),
+    (55.0, 70.5, Icon.WHITE),
 ]
 for cx, cy, col in containers:
     rectangle(
         (cx, cy),
         width=13.0,
         height=13.0,
-        style=fill_style(col, border_color=DARK, border_units=2.0, shape_r=2.0),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=2.0, shape_r=2.0),
     )
 
 # Whale body silhouette
@@ -85,7 +74,7 @@ whale_pts: list[tuple[float, float]] = [
     *_bezier(p_belly_bot, (21.0, 17.5), (10.5, 31.0), p_nose, 24),
 ]
 
-polygon(whale_pts, style=no_border_fill(PASTEL_BLUE))
+polygon(whale_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
 
 # White lower belly curve patch on front-bottom of whale
 p_belly_l = (14.8, 32.0)
@@ -96,17 +85,17 @@ belly_patch = [
     *_bezier(p_belly_r, (50.0, 18.2), (44.0, 17.5), p_belly_bot, 12),
     *_bezier(p_belly_bot, (25.5, 17.5), (17.5, 23.5), p_belly_l, 16),
 ]
-polygon(belly_patch, style=no_border_fill(WHITE))
-draw_round_polyline(
+polygon(belly_patch, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(
     [p_belly_l, *_bezier(p_belly_l, (28.0, 30.0), (45.0, 28.0), p_belly_r, 18)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Whale outer border
-draw_round_polyline(whale_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(whale_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Whale eye
-circle((25.0, 36.5), radius=2.4, style=fill_style(DARK))
+circle((25.0, 36.5), radius=2.4, style=Icon.fill_style(Icon.DARK))
 
 save()

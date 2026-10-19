@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _build_cloud(
@@ -77,23 +67,36 @@ bumps = [
     (61.0, 61.0, 11.0),
 ]
 cloud_pts = _build_cloud(bumps)
-polygon(cloud_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Bottom-right on-premises 2U server rack
 rx, ry_top, ry_bot = 66.0, 34.0, 18.0
-for idx, (yc, col) in enumerate([(ry_top, WHITE), (ry_bot, PASTEL_GREEN)]):
-    rectangle((rx, yc), width=46.0, height=13.0, style=fill_style(col, border_color=DARK, border_units=w, shape_r=3.0))
+for idx, (yc, col) in enumerate([(ry_top, Icon.WHITE), (ry_bot, Icon.PASTEL_GREEN)]):
+    rectangle(
+        (rx, yc),
+        width=46.0,
+        height=13.0,
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w, shape_r=3.0),
+    )
     circle(
         (rx - 15.0, yc),
         radius=2.2,
-        style=fill_style(PASTEL_BLUE if idx == 1 else PASTEL_GREEN, border_color=DARK, border_units=1.5),
+        style=Icon.fill_style(
+            Icon.PASTEL_BLUE if idx == 1 else Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.5
+        ),
     )
-    draw_round_segment((rx - 6.0, yc), (rx + 16.0, yc), width_units=1.8, color=DARK)
+    Icon.draw_round_segment((rx - 6.0, yc), (rx + 16.0, yc), width_units=1.8, color=Icon.DARK)
 
 # Bidirectional hybrid link arrows
-draw_round_polyline([(28.0, 48.0), (28.0, 26.0), (39.0, 26.0)], width_units=w, color=DARK, corner_r=4.0)
-polygon([(28.0, 51.5), (24.0, 45.5), (32.0, 45.5)], style=fill_style(DARK, border_color=DARK, border_units=1.0))
-polygon([(41.5, 26.0), (35.5, 29.8), (35.5, 22.2)], style=fill_style(DARK, border_color=DARK, border_units=1.0))
+Icon.draw_round_polyline([(28.0, 48.0), (28.0, 26.0), (39.0, 26.0)], width_units=w, color=Icon.DARK, corner_r=4.0)
+polygon(
+    [(28.0, 51.5), (24.0, 45.5), (32.0, 45.5)],
+    style=Icon.fill_style(Icon.DARK, border_color=Icon.DARK, border_units=1.0),
+)
+polygon(
+    [(41.5, 26.0), (35.5, 29.8), (35.5, 22.2)],
+    style=Icon.fill_style(Icon.DARK, border_color=Icon.DARK, border_units=1.0),
+)
 
 save()

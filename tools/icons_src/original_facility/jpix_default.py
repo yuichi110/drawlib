@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -31,18 +25,18 @@ letter_p_hole = [(36.93, 51.26), (39.12, 51.26), (39.21, 51.26), (39.3, 51.27), 
 letter_i = [(53.42, 62.2), (59.61, 62.2), (59.61, 38.34), (53.42, 38.34)]
 letter_x = [(90.0, 38.34), (81.33, 49.65), (81.76, 50.05), (82.18, 50.46), (82.6, 50.88), (83.01, 51.31), (83.42, 51.74), (83.83, 52.18), (84.24, 52.62), (84.64, 53.08), (85.03, 53.56), (85.42, 54.04), (85.8, 54.53), (86.19, 55.03), (86.55, 55.55), (86.91, 56.08), (87.27, 56.62), (87.61, 57.18), (87.94, 57.76), (88.27, 58.34), (88.59, 58.94), (88.89, 59.56), (89.18, 60.19), (89.47, 60.84), (89.74, 61.5), (90.0, 62.2), (82.72, 62.2), (82.05, 60.83), (81.29, 59.5), (80.46, 58.22), (79.56, 57.0), (78.59, 55.81), (77.55, 54.7), (72.09, 62.2), (64.25, 62.2), (72.94, 50.87), (72.53, 50.48), (72.11, 50.08), (71.7, 49.68), (71.28, 49.27), (70.87, 48.85), (70.46, 48.42), (70.05, 47.98), (69.65, 47.53), (69.25, 47.07), (68.85, 46.6), (68.47, 46.12), (68.08, 45.61), (67.71, 45.1), (67.34, 44.58), (66.98, 44.04), (66.63, 43.47), (66.29, 42.9), (65.96, 42.3), (65.65, 41.7), (65.34, 41.06), (65.04, 40.42), (64.77, 39.75), (64.5, 39.05), (64.25, 38.34), (71.52, 38.34), (72.18, 39.73), (72.93, 41.05), (73.76, 42.33), (74.66, 43.56), (75.65, 44.72), (76.71, 45.82), (82.17, 38.34)]
 
-polygon(letter_j, style=no_border_fill("#546072"))
-draw_round_polyline(letter_j, width_units=w, color=DARK, closed=True)
+polygon(letter_j, style=Icon.no_border_fill("#546072"))
+Icon.draw_round_polyline(letter_j, width_units=w, color=Icon.DARK, closed=True)
 
-draw_compound_polygon([letter_p_outer, letter_p_hole], color="#546072")
-draw_round_polyline(letter_p_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(letter_p_hole, width_units=w, color=DARK, closed=True)
+polygon(letter_p_outer, holes=[letter_p_hole], style=Icon.fill_style("#546072"))
+Icon.draw_round_polyline(letter_p_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(letter_p_hole, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(letter_i, style=no_border_fill("#546072"))
-draw_round_polyline(letter_i, width_units=w, color=DARK, closed=True)
+polygon(letter_i, style=Icon.no_border_fill("#546072"))
+Icon.draw_round_polyline(letter_i, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(letter_x, style=no_border_fill("#569FDE"))
-draw_round_polyline(letter_x, width_units=w, color=DARK, closed=True)
+polygon(letter_x, style=Icon.no_border_fill("#569FDE"))
+Icon.draw_round_polyline(letter_x, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

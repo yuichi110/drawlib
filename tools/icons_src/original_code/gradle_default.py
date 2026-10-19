@@ -10,16 +10,12 @@
 """Original Code icon: gradle."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -37,10 +33,10 @@ eye_hole = _sc([(63.25, 57.14), (63.46, 57.17), (63.68, 57.19), (63.89, 57.19), 
 # fmt: on
 
 # 1. Flat pastel dark teal elephant silhouette with transparent eye hole
-draw_compound_polygon([elephant_outer, eye_hole], color=DARK_TEAL)
+polygon(elephant_outer, holes=[eye_hole], style=Icon.fill_style(DARK_TEAL))
 
 # 2. Crisp DARK outlines
-draw_round_polyline(elephant_outer, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(eye_hole, width_units=w_inner, color=DARK, closed=True)
+Icon.draw_round_polyline(elephant_outer, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(eye_hole, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

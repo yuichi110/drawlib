@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -55,14 +48,14 @@ n_right = _sc([
 # fmt: on
 
 # 1. Flat dark slate circle fill
-circle((50.0, 50.0), radius=40.0, style=no_border_fill("#3E4756"))
+circle((50.0, 50.0), radius=40.0, style=Icon.no_border_fill("#3E4756"))
 
 # 2. WHITE 'N' bars with DARK outlines
-polygon(n_main, style=no_border_fill(WHITE))
-draw_round_polyline(n_main, width_units=w_inner, color=DARK, closed=True)
+polygon(n_main, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(n_main, width_units=w_inner, color=Icon.DARK, closed=True)
 
-polygon(n_right, style=no_border_fill(WHITE))
-draw_round_polyline(n_right, width_units=w_inner, color=DARK, closed=True)
+polygon(n_right, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(n_right, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Outer circle DARK border on top
 circle(
@@ -70,8 +63,8 @@ circle(
     radius=40.0,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w_outer),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w_outer),
         shape_line_style="solid",
     ),
 )

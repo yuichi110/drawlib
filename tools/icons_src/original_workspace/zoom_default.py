@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_inner = 1.8
 
@@ -78,10 +78,10 @@ cam_lens = [
     (63.05, 56.02),
 ]
 
-circle((50.0, 50.0), radius=38.8, style=fill_style("#51A8F2", border_color=DARK, border_units=w))
+circle((50.0, 50.0), radius=38.8, style=Icon.fill_style("#51A8F2", border_color=Icon.DARK, border_units=w))
 
 for pts in (cam_body, cam_lens):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

@@ -13,18 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Soft pastel Argo palette matching Drawlib Original tone
 ARGO_CORAL = "#F28359"  # Pastel coral-orange octopus (softened from official #FE733E)
@@ -37,21 +30,21 @@ for x_tab in (20.0, 80.0):
         (x_tab, 58.0),
         width=6.5,
         height=15.0,
-        style=fill_style(ARGO_RIM, border_color=DARK, border_units=2.0, shape_r=3.0),
+        style=Icon.fill_style(ARGO_RIM, border_color=Icon.DARK, border_units=2.0, shape_r=3.0),
     )
 
 # Outer white space helmet ring
 circle(
     (50.0, 58.0),
     radius=29.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # Inner pale ice-blue glass visor
 circle(
     (50.0, 58.0),
     radius=24.5,
-    style=fill_style(ARGO_SKY, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(ARGO_SKY, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Four rounded tentacles tucked neatly beneath the neck collar
@@ -66,7 +59,7 @@ for tx, ty, tw, th, tang in tentacles:
         (tx, ty),
         width=tw,
         height=th,
-        style=fill_style(ARGO_CORAL, border_color=DARK, border_units=2.0, shape_r=3.2, angle=tang),
+        style=Icon.fill_style(ARGO_CORAL, border_color=Icon.DARK, border_units=2.0, shape_r=3.2, angle=tang),
     )
 
 # Rounded octopus head dome inside the helmet
@@ -79,7 +72,7 @@ head_pts.append((64.5, 29.0))
 
 polygon(
     head_pts,
-    style=fill_style(ARGO_CORAL, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(ARGO_CORAL, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Pastel blue space-suit neck collar band
@@ -87,7 +80,7 @@ rectangle(
     (50.0, 29.0),
     width=36.0,
     height=7.0,
-    style=fill_style(ARGO_RIM, border_color=DARK, border_units=2.0, shape_r=3.5),
+    style=Icon.fill_style(ARGO_RIM, border_color=Icon.DARK, border_units=2.0, shape_r=3.5),
 )
 
 # Two big adorable white circular eyes with dark pupils
@@ -95,12 +88,12 @@ for ex, px in ((40.5, 41.5), (59.5, 58.5)):
     circle(
         (ex, 53.5),
         radius=8.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
     )
     circle(
         (px, 53.5),
         radius=3.5,
-        style=fill_style(DARK),
+        style=Icon.fill_style(Icon.DARK),
     )
 
 # Happy half-moon smile
@@ -110,7 +103,7 @@ for i in range(17):
     smile_pts.append((50.0 + 5.2 * math.cos(ang), 41.5 + 4.2 * math.sin(ang)))
 polygon(
     smile_pts,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Smooth rounded white reflection highlight on the glass visor
@@ -118,6 +111,6 @@ shine_pts: list[tuple[float, float]] = []
 for i in range(13):
     ang = math.radians(125.0 + 28.0 * (i / 12))
     shine_pts.append((50.0 + 20.8 * math.cos(ang), 58.0 + 20.8 * math.sin(ang)))
-draw_round_polyline(shine_pts, width_units=2.2, color=WHITE)
+Icon.draw_round_polyline(shine_pts, width_units=2.2, color=Icon.WHITE)
 
 save()

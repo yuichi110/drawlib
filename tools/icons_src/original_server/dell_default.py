@@ -10,17 +10,13 @@
 """Original Server vendor icon: dell (default variant)."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_ring = 2.0
 w_letter = 1.6
@@ -36,14 +32,15 @@ dell_body: list[tuple[float, float]] = [(55.05, 47.63), (44.93, 39.66), (35.68, 
 second_l: list[tuple[float, float]] = [(75.13, 46.66), (81.26, 46.66), (81.26, 41.49), (68.97, 41.49), (68.97, 59.15), (75.13, 59.15)]
 
 # 1. Outer circular ring with transparent interior
-draw_compound_polygon([ring_inner, ring_outer], color=Colors.Blue3)
-draw_round_polyline(ring_outer, width_units=w_ring, color=DARK, closed=True)
-draw_round_polyline(ring_inner, width_units=w_ring, color=DARK, closed=True)
+polygon(ring_outer, holes=[ring_inner], style=Icon.fill_style(Colors.Blue3))
+Icon.draw_round_polyline(ring_outer, width_units=w_ring, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(ring_inner, width_units=w_ring, color=Icon.DARK, closed=True)
 
 # 2. DELL letters with tilted E and transparent D hole
-draw_compound_polygon([d_hole, dell_body, second_l], color=Colors.Blue3)
+polygon(dell_body, holes=[d_hole], style=Icon.fill_style(Colors.Blue3))
+polygon(second_l, style=Icon.fill_style(Colors.Blue3))
 for ring in (d_hole, dell_body, second_l):
-    draw_round_polyline(ring, width_units=w_letter, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

@@ -10,16 +10,12 @@
 """Original Code icon: npm."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -29,8 +25,8 @@ n_hole = [(25.69, 73.43), (74.45, 73.43), (74.45, 24.67), (62.27, 24.67), (62.27
 # fmt: on
 
 # Flat pastel red square with transparent 'n' cutout
-draw_compound_polygon([outer_sq, n_hole], color="#E75353")
-draw_round_polyline(outer_sq, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(n_hole, width_units=w_inner, color=DARK, closed=True)
+polygon(outer_sq, holes=[n_hole], style=Icon.fill_style("#E75353"))
+Icon.draw_round_polyline(outer_sq, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(n_hole, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

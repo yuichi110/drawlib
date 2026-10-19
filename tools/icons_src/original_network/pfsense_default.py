@@ -12,18 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.5
@@ -40,7 +32,7 @@ rectangle(
     (50.0, 50.0),
     width=80.0,
     height=80.0,
-    style=no_border_fill(Colors.Gray6, shape_r=badge_r),
+    style=Icon.no_border_fill(Colors.Gray6, shape_r=badge_r),
 )
 
 # 2. WHITE 'p' letter (outer + counter hole)
@@ -57,14 +49,14 @@ f_outer = _sc(
     [(58.94, 53.01), (61.69, 62.75), (66.56, 62.75), (68.47, 69.73), (68.66, 70.37), (68.86, 71.0), (69.07, 71.63), (69.29, 72.26), (69.51, 72.88), (69.75, 73.49), (69.99, 74.1), (70.25, 74.7), (70.51, 75.29), (70.79, 75.87), (71.06, 76.43), (71.35, 76.98), (71.66, 77.52), (71.99, 78.05), (72.35, 78.57), (72.72, 79.07), (73.12, 79.56), (73.53, 80.03), (73.95, 80.49), (74.39, 80.94), (74.85, 81.37), (75.33, 81.79), (75.83, 82.19), (76.36, 82.56), (76.91, 82.92), (77.49, 83.26), (78.08, 83.58), (78.7, 83.89), (79.34, 84.17), (80.0, 84.43), (80.68, 84.68), (81.41, 84.89), (82.16, 85.09), (82.96, 85.25), (83.78, 85.39), (84.64, 85.51), (85.52, 85.6), (85.98, 85.63), (86.44, 85.66), (86.91, 85.69), (87.39, 85.7), (87.87, 85.71), (88.36, 85.71), (88.86, 85.71), (89.34, 85.71), (89.81, 85.69), (90.29, 85.66), (90.79, 85.6), (91.0, 84.02), (91.0, 74.92), (90.53, 75.07), (90.07, 75.26), (89.56, 75.35), (89.08, 75.41), (88.57, 75.44), (87.96, 75.45), (87.41, 75.42), (86.88, 75.37), (86.36, 75.3), (85.87, 75.19), (85.39, 75.07), (84.93, 74.92), (84.5, 74.74), (84.08, 74.54), (83.68, 74.31), (83.31, 74.05), (82.97, 73.74), (82.64, 73.39), (82.31, 72.98), (82.0, 72.51), (81.7, 72.0), (81.41, 71.43), (81.13, 70.8), (80.88, 70.12), (80.64, 69.38), (78.73, 62.75), (85.6, 62.75), (87.3, 57.35), (82.86, 53.01), (75.99, 53.01), (67.63, 23.38), (55.57, 23.38), (63.93, 53.01)]
 )
 
-draw_compound_polygon([p_outer, p_hole], color=WHITE)
-polygon(f_outer, style=no_border_fill(WHITE))
+polygon(p_outer, holes=[p_hole], style=Icon.fill_style(Icon.WHITE))
+polygon(f_outer, style=Icon.no_border_fill(Icon.WHITE))
 
 # 4. Inner DARK (1.5) outlines for 'p' and 'f'
-draw_round_polyline(p_outer[:136], width_units=w_inner, color=DARK)
-draw_round_polyline(p_hole, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(f_outer[:52], width_units=w_inner, color=DARK)
-draw_round_polyline([*f_outer[53:], f_outer[0]], width_units=w_inner, color=DARK)
+Icon.draw_round_polyline(p_outer[:136], width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline(p_hole, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(f_outer[:52], width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline([*f_outer[53:], f_outer[0]], width_units=w_inner, color=Icon.DARK)
 
 # 5. Outer DARK (w=1.9) rounded square border drawn last on top
 rectangle(
@@ -73,8 +65,8 @@ rectangle(
     height=80.0,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w),
         shape_line_style="solid",
         shape_r=badge_r,
     ),

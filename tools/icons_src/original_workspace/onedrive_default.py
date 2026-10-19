@@ -11,14 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.95
@@ -254,7 +249,7 @@ for pts, col in [
     (lobe_left, "#57A3F2"),
     (lobe_right, "#6BB1F4"),
 ]:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

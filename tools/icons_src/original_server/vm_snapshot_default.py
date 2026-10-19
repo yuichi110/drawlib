@@ -11,40 +11,29 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Rounded square VM container card (matching virtual_machine_default.py)
 rectangle(
     (46.0, 52.0),
     width=68.0,
     height=68.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=10.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=10.0),
 )
 
 # Centered 3D isometric VM cube (right face in light blue to contrast with green badge)
-draw_iso_cube(
+Icon.draw_iso_cube(
     46.0,
     52.0,
     radius=21.5,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 
@@ -52,18 +41,18 @@ draw_iso_cube(
 circle(
     (70.0, 28.0),
     radius=16.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (70.0, 28.0),
     radius=11.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(70.0, 34.0), (70.0, 28.0), (75.0, 28.0)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
-circle((70.0, 28.0), radius=1.5, style=fill_style(DARK))
+circle((70.0, 28.0), radius=1.5, style=Icon.fill_style(Icon.DARK))
 
 save()

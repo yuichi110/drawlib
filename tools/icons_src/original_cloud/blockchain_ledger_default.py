@@ -11,40 +11,29 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 radius = 15.0
 
 blocks = [
-    (25.0, 31.0, PASTEL_BLUE, PASTEL_BLUE_LIGHT),
-    (50.0, 50.0, PASTEL_GREEN, PASTEL_BLUE),
-    (75.0, 69.0, PASTEL_BLUE, PASTEL_GREEN),
+    (25.0, 31.0, Icon.PASTEL_BLUE, Icon.PASTEL_BLUE_LIGHT),
+    (50.0, 50.0, Icon.PASTEL_GREEN, Icon.PASTEL_BLUE),
+    (75.0, 69.0, Icon.PASTEL_BLUE, Icon.PASTEL_GREEN),
 ]
 
 # 1. Draw the 3 isometric 3D ledger blocks
 for cx, cy, left_col, right_col in blocks:
-    draw_iso_cube(
+    Icon.draw_iso_cube(
         cx,
         cy,
         radius=radius,
-        top_color=WHITE,
+        top_color=Icon.WHITE,
         left_color=left_col,
         right_color=right_col,
-        border_color=DARK,
+        border_color=Icon.DARK,
         border_units=w,
     )
 
@@ -58,9 +47,9 @@ for p1, p2 in links:
         circle(
             pt_node,
             radius=3.2,
-            style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+            style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
         )
-    draw_round_segment(p1, p2, width_units=5.0, color=DARK)
-    draw_round_segment(p1, p2, width_units=1.8, color=PASTEL_GREEN)
+    Icon.draw_round_segment(p1, p2, width_units=5.0, color=Icon.DARK)
+    Icon.draw_round_segment(p1, p2, width_units=1.8, color=Icon.PASTEL_GREEN)
 
 save()

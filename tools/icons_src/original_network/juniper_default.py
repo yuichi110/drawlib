@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 # Split 1.3-unit DARK outline into 1.1 outside (w_halo=2.2) + 0.2 inside (w_in=0.4)
 # so thin 1.4-unit stems stay vibrant pastel and adjacent letters do not merge.
@@ -54,17 +48,17 @@ for pts, col in [
     (i_pts, Colors.Blue3),
     (r_pts, Colors.Teal3),
 ]:
-    draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 # Compound letters with transparent holes (p, e)
 for outer, hole in [(p_outer, p_hole), (e_outer, e_hole)]:
-    draw_round_polyline(outer, width_units=w_halo, color=DARK, closed=True)
-    draw_round_polyline(hole, width_units=w_halo, color=DARK, closed=True)
-    draw_compound_polygon([outer, hole], color=Colors.Teal3)
-    draw_round_polyline(outer, width_units=w_in, color=DARK, closed=True)
-    draw_round_polyline(hole, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(outer, width_units=w_halo, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(outer, holes=[hole], style=Icon.fill_style(Colors.Teal3))
+    Icon.draw_round_polyline(outer, width_units=w_in, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

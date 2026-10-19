@@ -13,43 +13,33 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Monitor stand neck and base
 rectangle(
     (43.0, 26.0),
     width=14.0,
     height=14.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
-draw_round_segment((25.0, 18.0), (61.0, 18.0), width_units=w, color=DARK)
+Icon.draw_round_segment((25.0, 18.0), (61.0, 18.0), width_units=w, color=Icon.DARK)
 
 # Monitor outer bezel and inner screen
 rectangle(
     (43.0, 56.0),
     width=62.0,
     height=46.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=6.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=6.5),
 )
 rectangle(
     (43.0, 56.0),
     width=50.0,
     height=34.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=3.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0, shape_r=3.5),
 )
 
 # Mini desktop window inside the VDI screen
@@ -57,7 +47,7 @@ rectangle(
     (32.0, 60.0),
     width=18.0,
     height=13.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=2.0),
 )
 
 # Overlapping Cloud badge in the bottom-right indicating Cloud VDI
@@ -103,7 +93,7 @@ for i, (cx, cy, r) in enumerate(bumps):
         ang = a_start + (a_end - a_start) * (s / steps)
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
-polygon(cloud_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(cloud_pts, width_units=2.0, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(cloud_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

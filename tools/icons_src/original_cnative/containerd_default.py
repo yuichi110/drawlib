@@ -12,19 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 s = 0.96
 
 
@@ -47,12 +39,12 @@ d_outer = _sc(
 d_hole = _sc([(42.54, 28.33), (57.58, 28.33), (57.58, 45.25), (42.54, 45.25)])
 
 # 1. Outer vertical rectangle in Colors.Gray6 with w=2.0 DARK border
-polygon(outer_rect, style=fill_style(Colors.Gray6))
-draw_round_polyline(outer_rect, width_units=w, color=DARK, closed=True)
+polygon(outer_rect, style=Icon.fill_style(Colors.Gray6))
+Icon.draw_round_polyline(outer_rect, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. White block-letter "d" with inner hole revealing Colors.Gray6 underneath
-draw_compound_polygon([d_outer, d_hole], color=WHITE)
-draw_round_polyline(d_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(d_hole, width_units=w, color=DARK, closed=True)
+polygon(d_outer, holes=[d_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(d_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(d_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

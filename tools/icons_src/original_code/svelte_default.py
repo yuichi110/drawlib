@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -31,11 +25,11 @@ s_curve = [(44.51, 19.59), (43.89, 19.44), (43.28, 19.33), (42.65, 19.23), (42.0
 # fmt: on
 
 # 1. Flat pastel orange-red outer badge
-polygon(badge, style=no_border_fill("#F16C43"))
-draw_round_polyline(badge, width_units=w_outer, color=DARK, closed=True)
+polygon(badge, style=Icon.no_border_fill("#F16C43"))
+Icon.draw_round_polyline(badge, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Clean WHITE inner 'S' curve with DARK outline
-polygon(s_curve, style=no_border_fill(WHITE))
-draw_round_polyline(s_curve, width_units=w_inner, color=DARK, closed=True)
+polygon(s_curve, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(s_curve, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

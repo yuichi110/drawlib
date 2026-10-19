@@ -10,23 +10,11 @@
 """Original Server concept icon: virtual_san."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cylinder_tier,
-    draw_iso_cube,
-    draw_round_polyline,
-    draw_round_segment,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 hosts = [
     (50.0, 76.0),
@@ -35,40 +23,40 @@ hosts = [
 ]
 
 # Triangular ring interconnect between the 3 HCI hosts
-draw_round_polyline(
+Icon.draw_round_polyline(
     hosts,
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
     closed=True,
 )
 
 # Radial storage fabric connections from central pool to all 3 hosts
 for hx, hy in hosts:
-    draw_round_segment((50.0, 44.0), (hx, hy), width_units=2.0, color=DARK)
+    Icon.draw_round_segment((50.0, 44.0), (hx, hy), width_units=2.0, color=Icon.DARK)
 
 # 3 HCI host 3D isometric cubes at the triangle vertices
 for hx, hy in hosts:
-    draw_iso_cube(
+    Icon.draw_iso_cube(
         hx,
         hy,
         radius=12.5,
-        top_color=WHITE,
-        left_color=PASTEL_BLUE,
-        right_color=PASTEL_BLUE_LIGHT,
-        border_color=DARK,
+        top_color=Icon.WHITE,
+        left_color=Icon.PASTEL_BLUE,
+        right_color=Icon.PASTEL_BLUE_LIGHT,
+        border_color=Icon.DARK,
         border_units=2.0,
     )
 
 # Shared PASTEL_GREEN 3D storage cylinder at the center
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     50.0,
     36.0,
     width=26.0,
     body_h=14.0,
     ry=5.0,
-    body_color=PASTEL_GREEN,
-    top_color=WHITE,
-    border_color=DARK,
+    body_color=Icon.PASTEL_GREEN,
+    top_color=Icon.WHITE,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 

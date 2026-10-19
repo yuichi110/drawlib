@@ -12,11 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -156,8 +156,8 @@ petal_tl = [(22.18, 36.88), (22.19, 37.09), (22.22, 37.41), (22.26, 37.83), (22.
 
 # Draw 2 leaves in two-tone pastel green
 for leaf, leaf_col in ((left_leaf, Colors.Green3), (right_leaf, Colors.Green2)):
-    polygon(leaf, style=no_border_fill(leaf_col))
-    draw_round_polyline(leaf, width_units=w, color=DARK, closed=True)
+    polygon(leaf, style=Icon.no_border_fill(leaf_col))
+    Icon.draw_round_polyline(leaf, width_units=w, color=Icon.DARK, closed=True)
 
 # Draw 4 vortex petals in two-tone pastel red
 for pts, col in (
@@ -166,8 +166,8 @@ for pts, col in (
     (petal_tr, Colors.Red4),
     (petal_tl, Colors.Red3),
 ):
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

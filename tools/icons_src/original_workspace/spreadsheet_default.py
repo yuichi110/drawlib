@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -59,7 +50,7 @@ sheet_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_sheet, y1 - r_sheet, r_sheet, 0.0, 90.0),
     *_arc_pts(x0 + r_sheet, y1 - r_sheet, r_sheet, 90.0, 180.0),
 ]
-polygon(sheet_pts, style=no_border_fill(WHITE))
+polygon(sheet_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Left index column (PASTEL_BLUE_LIGHT)
 idx_pts: list[tuple[float, float]] = [
@@ -68,7 +59,7 @@ idx_pts: list[tuple[float, float]] = [
     (x_idx, y_hdr),
     (x0, y_hdr),
 ]
-polygon(idx_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
+polygon(idx_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
 
 # 3. Top header bar (PASTEL_GREEN)
 hdr_pts: list[tuple[float, float]] = [
@@ -77,16 +68,16 @@ hdr_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_sheet, y1 - r_sheet, r_sheet, 0.0, 90.0),
     *_arc_pts(x0 + r_sheet, y1 - r_sheet, r_sheet, 90.0, 180.0),
 ]
-polygon(hdr_pts, style=no_border_fill(PASTEL_GREEN))
+polygon(hdr_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
 
 # 4. Crisp DARK interior grid lines
-draw_round_segment((x0, 50.0), (x1, 50.0), width_units=w_inner, color=DARK)
-draw_round_segment((x0, 33.0), (x1, 33.0), width_units=w_inner, color=DARK)
-draw_round_segment((60.0, y0), (60.0, y1), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((x0, 50.0), (x1, 50.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((x0, 33.0), (x1, 33.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((60.0, y0), (60.0, y1), width_units=w_inner, color=Icon.DARK)
 
 # 5. Main dividers and outer border
-draw_round_segment((x_idx, y0), (x_idx, y1), width_units=w_outer, color=DARK)
-draw_round_segment((x0, y_hdr), (x1, y_hdr), width_units=w_outer, color=DARK)
-draw_round_polyline(sheet_pts, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_segment((x_idx, y0), (x_idx, y1), width_units=w_outer, color=Icon.DARK)
+Icon.draw_round_segment((x0, y_hdr), (x1, y_hdr), width_units=w_outer, color=Icon.DARK)
+Icon.draw_round_polyline(sheet_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

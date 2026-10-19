@@ -13,30 +13,18 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    build_shield_half_points,
-    draw_cisco_arrow,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Outer 1U horizontal rack appliance body
 rectangle(
     (50.0, 50.0),
     width=78.0,
     height=52.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=8.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=8.0),
 )
 
 # 2. Inner WHITE front panel
@@ -44,7 +32,7 @@ rectangle(
     (50.0, 50.0),
     width=66.0,
     height=40.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 3. Left status LEDs on the panel
@@ -52,27 +40,27 @@ for y_led in (56.0, 44.0):
     circle(
         (24.0, y_led),
         radius=2.6,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
     )
 
 # 4. Long bidirectional traffic arrows spanning across the panel
 # Top arrow: left -> right (--- | shield | -->)
-draw_cisco_arrow(
+Cisco.draw_arrow(
     (32.0, 56.0),
     (78.5, 56.0),
     shaft_w=2.8,
     head_len=5.6,
     head_w=7.6,
-    color=DARK,
+    color=Icon.DARK,
 )
 # Bottom arrow: right -> left (<-- | shield | ---)
-draw_cisco_arrow(
+Cisco.draw_arrow(
     (78.5, 44.0),
     (32.0, 44.0),
     shaft_w=2.8,
     head_len=5.6,
     head_w=7.6,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # 5. Central PASTEL_GREEN shield sitting across the middle of both arrows
@@ -80,12 +68,12 @@ cx = 55.25
 y_bot, y_top = 34.5, 65.5
 half_w = 11.8
 
-left_pts = build_shield_half_points(cx, y_bot, y_top, half_w, side="left")
-right_pts = build_shield_half_points(cx, y_bot, y_top, half_w, side="right")
+left_pts = Icon.build_shield_half_points(cx, y_bot, y_top, half_w, side="left")
+right_pts = Icon.build_shield_half_points(cx, y_bot, y_top, half_w, side="right")
 full_outline = left_pts + list(reversed(right_pts[1:-1]))
 
-polygon(full_outline, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(full_outline, width_units=2.0, color=DARK, closed=True)
+polygon(full_outline, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(full_outline, width_units=2.0, color=Icon.DARK, closed=True)
 
 # 6. Almond eye symbol inside the central shield
 ey = 51.2
@@ -105,8 +93,8 @@ for i in range(1, steps):
     ang = (-math.pi / 2.0 + half_ang) - (2.0 * half_ang) * (i / steps)
     eye_pts.append((cx + arc_r * math.cos(ang), yc_bot + arc_r * math.sin(ang)))
 
-polygon(eye_pts, style=no_border_fill(WHITE))
-draw_round_polyline(eye_pts, width_units=1.9, color=DARK, closed=True)
-circle((cx, ey), radius=2.3, style=fill_style(DARK))
+polygon(eye_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(eye_pts, width_units=1.9, color=Icon.DARK, closed=True)
+circle((cx, ey), radius=2.3, style=Icon.fill_style(Icon.DARK))
 
 save()

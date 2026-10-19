@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -60,7 +49,7 @@ win_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_win, y1 - r_win, r_win, 0.0, 90.0),
     *_arc_pts(x0 + r_win, y1 - r_win, r_win, 90.0, 180.0),
 ]
-polygon(win_pts, style=no_border_fill(WHITE))
+polygon(win_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. PASTEL_BLUE top header bar + window control dots
 hdr_pts: list[tuple[float, float]] = [
@@ -69,18 +58,18 @@ hdr_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_win, y1 - r_win, r_win, 0.0, 90.0),
     *_arc_pts(x0 + r_win, y1 - r_win, r_win, 90.0, 180.0),
 ]
-polygon(hdr_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(win_pts, width_units=w_outer, color=DARK, closed=True)
-draw_round_segment((x0, y_hdr), (x1, y_hdr), width_units=w_outer, color=DARK)
+polygon(hdr_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(win_pts, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((x0, y_hdr), (x1, y_hdr), width_units=w_outer, color=Icon.DARK)
 
 for dot_x in (21.0, 27.0, 33.0):
-    circle((dot_x, 74.5), radius=1.6, style=fill_style(DARK))
+    circle((dot_x, 74.5), radius=1.6, style=Icon.fill_style(Icon.DARK))
 
 # 3. User silhouette inside screen (PASTEL_BLUE_LIGHT)
 circle(
     (44.5, 53.5),
     radius=8.2,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_inner),
 )
 
 shoulder_pts: list[tuple[float, float]] = [
@@ -88,8 +77,8 @@ shoulder_pts: list[tuple[float, float]] = [
     (61.0, 30.0),
     *_arc_pts(44.5, 30.0, 16.5, 0.0, 180.0, 20),
 ]
-polygon(shoulder_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(shoulder_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(shoulder_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(shoulder_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. Video camera badge at bottom-right (PASTEL_GREEN)
 lens_pts: list[tuple[float, float]] = [
@@ -98,20 +87,20 @@ lens_pts: list[tuple[float, float]] = [
     (87.0, 32.5),
     (75.0, 27.5),
 ]
-polygon(lens_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(lens_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(lens_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(lens_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 rectangle(
     (65.5, 24.5),
     width=21.0,
     height=18.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_outer, shape_r=3.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_outer, shape_r=3.5),
 )
 
 circle(
     (65.5, 24.5),
     radius=3.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
 )
 
 save()

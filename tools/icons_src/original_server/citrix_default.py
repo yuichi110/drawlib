@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 # Split 1.5-unit DARK outline into 1.15 outside (w_halo=2.3) + 0.35 inside (w_in=0.7)
 # so 2.4-unit stems stay flat dark slate-gray (#4A5568) with crisp letter spacing.
@@ -36,14 +36,14 @@ dots: list[list[tuple[float, float]]] = [
 ]
 
 for pts in letters:
-    draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill("#4A5568"))
-    draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#4A5568"))
+    Icon.draw_round_polyline(pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 for pts in dots:
-    draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill("#4A5568"))
-    draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#4A5568"))
+    Icon.draw_round_polyline(pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

@@ -11,39 +11,39 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import DARK, ORIG_STROKE, PASTEL_BLUE, PASTEL_GREEN, WHITE, draw_chunky_arrow, fill_style, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 for px in (19.0, 81.0):
     rectangle(
         (px, 50.0),
         width=14.0,
         height=68.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=5.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=5.0),
     )
 
-draw_chunky_arrow(
+Icon.draw_chunky_arrow(
     y_center=63.0,
     x_tail=33.0,
     x_tip=67.5,
     x_head_base=53.5,
     shaft_half_h=4.6,
     head_half_h=11.0,
-    fill_color=PASTEL_BLUE,
+    fill_color=Icon.PASTEL_BLUE,
     border_units=w,
 )
 
-draw_chunky_arrow(
+Icon.draw_chunky_arrow(
     y_center=37.0,
     x_tail=67.0,
     x_tip=32.5,
     x_head_base=46.5,
     shaft_half_h=4.6,
     head_half_h=11.0,
-    fill_color=PASTEL_GREEN,
+    fill_color=Icon.PASTEL_GREEN,
     border_units=w,
 )
 

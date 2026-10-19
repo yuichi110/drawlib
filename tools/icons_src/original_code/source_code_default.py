@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 
@@ -50,8 +41,8 @@ doc_pts: list[tuple[float, float]] = [
     *_arc_points(78.0 - r_doc, 12.0 + r_doc, r_doc, 270.0, 360.0),
     (78.0, 70.0),
 ]
-polygon(doc_pts, style=no_border_fill(WHITE))
-draw_round_polyline(doc_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(doc_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(doc_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 2. Folded top-right corner flap in PASTEL_BLUE_LIGHT
 r_flap = 3.0
@@ -60,8 +51,8 @@ flap_pts: list[tuple[float, float]] = [
     *_arc_points(60.0 + r_flap, 70.0 + r_flap, r_flap, 180.0, 270.0),
     (78.0, 70.0),
 ]
-polygon(flap_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(flap_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(flap_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(flap_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 3. Central `<` (PASTEL_BLUE), `/` (PASTEL_GREEN), `>` (PASTEL_BLUE) code marks around y=44
 yc = 43.0
@@ -75,8 +66,8 @@ left_chevron = [
     (39.8, yc - 5.7),
     (36.5, yc - 9.0),
 ]
-polygon(left_chevron, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(left_chevron, width_units=w_shape, color=DARK, closed=True)
+polygon(left_chevron, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(left_chevron, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # Center `/` slash polygon
 slash_pts = [
@@ -85,8 +76,8 @@ slash_pts = [
     (56.2, yc + 11.5),
     (51.7, yc + 11.5),
 ]
-polygon(slash_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(slash_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(slash_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(slash_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # Right `>` bracket polygon
 right_chevron = [
@@ -97,7 +88,7 @@ right_chevron = [
     (60.2, yc - 5.7),
     (63.5, yc - 9.0),
 ]
-polygon(right_chevron, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(right_chevron, width_units=w_shape, color=DARK, closed=True)
+polygon(right_chevron, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(right_chevron, width_units=w_shape, color=Icon.DARK, closed=True)
 
 save()

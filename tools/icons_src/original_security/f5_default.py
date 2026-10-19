@@ -12,17 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.5
@@ -34,7 +27,7 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
 
 
 # 1. Base pastel red circular badge fill
-circle((50.0, 50.0), radius=40.0, style=no_border_fill(Colors.Red3))
+circle((50.0, 50.0), radius=40.0, style=Icon.no_border_fill(Colors.Red3))
 
 # 2. WHITE '5' and 'f' lettering shapes inside (with open loop in '5')
 ring_5 = _sc(
@@ -46,10 +39,10 @@ ring_f = _sc(
 )
 
 for letter_pts in (ring_5, ring_f):
-    polygon(letter_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(letter_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(letter_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(letter_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Outer DARK circular rim drawn last for crisp perimeter
-circle((50.0, 50.0), radius=40.0, style=stroke_style(DARK, width_units=w))
+circle((50.0, 50.0), radius=40.0, style=Icon.stroke_style(Icon.DARK, width_units=w))
 
 save()

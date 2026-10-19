@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import arc, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 # Circular storage platter on top-left (cx=46.0, cy=54.0, outer r=35.0 -> centerline r=32.6)
 cx, cy = 46.0, 54.0
@@ -33,7 +28,7 @@ arc(
     height=r_outer * 2.0,
     angle_start=0.0,
     angle_end=260.0,
-    style=stroke_style(DELL_BLUE, width_units=4.8),
+    style=Icon.stroke_style(Dell.BLUE, width_units=4.8),
 )
 
 # Inner hub ring top semicircle (outer r=10.5 -> centerline r=8.2, 0 deg to 180 deg)
@@ -43,7 +38,7 @@ arc(
     height=r_hub * 2.0,
     angle_start=0.0,
     angle_end=180.0,
-    style=stroke_style(DELL_BLUE, width_units=4.6),
+    style=Icon.stroke_style(Dell.BLUE, width_units=4.6),
 )
 
 # Foreground shared file folder (outer x=46..89, y=12..46, tab y=46 stepping down to y=41)
@@ -57,9 +52,9 @@ folder_pts = [
 ]
 polygon(
     folder_pts,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Transparent,
-        border_color=DELL_BLUE,
+        border_color=Dell.BLUE,
         border_units=4.8,
         shape_r=(2.5, 2.5, 2.5, 1.5, 1.5, 2.5),
     ),

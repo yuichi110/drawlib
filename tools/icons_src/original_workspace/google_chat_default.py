@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 
 back_bubble = [
@@ -124,10 +124,10 @@ front_bubble = [
     (12.80, 14.14),
 ]
 
-polygon(back_bubble, style=no_border_fill("#60B078"))
-draw_round_polyline(back_bubble, width_units=w, color=DARK, closed=True)
+polygon(back_bubble, style=Icon.no_border_fill("#60B078"))
+Icon.draw_round_polyline(back_bubble, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(front_bubble, style=no_border_fill("#71C789"))
-draw_round_polyline(front_bubble, width_units=w, color=DARK, closed=True)
+polygon(front_bubble, style=Icon.no_border_fill("#71C789"))
+Icon.draw_round_polyline(front_bubble, width_units=w, color=Icon.DARK, closed=True)
 
 save()

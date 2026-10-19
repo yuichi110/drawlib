@@ -13,35 +13,25 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Top overhead strap and left/right side strap lugs
 rectangle(
     (50.0, 73.5),
     width=15.0,
     height=18.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w, shape_r=4.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w, shape_r=4.5),
 )
 for sx in (16.5, 83.5):
     rectangle(
         (sx, 48.0),
         width=9.0,
         height=17.0,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w, shape_r=3.5),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w, shape_r=3.5),
     )
 
 # Front VR visor contour with rounded outer corners and curved nose bridge notch
@@ -78,20 +68,20 @@ for i in range(steps + 1):
     ang = math.radians(0.0 + 90.0 * (i / steps))
     visor_pts.append((x_r - rc + rc * math.cos(ang), y_t - rc + rc * math.sin(ang)))
 
-polygon(visor_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(visor_pts, width_units=w, color=DARK, closed=True)
+polygon(visor_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(visor_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Dual VR optics lenses (WHITE outer rim + PASTEL_GREEN lens highlight)
 for lx in (35.5, 64.5):
     circle(
         (lx, 49.5),
         radius=11.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
     )
     circle(
         (lx, 49.5),
         radius=6.0,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
     )
 
 save()

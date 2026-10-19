@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    VMWARE_CYAN,
-    VMWARE_NAVY,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon, Vmware
 
-setup_icon()
+Icon.setup()
 
 # Bottom 2 stacked physical rack server units (vvd_icons/vm-server.svg)
 for cy in (21.0, 46.0):
@@ -28,7 +22,7 @@ for cy in (21.0, 46.0):
         (50.0, cy),
         width=80.0,
         height=18.0,
-        style=fill_style(Colors.Transparent, border_color=VMWARE_NAVY, border_units=4.4, shape_r=2.0),
+        style=Icon.fill_style(Colors.Transparent, border_color=Vmware.NAVY, border_units=4.4, shape_r=2.0),
     )
 
     # 3 left vertical vent bars
@@ -37,14 +31,14 @@ for cy in (21.0, 46.0):
             (vx, cy),
             width=2.5,
             height=8.0,
-            style=no_border_fill(VMWARE_NAVY, shape_r=0.3),
+            style=Icon.no_border_fill(Vmware.NAVY, shape_r=0.3),
         )
 
     # Center status ring
     circle(
         (50.0, cy),
         radius=4.3,
-        style=fill_style(Colors.Transparent, border_color=VMWARE_CYAN, border_units=3.6),
+        style=Icon.fill_style(Colors.Transparent, border_color=Vmware.CYAN, border_units=3.6),
     )
 
     # 3 right vertical vent bars
@@ -53,7 +47,7 @@ for cy in (21.0, 46.0):
             (vx, cy),
             width=2.5,
             height=8.0,
-            style=no_border_fill(VMWARE_NAVY, shape_r=0.3),
+            style=Icon.no_border_fill(Vmware.NAVY, shape_r=0.3),
         )
 
 # Top 3 square VM boxes (y=65..85) with inner geometric square detail (no text)
@@ -62,13 +56,13 @@ for vm_cx in (22.0, 50.0, 78.0):
         (vm_cx, 75.0),
         width=20.0,
         height=20.0,
-        style=fill_style(Colors.Transparent, border_color=VMWARE_CYAN, border_units=4.2, shape_r=2.5),
+        style=Icon.fill_style(Colors.Transparent, border_color=Vmware.CYAN, border_units=4.2, shape_r=2.5),
     )
     rectangle(
         (vm_cx, 75.0),
         width=8.0,
         height=8.0,
-        style=fill_style(Colors.Transparent, border_color=VMWARE_NAVY, border_units=2.8, shape_r=1.0),
+        style=Icon.fill_style(Colors.Transparent, border_color=Vmware.NAVY, border_units=2.8, shape_r=1.0),
     )
 
 save()

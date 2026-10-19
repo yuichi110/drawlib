@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. 3-tier database cylinder (left/back, matching database & time_series_database)
 cx = 41.0
@@ -42,23 +33,23 @@ for yb in tier_bottoms:
         (cx, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_BLUE),
+        style=Icon.fill_style(Icon.PASTEL_BLUE),
     )
 
-draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Overlapping bottom-right vector space badge
@@ -66,25 +57,25 @@ badge_c = (68.0, 33.0)
 circle(
     badge_c,
     radius=20.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 origin = (59.5, 24.5)
-draw_round_segment(origin, (59.5, 43.5), width_units=2.0, color=DARK)
-draw_round_segment(origin, (78.5, 24.5), width_units=2.0, color=DARK)
+Icon.draw_round_segment(origin, (59.5, 43.5), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment(origin, (78.5, 24.5), width_units=2.0, color=Icon.DARK)
 
 v_main = (74.5, 39.5)
-draw_round_segment(origin, v_main, width_units=2.0, color=DARK)
+Icon.draw_round_segment(origin, v_main, width_units=2.0, color=Icon.DARK)
 
 circle(
     origin,
     radius=3.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=1.8),
 )
 circle(
     v_main,
     radius=5.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

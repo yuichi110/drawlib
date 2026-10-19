@@ -11,36 +11,25 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cylinder_tier,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Slight up-right offset so the cylinder and claim badge sit centered inside the heptagon
 dx, dy = 1.6, 3.5
 
 # White storage volume cylinder
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     46.0 + dx,
     38.0 + dy,
     36.0,
     17.0,
     6.0,
-    body_color=WHITE,
-    top_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    body_color=Icon.WHITE,
+    top_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=2.0,
     draw_top_cap=True,
 )
@@ -49,15 +38,15 @@ draw_cylinder_tier(
 circle(
     (64.0 + dx, 35.0 + dy),
     radius=11.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Inward claim arrow pointing left into the volume
-draw_round_segment((68.5 + dx, 35.0 + dy), (59.5 + dx, 35.0 + dy), width_units=2.0, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((68.5 + dx, 35.0 + dy), (59.5 + dx, 35.0 + dy), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(63.2 + dx, 38.6 + dy), (59.5 + dx, 35.0 + dy), (63.2 + dx, 31.4 + dy)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 save()

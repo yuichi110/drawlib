@@ -13,14 +13,7 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 SLATE_LID = "#62738B"
 SLATE_SHADOW = "#8293AF"
@@ -58,14 +51,14 @@ def _catmull_rom(
     return out
 
 
-setup_icon()
+Icon.setup()
 w_outer = 2.0
 
 # 1. Top finial knob (circle at top of lid)
 circle(
     xy=(32.2, 85.2),
     radius=3.9,
-    style=fill_style(SLATE_LID, border_color=DARK, border_units=w_outer),
+    style=Icon.fill_style(SLATE_LID, border_color=Icon.DARK, border_units=w_outer),
 )
 
 # 2. Domed slate-blue lid sitting on the collar
@@ -75,8 +68,8 @@ for i in range(33):
     dx = 32.2 + 13.0 * math.cos(ang)
     dy = 69.8 + 12.2 * math.sin(ang)
     dome_pts.append((round(dx, 2), round(dy, 2)))
-polygon(dome_pts, style=no_border_fill(SLATE_LID))
-draw_round_polyline(dome_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(dome_pts, style=Icon.no_border_fill(SLATE_LID))
+Icon.draw_round_polyline(dome_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Curved white horn body
 horn_pts = _catmull_rom(
@@ -109,8 +102,8 @@ horn_pts = _catmull_rom(
     ],
     steps_per_seg=10,
 )
-polygon(horn_pts, style=no_border_fill(WHITE))
-draw_round_polyline(horn_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(horn_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(horn_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 4. Smooth slate-blue crescent shadow inside the horn body (no border)
 shadow_outer = _catmull_rom(
@@ -140,7 +133,7 @@ shadow_inner = _catmull_rom(
     ],
     steps_per_seg=8,
 )
-polygon([*shadow_outer, *shadow_inner[1:-1]], style=no_border_fill(SLATE_SHADOW))
+polygon([*shadow_outer, *shadow_inner[1:-1]], style=Icon.no_border_fill(SLATE_SHADOW))
 
 # 5. White rim collar with right spout
 collar_pts: list[tuple[float, float]] = []
@@ -162,7 +155,7 @@ spout_curve = _catmull_rom(
     steps_per_seg=6,
 )
 collar_pts.extend(spout_curve)
-polygon(collar_pts, style=no_border_fill(WHITE))
-draw_round_polyline(collar_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(collar_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(collar_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

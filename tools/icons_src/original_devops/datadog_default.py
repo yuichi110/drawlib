@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 EAR_SHADOW = "#A182DA"
@@ -83,8 +76,8 @@ def _tilted_rounded_rect(
 
 # 1. Slightly tilted rounded square backdrop in Colors.Purple3
 backdrop_pts = _tilted_rounded_rect(47.5, 52.2, width=66.5, height=68.0, r=7.0, deg=7.2)
-polygon(backdrop_pts, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(backdrop_pts, width_units=w, color=DARK, closed=True)
+polygon(backdrop_pts, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(backdrop_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right floppy ear (drawn behind right forehead curve for seamless overlap)
 right_ear_pts: list[tuple[float, float]] = [
@@ -95,7 +88,7 @@ right_ear_pts: list[tuple[float, float]] = [
     *_cubic((65.2, 72.0), (63.8, 75.5), (62.5, 78.5), (61.6, 80.5), 8),
     (57.0, 76.5),
 ]
-polygon(right_ear_pts, style=no_border_fill(WHITE))
+polygon(right_ear_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # Soft lavender (#C5B3E6) shadow inside right ear
 right_ear_shadow: list[tuple[float, float]] = [
@@ -103,10 +96,10 @@ right_ear_shadow: list[tuple[float, float]] = [
     *_cubic((57.8, 78.2), (61.0, 76.2), (63.6, 74.0), (65.2, 72.0), 10),
     *_cubic((65.2, 72.0), (63.8, 75.5), (62.5, 78.5), (61.6, 80.5), 8),
 ]
-polygon(right_ear_shadow, style=no_border_fill(EAR_SHADOW))
+polygon(right_ear_shadow, style=Icon.no_border_fill(EAR_SHADOW))
 
 # Right ear outer DARK w=1.9 border (from crown up over ear tip and into inner crease)
-draw_round_polyline(right_ear_pts[:-1], width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(right_ear_pts[:-1], width_units=w, color=Icon.DARK, closed=False)
 
 # 3. Cute friendly WHITE dog head, neck & chest silhouette
 dog_head_pts: list[tuple[float, float]] = [
@@ -131,7 +124,7 @@ dog_head_pts: list[tuple[float, float]] = [
     # Hidden closure behind chart card and paw
     (52.0, 25.0),
 ]
-polygon(dog_head_pts, style=no_border_fill(WHITE))
+polygon(dog_head_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # Soft lavender (#C5B3E6) crescent shadow under left ear
 left_ear_shadow: list[tuple[float, float]] = [
@@ -141,10 +134,10 @@ left_ear_shadow: list[tuple[float, float]] = [
     (31.5, 74.8),
     *_cubic((31.5, 74.8), (34.2, 67.0), (31.5, 61.2), (24.9, 62.3), 12),
 ]
-polygon(left_ear_shadow, style=no_border_fill(EAR_SHADOW))
+polygon(left_ear_shadow, style=Icon.no_border_fill(EAR_SHADOW))
 
 # Dog head & chest outer DARK w=1.9 border
-draw_round_polyline(dog_head_pts[:-1], width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(dog_head_pts[:-1], width_units=w, color=Icon.DARK, closed=False)
 
 # Left ear inner lobe crease (continuous from cheek edge up into ear)
 left_ear_inner: list[tuple[float, float]] = [
@@ -152,7 +145,7 @@ left_ear_inner: list[tuple[float, float]] = [
     *_cubic((24.8, 62.5), (29.2, 61.0), (33.5, 63.8), (33.0, 69.8), 12),
     *_cubic((33.0, 69.8), (32.8, 72.8), (32.0, 75.2), (31.4, 76.6), 8),
 ]
-draw_round_polyline(left_ear_inner, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(left_ear_inner, width_units=w, color=Icon.DARK, closed=False)
 
 # 4. Shiny DARK eyes with WHITE catchlights
 left_eye_pts: list[tuple[float, float]] = [
@@ -161,11 +154,11 @@ left_eye_pts: list[tuple[float, float]] = [
     *_cubic((47.5, 69.6), (50.2, 69.2), (51.2, 66.2), (50.4, 63.5), 12),
     *_cubic((50.4, 63.5), (48.2, 62.4), (45.2, 62.6), (43.2, 63.8), 10),
 ]
-polygon(left_eye_pts, style=fill_style(DARK))
-circle((47.6, 66.8), radius=1.25, style=fill_style(WHITE))
+polygon(left_eye_pts, style=Icon.fill_style(Icon.DARK))
+circle((47.6, 66.8), radius=1.25, style=Icon.fill_style(Icon.WHITE))
 
-ellipse((63.3, 67.8), width=5.2, height=7.4, style=fill_style(DARK, angle=6.0))
-circle((62.9, 69.1), radius=1.05, style=fill_style(WHITE))
+ellipse((63.3, 67.8), width=5.2, height=7.4, style=Icon.fill_style(Icon.DARK, angle=6.0))
+circle((62.9, 69.1), radius=1.05, style=Icon.fill_style(Icon.WHITE))
 
 # 5. DARK rounded nose and gentle smile line
 nose_pts: list[tuple[float, float]] = [
@@ -174,19 +167,19 @@ nose_pts: list[tuple[float, float]] = [
     *_cubic((69.4, 56.8), (70.4, 55.2), (68.2, 52.0), (65.4, 51.8), 12),
     *_cubic((65.4, 51.8), (62.5, 51.6), (60.0, 54.2), (60.5, 56.2), 12),
 ]
-polygon(nose_pts, style=fill_style(DARK))
+polygon(nose_pts, style=Icon.fill_style(Icon.DARK))
 
 smile_pts: list[tuple[float, float]] = [
     (44.8, 49.0),
     *_cubic((44.8, 49.0), (49.5, 42.2), (58.2, 41.2), (63.2, 45.2), 14),
     *_cubic((63.2, 45.2), (64.8, 46.8), (65.5, 49.5), (65.4, 52.0), 8),
 ]
-draw_round_polyline(smile_pts, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(smile_pts, width_units=w, color=Icon.DARK, closed=False)
 
 # 6. Tilted WHITE chart card at bottom-right + Colors.Purple3 mountain area chart
 card_pts = _tilted_rounded_rect(67.2, 28.5, width=41.5, height=29.2, r=4.2, deg=7.2)
-polygon(card_pts, style=no_border_fill(WHITE))
-draw_round_polyline(card_pts, width_units=w, color=DARK, closed=True)
+polygon(card_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(card_pts, width_units=w, color=Icon.DARK, closed=True)
 
 chart_pts: list[tuple[float, float]] = [
     (52.0, 15.8),
@@ -198,14 +191,14 @@ chart_pts: list[tuple[float, float]] = [
     (58.0, 27.9),
     (51.8, 18.5),
 ]
-polygon(chart_pts, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(chart_pts, width_units=1.7, color=DARK, closed=True)
+polygon(chart_pts, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(chart_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 7. Round WHITE paw at bottom-left overlapping chart card
 circle(
     (42.2, 19.6),
     radius=8.4,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 save()

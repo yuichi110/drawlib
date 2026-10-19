@@ -11,13 +11,13 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import fill_style, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-circle((73.17, 29.94), radius=17.83, style=fill_style('#F06A6A'))
-circle((26.83, 29.94), radius=17.83, style=fill_style('#F06A6A'))
-circle((50.0, 70.06), radius=17.83, style=fill_style('#F06A6A'))
+Icon.setup()
+circle((73.17, 29.94), radius=17.83, style=Icon.fill_style('#F06A6A'))
+circle((26.83, 29.94), radius=17.83, style=Icon.fill_style('#F06A6A'))
+circle((50.0, 70.06), radius=17.83, style=Icon.fill_style('#F06A6A'))
 save()
 # fmt: on

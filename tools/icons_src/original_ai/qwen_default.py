@@ -10,14 +10,10 @@
 """Original AI concept icon: qwen."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -604,14 +600,12 @@ center_triangle = _s(raw_center_triangle)
 QWEN_INDIGO = "#624CF2"
 
 # 1. Fill woven star and central downward triangle in unified "#624CF2" with transparent channel cutout
-draw_compound_polygon(
-    [outer_star, woven_channel, center_triangle],
-    color=QWEN_INDIGO,
-)
+polygon(outer_star, holes=[woven_channel], style=Icon.fill_style(QWEN_INDIGO))
+polygon(center_triangle, style=Icon.fill_style(QWEN_INDIGO))
 
 # 3. Crisp DARK outlines on outer star perimeter, woven channel, and central triangle
-draw_round_polyline(outer_star, width_units=w, color=DARK, closed=True)
-draw_round_polyline(woven_channel, width_units=1.5, color=DARK, closed=True)
-draw_round_polyline(center_triangle, width_units=1.5, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_star, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(woven_channel, width_units=1.5, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(center_triangle, width_units=1.5, color=Icon.DARK, closed=True)
 
 save()

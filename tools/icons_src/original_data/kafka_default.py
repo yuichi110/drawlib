@@ -15,14 +15,7 @@ from typing import Any
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 
 def _circle_pts(xc: float, yc: float, r: float, steps: int = 48) -> list[tuple[float, float]]:
@@ -58,11 +51,11 @@ def _draw_spoke_bar(
         (p2[0] - nx, p2[1] - ny),
         (p1[0] - nx, p1[1] - ny),
     ]
-    polygon(pts, style=no_border_fill(fill_color))
-    draw_round_polyline(pts, width_units=1.8, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(fill_color))
+    Icon.draw_round_polyline(pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -90,14 +83,14 @@ for sat_xy, _ in sat_coords:
     _draw_spoke_bar(hub_xy, sat_xy, r_hub_trim, r_sat_trim, width_units=6.0, fill_color=Colors.Gray4)
 
 # 2. Central hub ring (Colors.Gray6 outer + transparent inner hole)
-draw_compound_polygon([_circle_pts(*hub_xy, 14.0), _circle_pts(*hub_xy, 6.6)], color=Colors.Gray6)
-circle(hub_xy, radius=14.0, style=stroke_style(DARK, width_units=w))
-circle(hub_xy, radius=6.6, style=stroke_style(DARK, width_units=1.7))
+polygon(_circle_pts(*hub_xy, 14.0), holes=[_circle_pts(*hub_xy, 6.6)], style=Icon.fill_style(Colors.Gray6))
+circle(hub_xy, radius=14.0, style=Icon.stroke_style(Icon.DARK, width_units=w))
+circle(hub_xy, radius=6.6, style=Icon.stroke_style(Icon.DARK, width_units=1.7))
 
 # 3. Four satellite ring nodes (transparent inner holes)
 for sat_xy, sat_col in sat_coords:
-    draw_compound_polygon([_circle_pts(*sat_xy, 10.6), _circle_pts(*sat_xy, 4.8)], color=sat_col)
-    circle(sat_xy, radius=10.6, style=stroke_style(DARK, width_units=w))
-    circle(sat_xy, radius=4.8, style=stroke_style(DARK, width_units=1.7))
+    polygon(_circle_pts(*sat_xy, 10.6), holes=[_circle_pts(*sat_xy, 4.8)], style=Icon.fill_style(sat_col))
+    circle(sat_xy, radius=10.6, style=Icon.stroke_style(Icon.DARK, width_units=w))
+    circle(sat_xy, radius=4.8, style=Icon.stroke_style(Icon.DARK, width_units=1.7))
 
 save()

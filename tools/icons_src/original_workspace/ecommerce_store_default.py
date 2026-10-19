@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -44,8 +34,8 @@ handle_pts = [
     )
     for i in range(steps + 1)
 ]
-polygon(handle_pts, style=no_border_fill(WHITE))
-draw_round_polyline(handle_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(handle_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(handle_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. PASTEL_BLUE shopping bag body (x=17.0..73.0, y=16.0..72.0, rounded bottom corners)
 x_left, x_right = 17.0, 73.0
@@ -60,8 +50,8 @@ for i in range(11):
     bag_pts.append((x_right - r_bot + r_bot * math.cos(ang), y_bot + r_bot + r_bot * math.sin(ang)))
 bag_pts.append((x_right, y_top))
 
-polygon(bag_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(bag_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(bag_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(bag_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Four storefront scalloped awning stripes flush across top of bag (WHITE & PASTEL_BLUE_LIGHT)
 n_stripes = 4
@@ -69,7 +59,7 @@ y_awn_bot = 60.0
 ry_scallop = 4.2
 
 for idx in range(n_stripes):
-    col = WHITE if idx % 2 == 0 else PASTEL_BLUE_LIGHT
+    col = Icon.WHITE if idx % 2 == 0 else Icon.PASTEL_BLUE_LIGHT
     xs0 = x_left + (x_right - x_left) * (idx / n_stripes)
     xs1 = x_left + (x_right - x_left) * ((idx + 1) / n_stripes)
     sc_cx = 0.5 * (xs0 + xs1)
@@ -83,8 +73,8 @@ for idx in range(n_stripes):
         for s in range(13)
     ]
     stripe_pts = [(xs0, y_top), *scallop_pts, (xs1, y_top)]
-    polygon(stripe_pts, style=no_border_fill(col))
-    draw_round_polyline(stripe_pts, width_units=w_outer, color=DARK, closed=True)
+    polygon(stripe_pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(stripe_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 4. PASTEL_GREEN angled price tag badge at bottom-right
 tag_cx, tag_cy = 70.5, 29.5
@@ -104,14 +94,14 @@ tag_pts = [
     _tag_pt(-12.5, -7.8),
     _tag_pt(6.0, -7.8),
 ]
-polygon(tag_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(tag_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(tag_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(tag_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 hole_xy = _tag_pt(6.5, 0.0)
 circle(
     hole_xy,
     radius=2.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
 )
 
 save()

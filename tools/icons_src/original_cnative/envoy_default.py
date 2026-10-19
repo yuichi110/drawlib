@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 50.0
 r_out = 40.0
 r_in = 17.0
@@ -41,16 +31,16 @@ facet_tr = [v_in[0], v_out[0], v_out[1], v_out[2], v_in[2], v_in[1]]
 facet_bot = [v_in[2], v_out[2], v_out[3], v_out[4], v_in[4], v_in[3]]
 facet_tl = [v_in[4], v_out[4], v_out[5], v_out[0], v_in[0], v_in[5]]
 
-polygon(facet_tr, style=no_border_fill(PASTEL_BLUE))
-polygon(facet_bot, style=no_border_fill(PASTEL_GREEN))
-polygon(facet_tl, style=no_border_fill(PASTEL_BLUE_LIGHT))
+polygon(facet_tr, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+polygon(facet_bot, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+polygon(facet_tl, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
 
 # Seam lines between the 3 ribbon facets
 for idx in (0, 2, 4):
-    draw_round_segment(v_in[idx], v_out[idx], width_units=2.0, color=DARK)
+    Icon.draw_round_segment(v_in[idx], v_out[idx], width_units=2.0, color=Icon.DARK)
 
 # Inner and outer hexagon borders
-draw_round_polyline(v_in, width_units=2.0, color=DARK, closed=True)
-draw_round_polyline(v_out, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(v_in, width_units=2.0, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(v_out, width_units=w, color=Icon.DARK, closed=True)
 
 save()

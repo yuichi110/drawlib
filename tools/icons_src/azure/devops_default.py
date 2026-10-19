@@ -10,11 +10,13 @@
 """Azure icon: devops (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import AZURE_BLUE, draw_compound_polygon, setup_icon
+from drawlib.shapes import polygon
+from drawlib.utils import Azure, Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-draw_compound_polygon([[(87.33, 73.33), (87.33, 27.88), (68.67, 12.57), (39.73, 23.12), (39.73, 12.67), (23.35, 34.09), (71.09, 30.35), (71.09, 71.28)], [(71.42, 71.05), (44.63, 87.33), (44.63, 76.65), (20.04, 69.41), (12.67, 59.94), (12.67, 38.43), (23.21, 33.76), (23.21, 61.34)]], color=AZURE_BLUE)
+Icon.setup()
+polygon([(87.33, 73.33), (87.33, 27.88), (68.67, 12.57), (39.73, 23.12), (39.73, 12.67), (23.35, 34.09), (71.09, 30.35), (71.09, 71.28)], style=Icon.fill_style(Azure.BLUE))
+polygon([(71.42, 71.05), (44.63, 87.33), (44.63, 76.65), (20.04, 69.41), (12.67, 59.94), (12.67, 38.43), (23.21, 33.76), (23.21, 61.34)], style=Icon.fill_style(Azure.BLUE))
 save()
 # fmt: on

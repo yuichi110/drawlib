@@ -13,28 +13,18 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cap,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Outer contactless NFC badge (PASTEL_BLUE)
 rectangle(
     (50.0, 50.0),
     width=74.0,
     height=74.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=15.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=15.0),
 )
 
 # 2. Inner NFC card plate (WHITE)
@@ -42,7 +32,7 @@ rectangle(
     (50.0, 50.0),
     width=56.0,
     height=56.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=10.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=10.0),
 )
 
 # 3. NFC tag transmitter pad on left (PASTEL_GREEN)
@@ -51,7 +41,7 @@ rectangle(
     (tx_cx, tx_cy),
     width=9.5,
     height=15.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=3.5),
 )
 
 # 4. Three concentric contactless radio wave arcs (PASTEL_GREEN with DARK borders)
@@ -67,14 +57,14 @@ for r in (14.0, 23.0, 32.0):
         height=diam,
         angle_start=ang_start,
         angle_end=ang_end,
-        style=stroke_style(DARK, width_units=5.2),
+        style=Icon.stroke_style(Icon.DARK, width_units=5.2),
     )
     for ang_deg in (ang_start, ang_end):
         rad = math.radians(ang_deg)
-        draw_cap(
+        Icon.draw_cap(
             (tx_cx + r * math.cos(rad), tx_cy + r * math.sin(rad)),
             width_units=5.2,
-            color=DARK,
+            color=Icon.DARK,
         )
     # Inner PASTEL_GREEN stroke + caps
     arc(
@@ -83,14 +73,14 @@ for r in (14.0, 23.0, 32.0):
         height=diam,
         angle_start=ang_start,
         angle_end=ang_end,
-        style=stroke_style(PASTEL_GREEN, width_units=2.0),
+        style=Icon.stroke_style(Icon.PASTEL_GREEN, width_units=2.0),
     )
     for ang_deg in (ang_start, ang_end):
         rad = math.radians(ang_deg)
-        draw_cap(
+        Icon.draw_cap(
             (tx_cx + r * math.cos(rad), tx_cy + r * math.sin(rad)),
             width_units=2.0,
-            color=PASTEL_GREEN,
+            color=Icon.PASTEL_GREEN,
         )
 
 save()

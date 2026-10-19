@@ -10,16 +10,12 @@
 """Original Code icon: nuxt."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -34,10 +30,10 @@ inner_hole = _sc([(33.32, 31.42), (19.94, 31.42), (39.88, 65.86), (50.0, 48.64),
 # fmt: on
 
 # 1. Flat pastel green twin mountains with transparent hole
-draw_compound_polygon([outer_mountain, inner_hole], color="#4CE49B")
+polygon(outer_mountain, holes=[inner_hole], style=Icon.fill_style("#4CE49B"))
 
 # 2. Crisp DARK outlines on outer mountain and hole
-draw_round_polyline(outer_mountain, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_hole, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_mountain, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

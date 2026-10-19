@@ -11,14 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.95
@@ -246,9 +241,9 @@ for i in range(num_bands):
         mx = sum(p[0] for p in band) / len(band)
         my = sum(p[1] for p in band) / len(band)
         col_hex = _sample_llamaindex_hex(mx, my)
-        polygon(band, style=fill_style(col_hex))
+        polygon(band, style=Icon.fill_style(col_hex))
 
 # 2. Single outer llama silhouette contour (no interior black seam lines)
-draw_round_polyline(llama_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(llama_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

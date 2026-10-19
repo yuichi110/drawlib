@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 BADGE_SLATE = "#4A5568"
 CAT_YELLOW = "#F2C94F"
@@ -35,19 +28,19 @@ letter_t: list[tuple[float, float]] = [(66.91, 36.9), (66.91, 63.32), (61.73, 63
 letter_a: list[list[tuple[float, float]]] = [[(57.21, 71.06), (46.75, 71.06), (40.65, 40.6), (52.01, 50.8), (63.84, 39.76)], [(49.98, 52.75), (52.0, 64.26), (54.02, 52.75)]]
 triangle: list[tuple[float, float]] = [(70.27, 31.11), (52.0, 48.16), (33.07, 31.11)]
 
-polygon(badge, style=no_border_fill(BADGE_SLATE))
-draw_round_polyline(badge, width_units=w, color=DARK, closed=True)
+polygon(badge, style=Icon.no_border_fill(BADGE_SLATE))
+Icon.draw_round_polyline(badge, width_units=w, color=Icon.DARK, closed=True)
 
 for pts in (letter_c, letter_t):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
-draw_compound_polygon(letter_a, color=WHITE)
-draw_round_polyline(letter_a[0], width_units=w, color=DARK, closed=True)
-draw_round_polyline(letter_a[1], width_units=w_hole, color=DARK, closed=True)
+polygon(letter_a[0], holes=[letter_a[1]], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(letter_a[0], width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(letter_a[1], width_units=w_hole, color=Icon.DARK, closed=True)
 
-polygon(triangle, style=no_border_fill(CAT_YELLOW))
-draw_round_polyline(triangle, width_units=w, color=DARK, closed=True)
+polygon(triangle, style=Icon.no_border_fill(CAT_YELLOW))
+Icon.draw_round_polyline(triangle, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

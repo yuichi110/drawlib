@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -37,18 +32,18 @@ bottom_base = _sc([(33.92, 30.46), (29.82, 20.53), (50.0, 9.0), (70.18, 20.53), 
 # fmt: on
 
 # 1. Left wing in pastel red-pink
-polygon(left_wing, style=no_border_fill("#F25161"))
-draw_round_polyline(left_wing, width_units=w, color=DARK, closed=True)
+polygon(left_wing, style=Icon.no_border_fill("#F25161"))
+Icon.draw_round_polyline(left_wing, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right wing in pastel magenta-pink
-polygon(right_wing, style=no_border_fill("#E851A9"))
-draw_round_polyline(right_wing, width_units=w, color=DARK, closed=True)
+polygon(right_wing, style=Icon.no_border_fill("#E851A9"))
+Icon.draw_round_polyline(right_wing, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Center triangle and bottom base in pastel purple
-polygon(center_tri, style=no_border_fill("#9D56F2"))
-draw_round_polyline(center_tri, width_units=w, color=DARK, closed=True)
+polygon(center_tri, style=Icon.no_border_fill("#9D56F2"))
+Icon.draw_round_polyline(center_tri, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(bottom_base, style=no_border_fill("#9D56F2"))
-draw_round_polyline(bottom_base, width_units=w, color=DARK, closed=True)
+polygon(bottom_base, style=Icon.no_border_fill("#9D56F2"))
+Icon.draw_round_polyline(bottom_base, width_units=w, color=Icon.DARK, closed=True)
 
 save()

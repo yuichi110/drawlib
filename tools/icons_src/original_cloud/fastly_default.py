@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_body = 2.0
 w_inner = 1.6
@@ -104,15 +98,15 @@ dial_pts = _sc(_RAW_DIAL)
 needle_pts = _sc(_RAW_NEEDLE)
 
 # 1. Stopwatch outer body in Colors.Red3 with DARK w=1.9 outline
-polygon(body_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(body_pts, width_units=w_body, color=DARK, closed=True)
+polygon(body_pts, style=Icon.no_border_fill(Colors.Red3))
+Icon.draw_round_polyline(body_pts, width_units=w_body, color=Icon.DARK, closed=True)
 
 # 2. Inner dial face in WHITE with DARK 1.6 outline (ticks show Red3 body)
-polygon(dial_pts, style=no_border_fill(WHITE))
-draw_round_polyline(dial_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(dial_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(dial_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Center dot and needle hand in Colors.Red3 with DARK 1.6 outline
-polygon(needle_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(needle_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(needle_pts, style=Icon.no_border_fill(Colors.Red3))
+Icon.draw_round_polyline(needle_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

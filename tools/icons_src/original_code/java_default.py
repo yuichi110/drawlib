@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outline = 2.0
 s = 40.0 / 41.0
@@ -49,14 +44,14 @@ red_polys = [
 # fmt: on
 
 for pts in blue_polys:
-    polygon(pts, style=no_border_fill(CUP_BLUE))
+    polygon(pts, style=Icon.no_border_fill(CUP_BLUE))
 
 for pts in red_polys:
-    polygon(pts, style=no_border_fill(STEAM_RED))
+    polygon(pts, style=Icon.no_border_fill(STEAM_RED))
 
 for pts in (*blue_polys[:-1], *red_polys):
-    draw_round_polyline(pts, width_units=1.2, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=1.2, color=Icon.DARK, closed=True)
 
-draw_round_polyline(blue_polys[-1], width_units=1.0, color=DARK, closed=True)
+Icon.draw_round_polyline(blue_polys[-1], width_units=1.0, color=Icon.DARK, closed=True)
 
 save()

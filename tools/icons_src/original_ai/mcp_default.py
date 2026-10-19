@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -88,8 +83,8 @@ outer_ribbon: list[tuple[float, float]] = [
     *_arc_uv(0.0, 0.0, r_in, 90.0, -90.0, 22),
 ]
 
-polygon(outer_ribbon, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(outer_ribbon, width_units=w, color=DARK, closed=True)
+polygon(outer_ribbon, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(outer_ribbon, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Inner U-loop ribbon (Colors.Gray6)
 inner_ribbon: list[tuple[float, float]] = [
@@ -103,7 +98,7 @@ inner_ribbon: list[tuple[float, float]] = [
     *_arc_uv(-l_leg, r_arch, r_in, 90.0, 270.0, 22),
 ]
 
-polygon(inner_ribbon, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(inner_ribbon, width_units=w, color=DARK, closed=True)
+polygon(inner_ribbon, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(inner_ribbon, width_units=w, color=Icon.DARK, closed=True)
 
 save()

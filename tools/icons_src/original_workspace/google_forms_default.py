@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_inner = 1.6
 
@@ -87,17 +87,17 @@ bar3 = [
 
 dot_centers = [(36.77, 35.45), (36.77, 46.03), (36.77, 56.61)]
 
-polygon(page_pts, style=no_border_fill("#9C5FEA"))
-draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
+polygon(page_pts, style=Icon.no_border_fill("#9C5FEA"))
+Icon.draw_round_polyline(page_pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#8E5BD6"))
-draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
+polygon(fold_pts, style=Icon.no_border_fill("#8E5BD6"))
+Icon.draw_round_polyline(fold_pts, width_units=w, color=Icon.DARK, closed=True)
 
 for cx, cy in dot_centers:
-    circle((cx, cy), radius=2.65, style=fill_style(WHITE, border_color=DARK, border_units=w_inner))
+    circle((cx, cy), radius=2.65, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner))
 
 for b_pts in (bar1, bar2, bar3):
-    polygon(b_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(b_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(b_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(b_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

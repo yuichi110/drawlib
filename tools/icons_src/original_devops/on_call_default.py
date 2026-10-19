@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Left and right ringing sound-wave arcs with smooth round caps
 left_wave = [
@@ -37,7 +27,7 @@ left_wave = [
     )
     for deg in range(132, 229, 4)
 ]
-draw_round_polyline(left_wave, width_units=w, color=DARK)
+Icon.draw_round_polyline(left_wave, width_units=w, color=Icon.DARK)
 
 right_wave = [
     (
@@ -46,18 +36,18 @@ right_wave = [
     )
     for deg in range(-48, 25, 4)
 ]
-draw_round_polyline(right_wave, width_units=w, color=DARK)
+Icon.draw_round_polyline(right_wave, width_units=w, color=Icon.DARK)
 
 # Bottom clapper and top ring
 circle(
     (50.0, 24.5),
     radius=6.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (50.0, 74.5),
     radius=4.5,
-    style=stroke_style(DARK, width_units=w),
+    style=Icon.stroke_style(Icon.DARK, width_units=w),
 )
 
 # Bell dome (cx=50, cy=53, r=18) + flared skirt down to y=32 (width=48 at base)
@@ -88,7 +78,7 @@ for i in range(steps_skirt):
 
 polygon(
     bell_pts,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 
 # Bottom rim bar
@@ -96,19 +86,19 @@ rectangle(
     (50.0, 32.0),
     width=54.0,
     height=7.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=3.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=3.5),
 )
 
 # Bright alert badge on top-right of bell
 circle(
     (67.5, 68.5),
     radius=9.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (67.5, 68.5),
     radius=3.2,
-    style=fill_style(WHITE),
+    style=Icon.fill_style(Icon.WHITE),
 )
 
 save()

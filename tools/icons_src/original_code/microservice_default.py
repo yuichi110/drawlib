@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 w_line = 2.0
@@ -44,7 +34,7 @@ port_centers = [
     for a in port_angles
 ]
 for px, py in port_centers:
-    draw_round_segment((cx, cy), (px, py), width_units=w_line, color=DARK)
+    Icon.draw_round_segment((cx, cy), (px, py), width_units=w_line, color=Icon.DARK)
 
 # 2. Central flat-top PASTEL_BLUE hexagon (cx=50, cy=50, r=24, border 1.8 in DARK)
 hex_verts = [
@@ -54,14 +44,14 @@ hex_verts = [
     )
     for k in range(6)
 ]
-polygon(hex_verts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(hex_verts, width_units=w_shape, color=DARK, closed=True)
+polygon(hex_verts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(hex_verts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 3. Inner WHITE core circle (r=9.0, border 1.8 in DARK)
 circle(
     (cx, cy),
     radius=9.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape),
 )
 
 # 4. Three outer PASTEL_GREEN circular port nodes (r=5.5, border 1.8 in DARK)
@@ -69,7 +59,7 @@ for px, py in port_centers:
     circle(
         (px, py),
         radius=5.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_shape),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_shape),
     )
 
 save()

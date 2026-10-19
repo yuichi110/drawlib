@@ -11,19 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 RING_SLATE = "#64748B"
 QUAD_BLUE = "#5797F2"
@@ -38,23 +30,23 @@ letter_b: list[list[tuple[float, float]]] = [[(31.4, 74.37), (31.31, 74.46), (31
 letter_m: list[tuple[float, float]] = [(51.07, 77.22), (53.78, 84.41), (53.78, 77.22), (55.84, 77.22), (55.84, 87.51), (52.74, 87.51), (49.93, 80.14), (49.96, 80.14), (47.14, 87.51), (44.04, 87.51), (44.04, 77.22), (46.1, 77.22), (46.1, 84.41), (48.82, 77.22)]
 letter_w: list[tuple[float, float]] = [(79.34, 72.89), (75.82, 67.76), (81.35, 70.48), (82.85, 68.68), (74.15, 64.31), (72.39, 66.44), (75.76, 71.53), (75.74, 71.55), (70.13, 69.15), (68.35, 71.26), (74.22, 79.03), (75.72, 77.23), (72.05, 72.29), (77.73, 74.82)]
 
-circle((50.0, 50.0), radius=41.0, style=fill_style(RING_SLATE, border_color=DARK, border_units=w_ring))
+circle((50.0, 50.0), radius=41.0, style=Icon.fill_style(RING_SLATE, border_color=Icon.DARK, border_units=w_ring))
 
 for pts in (quad_tl, quad_br):
-    polygon(pts, style=no_border_fill(QUAD_BLUE))
-    draw_round_polyline(pts, width_units=w_ring, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(QUAD_BLUE))
+    Icon.draw_round_polyline(pts, width_units=w_ring, color=Icon.DARK, closed=True)
 
 for pts in (quad_tr, quad_bl):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_ring, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_ring, color=Icon.DARK, closed=True)
 
-draw_compound_polygon(letter_b, color=WHITE)
+polygon(letter_b[0], holes=letter_b[1:], style=Icon.fill_style(Icon.WHITE))
 for ring in letter_b:
-    draw_round_polyline(ring, width_units=w_letter, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_letter, color=Icon.DARK, closed=True)
 
 for pts in (letter_m, letter_w):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

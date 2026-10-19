@@ -10,17 +10,13 @@
 """Original Security icon: tenable."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_under = 2.0
 w_over = 1.0
@@ -44,11 +40,11 @@ rings = [
 # fmt: on
 
 for ring in rings:
-    draw_round_polyline(ring, width_units=w_under, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_under, color=Icon.DARK, closed=True)
 
-draw_compound_polygon(rings, color=Colors.Blue4)
+polygon(rings[13], holes=rings[:13], style=Icon.fill_style(Colors.Blue4))
 
 for ring in rings:
-    draw_round_polyline(ring, width_units=w_over, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_over, color=Icon.DARK, closed=True)
 
 save()

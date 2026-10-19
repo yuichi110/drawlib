@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -30,11 +25,11 @@ inner_core = [(50.36, 76.99), (51.25, 75.95), (52.12, 74.92), (52.98, 73.87), (5
 # fmt: on
 
 # 1. Flat pastel orange outer flame
-polygon(outer_flame, style=no_border_fill("#F18048"))
-draw_round_polyline(outer_flame, width_units=w_outer, color=DARK, closed=True)
+polygon(outer_flame, style=Icon.no_border_fill("#F18048"))
+Icon.draw_round_polyline(outer_flame, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Flat pastel amber inner core
-polygon(inner_core, style=no_border_fill("#F1C948"))
-draw_round_polyline(inner_core, width_units=w_inner, color=DARK, closed=True)
+polygon(inner_core, style=Icon.no_border_fill("#F1C948"))
+Icon.draw_round_polyline(inner_core, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

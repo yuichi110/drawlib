@@ -13,31 +13,22 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Bottom clapper and top loop
 circle(
     (50.0, 20.5),
     radius=8.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (50.0, 81.5),
     radius=5.5,
-    style=stroke_style(DARK, width_units=w),
+    style=Icon.stroke_style(Icon.DARK, width_units=w),
 )
 
 # Smooth bell body polygon: upper dome (cx=50, cy=56, r=22) + lower flared skirt to y=29
@@ -70,7 +61,7 @@ for i in range(steps_skirt):
 
 polygon(
     bell_pts,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 
 # Crisp white bottom rim bar
@@ -78,7 +69,7 @@ rectangle(
     (50.0, 29.0),
     width=66.0,
     height=8.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=4.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=4.0),
 )
 
 save()

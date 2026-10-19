@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,13 +25,13 @@ right_bracket = [(64.59, 56.54), (66.59, 62.66), (66.6, 62.67), (66.6, 62.69), (
 # fmt: on
 
 # 1. Flat dark slate '<' and '>' brackets
-polygon(left_bracket, style=no_border_fill("#4A5568"))
-polygon(right_bracket, style=no_border_fill("#4A5568"))
-draw_round_polyline(left_bracket, width_units=w, color=DARK, closed=True)
-draw_round_polyline(right_bracket, width_units=w, color=DARK, closed=True)
+polygon(left_bracket, style=Icon.no_border_fill("#4A5568"))
+polygon(right_bracket, style=Icon.no_border_fill("#4A5568"))
+Icon.draw_round_polyline(left_bracket, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(right_bracket, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Flat pastel blue '/' slash
-polygon(slash, style=no_border_fill("#4DA8F2"))
-draw_round_polyline(slash, width_units=w, color=DARK, closed=True)
+polygon(slash, style=Icon.no_border_fill("#4DA8F2"))
+Icon.draw_round_polyline(slash, width_units=w, color=Icon.DARK, closed=True)
 
 save()

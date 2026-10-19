@@ -10,15 +10,11 @@
 """Cisco network icon: cisco_l3_switch (modern 2D badge variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    draw_cisco_l3_star,
-    draw_cisco_modern_badge,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-draw_cisco_modern_badge()
-draw_cisco_l3_star(50.0, 50.0, 12.5, 29.0, shaft_w=3.2, head_len=6.5, head_w=8.8)
+Cisco.draw_modern_badge()
+Cisco.draw_l3_star(50.0, 50.0, 12.5, 29.0, shaft_w=3.2, head_len=6.5, head_w=8.8)
 
 save()

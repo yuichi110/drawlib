@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cos30 = math.cos(math.radians(30.0))
@@ -45,8 +35,8 @@ def _iso(u: float, v: float, z: float = 0.0) -> tuple[float, float]:
 
 def _draw_iso_poly(pts: list[tuple[float, float]], color: str) -> None:
     """Draw an isometric polygon with rounded corner joins."""
-    polygon(pts, style=no_border_fill(color))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(color))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 
 # 1. 4 vertical front pillars (2 on front-left face u=0, 2 on front-right face v=0)
@@ -54,19 +44,19 @@ pillar_h = 31.0
 
 _draw_iso_poly(
     [_iso(0.0, 36.0, 0.0), _iso(0.0, 26.5, 0.0), _iso(0.0, 26.5, pillar_h), _iso(0.0, 36.0, pillar_h)],
-    PASTEL_BLUE,
+    Icon.PASTEL_BLUE,
 )
 _draw_iso_poly(
     [_iso(0.0, 14.5, 0.0), _iso(0.0, 5.0, 0.0), _iso(0.0, 5.0, pillar_h), _iso(0.0, 14.5, pillar_h)],
-    PASTEL_BLUE_LIGHT,
+    Icon.PASTEL_BLUE_LIGHT,
 )
 _draw_iso_poly(
     [_iso(5.0, 0.0, 0.0), _iso(14.5, 0.0, 0.0), _iso(14.5, 0.0, pillar_h), _iso(5.0, 0.0, pillar_h)],
-    PASTEL_BLUE_LIGHT,
+    Icon.PASTEL_BLUE_LIGHT,
 )
 _draw_iso_poly(
     [_iso(26.5, 0.0, 0.0), _iso(36.0, 0.0, 0.0), _iso(36.0, 0.0, pillar_h), _iso(26.5, 0.0, pillar_h)],
-    PASTEL_BLUE,
+    Icon.PASTEL_BLUE,
 )
 
 # 2. Top isometric woven lattice (3 bars along u in WHITE, 3 bars along v in PASTEL_GREEN)
@@ -76,14 +66,14 @@ bands = [(0.0, 9.0), (13.5, 22.5), (27.0, 36.0)]
 for u0, u1 in bands:
     _draw_iso_poly(
         [_iso(u0, 0.0), _iso(u1, 0.0), _iso(u1, 36.0), _iso(u0, 36.0)],
-        WHITE,
+        Icon.WHITE,
     )
 
 # Draw PASTEL_GREEN bars along v second
 for v0, v1 in bands:
     _draw_iso_poly(
         [_iso(0.0, v0), _iso(36.0, v0), _iso(36.0, v1), _iso(0.0, v1)],
-        PASTEL_GREEN,
+        Icon.PASTEL_GREEN,
     )
 
 # 3. Over-weave patches where WHITE bars pass over PASTEL_GREEN bars ((i + j) % 2 == 1)
@@ -96,13 +86,13 @@ for i, (u0, u1) in enumerate(bands):
             vp1 = min(36.0, v1 + 1.8)
             polygon(
                 [_iso(u0, vp0), _iso(u1, vp0), _iso(u1, vp1), _iso(u0, vp1)],
-                style=no_border_fill(WHITE),
+                style=Icon.no_border_fill(Icon.WHITE),
             )
-            draw_round_segment(_iso(u0, vp0), _iso(u0, vp1), width_units=w, color=DARK)
-            draw_round_segment(_iso(u1, vp0), _iso(u1, vp1), width_units=w, color=DARK)
+            Icon.draw_round_segment(_iso(u0, vp0), _iso(u0, vp1), width_units=w, color=Icon.DARK)
+            Icon.draw_round_segment(_iso(u1, vp0), _iso(u1, vp1), width_units=w, color=Icon.DARK)
             if v0 == 0.0:
-                draw_round_segment(_iso(u0, 0.0), _iso(u1, 0.0), width_units=w, color=DARK)
+                Icon.draw_round_segment(_iso(u0, 0.0), _iso(u1, 0.0), width_units=w, color=Icon.DARK)
             if v1 == 36.0:
-                draw_round_segment(_iso(u0, 36.0), _iso(u1, 36.0), width_units=w, color=DARK)
+                Icon.draw_round_segment(_iso(u0, 36.0), _iso(u1, 36.0), width_units=w, color=Icon.DARK)
 
 save()

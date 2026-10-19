@@ -14,12 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _arc_points(
@@ -57,7 +52,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -76,8 +71,8 @@ top_dome_pts = [
     p_tr_flat_end,
     *_bezier(p_tr_flat_end, (74.5, y_top_chord), (79.0, 69.0), p_tr_outer, steps=12),
 ]
-polygon(top_dome_pts, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(top_dome_pts, width_units=w, color=DARK, closed=True)
+polygon(top_dome_pts, style=Icon.no_border_fill(Colors.Amber3))
+Icon.draw_round_polyline(top_dome_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Bottom dome (Colors.Teal3): mirror of top dome across cy = 50.0
 y_bot_chord = 33.5
@@ -90,8 +85,8 @@ bot_dome_pts = [
     *_arc_points(cx, cy, r, deg_bl, deg_br, steps=32),
     *_bezier(p_br_outer, (79.0, 31.0), (74.5, y_bot_chord), p_br_flat_end, steps=12),
 ]
-polygon(bot_dome_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(bot_dome_pts, width_units=w, color=DARK, closed=True)
+polygon(bot_dome_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(bot_dome_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Horizontal middle bar (Colors.Blue4): flush with left circle arc, semicircular right cap
 bar_half_h = 9.5
@@ -104,7 +99,7 @@ mid_bar_pts = [
     *_arc_points(cx, cy, r, deg_bar_top, deg_bar_bot, steps=14),
     *_arc_points(bar_cap_cx, cy, bar_half_h, -90.0, 90.0, steps=20),
 ]
-polygon(mid_bar_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(mid_bar_pts, width_units=w, color=DARK, closed=True)
+polygon(mid_bar_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(mid_bar_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

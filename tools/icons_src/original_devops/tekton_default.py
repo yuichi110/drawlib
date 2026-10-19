@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.75
@@ -124,7 +116,7 @@ for idx in range(4):
         seg_poly = [*tail_top[i0 : i1 + 1], *reversed(tail_bot[i0 : i1 + 1])]
     else:
         seg_poly = [*tail_top[i0 : i1 + 1], *tip_cap[1:-1], *reversed(tail_bot[i0 : i1 + 1])]
-    polygon(seg_poly, style=no_border_fill(seg_colors[idx]))
+    polygon(seg_poly, style=Icon.no_border_fill(seg_colors[idx]))
 
 for split_i in seg_splits[1:-1]:
     p_top = tail_top[split_i]
@@ -134,10 +126,10 @@ for split_i in seg_splits[1:-1]:
     dx, dy = p_bot[0] - p_top[0], p_bot[1] - p_top[1]
     ctrl = (mid_x - dy * 0.18, mid_y + dx * 0.18)
     seam_pts = [p_top, *_quad(p_top, ctrl, p_bot, 8)]
-    draw_round_polyline(seam_pts, width_units=w_inner, color=DARK, closed=False)
+    Icon.draw_round_polyline(seam_pts, width_units=w_inner, color=Icon.DARK, closed=False)
 
 tail_outline = [*tail_top, *tip_cap[1:-1], *reversed(tail_bot)]
-draw_round_polyline(tail_outline, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(tail_outline, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Hind legs & outer paws (symmetric around cx)
 hind_hip_l = [
@@ -153,13 +145,13 @@ hind_paw_l = [
     (25.8, 20.5),
 ]
 for h_hip, h_paw in ((hind_hip_l, hind_paw_l), (_mir(hind_hip_l), _mir(hind_paw_l))):
-    polygon(h_hip, style=no_border_fill(ROSE_PINK))
-    polygon(h_paw, style=no_border_fill(WHITE))
-    draw_round_polyline(h_hip, width_units=w, color=DARK, closed=True)
-    draw_round_polyline(h_paw, width_units=w, color=DARK, closed=True)
+    polygon(h_hip, style=Icon.no_border_fill(ROSE_PINK))
+    polygon(h_paw, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(h_hip, width_units=w, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(h_paw, width_units=w, color=Icon.DARK, closed=True)
 
-draw_round_segment((19.8, 17.8), (23.8, 16.0), width_units=w_inner, color=DARK)
-draw_round_segment((2.0 * cx - 19.8, 17.8), (2.0 * cx - 23.8, 16.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((19.8, 17.8), (23.8, 16.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((2.0 * cx - 19.8, 17.8), (2.0 * cx - 23.8, 16.0), width_units=w_inner, color=Icon.DARK)
 
 # 3. Torso, front legs, collar & center chest
 torso_bg = [
@@ -170,7 +162,7 @@ torso_bg = [
     (28.0, 14.0),
     (25.0, 32.0),
 ]
-polygon(torso_bg, style=no_border_fill(WHITE))
+polygon(torso_bg, style=Icon.no_border_fill(Icon.WHITE))
 
 # 4. Front legs & shoulders (WHITE)
 front_leg_l = [
@@ -182,16 +174,16 @@ front_leg_l = [
     (34.2, 48.8),
 ]
 for f_leg in (front_leg_l, _mir(front_leg_l)):
-    polygon(f_leg, style=no_border_fill(WHITE))
-    draw_round_polyline(f_leg[:-1], width_units=w, color=DARK, closed=False)
+    polygon(f_leg, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(f_leg[:-1], width_units=w, color=Icon.DARK, closed=False)
 
 # Center chest upper plate (ROSE_PINK) & lower belly (CORAL_PINK)
 chest_upper = [(36.2, 31.2), (46.8, 31.2), (45.8, 24.2), (37.2, 24.2)]
 chest_lower = [(37.2, 24.2), (45.8, 24.2), (43.5, 13.5), (39.5, 13.5)]
-polygon(chest_upper, style=no_border_fill(ROSE_PINK))
-polygon(chest_lower, style=no_border_fill(CORAL_PINK))
-draw_round_polyline(chest_upper, width_units=w, color=DARK, closed=True)
-draw_round_polyline(chest_lower, width_units=w, color=DARK, closed=True)
+polygon(chest_upper, style=Icon.no_border_fill(ROSE_PINK))
+polygon(chest_lower, style=Icon.no_border_fill(CORAL_PINK))
+Icon.draw_round_polyline(chest_upper, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(chest_lower, width_units=w, color=Icon.DARK, closed=True)
 
 # Collar trapezoid (ROSE_PINK) + vertical chest stem
 collar_pts = [
@@ -202,21 +194,21 @@ collar_pts = [
     (36.5, 38.8),
     *_quad((36.5, 38.8), (35.0, 38.8), (34.2, 39.8), 4),
 ]
-polygon(collar_pts, style=no_border_fill(ROSE_PINK))
-draw_round_polyline(collar_pts, width_units=w, color=DARK, closed=True)
-draw_round_segment((cx, 38.8), (cx, 31.2), width_units=w, color=DARK)
+polygon(collar_pts, style=Icon.no_border_fill(ROSE_PINK))
+Icon.draw_round_polyline(collar_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((cx, 38.8), (cx, 31.2), width_units=w, color=Icon.DARK)
 
 # Shoulder & knee seam arcs on front legs
 for sign in (-1.0, 1.0):
     s_p0 = (cx + sign * 16.0, 39.5)
     s_p1 = (cx + sign * 10.0, 36.2)
     s_p2 = (cx + sign * 5.3, 31.2)
-    draw_round_polyline([s_p0, *_quad(s_p0, s_p1, s_p2, 8)], width_units=w, color=DARK, closed=False)
+    Icon.draw_round_polyline([s_p0, *_quad(s_p0, s_p1, s_p2, 8)], width_units=w, color=Icon.DARK, closed=False)
 
     k_p0 = (cx + sign * 15.8, 24.5)
     k_p1 = (cx + sign * 10.2, 26.8)
     k_p2 = (cx + sign * 4.5, 24.2)
-    draw_round_polyline([k_p0, *_quad(k_p0, k_p1, k_p2, 8)], width_units=w_inner, color=DARK, closed=False)
+    Icon.draw_round_polyline([k_p0, *_quad(k_p0, k_p1, k_p2, 8)], width_units=w_inner, color=Icon.DARK, closed=False)
 
 # Round front paws (WHITE) + 2 toe cleft lines each
 paw_l = [
@@ -228,11 +220,11 @@ paw_l = [
     *_quad((28.9, 10.8), (25.8, 10.8), (25.8, 13.5), 6),
 ]
 for p_pts in (paw_l, _mir(paw_l)):
-    polygon(p_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(p_pts, width_units=w, color=DARK, closed=True)
+    polygon(p_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(p_pts, width_units=w, color=Icon.DARK, closed=True)
 
 for tx in (30.8, 35.6, 2.0 * cx - 35.6, 2.0 * cx - 30.8):
-    draw_round_segment((tx, 10.8), (tx, 14.2), width_units=w_inner, color=DARK)
+    Icon.draw_round_segment((tx, 10.8), (tx, 14.2), width_units=w_inner, color=Icon.DARK)
 
 # 5. Ears (CORAL_PINK, behind head hood)
 ear_l = [
@@ -242,8 +234,8 @@ ear_l = [
     *_quad((15.5, 88.5), (22.5, 87.5), (28.5, 83.2), 10),
 ]
 for e_pts in (ear_l, _mir(ear_l)):
-    polygon(e_pts, style=no_border_fill(CORAL_PINK))
-    draw_round_polyline(e_pts, width_units=w, color=DARK, closed=True)
+    polygon(e_pts, style=Icon.no_border_fill(CORAL_PINK))
+    Icon.draw_round_polyline(e_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 6. Head hood (CORAL_PINK) & lower cheeks (WHITE)
 head_top_arc = [
@@ -264,17 +256,17 @@ cheek_seam_r = [(50.5, 54.5), *_quad((50.5, 54.5), (2.0 * cx - 23.5, 55.2), (2.0
 hood_poly = [*head_top_arc, *reversed(cheek_seam_r), *reversed(cheek_seam_l)]
 cheeks_poly = [*cheek_seam_l, *cheek_seam_r, *head_bot_arc[1:]]
 
-polygon(hood_poly, style=no_border_fill(CORAL_PINK))
-polygon(cheeks_poly, style=no_border_fill(WHITE))
-draw_round_polyline(cheek_seam_l, width_units=w, color=DARK, closed=False)
-draw_round_polyline(cheek_seam_r, width_units=w, color=DARK, closed=False)
-draw_round_polyline([*head_top_arc, *head_bot_arc[1:]], width_units=w, color=DARK, closed=True)
+polygon(hood_poly, style=Icon.no_border_fill(CORAL_PINK))
+polygon(cheeks_poly, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(cheek_seam_l, width_units=w, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(cheek_seam_r, width_units=w, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline([*head_top_arc, *head_bot_arc[1:]], width_units=w, color=Icon.DARK, closed=True)
 
 # Forehead vertical center seam + 4 tiny DARK dots
-draw_round_segment((cx, 75.2), (cx, 86.2), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((cx, 75.2), (cx, 86.2), width_units=w_inner, color=Icon.DARK)
 for dx_off in (-2.8, 2.8):
     for dy_pos in (78.6, 82.2):
-        circle((cx + dx_off, dy_pos), radius=0.85, style=no_border_fill(DARK))
+        circle((cx + dx_off, dy_pos), radius=0.85, style=Icon.no_border_fill(Icon.DARK))
 
 # 7. Soft rose-pink eye mask (ROSE_PINK) & happy smiling eyes
 mask_pts = [
@@ -285,12 +277,12 @@ mask_pts = [
     (32.5, 56.5),
     *_quad((32.5, 56.5), (22.2, 57.2), (22.5, 60.5), 8),
 ]
-polygon(mask_pts, style=no_border_fill(ROSE_PINK))
-draw_round_polyline(mask_pts, width_units=w, color=DARK, closed=True)
+polygon(mask_pts, style=Icon.no_border_fill(ROSE_PINK))
+Icon.draw_round_polyline(mask_pts, width_units=w, color=Icon.DARK, closed=True)
 
 for eye_cx in (31.5, 51.5):
     eye_arc = _arc(eye_cx, 63.2, 3.6, 15.0, 165.0, steps=12)
-    draw_round_polyline(eye_arc, width_units=2.0, color=DARK, closed=False)
+    Icon.draw_round_polyline(eye_arc, width_units=2.0, color=Icon.DARK, closed=False)
 
 # 8. White muzzle (WHITE) & pink nose (Colors.Pink3)
 muzzle_pts = [
@@ -302,15 +294,15 @@ muzzle_pts = [
     *_quad((cx, 53.6), (40.2, 50.8), (37.2, 50.8), 6),
     *_quad((37.2, 50.8), (32.5, 50.8), (32.2, 55.2), 8),
 ]
-polygon(muzzle_pts, style=no_border_fill(WHITE))
-draw_round_polyline(muzzle_pts, width_units=w, color=DARK, closed=True)
+polygon(muzzle_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(muzzle_pts, width_units=w, color=Icon.DARK, closed=True)
 
 ellipse(
     (cx, 57.0),
     width=8.0,
     height=4.4,
-    style=fill_style(Colors.Pink3, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Colors.Pink3, border_color=Icon.DARK, border_units=w_inner),
 )
-draw_round_segment((cx, 54.8), (cx, 53.6), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((cx, 54.8), (cx, 53.6), width_units=w_inner, color=Icon.DARK)
 
 save()

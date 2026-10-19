@@ -13,17 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -81,8 +73,8 @@ body_pts: list[tuple[float, float]] = [
     *right_half,
 ]
 
-polygon(body_pts, style=no_border_fill(WHITE))
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
+polygon(body_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Inner ear pads (WHITE)
 left_ear_pad: list[tuple[float, float]] = [
@@ -94,24 +86,24 @@ left_ear_pad: list[tuple[float, float]] = [
 right_ear_pad = [(100.0 - x, y) for x, y in left_ear_pad]
 
 for pad in (left_ear_pad, right_ear_pad):
-    polygon(pad, style=no_border_fill(WHITE))
-    draw_round_polyline(pad, width_units=1.6, color=DARK, closed=True)
+    polygon(pad, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pad, width_units=1.6, color=Icon.DARK, closed=True)
 
 # 3. Rounded snout oval (WHITE)
 snout_pts = _oval_pts(50.0, 46.8, rx=12.2, ry=9.2, steps=40)
-polygon(snout_pts, style=no_border_fill(WHITE))
-draw_round_polyline(snout_pts, width_units=1.8, color=DARK, closed=True)
+polygon(snout_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(snout_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 4. Round dark eyes (DARK)
-circle((33.8, 52.8), radius=3.3, style=fill_style(DARK))
-circle((66.2, 52.8), radius=3.3, style=fill_style(DARK))
+circle((33.8, 52.8), radius=3.3, style=Icon.fill_style(Icon.DARK))
+circle((66.2, 52.8), radius=3.3, style=Icon.fill_style(Icon.DARK))
 
 # 5. Cute Y-shaped nose/mouth inside snout (DARK)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(47.6, 48.8), (50.0, 46.8), (52.4, 48.8)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_segment((50.0, 46.8), (50.0, 44.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((50.0, 46.8), (50.0, 44.0), width_units=2.0, color=Icon.DARK)
 
 save()

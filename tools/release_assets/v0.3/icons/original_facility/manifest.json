@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_facility",
-  "created_at": "2026-10-18T12:36:03.596261+00:00",
+  "created_at": "2026-10-18T23:05:31.266397+00:00",
   "canvas_size": [
     512,
     512
@@ -177,8 +177,8 @@
       "icon_name": "at_tokyo",
       "variant": "default",
       "source_script": "original_facility/at_tokyo_default.py",
-      "size_bytes": 40944,
-      "sha256": "1e1eae68e529d397f6edd638b4952a359a10b42f5ca6f2fea15157e08f466432",
+      "size_bytes": 40930,
+      "sha256": "74e3c09079831d77d52f09078ae87378bf76d7673ca83dfa12f1ef925bb3d601",
       "bbox": [
         26,
         97,
@@ -346,8 +346,8 @@
       "icon_name": "commscope",
       "variant": "default",
       "source_script": "original_facility/commscope_default.py",
-      "size_bytes": 31231,
-      "sha256": "4ab4543b9b66fa8f463dd786160d5912880f27242a5b5ec9f43e770cde85999f",
+      "size_bytes": 31234,
+      "sha256": "375df536ffce57d3a099aeaa439761df4f5678eca951958804a1daa525c4a901",
       "bbox": [
         26,
         201,
@@ -697,8 +697,8 @@
       "icon_name": "kddi",
       "variant": "default",
       "source_script": "original_facility/kddi_default.py",
-      "size_bytes": 29610,
-      "sha256": "df97fa987cf71190d9e240f1cf2c496608af99de02c0a3fb642eefefadbe5be6",
+      "size_bytes": 29614,
+      "sha256": "3847172c639ceddf3f6f22edbc939c2455d0a894968bd6b62849ebbc921ea900",
       "bbox": [
         26,
         180,
@@ -801,8 +801,8 @@
       "icon_name": "orange",
       "variant": "default",
       "source_script": "original_facility/orange_default.py",
-      "size_bytes": 22387,
-      "sha256": "11c241bf8d5d781a507f790fe1621a926fcd0bbd72ff6d93714922f2d9971be6",
+      "size_bytes": 22398,
+      "sha256": "3bf507715b816aa6285c13587b9811e768ec0d5d9b665c4c17524e37018c79b2",
       "bbox": [
         26,
         26,
@@ -827,8 +827,8 @@
       "icon_name": "panduit",
       "variant": "default",
       "source_script": "original_facility/panduit_default.py",
-      "size_bytes": 9701,
-      "sha256": "d1ba28985feaaea915f9c1dc1cdda421427ff997b034d4a1b50d78ae85c3d4d0",
+      "size_bytes": 9697,
+      "sha256": "070ecf44efc8518e8420248f8f0ec35e6d41123a8e3f53799b8d23fce56a891f",
       "bbox": [
         26,
         187,
@@ -1048,8 +1048,8 @@
       "icon_name": "softbank",
       "variant": "default",
       "source_script": "original_facility/softbank_default.py",
-      "size_bytes": 20648,
-      "sha256": "f64980ac740acd1fe4e57891a48f5d2f18d02b5657bd368a04c491fb65d0804b",
+      "size_bytes": 20641,
+      "sha256": "aff7069151d00dbf3081bd068de2bbb99b96237564a85417cea3664845afbdba",
       "bbox": [
         26,
         217,

@@ -11,14 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 scale = 0.945
@@ -102,12 +97,12 @@ left_arrow_raw = [
     (50.14, 66.01),
 ]
 left_arrow = _sc(left_arrow_raw)
-polygon(left_arrow, style=no_border_fill(MLFLOW_CYAN))
-draw_round_polyline(left_arrow, width_units=w, color=DARK, closed=True)
+polygon(left_arrow, style=Icon.no_border_fill(MLFLOW_CYAN))
+Icon.draw_round_polyline(left_arrow, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right sweeping cerulean-blue crescent arrow (180-degree symmetric, #45A4E5, softened #0194E2)
 right_arrow = [(100.0 - x, 100.0 - y) for x, y in left_arrow]
-polygon(right_arrow, style=no_border_fill(MLFLOW_BLUE))
-draw_round_polyline(right_arrow, width_units=w, color=DARK, closed=True)
+polygon(right_arrow, style=Icon.no_border_fill(MLFLOW_BLUE))
+Icon.draw_round_polyline(right_arrow, width_units=w, color=Icon.DARK, closed=True)
 
 save()

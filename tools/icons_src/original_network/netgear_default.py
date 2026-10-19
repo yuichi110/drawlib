@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_letter = 1.0
@@ -49,19 +42,19 @@ r_rings: list[list[tuple[float, float]]] = [
 ]
 
 # 1. Rounded square badge in Colors.Gray6 with DARK w=1.9 outline
-polygon(badge_pts, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(badge_pts, width_units=w_badge, color=DARK, closed=True)
+polygon(badge_pts, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(badge_pts, width_units=w_badge, color=Icon.DARK, closed=True)
 
 # 2. WHITE letters N, E, T, G, E with DARK outlines
 for pts in letter_polys:
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_letter, color=Icon.DARK, closed=True)
 
 # 3. Letters A and R with WHITE fill, Colors.Gray6 cutouts, and DARK outlines
 for compound in (a_rings, r_rings):
-    draw_compound_polygon(compound, color=WHITE)
+    polygon(compound[1], holes=[compound[0]], style=Icon.fill_style(Icon.WHITE))
     for ring in compound:
-        draw_round_polyline(ring, width_units=w_letter, color=DARK, closed=True)
+        Icon.draw_round_polyline(ring, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

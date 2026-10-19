@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,14 +25,14 @@ wedge_green = [(56.95, 55.09), (43.11, 53.01), (10.65, 48.12), (10.85, 46.07), (
 overlap_top = [(57.61, 74.36), (41.92, 69.72), (42.55, 61.04), (57.0, 60.56)]
 overlap_bottom = [(43.11, 53.01), (45.28, 22.66), (55.89, 20.95), (56.95, 55.09)]
 
-polygon(wedge_sky, style=no_border_fill("#55BBEC"))
-polygon(wedge_cyan, style=no_border_fill("#54CADA"))
-polygon(wedge_green, style=no_border_fill("#71C977"))
-polygon(overlap_top, style=no_border_fill("#56729E"))
-polygon(overlap_bottom, style=no_border_fill("#56729E"))
+polygon(wedge_sky, style=Icon.no_border_fill("#55BBEC"))
+polygon(wedge_cyan, style=Icon.no_border_fill("#54CADA"))
+polygon(wedge_green, style=Icon.no_border_fill("#71C977"))
+polygon(overlap_top, style=Icon.no_border_fill("#56729E"))
+polygon(overlap_bottom, style=Icon.no_border_fill("#56729E"))
 
 for pts in (wedge_sky, wedge_cyan, wedge_green, overlap_top, overlap_bottom):
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

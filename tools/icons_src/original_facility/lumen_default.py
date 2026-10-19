@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 letter_l = [(9.0, 54.8), (9.0, 45.48), (9.01, 45.38), (9.01, 45.3), (9.03, 45.22), (9.05, 45.15), (9.08, 45.08), (9.11, 45.02), (9.15, 44.95), (9.19, 44.9), (9.24, 44.86), (9.3, 44.82), (9.36, 44.78), (9.43, 44.74), (9.5, 44.72), (9.58, 44.7), (9.67, 44.68), (9.76, 44.67), (9.86, 44.66), (9.96, 44.66), (18.77, 44.66), (18.87, 44.66), (18.97, 44.67), (19.06, 44.68), (19.14, 44.7), (19.22, 44.72), (19.29, 44.74), (19.36, 44.78), (19.42, 44.82), (19.48, 44.86), (19.53, 44.9), (19.58, 44.95), (19.62, 45.02), (19.65, 45.08), (19.68, 45.15), (19.71, 45.22), (19.72, 45.3), (19.73, 45.38), (19.73, 45.48), (19.73, 45.56), (19.72, 45.65), (19.71, 45.72), (19.68, 45.8), (19.65, 45.87), (19.62, 45.93), (19.58, 45.99), (19.53, 46.04), (19.48, 46.09), (19.42, 46.13), (19.36, 46.17), (19.29, 46.2), (19.22, 46.23), (19.14, 46.26), (19.06, 46.28), (18.97, 46.29), (18.87, 46.3), (18.77, 46.3), (11.2, 46.3), (11.15, 46.3), (11.11, 46.3), (11.07, 46.31), (11.02, 46.32), (10.99, 46.33), (10.96, 46.34), (10.93, 46.36), (10.9, 46.38), (10.88, 46.4), (10.86, 46.43), (10.84, 46.46), (10.82, 46.49), (10.81, 46.52), (10.8, 46.55), (10.79, 46.59), (10.78, 46.63), (10.78, 46.68), (10.78, 46.72), (10.78, 54.8), (10.78, 54.87), (10.77, 54.93), (10.76, 55.0), (10.74, 55.07), (10.71, 55.13), (10.68, 55.19), (10.65, 55.25), (10.61, 55.31), (10.56, 55.36), (10.52, 55.4), (10.47, 55.45), (10.41, 55.49), (10.35, 55.52), (10.29, 55.55), (10.22, 55.58), (10.16, 55.6), (10.1, 55.61), (10.03, 55.62), (9.96, 55.62), (9.89, 55.62), (9.82, 55.62), (9.75, 55.62), (9.68, 55.61), (9.61, 55.59), (9.54, 55.57), (9.48, 55.54), (9.41, 55.51), (9.35, 55.47), (9.3, 55.42), (9.24, 55.38), (9.19, 55.32), (9.15, 55.27), (9.11, 55.21), (9.08, 55.14), (9.05, 55.08), (9.03, 55.01), (9.02, 54.94), (9.01, 54.87)]
@@ -34,15 +28,16 @@ reg_mark = [[(88.18, 54.12), (88.18, 54.13), (88.19, 54.26), (88.2, 54.37), (88.
 
 # 1. Pastel slate LUMEN letters (draw DARK outlines behind fill so strokes stay visible)
 for pts in (letter_l, letter_u, letter_m, letter_e_body, letter_n):
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill("#546072"))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#546072"))
 
 # 2. Pastel sky blue top bar on E (draw DARK outline behind fill)
-draw_round_polyline(letter_e_top, width_units=w, color=DARK, closed=True)
-polygon(letter_e_top, style=no_border_fill("#4FB5E7"))
+Icon.draw_round_polyline(letter_e_top, width_units=w, color=Icon.DARK, closed=True)
+polygon(letter_e_top, style=Icon.no_border_fill("#4FB5E7"))
 
 # 3. Tiny registered trademark mark
-draw_compound_polygon(reg_mark, color="#546072")
+polygon(reg_mark[0], holes=[reg_mark[1]], style=Icon.fill_style("#546072"))
+polygon(reg_mark[2], holes=[reg_mark[3]], style=Icon.fill_style("#546072"))
 
 save()
 # fmt: on

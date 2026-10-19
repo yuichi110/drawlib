@@ -11,21 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx = 50.0
 width = 68.0
 w_half = width / 2.0
@@ -40,22 +30,22 @@ ellipse(
     (cx, y_bot),
     width=width,
     height=eh,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 rectangle(
     (cx, y_bot + body_h / 2.0),
     width=width,
     height=body_h,
-    style=fill_style(PASTEL_BLUE),
+    style=Icon.fill_style(Icon.PASTEL_BLUE),
 )
-draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Front rounded document/JSON badge
@@ -64,7 +54,7 @@ rectangle(
     (cx, badge_cy),
     width=42.0,
     height=28.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=6.0),
 )
 
 # 3. Geometric curly braces { } and center accent dot
@@ -86,13 +76,13 @@ right_brace = [
     (61.0, 35.0),
     (57.5, 35.0),
 ]
-draw_round_polyline(left_brace, width_units=2.0, color=DARK)
-draw_round_polyline(right_brace, width_units=2.0, color=DARK)
+Icon.draw_round_polyline(left_brace, width_units=2.0, color=Icon.DARK)
+Icon.draw_round_polyline(right_brace, width_units=2.0, color=Icon.DARK)
 
 circle(
     (cx, badge_cy),
     radius=3.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
 )
 
 save()

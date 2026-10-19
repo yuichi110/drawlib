@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,7 +25,7 @@ wave_bottom = [(30.0, 50.0), (28.43, 49.96), (26.92, 49.84), (25.47, 49.64), (24
 
 # 2 flat pastel cyan waves with crisp DARK outlines
 for wave in (wave_top, wave_bottom):
-    polygon(wave, style=no_border_fill("#4BD0EF"))
-    draw_round_polyline(wave, width_units=w, color=DARK, closed=True)
+    polygon(wave, style=Icon.no_border_fill("#4BD0EF"))
+    Icon.draw_round_polyline(wave, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -38,7 +33,7 @@ for i, xc in enumerate(x_cols):
         (xc, y_cy),
         width=bar_w,
         height=bar_h,
-        style=fill_style(col, border_color=DARK, border_units=w, shape_r=r_bar),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w, shape_r=r_bar),
     )
 
 # 2. Accent cap at the bottom of the 1st column bar (Colors.Red3)
@@ -48,14 +43,14 @@ rectangle(
     (x_cols[0], y_cap_cy),
     width=bar_w,
     height=cap_h,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w, shape_r=r_bar),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w, shape_r=r_bar),
 )
 # Crisp horizontal divider line at top of bottom accent cap (y = 28.0)
-draw_round_segment(
+Icon.draw_round_segment(
     (x_cols[0] - bar_w / 2.0, 28.0),
     (x_cols[0] + bar_w / 2.0, 28.0),
     width_units=1.8,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # 3. Short 5th column bar floating on the right at vertical center (Colors.Amber3)
@@ -63,7 +58,7 @@ rectangle(
     (81.8, y_cy),
     width=bar_w,
     height=20.0,
-    style=fill_style(Colors.Amber3, border_color=DARK, border_units=w, shape_r=r_bar),
+    style=Icon.fill_style(Colors.Amber3, border_color=Icon.DARK, border_units=w, shape_r=r_bar),
 )
 
 save()

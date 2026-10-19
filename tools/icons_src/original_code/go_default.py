@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 CYAN = "#5AD4F3"
 BEIGE = "#F7CD98"
@@ -58,9 +52,9 @@ nose = [(46.3, 71.08), (46.33, 71.53), (46.44, 71.94), (46.61, 72.3), (46.87, 72
 
 # 1. Ears (behind body)
 for ear, inner in ((left_ear, left_inner_ear), (right_ear, right_inner_ear)):
-    polygon(ear, style=no_border_fill(CYAN))
-    draw_round_polyline(ear, width_units=w_body, color=DARK, closed=True)
-    polygon(inner, style=no_border_fill(DARK))
+    polygon(ear, style=Icon.no_border_fill(CYAN))
+    Icon.draw_round_polyline(ear, width_units=w_body, color=Icon.DARK, closed=True)
+    polygon(inner, style=Icon.no_border_fill(Icon.DARK))
 
 # 2. Paws and feet (behind body)
 for limb, crease in (
@@ -69,31 +63,31 @@ for limb, crease in (
     (left_foot, left_foot_crease),
     (right_foot, right_foot_crease),
 ):
-    polygon(limb, style=no_border_fill(BEIGE))
-    draw_round_polyline(limb, width_units=w_part, color=DARK, closed=True)
-    draw_round_polyline(crease, width_units=w_crease, color=DARK, closed=False)
+    polygon(limb, style=Icon.no_border_fill(BEIGE))
+    Icon.draw_round_polyline(limb, width_units=w_part, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(crease, width_units=w_crease, color=Icon.DARK, closed=False)
 
 # 3. Main cyan body
-polygon(body, style=no_border_fill(CYAN))
-draw_round_polyline(body, width_units=w_body, color=DARK, closed=True)
+polygon(body, style=Icon.no_border_fill(CYAN))
+Icon.draw_round_polyline(body, width_units=w_body, color=Icon.DARK, closed=True)
 
 # 4. Eyes, pupils, and catchlights
 for eye, pupil, catchlight in (
     (left_eye, left_pupil, left_catchlight),
     (right_eye, right_pupil, right_catchlight),
 ):
-    polygon(eye, style=no_border_fill(WHITE))
-    draw_round_polyline(eye, width_units=w_part, color=DARK, closed=True)
-    polygon(pupil, style=no_border_fill(DARK))
-    polygon(catchlight, style=no_border_fill(WHITE))
+    polygon(eye, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(eye, width_units=w_part, color=Icon.DARK, closed=True)
+    polygon(pupil, style=Icon.no_border_fill(Icon.DARK))
+    polygon(catchlight, style=Icon.no_border_fill(Icon.WHITE))
 
 # 5. Teeth, snout, and nose
 for tooth in (left_tooth, right_tooth):
-    polygon(tooth, style=no_border_fill(WHITE))
-    draw_round_polyline(tooth, width_units=w_small, color=DARK, closed=True)
+    polygon(tooth, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(tooth, width_units=w_small, color=Icon.DARK, closed=True)
 
-polygon(snout, style=no_border_fill(BEIGE))
-draw_round_polyline(snout, width_units=1.4, color=DARK, closed=True)
-polygon(nose, style=no_border_fill(DARK))
+polygon(snout, style=Icon.no_border_fill(BEIGE))
+Icon.draw_round_polyline(snout, width_units=1.4, color=Icon.DARK, closed=True)
+polygon(nose, style=Icon.no_border_fill(Icon.DARK))
 
 save()

@@ -11,7 +11,11 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 import pytest
+from matplotlib.patches import PathPatch, Polygon
+from matplotlib.path import Path
 from pydantic import ValidationError
 
 from drawlib.canvas import canvas, clear, save
@@ -420,3 +424,65 @@ class TestCanvasPolygon:
             plaque((50, 50), width=24, height=16, cut_ratio=1.0, style=Styles.Primary)
         with pytest.raises((ValueError, ValidationError)):
             plaque((50, 50), width=24, height=16, cut_ratio=0.0, style=Styles.Primary)
+
+    def test_polygon_holes_single_and_multiple(self) -> None:
+        """Verify polygon holes support with CW/CCW auto-orientation and corner rounding."""
+        clear()
+        outer_ccw = [(10.0, 10.0), (90.0, 10.0), (90.0, 90.0), (10.0, 90.0)]
+        outer_cw = list(reversed(outer_ccw))
+        hole_1_ccw = [(20.0, 20.0), (40.0, 20.0), (40.0, 40.0), (20.0, 40.0)]
+        hole_2_cw = [(60.0, 60.0), (60.0, 80.0), (80.0, 80.0), (80.0, 60.0)]
+
+        # 1. Single hole with scalar shape_r and embedded text
+        polygon(
+            outer_ccw,
+            holes=[hole_1_ccw],
+            style=Styles.PrimaryNeutral.patch(shape_r=2.0),
+            text="Frame",
+        )
+        assert isinstance(canvas._artists[0], PathPatch)
+        path_0 = canvas._artists[0].get_path()
+        assert list(cast(Any, path_0.codes)).count(Path.CLOSEPOLY) == 2
+
+        # 2. CW outer + multiple holes + per-vertex tuple shape_r
+        polygon(
+            outer_cw,
+            holes=[hole_1_ccw, hole_2_cw],
+            style=Styles.SecondaryNeutral.patch(shape_r=(1.0, 2.0, 3.0, 4.0)),
+        )
+        assert isinstance(canvas._artists[2], PathPatch)
+        path_1 = canvas._artists[2].get_path()
+        assert list(cast(Any, path_1.codes)).count(Path.CLOSEPOLY) == 3
+
+        # 3. Empty holes=[] falls back to standard unrounded Polygon patch
+        polygon(outer_ccw, holes=[], style=Styles.Neutral)
+        assert isinstance(canvas._artists[3], Polygon)
+
+    def test_polygon_holes_transform(self) -> None:
+        """Verify canvas.transform scales and translates polygon with holes."""
+        clear()
+        outer = [(20.0, 20.0), (60.0, 20.0), (60.0, 60.0), (20.0, 60.0)]
+        hole = [(30.0, 30.0), (50.0, 30.0), (50.0, 50.0), (30.0, 50.0)]
+
+        with canvas.transform(origin=(20.0, 20.0), scale=0.5, translate=(5.0, 5.0)):
+            polygon(outer, holes=[hole], style=Styles.Primary)
+
+        artist = canvas._artists[0]
+        assert isinstance(artist, PathPatch)
+        verts = [(float(vx), float(vy)) for vx, vy in cast(Any, artist.get_path().vertices)]
+        assert (25.0, 25.0) in verts
+        assert (45.0, 45.0) in verts
+        assert (30.0, 30.0) in verts
+
+    def test_polygon_holes_validation_errors(self) -> None:
+        """Verify polygon outer and hole vertex count validation errors."""
+        clear()
+        with pytest.raises(ValueError, match="at least 3 vertices"):
+            polygon([(10.0, 10.0), (20.0, 20.0)], style=Styles.Primary)
+
+        with pytest.raises(ValueError, match="at least 3 vertices"):
+            polygon(
+                [(10.0, 10.0), (50.0, 10.0), (30.0, 50.0)],
+                holes=[[(20.0, 20.0), (25.0, 25.0)]],
+                style=Styles.Primary,
+            )

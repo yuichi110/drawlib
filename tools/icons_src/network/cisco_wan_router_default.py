@@ -11,33 +11,25 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_3d_cylinder,
-    draw_cisco_arrow,
-    draw_cisco_router_top_arrows,
-    draw_round_segment,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
 # 1. 3D cylinder router body and classic 4 top arrows
-draw_cisco_3d_cylinder(50.0, 28.0, 78.0, 30.0, 14.0)
-draw_cisco_router_top_arrows(50.0, 58.0, 39.0, 14.0)
+Cisco.draw_3d_cylinder(50.0, 28.0, 78.0, 30.0, 14.0)
+Cisco.draw_router_top_arrows(50.0, 58.0, 39.0, 14.0)
 
 # 2. Front WAN globe emblem centered on the front cylinder face
 gx, gy = 50.0, 29.0
 gr = 10.5
-circle((gx, gy), radius=gr, style=stroke_style(WHITE, width_units=2.1))
-ellipse((gx, gy), width=10.5, height=gr * 2.0, style=stroke_style(WHITE, width_units=1.8))
-draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=1.8, color=WHITE)
-draw_round_segment((gx - 8.8, gy + 5.2), (gx + 8.8, gy + 5.2), width_units=1.5, color=WHITE)
-draw_round_segment((gx - 8.8, gy - 5.2), (gx + 8.8, gy - 5.2), width_units=1.5, color=WHITE)
+circle((gx, gy), radius=gr, style=Icon.stroke_style(Icon.WHITE, width_units=2.1))
+ellipse((gx, gy), width=10.5, height=gr * 2.0, style=Icon.stroke_style(Icon.WHITE, width_units=1.8))
+Icon.draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=1.8, color=Icon.WHITE)
+Icon.draw_round_segment((gx - 8.8, gy + 5.2), (gx + 8.8, gy + 5.2), width_units=1.5, color=Icon.WHITE)
+Icon.draw_round_segment((gx - 8.8, gy - 5.2), (gx + 8.8, gy - 5.2), width_units=1.5, color=Icon.WHITE)
 
 # 3. Flanking outward WAN link arrows on the front face
-draw_cisco_arrow((35.5, gy), (20.5, gy), shaft_w=2.6, head_len=5.5, head_w=7.0, color=WHITE)
-draw_cisco_arrow((64.5, gy), (79.5, gy), shaft_w=2.6, head_len=5.5, head_w=7.0, color=WHITE)
+Cisco.draw_arrow((35.5, gy), (20.5, gy), shaft_w=2.6, head_len=5.5, head_w=7.0, color=Icon.WHITE)
+Cisco.draw_arrow((64.5, gy), (79.5, gy), shaft_w=2.6, head_len=5.5, head_w=7.0, color=Icon.WHITE)
 
 save()

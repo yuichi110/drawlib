@@ -13,15 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 SLATE = "#3E4756"
 w_outline = 2.0
@@ -80,13 +74,13 @@ for dx, dy in dot_centers:
 hub_outer_sc = _sc(hub_outer)
 hub_inner_sc = _sc(hub_inner)
 
-draw_compound_polygon([hub_outer_sc, hub_inner_sc], color=SLATE)
+polygon(hub_outer_sc, holes=[hub_inner_sc], style=Icon.fill_style(SLATE))
 for d_pts in dot_polys:
-    polygon(d_pts, style=no_border_fill(SLATE))
+    polygon(d_pts, style=Icon.no_border_fill(SLATE))
 
-draw_round_polyline(hub_outer_sc, width_units=w_outline, color=DARK, closed=True)
-draw_round_polyline(hub_inner_sc, width_units=w_outline, color=DARK, closed=True)
+Icon.draw_round_polyline(hub_outer_sc, width_units=w_outline, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(hub_inner_sc, width_units=w_outline, color=Icon.DARK, closed=True)
 for d_pts in dot_polys:
-    draw_round_polyline(d_pts, width_units=w_outline, color=DARK, closed=True)
+    Icon.draw_round_polyline(d_pts, width_units=w_outline, color=Icon.DARK, closed=True)
 
 save()

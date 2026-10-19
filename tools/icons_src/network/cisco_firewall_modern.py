@@ -11,15 +11,10 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_modern_badge,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
-draw_cisco_modern_badge()
+Icon.setup()
+Cisco.draw_modern_badge()
 
 x_left = 23.0
 y_bot = 31.0
@@ -31,7 +26,7 @@ num_rows = 6
 brick_h = (wall_h - (num_rows - 1) * gap) / num_rows
 full_w = (wall_w - 2.0 * gap) / 3.0
 half_w = (wall_w - 3.0 * gap - 2.0 * full_w) / 2.0
-brick_style = no_border_fill(WHITE, shape_r=0.7)
+brick_style = Icon.no_border_fill(Icon.WHITE, shape_r=0.7)
 
 for row in range(num_rows):
     cy = y_bot + row * (brick_h + gap) + brick_h / 2.0

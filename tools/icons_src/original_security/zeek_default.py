@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_arrow = 2.0
 w_z = 1.6
@@ -32,11 +27,11 @@ z_poly: list[tuple[float, float]] = [(37.91, 34.1), (61.33, 34.09), (61.84, 34.1
 # fmt: on
 
 # 1. Framing DARK arrows (w=2.2)
-draw_round_polyline(top_arrow, width_units=w_arrow, color=DARK, closed=False)
-draw_round_polyline(bot_arrow, width_units=w_arrow, color=DARK, closed=False)
+Icon.draw_round_polyline(top_arrow, width_units=w_arrow, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(bot_arrow, width_units=w_arrow, color=Icon.DARK, closed=False)
 
 # 2. Central 'Z' in pastel blue (Colors.Blue3) with DARK 1.6 outline
-polygon(z_poly, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(z_poly, width_units=w_z, color=DARK, closed=True)
+polygon(z_poly, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(z_poly, width_units=w_z, color=Icon.DARK, closed=True)
 
 save()

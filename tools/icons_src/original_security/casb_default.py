@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 w_line = 2.0
@@ -73,15 +63,15 @@ for i, (cx, cy, r) in enumerate(bumps):
         ang = a_start + (a_end - a_start) * (s / steps)
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
-polygon(cloud_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(cloud_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cloud_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 2. Bottom-center WHITE rounded gate card
 rectangle(
     (50.0, 36.0),
     width=40.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape, shape_r=6.0),
 )
 
 # 3. Padlock shackle arc (drawn behind padlock body)
@@ -96,16 +86,16 @@ for i in range(25):
         )
     )
 shackle_pts.append((shackle_cx + shackle_r, 37.5))
-draw_round_polyline(shackle_pts, width_units=w_line, color=DARK)
+Icon.draw_round_polyline(shackle_pts, width_units=w_line, color=Icon.DARK)
 
 # 4. PASTEL_GREEN padlock body + DARK keyhole
 rectangle(
     (50.0, 30.0),
     width=22.0,
     height=18.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_shape, shape_r=3.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_shape, shape_r=3.5),
 )
-circle((50.0, 31.8), radius=2.2, style=fill_style(DARK))
-draw_round_segment((50.0, 31.8), (50.0, 27.2), width_units=2.0, color=DARK)
+circle((50.0, 31.8), radius=2.2, style=Icon.fill_style(Icon.DARK))
+Icon.draw_round_segment((50.0, 31.8), (50.0, 27.2), width_units=2.0, color=Icon.DARK)
 
 save()

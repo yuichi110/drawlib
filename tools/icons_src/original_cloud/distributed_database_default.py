@@ -11,49 +11,38 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 hub_xy = (50.0, 50.0)
 nodes = [
-    (50.0, 76.0, PASTEL_GREEN),
-    (26.0, 35.0, PASTEL_BLUE),
-    (74.0, 35.0, PASTEL_BLUE),
+    (50.0, 76.0, Icon.PASTEL_GREEN),
+    (26.0, 35.0, Icon.PASTEL_BLUE),
+    (74.0, 35.0, Icon.PASTEL_BLUE),
 ]
 
 # 1. Central network ring and radial spoke connectors
 circle(
     hub_xy,
     radius=24.0,
-    style=stroke_style(DARK, width_units=w),
+    style=Icon.stroke_style(Icon.DARK, width_units=w),
 )
 
 for nx, ny, _ in nodes:
-    draw_round_segment(hub_xy, (nx, ny), width_units=w, color=DARK)
+    Icon.draw_round_segment(hub_xy, (nx, ny), width_units=w, color=Icon.DARK)
 
 # 2. Central hub node at (50, 50)
 circle(
     hub_xy,
     radius=6.5,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w),
 )
 circle(
     hub_xy,
     radius=2.5,
-    style=fill_style(DARK),
+    style=Icon.fill_style(Icon.DARK),
 )
 
 # 3. Three mini database cylinders at triangle vertices
@@ -74,23 +63,23 @@ for cx, cy, body_col in nodes:
             (cx, yb),
             width=cyl_w,
             height=eh,
-            style=fill_style(body_col, border_color=DARK, border_units=w),
+            style=Icon.fill_style(body_col, border_color=Icon.DARK, border_units=w),
         )
         rectangle(
             (cx, yb + tier_h / 2.0),
             width=cyl_w,
             height=tier_h,
-            style=fill_style(body_col),
+            style=Icon.fill_style(body_col),
         )
 
-    draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=DARK)
-    draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=DARK)
+    Icon.draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=Icon.DARK)
+    Icon.draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=Icon.DARK)
 
     ellipse(
         (cx, y_top),
         width=cyl_w,
         height=eh,
-        style=fill_style(WHITE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
     )
 
 save()

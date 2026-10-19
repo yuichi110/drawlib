@@ -10,25 +10,20 @@
 """Cisco network icon: wireless access point (modern 2D variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_modern_badge,
-    draw_cisco_sine_waves,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
-draw_cisco_modern_badge()
+Icon.setup()
+Cisco.draw_modern_badge()
 
 # Signature Cisco intertwined dual sine wave motif inside the badge
-draw_cisco_sine_waves(
+Cisco.draw_sine_waves(
     50.0,
     50.0,
     56.0,
     8.5,
     cycles=2.0,
     stroke_w=3.0,
-    color=WHITE,
+    color=Icon.WHITE,
     steps=144,
 )
 

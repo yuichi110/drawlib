@@ -14,9 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import draw_round_polyline, fill_style, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 SQUID_ORANGE = "#FF9900"
 SQUID_BLUE = "#6699CC"
@@ -27,7 +27,7 @@ RADIUS = 38.5
 BORDER_W = 5.0
 
 # 1. Base steel-blue circle fill
-circle((CX, CY), radius=RADIUS, style=fill_style(SQUID_BLUE))
+circle((CX, CY), radius=RADIUS, style=Icon.fill_style(SQUID_BLUE))
 
 # 2. Vertical S-curve centerline inside border (97 deg -> 258 deg)
 s_curve: list[tuple[float, float]] = [
@@ -59,10 +59,10 @@ for i in range(steps + 1):
     left_arc.append((CX + RADIUS * math.cos(ang), CY + RADIUS * math.sin(ang)))
 
 crescent_pts = [*left_arc, *reversed(s_curve)]
-polygon(crescent_pts, style=fill_style(SQUID_ORANGE))
+polygon(crescent_pts, style=Icon.fill_style(SQUID_ORANGE))
 
 # 4. Smooth black vertical S-curve divider
-draw_round_polyline(s_curve, width_units=5.6, color=SQUID_BLACK, corner_r=2.0)
+Icon.draw_round_polyline(s_curve, width_units=5.6, color=SQUID_BLACK, corner_r=2.0)
 
 # 5. Characteristic black spiral curl inside the right steel-blue half
 spiral_pts: list[tuple[float, float]] = [
@@ -82,19 +82,19 @@ spiral_pts: list[tuple[float, float]] = [
     (76.50, 46.20),
     (76.50, 46.80),
 ]
-draw_round_polyline(spiral_pts, width_units=4.8, color=SQUID_BLACK, corner_r=1.5)
+Icon.draw_round_polyline(spiral_pts, width_units=4.8, color=SQUID_BLACK, corner_r=1.5)
 
 # Crisp flat top cap on the inner tip of the spiral curl
 polygon(
     [(74.10, 46.40), (78.90, 46.40), (78.90, 49.40), (74.10, 49.40)],
-    style=fill_style(SQUID_BLACK),
+    style=Icon.fill_style(SQUID_BLACK),
 )
 
 # 6. Solid black outer circular border
 circle(
     (CX, CY),
     radius=RADIUS,
-    style=fill_style(Colors.Transparent, border_color=SQUID_BLACK, border_units=BORDER_W),
+    style=Icon.fill_style(Colors.Transparent, border_color=SQUID_BLACK, border_units=BORDER_W),
 )
 
 save()

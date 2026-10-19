@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -45,14 +40,14 @@ pink_block = _sc([(52.72, 46.79), (61.68, 46.79), (61.68, 38.01), (52.72, 38.01)
 
 # 1. Pastel navy vertical bars
 for bar in navy_bars:
-    polygon(bar, style=no_border_fill("#3B4278"))
-    draw_round_polyline(bar, width_units=w, color=DARK, closed=True)
+    polygon(bar, style=Icon.no_border_fill("#3B4278"))
+    Icon.draw_round_polyline(bar, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Pastel yellow and pink accent squares
-polygon(yellow_block, style=no_border_fill("#F1C946"))
-draw_round_polyline(yellow_block, width_units=w, color=DARK, closed=True)
+polygon(yellow_block, style=Icon.no_border_fill("#F1C946"))
+Icon.draw_round_polyline(yellow_block, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(pink_block, style=no_border_fill("#EF4E8E"))
-draw_round_polyline(pink_block, width_units=w, color=DARK, closed=True)
+polygon(pink_block, style=Icon.no_border_fill("#EF4E8E"))
+Icon.draw_round_polyline(pink_block, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cap,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Lower rounded AP base (shifted down to leave clear space below the Wi-Fi symbol)
 base_y = 22.0
@@ -35,7 +25,7 @@ rectangle(
     (50.0, base_y),
     width=64.0,
     height=24.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=10.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=10.0),
 )
 
 # Inner WHITE pill
@@ -43,14 +33,14 @@ rectangle(
     (50.0, base_y),
     width=42.0,
     height=10.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=5.0),
 )
 
 # PASTEL_GREEN LED dot inside pill
 circle(
     (64.0, base_y),
     radius=2.8,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
 )
 
 # Central Wi-Fi transmitter circle (separated from AP base by ~7.5 units of space)
@@ -58,7 +48,7 @@ tx_cx, tx_cy = 50.0, 49.5
 circle(
     (tx_cx, tx_cy),
     radius=5.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 # 3 concentric upward Wi-Fi radio wave arcs
@@ -74,14 +64,14 @@ for diam in (34.0, 54.0, 74.0):
         height=diam,
         angle_start=ang_start,
         angle_end=ang_end,
-        style=stroke_style(DARK, width_units=arc_w),
+        style=Icon.stroke_style(Icon.DARK, width_units=arc_w),
     )
     for ang_deg in (ang_start, ang_end):
         rad = math.radians(ang_deg)
-        draw_cap(
+        Icon.draw_cap(
             (tx_cx + r * math.cos(rad), tx_cy + r * math.sin(rad)),
             width_units=arc_w,
-            color=DARK,
+            color=Icon.DARK,
         )
 
 save()

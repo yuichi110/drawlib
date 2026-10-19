@@ -11,13 +11,13 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-polygon([(46.51, 52.8), (66.15, 86.57), (27.38, 86.57), (8.0, 52.8)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(8.0, 47.2), (27.34, 13.43), (66.07, 13.43), (46.77, 47.2)], style=fill_style(GCP_TECH_MID))
-polygon([(92.0, 50.0), (72.62, 83.9), (53.19, 50.0), (72.62, 16.1)], style=fill_style(GCP_TECH_MED_LIGHT))
+Icon.setup()
+polygon([(46.51, 52.8), (66.15, 86.57), (27.38, 86.57), (8.0, 52.8)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(8.0, 47.2), (27.34, 13.43), (66.07, 13.43), (46.77, 47.2)], style=Icon.fill_style(Gcp.TECH_MID))
+polygon([(92.0, 50.0), (72.62, 83.9), (53.19, 50.0), (72.62, 16.1)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 save()
 # fmt: on

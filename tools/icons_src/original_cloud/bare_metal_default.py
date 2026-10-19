@@ -11,30 +11,21 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Vertical physical rack rails
 for x_rail in (22.0, 78.0):
-    draw_round_segment((x_rail, 13.0), (x_rail, 87.0), width_units=3.2, color=DARK)
+    Icon.draw_round_segment((x_rail, 13.0), (x_rail, 87.0), width_units=3.2, color=Icon.DARK)
 
 # 3 stacked horizontal physical rackmount server blades
 blades = [
-    (74.0, PASTEL_BLUE),
-    (50.0, WHITE),
-    (26.0, PASTEL_BLUE),
+    (74.0, Icon.PASTEL_BLUE),
+    (50.0, Icon.WHITE),
+    (26.0, Icon.PASTEL_BLUE),
 ]
 
 for y_blade, bg_col in blades:
@@ -42,14 +33,14 @@ for y_blade, bg_col in blades:
         (50.0, y_blade),
         width=74.0,
         height=18.0,
-        style=fill_style(bg_col, border_color=DARK, border_units=w, shape_r=4.0),
+        style=Icon.fill_style(bg_col, border_color=Icon.DARK, border_units=w, shape_r=4.0),
     )
-    draw_round_segment((22.0, y_blade), (36.0, y_blade), width_units=2.0, color=DARK)
-    draw_round_segment((43.0, y_blade), (57.0, y_blade), width_units=2.0, color=DARK)
+    Icon.draw_round_segment((22.0, y_blade), (36.0, y_blade), width_units=2.0, color=Icon.DARK)
+    Icon.draw_round_segment((43.0, y_blade), (57.0, y_blade), width_units=2.0, color=Icon.DARK)
     circle(
         (76.0, y_blade),
         radius=3.4,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
     )
 
 save()

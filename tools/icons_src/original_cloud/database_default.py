@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx = 50.0
 width = 68.0
 w_half = width / 2.0
@@ -41,30 +32,30 @@ for yb in tier_bottoms:
         (cx, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_BLUE),
+        style=Icon.fill_style(Icon.PASTEL_BLUE),
     )
 
-draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx - w_half, y_bot), (cx - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx + w_half, y_bot), (cx + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 for y_led in (21.0, 40.0, 59.0):
     circle(
         (68.0, y_led),
         radius=3.8,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
     )
 
 save()

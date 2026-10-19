@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_mark = 1.5
@@ -33,12 +27,12 @@ a_hole = [(61.2, 39.01), (61.2, 38.99), (61.2, 38.97), (61.2, 38.94), (61.19, 38
 # fmt: on
 
 # 1. Dark navy rounded square badge
-polygon(badge, style=no_border_fill("#2C3A4E"))
-draw_round_polyline(badge, width_units=w_badge, color=DARK, closed=True)
+polygon(badge, style=Icon.no_border_fill("#2C3A4E"))
+Icon.draw_round_polyline(badge, width_units=w_badge, color=Icon.DARK, closed=True)
 
 # 2. Pastel cyan 'a' mark with transparent center hole
-draw_compound_polygon([a_outer, a_hole], color=Colors.Teal3)
-draw_round_polyline(a_outer, width_units=w_mark, color=DARK, closed=True)
-draw_round_polyline(a_hole, width_units=w_mark, color=DARK, closed=True)
+polygon(a_outer, holes=[a_hole], style=Icon.fill_style(Colors.Teal3))
+Icon.draw_round_polyline(a_outer, width_units=w_mark, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=w_mark, color=Icon.DARK, closed=True)
 
 save()

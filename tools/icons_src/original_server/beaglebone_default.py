@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, WHITE, draw_compound_polygon, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 TAN = "#DFAD61"
 PINK = "#F3685C"
@@ -59,15 +59,17 @@ dog_catch: list[list[tuple[float, float]]] = [
 ]
 
 for pts in dog_base:
-    polygon(pts, style=no_border_fill(WHITE))
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
 for pts in dog_tan:
-    polygon(pts, style=no_border_fill(TAN))
+    polygon(pts, style=Icon.no_border_fill(TAN))
 for pts in dog_pink:
-    polygon(pts, style=no_border_fill(PINK))
+    polygon(pts, style=Icon.no_border_fill(PINK))
 
-draw_compound_polygon(dog_dark, color=DARK)
+polygon(dog_dark[0], holes=[dog_dark[1], dog_dark[6], dog_dark[7], dog_dark[8], dog_dark[9], dog_dark[10]], style=Icon.fill_style(Icon.DARK))
+polygon(dog_dark[2], holes=[dog_dark[3]], style=Icon.fill_style(Icon.DARK))
+polygon(dog_dark[4], holes=[dog_dark[5]], style=Icon.fill_style(Icon.DARK))
 for pts in dog_catch:
-    polygon(pts, style=no_border_fill(WHITE))
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. 'beagleboard' vector wordmark (11 letters, no .org) in bottom [11.5, 25.5]
 # Split DARK outline into 0.425 outside (w_halo=0.85) + 0.275 inside (w_in=0.55)
@@ -92,16 +94,16 @@ orange_letters: list[list[list[tuple[float, float]]]] = [
 ]
 
 for rings in tan_letters:
-    draw_round_polyline(rings[0], width_units=w_halo, color=DARK, closed=True)
-    draw_compound_polygon(rings, color=TAN)
+    Icon.draw_round_polyline(rings[0], width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(rings[0], holes=rings[1:], style=Icon.fill_style(TAN))
     for r in rings:
-        draw_round_polyline(r, width_units=w_in, color=DARK, closed=True)
+        Icon.draw_round_polyline(r, width_units=w_in, color=Icon.DARK, closed=True)
 
 for rings in orange_letters:
-    draw_round_polyline(rings[0], width_units=w_halo, color=DARK, closed=True)
-    draw_compound_polygon(rings, color=ORANGE)
+    Icon.draw_round_polyline(rings[0], width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(rings[0], holes=rings[1:], style=Icon.fill_style(ORANGE))
     for r in rings:
-        draw_round_polyline(r, width_units=w_in, color=DARK, closed=True)
+        Icon.draw_round_polyline(r, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

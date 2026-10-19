@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    VMWARE_CYAN,
-    VMWARE_NAVY,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon, Vmware
 
-setup_icon()
+Icon.setup()
 
 # Stepped dual-square outline formed by two merged squares (x=10..62 and x=38..90, vcenter-server.svg)
 merged_pts = [
@@ -35,9 +29,9 @@ merged_pts = [
 ]
 polygon(
     merged_pts,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Transparent,
-        border_color=VMWARE_NAVY,
+        border_color=Vmware.NAVY,
         border_units=4.6,
         shape_r=(5.0, 5.0, 0.0, 5.0, 5.0, 5.0, 0.0, 5.0),
     ),
@@ -49,14 +43,14 @@ rectangle(
     (38.0, 38.0),
     width=20.0,
     height=20.0,
-    style=no_border_fill(VMWARE_NAVY, shape_r=3.5),
+    style=Icon.no_border_fill(Vmware.NAVY, shape_r=3.5),
 )
 # Top-right solid square (x=52..72, y=52..72)
 rectangle(
     (62.0, 62.0),
     width=20.0,
     height=20.0,
-    style=no_border_fill(VMWARE_CYAN, shape_r=3.5),
+    style=Icon.no_border_fill(Vmware.CYAN, shape_r=3.5),
 )
 
 save()

@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 WATER_SKY = "#D6F0FF"
@@ -181,12 +175,12 @@ raw_inner = _inset_poly(raw_outer, 4.5)
 outer_shield = _round_corners(raw_outer, 3.6, 10)
 inner_shield = _round_corners(raw_inner, 1.8, 8)
 
-polygon(outer_shield, style=no_border_fill(Colors.Purple3))
-polygon(inner_shield, style=no_border_fill(WHITE))
+polygon(outer_shield, style=Icon.no_border_fill(Colors.Purple3))
+polygon(inner_shield, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Pastel sky-blue water fill (#D6F0FF) in the lower half of inner shield
 water_poly = _clip_y_between(inner_shield, 10.0, 50.8)
-polygon(water_poly, style=no_border_fill(WATER_SKY))
+polygon(water_poly, style=Icon.no_border_fill(WATER_SKY))
 
 
 def _wave_bar(x0: float, x1: float, yc: float, h: float = 2.0) -> None:
@@ -194,7 +188,7 @@ def _wave_bar(x0: float, x1: float, yc: float, h: float = 2.0) -> None:
     raw = [(x0, yc - h / 2.0), (x1, yc - h / 2.0), (x1, yc + h / 2.0), (x0, yc + h / 2.0)]
     clipped = _clip_to_cw_convex(raw, inner_shield)
     if len(clipped) >= 3:
-        polygon(clipped, style=no_border_fill(Colors.Blue3))
+        polygon(clipped, style=Icon.no_border_fill(Colors.Blue3))
 
 
 # 3. Background wave bars (Colors.Blue3) behind seals
@@ -208,9 +202,9 @@ _wave_bar(73.5, 84.5, 40.2, 2.0)
 
 def _draw_seal_eye(xc: float, yc: float, r_ring: float, r_pupil: float, r_light: float) -> None:
     """Draw a Podman seal eye: Colors.Purple3 ring + DARK pupil + WHITE catchlight."""
-    circle((xc, yc), radius=r_ring, style=no_border_fill(Colors.Purple3))
-    circle((xc, yc), radius=r_pupil, style=no_border_fill(DARK))
-    circle((xc - r_pupil * 0.3, yc + r_pupil * 0.3), radius=r_light, style=no_border_fill(WHITE))
+    circle((xc, yc), radius=r_ring, style=Icon.no_border_fill(Colors.Purple3))
+    circle((xc, yc), radius=r_pupil, style=Icon.no_border_fill(Icon.DARK))
+    circle((xc - r_pupil * 0.3, yc + r_pupil * 0.3), radius=r_light, style=Icon.no_border_fill(Icon.WHITE))
 
 
 def _draw_eyebrow(xc: float, yc: float, half_w: float, arch_h: float, stroke_w: float) -> None:
@@ -225,7 +219,7 @@ def _draw_eyebrow(xc: float, yc: float, half_w: float, arch_h: float, stroke_w: 
             10,
         ),
     ]
-    draw_round_polyline(pts, width_units=stroke_w, color=DARK)
+    Icon.draw_round_polyline(pts, width_units=stroke_w, color=Icon.DARK)
 
 
 def _draw_nose_and_smile(
@@ -253,7 +247,7 @@ def _draw_nose_and_smile(
             8,
         ),
     ]
-    polygon(nose_pts, style=no_border_fill(DARK))
+    polygon(nose_pts, style=Icon.no_border_fill(Icon.DARK))
     # W-smile below nose
     y_top = yc_nose - hh + 0.2
     y_bot = y_top - sh
@@ -265,8 +259,8 @@ def _draw_nose_and_smile(
         (xc, y_top),
         *_cubic((xc, y_top), (xc + sw * 0.2, y_bot), (xc + sw * 0.9, y_bot), (xc + sw, y_top + sh * 0.35), 10),
     ]
-    draw_round_polyline(smile_l, width_units=stroke_w, color=DARK)
-    draw_round_polyline(smile_r, width_units=stroke_w, color=DARK)
+    Icon.draw_round_polyline(smile_l, width_units=stroke_w, color=Icon.DARK)
+    Icon.draw_round_polyline(smile_r, width_units=stroke_w, color=Icon.DARK)
 
 
 # 4. Back (big) seal pup (Colors.Gray3)
@@ -277,8 +271,8 @@ big_seal_arch = [
     *_cubic((49.0, 81.2), (55.5, 81.2), (61.2, 79.8), (65.5, 73.5), 12),
     *_cubic((65.5, 73.5), (69.5, 67.5), (70.2, 56.0), (72.2, 41.2), 14),
 ]
-polygon(big_seal_arch, style=no_border_fill(Colors.Gray3))
-draw_round_polyline(big_seal_arch, width_units=w, color=DARK)
+polygon(big_seal_arch, style=Icon.no_border_fill(Colors.Gray3))
+Icon.draw_round_polyline(big_seal_arch, width_units=w, color=Icon.DARK)
 
 _draw_eyebrow(36.8, 72.2, 3.0, 2.2, 1.8)
 _draw_eyebrow(60.5, 72.2, 3.0, 2.2, 1.8)
@@ -286,9 +280,9 @@ _draw_seal_eye(37.5, 64.0, 4.5, 3.0, 1.0)
 _draw_seal_eye(60.5, 64.0, 4.5, 3.0, 1.0)
 
 # Cheek dots & muzzle on big seal
-circle((37.5, 56.4), radius=2.5, style=no_border_fill(WHITE))
-circle((60.5, 56.4), radius=2.5, style=no_border_fill(WHITE))
-circle((49.0, 58.0), radius=6.8, style=no_border_fill(WHITE))
+circle((37.5, 56.4), radius=2.5, style=Icon.no_border_fill(Icon.WHITE))
+circle((60.5, 56.4), radius=2.5, style=Icon.no_border_fill(Icon.WHITE))
+circle((49.0, 58.0), radius=6.8, style=Icon.no_border_fill(Icon.WHITE))
 _draw_nose_and_smile(49.0, 59.6, 7.2, 4.8, 4.4, 2.5, 1.8)
 
 # 5. Front-left (small) seal pup (Colors.Gray3) emerging from y=34.5
@@ -298,8 +292,8 @@ fl_arch = [
     *_cubic((21.4, y_fl), (22.4, 45.2), (27.2, 49.8), (34.0, 49.8), 14),
     *_cubic((34.0, 49.8), (40.8, 49.8), (45.6, 45.2), (46.6, y_fl), 14),
 ]
-polygon(fl_arch, style=no_border_fill(Colors.Gray3))
-draw_round_polyline(fl_arch, width_units=w, color=DARK)
+polygon(fl_arch, style=Icon.no_border_fill(Colors.Gray3))
+Icon.draw_round_polyline(fl_arch, width_units=w, color=Icon.DARK)
 
 _draw_eyebrow(27.2, 43.8, 2.3, 1.7, 1.6)
 _draw_eyebrow(40.8, 43.8, 2.3, 1.7, 1.6)
@@ -311,12 +305,12 @@ fl_muzzle = [
     (34.0 + 4.3 * math.cos(math.radians(a)), 34.6 + 4.3 * math.sin(math.radians(a)))
     for a in range(0, 181, 10)
 ]
-polygon(fl_muzzle, style=no_border_fill(WHITE))
+polygon(fl_muzzle, style=Icon.no_border_fill(Icon.WHITE))
 fl_nose = [
     (34.0 + 2.4 * math.cos(math.radians(a)), 34.6 + 2.4 * math.sin(math.radians(a)))
     for a in range(0, 181, 12)
 ]
-polygon(fl_nose, style=no_border_fill(DARK))
+polygon(fl_nose, style=Icon.no_border_fill(Icon.DARK))
 
 # Wave bar right under front-left seal
 _wave_bar(17.5, 51.0, 33.6, 2.0)
@@ -328,8 +322,8 @@ fr_arch = [
     *_cubic((47.6, y_fr), (48.9, 41.8), (53.6, 47.8), (60.6, 47.8), 14),
     *_cubic((60.6, 47.8), (67.6, 47.8), (72.3, 41.8), (73.6, y_fr), 14),
 ]
-polygon(fr_arch, style=no_border_fill(Colors.Gray3))
-draw_round_polyline(fr_arch, width_units=w, color=DARK)
+polygon(fr_arch, style=Icon.no_border_fill(Colors.Gray3))
+Icon.draw_round_polyline(fr_arch, width_units=w, color=Icon.DARK)
 
 _draw_eyebrow(53.8, 41.5, 2.4, 1.8, 1.6)
 _draw_eyebrow(67.4, 41.5, 2.4, 1.8, 1.6)
@@ -337,15 +331,15 @@ _draw_seal_eye(53.8, 36.2, 3.1, 2.05, 0.75)
 _draw_seal_eye(67.4, 36.2, 3.1, 2.05, 0.75)
 
 # Cheek dots, muzzle & nose on front-right seal
-circle((53.8, 30.8), radius=1.65, style=no_border_fill(WHITE))
-circle((67.4, 30.8), radius=1.65, style=no_border_fill(WHITE))
+circle((53.8, 30.8), radius=1.65, style=Icon.no_border_fill(Icon.WHITE))
+circle((67.4, 30.8), radius=1.65, style=Icon.no_border_fill(Icon.WHITE))
 
 fr_muzzle_raw = [
     (60.6 + 4.5 * math.cos(2.0 * math.pi * i / 36), 31.8 + 4.5 * math.sin(2.0 * math.pi * i / 36))
     for i in range(36)
 ]
 fr_muzzle = _clip_y_between(fr_muzzle_raw, y_fr, 90.0)
-polygon(fr_muzzle, style=no_border_fill(WHITE))
+polygon(fr_muzzle, style=Icon.no_border_fill(Icon.WHITE))
 _draw_nose_and_smile(60.6, 33.1, 4.6, 3.3, 2.9, 1.65, 1.5)
 
 # 7. Foreground wave bars (Colors.Blue3)
@@ -354,7 +348,7 @@ _wave_bar(30.5, 53.0, 22.2, 2.0)
 _wave_bar(43.5, 61.5, 17.5, 2.0)
 
 # 8. Crisp DARK outer and inner shield outlines (w=1.9) on top of everything
-draw_round_polyline(outer_shield, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_shield, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_shield, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_shield, width_units=w, color=Icon.DARK, closed=True)
 
 save()

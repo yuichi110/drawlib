@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 BODY_PINK = "#F79BB1"
 LIGHT_PINK = "#FCDCE4"
@@ -52,16 +47,17 @@ right_nostril = [(83.7, 54.26), (83.53, 54.32), (83.27, 54.28), (82.93, 54.14), 
 # fmt: on
 
 # 1. Main pig silhouette fill in flat pastel pink (keeping curly tail loop hole transparent)
-draw_compound_polygon([outer_silhouette, tail_loop_hole], color=BODY_PINK)
+polygon(outer_silhouette, holes=[tail_loop_hole], style=Icon.fill_style(BODY_PINK))
 
 # 2. Snout oval and eye patch in soft pale pink
-polygon(snout_fill, style=no_border_fill(LIGHT_PINK))
-polygon(eye_patch, style=no_border_fill(LIGHT_PINK))
+polygon(snout_fill, style=Icon.no_border_fill(LIGHT_PINK))
+polygon(eye_patch, style=Icon.no_border_fill(LIGHT_PINK))
 
 # 3. Crisp DARK outlines, eye features, and smooth oval nostrils
-draw_compound_polygon(ink_outline_rings, color=DARK)
-draw_compound_polygon(eye_feature_rings, color=DARK)
-polygon(left_nostril, style=no_border_fill(DARK))
-polygon(right_nostril, style=no_border_fill(DARK))
+polygon(ink_outline_rings[0], holes=ink_outline_rings[1:], style=Icon.fill_style(Icon.DARK))
+polygon(eye_feature_rings[0], style=Icon.fill_style(Icon.DARK))
+polygon(eye_feature_rings[1], holes=[eye_feature_rings[2]], style=Icon.fill_style(Icon.DARK))
+polygon(left_nostril, style=Icon.no_border_fill(Icon.DARK))
+polygon(right_nostril, style=Icon.no_border_fill(Icon.DARK))
 
 save()

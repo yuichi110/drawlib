@@ -13,16 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_f = 1.6
@@ -43,8 +36,8 @@ for i in range(13):
     ang = math.radians(180.0 + 90.0 * (i / 12))
     badge_pts.append(sc(18.32 + 9.32 * math.cos(ang), 18.32 + 9.32 * math.sin(ang)))
 
-polygon(badge_pts, style=no_border_fill("#526E9C"))
-draw_round_polyline(badge_pts, width_units=w_badge, color=DARK, closed=True)
+polygon(badge_pts, style=Icon.no_border_fill("#526E9C"))
+Icon.draw_round_polyline(badge_pts, width_units=w_badge, color=Icon.DARK, closed=True)
 
 # 2. WHITE infinity 'f' loop (outer contour + 2 inner teardrop holes)
 outer_inf: list[tuple[float, float]] = []
@@ -73,7 +66,7 @@ for i in range(7):
     ang = math.radians(180.0 + 90.0 * (i / 6))
     hole_tr.append(sc(53.33 + 1.45 * math.cos(ang), 53.33 + 1.45 * math.sin(ang)))
 
-draw_compound_polygon([outer_inf, hole_bl, hole_tr], color=WHITE)
+polygon(outer_inf, holes=[hole_bl, hole_tr], style=Icon.fill_style(Icon.WHITE))
 
 # 3. Secondary loop bridges in #6B9EE8 (left and right outer arcs)
 def arc_pts(
@@ -115,12 +108,12 @@ right_bridge = [
     *reversed(right_bar_cap),
 ]
 
-polygon(left_bridge, style=no_border_fill("#518FEA"))
-polygon(right_bridge, style=no_border_fill("#518FEA"))
+polygon(left_bridge, style=Icon.no_border_fill("#518FEA"))
+polygon(right_bridge, style=Icon.no_border_fill("#518FEA"))
 
 for ring in (outer_inf, hole_bl, hole_tr):
-    draw_round_polyline(ring, width_units=w_f, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_f, color=Icon.DARK, closed=True)
 for cap_arc in (left_bar_cap, right_bar_cap, bl_hook_cap, tr_hook_cap):
-    draw_round_polyline(cap_arc, width_units=w_f, color=DARK, closed=False)
+    Icon.draw_round_polyline(cap_arc, width_units=w_f, color=Icon.DARK, closed=False)
 
 save()

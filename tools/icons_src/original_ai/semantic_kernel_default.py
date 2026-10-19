@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.95
@@ -100,10 +94,10 @@ bottom_left_lobe = [
 ]
 
 # Fill the four ribbon facets seamlessly
-polygon(bottom_left_lobe, style=no_border_fill(Colors.Purple2))
-polygon(bottom_arch, style=no_border_fill(Colors.Purple3))
-polygon(top_right_lobe, style=no_border_fill(Colors.Blue3))
-polygon(top_arch, style=no_border_fill(SKY_CYAN))
+polygon(bottom_left_lobe, style=Icon.no_border_fill(Colors.Purple2))
+polygon(bottom_arch, style=Icon.no_border_fill(Colors.Purple3))
+polygon(top_right_lobe, style=Icon.no_border_fill(Colors.Blue3))
+polygon(top_arch, style=Icon.no_border_fill(SKY_CYAN))
 
 # Draw inner ribbon fold seams (1.6 DARK)
 top_seam = [p_tr_twist, *_cubic(p_tr_twist, _s(66.0, 79.5), _s(52.0, 72.0), p_inner_tl, 16)]
@@ -112,7 +106,7 @@ waist_left_seam = [p_left_waist, p_inner_tl]
 waist_right_seam = [p_right_waist, p_inner_br]
 
 for seam_pts in (top_seam, bot_seam, waist_left_seam, waist_right_seam):
-    draw_round_polyline(seam_pts, width_units=1.6, color=DARK, closed=False)
+    Icon.draw_round_polyline(seam_pts, width_units=1.6, color=Icon.DARK, closed=False)
 
 # Draw outer figure-8 perimeter outline (w = 1.9 DARK)
 outer_perimeter = [
@@ -124,13 +118,13 @@ outer_perimeter = [
     *_cubic(p_br_twist, _s(69.0, 8.5), _s(31.0, 8.5), p_bl_twist, 24),
     *_cubic(p_bl_twist, _s(16.5, 26.5), _s(18.0, 37.5), p_left_waist, 16),
 ]
-draw_round_polyline(outer_perimeter, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_perimeter, width_units=w, color=Icon.DARK, closed=True)
 
 # 5. Central sphere (Colors.Blue5)
 circle(
     p_center,
     radius=16.4,
-    style=fill_style(Colors.Blue5, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue5, border_color=Icon.DARK, border_units=w),
 )
 
 save()

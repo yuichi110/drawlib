@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -44,25 +38,25 @@ ij_j = _sc([(49.89, 49.83), (49.33, 49.83), (48.78, 49.88), (48.23, 49.96), (47.
 # fmt: on
 
 # 1. Flat pastel orange, blue, and pink outer shards
-polygon(shard_orange, style=no_border_fill("#F1AC47"))
-draw_round_polyline(shard_orange, width_units=w_outer, color=DARK, closed=True)
+polygon(shard_orange, style=Icon.no_border_fill("#F1AC47"))
+Icon.draw_round_polyline(shard_orange, width_units=w_outer, color=Icon.DARK, closed=True)
 
-polygon(shard_blue_bot, style=no_border_fill("#4DA8F2"))
-draw_round_polyline(shard_blue_bot, width_units=w_outer, color=DARK, closed=True)
+polygon(shard_blue_bot, style=Icon.no_border_fill("#4DA8F2"))
+Icon.draw_round_polyline(shard_blue_bot, width_units=w_outer, color=Icon.DARK, closed=True)
 
-polygon(shard_blue_top, style=no_border_fill("#4DA8F2"))
-draw_round_polyline(shard_blue_top, width_units=w_outer, color=DARK, closed=True)
+polygon(shard_blue_top, style=Icon.no_border_fill("#4DA8F2"))
+Icon.draw_round_polyline(shard_blue_top, width_units=w_outer, color=Icon.DARK, closed=True)
 
-polygon(shard_pink, style=no_border_fill("#F14982"))
-draw_round_polyline(shard_pink, width_units=w_outer, color=DARK, closed=True)
+polygon(shard_pink, style=Icon.no_border_fill("#F14982"))
+Icon.draw_round_polyline(shard_pink, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Flat dark slate inner square
-polygon(inner_square, style=no_border_fill("#3E4756"))
-draw_round_polyline(inner_square, width_units=w_outer, color=DARK, closed=True)
+polygon(inner_square, style=Icon.no_border_fill("#3E4756"))
+Icon.draw_round_polyline(inner_square, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. WHITE 'IJ' and '_' shapes
 for glyph in (ij_bar, ij_i, ij_j):
-    polygon(glyph, style=no_border_fill(WHITE))
-    draw_round_polyline(glyph, width_units=w_inner, color=DARK, closed=True)
+    polygon(glyph, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(glyph, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

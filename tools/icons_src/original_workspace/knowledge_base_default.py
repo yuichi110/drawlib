@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -72,8 +63,8 @@ cover_pts: list[tuple[float, float]] = [
     (46.0, 76.0),
     *_arc_pts(12.0 + r_cov, 76.0 - r_cov, r_cov, 90.0, 180.0),
 ]
-polygon(cover_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(cover_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(cover_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cover_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. PASTEL_GREEN ribbon bookmark hanging from under right page
 ribbon_pts: list[tuple[float, float]] = [
@@ -83,8 +74,8 @@ ribbon_pts: list[tuple[float, float]] = [
     (68.5, 18.0),
     (63.5, 13.0),
 ]
-polygon(ribbon_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(ribbon_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(ribbon_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(ribbon_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. WHITE left and right open pages (x=17..50 and x=50..83)
 left_page_pts: list[tuple[float, float]] = [
@@ -95,17 +86,17 @@ right_page_pts: list[tuple[float, float]] = [
     *_page_arch(50.0, 83.0, 26.5, 4.0),
     *_page_arch(83.0, 50.0, 77.5, 4.0),
 ]
-polygon(left_page_pts, style=no_border_fill(WHITE))
-polygon(right_page_pts, style=no_border_fill(WHITE))
-draw_round_polyline(left_page_pts, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(right_page_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(left_page_pts, style=Icon.no_border_fill(Icon.WHITE))
+polygon(right_page_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(left_page_pts, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(right_page_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # Center spine crease
-draw_round_segment((50.0, 26.5), (50.0, 77.5), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((50.0, 26.5), (50.0, 77.5), width_units=w_outer, color=Icon.DARK)
 
 # 4. Crisp DARK text lines on left and right pages
 for y_line in (65.0, 53.5, 42.0):
-    draw_round_polyline(_page_arch(23.5, 43.5, y_line, 2.2, 10), width_units=w_inner, color=DARK)
-    draw_round_polyline(_page_arch(56.5, 76.5, y_line, 2.2, 10), width_units=w_inner, color=DARK)
+    Icon.draw_round_polyline(_page_arch(23.5, 43.5, y_line, 2.2, 10), width_units=w_inner, color=Icon.DARK)
+    Icon.draw_round_polyline(_page_arch(56.5, 76.5, y_line, 2.2, 10), width_units=w_inner, color=Icon.DARK)
 
 save()

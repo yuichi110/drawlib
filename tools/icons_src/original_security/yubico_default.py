@@ -12,17 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_letter = 1.5
@@ -45,10 +38,10 @@ y_letter = _sc([
 ])
 
 # 1. Pastel lime-green circular badge (Colors.Green3 + DARK w=1.9 border)
-circle((50.0, 50.0), radius=41.0 * s, style=fill_style(Colors.Green3, border_color=DARK, border_units=w_badge))
+circle((50.0, 50.0), radius=41.0 * s, style=Icon.fill_style(Colors.Green3, border_color=Icon.DARK, border_units=w_badge))
 
 # 2. White 'y' letter (WHITE + DARK 1.5 outline)
-polygon(y_letter, style=no_border_fill(WHITE))
-draw_round_polyline(y_letter, width_units=w_letter, color=DARK, closed=True)
+polygon(y_letter, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(y_letter, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()

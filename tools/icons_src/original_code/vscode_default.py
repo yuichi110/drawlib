@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -36,15 +31,15 @@ ribbon_front = _sc([(71.22, 9.74), (70.83, 9.57), (70.51, 9.47), (70.51, 90.53),
 # fmt: on
 
 # 1. Deep blue back ribbon fold
-polygon(ribbon_back, style=no_border_fill("#2E86C1"))
-draw_round_polyline(ribbon_back, width_units=w, color=DARK, closed=True)
+polygon(ribbon_back, style=Icon.no_border_fill("#2E86C1"))
+Icon.draw_round_polyline(ribbon_back, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Mid blue crossing ribbon fold
-polygon(ribbon_mid, style=no_border_fill("#3EA1F0"))
-draw_round_polyline(ribbon_mid, width_units=w, color=DARK, closed=True)
+polygon(ribbon_mid, style=Icon.no_border_fill("#3EA1F0"))
+Icon.draw_round_polyline(ribbon_mid, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Light blue vertical front ribbon fold
-polygon(ribbon_front, style=no_border_fill("#4DA8F2"))
-draw_round_polyline(ribbon_front, width_units=w, color=DARK, closed=True)
+polygon(ribbon_front, style=Icon.no_border_fill("#4DA8F2"))
+Icon.draw_round_polyline(ribbon_front, width_units=w, color=Icon.DARK, closed=True)
 
 save()

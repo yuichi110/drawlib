@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_disc = 2.0
 w_meerkat = 1.4
@@ -34,14 +28,14 @@ meerkat_right: list[tuple[float, float]] = [(50.28, 25.82), (50.36, 25.82), (50.
 # fmt: on
 
 # 1. Pastel orange/amber circular sunset disc
-polygon(disc_pts, style=no_border_fill(Colors.Orange3))
+polygon(disc_pts, style=Icon.no_border_fill(Colors.Orange3))
 
 # 2. Three white meerkat silhouettes with DARK 1.4 outlines
 for pts in (meerkat_left, meerkat_mid, meerkat_right):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_meerkat, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_meerkat, color=Icon.DARK, closed=True)
 
 # 3. Outer sunset disc DARK 1.9 outline on top
-draw_round_polyline(disc_pts, width_units=w_disc, color=DARK, closed=True)
+Icon.draw_round_polyline(disc_pts, width_units=w_disc, color=Icon.DARK, closed=True)
 
 save()

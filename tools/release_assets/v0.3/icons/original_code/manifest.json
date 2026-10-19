@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_code",
-  "created_at": "2026-10-18T12:36:00.144598+00:00",
+  "created_at": "2026-10-18T23:05:05.127802+00:00",
   "canvas_size": [
     512,
     512
@@ -239,8 +239,8 @@
       "icon_name": "cargo",
       "variant": "default",
       "source_script": "original_code/cargo_default.py",
-      "size_bytes": 54463,
-      "sha256": "050062c379fd769f279da931b194e869f97b440cef25e3051d1600665bce1761",
+      "size_bytes": 54458,
+      "sha256": "d327cd607b70246b634dcf2ff31d6edbac0c0d2a594427045855773b97c4958c",
       "bbox": [
         49,
         26,
@@ -876,8 +876,8 @@
       "icon_name": "php",
       "variant": "default",
       "source_script": "original_code/php_default.py",
-      "size_bytes": 34444,
-      "sha256": "fa4db65a9130cca350c3d87a5442f66ac92a261f9e672141d5aa21c028012ad7",
+      "size_bytes": 34445,
+      "sha256": "88821418f77444a3f572e7b5f8193cc729f887783375b2a026c54bf318cd2a3d",
       "bbox": [
         26,
         132,

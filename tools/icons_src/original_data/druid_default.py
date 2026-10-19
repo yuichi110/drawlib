@@ -14,12 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _arc_points(
@@ -78,7 +73,7 @@ def _build_capsule_dash(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 t = 8.4
@@ -94,8 +89,8 @@ outer_d = _build_d_ribbon(
     r_center=29.0,
     thickness=t,
 )
-polygon(outer_d, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(outer_d, width_units=w, color=DARK, closed=True)
+polygon(outer_d, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(outer_d, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Inner flowing D-curve (Colors.Teal2)
 inner_d = _build_d_ribbon(
@@ -106,17 +101,17 @@ inner_d = _build_d_ribbon(
     r_center=13.0,
     thickness=t,
 )
-polygon(inner_d, style=no_border_fill(Colors.Teal2))
-draw_round_polyline(inner_d, width_units=w, color=DARK, closed=True)
+polygon(inner_d, style=Icon.no_border_fill(Colors.Teal2))
+Icon.draw_round_polyline(inner_d, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Upper-left droplet dash (Colors.Blue3) with clear gap before inner_d
 dash_top = _build_capsule_dash(x_left=13.0, x_right=17.5, cy=63.0, thickness=t)
-polygon(dash_top, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(dash_top, width_units=w, color=DARK, closed=True)
+polygon(dash_top, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(dash_top, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Lower-left droplet dash (Colors.Blue3) with clear gap before outer_d
 dash_bot = _build_capsule_dash(x_left=31.0, x_right=37.0, cy=21.0, thickness=t)
-polygon(dash_bot, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(dash_bot, width_units=w, color=DARK, closed=True)
+polygon(dash_bot, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(dash_bot, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 b = 2.0
 w_line = 2.0
@@ -35,7 +25,7 @@ rectangle(
     (36.5, 62.5),
     width=52.0,
     height=48.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=b, shape_r=5.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=b, shape_r=5.0),
 )
 
 # Front-left WHITE task card
@@ -43,13 +33,13 @@ rectangle(
     (40.0, 56.0),
     width=52.0,
     height=48.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b, shape_r=5.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b, shape_r=5.0),
 )
 
 # 3 horizontal DARK task lines
-draw_round_segment((23.0, 67.0), (57.0, 67.0), width_units=w_line, color=DARK)
-draw_round_segment((23.0, 56.0), (55.0, 56.0), width_units=w_line, color=DARK)
-draw_round_segment((23.0, 45.0), (47.0, 45.0), width_units=w_line, color=DARK)
+Icon.draw_round_segment((23.0, 67.0), (57.0, 67.0), width_units=w_line, color=Icon.DARK)
+Icon.draw_round_segment((23.0, 56.0), (55.0, 56.0), width_units=w_line, color=Icon.DARK)
+Icon.draw_round_segment((23.0, 45.0), (47.0, 45.0), width_units=w_line, color=Icon.DARK)
 
 # Bottom-right overlapping 8-tooth PASTEL_GREEN gear at (68, 30)
 gx, gy = 68.0, 30.0
@@ -70,13 +60,13 @@ for k in range(8):
         ang = math.radians(base_deg + valley_step)
         gear_pts.append((gx + inner_r * math.cos(ang), gy + inner_r * math.sin(ang)))
 
-polygon(gear_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(gear_pts, width_units=b, color=DARK, closed=True)
+polygon(gear_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(gear_pts, width_units=b, color=Icon.DARK, closed=True)
 
 circle(
     (gx, gy),
     radius=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b),
 )
 
 save()

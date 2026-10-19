@@ -11,29 +11,21 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Connecting dark lines from left source to right target endpoints
-draw_round_segment((32.0, 48.0), (65.0, 59.0), width_units=2.0, color=DARK)
-draw_round_segment((32.0, 48.0), (65.0, 37.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((32.0, 48.0), (65.0, 59.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((32.0, 48.0), (65.0, 37.0), width_units=2.0, color=Icon.DARK)
 
 # Left white source circle
 circle(
     (32.0, 48.0),
     radius=7.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Two right green target endpoint circles
@@ -41,7 +33,7 @@ for y_target in (59.0, 37.0):
     circle(
         (65.0, y_target),
         radius=7.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
     )
 
 save()

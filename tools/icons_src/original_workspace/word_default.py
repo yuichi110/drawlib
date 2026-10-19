@@ -11,15 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.8
@@ -417,13 +411,13 @@ for pts, col in [
     (band3, "#4E9AF2"),
     (band4, "#408AEE"),
 ]:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(tile_pts, style=no_border_fill("#4E9AF2"))
-draw_round_polyline(tile_pts, width_units=w, color=DARK, closed=True)
+polygon(tile_pts, style=Icon.no_border_fill("#4E9AF2"))
+Icon.draw_round_polyline(tile_pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(w_pts, style=no_border_fill(WHITE))
-draw_round_polyline(w_pts, width_units=w_in, color=DARK, closed=True)
+polygon(w_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(w_pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

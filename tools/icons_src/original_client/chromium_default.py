@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -25,11 +25,11 @@ p_right: list[tuple[float, float]] = [(70.5, 50.0), (70.44, 48.47), (70.27, 46.9
 p_top: list[tuple[float, float]] = [(39.75, 67.75), (41.1, 68.47), (42.51, 69.08), (43.96, 69.59), (45.44, 69.98), (46.94, 70.27), (48.47, 70.44), (50.0, 70.5), (85.49, 70.5), (83.57, 73.52), (81.39, 76.36), (78.98, 78.99), (76.34, 81.41), (73.5, 83.58), (70.48, 85.51), (67.31, 87.16), (64.01, 88.53), (60.6, 89.6), (57.1, 90.38), (53.56, 90.84), (49.98, 91.0), (46.41, 90.84), (42.86, 90.38), (39.37, 89.6), (35.96, 88.53), (32.66, 87.16), (29.48, 85.51), (26.47, 83.58), (23.63, 81.41), (20.99, 78.99), (18.58, 76.36), (16.4, 73.52), (14.48, 70.5), (32.25, 39.75), (31.43, 41.34), (30.75, 42.99), (30.21, 44.69), (29.82, 46.44), (29.59, 48.21), (29.51, 50.0), (29.59, 51.78), (29.82, 53.56), (30.21, 55.3), (30.74, 57.01), (31.43, 58.65), (32.25, 60.24), (33.21, 61.75), (34.3, 63.17), (35.51, 64.49), (36.83, 65.7), (38.24, 66.78)]
 
 for pts, col in ((p_left, "#629CF3"), (p_right, "#C6DCFD"), (p_top, "#4E88F2")):
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w_outer, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
-circle((50.0, 50.0), radius=20.5, style=fill_style(WHITE, border_color=DARK, border_units=w_outer))
-circle((50.0, 50.0), radius=15.8, style=fill_style("#4E88F2", border_color=DARK, border_units=w_inner))
+circle((50.0, 50.0), radius=20.5, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer))
+circle((50.0, 50.0), radius=15.8, style=Icon.fill_style("#4E88F2", border_color=Icon.DARK, border_units=w_inner))
 
 save()
 # fmt: on

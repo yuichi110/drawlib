@@ -11,43 +11,35 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(30.0, 78.0), (16.0, 78.0), (16.0, 22.0), (30.0, 22.0)],
     corner_r=4.0,
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(70.0, 78.0), (84.0, 78.0), (84.0, 22.0), (70.0, 22.0)],
     corner_r=4.0,
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 for y_pos, fill_col in (
-    (68.0, PASTEL_BLUE),
-    (50.0, PASTEL_GREEN),
-    (32.0, PASTEL_BLUE),
+    (68.0, Icon.PASTEL_BLUE),
+    (50.0, Icon.PASTEL_GREEN),
+    (32.0, Icon.PASTEL_BLUE),
 ):
     rectangle(
         (50.0, y_pos),
         width=36.0,
         height=11.0,
-        style=fill_style(fill_col, border_color=DARK, border_units=2.0, shape_r=5.5),
+        style=Icon.fill_style(fill_col, border_color=Icon.DARK, border_units=2.0, shape_r=5.5),
     )
 
 save()

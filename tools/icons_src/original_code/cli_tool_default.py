@@ -12,21 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    draw_rounded_corner_block,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 
@@ -36,11 +24,11 @@ rectangle(
     (50.0, 50.0),
     width=76.0,
     height=64.0,
-    style=no_border_fill(WHITE, shape_r=6.0),
+    style=Icon.no_border_fill(Icon.WHITE, shape_r=6.0),
 )
 
 # 2. PASTEL_BLUE top title bar (height=14 at (50, 75) -> y=68..82)
-draw_rounded_corner_block(
+Gcp.draw_rounded_corner_block(
     12.0,
     68.0,
     88.0,
@@ -48,16 +36,16 @@ draw_rounded_corner_block(
     r=6.0,
     round_tl=True,
     round_tr=True,
-    color=PASTEL_BLUE,
+    color=Icon.PASTEL_BLUE,
 )
 
 # 3. Title bar divider and outer frame border
-draw_round_segment((12.0, 68.0), (88.0, 68.0), width_units=w_shape, color=DARK)
+Icon.draw_round_segment((12.0, 68.0), (88.0, 68.0), width_units=w_shape, color=Icon.DARK)
 rectangle(
     (50.0, 50.0),
     width=76.0,
     height=64.0,
-    style=fill_style(Colors.Transparent, border_color=DARK, border_units=w_shape, shape_r=6.0),
+    style=Icon.fill_style(Colors.Transparent, border_color=Icon.DARK, border_units=w_shape, shape_r=6.0),
 )
 
 # 4. Two small WHITE window dots on left of title bar
@@ -65,7 +53,7 @@ for x_dot in (21.0, 29.5):
     circle(
         (x_dot, 75.0),
         radius=2.4,
-        style=fill_style(WHITE, border_color=DARK, border_units=w_shape),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape),
     )
 
 # 5. Bold PASTEL_GREEN `>` chevron polygon inside terminal body (centered around y=43)
@@ -77,15 +65,15 @@ chevron_pts = [
     (25.5, 36.0),
     (30.5, 31.0),
 ]
-polygon(chevron_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(chevron_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(chevron_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(chevron_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 6. Horizontal `_` cursor bar to the right of `>`
 rectangle(
     (59.0, 34.0),
     width=22.0,
     height=6.5,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_shape, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_shape, shape_r=2.5),
 )
 
 save()

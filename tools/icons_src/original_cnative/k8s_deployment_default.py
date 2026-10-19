@@ -13,33 +13,21 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cap,
-    draw_iso_cube,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Central isometric workload cube
-draw_iso_cube(
+Icon.draw_iso_cube(
     50.0,
     44.0,
     radius=13.5,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE_LIGHT,
-    right_color=PASTEL_GREEN,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE_LIGHT,
+    right_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 
@@ -51,15 +39,15 @@ arc(
     height=r_arc * 2.0,
     angle_start=20.0,
     angle_end=205.0,
-    style=stroke_style(DARK, width_units=2.0),
+    style=Icon.stroke_style(Icon.DARK, width_units=2.0),
 )
 
 # Round cap at the left tail of the arc
 tail_rad = math.radians(205.0)
-draw_cap(
+Icon.draw_cap(
     (cx + r_arc * math.cos(tail_rad), cy + r_arc * math.sin(tail_rad)),
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Crisp white filled arrowhead aligned tangent to the clockwise end (20 deg)
@@ -74,7 +62,7 @@ arrow_pts = [
     (bx - head_half_w * nx, by - head_half_w * ny),
     (bx + head_half_w * nx, by + head_half_w * ny),
 ]
-polygon(arrow_pts, style=fill_style(WHITE))
-draw_round_polyline(arrow_pts, width_units=2.0, color=DARK, closed=True)
+polygon(arrow_pts, style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(arrow_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

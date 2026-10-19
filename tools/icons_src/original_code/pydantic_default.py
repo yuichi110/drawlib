@@ -10,16 +10,12 @@
 """Original Code icon: pydantic."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -29,11 +25,11 @@ inner_holes = [[(50.0, 76.42), (64.8, 55.9), (50.96, 60.43), (50.95, 60.44), (50
 # fmt: on
 
 # 1. Pastel pink/magenta chevron pyramid with transparent triangular holes
-draw_compound_polygon([outer_chevron, *inner_holes], color="#F14982")
+polygon(outer_chevron, holes=inner_holes, style=Icon.fill_style("#F14982"))
 
 # 2. Crisp DARK outlines on outer pyramid and inner hole cutouts
-draw_round_polyline(outer_chevron, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_chevron, width_units=w_outer, color=Icon.DARK, closed=True)
 for hole in inner_holes:
-    draw_round_polyline(hole, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

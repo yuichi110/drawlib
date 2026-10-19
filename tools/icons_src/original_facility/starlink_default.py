@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -29,8 +24,8 @@ leg_lower_right = [(36.95, 34.61), (46.25, 34.61), (33.37, 44.11), (33.27, 44.05
 leg_upper_left = [(19.94, 54.11), (10.62, 54.11), (21.55, 46.11), (21.65, 46.17), (21.75, 46.23), (21.84, 46.3), (21.95, 46.37), (22.05, 46.44), (22.16, 46.51), (22.25, 46.58), (22.36, 46.64), (22.46, 46.71), (22.57, 46.78), (22.67, 46.85), (22.78, 46.92), (22.88, 46.99), (22.99, 47.05), (23.09, 47.12), (23.2, 47.19), (23.31, 47.26), (23.41, 47.33), (23.52, 47.4), (23.63, 47.46), (23.74, 47.53), (23.84, 47.59), (23.95, 47.66), (24.06, 47.73), (24.17, 47.8), (24.27, 47.86), (24.38, 47.93), (24.5, 48.0), (24.6, 48.07), (24.71, 48.14), (24.82, 48.2), (24.93, 48.27), (25.03, 48.34), (25.14, 48.4), (25.26, 48.47), (25.37, 48.54), (25.47, 48.6), (25.58, 48.66), (25.69, 48.73), (25.8, 48.79), (25.9, 48.86), (26.01, 48.92), (26.12, 48.99), (26.22, 49.05), (26.33, 49.11), (26.44, 49.17), (26.55, 49.24), (26.65, 49.3)]
 
 for pts in (orbital_arc, leg_lower_right, leg_upper_left):
-    polygon(pts, style=no_border_fill("#5E6D82"))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#5E6D82"))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

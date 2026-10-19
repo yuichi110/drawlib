@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -78,9 +73,9 @@ facets = [
 ]
 
 for pts, col in facets:
-    polygon(pts, style=no_border_fill(col))
+    polygon(pts, style=Icon.no_border_fill(col))
 
 for pts, _ in facets:
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

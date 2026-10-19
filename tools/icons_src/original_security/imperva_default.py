@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,12 +28,12 @@ dot_br: list[tuple[float, float]] = [(77.1, 23.58), (88.43, 23.58), (88.43, 12.2
 
 # 1. Pastel blue 'i' stem and 'm' arches
 for pts in (i_stem, m_body):
-    polygon(pts, style=no_border_fill(Colors.Blue3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Dark slate square dots
 for dot in (dot_tl, dot_br):
-    polygon(dot, style=no_border_fill(Colors.Gray6))
-    draw_round_polyline(dot, width_units=w, color=DARK, closed=True)
+    polygon(dot, style=Icon.no_border_fill(Colors.Gray6))
+    Icon.draw_round_polyline(dot, width_units=w, color=Icon.DARK, closed=True)
 
 save()

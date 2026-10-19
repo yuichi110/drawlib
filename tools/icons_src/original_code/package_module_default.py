@@ -11,33 +11,22 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 w_line = 2.0
 
 # 1. Isometric 3D parcel cube (PASTEL_BLUE top, WHITE left, PASTEL_BLUE_LIGHT right)
-v = draw_iso_cube(
+v = Icon.draw_iso_cube(
     50.0,
     50.0,
     radius=36.0,
-    top_color=PASTEL_BLUE,
-    left_color=WHITE,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.PASTEL_BLUE,
+    left_color=Icon.WHITE,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=w_shape,
 )
 
@@ -63,23 +52,23 @@ p_flap_1 = (p_fr_1[0], p_fr_1[1] - flap_h)
 p_flap_2 = (p_fr_2[0], p_fr_2[1] - flap_h)
 
 tape_outline = [p_bl_1, p_bl_2, p_fr_2, p_flap_2, p_flap_1, p_fr_1]
-polygon(tape_outline, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(tape_outline, width_units=w_shape, color=DARK, closed=True)
-draw_round_segment(p_fr_1, p_fr_2, width_units=w_shape, color=DARK)
+polygon(tape_outline, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(tape_outline, width_units=w_shape, color=Icon.DARK, closed=True)
+Icon.draw_round_segment(p_fr_1, p_fr_2, width_units=w_shape, color=Icon.DARK)
 
 # 3. Small DARK code chevron mark `< >` on WHITE left parcel face
 # Left face center is roughly (34.4, 41.0), sloped along (-cos30, sin30) = (-0.866, 0.5)
 # Left `<` chevron
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(30.5, 48.0), (25.5, 44.5), (30.5, 36.5)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
 )
 # Right `>` chevron
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(37.5, 44.0), (42.5, 35.5), (37.5, 32.5)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 save()

@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_main = 2.0
@@ -33,7 +26,7 @@ w_sq = 2.0
 circle(
     (50.0, 50.0),
     radius=41.0,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w_badge),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w_badge),
 )
 
 # 2. Main U contours (right pillar, left pixelated pillar, bottom-right curve)
@@ -54,12 +47,12 @@ _SQUARES: list[list[tuple[float, float]]] = [
 ]
 
 for pts in _U_MAIN:
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_main, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_main, color=Icon.DARK, closed=True)
 
 for sq in _SQUARES:
-    draw_round_polyline(sq, width_units=w_sq * 2.0, color=DARK, closed=True)
-    polygon(sq, style=no_border_fill(WHITE))
+    Icon.draw_round_polyline(sq, width_units=w_sq * 2.0, color=Icon.DARK, closed=True)
+    polygon(sq, style=Icon.no_border_fill(Icon.WHITE))
 
 save()
 # fmt: on

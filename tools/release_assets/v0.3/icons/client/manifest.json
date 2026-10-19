@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "client",
-  "created_at": "2026-10-18T12:35:40.844659+00:00",
+  "created_at": "2026-10-18T23:02:20.371698+00:00",
   "canvas_size": [
     512,
     512
@@ -105,7 +105,7 @@
       "variant": "default",
       "source_script": "client/acer_default.py",
       "size_bytes": 13480,
-      "sha256": "037d13b806747fb555da0030a6cf797734aae8d095eed48f8f817eb70e72c224",
+      "sha256": "3ab1ea30cd422593448c15e296215a85cb650f6643a082bfb247b0d8fd15ec62",
       "bbox": [
         26,
         200,
@@ -169,8 +169,8 @@
       "icon_name": "apple",
       "variant": "default",
       "source_script": "client/apple_default.py",
-      "size_bytes": 8712,
-      "sha256": "4e90a71f1a8942271d63c71e82f29d413252bc70327e8c206d927417caaf1750",
+      "size_bytes": 8707,
+      "sha256": "7029c0bedce64d324a74b6d9a2e6885eb1bedf432629e21e877d823c092a1bd6",
       "bbox": [
         68,
         26,
@@ -221,8 +221,8 @@
       "icon_name": "bmw",
       "variant": "default",
       "source_script": "client/bmw_default.py",
-      "size_bytes": 81099,
-      "sha256": "007cdc098f52102f8bf36876390d82a3918fa5af7b0cb9e96bd57301bd6bb492",
+      "size_bytes": 81096,
+      "sha256": "7d8f4f916332caf848959c60709e7c9dee5b0bf0d89c85e91d89b19032e02cdb",
       "bbox": [
         26,
         26,
@@ -260,8 +260,8 @@
       "icon_name": "canon",
       "variant": "default",
       "source_script": "client/canon_default.py",
-      "size_bytes": 12616,
-      "sha256": "5ef4376c66b2b80caa81587cace8d26d519ba3d7d7a1c9221f61316697cb490a",
+      "size_bytes": 12614,
+      "sha256": "ff70266fe6490549b511c0b5e026f814388e692e78bb1d590d9dc957efb356f4",
       "bbox": [
         26,
         208,
@@ -273,8 +273,8 @@
       "icon_name": "caterpillar",
       "variant": "default",
       "source_script": "client/caterpillar_default.py",
-      "size_bytes": 11939,
-      "sha256": "debb0ce297a7b1073562c796968b1c22ad889ffc6f7a45285b7fc6df8b5a021e",
+      "size_bytes": 11943,
+      "sha256": "c755863335a295ddebd4282c308281f727c6cc9799cadf8a4463cf89f93f02bf",
       "bbox": [
         26,
         26,
@@ -299,8 +299,8 @@
       "icon_name": "chromeos",
       "variant": "default",
       "source_script": "client/chromeos_default.py",
-      "size_bytes": 17764,
-      "sha256": "b0896070c4a617c485002fb39840e68dc7fc41261fe3cda90bd102ad710058ef",
+      "size_bytes": 17767,
+      "sha256": "655a5242db3e3d86083d037da4aa4f54ec68c07f2b9e06cbb57798fa98340648",
       "bbox": [
         26,
         207,
@@ -325,8 +325,8 @@
       "icon_name": "dell",
       "variant": "default",
       "source_script": "client/dell_default.py",
-      "size_bytes": 23095,
-      "sha256": "7f8a8f63f5f43ee293825c000ad6eb22cdb78ca47b0cea4ce63837db57bf07a2",
+      "size_bytes": 23091,
+      "sha256": "77ad949626f521cf4da689545e6effef2ef24ac85ad275cceba61010907c35c5",
       "bbox": [
         26,
         26,
@@ -352,7 +352,7 @@
       "variant": "default",
       "source_script": "client/epson_default.py",
       "size_bytes": 11299,
-      "sha256": "a7219769b23ce745f74257ff7ad76b49dc4cfb1b5ace9fb7bcb624dd15e3b0fe",
+      "sha256": "63e3881b50257ff0c1d435c5c95f7bee8ba263343b66aa66b23a74fc933aa6d5",
       "bbox": [
         26,
         200,
@@ -403,8 +403,8 @@
       "icon_name": "fitbit",
       "variant": "default",
       "source_script": "client/fitbit_default.py",
-      "size_bytes": 11712,
-      "sha256": "52054fd41f55dc15599d476e93dc95036afd2a4a1c266d55150206197f15c0c1",
+      "size_bytes": 11714,
+      "sha256": "20e1d6741ca8992c6a1d4ade894fa2017b3870710c128f042c1ce9b8975df23f",
       "bbox": [
         26,
         196,
@@ -416,8 +416,8 @@
       "icon_name": "honeywell",
       "variant": "default",
       "source_script": "client/honeywell_default.py",
-      "size_bytes": 10193,
-      "sha256": "a68923bbbbd3766e90cea0be569276a130ab6415f9b84b73523efe78df03bcf9",
+      "size_bytes": 10199,
+      "sha256": "217a7c02e0554948f47839a3d521df41d8a401dfa885142fd472eef645dacda4",
       "bbox": [
         26,
         215,
@@ -442,8 +442,8 @@
       "icon_name": "ios",
       "variant": "default",
       "source_script": "client/ios_default.py",
-      "size_bytes": 28384,
-      "sha256": "585cb8536ed95a4405038ec2121b16128272035a9d72ece7dad0378e87240747",
+      "size_bytes": 28410,
+      "sha256": "33fb90902d28e9d9e86484bb36e3b2095afca9e405185de02a2b53880cb798d4",
       "bbox": [
         26,
         26,
@@ -455,8 +455,8 @@
       "icon_name": "john_deere",
       "variant": "default",
       "source_script": "client/john_deere_default.py",
-      "size_bytes": 25461,
-      "sha256": "95a0d7c00bad81f082823c0ad253e1033592da469306b50b64b4cc91e49c6891",
+      "size_bytes": 25455,
+      "sha256": "46a51e8bc36db763704d6029158bf8f28c97a5d739561be9d3fbb7e1869bc826",
       "bbox": [
         26,
         100,
@@ -481,8 +481,8 @@
       "icon_name": "komatsu",
       "variant": "default",
       "source_script": "client/komatsu_default.py",
-      "size_bytes": 10610,
-      "sha256": "1493406d12de4735a6263e09e42346d0e89d703c5c86a4a7fda710595822bc8a",
+      "size_bytes": 10609,
+      "sha256": "f1f2fab8acae17d3b0fcc676244474b43be4047ef6cf04f7855897bdd5c3f765",
       "bbox": [
         26,
         212,
@@ -494,8 +494,8 @@
       "icon_name": "lenovo",
       "variant": "default",
       "source_script": "client/lenovo_default.py",
-      "size_bytes": 10683,
-      "sha256": "9a38596fb12859d009c83086fccd60be598c67a3d9dc4316520af07e9765578b",
+      "size_bytes": 10686,
+      "sha256": "4cb3aa3e596ed40679bbb289e83737eff744c1a2bf96b3f2245cf772a0d08f1a",
       "bbox": [
         26,
         181,
@@ -572,8 +572,8 @@
       "icon_name": "microsoft_store",
       "variant": "default",
       "source_script": "client/microsoft_store_default.py",
-      "size_bytes": 15308,
-      "sha256": "81e9590d23ee16450970e7f9043ac0d309108474ce4dd52571540f7c23c79823",
+      "size_bytes": 15310,
+      "sha256": "e4ea358f3d624b03542328d68b2e853abd36c857eb57f81f224bf60221007b51",
       "bbox": [
         26,
         27,
@@ -598,8 +598,8 @@
       "icon_name": "nintendo",
       "variant": "default",
       "source_script": "client/nintendo_default.py",
-      "size_bytes": 12637,
-      "sha256": "31bf7461c5809345d7c49a73e2dc3ca82f4db1a955fdba41a38b9a16cec3b291",
+      "size_bytes": 12641,
+      "sha256": "ed62f3bbd7aef606f07d0bbd5d2f3ca3feba48004614378362963722c2524536",
       "bbox": [
         26,
         199,
@@ -663,8 +663,8 @@
       "icon_name": "ricoh",
       "variant": "default",
       "source_script": "client/ricoh_default.py",
-      "size_bytes": 9598,
-      "sha256": "02006d76c93687e05c393ed4ee742ff5ef763e35f26cb06eb17fca5874c7c185",
+      "size_bytes": 9594,
+      "sha256": "40272114aa8ed45e13e881a3b9a1bd4b7379b422f4d8bb72ac090a94f0b6ef9c",
       "bbox": [
         26,
         214,
@@ -767,8 +767,8 @@
       "icon_name": "toyota",
       "variant": "default",
       "source_script": "client/toyota_default.py",
-      "size_bytes": 26857,
-      "sha256": "def613f0f398b297cd3e004f9e1397883779fd6a7e01c28807aef0d94c211e5b",
+      "size_bytes": 26860,
+      "sha256": "f64fac0d259311c4ed30520ab6853f5edfcb20d315db615f3d51fa2e1a93e907",
       "bbox": [
         26,
         89,
@@ -807,7 +807,7 @@
       "variant": "default",
       "source_script": "client/vivaldi_default.py",
       "size_bytes": 26848,
-      "sha256": "8873a97331d4743b06c0f074bec058501db51b7144be260682eb833bf56894dc",
+      "sha256": "220aaa129f372cd0173cd96c887811200ff9255176b1fcb4c56bf7a568dec63f",
       "bbox": [
         26,
         26,

@@ -13,30 +13,18 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cap,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Rounded backup vault/server box
 rectangle(
     (48.0, 48.0),
     width=66.0,
     height=66.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=8.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=8.0),
 )
 
 # 2 horizontal white storage tiers
@@ -45,7 +33,7 @@ for y_tier in (64.0, 48.0):
         (48.0, y_tier),
         width=50.0,
         height=11.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=2.5),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=2.5),
     )
 
 # Overlapping bottom-right circular backup/restore badge
@@ -53,7 +41,7 @@ bx, by = 66.0, 32.0
 circle(
     (bx, by),
     radius=19.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 
 # Counter-clockwise circular arrow around center dot
@@ -69,13 +57,13 @@ arc(
     height=r_arc * 2.0,
     angle_start=ang_start,
     angle_end=ang_end_dark,
-    style=stroke_style(DARK, width_units=6.2),
+    style=Icon.stroke_style(Icon.DARK, width_units=6.2),
 )
 rad_s = math.radians(ang_start)
-draw_cap(
+Icon.draw_cap(
     (bx + r_arc * math.cos(rad_s), by + r_arc * math.sin(rad_s)),
     width_units=6.2,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # 2. Arrowhead triangle at top-left pointing counter-clockwise (down-left)
@@ -90,8 +78,8 @@ head_pts = [
     (px - tx * 1.2 + nx * 4.8, py - ty * 1.2 + ny * 4.8),
     (px - tx * 1.2 - nx * 4.8, py - ty * 1.2 - ny * 4.8),
 ]
-polygon(head_pts, style=no_border_fill(WHITE))
-draw_round_polyline(head_pts, width_units=1.8, color=DARK, closed=True)
+polygon(head_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(head_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 3. Inner white stroke for the circular shaft (seamless join into arrowhead)
 arc(
@@ -100,19 +88,19 @@ arc(
     height=r_arc * 2.0,
     angle_start=ang_start,
     angle_end=ang_end_white,
-    style=stroke_style(WHITE, width_units=2.0),
+    style=Icon.stroke_style(Icon.WHITE, width_units=2.0),
 )
-draw_cap(
+Icon.draw_cap(
     (bx + r_arc * math.cos(rad_s), by + r_arc * math.sin(rad_s)),
     width_units=2.0,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 # 4. Center dot inside the circular arrow
 circle(
     (bx, by),
     radius=2.6,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8),
 )
 
 save()

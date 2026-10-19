@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_bag = 2.0
 w_handle = 1.8
@@ -28,17 +28,17 @@ handle_pts: list[tuple[float, float]] = [(32.81, 77.77), (32.81, 85.71), (67.19,
 squares: list[tuple[list[tuple[float, float]], str]] = [([(48.68, 61.9), (32.81, 61.9), (32.81, 46.03), (48.68, 46.03)], '#F26458'), ([(67.19, 61.9), (51.32, 61.9), (51.32, 46.03), (67.19, 46.03)], '#71C789'), ([(48.68, 43.39), (32.81, 43.39), (32.81, 27.52), (48.68, 27.52)], '#5797F2'), ([(67.19, 43.39), (51.32, 43.39), (51.32, 27.52), (67.19, 27.52)], '#F2C94F')]
 
 # 1. Shopping bag body
-polygon(bag_body, style=no_border_fill("#F1F5F9"))
-draw_round_polyline(bag_body, width_units=w_bag, color=DARK, closed=True)
+polygon(bag_body, style=Icon.no_border_fill("#F1F5F9"))
+Icon.draw_round_polyline(bag_body, width_units=w_bag, color=Icon.DARK, closed=True)
 
 # 2. Pastel blue bag handle
-polygon(handle_pts, style=no_border_fill("#5797F2"))
-draw_round_polyline(handle_pts, width_units=w_handle, color=DARK, closed=True)
+polygon(handle_pts, style=Icon.no_border_fill("#5797F2"))
+Icon.draw_round_polyline(handle_pts, width_units=w_handle, color=Icon.DARK, closed=True)
 
 # 3. 4 pastel Microsoft squares
 for pts, col in squares:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w_square, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w_square, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

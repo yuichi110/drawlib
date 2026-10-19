@@ -10,16 +10,12 @@
 """Original Client vendor icon: meta (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 PASTEL_BLUE = "#5797F2"
 w = 2.0
@@ -28,12 +24,12 @@ meta_rings: list[list[tuple[float, float]]] = [[(9.0, 41.63), (9.01, 42.16), (9.
 cross_upper: list[tuple[float, float]] = [(51.12, 65.77), (51.35, 65.47), (52.01, 64.63), (52.63, 63.79), (52.83, 63.52), (53.27, 62.91), (53.92, 62.01), (54.3, 61.46), (54.57, 61.07), (55.14, 60.22)]
 cross_lower: list[tuple[float, float]] = [(45.84, 58.0), (45.88, 57.94), (46.23, 57.44), (46.28, 57.36), (46.69, 56.77), (47.11, 56.15), (47.53, 55.51), (47.69, 55.27), (47.96, 54.86), (48.4, 54.18), (48.84, 53.49), (49.15, 53.0), (49.29, 52.78), (49.74, 52.05), (50.03, 51.57)]
 
-draw_compound_polygon(meta_rings, color=PASTEL_BLUE)
+polygon(meta_rings[0], holes=meta_rings[1:], style=Icon.fill_style(PASTEL_BLUE))
 for ring in meta_rings:
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
-draw_round_polyline(cross_upper, width_units=w, color=DARK, closed=False)
-draw_round_polyline(cross_lower, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(cross_upper, width_units=w, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(cross_lower, width_units=w, color=Icon.DARK, closed=False)
 
 save()
 # fmt: on

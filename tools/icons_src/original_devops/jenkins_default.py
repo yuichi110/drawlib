@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.65
@@ -78,7 +70,7 @@ def _cubic(
 circle(
     (49.5, 49.5),
     radius=30.5,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Slate-blue butler jacket (#68849E)
@@ -95,8 +87,8 @@ jacket_pts = [
     *_quad((72.5, 44.5), (73.0, 46.2), (71.2, 47.8), 6),
     (66.0, 51.5),
 ]
-polygon(jacket_pts, style=no_border_fill(SLATE_BLUE))
-draw_round_polyline(jacket_pts, width_units=w, color=DARK, closed=True)
+polygon(jacket_pts, style=Icon.no_border_fill(SLATE_BLUE))
+Icon.draw_round_polyline(jacket_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. White shirt collar & V-front (WHITE)
 shirt_collar_l = [
@@ -105,26 +97,26 @@ shirt_collar_l = [
     (48.0, 43.0),
     *_quad((48.0, 43.0), (42.5, 45.8), (39.5, 50.8), 8),
 ]
-polygon(shirt_collar_l, style=no_border_fill(WHITE))
-draw_round_polyline(shirt_collar_l, width_units=w_inner, color=DARK, closed=True)
+polygon(shirt_collar_l, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(shirt_collar_l, width_units=w_inner, color=Icon.DARK, closed=True)
 
 shirt_v = [
     (54.0, 43.0),
     (62.2, 43.0),
     (60.5, 30.0),
 ]
-polygon(shirt_v, style=no_border_fill(WHITE))
-draw_round_polyline(shirt_v, width_units=w_inner, color=DARK, closed=True)
+polygon(shirt_v, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(shirt_v, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # Jacket lapel notches framing the shirt V
 lapel_l = [(54.0, 41.0), (50.2, 36.2), (60.2, 30.0)]
 lapel_r = [(62.5, 41.2), (66.5, 38.2), (60.8, 30.0)]
-draw_round_polyline(lapel_l, width_units=w_inner, color=DARK, closed=False)
-draw_round_polyline(lapel_r, width_units=w_inner, color=DARK, closed=False)
+Icon.draw_round_polyline(lapel_l, width_units=w_inner, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(lapel_r, width_units=w_inner, color=Icon.DARK, closed=False)
 
 # Left sleeve fold lines
-draw_round_segment((41.4, 37.5), (42.0, 29.2), width_units=w_inner, color=DARK)
-draw_round_segment((38.5, 29.2), (42.0, 29.2), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((41.4, 37.5), (42.0, 29.2), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((38.5, 29.2), (42.0, 29.2), width_units=w_inner, color=Icon.DARK)
 
 # 4. Butler head dome, hair rim & ear
 # Back-left bald hair rim crescent (PEACH)
@@ -134,8 +126,8 @@ bald_rim = [
     (52.0, 82.0),
     (42.0, 74.0),
 ]
-polygon(bald_rim, style=no_border_fill(PEACH))
-draw_round_polyline(bald_rim, width_units=w, color=DARK, closed=True)
+polygon(bald_rim, style=Icon.no_border_fill(PEACH))
+Icon.draw_round_polyline(bald_rim, width_units=w, color=Icon.DARK, closed=True)
 
 # Side hair tuft above ear (SLATE_BLUE)
 hair_tuft = [
@@ -146,8 +138,8 @@ hair_tuft = [
     (39.0, 65.5),
     *_quad((39.0, 65.5), (36.5, 69.5), (32.0, 68.5), 8),
 ]
-polygon(hair_tuft, style=no_border_fill(SLATE_BLUE))
-draw_round_polyline(hair_tuft, width_units=w, color=DARK, closed=True)
+polygon(hair_tuft, style=Icon.no_border_fill(SLATE_BLUE))
+Icon.draw_round_polyline(hair_tuft, width_units=w, color=Icon.DARK, closed=True)
 
 # Main face & dome (PEACH)
 face_pts = [
@@ -161,31 +153,31 @@ face_pts = [
     *_quad((31.8, 68.2), (34.5, 71.2), (38.8, 66.2), 10),
     *_quad((38.8, 66.2), (40.2, 66.0), (39.8, 71.5), 8),
 ]
-polygon(face_pts, style=no_border_fill(PEACH))
-draw_round_polyline(face_pts, width_units=w, color=DARK, closed=True)
+polygon(face_pts, style=Icon.no_border_fill(PEACH))
+Icon.draw_round_polyline(face_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Ear inner curve
 ear_inner = [(33.2, 66.0), *_quad((33.2, 66.0), (35.8, 66.5), (36.2, 63.2), 8)]
-draw_round_polyline(ear_inner, width_units=w_inner, color=DARK, closed=False)
+Icon.draw_round_polyline(ear_inner, width_units=w_inner, color=Icon.DARK, closed=False)
 
 # Chin / jaw crease line
 jaw_crease = [(44.5, 55.5), *_quad((44.5, 55.5), (49.5, 49.0), (57.5, 48.5), 12)]
-draw_round_polyline(jaw_crease, width_units=w_inner, color=DARK, closed=False)
+Icon.draw_round_polyline(jaw_crease, width_units=w_inner, color=Icon.DARK, closed=False)
 
 # 5. Facial features (eyebrows, closed butler eyelids, nose, mustache, smile)
 # Eyebrows
 brow_l = [(46.5, 74.8), *_quad((46.5, 74.8), (49.2, 77.2), (52.5, 77.2), 8)]
 brow_r = [(64.2, 77.5), *_quad((64.2, 77.5), (67.2, 77.2), (69.5, 74.8), 8)]
-draw_round_polyline(brow_l, width_units=1.7, color=DARK, closed=False)
-draw_round_polyline(brow_r, width_units=1.7, color=DARK, closed=False)
+Icon.draw_round_polyline(brow_l, width_units=1.7, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(brow_r, width_units=1.7, color=Icon.DARK, closed=False)
 
 # Calm downward-curved closed butler eyelids + inner vertical creases
 lid_l = [(48.5, 69.8), *_quad((48.5, 69.8), (51.8, 67.2), (54.8, 69.8), 10)]
 lid_r = [(63.4, 69.8), *_quad((63.4, 69.8), (66.1, 67.4), (68.6, 69.8), 10)]
-draw_round_polyline(lid_l, width_units=1.7, color=DARK, closed=False)
-draw_round_polyline(lid_r, width_units=1.7, color=DARK, closed=False)
-draw_round_segment((53.0, 72.8), (53.6, 70.5), width_units=1.4, color=DARK)
-draw_round_segment((67.0, 72.8), (67.6, 70.5), width_units=1.4, color=DARK)
+Icon.draw_round_polyline(lid_l, width_units=1.7, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(lid_r, width_units=1.7, color=Icon.DARK, closed=False)
+Icon.draw_round_segment((53.0, 72.8), (53.6, 70.5), width_units=1.4, color=Icon.DARK)
+Icon.draw_round_segment((67.0, 72.8), (67.6, 70.5), width_units=1.4, color=Icon.DARK)
 
 # Nose
 nose_pts = [
@@ -194,7 +186,7 @@ nose_pts = [
     *_quad((63.8, 63.2), (64.6, 60.8), (62.2, 59.8), 8),
     *_quad((62.2, 59.8), (59.2, 59.2), (56.8, 60.2), 8),
 ]
-draw_round_polyline(nose_pts, width_units=1.65, color=DARK, closed=False)
+Icon.draw_round_polyline(nose_pts, width_units=1.65, color=Icon.DARK, closed=False)
 
 # Parted gentleman mustache
 mustache_l = [
@@ -208,14 +200,14 @@ mustache_r = [
     *_quad((60.8, 57.8), (64.8, 57.8), (68.0, 58.8), 8),
     *_quad((68.0, 58.8), (65.0, 56.4), (60.8, 56.4), 8),
 ]
-polygon(mustache_l, style=no_border_fill(DARK))
-polygon(mustache_r, style=no_border_fill(DARK))
-draw_round_polyline(mustache_l, width_units=1.1, color=DARK, closed=True)
-draw_round_polyline(mustache_r, width_units=1.1, color=DARK, closed=True)
+polygon(mustache_l, style=Icon.no_border_fill(Icon.DARK))
+polygon(mustache_r, style=Icon.no_border_fill(Icon.DARK))
+Icon.draw_round_polyline(mustache_l, width_units=1.1, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(mustache_r, width_units=1.1, color=Icon.DARK, closed=True)
 
 # Gentle smile
 smile_pts = [(52.0, 54.8), *_quad((52.0, 54.8), (58.0, 52.8), (63.5, 54.6), 12)]
-draw_round_polyline(smile_pts, width_units=1.6, color=DARK, closed=False)
+Icon.draw_round_polyline(smile_pts, width_units=1.6, color=Icon.DARK, closed=False)
 
 # 6. Bow tie (Colors.Red3)
 bow_l = [
@@ -237,9 +229,9 @@ bow_knot = [
     (56.2, 41.6),
 ]
 for b_pts in (bow_l, bow_r):
-    polygon(b_pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(b_pts, width_units=w_inner, color=DARK, closed=True)
-polygon(bow_knot, style=fill_style(Colors.Red3, border_color=DARK, border_units=w_inner, shape_r=1.0))
+    polygon(b_pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(b_pts, width_units=w_inner, color=Icon.DARK, closed=True)
+polygon(bow_knot, style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w_inner, shape_r=1.0))
 
 # 7. Back towel flap, forearm cuff, round gloved hand & front towel
 back_towel = [
@@ -248,8 +240,8 @@ back_towel = [
     (65.4, 13.5),
     *_quad((65.4, 13.5), (63.5, 12.0), (61.2, 12.2), 6),
 ]
-polygon(back_towel, style=no_border_fill(Colors.Gray2))
-draw_round_polyline(back_towel, width_units=w, color=DARK, closed=True)
+polygon(back_towel, style=Icon.no_border_fill(Colors.Gray2))
+Icon.draw_round_polyline(back_towel, width_units=w, color=Icon.DARK, closed=True)
 
 # Forearm jacket cuff (SLATE_BLUE) & white shirt cuff (WHITE)
 jacket_cuff = [
@@ -264,16 +256,16 @@ shirt_cuff = [
     (71.5, 21.0),
     (65.4, 20.6),
 ]
-polygon(jacket_cuff, style=no_border_fill(SLATE_BLUE))
-draw_round_polyline(jacket_cuff, width_units=w, color=DARK, closed=True)
-polygon(shirt_cuff, style=no_border_fill(WHITE))
-draw_round_polyline(shirt_cuff, width_units=w, color=DARK, closed=True)
+polygon(jacket_cuff, style=Icon.no_border_fill(SLATE_BLUE))
+Icon.draw_round_polyline(jacket_cuff, width_units=w, color=Icon.DARK, closed=True)
+polygon(shirt_cuff, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(shirt_cuff, width_units=w, color=Icon.DARK, closed=True)
 
 # Round gloved hand (WHITE)
 circle(
     (74.2, 25.0),
     radius=6.4,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # Front main towel (WHITE)
@@ -284,7 +276,7 @@ front_towel = [
     *_quad((61.6, 11.6), (53.8, 10.4), (46.2, 11.8), 12),
     *_quad((46.2, 11.8), (43.2, 18.5), (42.0, 29.2), 12),
 ]
-polygon(front_towel, style=no_border_fill(WHITE))
-draw_round_polyline(front_towel, width_units=w, color=DARK, closed=True)
+polygon(front_towel, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(front_towel, width_units=w, color=Icon.DARK, closed=True)
 
 save()

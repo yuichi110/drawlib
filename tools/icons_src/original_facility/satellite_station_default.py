@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -72,7 +61,7 @@ rectangle(
     (38.0, 14.5),
     width=36.0,
     height=5.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=2.5),
 )
 pedestal_pts = [
     (28.0, 17.0),
@@ -80,8 +69,8 @@ pedestal_pts = [
     (43.5, 39.0),
     (32.5, 39.0),
 ]
-polygon(pedestal_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(pedestal_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(pedestal_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(pedestal_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Parabolic dish bowl (PASTEL_BLUE back shell) tilted at 45 degrees toward upper-right
 rim_cx, rim_cy = 49.5, 51.5
@@ -90,34 +79,34 @@ bowl_pts: list[tuple[float, float]] = []
 for i in range(33):
     ang = math.radians(135.0 + 180.0 * (i / 32))
     bowl_pts.append((rim_cx + dish_r * math.cos(ang), rim_cy + dish_r * math.sin(ang)))
-polygon(bowl_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(bowl_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(bowl_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(bowl_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Dish inner reflector rim (WHITE tilted ellipse)
 ellipse(
     (rim_cx, rim_cy),
     width=dish_r * 2.0,
     height=13.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_outer, angle=-45.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer, angle=-45.0),
 )
 
 # 4. Feed horn struts anchored cleanly to the dish rim ends (135 deg and 315 deg)
 feed_cx, feed_cy = 63.0, 65.0
 rim_tl = (rim_cx + dish_r * math.cos(math.radians(135.0)), rim_cy + dish_r * math.sin(math.radians(135.0)))
 rim_br = (rim_cx + dish_r * math.cos(math.radians(315.0)), rim_cy + dish_r * math.sin(math.radians(315.0)))
-draw_round_segment((rim_cx, rim_cy), (feed_cx, feed_cy), width_units=w_outer, color=DARK)
-draw_round_segment(rim_tl, (feed_cx, feed_cy), width_units=w_inner, color=DARK)
-draw_round_segment(rim_br, (feed_cx, feed_cy), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((rim_cx, rim_cy), (feed_cx, feed_cy), width_units=w_outer, color=Icon.DARK)
+Icon.draw_round_segment(rim_tl, (feed_cx, feed_cy), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment(rim_br, (feed_cx, feed_cy), width_units=w_inner, color=Icon.DARK)
 circle(
     (feed_cx, feed_cy),
     radius=4.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_outer),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_outer),
 )
 
 # 5. Skyward PASTEL_GREEN signal beam arcs toward upper-right
 for r_mid, span in ((11.5, 28.0), (20.5, 30.0)):
     beam = _arc_band_polygon(feed_cx, feed_cy, r_mid, 3.8, 45.0 - span, 45.0 + span)
-    polygon(beam, style=no_border_fill(PASTEL_GREEN))
-    draw_round_polyline(beam, width_units=w_inner, color=DARK, closed=True)
+    polygon(beam, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+    Icon.draw_round_polyline(beam, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

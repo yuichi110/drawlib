@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 1.01
@@ -106,13 +106,13 @@ for k in range(4):
     sq_col = square_colors[k]
     for base_pts in (base_flank_bl, base_flank_tr, base_diag_arrow):
         pts = rot90(base_pts, k)
-        polygon(pts, style=no_border_fill(sq_col))
-        draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+        polygon(pts, style=Icon.no_border_fill(sq_col))
+        Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 for k in range(4):
     card_col = cardinal_colors[k]
     pts = rot90(base_cardinal, k)
-    polygon(pts, style=no_border_fill(card_col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(card_col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

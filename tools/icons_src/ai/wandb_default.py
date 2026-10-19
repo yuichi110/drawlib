@@ -11,10 +11,10 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import fill_style, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
-_st = fill_style("#FCBC32")
+Icon.setup()
+_st = Icon.fill_style("#FCBC32")
 
 # Left column (top to bottom)
 circle((17.53, 85.60), radius=5.33, style=_st)

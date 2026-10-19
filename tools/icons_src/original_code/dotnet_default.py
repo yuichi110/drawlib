@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_letter = 1.1
@@ -43,14 +37,14 @@ t_pts = _sc([(79.61, 57.25), (73.64, 57.25), (73.64, 38.94), (70.19, 38.94), (70
 # fmt: on
 
 # 1. Flat pastel indigo-purple square fill
-polygon(badge, style=no_border_fill(INDIGO_PURPLE))
+polygon(badge, style=Icon.no_border_fill(INDIGO_PURPLE))
 
 # 2. WHITE '.NET' letters with DARK w=1.1 outlines
 for pts in (dot_pts, n_pts, e_pts, t_pts):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_letter, color=Icon.DARK, closed=True)
 
 # 3. Crisp DARK w=1.9 outer border
-draw_round_polyline(badge, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(badge, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

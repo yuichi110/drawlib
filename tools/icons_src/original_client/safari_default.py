@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, draw_round_segment, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_face = 1.6
@@ -23,8 +23,8 @@ w_tick = 1.4
 w_needle = 1.6
 
 # 1. White outer bezel ring and pastel blue compass face
-circle((50.0, 50.0), radius=41.0, style=fill_style(WHITE, border_color=DARK, border_units=w_outer))
-circle((50.0, 50.0), radius=35.8, style=fill_style("#5797F2", border_color=DARK, border_units=w_face))
+circle((50.0, 50.0), radius=41.0, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer))
+circle((50.0, 50.0), radius=35.8, style=Icon.fill_style("#5797F2", border_color=Icon.DARK, border_units=w_face))
 
 # 2. 16 crisp compass ticks (8 major + 8 minor)
 for i in range(16):
@@ -33,17 +33,17 @@ for i in range(16):
     r_out = 33.0
     p1 = (round(50.0 + r_in * math.cos(angle_rad), 2), round(50.0 + r_in * math.sin(angle_rad), 2))
     p2 = (round(50.0 + r_out * math.cos(angle_rad), 2), round(50.0 + r_out * math.sin(angle_rad), 2))
-    draw_round_segment(p1, p2, width_units=w_tick, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w_tick, color=Icon.DARK)
 
 # 3. Two-tone diamond compass needle (pastel red NE + white SW)
 needle_ne = [(78.01, 78.21), (46.52, 53.48), (53.87, 46.13)]
 needle_sw = [(21.79, 21.99), (53.87, 46.13), (46.52, 53.48)]
 needle_outline = [(78.01, 78.21), (53.87, 46.13), (21.79, 21.99), (46.52, 53.48)]
 
-polygon(needle_ne, style=no_border_fill("#F26458"))
-polygon(needle_sw, style=no_border_fill(WHITE))
-draw_round_segment((46.52, 53.48), (53.87, 46.13), width_units=w_needle, color=DARK)
-draw_round_polyline(needle_outline, width_units=w_needle, color=DARK, closed=True)
-circle((50.0, 50.0), radius=2.0, style=fill_style(WHITE, border_color=DARK, border_units=1.3))
+polygon(needle_ne, style=Icon.no_border_fill("#F26458"))
+polygon(needle_sw, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_segment((46.52, 53.48), (53.87, 46.13), width_units=w_needle, color=Icon.DARK)
+Icon.draw_round_polyline(needle_outline, width_units=w_needle, color=Icon.DARK, closed=True)
+circle((50.0, 50.0), radius=2.0, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.3))
 
 save()

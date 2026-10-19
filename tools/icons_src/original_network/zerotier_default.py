@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_glyph = 2.2
@@ -36,13 +30,13 @@ rectangle(
     (50.0, 50.0),
     width=80.0,
     height=80.0,
-    style=fill_style(Colors.Orange3, border_color=DARK, border_units=w, shape_r=8.0),
+    style=Icon.fill_style(Colors.Orange3, border_color=Icon.DARK, border_units=w, shape_r=8.0),
 )
 
 # 2. Inner circle glyph
 c_xy = _sc(50.0, 49.54)
 c_r = 20.955 * s
-circle(c_xy, radius=c_r, style=stroke_style(DARK, width_units=w_glyph))
+circle(c_xy, radius=c_r, style=Icon.stroke_style(Icon.DARK, width_units=w_glyph))
 
 # 3. Inner T-crossbar and vertical stem
 t_left = _sc(18.11, 79.61)
@@ -50,7 +44,7 @@ t_right = _sc(81.89, 79.61)
 stem_top = _sc(50.0, 79.61)
 stem_bot = _sc(50.0, 17.20)
 
-draw_round_segment(t_left, t_right, width_units=w_glyph, color=DARK)
-draw_round_segment(stem_bot, stem_top, width_units=w_glyph, color=DARK)
+Icon.draw_round_segment(t_left, t_right, width_units=w_glyph, color=Icon.DARK)
+Icon.draw_round_segment(stem_bot, stem_top, width_units=w_glyph, color=Icon.DARK)
 
 save()

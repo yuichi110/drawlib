@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 BLUE = "#539BE1"
 w = 2.0
@@ -28,8 +28,8 @@ part_4 = [(84.31, 47.12), (80.19, 61.19), (69.65, 61.19), (69.65, 38.81), (76.24
 part_5 = [(21.77, 38.81), (23.67, 45.08), (16.61, 45.08), (16.61, 46.98), (24.25, 46.98), (26.06, 52.99), (16.61, 52.99), (16.61, 54.81), (26.58, 54.81), (28.51, 61.19), (9.0, 61.19), (9.0, 38.81)]
 
 for pts in (part_0, part_1, part_2, part_3, part_4, part_5):
-    polygon(pts, style=no_border_fill(BLUE))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(BLUE))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

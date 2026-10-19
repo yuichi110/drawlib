@@ -13,19 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _build_dome(
@@ -60,23 +52,23 @@ def _build_dome(
 # Back/right secondary avatar
 polygon(
     _build_dome(cx=66.0, rx=20.5, y_bot=22.0, y_arch_base=28.0, ry=19.0, corner_r=4.5),
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (66.0, 64.0),
     radius=11.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # Front/left primary avatar
 polygon(
     _build_dome(cx=36.0, rx=23.5, y_bot=16.0, y_arch_base=23.0, ry=23.0, corner_r=5.0),
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (36.0, 66.0),
     radius=13.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 save()

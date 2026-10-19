@@ -13,15 +13,7 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _rounded_bar(
@@ -53,11 +45,11 @@ def _rounded_bar(
     for i in range(steps + 1):
         ang = base_ang + math.pi / 2.0 + math.pi * (i / steps)
         pts.append((x1 + r * math.cos(ang), y1 + r * math.sin(ang)))
-    polygon(pts, style=no_border_fill(fill_color))
-    draw_round_polyline(pts, width_units=border_units, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(fill_color))
+    Icon.draw_round_polyline(pts, width_units=border_units, color=Icon.DARK, closed=True)
 
 
-setup_icon()
+Icon.setup()
 
 # Slight down-right offset inside the circular medallion for balanced visual margins
 dx, dy = 2.2, -2.2
@@ -69,12 +61,12 @@ def _s(x: float, y: float) -> tuple[float, float]:
 
 
 # 3 swooping upper-left falcon wing bars (135-degree tilt)
-_rounded_bar(_s(51.5, 56.5), _s(31.0, 77.0), width_units=6.6, fill_color=PASTEL_BLUE)
-_rounded_bar(_s(44.5, 49.5), _s(27.0, 67.0), width_units=6.6, fill_color=PASTEL_BLUE_LIGHT)
-_rounded_bar(_s(37.5, 42.5), _s(26.0, 54.0), width_units=6.6, fill_color=PASTEL_BLUE)
+_rounded_bar(_s(51.5, 56.5), _s(31.0, 77.0), width_units=6.6, fill_color=Icon.PASTEL_BLUE)
+_rounded_bar(_s(44.5, 49.5), _s(27.0, 67.0), width_units=6.6, fill_color=Icon.PASTEL_BLUE_LIGHT)
+_rounded_bar(_s(37.5, 42.5), _s(26.0, 54.0), width_units=6.6, fill_color=Icon.PASTEL_BLUE)
 
 # Lower parallel body/tail bar (45-degree tilt)
-_rounded_bar(_s(38.0, 24.0), _s(67.0, 53.0), width_units=6.8, fill_color=PASTEL_BLUE_LIGHT)
+_rounded_bar(_s(38.0, 24.0), _s(67.0, 53.0), width_units=6.8, fill_color=Icon.PASTEL_BLUE_LIGHT)
 
 # Main diagonal falcon body bar (45-degree tilt, flat collar join at _s(57, 57))
 # With width = 7.071, normal offset is (-2.5, +2.5) and (+2.5, -2.5)
@@ -82,7 +74,7 @@ _rounded_bar(
     _s(27.5, 27.5),
     _s(57.0, 57.0),
     width_units=7.071,
-    fill_color=PASTEL_BLUE,
+    fill_color=Icon.PASTEL_BLUE,
     border_units=2.0,
     cap_end=False,
 )
@@ -96,7 +88,7 @@ beak_pts = [
     _s(68.0, 61.0),
     _s(59.5, 54.5),
 ]
-polygon(beak_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(beak_pts, width_units=2.0, color=DARK, closed=True)
+polygon(beak_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(beak_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

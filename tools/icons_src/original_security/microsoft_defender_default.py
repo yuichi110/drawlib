@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -78,16 +72,16 @@ bl_curve = _sc([
 # fmt: on
 
 # 1. Four quadrant fills in pastel blues
-polygon([center_pt, *tl_curve], style=no_border_fill(Colors.Blue1))
-polygon([center_pt, *tr_curve], style=no_border_fill(Colors.Blue2))
-polygon([center_pt, *bl_curve], style=no_border_fill(Colors.Blue3))
-polygon([center_pt, *br_curve], style=no_border_fill(Colors.Blue4))
+polygon([center_pt, *tl_curve], style=Icon.no_border_fill(Colors.Blue1))
+polygon([center_pt, *tr_curve], style=Icon.no_border_fill(Colors.Blue2))
+polygon([center_pt, *bl_curve], style=Icon.no_border_fill(Colors.Blue3))
+polygon([center_pt, *br_curve], style=Icon.no_border_fill(Colors.Blue4))
 
 # 2. Inner cross dividers and outer shield perimeter in DARK 1.8
-draw_round_segment(bl_curve[0], tl_curve[-1], width_units=w, color=DARK)
-draw_round_segment(tl_curve[0], tr_curve[-1], width_units=w, color=DARK)
+Icon.draw_round_segment(bl_curve[0], tl_curve[-1], width_units=w, color=Icon.DARK)
+Icon.draw_round_segment(tl_curve[0], tr_curve[-1], width_units=w, color=Icon.DARK)
 
 outer_shield = [*tl_curve[:-1], *tr_curve[:-1], *br_curve[:-1], *bl_curve[:-1]]
-draw_round_polyline(outer_shield, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_shield, width_units=w, color=Icon.DARK, closed=True)
 
 save()

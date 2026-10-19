@@ -12,19 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -41,18 +33,18 @@ rain_drops = [_sc(r) for r in [[(71.22, 77.69), (71.23, 77.74), (71.76, 79.72), 
 # fmt: on
 
 # 1. Flat dark slate circle fill
-circle((50.0, 50.0), radius=40.0, style=no_border_fill("#3E4756"))
+circle((50.0, 50.0), radius=40.0, style=Icon.no_border_fill("#3E4756"))
 
 # 2. WHITE dinosaur with eye cutout and rain drops
-draw_compound_polygon([dino_outer, dino_eye], color=WHITE)
+polygon(dino_outer, holes=[dino_eye], style=Icon.fill_style(Icon.WHITE))
 for drop in rain_drops:
-    polygon(drop, style=no_border_fill(WHITE))
+    polygon(drop, style=Icon.no_border_fill(Icon.WHITE))
 
 # 3. DARK outlines on dinosaur, eye, and rain cutouts
-draw_round_polyline(dino_outer, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(dino_eye, width_units=w_inner, color=DARK, closed=True)
+Icon.draw_round_polyline(dino_outer, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(dino_eye, width_units=w_inner, color=Icon.DARK, closed=True)
 for drop in rain_drops:
-    draw_round_polyline(drop, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(drop, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. Outer circle DARK border on top
 circle(
@@ -60,8 +52,8 @@ circle(
     radius=40.0,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w_outer),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w_outer),
         shape_line_style="solid",
     ),
 )

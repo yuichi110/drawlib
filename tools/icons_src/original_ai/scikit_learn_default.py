@@ -12,17 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.95
@@ -47,15 +40,22 @@ scikit_rings = _scale_rings([[(57.35, 49.44), (57.36, 49.41), (57.38, 49.38), (5
 # fmt: on
 
 # 1. Top-right orange tilted blob (Colors.Orange3)
-polygon(orange_blob, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(orange_blob, width_units=w, color=DARK, closed=True)
+polygon(orange_blob, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(orange_blob, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Bottom-left blue tilted blob ("#54A6D4")
-polygon(blue_blob, style=no_border_fill(BLUE_BLOB))
-draw_round_polyline(blue_blob, width_units=w, color=DARK, closed=True)
+polygon(blue_blob, style=Icon.no_border_fill(BLUE_BLOB))
+Icon.draw_round_polyline(blue_blob, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Vector script "learn" (DARK) and "scikit" (WHITE)
-draw_compound_polygon(learn_rings, color=DARK)
-draw_compound_polygon(scikit_rings, color=WHITE)
+polygon(learn_rings[0], holes=learn_rings[1:], style=Icon.fill_style(Icon.DARK))
+polygon(scikit_rings[0], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[1], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[2], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[3], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[4], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[5], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[6], style=Icon.fill_style(Icon.WHITE))
+polygon(scikit_rings[7], style=Icon.fill_style(Icon.WHITE))
 
 save()

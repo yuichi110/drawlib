@@ -14,14 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -42,7 +35,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -53,8 +46,8 @@ leg_pts = [
     (56.6, 10.5),
     (56.6, 46.2),
 ]
-polygon(leg_pts, style=no_border_fill(Colors.Pink3))
-draw_round_polyline(leg_pts, width_units=1.8, color=DARK, closed=True)
+polygon(leg_pts, style=Icon.no_border_fill(Colors.Pink3))
+Icon.draw_round_polyline(leg_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 2. Pointed flamingo beak (WHITE with DARK tip border)
 cx_h, cy_h = 53.6, 81.8
@@ -69,8 +62,8 @@ beak_pts = [
     p_beak_top,
     (71.5, 68.8),
 ]
-polygon(beak_pts, style=no_border_fill(WHITE))
-draw_round_polyline(beak_pts, width_units=1.8, color=DARK, closed=True)
+polygon(beak_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(beak_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 3. Main continuous S-curve neck, head, upper wing, and crossbar (Colors.Red3)
 p_wing_tip = (28.0, 30.2)
@@ -111,8 +104,8 @@ hole_pts = [
     *_bezier((36.8, 39.8), (40.5, 48.2), (45.5, 53.8), (50.6, 57.4), 14),
     (50.6, 47.0),
 ]
-draw_compound_polygon([body_pts, hole_pts], color=Colors.Red3)
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(hole_pts, width_units=1.7, color=DARK, closed=True)
+polygon(body_pts, holes=[hole_pts], style=Icon.fill_style(Colors.Red3))
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(hole_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 save()

@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_bar = 2.0
 
@@ -85,14 +85,14 @@ bar3 = [
     (34.13, 37.65),
 ]
 
-polygon(page_pts, style=no_border_fill("#5797F2"))
-draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
+polygon(page_pts, style=Icon.no_border_fill("#5797F2"))
+Icon.draw_round_polyline(page_pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#498DEC"))
-draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
+polygon(fold_pts, style=Icon.no_border_fill("#498DEC"))
+Icon.draw_round_polyline(fold_pts, width_units=w, color=Icon.DARK, closed=True)
 
 for b_pts in (bar1, bar2, bar3):
-    polygon(b_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(b_pts, width_units=w_bar, color=DARK, closed=True)
+    polygon(b_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(b_pts, width_units=w_bar, color=Icon.DARK, closed=True)
 
 save()

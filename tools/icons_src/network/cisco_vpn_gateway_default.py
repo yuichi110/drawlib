@@ -11,19 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, ellipse, polygon, rectangle
-from drawlib.utils import (
-    CISCO_BLUE,
-    CISCO_DARK_BLUE,
-    WHITE,
-    draw_cisco_3d_box,
-    draw_cisco_arrow,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
 x0 = 12.0
 y0 = 15.0
@@ -33,7 +23,7 @@ dx = 16.0
 dy = 14.0
 x1 = x0 + w_front
 
-draw_cisco_3d_box(x0, y0, w_front, h_front, dx, dy)
+Cisco.draw_3d_box(x0, y0, w_front, h_front, dx, dy)
 
 # Cylindrical tunnel outline across the front face + port on right side face
 tun_cy = 41.0
@@ -45,36 +35,36 @@ arc(
     height=tun_half_h * 2.0,
     angle_start=90.0,
     angle_end=270.0,
-    style=stroke_style(WHITE, width_units=1.8),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.8),
 )
-draw_round_segment(
+Icon.draw_round_segment(
     (tun_x_left, tun_cy + tun_half_h),
     (x1 - 0.3, tun_cy + tun_half_h),
     width_units=1.8,
-    color=WHITE,
+    color=Icon.WHITE,
 )
-draw_round_segment(
+Icon.draw_round_segment(
     (tun_x_left, tun_cy - tun_half_h),
     (x1 - 0.3, tun_cy - tun_half_h),
     width_units=1.8,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 ellipse(
     (x1 + dx * 0.52, tun_cy + dy * 0.52),
     width=6.5,
     height=tun_half_h * 1.75,
-    style=stroke_style(WHITE, width_units=1.7),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.7),
 )
 
 # Left and right tunnel arrows flanking the center padlock
-draw_cisco_arrow((19.0, tun_cy + 4.2), (30.5, tun_cy + 4.2), shaft_w=2.4, head_len=4.8, head_w=6.2, color=WHITE)
-draw_cisco_arrow((65.5, tun_cy - 4.2), (54.0, tun_cy - 4.2), shaft_w=2.4, head_len=4.8, head_w=6.2, color=WHITE)
+Cisco.draw_arrow((19.0, tun_cy + 4.2), (30.5, tun_cy + 4.2), shaft_w=2.4, head_len=4.8, head_w=6.2, color=Icon.WHITE)
+Cisco.draw_arrow((65.5, tun_cy - 4.2), (54.0, tun_cy - 4.2), shaft_w=2.4, head_len=4.8, head_w=6.2, color=Icon.WHITE)
 
 # Form-fitting blue halo behind padlock (narrower at shackle, wider at body)
 lock_cx = 42.0
-circle((lock_cx, 49.5), radius=8.2, style=no_border_fill(CISCO_BLUE))
-rectangle((lock_cx, 46.0), width=16.4, height=8.0, style=no_border_fill(CISCO_BLUE))
-rectangle((lock_cx, 35.0), width=23.5, height=19.5, style=no_border_fill(CISCO_BLUE, shape_r=3.2))
+circle((lock_cx, 49.5), radius=8.2, style=Icon.no_border_fill(Cisco.BLUE))
+rectangle((lock_cx, 46.0), width=16.4, height=8.0, style=Icon.no_border_fill(Cisco.BLUE))
+rectangle((lock_cx, 35.0), width=23.5, height=19.5, style=Icon.no_border_fill(Cisco.BLUE, shape_r=3.2))
 
 # Crisp white padlock shackle
 shackle_w = 11.5
@@ -86,24 +76,24 @@ arc(
     height=11.0,
     angle_start=0.0,
     angle_end=180.0,
-    style=stroke_style(WHITE, width_units=2.7),
+    style=Icon.stroke_style(Icon.WHITE, width_units=2.7),
 )
-draw_round_segment(
+Icon.draw_round_segment(
     (lock_cx - shackle_w / 2.0, shackle_y_bot),
     (lock_cx - shackle_w / 2.0, shackle_y_arc),
     width_units=2.7,
-    color=WHITE,
+    color=Icon.WHITE,
 )
-draw_round_segment(
+Icon.draw_round_segment(
     (lock_cx + shackle_w / 2.0, shackle_y_bot),
     (lock_cx + shackle_w / 2.0, shackle_y_arc),
     width_units=2.7,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 # Crisp white padlock body + keyhole
-rectangle((lock_cx, 35.0), width=19.5, height=15.5, style=no_border_fill(WHITE, shape_r=2.4))
-circle((lock_cx, 37.0), radius=2.3, style=no_border_fill(CISCO_DARK_BLUE))
+rectangle((lock_cx, 35.0), width=19.5, height=15.5, style=Icon.no_border_fill(Icon.WHITE, shape_r=2.4))
+circle((lock_cx, 37.0), radius=2.3, style=Icon.no_border_fill(Cisco.DARK_BLUE))
 polygon(
     [
         (lock_cx - 1.1, 36.2),
@@ -111,7 +101,7 @@ polygon(
         (lock_cx + 1.8, 30.8),
         (lock_cx - 1.8, 30.8),
     ],
-    style=no_border_fill(CISCO_DARK_BLUE),
+    style=Icon.no_border_fill(Cisco.DARK_BLUE),
 )
 
 save()

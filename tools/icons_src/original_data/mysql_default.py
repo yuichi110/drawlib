@@ -12,14 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # Soft aqua-teal between Colors.Teal2 (#9EDEDE) and Colors.Teal3 (#55C3C3), paired with Colors.Teal4 (#2A989A)
 BELLY_AQUA = "#70CCC7"
@@ -43,7 +36,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -80,7 +73,7 @@ body_pts = [
     *_bezier(p_flip_front_body, (24.5, 68.5), (18.5, 75.5), (14.5, 79.2), 12),
     *_bezier((14.5, 79.2), (10.8, 82.5), (8.2, 84.8), p_snout, 10),
 ]
-polygon(body_pts, style=no_border_fill(Colors.Teal4))
+polygon(body_pts, style=Icon.no_border_fill(Colors.Teal4))
 
 # 2. Light aqua belly bands (BELLY_AQUA) — interrupted cleanly by the ocean-teal pectoral flipper
 # Front throat/jaw band (from snout tip to front edge of flipper)
@@ -91,7 +84,7 @@ throat_band_pts = [
     *_bezier(p_flip_front_body, (24.5, 68.5), (18.5, 75.5), (14.5, 79.2), 12),
     *_bezier((14.5, 79.2), (11.2, 82.2), (9.2, 84.4), (10.0, 85.4), 8),
 ]
-polygon(throat_band_pts, style=no_border_fill(BELLY_AQUA))
+polygon(throat_band_pts, style=Icon.no_border_fill(BELLY_AQUA))
 
 # Rear belly band (from rear edge of flipper to tail wrist)
 belly_band_pts = [
@@ -101,7 +94,7 @@ belly_band_pts = [
     *_bezier(p_tail_wrist_bot, (64.0, 38.5), (52.0, 47.5), p_flip_rear_body, 14),
     *_bezier(p_flip_rear_body, (41.6, 56.5), (42.3, 58.0), (43.0, 59.5), 6),
 ]
-polygon(belly_band_pts, style=no_border_fill(BELLY_AQUA))
+polygon(belly_band_pts, style=Icon.no_border_fill(BELLY_AQUA))
 
 # 3. Bold dark slate-navy outlines (DARK, width=ORIG_STROKE)
 top_to_tail_to_flipper_rear = [
@@ -118,7 +111,7 @@ top_to_tail_to_flipper_rear = [
     *_bezier(p_fluke_bot, (64.2, 12.2), (65.2, 21.5), p_tail_wrist_bot, 12),
     *_bezier(p_tail_wrist_bot, (64.0, 38.5), (52.0, 47.5), p_flip_rear_body, 14),
 ]
-draw_round_polyline(top_to_tail_to_flipper_rear, width_units=w, color=DARK)
+Icon.draw_round_polyline(top_to_tail_to_flipper_rear, width_units=w, color=Icon.DARK)
 
 # Pectoral flipper stroke (extends cleanly inside the body at both ends with round caps)
 flipper_line = [
@@ -128,9 +121,9 @@ flipper_line = [
     *_bezier(p_flip_tip, (39.4, 45.2), (39.6, 50.0), p_flip_rear_body, 10),
     *_bezier(p_flip_rear_body, (41.6, 56.5), (42.4, 58.2), p_flip_rear_top, 6),
 ]
-draw_round_polyline(flipper_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(flipper_line, width_units=w, color=Icon.DARK)
 
 # 4. Simple solid dark dot eye
-circle((29.5, 78.8), radius=2.0, style=fill_style(DARK))
+circle((29.5, 78.8), radius=2.0, style=Icon.fill_style(Icon.DARK))
 
 save()

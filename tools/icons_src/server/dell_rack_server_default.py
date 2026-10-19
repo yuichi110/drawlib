@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 BORDER = 4.8
 
@@ -29,9 +24,9 @@ for cy in (72.5, 42.5):
         (50.0, cy),
         width=70.0 - BORDER,
         height=25.0 - BORDER,
-        style=fill_style(
+        style=Icon.fill_style(
             Colors.Transparent,
-            border_color=DELL_BLUE,
+            border_color=Dell.BLUE,
             border_units=BORDER,
             shape_r=2.5,
         ),
@@ -41,7 +36,7 @@ for cy in (72.5, 42.5):
         (50.0, cy),
         width=30.0,
         height=5.0,
-        style=no_border_fill(DELL_BLUE),
+        style=Icon.no_border_fill(Dell.BLUE),
     )
 
 # Bottom rack bus T-pedestal (vertical stem x=50, y=15..24 + horizontal bar x=15..85, y=15)
@@ -49,13 +44,13 @@ rectangle(
     (50.0, 15.0),
     width=70.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 rectangle(
     (50.0, 19.5),
     width=5.0,
     height=9.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 save()

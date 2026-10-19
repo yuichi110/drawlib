@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_fin = 2.0
@@ -32,13 +27,13 @@ fin_line = [(11.65, 31.67), (31.52, 31.67), (31.54, 31.82), (31.58, 32.24), (31.
 # fmt: on
 
 # 1. Pastel sky-blue rounded square badge
-polygon(badge, style=no_border_fill(Colors.Blue3))
+polygon(badge, style=Icon.no_border_fill(Colors.Blue3))
 
 # 2. Shark fin + waterline silhouette in deeper pastel blue
-polygon(fin_water, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(fin_line, width_units=w_fin, color=DARK, closed=False)
+polygon(fin_water, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(fin_line, width_units=w_fin, color=Icon.DARK, closed=False)
 
 # 3. Outer badge DARK outline on top
-draw_round_polyline(badge, width_units=w_badge, color=DARK, closed=True)
+Icon.draw_round_polyline(badge, width_units=w_badge, color=Icon.DARK, closed=True)
 
 save()

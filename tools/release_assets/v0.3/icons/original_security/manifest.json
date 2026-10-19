@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_security",
-  "created_at": "2026-10-18T12:36:06.212484+00:00",
+  "created_at": "2026-10-18T23:05:51.530990+00:00",
   "canvas_size": [
     512,
     512
@@ -855,8 +855,8 @@
       "icon_name": "snort",
       "variant": "default",
       "source_script": "original_security/snort_default.py",
-      "size_bytes": 46159,
-      "sha256": "5436dc803852660d2a1549e68d6a13c02377dc6b3e16ae5ac67955e65d830234",
+      "size_bytes": 46155,
+      "sha256": "4b73675b91d08367d3af15c364ea2ff4450e74f9bc4eb43e751fdca86c4e0f88",
       "bbox": [
         26,
         60,

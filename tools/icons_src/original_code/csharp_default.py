@@ -11,19 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.3
@@ -50,16 +42,17 @@ seam_p2 = (50.0 + (85.56 - 50.0) * s, 50.0 + (70.33 - 50.0) * s)
 # fmt: on
 
 # 1. Two-tone flat pastel purple hexagon facets
-polygon(hex_upper_left, style=no_border_fill(PURPLE_LIGHT))
-polygon(hex_lower_right, style=no_border_fill(PURPLE_DARK))
-draw_round_segment(seam_p1, seam_p2, width_units=w_inner, color=DARK)
+polygon(hex_upper_left, style=Icon.no_border_fill(PURPLE_LIGHT))
+polygon(hex_lower_right, style=Icon.no_border_fill(PURPLE_DARK))
+Icon.draw_round_segment(seam_p1, seam_p2, width_units=w_inner, color=Icon.DARK)
 
 # 2. WHITE 'C' ring and '#' mark with DARK w=1.3 outlines
-draw_compound_polygon([c_ring, hash_outer, hash_hole], color=WHITE)
+polygon(c_ring, style=Icon.fill_style(Icon.WHITE))
+polygon(hash_outer, holes=[hash_hole], style=Icon.fill_style(Icon.WHITE))
 for contour in (c_ring, hash_outer, hash_hole):
-    draw_round_polyline(contour, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Crisp DARK w=1.8 outer hexagon border
-draw_round_polyline(hex_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(hex_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

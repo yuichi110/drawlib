@@ -10,15 +10,11 @@
 """Original DevOps concept icon: pagerduty."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 38.8 / 41.0
@@ -92,9 +88,10 @@ inner_p_hole = _sc(
     ]
 )
 
-draw_compound_polygon([stem_ring, outer_p_ring, inner_p_hole], color=Colors.Green3)
+polygon(stem_ring, style=Icon.fill_style(Colors.Green3))
+polygon(outer_p_ring, holes=[inner_p_hole], style=Icon.fill_style(Colors.Green3))
 
 for ring in (stem_ring, outer_p_ring, inner_p_hole):
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()

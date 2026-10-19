@@ -12,16 +12,11 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_modern_badge,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-draw_cisco_modern_badge()
+Cisco.draw_modern_badge()
 
 # 4 upper puff circles (cx, cy, r) over a flat baseline at y = 33.5
 puffs: list[tuple[float, float, float]] = [
@@ -61,7 +56,7 @@ for i, (cx, cy, r) in enumerate(puffs):
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
 # Clean 2D white cloud outline inside the badge
-draw_round_polyline(cloud_pts, width_units=4.4, color=WHITE, closed=True)
+Icon.draw_round_polyline(cloud_pts, width_units=4.4, color=Icon.WHITE, closed=True)
 
 # Connected puff-crease arc continuing inward from the upper-center valley (intersections[1])
 v_cx, v_cy, v_r = puffs[2]
@@ -73,6 +68,6 @@ crease_pts = [
     )
     for k in range(11)
 ]
-draw_round_polyline(crease_pts, width_units=3.8, color=WHITE)
+Icon.draw_round_polyline(crease_pts, width_units=3.8, color=Icon.WHITE)
 
 save()

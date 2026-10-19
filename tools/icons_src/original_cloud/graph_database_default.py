@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 hub = (48.0, 50.0)
 n_tl = (24.0, 72.0)
@@ -42,40 +33,40 @@ edges = [
     (n_tl, n_bl),
 ]
 for p1, p2 in edges:
-    draw_round_segment(p1, p2, width_units=w, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w, color=Icon.DARK)
 
 # 2. Center hub node
 circle(
     hub,
     radius=12.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     hub,
     radius=4.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8),
 )
 
 # 3. Outer vertex nodes
 circle(
     n_tl,
     radius=9.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     n_tr,
     radius=9.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     n_bl,
     radius=9.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     n_br,
     radius=9.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 
 save()

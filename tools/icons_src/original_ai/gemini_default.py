@@ -13,14 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -181,7 +176,7 @@ for i in range(cols):
             mx = sum(p[0] for p in pts) / len(pts)
             my = sum(p[1] for p in pts) / len(pts)
             col_hex = _sample_gemini_hex(mx, my)
-            polygon(pts, style=fill_style(col_hex))
+            polygon(pts, style=Icon.fill_style(col_hex))
 
 # 2. Build smooth outer star contour using exact arc-angle sampling across all 4 quadrants
 vx = ARC_CENTER_OFFSET_SVG
@@ -220,6 +215,6 @@ for rot_deg in (0.0, 270.0, 180.0, 90.0):
         ry = sx_pt * sa + sy_pt * ca
         full_outer.append((cx + rx * SCALE, cy + ry * SCALE))
 
-draw_round_polyline(full_outer, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(full_outer, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -14,13 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -50,7 +44,7 @@ def _arc_points(cx: float, cy: float, r: float, deg1: float, deg2: float, steps:
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -72,8 +66,8 @@ drop_pts: list[tuple[float, float]] = [
     *_bezier(p_right, (77.5, 53.5), (61.5, 68.5), p_top, 22),
 ]
 
-polygon(drop_pts, style=no_border_fill(Colors.Gray3))
-draw_round_polyline(drop_pts, width_units=w, color=DARK, closed=True)
+polygon(drop_pts, style=Icon.no_border_fill(Colors.Gray3))
+Icon.draw_round_polyline(drop_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Inner flow highlight arc on left side of droplet (WHITE)
 p_hl_top_l = (38.8, 66.0)
@@ -84,8 +78,8 @@ hl_pts = [
     *_bezier(p_hl_top_l, (27.2, 50.0), (25.2, 32.5), p_hl_bot, 20),
     *_bezier(p_hl_bot, (29.5, 32.5), (31.5, 49.5), p_hl_top_r, 20),
 ]
-polygon(hl_pts, style=no_border_fill(WHITE))
-draw_round_polyline(hl_pts, width_units=1.5, color=DARK, closed=True)
+polygon(hl_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(hl_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 # 3. Three substantial stepped flow tiles in bottom-right quadrant
 # Tile 1: bottom-left vertical arc tile (x=52.8..61.2, top y=23.2, bottom on droplet arc)
@@ -95,8 +89,8 @@ y1_br = cy - math.sqrt(max(0.0, r_drop**2 - (x1_r - cx) ** 2))
 a1_l = math.degrees(math.atan2(y1_bl - cy, x1_l - cx))
 a1_r = math.degrees(math.atan2(y1_br - cy, x1_r - cx))
 tile1_pts = [(x1_r, y1_t), (x1_l, y1_t), *_arc_points(cx, cy, r_drop, a1_l, a1_r, 10)]
-polygon(tile1_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(tile1_pts, width_units=1.7, color=DARK, closed=True)
+polygon(tile1_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(tile1_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # Tile 2: top-right horizontal arc tile (x_left=64.8, y=27.2..35.2, right on droplet arc)
 x2_l, y2_b, y2_t = 64.8, 27.2, 35.2
@@ -105,8 +99,8 @@ x2_tr = cx + math.sqrt(max(0.0, r_drop**2 - (y2_t - cy) ** 2))
 a2_b = math.degrees(math.atan2(y2_b - cy, x2_br - cx))
 a2_t = math.degrees(math.atan2(y2_t - cy, x2_tr - cx))
 tile2_pts = [(x2_l, y2_t), (x2_l, y2_b), *_arc_points(cx, cy, r_drop, a2_b, a2_t, 10)]
-polygon(tile2_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(tile2_pts, width_units=1.7, color=DARK, closed=True)
+polygon(tile2_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(tile2_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # Tile 3: bottom-right corner arc tile (top-left=(64.8, 23.2), outer edge on droplet arc)
 x3_l, y3_t = 64.8, 23.2
@@ -115,7 +109,7 @@ x3_tr = cx + math.sqrt(max(0.0, r_drop**2 - (y3_t - cy) ** 2))
 a3_b = math.degrees(math.atan2(y3_bl - cy, x3_l - cx))
 a3_t = math.degrees(math.atan2(y3_t - cy, x3_tr - cx))
 tile3_pts = [(x3_l, y3_t), *_arc_points(cx, cy, r_drop, a3_b, a3_t, 12)]
-polygon(tile3_pts, style=no_border_fill(Colors.Teal4))
-draw_round_polyline(tile3_pts, width_units=1.7, color=DARK, closed=True)
+polygon(tile3_pts, style=Icon.no_border_fill(Colors.Teal4))
+Icon.draw_round_polyline(tile3_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 save()

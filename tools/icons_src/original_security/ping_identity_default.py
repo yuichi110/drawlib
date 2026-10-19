@@ -12,19 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_letter = 1.1
@@ -53,19 +45,19 @@ rectangle(
     (50.0, 50.0),
     width=80.0,
     height=80.0,
-    style=no_border_fill(Colors.Red3, shape_r=badge_r),
+    style=Icon.no_border_fill(Colors.Red3, shape_r=badge_r),
 )
 
 # 2. Clean WHITE 'Ping' letters with transparent holes in 'P' and 'g'
-draw_compound_polygon([p_outer, p_hole], color=WHITE)
-polygon(i_stem, style=no_border_fill(WHITE))
-polygon(i_dot, style=no_border_fill(WHITE))
-polygon(n_pts, style=no_border_fill(WHITE))
-draw_compound_polygon([g_outer, g_hole], color=WHITE)
+polygon(p_outer, holes=[p_hole], style=Icon.fill_style(Icon.WHITE))
+polygon(i_stem, style=Icon.no_border_fill(Icon.WHITE))
+polygon(i_dot, style=Icon.no_border_fill(Icon.WHITE))
+polygon(n_pts, style=Icon.no_border_fill(Icon.WHITE))
+polygon(g_outer, holes=[g_hole], style=Icon.fill_style(Icon.WHITE))
 
 # 3. Thin DARK 1.1 outlines on all letter contours
 for contour in (p_outer, p_hole, i_stem, i_dot, n_pts, g_outer, g_hole):
-    draw_round_polyline(contour, width_units=w_letter, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=w_letter, color=Icon.DARK, closed=True)
 
 # 4. Outer rounded square DARK border on top
 rectangle(
@@ -74,8 +66,8 @@ rectangle(
     height=80.0,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w_outer),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w_outer),
         shape_line_style="solid",
         shape_r=badge_r,
     ),

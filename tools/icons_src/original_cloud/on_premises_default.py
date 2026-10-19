@@ -13,20 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _top_rounded_tower(
@@ -52,17 +43,17 @@ def _top_rounded_tower(
 # Right secondary building wing
 polygon(
     _top_rounded_tower(54.0, 16.0, 80.0, 64.0, r=4.5),
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # Left main server tower
 polygon(
     _top_rounded_tower(19.0, 16.0, 57.0, 84.0, r=4.5),
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 
 # Ground foundation line
-draw_round_segment((12.0, 16.0), (88.0, 16.0), width_units=w, color=DARK)
+Icon.draw_round_segment((12.0, 16.0), (88.0, 16.0), width_units=w, color=Icon.DARK)
 
 # Server bay slots in main tower
 for y_slot in (68.0, 54.0, 40.0):
@@ -70,7 +61,7 @@ for y_slot in (68.0, 54.0, 40.0):
         (38.0, y_slot),
         width=22.0,
         height=6.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=2.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=2.0),
     )
 
 # Status indicator dots in right wing
@@ -78,7 +69,7 @@ for y_dot in (50.0, 36.0):
     circle(
         (68.5, y_dot),
         radius=3.6,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
     )
 
 save()

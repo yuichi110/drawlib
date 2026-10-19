@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _build_cloud(
@@ -78,8 +67,8 @@ bumps_left = [
     (50.0, 54.0, 9.0),
 ]
 pts_left = _build_cloud(bumps_left)
-polygon(pts_left, style=fill_style(PASTEL_BLUE_LIGHT))
-draw_round_polyline(pts_left, width_units=w, color=DARK, closed=True)
+polygon(pts_left, style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(pts_left, width_units=w, color=Icon.DARK, closed=True)
 
 # Back-right cloud (Provider B)
 bumps_right = [
@@ -89,8 +78,8 @@ bumps_right = [
     (82.0, 53.0, 9.5),
 ]
 pts_right = _build_cloud(bumps_right)
-polygon(pts_right, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(pts_right, width_units=w, color=DARK, closed=True)
+polygon(pts_right, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(pts_right, width_units=w, color=Icon.DARK, closed=True)
 
 # Front-center cloud (Primary / Unified Control Plane)
 bumps_front = [
@@ -100,17 +89,17 @@ bumps_front = [
     (72.0, 30.0, 12.0),
 ]
 pts_front = _build_cloud(bumps_front)
-polygon(pts_front, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(pts_front, width_units=w, color=DARK, closed=True)
+polygon(pts_front, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(pts_front, width_units=w, color=Icon.DARK, closed=True)
 
 # Multi-cloud interconnect hub inside front cloud
 n_c = (50.0, 31.5)
 n_l = (38.0, 37.5)
 n_r = (62.0, 37.5)
-draw_round_segment(n_c, n_l, width_units=1.8, color=DARK)
-draw_round_segment(n_c, n_r, width_units=1.8, color=DARK)
-circle(n_l, radius=3.5, style=fill_style(WHITE, border_color=DARK, border_units=1.7))
-circle(n_r, radius=3.5, style=fill_style(WHITE, border_color=DARK, border_units=1.7))
-circle(n_c, radius=4.2, style=fill_style(WHITE, border_color=DARK, border_units=1.8))
+Icon.draw_round_segment(n_c, n_l, width_units=1.8, color=Icon.DARK)
+Icon.draw_round_segment(n_c, n_r, width_units=1.8, color=Icon.DARK)
+circle(n_l, radius=3.5, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.7))
+circle(n_r, radius=3.5, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.7))
+circle(n_c, radius=4.2, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8))
 
 save()

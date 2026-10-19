@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -57,7 +50,7 @@ inner_hex_pts.extend([
     _svg_pt(112.5, 218.1),
     _svg_pt(83.1, 199.5),
 ])
-polygon(inner_hex_pts, style=no_border_fill(Colors.Blue3))
+polygon(inner_hex_pts, style=Icon.no_border_fill(Colors.Blue3))
 
 # 3. Outer folded hexagonal ribbon frame (Colors.Purple3)
 outer_frame_pts = [
@@ -80,18 +73,18 @@ outer_frame_pts = [
     _svg_pt(32.2, 196.7),
     _svg_pt(52.6, 209.7),
 ]
-polygon(outer_frame_pts, style=no_border_fill(Colors.Purple3))
+polygon(outer_frame_pts, style=Icon.no_border_fill(Colors.Purple3))
 
 # 4. Central keyhole core circle (Colors.Purple2)
 circle(
     (kh_cx, kh_cy),
     radius=20.0 * (82.0 / 295.0),
-    style=fill_style(Colors.Purple2, border_color=DARK, border_units=1.7),
+    style=Icon.fill_style(Colors.Purple2, border_color=Icon.DARK, border_units=1.7),
 )
 
 # 5. Crisp structural outlines
 # Collinear isometric seam between outer frame and inner hexagon
-draw_round_segment(_svg_pt(83.1, 199.5), _svg_pt(112.5, 218.1), width_units=1.6, color=DARK)
+Icon.draw_round_segment(_svg_pt(83.1, 199.5), _svg_pt(112.5, 218.1), width_units=1.6, color=Icon.DARK)
 
 # Full Valkey outer + keyhole contour
 full_contour = [
@@ -126,6 +119,6 @@ full_contour.extend([
     _svg_pt(32.2, 196.7),
     _svg_pt(52.6, 209.7),
 ])
-draw_round_polyline(full_contour, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(full_contour, width_units=w, color=Icon.DARK, closed=True)
 
 save()

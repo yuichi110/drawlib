@@ -12,13 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -39,7 +33,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -56,8 +50,8 @@ stem_pts = [
     p_base_r,
     p_base_c,
 ]
-polygon(stem_pts, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(stem_pts, width_units=1.8, color=DARK, closed=True)
+polygon(stem_pts, style=Icon.no_border_fill(Colors.Amber3))
+Icon.draw_round_polyline(stem_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 2. Central tapered vein cutout vertices
 vein_bot = (50.0, 19.8)
@@ -83,15 +77,15 @@ right_edge = [
 left_poly = [*left_edge, vein_bot, vein_l, vein_top]
 right_poly = [*right_edge, vein_top, vein_r, vein_bot]
 
-polygon(left_poly, style=no_border_fill(Colors.Green3))
-polygon(right_poly, style=no_border_fill(Colors.Green2))
+polygon(left_poly, style=Icon.no_border_fill(Colors.Green3))
+polygon(right_poly, style=Icon.no_border_fill(Colors.Green2))
 
 # 4. Upper center fold line above central vein
-draw_round_segment((50.0, 56.0), p_top, width_units=1.6, color=DARK)
+Icon.draw_round_segment((50.0, 56.0), p_top, width_units=1.6, color=Icon.DARK)
 
 # 5. Outer leaf blade border and transparent central vein border
 outer_leaf = [*left_edge[:-1], p_base_c, *right_edge[1:]]
-draw_round_polyline(outer_leaf, width_units=w, color=DARK, closed=True)
-draw_round_polyline(vein_pts, width_units=1.5, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_leaf, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(vein_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 save()

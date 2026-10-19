@@ -12,19 +12,11 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -45,12 +37,12 @@ def _draw_a_glyph(gx: float, gy: float) -> None:
         (gx, gy + 7.6),
         (gx + 6.6, gy - 6.8),
     ]
-    draw_round_polyline(legs, width_units=2.8, color=WHITE)
-    draw_round_segment(
+    Icon.draw_round_polyline(legs, width_units=2.8, color=Icon.WHITE)
+    Icon.draw_round_segment(
         (gx - 4.3, gy - 2.0),
         (gx + 4.3, gy - 2.0),
         width_units=2.0,
-        color=WHITE,
+        color=Icon.WHITE,
     )
 
 
@@ -73,16 +65,16 @@ def _draw_2_glyph(gx: float, gy: float) -> None:
             (gx + 6.4, gy - 7.8),
         ]
     )
-    draw_round_polyline(pts, width_units=2.9, color=WHITE, corner_r=1.8)
+    Icon.draw_round_polyline(pts, width_units=2.9, color=Icon.WHITE, corner_r=1.8)
 
 
 # 1. Central orbital circle ring (Colors.Blue3 band with transparent inner hole)
 outer_orbit = _circle_pts(cx, cy, 34.8)
 inner_orbit = _circle_pts(cx, cy, 30.8)
 
-draw_compound_polygon([outer_orbit, inner_orbit], color=Colors.Blue3)
-draw_round_polyline(outer_orbit, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_orbit, width_units=1.7, color=DARK, closed=True)
+polygon(outer_orbit, holes=[inner_orbit], style=Icon.fill_style(Colors.Blue3))
+Icon.draw_round_polyline(outer_orbit, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_orbit, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 2. Three circular node badges (top-left 'A', center '2', bottom-right 'A')
 tl_xy = (25.5, 74.5)
@@ -91,17 +83,17 @@ br_xy = (74.5, 25.5)
 circle(
     tl_xy,
     radius=14.6,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (cx, cy),
     radius=15.4,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w),
 )
 circle(
     br_xy,
     radius=14.6,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Clean polygon/polyline vector glyphs in WHITE

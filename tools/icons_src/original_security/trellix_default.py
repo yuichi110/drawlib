@@ -12,16 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -72,13 +66,13 @@ slash_outer = _sc(
 )
 
 # 1. Upper-right diagonal slash in flat pastel blue & green
-polygon(slash_blue, style=no_border_fill(Colors.Blue3))
-polygon(slash_green, style=no_border_fill(Colors.Green3))
-draw_round_segment(slash_blue[3], slash_blue[2], width_units=w, color=DARK)
-draw_round_polyline(slash_outer, width_units=w, color=DARK, closed=True)
+polygon(slash_blue, style=Icon.no_border_fill(Colors.Blue3))
+polygon(slash_green, style=Icon.no_border_fill(Colors.Green3))
+Icon.draw_round_segment(slash_blue[3], slash_blue[2], width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(slash_outer, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Dark slate X mark on lower-left
-polygon(x_mark, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(x_mark, width_units=w, color=DARK, closed=True)
+polygon(x_mark, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(x_mark, width_units=w, color=Icon.DARK, closed=True)
 
 save()

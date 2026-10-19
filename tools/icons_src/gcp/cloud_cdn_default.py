@@ -11,21 +11,21 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-polygon([(50.0, 92.0), (50.0, 81.88), (63.15, 68.35), (63.15, 78.52)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(81.5, 50.0), (68.4, 36.85), (78.9, 36.85), (92.0, 50.0)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(18.5, 50.0), (31.65, 36.85), (21.15, 36.85), (8.0, 50.0)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(50.0, 8.0), (50.0, 18.12), (63.15, 31.6), (63.15, 21.48)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(50.0, 92.0), (36.9, 78.52), (36.9, 68.35), (50.0, 81.88)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(78.9, 63.1), (68.4, 63.1), (81.5, 50.0), (92.0, 50.0)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(21.15, 63.1), (31.65, 63.1), (18.5, 50.0), (8.0, 50.0)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(50.0, 8.0), (36.9, 21.48), (36.9, 31.6), (50.0, 18.12)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(63.15, 36.85), (36.9, 36.85), (36.9, 63.1), (63.15, 63.1)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(63.15, 63.1), (63.15, 36.85), (36.9, 36.85)], style=fill_style(GCP_TECH_MED_LIGHT))
-polygon([(63.15, 63.1), (63.15, 36.85), (50.0, 50.0)], style=fill_style(GCP_TECH_MID))
+Icon.setup()
+polygon([(50.0, 92.0), (50.0, 81.88), (63.15, 68.35), (63.15, 78.52)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
+polygon([(81.5, 50.0), (68.4, 36.85), (78.9, 36.85), (92.0, 50.0)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
+polygon([(18.5, 50.0), (31.65, 36.85), (21.15, 36.85), (8.0, 50.0)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
+polygon([(50.0, 8.0), (50.0, 18.12), (63.15, 31.6), (63.15, 21.48)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
+polygon([(50.0, 92.0), (36.9, 78.52), (36.9, 68.35), (50.0, 81.88)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(78.9, 63.1), (68.4, 63.1), (81.5, 50.0), (92.0, 50.0)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(21.15, 63.1), (31.65, 63.1), (18.5, 50.0), (8.0, 50.0)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(50.0, 8.0), (36.9, 21.48), (36.9, 31.6), (50.0, 18.12)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(63.15, 36.85), (36.9, 36.85), (36.9, 63.1), (63.15, 63.1)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(63.15, 63.1), (63.15, 36.85), (36.9, 36.85)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
+polygon([(63.15, 63.1), (63.15, 36.85), (50.0, 50.0)], style=Icon.fill_style(Gcp.TECH_MID))
 save()
 # fmt: on

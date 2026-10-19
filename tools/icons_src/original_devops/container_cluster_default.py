@@ -10,48 +10,40 @@
 """Original concept icon: container_cluster."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-draw_iso_cube(
+Icon.draw_iso_cube(
     50.0,
     64.0,
     radius=21.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 
-draw_iso_cube(
+Icon.draw_iso_cube(
     31.0,
     34.0,
     radius=21.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_GREEN,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 
-draw_iso_cube(
+Icon.draw_iso_cube(
     69.0,
     34.0,
     radius=21.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_GREEN,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 

@@ -13,35 +13,25 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 50.0
 
 # Outer circular pool ring border (transparent moat)
 circle(
     (cx, cy),
     radius=38.0,
-    style=stroke_style(DARK, width_units=w),
+    style=Icon.stroke_style(Icon.DARK, width_units=w),
 )
 
 # 3-slice donut gauge chart (r=9.5..30.0) representing CPU / Memory / IOPS allocation
 slices = [
-    (90.0, 220.0, PASTEL_BLUE),
-    (220.0, 330.0, PASTEL_BLUE_LIGHT),
-    (330.0, 90.0, PASTEL_GREEN),
+    (90.0, 220.0, Icon.PASTEL_BLUE),
+    (220.0, 330.0, Icon.PASTEL_BLUE_LIGHT),
+    (330.0, 90.0, Icon.PASTEL_GREEN),
 ]
 r_in, r_out = 9.5, 30.0
 for ang_start, ang_end, fill_col in slices:
@@ -61,20 +51,20 @@ for ang_start, ang_end, fill_col in slices:
         )
         for i in range(steps, -1, -1)
     ]
-    polygon([*outer_arc, *inner_arc], style=no_border_fill(fill_col))
-    draw_round_segment(inner_arc[-1], outer_arc[0], width_units=2.0, color=DARK)
-    draw_round_segment(inner_arc[0], outer_arc[-1], width_units=2.0, color=DARK)
+    polygon([*outer_arc, *inner_arc], style=Icon.no_border_fill(fill_col))
+    Icon.draw_round_segment(inner_arc[-1], outer_arc[0], width_units=2.0, color=Icon.DARK)
+    Icon.draw_round_segment(inner_arc[0], outer_arc[-1], width_units=2.0, color=Icon.DARK)
 
 # Crisp continuous outer and inner perimeter strokes around the 3 donut slices
 circle(
     (cx, cy),
     radius=r_out,
-    style=stroke_style(DARK, width_units=2.0),
+    style=Icon.stroke_style(Icon.DARK, width_units=2.0),
 )
 circle(
     (cx, cy),
     radius=r_in,
-    style=stroke_style(DARK, width_units=2.0),
+    style=Icon.stroke_style(Icon.DARK, width_units=2.0),
 )
 
 save()

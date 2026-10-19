@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_bird = 1.4
@@ -31,11 +25,11 @@ bird = [(63.46, 29.14), (62.56, 28.66), (61.63, 28.23), (60.67, 27.83), (59.69, 
 # fmt: on
 
 # 1. Flat pastel coral-orange rounded square badge
-polygon(badge, style=no_border_fill("#F16F47"))
-draw_round_polyline(badge, width_units=w_outer, color=DARK, closed=True)
+polygon(badge, style=Icon.no_border_fill("#F16F47"))
+Icon.draw_round_polyline(badge, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Crisp WHITE swift bird silhouette with DARK outline
-polygon(bird, style=no_border_fill(WHITE))
-draw_round_polyline(bird, width_units=w_bird, color=DARK, closed=True)
+polygon(bird, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(bird, width_units=w_bird, color=Icon.DARK, closed=True)
 
 save()

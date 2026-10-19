@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -57,11 +51,11 @@ node_r = 7.31 * s
 
 # 1. Hexagon edges and inner triangle chords
 for bar in bars:
-    polygon(bar, style=no_border_fill(PINK))
-    draw_round_polyline(bar, width_units=w, color=DARK, closed=True)
+    polygon(bar, style=Icon.no_border_fill(PINK))
+    Icon.draw_round_polyline(bar, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Six circular nodes on top
-node_style = fill_style(PINK, border_color=DARK, border_units=w)
+node_style = Icon.fill_style(PINK, border_color=Icon.DARK, border_units=w)
 for cx, cy in node_centers:
     circle((cx, cy), radius=node_r, style=node_style)
 

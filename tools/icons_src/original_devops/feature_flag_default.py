@@ -11,26 +11,18 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Outer stadium/pill toggle switch track
 rectangle(
     (50.0, 50.0),
     width=74.0,
     height=38.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=19.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=19.0),
 )
 
 # Left ON vertical indicator bar
@@ -38,19 +30,19 @@ rectangle(
     (31.0, 50.0),
     width=6.0,
     height=15.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=3.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=3.0),
 )
 
 # Active right toggle knob
 circle(
     (67.0, 50.0),
     radius=13.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (67.0, 50.0),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

@@ -11,17 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -31,7 +23,7 @@ rectangle(
     (50.0, 44.0),
     width=56.0,
     height=60.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_outer, shape_r=2.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer, shape_r=2.5),
 )
 
 # 2. Overhanging flat roof cornice cap (PASTEL_BLUE)
@@ -39,7 +31,7 @@ rectangle(
     (50.0, 77.5),
     width=64.0,
     height=7.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_outer, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_outer, shape_r=2.5),
 )
 
 # 3. Three stories of windows (PASTEL_BLUE_LIGHT)
@@ -50,7 +42,7 @@ for wy in (63.5, 48.5):
             (wx, wy),
             width=10.5,
             height=8.5,
-            style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_inner, shape_r=1.5),
+            style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
         )
 
 # Ground floor: flanking windows on left and right of entrance
@@ -59,7 +51,7 @@ for wx in (33.5, 66.5):
         (wx, 32.5),
         width=10.5,
         height=8.5,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_inner, shape_r=1.5),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
     )
 
 # 4. Main entrance double door & canopy (PASTEL_BLUE)
@@ -67,17 +59,17 @@ rectangle(
     (50.0, 23.0),
     width=13.0,
     height=18.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_inner, shape_r=1.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
 )
-draw_round_segment((50.0, 14.0), (50.0, 32.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((50.0, 14.0), (50.0, 32.0), width_units=w_inner, color=Icon.DARK)
 rectangle(
     (50.0, 33.5),
     width=17.0,
     height=3.6,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_inner, shape_r=1.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
 )
 
 # 5. Ground baseline
-draw_round_segment((14.0, 14.0), (86.0, 14.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((14.0, 14.0), (86.0, 14.0), width_units=w_outer, color=Icon.DARK)
 
 save()

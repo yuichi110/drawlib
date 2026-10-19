@@ -12,18 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_hole = 1.7
@@ -135,22 +127,22 @@ winged_swoosh = _sc([
 # fmt: on
 
 # 1. Padlock in pastel blue (Colors.Blue3) with transparent shackle hole
-draw_compound_polygon([padlock_outer, shackle_hole], color=Colors.Blue3)
+polygon(padlock_outer, holes=[shackle_hole], style=Icon.fill_style(Colors.Blue3))
 
 # 2. White winged swoosh across lower body + DARK 1.5 outline
-polygon(winged_swoosh, style=no_border_fill(WHITE))
-draw_round_polyline(winged_swoosh, width_units=w_swoosh, color=DARK, closed=True)
+polygon(winged_swoosh, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(winged_swoosh, width_units=w_swoosh, color=Icon.DARK, closed=True)
 
 # 3. White shackle crescent highlight + DARK 1.2 outline
-polygon(shackle_shine, style=no_border_fill(WHITE))
-draw_round_polyline(shackle_shine, width_units=w_shine, color=DARK, closed=True)
+polygon(shackle_shine, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(shackle_shine, width_units=w_shine, color=Icon.DARK, closed=True)
 
 # 4. Crisp DARK outlines for shackle hole, body top seam, and outer padlock
-draw_round_polyline(shackle_hole, width_units=w_hole, color=DARK, closed=True)
+Icon.draw_round_polyline(shackle_hole, width_units=w_hole, color=Icon.DARK, closed=True)
 left_seam = _sc([(23.04, 51.2), (36.34, 51.2)])
 right_seam = _sc([(63.27, 51.2), (76.72, 51.2)])
-draw_round_segment(left_seam[0], left_seam[1], width_units=w_hole, color=DARK)
-draw_round_segment(right_seam[0], right_seam[1], width_units=w_hole, color=DARK)
-draw_round_polyline(padlock_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_segment(left_seam[0], left_seam[1], width_units=w_hole, color=Icon.DARK)
+Icon.draw_round_segment(right_seam[0], right_seam[1], width_units=w_hole, color=Icon.DARK)
+Icon.draw_round_polyline(padlock_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -46,11 +41,11 @@ n_facet = _sc([(47.29, 51.46), (36.45, 56.92), (36.45, 33.36), (36.38, 33.5), (3
 
 # 1. Pastel cyan top and right cube facets
 for facet in cyan_facets:
-    polygon(facet, style=no_border_fill("#55BBE6"))
-    draw_round_polyline(facet, width_units=w, color=DARK, closed=True)
+    polygon(facet, style=Icon.no_border_fill("#55BBE6"))
+    Icon.draw_round_polyline(facet, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Pastel blue left 'N' facet
-polygon(n_facet, style=no_border_fill("#558AE4"))
-draw_round_polyline(n_facet, width_units=w, color=DARK, closed=True)
+polygon(n_facet, style=Icon.no_border_fill("#558AE4"))
+Icon.draw_round_polyline(n_facet, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -12,15 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -49,12 +44,12 @@ slate_blades = [
 # 1. Fill alternating purple (Colors.Purple3) and dark slate (Colors.Gray6) blades
 #    (center diamond hole remains completely transparent)
 for blade in purple_blades:
-    polygon(blade, style=no_border_fill(Colors.Purple3))
+    polygon(blade, style=Icon.no_border_fill(Colors.Purple3))
 for blade in slate_blades:
-    polygon(blade, style=no_border_fill(Colors.Gray6))
+    polygon(blade, style=Icon.no_border_fill(Colors.Gray6))
 
 # 2. Crisp DARK w=1.6 outlines around all 8 pinwheel blades
 for blade in [*purple_blades, *slate_blades]:
-    draw_round_polyline(blade, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(blade, width_units=w, color=Icon.DARK, closed=True)
 
 save()

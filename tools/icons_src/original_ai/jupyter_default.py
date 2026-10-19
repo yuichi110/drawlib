@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 scale = 0.945
@@ -112,24 +106,24 @@ top_crescent = _sc(
 )
 
 for crescent in (bottom_crescent, top_crescent):
-    polygon(crescent, style=no_border_fill(Colors.Orange3))
-    draw_round_polyline(crescent, width_units=w, color=DARK, closed=True)
+    polygon(crescent, style=Icon.no_border_fill(Colors.Orange3))
+    Icon.draw_round_polyline(crescent, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Three satellite moons (top-right Gray5, bottom-left Gray4, top-left Gray5)
 circle(
     _sc_pt(74.49, 86.13),
     radius=4.86 * scale,
-    style=fill_style(Colors.Gray5, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray5, border_color=Icon.DARK, border_units=w),
 )
 circle(
     _sc_pt(27.36, 15.15),
     radius=6.12 * scale,
-    style=fill_style(Colors.Gray4, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray4, border_color=Icon.DARK, border_units=w),
 )
 circle(
     _sc_pt(22.48, 79.61),
     radius=3.60 * scale,
-    style=fill_style(Colors.Gray5, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray5, border_color=Icon.DARK, border_units=w),
 )
 
 save()

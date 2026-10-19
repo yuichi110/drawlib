@@ -11,14 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -191,7 +186,7 @@ raw_pts: list[tuple[float, float]] = [
 burst_pts = [(cx + (x - cx) * scale, cy + (y - cy) * scale) for x, y in raw_pts]
 
 TERRACOTTA = "#E27654"
-polygon(burst_pts, style=no_border_fill(TERRACOTTA))
-draw_round_polyline(burst_pts, width_units=w, color=DARK, closed=True)
+polygon(burst_pts, style=Icon.no_border_fill(TERRACOTTA))
+Icon.draw_round_polyline(burst_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

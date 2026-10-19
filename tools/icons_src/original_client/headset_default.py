@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 cx, cy = 50.0, 52.0
 r_outer = 32.0
@@ -44,8 +34,8 @@ pad_inner = [
     for deg in range(128, 51, -4)
 ]
 pad_pts = pad_outer + pad_inner
-polygon(pad_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(pad_pts, width_units=2.0, color=DARK, closed=True)
+polygon(pad_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(pad_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 # 2. Headband arch (PASTEL_BLUE)
 outer_arc = [
@@ -57,8 +47,8 @@ inner_arc = [
     for i in range(steps, -1, -1)
 ]
 band_pts = outer_arc + inner_arc
-polygon(band_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(band_pts, width_units=w, color=DARK, closed=True)
+polygon(band_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(band_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Boom microphone arm from left earcup down-right
 mic_arm_pts = [
@@ -67,7 +57,7 @@ mic_arm_pts = [
     (28.5, 17.5),
     (49.0, 17.5),
 ]
-draw_round_polyline(mic_arm_pts, width_units=3.2, color=DARK, corner_r=6.0)
+Icon.draw_round_polyline(mic_arm_pts, width_units=3.2, color=Icon.DARK, corner_r=6.0)
 
 # 4. Left and right earcup cushions (PASTEL_BLUE_LIGHT)
 for cushion_x in (27.5, 72.5):
@@ -75,7 +65,7 @@ for cushion_x in (27.5, 72.5):
         (cushion_x, 42.0),
         width=9.5,
         height=24.0,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=4.2),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=4.2),
     )
 
 # 5. Left and right outer earcup shells (PASTEL_BLUE)
@@ -84,7 +74,7 @@ for cup_x in (19.5, 80.5):
         (cup_x, 42.0),
         width=12.0,
         height=28.0,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=5.5),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=5.5),
     )
 
 # 6. Boom microphone capsule tip (PASTEL_GREEN)
@@ -92,7 +82,7 @@ rectangle(
     (52.5, 17.5),
     width=12.5,
     height=7.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.7),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=3.7),
 )
 
 save()

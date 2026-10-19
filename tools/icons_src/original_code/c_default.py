@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -36,19 +29,19 @@ rays = [((50.0, 50.0), (84.64, 70.0)), ((50.0, 50.0), (84.64, 30.0)), ((50.0, 50
 # fmt: on
 
 # 1. Flat pastel blue hexagon facets
-polygon(hex_top_left, style=no_border_fill("#6490D8"))
-polygon(hex_right, style=no_border_fill("#537EC5"))
-polygon(hex_bottom, style=no_border_fill("#3E64A8"))
+polygon(hex_top_left, style=Icon.no_border_fill("#6490D8"))
+polygon(hex_right, style=Icon.no_border_fill("#537EC5"))
+polygon(hex_bottom, style=Icon.no_border_fill("#3E64A8"))
 
 # 2. Inner radial facet lines
 for p1, p2 in rays:
-    draw_round_segment(p1, p2, width_units=w_inner, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w_inner, color=Icon.DARK)
 
 # 3. Crisp WHITE 'C' mark with DARK inner outline
-polygon(c_mark, style=no_border_fill(WHITE))
-draw_round_polyline(c_mark, width_units=w_inner, color=DARK, closed=True)
+polygon(c_mark, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(c_mark, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. Crisp DARK outer hexagon border
-draw_round_polyline(hex_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(hex_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

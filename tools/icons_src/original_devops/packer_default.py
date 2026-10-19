@@ -12,12 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _scale_pt(pt: tuple[float, float], s: float = 0.94) -> tuple[float, float]:
@@ -25,7 +20,7 @@ def _scale_pt(pt: tuple[float, float], s: float = 0.94) -> tuple[float, float]:
     return (50.0 + (pt[0] - 50.0) * s, 50.0 + (pt[1] - 50.0) * s)
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -70,10 +65,10 @@ raw_back_wing = [
 front_wing = [_scale_pt(p) for p in raw_front_wing]
 back_wing = [_scale_pt(p) for p in raw_back_wing]
 
-polygon(front_wing, style=no_border_fill(Colors.Blue3))
-polygon(back_wing, style=no_border_fill(Colors.Blue4))
+polygon(front_wing, style=Icon.no_border_fill(Colors.Blue3))
+polygon(back_wing, style=Icon.no_border_fill(Colors.Blue4))
 
-draw_round_polyline(front_wing, width_units=w, color=DARK, closed=True)
-draw_round_polyline(back_wing, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(front_wing, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(back_wing, width_units=w, color=Icon.DARK, closed=True)
 
 save()

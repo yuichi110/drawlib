@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -60,13 +53,13 @@ one_mark = _sc([
 # fmt: on
 
 # 1. Dark slate/navy circular badge fill
-circle((50.0, 50.0), radius=40.0, style=no_border_fill("#4B5668"))
+circle((50.0, 50.0), radius=40.0, style=Icon.no_border_fill("#4B5668"))
 
 # 2. White '1' mark + DARK 1.4 outline
-polygon(one_mark, style=no_border_fill(WHITE))
-draw_round_polyline(one_mark, width_units=w_inner, color=DARK, closed=True)
+polygon(one_mark, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(one_mark, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Outer circular DARK border
-circle((50.0, 50.0), radius=40.0, style=stroke_style(DARK, width_units=w_outer))
+circle((50.0, 50.0), radius=40.0, style=Icon.stroke_style(Icon.DARK, width_units=w_outer))
 
 save()

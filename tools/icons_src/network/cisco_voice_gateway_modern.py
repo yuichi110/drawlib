@@ -13,51 +13,44 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_arrow,
-    draw_cisco_modern_badge,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-draw_cisco_modern_badge()
+Cisco.draw_modern_badge()
 
 # 4 Cisco routing/gateway cross arrows around the center (2 horizontal inward, 2 vertical outward)
-draw_cisco_arrow(
+Cisco.draw_arrow(
     (16.5, 50.0),
     (31.5, 50.0),
     shaft_w=4.0,
     head_len=6.0,
     head_w=9.4,
-    color=WHITE,
+    color=Icon.WHITE,
 )
-draw_cisco_arrow(
+Cisco.draw_arrow(
     (83.5, 50.0),
     (68.5, 50.0),
     shaft_w=4.0,
     head_len=6.0,
     head_w=9.4,
-    color=WHITE,
+    color=Icon.WHITE,
 )
-draw_cisco_arrow(
+Cisco.draw_arrow(
     (50.0, 68.5),
     (50.0, 83.5),
     shaft_w=4.0,
     head_len=6.0,
     head_w=9.4,
-    color=WHITE,
+    color=Icon.WHITE,
 )
-draw_cisco_arrow(
+Cisco.draw_arrow(
     (50.0, 31.5),
     (50.0, 16.5),
     shaft_w=4.0,
     head_len=6.0,
     head_w=9.4,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 # Central telephone handset icon rotated at +135 degrees (spine bowing bottom-left)
@@ -109,7 +102,7 @@ off_x = 50.0 - (min_x + max_x) / 2.0
 off_y = 50.0 - (min_y + max_y) / 2.0
 
 handset_pts = [(px + off_x, py + off_y) for px, py in raw_pts]
-polygon(handset_pts, style=no_border_fill(WHITE))
-draw_round_polyline(handset_pts, width_units=1.5, color=WHITE, closed=True)
+polygon(handset_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(handset_pts, width_units=1.5, color=Icon.WHITE, closed=True)
 
 save()

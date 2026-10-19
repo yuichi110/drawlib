@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_seam = 1.6
@@ -94,20 +88,20 @@ center_tip = [
 
 # 1. Right side wing (#9E353F, softened #7D353B deep burgundy-red)
 right_wing = _sc([v_right_valley, v_fold_br_right, *right_tip])
-polygon(right_wing, style=no_border_fill("#9E353F"))
+polygon(right_wing, style=Icon.no_border_fill("#9E353F"))
 
 # 2. Center peak (Colors.Red4, softened #BD4043 medium crimson)
 center_peak = _sc([v_left_valley, *center_tip, v_right_valley, v_fold_br_right, v_fold_br_left])
-polygon(center_peak, style=no_border_fill(Colors.Red4))
+polygon(center_peak, style=Icon.no_border_fill(Colors.Red4))
 
 # 3. Left front wing (Colors.Red3, softened #FF4B4B bright coral-red)
 left_wing = _sc([v_left_valley, *left_tip, *bottom_base])
-polygon(left_wing, style=no_border_fill(Colors.Red3))
+polygon(left_wing, style=Icon.no_border_fill(Colors.Red3))
 
 # 4. Internal fold seams
 p_lv, p_rv, p_fbl, p_fbr = _sc([v_left_valley, v_right_valley, v_fold_br_left, v_fold_br_right])
-draw_round_segment(p_lv, p_fbl, width_units=w_seam, color=DARK)
-draw_round_segment(p_rv, p_fbr, width_units=w_seam, color=DARK)
+Icon.draw_round_segment(p_lv, p_fbl, width_units=w_seam, color=Icon.DARK)
+Icon.draw_round_segment(p_rv, p_fbr, width_units=w_seam, color=Icon.DARK)
 
 # 5. Unified outer crown silhouette
 outer_crown = _sc(
@@ -121,6 +115,6 @@ outer_crown = _sc(
         *reversed(center_tip),
     ]
 )
-draw_round_polyline(outer_crown, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_crown, width_units=w, color=Icon.DARK, closed=True)
 
 save()

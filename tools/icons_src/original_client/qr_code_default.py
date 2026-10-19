@@ -11,26 +11,18 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Outer QR plate (WHITE)
 rectangle(
     (50.0, 50.0),
     width=76.0,
     height=76.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=10.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=10.0),
 )
 
 
@@ -39,26 +31,26 @@ def _draw_finder(cx: float, cy: float, color: str) -> None:
         (cx, cy),
         width=21.0,
         height=21.0,
-        style=fill_style(color, border_color=DARK, border_units=2.0, shape_r=3.5),
+        style=Icon.fill_style(color, border_color=Icon.DARK, border_units=2.0, shape_r=3.5),
     )
     rectangle(
         (cx, cy),
         width=11.5,
         height=11.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.8, shape_r=1.8),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8, shape_r=1.8),
     )
     rectangle(
         (cx, cy),
         width=5.0,
         height=5.0,
-        style=fill_style(DARK, shape_r=0.8),
+        style=Icon.fill_style(Icon.DARK, shape_r=0.8),
     )
 
 
 # 2. Three corner finder squares in PASTEL_BLUE and PASTEL_GREEN
-_draw_finder(31.0, 69.0, PASTEL_BLUE)
-_draw_finder(31.0, 31.0, PASTEL_BLUE)
-_draw_finder(69.0, 69.0, PASTEL_GREEN)
+_draw_finder(31.0, 69.0, Icon.PASTEL_BLUE)
+_draw_finder(31.0, 31.0, Icon.PASTEL_BLUE)
+_draw_finder(69.0, 69.0, Icon.PASTEL_GREEN)
 
 # 3. QR data modules (DARK) in center timing lanes and bottom-right quadrant
 module_coords = [
@@ -85,7 +77,7 @@ for mx, my in module_coords:
         (mx, my),
         width=5.4,
         height=5.4,
-        style=fill_style(DARK, shape_r=1.0),
+        style=Icon.fill_style(Icon.DARK, shape_r=1.0),
     )
 
 save()

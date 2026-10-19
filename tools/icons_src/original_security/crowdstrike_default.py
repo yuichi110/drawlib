@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_inner = 2.0
 s = 0.96
@@ -44,13 +37,13 @@ main_body = _sc([(55.17, 59.69), (52.33, 60.54), (49.67, 61.41), (47.16, 62.3), 
 
 # 1. Four standalone wing feathers in Colors.Red3 with DARK 1.4 outlines
 for pts in (feather_1, feather_2, feather_3, feather_4):
-    polygon(pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 2. Main falcon wing & head with open WHITE eye slit
-draw_compound_polygon([eye_hole, main_body], color=Colors.Red3)
-draw_round_polyline(main_body, width_units=w_inner, color=DARK, closed=True)
-polygon(eye_hole, style=no_border_fill(WHITE))
-draw_round_polyline(eye_hole, width_units=0.5, color=DARK, closed=True)
+polygon(main_body, holes=[eye_hole], style=Icon.fill_style(Colors.Red3))
+Icon.draw_round_polyline(main_body, width_units=w_inner, color=Icon.DARK, closed=True)
+polygon(eye_hole, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(eye_hole, width_units=0.5, color=Icon.DARK, closed=True)
 
 save()

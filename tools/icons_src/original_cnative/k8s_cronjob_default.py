@@ -11,49 +11,40 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Top alarm / schedule button stem and tab
-draw_round_segment((50.0, 64.0), (50.0, 69.5), width_units=2.0, color=DARK)
+Icon.draw_round_segment((50.0, 64.0), (50.0, 69.5), width_units=2.0, color=Icon.DARK)
 rectangle(
     (50.0, 72.0),
     width=14.0,
     height=6.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=2.5),
 )
 
 # White circular clock face
 circle(
     (50.0, 44.0),
     radius=20.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # L-shaped dark clock hands
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(50.0, 55.0), (50.0, 44.0), (58.5, 38.8)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Green center clock pivot dot
 circle(
     (50.0, 44.0),
     radius=3.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

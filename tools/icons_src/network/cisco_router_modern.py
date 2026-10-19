@@ -10,51 +10,45 @@
 """Cisco network icon: cisco_router (modern 2D badge variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_modern_badge,
-    draw_round_polyline,
-    draw_round_segment,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-draw_cisco_modern_badge()
+Cisco.draw_modern_badge()
 
 w = 4.6
 arm = 11.0
 
 # Top-left arrow pointing IN toward center
-draw_round_segment((27.0, 73.0), (44.5, 55.5), width_units=w, color=WHITE)
-draw_round_polyline(
+Icon.draw_round_segment((27.0, 73.0), (44.5, 55.5), width_units=w, color=Icon.WHITE)
+Icon.draw_round_polyline(
     [(44.5 - arm, 55.5), (44.5, 55.5), (44.5, 55.5 + arm)],
     width_units=w,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 # Bottom-right arrow pointing IN toward center
-draw_round_segment((73.0, 27.0), (55.5, 44.5), width_units=w, color=WHITE)
-draw_round_polyline(
+Icon.draw_round_segment((73.0, 27.0), (55.5, 44.5), width_units=w, color=Icon.WHITE)
+Icon.draw_round_polyline(
     [(55.5 + arm, 44.5), (55.5, 44.5), (55.5, 44.5 - arm)],
     width_units=w,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 # Top-right arrow pointing OUT away from center
-draw_round_segment((55.5, 55.5), (73.0, 73.0), width_units=w, color=WHITE)
-draw_round_polyline(
+Icon.draw_round_segment((55.5, 55.5), (73.0, 73.0), width_units=w, color=Icon.WHITE)
+Icon.draw_round_polyline(
     [(73.0 - arm, 73.0), (73.0, 73.0), (73.0, 73.0 - arm)],
     width_units=w,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 # Bottom-left arrow pointing OUT away from center
-draw_round_segment((44.5, 44.5), (27.0, 27.0), width_units=w, color=WHITE)
-draw_round_polyline(
+Icon.draw_round_segment((44.5, 44.5), (27.0, 27.0), width_units=w, color=Icon.WHITE)
+Icon.draw_round_polyline(
     [(27.0 + arm, 27.0), (27.0, 27.0), (27.0, 27.0 + arm)],
     width_units=w,
-    color=WHITE,
+    color=Icon.WHITE,
 )
 
 save()

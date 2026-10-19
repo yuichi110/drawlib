@@ -12,17 +12,11 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -95,11 +89,11 @@ couch_pts: list[tuple[float, float]] = [
 outer_circle_pts = _circle_pts(cx, cy, 40.5, 64)
 inner_circle_pts = _circle_pts(cx, cy, 34.0, 64)
 
-draw_compound_polygon([outer_circle_pts, couch_pts], color=Colors.Red2)
-draw_compound_polygon([inner_circle_pts, couch_pts], color=Colors.Red3)
+polygon(outer_circle_pts, holes=[couch_pts], style=Icon.fill_style(Colors.Red2))
+polygon(inner_circle_pts, holes=[couch_pts], style=Icon.fill_style(Colors.Red3))
 
-circle((cx, cy), radius=40.5, style=stroke_style(DARK, width_units=w))
-circle((cx, cy), radius=34.0, style=stroke_style(DARK, width_units=1.7))
-draw_round_polyline(couch_pts, width_units=1.8, color=DARK, closed=True)
+circle((cx, cy), radius=40.5, style=Icon.stroke_style(Icon.DARK, width_units=w))
+circle((cx, cy), radius=34.0, style=Icon.stroke_style(Icon.DARK, width_units=1.7))
+Icon.draw_round_polyline(couch_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

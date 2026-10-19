@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -55,27 +47,29 @@ for lobe_idx in range(5):
         ang = math.radians(0.0 - 180.0 * (j / 12))
         body_pts.append((lobe_cx + 6.0 * math.cos(ang), 20.0 + 6.5 * math.sin(ang)))
 
-polygon(body_pts, style=no_border_fill(Colors.Teal3))
+polygon(body_pts, style=Icon.no_border_fill(Colors.Teal3))
 
 # 2. Cute pastel forehead spots (Colors.Teal2 & Colors.Blue3)
-ellipse((50.0, 78.0), width=14.0, height=6.5, style=fill_style(Colors.Teal2, border_color=DARK, border_units=1.5))
+ellipse(
+    (50.0, 78.0), width=14.0, height=6.5, style=Icon.fill_style(Colors.Teal2, border_color=Icon.DARK, border_units=1.5)
+)
 for sx in (34.0, 66.0):
-    circle((sx, 73.5), radius=3.5, style=fill_style(Colors.Blue3, border_color=DARK, border_units=1.5))
+    circle((sx, 73.5), radius=3.5, style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=1.5))
 
 # 3. Outer border + vertical tentacle division creases
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
 for tx in (32.0, 44.0, 56.0, 68.0):
-    draw_round_segment((tx, 20.0), (tx, 31.5), width_units=1.7, color=DARK)
+    Icon.draw_round_segment((tx, 20.0), (tx, 31.5), width_units=1.7, color=Icon.DARK)
 
 # 4. Two big adorable rounded eyes (WHITE + DARK pupils)
 for ex, px in ((37.5, 39.0), (62.5, 61.0)):
     circle(
         (ex, 55.5),
         radius=9.8,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8),
     )
-    circle((px, 55.5), radius=4.2, style=fill_style(DARK))
-    circle((px - 1.3, 57.0), radius=1.3, style=fill_style(WHITE))
+    circle((px, 55.5), radius=4.2, style=Icon.fill_style(Icon.DARK))
+    circle((px - 1.3, 57.0), radius=1.3, style=Icon.fill_style(Icon.WHITE))
 
 # 5. Friendly curved smile + two cute little white teeth tucked cleanly beneath the smile curve
 smile_cy = 44.5
@@ -105,9 +99,9 @@ for tooth_x in (44.0, 56.0):
         (tooth_x + 2.1, 34.0),
         (xr, yr),
     ]
-    polygon(tooth_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(tooth_pts, width_units=1.5, color=DARK, closed=True)
+    polygon(tooth_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(tooth_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
-draw_round_polyline(smile_pts, width_units=1.8, color=DARK)
+Icon.draw_round_polyline(smile_pts, width_units=1.8, color=Icon.DARK)
 
 save()

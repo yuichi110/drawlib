@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 width = 44.0
 w_half = width / 2.0
 ry = 7.5
@@ -42,23 +33,23 @@ for yb in back_bottoms:
         (cx_back, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx_back, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_GREEN),
+        style=Icon.fill_style(Icon.PASTEL_GREEN),
     )
 
-draw_round_segment((cx_back - w_half, y_bot_back), (cx_back - w_half, y_top_back), width_units=w, color=DARK)
-draw_round_segment((cx_back + w_half, y_bot_back), (cx_back + w_half, y_top_back), width_units=w, color=DARK)
+Icon.draw_round_segment((cx_back - w_half, y_bot_back), (cx_back - w_half, y_top_back), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx_back + w_half, y_bot_back), (cx_back + w_half, y_top_back), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx_back, y_top_back),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Front/left primary cylinder (PASTEL_BLUE)
@@ -72,23 +63,27 @@ for yb in front_bottoms:
         (cx_front, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx_front, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_BLUE),
+        style=Icon.fill_style(Icon.PASTEL_BLUE),
     )
 
-draw_round_segment((cx_front - w_half, y_bot_front), (cx_front - w_half, y_top_front), width_units=w, color=DARK)
-draw_round_segment((cx_front + w_half, y_bot_front), (cx_front + w_half, y_top_front), width_units=w, color=DARK)
+Icon.draw_round_segment(
+    (cx_front - w_half, y_bot_front), (cx_front - w_half, y_top_front), width_units=w, color=Icon.DARK
+)
+Icon.draw_round_segment(
+    (cx_front + w_half, y_bot_front), (cx_front + w_half, y_top_front), width_units=w, color=Icon.DARK
+)
 
 ellipse(
     (cx_front, y_top_front),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Status LED dots on front cylinder
@@ -96,7 +91,7 @@ for y_led in (21.0, 39.0):
     circle(
         (50.0, y_led),
         radius=2.8,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.8),
     )
 
 save()

@@ -13,29 +13,19 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Outer flat-top hexagonal security plate
 cx, cy = 50.0, 50.0
 hex_r = 38.0
 hex_angles = [0.0, 60.0, 120.0, 180.0, 240.0, 300.0]
 hex_pts = [(cx + hex_r * math.cos(math.radians(a)), cy + hex_r * math.sin(math.radians(a))) for a in hex_angles]
-polygon(hex_pts, style=no_border_fill(WHITE))
-draw_round_polyline(hex_pts, width_units=w, color=DARK, closed=True)
+polygon(hex_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(hex_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Key shaft and two downward teeth on the right
 shaft_pts = [
@@ -50,20 +40,20 @@ shaft_pts = [
     (56.5, 48.0),
     (42.0, 48.0),
 ]
-polygon(shaft_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(shaft_pts, width_units=2.0, color=DARK, closed=True)
+polygon(shaft_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(shaft_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 # Circular key bow on the left with inner keyhole
 bow_xy = (34.0, 51.5)
 circle(
     bow_xy,
     radius=12.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (32.5, 51.5),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

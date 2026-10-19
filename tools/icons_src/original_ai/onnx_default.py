@@ -12,16 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_chord = 1.65
@@ -38,14 +31,14 @@ v_in_l = (31.9, 61.7)
 v_in_r = (64.5, 33.8)
 
 # 1. 8 triangular crystal facets in monochrome grays matching official shading
-polygon([v_in_l, v_tr, v_in_r], style=no_border_fill(Colors.Gray3))
-polygon([v_bl, v_in_l, v_in_r], style=no_border_fill(Colors.Gray4))
-polygon([v_tl, v_tr, v_in_l], style=no_border_fill(Colors.Gray5))
-polygon([v_tr, v_r, v_in_r], style=no_border_fill(Colors.Gray5))
-polygon([v_bl, v_l, v_in_l], style=no_border_fill(Colors.Gray5))
-polygon([v_bl, v_in_r, v_br], style=no_border_fill(Colors.Gray5))
-polygon([v_l, v_tl, v_in_l], style=no_border_fill(Colors.Gray6))
-polygon([v_r, v_br, v_in_r], style=no_border_fill(Colors.Gray6))
+polygon([v_in_l, v_tr, v_in_r], style=Icon.no_border_fill(Colors.Gray3))
+polygon([v_bl, v_in_l, v_in_r], style=Icon.no_border_fill(Colors.Gray4))
+polygon([v_tl, v_tr, v_in_l], style=Icon.no_border_fill(Colors.Gray5))
+polygon([v_tr, v_r, v_in_r], style=Icon.no_border_fill(Colors.Gray5))
+polygon([v_bl, v_l, v_in_l], style=Icon.no_border_fill(Colors.Gray5))
+polygon([v_bl, v_in_r, v_br], style=Icon.no_border_fill(Colors.Gray5))
+polygon([v_l, v_tl, v_in_l], style=Icon.no_border_fill(Colors.Gray6))
+polygon([v_r, v_br, v_in_r], style=Icon.no_border_fill(Colors.Gray6))
 
 # 2. Inner wireframe chords
 chords = [
@@ -60,14 +53,14 @@ chords = [
     (v_in_r, v_bl),
 ]
 for p1, p2 in chords:
-    draw_round_segment(p1, p2, width_units=w_chord, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w_chord, color=Icon.DARK)
 
 # 3. Outer perimeter outline
 outer_ring = [v_tl, v_tr, v_r, v_br, v_bl, v_l]
-draw_round_polyline(outer_ring, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_ring, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Crisp circular vertex dots at all 8 polyhedron nodes
-dot_style = fill_style(DARK)
+dot_style = Icon.fill_style(Icon.DARK)
 for v in (*outer_ring, v_in_l, v_in_r):
     circle(v, radius=2.7, style=dot_style)
 

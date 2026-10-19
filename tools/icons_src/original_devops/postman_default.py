@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.6
@@ -55,7 +47,7 @@ def _cubic(
 circle(
     (50.0, 50.0),
     radius=40.0,
-    style=fill_style(Colors.Orange3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Orange3, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Simplified WHITE astronaut silhouette launching up-right at 45 deg
@@ -70,10 +62,10 @@ legs_boot = [
     *_cubic((34.5, 30.8), (40.5, 34.0), (46.8, 38.0), (52.4, 42.4), 14),
     (49.0, 45.8),
 ]
-polygon(legs_boot, style=no_border_fill(WHITE))
-draw_round_polyline(legs_boot, width_units=w_in, color=DARK, closed=True)
+polygon(legs_boot, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(legs_boot, width_units=w_in, color=Icon.DARK, closed=True)
 # Boot ankle seam
-draw_round_segment((29.2, 31.2), (34.4, 26.3), width_units=1.5, color=DARK)
+Icon.draw_round_segment((29.2, 31.2), (34.4, 26.3), width_units=1.5, color=Icon.DARK)
 
 # 2b. Jetpack side fin (left of waist)
 fin_pts = [
@@ -82,8 +74,8 @@ fin_pts = [
     (38.8, 46.8),
     (46.2, 48.5),
 ]
-polygon(fin_pts, style=no_border_fill(WHITE))
-draw_round_polyline(fin_pts, width_units=w_in, color=DARK, closed=True)
+polygon(fin_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(fin_pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 2c. Sleek torso and arms (middle-right)
 torso_pts = [
@@ -94,12 +86,12 @@ torso_pts = [
     *_cubic((65.8, 58.0), (63.8, 54.0), (58.8, 48.6), (52.4, 42.4), 14),
     (47.5, 47.3),
 ]
-polygon(torso_pts, style=no_border_fill(WHITE))
-draw_round_polyline(torso_pts, width_units=w_in, color=DARK, closed=True)
+polygon(torso_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(torso_pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 # Diagonal suit seam lines on torso
-draw_round_segment((47.5, 47.3), (64.7, 64.5), width_units=1.5, color=DARK)
-draw_round_segment((49.2, 45.8), (65.5, 60.2), width_units=1.5, color=DARK)
+Icon.draw_round_segment((47.5, 47.3), (64.7, 64.5), width_units=1.5, color=Icon.DARK)
+Icon.draw_round_segment((49.2, 45.8), (65.5, 60.2), width_units=1.5, color=Icon.DARK)
 
 # 2d. Space helmet (top-right)
 hcx, hcy = 69.4, 69.5
@@ -107,20 +99,20 @@ hr = 6.7
 circle(
     (hcx, hcy),
     radius=hr,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_in),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_in),
 )
 
 # V-shaped visor outline on helmet
 p_visor_bot = (hcx + hr * math.cos(math.radians(-56.0)), hcy + hr * math.sin(math.radians(-56.0)))
 p_visor_mid = (68.0, 68.5)
 p_visor_top = (hcx + hr * math.cos(math.radians(45.0)), hcy + hr * math.sin(math.radians(45.0)))
-draw_round_polyline([p_visor_bot, p_visor_mid, p_visor_top], width_units=1.6, color=DARK)
+Icon.draw_round_polyline([p_visor_bot, p_visor_mid, p_visor_top], width_units=1.6, color=Icon.DARK)
 
 # Small curved visor reflection arc
 visor_arc = [
     (hcx + 4.2 * math.cos(math.radians(a)), hcy - 0.3 + 4.2 * math.sin(math.radians(a)))
     for a in (-22.0, -10.0, 2.0, 14.0)
 ]
-draw_round_polyline(visor_arc, width_units=1.5, color=DARK)
+Icon.draw_round_polyline(visor_arc, width_units=1.5, color=Icon.DARK)
 
 save()

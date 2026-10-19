@@ -10,28 +10,19 @@
 """Original concept icon: container."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_segment,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
-verts = draw_iso_cube(
+w = Icon.ORIG_STROKE
+verts = Icon.draw_iso_cube(
     50.0,
     50.0,
     radius=40.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_GREEN,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=w,
 )
 
@@ -46,12 +37,12 @@ for t in (0.35, 0.67):
     x = (1.0 - t) * v_tl[0] + t * v_center[0]
     y_top = (1.0 - t) * v_tl[1] + t * v_center[1] - 8.0
     y_bot = (1.0 - t) * v_bl[1] + t * v_bottom[1] + 8.0
-    draw_round_segment((x, y_bot), (x, y_top), width_units=2.0, color=DARK)
+    Icon.draw_round_segment((x, y_bot), (x, y_top), width_units=2.0, color=Icon.DARK)
 
 for t in (0.33, 0.65):
     x = (1.0 - t) * v_center[0] + t * v_tr[0]
     y_top = (1.0 - t) * v_center[1] + t * v_tr[1] - 8.0
     y_bot = (1.0 - t) * v_bottom[1] + t * v_br[1] + 8.0
-    draw_round_segment((x, y_bot), (x, y_top), width_units=2.0, color=DARK)
+    Icon.draw_round_segment((x, y_bot), (x, y_top), width_units=2.0, color=Icon.DARK)
 
 save()

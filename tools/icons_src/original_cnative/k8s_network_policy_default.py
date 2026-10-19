@@ -11,42 +11,33 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    build_shield_half_points,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Protective policy shield centered inside the heptagon
-left_pts = build_shield_half_points(50.0, 24.0, 70.0, 20.0, side="left")
-right_pts = build_shield_half_points(50.0, 24.0, 70.0, 20.0, side="right")
+left_pts = Icon.build_shield_half_points(50.0, 24.0, 70.0, 20.0, side="left")
+right_pts = Icon.build_shield_half_points(50.0, 24.0, 70.0, 20.0, side="right")
 shield_pts = left_pts + list(reversed(right_pts[1:-1]))
 polygon(
     shield_pts,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Center white policy badge circle
 circle(
     (50.0, 48.5),
     radius=10.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Crisp dark checkmark inside the circle
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(45.5, 48.0), (48.8, 44.8), (54.8, 51.8)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 save()

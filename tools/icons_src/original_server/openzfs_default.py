@@ -10,16 +10,12 @@
 """Original Server vendor icon: openzfs (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -60,8 +56,8 @@ platter_rings: list[list[tuple[float, float]]] = [
 # fmt: on
 
 # Storage platter frame in pastel petrol-teal with 31 transparent dot holes
-draw_compound_polygon(platter_rings, color="#4B899C")
+polygon(platter_rings[31], holes=platter_rings[:31], style=Icon.fill_style("#4B899C"))
 for ring in platter_rings:
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()

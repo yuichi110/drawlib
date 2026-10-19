@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 pastel_blue = "#5191F2"
 
@@ -26,7 +26,7 @@ diamonds = [
 ]
 
 for pts in diamonds:
-    polygon(pts, style=no_border_fill(pastel_blue))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(pastel_blue))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

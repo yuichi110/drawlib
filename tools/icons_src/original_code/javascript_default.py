@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 s = 40.0 / 41.0
@@ -36,13 +31,13 @@ s_pts = _sc([(84.29, 28.55), (84.21, 29.02), (84.1, 29.48), (83.97, 29.93), (83.
 # fmt: on
 
 # 1. Flat pastel yellow square
-polygon(square, style=no_border_fill("#F1DB4A"))
+polygon(square, style=Icon.no_border_fill("#F1DB4A"))
 
 # 2. Solid DARK 'J' and 'S' letters
-polygon(j_pts, style=no_border_fill(DARK))
-polygon(s_pts, style=no_border_fill(DARK))
+polygon(j_pts, style=Icon.no_border_fill(Icon.DARK))
+polygon(s_pts, style=Icon.no_border_fill(Icon.DARK))
 
 # 3. Outer square DARK border
-draw_round_polyline(square, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(square, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

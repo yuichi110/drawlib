@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -42,13 +36,13 @@ d_rings: list[list[tuple[float, float]]] = [
 
 # 1. D-Link letters and hyphen in Colors.Teal3 with DARK w=1.3 outlines
 for pts in simple_polys:
-    polygon(pts, style=no_border_fill(Colors.Teal3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Teal3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Letter D with transparent inner hole
-draw_compound_polygon(d_rings, color=Colors.Teal3)
+polygon(d_rings[0], holes=[d_rings[1]], style=Icon.fill_style(Colors.Teal3))
 for ring in d_rings:
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

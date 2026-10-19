@@ -10,16 +10,12 @@
 """Original Code icon: sqlalchemy."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_letter = 2.0
 
@@ -28,11 +24,14 @@ a_rings = [[(68.04, 44.46), (68.04, 44.49), (68.05, 44.53), (68.06, 44.57), (68.
 # fmt: on
 
 # 1. Flat slate 'SQL' letters + pastel red 'A' with transparent letter holes
-draw_compound_polygon(sql_rings, color="#4A5568")
-draw_compound_polygon(a_rings, color="#E65757")
+polygon(sql_rings[0], holes=[sql_rings[1]], style=Icon.fill_style("#4A5568"))
+polygon(sql_rings[2], style=Icon.fill_style("#4A5568"))
+polygon(sql_rings[3], holes=[sql_rings[4]], style=Icon.fill_style("#4A5568"))
+polygon(sql_rings[5], style=Icon.fill_style("#4A5568"))
+polygon(a_rings[0], holes=[a_rings[1]], style=Icon.fill_style("#E65757"))
 
 # 2. Crisp DARK outlines on all outer and inner letter contours
 for contour in (*sql_rings, *a_rings):
-    draw_round_polyline(contour, width_units=w_letter, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()

@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 48.0, 50.0
@@ -60,28 +52,28 @@ left_fin = [
     *bezier3((19.8, 55.4), (14.5, 57.5), (11.5, 54.0), (11.5, 49.0), 12),
     *bezier3((11.5, 49.0), (11.5, 43.8), (14.5, 40.5), (20.2, 42.6), 12)[1:],
 ]
-polygon(left_fin, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(left_fin, width_units=w, color=DARK, closed=True)
+polygon(left_fin, style=Icon.no_border_fill(Colors.Amber3))
+Icon.draw_round_polyline(left_fin, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right tail fin with 3 fin lines (drawn behind body)
 right_tail = [
     *bezier3((75.8, 57.2), (83.2, 62.5), (88.4, 60.5), (88.6, 50.0), 14),
     *bezier3((88.6, 50.0), (88.4, 39.5), (83.2, 37.5), (75.8, 42.8), 14)[1:],
 ]
-polygon(right_tail, style=no_border_fill(Colors.Amber3))
-draw_round_polyline(right_tail, width_units=w, color=DARK, closed=True)
+polygon(right_tail, style=Icon.no_border_fill(Colors.Amber3))
+Icon.draw_round_polyline(right_tail, width_units=w, color=Icon.DARK, closed=True)
 for y_in, y_out in ((53.0, 55.2), (50.0, 50.0), (47.0, 44.8)):
-    draw_round_segment((77.2, y_in), (83.0, y_out), width_units=w, color=DARK)
+    Icon.draw_round_segment((77.2, y_in), (83.0, y_out), width_units=w, color=Icon.DARK)
 
 # 3. 7 smaller background spikes around body perimeter (drawn behind body outline)
 bg_spike_angles = [68.0, 108.0, 147.0, 210.0, 251.0, 290.0, 333.0]
 for ang in bg_spike_angles:
     sp = [polar(r_body - 1.0, ang - 8.0), polar(r_body + 6.6, ang), polar(r_body - 1.0, ang + 8.0)]
-    polygon(sp, style=no_border_fill(Colors.Amber3))
-    draw_round_polyline(sp, width_units=w, color=DARK, closed=True)
+    polygon(sp, style=Icon.no_border_fill(Colors.Amber3))
+    Icon.draw_round_polyline(sp, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Main Amber2 body circle fill + 7 foreground open-base spikes
-circle((cx, cy), radius=r_body, style=no_border_fill(Colors.Amber3))
+circle((cx, cy), radius=r_body, style=Icon.no_border_fill(Colors.Amber3))
 
 # Foreground spikes: (angle_deg, tip_radius, half_base_angle_deg)
 fg_spikes = [
@@ -95,7 +87,7 @@ fg_spikes = [
 ]
 for ang, r_tip, h_ang in fg_spikes:
     sp_fill = [polar(r_body - 1.8, ang - h_ang), polar(r_tip, ang), polar(r_body - 1.8, ang + h_ang)]
-    polygon(sp_fill, style=no_border_fill(Colors.Amber3))
+    polygon(sp_fill, style=Icon.no_border_fill(Colors.Amber3))
 
 # Draw body circle DARK outline arcs between the 7 foreground spikes
 n_fg = len(fg_spikes)
@@ -109,7 +101,7 @@ for i in range(n_fg):
         polar(r_body, ang_start + (ang_end - ang_start) * (k / steps))
         for k in range(steps + 1)
     ]
-    draw_round_polyline(arc_pts, width_units=w, color=DARK, closed=False)
+    Icon.draw_round_polyline(arc_pts, width_units=w, color=Icon.DARK, closed=False)
 
 # Draw foreground spike DARK V-outlines with short inward root ticks
 for ang, r_tip, h_ang in fg_spikes:
@@ -118,12 +110,12 @@ for ang, r_tip, h_ang in fg_spikes:
         polar(r_tip, ang),
         polar(r_body - 0.8, ang - h_ang),
     ]
-    draw_round_polyline(sp_stroke, width_units=w, color=DARK, closed=False)
+    Icon.draw_round_polyline(sp_stroke, width_units=w, color=Icon.DARK, closed=False)
 
 # 5. Sleepy half-lidded circular eyes on the left
 r_eye = 6.6
 for ex, ey in ((25.2, 59.5), (43.5, 59.5)):
-    circle((ex, ey), radius=r_eye, style=no_border_fill(WHITE))
+    circle((ex, ey), radius=r_eye, style=Icon.no_border_fill(Icon.WHITE))
     lid_pts = [
         (
             round(ex + r_eye * math.cos(math.radians(a)), 2),
@@ -131,7 +123,7 @@ for ex, ey in ((25.2, 59.5), (43.5, 59.5)):
         )
         for a in range(0, 181, 6)
     ]
-    polygon(lid_pts, style=no_border_fill(Colors.Amber3))
+    polygon(lid_pts, style=Icon.no_border_fill(Colors.Amber3))
     pupil_pts = [
         (
             round(ex + 0.8 + 2.6 * math.cos(math.radians(a)), 2),
@@ -139,9 +131,9 @@ for ex, ey in ((25.2, 59.5), (43.5, 59.5)):
         )
         for a in range(180, 361, 10)
     ]
-    polygon(pupil_pts, style=no_border_fill(DARK))
-    draw_round_segment((ex - r_eye, ey), (ex + r_eye, ey), width_units=w, color=DARK)
-    circle((ex, ey), radius=r_eye, style=stroke_style(DARK, width_units=w))
+    polygon(pupil_pts, style=Icon.no_border_fill(Icon.DARK))
+    Icon.draw_round_segment((ex - r_eye, ey), (ex + r_eye, ey), width_units=w, color=Icon.DARK)
+    circle((ex, ey), radius=r_eye, style=Icon.stroke_style(Icon.DARK, width_units=w))
 
 # 6. Plump yellow lips (Colors.Amber4 fill + DARK outline)
 lip_mid = [
@@ -158,23 +150,23 @@ lower_lip_bot = bezier3((41.2, 46.7), (38.8, 41.8), (28.0, 41.8), (26.5, 47.0), 
 
 upper_lip = [*lip_mid, *upper_lip_top[1:-1]]
 lower_lip = [*lip_mid, *lower_lip_bot[1:-1]]
-polygon(upper_lip, style=no_border_fill(Colors.Amber4))
-polygon(lower_lip, style=no_border_fill(Colors.Amber4))
-draw_round_polyline(upper_lip, width_units=w, color=DARK, closed=True)
-draw_round_polyline(lower_lip, width_units=w, color=DARK, closed=True)
+polygon(upper_lip, style=Icon.no_border_fill(Colors.Amber4))
+polygon(lower_lip, style=Icon.no_border_fill(Colors.Amber4))
+Icon.draw_round_polyline(upper_lip, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(lower_lip, width_units=w, color=Icon.DARK, closed=True)
 
 # 7. Small side pectoral fin with 3 fin lines
 pectoral_fin = [
     *bezier3((56.8, 54.4), (63.0, 58.6), (67.8, 57.5), (68.2, 49.5), 12),
     *bezier3((68.2, 49.5), (67.8, 41.5), (63.0, 40.4), (56.5, 45.2), 12)[1:],
 ]
-draw_round_polyline(pectoral_fin, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(pectoral_fin, width_units=w, color=Icon.DARK, closed=False)
 for x_in, y_in, x_out, y_out in (
     (61.4, 52.5, 67.6, 54.0),
     (61.8, 49.5, 68.1, 49.5),
     (61.4, 46.5, 67.6, 45.0),
 ):
-    draw_round_segment((x_in, y_in), (x_out, y_out), width_units=w, color=DARK)
+    Icon.draw_round_segment((x_in, y_in), (x_out, y_out), width_units=w, color=Icon.DARK)
 
 # 8. 9 small bold V-shaped spike marks well inside the body
 inner_v_marks = [
@@ -189,6 +181,6 @@ inner_v_marks = [
     [(36.0, 34.2), (35.6, 29.4), (39.6, 31.8)],
 ]
 for v_pts in inner_v_marks:
-    draw_round_polyline(v_pts, width_units=w, color=DARK, closed=False)
+    Icon.draw_round_polyline(v_pts, width_units=w, color=Icon.DARK, closed=False)
 
 save()

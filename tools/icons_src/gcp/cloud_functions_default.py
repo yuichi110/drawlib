@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 x_out = 8.0
 x_in = 21.0
@@ -42,7 +42,7 @@ def _draw_bracket(mirror_x: bool) -> None:
         tx(x_in, y_dark_btm_top + 0.8),
         tx(x_in, 100.0 - (y_dark_btm_top + 0.8)),
     ]
-    polygon(mid_pts, style=fill_style(GCP_TECH_MED_LIGHT))
+    polygon(mid_pts, style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 
     top_dark = [
         tx(x_out, y_fold_out_top),
@@ -50,8 +50,8 @@ def _draw_bracket(mirror_x: bool) -> None:
         tx(x_in, y_dark_btm_top),
     ]
     btm_dark = [(px, 100.0 - py) for (px, py) in top_dark]
-    polygon(top_dark, style=fill_style(GCP_TECH_MID))
-    polygon(btm_dark, style=fill_style(GCP_TECH_MID))
+    polygon(top_dark, style=Icon.fill_style(Gcp.TECH_MID))
+    polygon(btm_dark, style=Icon.fill_style(Gcp.TECH_MID))
 
     top_arm = [
         tx(x_out, y_fold_out_top),
@@ -60,14 +60,14 @@ def _draw_bracket(mirror_x: bool) -> None:
         tx(x_cap_in, y_cap_in),
     ]
     btm_arm = [(px, 100.0 - py) for (px, py) in top_arm]
-    polygon(top_arm, style=fill_style(GCP_TECH_LIGHT))
-    polygon(btm_arm, style=fill_style(GCP_TECH_LIGHT))
+    polygon(top_arm, style=Icon.fill_style(Gcp.TECH_LIGHT))
+    polygon(btm_arm, style=Icon.fill_style(Gcp.TECH_LIGHT))
 
 
 _draw_bracket(mirror_x=False)
 _draw_bracket(mirror_x=True)
 
-st_dot = fill_style(GCP_TECH_LIGHT)
+st_dot = Icon.fill_style(Gcp.TECH_LIGHT)
 for xc in (31.0, 50.0, 69.0):
     circle((xc, 50.0), radius=4.9, style=st_dot)
 

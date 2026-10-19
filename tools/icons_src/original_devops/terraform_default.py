@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -69,11 +64,11 @@ right_face = [(x_r0, y_r_tl), (x_r1, y_r_tr), (x_r1, y_r_br), (x_r0, y_r_bl)]
 
 # 1. Fill 3 left/center faces in Colors.Purple3 and right face in Colors.Purple4
 for pts in (left_face, center_face, bottom_face):
-    polygon(pts, style=no_border_fill(Colors.Purple3))
-polygon(right_face, style=no_border_fill(Colors.Purple4))
+    polygon(pts, style=Icon.no_border_fill(Colors.Purple3))
+polygon(right_face, style=Icon.no_border_fill(Colors.Purple4))
 
 # 2. Crisp DARK w=1.9 outlines on all 4 parallelograms
 for pts in (left_face, center_face, bottom_face, right_face):
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

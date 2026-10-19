@@ -13,20 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Cloud bumps: (cx, cy, r)
 bumps = [
@@ -71,18 +62,18 @@ for i, (cx, cy, r) in enumerate(bumps):
         ang = a_start + (a_end - a_start) * (s / steps)
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
-polygon(cloud_pts, style=fill_style(WHITE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3-node subnet triangle inside the cloud
 n_top = (50.0, 60.0)
 n_bl = (35.0, 41.0)
 n_br = (65.0, 41.0)
 
-draw_round_polyline([n_top, n_bl, n_br], width_units=2.0, color=DARK, closed=True)
+Icon.draw_round_polyline([n_top, n_bl, n_br], width_units=2.0, color=Icon.DARK, closed=True)
 
-circle(n_top, radius=6.5, style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0))
-circle(n_bl, radius=6.5, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0))
-circle(n_br, radius=6.5, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0))
+circle(n_top, radius=6.5, style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0))
+circle(n_bl, radius=6.5, style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0))
+circle(n_br, radius=6.5, style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0))
 
 save()

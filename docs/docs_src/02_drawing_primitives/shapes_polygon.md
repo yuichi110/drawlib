@@ -522,12 +522,13 @@ save()
 
 ## 5. Arbitrary Coordinate Polygons (`polygon`)
 
-`polygon` constructs a closed polygon directly from an explicit sequence of canvas vertex coordinates `xys=[(x1, y1), (x2, y2), ...]`:
+`polygon` constructs a closed polygon directly from an explicit sequence of canvas vertex coordinates `xys=[(x1, y1), (x2, y2), ...]`, with optional interior cutout `holes`:
 
 ```python
 polygon(
     xys: list[tuple[float, float]],
     *,
+    holes: list[list[tuple[float, float]]] | None = None,
     style: Style,
     text: str = "",
     text_style: Style | None = None,
@@ -536,33 +537,47 @@ polygon(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xys` | `list[tuple[float, float]]` | *Required* | Ordered sequence of at least 3 canvas vertex coordinates `[(x1, y1), (x2, y2), ...]`. |
-| `style.shape_r` | `float \| tuple[float, ...] \| None` | `None` | Pass a scalar `float` to round all vertices equally, or a tuple of radii `(r1, r2, ..., rN)` matching `len(xys)` to round specific vertices selectively (`0` keeps a vertex sharp). |
-| `style.angle` | `float` | `0.0` | Rotates the polygon counterclockwise around the center of its bounding box. |
+| `xys` | `list[tuple[float, float]]` | *Required* | Ordered sequence of at least 3 outer canvas vertex coordinates `[(x1, y1), (x2, y2), ...]`. |
+| `holes` | `list[list[tuple[float, float]]] \| None` | `None` | Optional list of inner cutout rings `[[(hx1, hy1), ...], ...]`. Winding direction is normalized automatically (`xys` CCW, `holes` CW). |
+| `style.shape_r` | `float \| tuple[float, ...] \| None` | `None` | Pass a scalar `float` to round all outer and hole vertices equally, or a tuple of radii `(r1, r2, ..., rN)` matching `len(xys)` to round specific outer vertices selectively (`0` keeps a vertex sharp). |
 | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Embedded label automatically placed at the bounding-box center of `xys`. |
 
-```drawlib code=show align=center file=shapes_polygons_custom_polygon.png caption="Custom Coordinate Polygons with Uniform and Per-Vertex Rounding"
+```drawlib code=show align=center file=shapes_polygons_custom_polygon.png caption="Custom Polygons with Uniform Rounding, Per-Vertex Rounding, and Interior Cutout Holes"
 from drawlib.canvas import save, setup
 from drawlib.shapes import polygon
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=115, height=42)
+setup(width=128, height=44)
+
+lbl = Styles.DarkBold.patch(text_size=9.5)
 
 # 1. Irregular network zone with uniform corner rounding
 polygon(
-    xys=[(8, 8), (12, 34), (44, 36), (50, 12), (26, 6)],
+    xys=[(6, 12), (10, 36), (38, 38), (44, 14), (22, 8)],
     style=Styles.Neutral.patch(shape_r=3),
-    text="Subnet Zone A",
+    text="Subnet A",
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
 # 2. Custom tag card with per-vertex radii (sharp tip on right)
 polygon(
-    xys=[(60, 8), (60, 34), (92, 34), (106, 21), (92, 8)],
+    xys=[(50, 12), (50, 36), (76, 36), (88, 24), (76, 12)],
     style=Styles.PrimaryFlat.patch(shape_r=(3, 3, 2, 0, 2)),
-    text="Pipeline Tag",
+    text="Tag",
     text_style=Styles.WhiteBold.patch(text_size=10.5),
 )
+
+# 3. Compound polygon frame with two interior cutout holes
+polygon(
+    xys=[(94, 10), (124, 10), (124, 38), (94, 38)],
+    holes=[
+        [(98, 26), (108, 26), (108, 34), (98, 34)],
+        [(110, 14), (120, 14), (120, 22), (110, 22)],
+    ],
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+)
+text((109, 5), "holes=[...]", style=lbl)
 
 save()
 ```

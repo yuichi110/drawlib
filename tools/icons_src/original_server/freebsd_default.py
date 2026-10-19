@@ -12,11 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,18 +30,18 @@ right_horn_pts: list[tuple[float, float]] = [
 # fmt: on
 
 # 1. Left horn tucked behind top-left of sphere
-polygon(left_horn_pts, style=no_border_fill(Colors.Red2))
-draw_round_polyline(left_horn_pts, width_units=w, color=DARK, closed=True)
+polygon(left_horn_pts, style=Icon.no_border_fill(Colors.Red2))
+Icon.draw_round_polyline(left_horn_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Main flat Red3 sphere body
 circle(
     (50.5, 48.0),
     radius=36.5,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Right horn seated on upper-right of sphere
-polygon(right_horn_pts, style=no_border_fill(Colors.Red2))
-draw_round_polyline(right_horn_pts, width_units=w, color=DARK, closed=True)
+polygon(right_horn_pts, style=Icon.no_border_fill(Colors.Red2))
+Icon.draw_round_polyline(right_horn_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

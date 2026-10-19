@@ -12,11 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_ostrich = 1.6
@@ -29,18 +29,18 @@ ostrich_ring: list[tuple[float, float]] = [(39.14, 84.06), (39.31, 83.89), (39.4
 eye_ring: list[tuple[float, float]] = [(52.26, 76.62), (52.12, 76.62), (51.95, 76.58), (51.78, 76.58), (51.64, 76.55), (51.5, 76.51), (51.37, 76.48), (51.23, 76.44), (51.09, 76.41), (50.96, 76.34), (50.85, 76.27), (50.75, 76.24), (50.62, 76.17), (50.55, 76.1), (50.44, 76.0), (50.38, 75.93), (50.27, 75.86), (50.2, 75.76), (50.17, 75.66), (50.1, 75.56), (50.07, 75.45), (50.03, 75.28), (50.0, 75.11), (50.0, 74.94), (50.03, 74.77), (50.07, 74.57), (50.14, 74.39), (50.24, 74.22), (50.34, 74.02), (50.48, 73.85), (50.65, 73.68), (50.82, 73.47), (50.99, 73.3), (51.2, 73.16), (51.44, 72.99), (51.64, 72.82), (51.91, 72.69), (52.15, 72.55), (52.43, 72.41), (52.73, 72.31), (53.04, 72.17), (53.31, 72.07), (53.62, 72.0), (53.93, 71.94), (54.24, 71.9), (54.51, 71.83), (54.78, 71.83), (55.06, 71.83), (55.33, 71.83), (55.6, 71.83), (55.84, 71.87), (56.05, 71.94), (56.29, 71.97), (56.49, 72.07), (56.66, 72.14), (56.83, 72.24), (57.0, 72.34), (57.14, 72.48), (57.24, 72.62), (57.35, 72.79), (57.41, 72.93), (57.45, 73.1), (57.48, 73.3), (57.48, 73.47), (57.45, 73.64), (57.38, 73.85), (57.31, 74.02), (57.24, 74.19), (57.11, 74.39), (56.97, 74.57), (56.83, 74.74), (56.66, 74.94), (56.49, 75.11), (56.29, 75.28), (56.05, 75.42), (55.81, 75.59), (55.57, 75.73), (55.3, 75.86), (55.02, 76.0), (54.75, 76.14), (54.44, 76.24), (54.1, 76.34), (53.72, 76.44), (53.38, 76.51), (53.01, 76.58), (52.63, 76.62)]
 
 # 1. Circular Orange3 Q-badge fill
-polygon(q_badge_ring, style=no_border_fill(Colors.Orange3))
+polygon(q_badge_ring, style=Icon.no_border_fill(Colors.Orange3))
 
 # 2. WHITE ostrich head/neck silhouette + DARK outline
-polygon(ostrich_ring, style=no_border_fill(WHITE))
-draw_round_polyline(ostrich_ring, width_units=w_ostrich, color=DARK, closed=True)
+polygon(ostrich_ring, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(ostrich_ring, width_units=w_ostrich, color=Icon.DARK, closed=True)
 
 # 3. Eye cutout inside ostrich head
-polygon(eye_ring, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(eye_ring, width_units=w_eye, color=DARK, closed=True)
+polygon(eye_ring, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(eye_ring, width_units=w_eye, color=Icon.DARK, closed=True)
 
 # 4. Outer Q-badge DARK border
-draw_round_polyline(q_badge_ring, width_units=w_badge, color=DARK, closed=True)
+Icon.draw_round_polyline(q_badge_ring, width_units=w_badge, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

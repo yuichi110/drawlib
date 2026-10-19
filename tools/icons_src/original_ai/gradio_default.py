@@ -13,15 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -188,7 +182,7 @@ def _draw_gradient_ring(
             x0 = x0_base - overlap
             x1 = x1_base + overlap
             col_hex = _sample_gradio_hex(0.5 * (x0_base + x1_base), top_loop=top_loop)
-            st = fill_style(col_hex)
+            st = Icon.fill_style(col_hex)
 
             if is_solid:
                 s_poly = _clip_x_band(outer, x0, x1)
@@ -208,13 +202,13 @@ top_outer, top_inner, top_upper, top_lower = _build_diamond_loop(cy_top)
 
 # 1. Bottom loop: smooth horizontal gradient (Yellow left -> Orange right)
 _draw_gradient_ring(bot_outer, bot_upper, bot_lower, top_loop=False)
-draw_round_polyline(bot_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(bot_inner, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(bot_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(bot_inner, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Top loop: smooth horizontal gradient (Orange left -> Yellow right)
 _draw_gradient_ring(top_outer, top_upper, top_lower, top_loop=True)
-draw_round_polyline(top_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(top_inner, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(top_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(top_inner, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Left crossover patch: Bottom loop's upper-left arm goes OVER Top loop's lower-left arm
 x0_out, x1_out = 21.0, 36.0
@@ -240,9 +234,9 @@ for i in range(patch_cols):
     p_poly = _clip_x_band(left_over_patch, px0, px1)
     if len(p_poly) >= 3:
         col_hex = _sample_gradio_hex(0.5 * (px0_base + px1_base), top_loop=False)
-        polygon(p_poly, style=fill_style(col_hex))
+        polygon(p_poly, style=Icon.fill_style(col_hex))
 
-draw_round_segment((x0_out, y0_out), (x1_out, y1_out), width_units=w, color=DARK)
-draw_round_segment((x0_in, y0_in), (x1_in, y1_in), width_units=w, color=DARK)
+Icon.draw_round_segment((x0_out, y0_out), (x1_out, y1_out), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((x0_in, y0_in), (x1_in, y1_in), width_units=w, color=Icon.DARK)
 
 save()

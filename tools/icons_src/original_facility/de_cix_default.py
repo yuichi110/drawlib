@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_sym = 2.0
 w_txt = 1.3
@@ -35,19 +29,19 @@ letter_c = [(57.18, 28.62), (57.2, 28.62), (57.23, 28.62), (57.24, 28.62), (57.2
 letter_i = [(66.44, 31.82), (70.49, 31.82), (70.49, 13.35), (66.44, 13.35)]
 letter_x = [(90.0, 31.82), (85.12, 31.82), (81.42, 26.11), (77.73, 31.82), (72.85, 31.82), (79.01, 22.59), (72.85, 13.35), (77.73, 13.35), (81.42, 19.07), (85.12, 13.35), (90.0, 13.35), (83.82, 22.59)]
 
-polygon(sym_red, style=no_border_fill("#F24E5E"))
-draw_round_polyline(sym_red, width_units=w_sym, color=DARK, closed=True)
+polygon(sym_red, style=Icon.no_border_fill("#F24E5E"))
+Icon.draw_round_polyline(sym_red, width_units=w_sym, color=Icon.DARK, closed=True)
 
-polygon(sym_teal, style=no_border_fill("#4F7B88"))
-draw_round_polyline(sym_teal, width_units=w_sym, color=DARK, closed=True)
+polygon(sym_teal, style=Icon.no_border_fill("#4F7B88"))
+Icon.draw_round_polyline(sym_teal, width_units=w_sym, color=Icon.DARK, closed=True)
 
-draw_compound_polygon([letter_d_outer, letter_d_hole], color="#4F7B88")
-draw_round_polyline(letter_d_outer, width_units=w_txt, color=DARK, closed=True)
-draw_round_polyline(letter_d_hole, width_units=w_txt, color=DARK, closed=True)
+polygon(letter_d_outer, holes=[letter_d_hole], style=Icon.fill_style("#4F7B88"))
+Icon.draw_round_polyline(letter_d_outer, width_units=w_txt, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(letter_d_hole, width_units=w_txt, color=Icon.DARK, closed=True)
 
 for pts in (letter_e, letter_c, letter_i, letter_x):
-    polygon(pts, style=no_border_fill("#4F7B88"))
-    draw_round_polyline(pts, width_units=w_txt, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#4F7B88"))
+    Icon.draw_round_polyline(pts, width_units=w_txt, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

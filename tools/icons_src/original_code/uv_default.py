@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 
@@ -28,7 +23,7 @@ uv_block = [(10.0, 89.64), (10.16, 49.81), (10.3, 17.94), (10.34, 17.29), (10.42
 # fmt: on
 
 # 1. Flat pastel purple 'uv' block with center slot cutout and DARK border
-polygon(uv_block, style=no_border_fill("#DC5CF0"))
-draw_round_polyline(uv_block, width_units=w_outer, color=DARK, closed=True)
+polygon(uv_block, style=Icon.no_border_fill("#DC5CF0"))
+Icon.draw_round_polyline(uv_block, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

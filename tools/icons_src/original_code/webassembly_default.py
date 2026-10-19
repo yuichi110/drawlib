@@ -10,16 +10,12 @@
 """Original Code icon: webassembly."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.3
@@ -37,14 +33,12 @@ a_inner_island = _sc([(69.86, 39.65), (67.49, 29.0), (74.87, 29.0), (72.14, 39.6
 # fmt: on
 
 # 1. Flat pastel purple notched square with transparent WA holes
-draw_compound_polygon(
-    [outer_notched, w_hole, a_outer_hole, a_inner_island],
-    color="#6351F2",
-)
+polygon(outer_notched, holes=[w_hole, a_outer_hole], style=Icon.fill_style("#6351F2"))
+polygon(a_inner_island, style=Icon.fill_style("#6351F2"))
 
 # 2. Inner letter hole outlines and outer border
 for hole in (w_hole, a_outer_hole, a_inner_island):
-    draw_round_polyline(hole, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(outer_notched, width_units=w_outer, color=DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_notched, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_shield = 2.0
 w_check = 1.7
@@ -34,15 +28,15 @@ shield_left = [(50.0, 9.0), (44.27, 12.65), (39.12, 16.44), (34.51, 20.35), (30.
 checkmark = [(48.54, 36.29), (72.73, 68.9), (72.46, 69.09), (72.2, 69.26), (71.94, 69.39), (71.69, 69.48), (71.44, 69.55), (71.2, 69.6), (70.96, 69.62), (70.73, 69.61), (70.51, 69.59), (70.29, 69.55), (70.08, 69.49), (69.87, 69.41), (69.68, 69.33), (69.49, 69.23), (69.31, 69.13), (69.14, 69.02), (68.97, 68.9), (68.82, 68.78), (68.68, 68.66), (68.55, 68.55), (68.51, 68.55), (48.35, 47.57), (40.76, 56.71), (40.21, 57.29), (39.64, 57.76), (39.06, 58.13), (38.47, 58.42), (37.88, 58.62), (37.28, 58.75), (36.69, 58.81), (36.11, 58.82), (35.54, 58.77), (34.98, 58.67), (34.44, 58.54), (33.93, 58.38), (33.44, 58.19), (32.97, 57.99), (32.55, 57.78), (32.16, 57.57), (31.81, 57.36), (31.51, 57.17), (31.25, 57.0), (31.05, 56.85)]
 
 # 1. Two-tone pastel green shield (right half Colors.Green2, left half Colors.Green3)
-polygon(shield_full, style=no_border_fill(Colors.Green2))
-polygon(shield_left, style=no_border_fill(Colors.Green3))
+polygon(shield_full, style=Icon.no_border_fill(Colors.Green2))
+polygon(shield_left, style=Icon.no_border_fill(Colors.Green3))
 
 # 2. Outer shield DARK outline (w=1.9)
-draw_round_polyline(shield_full, width_units=w_shield, color=DARK, closed=True)
+Icon.draw_round_polyline(shield_full, width_units=w_shield, color=Icon.DARK, closed=True)
 
 # 3. Inner WHITE checkmark + DARK outline (w=1.7)
-polygon(checkmark, style=no_border_fill(WHITE))
-draw_round_polyline(checkmark, width_units=w_check, color=DARK, closed=True)
+polygon(checkmark, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(checkmark, width_units=w_check, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

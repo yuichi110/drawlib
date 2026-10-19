@@ -12,15 +12,9 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import rectangle
+from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _round_polygon(
@@ -57,7 +51,7 @@ def _round_polygon(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -91,9 +85,9 @@ eye_pts = [
 ]
 eye_hole_poly = _round_polygon(eye_pts, r=4.2)
 
-draw_compound_polygon([rabbit_poly, eye_hole_poly], color=Colors.Orange3)
-draw_round_polyline(rabbit_poly, width_units=w, color=DARK, closed=True)
-draw_round_polyline(eye_hole_poly, width_units=1.8, color=DARK, closed=True)
+polygon(rabbit_poly, holes=[eye_hole_poly], style=Icon.fill_style(Colors.Orange3))
+Icon.draw_round_polyline(rabbit_poly, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(eye_hole_poly, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 2. Inner pastel ear accents (Colors.Orange2) inside both upright ears
 for ear_cx in ((x0 + x1) / 2.0, (x2 + x3) / 2.0):
@@ -101,7 +95,7 @@ for ear_cx in ((x0 + x1) / 2.0, (x2 + x3) / 2.0):
         (ear_cx, 72.5),
         width=6.8,
         height=18.5,
-        style=fill_style(Colors.Orange2, border_color=DARK, border_units=1.5, shape_r=3.0),
+        style=Icon.fill_style(Colors.Orange2, border_color=Icon.DARK, border_units=1.5, shape_r=3.0),
     )
 
 save()

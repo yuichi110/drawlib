@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -89,9 +82,9 @@ pocket3 = [
     (67.5, 30.0),
 ]
 for pk in (pocket1, pocket2, pocket3):
-    polygon(pk, style=no_border_fill(Colors.Purple2))
+    polygon(pk, style=Icon.no_border_fill(Colors.Purple2))
 
-draw_round_polyline(pocket1[:15], width_units=1.8, color=DARK)
+Icon.draw_round_polyline(pocket1[:15], width_units=1.8, color=Icon.DARK)
 
 # 2. Main Dagster octopus head dome & 3 curling right-to-left tentacles (Colors.Purple3)
 p_left = (11.5, 52.5)
@@ -141,8 +134,8 @@ body_pts: list[tuple[float, float]] = [
     *_cubic(p_top, (28.0, 88.5), (11.5, 72.5), p_left, 24),
 ]
 
-polygon(body_pts, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
+polygon(body_pts, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Expressive eye on upper-right (WHITE dome + DARK pie-cut pupil)
 p_eye_l = (47.5, 63.5)
@@ -153,8 +146,8 @@ eye_pts = [
     *_cubic((56.5, 79.0), (62.5, 78.5), (67.0, 71.0), p_eye_r, 16),
     *_cubic(p_eye_r, (60.0, 64.5), (53.0, 65.0), p_eye_l, 12),
 ]
-polygon(eye_pts, style=no_border_fill(WHITE))
-draw_round_polyline(eye_pts, width_units=1.7, color=DARK, closed=True)
+polygon(eye_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(eye_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # Pie-cut dark pupil inside eye
 px, py = 57.5, 68.5
@@ -163,14 +156,14 @@ pupil_pts: list[tuple[float, float]] = [(px, py)]
 for i in range(29):
     ang = math.radians(155.0 + 325.0 * (i / 28))
     pupil_pts.append((px + r_pup * math.cos(ang), py + r_pup * math.sin(ang)))
-polygon(pupil_pts, style=fill_style(DARK))
+polygon(pupil_pts, style=Icon.fill_style(Icon.DARK))
 
 # 4. Three circular node spots on left cheek (Colors.Teal3)
 for sx, sy in ((26.8, 57.5), (20.5, 51.0), (26.8, 44.5)):
     circle(
         (sx, sy),
         radius=3.4,
-        style=fill_style(Colors.Teal3, border_color=DARK, border_units=1.5),
+        style=Icon.fill_style(Colors.Teal3, border_color=Icon.DARK, border_units=1.5),
     )
 
 save()

@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _build_cloud(
@@ -78,18 +67,22 @@ bumps = [
 ]
 cloud_pts = _build_cloud(bumps)
 
-polygon(cloud_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Public internet globe emblem centered inside the cloud
 gx, gy, gr = 50.0, 46.5, 16.0
-circle((gx, gy), radius=gr, style=fill_style(WHITE, border_color=DARK, border_units=w))
-ellipse((gx, gy), width=gr * 1.05, height=gr * 2.0, style=stroke_style(DARK, width_units=1.7))
-draw_round_segment((gx - gr + 0.8, gy), (gx + gr - 0.8, gy), width_units=1.7, color=DARK)
-draw_round_segment((gx, gy - gr + 0.8), (gx, gy + gr - 0.8), width_units=1.7, color=DARK)
+circle((gx, gy), radius=gr, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w))
+ellipse((gx, gy), width=gr * 1.05, height=gr * 2.0, style=Icon.stroke_style(Icon.DARK, width_units=1.7))
+Icon.draw_round_segment((gx - gr + 0.8, gy), (gx + gr - 0.8, gy), width_units=1.7, color=Icon.DARK)
+Icon.draw_round_segment((gx, gy - gr + 0.8), (gx, gy + gr - 0.8), width_units=1.7, color=Icon.DARK)
 
 # Two green public access nodes on globe equator
-circle((gx - gr * 0.52, gy), radius=3.0, style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.6))
-circle((gx + gr * 0.52, gy), radius=3.0, style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.6))
+circle(
+    (gx - gr * 0.52, gy), radius=3.0, style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.6)
+)
+circle(
+    (gx + gr * 0.52, gy), radius=3.0, style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.6)
+)
 
 save()

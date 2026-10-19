@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.8
@@ -67,13 +61,13 @@ star_pts = _sc([
 # fmt: on
 
 # 1. Pastel orange shield base
-polygon(shield_outer, style=no_border_fill(Colors.Orange3))
+polygon(shield_outer, style=Icon.no_border_fill(Colors.Orange3))
 
 # 2. White internal 5-pointed star + DARK facet outlines
-polygon(star_pts, style=no_border_fill(WHITE))
-draw_round_polyline(star_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(star_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(star_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Outer shield DARK border
-draw_round_polyline(shield_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(shield_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

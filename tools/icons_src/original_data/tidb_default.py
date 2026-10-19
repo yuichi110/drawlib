@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -48,7 +41,7 @@ hex_pts = [
 ]
 polygon(
     hex_pts,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w, shape_r=4.2),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w, shape_r=4.2),
 )
 
 # 2. Central isometric T-bar & vertical stem (WHITE)
@@ -62,8 +55,8 @@ t_pts = [
     _iso(0.0, 2.0),
     _iso(1.0, 3.0),
 ]
-polygon(t_pts, style=no_border_fill(WHITE))
-draw_round_polyline(t_pts, width_units=1.8, color=DARK, closed=True)
+polygon(t_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(t_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 3. Right isometric vertical stem "I" (Colors.Red1)
 i_pts = [
@@ -72,7 +65,7 @@ i_pts = [
     _iso(2.0, -2.0),
     _iso(2.0, 2.0),
 ]
-polygon(i_pts, style=no_border_fill(Colors.Red1))
-draw_round_polyline(i_pts, width_units=1.8, color=DARK, closed=True)
+polygon(i_pts, style=Icon.no_border_fill(Colors.Red1))
+Icon.draw_round_polyline(i_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

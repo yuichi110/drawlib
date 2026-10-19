@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -58,8 +47,8 @@ doc_pts: list[tuple[float, float]] = [
     *_arc_pts(80.0 - r_doc, 13.0 + r_doc, r_doc, 270.0, 360.0),
     (80.0, 69.0),
 ]
-polygon(doc_pts, style=no_border_fill(WHITE))
-draw_round_polyline(doc_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(doc_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(doc_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Top-right fold flap (PASTEL_BLUE_LIGHT)
 r_flap = 3.0
@@ -68,8 +57,8 @@ flap_pts: list[tuple[float, float]] = [
     *_arc_pts(62.0 + r_flap, 69.0 + r_flap, r_flap, 180.0, 270.0),
     (80.0, 69.0),
 ]
-polygon(flap_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(flap_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(flap_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(flap_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Upper 3-lobe trefoil curve / seal motif (PASTEL_GREEN)
 scx, scy = 50.0, 56.5
@@ -80,12 +69,12 @@ for i in range(steps_seal):
     r_val = 8.6 + 4.4 * math.cos(3.0 * (theta - math.pi / 2.0))
     seal_pts.append((scx + r_val * math.cos(theta), scy + r_val * math.sin(theta)))
 
-polygon(seal_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(seal_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(seal_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(seal_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 circle(
     (scx, scy),
     radius=3.6,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
 )
 
 # 4. Horizontal ribbon banner across lower half (PASTEL_BLUE)
@@ -93,11 +82,11 @@ rectangle(
     (50.0, 28.5),
     width=72.0,
     height=15.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_outer, shape_r=3.2),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_outer, shape_r=3.2),
 )
 
 # Subtle interior line marks on ribbon banner
-draw_round_segment((28.0, 31.0), (72.0, 31.0), width_units=w_inner, color=DARK)
-draw_round_segment((36.0, 26.0), (64.0, 26.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((28.0, 31.0), (72.0, 31.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((36.0, 26.0), (64.0, 26.0), width_units=w_inner, color=Icon.DARK)
 
 save()

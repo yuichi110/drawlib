@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -97,13 +92,13 @@ left_half: list[tuple[float, float]] = [
 right_half = _rot180(left_half)
 
 # 1. Draw both interlocking propeller halves (Colors.Orange3 left, Colors.Red3 right)
-polygon(right_half, style=no_border_fill(Colors.Red3))
-polygon(left_half, style=no_border_fill(Colors.Orange3))
+polygon(right_half, style=Icon.no_border_fill(Colors.Red3))
+polygon(left_half, style=Icon.no_border_fill(Colors.Orange3))
 
-draw_round_polyline(right_half, width_units=w, color=DARK, closed=True)
-draw_round_polyline(left_half, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(right_half, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(left_half, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Continuous DARK outline on central transparent diamond hole
-draw_round_polyline(diamond_pts, width_units=1.8, color=DARK, closed=True)
+Icon.draw_round_polyline(diamond_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -208,12 +203,12 @@ right_ribbon = _s(
 
 # 1. Fill both left loop and right crossover ribbon in unified Colors.Blue3
 seam_patch = _s([(31.8, 77.28), (33.2, 77.30), (33.2, 68.36), (31.8, 68.36)])
-polygon(seam_patch, style=no_border_fill(Colors.Blue3))
-polygon(left_ribbon, style=no_border_fill(Colors.Blue3))
-polygon(right_ribbon, style=no_border_fill(Colors.Blue3))
+polygon(seam_patch, style=Icon.no_border_fill(Colors.Blue3))
+polygon(left_ribbon, style=Icon.no_border_fill(Colors.Blue3))
+polygon(right_ribbon, style=Icon.no_border_fill(Colors.Blue3))
 
 # 3. Crisp w = 1.9 DARK borders (open at top-left join so loop has no vertical seam)
-draw_round_polyline(left_ribbon, width_units=w, color=DARK, closed=False)
-draw_round_polyline(right_ribbon, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(left_ribbon, width_units=w, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(right_ribbon, width_units=w, color=Icon.DARK, closed=False)
 
 save()

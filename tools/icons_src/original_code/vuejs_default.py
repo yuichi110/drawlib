@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -35,13 +30,13 @@ inner_v = _sc([(25.31, 85.13), (40.25, 85.12), (50.02, 68.9), (59.76, 85.12), (7
 # fmt: on
 
 # 1. Pastel mint green outer 'V'
-polygon(outer_v, style=no_border_fill("#5ED09E"))
+polygon(outer_v, style=Icon.no_border_fill("#5ED09E"))
 
 # 2. Flat slate inner 'V'
-polygon(inner_v, style=no_border_fill("#4A5D73"))
+polygon(inner_v, style=Icon.no_border_fill("#4A5D73"))
 
 # 3. Crisp DARK outlines
-draw_round_polyline(inner_v, width_units=w, color=DARK, closed=True)
-draw_round_polyline(outer_v, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(inner_v, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_v, width_units=w, color=Icon.DARK, closed=True)
 
 save()

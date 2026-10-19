@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -41,15 +34,15 @@ v_bl = (cx - dx, cy - dy)
 v_tl = (cx - dx, cy + dy)
 
 # 1. Cube faces: Amber3 top, Amber2 left, WHITE right
-polygon([v_center, v_tl, v_top, v_tr], style=no_border_fill(Colors.Amber3))
-polygon([v_center, v_bot, v_bl, v_tl], style=no_border_fill(Colors.Amber2))
-polygon([v_center, v_tr, v_br, v_bot], style=no_border_fill(WHITE))
+polygon([v_center, v_tl, v_top, v_tr], style=Icon.no_border_fill(Colors.Amber3))
+polygon([v_center, v_bot, v_bl, v_tl], style=Icon.no_border_fill(Colors.Amber2))
+polygon([v_center, v_tr, v_br, v_bot], style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Outer isometric hexagon border + 3 inner Y-seams in DARK
 outer_hex = [v_top, v_tr, v_br, v_bot, v_bl, v_tl]
-draw_round_polyline(outer_hex, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_hex, width_units=w, color=Icon.DARK, closed=True)
 for v in (v_tl, v_tr, v_bot):
-    draw_round_segment(v_center, v, width_units=w, color=DARK)
+    Icon.draw_round_segment(v_center, v, width_units=w, color=Icon.DARK)
 
 # 3. Cute DARK semicircular eyes on the left face
 ux, uy = math.cos(math.radians(-30.0)), math.sin(math.radians(-30.0))
@@ -70,7 +63,7 @@ for ex, ey in eye_centers:
         px = ex + r_eye * ca * ux + r_eye * sa * vx
         py = ey + r_eye * ca * uy + r_eye * sa * vy
         eye_pts.append((px, py))
-    polygon(eye_pts, style=no_border_fill(DARK))
-    draw_round_polyline(eye_pts, width_units=1.2, color=DARK, closed=True)
+    polygon(eye_pts, style=Icon.no_border_fill(Icon.DARK))
+    Icon.draw_round_polyline(eye_pts, width_units=1.2, color=Icon.DARK, closed=True)
 
 save()

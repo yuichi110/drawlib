@@ -10,29 +10,21 @@
 """Original Cloud Native concept icon: k8s_pod."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_original_k8s_heptagon,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Single large crisp isometric container cube
-draw_iso_cube(
+Icon.draw_iso_cube(
     50.0,
     47.0,
     radius=21.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE_LIGHT,
-    right_color=PASTEL_GREEN,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE_LIGHT,
+    right_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 

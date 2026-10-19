@@ -11,16 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_grid = 1.5
 
@@ -104,14 +97,14 @@ hole_tr = [
     (63.23, 54.41),
 ]
 
-polygon(page_pts, style=no_border_fill("#71C789"))
-draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
+polygon(page_pts, style=Icon.no_border_fill("#71C789"))
+Icon.draw_round_polyline(page_pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#60B078"))
-draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
+polygon(fold_pts, style=Icon.no_border_fill("#60B078"))
+Icon.draw_round_polyline(fold_pts, width_units=w, color=Icon.DARK, closed=True)
 
-draw_compound_polygon([grid_outer, hole_bl, hole_tl, hole_br, hole_tr], color=WHITE)
+polygon(grid_outer, holes=[hole_bl, hole_tl, hole_br, hole_tr], style=Icon.fill_style(Icon.WHITE))
 for ring in (grid_outer, hole_bl, hole_tl, hole_br, hole_tr):
-    draw_round_polyline(ring, width_units=w_grid, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_grid, color=Icon.DARK, closed=True)
 
 save()

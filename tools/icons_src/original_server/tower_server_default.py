@@ -11,28 +11,18 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Upright pedestal tower chassis
 rectangle(
     (50.0, 50.5),
     width=48.0,
     height=75.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=6.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=6.0),
 )
 
 # Wider base pedestal stand at bottom
@@ -40,7 +30,7 @@ rectangle(
     (50.0, 14.5),
     width=58.0,
     height=7.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w, shape_r=3.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w, shape_r=3.5),
 )
 
 # 3 horizontal drive bay slots
@@ -49,18 +39,18 @@ for by in (74.0, 60.0, 46.0):
         (50.0, by),
         width=34.0,
         height=9.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=2.5),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=2.5),
     )
-    circle((38.0, by), radius=1.5, style=fill_style(DARK))
+    circle((38.0, by), radius=1.5, style=Icon.fill_style(Icon.DARK))
 
 # Lower vertical vent lines and power button
 for vx in (36.0, 41.5, 47.0):
-    draw_round_segment((vx, 23.0), (vx, 33.0), width_units=2.0, color=DARK)
+    Icon.draw_round_segment((vx, 23.0), (vx, 33.0), width_units=2.0, color=Icon.DARK)
 
 circle(
     (60.0, 28.0),
     radius=5.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

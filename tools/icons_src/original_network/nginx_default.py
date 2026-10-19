@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_hex = 2.0
 w_n = 1.7
@@ -107,11 +101,11 @@ hex_pts = _sc(_RAW_HEX)
 n_pts = _sc(_RAW_N)
 
 # 1. Rounded hexagon badge in Colors.Green3 with DARK w=1.9 outline
-polygon(hex_pts, style=no_border_fill(Colors.Green3))
-draw_round_polyline(hex_pts, width_units=w_hex, color=DARK, closed=True)
+polygon(hex_pts, style=Icon.no_border_fill(Colors.Green3))
+Icon.draw_round_polyline(hex_pts, width_units=w_hex, color=Icon.DARK, closed=True)
 
 # 2. Foreground WHITE 'N' glyph inside with DARK 1.7 outline
-polygon(n_pts, style=no_border_fill(WHITE))
-draw_round_polyline(n_pts, width_units=w_n, color=DARK, closed=True)
+polygon(n_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(n_pts, width_units=w_n, color=Icon.DARK, closed=True)
 
 save()

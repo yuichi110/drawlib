@@ -10,11 +10,13 @@
 """Network icon: opnsense (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import draw_compound_polygon, setup_icon
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-draw_compound_polygon([[(27.04, 91.0), (27.04, 72.96), (72.96, 72.96), (72.96, 27.04), (91.0, 27.04), (91.0, 65.14), (65.13, 91.0)], [(72.96, 27.04), (27.04, 27.04), (27.04, 72.96), (9.0, 72.96), (9.0, 35.24), (35.24, 9.0), (72.96, 9.0)]], color='#C03E14')
+Icon.setup()
+polygon([(27.04, 91.0), (27.04, 72.96), (72.96, 72.96), (72.96, 27.04), (91.0, 27.04), (91.0, 65.14), (65.13, 91.0)], style=Icon.fill_style('#C03E14'))
+polygon([(72.96, 27.04), (27.04, 27.04), (27.04, 72.96), (9.0, 72.96), (9.0, 35.24), (35.24, 9.0), (72.96, 9.0)], style=Icon.fill_style('#C03E14'))
 save()
 # fmt: on

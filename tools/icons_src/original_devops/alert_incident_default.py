@@ -11,34 +11,27 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    WHITE,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 polygon(
     [(50.0, 84.0), (14.0, 20.0), (86.0, 20.0)],
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=7.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=7.0),
 )
 
 rectangle(
     (50.0, 52.0),
     width=8.0,
     height=22.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=4.0),
 )
 circle(
     (50.0, 29.0),
     radius=4.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

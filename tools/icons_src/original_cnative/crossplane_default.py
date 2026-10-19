@@ -13,19 +13,7 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _clip_halfplane(
@@ -52,16 +40,16 @@ def _clip_halfplane(
     return out
 
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Bottom rounded popsicle stick
 rectangle(
     (50.0, 22.0),
     width=14.0,
     height=24.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=6.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=6.5),
 )
 
 # Build smooth popsicle body contour (x=28..72, y=30..88)
@@ -91,15 +79,15 @@ mid_stripe = _clip_halfplane(
 )
 bot_stripe = _clip_halfplane(body_pts, c=c_lower, keep_ge=False)
 
-polygon(top_stripe, style=no_border_fill(WHITE))
-polygon(mid_stripe, style=no_border_fill(PASTEL_BLUE))
-polygon(bot_stripe, style=no_border_fill(PASTEL_GREEN))
+polygon(top_stripe, style=Icon.no_border_fill(Icon.WHITE))
+polygon(mid_stripe, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+polygon(bot_stripe, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
 
 # Diagonal stripe dividers
-draw_round_segment((28.0, 48.0), (63.43, 83.43), width_units=2.0, color=DARK)
-draw_round_segment((36.52, 30.52), (72.0, 66.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((28.0, 48.0), (63.43, 83.43), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((36.52, 30.52), (72.0, 66.0), width_units=2.0, color=Icon.DARK)
 
 # Outer popsicle border
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

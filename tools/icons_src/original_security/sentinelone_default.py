@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -41,7 +36,7 @@ bars: list[list[tuple[float, float]]] = [
 # fmt: on
 
 for bar_pts in bars:
-    polygon(bar_pts, style=no_border_fill(Colors.Purple3))
-    draw_round_polyline(bar_pts, width_units=w, color=DARK, closed=True)
+    polygon(bar_pts, style=Icon.no_border_fill(Colors.Purple3))
+    Icon.draw_round_polyline(bar_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

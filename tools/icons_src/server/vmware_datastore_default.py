@@ -11,15 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, ellipse
-from drawlib.utils import (
-    VMWARE_CYAN,
-    VMWARE_NAVY,
-    draw_round_segment,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon, Vmware
 
-setup_icon()
+Icon.setup()
 
 cx = 50.0
 width = 72.0
@@ -38,7 +32,7 @@ for waist_cy in (59.5, 40.5):
         height=eh,
         angle_start=180.0,
         angle_end=360.0,
-        style=stroke_style(VMWARE_CYAN, width_units=4.4),
+        style=Icon.stroke_style(Vmware.CYAN, width_units=4.4),
     )
 
 # Outer structural cylinder outline (bottom arc, side walls, and full top ellipse)
@@ -48,15 +42,15 @@ arc(
     height=eh,
     angle_start=180.0,
     angle_end=360.0,
-    style=stroke_style(VMWARE_NAVY, width_units=4.6),
+    style=Icon.stroke_style(Vmware.NAVY, width_units=4.6),
 )
-draw_round_segment((x_left, y_bot_c), (x_left, y_top_c), width_units=4.6, color=VMWARE_NAVY)
-draw_round_segment((x_right, y_bot_c), (x_right, y_top_c), width_units=4.6, color=VMWARE_NAVY)
+Icon.draw_round_segment((x_left, y_bot_c), (x_left, y_top_c), width_units=4.6, color=Vmware.NAVY)
+Icon.draw_round_segment((x_right, y_bot_c), (x_right, y_top_c), width_units=4.6, color=Vmware.NAVY)
 ellipse(
     (cx, y_top_c),
     width=width,
     height=eh,
-    style=stroke_style(VMWARE_NAVY, width_units=4.6),
+    style=Icon.stroke_style(Vmware.NAVY, width_units=4.6),
 )
 
 save()

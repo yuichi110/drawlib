@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.95
@@ -87,14 +81,14 @@ left_wing = _sc(_RAW_LEFT_WING)
 crease_bot, crease_top = _sc([(34.94, 43.16), (49.54, 68.45)])
 
 # 1. Right wing in Colors.Orange4
-polygon(right_wing, style=no_border_fill(Colors.Orange4))
-draw_round_polyline(right_wing, width_units=w, color=DARK, closed=True)
+polygon(right_wing, style=Icon.no_border_fill(Colors.Orange4))
+Icon.draw_round_polyline(right_wing, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Left wing in Colors.Orange3
-polygon(left_wing, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(left_wing, width_units=w, color=DARK, closed=True)
+polygon(left_wing, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(left_wing, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Inner wing overlap line
-draw_round_segment(crease_bot, crease_top, width_units=1.6, color=DARK)
+Icon.draw_round_segment(crease_bot, crease_top, width_units=1.6, color=Icon.DARK)
 
 save()

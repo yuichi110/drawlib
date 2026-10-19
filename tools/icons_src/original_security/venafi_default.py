@@ -12,15 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -92,11 +87,11 @@ inner_v = _sc([
 # fmt: on
 
 # 1. Outer 'V' in pastel indigo/blue (Colors.Blue4) + DARK 1.7 outline
-polygon(outer_v, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(outer_v, width_units=w, color=DARK, closed=True)
+polygon(outer_v, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(outer_v, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Inner 'V' in pastel orange (Colors.Orange3) + DARK 1.7 outline
-polygon(inner_v, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(inner_v, width_units=w, color=DARK, closed=True)
+polygon(inner_v, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(inner_v, width_units=w, color=Icon.DARK, closed=True)
 
 save()

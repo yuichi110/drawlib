@@ -12,18 +12,11 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.65
@@ -161,30 +154,30 @@ hole_bl = _circle_pts(*c_bl, r_sm_in)
 hole_br = _circle_pts(*c_br, r_sm_in)
 
 # 1. Colors.Blue3 rings and connectors with transparent holes
-draw_compound_polygon(
-    [blue3_outer, hole_tl, hole_ml, hole_mr, hole_bl, play_outer, play_inner, check_ml, check_mr],
-    color=Colors.Blue3,
-)
+polygon(blue3_outer, holes=[hole_tl, hole_ml, hole_mr, hole_bl], style=Icon.fill_style(Colors.Blue3))
+polygon(play_outer, holes=[play_inner], style=Icon.fill_style(Colors.Blue3))
+polygon(check_ml, style=Icon.fill_style(Colors.Blue3))
+polygon(check_mr, style=Icon.fill_style(Colors.Blue3))
 
 # 2. Colors.Blue2 bottom-right ring with transparent hole + 2 dots in bottom-left ring
-draw_compound_polygon([blue2_outer, hole_br], color=Colors.Blue2)
+polygon(blue2_outer, holes=[hole_br], style=Icon.fill_style(Colors.Blue2))
 
 dot_l = _sc((44.93, 21.05))
 dot_r = _sc((51.68, 21.05))
 for dxy in (dot_l, dot_r):
-    circle(dxy, radius=1.9, style=fill_style(Colors.Blue2, border_color=DARK, border_units=1.45))
+    circle(dxy, radius=1.9, style=Icon.fill_style(Colors.Blue2, border_color=Icon.DARK, border_units=1.45))
 
 # 3. Crisp DARK outlines on all outer and inner contours
-draw_round_polyline(blue3_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(blue2_outer, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(blue3_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(blue2_outer, width_units=w, color=Icon.DARK, closed=True)
 
-circle(c_tl, radius=r_tl_in, style=stroke_style(DARK, width_units=w_inner))
+circle(c_tl, radius=r_tl_in, style=Icon.stroke_style(Icon.DARK, width_units=w_inner))
 for cxy in (c_ml, c_mr, c_bl, c_br):
-    circle(cxy, radius=r_sm_in, style=stroke_style(DARK, width_units=w_inner))
+    circle(cxy, radius=r_sm_in, style=Icon.stroke_style(Icon.DARK, width_units=w_inner))
 
-draw_round_polyline(play_outer, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(play_inner, width_units=1.55, color=DARK, closed=True)
-draw_round_polyline(check_ml, width_units=1.55, color=DARK, closed=True)
-draw_round_polyline(check_mr, width_units=1.55, color=DARK, closed=True)
+Icon.draw_round_polyline(play_outer, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(play_inner, width_units=1.55, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(check_ml, width_units=1.55, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(check_mr, width_units=1.55, color=Icon.DARK, closed=True)
 
 save()

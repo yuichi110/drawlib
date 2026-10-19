@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -41,13 +36,13 @@ inner_left = _sc([(50.0, 69.92), (50.0, 49.99), (32.77, 40.02), (32.77, 59.94)])
 # fmt: on
 
 # 1. Isometric cube segment fills in pastel blue & slate
-polygon(inner_right, style=no_border_fill(Colors.Gray3))
-polygon(inner_left, style=no_border_fill(Colors.Gray3))
-polygon(face_tl_top, style=no_border_fill(Colors.Blue2))
-polygon(face_bl_bot, style=no_border_fill(Colors.Blue2))
-polygon(face_tr_top, style=no_border_fill(Colors.Blue3))
-polygon(face_br_bot, style=no_border_fill(Colors.Blue3))
-polygon(face_left_v, style=no_border_fill(Colors.Blue3))
+polygon(inner_right, style=Icon.no_border_fill(Colors.Gray3))
+polygon(inner_left, style=Icon.no_border_fill(Colors.Gray3))
+polygon(face_tl_top, style=Icon.no_border_fill(Colors.Blue2))
+polygon(face_bl_bot, style=Icon.no_border_fill(Colors.Blue2))
+polygon(face_tr_top, style=Icon.no_border_fill(Colors.Blue3))
+polygon(face_br_bot, style=Icon.no_border_fill(Colors.Blue3))
+polygon(face_left_v, style=Icon.no_border_fill(Colors.Blue3))
 
 # 2. DARK 1.7 outlines for every isometric cube face
 for face_pts in (
@@ -59,6 +54,6 @@ for face_pts in (
     face_br_bot,
     face_left_v,
 ):
-    draw_round_polyline(face_pts, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(face_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

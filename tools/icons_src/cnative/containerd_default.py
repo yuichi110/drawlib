@@ -11,12 +11,12 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import draw_compound_polygon, fill_style, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-draw_compound_polygon([[(21.85, 90.38), (21.85, 9.52), (78.27, 9.52), (78.27, 90.38)], [(68.9, 18.92), (31.26, 18.92), (31.26, 54.65), (57.58, 54.65), (57.58, 67.83), (68.86, 67.83), (68.86, 18.92)]], color="#000000")
-polygon([(42.54, 45.25), (57.58, 45.25), (57.58, 28.33), (42.54, 28.33)], style=fill_style("#000000"))
+Icon.setup()
+polygon([(21.85, 90.38), (21.85, 9.52), (78.27, 9.52), (78.27, 90.38)], holes=[[(68.9, 18.92), (31.26, 18.92), (31.26, 54.65), (57.58, 54.65), (57.58, 67.83), (68.86, 67.83), (68.86, 18.92)]], style=Icon.fill_style("#000000"))
+polygon([(42.54, 45.25), (57.58, 45.25), (57.58, 28.33), (42.54, 28.33)], style=Icon.fill_style("#000000"))
 save()
 # fmt: on

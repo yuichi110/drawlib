@@ -10,54 +10,43 @@
 """Original concept icon: package_dependency."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_polyline,
-    draw_round_segment,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Orthogonal dependency tree lines connecting parent cube to child cubes
-draw_round_segment((50.0, 52.0), (50.0, 44.5), width_units=w, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((50.0, 52.0), (50.0, 44.5), width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(27.0, 34.0), (27.0, 44.5), (73.0, 44.5), (73.0, 34.0)],
     corner_r=4.0,
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Top parent isometric 3D package cube
-draw_iso_cube(
+Icon.draw_iso_cube(
     50.0,
     68.5,
     radius=16.5,
-    top_color=PASTEL_GREEN,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.PASTEL_GREEN,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=w,
 )
 
 # Two child isometric 3D package cubes
 for cx in (27.0, 73.0):
-    draw_iso_cube(
+    Icon.draw_iso_cube(
         cx,
         24.5,
         radius=12.0,
-        top_color=WHITE,
-        left_color=PASTEL_BLUE,
-        right_color=PASTEL_BLUE_LIGHT,
-        border_color=DARK,
+        top_color=Icon.WHITE,
+        left_color=Icon.PASTEL_BLUE,
+        right_color=Icon.PASTEL_BLUE_LIGHT,
+        border_color=Icon.DARK,
         border_units=2.0,
     )
 

@@ -11,14 +11,14 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import K8S_BLUE, WHITE, draw_k8s_heptagon, fill_style, setup_icon
+from drawlib.utils import Icon, K8s
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-draw_k8s_heptagon()
-polygon([(33.14, 61.82), (50.0, 66.71), (66.86, 61.82), (50.0, 56.92)], style=fill_style(WHITE))
-polygon([(33.14, 59.94), (33.14, 42.0), (48.85, 33.29), (48.93, 55.25)], style=fill_style(WHITE))
-polygon([(66.86, 59.94), (66.86, 42.0), (51.15, 33.29), (51.07, 55.25)], style=fill_style(WHITE))
+Icon.setup()
+K8s.draw_heptagon()
+polygon([(33.14, 61.82), (50.0, 66.71), (66.86, 61.82), (50.0, 56.92)], style=Icon.fill_style(Icon.WHITE))
+polygon([(33.14, 59.94), (33.14, 42.0), (48.85, 33.29), (48.93, 55.25)], style=Icon.fill_style(Icon.WHITE))
+polygon([(66.86, 59.94), (66.86, 42.0), (51.15, 33.29), (51.07, 55.25)], style=Icon.fill_style(Icon.WHITE))
 save()
 # fmt: on

@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_halo = 2.0
@@ -59,26 +53,26 @@ arrow = _sc([(14.91, 64.39), (11.48, 60.94), (14.94, 57.51), (17.86, 57.52), (14
 # fmt: on
 
 # 1. Flat pastel teal diamonds
-polygon(left_d_left, style=no_border_fill(TEAL_LIGHT))
-polygon(left_d_right, style=no_border_fill(TEAL_MID))
-draw_round_polyline(left_diamond, width_units=w, color=DARK, closed=True)
+polygon(left_d_left, style=Icon.no_border_fill(TEAL_LIGHT))
+polygon(left_d_right, style=Icon.no_border_fill(TEAL_MID))
+Icon.draw_round_polyline(left_diamond, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(right_d_left, style=no_border_fill(TEAL_MID))
-polygon(right_d_right, style=no_border_fill(TEAL_LIGHT))
-draw_round_polyline(right_diamond, width_units=w, color=DARK, closed=True)
+polygon(right_d_left, style=Icon.no_border_fill(TEAL_MID))
+polygon(right_d_right, style=Icon.no_border_fill(TEAL_LIGHT))
+Icon.draw_round_polyline(right_diamond, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Two-way arrow on top of diamonds
-polygon(arrow, style=no_border_fill(SLATE))
-draw_round_polyline(arrow, width_units=0.6, color=DARK, closed=True)
+polygon(arrow, style=Icon.no_border_fill(SLATE))
+Icon.draw_round_polyline(arrow, width_units=0.6, color=Icon.DARK, closed=True)
 
 # 3. Flat dark slate 'gRPC' letters with transparent counters
 for contour in (g_outer, g_hole, r_outer, r_hole, p_outer, p_hole, c_outer):
-    draw_round_polyline(contour, width_units=w_halo, color=DARK, closed=True)
-draw_compound_polygon(
-    [g_outer, g_hole, r_outer, r_hole, p_outer, p_hole, c_outer],
-    color=SLATE,
-)
+    Icon.draw_round_polyline(contour, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(g_outer, holes=[g_hole], style=Icon.fill_style(SLATE))
+polygon(r_outer, holes=[r_hole], style=Icon.fill_style(SLATE))
+polygon(p_outer, holes=[p_hole], style=Icon.fill_style(SLATE))
+polygon(c_outer, style=Icon.fill_style(SLATE))
 for contour in (g_outer, g_hole, r_outer, r_hole, p_outer, p_hole, c_outer):
-    draw_round_polyline(contour, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

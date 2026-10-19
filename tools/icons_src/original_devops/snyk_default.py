@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx = 50.0
@@ -72,9 +64,9 @@ shield_left_half = [
 shield_right_half = _mirror(shield_left_half)
 shield_outline = shield_left_half + list(reversed(shield_right_half[1:-1]))
 
-polygon(shield_left_half, style=no_border_fill(SHIELD_LEFT))
-polygon(shield_right_half, style=no_border_fill(SHIELD_RIGHT))
-draw_round_polyline(shield_outline, width_units=w, color=DARK, closed=True)
+polygon(shield_left_half, style=Icon.no_border_fill(SHIELD_LEFT))
+polygon(shield_right_half, style=Icon.no_border_fill(SHIELD_RIGHT))
+Icon.draw_round_polyline(shield_outline, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Doberman neck, head, and tall pointed ears (COAT)
 # Neck base follows the exact bottom curve of the shield from shield_left_half[-7]
@@ -101,7 +93,7 @@ dog_outline = (
     + neck_bottom_right[1:]
     + list(reversed(neck_bottom_left[1:-1]))
 )
-polygon(dog_outline, style=no_border_fill(COAT))
+polygon(dog_outline, style=Icon.no_border_fill(COAT))
 
 # 3. Peach-tan inner ears (TAN)
 ear_in_left = [
@@ -113,8 +105,8 @@ ear_in_left = [
 ]
 ear_in_right = _mirror(ear_in_left)
 for ear_in in (ear_in_left, ear_in_right):
-    polygon(ear_in, style=no_border_fill(TAN))
-    draw_round_polyline(ear_in, width_units=1.6, color=DARK, closed=True)
+    polygon(ear_in, style=Icon.no_border_fill(TAN))
+    Icon.draw_round_polyline(ear_in, width_units=1.6, color=Icon.DARK, closed=True)
 
 # 4. Peach-tan muzzle cheeks (TAN) + chin & white teeth
 # Chin underneath jowls
@@ -123,7 +115,7 @@ chin_pts = [
     *_cubic((44.8, 26.2), (45.8, 22.8), (54.2, 22.8), (55.2, 26.2), 14),
     (50.0, 28.5),
 ]
-polygon(chin_pts, style=no_border_fill(TAN))
+polygon(chin_pts, style=Icon.no_border_fill(TAN))
 
 # Tiny white teeth arch at top of chin
 teeth_pts = [
@@ -131,16 +123,16 @@ teeth_pts = [
     *_cubic((46.8, 26.2), (48.5, 25.4), (51.5, 25.4), (53.2, 26.2), 8),
     (50.0, 29.0),
 ]
-polygon(teeth_pts, style=no_border_fill(WHITE))
-draw_round_polyline(
+polygon(teeth_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(
     [(46.8, 26.2), *_cubic((46.8, 26.2), (48.5, 25.4), (51.5, 25.4), (53.2, 26.2), 8)],
     width_units=1.5,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(44.8, 26.2), *_cubic((44.8, 26.2), (45.8, 22.8), (54.2, 22.8), (55.2, 26.2), 14)],
     width_units=1.8,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Tan cheek patches (leaving purple nasal bridge down the center)
@@ -155,12 +147,12 @@ muzzle_tan_left = [
     (38.0, 39.2),
 ]
 muzzle_tan_right = _mirror(muzzle_tan_left)
-polygon(muzzle_tan_left, style=no_border_fill(TAN))
-polygon(muzzle_tan_right, style=no_border_fill(TAN))
+polygon(muzzle_tan_left, style=Icon.no_border_fill(TAN))
+polygon(muzzle_tan_right, style=Icon.no_border_fill(TAN))
 
 # 5. Eyebrow dots (TAN, borderless ovals)
-ellipse((43.8, 54.0), width=5.6, height=3.2, style=fill_style(TAN, angle=-18.0))
-ellipse((56.2, 54.0), width=5.6, height=3.2, style=fill_style(TAN, angle=18.0))
+ellipse((43.8, 54.0), width=5.6, height=3.2, style=Icon.fill_style(TAN, angle=-18.0))
+ellipse((56.2, 54.0), width=5.6, height=3.2, style=Icon.fill_style(TAN, angle=18.0))
 
 # 6. Watchful half-lidded eyes (WHITE sclera + DARK pupil + tiny catchlight)
 for side in (-1.0, 1.0):
@@ -182,7 +174,7 @@ for side in (-1.0, 1.0):
             14,
         ),
     ]
-    polygon(sclera_pts, style=no_border_fill(WHITE))
+    polygon(sclera_pts, style=Icon.no_border_fill(Icon.WHITE))
     # Pupil clipped under top eyelid
     pupil_pts: list[tuple[float, float]] = []
     pr = 1.65
@@ -191,12 +183,12 @@ for side in (-1.0, 1.0):
         a = math.radians(180.0 + 180.0 * (i / 16))
         pupil_pts.append((pcx + pr * math.cos(a), pcy + pr * math.sin(a)))
     pupil_pts.extend([(pcx + pr, pcy + 0.8), (pcx - pr, pcy + 0.8)])
-    polygon(pupil_pts, style=no_border_fill(DARK))
+    polygon(pupil_pts, style=Icon.no_border_fill(Icon.DARK))
     # Tiny white catchlight on left side of pupil
-    circle((pcx - 0.75, pcy - 0.05), radius=0.42, style=no_border_fill(WHITE))
+    circle((pcx - 0.75, pcy - 0.05), radius=0.42, style=Icon.no_border_fill(Icon.WHITE))
     # Eye outline + slightly thicker upper lid
-    draw_round_polyline(sclera_pts, width_units=1.6, color=DARK, closed=True)
-    draw_round_segment(lid_l, lid_r, width_units=1.8, color=DARK)
+    Icon.draw_round_polyline(sclera_pts, width_units=1.6, color=Icon.DARK, closed=True)
+    Icon.draw_round_segment(lid_l, lid_r, width_units=1.8, color=Icon.DARK)
 
 # 7. Nose (DARK) and jowl/muzzle outlines
 nose_pts = [
@@ -206,8 +198,8 @@ nose_pts = [
     *_cubic((50.0, 30.5), (49.0, 30.5), (47.6, 30.8), (46.4, 32.2), 8),
     *_cubic((46.4, 32.2), (45.2, 34.0), (45.8, 36.2), (50.0, 36.2), 10),
 ]
-polygon(nose_pts, style=no_border_fill(DARK))
-draw_round_segment((50.0, 31.0), (50.0, 28.6), width_units=1.8, color=DARK)
+polygon(nose_pts, style=Icon.no_border_fill(Icon.DARK))
+Icon.draw_round_segment((50.0, 31.0), (50.0, 28.6), width_units=1.8, color=Icon.DARK)
 
 # Jowl curves from jaw down to center philtrum
 jowl_left = [
@@ -216,31 +208,31 @@ jowl_left = [
     *_cubic((40.8, 29.8), (41.2, 25.8), (47.5, 25.2), (50.0, 28.6), 12),
 ]
 jowl_right = _mirror(jowl_left)
-draw_round_polyline(jowl_left, width_units=w, color=DARK)
-draw_round_polyline(jowl_right, width_units=w, color=DARK)
+Icon.draw_round_polyline(jowl_left, width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(jowl_right, width_units=w, color=Icon.DARK)
 
 # 8. Crisp outer head/ear/neck contours & forehead crease
 # Left and right neck lines
-draw_round_segment(neck_start_left, (37.4, 38.2), width_units=w, color=DARK)
-draw_round_segment(neck_bottom_right[0], (62.6, 38.2), width_units=w, color=DARK)
+Icon.draw_round_segment(neck_start_left, (37.4, 38.2), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment(neck_bottom_right[0], (62.6, 38.2), width_units=w, color=Icon.DARK)
 
 # Left and right head + ear outlines
 head_ear_left = head_left[1:-1]
 head_ear_right = _mirror(head_ear_left)
-draw_round_polyline(head_ear_left, width_units=w, color=DARK)
-draw_round_polyline(head_ear_right, width_units=w, color=DARK)
+Icon.draw_round_polyline(head_ear_left, width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(head_ear_right, width_units=w, color=Icon.DARK)
 
 # Overlapping crown arch & temple notches
 crown_arch = [
     (41.8, 62.2),
     *_cubic((41.8, 62.2), (45.5, 64.5), (54.5, 64.5), (58.2, 62.2), 14),
 ]
-draw_round_polyline(crown_arch, width_units=w, color=DARK)
-draw_round_segment((35.6, 57.8), (36.2, 59.6), width_units=1.7, color=DARK)
-draw_round_segment((64.4, 57.8), (63.8, 59.6), width_units=1.7, color=DARK)
+Icon.draw_round_polyline(crown_arch, width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((35.6, 57.8), (36.2, 59.6), width_units=1.7, color=Icon.DARK)
+Icon.draw_round_segment((64.4, 57.8), (63.8, 59.6), width_units=1.7, color=Icon.DARK)
 
 # 9. Re-stroke bottom V of shield so neck terminates cleanly inside shield frame
 shield_bottom_v = shield_left_half[-10:] + list(reversed(shield_right_half[-10:-1]))
-draw_round_polyline(shield_bottom_v, width_units=w, color=DARK)
+Icon.draw_round_polyline(shield_bottom_v, width_units=w, color=Icon.DARK)
 
 save()

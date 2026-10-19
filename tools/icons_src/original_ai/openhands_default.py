@@ -15,15 +15,9 @@ from typing import Any
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.95
@@ -59,8 +53,8 @@ def _draw_ray_capsule(
     for i in range(steps + 1):
         ang = ang_base - math.pi / 2.0 + math.pi * (i / steps)
         pts.append((x2 + r * math.cos(ang), y2 + r * math.sin(ang)))
-    polygon(pts, style=no_border_fill(fill_color))
-    draw_round_polyline(pts, width_units=1.7, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(fill_color))
+    Icon.draw_round_polyline(pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 
 # Left open hand silhouette in raw coordinates
@@ -145,8 +139,8 @@ right_hand_pts = _mirror_x(left_hand_pts)
 PALE_YELLOW = "#F3E060"
 
 # 1. Fill left and right hands (PALE_YELLOW)
-polygon(left_hand_pts, style=no_border_fill(PALE_YELLOW))
-polygon(right_hand_pts, style=no_border_fill(PALE_YELLOW))
+polygon(left_hand_pts, style=Icon.no_border_fill(PALE_YELLOW))
+polygon(right_hand_pts, style=Icon.no_border_fill(PALE_YELLOW))
 
 # 2. Inner finger dividers and knuckle crease lines
 left_seams = [
@@ -156,12 +150,12 @@ left_seams = [
     (_s(14.60, 44.20), _s(29.80, 46.20)),
 ]
 for p1, p2 in left_seams:
-    draw_round_segment(p1, p2, width_units=1.7, color=DARK)
-    draw_round_segment((100.0 - p1[0], p1[1]), (100.0 - p2[0], p2[1]), width_units=1.7, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=1.7, color=Icon.DARK)
+    Icon.draw_round_segment((100.0 - p1[0], p1[1]), (100.0 - p2[0], p2[1]), width_units=1.7, color=Icon.DARK)
 
 # 3. Outer hand outlines (w = 1.9)
-draw_round_polyline(left_hand_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(right_hand_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(left_hand_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(right_hand_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Three celebration rays at top center (Colors.Gray6)
 _draw_ray_capsule(_s(50.0, 68.8), _s(50.0, 77.2), width_units=3.2, fill_color=Colors.Gray6)

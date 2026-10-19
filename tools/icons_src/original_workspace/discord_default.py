@@ -10,9 +10,10 @@
 """Original Workspace concept icon: discord."""
 
 from drawlib.canvas import save
-from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, setup_icon
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_eye = 1.8
 
@@ -194,9 +195,9 @@ eye_r = [
     (63.84, 39.15),
 ]
 
-draw_compound_polygon([outer, eye_l, eye_r], color="#5E6AF3")
-draw_round_polyline(outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(eye_l, width_units=w_eye, color=DARK, closed=True)
-draw_round_polyline(eye_r, width_units=w_eye, color=DARK, closed=True)
+polygon(outer, holes=[eye_l, eye_r], style=Icon.fill_style("#5E6AF3"))
+Icon.draw_round_polyline(outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(eye_l, width_units=w_eye, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(eye_r, width_units=w_eye, color=Icon.DARK, closed=True)
 
 save()

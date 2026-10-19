@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 b = 2.0
 w_line = 2.0
@@ -36,21 +25,21 @@ rectangle(
     (25.0, 76.0),
     width=26.0,
     height=22.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b, shape_r=3.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b, shape_r=3.0),
 )
-draw_round_segment((17.5, 79.5), (32.5, 79.5), width_units=w_line, color=DARK)
-draw_round_segment((17.5, 72.5), (28.5, 72.5), width_units=w_line, color=DARK)
+Icon.draw_round_segment((17.5, 79.5), (32.5, 79.5), width_units=w_line, color=Icon.DARK)
+Icon.draw_round_segment((17.5, 72.5), (28.5, 72.5), width_units=w_line, color=Icon.DARK)
 
 # 2. Arrow from source card into top of compiler box
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(38.0, 76.0), (50.0, 76.0), (50.0, 66.5)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(46.5, 70.0), (50.0, 66.0), (53.5, 70.0)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # 3. Central PASTEL_BLUE trapezoid/funnel compiler box
@@ -62,45 +51,45 @@ funnel_pts = [
 ]
 polygon(
     funnel_pts,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=b, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=b, shape_r=4.0),
 )
 
 # Inner gear/wheel inside compiler box
 for deg in range(0, 360, 60):
     rad = math.radians(deg)
-    draw_round_segment(
+    Icon.draw_round_segment(
         (50.0 + 4.5 * math.cos(rad), 50.0 + 4.5 * math.sin(rad)),
         (50.0 + 8.0 * math.cos(rad), 50.0 + 8.0 * math.sin(rad)),
         width_units=w_line,
-        color=DARK,
+        color=Icon.DARK,
     )
 circle(
     (50.0, 50.0),
     radius=5.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=b),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b),
 )
 
 # 4. Arrow from compiler box to bottom-right binary cube
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(50.0, 36.0), (50.0, 26.0), (59.5, 26.0)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(56.0, 29.5), (60.0, 26.0), (56.0, 22.5)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # 5. Bottom-right isometric PASTEL_GREEN binary cube
-draw_iso_cube(
+Icon.draw_iso_cube(
     76.0,
     26.0,
     radius=13.5,
-    top_color=PASTEL_GREEN,
-    left_color=PASTEL_GREEN,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.PASTEL_GREEN,
+    left_color=Icon.PASTEL_GREEN,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=b,
 )
 

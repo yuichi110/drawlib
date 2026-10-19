@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -59,12 +50,12 @@ back_pts: list[tuple[float, float]] = [
     *_arc_pts(bx1 - rb, by0 + rb, rb, 270.0, 360.0),
     *_arc_pts(bx1 - rb, by1 - rb, rb, 0.0, 90.0),
 ]
-polygon(back_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(back_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(back_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(back_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Two text lines inside back-left bubble (spaced cleanly above front bubble)
-draw_round_segment((23.5, 71.0), (54.0, 71.0), width_units=w_inner, color=DARK)
-draw_round_segment((23.5, 62.5), (39.5, 62.5), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((23.5, 71.0), (54.0, 71.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((23.5, 62.5), (39.5, 62.5), width_units=w_inner, color=Icon.DARK)
 
 # 3. Front-right chat bubble (PASTEL_GREEN, x=37..87, y=24..58)
 fx0, fy0, fx1, fy1 = 37.0, 24.0, 87.0, 58.0
@@ -78,11 +69,11 @@ front_pts: list[tuple[float, float]] = [
     *_arc_pts(fx1 - rf, fy0 + rf, rf, 270.0, 360.0),
     *_arc_pts(fx1 - rf, fy1 - rf, rf, 0.0, 90.0),
 ]
-polygon(front_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(front_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(front_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(front_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 4. Three typing dots inside front-right bubble
 for dx in (51.0, 62.0, 73.0):
-    circle((dx, 41.0), radius=2.6, style=fill_style(DARK))
+    circle((dx, 41.0), radius=2.6, style=Icon.fill_style(Icon.DARK))
 
 save()

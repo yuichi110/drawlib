@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -50,12 +39,12 @@ def _arc_pts(
 
 
 # 1. Tripod stand legs and top mount peg
-draw_round_segment((50.0, 36.0), (50.0, 16.0), width_units=w_outer, color=DARK)
-draw_round_segment((43.5, 36.0), (29.0, 16.0), width_units=w_outer, color=DARK)
-draw_round_segment((56.5, 36.0), (71.0, 16.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((50.0, 36.0), (50.0, 16.0), width_units=w_outer, color=Icon.DARK)
+Icon.draw_round_segment((43.5, 36.0), (29.0, 16.0), width_units=w_outer, color=Icon.DARK)
+Icon.draw_round_segment((56.5, 36.0), (71.0, 16.0), width_units=w_outer, color=Icon.DARK)
 
-draw_round_segment((50.0, 80.0), (50.0, 85.5), width_units=w_outer, color=DARK)
-draw_round_segment((45.5, 85.5), (54.5, 85.5), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((50.0, 80.0), (50.0, 85.5), width_units=w_outer, color=Icon.DARK)
+Icon.draw_round_segment((45.5, 85.5), (54.5, 85.5), width_units=w_outer, color=Icon.DARK)
 
 # 2. 16:9 presentation board (WHITE screen + PASTEL_BLUE top bar)
 x0, y0, x1, y1 = 14.0, 36.0, 86.0, 80.0
@@ -68,7 +57,7 @@ board_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_board, y1 - r_board, r_board, 0.0, 90.0),
     *_arc_pts(x0 + r_board, y1 - r_board, r_board, 90.0, 180.0),
 ]
-polygon(board_pts, style=no_border_fill(WHITE))
+polygon(board_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 bar_pts: list[tuple[float, float]] = [
     (x0, y_bar),
@@ -76,25 +65,25 @@ bar_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_board, y1 - r_board, r_board, 0.0, 90.0),
     *_arc_pts(x0 + r_board, y1 - r_board, r_board, 90.0, 180.0),
 ]
-polygon(bar_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(board_pts, width_units=w_outer, color=DARK, closed=True)
-draw_round_segment((x0, y_bar), (x1, y_bar), width_units=w_outer, color=DARK)
+polygon(bar_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(board_pts, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((x0, y_bar), (x1, y_bar), width_units=w_outer, color=Icon.DARK)
 
 # 3. Rising bar chart inside screen (PASTEL_BLUE_LIGHT & PASTEL_GREEN)
 y_base = 43.0
 bars = [
-    (34.0, 9.0, PASTEL_BLUE_LIGHT),
-    (50.0, 14.5, PASTEL_BLUE_LIGHT),
-    (66.0, 20.5, PASTEL_GREEN),
+    (34.0, 9.0, Icon.PASTEL_BLUE_LIGHT),
+    (50.0, 14.5, Icon.PASTEL_BLUE_LIGHT),
+    (66.0, 20.5, Icon.PASTEL_GREEN),
 ]
 for bx, bh, col in bars:
     rectangle(
         (bx, y_base + bh / 2.0),
         width=10.5,
         height=bh,
-        style=fill_style(col, border_color=DARK, border_units=w_inner, shape_r=1.5),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
     )
 
-draw_round_segment((24.5, y_base), (75.5, y_base), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((24.5, y_base), (75.5, y_base), width_units=w_inner, color=Icon.DARK)
 
 save()

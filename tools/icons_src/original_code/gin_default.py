@@ -13,17 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 s = 40.0 / 41.0
 w_outer = 2.0
@@ -87,7 +79,7 @@ glass_top_back = _arc_pts(50.0, 72.8, 29.0, 3.8, 0.0, 180.0, steps=28)
 glass_left_wall = [(21.0, 72.2), (33.5, 12.6)]
 
 glass_air_poly = _sc([*glass_bottom, *glass_right_wall, *glass_top_back[1:-1], *glass_left_wall])
-polygon(glass_air_poly, style=no_border_fill(GLASS_AIR))
+polygon(glass_air_poly, style=Icon.no_border_fill(GLASS_AIR))
 
 # Liquid body inside glass (up to y ~ 62.5)
 liquid_left_top = (23.2, 61.8)
@@ -98,10 +90,10 @@ liquid_back_curve = _bezier(liquid_left_top, (36.0, 64.8), (64.0, 64.8), liquid_
 liquid_body_poly = _sc(
     [*glass_bottom, (72.5, 12.8), liquid_right_top, *liquid_front_curve[1:-1], liquid_left_top, (33.5, 12.6)]
 )
-polygon(liquid_body_poly, style=no_border_fill(GOPHER_BLUE))
+polygon(liquid_body_poly, style=Icon.no_border_fill(GOPHER_BLUE))
 
 liquid_surface_poly = _sc([*liquid_back_curve, *liquid_front_curve[1:-1]])
-polygon(liquid_surface_poly, style=no_border_fill(LIQUID_TOP))
+polygon(liquid_surface_poly, style=Icon.no_border_fill(LIQUID_TOP))
 
 # 2. Submerged Lemon Wedge Shadow inside the Liquid
 submerged_lemon = _sc(
@@ -112,7 +104,7 @@ submerged_lemon = _sc(
         *_bezier((77.5, 61.5), (65.0, 59.5), (50.0, 59.5), (40.2, 60.4), steps=14)[1:],
     ]
 )
-polygon(submerged_lemon, style=no_border_fill(SUBMERGED_TEAL))
+polygon(submerged_lemon, style=Icon.no_border_fill(SUBMERGED_TEAL))
 
 # 3. Lemon Slice Wedge Perched on Upper-Right Rim
 lemon_tip = (68.2, 90.8)
@@ -124,63 +116,73 @@ lemon_bottom_cut = _bezier(lemon_right_rim, (65.0, 59.5), (50.0, 59.5), lemon_le
 lemon_diag_edge = _bezier(lemon_left_cut, (50.8, 69.5), (60.8, 80.5), lemon_tip, steps=18)
 
 lemon_full_poly = _sc([*lemon_rind_outer, *lemon_bottom_cut[1:], *lemon_diag_edge[1:-1]])
-polygon(lemon_full_poly, style=no_border_fill(LEMON_RIND))
+polygon(lemon_full_poly, style=Icon.no_border_fill(LEMON_RIND))
 
 # Inner yellow pulp & white pith line
 pith_outer = _bezier((67.3, 88.0), (74.2, 83.8), (77.2, 73.5), (74.8, 61.6), steps=20)
 pulp_bottom = _bezier((74.8, 61.6), (64.0, 60.2), (51.0, 60.2), (42.5, 60.8), steps=14)
 pulp_diag = _bezier((42.5, 60.8), (52.0, 69.5), (60.5, 79.2), (67.3, 88.0), steps=14)
 lemon_pulp_poly = _sc([*pith_outer, *pulp_bottom[1:], *pulp_diag[1:-1]])
-polygon(lemon_pulp_poly, style=no_border_fill(LEMON_YELLOW))
+polygon(lemon_pulp_poly, style=Icon.no_border_fill(LEMON_YELLOW))
 
-draw_round_polyline(_sc(pith_outer), width_units=1.35, color=WHITE, closed=False)
-draw_round_polyline(_sc(pulp_diag), width_units=1.25, color=WHITE, closed=False)
+Icon.draw_round_polyline(_sc(pith_outer), width_units=1.35, color=Icon.WHITE, closed=False)
+Icon.draw_round_polyline(_sc(pulp_diag), width_units=1.25, color=Icon.WHITE, closed=False)
 
 # Lemon segment spokes in WHITE
 lemon_hub = _sc_pt((57.8, 72.2))
 for seg_end in [(72.2, 79.5), (74.5, 70.5), (69.5, 62.5)]:
-    draw_round_segment(lemon_hub, _sc_pt(seg_end), width_units=1.25, color=WHITE)
+    Icon.draw_round_segment(lemon_hub, _sc_pt(seg_end), width_units=1.25, color=Icon.WHITE)
 
 # Outline of lemon wedge
-draw_round_polyline(
+Icon.draw_round_polyline(
     _sc([*lemon_diag_edge, *lemon_rind_outer[1:]]),
     width_units=w_outer,
-    color=DARK,
+    color=Icon.DARK,
     closed=False,
 )
-draw_round_polyline(_sc(lemon_bottom_cut), width_units=w_inner, color=DARK, closed=False)
+Icon.draw_round_polyline(_sc(lemon_bottom_cut), width_units=w_inner, color=Icon.DARK, closed=False)
 
 # 4. Liquid Surface & Glass Rim Outlines
-draw_round_polyline(
+Icon.draw_round_polyline(
     _sc(_bezier(liquid_left_top, (32.0, 64.2), (42.0, 64.5), (47.5, 64.2), steps=14)),
     width_units=w_inner,
-    color=DARK,
+    color=Icon.DARK,
     closed=False,
 )
-draw_round_polyline(_sc(liquid_front_curve), width_units=w_inner, color=DARK, closed=False)
+Icon.draw_round_polyline(_sc(liquid_front_curve), width_units=w_inner, color=Icon.DARK, closed=False)
 
 # Glass top rim front curve & left back curve
 glass_rim_front = _arc_pts(50.0, 72.8, 29.0, 3.8, 180.0, 355.0, steps=28)
 glass_rim_back_left = _arc_pts(50.0, 72.8, 29.0, 3.8, 63.0, 180.0, steps=20)
-draw_round_polyline(_sc(glass_rim_back_left), width_units=w_outer, color=DARK, closed=False)
-draw_round_polyline(_sc(glass_rim_front), width_units=w_outer, color=DARK, closed=False)
+Icon.draw_round_polyline(_sc(glass_rim_back_left), width_units=w_outer, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(_sc(glass_rim_front), width_units=w_outer, color=Icon.DARK, closed=False)
 
 # Glass outer walls & bottom outline
 glass_outer_u = _sc([(21.0, 72.2), (33.5, 12.6), *glass_bottom[1:], (79.0, 72.2)])
-draw_round_polyline(glass_outer_u, width_units=w_outer, color=DARK, closed=False)
+Icon.draw_round_polyline(glass_outer_u, width_units=w_outer, color=Icon.DARK, closed=False)
 
 # 5. Gopher Face on the Glass Front
 # Left eye
 left_eye_c = _sc_pt((43.7, 34.9))
-ellipse(left_eye_c, width=11.6 * s, height=10.4 * s, style=fill_style(WHITE, border_color=DARK, border_units=w_inner))
-circle(_sc_pt((40.4, 34.6)), radius=2.15 * s, style=no_border_fill(DARK))
-circle(_sc_pt((41.2, 35.4)), radius=0.55 * s, style=no_border_fill(WHITE))
+ellipse(
+    left_eye_c,
+    width=11.6 * s,
+    height=10.4 * s,
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
+)
+circle(_sc_pt((40.4, 34.6)), radius=2.15 * s, style=Icon.no_border_fill(Icon.DARK))
+circle(_sc_pt((41.2, 35.4)), radius=0.55 * s, style=Icon.no_border_fill(Icon.WHITE))
 
 # Right eye
 right_eye_c = _sc_pt((60.0, 35.6))
-ellipse(right_eye_c, width=11.7 * s, height=10.4 * s, style=fill_style(WHITE, border_color=DARK, border_units=w_inner))
-circle(_sc_pt((56.7, 35.3)), radius=2.15 * s, style=no_border_fill(DARK))
-circle(_sc_pt((57.6, 36.0)), radius=0.55 * s, style=no_border_fill(WHITE))
+ellipse(
+    right_eye_c,
+    width=11.7 * s,
+    height=10.4 * s,
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
+)
+circle(_sc_pt((56.7, 35.3)), radius=2.15 * s, style=Icon.no_border_fill(Icon.DARK))
+circle(_sc_pt((57.6, 36.0)), radius=0.55 * s, style=Icon.no_border_fill(Icon.WHITE))
 
 # Gopher teeth (drawn just behind the upper muzzle lip)
 for tx in (51.0, 53.5):
@@ -194,21 +196,24 @@ for tx in (51.0, 53.5):
             (tx + 1.1, 27.0),
         ]
     )
-    polygon(tooth_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(tooth_pts, width_units=w_detail, color=DARK, closed=True)
+    polygon(tooth_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(tooth_pts, width_units=w_detail, color=Icon.DARK, closed=True)
 
 # Gopher muzzle / snout
 muzzle_c = _sc_pt((52.25, 27.1))
 ellipse(
-    muzzle_c, width=10.2 * s, height=4.3 * s, style=fill_style(MUZZLE_GOLD, border_color=DARK, border_units=w_inner)
+    muzzle_c,
+    width=10.2 * s,
+    height=4.3 * s,
+    style=Icon.fill_style(MUZZLE_GOLD, border_color=Icon.DARK, border_units=w_inner),
 )
 
 # Gopher nose tip
 nose_c = _sc_pt((52.25, 28.7))
-ellipse(nose_c, width=5.6 * s, height=2.5 * s, style=no_border_fill(DARK))
+ellipse(nose_c, width=5.6 * s, height=2.5 * s, style=Icon.no_border_fill(Icon.DARK))
 
 # Subtle glass shine highlight on lower-left wall
-draw_round_segment(_sc_pt((27.8, 46.0)), _sc_pt((31.2, 26.5)), width_units=1.2, color=WHITE)
-draw_round_segment(_sc_pt((32.0, 22.0)), _sc_pt((33.2, 16.5)), width_units=1.2, color=WHITE)
+Icon.draw_round_segment(_sc_pt((27.8, 46.0)), _sc_pt((31.2, 26.5)), width_units=1.2, color=Icon.WHITE)
+Icon.draw_round_segment(_sc_pt((32.0, 22.0)), _sc_pt((33.2, 16.5)), width_units=1.2, color=Icon.WHITE)
 
 save()

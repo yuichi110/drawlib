@@ -12,9 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_crease = 1.8
@@ -29,22 +29,22 @@ v_fold = (42.91, 59.20)
 
 # 1. Inner fold (bottom-left darker coral)
 inner_fold = [v_bl_out, v_fold, v_crotch, v_bl_in]
-polygon(inner_fold, style=no_border_fill(Colors.Red4))
+polygon(inner_fold, style=Icon.no_border_fill(Colors.Red4))
 
 # 2. Left leg / center ribbon (light pastel coral)
 left_leg = [v_bl_out, v_top, v_br_in, v_crotch, v_fold]
-polygon(left_leg, style=no_border_fill(Colors.Red2))
+polygon(left_leg, style=Icon.no_border_fill(Colors.Red2))
 
 # 3. Right leg (medium pastel red)
 right_leg = [v_top, v_br_out, v_br_in]
-polygon(right_leg, style=no_border_fill(Colors.Red3))
+polygon(right_leg, style=Icon.no_border_fill(Colors.Red3))
 
 # 4. Internal ribbon crease lines
-draw_round_polyline([v_bl_out, v_fold, v_crotch], width_units=w_crease, color=DARK)
-draw_round_polyline([v_top, v_br_in], width_units=w_crease, color=DARK)
+Icon.draw_round_polyline([v_bl_out, v_fold, v_crotch], width_units=w_crease, color=Icon.DARK)
+Icon.draw_round_polyline([v_top, v_br_in], width_units=w_crease, color=Icon.DARK)
 
 # 5. Outer chevron outline
 chevron_outer = [v_bl_out, v_top, v_br_out, v_br_in, v_crotch, v_bl_in]
-draw_round_polyline(chevron_outer, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(chevron_outer, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_letter = 1.4
@@ -33,12 +26,12 @@ p_hole: list[tuple[float, float]] = [(61.74, 57.81), (61.71, 56.59), (61.62, 55.
 # fmt: on
 
 # 1. Dark forest-teal square badge with DARK w=1.9 border
-polygon(badge_pts, style=no_border_fill("#2C524E"))
-draw_round_polyline(badge_pts, width_units=w_badge, color=DARK, closed=True)
+polygon(badge_pts, style=Icon.no_border_fill("#2C524E"))
+Icon.draw_round_polyline(badge_pts, width_units=w_badge, color=Icon.DARK, closed=True)
 
 # 2. White 'p' letter with transparent counter hole and DARK 1.4 outlines
-draw_compound_polygon([p_outer, p_hole], color=WHITE)
-draw_round_polyline(p_outer, width_units=w_letter, color=DARK, closed=True)
-draw_round_polyline(p_hole, width_units=w_letter, color=DARK, closed=True)
+polygon(p_outer, holes=[p_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(p_outer, width_units=w_letter, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(p_hole, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()

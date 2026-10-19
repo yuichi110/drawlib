@@ -11,34 +11,23 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Certificate card
 rectangle(
     (48.0, 56.0),
     width=68.0,
     height=52.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=6.0),
 )
 
 # 2 horizontal certificate lines on the left
-draw_round_segment((24.0, 66.0), (54.0, 66.0), width_units=2.0, color=DARK)
-draw_round_segment((24.0, 52.0), (54.0, 52.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((24.0, 66.0), (54.0, 66.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((24.0, 52.0), (54.0, 52.0), width_units=2.0, color=Icon.DARK)
 
 # Bottom-right ribbon tails extending down from (64.0, 38.0) to (56.0, 16.0) and (72.0, 16.0)
 ribbon_pts = [
@@ -48,19 +37,19 @@ ribbon_pts = [
     (72.0, 16.0),
     (72.0, 38.0),
 ]
-polygon(ribbon_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(ribbon_pts, width_units=w, color=DARK, closed=True)
+polygon(ribbon_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(ribbon_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Circular medal seal
 circle(
     (64.0, 38.0),
     radius=14.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (64.0, 38.0),
     radius=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

@@ -13,29 +13,18 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Wide portrait tablet frame
 rectangle(
     (45.5, 50.0),
     width=55.0,
     height=70.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=7.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=7.0),
 )
 
 # Inner WHITE screen
@@ -43,22 +32,22 @@ rectangle(
     (45.5, 50.0),
     width=43.0,
     height=54.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=3.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=3.5),
 )
 
 # Top camera dot
-circle((45.5, 81.0), radius=1.2, style=fill_style(DARK))
+circle((45.5, 81.0), radius=1.2, style=Icon.fill_style(Icon.DARK))
 
 # Screen UI widget and lines
 rectangle(
     (43.0, 63.0),
     width=28.0,
     height=13.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=2.5),
 )
-draw_round_segment((30.0, 48.0), (54.0, 48.0), width_units=2.0, color=DARK)
-draw_round_segment((30.0, 40.5), (48.0, 40.5), width_units=2.0, color=DARK)
-draw_round_segment((30.0, 33.0), (52.0, 33.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((30.0, 48.0), (54.0, 48.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((30.0, 40.5), (48.0, 40.5), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((30.0, 33.0), (52.0, 33.0), width_units=2.0, color=Icon.DARK)
 
 # Angled PASTEL_GREEN stylus with rounded top cap overlapping right side of tablet
 tip = (61.5, 27.5)
@@ -81,10 +70,10 @@ for i in range(steps + 1):
     cap_pts.append((top_cx + half_t * math.cos(theta), top_cy + half_t * math.sin(theta)))
 
 # Stylus cone tip (WHITE) and rounded barrel (PASTEL_GREEN)
-polygon([tip, p_cone_r, p_cone_l], style=fill_style(WHITE))
-polygon([p_cone_l, p_cone_r, *cap_pts], style=fill_style(PASTEL_GREEN))
-draw_round_polyline([tip, p_cone_r, *cap_pts, p_cone_l], width_units=2.0, color=DARK, closed=True)
-draw_round_segment(p_cone_l, p_cone_r, width_units=2.0, color=DARK)
-circle(tip, radius=1.2, style=fill_style(DARK))
+polygon([tip, p_cone_r, p_cone_l], style=Icon.fill_style(Icon.WHITE))
+polygon([p_cone_l, p_cone_r, *cap_pts], style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline([tip, p_cone_r, *cap_pts, p_cone_l], width_units=2.0, color=Icon.DARK, closed=True)
+Icon.draw_round_segment(p_cone_l, p_cone_r, width_units=2.0, color=Icon.DARK)
+circle(tip, radius=1.2, style=Icon.fill_style(Icon.DARK))
 
 save()

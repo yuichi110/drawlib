@@ -1306,10 +1306,11 @@
 </figure>
 <hr />
 <h2>5. Arbitrary Coordinate Polygons (<code>polygon</code>)</h2>
-<p><code>polygon</code> constructs a closed polygon directly from an explicit sequence of canvas vertex coordinates <code>xys=[(x1, y1), (x2, y2), ...]</code>:</p>
+<p><code>polygon</code> constructs a closed polygon directly from an explicit sequence of canvas vertex coordinates <code>xys=[(x1, y1), (x2, y2), ...]</code>, with optional interior cutout <code>holes</code>:</p>
 <pre><code class="language-python"><span class="n">polygon</span><span class="p">(</span>
     <span class="n">xys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">holes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1329,19 +1330,19 @@
 <td style="text-align:left"><code>xys</code></td>
 <td style="text-align:left"><code>list[tuple[float, float]]</code></td>
 <td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Ordered sequence of at least 3 canvas vertex coordinates <code>[(x1, y1), (x2, y2), ...]</code>.</td>
+<td style="text-align:left">Ordered sequence of at least 3 outer canvas vertex coordinates <code>[(x1, y1), (x2, y2), ...]</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>holes</code></td>
+<td style="text-align:left"><code>list[list[tuple[float, float]]] | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Optional list of inner cutout rings <code>[[(hx1, hy1), ...], ...]</code>. Winding direction is normalized automatically (<code>xys</code> CCW, <code>holes</code> CW).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style.shape_r</code></td>
 <td style="text-align:left"><code>float | tuple[float, ...] | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Pass a scalar <code>float</code> to round all vertices equally, or a tuple of radii <code>(r1, r2, ..., rN)</code> matching <code>len(xys)</code> to round specific vertices selectively (<code>0</code> keeps a vertex sharp).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>style.angle</code></td>
-<td style="text-align:left"><code>float</code></td>
-<td style="text-align:left"><code>0.0</code></td>
-<td style="text-align:left">Rotates the polygon counterclockwise around the center of its bounding box.</td>
+<td style="text-align:left">Pass a scalar <code>float</code> to round all outer and hole vertices equally, or a tuple of radii <code>(r1, r2, ..., rN)</code> matching <code>len(xys)</code> to round specific outer vertices selectively (<code>0</code> keeps a vertex sharp).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>text</code> / <code>text_style</code></td>
@@ -1354,30 +1355,44 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">polygon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 
 <span class="c1"># 1. Irregular network zone with uniform corner rounding</span>
 <span class="n">polygon</span><span class="p">(</span>
-    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">6</span><span class="p">)],</span>
+    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Subnet Zone A"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Subnet A"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># 2. Custom tag card with per-vertex radii (sharp tip on right)</span>
 <span class="n">polygon</span><span class="p">(</span>
-    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
+    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">12</span><span class="p">)],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Pipeline Tag"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Tag"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
+
+<span class="c1"># 3. Compound polygon frame with two interior cutout holes</span>
+<span class="n">polygon</span><span class="p">(</span>
+    <span class="n">xys</span><span class="o">=</span><span class="p">[(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">124</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">124</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">38</span><span class="p">)],</span>
+    <span class="n">holes</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[(</span><span class="mi">98</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">98</span><span class="p">,</span> <span class="mi">34</span><span class="p">)],</span>
+        <span class="p">[(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">22</span><span class="p">)],</span>
+    <span class="p">],</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">"holes=[...]"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_polygon_images/shapes_polygons_custom_polygon.png" alt="shapes_polygon_6" />
-  <figcaption class="drawlib-caption">Custom Coordinate Polygons with Uniform and Per-Vertex Rounding</figcaption>
+  <figcaption class="drawlib-caption">Custom Polygons with Uniform Rounding, Per-Vertex Rounding, and Interior Cutout Holes</figcaption>
 </figure>
 <hr />
 <h2>6. Low-Level Vector &amp; Bézier Path Builder (<code>shape</code>)</h2>

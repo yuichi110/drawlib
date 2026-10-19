@@ -10,17 +10,12 @@
 """Original AI concept icon: openai."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -44,10 +39,10 @@ rings = [
 ]
 
 # 1. White interlocking 6-part knot body (center hexagon and 6 petal pockets stay transparent)
-draw_compound_polygon(rings, color=WHITE)
+polygon(rings[7], holes=rings[:7], style=Icon.fill_style(Icon.WHITE))
 
 # 2. Crisp w = 2.0 DARK outlines along every contour of the knot
 for ring in rings:
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()

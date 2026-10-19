@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -31,7 +26,7 @@ crescent_small = [(55.56, 85.41), (55.13, 84.74), (54.73, 84.06), (54.38, 83.36)
 
 # 3 flat pastel blue crescents with crisp DARK outlines
 for crescent in (crescent_large, crescent_mid, crescent_small):
-    polygon(crescent, style=no_border_fill("#4A9EE9"))
-    draw_round_polyline(crescent, width_units=w, color=DARK, closed=True)
+    polygon(crescent, style=Icon.no_border_fill("#4A9EE9"))
+    Icon.draw_round_polyline(crescent, width_units=w, color=Icon.DARK, closed=True)
 
 save()

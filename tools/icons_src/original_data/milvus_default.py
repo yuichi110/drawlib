@@ -14,14 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _build_left_teardrop(cx_right: float, cy: float, r_right: float, r_tip: float) -> list[tuple[float, float]]:
@@ -42,7 +35,7 @@ def _build_left_teardrop(cx_right: float, cy: float, r_right: float, r_tip: floa
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -50,15 +43,15 @@ w = 2.0
 outer_pts = _build_left_teardrop(cx_right=47.5, cy=50.0, r_right=28.0, r_tip=2.6)
 inner_pts = _build_left_teardrop(cx_right=48.2, cy=50.0, r_right=20.0, r_tip=1.8)
 
-draw_compound_polygon([outer_pts, inner_pts], color=Colors.Teal3)
-draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_pts, width_units=1.8, color=DARK, closed=True)
+polygon(outer_pts, holes=[inner_pts], style=Icon.fill_style(Colors.Teal3))
+Icon.draw_round_polyline(outer_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 3. Central circular core (Colors.Blue3)
 circle(
     (48.2, 50.0),
     radius=13.0,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=1.8),
 )
 
 # 4. Right tail wing triangle (Colors.Teal4)
@@ -78,7 +71,7 @@ for i in range(10):
     ang = math.radians(-45.0 + 90.0 * (i / 9.0))
     tail_pts.append((cx_tail_tip + r_tail_tip * math.cos(ang), 50.0 + r_tail_tip * math.sin(ang)))
 
-polygon(tail_pts, style=no_border_fill(Colors.Teal4))
-draw_round_polyline(tail_pts, width_units=1.8, color=DARK, closed=True)
+polygon(tail_pts, style=Icon.no_border_fill(Colors.Teal4))
+Icon.draw_round_polyline(tail_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

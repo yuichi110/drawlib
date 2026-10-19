@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -42,9 +36,9 @@ r_in = 34.4
 outer_ring = _circle_pts(cx, cy, r_out, 80)
 inner_ring = _circle_pts(cx, cy, r_in, 80)
 
-draw_compound_polygon([outer_ring, inner_ring], color=Colors.Green3)
-draw_round_polyline(outer_ring, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_ring, width_units=w, color=DARK, closed=True)
+polygon(outer_ring, holes=[inner_ring], style=Icon.fill_style(Colors.Green3))
+Icon.draw_round_polyline(outer_ring, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_ring, width_units=w, color=Icon.DARK, closed=True)
 
 
 # 2. Crisp geometric 'c' and 'y' letterpaths inside (Colors.Gray6)
@@ -64,8 +58,8 @@ for i in range(49):
     a = math.radians(deg)
     c_pts.append((ccx + c_rin * math.cos(a), ccy + c_rin * math.sin(a)))
 
-polygon(c_pts, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(c_pts, width_units=w, color=DARK, closed=True)
+polygon(c_pts, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(c_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Build 'y' as a clean geometric sans-serif polygon next to 'c'
 y_pts: list[tuple[float, float]] = [
@@ -78,7 +72,7 @@ y_pts: list[tuple[float, float]] = [
     (53.2, 27.6),
     (58.7, 41.0),
 ]
-polygon(y_pts, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(y_pts, width_units=w, color=DARK, closed=True)
+polygon(y_pts, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(y_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

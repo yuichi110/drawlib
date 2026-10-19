@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -50,26 +43,26 @@ right_fold = _sc([(77.46, 53.93), (74.68, 53.93), (74.66, 53.92), (74.64, 53.91)
 # fmt: on
 
 # 1. Top-left dark fold and Android head with WHITE eyes
-polygon(top_fold, style=no_border_fill(SLATE))
-draw_round_polyline(top_fold, width_units=w_outer, color=DARK, closed=True)
+polygon(top_fold, style=Icon.no_border_fill(SLATE))
+Icon.draw_round_polyline(top_fold, width_units=w_outer, color=Icon.DARK, closed=True)
 
-polygon(eye_bg, style=no_border_fill(WHITE))
-draw_compound_polygon([right_eye, left_eye, android_head], color=GREEN)
-draw_round_polyline(android_head, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(left_eye, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(right_eye, width_units=w_inner, color=DARK, closed=True)
+polygon(eye_bg, style=Icon.no_border_fill(Icon.WHITE))
+polygon(android_head, holes=[right_eye, left_eye], style=Icon.fill_style(GREEN))
+Icon.draw_round_polyline(android_head, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(left_eye, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(right_eye, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 2. Flat pastel blue blueprint square and right rolled edge
-polygon(blue_square, style=no_border_fill(BLUE))
-draw_round_polyline(blue_square, width_units=w_outer, color=DARK, closed=True)
+polygon(blue_square, style=Icon.no_border_fill(BLUE))
+Icon.draw_round_polyline(blue_square, width_units=w_outer, color=Icon.DARK, closed=True)
 
-polygon(right_fold, style=no_border_fill(SLATE))
-draw_round_polyline(right_fold, width_units=w_outer, color=DARK, closed=True)
+polygon(right_fold, style=Icon.no_border_fill(SLATE))
+Icon.draw_round_polyline(right_fold, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Compass 'A' with WHITE ring hole and dark slate legs
-polygon(compass_hole, style=no_border_fill(WHITE))
-draw_compound_polygon([compass_hole, compass_outer], color=SLATE)
-draw_round_polyline(compass_outer, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(compass_hole, width_units=w_inner, color=DARK, closed=True)
+polygon(compass_hole, style=Icon.no_border_fill(Icon.WHITE))
+polygon(compass_outer, holes=[compass_hole], style=Icon.fill_style(SLATE))
+Icon.draw_round_polyline(compass_outer, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(compass_hole, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

@@ -11,14 +11,14 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import fill_style, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-polygon([(9.0, 77.33), (36.33, 63.94), (36.33, 36.61), (9.0, 50.0)], style=fill_style('#30F2A2'))
-polygon([(63.94, 77.33), (91.0, 63.94), (63.94, 50.0)], style=fill_style('#30F2A2'))
-polygon([(63.94, 77.33), (36.33, 63.94), (36.33, 36.61), (63.94, 50.0)], style=fill_style('#14CC80'))
-polygon([(91.0, 63.94), (63.94, 50.0), (63.94, 22.67), (91.0, 36.61)], style=fill_style('#14CC80'))
+Icon.setup()
+polygon([(9.0, 77.33), (36.33, 63.94), (36.33, 36.61), (9.0, 50.0)], style=Icon.fill_style('#30F2A2'))
+polygon([(63.94, 77.33), (91.0, 63.94), (63.94, 50.0)], style=Icon.fill_style('#30F2A2'))
+polygon([(63.94, 77.33), (36.33, 63.94), (36.33, 36.61), (63.94, 50.0)], style=Icon.fill_style('#14CC80'))
+polygon([(91.0, 63.94), (63.94, 50.0), (63.94, 22.67), (91.0, 36.61)], style=Icon.fill_style('#14CC80'))
 save()
 # fmt: on

@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -53,8 +46,8 @@ def _rounded_rect_pts(
 
 # 1. Rounded square badge (Colors.Gray6)
 badge_pts = _rounded_rect_pts(10.0, 14.5, 90.0, 85.5, r=6.5)
-polygon(badge_pts, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(badge_pts, width_units=w, color=DARK, closed=True)
+polygon(badge_pts, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(badge_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Geometric "A" polygon (WHITE) with triangular inner cutout
 a_outer = [
@@ -72,9 +65,9 @@ a_hole = [
     (36.2, 59.8),
     (39.9, 48.5),
 ]
-draw_compound_polygon([a_outer, a_hole], color=WHITE)
-draw_round_polyline(a_outer, width_units=1.6, color=DARK, closed=True)
-draw_round_polyline(a_hole, width_units=1.6, color=DARK, closed=True)
+polygon(a_outer, holes=[a_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(a_outer, width_units=1.6, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=1.6, color=Icon.DARK, closed=True)
 
 # 3. Geometric "G" polygon (WHITE)
 g_pts = [
@@ -140,7 +133,7 @@ g_pts = [
     (63.83, 48.57),
     (63.83, 52.85),
 ]
-polygon(g_pts, style=no_border_fill(WHITE))
-draw_round_polyline(g_pts, width_units=1.6, color=DARK, closed=True)
+polygon(g_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(g_pts, width_units=1.6, color=Icon.DARK, closed=True)
 
 save()

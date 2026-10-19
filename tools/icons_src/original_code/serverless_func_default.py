@@ -11,18 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 b = 2.0
 
@@ -31,7 +22,7 @@ rectangle(
     (46.0, 50.0),
     width=64.0,
     height=64.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b, shape_r=7.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b, shape_r=7.0),
 )
 
 # Left PASTEL_BLUE '<' and '>' code brackets
@@ -43,8 +34,8 @@ left_bracket = [
     (25.7, 50.0),
     (32.5, 58.2),
 ]
-polygon(left_bracket, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(left_bracket, width_units=b, color=DARK, closed=True)
+polygon(left_bracket, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(left_bracket, width_units=b, color=Icon.DARK, closed=True)
 
 right_bracket = [
     (40.0, 61.5),
@@ -54,8 +45,8 @@ right_bracket = [
     (42.8, 50.0),
     (36.0, 58.2),
 ]
-polygon(right_bracket, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(right_bracket, width_units=b, color=DARK, closed=True)
+polygon(right_bracket, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(right_bracket, width_units=b, color=Icon.DARK, closed=True)
 
 # Overlapping PASTEL_GREEN lightning bolt on the right
 bolt_pts = [
@@ -67,7 +58,7 @@ bolt_pts = [
     (88.5, 52.0),
     (75.0, 52.0),
 ]
-polygon(bolt_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(bolt_pts, width_units=b, color=DARK, closed=True)
+polygon(bolt_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(bolt_pts, width_units=b, color=Icon.DARK, closed=True)
 
 save()

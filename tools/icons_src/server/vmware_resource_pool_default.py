@@ -11,31 +11,25 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    VMWARE_CYAN,
-    VMWARE_NAVY,
-    draw_round_polyline,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon, Vmware
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 50.0, 50.0
 r = 38.0
 
 # Two crisp radial divider lines from center to (88.0, 50.0) and (25.6, 20.9)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(25.6, 20.9), (cx, cy), (88.0, 50.0)],
     width_units=4.8,
-    color=VMWARE_CYAN,
+    color=Vmware.CYAN,
 )
 
 # Outer structural circle ring on top to cleanly cap divider line ends
 circle(
     (cx, cy),
     radius=r,
-    style=stroke_style(VMWARE_NAVY, width_units=4.8),
+    style=Icon.stroke_style(Vmware.NAVY, width_units=4.8),
 )
 
 save()

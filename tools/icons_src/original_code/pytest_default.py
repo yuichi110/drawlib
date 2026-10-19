@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_border = 2.0
 
@@ -49,7 +44,7 @@ shapes = (
 )
 
 for pts, col in shapes:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w_border, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w_border, color=Icon.DARK, closed=True)
 
 save()

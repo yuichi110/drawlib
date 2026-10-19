@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -34,11 +27,11 @@ bolt = [(48.45, 18.07), (48.47, 18.09), (48.49, 18.11), (48.52, 18.13), (48.55, 
 circle(
     (50.0, 50.0),
     radius=40.0,
-    style=fill_style("#4DB6AC", border_color=DARK, border_units=w_outer),
+    style=Icon.fill_style("#4DB6AC", border_color=Icon.DARK, border_units=w_outer),
 )
 
 # 2. White lightning bolt with DARK inner border
-polygon(bolt, style=no_border_fill(WHITE))
-draw_round_polyline(bolt, width_units=w_inner, color=DARK, closed=True)
+polygon(bolt, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(bolt, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

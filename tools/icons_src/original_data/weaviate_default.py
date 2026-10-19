@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -47,11 +42,11 @@ right_pillar = [
 ]
 polygon(
     left_pillar,
-    style=fill_style(Colors.Amber3, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
+    style=Icon.fill_style(Colors.Amber3, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
 )
 polygon(
     right_pillar,
-    style=fill_style(Colors.Amber3, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
+    style=Icon.fill_style(Colors.Amber3, shape_r=(2.0, 5.0, 4.0, 2.0, 0.0)),
 )
 
 # 2. Lower central inner chevron fold (Colors.Green4)
@@ -67,7 +62,7 @@ inner_chevron = [
 ]
 polygon(
     inner_chevron,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Green4,
         shape_r=(0.0, 6.0, 0.0, 1.5, 5.5, 5.0, 5.5, 1.5),
     ),
@@ -90,27 +85,27 @@ middle_band = [
 ]
 polygon(
     middle_band,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Green3,
         shape_r=(4.5, 0.0, 7.5, 0.0, 4.5, 5.5, 0.0, 0.0, 6.0, 0.0, 0.0, 5.5),
     ),
 )
 
 # 4. Internal origami fold seams
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(x_out_l + 1.5, 39.2), (x_in_l, 50.2), (x_mid, 60.2), (x_in_r, 50.2), (x_out_r - 1.5, 39.2)],
     width_units=1.7,
-    color=DARK,
+    color=Icon.DARK,
     corner_r=6.5,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(x_in_l, 37.8), (x_mid, 47.5), (x_in_r, 37.8)],
     width_units=1.7,
-    color=DARK,
+    color=Icon.DARK,
     corner_r=5.0,
 )
-draw_round_polyline([(x_in_l, 50.2), (x_in_l, 26.8)], width_units=1.7, color=DARK)
-draw_round_polyline([(x_in_r, 50.2), (x_in_r, 26.8)], width_units=1.7, color=DARK)
+Icon.draw_round_polyline([(x_in_l, 50.2), (x_in_l, 26.8)], width_units=1.7, color=Icon.DARK)
+Icon.draw_round_polyline([(x_in_r, 50.2), (x_in_r, 26.8)], width_units=1.7, color=Icon.DARK)
 
 # 5. Full outer W silhouette border
 outer_w = [
@@ -131,9 +126,9 @@ outer_w = [
 ]
 polygon(
     outer_w,
-    style=fill_style(
+    style=Icon.fill_style(
         (0, 0, 0, 0),
-        border_color=DARK,
+        border_color=Icon.DARK,
         border_units=w,
         shape_r=(5.0, 4.0, 2.0, 0.0, 7.5, 0.0, 2.0, 4.0, 5.0, 4.5, 5.5, 5.0, 5.5, 4.5),
     ),

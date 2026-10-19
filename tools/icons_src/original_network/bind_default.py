@@ -10,15 +10,11 @@
 """Original Network concept icon: bind."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -173,13 +169,13 @@ nine_outer = _sc(_RAW_NINE_OUTER)
 nine_hole = _sc(_RAW_NINE_HOLE)
 
 # 1. Outer spiral ring in Colors.Blue3 with transparent interior
-draw_compound_polygon([ring_outer, ring_inner], color=Colors.Blue3)
-draw_round_polyline(ring_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(ring_inner, width_units=w, color=DARK, closed=True)
+polygon(ring_outer, holes=[ring_inner], style=Icon.fill_style(Colors.Blue3))
+Icon.draw_round_polyline(ring_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(ring_inner, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Inner '9' loop in Colors.Blue2 with transparent center hole
-draw_compound_polygon([nine_outer, nine_hole], color=Colors.Blue2)
-draw_round_polyline(nine_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(nine_hole, width_units=w, color=DARK, closed=True)
+polygon(nine_outer, holes=[nine_hole], style=Icon.fill_style(Colors.Blue2))
+Icon.draw_round_polyline(nine_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(nine_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

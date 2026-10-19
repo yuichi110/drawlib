@@ -140,7 +140,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | **Polygon** | `regularpolygon(xy, radius, num_vertex, ...)` | `radius: float`, `num_vertex: int`, `hole_ratio: float \| None = None` | Regular N-sided polygon (pentagon, hexagon, etc.). |
 | **Polygon** | `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float` | Multi-pointed star shape. |
 | **Polygon** | `plaque(xy, width, height, ...)` | `variant: str = "concave"` (`"concave"`, `"chamfered"`, `"octagon"`, `"notched"`), `cut_ratio=None` | Corner-cut plaque or ornamental plate centered at `xy`. |
-| **Polygon** | `polygon(xys, ...)` | `xys: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
+| **Polygon** | `polygon(xys, ...)` | `xys: list[tuple[float, float]]`, `holes: list[list[tuple[float, float]]] \| None = None` | Arbitrary closed polygon from coordinate list, with optional interior cutout holes. |
 | **Polygon** | `shape(xy, path_points, ...)` | `path_points: list[...]` | Custom path shape. |
 | **Arrow** | `arrow(xy1, xy2, tail_width, head_width, head_length, ...)` | `xy1, xy2, tail_width, head_width, head_length`, `head: str = "->"` | Point-to-point block arrow shape. |
 | **Arrow** | `arrow_l(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | L-shaped bent block arrow. |

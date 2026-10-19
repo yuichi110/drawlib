@@ -12,16 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.6
@@ -36,7 +29,7 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
 circle(
     (50.0, 50.0),
     radius=40.0,
-    style=fill_style(Colors.Orange3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Orange3, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Three WHITE angled diamond bars inside
@@ -70,7 +63,7 @@ bar_br = _sc(
 )
 
 for bar_pts in (bar_tl, bar_br, bar_mid):
-    polygon(bar_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(bar_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(bar_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(bar_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

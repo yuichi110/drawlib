@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.95
@@ -43,12 +37,12 @@ q_tail = _sc(
 # fmt: on
 
 # 1. Rounded Q block with transparent center square hole
-draw_compound_polygon([q_outer, q_hole], color="#5C78B0")
-draw_round_polyline(q_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(q_hole, width_units=w, color=DARK, closed=True)
+polygon(q_outer, holes=[q_hole], style=Icon.fill_style("#5C78B0"))
+Icon.draw_round_polyline(q_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(q_hole, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Sweeping Q tail in pastel red on top
-polygon(q_tail, style=no_border_fill("#E75358"))
-draw_round_polyline(q_tail, width_units=w, color=DARK, closed=True)
+polygon(q_tail, style=Icon.no_border_fill("#E75358"))
+Icon.draw_round_polyline(q_tail, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -38,8 +27,8 @@ far_wing = [
     (41.5, 73.0),
     (55.0, 56.0),
 ]
-polygon(far_wing, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(far_wing, width_units=w_outer, color=DARK, closed=True)
+polygon(far_wing, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(far_wing, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Vertical tail fin (PASTEL_BLUE)
 tail_fin = [
@@ -48,9 +37,9 @@ tail_fin = [
     (20.5, 80.0),
     (33.0, 57.0),
 ]
-polygon(tail_fin, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(tail_fin, width_units=w_outer, color=DARK, closed=True)
-draw_round_segment((16.5, 58.0), (15.0, 76.0), width_units=w_inner, color=DARK)
+polygon(tail_fin, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(tail_fin, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((16.5, 58.0), (15.0, 76.0), width_units=w_inner, color=Icon.DARK)
 
 # 3. Wide-body cargo fuselage (WHITE, x=12..89, y=40..58)
 # Smooth nose arc + tail cone
@@ -67,8 +56,8 @@ fuselage_pts = [
     *nose_arc,
     (28.0, 40.0),
 ]
-polygon(fuselage_pts, style=no_border_fill(WHITE))
-draw_round_polyline(fuselage_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(fuselage_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(fuselage_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # Cockpit windshield (PASTEL_BLUE_LIGHT)
 cockpit_pts = [
@@ -77,17 +66,17 @@ cockpit_pts = [
     (84.0, 49.0),
     (74.0, 49.0),
 ]
-polygon(cockpit_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(cockpit_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(cockpit_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(cockpit_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. PASTEL_GREEN main-deck cargo door on fuselage side
 rectangle(
     (63.0, 50.5),
     width=13.0,
     height=10.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_outer, shape_r=1.8),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_outer, shape_r=1.8),
 )
-draw_round_segment((59.0, 53.5), (67.0, 53.5), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((59.0, 53.5), (67.0, 53.5), width_units=w_inner, color=Icon.DARK)
 
 # 5. Near-side swept main wing (PASTEL_BLUE, extending down-left)
 near_wing = [
@@ -96,21 +85,21 @@ near_wing = [
     (36.0, 18.0),
     (25.0, 18.0),
 ]
-polygon(near_wing, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(near_wing, width_units=w_outer, color=DARK, closed=True)
+polygon(near_wing, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(near_wing, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # Underwing turbofan engine pod (PASTEL_BLUE_LIGHT + WHITE intake)
 rectangle(
     (45.5, 29.0),
     width=13.0,
     height=6.8,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=2.5),
 )
 rectangle(
     (50.5, 29.0),
     width=3.5,
     height=6.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner, shape_r=1.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.0),
 )
 
 # 6. Rear horizontal tailplane (PASTEL_BLUE_LIGHT)
@@ -120,7 +109,7 @@ h_stab = [
     (19.5, 44.0),
     (26.0, 51.0),
 ]
-polygon(h_stab, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(h_stab, width_units=w_outer, color=DARK, closed=True)
+polygon(h_stab, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(h_stab, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

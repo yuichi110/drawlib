@@ -12,45 +12,39 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DELL_BLUE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.shapes import polygon, rectangle
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 BORDER = 4.8
 
 # Top left rack server (x=15..46 bottom, x=15..85 top, y=62..87)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(82.6, 84.6), (17.4, 84.6), (17.4, 64.4), (43.6, 64.4)],
     width_units=BORDER,
-    color=DELL_BLUE,
+    color=Dell.BLUE,
     corner_r=2.5,
 )
 rectangle(
     (40.5, 74.5),
     width=11.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Middle left rack server (x=15..46 top, x=15..52 bottom, y=30..55)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(43.6, 52.6), (17.4, 52.6), (17.4, 32.4), (49.6, 32.4)],
     width_units=BORDER,
-    color=DELL_BLUE,
+    color=Dell.BLUE,
     corner_r=2.5,
 )
 rectangle(
     (40.5, 42.5),
     width=11.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Bottom left T-base (horizontal bar x=15..52, y=12..17 + vertical stem x=47..52, y=12..23)
@@ -58,13 +52,13 @@ rectangle(
     (33.5, 14.5),
     width=37.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 rectangle(
     (49.5, 17.5),
     width=5.0,
     height=11.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Foreground upright open-end wrench on the right (cx=69.0, y=12..78.5)
@@ -164,6 +158,6 @@ for i in range(9):
         )
     )
 
-draw_compound_polygon([outer_pts, inner_pts], color=DELL_BLUE)
+polygon(outer_pts, holes=[inner_pts], style=Icon.fill_style(Dell.BLUE))
 
 save()

@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -36,7 +25,7 @@ rectangle(
     (50.0, 48.0),
     width=68.0,
     height=64.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_outer),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer),
 )
 
 # 2. Left entrance door (x=22..40, y=16..50)
@@ -44,41 +33,41 @@ rectangle(
     (31.0, 33.0),
     width=18.0,
     height=34.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=1.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=1.5),
 )
 # Door lower kickplate in PASTEL_BLUE
 rectangle(
     (31.0, 19.5),
     width=18.0,
     height=7.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_inner),
 )
 # Door handle
-circle((36.5, 33.0), radius=1.4, style=fill_style(DARK))
+circle((36.5, 33.0), radius=1.4, style=Icon.fill_style(Icon.DARK))
 
 # 3. Right display window (x=46..78, y=26..50)
 rectangle(
     (62.0, 38.0),
     width=32.0,
     height=24.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=2.0),
 )
 # Window sill
 rectangle(
     (62.0, 24.5),
     width=34.0,
     height=3.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_inner, shape_r=1.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.0),
 )
 # Window shine lines
-draw_round_segment((53.0, 32.0), (59.0, 44.0), width_units=w_inner, color=WHITE)
-draw_round_segment((58.5, 31.0), (62.5, 39.0), width_units=w_inner, color=WHITE)
+Icon.draw_round_segment((53.0, 32.0), (59.0, 44.0), width_units=w_inner, color=Icon.WHITE)
+Icon.draw_round_segment((58.5, 31.0), (62.5, 39.0), width_units=w_inner, color=Icon.WHITE)
 
 # 4. Striped awning (6 alternating PASTEL_BLUE / PASTEL_GREEN stripes)
 # Top edge: x=16..84 at y=77.5; Bottom slope: x=12..88 at y=60.5; Scallop drop: ry=5.2
 n_stripes = 6
 for i in range(n_stripes):
-    col = PASTEL_BLUE if i % 2 == 0 else PASTEL_GREEN
+    col = Icon.PASTEL_BLUE if i % 2 == 0 else Icon.PASTEL_GREEN
     xt0 = 16.0 + i * (68.0 / n_stripes)
     xt1 = 16.0 + (i + 1) * (68.0 / n_stripes)
     xb0 = 12.0 + i * (76.0 / n_stripes)
@@ -98,15 +87,15 @@ for i in range(n_stripes):
         *scallop_pts,
         (xt1, 77.5),
     ]
-    polygon(stripe_pts, style=no_border_fill(col))
-    draw_round_polyline(stripe_pts, width_units=w_outer, color=DARK, closed=True)
+    polygon(stripe_pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(stripe_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 5. Top parapet cornice bar (PASTEL_BLUE, drawn over awning top edge)
 rectangle(
     (50.0, 80.5),
     width=74.0,
     height=7.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_outer, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_outer, shape_r=2.0),
 )
 
 # 6. Ground base plinth
@@ -114,7 +103,7 @@ rectangle(
     (50.0, 14.5),
     width=76.0,
     height=3.5,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=1.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=1.5),
 )
 
 save()

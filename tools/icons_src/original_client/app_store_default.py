@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -26,12 +26,12 @@ rectangle(
     (50.0, 50.0),
     width=82.0,
     height=82.0,
-    style=fill_style("#5797F2", border_color=DARK, border_units=w_outer, shape_r=16.5),
+    style=Icon.fill_style("#5797F2", border_color=Icon.DARK, border_units=w_outer, shape_r=16.5),
 )
 
 for pts in bars:
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

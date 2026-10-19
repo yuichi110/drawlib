@@ -11,26 +11,18 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # White inner workspace card
 rectangle(
     (50.0, 48.0),
     width=46.0,
     height=36.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Four dark corner L-brackets framing the isolated namespace scope
@@ -41,14 +33,14 @@ brackets = [
     [(61.0, 36.0), (67.0, 36.0), (67.0, 42.0)],
 ]
 for pts in brackets:
-    draw_round_polyline(pts, width_units=2.0, color=DARK)
+    Icon.draw_round_polyline(pts, width_units=2.0, color=Icon.DARK)
 
 # Central green scoped resource block
 rectangle(
     (50.0, 48.0),
     width=20.0,
     height=12.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=3.0),
 )
 
 save()

@@ -12,11 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -59,13 +59,13 @@ right_arm = [(80.65, 75.67), (80.64, 76.0), (80.62, 76.32), (80.57, 76.64), (80.
 left_arm = [(19.35, 75.67), (19.36, 76.0), (19.38, 76.32), (19.43, 76.64), (19.49, 76.96), (19.57, 77.27), (19.66, 77.57), (19.77, 77.87), (19.89, 78.17), (20.02, 78.45), (20.18, 78.73), (20.34, 79.0), (20.52, 79.27), (20.71, 79.52), (20.92, 79.77), (21.14, 80.0), (21.37, 80.22), (21.61, 80.43), (21.86, 80.63), (22.13, 80.82), (22.4, 80.99), (38.77, 90.44), (38.96, 90.55), (39.16, 90.64), (39.36, 90.73), (39.56, 90.8), (39.77, 90.86), (39.98, 90.91), (40.18, 90.95), (40.39, 90.98), (40.61, 91.0), (40.82, 91.0), (41.03, 91.0), (41.24, 90.98), (41.45, 90.95), (41.66, 90.91), (41.86, 90.86), (42.07, 90.8), (42.27, 90.73), (42.47, 90.64), (42.66, 90.55), (42.85, 90.44), (43.04, 90.33), (43.21, 90.21), (43.38, 90.07), (43.55, 89.93), (43.7, 89.79), (43.85, 89.63), (43.98, 89.47), (44.11, 89.3), (44.23, 89.13), (44.34, 88.94), (44.44, 88.76), (44.53, 88.57), (44.61, 88.37), (44.69, 88.17), (44.75, 87.97), (44.8, 87.76), (44.84, 87.55), (44.87, 87.33), (44.88, 87.12), (44.89, 86.9), (44.89, 51.15), (44.88, 50.82), (44.85, 50.5), (44.8, 50.18), (44.74, 49.86), (44.67, 49.55), (44.58, 49.25), (44.47, 48.95), (44.34, 48.65), (44.21, 48.37), (44.06, 48.09), (43.89, 47.82), (43.71, 47.55), (43.52, 47.3), (43.32, 47.06), (43.1, 46.82), (42.87, 46.6), (42.63, 46.39), (42.37, 46.19), (42.11, 46.0), (41.83, 45.83), (22.47, 34.6), (22.19, 34.43), (21.92, 34.24), (21.67, 34.04), (21.42, 33.83), (21.19, 33.61), (20.97, 33.38), (20.77, 33.14), (20.57, 32.88), (20.39, 32.62), (20.23, 32.35), (20.08, 32.07), (19.94, 31.78), (19.82, 31.49), (19.71, 31.19), (19.62, 30.88), (19.55, 30.57), (19.49, 30.25), (19.44, 29.93), (19.42, 29.61), (19.35, 29.28)]
 
 # 1. Lower base in pastel indigo/blue (Colors.Blue4)
-polygon(lower_base, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(lower_base, width_units=w, color=DARK, closed=True)
+polygon(lower_base, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(lower_base, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Upper arms in pastel teal (Colors.Teal3) with transparent center channel
 for arm in (right_arm, left_arm):
-    polygon(arm, style=no_border_fill(Colors.Teal3))
-    draw_round_polyline(arm, width_units=w, color=DARK, closed=True)
+    polygon(arm, style=Icon.no_border_fill(Colors.Teal3))
+    Icon.draw_round_polyline(arm, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -72,8 +65,8 @@ for i in range(steps_cut + 1):
     ang = math.radians(a_in + (a_out - a_in) * (i / steps_cut))
     arch_pts.append((cx_hub + r_cut * math.cos(ang), cy_hub + r_cut * math.sin(ang)))
 
-polygon(arch_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(arch_pts, width_units=w, color=DARK, closed=True)
+polygon(arch_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(arch_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Graph link bars connecting the 3 bottom-left nodes (WHITE)
 n_top = (18.2, 53.2)
@@ -92,11 +85,11 @@ for p1, p2 in ((n_top, n_mid), (n_bot, n_mid)):
         (p2[0] - nx, p2[1] - ny),
         (p1[0] - nx, p1[1] - ny),
     ]
-    polygon(bar_pts, style=fill_style(WHITE, border_color=DARK, border_units=1.7))
+    polygon(bar_pts, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.7))
 
 # 3. Three graph node circles (Colors.Blue2 & Colors.Teal3 satellites + Colors.Blue3 hub)
-circle(n_top, radius=8.6, style=fill_style(Colors.Blue2, border_color=DARK, border_units=1.8))
-circle(n_bot, radius=8.6, style=fill_style(Colors.Teal3, border_color=DARK, border_units=1.8))
-circle(n_mid, radius=8.8, style=fill_style(Colors.Blue3, border_color=DARK, border_units=1.8))
+circle(n_top, radius=8.6, style=Icon.fill_style(Colors.Blue2, border_color=Icon.DARK, border_units=1.8))
+circle(n_bot, radius=8.6, style=Icon.fill_style(Colors.Teal3, border_color=Icon.DARK, border_units=1.8))
+circle(n_mid, radius=8.8, style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=1.8))
 
 save()

@@ -10,11 +10,13 @@
 """Server icon: amd (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import draw_compound_polygon, setup_icon
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-draw_compound_polygon([[(32.03, 68.66), (9.69, 91.0), (91.0, 91.0), (91.0, 9.69), (68.66, 32.01), (68.66, 68.66)], [(32.0, 64.19), (9.0, 41.19), (9.0, 9.0), (41.19, 9.0), (64.19, 32.0), (32.0, 32.0)]], color='#000000')
+Icon.setup()
+polygon([(32.03, 68.66), (9.69, 91.0), (91.0, 91.0), (91.0, 9.69), (68.66, 32.01), (68.66, 68.66)], style=Icon.fill_style('#000000'))
+polygon([(32.0, 64.19), (9.0, 41.19), (9.0, 9.0), (41.19, 9.0), (64.19, 32.0), (32.0, 32.0)], style=Icon.fill_style('#000000'))
 save()
 # fmt: on

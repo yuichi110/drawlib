@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 50.0
 r_base = 30.5
 r_outer = 41.5
@@ -70,9 +60,9 @@ hole_pts = [
     for i in range(64)
 ]
 
-draw_compound_polygon([gear_pts, hole_pts], color=PASTEL_BLUE)
-draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
-circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=2.0))
+polygon(gear_pts, holes=[hole_pts], style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(gear_pts, width_units=w, color=Icon.DARK, closed=True)
+circle((cx, cy), radius=r_hole, style=Icon.stroke_style(Icon.DARK, width_units=2.0))
 
 # Clean pastel green spiral coil inside the white circle (center fixed at 50.0, 49.0)
 spiral_cx, spiral_cy = 50.0, 49.0
@@ -115,7 +105,7 @@ for i in range(1, 9):
     cap_outer.append((c1_x + r1 * math.cos(a), c1_y + r1 * math.sin(a)))
 
 spiral_poly = [*outer_wall, *cap_outer, *reversed(inner_wall), *cap_inner]
-polygon(spiral_poly, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(spiral_poly, width_units=2.0, color=DARK, closed=True)
+polygon(spiral_poly, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(spiral_poly, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

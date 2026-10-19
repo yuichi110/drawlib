@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -48,30 +42,30 @@ hi_r = _sc([(59.1, 51.49), (59.28, 51.49), (59.47, 51.51), (59.64, 51.54), (59.8
 # fmt: on
 
 # 1. Cream dumpling body and bottom shadow
-polygon(body, style=no_border_fill("#FDF3E3"))
-polygon(shadow, style=no_border_fill("#F4DDB9"))
+polygon(body, style=Icon.no_border_fill("#FDF3E3"))
+polygon(shadow, style=Icon.no_border_fill("#F4DDB9"))
 
 # 2. Top dumpling pinch folds
 for fold in folds:
-    polygon(fold, style=no_border_fill("#CAAC82"))
+    polygon(fold, style=Icon.no_border_fill("#CAAC82"))
 
 # 3. Pink cheeks
-polygon(cheek_l, style=no_border_fill("#F35E90"))
-polygon(cheek_r, style=no_border_fill("#F35E90"))
+polygon(cheek_l, style=Icon.no_border_fill("#F35E90"))
+polygon(cheek_r, style=Icon.no_border_fill("#F35E90"))
 
 # 4. Mouth and tongue with DARK outline
-polygon(mouth_bg, style=no_border_fill(DARK))
-polygon(tongue, style=no_border_fill("#F35E90"))
-polygon(tongue_line, style=no_border_fill(DARK))
-draw_round_polyline(mouth_bg, width_units=w_inner, color=DARK, closed=True)
+polygon(mouth_bg, style=Icon.no_border_fill(Icon.DARK))
+polygon(tongue, style=Icon.no_border_fill("#F35E90"))
+polygon(tongue_line, style=Icon.no_border_fill(Icon.DARK))
+Icon.draw_round_polyline(mouth_bg, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 5. Eyes with WHITE highlights
-polygon(eye_l, style=no_border_fill(DARK))
-polygon(eye_r, style=no_border_fill(DARK))
-polygon(hi_l, style=no_border_fill(WHITE))
-polygon(hi_r, style=no_border_fill(WHITE))
+polygon(eye_l, style=Icon.no_border_fill(Icon.DARK))
+polygon(eye_r, style=Icon.no_border_fill(Icon.DARK))
+polygon(hi_l, style=Icon.no_border_fill(Icon.WHITE))
+polygon(hi_r, style=Icon.no_border_fill(Icon.WHITE))
 
 # 6. Outer dumpling DARK outline
-draw_round_polyline(body, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(body, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

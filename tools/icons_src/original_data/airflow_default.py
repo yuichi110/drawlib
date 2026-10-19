@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -93,26 +86,26 @@ blade_styles = [
 
 # 1. Fill all 4 blade sails and inner fold pockets
 for deg, col_sail, col_flap in blade_styles:
-    polygon(_rot_list(base_sail, deg), style=no_border_fill(col_sail))
-    polygon(_rot_list(base_flap, deg), style=no_border_fill(col_flap))
+    polygon(_rot_list(base_sail, deg), style=Icon.no_border_fill(col_sail))
+    polygon(_rot_list(base_flap, deg), style=Icon.no_border_fill(col_flap))
 
 # 2. Draw crisp inner fold creases and outer blade borders
 for deg, _, _ in blade_styles:
-    draw_round_polyline(_rot_list(base_flap, deg), width_units=1.6, color=DARK, closed=True)
+    Icon.draw_round_polyline(_rot_list(base_flap, deg), width_units=1.6, color=Icon.DARK, closed=True)
 
 for deg, _, _ in blade_styles:
-    draw_round_polyline(_rot_list(base_sail, deg), width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(_rot_list(base_sail, deg), width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Central pinwheel hub
 circle(
     (cx, cy),
     radius=4.0,
-    style=fill_style(DARK),
+    style=Icon.fill_style(Icon.DARK),
 )
 circle(
     (cx, cy),
     radius=1.4,
-    style=fill_style(WHITE),
+    style=Icon.fill_style(Icon.WHITE),
 )
 
 save()

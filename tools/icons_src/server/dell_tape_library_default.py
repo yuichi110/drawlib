@@ -12,19 +12,14 @@
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 # Circular media/tape reel arc (cx=51.0, cy=49.0, r=35.0) counter-clockwise from 180 deg to top-left
 cx, cy = 51.0, 49.0
 r_reel = 35.0
-st_stroke = stroke_style(DELL_BLUE, width_units=4.8)
+st_stroke = Icon.stroke_style(Dell.BLUE, width_units=4.8)
 
 arc(
     (cx, cy),
@@ -45,14 +40,14 @@ polygon(
         (18.4, 66.4),
         (18.4, 84.0),
     ],
-    style=fill_style(DELL_BLUE, shape_r=(0.0, 2.5, 0.0, 0.0, 0.0, 0.0)),
+    style=Icon.fill_style(Dell.BLUE, shape_r=(0.0, 2.5, 0.0, 0.0, 0.0, 0.0)),
 )
 
 # Center tape hub ring at (51.0, 49.0) (outer r=11.0 -> centerline r=8.6, border=4.8)
 circle(
     (cx, cy),
     radius=8.6,
-    style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8),
+    style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8),
 )
 
 save()

@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -88,16 +82,16 @@ facets = [
 
 # 1. Flat pastel fills for all 18 Ruby gem facets (in painter's order)
 for pts, color in facets:
-    polygon(pts, style=no_border_fill(color))
+    polygon(pts, style=Icon.no_border_fill(color))
 
 # 2. Crisp DARK inner facet lines (only visible facet edges)
-draw_round_polyline(f9, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(rim_chain, width_units=w_inner, color=DARK, closed=False)
-draw_round_polyline(crown_curve, width_units=w_inner, color=DARK, closed=False)
+Icon.draw_round_polyline(f9, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(rim_chain, width_units=w_inner, color=Icon.DARK, closed=False)
+Icon.draw_round_polyline(crown_curve, width_units=w_inner, color=Icon.DARK, closed=False)
 for p1, p2 in inner_segs:
-    draw_round_segment(p1, p2, width_units=w_inner, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w_inner, color=Icon.DARK)
 
 # 3. Bold DARK outer gem outline
-draw_round_polyline(outer_gem, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_gem, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

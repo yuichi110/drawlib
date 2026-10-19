@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.7
@@ -40,29 +34,29 @@ keyhole_pts = _sc([(44.53, 65.03), (44.54, 65.14), (44.55, 65.25), (44.57, 65.36
 circle(
     (50.0, 50.0),
     radius=40.0,
-    style=fill_style(Colors.Gray3, border_color=DARK, border_units=w_outer),
+    style=Icon.fill_style(Colors.Gray3, border_color=Icon.DARK, border_units=w_outer),
 )
 
 # 2. WHITE outer ring disk
 circle(
     (50.0, 50.0),
     radius=35.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.5),
 )
 
 # 3. Pastel blue inner ring + WHITE center disk
 circle(
     (50.0, 50.0),
     radius=30.07 * s,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w_inner),
 )
 circle(
     (50.0, 50.0),
     radius=21.87 * s,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
 )
 
 # 4. DARK keyhole in center
-polygon(keyhole_pts, style=no_border_fill(DARK))
+polygon(keyhole_pts, style=Icon.no_border_fill(Icon.DARK))
 
 save()

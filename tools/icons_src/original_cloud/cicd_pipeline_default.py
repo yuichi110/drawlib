@@ -11,42 +11,33 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
-circle((50.0, 50.0), radius=30.0, style=stroke_style(DARK, width_units=w))
+circle((50.0, 50.0), radius=30.0, style=Icon.stroke_style(Icon.DARK, width_units=w))
 
 circle(
     (50.0, 80.0),
     radius=11.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (24.0, 35.0),
     radius=11.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (76.0, 35.0),
     radius=11.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 
 polygon(
     [(45.0, 58.0), (45.0, 42.0), (59.0, 50.0)],
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=1.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0, shape_r=1.5),
 )
 
 save()

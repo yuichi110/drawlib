@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -126,17 +120,17 @@ a_outer = _sc(_RAW_A_OUTER)
 a_hole = _sc(_RAW_A_HOLE)
 
 # 1. Outer left crescent swoosh in Colors.Blue3 with DARK 1.7 outline
-polygon(swoosh_outer, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(swoosh_outer, width_units=w, color=DARK, closed=True)
+polygon(swoosh_outer, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(swoosh_outer, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Middle and inner upper swooshes in Colors.Blue2 with DARK 1.7 outlines
 for sw in (swoosh_mid, swoosh_inner):
-    polygon(sw, style=no_border_fill(Colors.Blue2))
-    draw_round_polyline(sw, width_units=w, color=DARK, closed=True)
+    polygon(sw, style=Icon.no_border_fill(Colors.Blue2))
+    Icon.draw_round_polyline(sw, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Italic 'A' in Colors.Orange3 with transparent inner hole and DARK 1.7 outlines
-draw_compound_polygon([a_outer, a_hole], color=Colors.Orange3)
-draw_round_polyline(a_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(a_hole, width_units=w, color=DARK, closed=True)
+polygon(a_outer, holes=[a_hole], style=Icon.fill_style(Colors.Orange3))
+Icon.draw_round_polyline(a_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -13,16 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -64,9 +57,9 @@ def _draw_frame(
     """Draw a hollow rounded-square frame with transparent interior hole."""
     outer = _rounded_rect_ring(x0, y0, x1, y1, r_out)
     inner = _rounded_rect_ring(x0 + band, y0 + band, x1 - band, y1 - band, r_in)
-    draw_compound_polygon([outer, inner], color=color)
-    draw_round_polyline(outer, width_units=w, color=DARK, closed=True)
-    draw_round_polyline(inner, width_units=w, color=DARK, closed=True)
+    polygon(outer, holes=[inner], style=Icon.fill_style(color))
+    Icon.draw_round_polyline(outer, width_units=w, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(inner, width_units=w, color=Icon.DARK, closed=True)
 
 
 band_w = 3.8
@@ -90,25 +83,25 @@ _draw_frame(35.21, 23.04, 91.0, 76.96, band_w, r_outer, r_inner, frame3_color)
 # Frame 1 top bar over Frame 2 left bar
 polygon(
     [(20.8, 64.32 - band_w), (27.4, 64.32 - band_w), (27.4, 64.32), (20.8, 64.32)],
-    style=no_border_fill(frame1_color),
+    style=Icon.no_border_fill(frame1_color),
 )
-draw_round_segment((20.8, 64.32), (27.4, 64.32), width_units=w, color=DARK)
-draw_round_segment((20.8, 64.32 - band_w), (27.4, 64.32 - band_w), width_units=w, color=DARK)
+Icon.draw_round_segment((20.8, 64.32), (27.4, 64.32), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((20.8, 64.32 - band_w), (27.4, 64.32 - band_w), width_units=w, color=Icon.DARK)
 
 # Frame 1 right bar over Frame 3 bottom bar
 polygon(
     [(64.79 - band_w, 21.6), (64.79, 21.6), (64.79, 28.2), (64.79 - band_w, 28.2)],
-    style=no_border_fill(frame1_color),
+    style=Icon.no_border_fill(frame1_color),
 )
-draw_round_segment((64.79 - band_w, 21.6), (64.79 - band_w, 28.2), width_units=w, color=DARK)
-draw_round_segment((64.79, 21.6), (64.79, 28.2), width_units=w, color=DARK)
+Icon.draw_round_segment((64.79 - band_w, 21.6), (64.79 - band_w, 28.2), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((64.79, 21.6), (64.79, 28.2), width_units=w, color=Icon.DARK)
 
 # Frame 2 right bar over Frame 3 top bar
 polygon(
     [(77.85 - band_w, 71.8), (77.85, 71.8), (77.85, 78.4), (77.85 - band_w, 78.4)],
-    style=no_border_fill(frame2_color),
+    style=Icon.no_border_fill(frame2_color),
 )
-draw_round_segment((77.85 - band_w, 71.8), (77.85 - band_w, 78.4), width_units=w, color=DARK)
-draw_round_segment((77.85, 71.8), (77.85, 78.4), width_units=w, color=DARK)
+Icon.draw_round_segment((77.85 - band_w, 71.8), (77.85 - band_w, 78.4), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((77.85, 71.8), (77.85, 78.4), width_units=w, color=Icon.DARK)
 
 save()

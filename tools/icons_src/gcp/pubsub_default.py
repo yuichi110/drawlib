@@ -13,38 +13,38 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, draw_radial_spoke, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 50.0, 50.0
 orbit_r = 32.5
 
 main_angles = (90.0, 210.0, 330.0)
 for deg in main_angles:
-    draw_radial_spoke(
+    Gcp.draw_radial_spoke(
         cx,
         cy,
         deg,
         r_inner=15.5,
         r_outer=orbit_r,
         width_units=7.2,
-        color=GCP_TECH_MID,
+        color=Gcp.TECH_MID,
     )
 
-circle((cx, cy), radius=12.0, style=fill_style(GCP_TECH_LIGHT))
+circle((cx, cy), radius=12.0, style=Icon.fill_style(Gcp.TECH_LIGHT))
 
 for deg in main_angles:
     rad = math.radians(deg)
     ox = cx + orbit_r * math.cos(rad)
     oy = cy + orbit_r * math.sin(rad)
-    circle((ox, oy), radius=9.5, style=fill_style(GCP_TECH_LIGHT))
+    circle((ox, oy), radius=9.5, style=Icon.fill_style(Gcp.TECH_LIGHT))
 
 sat_angles = (30.0, 150.0, 270.0)
 for deg in sat_angles:
     rad = math.radians(deg)
     sx = cx + orbit_r * math.cos(rad)
     sy = cy + orbit_r * math.sin(rad)
-    circle((sx, sy), radius=7.5, style=fill_style(GCP_TECH_MED_LIGHT))
+    circle((sx, sy), radius=7.5, style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 
 save()

@@ -10,17 +10,11 @@
 """Original DevOps concept icon: circleci."""
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 scale = 0.94
@@ -146,14 +140,14 @@ dot_center = _sc(49.42, 50.0)
 dot_radius = 9.72 * scale
 
 # 1. C-ring (Colors.Gray6) with transparent C-gap and inner aperture
-draw_compound_polygon([c_ring_pts], color=Colors.Gray6)
-draw_round_polyline(c_ring_pts, width_units=w, color=DARK, closed=True)
+polygon(c_ring_pts, style=Icon.fill_style(Colors.Gray6))
+Icon.draw_round_polyline(c_ring_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Center dot (Colors.Gray6) with DARK w=1.9 outline
 circle(
     dot_center,
     radius=dot_radius,
-    style=fill_style(Colors.Gray6, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray6, border_color=Icon.DARK, border_units=w),
 )
 
 save()

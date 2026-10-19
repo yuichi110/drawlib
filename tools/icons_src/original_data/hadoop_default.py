@@ -12,14 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # Warm golden yellow slightly darker than Colors.Amber2 (#F8D88C), paired with Colors.Amber3 (#F2B43A)
 BODY_YELLOW = "#F2BC4E"
@@ -43,7 +36,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -56,8 +49,8 @@ far_hind_pts = [
     *_bezier((14.2, 20.8), (16.5, 18.8), (18.2, 18.8), (19.8, 20.8), 6),
     *_bezier((19.8, 20.8), (21.8, 23.8), (24.0, 27.5), (25.2, 30.5), 8),
 ]
-polygon(far_hind_pts, style=no_border_fill(BODY_YELLOW))
-draw_round_polyline(far_hind_pts, width_units=w, color=DARK, closed=True)
+polygon(far_hind_pts, style=Icon.no_border_fill(BODY_YELLOW))
+Icon.draw_round_polyline(far_hind_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Far front leg (stepping forward-right)
 far_front_pts = [
@@ -68,21 +61,21 @@ far_front_pts = [
     *_bezier((63.8, 18.2), (62.5, 18.8), (62.0, 20.5), (60.5, 24.5), 6),
     *_bezier((60.5, 24.5), (58.8, 28.5), (56.8, 31.5), (55.5, 33.5), 8),
 ]
-polygon(far_front_pts, style=no_border_fill(BODY_YELLOW))
-draw_round_polyline(far_front_pts, width_units=w, color=DARK, closed=True)
+polygon(far_front_pts, style=Icon.no_border_fill(BODY_YELLOW))
+Icon.draw_round_polyline(far_front_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Tail stem and solid dark leaf tuft on the left
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(17.2, 55.2), *_bezier((17.2, 55.2), (14.2, 52.8), (12.2, 49.2), (11.5, 45.8), 10)],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
 tail_tuft = [
     (11.8, 47.2),
     *_bezier((11.8, 47.2), (8.2, 45.8), (7.6, 42.5), (8.6, 39.2), 8),
     *_bezier((8.6, 39.2), (12.2, 40.5), (14.0, 44.2), (11.8, 47.2), 8),
 ]
-polygon(tail_tuft, style=fill_style(DARK))
+polygon(tail_tuft, style=Icon.fill_style(Icon.DARK))
 
 # 3. Main body, head, trunk, jaw, near front leg, and near hind leg (BODY_YELLOW)
 p_rump_bot = (18.8, 36.0)
@@ -135,7 +128,7 @@ body_fill_pts = [
     *_bezier((30.8, 17.8), (26.5, 17.8), (25.2, 17.8), p_nh_heel, 6),
     *_bezier(p_nh_heel, (23.5, 23.5), (20.8, 30.5), p_rump_bot, 10),
 ]
-polygon(body_fill_pts, style=no_border_fill(BODY_YELLOW))
+polygon(body_fill_pts, style=Icon.no_border_fill(BODY_YELLOW))
 
 # 4. Warm golden amber shade along the outer trunk curve (Colors.Amber3)
 trunk_shade_pts = [
@@ -149,7 +142,7 @@ trunk_shade_pts = [
     *_bezier((85.6, 56.8), (87.8, 62.0), (86.8, 69.0), (84.8, 75.2), 10),
     *_bezier((84.8, 75.2), (84.2, 78.0), (85.2, 80.2), p_trunk_tip_m, 8),
 ]
-polygon(trunk_shade_pts, style=no_border_fill(Colors.Amber3))
+polygon(trunk_shade_pts, style=Icon.no_border_fill(Colors.Amber3))
 
 # 5. Body, head, trunk, jaw, and near-leg outlines (clean open strokes with round caps)
 # Rump + near hind leg + belly + near front leg + chest + lower jaw + mouth
@@ -163,13 +156,13 @@ back_and_legs_line = [
     *_bezier(p_nh_toe, (36.0, 21.5), (34.8, 26.5), p_belly_l, 8),
     *_bezier(p_belly_l, (33.0, 33.5), (32.2, 35.5), (31.8, 36.8), 6),
 ]
-draw_round_polyline(back_and_legs_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(back_and_legs_line, width_units=w, color=Icon.DARK)
 
 # Belly line between near hind leg and near front leg
-draw_round_polyline(
+Icon.draw_round_polyline(
     [p_belly_l, *_bezier(p_belly_l, (37.5, 30.8), (41.5, 30.8), p_ff_knee, 8)],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Near front leg back crease + foot + front crease + smooth chin/throat + lower jaw
@@ -184,13 +177,13 @@ front_leg_and_jaw_line = [
     *_bezier(p_throat, (68.0, 46.0), (72.5, 43.2), p_jaw_tip, 8),
     *_bezier(p_jaw_tip, (74.2, 46.5), (71.5, 49.5), (69.5, 51.0), 8),
 ]
-draw_round_polyline(front_leg_and_jaw_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(front_leg_and_jaw_line, width_units=w, color=Icon.DARK)
 
 # Near front leg upper front crease
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(55.8, 32.8), (57.2, 36.8)],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 # Head dome + smooth trunk + upper lip / mouth corner
@@ -206,7 +199,7 @@ head_and_trunk_line = [
     *_bezier(p_trunk_outer, (90.4, 53.0), (84.5, 47.8), p_trunk_bot, 14),
     *_bezier(p_trunk_bot, (73.5, 47.8), (70.5, 50.0), p_mouth_in, 8),
 ]
-draw_round_polyline(head_and_trunk_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(head_and_trunk_line, width_units=w, color=Icon.DARK)
 
 # 6. Floppy Ear (BODY_YELLOW outer rim + Colors.Amber3 inner pad + open right cheek attachment)
 p_ear_top_r = (54.2, 71.8)
@@ -223,7 +216,7 @@ ear_outer_pts = [
     *_bezier((41.5, 48.2), (44.0, 45.2), (45.8, 44.8), p_ear_bot, 6),
     *_bezier(p_ear_bot, (50.8, 45.2), (53.8, 49.5), p_ear_bot_r, 8),
 ]
-polygon(ear_outer_pts, style=no_border_fill(BODY_YELLOW))
+polygon(ear_outer_pts, style=Icon.no_border_fill(BODY_YELLOW))
 
 # Inner warm golden amber ear pad with uniform ~3.0-unit BODY_YELLOW rim
 ear_inner_pts = [
@@ -235,12 +228,12 @@ ear_inner_pts = [
     *_bezier((48.0, 47.5), (50.5, 48.0), (52.5, 51.0), (53.0, 54.8), 8),
     *_bezier((53.0, 54.8), (53.3, 59.5), (53.1, 65.0), (52.5, 69.2), 8),
 ]
-polygon(ear_inner_pts, style=no_border_fill(Colors.Amber3))
+polygon(ear_inner_pts, style=Icon.no_border_fill(Colors.Amber3))
 
 # Open C-curve dark outline of the ear
-draw_round_polyline(ear_outer_pts, width_units=w, color=DARK)
+Icon.draw_round_polyline(ear_outer_pts, width_units=w, color=Icon.DARK)
 
 # 7. Simple solid dark dot eye
-circle((65.8, 63.0), radius=2.2, style=fill_style(DARK))
+circle((65.8, 63.0), radius=2.2, style=Icon.fill_style(Icon.DARK))
 
 save()

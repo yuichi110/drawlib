@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Left jib sail (WHITE)
 jib_pts = [
@@ -32,8 +23,8 @@ jib_pts = [
     (41.5, 33.0),
     (41.5, 70.0),
 ]
-polygon(jib_pts, style=no_border_fill(WHITE))
-draw_round_polyline(jib_pts, width_units=w, color=DARK, closed=True)
+polygon(jib_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(jib_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Right main sail (PASTEL_BLUE)
 main_pts = [
@@ -41,8 +32,8 @@ main_pts = [
     (80.0, 29.5),
     (47.0, 86.5),
 ]
-polygon(main_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(main_pts, width_units=w, color=DARK, closed=True)
+polygon(main_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(main_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Bottom tapered sailboat hull (PASTEL_GREEN)
 hull_pts = [
@@ -50,7 +41,7 @@ hull_pts = [
     (80.0, 24.0),
     (44.0, 12.5),
 ]
-polygon(hull_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(hull_pts, width_units=w, color=DARK, closed=True)
+polygon(hull_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(hull_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

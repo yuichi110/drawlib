@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 scale = 0.945
@@ -265,11 +260,11 @@ red_left_loop = _sc(
 
 # Draw back-to-front so over-ribbons cleanly cross under-ribbons
 for pts in (blue_right_arch, blue_upper, blue_lower):
-    polygon(pts, style=no_border_fill(Colors.Blue3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 for pts in (red_top_right, red_bot_right, red_left_loop):
-    polygon(pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

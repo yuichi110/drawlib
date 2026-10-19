@@ -14,16 +14,16 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon, stroke_style
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 CX, CY = 50.0, 50.0
 RADIUS = 38.5
 W = 2.0
 
 # 1. Base pastel blue circle fill
-circle((CX, CY), radius=RADIUS, style=no_border_fill(Colors.Blue3))
+circle((CX, CY), radius=RADIUS, style=Icon.no_border_fill(Colors.Blue3))
 
 # 2. Vertical S-curve centerline inside border (97 deg -> 258 deg)
 s_curve: list[tuple[float, float]] = [
@@ -55,10 +55,10 @@ for i in range(steps + 1):
     left_arc.append((CX + RADIUS * math.cos(ang), CY + RADIUS * math.sin(ang)))
 
 crescent_pts = [*left_arc, *reversed(s_curve)]
-polygon(crescent_pts, style=no_border_fill(Colors.Orange3))
+polygon(crescent_pts, style=Icon.no_border_fill(Colors.Orange3))
 
 # 4. Smooth DARK vertical S-curve divider
-draw_round_polyline(s_curve, width_units=W, color=DARK, corner_r=2.0)
+Icon.draw_round_polyline(s_curve, width_units=W, color=Icon.DARK, corner_r=2.0)
 
 # 5. Characteristic DARK spiral wave curl inside the right pastel-blue half
 spiral_pts: list[tuple[float, float]] = [
@@ -78,9 +78,9 @@ spiral_pts: list[tuple[float, float]] = [
     (76.50, 46.20),
     (76.50, 47.40),
 ]
-draw_round_polyline(spiral_pts, width_units=W, color=DARK, corner_r=1.5)
+Icon.draw_round_polyline(spiral_pts, width_units=W, color=Icon.DARK, corner_r=1.5)
 
 # 6. Bold DARK outer circular border
-circle((CX, CY), radius=RADIUS, style=stroke_style(DARK, width_units=W))
+circle((CX, CY), radius=RADIUS, style=Icon.stroke_style(Icon.DARK, width_units=W))
 
 save()

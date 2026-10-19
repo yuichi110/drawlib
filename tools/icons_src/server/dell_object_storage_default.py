@@ -12,18 +12,14 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 # Top equilateral triangle object
 polygon(
     [(50.0, 86.0), (31.0, 54.0), (69.0, 54.0)],
-    style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8, shape_r=2.0),
+    style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8, shape_r=2.0),
 )
 
 # Bottom-left square object
@@ -31,14 +27,14 @@ rectangle(
     (30.5, 30.0),
     width=29.0,
     height=29.0,
-    style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8, shape_r=2.5),
+    style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8, shape_r=2.5),
 )
 
 # Bottom-right circle object
 circle(
     (70.0, 30.0),
     radius=15.5,
-    style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8),
+    style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8),
 )
 
 save()

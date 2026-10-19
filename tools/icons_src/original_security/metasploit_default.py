@@ -12,16 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -63,14 +57,14 @@ m_mark = _sc([
 # fmt: on
 
 # 1. Two-tone pastel blue shield fill (Colors.Blue3 left, Colors.Blue4 right)
-polygon(shield_left, style=no_border_fill(Colors.Blue3))
-polygon(shield_right, style=no_border_fill(Colors.Blue4))
+polygon(shield_left, style=Icon.no_border_fill(Colors.Blue3))
+polygon(shield_right, style=Icon.no_border_fill(Colors.Blue4))
 
 # 2. Outer shield DARK w=1.8 outline
-draw_round_polyline(shield_outer, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(shield_outer, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Bold WHITE 'M' mark with DARK w=1.8 outline
-polygon(m_mark, style=no_border_fill(WHITE))
-draw_round_polyline(m_mark, width_units=w, color=DARK, closed=True)
+polygon(m_mark, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(m_mark, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -44,15 +37,15 @@ rectangle(
     (50.0, 50.0),
     width=80.0,
     height=80.0,
-    style=no_border_fill("#4A9EE9", shape_r=badge_r),
+    style=Icon.no_border_fill("#4A9EE9", shape_r=badge_r),
 )
 
 # 2. WHITE 'T' and 'S' letters with DARK outlines
-polygon(t_pts, style=no_border_fill(WHITE))
-draw_round_polyline(t_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(t_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(t_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
-polygon(s_pts, style=no_border_fill(WHITE))
-draw_round_polyline(s_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(s_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(s_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Outer rounded square DARK border on top
 rectangle(
@@ -61,8 +54,8 @@ rectangle(
     height=80.0,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w_outer),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w_outer),
         shape_line_style="solid",
         shape_r=badge_r,
     ),

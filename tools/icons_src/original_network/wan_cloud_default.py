@@ -13,20 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Cloud bumps: (cx, cy, r) spanning x in [12, 88], y in [23, 78]
 bumps = [
@@ -71,19 +62,19 @@ for i, (cx, cy, r) in enumerate(bumps):
         ang = a_start + (a_end - a_start) * (s / steps)
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
-polygon(cloud_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3 interconnected routing nodes inside the cloud
 n_top = (50.0, 62.0)
 n_bl = (34.0, 42.0)
 n_br = (66.0, 42.0)
 
-draw_round_polyline([n_top, n_bl, n_br], width_units=2.0, color=DARK, closed=True)
+Icon.draw_round_polyline([n_top, n_bl, n_br], width_units=2.0, color=Icon.DARK, closed=True)
 
 for node in (n_bl, n_br, n_top):
-    circle(node, radius=7.5, style=fill_style(WHITE, border_color=DARK, border_units=2.0))
+    circle(node, radius=7.5, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0))
 
-circle(n_top, radius=3.2, style=fill_style(PASTEL_GREEN))
+circle(n_top, radius=3.2, style=Icon.fill_style(Icon.PASTEL_GREEN))
 
 save()

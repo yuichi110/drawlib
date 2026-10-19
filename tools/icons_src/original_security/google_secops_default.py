@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -43,22 +36,22 @@ seam_inner_bot: list[tuple[float, float]] = [(42.14, 33.03), (48.96, 35.43)]
 # fmt: on
 
 # 1. Outer shield border: Blue3 (top/left) + Green3 (right)
-draw_compound_polygon([outer_ext, outer_int], color=Colors.Blue3)
-polygon(outer_green, style=no_border_fill(Colors.Green3))
-polygon(outer_blue_tip, style=no_border_fill(Colors.Blue3))
+polygon(outer_ext, holes=[outer_int], style=Icon.fill_style(Colors.Blue3))
+polygon(outer_green, style=Icon.no_border_fill(Colors.Green3))
+polygon(outer_blue_tip, style=Icon.no_border_fill(Colors.Blue3))
 
-draw_round_polyline(outer_ext, width_units=w, color=DARK, closed=True)
-draw_round_polyline(outer_int, width_units=w, color=DARK, closed=True)
-draw_round_segment(seam_outer_top[0], seam_outer_top[1], width_units=w, color=DARK)
-draw_round_segment(seam_outer_bot[0], seam_outer_bot[1], width_units=w, color=DARK)
+Icon.draw_round_polyline(outer_ext, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_int, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_segment(seam_outer_top[0], seam_outer_top[1], width_units=w, color=Icon.DARK)
+Icon.draw_round_segment(seam_outer_bot[0], seam_outer_bot[1], width_units=w, color=Icon.DARK)
 
 # 2. Inner shield border: Orange3/Amber3 (left) + Red3 (top/right) with transparent center
-draw_compound_polygon([inner_ext, inner_int], color=Colors.Orange3)
-polygon(inner_red, style=no_border_fill(Colors.Red3))
+polygon(inner_ext, holes=[inner_int], style=Icon.fill_style(Colors.Orange3))
+polygon(inner_red, style=Icon.no_border_fill(Colors.Red3))
 
-draw_round_polyline(inner_ext, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_int, width_units=w, color=DARK, closed=True)
-draw_round_segment(seam_inner_top[0], seam_inner_top[1], width_units=w, color=DARK)
-draw_round_segment(seam_inner_bot[0], seam_inner_bot[1], width_units=w, color=DARK)
+Icon.draw_round_polyline(inner_ext, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_int, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_segment(seam_inner_top[0], seam_inner_top[1], width_units=w, color=Icon.DARK)
+Icon.draw_round_segment(seam_inner_bot[0], seam_inner_bot[1], width_units=w, color=Icon.DARK)
 
 save()

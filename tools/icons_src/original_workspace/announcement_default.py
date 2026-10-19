@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -64,8 +55,8 @@ handle_pts: list[tuple[float, float]] = [
     _pt(14.5, -8.5),
     *_local_arc(12.5, -21.5, 3.8, 0.0, -180.0, 12),
 ]
-polygon(handle_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(handle_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(handle_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(handle_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Rear nozzle cap (PASTEL_BLUE_LIGHT)
 rear_pts: list[tuple[float, float]] = [
@@ -74,8 +65,8 @@ rear_pts: list[tuple[float, float]] = [
     *_local_arc(-2.5, 3.0, 3.5, 90.0, 180.0),
     *_local_arc(-2.5, -3.0, 3.5, 180.0, 270.0),
 ]
-polygon(rear_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(rear_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(rear_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(rear_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Main megaphone cone (PASTEL_BLUE)
 cone_pts: list[tuple[float, float]] = [
@@ -84,8 +75,8 @@ cone_pts: list[tuple[float, float]] = [
     _pt(40.0, 19.5),
     _pt(0.0, 6.5),
 ]
-polygon(cone_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(cone_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(cone_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cone_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 4. Front rim (WHITE)
 r_rim = 3.4
@@ -93,8 +84,8 @@ rim_pts: list[tuple[float, float]] = [
     *_local_arc(40.0 + r_rim, -22.5 + r_rim, r_rim, 180.0, 360.0, 10),
     *_local_arc(40.0 + r_rim, 22.5 - r_rim, r_rim, 0.0, 180.0, 10),
 ]
-polygon(rim_pts, style=no_border_fill(WHITE))
-draw_round_polyline(rim_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(rim_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(rim_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 
 # 5. Broadcast wave arcs (PASTEL_GREEN)
@@ -137,7 +128,7 @@ def _wave_band(
 
 for r_wave, deg_span in ((14.0, 28.0), (23.5, 32.0)):
     w_pts = _wave_band(43.5, 0.0, r_wave, 2.1, -deg_span, deg_span)
-    polygon(w_pts, style=no_border_fill(PASTEL_GREEN))
-    draw_round_polyline(w_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(w_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+    Icon.draw_round_polyline(w_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

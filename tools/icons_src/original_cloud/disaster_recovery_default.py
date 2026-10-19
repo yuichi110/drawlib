@@ -13,25 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, ellipse, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    build_shield_half_points,
-    draw_cap,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 width = 32.0
 w_half = width / 2.0
 ry = 6.0
@@ -48,23 +34,23 @@ for yb in tier_bottoms:
         (cx_left, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx_left, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_BLUE),
+        style=Icon.fill_style(Icon.PASTEL_BLUE),
     )
 
-draw_round_segment((cx_left - w_half, y_bot), (cx_left - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx_left + w_half, y_bot), (cx_left + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx_left - w_half, y_bot), (cx_left - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx_left + w_half, y_bot), (cx_left + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx_left, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Right standby recovery cylinder (PASTEL_GREEN)
@@ -74,23 +60,23 @@ for yb in tier_bottoms:
         (cx_right, yb),
         width=width,
         height=eh,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
     )
     rectangle(
         (cx_right, yb + tier_h / 2.0),
         width=width,
         height=tier_h,
-        style=fill_style(PASTEL_GREEN),
+        style=Icon.fill_style(Icon.PASTEL_GREEN),
     )
 
-draw_round_segment((cx_right - w_half, y_bot), (cx_right - w_half, y_top), width_units=w, color=DARK)
-draw_round_segment((cx_right + w_half, y_bot), (cx_right + w_half, y_top), width_units=w, color=DARK)
+Icon.draw_round_segment((cx_right - w_half, y_bot), (cx_right - w_half, y_top), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((cx_right + w_half, y_bot), (cx_right + w_half, y_top), width_units=w, color=Icon.DARK)
 
 ellipse(
     (cx_right, y_top),
     width=width,
     height=eh,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Curved top failover arrow (from left primary to right standby)
@@ -103,33 +89,35 @@ arc(
     height=arc_ry * 2.0,
     angle_start=ang_start,
     angle_end=ang_end,
-    style=stroke_style(DARK, width_units=w),
+    style=Icon.stroke_style(Icon.DARK, width_units=w),
 )
 
 for deg in (ang_start, ang_end):
     rad = math.radians(deg)
     t_param = math.atan2(arc_rx * math.sin(rad), arc_ry * math.cos(rad))
-    draw_cap((arc_cx + arc_rx * math.cos(t_param), arc_cy + arc_ry * math.sin(t_param)), width_units=w, color=DARK)
+    Icon.draw_cap(
+        (arc_cx + arc_rx * math.cos(t_param), arc_cy + arc_ry * math.sin(t_param)), width_units=w, color=Icon.DARK
+    )
 
 arrow_pts = [
     (61.5, 76.5),
     (70.5, 72.5),
     (71.0, 82.0),
 ]
-polygon(arrow_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(arrow_pts, width_units=2.0, color=DARK, closed=True)
+polygon(arrow_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(arrow_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 # 4. Bottom protective shield with heartbeat badge at (50, 26)
 sh_cx = 50.0
 sh_bot, sh_top = 12.0, 41.0
 sh_half_w = 13.5
 
-left_pts = build_shield_half_points(sh_cx, sh_bot, sh_top, sh_half_w, side="left")
-right_pts = build_shield_half_points(sh_cx, sh_bot, sh_top, sh_half_w, side="right")
+left_pts = Icon.build_shield_half_points(sh_cx, sh_bot, sh_top, sh_half_w, side="left")
+right_pts = Icon.build_shield_half_points(sh_cx, sh_bot, sh_top, sh_half_w, side="right")
 full_shield = left_pts + list(reversed(right_pts[1:-1]))
 
-polygon(full_shield, style=no_border_fill(WHITE))
-draw_round_polyline(full_shield, width_units=w, color=DARK, closed=True)
+polygon(full_shield, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(full_shield, width_units=w, color=Icon.DARK, closed=True)
 
 heartbeat_pts = [
     (41.0, 26.5),
@@ -139,6 +127,6 @@ heartbeat_pts = [
     (54.0, 26.5),
     (59.0, 26.5),
 ]
-draw_round_polyline(heartbeat_pts, width_units=2.0, color=DARK)
+Icon.draw_round_polyline(heartbeat_pts, width_units=2.0, color=Icon.DARK)
 
 save()

@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Upper wireframe globe / sphere at (50, 56), radius=31.0 -> y=25..87
 gx, gy = 50.0, 56.0
@@ -37,28 +26,28 @@ gr = 31.0
 circle(
     (gx, gy),
     radius=gr,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 ellipse(
     (gx, gy),
     width=gr,
     height=gr * 2.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # Vertical prime meridian and horizontal latitude lines
-draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.0, color=DARK)
-draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.0, color=DARK)
+Icon.draw_round_segment((gx, gy - gr), (gx, gy + gr), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((gx - gr, gy), (gx + gr, gy), width_units=2.0, color=Icon.DARK)
 
 lat_dy = 14.5
 lat_dx = math.sqrt(gr * gr - lat_dy * lat_dy)
-draw_round_segment((gx - lat_dx, gy + lat_dy), (gx + lat_dx, gy + lat_dy), width_units=2.0, color=DARK)
+Icon.draw_round_segment((gx - lat_dx, gy + lat_dy), (gx + lat_dx, gy + lat_dy), width_units=2.0, color=Icon.DARK)
 
 # Re-stroke outer globe ring for crisp intersections
 circle(
     (gx, gy),
     radius=gr,
-    style=stroke_style(DARK, width_units=w),
+    style=Icon.stroke_style(Icon.DARK, width_units=w),
 )
 
 # 2. Front "WWW" domain banner at (50, 27), width=76.0, height=24.0
@@ -67,7 +56,7 @@ rectangle(
     (50.0, by),
     width=76.0,
     height=24.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w, shape_r=6.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w, shape_r=6.0),
 )
 
 # Three crisp vector "W" glyphs inside the banner
@@ -82,6 +71,6 @@ for wx in (29.0, 50.0, 71.0):
         (wx + 3.4, y_bot),
         (wx + 6.8, y_top),
     ]
-    draw_round_polyline(w_pts, width_units=2.0, color=DARK)
+    Icon.draw_round_polyline(w_pts, width_units=2.0, color=Icon.DARK)
 
 save()

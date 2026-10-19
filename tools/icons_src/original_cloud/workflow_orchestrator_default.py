@@ -11,53 +11,43 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
-draw_round_segment((24.0, 74.0), (76.0, 74.0), width_units=w, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((24.0, 74.0), (76.0, 74.0), width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(50.0, 74.0), (50.0, 26.0), (76.0, 26.0)],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
     corner_r=6.0,
 )
 
 circle(
     (24.0, 74.0),
     radius=9.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 polygon(
     [(50.0, 86.0), (62.0, 74.0), (50.0, 62.0), (38.0, 74.0)],
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=2.5),
 )
 
 rectangle(
     (76.0, 74.0),
     width=18.0,
     height=18.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=4.0),
 )
 
 rectangle(
     (76.0, 26.0),
     width=18.0,
     height=18.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w, shape_r=4.0),
 )
 
 save()

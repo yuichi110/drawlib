@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cnative",
-  "created_at": "2026-10-18T13:11:17.519728+00:00",
+  "created_at": "2026-10-18T23:04:50.843767+00:00",
   "canvas_size": [
     512,
     512
@@ -641,8 +641,8 @@
       "icon_name": "kind",
       "variant": "default",
       "source_script": "original_cnative/kind_default.py",
-      "size_bytes": 32073,
-      "sha256": "03a456900e679fec3972d0ac90d959443372697bc17dfa952d7b8aec46511607",
+      "size_bytes": 32062,
+      "sha256": "6193f499bbbf94fe9c464c9d2dd06274a18adf5b8e2c7a15828856620b14aad7",
       "bbox": [
         26,
         115,
@@ -680,8 +680,8 @@
       "icon_name": "kubevirt",
       "variant": "default",
       "source_script": "original_cnative/kubevirt_default.py",
-      "size_bytes": 36715,
-      "sha256": "ec2f07de14fbedb70c610f26e8fda2436c65f8df023a716e2529b1765f75709e",
+      "size_bytes": 36709,
+      "sha256": "b4312842e435a4c588ea0bd7c9c7a88bb89b52bf0c68b125344e32dd71dadca9",
       "bbox": [
         26,
         33,
@@ -719,8 +719,8 @@
       "icon_name": "microk8s",
       "variant": "default",
       "source_script": "original_cnative/microk8s_default.py",
-      "size_bytes": 15884,
-      "sha256": "0681e96d1fa0eec2003972e5b62d5ec0e945b51f4d6780672e806a1d3b4bded8",
+      "size_bytes": 15885,
+      "sha256": "fc03e35f4e22a5e963c8dde0f35d7f94752a4f0875e02f1f91c553a467ca7cc0",
       "bbox": [
         26,
         26,

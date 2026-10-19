@@ -12,19 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -178,36 +169,36 @@ iris_glint = _sc([
 # fmt: on
 
 # 1. Outer eyelid rim in pastel cyan-blue (Colors.Blue3)
-polygon(outer_eye, style=no_border_fill(Colors.Blue3))
+polygon(outer_eye, style=Icon.no_border_fill(Colors.Blue3))
 
 # 2. Eyelash/eyelid rib strokes in DARK (w=1.4)
 for rib in eyelash_ribs:
-    draw_round_polyline(rib, width_units=w_rib, color=DARK, closed=False)
+    Icon.draw_round_polyline(rib, width_units=w_rib, color=Icon.DARK, closed=False)
 
 # 3. Sclera in light pastel blue/cyan (Colors.Blue2)
-polygon(inner_sclera, style=no_border_fill(Colors.Blue2))
+polygon(inner_sclera, style=Icon.no_border_fill(Colors.Blue2))
 
 # 4. Iris in pastel blue (Colors.Blue4) with DARK w=1.6 outline
-polygon(iris_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(iris_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(iris_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(iris_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 5. Pupil in DARK
 pupil_xy = _sc([(49.95, 50.97)])[0]
-circle(pupil_xy, radius=5.7 * s, style=fill_style(DARK))
+circle(pupil_xy, radius=5.7 * s, style=Icon.fill_style(Icon.DARK))
 
 # 6. Iconic Nmap target crosshair & inner ring in Colors.Blue2 / WHITE
 ch_v = _sc([(49.91, 59.06), (49.9, 42.9)])
 ch_h = _sc([(41.8, 50.92), (58.0, 50.92)])
-draw_round_segment(ch_v[0], ch_v[1], width_units=0.9, color=WHITE)
-draw_round_segment(ch_h[0], ch_h[1], width_units=0.9, color=WHITE)
-circle(pupil_xy, radius=2.7 * s, style=stroke_style(WHITE, width_units=0.9))
-circle(pupil_xy, radius=0.95 * s, style=fill_style(WHITE))
+Icon.draw_round_segment(ch_v[0], ch_v[1], width_units=0.9, color=Icon.WHITE)
+Icon.draw_round_segment(ch_h[0], ch_h[1], width_units=0.9, color=Icon.WHITE)
+circle(pupil_xy, radius=2.7 * s, style=Icon.stroke_style(Icon.WHITE, width_units=0.9))
+circle(pupil_xy, radius=0.95 * s, style=Icon.fill_style(Icon.WHITE))
 
 # 7. Crisp WHITE highlight glint on upper-right iris
-polygon(iris_glint, style=no_border_fill(WHITE))
+polygon(iris_glint, style=Icon.no_border_fill(Icon.WHITE))
 
 # 8. Crisp DARK outlines for inner eye opening and outer eyelid
-draw_round_polyline(inner_sclera, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(outer_eye, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(inner_sclera, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_eye, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

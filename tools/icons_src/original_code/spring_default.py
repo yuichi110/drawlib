@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -40,15 +34,15 @@ leaf_body = _sc([(83.4, 32.11), (81.8, 30.22), (80.03, 28.57), (78.12, 27.17), (
 # fmt: on
 
 # 1. Flat pastel green circle silhouette
-polygon(circle_outer, style=no_border_fill(SPRING_GREEN))
+polygon(circle_outer, style=Icon.no_border_fill(SPRING_GREEN))
 
 # 2. WHITE leaf dot and leaf body (concave vein shows green circle underneath)
-polygon(leaf_dot, style=no_border_fill(WHITE))
-polygon(leaf_body, style=no_border_fill(WHITE))
+polygon(leaf_dot, style=Icon.no_border_fill(Icon.WHITE))
+polygon(leaf_body, style=Icon.no_border_fill(Icon.WHITE))
 
 # 3. Crisp DARK outlines
-draw_round_polyline(circle_outer, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(leaf_dot, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(leaf_body, width_units=w_inner, color=DARK, closed=True)
+Icon.draw_round_polyline(circle_outer, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(leaf_dot, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(leaf_body, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

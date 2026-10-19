@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 BORDER = 4.8
 
@@ -28,9 +23,9 @@ rectangle(
     (50.0, 50.0),
     width=50.0 - BORDER,
     height=80.0 - BORDER,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Transparent,
-        border_color=DELL_BLUE,
+        border_color=Dell.BLUE,
         border_units=BORDER,
         shape_r=2.5,
     ),
@@ -41,7 +36,7 @@ rectangle(
     (61.0, 76.0),
     width=6.0,
     height=6.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # 4 horizontal drive bay bars (x=36..64, height=5.0) at y=60, 48, 36, 24
@@ -50,7 +45,7 @@ for bay_y in (60.0, 48.0, 36.0, 24.0):
         (50.0, bay_y),
         width=28.0,
         height=5.0,
-        style=no_border_fill(DELL_BLUE),
+        style=Icon.no_border_fill(Dell.BLUE),
     )
 
 save()

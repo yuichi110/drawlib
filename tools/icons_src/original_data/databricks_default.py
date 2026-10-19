@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -41,7 +36,7 @@ top_diamond_ring = [
     (50.0, 81.8),  # Top inner corner of top diamond
     (69.6, 70.9),  # Inner end of top-right back arm
 ]
-polygon(top_diamond_ring, style=no_border_fill(Colors.Red3))
+polygon(top_diamond_ring, style=Icon.no_border_fill(Colors.Red3))
 
 # 2. Middle chevron layer: Right vertical drop + Bar 3 (Colors.Orange3)
 middle_layer = [
@@ -54,7 +49,7 @@ middle_layer = [
     (87.0, 56.1),  # Right bottom of Bar 3
     (87.0, 67.3),  # Right top of Bar 3 vertical drop
 ]
-polygon(middle_layer, style=no_border_fill(Colors.Orange3))
+polygon(middle_layer, style=Icon.no_border_fill(Colors.Orange3))
 
 # 3. Lower folded chevron layer: Left post + Bar 2 + right post + Bar 1 (Colors.Red4)
 lower_layer = [
@@ -73,7 +68,7 @@ lower_layer = [
     (50.0, 24.4),
     (13.0, 44.9),
 ]
-polygon(lower_layer, style=no_border_fill(Colors.Red4))
+polygon(lower_layer, style=Icon.no_border_fill(Colors.Red4))
 
 # 4. Crisp structural outlines (full outer perimeter of upper_layer + seam + lower_layer)
 upper_outline = [
@@ -95,8 +90,8 @@ upper_outline = [
     (50.0, 81.8),
     (69.6, 70.9),
 ]
-draw_round_polyline(lower_layer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(upper_outline, width_units=w, color=DARK, closed=True)
-draw_round_polyline([(81.0, 64.0), (87.0, 67.3)], width_units=1.6, color=DARK)
+Icon.draw_round_polyline(lower_layer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(upper_outline, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline([(81.0, 64.0), (87.0, 67.3)], width_units=1.6, color=Icon.DARK)
 
 save()

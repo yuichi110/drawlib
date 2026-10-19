@@ -12,17 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.4
@@ -38,7 +31,7 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
 circle(
     (50.0, 50.0),
     radius=r_badge,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. WHITE 'W' letter with DARK 1.4 outline
@@ -59,15 +52,15 @@ w_pts = _sc(
         (57.62, 34.78),
     ]
 )
-polygon(w_pts, style=no_border_fill(WHITE))
-draw_round_polyline(w_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(w_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(w_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. WHITE period dot with DARK 1.4 outline
 dot_xy = _sc([(71.09, 38.87)])[0]
 circle(
     dot_xy,
     radius=4.69 * s,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner),
 )
 
 save()

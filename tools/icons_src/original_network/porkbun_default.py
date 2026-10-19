@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_pig = 1.8
@@ -33,7 +26,7 @@ w_tail = 2.2
 circle(
     (50.0, 50.0),
     radius=41.0,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w_badge),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w_badge),
 )
 
 # 2. Pig ears (authentic Porkbun ear tips, tucked slightly behind the body dome)
@@ -70,8 +63,8 @@ right_ear = [
 ]
 
 for ear in (left_ear, right_ear):
-    polygon(ear, style=no_border_fill(WHITE))
-    draw_round_polyline(ear, width_units=w_pig, color=DARK, closed=True)
+    polygon(ear, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(ear, width_units=w_pig, color=Icon.DARK, closed=True)
 
 # 3. Pig rear body (authentic Porkbun body & legs)
 pig_body = [
@@ -102,8 +95,8 @@ pig_body = [
     (58.04, 66.63), (56.37, 67.2), (54.64, 67.65), (52.85, 67.95), (51.02, 68.11),
     (49.15, 68.11),
 ]
-polygon(pig_body, style=no_border_fill(WHITE))
-draw_round_polyline(pig_body, width_units=w_pig, color=DARK, closed=True)
+polygon(pig_body, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(pig_body, width_units=w_pig, color=Icon.DARK, closed=True)
 
 # 4. Curly pig tail: inner loop filled in Colors.Red3, centerline stroked in DARK (2.2 units)
 tail_loop_pts = [
@@ -121,7 +114,7 @@ tail_loop_pts = [
     (54.3, 49.85),
     (55.55, 49.15),
 ]
-polygon(tail_loop_pts, style=no_border_fill(Colors.Red3))
+polygon(tail_loop_pts, style=Icon.no_border_fill(Colors.Red3))
 
 tail_centerline = [
     (53.15, 46.54),
@@ -145,7 +138,7 @@ tail_centerline = [
     (60.05, 50.05),
     (60.85, 50.85),
 ]
-draw_round_polyline(tail_centerline, width_units=w_tail, color=DARK)
+Icon.draw_round_polyline(tail_centerline, width_units=w_tail, color=Icon.DARK)
 
 save()
 # fmt: on

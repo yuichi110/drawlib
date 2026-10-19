@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "cloud",
-  "created_at": "2026-10-18T12:36:15.575997+00:00",
+  "created_at": "2026-10-18T23:02:25.722541+00:00",
   "canvas_size": [
     512,
     512
@@ -55,8 +55,8 @@
       "icon_name": "alibaba_cloud",
       "variant": "default",
       "source_script": "cloud/alibaba_cloud_default.py",
-      "size_bytes": 8494,
-      "sha256": "dcd347a739504419bc00fba90c6d0ff229adf20b2cb1212168991cf61bfdd82f",
+      "size_bytes": 8467,
+      "sha256": "60f31d65083619e8b4e200f63dccf00978e5a485c25fb87136cbf4cd9ebb6424",
       "bbox": [
         26,
         110,
@@ -94,8 +94,8 @@
       "icon_name": "aws",
       "variant": "default",
       "source_script": "cloud/aws_default.py",
-      "size_bytes": 22243,
-      "sha256": "da2da27827afcc7ded5b3a7e3756a0da1652667e9785a23f1e68f55bcb3f4cab",
+      "size_bytes": 22269,
+      "sha256": "f33467555c7b71ab16f987fc7d0bd2d4c5b957d22c5d9348181b8909da8b2197",
       "bbox": [
         26,
         118,
@@ -146,8 +146,8 @@
       "icon_name": "digitalocean",
       "variant": "default",
       "source_script": "cloud/digitalocean_default.py",
-      "size_bytes": 11082,
-      "sha256": "8b01b714da9e7ef1f47fc6808bff8e256c50e89cdd0be7e9890ffa3bbb59962e",
+      "size_bytes": 11134,
+      "sha256": "13ba277fe2416cbbc401437736c560bd4bafa478c70a47adddcc019feac72371",
       "bbox": [
         26,
         27,
@@ -159,8 +159,8 @@
       "icon_name": "fastly",
       "variant": "default",
       "source_script": "cloud/fastly_default.py",
-      "size_bytes": 14939,
-      "sha256": "80a8a8a95693e8cfb9e1648aa10f83d96e755676650ef33db8c6f8834a6fdf4b",
+      "size_bytes": 14946,
+      "sha256": "21878bcb13b59721d772e14a70e7f47bea2388220410bbbefe9540d76c6aa1c8",
       "bbox": [
         41,
         26,
@@ -185,8 +185,8 @@
       "icon_name": "fly_io",
       "variant": "default",
       "source_script": "cloud/fly_io_default.py",
-      "size_bytes": 33536,
-      "sha256": "b2a736ce0b5ca1438924b760412647cb92a440e8c417649260ac3c740233cdcc",
+      "size_bytes": 33520,
+      "sha256": "0f7c807a3ea19269c475057ead912e7476c65532dcb47522d31613350cf04870",
       "bbox": [
         26,
         49,
@@ -276,8 +276,8 @@
       "icon_name": "ibm_cloud",
       "variant": "default",
       "source_script": "cloud/ibm_cloud_default.py",
-      "size_bytes": 28957,
-      "sha256": "34427af76cd28518c9cf98c509e71a8ed0961c72e7764aa9e98e8ef63a56ac33",
+      "size_bytes": 28934,
+      "sha256": "be4daa222ac69b56a8a73365c44a15080f03ec53bff0f90277076b8ff74b6145",
       "bbox": [
         26,
         52,
@@ -328,8 +328,8 @@
       "icon_name": "kagoya",
       "variant": "default",
       "source_script": "cloud/kagoya_default.py",
-      "size_bytes": 18752,
-      "sha256": "d74d8abefaa08001dff273dd442dd9cbc38f5bb7fb69611a53c5bf6f8672e0be",
+      "size_bytes": 18804,
+      "sha256": "d8f433ff2a5456c724799b1e9b59c55edad621d272a587fd47b9ac458aab3f37",
       "bbox": [
         26,
         109,
@@ -341,8 +341,8 @@
       "icon_name": "linode",
       "variant": "default",
       "source_script": "cloud/linode_default.py",
-      "size_bytes": 35399,
-      "sha256": "b6043d3e8b387f064c0484a2493c496587e79fb5a5953cb24ed3fc7601cb8556",
+      "size_bytes": 35338,
+      "sha256": "6775a20984f7095f238d3a1908a0618c3f335825882e537f4e82d9c72ccb095c",
       "bbox": [
         64,
         26,
@@ -367,8 +367,8 @@
       "icon_name": "netlify",
       "variant": "default",
       "source_script": "cloud/netlify_default.py",
-      "size_bytes": 5033,
-      "sha256": "913eb0b91c1c3bf3aedb45913ddfa529f6492d3f2d4a7f4e1dff349d6c0066e5",
+      "size_bytes": 5014,
+      "sha256": "d68d7db8f7fb941cfa97d822ceeadc730896694e572d97a6f0c1585324cd2bcf",
       "bbox": [
         26,
         53,
@@ -406,8 +406,8 @@
       "icon_name": "oracle",
       "variant": "default",
       "source_script": "cloud/oracle_default.py",
-      "size_bytes": 12566,
-      "sha256": "91e746899200609c1fcda28c0a12d8f024fec7bd9b1490335ab82a835dfb2eb3",
+      "size_bytes": 12569,
+      "sha256": "dc4125a5b9ff03c0063f64e303856cedfbbf8e2bf239fd15a3c2936790f272ae",
       "bbox": [
         26,
         26,
@@ -471,8 +471,8 @@
       "icon_name": "scaleway",
       "variant": "default",
       "source_script": "cloud/scaleway_default.py",
-      "size_bytes": 10774,
-      "sha256": "e6c361bac6894b82a73d576f81fcd62062c91415183fed9d426874d5ae6709b6",
+      "size_bytes": 10776,
+      "sha256": "efd4917b88b9a829e3004f06aaf56ff3ab144a825e7fcc7e2dbfd38c2c566e99",
       "bbox": [
         73,
         26,
@@ -497,8 +497,8 @@
       "icon_name": "tencent_cloud",
       "variant": "default",
       "source_script": "cloud/tencent_cloud_default.py",
-      "size_bytes": 16683,
-      "sha256": "886198a0d436b2d1c7f95dee3768b083c41f98b69ee96ca6000bb51552d17140",
+      "size_bytes": 16682,
+      "sha256": "3e603b50ebc796173e5cef43078bb49493f47baef0cad419543d54543b02c34e",
       "bbox": [
         26,
         91,
@@ -510,8 +510,8 @@
       "icon_name": "tencent",
       "variant": "default",
       "source_script": "cloud/tencent_default.py",
-      "size_bytes": 21540,
-      "sha256": "b72777eb712f263c872562b23013d2a3e13aef2a99984c31f6f9b76a4b3f7ca9",
+      "size_bytes": 21548,
+      "sha256": "eb4f552b82274a19c7a25b7ab2e027aef1f76b4ff258b65b111cfee52a1b5b13",
       "bbox": [
         26,
         142,

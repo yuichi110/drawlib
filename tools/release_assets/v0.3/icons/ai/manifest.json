@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "ai",
-  "created_at": "2026-10-18T12:35:29.483691+00:00",
+  "created_at": "2026-10-18T23:00:51.903830+00:00",
   "canvas_size": [
     512,
     512
@@ -31,8 +31,8 @@
       "icon_name": "a2a",
       "variant": "default",
       "source_script": "ai/a2a_default.py",
-      "size_bytes": 33810,
-      "sha256": "e89559c0c31130246f282b50dd89861ab06f7f6c6a058d71d76900b6ebe5b518",
+      "size_bytes": 33805,
+      "sha256": "f60c34265ccbed862382dafe39ab5bf889a9b530c8b3eac63d4019344650d325",
       "bbox": [
         26,
         26,
@@ -44,8 +44,8 @@
       "icon_name": "autogen",
       "variant": "default",
       "source_script": "ai/autogen_default.py",
-      "size_bytes": 11715,
-      "sha256": "1ca9f6a461c77bc3641c98953d746e9c5f9cedd50c7539e6c01c4e9d9b5bcbda",
+      "size_bytes": 11727,
+      "sha256": "ec6abe9f13ef44a9e4f4074572c5c206bff477f3bf4b931b4d713f9e44e5f7ca",
       "bbox": [
         26,
         52,
@@ -97,7 +97,7 @@
       "variant": "default",
       "source_script": "ai/deepseek_default.py",
       "size_bytes": 20101,
-      "sha256": "424a7b64ca6ff15e0775223e3cc803782d9a9b001fb29f6b69e45ef071f0e338",
+      "sha256": "6b51fedc6d15a429ad316df133595d00c010b0a13ae7bce5813556f7e0fea450",
       "bbox": [
         26,
         86,
@@ -135,8 +135,8 @@
       "icon_name": "gradio",
       "variant": "default",
       "source_script": "ai/gradio_default.py",
-      "size_bytes": 24457,
-      "sha256": "cb6ca3a8251f12376eedeed8d8fbafacc52a9e6d11e5993e3c4a30c808b5b34f",
+      "size_bytes": 24453,
+      "sha256": "71de427298d264503274b2350f5563e9d82c3272a2d3bd1537ab42d7bd1e3faf",
       "bbox": [
         26,
         55,
@@ -174,8 +174,8 @@
       "icon_name": "huggingface",
       "variant": "default",
       "source_script": "ai/huggingface_default.py",
-      "size_bytes": 31037,
-      "sha256": "67c2cdf4edf3de229612cf37570997d3314d7010786cc98d7750b353c144984b",
+      "size_bytes": 30995,
+      "sha256": "bf11d61ebd40a58f7cd35895b21f22b47a0e22c1f5d2a015030ad88821aa3610",
       "bbox": [
         26,
         47,
@@ -239,8 +239,8 @@
       "icon_name": "langfuse",
       "variant": "default",
       "source_script": "ai/langfuse_default.py",
-      "size_bytes": 26222,
-      "sha256": "bcaa2b78428dd831b097b0d4bdfd681e03d2fd7fb3da553a8a2b2611c6b0f675",
+      "size_bytes": 26199,
+      "sha256": "f4872eb3d669b88e98635e2cf9a03cf2b8c49e5c3661f27ec854243e5a17f444",
       "bbox": [
         26,
         112,
@@ -252,8 +252,8 @@
       "icon_name": "langgraph",
       "variant": "default",
       "source_script": "ai/langgraph_default.py",
-      "size_bytes": 15076,
-      "sha256": "1052184e444ba6cb3a1f143e6e0e154e778641f0a7c9d49170279d4ebf57dece",
+      "size_bytes": 15075,
+      "sha256": "01ddbbf4d8188aed1f74038f5fd58a395d6cc338278b0d5f5e6e29c83d1a53c7",
       "bbox": [
         26,
         141,
@@ -343,8 +343,8 @@
       "icon_name": "n8n",
       "variant": "default",
       "source_script": "ai/n8n_default.py",
-      "size_bytes": 16008,
-      "sha256": "9de8470647783f8c1f565d1f38dd259019c78a351ba43ed98579d9aabef896c2",
+      "size_bytes": 16004,
+      "sha256": "ae721f4c9708933efdbf31c994fb59ca79692fc0ab2131075616a3e7bbfbbcf0",
       "bbox": [
         26,
         141,
@@ -356,8 +356,8 @@
       "icon_name": "nvidia",
       "variant": "default",
       "source_script": "ai/nvidia_default.py",
-      "size_bytes": 20563,
-      "sha256": "0dec2b3999f59f8671c559af0d0e3626fbe4d7da8ceb39cc36f47770a4585f91",
+      "size_bytes": 20550,
+      "sha256": "361a49d29c65fc1cbf2402f50caf8e88fa3738fdb02016134614bec451ce48f6",
       "bbox": [
         26,
         99,
@@ -369,8 +369,8 @@
       "icon_name": "ollama",
       "variant": "default",
       "source_script": "ai/ollama_default.py",
-      "size_bytes": 15672,
-      "sha256": "990912ff13e25b1c3749b4b26b9a2c49743edd3c87361f458a330c4cb9efa343",
+      "size_bytes": 15675,
+      "sha256": "68f39666b3ff0b89c805dc32556fe708930d28db79d116e4a604061b62164a41",
       "bbox": [
         78,
         26,
@@ -382,8 +382,8 @@
       "icon_name": "onnx",
       "variant": "default",
       "source_script": "ai/onnx_default.py",
-      "size_bytes": 39768,
-      "sha256": "e3c250d1b6a1d2393c84065681ebe238c0accd1e4585399f0ba13cdc013513c3",
+      "size_bytes": 39772,
+      "sha256": "d779e411a37ae6c9eb9bed9cf9c5f46343af3d08e1c696c3b8d656259a6c0866",
       "bbox": [
         26,
         31,
@@ -396,7 +396,7 @@
       "variant": "default",
       "source_script": "ai/openai_default.py",
       "size_bytes": 19220,
-      "sha256": "2198f109e2d3000bc4c61b6bca667515ceff005657ff4746e412443342a011ac",
+      "sha256": "94167ba08f57403fc28d33f4adf0839aaf394b492f2cec35bb5b0e03f94bf63a",
       "bbox": [
         26,
         28,
@@ -408,8 +408,8 @@
       "icon_name": "openhands",
       "variant": "default",
       "source_script": "ai/openhands_default.py",
-      "size_bytes": 22358,
-      "sha256": "a850e3404776c0e33a53862ce556846b4e6b8b18eb625256d09a2c890762d19c",
+      "size_bytes": 22356,
+      "sha256": "08065d155cdcc7611f67bc5310fbda6dda650186595b49e21a99f5eb5b09f244",
       "bbox": [
         26,
         99,
@@ -421,8 +421,8 @@
       "icon_name": "perplexity",
       "variant": "default",
       "source_script": "ai/perplexity_default.py",
-      "size_bytes": 18667,
-      "sha256": "51a27ac0f23b8b2a75a311d188a7bb34ff88b2492a0467b95a887575ddfba315",
+      "size_bytes": 18662,
+      "sha256": "1dac88c3117f9fc3cfa92506d911f2e82d4a03ac787f01f57b03e679897e40f5",
       "bbox": [
         54,
         26,
@@ -447,8 +447,8 @@
       "icon_name": "qwen",
       "variant": "default",
       "source_script": "ai/qwen_default.py",
-      "size_bytes": 22925,
-      "sha256": "98aa9c75bdbccf3f83bfac8299e38c699ea44813eb7ebb5f4d8defa701c9bade",
+      "size_bytes": 22960,
+      "sha256": "ca68abe0cb14b89ce75babd1cc17a7bd17a0f21352e5cb19ab6452eee4acd59f",
       "bbox": [
         26,
         26,
@@ -473,8 +473,8 @@
       "icon_name": "scikit_learn",
       "variant": "default",
       "source_script": "ai/scikit_learn_default.py",
-      "size_bytes": 22382,
-      "sha256": "03240ec383be408b765dd5fc5f2aa0681594995224d633ae3e5be80d462ecead",
+      "size_bytes": 22391,
+      "sha256": "93689a42e3d33907884dabe8cdb6c891c61b1760fd1adbce2dc146652055512f",
       "bbox": [
         26,
         132,
@@ -512,8 +512,8 @@
       "icon_name": "tensorflow",
       "variant": "default",
       "source_script": "ai/tensorflow_default.py",
-      "size_bytes": 9893,
-      "sha256": "b096cf868012dc763b70902da8acc422f022b404a8f45b59c00ddfe580dd5e9a",
+      "size_bytes": 9915,
+      "sha256": "a6621aa6ad6d7654d0d059f77a0812ccc0a875e4154ba3a67d4148e1fb2ed9b0",
       "bbox": [
         50,
         26,

@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -41,18 +35,18 @@ rays = [
 ]
 
 # 1. Shackle in pastel orange (Colors.Orange3)
-polygon(shackle, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(shackle, width_units=w, color=DARK, closed=True)
+polygon(shackle, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(shackle, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Padlock body in pastel blue (Colors.Blue4) with transparent keyhole cutout
-draw_compound_polygon([body_outer, keyhole_hole], color=Colors.Blue4)
-draw_round_polyline(body_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(keyhole_hole, width_units=w, color=DARK, closed=True)
+polygon(body_outer, holes=[keyhole_hole], style=Icon.fill_style(Colors.Blue4))
+Icon.draw_round_polyline(body_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(keyhole_hole, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. 5 rays in pastel yellow/amber (Colors.Amber3)
 for ray in rays:
-    polygon(ray, style=no_border_fill(Colors.Amber3))
-    draw_round_polyline(ray, width_units=w, color=DARK, closed=True)
+    polygon(ray, style=Icon.no_border_fill(Colors.Amber3))
+    Icon.draw_round_polyline(ray, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

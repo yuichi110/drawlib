@@ -13,20 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 44.5
 r_tri = 20.5
 r_hook = 14.5
@@ -58,19 +49,19 @@ for i in range(3):
         ang = math.radians(phi_start_deg + (phi_end_deg - phi_start_deg) * (s / steps))
         arm_pts.append((tx + r_hook * math.cos(ang), ty + r_hook * math.sin(ang)))
 
-    draw_round_polyline(arm_pts, width_units=w, color=DARK)
+    Icon.draw_round_polyline(arm_pts, width_units=w, color=Icon.DARK)
 
-node_colors = (PASTEL_GREEN, PASTEL_BLUE, PASTEL_BLUE)
+node_colors = (Icon.PASTEL_GREEN, Icon.PASTEL_BLUE, Icon.PASTEL_BLUE)
 for (nx, ny), col in zip(centers, node_colors, strict=True):
     circle(
         (nx, ny),
         radius=8.8,
-        style=fill_style(col, border_color=DARK, border_units=w),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w),
     )
     circle(
         (nx, ny),
         radius=3.2,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
     )
 
 save()

@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 # Split 1.3-unit DARK outline into 1.0 outside (w_halo=2.0) + 0.3 inside (w_in=0.6)
 # so tight letter stems stay clean and neighboring letter halos never overlap fills.
@@ -42,20 +36,20 @@ all_rings = [s_pts, y1_pts, n_pts, *o1_rings, l_pts, *o2_rings, *g_rings, y2_pts
 
 # Pass 1: Outer DARK halo strokes behind all letter fills
 for ring in all_rings:
-    draw_round_polyline(ring, width_units=w_halo, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_halo, color=Icon.DARK, closed=True)
 
 # Pass 2: Pastel fills ("Syno" in #8C98A8, "logy" in #4A5568) with transparent holes
 for pts in (s_pts, y1_pts, n_pts):
-    polygon(pts, style=no_border_fill("#8C98A8"))
-draw_compound_polygon(o1_rings, color="#8C98A8")
+    polygon(pts, style=Icon.no_border_fill("#8C98A8"))
+polygon(o1_rings[1], holes=[o1_rings[0]], style=Icon.fill_style("#8C98A8"))
 
 for pts in (l_pts, y2_pts):
-    polygon(pts, style=no_border_fill("#4A5568"))
-draw_compound_polygon(o2_rings, color="#4A5568")
-draw_compound_polygon(g_rings, color="#4A5568")
+    polygon(pts, style=Icon.no_border_fill("#4A5568"))
+polygon(o2_rings[1], holes=[o2_rings[0]], style=Icon.fill_style("#4A5568"))
+polygon(g_rings[2], holes=g_rings[:2], style=Icon.fill_style("#4A5568"))
 
 # Pass 3: Crisp inner DARK border strokes on top
 for ring in all_rings:
-    draw_round_polyline(ring, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

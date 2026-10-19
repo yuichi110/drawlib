@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -58,8 +47,8 @@ doc_pts: list[tuple[float, float]] = [
     *_arc_pts(80.0 - r_doc, 13.0 + r_doc, r_doc, 270.0, 360.0),
     (80.0, 69.0),
 ]
-polygon(doc_pts, style=no_border_fill(WHITE))
-draw_round_polyline(doc_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(doc_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(doc_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Top-right corner fold flap (PASTEL_BLUE_LIGHT)
 r_flap = 3.0
@@ -68,28 +57,28 @@ flap_pts: list[tuple[float, float]] = [
     *_arc_pts(62.0 + r_flap, 69.0 + r_flap, r_flap, 180.0, 270.0),
     (80.0, 69.0),
 ]
-polygon(flap_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(flap_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(flap_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(flap_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Header block (PASTEL_BLUE)
 rectangle(
     (41.5, 73.0),
     width=27.0,
     height=8.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_inner, shape_r=2.2),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_inner, shape_r=2.2),
 )
 
 # 4. Three DARK text lines
-draw_round_segment((28.0, 56.5), (72.0, 56.5), width_units=w_inner, color=DARK)
-draw_round_segment((28.0, 46.0), (72.0, 46.0), width_units=w_inner, color=DARK)
-draw_round_segment((28.0, 35.5), (57.0, 35.5), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((28.0, 56.5), (72.0, 56.5), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((28.0, 46.0), (72.0, 46.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((28.0, 35.5), (57.0, 35.5), width_units=w_inner, color=Icon.DARK)
 
 # 5. Bottom accent tag (PASTEL_GREEN)
 rectangle(
     (37.5, 23.5),
     width=19.0,
     height=7.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_inner, shape_r=3.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_inner, shape_r=3.5),
 )
 
 save()

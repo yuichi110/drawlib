@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -34,10 +29,10 @@ sparkle = [(89.25, 63.79), (89.26, 63.79), (89.27, 63.79), (89.28, 63.78), (89.2
 # fmt: on
 
 for pts in letters:
-    polygon(pts, style=no_border_fill(Colors.Blue3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(sparkle, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(sparkle, width_units=w, color=DARK, closed=True)
+polygon(sparkle, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(sparkle, width_units=w, color=Icon.DARK, closed=True)
 
 save()

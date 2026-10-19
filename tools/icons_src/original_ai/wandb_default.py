@@ -12,18 +12,14 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_dot = 2.0
 scale = 0.94
 
-dot_style = fill_style(Colors.Amber3, border_color=DARK, border_units=w_dot)
+dot_style = Icon.fill_style(Colors.Amber3, border_color=Icon.DARK, border_units=w_dot)
 
 # 3x4 dotted wave grid: (x, y, radius)
 raw_dots = [

@@ -12,11 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -28,12 +28,12 @@ center_diag = [(37.17, 58.45), (32.19, 68.21), (31.92, 68.75), (31.57, 69.31), (
 
 # 1. Folded outer legs in pastel coral-red (Colors.Red3)
 for leg_pts in (right_leg, left_leg):
-    polygon(leg_pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(leg_pts, width_units=w, color=DARK, closed=True)
+    polygon(leg_pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(leg_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Main center diagonal ribbon in pastel orange (Colors.Orange3)
-polygon(center_diag, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(center_diag, width_units=w, color=DARK, closed=True)
+polygon(center_diag, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(center_diag, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

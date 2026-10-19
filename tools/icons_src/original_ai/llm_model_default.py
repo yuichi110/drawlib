@@ -11,46 +11,34 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    build_sparkle_4pt_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 pin_coords = [32.0, 50.0, 68.0]
 
 for pos in pin_coords:
-    draw_round_segment((12.0, pos), (22.0, pos), width_units=w, color=DARK)
-    draw_round_segment((78.0, pos), (88.0, pos), width_units=w, color=DARK)
-    draw_round_segment((pos, 12.0), (pos, 22.0), width_units=w, color=DARK)
-    draw_round_segment((pos, 78.0), (pos, 88.0), width_units=w, color=DARK)
+    Icon.draw_round_segment((12.0, pos), (22.0, pos), width_units=w, color=Icon.DARK)
+    Icon.draw_round_segment((78.0, pos), (88.0, pos), width_units=w, color=Icon.DARK)
+    Icon.draw_round_segment((pos, 12.0), (pos, 22.0), width_units=w, color=Icon.DARK)
+    Icon.draw_round_segment((pos, 78.0), (pos, 88.0), width_units=w, color=Icon.DARK)
 
 rectangle(
     (50.0, 50.0),
     width=58.0,
     height=58.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=9.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=9.0),
 )
 
-sparkle_pts = build_sparkle_4pt_polygon(50.0, 50.0, outer_r=20.0, inner_r=6.8)
-polygon(sparkle_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(sparkle_pts, width_units=2.0, color=DARK, closed=True)
+sparkle_pts = Icon.build_sparkle_4pt_polygon(50.0, 50.0, outer_r=20.0, inner_r=6.8)
+polygon(sparkle_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(sparkle_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 circle(
     (68.0, 68.0),
     radius=4.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

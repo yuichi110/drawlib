@@ -11,28 +11,18 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cisco_arrow,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Wide 2D optical DWDM/ROADM shelf
 rectangle(
     (50.0, 50.0),
     width=78.0,
     height=52.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=8.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=8.0),
 )
 
 # Right optical plate
@@ -40,23 +30,23 @@ rectangle(
     (65.0, 50.0),
     width=28.0,
     height=34.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=5.0),
 )
 
 # 3 parallel horizontal wavelength arrows emerging from prism right edge
 for x_start, y_pos in [(27.5, 60.0), (42.0, 50.0), (27.5, 40.0)]:
-    draw_cisco_arrow(
+    Cisco.draw_arrow(
         (x_start, y_pos),
         (76.0, y_pos),
         shaft_w=2.4,
         head_len=5.5,
         head_w=7.0,
-        color=DARK,
+        color=Icon.DARK,
     )
 
 # Left optical prism triangle (drawn over arrow roots for a clean edge)
 prism_pts = [(20.0, 34.0), (20.0, 66.0), (44.0, 50.0)]
-polygon(prism_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(prism_pts, width_units=2.0, color=DARK, closed=True)
+polygon(prism_pts, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(prism_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

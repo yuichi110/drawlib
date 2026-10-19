@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_letter_pad = 0.6
@@ -42,22 +35,22 @@ p2_dark_outer = [(71.4, 59.31), (71.72, 59.3), (72.04, 59.29), (72.35, 59.27), (
 # fmt: on
 
 # 1. White outer oval base (forms crisp WHITE inner rim) and flat pastel indigo-purple oval
-polygon(outer_oval, style=no_border_fill(WHITE))
-polygon(inner_oval, style=no_border_fill("#797FC2"))
+polygon(outer_oval, style=Icon.no_border_fill(Icon.WHITE))
+polygon(inner_oval, style=Icon.no_border_fill("#797FC2"))
 
 # 2. WHITE outlines behind the 'php' letters
-draw_compound_polygon([p1_w_outer, p1_w_hole_in], color=WHITE)
-polygon(h_w_outer, style=no_border_fill(WHITE))
-draw_compound_polygon([p2_w_outer, p2_w_hole_in], color=WHITE)
+polygon(p1_w_outer, holes=[p1_w_hole_in], style=Icon.fill_style(Icon.WHITE))
+polygon(h_w_outer, style=Icon.no_border_fill(Icon.WHITE))
+polygon(p2_w_outer, holes=[p2_w_hole_in], style=Icon.fill_style(Icon.WHITE))
 for ring in (p1_w_outer, p1_w_hole_in, h_w_outer, p2_w_outer, p2_w_hole_in):
-    draw_round_polyline(ring, width_units=w_letter_pad, color=WHITE, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_letter_pad, color=Icon.WHITE, closed=True)
 
 # 3. DARK 'php' letter fills
-draw_compound_polygon([p1_dark_outer, p1_dark_hole], color=DARK)
-polygon(h_dark_outer, style=no_border_fill(DARK))
-draw_compound_polygon([p2_dark_outer, p2_dark_hole], color=DARK)
+polygon(p1_dark_outer, holes=[p1_dark_hole], style=Icon.fill_style(Icon.DARK))
+polygon(h_dark_outer, style=Icon.no_border_fill(Icon.DARK))
+polygon(p2_dark_outer, holes=[p2_dark_hole], style=Icon.fill_style(Icon.DARK))
 
 # 4. Crisp DARK outer oval border
-draw_round_polyline(outer_oval, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_oval, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

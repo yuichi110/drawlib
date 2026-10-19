@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -87,15 +77,15 @@ back_pts: list[tuple[float, float]] = [
     (42.0, y_tab_top),
     *_arc_pts(x0 + r_f, y_tab_top - r_f, r_f, 90.0, 180.0),
 ]
-polygon(back_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(back_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(back_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(back_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Folder front pocket (PASTEL_BLUE)
 rectangle(
     (50.0, 42.5),
     width=74.0,
     height=47.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_outer, shape_r=r_f),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_outer, shape_r=r_f),
 )
 
 # 3. WHITE cloud centered on front pocket
@@ -122,8 +112,8 @@ cloud_pts: list[tuple[float, float]] = [
     # Right puff from p_mr (~105 deg) clockwise through 0 deg to bottom (-90 deg)
     *_arc_pts(c_right[0], c_right[1], r_right, ang_right_start, -90.0, 16),
 ]
-polygon(cloud_pts, style=no_border_fill(WHITE))
-draw_round_polyline(cloud_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(cloud_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 4. PASTEL_GREEN up arrow inside cloud
 arrow_pts: list[tuple[float, float]] = [
@@ -135,7 +125,7 @@ arrow_pts: list[tuple[float, float]] = [
     (42.8, 41.5),
     (46.8, 41.5),
 ]
-polygon(arrow_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(arrow_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(arrow_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(arrow_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

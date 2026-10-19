@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,12 +28,12 @@ wave_outer: list[tuple[float, float]] = [(73.91, 24.23), (76.54, 25.93), (78.81,
 
 # 1. Central 'V' and inner crescent wave in Colors.Teal3
 for pts in (v_pts, wave_inner):
-    polygon(pts, style=no_border_fill(Colors.Teal3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Teal3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Middle and outer crescent waves in Colors.Teal4
 for pts in (wave_mid, wave_outer):
-    polygon(pts, style=no_border_fill(Colors.Teal4))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Teal4))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

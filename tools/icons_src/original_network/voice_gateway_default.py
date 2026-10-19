@@ -13,41 +13,31 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cisco_arrow,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Rounded square gateway card
 rectangle(
     (50.0, 50.0),
     width=76.0,
     height=76.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=12.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=12.0),
 )
 
 # 4 cardinal routing arrows on the frame (2 horizontal inward, 2 vertical outward)
-draw_cisco_arrow((14.0, 50.0), (24.0, 50.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=DARK)
-draw_cisco_arrow((86.0, 50.0), (76.0, 50.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=DARK)
-draw_cisco_arrow((50.0, 76.0), (50.0, 86.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=DARK)
-draw_cisco_arrow((50.0, 24.0), (50.0, 14.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=DARK)
+Cisco.draw_arrow((14.0, 50.0), (24.0, 50.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=Icon.DARK)
+Cisco.draw_arrow((86.0, 50.0), (76.0, 50.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=Icon.DARK)
+Cisco.draw_arrow((50.0, 76.0), (50.0, 86.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=Icon.DARK)
+Cisco.draw_arrow((50.0, 24.0), (50.0, 14.0), shaft_w=2.6, head_len=5.0, head_w=6.8, color=Icon.DARK)
 
 # Inner white circle
 circle(
     (50.0, 50.0),
     radius=24.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 
@@ -103,7 +93,7 @@ def _build_handset_pts() -> list[tuple[float, float]]:
 
 
 handset_pts = _build_handset_pts()
-polygon(handset_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(handset_pts, width_units=2.0, color=DARK, closed=True)
+polygon(handset_pts, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(handset_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

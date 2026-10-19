@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -44,13 +39,13 @@ facets = [
     (f_top_wing, "#48C9B0"),
 ]
 for pts, color in facets:
-    polygon(pts, style=no_border_fill(color))
+    polygon(pts, style=Icon.no_border_fill(color))
 
 # 2. Crisp DARK inner facet outlines
 for pts, _ in facets:
-    draw_round_polyline(pts, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Bold DARK outer dart silhouette outline
-draw_round_polyline(dart_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(dart_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    build_shield_half_points,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _build_cloud(
@@ -78,25 +67,35 @@ bumps = [
 ]
 cloud_pts = _build_cloud(bumps)
 
-polygon(cloud_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Security shield in front-right protecting the private cloud
 sx, sy_bot, sy_top, sh_w = 64.0, 12.0, 54.0, 18.0
-left_half = build_shield_half_points(sx, sy_bot, sy_top, sh_w, side="left")
-right_half = build_shield_half_points(sx, sy_bot, sy_top, sh_w, side="right")
+left_half = Icon.build_shield_half_points(sx, sy_bot, sy_top, sh_w, side="left")
+right_half = Icon.build_shield_half_points(sx, sy_bot, sy_top, sh_w, side="right")
 full_shield = left_half + list(reversed(right_half[1:-1]))
 
-polygon(left_half, style=fill_style(PASTEL_GREEN))
-polygon(right_half, style=fill_style(WHITE))
-draw_round_polyline(full_shield, width_units=w, color=DARK, closed=True)
+polygon(left_half, style=Icon.fill_style(Icon.PASTEL_GREEN))
+polygon(right_half, style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(full_shield, width_units=w, color=Icon.DARK, closed=True)
 
 # Padlock inside the shield
 lx, ly = 64.0, 31.0
-arc((lx, ly + 5.0), width=9.0, height=10.0, angle_start=0.0, angle_end=180.0, style=stroke_style(DARK, width_units=2.0))
-rectangle(
-    (lx, ly), width=13.0, height=10.0, style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=1.8, shape_r=2.0)
+arc(
+    (lx, ly + 5.0),
+    width=9.0,
+    height=10.0,
+    angle_start=0.0,
+    angle_end=180.0,
+    style=Icon.stroke_style(Icon.DARK, width_units=2.0),
 )
-circle((lx, ly), radius=1.6, style=fill_style(DARK))
+rectangle(
+    (lx, ly),
+    width=13.0,
+    height=10.0,
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=1.8, shape_r=2.0),
+)
+circle((lx, ly), radius=1.6, style=Icon.fill_style(Icon.DARK))
 
 save()

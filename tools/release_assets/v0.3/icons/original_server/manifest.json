@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_server",
-  "created_at": "2026-10-18T12:36:07.553353+00:00",
+  "created_at": "2026-10-18T23:06:01.695082+00:00",
   "canvas_size": [
     512,
     512
@@ -234,8 +234,8 @@
       "icon_name": "beaglebone",
       "variant": "default",
       "source_script": "original_server/beaglebone_default.py",
-      "size_bytes": 53814,
-      "sha256": "9e325fca26ac862b2acddfd428aad026fdf5e51985f6721a0c44b0edb71fb60c",
+      "size_bytes": 53812,
+      "sha256": "7c1642212c84da4db58dbd9be4cb19a413ed32e97569de0fab65185352b944d5",
       "bbox": [
         26,
         26,

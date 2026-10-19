@@ -11,33 +11,24 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Top and bottom watch straps
 rectangle(
     (50.0, 74.0),
     width=26.0,
     height=24.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=4.0),
 )
 rectangle(
     (50.0, 26.0),
     width=26.0,
     height=24.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=4.0),
 )
 
 # Side digital crown button
@@ -45,7 +36,7 @@ rectangle(
     (73.0, 56.0),
     width=6.0,
     height=10.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=2.0),
 )
 
 # Rounded watch case and WHITE face
@@ -53,25 +44,25 @@ rectangle(
     (50.0, 50.0),
     width=45.0,
     height=49.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w, shape_r=11.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w, shape_r=11.0),
 )
 rectangle(
     (50.0, 50.0),
     width=35.0,
     height=39.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=8.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=8.0),
 )
 
 # PASTEL_GREEN activity ring (donut)
 circle(
     (50.0, 50.0),
     radius=12.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 circle(
     (50.0, 50.0),
     radius=6.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -144,11 +139,11 @@ bottom_layer = _sc(_RAW_BOTTOM_LAYER)
 top_layer = _sc(_RAW_TOP_LAYER)
 
 # 1. Bottom diamond/chevron layer in Colors.Teal4 with transparent inner hole
-polygon(bottom_layer, style=no_border_fill(Colors.Teal4))
-draw_round_polyline(bottom_layer, width_units=w, color=DARK, closed=True)
+polygon(bottom_layer, style=Icon.no_border_fill(Colors.Teal4))
+Icon.draw_round_polyline(bottom_layer, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Top chevron/diamond layer in Colors.Teal3 with transparent inner hole
-polygon(top_layer, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(top_layer, width_units=w, color=DARK, closed=True)
+polygon(top_layer, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(top_layer, width_units=w, color=Icon.DARK, closed=True)
 
 save()

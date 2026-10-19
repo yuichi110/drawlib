@@ -43,9 +43,11 @@ from drawlib._core.l4_canvas._shapes._path_utils import (
     darken_rgba,
     inset_convex_polygon,
     lighten_rgba,
+    orient_polygon_ring,
     resolve_feature_colors,
     round_polygon_points,
     shrink_shape_r,
+    signed_polygon_area,
     subpaths_to_compound_path,
     validate_hole_ratio,
 )
@@ -75,6 +77,8 @@ class ShapeUtils:
     resolve_feature_colors = staticmethod(resolve_feature_colors)
     arc_points_local = staticmethod(arc_points_local)
     subpaths_to_compound_path = staticmethod(subpaths_to_compound_path)
+    signed_polygon_area = staticmethod(signed_polygon_area)
+    orient_polygon_ring = staticmethod(orient_polygon_ring)
 
     @staticmethod
     def validate_shape_style(style: Style) -> None:

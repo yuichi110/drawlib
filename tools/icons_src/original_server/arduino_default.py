@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,14 +27,14 @@ minus_poly: list[tuple[float, float]] = [(24.83, 52.03), (36.43, 52.03), (36.43,
 plus_poly: list[tuple[float, float]] = [(75.12, 48.36), (71.21, 48.36), (71.21, 44.52), (67.46, 44.52), (67.46, 48.36), (63.54, 48.36), (63.54, 52.03), (67.46, 52.03), (67.46, 55.87), (71.21, 55.87), (71.21, 52.03), (75.12, 52.03)]
 
 # 1. Infinity figure-8 loop in Colors.Teal3 with transparent loop holes
-draw_compound_polygon(loop_rings, color=Colors.Teal3)
+polygon(loop_rings[0], holes=loop_rings[1:], style=Icon.fill_style(Colors.Teal3))
 for ring in loop_rings:
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Minus (-) and Plus (+) symbols inside loops in Colors.Teal3
 for pts in (minus_poly, plus_poly):
-    polygon(pts, style=no_border_fill(Colors.Teal3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Teal3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

@@ -12,17 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.5
@@ -42,14 +35,14 @@ molecule_pts = _sc(
 )
 
 # 1. Pac-Man circle in Colors.Red3
-polygon(pacman_pts, style=no_border_fill(Colors.Red3))
+polygon(pacman_pts, style=Icon.no_border_fill(Colors.Red3))
 
 # 2. WHITE inner molecule nodes and links outlined in DARK (1.5)
-polygon(molecule_pts, style=no_border_fill(WHITE))
-draw_round_polyline(molecule_pts[:88], width_units=w_inner, color=DARK)
+polygon(molecule_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(molecule_pts[:88], width_units=w_inner, color=Icon.DARK)
 
 # 3. Pac-Man circle DARK (w=1.9) outline drawn on top
-draw_round_polyline(pacman_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(pacman_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Upper-right dot in Colors.Gray6
 dot_cx = 50.0 + (79.01 - 50.0) * s
@@ -58,7 +51,7 @@ dot_r = 12.08 * s
 circle(
     (dot_cx, dot_cy),
     radius=dot_r,
-    style=fill_style(Colors.Gray6, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray6, border_color=Icon.DARK, border_units=w),
 )
 
 save()

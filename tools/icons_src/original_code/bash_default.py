@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_mark = 1.1
@@ -34,19 +28,19 @@ underscore = [(73.51, 32.12), (67.22, 28.35), (67.2, 28.34), (67.18, 28.32), (67
 # fmt: on
 
 # 1. WHITE left/top cube face and flat dark slate (#3E4756) right/bottom face
-polygon(cube_outer, style=no_border_fill(WHITE))
-polygon(dark_face, style=no_border_fill("#3E4756"))
+polygon(cube_outer, style=Icon.no_border_fill(Icon.WHITE))
+polygon(dark_face, style=Icon.no_border_fill("#3E4756"))
 
 # 2. Inner S-curve cube face divider
-draw_round_polyline(divider, width_units=w_outer, color=DARK, closed=False)
+Icon.draw_round_polyline(divider, width_units=w_outer, color=Icon.DARK, closed=False)
 
 # 3. WHITE '$' prompt and flat pastel green (#68CEA1) '_' bar with DARK outlines
-polygon(dollar, style=no_border_fill(WHITE))
-draw_round_polyline(dollar, width_units=w_mark, color=DARK, closed=True)
-polygon(underscore, style=no_border_fill("#5ED09E"))
-draw_round_polyline(underscore, width_units=1.2, color=DARK, closed=True)
+polygon(dollar, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(dollar, width_units=w_mark, color=Icon.DARK, closed=True)
+polygon(underscore, style=Icon.no_border_fill("#5ED09E"))
+Icon.draw_round_polyline(underscore, width_units=1.2, color=Icon.DARK, closed=True)
 
 # 4. Crisp DARK outer cube outline
-draw_round_polyline(cube_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(cube_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

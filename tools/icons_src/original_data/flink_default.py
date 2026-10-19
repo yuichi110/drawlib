@@ -11,13 +11,7 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # Brand-harmonized Flink palette
 BODY_BERRY = "#D4456E"
@@ -45,7 +39,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -111,7 +105,7 @@ tail_full_pts = [
     *reversed([p_tail_crest_top, *c_crest_to_right_top[:-1]]),
     *reversed([p_tail_curl_tip, *c_curl_tip_to_crest[:-1]]),
 ]
-polygon(tail_full_pts, style=no_border_fill(TAIL_PURPLE))
+polygon(tail_full_pts, style=Icon.no_border_fill(TAIL_PURPLE))
 
 # 1b. Berry tail root & rump fill
 tail_root_pts = [
@@ -123,7 +117,7 @@ tail_root_pts = [
     *c_rib_start_to_touch,
     *reversed([p_purple_taper, *c_outer_purple_taper[:-1]]),
 ]
-polygon(tail_root_pts, style=no_border_fill(BODY_BERRY))
+polygon(tail_root_pts, style=Icon.no_border_fill(BODY_BERRY))
 
 # 1c. Amber top crest fill (TAIL_AMBER)
 tail_amber_pts = [
@@ -133,7 +127,7 @@ tail_amber_pts = [
     *reversed([p_coral_bot_r, *c_coral_bot_r_to_right_top[:-1]]),
     *reversed([p_tail_curl_tip, *c_amber_coral_seam[:-1]]),
 ]
-polygon(tail_amber_pts, style=no_border_fill(TAIL_AMBER))
+polygon(tail_amber_pts, style=Icon.no_border_fill(TAIL_AMBER))
 
 # 1d. Coral center curl fill (TAIL_CORAL)
 tail_coral_pts = [
@@ -143,7 +137,7 @@ tail_coral_pts = [
     *reversed([p_tail_curl_neck, *c_neck_to_coral_bot_l[:-1]]),
     *reversed([p_tail_curl_tip, *c_curl_tip_to_neck[:-1]]),
 ]
-polygon(tail_coral_pts, style=no_border_fill(TAIL_CORAL))
+polygon(tail_coral_pts, style=Icon.no_border_fill(TAIL_CORAL))
 
 # 1e. Tail dark strokes
 tail_outer_stroke = [
@@ -156,27 +150,29 @@ tail_outer_stroke = [
     *c_left_mid_to_taper,
     *c_taper_to_root,
 ]
-draw_round_polyline(tail_outer_stroke, width_units=w, color=DARK)
+Icon.draw_round_polyline(tail_outer_stroke, width_units=w, color=Icon.DARK)
 
 # Interior tail wave seams
-draw_round_polyline([p_tail_curl_tip, *c_amber_coral_seam], width_units=w, color=DARK)
-draw_round_polyline([p_tail_curl_neck, *c_neck_to_coral_bot_l], width_units=w, color=DARK)
-draw_round_polyline([p_coral_bot_l, *c_coral_bot_l_to_r, *c_coral_bot_r_to_right_top], width_units=w, color=DARK)
+Icon.draw_round_polyline([p_tail_curl_tip, *c_amber_coral_seam], width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline([p_tail_curl_neck, *c_neck_to_coral_bot_l], width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(
+    [p_coral_bot_l, *c_coral_bot_l_to_r, *c_coral_bot_r_to_right_top], width_units=w, color=Icon.DARK
+)
 
 # Inner curved line inside the coral curl
 coral_inner_curve = [
     (47.2, 72.8),
     *_bezier((47.2, 72.8), (57.2, 68.5), (56.5, 58.2), p_coral_bot_r, 14),
 ]
-draw_round_polyline(coral_inner_curve, width_units=w, color=DARK)
+Icon.draw_round_polyline(coral_inner_curve, width_units=w, color=Icon.DARK)
 
 # Left lower purple ribbon seams
-draw_round_polyline(
+Icon.draw_round_polyline(
     [p_coral_bot_l, *c_coral_bot_l_to_taper, *c_rib_start_to_touch, *c_touch_to_root_in],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_polyline([p_purple_rib_start, *c_purple_bot_seam], width_units=w, color=DARK)
+Icon.draw_round_polyline([p_purple_rib_start, *c_purple_bot_seam], width_units=w, color=Icon.DARK)
 
 # ---------------------------------------------------------------------------
 # 2. Acorn (Golden nut + Berry-pink saucer cap at bottom-right)
@@ -189,8 +185,8 @@ nut_pts = [
     *_bezier((87.5, 27.8), (92.2, 27.2), (93.8, 21.8), p_nut_r, 12),
     *_bezier(p_nut_r, (88.5, 13.5), (83.2, 13.8), p_nut_l, 10),
 ]
-polygon(nut_pts, style=no_border_fill(ACORN_GOLD))
-draw_round_polyline(nut_pts, width_units=w, color=DARK, closed=True)
+polygon(nut_pts, style=Icon.no_border_fill(ACORN_GOLD))
+Icon.draw_round_polyline(nut_pts, width_units=w, color=Icon.DARK, closed=True)
 
 p_cap_l = (78.5, 18.2)
 p_cap_r = (93.2, 16.5)
@@ -210,8 +206,8 @@ cap_pts = [
     *_bezier(p_stem_tip_1, (81.8, 7.5), (81.8, 8.8), p_stem_l, 6),
     *_bezier(p_stem_l, (78.2, 10.5), (76.8, 15.2), p_cap_l, 10),
 ]
-polygon(cap_pts, style=no_border_fill(BODY_BERRY))
-draw_round_polyline(cap_pts, width_units=w, color=DARK, closed=True)
+polygon(cap_pts, style=Icon.no_border_fill(BODY_BERRY))
+Icon.draw_round_polyline(cap_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # ---------------------------------------------------------------------------
 # 3. Squirrel Body, Head, Ear, Front Arm/Paw & Hind Foot (BODY_BERRY)
@@ -254,7 +250,7 @@ squirrel_pts = [
     *_bezier(p_neck_back, (55.5, 43.5), (49.5, 42.8), p_haunch_top, 12),
     *_bezier(p_haunch_top, (34.5, 38.2), (31.5, 20.0), p_rump_bot, 18),
 ]
-polygon(squirrel_pts, style=no_border_fill(BODY_BERRY))
+polygon(squirrel_pts, style=Icon.no_border_fill(BODY_BERRY))
 
 # Back + haunch crease extending down inside hip
 back_and_haunch_line = [
@@ -263,7 +259,7 @@ back_and_haunch_line = [
     *_bezier(p_neck_back, (55.5, 43.5), (49.5, 42.8), p_haunch_top, 12),
     *_bezier(p_haunch_top, (35.2, 36.8), (33.8, 25.5), (35.5, 17.8), 16),
 ]
-draw_round_polyline(back_and_haunch_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(back_and_haunch_line, width_units=w, color=Icon.DARK)
 
 # Ear stroke (both bases extend slightly down into the head)
 ear_line = [
@@ -273,7 +269,7 @@ ear_line = [
     *_bezier(p_ear_tip, (80.0, 60.2), (81.2, 58.2), p_ear_r_base, 8),
     (81.0, 51.2),
 ]
-draw_round_polyline(ear_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(ear_line, width_units=w, color=Icon.DARK)
 
 # Forehead, snout, and cheek crease (extending back into cheek)
 head_and_cheek_line = [
@@ -284,7 +280,7 @@ head_and_cheek_line = [
     *_bezier(p_snout_bot, (89.8, 33.8), (85.5, 32.2), p_chin_join, 10),
     *_bezier(p_chin_join, (77.5, 31.0), (74.5, 32.2), (72.2, 34.0), 10),
 ]
-draw_round_polyline(head_and_cheek_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(head_and_cheek_line, width_units=w, color=Icon.DARK)
 
 # Front arm shoulder crease + forearm + paw holding acorn
 arm_and_paw_line = [
@@ -296,7 +292,7 @@ arm_and_paw_line = [
     *_bezier(p_paw_tip_bot, (92.0, 26.2), (91.8, 31.2), p_paw_tip_top, 10),
     *_bezier(p_paw_tip_top, (85.5, 31.6), (83.2, 30.8), p_chin_join, 8),
 ]
-draw_round_polyline(arm_and_paw_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(arm_and_paw_line, width_units=w, color=Icon.DARK)
 
 # Lower belly, hind foot, and flat bottom base back to tail root
 bottom_and_hind_foot_line = [
@@ -306,17 +302,17 @@ bottom_and_hind_foot_line = [
     *_bezier(p_hind_toe_top, (78.5, 11.8), (78.2, 6.5), p_hind_toe_bot, 10),
     p_rump_bot,
 ]
-draw_round_polyline(bottom_and_hind_foot_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(bottom_and_hind_foot_line, width_units=w, color=Icon.DARK)
 
 # 4. Eye and small nose tip
-circle((84.8, 44.5), radius=1.9, style=fill_style(DARK))
+circle((84.8, 44.5), radius=1.9, style=Icon.fill_style(Icon.DARK))
 
 nose_pts = [
     (91.5, 40.5),
     p_nose_tip,
     (92.4, 38.2),
 ]
-polygon(nose_pts, style=no_border_fill(DARK))
-draw_round_polyline(nose_pts, width_units=1.0, color=DARK, closed=True)
+polygon(nose_pts, style=Icon.no_border_fill(Icon.DARK))
+Icon.draw_round_polyline(nose_pts, width_units=1.0, color=Icon.DARK, closed=True)
 
 save()

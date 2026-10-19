@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_BLUE, GCP_GREEN, GCP_RED, GCP_YELLOW, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 steps = 28
 
@@ -37,7 +37,7 @@ yellow_pts: list[tuple[float, float]] = [
 for i in range(steps + 1):
     ang = math.radians(ang_norm_l + 180.0 * (i / steps))
     yellow_pts.append((x_cap_l + r_l * math.cos(ang), y_cap_top + r_l * math.sin(ang)))
-polygon(yellow_pts, style=fill_style(GCP_YELLOW))
+polygon(yellow_pts, style=Icon.fill_style(Gcp.YELLOW))
 
 green_pts: list[tuple[float, float]] = [
     (x_mid_l - hw_l, 50.0),
@@ -48,7 +48,7 @@ for i in range(steps + 1):
     px = x_cap_l + r_l * math.cos(ang)
     py = 100.0 - (y_cap_top + r_l * math.sin(ang))
     green_pts.append((px, py))
-polygon(green_pts, style=fill_style(GCP_GREEN))
+polygon(green_pts, style=Icon.fill_style(Gcp.GREEN))
 
 x_tl, y_tl = 34.4, 85.8
 r_tl = 4.0
@@ -88,7 +88,7 @@ def _build_half_arrow(y_split: float, mirror_y: bool) -> list[tuple[float, float
     return pts
 
 
-polygon(_build_half_arrow(49.8, mirror_y=False), style=fill_style(GCP_RED))
-polygon(_build_half_arrow(50.0, mirror_y=True), style=fill_style(GCP_BLUE))
+polygon(_build_half_arrow(49.8, mirror_y=False), style=Icon.fill_style(Gcp.RED))
+polygon(_build_half_arrow(50.0, mirror_y=True), style=Icon.fill_style(Gcp.BLUE))
 
 save()

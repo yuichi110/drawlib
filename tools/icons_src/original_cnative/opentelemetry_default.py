@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_compound_polygon,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 angle_deg = 38.0
@@ -59,33 +49,34 @@ def _circle_pts(cx: float, cy: float, r: float, steps: int = 64) -> list[tuple[f
 # 1. Eyepiece flange & lower-left narrower tube (PASTEL_BLUE_LIGHT)
 polygon(
     _tilted_rect(-31.5, -26.0, 9.2),
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=2.2),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=2.2),
 )
 polygon(
     _tilted_rect(-26.5, -9.0, 7.6),
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w, shape_r=2.5),
 )
 
 # 2. Circular mount / pivot ring below the middle tube (drawn before middle tube)
 mount_cx = cx_ref + 2.0 * ux - 17.0 * nx
 mount_cy = cy_ref + 2.0 * uy - 17.0 * ny
-draw_compound_polygon(
-    [_circle_pts(mount_cx, mount_cy, 9.2), _circle_pts(mount_cx, mount_cy, 4.0)],
-    color=PASTEL_GREEN,
+polygon(
+    _circle_pts(mount_cx, mount_cy, 9.2),
+    holes=[_circle_pts(mount_cx, mount_cy, 4.0)],
+    style=Icon.fill_style(Icon.PASTEL_GREEN),
 )
-circle((mount_cx, mount_cy), radius=9.2, style=stroke_style(DARK, width_units=2.0))
-circle((mount_cx, mount_cy), radius=4.0, style=stroke_style(DARK, width_units=2.0))
+circle((mount_cx, mount_cy), radius=9.2, style=Icon.stroke_style(Icon.DARK, width_units=2.0))
+circle((mount_cx, mount_cy), radius=4.0, style=Icon.stroke_style(Icon.DARK, width_units=2.0))
 
 # 3. Middle main telescope tube (PASTEL_BLUE)
 polygon(
     _tilted_rect(-10.0, 12.5, 11.6),
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=3.2),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=3.2),
 )
 
 # 4. Upper-right wide lens hood (PASTEL_GREEN) + WHITE glass ellipse
 polygon(
     _tilted_rect(11.5, 28.0, 15.8),
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w, shape_r=3.8),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w, shape_r=3.8),
 )
 lens_cx = cx_ref + 25.0 * ux
 lens_cy = cy_ref + 25.0 * uy
@@ -93,19 +84,19 @@ ellipse(
     (lens_cx, lens_cy),
     width=6.4,
     height=19.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, angle=angle_deg),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, angle=angle_deg),
 )
 
 # 5. Two small star / signal dots at top-right
 circle(
     (82.0, 61.0),
     radius=3.8,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 circle(
     (84.5, 73.5),
     radius=2.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

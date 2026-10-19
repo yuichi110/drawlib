@@ -11,16 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_frame = 1.6
 
@@ -86,14 +79,14 @@ frame_hole = [
     (63.23, 53.97),
 ]
 
-polygon(page_pts, style=no_border_fill("#F2C94F"))
-draw_round_polyline(page_pts, width_units=w, color=DARK, closed=True)
+polygon(page_pts, style=Icon.no_border_fill("#F2C94F"))
+Icon.draw_round_polyline(page_pts, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(fold_pts, style=no_border_fill("#F1B93F"))
-draw_round_polyline(fold_pts, width_units=w, color=DARK, closed=True)
+polygon(fold_pts, style=Icon.no_border_fill("#F1B93F"))
+Icon.draw_round_polyline(fold_pts, width_units=w, color=Icon.DARK, closed=True)
 
-draw_compound_polygon([frame_outer, frame_hole], color=WHITE)
-draw_round_polyline(frame_outer, width_units=w_frame, color=DARK, closed=True)
-draw_round_polyline(frame_hole, width_units=w_frame, color=DARK, closed=True)
+polygon(frame_outer, holes=[frame_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(frame_outer, width_units=w_frame, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(frame_hole, width_units=w_frame, color=Icon.DARK, closed=True)
 
 save()

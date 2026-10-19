@@ -10,17 +10,13 @@
 """Original Network vendor icon: meraki (default variant)."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_cisco = 2.0
 w_meraki = 1.2
@@ -56,14 +52,33 @@ meraki_rings: list[list[tuple[float, float]]] = [
 ]
 
 # 1. Cisco bridge bars and CISCO wordmark in Colors.Gray5 with DARK outlines
-draw_compound_polygon(cisco_rings, color=Colors.Gray5)
+polygon(cisco_rings[0], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[1], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[3], holes=[cisco_rings[2]], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[4], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[5], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[6], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[7], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[8], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[9], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[10], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[11], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[12], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[13], style=Icon.fill_style(Colors.Gray5))
+polygon(cisco_rings[14], style=Icon.fill_style(Colors.Gray5))
 for ring in cisco_rings:
-    draw_round_polyline(ring, width_units=w_cisco, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_cisco, color=Icon.DARK, closed=True)
 
 # 2. Meraki wordmark in Colors.Green3 with transparent holes in 'e' and 'a'
-draw_compound_polygon(meraki_rings, color=Colors.Green3)
+polygon(meraki_rings[0], style=Icon.fill_style(Colors.Green3))
+polygon(meraki_rings[1], holes=[meraki_rings[2]], style=Icon.fill_style(Colors.Green3))
+polygon(meraki_rings[3], style=Icon.fill_style(Colors.Green3))
+polygon(meraki_rings[4], holes=[meraki_rings[5]], style=Icon.fill_style(Colors.Green3))
+polygon(meraki_rings[6], style=Icon.fill_style(Colors.Green3))
+polygon(meraki_rings[7], style=Icon.fill_style(Colors.Green3))
+polygon(meraki_rings[8], style=Icon.fill_style(Colors.Green3))
 for ring in meraki_rings:
-    draw_round_polyline(ring, width_units=w_meraki, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_meraki, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

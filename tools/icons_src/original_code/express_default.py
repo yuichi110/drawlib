@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_halo = 2.0
 w_in = 0.5
@@ -32,15 +26,15 @@ x_mark = [(90.0, 28.02), (89.57, 27.92), (89.16, 27.84), (88.76, 27.79), (88.38,
 # fmt: on
 
 # 1. Flat dark slate 'e' with transparent loop hole
-draw_round_polyline(e_outer, width_units=w_halo, color=DARK, closed=True)
-draw_round_polyline(e_hole, width_units=w_halo, color=DARK, closed=True)
-draw_compound_polygon([e_outer, e_hole], color="#4A5568")
-draw_round_polyline(e_outer, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(e_hole, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(e_outer, width_units=w_halo, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(e_hole, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(e_outer, holes=[e_hole], style=Icon.fill_style("#4A5568"))
+Icon.draw_round_polyline(e_outer, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(e_hole, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 2. Flat dark slate 'x' polygon
-draw_round_polyline(x_mark, width_units=w_halo, color=DARK, closed=True)
-polygon(x_mark, style=no_border_fill("#4A5568"))
-draw_round_polyline(x_mark, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(x_mark, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(x_mark, style=Icon.no_border_fill("#4A5568"))
+Icon.draw_round_polyline(x_mark, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_inner = 1.6
@@ -35,12 +29,12 @@ y_cube = [(74.48, 60.66), (74.47, 60.86), (74.46, 61.06), (74.43, 61.25), (74.39
 
 left_leg = [(33.71, 49.99), (33.71, 50.08), (33.7, 50.18), (33.69, 50.28), (33.67, 50.37), (33.65, 50.47), (33.62, 50.56), (33.58, 50.65), (33.55, 50.74), (33.51, 50.82), (33.46, 50.91), (33.41, 50.99), (33.35, 51.07), (33.29, 51.15), (33.23, 51.22), (33.16, 51.29), (33.09, 51.35), (33.02, 51.42), (32.94, 51.48), (32.85, 51.53), (32.77, 51.58), (26.87, 54.82), (26.78, 54.86), (26.69, 54.89), (26.59, 54.91), (26.5, 54.93), (26.4, 54.93), (26.31, 54.92), (26.22, 54.9), (26.13, 54.88), (26.05, 54.84), (25.97, 54.8), (25.89, 54.75), (25.82, 54.69), (25.75, 54.63), (25.7, 54.56), (25.65, 54.48), (25.6, 54.39), (25.57, 54.31), (25.54, 54.21), (25.53, 54.12), (25.52, 54.01), (25.52, 39.34), (25.53, 39.14), (25.54, 38.95), (25.57, 38.75), (25.61, 38.56), (25.65, 38.37), (25.71, 38.19), (25.78, 38.01), (25.85, 37.83), (25.94, 37.66), (26.03, 37.49), (26.13, 37.32), (26.24, 37.17), (26.36, 37.01), (26.49, 36.87), (26.63, 36.73), (26.77, 36.6), (26.92, 36.47), (27.08, 36.36), (27.25, 36.25), (27.42, 36.15), (32.37, 33.43), (32.46, 33.39), (32.56, 33.35), (32.65, 33.33), (32.74, 33.32), (32.84, 33.32), (32.93, 33.33), (33.02, 33.35), (33.1, 33.37), (33.19, 33.41), (33.27, 33.45), (33.34, 33.5), (33.41, 33.56), (33.48, 33.62), (33.53, 33.69), (33.59, 33.77), (33.63, 33.85), (33.66, 33.94), (33.69, 34.04), (33.71, 34.13), (33.71, 34.24)]
 
-polygon(hex_badge, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(hex_badge, width_units=w_badge, color=DARK, closed=True)
+polygon(hex_badge, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(hex_badge, width_units=w_badge, color=Icon.DARK, closed=True)
 
 for pts in (y_cube, left_leg):
-    polygon(pts, style=no_border_fill(WHITE))
-    draw_round_polyline(pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

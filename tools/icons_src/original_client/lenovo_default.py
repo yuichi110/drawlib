@@ -10,20 +10,13 @@
 """Original Client vendor icon: lenovo (default variant)."""
 
 from drawlib.canvas import save
-from drawlib.shapes import rectangle
+from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_letter = 1.2
@@ -45,13 +38,18 @@ rectangle(
     (50.0, 50.0),
     width=82.0,
     height=26.46,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=w_badge, shape_r=3.5),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=w_badge, shape_r=3.5),
 )
 
 # 2. Crisp WHITE Lenovo letters (bowls inside e and o reveal Colors.Red3 badge)
-draw_compound_polygon(lenovo_rings, color=WHITE)
+polygon(lenovo_rings[0], style=Icon.fill_style(Icon.WHITE))
+polygon(lenovo_rings[1], holes=[lenovo_rings[8]], style=Icon.fill_style(Icon.WHITE))
+polygon(lenovo_rings[2], style=Icon.fill_style(Icon.WHITE))
+polygon(lenovo_rings[3], holes=[lenovo_rings[7]], style=Icon.fill_style(Icon.WHITE))
+polygon(lenovo_rings[4], style=Icon.fill_style(Icon.WHITE))
+polygon(lenovo_rings[5], holes=[lenovo_rings[6]], style=Icon.fill_style(Icon.WHITE))
 for ring in lenovo_rings:
-    draw_round_polyline(ring, width_units=w_letter, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

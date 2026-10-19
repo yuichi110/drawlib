@@ -11,19 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -33,7 +23,7 @@ rectangle(
     (50.0, 84.5),
     width=14.0,
     height=6.5,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_outer, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_outer, shape_r=2.5),
 )
 
 # 2. Main WHITE clipboard sheet (x=18.0..82.0, y=13.5..80.5)
@@ -41,7 +31,7 @@ rectangle(
     (50.0, 47.0),
     width=64.0,
     height=67.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_outer, shape_r=5.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer, shape_r=5.5),
 )
 
 # 3. Top PASTEL_BLUE clipboard clip plate
@@ -49,7 +39,7 @@ rectangle(
     (50.0, 79.5),
     width=32.0,
     height=8.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_outer, shape_r=2.8),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_outer, shape_r=2.8),
 )
 
 # 4. Three survey checklist rows (PASTEL_GREEN checked box + DARK lines)
@@ -58,14 +48,14 @@ for y_row in (61.5, 45.0, 28.5):
         (31.5, y_row),
         width=11.0,
         height=11.0,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_inner, shape_r=2.2),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_inner, shape_r=2.2),
     )
-    draw_round_polyline(
+    Icon.draw_round_polyline(
         [(28.7, y_row - 0.1), (30.8, y_row - 2.3), (34.6, y_row + 2.2)],
         width_units=w_inner,
-        color=DARK,
+        color=Icon.DARK,
     )
-    draw_round_segment((43.0, y_row + 2.2), (71.5, y_row + 2.2), width_units=w_outer, color=DARK)
-    draw_round_segment((43.0, y_row - 2.6), (61.5, y_row - 2.6), width_units=w_inner, color=DARK)
+    Icon.draw_round_segment((43.0, y_row + 2.2), (71.5, y_row + 2.2), width_units=w_outer, color=Icon.DARK)
+    Icon.draw_round_segment((43.0, y_row - 2.6), (61.5, y_row - 2.6), width_units=w_inner, color=Icon.DARK)
 
 save()

@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "facility",
-  "created_at": "2026-10-18T12:35:45.974474+00:00",
+  "created_at": "2026-10-18T23:03:05.332459+00:00",
   "canvas_size": [
     512,
     512
@@ -59,7 +59,7 @@
       "variant": "default",
       "source_script": "facility/applied_materials_default.py",
       "size_bytes": 16240,
-      "sha256": "97428cb16e04e70b915ec9cdbd0a452bb4cb68e08ab516877ac20798ec867e9d",
+      "sha256": "2402fde4ba3d31f2094ddb6abc47c6dd61fa568185325db9f08e8cc8cd6e1972",
       "bbox": [
         26,
         198,
@@ -84,8 +84,8 @@
       "icon_name": "at_tokyo",
       "variant": "default",
       "source_script": "facility/at_tokyo_default.py",
-      "size_bytes": 25263,
-      "sha256": "1f097c98184db30e6d12b5274adab6b052768ab3433dc2114f55c3bf707d1894",
+      "size_bytes": 25292,
+      "sha256": "5d385bae5374ffac59b56a2acd5825a49fec5ee8abb7ccd0c0c109cc7ee47d4c",
       "bbox": [
         26,
         100,
@@ -124,7 +124,7 @@
       "variant": "default",
       "source_script": "facility/bbix_default.py",
       "size_bytes": 20948,
-      "sha256": "f6f2e8d709072ea6080f52ab745a6bc8c1280028aff7d6cceeb3aae425ccadc0",
+      "sha256": "ea61bc17092abc12858b950743c2594af474b6a52f4a1fd8bfb20dd84e1dc7c8",
       "bbox": [
         26,
         168,
@@ -137,7 +137,7 @@
       "variant": "default",
       "source_script": "facility/colt_default.py",
       "size_bytes": 11547,
-      "sha256": "cf4a8396786b7bc2758d3cc7ed41d30906a561a6b00b5a8471bc95a8a1089eb5",
+      "sha256": "6a7406d1e08afd671183e3cedbe3a9027b57648d6fd6d850d041d7fb3949b2a4",
       "bbox": [
         26,
         167,
@@ -149,8 +149,8 @@
       "icon_name": "commscope",
       "variant": "default",
       "source_script": "facility/commscope_default.py",
-      "size_bytes": 17758,
-      "sha256": "33e7b4baf1616475809ac290708c8b09bf96a241194d76f6de0ca5713a253124",
+      "size_bytes": 17755,
+      "sha256": "b594423156813e23538dfe259ca0149e0c8228d21e5ec723a253c64722c052ae",
       "bbox": [
         26,
         203,
@@ -188,8 +188,8 @@
       "icon_name": "corning",
       "variant": "default",
       "source_script": "facility/corning_default.py",
-      "size_bytes": 13447,
-      "sha256": "be07e8846c688c84e3899cdf332c314b65f25b7cb86969f6896f9c8a27814f32",
+      "size_bytes": 13446,
+      "sha256": "201d4ef455cf97a1f521f2f02c69184febf9b1f960922166df8f6ccf45e43ea3",
       "bbox": [
         26,
         222,
@@ -383,8 +383,8 @@
       "icon_name": "kddi",
       "variant": "default",
       "source_script": "facility/kddi_default.py",
-      "size_bytes": 27024,
-      "sha256": "2784481911e15073110ec932ec4266599b52049c0235f95e1e54f97b42424d1e",
+      "size_bytes": 27032,
+      "sha256": "01083a5afe7da86b7c5d2160fb881ae712d9f3613c284a06e330c178abf7746d",
       "bbox": [
         26,
         183,
@@ -448,8 +448,8 @@
       "icon_name": "murata",
       "variant": "default",
       "source_script": "facility/murata_default.py",
-      "size_bytes": 20352,
-      "sha256": "992bc0a241147a5fce2e8ac709ef8ee3ac5b9ae305dd7ea7a6097c7e4f054f78",
+      "size_bytes": 20386,
+      "sha256": "a1a0c4c6aeda8f6359498faee8fe4e586e84dcdabc7c40c144bb5f7258f38a35",
       "bbox": [
         26,
         176,
@@ -461,8 +461,8 @@
       "icon_name": "ntt",
       "variant": "default",
       "source_script": "facility/ntt_default.py",
-      "size_bytes": 21259,
-      "sha256": "d0cfb12c3e83396a0110795c88a478c1acbde56892c5f80d569c5cf573057298",
+      "size_bytes": 21258,
+      "sha256": "2baf1cab95f2712c5b1bb8f4185d95788a4852c3fcd69ff7464195a6bb4ef81d",
       "bbox": [
         26,
         38,
@@ -474,8 +474,8 @@
       "icon_name": "ntt_gdc",
       "variant": "default",
       "source_script": "facility/ntt_gdc_default.py",
-      "size_bytes": 10025,
-      "sha256": "6396f0e85154052d85019d355825bbf37730765c5ea3fd25557fb1f80e96fa28",
+      "size_bytes": 10024,
+      "sha256": "1e612bf3af3cbf75cfe7b9ba5f638deed9a285c47c76472da5fd01bd8d122e6e",
       "bbox": [
         26,
         186,
@@ -487,8 +487,8 @@
       "icon_name": "orange",
       "variant": "default",
       "source_script": "facility/orange_default.py",
-      "size_bytes": 10722,
-      "sha256": "ecd57a907358be8647c4286b9124fb41176d68abce3c1c49b91a93c6ace3e2a8",
+      "size_bytes": 10716,
+      "sha256": "8a09518f2aa41570f3bd3f86f4f80c9256cc48e0291532ea5eca32975cf3fda1",
       "bbox": [
         26,
         26,
@@ -500,8 +500,8 @@
       "icon_name": "packetfabric",
       "variant": "default",
       "source_script": "facility/packetfabric_default.py",
-      "size_bytes": 29280,
-      "sha256": "5c5393aba0d2825b4413a2f184b1b72a342540ef04eef78c10859097d26b5d11",
+      "size_bytes": 29286,
+      "sha256": "32dfeb4a5f56f5555e00a75f3bdd25d8c223dffe80c5274f2aa52efae640ea22",
       "bbox": [
         26,
         26,
@@ -513,8 +513,8 @@
       "icon_name": "panduit",
       "variant": "default",
       "source_script": "facility/panduit_default.py",
-      "size_bytes": 7530,
-      "sha256": "69810217997fb2cb8af0e3deef4eaa42e94279e7ee42274defc3c6c316adcc85",
+      "size_bytes": 7528,
+      "sha256": "292e023985478ef39d6865833d8e3f56e86443d9e1438d8bc5378978604a5a97",
       "bbox": [
         26,
         191,
@@ -539,8 +539,8 @@
       "icon_name": "rapidus",
       "variant": "default",
       "source_script": "facility/rapidus_default.py",
-      "size_bytes": 18921,
-      "sha256": "bd1204f8393785106a53c246fb75b862ff432c29ae5fbd5df4a68787956128cb",
+      "size_bytes": 18922,
+      "sha256": "97e811ce91f66ba18391ff7284816431ec57c8fe428efb218bb50b2190428433",
       "bbox": [
         26,
         212,
@@ -552,8 +552,8 @@
       "icon_name": "rittal",
       "variant": "default",
       "source_script": "facility/rittal_default.py",
-      "size_bytes": 9579,
-      "sha256": "0dd3118094f95da12fd6f9df41a4da433528fff89efdc4f9cb5e0bae222218ba",
+      "size_bytes": 9576,
+      "sha256": "be98b894942d18a2a9609c9f8029182f52976e6841b838b873b40775deea6d0c",
       "bbox": [
         90,
         26,
@@ -565,8 +565,8 @@
       "icon_name": "schneider_electric",
       "variant": "default",
       "source_script": "facility/schneider_electric_default.py",
-      "size_bytes": 16507,
-      "sha256": "4880577ceefe93ef3051f40ae88837fd60a55337f33b4b6040dc57557a6fedd4",
+      "size_bytes": 16506,
+      "sha256": "b5cf49246a42a0aa86e3092d745f545370a42931d2e810128ed0d07a4cd7a413",
       "bbox": [
         26,
         188,
@@ -578,8 +578,8 @@
       "icon_name": "softbank",
       "variant": "default",
       "source_script": "facility/softbank_default.py",
-      "size_bytes": 7599,
-      "sha256": "3448e39a445fc57a63571e0ddcd5e1405ee5c859d986a8ae2e19196457e29a20",
+      "size_bytes": 7597,
+      "sha256": "fd99fa14746c47d67660ba36a5061b727efde1e0357a30c37ea4bcc4d26b3f67",
       "bbox": [
         26,
         222,
@@ -617,8 +617,8 @@
       "icon_name": "tokyo_electron",
       "variant": "default",
       "source_script": "facility/tokyo_electron_default.py",
-      "size_bytes": 10187,
-      "sha256": "45929954014db45f1e0e47c7ac4de0c91b2de9a027a59f9b8bf09693f97e8b93",
+      "size_bytes": 10192,
+      "sha256": "320b101d3e5d028018c1af9c5a6c738ba30ae3aa3e049e9662ea519a995222dd",
       "bbox": [
         26,
         119,

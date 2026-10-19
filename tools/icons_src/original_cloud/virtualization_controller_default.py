@@ -13,29 +13,18 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Branching orchestration lines from console to 3 managed VM nodes
-draw_round_segment((50.0, 48.0), (50.0, 24.0), width_units=w, color=DARK)
-draw_round_polyline(
+Icon.draw_round_segment((50.0, 48.0), (50.0, 24.0), width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(
     [(24.0, 24.0), (24.0, 39.0), (76.0, 39.0), (76.0, 24.0)],
     width_units=w,
-    color=DARK,
+    color=Icon.DARK,
     corner_r=4.0,
 )
 
@@ -44,7 +33,7 @@ rectangle(
     (50.0, 66.0),
     width=54.0,
     height=36.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=6.0),
 )
 
 # Control gear inside the management console
@@ -64,24 +53,24 @@ for i in range(teeth):
         ang = math.radians(base_deg + offset_deg)
         gear_pts.append((cx_g + rad * math.cos(ang), cy_g + rad * math.sin(ang)))
 
-polygon(gear_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(gear_pts, width_units=2.0, color=DARK, closed=True)
+polygon(gear_pts, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(gear_pts, width_units=2.0, color=Icon.DARK, closed=True)
 circle(
     (cx_g, cy_g),
     radius=4.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # 3 managed VM / host cubes below
 for x_node in (24.0, 50.0, 76.0):
-    draw_iso_cube(
+    Icon.draw_iso_cube(
         x_node,
         23.0,
         radius=11.0,
-        top_color=WHITE,
-        left_color=PASTEL_BLUE,
-        right_color=PASTEL_GREEN,
-        border_color=DARK,
+        top_color=Icon.WHITE,
+        left_color=Icon.PASTEL_BLUE,
+        right_color=Icon.PASTEL_GREEN,
+        border_color=Icon.DARK,
         border_units=2.0,
     )
 

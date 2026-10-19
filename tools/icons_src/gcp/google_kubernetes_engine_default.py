@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 50.0, 50.0
 r_out = 43.0
@@ -25,7 +25,7 @@ angles_deg = [90.0, 30.0, -30.0, -90.0, -150.0, 150.0]
 outer_pts = [(cx + r_out * math.cos(math.radians(a)), cy + r_out * math.sin(math.radians(a))) for a in angles_deg]
 inner_pts = [(cx + r_in * math.cos(math.radians(a)), cy + r_in * math.sin(math.radians(a))) for a in angles_deg]
 
-st_light = fill_style(GCP_TECH_LIGHT)
+st_light = Icon.fill_style(Gcp.TECH_LIGHT)
 
 hex_ring_pts = outer_pts + [outer_pts[0], inner_pts[0]] + list(reversed(inner_pts[1:])) + [inner_pts[0]]
 polygon(hex_ring_pts, style=st_light)
@@ -67,9 +67,9 @@ left_pts = [
     (x_face_in_l, y_face_btm_in),
     (x_junc_l, y_junc_l),
 ]
-polygon(left_pts, style=fill_style(GCP_TECH_MED_LIGHT))
+polygon(left_pts, style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 
 right_pts = [(100.0 - x, y) for (x, y) in left_pts]
-polygon(right_pts, style=fill_style(GCP_TECH_MID))
+polygon(right_pts, style=Icon.fill_style(Gcp.TECH_MID))
 
 save()

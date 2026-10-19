@@ -11,16 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -29,7 +22,7 @@ rectangle(
     (50.0, 50.0),
     width=79.0,
     height=79.0,
-    style=fill_style("#D84A52", border_color=DARK, border_units=w, shape_r=11.0),
+    style=Icon.fill_style("#D84A52", border_color=Icon.DARK, border_units=w, shape_r=11.0),
 )
 
 # 2. Bold geometric chamfered 'K' polygon (WHITE) outlined in DARK
@@ -54,7 +47,7 @@ k_pts = [
     (30.9, 72.6),
 ]
 
-polygon(k_pts, style=no_border_fill(WHITE))
-draw_round_polyline(k_pts, width_units=1.8, color=DARK, closed=True)
+polygon(k_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(k_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

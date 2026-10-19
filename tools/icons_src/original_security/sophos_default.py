@@ -10,20 +10,13 @@
 """Original Security concept icon: sophos."""
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_letter = 0.9
@@ -52,14 +45,19 @@ letter_rings: list[list[tuple[float, float]]] = [
 circle(
     (50.0, 50.0),
     radius=r_badge,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. WHITE SOPHOS letters with open counter holes in O and P
-draw_compound_polygon(letter_rings, color=WHITE)
+polygon(letter_rings[0], holes=[letter_rings[1]], style=Icon.fill_style(Icon.WHITE))
+polygon(letter_rings[2], holes=[letter_rings[3]], style=Icon.fill_style(Icon.WHITE))
+polygon(letter_rings[4], style=Icon.fill_style(Icon.WHITE))
+polygon(letter_rings[5], holes=[letter_rings[6]], style=Icon.fill_style(Icon.WHITE))
+polygon(letter_rings[7], style=Icon.fill_style(Icon.WHITE))
+polygon(letter_rings[8], style=Icon.fill_style(Icon.WHITE))
 
 # 3. Thin DARK 0.9 outlines on all letter contours and counter holes
 for ring in letter_rings:
-    draw_round_polyline(ring, width_units=w_letter, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()

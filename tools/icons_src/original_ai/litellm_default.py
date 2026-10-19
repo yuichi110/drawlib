@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 x0, y0, x1, y1 = 10.5, 10.5, 89.5, 89.5
@@ -68,7 +61,7 @@ badge_pts: list[tuple[float, float]] = [
 ]
 
 # 1. Rounded square badge background (Colors.Blue4)
-polygon(badge_pts, style=no_border_fill(Colors.Blue4))
+polygon(badge_pts, style=Icon.no_border_fill(Colors.Blue4))
 
 # 2. Sleek bullet-train nose profile (WHITE body)
 p_roof_l = (x0, 74.2)
@@ -87,7 +80,7 @@ train_pts: list[tuple[float, float]] = [
     *nose_bot_curve,
     p_skirt_l,
 ]
-polygon(train_pts, style=no_border_fill(WHITE))
+polygon(train_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # 3. Upper aerodynamic cockpit stripe (Colors.Blue4)
 cockpit_l_top = (x0, 69.2)
@@ -98,8 +91,8 @@ cockpit_pts: list[tuple[float, float]] = [
     *_cubic(cockpit_l_top, (31.0, 69.0), (49.5, 61.2), cockpit_tip, 16),
     *_cubic(cockpit_tip, (46.5, 58.4), (27.5, 61.5), cockpit_l_bot, 16),
 ]
-polygon(cockpit_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(cockpit_pts, width_units=1.5, color=DARK, closed=True)
+polygon(cockpit_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(cockpit_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 # 4. Left passenger window trapezoid (Colors.Blue4)
 win_pts = [
@@ -108,8 +101,8 @@ win_pts = [
     (42.5, 37.2),
     (x0, 37.2),
 ]
-polygon(win_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(win_pts, width_units=1.6, color=DARK, closed=True)
+polygon(win_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(win_pts, width_units=1.6, color=Icon.DARK, closed=True)
 
 # 5. Front nose-cone accent panel (Colors.Blue4)
 nose_cone_pts = [
@@ -118,29 +111,29 @@ nose_cone_pts = [
     p_nose_bot,
     *_cubic(p_nose_bot, (86.8, 30.8), (84.0, 28.8), (81.5, 27.6), 6),
 ]
-polygon(nose_cone_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(nose_cone_pts, width_units=1.6, color=DARK, closed=True)
+polygon(nose_cone_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(nose_cone_pts, width_units=1.6, color=Icon.DARK, closed=True)
 
 # 6. Front pill accent & speed lines (DARK)
 pill_pts = [
     *_arc(59.5, 36.4, 1.5, 90.0, 270.0, 8),
     *_arc(73.8, 36.4, 1.5, 270.0, 450.0, 8),
 ]
-polygon(pill_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(pill_pts, width_units=1.4, color=DARK, closed=True)
+polygon(pill_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(pill_pts, width_units=1.4, color=Icon.DARK, closed=True)
 
 sweep_line = [
     (x0, 58.0),
     *_cubic((x0, 58.0), (35.0, 57.8), (60.5, 51.8), (81.5, 44.5), 18),
 ]
-draw_round_polyline(sweep_line, width_units=1.6, color=DARK)
-draw_round_segment((x0, 33.4), (44.8, 33.4), width_units=1.7, color=DARK)
+Icon.draw_round_polyline(sweep_line, width_units=1.6, color=Icon.DARK)
+Icon.draw_round_segment((x0, 33.4), (44.8, 33.4), width_units=1.7, color=Icon.DARK)
 
 # Train roof & bottom skirt borders
-draw_round_polyline([p_roof_l, *roof_curve], width_units=1.8, color=DARK)
-draw_round_polyline([p_nose_bot, *nose_bot_curve, p_skirt_l], width_units=1.8, color=DARK)
+Icon.draw_round_polyline([p_roof_l, *roof_curve], width_units=1.8, color=Icon.DARK)
+Icon.draw_round_polyline([p_nose_bot, *nose_bot_curve, p_skirt_l], width_units=1.8, color=Icon.DARK)
 
 # 7. Outer rounded-square border (w = 1.9, DARK) drawn last for crisp framing
-draw_round_polyline(badge_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(badge_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

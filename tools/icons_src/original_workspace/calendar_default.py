@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -60,7 +49,7 @@ card_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_card, y1 - r_card, r_card, 0.0, 90.0),
     *_arc_pts(x0 + r_card, y1 - r_card, r_card, 90.0, 180.0),
 ]
-polygon(card_pts, style=no_border_fill(WHITE))
+polygon(card_pts, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. PASTEL_BLUE top header bar
 hdr_pts: list[tuple[float, float]] = [
@@ -69,9 +58,9 @@ hdr_pts: list[tuple[float, float]] = [
     *_arc_pts(x1 - r_card, y1 - r_card, r_card, 0.0, 90.0),
     *_arc_pts(x0 + r_card, y1 - r_card, r_card, 90.0, 180.0),
 ]
-polygon(hdr_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(card_pts, width_units=w_outer, color=DARK, closed=True)
-draw_round_segment((x0, y_hdr), (x1, y_hdr), width_units=w_outer, color=DARK)
+polygon(hdr_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(card_pts, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((x0, y_hdr), (x1, y_hdr), width_units=w_outer, color=Icon.DARK)
 
 # 3. Two top binding rings
 for rx in (33.5, 66.5):
@@ -79,19 +68,19 @@ for rx in (33.5, 66.5):
         (rx, 78.5),
         width=7.0,
         height=14.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=w_outer, shape_r=3.5),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer, shape_r=3.5),
     )
 
 # 4. Date grid (3 columns x 2 rows) with one PASTEL_GREEN highlighted cell
 for cy in (46.5, 29.0):
     for cx in (30.0, 50.0, 70.0):
         is_highlight = cx == 70.0 and cy == 46.5
-        col = PASTEL_GREEN if is_highlight else PASTEL_BLUE_LIGHT
+        col = Icon.PASTEL_GREEN if is_highlight else Icon.PASTEL_BLUE_LIGHT
         rectangle(
             (cx, cy),
             width=13.5,
             height=10.5,
-            style=fill_style(col, border_color=DARK, border_units=w_inner, shape_r=2.2),
+            style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w_inner, shape_r=2.2),
         )
 
 save()

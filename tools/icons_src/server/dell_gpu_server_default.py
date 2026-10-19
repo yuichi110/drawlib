@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    draw_rounded_corner_block,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Dell, Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 BORDER = 4.8
 
@@ -32,29 +25,29 @@ rectangle(
     (56.5, 49.0),
     width=65.0 - BORDER,
     height=58.0 - BORDER,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Transparent,
-        border_color=DELL_BLUE,
+        border_color=Dell.BLUE,
         border_units=BORDER,
         shape_r=2.5,
     ),
 )
 
 # Left PCIe I/O bracket: top lip (x=11..28.8, y=78..82.8) + vertical spine (x=24..28.8, y=15..80.4)
-draw_rounded_corner_block(
+Gcp.draw_rounded_corner_block(
     11.0,
     78.0,
     28.8,
     78.0 + BORDER,
     r=2.5,
     round_tr=True,
-    color=DELL_BLUE,
+    color=Dell.BLUE,
 )
 rectangle(
     (26.4, 47.7),
     width=BORDER,
     height=65.4,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Two left PCIe port tabs (x=16..24 at y=58..66 and y=36..44)
@@ -63,7 +56,7 @@ for tab_cy in (62.0, 40.0):
         (20.0, tab_cy),
         width=8.0,
         height=8.0,
-        style=no_border_fill(DELL_BLUE),
+        style=Icon.no_border_fill(Dell.BLUE),
     )
 
 # Circular cooling fan centered at (56.0, 49.0)
@@ -75,7 +68,7 @@ FAN_R_CENTERLINE = 17.0 - FAN_RING_W / 2.0
 circle(
     (FAN_CX, FAN_CY),
     radius=FAN_R_CENTERLINE,
-    style=stroke_style(DELL_BLUE, width_units=FAN_RING_W),
+    style=Icon.stroke_style(Dell.BLUE, width_units=FAN_RING_W),
 )
 
 # 4 angled tangential fan blades + center rotated diamond hub (hole radius ~4.5)
@@ -100,6 +93,6 @@ for k in range(4):
         (FAN_CX + u * ux + v * vx, FAN_CY + u * uy + v * vy)
         for u, v in local_pts
     ]
-    polygon(world_pts, style=no_border_fill(DELL_BLUE))
+    polygon(world_pts, style=Icon.no_border_fill(Dell.BLUE))
 
 save()

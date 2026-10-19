@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -26,14 +26,14 @@ r_mid: list[tuple[float, float]] = [(50.08, 71.12), (51.36, 71.08), (52.63, 70.9
 r_inner: list[tuple[float, float]] = [(50.08, 58.7), (50.84, 58.66), (51.59, 58.56), (52.33, 58.4), (53.06, 58.17), (53.76, 57.88), (54.43, 57.53), (55.07, 57.12), (55.67, 56.66), (56.23, 56.15), (56.75, 55.59), (57.21, 54.99), (57.62, 54.35), (57.97, 53.68), (58.26, 52.97), (58.48, 52.25), (58.65, 51.51), (58.75, 50.76), (58.78, 50.0), (58.75, 49.24), (58.65, 48.49), (58.48, 47.75), (58.26, 47.03), (57.97, 46.32), (57.62, 45.65), (57.21, 45.01), (56.75, 44.41), (56.23, 43.85), (55.67, 43.34), (55.07, 42.88), (54.43, 42.47), (53.76, 42.12), (53.06, 41.83), (52.33, 41.6), (51.59, 41.44), (50.84, 41.34), (50.08, 41.3)]
 
 # 1. Pastel purple outer circle + deeper pastel lavender left onion half
-circle((50.0, 50.0), radius=41.0, style=fill_style("#9660F3", border_color=DARK, border_units=w_outer))
-polygon(left_semi, style=no_border_fill("#8958EB"))
-draw_round_polyline(left_semi, width_units=w_inner, color=DARK, closed=True)
+circle((50.0, 50.0), radius=41.0, style=Icon.fill_style("#9660F3", border_color=Icon.DARK, border_units=w_outer))
+polygon(left_semi, style=Icon.no_border_fill("#8958EB"))
+Icon.draw_round_polyline(left_semi, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 2. Three concentric WHITE right onion half-rings
 for ring_pts in (r_outer, r_mid, r_inner):
-    polygon(ring_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(ring_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(ring_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(ring_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

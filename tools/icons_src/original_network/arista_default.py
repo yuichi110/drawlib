@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 # Split 1.3-unit DARK outline into 1.0 outside (w_halo=2.0) + 0.3 inside (w_in=0.6)
 # so 2.0-unit stems stay vibrant pastel Blue3 with crisp letter spacing and A/R holes.
@@ -44,9 +39,9 @@ _LETTERS: list[list[tuple[float, float]]] = [
 ]
 
 for pts in _LETTERS:
-    draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill(Colors.Blue3))
-    draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
+    Icon.draw_round_polyline(pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

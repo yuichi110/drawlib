@@ -10,19 +10,13 @@
 """Original Security icon: teleport."""
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -40,13 +34,13 @@ gear_hole = _sc([(50.0, 26.0), (48.02, 26.08), (46.1, 26.31), (44.22, 26.7), (42
 # fmt: on
 
 # 1. Pastel purple outer gear + inner ring with transparent holes
-draw_compound_polygon([gear_outer, gear_hole], color=Colors.Purple3)
-draw_compound_polygon([inner_ring_outer, inner_ring_hole], color=Colors.Purple3)
+polygon(gear_outer, holes=[gear_hole], style=Icon.fill_style(Colors.Purple3))
+polygon(inner_ring_outer, holes=[inner_ring_hole], style=Icon.fill_style(Colors.Purple3))
 
 # 2. DARK 1.8 outlines on gear perimeter and all concentric ring boundaries
-draw_round_polyline(gear_outer, width_units=w, color=DARK, closed=True)
-circle((50.0, 50.0), radius=24.0 * s, style=stroke_style(DARK, width_units=w))
-circle((50.0, 50.0), radius=16.41 * s, style=stroke_style(DARK, width_units=w))
-circle((50.0, 50.0), radius=9.65 * s, style=stroke_style(DARK, width_units=w))
+Icon.draw_round_polyline(gear_outer, width_units=w, color=Icon.DARK, closed=True)
+circle((50.0, 50.0), radius=24.0 * s, style=Icon.stroke_style(Icon.DARK, width_units=w))
+circle((50.0, 50.0), radius=16.41 * s, style=Icon.stroke_style(Icon.DARK, width_units=w))
+circle((50.0, 50.0), radius=9.65 * s, style=Icon.stroke_style(Icon.DARK, width_units=w))
 
 save()

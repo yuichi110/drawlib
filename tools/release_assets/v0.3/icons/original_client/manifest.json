@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_client",
-  "created_at": "2026-10-18T12:35:55.139776+00:00",
+  "created_at": "2026-10-18T23:04:21.498154+00:00",
   "canvas_size": [
     512,
     512
@@ -657,8 +657,8 @@
       "icon_name": "ios",
       "variant": "default",
       "source_script": "original_client/ios_default.py",
-      "size_bytes": 41485,
-      "sha256": "8b91b59a1bb9db6015f79b8b927e5fb3ab4d976b295298d68aedbcd9ba7b11b0",
+      "size_bytes": 41489,
+      "sha256": "5b6655885f4930b56cf984e06bf19b2a73ba6ddf504233afa9cc0b1e5a2b75ca",
       "bbox": [
         26,
         26,

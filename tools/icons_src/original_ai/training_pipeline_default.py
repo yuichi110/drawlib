@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 left_nodes = [(24.0, 68.0), (24.0, 32.0)]
 mid_nodes = [(50.0, 78.0), (50.0, 50.0), (50.0, 22.0)]
@@ -32,31 +23,31 @@ right_nodes = [(76.0, 68.0), (76.0, 32.0)]
 
 for p_left in left_nodes:
     for p_mid in mid_nodes:
-        draw_round_segment(p_left, p_mid, width_units=2.0, color=DARK)
+        Icon.draw_round_segment(p_left, p_mid, width_units=2.0, color=Icon.DARK)
 
 for p_mid in mid_nodes:
     for p_right in right_nodes:
-        draw_round_segment(p_mid, p_right, width_units=2.0, color=DARK)
+        Icon.draw_round_segment(p_mid, p_right, width_units=2.0, color=Icon.DARK)
 
 for pt in left_nodes:
     circle(
         pt,
         radius=8.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
     )
 
 for pt in mid_nodes:
     circle(
         pt,
         radius=9.5,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
     )
 
 for pt in right_nodes:
     circle(
         pt,
         radius=9.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
     )
 
 save()

@@ -12,17 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w_ring = 2.0
 w_wasp = 1.2
@@ -43,13 +36,13 @@ _RAW_WASP: list[tuple[float, float]] = [
 wasp_pts = _sc(_RAW_WASP)
 
 # 1. Outer circular ring badge (Colors.Blue4 + DARK w=1.9 border)
-circle((50.0, 50.0), radius=39.2, style=fill_style(Colors.Blue4, border_color=DARK, border_units=w_ring))
+circle((50.0, 50.0), radius=39.2, style=Icon.fill_style(Colors.Blue4, border_color=Icon.DARK, border_units=w_ring))
 
 # 2. Inner WHITE circle (+ DARK w=1.9 border)
-circle((50.0, 50.0), radius=33.0, style=fill_style(WHITE, border_color=DARK, border_units=w_ring))
+circle((50.0, 50.0), radius=33.0, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_ring))
 
 # 3. Wasp silhouette inside (Colors.Blue5 fill + DARK w=1.2 outline)
-polygon(wasp_pts, style=no_border_fill(Colors.Blue5))
-draw_round_polyline(wasp_pts, width_units=w_wasp, color=DARK, closed=True)
+polygon(wasp_pts, style=Icon.no_border_fill(Colors.Blue5))
+Icon.draw_round_polyline(wasp_pts, width_units=w_wasp, color=Icon.DARK, closed=True)
 
 save()

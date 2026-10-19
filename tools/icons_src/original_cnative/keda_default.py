@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 50.0, 49.0
 r_ring = 33.5
@@ -52,7 +43,7 @@ for i in range(7):
     ]
     polygon(
         bar_pts,
-        style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0),
     )
 
 # 3. 7 PASTEL_BLUE vertex circles
@@ -60,7 +51,7 @@ for vx, vy in vertices:
     circle(
         (vx, vy),
         radius=6.8,
-        style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0),
     )
 
 # 4. Bold central PASTEL_GREEN lightning bolt
@@ -72,7 +63,7 @@ bolt_pts = [
     (62.0, 50.5),
     (51.5, 50.5),
 ]
-polygon(bolt_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(bolt_pts, width_units=2.0, color=DARK, closed=True)
+polygon(bolt_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(bolt_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

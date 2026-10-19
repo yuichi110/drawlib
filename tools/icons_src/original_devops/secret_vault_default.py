@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # U-shaped shackle at top: outer arc (r=17, x=33..67, top y=84) + inner arc (r=8.5, x=41.5..58.5)
 shackle_cy = 67.0
@@ -57,28 +46,28 @@ shackle_pts = [
     *inner_arc,
     (50.0 - r_in, 52.0),
 ]
-polygon(shackle_pts, style=no_border_fill(WHITE))
-draw_round_polyline(shackle_pts, width_units=w, color=DARK, closed=True)
+polygon(shackle_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(shackle_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Main padlock body
 rectangle(
     (50.0, 38.0),
     width=60.0,
     height=44.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=8.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=8.0),
 )
 
 # Center keyhole badge
-draw_round_segment((50.0, 34.0), (50.0, 26.0), width_units=3.2, color=DARK)
+Icon.draw_round_segment((50.0, 34.0), (50.0, 26.0), width_units=3.2, color=Icon.DARK)
 circle(
     (50.0, 42.0),
     radius=8.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 circle(
     (50.0, 42.0),
     radius=4.0,
-    style=fill_style(PASTEL_GREEN),
+    style=Icon.fill_style(Icon.PASTEL_GREEN),
 )
 
 save()

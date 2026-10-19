@@ -14,14 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    build_sparkle_4pt_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 CX, CY = 50.0, 50.0
 R_MEDALLION = 39.0
@@ -48,7 +41,7 @@ def _wave_points_clipped(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -56,7 +49,7 @@ w = 2.0
 circle(
     (CX, CY),
     radius=R_MEDALLION,
-    style=fill_style(Colors.Blue1, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Blue1, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Upper horizon wave band (Colors.Blue3)
@@ -81,7 +74,7 @@ left_rim = [
 ]
 
 band_upper = [*wave_top, *right_rim, *reversed(wave_mid), *left_rim]
-polygon(band_upper, style=no_border_fill(Colors.Blue3))
+polygon(band_upper, style=Icon.no_border_fill(Colors.Blue3))
 
 # 3. Lower horizon wave band (Colors.Gray6) filling down to bottom circle rim
 bot_arc: list[tuple[float, float]] = []
@@ -91,23 +84,23 @@ for i in range(steps_arc + 1):
     bot_arc.append((CX + R_MEDALLION * math.cos(ang), CY + R_MEDALLION * math.sin(ang)))
 
 band_lower = [*wave_mid, *bot_arc]
-polygon(band_lower, style=no_border_fill(Colors.Gray6))
+polygon(band_lower, style=Icon.no_border_fill(Colors.Gray6))
 
 # 4. Crisp wave ridge lines + clean outer medallion ring
-draw_round_polyline(wave_top, width_units=1.8, color=DARK)
-draw_round_polyline(wave_mid, width_units=1.8, color=DARK)
+Icon.draw_round_polyline(wave_top, width_units=1.8, color=Icon.DARK)
+Icon.draw_round_polyline(wave_mid, width_units=1.8, color=Icon.DARK)
 
 circle_rim = [
     (CX + R_MEDALLION * math.cos(math.radians(a)), CY + R_MEDALLION * math.sin(math.radians(a)))
     for a in range(0, 360, 4)
 ]
-draw_round_polyline(circle_rim, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(circle_rim, width_units=w, color=Icon.DARK, closed=True)
 
 # 5. Center pulsar 4-point star peak (Colors.Teal3) with clear breathing space above wave crest
 star_cx, star_cy = 50.0, 71.0
-star_pts = build_sparkle_4pt_polygon(star_cx, star_cy, outer_r=10.8, inner_r=3.4)
-polygon(star_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(star_pts, width_units=1.7, color=DARK, closed=True)
+star_pts = Icon.build_sparkle_4pt_polygon(star_cx, star_cy, outer_r=10.8, inner_r=3.4)
+polygon(star_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(star_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 6. Symmetrical radio-wave pulse arcs flanking the center star
 for side in (-1.0, 1.0):
@@ -117,6 +110,6 @@ for side in (-1.0, 1.0):
         rx = star_cx + side * 15.2 * math.cos(ang)
         ry = star_cy + 15.2 * math.sin(ang)
         arc_pts.append((rx, ry))
-    draw_round_polyline(arc_pts, width_units=1.7, color=DARK)
+    Icon.draw_round_polyline(arc_pts, width_units=1.7, color=Icon.DARK)
 
 save()

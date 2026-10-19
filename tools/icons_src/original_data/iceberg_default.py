@@ -14,14 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _arc_points(
@@ -41,7 +34,7 @@ def _arc_points(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -57,8 +50,8 @@ deg_wr = ang_water
 sky_pts = _arc_points(cx, cy, r, deg_wr, deg_wl, steps=32)
 ocean_pts = _arc_points(cx, cy, r, deg_wl, 360.0 + deg_wr, steps=56)
 
-polygon(sky_pts, style=no_border_fill(Colors.Blue1))
-polygon(ocean_pts, style=no_border_fill(Colors.Blue4))
+polygon(sky_pts, style=Icon.no_border_fill(Colors.Blue1))
+polygon(ocean_pts, style=Icon.no_border_fill(Colors.Blue4))
 
 # 2. Iceberg vertices (peak above waterline + deep faceted underwater mass below)
 p_wl = (29.0, y_water)
@@ -80,23 +73,23 @@ p_mr = (64.5, 35.5)
 p_bot = (50.0, 15.5)
 
 # Above-water snow facets (WHITE sunlit left + Colors.Blue2 shadow right)
-polygon([p_wl, p_top_l, p_top_c, p_wc], style=no_border_fill(WHITE))
-polygon([p_wc, p_top_c, p_top_r, p_wr], style=no_border_fill(Colors.Blue2))
+polygon([p_wl, p_top_l, p_top_c, p_wc], style=Icon.no_border_fill(Icon.WHITE))
+polygon([p_wc, p_top_c, p_top_r, p_wr], style=Icon.no_border_fill(Colors.Blue2))
 
 # Underwater sunlit left facets (Colors.Teal3)
-polygon([p_wl, p_wc, p_uc, p_ul], style=no_border_fill(Colors.Teal3))
-polygon([p_ul, p_uc, p_mc, p_ml], style=no_border_fill(Colors.Teal3))
-polygon([p_ml, p_mc, p_bot], style=no_border_fill(Colors.Teal3))
+polygon([p_wl, p_wc, p_uc, p_ul], style=Icon.no_border_fill(Colors.Teal3))
+polygon([p_ul, p_uc, p_mc, p_ml], style=Icon.no_border_fill(Colors.Teal3))
+polygon([p_ml, p_mc, p_bot], style=Icon.no_border_fill(Colors.Teal3))
 
 # Underwater shaded right facets (Colors.Blue3)
-polygon([p_wc, p_wr, p_ur, p_uc], style=no_border_fill(Colors.Blue3))
-polygon([p_uc, p_ur, p_mr, p_mc], style=no_border_fill(Colors.Blue3))
-polygon([p_mc, p_mr, p_bot], style=no_border_fill(Colors.Blue3))
+polygon([p_wc, p_wr, p_ur, p_uc], style=Icon.no_border_fill(Colors.Blue3))
+polygon([p_uc, p_ur, p_mr, p_mc], style=Icon.no_border_fill(Colors.Blue3))
+polygon([p_mc, p_mr, p_bot], style=Icon.no_border_fill(Colors.Blue3))
 
 # 3. Waterline, internal facet seams, iceberg contour, and outer circular badge border
 x_water_r = cx + r * math.cos(math.radians(ang_water))
 x_water_l = cx - r * math.cos(math.radians(ang_water))
-draw_round_segment((x_water_l, y_water), (x_water_r, y_water), width_units=1.8, color=DARK)
+Icon.draw_round_segment((x_water_l, y_water), (x_water_r, y_water), width_units=1.8, color=Icon.DARK)
 
 # Internal facet lines
 seams = [
@@ -112,14 +105,14 @@ seams = [
     (p_uc, p_mr),
 ]
 for p1, p2 in seams:
-    draw_round_segment(p1, p2, width_units=1.5, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=1.5, color=Icon.DARK)
 
 # Outer iceberg silhouette border
 iceberg_outer = [p_wl, p_top_l, p_top_c, p_top_r, p_wr, p_ur, p_mr, p_bot, p_ml, p_ul]
-draw_round_polyline(iceberg_outer, width_units=1.8, color=DARK, closed=True)
+Icon.draw_round_polyline(iceberg_outer, width_units=1.8, color=Icon.DARK, closed=True)
 
 # Outer circular badge border
 circle_outer = _arc_points(cx, cy, r, 0.0, 360.0, steps=72)
-draw_round_polyline(circle_outer[:-1], width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(circle_outer[:-1], width_units=w, color=Icon.DARK, closed=True)
 
 save()

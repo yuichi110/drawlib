@@ -13,22 +13,15 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_3d_cylinder,
-    draw_cisco_router_top_arrows,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
 # 3D router/gateway cylinder (bottom at y=15, top ellipse centered at y=68)
-draw_cisco_3d_cylinder(50.0, 30.0, 76.0, 38.0, 15.0)
+Cisco.draw_3d_cylinder(50.0, 30.0, 76.0, 38.0, 15.0)
 
 # Classic 4 Cisco router arrows on top ellipse
-draw_cisco_router_top_arrows(50.0, 68.0, 36.0, 14.0, color=WHITE)
+Cisco.draw_router_top_arrows(50.0, 68.0, 36.0, 14.0, color=Icon.WHITE)
 
 # Crisp white telephone handset emblem on the front face (centered at (50.0, 34.5))
 cx, cy = 50.0, 34.5
@@ -71,7 +64,7 @@ handset_pts.extend(
     ]
 )
 
-polygon(handset_pts, style=no_border_fill(WHITE))
-draw_round_polyline(handset_pts, width_units=1.4, color=WHITE, closed=True)
+polygon(handset_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(handset_pts, width_units=1.4, color=Icon.WHITE, closed=True)
 
 save()

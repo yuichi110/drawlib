@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.3
@@ -36,18 +30,18 @@ five_outer = [(27.85, 75.28), (30.23, 48.58), (60.84, 48.58), (59.81, 37.12), (4
 # fmt: on
 
 # 1. Flat pastel orange shield halves
-polygon(shield_outer, style=no_border_fill("#F17143"))
-polygon(shield_right, style=no_border_fill("#F28050"))
-draw_round_polyline(shield_right, width_units=w_inner, color=DARK, closed=True)
+polygon(shield_outer, style=Icon.no_border_fill("#F17143"))
+polygon(shield_right, style=Icon.no_border_fill("#F28050"))
+Icon.draw_round_polyline(shield_right, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 2. Two-tone '#F2F4F7' (left) and WHITE (right) '5' chevrons
-polygon(five_l_top, style=no_border_fill("#F2F4F7"))
-polygon(five_l_bot, style=no_border_fill("#F2F4F7"))
-polygon(five_r_bot, style=no_border_fill(WHITE))
-polygon(five_r_top, style=no_border_fill(WHITE))
-draw_round_polyline(five_outer, width_units=w_inner, color=DARK, closed=True)
+polygon(five_l_top, style=Icon.no_border_fill("#F2F4F7"))
+polygon(five_l_bot, style=Icon.no_border_fill("#F2F4F7"))
+polygon(five_r_bot, style=Icon.no_border_fill(Icon.WHITE))
+polygon(five_r_top, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(five_outer, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Crisp DARK outer shield border
-draw_round_polyline(shield_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(shield_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

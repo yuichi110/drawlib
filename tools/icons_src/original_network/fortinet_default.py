@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -137,7 +132,7 @@ _RAW_BLOCKS: list[list[tuple[float, float]]] = [
 
 for raw_ring in _RAW_BLOCKS:
     pts = [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in raw_ring]
-    polygon(pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

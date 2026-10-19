@@ -11,14 +11,14 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-polygon([(33.2, 50.0), (66.8, 50.0), (58.4, 41.6), (41.6, 41.6)], style=fill_style(GCP_TECH_MID))
-polygon([(29.0, 83.6), (71.0, 83.6), (75.2, 75.2), (24.8, 75.2)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(16.4, 71.0), (83.6, 71.0), (87.8, 62.6), (12.2, 62.6)], style=fill_style(GCP_TECH_LIGHT))
-polygon([(92.0, 16.4), (92.0, 54.2), (66.8, 54.2), (58.4, 41.6), (41.6, 41.6), (33.2, 54.2), (8.0, 54.2), (8.0, 16.4)], style=fill_style(GCP_TECH_MED_LIGHT))
+Icon.setup()
+polygon([(33.2, 50.0), (66.8, 50.0), (58.4, 41.6), (41.6, 41.6)], style=Icon.fill_style(Gcp.TECH_MID))
+polygon([(29.0, 83.6), (71.0, 83.6), (75.2, 75.2), (24.8, 75.2)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(16.4, 71.0), (83.6, 71.0), (87.8, 62.6), (12.2, 62.6)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(92.0, 16.4), (92.0, 54.2), (66.8, 54.2), (58.4, 41.6), (41.6, 41.6), (33.2, 54.2), (8.0, 54.2), (8.0, 16.4)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 save()
 # fmt: on

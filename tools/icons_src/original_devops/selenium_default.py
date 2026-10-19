@@ -12,17 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.6
@@ -38,7 +30,7 @@ rectangle(
     (50.0, 50.0),
     width=78.0,
     height=78.0,
-    style=fill_style(Colors.Green3, border_color=DARK, border_units=w, shape_r=4.5),
+    style=Icon.fill_style(Colors.Green3, border_color=Icon.DARK, border_units=w, shape_r=4.5),
 )
 
 # 2. Crisp WHITE 'S' polygon
@@ -147,8 +139,8 @@ s_pts = _s(
         (45.36, 48.18),
     ]
 )
-polygon(s_pts, style=no_border_fill(WHITE))
-draw_round_polyline(s_pts, width_units=w_in, color=DARK, closed=True)
+polygon(s_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(s_pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 3. Crisp WHITE 'e' compound polygon (transparent inner eye showing Colors.Green3)
 e_outer = _s(
@@ -234,9 +226,9 @@ e_hole = _s(
     ]
 )
 
-draw_compound_polygon([e_outer, e_hole], color=WHITE)
-draw_round_polyline(e_outer, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(e_hole, width_units=w_in, color=DARK, closed=True)
+polygon(e_outer, holes=[e_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(e_outer, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(e_hole, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 4. Crisp WHITE top-right checkmark
 check_pts = _s(
@@ -249,7 +241,7 @@ check_pts = _s(
         (62.3, 50.5),
     ]
 )
-polygon(check_pts, style=no_border_fill(WHITE))
-draw_round_polyline(check_pts, width_units=w_in, color=DARK, closed=True)
+polygon(check_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(check_pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 38.8 / 41.0
@@ -200,7 +195,7 @@ raw_pts: list[tuple[float, float]] = [
 
 sentry_pts = [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in raw_pts]
 
-polygon(sentry_pts, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(sentry_pts, width_units=w, color=DARK, closed=True)
+polygon(sentry_pts, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(sentry_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

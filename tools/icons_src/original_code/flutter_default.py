@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_border = 2.0
 
@@ -38,10 +33,10 @@ facets = [
     (bot_leg, "#3A78B8"),
 ]
 for pts, color in facets:
-    polygon(pts, style=no_border_fill(color))
+    polygon(pts, style=Icon.no_border_fill(color))
 
 # 2. Crisp DARK facet and outer outlines
 for pts, _ in facets:
-    draw_round_polyline(pts, width_units=w_border, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_border, color=Icon.DARK, closed=True)
 
 save()

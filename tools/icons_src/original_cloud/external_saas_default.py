@@ -13,24 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cap,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Cloud outline shifted slightly up-left to accommodate the bottom-right connector badge
 bumps = [
@@ -75,8 +62,8 @@ for i, (cx, cy, r) in enumerate(bumps):
         ang = a_start + (a_end - a_start) * (s / steps)
         cloud_pts.append((cx + r * math.cos(ang), cy + r * math.sin(ang)))
 
-polygon(cloud_pts, style=no_border_fill(WHITE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Subtle cloud inner highlight arc on top-left with round caps
 arc_cx, arc_cy, arc_r = 43.0, 65.0, 12.5
@@ -87,30 +74,32 @@ arc(
     height=arc_r * 2.0,
     angle_start=a0,
     angle_end=a1,
-    style=stroke_style(PASTEL_BLUE, width_units=3.2),
+    style=Icon.stroke_style(Icon.PASTEL_BLUE, width_units=3.2),
 )
 for deg in (a0, a1):
     rad = math.radians(deg)
-    draw_cap((arc_cx + arc_r * math.cos(rad), arc_cy + arc_r * math.sin(rad)), width_units=3.2, color=PASTEL_BLUE)
+    Icon.draw_cap(
+        (arc_cx + arc_r * math.cos(rad), arc_cy + arc_r * math.sin(rad)), width_units=3.2, color=Icon.PASTEL_BLUE
+    )
 
 # Interlocking external connector badge at (66, 30)
 badge_cx, badge_cy = 66.0, 30.0
 circle(
     (badge_cx, badge_cy),
     radius=16.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 
 # Plug prongs and body inside the badge
-draw_round_segment((62.5, 33.0), (62.5, 39.5), width_units=2.0, color=DARK)
-draw_round_segment((69.5, 33.0), (69.5, 39.5), width_units=2.0, color=DARK)
-draw_round_segment((66.0, 19.5), (66.0, 24.5), width_units=2.0, color=DARK)
+Icon.draw_round_segment((62.5, 33.0), (62.5, 39.5), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((69.5, 33.0), (69.5, 39.5), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((66.0, 19.5), (66.0, 24.5), width_units=2.0, color=Icon.DARK)
 
 rectangle(
     (66.0, 29.0),
     width=14.0,
     height=9.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=3.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=3.0),
 )
 
 save()

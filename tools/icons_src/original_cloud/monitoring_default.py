@@ -11,35 +11,25 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 rectangle(
     (50.0, 22.0),
     width=15.0,
     height=16.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
-draw_round_segment((30.0, 14.0), (70.0, 14.0), width_units=w, color=DARK)
+Icon.draw_round_segment((30.0, 14.0), (70.0, 14.0), width_units=w, color=Icon.DARK)
 
 rectangle(
     (50.0, 56.0),
     width=76.0,
     height=52.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=7.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=7.0),
 )
 
 wave_pts = [
@@ -51,11 +41,11 @@ wave_pts = [
     (68.0, 54.0),
     (79.0, 54.0),
 ]
-draw_round_polyline(wave_pts, width_units=w, color=DARK)
+Icon.draw_round_polyline(wave_pts, width_units=w, color=Icon.DARK)
 circle(
     (42.5, 73.0),
     radius=4.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

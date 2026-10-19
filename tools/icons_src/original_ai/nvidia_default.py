@@ -13,15 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_seam = 1.6
@@ -300,8 +294,8 @@ right_island_inner = [
 ]
 
 # 1. Left spiral bands (NVIDIA_GREEN)
-polygon(_sc([*left_outer_arch, *left_inner_arch]), style=no_border_fill(NVIDIA_GREEN))
-polygon(_sc([*left_crescent_outer, *left_crescent_inner]), style=no_border_fill(NVIDIA_GREEN))
+polygon(_sc([*left_outer_arch, *left_inner_arch]), style=Icon.no_border_fill(NVIDIA_GREEN))
+polygon(_sc([*left_crescent_outer, *left_crescent_inner]), style=Icon.no_border_fill(NVIDIA_GREEN))
 
 # 3. Right green badge minus white spiral cutout + inner green spiral island (NVIDIA_GREEN)
 badge_green = _sc(
@@ -314,11 +308,11 @@ badge_green = _sc(
         *right_top_corner,
     ]
 )
-polygon(badge_green, style=no_border_fill(NVIDIA_GREEN))
-polygon(_sc([*right_island_outer, *right_island_inner]), style=no_border_fill(NVIDIA_GREEN))
+polygon(badge_green, style=Icon.no_border_fill(NVIDIA_GREEN))
+polygon(_sc([*right_island_outer, *right_island_inner]), style=Icon.no_border_fill(NVIDIA_GREEN))
 
 # 4. Crisp structural seam along vertical split line x = 39.60
-draw_round_segment(_sc_pt(x_split, y_badge_bot), _sc_pt(x_split, y_badge_top), width_units=w_seam, color=DARK)
+Icon.draw_round_segment(_sc_pt(x_split, y_badge_bot), _sc_pt(x_split, y_badge_top), width_units=w_seam, color=Icon.DARK)
 
 # 5. Outer badge border (top, rounded right, bottom)
 badge_outer_border = _sc(
@@ -329,7 +323,7 @@ badge_outer_border = _sc(
         (x_split, y_badge_bot),
     ]
 )
-draw_round_polyline(badge_outer_border, width_units=w, color=DARK)
+Icon.draw_round_polyline(badge_outer_border, width_units=w, color=Icon.DARK)
 
 # 6. Continuous spiral eye borders
 for curve in (
@@ -342,6 +336,6 @@ for curve in (
     right_island_outer,
     right_island_inner,
 ):
-    draw_round_polyline(_sc(curve), width_units=w, color=DARK)
+    Icon.draw_round_polyline(_sc(curve), width_units=w, color=Icon.DARK)
 
 save()

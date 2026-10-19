@@ -12,12 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _s(pt: tuple[float, float], factor: float = 0.94) -> tuple[float, float]:
@@ -29,7 +24,7 @@ def _s_list(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
     return [_s(p) for p in pts]
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.6
@@ -87,9 +82,9 @@ right_outer_shade = _s_list([
 ])
 
 for pts in (left_top, right_top, front_face):
-    polygon(pts, style=no_border_fill(Colors.Blue3))
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
 for pts in (left_inner_shade, right_outer_shade):
-    polygon(pts, style=no_border_fill(Colors.Blue4))
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue4))
 
 # 3. Inner isometric crease lines (DARK, 1.6)
 creases = [
@@ -99,7 +94,7 @@ creases = [
     _s_list([(71.60, 74.22), (71.60, 67.86), (57.20, 35.39), (50.00, 31.21), (50.00, 9.00)]),
 ]
 for c_pts in creases:
-    draw_round_polyline(c_pts, width_units=w_inner, color=DARK, closed=False)
+    Icon.draw_round_polyline(c_pts, width_units=w_inner, color=Icon.DARK, closed=False)
 
 # 4. Outer silhouette border (DARK, w=1.9)
 outer_silhouette = _s_list([
@@ -118,6 +113,6 @@ outer_silhouette = _s_list([
     (39.20, 73.25),
     (39.21, 80.44),
 ])
-draw_round_polyline(outer_silhouette, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_silhouette, width_units=w, color=Icon.DARK, closed=True)
 
 save()

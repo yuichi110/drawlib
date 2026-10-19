@@ -12,27 +12,21 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    VMWARE_CYAN,
-    VMWARE_NAVY,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, Vmware
 
-setup_icon()
+Icon.setup()
 
 # Left and right background host wings (clipped at x=31 and x=69)
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(31.0, 77.0), (13.0, 77.0), (13.0, 13.0), (31.0, 13.0)],
     width_units=4.6,
-    color=VMWARE_NAVY,
+    color=Vmware.NAVY,
     corner_r=3.5,
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(69.0, 77.0), (87.0, 77.0), (87.0, 13.0), (69.0, 13.0)],
     width_units=4.6,
-    color=VMWARE_NAVY,
+    color=Vmware.NAVY,
     corner_r=3.5,
 )
 
@@ -41,7 +35,7 @@ rectangle(
     (50.0, 50.5),
     width=38.0,
     height=75.0,
-    style=fill_style(Colors.Transparent, border_color=VMWARE_NAVY, border_units=4.6, shape_r=4.0),
+    style=Icon.fill_style(Colors.Transparent, border_color=Vmware.NAVY, border_units=4.6, shape_r=4.0),
 )
 
 # Top horizontal slot bar (x=39..61, y=74)
@@ -49,14 +43,14 @@ rectangle(
     (50.0, 74.0),
     width=22.0,
     height=4.4,
-    style=fill_style(VMWARE_CYAN, shape_r=1.2),
+    style=Icon.fill_style(Vmware.CYAN, shape_r=1.2),
 )
 
 # Bottom circular power button
 circle(
     (50.0, 27.0),
     radius=4.8,
-    style=fill_style(VMWARE_CYAN),
+    style=Icon.fill_style(Vmware.CYAN),
 )
 
 save()

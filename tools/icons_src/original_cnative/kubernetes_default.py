@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 50.0, 48.0
 r_ring_outer = 22.0
@@ -32,7 +23,7 @@ r_ring_inner = 15.0
 r_hub = 6.5
 
 # 1. Drawlib Original Kubernetes heptagon plate
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 
 def _build_k8s_handle(angle_deg: float) -> list[tuple[float, float]]:
@@ -84,38 +75,38 @@ spoke_angles = [90.0 + i * (360.0 / 7.0) for i in range(7)]
 for ang in spoke_angles:
     polygon(
         _build_k8s_handle(ang),
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
     )
 
 # 3. Ship's wheel outer and inner circles (creating the WHITE wheel ring)
 circle(
     (cx, cy),
     radius=r_ring_outer,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 circle(
     (cx, cy),
     radius=r_ring_inner,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # 4. 7 inner spokes flush with r=15.0 + re-stroke inner ring border
 for ang in spoke_angles:
     polygon(
         _build_k8s_inner_spoke(ang),
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
     )
 circle(
     (cx, cy),
     radius=r_ring_inner,
-    style=stroke_style(DARK, width_units=2.0),
+    style=Icon.stroke_style(Icon.DARK, width_units=2.0),
 )
 
 # 5. Center PASTEL_GREEN hub circle
 circle(
     (cx, cy),
     radius=r_hub,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

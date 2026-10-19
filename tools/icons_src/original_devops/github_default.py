@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.7
@@ -210,13 +203,13 @@ for i in range(1, 20):
 octocat_closed = [*octocat_open, *bottom_arc]
 
 # 1. Colors.Gray6 circular badge fill
-circle((cx, cy), radius=r_badge, style=no_border_fill(Colors.Gray6))
+circle((cx, cy), radius=r_badge, style=Icon.no_border_fill(Colors.Gray6))
 
 # 2. WHITE Octocat silhouette fill + DARK inner outline
-polygon(octocat_closed, style=no_border_fill(WHITE))
-draw_round_polyline(octocat_open, width_units=w_inner, color=DARK, closed=False)
+polygon(octocat_closed, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(octocat_open, width_units=w_inner, color=Icon.DARK, closed=False)
 
 # 3. Outer circular badge DARK w=1.9 outline
-circle((cx, cy), radius=r_badge, style=stroke_style(DARK, width_units=w))
+circle((cx, cy), radius=r_badge, style=Icon.stroke_style(Icon.DARK, width_units=w))
 
 save()

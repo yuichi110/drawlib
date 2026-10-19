@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_ring_halo = 2.4
 w_ring_in = 0.6
@@ -48,28 +42,28 @@ r2_outer: list[tuple[float, float]] = [(82.75, 45.86), (82.72, 45.86), (82.69, 4
 r2_hole: list[tuple[float, float]] = [(77.66, 49.63), (77.66, 52.29), (77.66, 52.32), (77.66, 52.33), (77.66, 52.35), (77.66, 52.37), (77.67, 52.38), (77.67, 52.39), (77.67, 52.41), (77.67, 52.42), (77.67, 52.43), (77.68, 52.44), (77.68, 52.44), (77.68, 52.45), (77.69, 52.45), (77.69, 52.46), (77.69, 52.47), (77.69, 52.47), (77.7, 52.47), (77.7, 52.47), (77.7, 52.48), (77.71, 52.48), (77.72, 52.48), (77.73, 52.48), (77.74, 52.48), (77.76, 52.49), (77.78, 52.49), (77.8, 52.49), (77.82, 52.49), (77.85, 52.49), (77.88, 52.5), (77.91, 52.5), (77.95, 52.5), (77.99, 52.5), (78.04, 52.5), (78.08, 52.51), (78.14, 52.51), (78.19, 52.51), (78.26, 52.51), (78.33, 52.5), (78.4, 52.5), (78.46, 52.5), (78.52, 52.49), (78.58, 52.49), (78.64, 52.48), (78.7, 52.48), (78.76, 52.47), (78.81, 52.46), (78.87, 52.45), (78.92, 52.44), (78.97, 52.43), (79.02, 52.42), (79.07, 52.4), (79.12, 52.39), (79.17, 52.38), (79.21, 52.36), (79.25, 52.34), (79.3, 52.33), (79.37, 52.3), (79.44, 52.26), (79.5, 52.22), (79.56, 52.18), (79.62, 52.13), (79.67, 52.09), (79.72, 52.04), (79.76, 51.98), (79.8, 51.93), (79.84, 51.87), (79.87, 51.81), (79.9, 51.75), (79.93, 51.68), (79.95, 51.61), (79.97, 51.53), (79.98, 51.46), (79.99, 51.38), (80.0, 51.29), (80.01, 51.21), (80.01, 51.12), (80.0, 51.03), (80.0, 50.95), (79.99, 50.86), (79.98, 50.78), (79.96, 50.7), (79.94, 50.63), (79.91, 50.55), (79.88, 50.48), (79.85, 50.42), (79.81, 50.35), (79.77, 50.29), (79.72, 50.23), (79.67, 50.18), (79.62, 50.12), (79.56, 50.07), (79.49, 50.03), (79.42, 49.99), (79.35, 49.95), (79.27, 49.91), (79.19, 49.88), (79.14, 49.85), (79.1, 49.83), (79.04, 49.82), (78.99, 49.79), (78.93, 49.78), (78.87, 49.76), (78.8, 49.74), (78.73, 49.73), (78.66, 49.71), (78.59, 49.7), (78.51, 49.68), (78.43, 49.67), (78.34, 49.66), (78.25, 49.65), (78.16, 49.64), (78.07, 49.64), (77.97, 49.63), (77.87, 49.63), (77.77, 49.63), (77.66, 49.63)]
 
 # 1. Outer tilted elliptical ring in Colors.Green3 with transparent interior
-draw_round_polyline(ring_outer, width_units=w_ring_halo, color=DARK, closed=True)
-draw_round_polyline(ring_inner, width_units=w_ring_halo, color=DARK, closed=True)
-draw_compound_polygon([ring_outer, ring_inner], color=Colors.Green3)
-draw_round_polyline(ring_outer, width_units=w_ring_in, color=DARK, closed=True)
-draw_round_polyline(ring_inner, width_units=w_ring_in, color=DARK, closed=True)
+Icon.draw_round_polyline(ring_outer, width_units=w_ring_halo, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(ring_inner, width_units=w_ring_halo, color=Icon.DARK, closed=True)
+polygon(ring_outer, holes=[ring_inner], style=Icon.fill_style(Colors.Green3))
+Icon.draw_round_polyline(ring_outer, width_units=w_ring_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(ring_inner, width_units=w_ring_in, color=Icon.DARK, closed=True)
 
 # 2. Inner SUPERMICR letters in deeper pastel navy-blue (#5C78B0) with transparent counter holes
 for pts in (s_pts, u_pts, e_pts, m_pts, i_pts, c_pts):
-    draw_round_polyline(pts, width_units=w_halo, color=DARK, closed=True)
-    polygon(pts, style=no_border_fill("#5C78B0"))
-    draw_round_polyline(pts, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#5C78B0"))
+    Icon.draw_round_polyline(pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 for outer, hole in ((p_outer, p_hole), (r1_outer, r1_hole), (r2_outer, r2_hole)):
-    draw_round_polyline(outer, width_units=w_halo, color=DARK, closed=True)
-    draw_round_polyline(hole, width_units=w_halo, color=DARK, closed=True)
-    draw_compound_polygon([outer, hole], color="#5C78B0")
-    draw_round_polyline(outer, width_units=w_in, color=DARK, closed=True)
-    draw_round_polyline(hole, width_units=w_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(outer, width_units=w_halo, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_halo, color=Icon.DARK, closed=True)
+    polygon(outer, holes=[hole], style=Icon.fill_style("#5C78B0"))
+    Icon.draw_round_polyline(outer, width_units=w_in, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 3. Right circular dot (the O in SUPERMICRO) in Colors.Red3
-polygon(dot_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(dot_pts, width_units=w_dot, color=DARK, closed=True)
+polygon(dot_pts, style=Icon.no_border_fill(Colors.Red3))
+Icon.draw_round_polyline(dot_pts, width_units=w_dot, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

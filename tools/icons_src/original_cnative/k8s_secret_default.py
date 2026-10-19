@@ -13,19 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # White padlock shackle arch centered at (50, 56)
 cx, cy = 50.0, 56.0
@@ -47,7 +39,7 @@ shackle_pts.append((cx - r_inner, y_base))
 
 polygon(
     shackle_pts,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Rounded pastel green padlock body
@@ -55,15 +47,15 @@ rectangle(
     (50.0, 39.0),
     width=34.0,
     height=24.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=4.5),
 )
 
 # White keyhole circle and dark vertical slot
 circle(
     (50.0, 41.5),
     radius=4.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
-draw_round_segment((50.0, 37.3), (50.0, 33.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((50.0, 37.3), (50.0, 33.0), width_units=2.0, color=Icon.DARK)
 
 save()

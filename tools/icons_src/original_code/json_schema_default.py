@@ -11,19 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 b = 2.0
 w_line = 2.0
@@ -33,7 +23,7 @@ rectangle(
     (50.0, 50.0),
     width=74.0,
     height=66.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b, shape_r=6.0),
 )
 
 # Left PASTEL_BLUE curly brace '{'
@@ -53,21 +43,21 @@ left_brace = [
     (23.0, 55.5),
     (23.0, 71.0),
 ]
-polygon(left_brace, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(left_brace, width_units=b, color=DARK, closed=True)
+polygon(left_brace, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(left_brace, width_units=b, color=Icon.DARK, closed=True)
 
 # Right PASTEL_BLUE curly brace '}' (mirrored across x=50)
 right_brace = [(100.0 - x, y) for x, y in left_brace]
-polygon(right_brace, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(right_brace, width_units=b, color=DARK, closed=True)
+polygon(right_brace, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(right_brace, width_units=b, color=Icon.DARK, closed=True)
 
 # 2 PASTEL_GREEN key dots and DARK value bars in the middle
 for y_row, x_end in ((57.0, 61.5), (43.0, 58.0)):
     circle(
         (40.5, y_row),
         radius=3.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=b),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=b),
     )
-    draw_round_segment((48.5, y_row), (x_end, y_row), width_units=w_line, color=DARK)
+    Icon.draw_round_segment((48.5, y_row), (x_end, y_row), width_units=w_line, color=Icon.DARK)
 
 save()

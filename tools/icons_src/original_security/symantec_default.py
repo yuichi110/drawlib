@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_pixel = 0.85
@@ -42,12 +35,12 @@ r_inner = 24.36 * s
 circle(
     (cx, cy),
     radius=r_outer,
-    style=fill_style(Colors.Amber3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Amber3, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (cx, cy),
     radius=r_inner,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. DARK checkmark and DARK pixel accent squares
@@ -61,8 +54,8 @@ dark_squares: list[list[tuple[float, float]]] = [
     _sc([(75.4, 82.83), (77.92, 82.83), (77.92, 77.48), (75.4, 77.48)]),
 ]
 for sq in dark_squares:
-    polygon(sq, style=no_border_fill(DARK))
-    draw_round_polyline(sq, width_units=w_pixel, color=DARK, closed=True)
+    polygon(sq, style=Icon.no_border_fill(Icon.DARK))
+    Icon.draw_round_polyline(sq, width_units=w_pixel, color=Icon.DARK, closed=True)
 
 checkmark_pts = _sc([
     (75.4, 74.96), (75.4, 72.28), (72.72, 72.28), (72.72, 74.96),
@@ -104,10 +97,10 @@ checkmark_pts = _sc([
     (73.3, 64.13), (73.3, 67.23), (75.68, 67.23), (75.68, 69.31),
     (77.76, 69.31), (77.76, 74.82), (75.38, 74.82),
 ])
-polygon(checkmark_pts, style=no_border_fill(DARK))
-draw_round_polyline(checkmark_pts, width_units=w_pixel, color=DARK, closed=True)
+polygon(checkmark_pts, style=Icon.no_border_fill(Icon.DARK))
+Icon.draw_round_polyline(checkmark_pts, width_units=w_pixel, color=Icon.DARK, closed=True)
 # Smooth 1.6 outline along the lower curved V-body of the checkmark
-draw_round_polyline(checkmark_pts[14:113], width_units=w, color=DARK)
+Icon.draw_round_polyline(checkmark_pts[14:113], width_units=w, color=Icon.DARK)
 
 # 3. All amber pixel accent squares (outer and inner) drawn on top
 amber_squares: list[list[tuple[float, float]]] = [
@@ -118,8 +111,8 @@ amber_squares: list[list[tuple[float, float]]] = [
     _sc([(65.87, 61.45), (68.55, 61.45), (68.55, 64.13), (65.87, 64.13)]),
 ]
 for sq in amber_squares:
-    polygon(sq, style=no_border_fill(Colors.Amber3))
-    draw_round_polyline(sq, width_units=w_pixel, color=DARK, closed=True)
+    polygon(sq, style=Icon.no_border_fill(Colors.Amber3))
+    Icon.draw_round_polyline(sq, width_units=w_pixel, color=Icon.DARK, closed=True)
 # fmt: on
 
 save()

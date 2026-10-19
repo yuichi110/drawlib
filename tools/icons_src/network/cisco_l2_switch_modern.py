@@ -10,22 +10,17 @@
 """Cisco network icon: cisco_l2_switch (modern 2D badge variant)."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_arrow,
-    draw_cisco_modern_badge,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
-draw_cisco_modern_badge()
+Cisco.draw_modern_badge()
 
 # Four alternating horizontal left/right arrows (2 pointing left, 2 pointing right)
 sw, hl, hw = 6.4, 9.5, 14.2
-draw_cisco_arrow((49.0, 65.0), (24.0, 65.0), shaft_w=sw, head_len=hl, head_w=hw, color=WHITE)
-draw_cisco_arrow((51.0, 55.0), (76.0, 55.0), shaft_w=sw, head_len=hl, head_w=hw, color=WHITE)
-draw_cisco_arrow((49.0, 45.0), (24.0, 45.0), shaft_w=sw, head_len=hl, head_w=hw, color=WHITE)
-draw_cisco_arrow((51.0, 35.0), (76.0, 35.0), shaft_w=sw, head_len=hl, head_w=hw, color=WHITE)
+Cisco.draw_arrow((49.0, 65.0), (24.0, 65.0), shaft_w=sw, head_len=hl, head_w=hw, color=Icon.WHITE)
+Cisco.draw_arrow((51.0, 55.0), (76.0, 55.0), shaft_w=sw, head_len=hl, head_w=hw, color=Icon.WHITE)
+Cisco.draw_arrow((49.0, 45.0), (24.0, 45.0), shaft_w=sw, head_len=hl, head_w=hw, color=Icon.WHITE)
+Cisco.draw_arrow((51.0, 35.0), (76.0, 35.0), shaft_w=sw, head_len=hl, head_w=hw, color=Icon.WHITE)
 
 save()

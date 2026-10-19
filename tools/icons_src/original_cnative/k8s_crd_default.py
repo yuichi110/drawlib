@@ -11,20 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # Slight up-right offset so the visual weight centers inside the heptagon
 dx, dy = 2.0, 2.2
@@ -34,7 +25,7 @@ rectangle(
     (44.0 + dx, 44.0 + dy),
     width=30.0,
     height=30.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=5.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=5.0),
 )
 
 # Small inner resource block in bottom-left of base card
@@ -42,7 +33,7 @@ rectangle(
     (40.0 + dx, 40.0 + dy),
     width=12.0,
     height=12.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=2.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=2.5),
 )
 
 # Interlocking top-right green custom extension block
@@ -50,11 +41,11 @@ rectangle(
     (60.0 + dx, 56.0 + dy),
     width=21.0,
     height=21.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0, shape_r=4.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0, shape_r=4.5),
 )
 
 # Crisp dark plus sign inside extension block
-draw_round_segment((55.2 + dx, 56.0 + dy), (64.8 + dx, 56.0 + dy), width_units=2.0, color=DARK)
-draw_round_segment((60.0 + dx, 51.2 + dy), (60.0 + dx, 60.8 + dy), width_units=2.0, color=DARK)
+Icon.draw_round_segment((55.2 + dx, 56.0 + dy), (64.8 + dx, 56.0 + dy), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((60.0 + dx, 51.2 + dy), (60.0 + dx, 60.8 + dy), width_units=2.0, color=Icon.DARK)
 
 save()

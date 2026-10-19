@@ -12,16 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -48,15 +42,15 @@ right_half = _sc([
 # fmt: on
 
 # 1. White square base so the lightning-step zig-zag channel is WHITE
-polygon(outer_sq, style=no_border_fill(WHITE))
+polygon(outer_sq, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Left half in dark slate (Colors.Gray6) and right half in pastel orange (Colors.Orange3)
-polygon(left_half, style=no_border_fill(Colors.Gray6))
-polygon(right_half, style=no_border_fill(Colors.Orange3))
+polygon(left_half, style=Icon.no_border_fill(Colors.Gray6))
+polygon(right_half, style=Icon.no_border_fill(Colors.Orange3))
 
 # 3. DARK w=1.9 outlines on both halves and the outer square badge
-draw_round_polyline(left_half, width_units=w, color=DARK, closed=True)
-draw_round_polyline(right_half, width_units=w, color=DARK, closed=True)
-draw_round_polyline(outer_sq, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(left_half, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(right_half, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_sq, width_units=w, color=Icon.DARK, closed=True)
 
 save()

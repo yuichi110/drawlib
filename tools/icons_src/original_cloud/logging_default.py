@@ -11,51 +11,42 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 rectangle(
     (46.0, 52.0),
     width=58.0,
     height=68.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=7.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=7.0),
 )
 
 rows = [
-    (68.0, PASTEL_BLUE),
-    (52.0, PASTEL_GREEN),
-    (36.0, PASTEL_GREEN),
+    (68.0, Icon.PASTEL_BLUE),
+    (52.0, Icon.PASTEL_GREEN),
+    (36.0, Icon.PASTEL_GREEN),
 ]
 for y, dot_color in rows:
     circle(
         (28.0, y),
         radius=3.8,
-        style=fill_style(dot_color, border_color=DARK, border_units=2.0),
+        style=Icon.fill_style(dot_color, border_color=Icon.DARK, border_units=2.0),
     )
-    draw_round_segment((38.0, y), (64.0, y), width_units=2.0, color=DARK)
+    Icon.draw_round_segment((38.0, y), (64.0, y), width_units=2.0, color=Icon.DARK)
 
-draw_round_segment((70.0, 28.0), (85.0, 13.0), width_units=3.5, color=DARK)
+Icon.draw_round_segment((70.0, 28.0), (85.0, 13.0), width_units=3.5, color=Icon.DARK)
 circle(
     (70.0, 28.0),
     radius=13.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w),
 )
 circle(
     (70.0, 28.0),
     radius=7.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

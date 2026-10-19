@@ -435,14 +435,16 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self,
         xys: Coordinates,
         *,
+        holes: list[Coordinates] | None = None,
         style: Style,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
-        """Draw a polygon on the canvas.
+        """Draw a polygon on the canvas, with optional interior cutout holes.
 
         Args:
-            xys: List of vertices [(x1, y1), ...(x_n, y_n)].
+            xys: List of outer contour vertices [(x1, y1), ...(x_n, y_n)].
+            holes: Optional list of inner hole vertex lists [[(x1, y1), ...], ...].
             style: Style of the polygon (required).
             text (optional): Text shown at the center of the polygon.
             text_style (optional): Style of the text.
@@ -450,19 +452,45 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         Returns:
             None
         """
+        if len(xys) < 3:
+            raise ValueError("Polygon outer contour must have at least 3 vertices.")
+        if holes:
+            for hole in holes:
+                if len(hole) < 3:
+                    raise ValueError("Each polygon hole must have at least 3 vertices.")
+
         style, text_style = ShapeUtils.format_styles(
             style,
             text_style,
         )
 
-        path_points = ShapeUtils.round_polygon_points(list(xys), style.shape_r)
         style = style.patch(halign=None, valign=None)
         options = ShapeUtils.get_shape_options(style)
-        if len(path_points) == len(xys) and all(isinstance(p[0], (int, float)) for p in path_points):
-            self._artists.append(Polygon(xy=xys, closed=True, **options))
+
+        if not holes:
+            path_points = ShapeUtils.round_polygon_points(list(xys), style.shape_r)
+            if len(path_points) == len(xys) and all(isinstance(p[0], (int, float)) for p in path_points):
+                self._artists.append(Polygon(xy=xys, closed=True, **options))
+            else:
+                path = ShapeUtils.build_matplotlib_path(path_points)
+                self._artists.append(PathPatch(path=path, **options))
         else:
-            path = ShapeUtils.build_matplotlib_path(path_points)
-            self._artists.append(PathPatch(path=path, **options))
+            outer_pts, outer_reversed = ShapeUtils.orient_polygon_ring(list(xys), ccw=True)
+            outer_r = style.shape_r
+            if outer_reversed and isinstance(outer_r, tuple):
+                outer_r = tuple(reversed(outer_r))
+            outer_points = ShapeUtils.round_polygon_points(outer_pts, outer_r)
+            outer_path = ShapeUtils.build_matplotlib_path(outer_points)
+
+            hole_r = style.shape_r if isinstance(style.shape_r, (int, float)) else None
+            hole_paths: list[Path] = []
+            for hole in holes:
+                hole_pts, _ = ShapeUtils.orient_polygon_ring(list(hole), ccw=False)
+                hole_points = ShapeUtils.round_polygon_points(hole_pts, hole_r)
+                hole_paths.append(ShapeUtils.build_matplotlib_path(hole_points))
+
+            compound_path = Path.make_compound_path(outer_path, *hole_paths)
+            self._artists.append(PathPatch(path=compound_path, **options))
 
         if not text:
             return

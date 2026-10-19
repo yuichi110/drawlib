@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -44,18 +37,18 @@ inner_fold_pts: list[tuple[float, float]] = [
 ]
 
 # 1. Main frame in Colors.Blue3 with transparent triangular holes
-draw_compound_polygon([lower_hole, upper_hole, outer_frame], color=Colors.Blue3)
+polygon(outer_frame, holes=[lower_hole, upper_hole], style=Icon.fill_style(Colors.Blue3))
 
 # 2. Inner crossbar fold in Colors.Blue2
-polygon(inner_fold_pts, style=no_border_fill(Colors.Blue2))
+polygon(inner_fold_pts, style=Icon.no_border_fill(Colors.Blue2))
 
 # 3. DARK w=1.9 outlines on outer frame, both triangular holes, and inner fold creases
-draw_round_polyline(outer_frame, width_units=w, color=DARK, closed=True)
-draw_round_polyline(upper_hole, width_units=w, color=DARK, closed=True)
-draw_round_polyline(lower_hole, width_units=w, color=DARK, closed=True)
-draw_round_segment((21.32, 22.25), (25.78, 14.77), width_units=w, color=DARK)
-draw_round_segment((65.23, 48.41), (69.23, 40.62), width_units=w, color=DARK)
-draw_round_segment((47.97, 27.86), (55.22, 33.51), width_units=w, color=DARK)
+Icon.draw_round_polyline(outer_frame, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(upper_hole, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(lower_hole, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_segment((21.32, 22.25), (25.78, 14.77), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((65.23, 48.41), (69.23, 40.62), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((47.97, 27.86), (55.22, 33.51), width_units=w, color=Icon.DARK)
 
 save()
 # fmt: on

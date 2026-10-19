@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def build_2d_b(x0: float, y0: float) -> list[tuple[float, float]]:
@@ -133,20 +123,20 @@ hole2 = build_b_counter(front_x + 12.0, front_y + 35.0, front_y + 47.5, front_x 
 
 # Back 'B' layer (lx=35.5, ly=16.0)
 back_fill, back_border = build_back_b_visible(35.5, 16.0)
-polygon(back_fill, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(back_border, width_units=w, color=DARK, closed=False)
+polygon(back_fill, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(back_border, width_units=w, color=Icon.DARK, closed=False)
 
 # Middle 'B' layer (lx=28.5, ly=22.0) and Front 'B' layer (lx=21.5, ly=28.0) with transparent counter cutouts
 for lx, ly, color in (
-    (28.5, 22.0, PASTEL_BLUE_LIGHT),
-    (21.5, 28.0, PASTEL_BLUE),
+    (28.5, 22.0, Icon.PASTEL_BLUE_LIGHT),
+    (21.5, 28.0, Icon.PASTEL_BLUE),
 ):
     b_pts = build_2d_b(lx, ly)
-    draw_compound_polygon([b_pts, hole1, hole2], color=color)
-    draw_round_polyline(b_pts, width_units=w, color=DARK, closed=True)
+    polygon(b_pts, holes=[hole1, hole2], style=Icon.fill_style(color))
+    Icon.draw_round_polyline(b_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Crisp DARK outlines around both transparent D-shaped counter holes
 for hole_pts in (hole1, hole2):
-    draw_round_polyline(hole_pts, width_units=2.0, color=DARK, closed=True)
+    Icon.draw_round_polyline(hole_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

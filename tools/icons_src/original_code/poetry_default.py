@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -33,16 +28,16 @@ outer_silhouette = [(17.99, 90.0), (82.01, 90.0), (81.98, 87.9), (81.87, 85.81),
 # fmt: on
 
 # 1. Four flat pastel origami cone facets
-polygon(bottom_skirt, style=no_border_fill("#6A79CA"))
-polygon(left_facet, style=no_border_fill("#4DA8F2"))
-polygon(fold_wedge, style=no_border_fill("#4A6FEA"))
-polygon(top_facet, style=no_border_fill("#44BCF1"))
+polygon(bottom_skirt, style=Icon.no_border_fill("#6A79CA"))
+polygon(left_facet, style=Icon.no_border_fill("#4DA8F2"))
+polygon(fold_wedge, style=Icon.no_border_fill("#4A6FEA"))
+polygon(top_facet, style=Icon.no_border_fill("#44BCF1"))
 
 # 2. Internal DARK facet borders
 for facet in (left_facet, fold_wedge, top_facet):
-    draw_round_polyline(facet, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(facet, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Crisp DARK outer silhouette border
-draw_round_polyline(outer_silhouette, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_silhouette, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

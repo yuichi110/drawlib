@@ -11,19 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 
@@ -32,18 +22,22 @@ rectangle(
     (24.0, 50.0),
     width=24.0,
     height=48.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_shape, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_shape, shape_r=4.0),
 )
-circle((19.0, 67.0), radius=2.2, style=fill_style(WHITE, border_color=DARK, border_units=w_shape))
+circle((19.0, 67.0), radius=2.2, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape))
 
 # 2. Right WHITE service block ((76, 50), width=24, height=48, shape_r=4.0)
 rectangle(
     (76.0, 50.0),
     width=24.0,
     height=48.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape, shape_r=4.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape, shape_r=4.0),
 )
-circle((71.0, 67.0), radius=2.2, style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_shape))
+circle(
+    (71.0, 67.0),
+    radius=2.2,
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_shape),
+)
 
 # 3. Bold horizontal PASTEL_GREEN lightning-bolt arrow bridging across the center
 bolt_pts = [
@@ -59,7 +53,7 @@ bolt_pts = [
     (43.0, 51.5),
     (27.5, 44.0),
 ]
-polygon(bolt_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(bolt_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(bolt_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(bolt_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 save()

@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 cx = 50.0
 x_l, x_r = 18.0, 82.0
@@ -30,7 +30,7 @@ polygon(
         (cx, y_top - band_h),
         (x_l, y_side_top - band_h),
     ],
-    style=fill_style(GCP_TECH_MED_LIGHT),
+    style=Icon.fill_style(Gcp.TECH_MED_LIGHT),
 )
 polygon(
     [
@@ -39,7 +39,7 @@ polygon(
         (x_r, y_side_top - band_h),
         (cx, y_top - band_h),
     ],
-    style=fill_style(GCP_TECH_MID),
+    style=Icon.fill_style(Gcp.TECH_MID),
 )
 
 # 2. Three front V-bands (top, middle, bottom)
@@ -52,7 +52,7 @@ for y_apex in (43.5, 27.0, 10.5):
             (cx, y_apex),
             (x_l, y_s),
         ],
-        style=fill_style(GCP_TECH_LIGHT),
+        style=Icon.fill_style(Gcp.TECH_LIGHT),
     )
     polygon(
         [
@@ -61,7 +61,7 @@ for y_apex in (43.5, 27.0, 10.5):
             (x_r, y_s),
             (cx, y_apex),
         ],
-        style=fill_style(GCP_TECH_MED_LIGHT),
+        style=Icon.fill_style(Gcp.TECH_MED_LIGHT),
     )
 
 save()

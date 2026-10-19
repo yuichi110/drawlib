@@ -10,15 +10,11 @@
 """Original AI concept icon: perplexity."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 cx, cy = 50.0, 50.0
 scale = 0.95
@@ -65,11 +61,11 @@ outer_frame = _s(raw_outer_frame)
 window_panes = [_s(pane) for pane in raw_window_panes]
 
 # 1. Fill the crystal bar frame in unified Colors.Teal3 with transparent window pane cutouts
-draw_compound_polygon([outer_frame, *window_panes], color=Colors.Teal3)
+polygon(outer_frame, holes=window_panes, style=Icon.fill_style(Colors.Teal3))
 
 # 3. Crisp DARK outlines along outer crystal bar perimeter and inner window pane cutouts
-draw_round_polyline(outer_frame, width_units=2.0, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_frame, width_units=2.0, color=Icon.DARK, closed=True)
 for pane in window_panes:
-    draw_round_polyline(pane, width_units=2.0, color=DARK, closed=True)
+    Icon.draw_round_polyline(pane, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

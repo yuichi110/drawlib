@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 57.5, 58.8
@@ -109,8 +102,8 @@ outer_pts: list[tuple[float, float]] = [
     *_arc_pts(r_arch_out, -30.0, 150.0, 32),
 ]
 
-polygon(outer_pts, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
+polygon(outer_pts, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(outer_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # ------------------------------------------------------------------------------
 # 2. Inner comet head + Leg 3 (Colors.Purple2) with transparent center hole
@@ -126,8 +119,8 @@ inner_pts: list[tuple[float, float]] = [
 ]
 hole_pts = _circle_pts(cx, cy, r_hole, 36)
 
-draw_compound_polygon([inner_pts, hole_pts], color=Colors.Purple2)
-draw_round_polyline(inner_pts, width_units=w, color=DARK, closed=True)
-circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=1.7))
+polygon(inner_pts, holes=[hole_pts], style=Icon.fill_style(Colors.Purple2))
+Icon.draw_round_polyline(inner_pts, width_units=w, color=Icon.DARK, closed=True)
+circle((cx, cy), radius=r_hole, style=Icon.stroke_style(Icon.DARK, width_units=1.7))
 
 save()

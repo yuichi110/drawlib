@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -49,14 +43,14 @@ t_pts = [(85.05, 48.32), (85.05, 54.48), (83.31, 54.48), (83.31, 56.52), (85.11,
 
 # 1. Letters with transparent holes (d, g, e)
 for outer, hole in ((d_outer, d_hole), (g_outer, g_hole), (e_outer, e_hole)):
-    draw_compound_polygon([outer, hole], color=Colors.Blue3)
-    draw_round_polyline(outer, width_units=w, color=DARK, closed=True)
-    draw_round_polyline(hole, width_units=w, color=DARK, closed=True)
+    polygon(outer, holes=[hole], style=Icon.fill_style(Colors.Blue3))
+    Icon.draw_round_polyline(outer, width_units=w, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Solid letter contours (i, c, r, t)
 for pts in (i1_dot, i1_stem, i2_dot, i2_stem, c_pts, r_pts, t_pts):
-    polygon(pts, style=no_border_fill(Colors.Blue3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

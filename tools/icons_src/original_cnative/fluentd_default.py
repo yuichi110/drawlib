@@ -11,18 +11,7 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -43,9 +32,9 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Key bird landmarks
 p_back_wing = (53.0, 62.0)
@@ -68,7 +57,7 @@ upper_wing = [
     *seam_wing_mid_to_center,
     *seam_center_to_back,
 ]
-polygon(upper_wing, style=no_border_fill(PASTEL_BLUE_LIGHT))
+polygon(upper_wing, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
 
 # 2. Lower wing / tail back facet (PASTEL_GREEN)
 lower_wing = [
@@ -77,7 +66,7 @@ lower_wing = [
     *seam_tail_to_center,
     *reversed([p_wing_mid, *seam_wing_mid_to_center[:-1]]),
 ]
-polygon(lower_wing, style=no_border_fill(PASTEL_GREEN))
+polygon(lower_wing, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
 
 # 3. Main body, neck, head & beak facet (PASTEL_BLUE)
 p_head_top = (74.0, 65.5)
@@ -95,11 +84,11 @@ body_pts = [
     *_bezier(p_chin, (69.0, 49.0), (62.0, 34.0), (50.0, 23.0), 18),
     *_bezier((50.0, 23.0), (39.0, 14.5), (25.0, 15.0), p_tail_tip, 18),
 ]
-polygon(body_pts, style=no_border_fill(PASTEL_BLUE))
+polygon(body_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
 
 # Internal facet seams
-draw_round_polyline([p_wing_mid, *seam_wing_mid_to_center], width_units=2.0, color=DARK)
-draw_round_polyline([p_tail_tip, *seam_tail_to_center, *seam_center_to_back], width_units=2.0, color=DARK)
+Icon.draw_round_polyline([p_wing_mid, *seam_wing_mid_to_center], width_units=2.0, color=Icon.DARK)
+Icon.draw_round_polyline([p_tail_tip, *seam_tail_to_center, *seam_center_to_back], width_units=2.0, color=Icon.DARK)
 
 # Outer silhouette border
 outer_pts = [
@@ -114,13 +103,13 @@ outer_pts = [
     *_bezier(p_beak_top, (80.5, 61.5), (78.5, 65.0), p_head_top, 10),
     *_bezier(p_head_top, (66.0, 66.5), (60.0, 59.0), p_back_wing, 16),
 ]
-draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Bird eye
 circle(
     (73.5, 59.0),
     radius=3.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

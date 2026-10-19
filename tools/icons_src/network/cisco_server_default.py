@@ -11,40 +11,34 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, rectangle
-from drawlib.utils import (
-    WHITE,
-    draw_cisco_3d_box,
-    draw_round_segment,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
 # Tall vertical 3D server tower (front: [24..60] x [12..74], offset: +16, +14)
-draw_cisco_3d_box(24.0, 12.0, 36.0, 62.0, 16.0, 14.0)
+Cisco.draw_3d_box(24.0, 12.0, 36.0, 62.0, 16.0, 14.0)
 
 # Upper drive bay 1 bezel and horizontal media slot
 rectangle(
     (42.0, 63.0),
     width=24.0,
     height=8.2,
-    style=stroke_style(WHITE, width_units=1.6),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.6),
 )
-draw_round_segment((34.5, 63.0), (49.5, 63.0), width_units=1.8, color=WHITE)
+Icon.draw_round_segment((34.5, 63.0), (49.5, 63.0), width_units=1.8, color=Icon.WHITE)
 
 # Upper drive bay 2 bezel and horizontal media slot
 rectangle(
     (42.0, 52.8),
     width=24.0,
     height=7.2,
-    style=stroke_style(WHITE, width_units=1.5),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.5),
 )
-draw_round_segment((34.5, 52.8), (49.5, 52.8), width_units=1.7, color=WHITE)
+Icon.draw_round_segment((34.5, 52.8), (49.5, 52.8), width_units=1.7, color=Icon.WHITE)
 
 # Horizontal chassis panel seam lines (matching fileserver.jpg)
-draw_round_segment((25.3, 44.0), (59.5, 44.0), width_units=1.5, color=WHITE)
-draw_round_segment((25.3, 20.0), (59.5, 20.0), width_units=1.5, color=WHITE)
+Icon.draw_round_segment((25.3, 44.0), (59.5, 44.0), width_units=1.5, color=Icon.WHITE)
+Icon.draw_round_segment((25.3, 20.0), (59.5, 20.0), width_units=1.5, color=Icon.WHITE)
 
 # Power button emblem on lower-middle front panel
 arc(
@@ -53,8 +47,8 @@ arc(
     height=8.4,
     angle_start=122.0,
     angle_end=418.0,
-    style=stroke_style(WHITE, width_units=1.7),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.7),
 )
-draw_round_segment((42.0, 32.0), (42.0, 36.6), width_units=1.7, color=WHITE)
+Icon.draw_round_segment((42.0, 32.0), (42.0, 36.6), width_units=1.7, color=Icon.WHITE)
 
 save()

@@ -10,16 +10,12 @@
 """Original Server concept icon: alpine_linux."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -29,12 +25,9 @@ left_mountain_hole = [(52.33, 57.11), (43.06, 66.65), (19.82, 43.68), (20.75, 43
 right_mountain_hole = [(70.61, 41.98), (71.2, 41.63), (71.97, 41.37), (72.68, 41.25), (73.5, 41.24), (74.48, 41.34), (75.46, 41.57), (76.22, 41.83), (77.83, 42.57), (79.56, 43.65), (74.83, 48.26), (59.18, 63.97), (53.87, 58.65)]
 # fmt: on
 
-draw_compound_polygon(
-    [hex_outer, wedge_hole, left_mountain_hole, right_mountain_hole],
-    color="#4D88A8",
-)
+polygon(hex_outer, holes=[wedge_hole, left_mountain_hole, right_mountain_hole], style=Icon.fill_style("#4D88A8"))
 
 for ring in (hex_outer, wedge_hole, left_mountain_hole, right_mountain_hole):
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -12,11 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 dx = 4.95  # Center the 72.1x70.5 OpenStack O-frame at (50.0, 50.0) without ® mark
@@ -30,8 +30,8 @@ _RAW_BLOCKS: list[list[tuple[float, float]]] = [
 
 for raw in _RAW_BLOCKS:
     pts = [(round(x + dx, 2), y) for x, y in raw]
-    polygon(pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -55,12 +45,12 @@ rectangle(
     ((x0 + x1) / 2.0, (y0 + y1) / 2.0),
     width=x1 - x0,
     height=y1 - y0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_outer, shape_r=r_env),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_outer, shape_r=r_env),
 )
 
 # 2. Subtle inner lower fold creases
-draw_round_segment((15.5, 23.5), (36.5, 44.5), width_units=w_inner, color=DARK)
-draw_round_segment((78.5, 23.5), (57.5, 44.5), width_units=w_inner, color=DARK)
+Icon.draw_round_segment((15.5, 23.5), (36.5, 44.5), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment((78.5, 23.5), (57.5, 44.5), width_units=w_inner, color=Icon.DARK)
 
 # 3. Top envelope flap (PASTEL_BLUE_LIGHT)
 flap_pts: list[tuple[float, float]] = [
@@ -70,14 +60,14 @@ flap_pts: list[tuple[float, float]] = [
     *_arc_pts(47.0, 44.6, 4.2, -50.0, -130.0, 10),
     (43.8, 41.8),
 ]
-polygon(flap_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(flap_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(flap_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(flap_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 4. Top-right notification badge circle (PASTEL_GREEN)
 circle(
     (77.5, 69.0),
     radius=10.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_outer),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_outer),
 )
 
 save()

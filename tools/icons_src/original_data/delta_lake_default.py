@@ -12,12 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -38,7 +33,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -69,7 +64,7 @@ upper_delta_pts = [
     *_bezier(p_top_r, (51.8, 88.6), (49.2, 88.6), p_top_l, 12),
 ]
 
-polygon(upper_delta_pts, style=no_border_fill(Colors.Teal3))
+polygon(upper_delta_pts, style=Icon.no_border_fill(Colors.Teal3))
 
 # Lower sweeping lake wave ribbon (Colors.Blue4) with uniform clear channel gap
 p_wave_tip_l = (11.5, 18.0)
@@ -85,11 +80,11 @@ lower_wave_pts = [
     *reversed([p_inner_br, *seam_curve[:-1]]),
 ]
 
-polygon(lower_wave_pts, style=no_border_fill(Colors.Blue4))
+polygon(lower_wave_pts, style=Icon.no_border_fill(Colors.Blue4))
 
 # Internal seam and crisp outer borders
-draw_round_polyline([p_inner_br, *seam_curve], width_units=1.8, color=DARK)
-draw_round_polyline(upper_delta_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(lower_wave_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline([p_inner_br, *seam_curve], width_units=1.8, color=Icon.DARK)
+Icon.draw_round_polyline(upper_delta_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(lower_wave_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

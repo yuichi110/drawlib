@@ -10,16 +10,12 @@
 """Original Code icon: laravel."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_border = 2.0
 
@@ -36,10 +32,10 @@ rings = [r0, r1, r2, r3, r4, r5, r6, r7, r8]
 # fmt: on
 
 # 1. Flat pastel coral-red wireframe cubes with transparent interiors
-draw_compound_polygon(rings, color="#F15749")
+polygon(rings[0], holes=rings[1:], style=Icon.fill_style("#F15749"))
 
 # 2. Crisp DARK border outlines on outer silhouette and all inner cube faces
 for ring in rings:
-    draw_round_polyline(ring, width_units=w_border, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_border, color=Icon.DARK, closed=True)
 
 save()

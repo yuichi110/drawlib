@@ -12,22 +12,12 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.shapes import circle, polygon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 50.0
 r_outer = 40.0
 r_base = 31.0
@@ -56,20 +46,20 @@ hole_pts = [
     for i in range(64)
 ]
 
-draw_compound_polygon([gear_pts, hole_pts], color=PASTEL_BLUE)
-draw_round_polyline(gear_pts, width_units=w, color=DARK, closed=True)
-circle((cx, cy), radius=r_hole, style=stroke_style(DARK, width_units=2.0))
+polygon(gear_pts, holes=[hole_pts], style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(gear_pts, width_units=w, color=Icon.DARK, closed=True)
+circle((cx, cy), radius=r_hole, style=Icon.stroke_style(Icon.DARK, width_units=2.0))
 
 # Two friendly pastel green circular eyes/nodes
 circle(
     (42.0, 50.0),
     radius=5.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 circle(
     (58.0, 50.0),
     radius=5.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

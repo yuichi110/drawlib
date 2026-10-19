@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cy = 50.0
@@ -69,7 +62,7 @@ right_hole = [
     (50.0 + v_off, cy),
     *_arc_pts(cx_r, cy, r_in, 135.0, -135.0, 28),
 ]
-draw_compound_polygon([outer_loop, left_hole, right_hole], color=Colors.Teal3)
+polygon(outer_loop, holes=[left_hole, right_hole], style=Icon.fill_style(Colors.Teal3))
 
 # 2. Under-strand accent segments (Colors.Gray5) flanking the central crossing
 # Top-left accent segment (between 82 deg on left lobe and the over-strand top-left edge)
@@ -79,7 +72,7 @@ tl_accent = [
     (50.0 - v_off, cy),
     *_arc_pts(cx_l, cy, r_in, 45.0, 82.0, 8),
 ]
-polygon(tl_accent, style=no_border_fill(Colors.Gray5))
+polygon(tl_accent, style=Icon.no_border_fill(Colors.Gray5))
 
 # Bottom-right accent segment (between the over-strand bottom-right edge and 262 deg on right lobe)
 br_accent = [
@@ -88,28 +81,28 @@ br_accent = [
     *_arc_pts(cx_r, cy, r_out, 262.0, 225.0, 8),
     (50.0, cy - v_off),
 ]
-polygon(br_accent, style=no_border_fill(Colors.Gray5))
+polygon(br_accent, style=Icon.no_border_fill(Colors.Gray5))
 
 # 3. Internal seam lines for accent bands and over-strand crossing
-draw_round_segment(
+Icon.draw_round_segment(
     (cx_l + r_in * math.cos(math.radians(82.0)), cy + r_in * math.sin(math.radians(82.0))),
     (cx_l + r_out * math.cos(math.radians(82.0)), cy + r_out * math.sin(math.radians(82.0))),
     width_units=1.7,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_segment(
+Icon.draw_round_segment(
     (cx_r + r_in * math.cos(math.radians(262.0)), cy + r_in * math.sin(math.radians(262.0))),
     (cx_r + r_out * math.cos(math.radians(262.0)), cy + r_out * math.sin(math.radians(262.0))),
     width_units=1.7,
-    color=DARK,
+    color=Icon.DARK,
 )
 # Over-strand crossing edges across the middle diamond
-draw_round_segment((50.0 - v_off, cy), (50.0, cy + v_off), width_units=1.8, color=DARK)
-draw_round_segment((50.0, cy - v_off), (50.0 + v_off, cy), width_units=1.8, color=DARK)
+Icon.draw_round_segment((50.0 - v_off, cy), (50.0, cy + v_off), width_units=1.8, color=Icon.DARK)
+Icon.draw_round_segment((50.0, cy - v_off), (50.0 + v_off, cy), width_units=1.8, color=Icon.DARK)
 
 # 5. Inner hole outlines and outer infinity silhouette outline
-draw_round_polyline(left_hole, width_units=1.8, color=DARK, closed=True)
-draw_round_polyline(right_hole, width_units=1.8, color=DARK, closed=True)
-draw_round_polyline(outer_loop, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(left_hole, width_units=1.8, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(right_hole, width_units=1.8, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_loop, width_units=w, color=Icon.DARK, closed=True)
 
 save()

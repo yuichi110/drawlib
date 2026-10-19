@@ -11,39 +11,29 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_iso_cube,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Rounded square VM container card
 rectangle(
     (50.0, 50.0),
     width=74.0,
     height=74.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=10.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=10.0),
 )
 
 # Centered 3D isometric VM cube
-draw_iso_cube(
+Icon.draw_iso_cube(
     50.0,
     50.0,
     radius=24.0,
-    top_color=WHITE,
-    left_color=PASTEL_BLUE,
-    right_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    top_color=Icon.WHITE,
+    left_color=Icon.PASTEL_BLUE,
+    right_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=2.0,
 )
 
@@ -51,7 +41,7 @@ draw_iso_cube(
 circle(
     (74.0, 26.0),
     radius=4.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

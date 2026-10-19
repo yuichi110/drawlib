@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_cylinder_tier,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx = 50.0
@@ -28,20 +22,20 @@ cyl_w = 68.0
 ry = 10.5
 
 # 1. Bottom tier of 2-tier enterprise database cylinder
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     cx=cx,
     y_bottom=22.0,
     width=cyl_w,
     body_h=25.0,
     ry=ry,
     body_color=Colors.Red3,
-    border_color=DARK,
+    border_color=Icon.DARK,
     border_units=w,
     draw_top_cap=False,
 )
 
 # 2. Top tier of 2-tier enterprise database cylinder
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     cx=cx,
     y_bottom=47.0,
     width=cyl_w,
@@ -49,7 +43,7 @@ draw_cylinder_tier(
     ry=ry,
     body_color=Colors.Red3,
     top_color=Colors.Red2,
-    border_color=DARK,
+    border_color=Icon.DARK,
     border_units=w,
     draw_top_cap=True,
 )
@@ -60,13 +54,13 @@ rectangle(
     (cx, badge_cy),
     width=48.0,
     height=25.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.8, shape_r=12.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8, shape_r=12.5),
 )
 rectangle(
     (cx, badge_cy),
     width=30.0,
     height=10.0,
-    style=fill_style(Colors.Red3, border_color=DARK, border_units=1.6, shape_r=5.0),
+    style=Icon.fill_style(Colors.Red3, border_color=Icon.DARK, border_units=1.6, shape_r=5.0),
 )
 
 save()

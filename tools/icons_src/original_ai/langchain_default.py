@@ -13,14 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.94
@@ -75,7 +70,7 @@ top_right_sector = [
 ]
 
 for pts in (top_left_leaf, bottom_right_leaf, bottom_left_sector, top_right_sector):
-    polygon(pts, style=no_border_fill(SKY_BLUE))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(SKY_BLUE))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

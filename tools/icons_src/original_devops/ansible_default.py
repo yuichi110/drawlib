@@ -12,16 +12,9 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _scale_pt(pt: tuple[float, float], s: float = 0.96) -> tuple[float, float]:
@@ -46,7 +39,7 @@ def _arc_pts(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_glyph = 1.6
@@ -55,7 +48,7 @@ w_glyph = 1.6
 circle(
     (50.0, 50.0),
     radius=39.0,
-    style=fill_style(Colors.Gray6, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Gray6, border_color=Icon.DARK, border_units=w),
 )
 
 # 2. Geometric WHITE 'A' glyph (outer silhouette + inner triangular hole)
@@ -78,8 +71,8 @@ raw_hole: list[tuple[float, float]] = [
 a_outer = [_scale_pt(p, 0.96) for p in raw_outer]
 a_hole = [_scale_pt(p, 0.96) for p in raw_hole]
 
-draw_compound_polygon([a_outer, a_hole], color=WHITE)
-draw_round_polyline(a_outer, width_units=w_glyph, color=DARK, closed=True)
-draw_round_polyline(a_hole, width_units=w_glyph, color=DARK, closed=True)
+polygon(a_outer, holes=[a_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(a_outer, width_units=w_glyph, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=w_glyph, color=Icon.DARK, closed=True)
 
 save()

@@ -10,18 +10,13 @@
 """Original Security icon: okta."""
 
 from drawlib.canvas import save
-from drawlib.shapes import circle
+from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.8
@@ -37,10 +32,10 @@ inner_ring = _sc([(50.0, 29.5), (48.31, 29.56), (46.67, 29.77), (45.07, 30.09), 
 # fmt: on
 
 # 1. Pastel blue ring with transparent center hole
-draw_compound_polygon([outer_ring, inner_ring], color=Colors.Blue3)
+polygon(outer_ring, holes=[inner_ring], style=Icon.fill_style(Colors.Blue3))
 
 # 2. Inner & outer circle DARK outlines
-circle((50.0, 50.0), radius=20.5 * s, style=stroke_style(DARK, width_units=w_inner))
-circle((50.0, 50.0), radius=41.0 * s, style=stroke_style(DARK, width_units=w_outer))
+circle((50.0, 50.0), radius=20.5 * s, style=Icon.stroke_style(Icon.DARK, width_units=w_inner))
+circle((50.0, 50.0), radius=41.0 * s, style=Icon.stroke_style(Icon.DARK, width_units=w_outer))
 
 save()

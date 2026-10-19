@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_border = 2.0
 
@@ -42,10 +37,10 @@ shapes = [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
 
 # 1. Flat pastel crimson railway arch and track sleepers
 for pts in shapes:
-    polygon(pts, style=no_border_fill("#DF5252"))
+    polygon(pts, style=Icon.no_border_fill("#DF5252"))
 
 # 2. Crisp DARK outlines around arch and sleepers
 for pts in shapes:
-    draw_round_polyline(pts, width_units=w_border, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_border, color=Icon.DARK, closed=True)
 
 save()

@@ -14,13 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _rounded_diamond(
@@ -113,7 +107,7 @@ def _chevron_branch_polygon(
     return [_to_world(lx, ly) for lx, ly in pts_local]
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -130,14 +124,14 @@ for idx in range(6):
         arm_len=19.5,
         half_w=4.3,
     )
-    polygon(branch_pts, style=no_border_fill(col))
-    draw_round_polyline(branch_pts, width_units=w, color=DARK, closed=True)
+    polygon(branch_pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(branch_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Center rounded diamond (Colors.Teal2) with transparent inner diamond hole
 outer_diamond_pts = _rounded_diamond(cx, cy, side=14.8, r=2.6)
 inner_diamond_pts = _rounded_diamond(cx, cy, side=6.0, r=1.0)
-draw_compound_polygon([outer_diamond_pts, inner_diamond_pts], color=Colors.Teal2)
-draw_round_polyline(outer_diamond_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_diamond_pts, width_units=1.5, color=DARK, closed=True)
+polygon(outer_diamond_pts, holes=[inner_diamond_pts], style=Icon.fill_style(Colors.Teal2))
+Icon.draw_round_polyline(outer_diamond_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_diamond_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 save()

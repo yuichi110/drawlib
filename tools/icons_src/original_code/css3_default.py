@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.3
@@ -50,19 +44,19 @@ three_outline = _sc([
 # fmt: on
 
 # 1. Flat pastel blue shield halves
-polygon(outer_shield, style=no_border_fill("#4F94D4"))
-polygon(inner_right, style=no_border_fill("#54A3E8"))
-draw_round_polyline(inner_right, width_units=w_inner, color=DARK, closed=True)
+polygon(outer_shield, style=Icon.no_border_fill("#4F94D4"))
+polygon(inner_right, style=Icon.no_border_fill("#54A3E8"))
+Icon.draw_round_polyline(inner_right, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 2. WHITE and #F2F4F7 '3' chevrons
-polygon(three_tl, style=no_border_fill("#F2F4F7"))
-polygon(three_ml, style=no_border_fill("#F2F4F7"))
-polygon(three_bl, style=no_border_fill("#F2F4F7"))
-polygon(three_tr_mr, style=no_border_fill(WHITE))
-polygon(three_br, style=no_border_fill(WHITE))
+polygon(three_tl, style=Icon.no_border_fill("#F2F4F7"))
+polygon(three_ml, style=Icon.no_border_fill("#F2F4F7"))
+polygon(three_bl, style=Icon.no_border_fill("#F2F4F7"))
+polygon(three_tr_mr, style=Icon.no_border_fill(Icon.WHITE))
+polygon(three_br, style=Icon.no_border_fill(Icon.WHITE))
 
 # 3. Crisp DARK outlines on '3' and outer shield
-draw_round_polyline(three_outline, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(outer_shield, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(three_outline, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(outer_shield, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

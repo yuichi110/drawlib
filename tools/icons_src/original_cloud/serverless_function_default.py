@@ -11,27 +11,17 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 rectangle(
     (50.0, 50.0),
     width=70.0,
     height=70.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=10.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=10.0),
 )
 
 bolt_pts = [
@@ -42,13 +32,13 @@ bolt_pts = [
     (72.0, 54.0),
     (52.0, 54.0),
 ]
-polygon(bolt_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(bolt_pts, width_units=w, color=DARK, closed=True)
+polygon(bolt_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(bolt_pts, width_units=w, color=Icon.DARK, closed=True)
 
 circle(
     (72.0, 28.0),
     radius=4.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

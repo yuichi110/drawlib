@@ -13,15 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 VERMILION = "#F15F40"
@@ -60,14 +54,14 @@ flame_ring_pts: list[tuple[float, float]] = [
     *_arc(r_in, -225.0, 45.0, 42),
 ]
 
-polygon(flame_ring_pts, style=no_border_fill(VERMILION))
-draw_round_polyline(flame_ring_pts, width_units=w, color=DARK, closed=True)
+polygon(flame_ring_pts, style=Icon.no_border_fill(VERMILION))
+Icon.draw_round_polyline(flame_ring_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Top-right circular flame dot ("#F15F40")
 circle(
     (61.6, 72.2),
     radius=4.3,
-    style=fill_style(VERMILION, border_color=DARK, border_units=w),
+    style=Icon.fill_style(VERMILION, border_color=Icon.DARK, border_units=w),
 )
 
 save()

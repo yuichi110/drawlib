@@ -14,23 +14,11 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    build_sparkle_4pt_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 48.0
 orbit_r = 33.0
 
@@ -39,18 +27,18 @@ circle(
     radius=orbit_r,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w),
     ),
 )
 
-sparkle_pts = build_sparkle_4pt_polygon(cx, cy, outer_r=17.5, inner_r=6.0)
-polygon(sparkle_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(sparkle_pts, width_units=w, color=DARK, closed=True)
+sparkle_pts = Icon.build_sparkle_4pt_polygon(cx, cy, outer_r=17.5, inner_r=6.0)
+polygon(sparkle_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(sparkle_pts, width_units=w, color=Icon.DARK, closed=True)
 circle(
     (cx, cy),
     radius=3.6,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 for angle_deg in (90.0, 210.0, 330.0):
@@ -60,7 +48,7 @@ for angle_deg in (90.0, 210.0, 330.0):
     circle(
         (sx, sy),
         radius=8.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
     )
 
 save()

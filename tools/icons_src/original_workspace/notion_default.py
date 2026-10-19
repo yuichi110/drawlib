@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 w_face = 1.6
 w_n = 1.3
@@ -193,14 +193,14 @@ letter_n = [
     (63.89, 62.20),
 ]
 
-polygon(outer_cube, style=no_border_fill("#525A68"))
-draw_round_polyline(outer_cube, width_units=w, color=DARK, closed=True)
+polygon(outer_cube, style=Icon.no_border_fill("#525A68"))
+Icon.draw_round_polyline(outer_cube, width_units=w, color=Icon.DARK, closed=True)
 
 for face in (top_face, front_face):
-    polygon(face, style=no_border_fill(WHITE))
-    draw_round_polyline(face, width_units=w_face, color=DARK, closed=True)
+    polygon(face, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(face, width_units=w_face, color=Icon.DARK, closed=True)
 
-polygon(letter_n, style=no_border_fill("#525A68"))
-draw_round_polyline(letter_n, width_units=w_n, color=DARK, closed=True)
+polygon(letter_n, style=Icon.no_border_fill("#525A68"))
+Icon.draw_round_polyline(letter_n, width_units=w_n, color=Icon.DARK, closed=True)
 
 save()

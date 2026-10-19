@@ -14,12 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _corner_fillet(
@@ -84,7 +79,7 @@ def _build_speed_pill(x_bl: float) -> list[tuple[float, float]]:
     ]
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -97,7 +92,7 @@ pills = [
 
 for x_start, color in pills:
     pts = _build_speed_pill(x_start)
-    polygon(pts, style=no_border_fill(color))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(color))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

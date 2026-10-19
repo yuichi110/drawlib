@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import arc, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    WHITE,
-    draw_cap,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _build_cloud(
@@ -77,8 +67,8 @@ bumps = [
 ]
 cloud_pts = _build_cloud(bumps)
 
-polygon(cloud_pts, style=fill_style(PASTEL_BLUE))
-draw_round_polyline(cloud_pts, width_units=w, color=DARK, closed=True)
+polygon(cloud_pts, style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(cloud_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Crisp white inner highlight arc on the top-left crown
 arc(
@@ -87,10 +77,10 @@ arc(
     height=29.0,
     angle_start=82.0,
     angle_end=158.0,
-    style=stroke_style(WHITE, width_units=3.2),
+    style=Icon.stroke_style(Icon.WHITE, width_units=3.2),
 )
 for deg in (82.0, 158.0):
     rad = math.radians(deg)
-    draw_cap((43.0 + 14.5 * math.cos(rad), 58.0 + 14.5 * math.sin(rad)), width_units=3.2, color=WHITE)
+    Icon.draw_cap((43.0 + 14.5 * math.cos(rad), 58.0 + 14.5 * math.sin(rad)), width_units=3.2, color=Icon.WHITE)
 
 save()

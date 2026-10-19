@@ -11,27 +11,18 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    WHITE,
-    draw_iso_cube,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Top-left folder/group tab behind the main card
 rectangle(
     (32.0, 81.0),
     width=28.0,
     height=10.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=4.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=4.0),
 )
 
 # Main rounded VM group container card
@@ -39,7 +30,7 @@ rectangle(
     (50.0, 48.0),
     width=76.0,
     height=66.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w, shape_r=8.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w, shape_r=8.0),
 )
 
 # Three coordinated 3D VM cubes arranged in a triangle
@@ -49,14 +40,14 @@ vm_coords = (
     (67.0, 38.0),
 )
 for cx, cy in vm_coords:
-    draw_iso_cube(
+    Icon.draw_iso_cube(
         cx,
         cy,
         radius=13.5,
-        top_color=WHITE,
-        left_color=PASTEL_BLUE,
-        right_color=PASTEL_BLUE_LIGHT,
-        border_color=DARK,
+        top_color=Icon.WHITE,
+        left_color=Icon.PASTEL_BLUE,
+        right_color=Icon.PASTEL_BLUE_LIGHT,
+        border_color=Icon.DARK,
         border_units=2.0,
     )
 

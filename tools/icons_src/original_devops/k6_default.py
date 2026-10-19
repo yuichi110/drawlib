@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.6
@@ -44,8 +37,8 @@ mountain_pts = _s(
         (74.13, 91.0),
     ]
 )
-polygon(mountain_pts, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(mountain_pts, width_units=w, color=DARK, closed=True)
+polygon(mountain_pts, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(mountain_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Crisp WHITE 'k' polygon
 k_pts = _s(
@@ -64,8 +57,8 @@ k_pts = _s(
         (42.61, 22.13),
     ]
 )
-polygon(k_pts, style=no_border_fill(WHITE))
-draw_round_polyline(k_pts, width_units=w_in, color=DARK, closed=True)
+polygon(k_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(k_pts, width_units=w_in, color=Icon.DARK, closed=True)
 
 # 3. Crisp WHITE '6' compound polygon (transparent inner counter showing Colors.Purple3)
 six_outer = _s(
@@ -119,8 +112,8 @@ six_hole = _s(
     ]
 )
 
-draw_compound_polygon([six_outer, six_hole], color=WHITE)
-draw_round_polyline(six_outer, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(six_hole, width_units=w_in, color=DARK, closed=True)
+polygon(six_outer, holes=[six_hole], style=Icon.fill_style(Icon.WHITE))
+Icon.draw_round_polyline(six_outer, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(six_hole, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

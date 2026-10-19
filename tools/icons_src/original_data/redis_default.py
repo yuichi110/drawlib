@@ -14,15 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import ellipse, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _rounded_diamond_half(
@@ -86,20 +78,20 @@ def _draw_platter(cx: float, cy: float, rx: float, ry: float, th: float, r_corne
 
     # Side skirt polygon using exact tangent endpoints bot_half[0] and bot_half[-1]
     skirt_pts = [*bot_half, *reversed(bot_skirt)]
-    polygon(skirt_pts, style=no_border_fill(Colors.Red4))
-    draw_round_polyline(
+    polygon(skirt_pts, style=Icon.no_border_fill(Colors.Red4))
+    Icon.draw_round_polyline(
         [bot_half[0], *bot_skirt, bot_half[-1]],
         width_units=w_border,
-        color=DARK,
+        color=Icon.DARK,
     )
 
     # Top diamond polygon
     full_top = [*top_half, *bot_half[1:-1]]
-    polygon(full_top, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(full_top, width_units=w_border, color=DARK, closed=True)
+    polygon(full_top, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(full_top, width_units=w_border, color=Icon.DARK, closed=True)
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx = 50.0
@@ -118,7 +110,7 @@ ellipse(
     (34.5, 68.5),
     width=15.0,
     height=7.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.5),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.5),
 )
 
 # (b) Top: WHITE 5-point isometric star
@@ -128,8 +120,8 @@ for i in range(10):
     ang = math.radians(90.0 + i * 36.0)
     r_s = 8.8 if i % 2 == 0 else 3.9
     star_pts.append((star_cx + r_s * math.cos(ang), star_cy + r_s * 0.54 * math.sin(ang)))
-polygon(star_pts, style=no_border_fill(WHITE))
-draw_round_polyline(star_pts, width_units=1.5, color=DARK, closed=True)
+polygon(star_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(star_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 # (c) Bottom: WHITE triangle token
 tri_pts = [
@@ -137,8 +129,8 @@ tri_pts = [
     (54.5, 63.8),
     (49.5, 56.8),
 ]
-polygon(tri_pts, style=no_border_fill(WHITE))
-draw_round_polyline(tri_pts, width_units=1.5, color=DARK, closed=True)
+polygon(tri_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(tri_pts, width_units=1.5, color=Icon.DARK, closed=True)
 
 # (d) Right: Colors.Red2 / Colors.Red4 isometric diamond/cube recess
 cube_cx, cube_cy = 65.5, 68.5
@@ -147,9 +139,9 @@ c_top = (cube_cx, cube_cy + cry)
 c_right = (cube_cx + crx, cube_cy)
 c_bot = (cube_cx, cube_cy - cry)
 c_left = (cube_cx - crx, cube_cy)
-polygon([c_top, c_right, c_bot, c_left], style=no_border_fill(Colors.Red2))
-polygon([c_top, c_right, c_bot], style=no_border_fill(Colors.Red4))
-draw_round_segment(c_top, c_bot, width_units=1.5, color=DARK)
-draw_round_polyline([c_top, c_right, c_bot, c_left], width_units=1.5, color=DARK, closed=True)
+polygon([c_top, c_right, c_bot, c_left], style=Icon.no_border_fill(Colors.Red2))
+polygon([c_top, c_right, c_bot], style=Icon.no_border_fill(Colors.Red4))
+Icon.draw_round_segment(c_top, c_bot, width_units=1.5, color=Icon.DARK)
+Icon.draw_round_polyline([c_top, c_right, c_bot, c_left], width_units=1.5, color=Icon.DARK, closed=True)
 
 save()

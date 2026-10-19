@@ -13,17 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -83,12 +75,12 @@ handset_pts: list[tuple[float, float]] = [
     *_local_arc(22.0, 5.5, r_pad, 90.0, 0.0, 6),
 ]
 
-polygon(handset_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(handset_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(handset_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(handset_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # Subtle inner receiver cap lines on earpiece & mouthpiece
-draw_round_segment(_to_xy(-22.5, 4.5), _to_xy(-14.5, 4.5), width_units=w_inner, color=DARK)
-draw_round_segment(_to_xy(14.5, 4.5), _to_xy(22.5, 4.5), width_units=w_inner, color=DARK)
+Icon.draw_round_segment(_to_xy(-22.5, 4.5), _to_xy(-14.5, 4.5), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment(_to_xy(14.5, 4.5), _to_xy(22.5, 4.5), width_units=w_inner, color=Icon.DARK)
 
 
 # 2. Three concentric PASTEL_GREEN / DARK sound wave arcs radiating to top-right
@@ -131,7 +123,7 @@ def _wave_band(
 
 for r_wave in (14.5, 24.0, 33.5):
     w_pts = _wave_band(51.5, 51.5, r_wave, 2.1, 14.0, 76.0)
-    polygon(w_pts, style=no_border_fill(PASTEL_GREEN))
-    draw_round_polyline(w_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(w_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+    Icon.draw_round_polyline(w_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

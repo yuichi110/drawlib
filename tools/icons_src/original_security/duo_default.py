@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -46,7 +41,7 @@ o_bot = _sc([(77.79, 36.77), (76.74, 36.81), (75.71, 36.93), (74.7, 37.13), (73.
 
 # 1. Pastel green 'DUO' geometric shapes + DARK 1.7 outlines
 for shape_pts in (d_bot, d_top, u_left, u_right, o_top, o_bot):
-    polygon(shape_pts, style=no_border_fill(Colors.Green3))
-    draw_round_polyline(shape_pts, width_units=w, color=DARK, closed=True)
+    polygon(shape_pts, style=Icon.no_border_fill(Colors.Green3))
+    Icon.draw_round_polyline(shape_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

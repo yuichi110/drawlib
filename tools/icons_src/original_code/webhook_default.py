@@ -13,19 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 w_line = 2.0
@@ -45,18 +35,18 @@ def _arc_points(
 
 # 1. Connector stem between event trigger node and hook eye
 eye_cx, eye_cy = 44.0, 52.5
-draw_round_segment((28.0, 72.0), (eye_cx, eye_cy), width_units=w_line, color=DARK)
+Icon.draw_round_segment((28.0, 72.0), (eye_cx, eye_cy), width_units=w_line, color=Icon.DARK)
 
 # 2. Top-left PASTEL_BLUE event trigger node at (28, 72), r=11.0
 circle(
     (28.0, 72.0),
     radius=11.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_shape),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_shape),
 )
 circle(
     (28.0, 72.0),
     radius=4.2,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape),
 )
 
 # 3. Bold interlocking PASTEL_GREEN curved hook shape curving around (58, 38)
@@ -81,14 +71,14 @@ hook_pts: list[tuple[float, float]] = [
     *_arc_points(bend_cx, bend_cy, r_in, 360.0 + tip_angle, 180.0, 24)[1:],
 ]
 
-polygon(hook_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(hook_pts, width_units=w_shape, color=DARK, closed=True)
+polygon(hook_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(hook_pts, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 4. WHITE ring eye hole inside hook head
 circle(
     (eye_cx, eye_cy),
     radius=3.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape),
 )
 
 save()

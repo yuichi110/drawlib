@@ -10,13 +10,9 @@
 """Original DevOps concept icon: vault."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _square_pts(cx: float, cy: float, half: float) -> list[tuple[float, float]]:
@@ -29,7 +25,7 @@ def _square_pts(cx: float, cy: float, half: float) -> list[tuple[float, float]]:
     ]
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_hole = 1.4
@@ -56,9 +52,9 @@ for ry in row_ys:
 holes.append(_square_pts(50.0, 58.0 - step, half_sq))
 
 # 3. Compound Amber2 fill with transparent holes + DARK borders
-draw_compound_polygon([tri_pts, *holes], color=Colors.Amber3)
-draw_round_polyline(tri_pts, width_units=w, color=DARK, closed=True)
+polygon(tri_pts, holes=holes, style=Icon.fill_style(Colors.Amber3))
+Icon.draw_round_polyline(tri_pts, width_units=w, color=Icon.DARK, closed=True)
 for hole in holes:
-    draw_round_polyline(hole, width_units=w_hole, color=DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_hole, color=Icon.DARK, closed=True)
 
 save()

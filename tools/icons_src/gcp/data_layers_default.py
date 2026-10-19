@@ -11,21 +11,14 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    GCP_TECH_LIGHT,
-    GCP_TECH_MED_LIGHT,
-    GCP_TECH_MID,
-    draw_compound_polygon,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Gcp, Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-polygon([(46.77, 84.03), (53.23, 84.03), (53.23, 64.04), (46.77, 64.04)], style=fill_style(GCP_TECH_LIGHT))
-draw_compound_polygon([[(50.0, 12.09), (8.0, 40.01), (50.0, 67.92), (92.0, 40.01)], [(19.85, 40.01), (50.0, 19.85), (80.15, 40.01), (50.0, 60.17)]], color=GCP_TECH_MED_LIGHT)
-draw_compound_polygon([[(50.0, 32.08), (8.0, 59.99), (50.0, 87.91), (92.0, 59.99)], [(19.85, 59.99), (50.0, 39.83), (80.15, 59.99), (50.0, 80.15)]], color=GCP_TECH_LIGHT)
-polygon([(76.97, 50.0), (50.0, 67.92), (23.03, 50.0), (50.0, 32.08)], style=fill_style(GCP_TECH_MID))
+Icon.setup()
+polygon([(46.77, 84.03), (53.23, 84.03), (53.23, 64.04), (46.77, 64.04)], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(50.0, 12.09), (8.0, 40.01), (50.0, 67.92), (92.0, 40.01)], holes=[[(19.85, 40.01), (50.0, 19.85), (80.15, 40.01), (50.0, 60.17)]], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
+polygon([(50.0, 32.08), (8.0, 59.99), (50.0, 87.91), (92.0, 59.99)], holes=[[(19.85, 59.99), (50.0, 39.83), (80.15, 59.99), (50.0, 80.15)]], style=Icon.fill_style(Gcp.TECH_LIGHT))
+polygon([(76.97, 50.0), (50.0, 67.92), (23.03, 50.0), (50.0, 32.08)], style=Icon.fill_style(Gcp.TECH_MID))
 save()
 # fmt: on

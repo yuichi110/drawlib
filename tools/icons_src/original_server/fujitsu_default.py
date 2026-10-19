@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inf_halo = 1.9
@@ -40,18 +35,18 @@ letter_polys: list[list[tuple[float, float]]] = [
 ]
 
 # 1. Infinity loop above J and I with halo + fill + inner stroke
-draw_round_polyline(infinity_pts[:81], width_units=w_inf_halo, color=DARK)
-draw_round_polyline(infinity_pts[81:250], width_units=w_inf_halo, color=DARK)
-draw_round_polyline([*infinity_pts[250:], infinity_pts[0]], width_units=w_inf_halo, color=DARK)
-polygon(infinity_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(infinity_pts[:81], width_units=w_inf_in, color=DARK)
-draw_round_polyline(infinity_pts[81:250], width_units=w_inf_in, color=DARK)
-draw_round_polyline([*infinity_pts[250:], infinity_pts[0]], width_units=w_inf_in, color=DARK)
+Icon.draw_round_polyline(infinity_pts[:81], width_units=w_inf_halo, color=Icon.DARK)
+Icon.draw_round_polyline(infinity_pts[81:250], width_units=w_inf_halo, color=Icon.DARK)
+Icon.draw_round_polyline([*infinity_pts[250:], infinity_pts[0]], width_units=w_inf_halo, color=Icon.DARK)
+polygon(infinity_pts, style=Icon.no_border_fill(Colors.Red3))
+Icon.draw_round_polyline(infinity_pts[:81], width_units=w_inf_in, color=Icon.DARK)
+Icon.draw_round_polyline(infinity_pts[81:250], width_units=w_inf_in, color=Icon.DARK)
+Icon.draw_round_polyline([*infinity_pts[250:], infinity_pts[0]], width_units=w_inf_in, color=Icon.DARK)
 
 # 2. FUJITSU letters
 for pts in letter_polys:
-    polygon(pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

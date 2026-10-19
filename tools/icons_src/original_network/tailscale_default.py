@@ -12,9 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle
 from drawlib.styles import Colors
-from drawlib.utils import DARK, fill_style, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 r_dot = 10.23
@@ -34,7 +34,7 @@ for yc in ys:
         circle(
             (xc, yc),
             radius=r_dot,
-            style=fill_style(fill_col, border_color=DARK, border_units=w),
+            style=Icon.fill_style(fill_col, border_color=Icon.DARK, border_units=w),
         )
 
 save()

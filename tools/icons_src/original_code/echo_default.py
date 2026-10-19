@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_facet = 2.0
 s = 40.0 / 41.0
@@ -73,16 +68,16 @@ right_cyan_facets = [
 # fmt: on
 
 for pts in top_slate_facets:
-    polygon(pts, style=no_border_fill(TOP_SLATE))
+    polygon(pts, style=Icon.no_border_fill(TOP_SLATE))
 
 for pts in top_gray_facets:
-    polygon(pts, style=no_border_fill(TOP_GRAY))
+    polygon(pts, style=Icon.no_border_fill(TOP_GRAY))
 
 for pts in left_cyan_facets:
-    polygon(pts, style=no_border_fill(LEFT_CYAN))
+    polygon(pts, style=Icon.no_border_fill(LEFT_CYAN))
 
 for pts in right_cyan_facets:
-    polygon(pts, style=no_border_fill(RIGHT_CYAN))
+    polygon(pts, style=Icon.no_border_fill(RIGHT_CYAN))
 
 for pts in (
     *top_slate_facets,
@@ -90,6 +85,6 @@ for pts in (
     *left_cyan_facets,
     *right_cyan_facets,
 ):
-    draw_round_polyline(pts, width_units=w_facet, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w_facet, color=Icon.DARK, closed=True)
 
 save()

@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_seam = 1.45
@@ -38,28 +32,28 @@ def _iso(ix: float, iy: float) -> tuple[float, float]:
 
 
 # 1. Letter "J" facets (Blue2 top faces, Blue3 front/right faces)
-polygon([_iso(1, 2), _iso(2, 3), _iso(4, 3), _iso(3, 2)], style=no_border_fill(Colors.Blue3))
-polygon([_iso(0, 1), _iso(1, 2), _iso(7, 2), _iso(6, 1)], style=no_border_fill(Colors.Blue3))
-polygon([_iso(5, 2), _iso(9, 6), _iso(11, 6), _iso(7, 2)], style=no_border_fill(Colors.Blue3))
-polygon([_iso(0, 1), _iso(6, 1), _iso(7, 0), _iso(1, 0)], style=no_border_fill(Colors.Blue4))
-polygon([_iso(3, 2), _iso(4, 3), _iso(5, 2)], style=no_border_fill(Colors.Blue4))
+polygon([_iso(1, 2), _iso(2, 3), _iso(4, 3), _iso(3, 2)], style=Icon.no_border_fill(Colors.Blue3))
+polygon([_iso(0, 1), _iso(1, 2), _iso(7, 2), _iso(6, 1)], style=Icon.no_border_fill(Colors.Blue3))
+polygon([_iso(5, 2), _iso(9, 6), _iso(11, 6), _iso(7, 2)], style=Icon.no_border_fill(Colors.Blue3))
+polygon([_iso(0, 1), _iso(6, 1), _iso(7, 0), _iso(1, 0)], style=Icon.no_border_fill(Colors.Blue4))
+polygon([_iso(3, 2), _iso(4, 3), _iso(5, 2)], style=Icon.no_border_fill(Colors.Blue4))
 
 # 2. Letter "A" facets (Teal2 top crossbar, Teal3 right-facing walls, Teal4 down-left undersides)
-polygon([_iso(7, 2), _iso(8, 3), _iso(12, 3), _iso(11, 2)], style=no_border_fill(Colors.Teal2))
-polygon([_iso(6, 1), _iso(7, 2), _iso(8, 1), _iso(7, 0)], style=no_border_fill(Colors.Teal3))
-polygon([_iso(8, 3), _iso(10, 5), _iso(11, 4), _iso(10, 3)], style=no_border_fill(Colors.Teal3))
-polygon([_iso(10, 5), _iso(12, 5), _iso(14, 3), _iso(12, 3)], style=no_border_fill(Colors.Teal4))
-polygon([_iso(7, 2), _iso(11, 2), _iso(10, 1), _iso(8, 1)], style=no_border_fill(Colors.Teal4))
-polygon([_iso(14, 1), _iso(15, 2), _iso(17, 0), _iso(15, 0)], style=no_border_fill(Colors.Teal4))
+polygon([_iso(7, 2), _iso(8, 3), _iso(12, 3), _iso(11, 2)], style=Icon.no_border_fill(Colors.Teal2))
+polygon([_iso(6, 1), _iso(7, 2), _iso(8, 1), _iso(7, 0)], style=Icon.no_border_fill(Colors.Teal3))
+polygon([_iso(8, 3), _iso(10, 5), _iso(11, 4), _iso(10, 3)], style=Icon.no_border_fill(Colors.Teal3))
+polygon([_iso(10, 5), _iso(12, 5), _iso(14, 3), _iso(12, 3)], style=Icon.no_border_fill(Colors.Teal4))
+polygon([_iso(7, 2), _iso(11, 2), _iso(10, 1), _iso(8, 1)], style=Icon.no_border_fill(Colors.Teal4))
+polygon([_iso(14, 1), _iso(15, 2), _iso(17, 0), _iso(15, 0)], style=Icon.no_border_fill(Colors.Teal4))
 
 # 3. Letter "X" facets (Purple2 top/left faces, Purple3 right faces, Purple4 bottom foot)
-polygon([_iso(10, 5), _iso(11, 6), _iso(13, 6), _iso(12, 5)], style=no_border_fill(Colors.Purple2))
-polygon([_iso(10, 1), _iso(12, 3), _iso(14, 3), _iso(12, 1)], style=no_border_fill(Colors.Purple2))
-polygon([_iso(15, 4), _iso(14, 5), _iso(15, 6), _iso(17, 6)], style=no_border_fill(Colors.Purple2))
-polygon([_iso(12, 5), _iso(13, 6), _iso(18, 1), _iso(17, 0)], style=no_border_fill(Colors.Purple3))
-polygon([_iso(15, 4), _iso(17, 6), _iso(18, 5), _iso(16, 3)], style=no_border_fill(Colors.Purple3))
-polygon([_iso(12, 1), _iso(14, 3), _iso(15, 2), _iso(13, 0)], style=no_border_fill(Colors.Purple3))
-polygon([_iso(10, 1), _iso(12, 1), _iso(13, 0), _iso(11, 0)], style=no_border_fill(Colors.Purple4))
+polygon([_iso(10, 5), _iso(11, 6), _iso(13, 6), _iso(12, 5)], style=Icon.no_border_fill(Colors.Purple2))
+polygon([_iso(10, 1), _iso(12, 3), _iso(14, 3), _iso(12, 1)], style=Icon.no_border_fill(Colors.Purple2))
+polygon([_iso(15, 4), _iso(14, 5), _iso(15, 6), _iso(17, 6)], style=Icon.no_border_fill(Colors.Purple2))
+polygon([_iso(12, 5), _iso(13, 6), _iso(18, 1), _iso(17, 0)], style=Icon.no_border_fill(Colors.Purple3))
+polygon([_iso(15, 4), _iso(17, 6), _iso(18, 5), _iso(16, 3)], style=Icon.no_border_fill(Colors.Purple3))
+polygon([_iso(12, 1), _iso(14, 3), _iso(15, 2), _iso(13, 0)], style=Icon.no_border_fill(Colors.Purple3))
+polygon([_iso(10, 1), _iso(12, 1), _iso(13, 0), _iso(11, 0)], style=Icon.no_border_fill(Colors.Purple4))
 
 # 4. Inner triangle hole of "A" (transparent cutout)
 a_hole = [_iso(10, 3), _iso(11, 4), _iso(12, 3)]
@@ -95,10 +89,10 @@ seams = [
     (_iso(15, 4), _iso(16, 3)),
 ]
 for p1, p2 in seams:
-    draw_round_segment(p1, p2, width_units=w_seam, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w_seam, color=Icon.DARK)
 
 # 6. Bold outer silhouette and inner "A" hole borders
-draw_round_polyline(a_hole, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(a_hole, width_units=w, color=Icon.DARK, closed=True)
 
 outer_contour = [
     _iso(0, 1),
@@ -123,6 +117,6 @@ outer_contour = [
     _iso(7, 0),
     _iso(1, 0),
 ]
-draw_round_polyline(outer_contour, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_contour, width_units=w, color=Icon.DARK, closed=True)
 
 save()

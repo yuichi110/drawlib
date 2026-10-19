@@ -12,29 +12,19 @@
 import math
 
 from drawlib.canvas import save
-from drawlib.shapes import circle, ellipse
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.shapes import circle, ellipse, polygon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Perspective edge ground ring
 ellipse(
     (50.0, 22.0),
     width=64.0,
     height=18.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
 )
 
 # Teardrop map pin geometry
@@ -62,14 +52,14 @@ hole_pts = [
     for i in range(steps)
 ]
 
-draw_compound_polygon([pin_pts, hole_pts], color=PASTEL_BLUE)
-draw_round_polyline(pin_pts, width_units=w, color=DARK, closed=True)
+polygon(pin_pts, holes=[hole_pts], style=Icon.fill_style(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(pin_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Inner pin cutout circle border
 circle(
     (cx, cy),
     radius=hole_r,
-    style=stroke_style(DARK, width_units=2.0),
+    style=Icon.stroke_style(Icon.DARK, width_units=2.0),
 )
 
 save()

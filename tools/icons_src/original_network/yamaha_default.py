@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_letter = 2.0
 w_roundel = 0.65
@@ -54,24 +48,24 @@ a_letters: list[list[list[tuple[float, float]]]] = [
 ]
 
 # 1. Roundel outer rim in Colors.Purple3 with DARK outlines
-draw_compound_polygon(roundel_rings, color=Colors.Purple3)
+polygon(roundel_rings[0], holes=[roundel_rings[1]], style=Icon.fill_style(Colors.Purple3))
 for ring in roundel_rings:
-    draw_round_polyline(ring, width_units=w_roundel, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_roundel, color=Icon.DARK, closed=True)
 
 # 2. Three crossed tuning forks in Colors.Purple3 with fine DARK outlines
-draw_compound_polygon(forks_rings, color=Colors.Purple3)
+polygon(forks_rings[0], holes=forks_rings[1:], style=Icon.fill_style(Colors.Purple3))
 for ring in forks_rings:
-    draw_round_polyline(ring, width_units=w_forks, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w_forks, color=Icon.DARK, closed=True)
 
 # 3. YAMAHA letters in Colors.Purple3 with DARK w=1.25 outlines
 for pts in simple_letters:
-    polygon(pts, style=no_border_fill(Colors.Purple3))
-    draw_round_polyline(pts, width_units=w_letter, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Purple3))
+    Icon.draw_round_polyline(pts, width_units=w_letter, color=Icon.DARK, closed=True)
 
 for compound in a_letters:
-    draw_compound_polygon(compound, color=Colors.Purple3)
+    polygon(compound[0], holes=compound[1:], style=Icon.fill_style(Colors.Purple3))
     for ring in compound:
-        draw_round_polyline(ring, width_units=w_letter, color=DARK, closed=True)
+        Icon.draw_round_polyline(ring, width_units=w_letter, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

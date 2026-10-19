@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -39,12 +34,12 @@ k_arms = _sc([(64.68, 60.58), (57.27, 60.58), (48.41, 48.81), (48.41, 45.9), (57
 # fmt: on
 
 # 1. Pastel green hexagon with DARK w=1.9 border
-polygon(hex_outer, style=no_border_fill(Colors.Green3))
-draw_round_polyline(hex_outer, width_units=w_outer, color=DARK, closed=True)
+polygon(hex_outer, style=Icon.no_border_fill(Colors.Green3))
+Icon.draw_round_polyline(hex_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Dark slate 'k' mark with DARK 1.5 outline
 for part in (k_stem, k_arms):
-    polygon(part, style=no_border_fill(Colors.Gray6))
-    draw_round_polyline(part, width_units=w_inner, color=DARK, closed=True)
+    polygon(part, style=Icon.no_border_fill(Colors.Gray6))
+    Icon.draw_round_polyline(part, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

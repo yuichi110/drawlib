@@ -12,15 +12,15 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle
 from drawlib.styles import Colors
-from drawlib.utils import DARK, fill_style, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
 # 3 circles from Varnish logo geometry
-circle((71.33, 71.69), radius=19.31, style=fill_style(Colors.Blue3, border_color=DARK, border_units=w))
-circle((40.73, 22.92), radius=13.92, style=fill_style(Colors.Blue2, border_color=DARK, border_units=w))
-circle((17.40, 54.67), radius=8.04, style=fill_style(Colors.Blue3, border_color=DARK, border_units=w))
+circle((71.33, 71.69), radius=19.31, style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w))
+circle((40.73, 22.92), radius=13.92, style=Icon.fill_style(Colors.Blue2, border_color=Icon.DARK, border_units=w))
+circle((17.40, 54.67), radius=8.04, style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=w))
 
 save()

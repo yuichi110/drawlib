@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -49,15 +42,15 @@ seams = [
 # fmt: on
 
 # 1. Flat pastel yellow and orange CO ring segments
-draw_compound_polygon([o_outer, o_hole], color=YELLOW)
-polygon(o_orange_arc, style=no_border_fill(ORANGE))
-polygon(c_full, style=no_border_fill(YELLOW))
-polygon(c_orange_arc, style=no_border_fill(ORANGE))
+polygon(o_outer, holes=[o_hole], style=Icon.fill_style(YELLOW))
+polygon(o_orange_arc, style=Icon.no_border_fill(ORANGE))
+polygon(c_full, style=Icon.no_border_fill(YELLOW))
+polygon(c_orange_arc, style=Icon.no_border_fill(ORANGE))
 
 # 2. Radial segment dividers and ring outlines
 for p1, p2 in seams:
-    draw_round_segment(p1, p2, width_units=w, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w, color=Icon.DARK)
 for contour in (o_outer, o_hole, c_full):
-    draw_round_polyline(contour, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=w, color=Icon.DARK, closed=True)
 
 save()

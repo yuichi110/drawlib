@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.8
@@ -39,24 +32,24 @@ dimple2 = [(51.77, 79.21), (51.64, 79.32), (51.71, 79.47), (52.31, 79.74), (53.6
 # fmt: on
 
 # 1. White face/collar base circle
-circle((50.0, 50.0), radius=41.0, style=no_border_fill(WHITE))
+circle((50.0, 50.0), radius=41.0, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Slate-navy circular shadow arch + DARK dividing contour
-polygon(shadow_arch, style=no_border_fill(shadow_navy))
-draw_round_polyline(collar_line, width_units=w_inner, color=DARK, closed=False)
+polygon(shadow_arch, style=Icon.no_border_fill(shadow_navy))
+Icon.draw_round_polyline(collar_line, width_units=w_inner, color=Icon.DARK, closed=False)
 
 # 3. Mouth squiggle in DARK
-polygon(mouth, style=no_border_fill(DARK))
+polygon(mouth, style=Icon.no_border_fill(Icon.DARK))
 
 # 4. Pastel coral-red fedora hat + DARK hatband, crown dimples, and hat outline
-polygon(hat_outer, style=no_border_fill(Colors.Red3))
-polygon(hatband, style=no_border_fill(DARK))
-polygon(dimple1, style=no_border_fill(DARK))
-polygon(dimple2, style=no_border_fill(DARK))
-draw_round_polyline(hat_outer, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(hatband, width_units=1.2, color=DARK, closed=True)
+polygon(hat_outer, style=Icon.no_border_fill(Colors.Red3))
+polygon(hatband, style=Icon.no_border_fill(Icon.DARK))
+polygon(dimple1, style=Icon.no_border_fill(Icon.DARK))
+polygon(dimple2, style=Icon.no_border_fill(Icon.DARK))
+Icon.draw_round_polyline(hat_outer, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(hatband, width_units=1.2, color=Icon.DARK, closed=True)
 
 # 5. Clean circular DARK outer border
-circle((50.0, 50.0), radius=41.0, style=stroke_style(DARK, width_units=w_outer))
+circle((50.0, 50.0), radius=41.0, style=Icon.stroke_style(Icon.DARK, width_units=w_outer))
 
 save()

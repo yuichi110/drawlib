@@ -13,23 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    draw_compound_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 50.0
 
 
@@ -59,9 +47,9 @@ inner_c = [
     (cx + 31.5 * math.cos(math.radians(360.0 * i / 72)), cy + 31.5 * math.sin(math.radians(360.0 * i / 72)))
     for i in range(72)
 ]
-draw_compound_polygon([outer_c, inner_c], color=PASTEL_BLUE)
-circle((cx, cy), radius=40.5, style=stroke_style(DARK, width_units=w))
-circle((cx, cy), radius=31.5, style=stroke_style(DARK, width_units=2.0))
+polygon(outer_c, holes=[inner_c], style=Icon.fill_style(Icon.PASTEL_BLUE))
+circle((cx, cy), radius=40.5, style=Icon.stroke_style(Icon.DARK, width_units=w))
+circle((cx, cy), radius=31.5, style=Icon.stroke_style(Icon.DARK, width_units=2.0))
 
 # 2. Lower torch dish (PASTEL_BLUE_LIGHT semicircular bowl at bottom)
 dish_pts: list[tuple[float, float]] = [(41.0, 27.8)]
@@ -69,15 +57,15 @@ steps_dish = 16
 for i in range(steps_dish + 1):
     ang = math.radians(180.0 + 180.0 * (i / steps_dish))
     dish_pts.append((cx + 9.0 * math.cos(ang), 27.8 + 5.6 * math.sin(ang)))
-polygon(dish_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(dish_pts, width_units=2.0, color=DARK, closed=True)
+polygon(dish_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(dish_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 # 3. Horizontal torch base bar (PASTEL_BLUE) with clear separation above dish
 rectangle(
     (cx, 33.8),
     width=30.0,
     height=4.8,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=2.0, shape_r=1.4),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=2.0, shape_r=1.4),
 )
 
 # 4. Stylized 3-tip Prometheus flame with side wing flares (PASTEL_GREEN)
@@ -99,7 +87,7 @@ flame_pts += _quad_curve((61.5, 64.5), (66.5, 53.0), (62.5, 44.5))
 flame_pts += _quad_curve((62.5, 44.5), (65.5, 45.2), (69.5, 45.8), steps=8)
 flame_pts += _quad_curve((69.5, 45.8), (67.5, 42.5), (63.5, 40.0), steps=8)
 
-polygon(flame_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(flame_pts, width_units=2.0, color=DARK, closed=True)
+polygon(flame_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(flame_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

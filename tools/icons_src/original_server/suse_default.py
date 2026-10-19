@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_body = 2.0
 w_eye = 1.3
@@ -34,16 +28,16 @@ eye_pupil = [(83.03, 61.31), (83.52, 61.25), (84.0, 61.02), (84.23, 60.74), (84.
 # fmt: on
 
 # 1. Chameleon body with spiral tail and mouth smile
-polygon(body, style=no_border_fill(Colors.Green3))
-draw_round_polyline(body, width_units=w_body, color=DARK, closed=True)
+polygon(body, style=Icon.no_border_fill(Colors.Green3))
+Icon.draw_round_polyline(body, width_units=w_body, color=Icon.DARK, closed=True)
 
 # 2. Eye layers (white sclera, deeper green iris, dark pupil)
-polygon(eye_outer, style=no_border_fill(WHITE))
-draw_round_polyline(eye_outer, width_units=w_eye, color=DARK, closed=True)
+polygon(eye_outer, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(eye_outer, width_units=w_eye, color=Icon.DARK, closed=True)
 
-polygon(eye_iris, style=no_border_fill(Colors.Green4))
-draw_round_polyline(eye_iris, width_units=w_eye, color=DARK, closed=True)
+polygon(eye_iris, style=Icon.no_border_fill(Colors.Green4))
+Icon.draw_round_polyline(eye_iris, width_units=w_eye, color=Icon.DARK, closed=True)
 
-polygon(eye_pupil, style=no_border_fill(DARK))
+polygon(eye_pupil, style=Icon.no_border_fill(Icon.DARK))
 
 save()

@@ -12,13 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -39,7 +33,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -48,7 +42,7 @@ rectangle(
     (50.0, 50.0),
     width=78.0,
     height=78.0,
-    style=fill_style(Colors.Gray5, border_color=DARK, border_units=w, shape_r=17.0),
+    style=Icon.fill_style(Colors.Gray5, border_color=Icon.DARK, border_units=w, shape_r=17.0),
 )
 
 # 2. Stylized Memcached 'M' with curved legs (Colors.Teal3)
@@ -82,11 +76,11 @@ m_pts = [
     *_bezier(p_top_v, (47.5, 61.5), (42.0, 74.5), p_tl_in, 12),
 ]
 
-polygon(m_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(m_pts, width_units=1.8, color=DARK, closed=True)
+polygon(m_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(m_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 3. Two circular cache nodes below the center arch (Colors.Orange3)
-circle((44.2, 29.5), radius=4.0, style=fill_style(Colors.Orange3, border_color=DARK, border_units=1.5))
-circle((55.8, 29.5), radius=4.0, style=fill_style(Colors.Orange3, border_color=DARK, border_units=1.5))
+circle((44.2, 29.5), radius=4.0, style=Icon.fill_style(Colors.Orange3, border_color=Icon.DARK, border_units=1.5))
+circle((55.8, 29.5), radius=4.0, style=Icon.fill_style(Colors.Orange3, border_color=Icon.DARK, border_units=1.5))
 
 save()

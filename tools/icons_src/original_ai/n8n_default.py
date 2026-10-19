@@ -13,15 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 ROSE_PINK = "#EF4C74"
@@ -118,16 +112,16 @@ lower_bar = [
 # Draw all connecting link bars in ROSE_PINK with DARK borders
 # (Draw outlines first, then fills so the Y-junction merges seamlessly)
 for bar_pts in (left_bar, upper_bar, lower_bar):
-    draw_round_polyline(bar_pts, width_units=w * 2.0, color=DARK, closed=True)
+    Icon.draw_round_polyline(bar_pts, width_units=w * 2.0, color=Icon.DARK, closed=True)
 for bar_pts in (left_bar, upper_bar, lower_bar):
-    polygon(bar_pts, style=no_border_fill(ROSE_PINK))
+    polygon(bar_pts, style=Icon.no_border_fill(ROSE_PINK))
 
 # 4. Four ring nodes (ROSE_PINK outer ring with transparent center hole)
 for nx, ny in (n1, n2, n3, n4):
     outer_c = _circle_pts(nx, ny, 8.0)
     inner_c = _circle_pts(nx, ny, 3.9)
-    draw_compound_polygon([outer_c, inner_c], color=ROSE_PINK)
-    draw_round_polyline(outer_c, width_units=w, color=DARK, closed=True)
-    draw_round_polyline(inner_c, width_units=1.7, color=DARK, closed=True)
+    polygon(outer_c, holes=[inner_c], style=Icon.fill_style(ROSE_PINK))
+    Icon.draw_round_polyline(outer_c, width_units=w, color=Icon.DARK, closed=True)
+    Icon.draw_round_polyline(inner_c, width_units=1.7, color=Icon.DARK, closed=True)
 
 save()

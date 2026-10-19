@@ -12,13 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,9 +26,9 @@ upper_left_bolt = [
 ]
 polygon(
     upper_left_bolt,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Green3,
-        border_color=DARK,
+        border_color=Icon.DARK,
         border_units=w,
         shape_r=(3.6, 6.2, 1.0),
     ),
@@ -46,9 +42,9 @@ lower_right_bolt = [
 ]
 polygon(
     lower_right_bolt,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Green4,
-        border_color=DARK,
+        border_color=Icon.DARK,
         border_units=w,
         shape_r=(3.6, 6.2, 1.0),
     ),

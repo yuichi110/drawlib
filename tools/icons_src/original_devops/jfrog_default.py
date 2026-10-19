@@ -14,12 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _bezier(
@@ -115,7 +110,7 @@ def _crescent_ripple(
     return [*out_pts, *cap_end, *reversed(in_pts), *cap_start]
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -211,7 +206,7 @@ shapes_list = [
 ]
 
 for pts, col in shapes_list:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

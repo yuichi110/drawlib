@@ -14,17 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import arc, circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -75,18 +67,18 @@ lower_lid = _cubic_bezier(p_right, (68.0, 24.0), (31.0, 25.0), p_left, 28)
 eye_pts = [p_left, *upper_lid, *lower_lid]
 
 # Sclera background (Colors.Teal3 outer eyelid ring + WHITE inner sclera)
-polygon(eye_pts, style=no_border_fill(Colors.Teal3))
+polygon(eye_pts, style=Icon.no_border_fill(Colors.Teal3))
 
 inner_upper = _cubic_bezier((16.5, 47.5), (32.0, 70.0), (65.0, 71.0), (83.0, 50.5), 24)
 inner_lower = _cubic_bezier((83.0, 50.5), (65.0, 29.0), (33.0, 29.5), (16.5, 47.5), 24)
-polygon([(16.5, 47.5), *inner_upper, *inner_lower], style=no_border_fill(WHITE))
+polygon([(16.5, 47.5), *inner_upper, *inner_lower], style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Central circular iris (Colors.Blue3)
 r_iris = 18.8
 circle(
     (cx, cy),
     radius=r_iris,
-    style=fill_style(Colors.Blue3, border_color=DARK, border_units=1.8),
+    style=Icon.fill_style(Colors.Blue3, border_color=Icon.DARK, border_units=1.8),
 )
 
 # 3. Signature Cassandra orbital arc + nodes inside the iris
@@ -96,7 +88,7 @@ arc(
     height=27.5,
     angle_start=110.0,
     angle_end=265.0,
-    style=stroke_style(WHITE, width_units=1.6),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.6),
 )
 arc(
     (cx - 2.0, cy + 1.5),
@@ -104,24 +96,24 @@ arc(
     height=25.5,
     angle_start=-65.0,
     angle_end=55.0,
-    style=stroke_style(WHITE, width_units=1.6),
+    style=Icon.stroke_style(Icon.WHITE, width_units=1.6),
 )
 
 # 4. Inner iris ring (Colors.Teal4) + dark pupil (DARK) + crisp white catchlight
 circle(
     (cx, cy),
     radius=9.8,
-    style=fill_style(Colors.Teal4, border_color=DARK, border_units=1.7),
+    style=Icon.fill_style(Colors.Teal4, border_color=Icon.DARK, border_units=1.7),
 )
 circle(
     (cx, cy),
     radius=4.6,
-    style=fill_style(DARK),
+    style=Icon.fill_style(Icon.DARK),
 )
 circle(
     (cx - 3.6, cy + 3.9),
     radius=2.2,
-    style=fill_style(WHITE),
+    style=Icon.fill_style(Icon.WHITE),
 )
 
 # Small white orbital nodes on the iris ring
@@ -130,11 +122,11 @@ for deg_node in (135.0, 215.0, 15.0):
     circle(
         (cx + 13.4 * math.cos(rad_n), cy + 13.4 * math.sin(rad_n)),
         radius=2.2,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.3),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.3),
     )
 
 # 5. Outer eye border + gracefully curved eyelashes (3 upper-right, 3 lower)
-draw_round_polyline(eye_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(eye_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # Sweeping curved upper-right eyelashes
 upper_lashes = [
@@ -143,7 +135,7 @@ upper_lashes = [
     ((81.0, 59.0), (86.0, 62.0), (91.0, 64.5)),
 ]
 for p0, p1, p2 in upper_lashes:
-    draw_round_polyline(_quad_bezier(p0, p1, p2, 10), width_units=1.8, color=DARK)
+    Icon.draw_round_polyline(_quad_bezier(p0, p1, p2, 10), width_units=1.8, color=Icon.DARK)
 
 # Sweeping curved lower eyelashes
 lower_lashes = [
@@ -152,6 +144,6 @@ lower_lashes = [
     ((71.0, 35.8), (74.5, 30.5), (78.5, 26.5)),
 ]
 for p0, p1, p2 in lower_lashes:
-    draw_round_polyline(_quad_bezier(p0, p1, p2, 10), width_units=1.8, color=DARK)
+    Icon.draw_round_polyline(_quad_bezier(p0, p1, p2, 10), width_units=1.8, color=Icon.DARK)
 
 save()

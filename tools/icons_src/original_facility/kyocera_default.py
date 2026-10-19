@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 PASTEL_RED = "#F35966"
 PASTEL_SLATE = "#8899B0"
 w_halo = 2.0
@@ -23,60 +23,60 @@ w_in = 0.5
 w_sub_halo = 1.2
 w_sub_in = 0.35
 pts_0 = [(18.96, 58.43), (15.69, 55.18), (20.89, 55.18), (20.89, 50.0), (24.15, 53.25), (24.15, 58.43)]
-draw_round_polyline(pts_0, width_units=w_halo, color=DARK, closed=True)
-polygon(pts_0, style=no_border_fill(PASTEL_RED))
-draw_round_polyline(pts_0, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_0, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(pts_0, style=Icon.no_border_fill(PASTEL_RED))
+Icon.draw_round_polyline(pts_0, width_units=w_in, color=Icon.DARK, closed=True)
 pts_1 = [(20.89, 50.0), (20.89, 44.82), (15.69, 44.82), (18.96, 41.57), (24.15, 41.57), (24.15, 46.75)]
-draw_round_polyline(pts_1, width_units=w_halo, color=DARK, closed=True)
-polygon(pts_1, style=no_border_fill(PASTEL_RED))
-draw_round_polyline(pts_1, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_1, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(pts_1, style=Icon.no_border_fill(PASTEL_RED))
+Icon.draw_round_polyline(pts_1, width_units=w_in, color=Icon.DARK, closed=True)
 pts_2 = [(20.89, 50.0), (15.69, 55.18), (15.69, 44.82)]
-draw_round_polyline(pts_2, width_units=w_halo, color=DARK, closed=True)
-polygon(pts_2, style=no_border_fill(PASTEL_RED))
-draw_round_polyline(pts_2, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_2, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(pts_2, style=Icon.no_border_fill(PASTEL_RED))
+Icon.draw_round_polyline(pts_2, width_units=w_in, color=Icon.DARK, closed=True)
 pts_3 = [(15.69, 44.82), (10.5, 50.0), (10.5, 44.82)]
-draw_round_polyline(pts_3, width_units=w_halo, color=DARK, closed=True)
-polygon(pts_3, style=no_border_fill(PASTEL_RED))
-draw_round_polyline(pts_3, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_3, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(pts_3, style=Icon.no_border_fill(PASTEL_RED))
+Icon.draw_round_polyline(pts_3, width_units=w_in, color=Icon.DARK, closed=True)
 pts_4 = [(10.5, 50.0), (15.69, 55.18), (10.5, 55.18)]
-draw_round_polyline(pts_4, width_units=w_halo, color=DARK, closed=True)
-polygon(pts_4, style=no_border_fill(PASTEL_RED))
-draw_round_polyline(pts_4, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_4, width_units=w_halo, color=Icon.DARK, closed=True)
+polygon(pts_4, style=Icon.no_border_fill(PASTEL_RED))
+Icon.draw_round_polyline(pts_4, width_units=w_in, color=Icon.DARK, closed=True)
 pts_5 = [(27.62, 55.75), (29.55, 55.75), (29.55, 44.25), (27.62, 44.25)]
-draw_round_polyline(pts_5, width_units=w_sub_halo, color=DARK, closed=True)
-polygon(pts_5, style=no_border_fill(PASTEL_SLATE))
-draw_round_polyline(pts_5, width_units=w_sub_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_5, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(pts_5, style=Icon.no_border_fill(PASTEL_SLATE))
+Icon.draw_round_polyline(pts_5, width_units=w_sub_in, color=Icon.DARK, closed=True)
 pts_6 = [(32.0, 50.3), (35.7, 55.75), (33.46, 55.75), (29.69, 50.29), (33.97, 44.25), (36.39, 44.25)]
-draw_round_polyline(pts_6, width_units=w_sub_halo, color=DARK, closed=True)
-polygon(pts_6, style=no_border_fill(PASTEL_SLATE))
-draw_round_polyline(pts_6, width_units=w_sub_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_6, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(pts_6, style=Icon.no_border_fill(PASTEL_SLATE))
+Icon.draw_round_polyline(pts_6, width_units=w_sub_in, color=Icon.DARK, closed=True)
 rings_7 = [[(83.16, 44.25), (89.5, 44.25), (89.5, 54.41), (89.5, 54.52), (89.48, 54.63), (89.46, 54.73), (89.43, 54.83), (89.39, 54.93), (89.35, 55.03), (89.3, 55.12), (89.24, 55.2), (89.18, 55.28), (89.11, 55.36), (89.03, 55.43), (88.95, 55.49), (88.86, 55.55), (88.77, 55.6), (88.68, 55.65), (88.58, 55.68), (88.48, 55.71), (88.37, 55.73), (88.26, 55.75), (88.15, 55.75), (82.06, 55.75), (82.06, 54.0), (87.57, 54.0), (87.57, 50.99), (83.16, 50.99), (83.05, 50.98), (82.95, 50.97), (82.84, 50.95), (82.74, 50.92), (82.64, 50.88), (82.54, 50.84), (82.45, 50.79), (82.37, 50.73), (82.29, 50.66), (82.21, 50.59), (82.14, 50.52), (82.08, 50.44), (82.02, 50.35), (81.97, 50.26), (81.92, 50.17), (81.89, 50.07), (81.86, 49.97), (81.83, 49.86), (81.82, 49.75), (81.82, 49.64), (81.82, 45.59), (81.82, 45.48), (81.83, 45.37), (81.86, 45.27), (81.89, 45.16), (81.92, 45.07), (81.97, 44.97), (82.02, 44.88), (82.08, 44.8), (82.14, 44.72), (82.21, 44.64), (82.29, 44.57), (82.37, 44.51), (82.45, 44.45), (82.55, 44.4), (82.64, 44.35), (82.74, 44.32), (82.84, 44.29), (82.95, 44.26), (83.05, 44.25)], [(83.75, 49.24), (87.57, 49.24), (87.57, 46.0), (83.75, 46.0)]]
 for r in rings_7:
-    draw_round_polyline(r, width_units=w_sub_halo, color=DARK, closed=True)
-draw_compound_polygon(rings_7, color=PASTEL_SLATE)
+    Icon.draw_round_polyline(r, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(rings_7[0], holes=[rings_7[1]], style=Icon.fill_style(PASTEL_SLATE))
 for r in rings_7:
-    draw_round_polyline(r, width_units=w_sub_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(r, width_units=w_sub_in, color=Icon.DARK, closed=True)
 pts_8 = [(78.93, 55.75), (79.04, 55.75), (79.15, 55.73), (79.26, 55.71), (79.36, 55.68), (79.46, 55.65), (79.55, 55.6), (79.64, 55.55), (79.73, 55.49), (79.81, 55.43), (79.88, 55.36), (79.95, 55.28), (80.02, 55.2), (80.08, 55.12), (80.13, 55.03), (80.17, 54.93), (80.21, 54.83), (80.24, 54.73), (80.26, 54.63), (80.27, 54.52), (80.28, 54.41), (80.28, 50.63), (80.27, 50.52), (80.26, 50.41), (80.24, 50.31), (80.21, 50.21), (80.17, 50.11), (80.13, 50.01), (80.08, 49.92), (80.02, 49.84), (79.95, 49.76), (79.88, 49.68), (79.81, 49.61), (79.73, 49.55), (79.64, 49.49), (79.55, 49.44), (79.46, 49.39), (79.36, 49.36), (79.26, 49.33), (79.15, 49.31), (79.04, 49.29), (78.93, 49.29), (78.92, 49.29), (78.9, 49.29), (78.87, 49.29), (78.84, 49.29), (78.81, 49.29), (78.77, 49.29), (78.73, 49.29), (78.68, 49.29), (78.63, 49.29), (78.58, 49.29), (78.53, 49.29), (78.48, 49.29), (78.42, 49.29), (78.37, 49.29), (78.32, 49.29), (78.28, 49.29), (78.23, 49.29), (78.19, 49.29), (78.15, 49.29), (80.95, 44.25), (78.84, 44.25), (75.1, 50.99), (75.12, 50.99), (75.18, 50.99), (75.28, 50.99), (75.41, 50.99), (75.58, 50.99), (75.76, 50.99), (75.96, 50.99), (76.18, 50.99), (76.41, 50.99), (76.65, 50.99), (76.88, 50.99), (77.12, 50.99), (77.34, 50.99), (77.56, 50.99), (77.76, 50.99), (77.93, 50.99), (78.09, 50.99), (78.21, 50.99), (78.3, 50.99), (78.35, 50.99), (78.35, 54.0), (74.45, 54.0), (74.45, 44.25), (72.52, 44.25), (72.52, 55.75)]
-draw_round_polyline(pts_8, width_units=w_sub_halo, color=DARK, closed=True)
-polygon(pts_8, style=no_border_fill(PASTEL_SLATE))
-draw_round_polyline(pts_8, width_units=w_sub_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_8, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(pts_8, style=Icon.no_border_fill(PASTEL_SLATE))
+Icon.draw_round_polyline(pts_8, width_units=w_sub_in, color=Icon.DARK, closed=True)
 pts_9 = [(63.93, 54.41), (63.93, 54.52), (63.95, 54.63), (63.97, 54.73), (64.0, 54.83), (64.03, 54.93), (64.08, 55.03), (64.13, 55.12), (64.19, 55.2), (64.25, 55.28), (64.32, 55.36), (64.4, 55.43), (64.48, 55.49), (64.56, 55.55), (64.65, 55.6), (64.75, 55.65), (64.85, 55.68), (64.95, 55.71), (65.05, 55.73), (65.16, 55.75), (65.27, 55.75), (70.88, 55.75), (70.88, 54.0), (65.86, 54.0), (65.86, 50.99), (70.71, 50.99), (70.71, 49.24), (65.86, 49.24), (65.86, 46.0), (70.88, 46.0), (70.88, 44.25), (65.27, 44.25), (65.16, 44.25), (65.05, 44.26), (64.95, 44.29), (64.85, 44.32), (64.75, 44.35), (64.65, 44.4), (64.56, 44.45), (64.48, 44.51), (64.4, 44.57), (64.32, 44.64), (64.25, 44.72), (64.19, 44.8), (64.13, 44.88), (64.08, 44.97), (64.03, 45.07), (64.0, 45.16), (63.97, 45.27), (63.95, 45.37), (63.93, 45.48), (63.93, 45.59)]
-draw_round_polyline(pts_9, width_units=w_sub_halo, color=DARK, closed=True)
-polygon(pts_9, style=no_border_fill(PASTEL_SLATE))
-draw_round_polyline(pts_9, width_units=w_sub_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_9, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(pts_9, style=Icon.no_border_fill(PASTEL_SLATE))
+Icon.draw_round_polyline(pts_9, width_units=w_sub_in, color=Icon.DARK, closed=True)
 pts_10 = [(55.6, 54.41), (55.61, 54.52), (55.62, 54.63), (55.64, 54.73), (55.67, 54.83), (55.71, 54.93), (55.75, 55.03), (55.8, 55.12), (55.86, 55.2), (55.93, 55.28), (56.0, 55.36), (56.07, 55.43), (56.15, 55.49), (56.24, 55.55), (56.33, 55.6), (56.42, 55.65), (56.52, 55.68), (56.63, 55.71), (56.73, 55.73), (56.84, 55.75), (56.95, 55.75), (62.48, 55.75), (62.48, 54.0), (57.53, 54.0), (57.53, 46.0), (62.48, 46.0), (62.48, 44.25), (56.95, 44.25), (56.84, 44.25), (56.73, 44.26), (56.63, 44.29), (56.52, 44.32), (56.42, 44.35), (56.33, 44.4), (56.24, 44.45), (56.15, 44.51), (56.07, 44.57), (56.0, 44.64), (55.93, 44.72), (55.86, 44.8), (55.8, 44.88), (55.75, 44.97), (55.71, 45.07), (55.67, 45.16), (55.64, 45.27), (55.62, 45.37), (55.61, 45.48), (55.6, 45.59)]
-draw_round_polyline(pts_10, width_units=w_sub_halo, color=DARK, closed=True)
-polygon(pts_10, style=no_border_fill(PASTEL_SLATE))
-draw_round_polyline(pts_10, width_units=w_sub_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_10, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(pts_10, style=Icon.no_border_fill(PASTEL_SLATE))
+Icon.draw_round_polyline(pts_10, width_units=w_sub_in, color=Icon.DARK, closed=True)
 rings_11 = [[(45.94, 54.41), (45.95, 54.52), (45.96, 54.63), (45.98, 54.73), (46.01, 54.83), (46.05, 54.93), (46.09, 55.03), (46.14, 55.12), (46.2, 55.2), (46.26, 55.28), (46.33, 55.36), (46.41, 55.43), (46.49, 55.49), (46.58, 55.55), (46.67, 55.6), (46.76, 55.65), (46.86, 55.68), (46.96, 55.71), (47.07, 55.73), (47.18, 55.75), (47.29, 55.75), (52.58, 55.75), (52.69, 55.75), (52.79, 55.73), (52.9, 55.71), (53.0, 55.68), (53.1, 55.65), (53.19, 55.6), (53.28, 55.55), (53.37, 55.49), (53.45, 55.43), (53.53, 55.36), (53.6, 55.28), (53.66, 55.2), (53.72, 55.12), (53.77, 55.03), (53.82, 54.93), (53.85, 54.83), (53.88, 54.73), (53.9, 54.63), (53.92, 54.52), (53.92, 54.41), (53.92, 45.59), (53.92, 45.48), (53.9, 45.37), (53.88, 45.27), (53.85, 45.16), (53.82, 45.07), (53.77, 44.97), (53.72, 44.88), (53.66, 44.8), (53.6, 44.72), (53.53, 44.64), (53.45, 44.57), (53.37, 44.51), (53.28, 44.45), (53.19, 44.4), (53.1, 44.35), (53.0, 44.32), (52.9, 44.29), (52.79, 44.26), (52.68, 44.25), (52.57, 44.25), (47.29, 44.25), (47.18, 44.25), (47.07, 44.26), (46.96, 44.29), (46.86, 44.32), (46.76, 44.35), (46.67, 44.4), (46.58, 44.45), (46.49, 44.51), (46.41, 44.57), (46.33, 44.64), (46.26, 44.72), (46.2, 44.8), (46.14, 44.88), (46.09, 44.97), (46.05, 45.07), (46.01, 45.16), (45.98, 45.27), (45.96, 45.37), (45.95, 45.48), (45.94, 45.59)], [(47.87, 46.0), (51.99, 46.0), (51.99, 54.0), (47.87, 54.0)]]
 for r in rings_11:
-    draw_round_polyline(r, width_units=w_sub_halo, color=DARK, closed=True)
-draw_compound_polygon(rings_11, color=PASTEL_SLATE)
+    Icon.draw_round_polyline(r, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(rings_11[0], holes=[rings_11[1]], style=Icon.fill_style(PASTEL_SLATE))
 for r in rings_11:
-    draw_round_polyline(r, width_units=w_sub_in, color=DARK, closed=True)
+    Icon.draw_round_polyline(r, width_units=w_sub_in, color=Icon.DARK, closed=True)
 pts_12 = [(36.72, 50.43), (36.72, 55.75), (38.66, 55.75), (38.66, 55.72), (38.66, 55.62), (38.66, 55.46), (38.66, 55.26), (38.66, 55.01), (38.66, 54.73), (38.66, 54.41), (38.66, 54.08), (38.66, 53.73), (38.66, 53.37), (38.66, 53.01), (38.66, 52.65), (38.66, 52.31), (38.66, 51.98), (38.66, 51.69), (38.66, 51.42), (38.66, 51.2), (38.66, 51.02), (38.66, 50.9), (38.66, 50.83), (42.33, 50.83), (42.33, 55.75), (44.26, 55.75), (44.26, 45.59), (44.25, 45.48), (44.24, 45.37), (44.22, 45.27), (44.19, 45.16), (44.15, 45.07), (44.11, 44.97), (44.06, 44.88), (44.0, 44.8), (43.93, 44.72), (43.86, 44.64), (43.79, 44.57), (43.71, 44.51), (43.62, 44.45), (43.53, 44.4), (43.44, 44.35), (43.34, 44.32), (43.23, 44.29), (43.13, 44.26), (43.02, 44.25), (42.91, 44.25), (37.19, 44.25), (37.19, 46.0), (37.23, 46.0), (37.33, 46.0), (37.49, 46.0), (37.7, 46.0), (37.96, 46.0), (38.26, 46.0), (38.59, 46.0), (38.94, 46.0), (39.31, 46.0), (39.68, 46.0), (40.06, 45.99), (40.43, 45.99), (40.79, 45.99), (41.13, 45.99), (41.44, 45.99), (41.71, 45.99), (41.95, 45.99), (42.13, 45.99), (42.26, 45.99), (42.33, 45.99), (42.33, 49.08), (42.27, 49.08), (42.16, 49.08), (42.0, 49.08), (41.81, 49.08), (41.58, 49.08), (41.32, 49.08), (41.04, 49.08), (40.74, 49.08), (40.43, 49.08), (40.12, 49.08), (39.81, 49.08), (39.51, 49.08), (39.22, 49.08), (38.95, 49.08), (38.71, 49.08), (38.49, 49.08), (38.32, 49.08), (38.18, 49.08), (38.1, 49.08), (38.07, 49.08), (37.96, 49.09), (37.85, 49.1), (37.75, 49.12), (37.64, 49.15), (37.55, 49.19), (37.45, 49.23), (37.36, 49.29), (37.28, 49.34), (37.19, 49.41), (37.12, 49.48), (37.05, 49.55), (36.98, 49.63), (36.93, 49.72), (36.87, 49.81), (36.83, 49.9), (36.79, 50.0), (36.76, 50.1), (36.74, 50.21), (36.73, 50.32)]
-draw_round_polyline(pts_12, width_units=w_sub_halo, color=DARK, closed=True)
-polygon(pts_12, style=no_border_fill(PASTEL_SLATE))
-draw_round_polyline(pts_12, width_units=w_sub_in, color=DARK, closed=True)
+Icon.draw_round_polyline(pts_12, width_units=w_sub_halo, color=Icon.DARK, closed=True)
+polygon(pts_12, style=Icon.no_border_fill(PASTEL_SLATE))
+Icon.draw_round_polyline(pts_12, width_units=w_sub_in, color=Icon.DARK, closed=True)
 save()
 # fmt: on

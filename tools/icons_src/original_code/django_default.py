@@ -11,18 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.3
@@ -35,16 +28,16 @@ j_dot = [(68.24, 74.3), (68.24, 65.14), (59.32, 65.14), (59.32, 74.3)]
 # fmt: on
 
 # 1. Pastel forest green rounded square badge
-polygon(badge, style=no_border_fill("#3D6B52"))
-draw_round_polyline(badge, width_units=w_outer, color=DARK, closed=True)
+polygon(badge, style=Icon.no_border_fill("#3D6B52"))
+Icon.draw_round_polyline(badge, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. White 'dj' letters with transparent hole in 'd'
-draw_compound_polygon([d_outer, d_hole], color=WHITE)
-polygon(j_stem, style=no_border_fill(WHITE))
-polygon(j_dot, style=no_border_fill(WHITE))
+polygon(d_outer, holes=[d_hole], style=Icon.fill_style(Icon.WHITE))
+polygon(j_stem, style=Icon.no_border_fill(Icon.WHITE))
+polygon(j_dot, style=Icon.no_border_fill(Icon.WHITE))
 
 # 3. Crisp DARK outlines on all letter contours
 for contour in (d_outer, d_hole, j_stem, j_dot):
-    draw_round_polyline(contour, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

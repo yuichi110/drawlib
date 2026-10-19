@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,16 +26,16 @@ waveform_pts: list[tuple[float, float]] = [(55.57, 65.68), (55.47, 65.67), (55.3
 # fmt: on
 
 # 1. White inner circle
-polygon(inner_circle, style=no_border_fill(WHITE))
+polygon(inner_circle, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Pastel red circular ring
-draw_compound_polygon([outer_circle, inner_circle], color=Colors.Red3)
+polygon(outer_circle, holes=[inner_circle], style=Icon.fill_style(Colors.Red3))
 
 # 3. Inner and outer DARK w=1.9 ring outlines
-draw_round_polyline(outer_circle, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_circle, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_circle, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_circle, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. DARK pulse waveform line and left circular dot
-polygon(waveform_pts, style=no_border_fill(DARK))
+polygon(waveform_pts, style=Icon.no_border_fill(Icon.DARK))
 
 save()

@@ -11,19 +11,13 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import draw_compound_polygon, fill_style, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-st = fill_style('#FFD814')
-draw_compound_polygon(
-    [
-        [(9.0, 91.0), (49.86, 9.0), (91.0, 91.0)],
-        [(40.49, 74.54), (59.47, 74.54), (59.47, 55.52), (52.42, 55.52), (52.42, 48.4), (47.68, 48.4), (47.68, 55.53), (40.49, 55.53)],
-    ],
-    color='#FFD814',
-)
+Icon.setup()
+st = Icon.fill_style('#FFD814')
+polygon([(9.0, 91.0), (49.86, 9.0), (91.0, 91.0)], holes=[[(40.49, 74.54), (59.47, 74.54), (59.47, 55.52), (52.42, 55.52), (52.42, 48.4), (47.68, 48.4), (47.68, 55.53), (40.49, 55.53)]], style=Icon.fill_style('#FFD814'))
 polygon([(59.47, 55.0), (68.0, 55.0), (76.0, 75.0), (59.47, 75.0)], style=st)
 polygon([(45.24, 55.0), (47.0, 55.0), (47.68, 55.53), (47.68, 75.0), (45.24, 75.0)], style=st)
 polygon([(52.42, 55.52), (53.0, 55.0), (54.71, 55.0), (54.71, 75.0), (52.42, 75.0)], style=st)

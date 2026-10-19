@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,7 +25,7 @@ lion = [(63.64, 88.63), (63.61, 88.36), (63.61, 88.18), (63.6, 88.17), (63.6, 88
 
 # Flat pastel crimson/pink geometric lion silhouette + DARK outline
 for part in (horn, lion):
-    polygon(part, style=no_border_fill("#F14568"))
-    draw_round_polyline(part, width_units=w, color=DARK, closed=True)
+    polygon(part, style=Icon.no_border_fill("#F14568"))
+    Icon.draw_round_polyline(part, width_units=w, color=Icon.DARK, closed=True)
 
 save()

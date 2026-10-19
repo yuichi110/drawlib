@@ -11,31 +11,22 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cylinder_tier,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # Cylindrical speaker body (PASTEL_BLUE) with PASTEL_GREEN glowing voice ring rim on top
-draw_cylinder_tier(
+Icon.draw_cylinder_tier(
     50.0,
     24.0,
     width=48.0,
     body_h=46.0,
     ry=11.0,
-    body_color=PASTEL_BLUE,
-    top_color=PASTEL_GREEN,
-    border_color=DARK,
+    body_color=Icon.PASTEL_BLUE,
+    top_color=Icon.PASTEL_GREEN,
+    border_color=Icon.DARK,
     border_units=w,
     draw_top_cap=True,
 )
@@ -45,9 +36,9 @@ ellipse(
     (50.0, 70.0),
     width=31.0,
     height=13.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
-circle((50.0, 70.0), radius=1.8, style=fill_style(DARK))
+circle((50.0, 70.0), radius=1.8, style=Icon.fill_style(Icon.DARK))
 
 # Front acoustic fabric mesh dots
 for row_y, xs in (
@@ -56,6 +47,6 @@ for row_y, xs in (
     (29.0, (36.0, 45.3, 54.7, 64.0)),
 ):
     for dx in xs:
-        circle((dx, row_y), radius=1.5, style=fill_style(DARK))
+        circle((dx, row_y), radius=1.5, style=Icon.fill_style(Icon.DARK))
 
 save()

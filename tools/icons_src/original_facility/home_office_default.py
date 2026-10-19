@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -63,7 +52,7 @@ rectangle(
     (71.5, 68.5),
     width=8.0,
     height=21.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_inner, shape_r=1.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
 )
 
 # 2. Residential house pentagonal facade (WHITE)
@@ -74,8 +63,8 @@ house_pts = [
     (50.0, 79.0),
     (20.0, 54.0),
 ]
-polygon(house_pts, style=no_border_fill(WHITE))
-draw_round_polyline(house_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(house_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(house_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Overhanging pitched roof band (PASTEL_BLUE)
 roof_pts = [
@@ -86,21 +75,21 @@ roof_pts = [
     (50.0, 75.5),
     (16.5, 47.0),
 ]
-polygon(roof_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(roof_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(roof_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(roof_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 4. Laptop inside the house (PASTEL_BLUE_LIGHT screen + PASTEL_BLUE base)
 rectangle(
     (50.0, 34.5),
     width=28.0,
     height=17.5,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=w_inner, shape_r=2.2),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=w_inner, shape_r=2.2),
 )
 rectangle(
     (50.0, 23.5),
     width=36.0,
     height=4.5,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w_inner, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w_inner, shape_r=2.0),
 )
 
 # 5. PASTEL_GREEN Wi-Fi transmitter dot & curved arc above laptop
@@ -108,14 +97,14 @@ wifi_cx, wifi_cy = 50.0, 49.0
 circle(
     (wifi_cx, wifi_cy),
     radius=3.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w_inner),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w_inner),
 )
 
 arc_pts = _arc_band_pts(wifi_cx, wifi_cy, 7.8, 12.2, 42.0, 138.0)
-polygon(arc_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(arc_pts, width_units=w_inner, color=DARK, closed=True)
+polygon(arc_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(arc_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 6. Ground baseline
-draw_round_segment((14.0, 15.0), (86.0, 15.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((14.0, 15.0), (86.0, 15.0), width_units=w_outer, color=Icon.DARK)
 
 save()

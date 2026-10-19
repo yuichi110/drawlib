@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -36,12 +30,12 @@ atom_rings = [_sc(r) for r in [[(78.36, 62.31), (78.18, 62.38), (78.0, 62.44), (
 # fmt: on
 
 # 1. Pastel cyan elliptical atom rings with transparent holes
-draw_compound_polygon(atom_rings, color="#59D2F3")
+polygon(atom_rings[0], holes=atom_rings[1:], style=Icon.fill_style("#59D2F3"))
 for ring in atom_rings:
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Pastel cyan center circle
-polygon(center_dot, style=no_border_fill("#59D2F3"))
-draw_round_polyline(center_dot, width_units=w, color=DARK, closed=True)
+polygon(center_dot, style=Icon.no_border_fill("#59D2F3"))
+Icon.draw_round_polyline(center_dot, width_units=w, color=Icon.DARK, closed=True)
 
 save()

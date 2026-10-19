@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def _draw_arm(x1: float, y1: float, x2: float, y2: float, half_w: float) -> None:
@@ -42,8 +31,8 @@ def _draw_arm(x1: float, y1: float, x2: float, y2: float, half_w: float) -> None
         (x2 - nx, y2 - ny),
         (x1 - nx, y1 - ny),
     ]
-    polygon(pts, style=no_border_fill(PASTEL_BLUE))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 
 # 1. Four diagonal quadcopter arms (PASTEL_BLUE)
@@ -61,24 +50,24 @@ for rx, ry in rotor_centers:
     circle(
         (rx, ry),
         radius=12.5,
-        style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=w),
+        style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=w),
     )
     circle(
         (rx, ry),
         radius=3.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.8),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.8),
     )
 
 # 3. Front gimbal camera lens at top of central body
 circle(
     (50.0, 68.5),
     radius=5.8,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 circle(
     (50.0, 69.5),
     radius=2.6,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.5),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.5),
 )
 
 # 4. Central quadcopter fuselage body (PASTEL_BLUE + PASTEL_BLUE_LIGHT top shell)
@@ -86,13 +75,13 @@ rectangle(
     (50.0, 49.0),
     width=26.0,
     height=34.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=9.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=9.0),
 )
 rectangle(
     (50.0, 48.0),
     width=14.0,
     height=18.0,
-    style=fill_style(PASTEL_BLUE_LIGHT, border_color=DARK, border_units=2.0, shape_r=4.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE_LIGHT, border_color=Icon.DARK, border_units=2.0, shape_r=4.5),
 )
 
 save()

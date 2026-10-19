@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, draw_round_segment, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.3
@@ -46,20 +46,20 @@ inner_creases: list[tuple[tuple[float, float], tuple[float, float]]] = [
 ]
 
 for pts in orange_faces:
-    polygon(pts, style=no_border_fill("#F17044"))
+    polygon(pts, style=Icon.no_border_fill("#F17044"))
 for pts in mid_gray_faces:
-    polygon(pts, style=no_border_fill("#9BA8B8"))
+    polygon(pts, style=Icon.no_border_fill("#9BA8B8"))
 for pts in dark_gray_faces:
-    polygon(pts, style=no_border_fill("#5E6B7C"))
+    polygon(pts, style=Icon.no_border_fill("#5E6B7C"))
 for pts in light_gray_faces:
-    polygon(pts, style=no_border_fill("#DCE3EB"))
+    polygon(pts, style=Icon.no_border_fill("#DCE3EB"))
 
 for p1, p2 in inner_creases:
-    draw_round_segment(p1, p2, width_units=w_inner, color=DARK)
+    Icon.draw_round_segment(p1, p2, width_units=w_inner, color=Icon.DARK)
 
 for group in (orange_faces, mid_gray_faces, dark_gray_faces, light_gray_faces):
     for pts in group:
-        draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+        Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

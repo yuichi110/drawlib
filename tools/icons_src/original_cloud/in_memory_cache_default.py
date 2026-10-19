@@ -11,40 +11,30 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Top and bottom memory module pins
 for px in (30.0, 50.0, 70.0):
-    draw_round_segment((px, 76.0), (px, 86.0), width_units=w, color=DARK)
-    draw_round_segment((px, 14.0), (px, 24.0), width_units=w, color=DARK)
+    Icon.draw_round_segment((px, 76.0), (px, 86.0), width_units=w, color=Icon.DARK)
+    Icon.draw_round_segment((px, 14.0), (px, 24.0), width_units=w, color=Icon.DARK)
 
 # 2. Outer memory card body
 rectangle(
     (50.0, 50.0),
     width=68.0,
     height=52.0,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=7.0),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=7.0),
 )
 
 # 3. Center WHITE circle badge with PASTEL_GREEN lightning bolt
 circle(
     (50.0, 50.0),
     radius=18.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 bolt_pts = [
@@ -55,7 +45,7 @@ bolt_pts = [
     (59.0, 51.0),
     (51.0, 51.0),
 ]
-polygon(bolt_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(bolt_pts, width_units=2.0, color=DARK, closed=True)
+polygon(bolt_pts, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(bolt_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

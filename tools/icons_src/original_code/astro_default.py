@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 
@@ -46,13 +41,13 @@ flame_inner = [(45.32, 28.15), (48.05, 27.76), (50.98, 27.56), (54.1, 27.76), (5
 # fmt: on
 
 # 1. Flat dark slate '^' rocket frame (transparent inside)
-polygon(a_frame, style=no_border_fill("#3E4756"))
-draw_round_polyline(a_frame, width_units=w_outer, color=DARK, closed=True)
+polygon(a_frame, style=Icon.no_border_fill("#3E4756"))
+Icon.draw_round_polyline(a_frame, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 2. Flat pastel coral/orange 2-tone bottom flame
-polygon(flame_outer, style=no_border_fill("#F27851"))
-polygon(flame_inner, style=no_border_fill("#F38563"))
-draw_round_polyline(flame_inner, width_units=1.2, color=DARK, closed=True)
-draw_round_polyline(flame_outer, width_units=w_outer, color=DARK, closed=True)
+polygon(flame_outer, style=Icon.no_border_fill("#F27851"))
+polygon(flame_inner, style=Icon.no_border_fill("#F38563"))
+Icon.draw_round_polyline(flame_inner, width_units=1.2, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(flame_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

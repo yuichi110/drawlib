@@ -11,13 +11,7 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # Warm caramel-brown palette harmonized with Drawlib's Amber/Orange tones
 BODY_CARAMEL = "#CA8B42"
@@ -43,7 +37,7 @@ def _bezier(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -56,8 +50,8 @@ far_flipper_pts = [
     *_bezier(p_far_back, (71.8, 27.8), (77.0, 27.8), p_far_tip, 14),
     *_bezier(p_far_tip, (77.0, 33.2), (75.5, 37.8), p_far_top, 14),
 ]
-polygon(far_flipper_pts, style=no_border_fill(FAR_FLIPPER_BRONZE))
-draw_round_polyline(far_flipper_pts, width_units=w, color=DARK)
+polygon(far_flipper_pts, style=Icon.no_border_fill(FAR_FLIPPER_BRONZE))
+Icon.draw_round_polyline(far_flipper_pts, width_units=w, color=Icon.DARK)
 
 # 2. Main sea lion silhouette landmarks
 p_nose_tip = (92.5, 78.2)
@@ -100,7 +94,7 @@ seal_body_pts = [
     *_bezier(p_throat, (84.8, 67.2), (88.5, 68.8), p_chin, 12),
     *_bezier(p_chin, (92.8, 73.5), (93.8, 76.8), p_nose_tip, 8),
 ]
-polygon(seal_body_pts, style=no_border_fill(BODY_CARAMEL))
+polygon(seal_body_pts, style=Icon.no_border_fill(BODY_CARAMEL))
 
 # 3. Light golden-tan chest & underbelly highlights (BELLY_TAN)
 # 3a. Lower belly highlight (between tail base and front flipper)
@@ -111,7 +105,7 @@ belly_highlight_pts = [
     *_bezier(p_flip_front_body, (50.8, 30.6), (45.2, 31.6), p_belly_arch, 12),
     *_bezier(p_belly_arch, (34.5, 32.0), (30.8, 31.2), (26.8, 29.0), 10),
 ]
-polygon(belly_highlight_pts, style=no_border_fill(BELLY_TAN))
+polygon(belly_highlight_pts, style=Icon.no_border_fill(BELLY_TAN))
 
 # 3b. Front chest & throat highlight (generous band from upper throat down to armpit)
 chest_highlight_pts = [
@@ -121,7 +115,7 @@ chest_highlight_pts = [
     *_bezier(p_flip_rear_body, (72.8, 37.5), (75.5, 41.5), p_chest_mid, 12),
     *_bezier(p_chest_mid, (80.0, 52.8), (80.8, 58.8), (82.4, 62.5), 12),
 ]
-polygon(chest_highlight_pts, style=no_border_fill(BELLY_TAN))
+polygon(chest_highlight_pts, style=Icon.no_border_fill(BELLY_TAN))
 
 # 4. Nose tip dark cap (drawn before outer stroke so outer stroke wraps it cleanly)
 nose_cap_pts = [
@@ -130,7 +124,7 @@ nose_cap_pts = [
     *_bezier(p_nose_tip, (93.5, 77.2), (93.2, 75.5), (91.8, 74.2), 6),
     *_bezier((91.8, 74.2), (90.0, 74.5), (89.0, 76.0), (89.2, 77.8), 6),
 ]
-polygon(nose_cap_pts, style=no_border_fill(DARK))
+polygon(nose_cap_pts, style=Icon.no_border_fill(Icon.DARK))
 
 # 5. Bold dark slate-navy outlines (DARK, width=1.9)
 outer_outline = [
@@ -151,7 +145,7 @@ outer_outline = [
     *_bezier(p_tail_bot_base, (30.5, 31.2), (34.5, 32.0), p_belly_arch, 10),
     *_bezier(p_belly_arch, (45.2, 31.6), (50.8, 30.6), p_flip_front_body, 12),
 ]
-draw_round_polyline(outer_outline, width_units=w, color=DARK)
+Icon.draw_round_polyline(outer_outline, width_units=w, color=Icon.DARK)
 
 # Foreground front flipper stroke (both ends extend cleanly inside the body with round caps)
 front_flipper_line = [
@@ -161,17 +155,17 @@ front_flipper_line = [
     *_bezier(p_flip_tip, (56.5, 21.8), (63.5, 25.8), p_flip_rear_body, 14),
     *_bezier(p_flip_rear_body, (68.6, 35.5), (69.1, 37.5), p_flip_rear_top, 6),
 ]
-draw_round_polyline(front_flipper_line, width_units=w, color=DARK)
+Icon.draw_round_polyline(front_flipper_line, width_units=w, color=Icon.DARK)
 
 # 6. Eye, ear flap, and 2 clean curved whiskers
-circle((81.5, 72.2), radius=1.8, style=fill_style(DARK))
+circle((81.5, 72.2), radius=1.8, style=Icon.fill_style(Icon.DARK))
 
 ear_pts = [
     (76.2, 69.2),
     *_bezier((76.2, 69.2), (74.2, 69.0), (73.5, 67.0), (74.6, 66.2), 8),
     *_bezier((74.6, 66.2), (75.5, 65.6), (76.6, 66.5), (77.0, 67.3), 6),
 ]
-draw_round_polyline(ear_pts, width_units=1.35, color=DARK)
+Icon.draw_round_polyline(ear_pts, width_units=1.35, color=Icon.DARK)
 
 whisker_1 = [
     (88.0, 74.8),
@@ -181,7 +175,7 @@ whisker_2 = [
     (89.2, 73.6),
     *_bezier((89.2, 73.6), (88.0, 72.4), (87.2, 70.8), (86.8, 69.2), 8),
 ]
-draw_round_polyline(whisker_1, width_units=1.15, color=DARK)
-draw_round_polyline(whisker_2, width_units=1.15, color=DARK)
+Icon.draw_round_polyline(whisker_1, width_units=1.15, color=Icon.DARK)
+Icon.draw_round_polyline(whisker_2, width_units=1.15, color=Icon.DARK)
 
 save()

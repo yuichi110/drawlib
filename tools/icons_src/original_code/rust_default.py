@@ -10,16 +10,12 @@
 """Original Code icon: rust."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.2
@@ -48,11 +44,11 @@ holes = [hole_1, hole_2, hole_3, hole_4, hole_5, hole_6, hole_7, hole_8, hole_9]
 # fmt: on
 
 # 1. Flat dark slate gear + 'R' silhouette with transparent cutouts
-draw_compound_polygon([gear_outer, *holes], color=RUST_SLATE)
+polygon(gear_outer, holes=holes, style=Icon.fill_style(RUST_SLATE))
 
 # 2. Crisp DARK outlines on outer gear teeth and all inner cutouts
-draw_round_polyline(gear_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(gear_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 for hole in holes:
-    draw_round_polyline(hole, width_units=w_inner, color=DARK, closed=True)
+    Icon.draw_round_polyline(hole, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

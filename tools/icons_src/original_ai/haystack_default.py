@@ -14,16 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -53,8 +46,8 @@ def _rounded_square_pts(
 
 # 1. Outer rounded square badge (Colors.Blue3)
 badge_pts = _rounded_square_pts(10.5, 10.5, 89.5, 89.5, r=12.0)
-polygon(badge_pts, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(badge_pts, width_units=w, color=DARK, closed=True)
+polygon(badge_pts, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(badge_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Stylized geometric "h" / chair tuning stem (WHITE)
 h_stem_pts = [
@@ -69,14 +62,14 @@ h_stem_pts = [
     (42.2, 70.2),
     (36.8, 70.2),
 ]
-polygon(h_stem_pts, style=no_border_fill(WHITE))
-draw_round_polyline(h_stem_pts, width_units=1.7, color=DARK, closed=True)
+polygon(h_stem_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(h_stem_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 3. Dot below left stem (WHITE)
 circle(
     (39.5, 32.3),
     radius=2.9,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.7),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.7),
 )
 
 save()

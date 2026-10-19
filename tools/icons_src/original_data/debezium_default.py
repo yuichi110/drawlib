@@ -14,12 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _arc_points(
@@ -74,7 +69,7 @@ def _build_cascade_band(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 # 3x3 cascading grid spanning [12.0, 88.0] x [12.0, 88.0]
 cell_w = 21.6
@@ -105,7 +100,7 @@ for cell_chain, fill_col in bands:
         r_convex,
         r_concave,
     )
-    polygon(poly_pts, style=no_border_fill(fill_col))
-    draw_round_polyline(poly_pts, width_units=2.0, color=DARK, closed=True)
+    polygon(poly_pts, style=Icon.no_border_fill(fill_col))
+    Icon.draw_round_polyline(poly_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

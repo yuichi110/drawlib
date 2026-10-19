@@ -10,16 +10,12 @@
 """Original Code icon: python."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.4
@@ -31,13 +27,13 @@ yellow_eye = [(60.67, 23.57), (60.89, 23.57), (61.09, 23.55), (61.3, 23.52), (61
 # fmt: on
 
 # 1. Top-left pastel blue snake with transparent eye hole
-draw_compound_polygon([blue_outer, blue_eye], color="#518FEA")
-draw_round_polyline(blue_outer, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(blue_eye, width_units=w_inner, color=DARK, closed=True)
+polygon(blue_outer, holes=[blue_eye], style=Icon.fill_style("#518FEA"))
+Icon.draw_round_polyline(blue_outer, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(blue_eye, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 2. Bottom-right pastel yellow snake with transparent eye hole
-draw_compound_polygon([yellow_outer, yellow_eye], color="#F1C946")
-draw_round_polyline(yellow_outer, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(yellow_eye, width_units=w_inner, color=DARK, closed=True)
+polygon(yellow_outer, holes=[yellow_eye], style=Icon.fill_style("#F1C946"))
+Icon.draw_round_polyline(yellow_outer, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(yellow_eye, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

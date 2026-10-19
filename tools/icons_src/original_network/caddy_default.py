@@ -12,12 +12,13 @@
 import math
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import DARK, draw_compound_polygon, draw_round_polyline, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -95,12 +96,9 @@ blue_central_hole: list[tuple[float, float]] = [
 tr_hole = _arc(tr_cx, tr_cy, tr_r_in, 0.0, 360.0, steps=36)[:-1]
 bl_hole = _arc(bl_cx, bl_cy, bl_r_in, 0.0, 360.0, steps=40)[:-1]
 
-draw_compound_polygon(
-    [blue_outer, blue_central_hole, tr_hole, bl_hole],
-    color=Colors.Blue3,
-)
+polygon(blue_outer, holes=[blue_central_hole, tr_hole, bl_hole], style=Icon.fill_style(Colors.Blue3))
 for ring in (blue_outer, blue_central_hole, tr_hole, bl_hole):
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Unified green padlock body + shackle arch with transparent shackle hole
 shackle_cx, shackle_cy = 48.91, 64.12
@@ -120,11 +118,8 @@ shackle_hole: list[tuple[float, float]] = [
     *_arc(shackle_cx, shackle_cy, shackle_r_in, 0.0, 180.0, steps=28),
 ]
 
-draw_compound_polygon(
-    [padlock_outer, shackle_hole],
-    color=Colors.Green3,
-)
-draw_round_polyline(padlock_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(shackle_hole, width_units=w, color=DARK, closed=True)
+polygon(padlock_outer, holes=[shackle_hole], style=Icon.fill_style(Colors.Green3))
+Icon.draw_round_polyline(padlock_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(shackle_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

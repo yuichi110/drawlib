@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -61,9 +55,9 @@ def _cubic(
 outer_ring = _circle_pts(cx, cy, 29.0)
 inner_ring = _circle_pts(cx, cy, 19.8)
 
-draw_compound_polygon([outer_ring, inner_ring], color=Colors.Gray6)
-draw_round_polyline(outer_ring, width_units=w, color=DARK, closed=True)
-draw_round_polyline(inner_ring, width_units=1.8, color=DARK, closed=True)
+polygon(outer_ring, holes=[inner_ring], style=Icon.fill_style(Colors.Gray6))
+Icon.draw_round_polyline(outer_ring, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(inner_ring, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 2. Bold diagonal slash blade piercing from bottom-left (11.5, 11.5) to top-right (88.5, 88.5)
 p_bl = (11.5, 11.5)
@@ -81,7 +75,7 @@ lower_edge = [
 ]
 
 blade_outline = [*upper_edge, *lower_edge[1:-1]]
-polygon(blade_outline, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(blade_outline, width_units=w, color=DARK, closed=True)
+polygon(blade_outline, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(blade_outline, width_units=w, color=Icon.DARK, closed=True)
 
 save()

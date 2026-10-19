@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -36,16 +30,16 @@ e_top_pts: list[tuple[float, float]] = [(72.65, 55.1), (67.96, 55.1), (67.96, 61
 e_bottom_pts: list[tuple[float, float]] = [(72.65, 48.49), (72.65, 42.72), (91.0, 42.72), (91.0, 38.29), (67.96, 38.29), (67.96, 52.93), (91.0, 52.93), (91.0, 48.49)]
 
 # 1. H, P (with transparent hole), and E top bar in flat dark slate-gray (#4A5568)
-polygon(h_pts, style=no_border_fill("#4A5568"))
-draw_compound_polygon([p_outer, p_hole], color="#4A5568")
-polygon(e_top_pts, style=no_border_fill("#4A5568"))
+polygon(h_pts, style=Icon.no_border_fill("#4A5568"))
+polygon(p_outer, holes=[p_hole], style=Icon.fill_style("#4A5568"))
+polygon(e_top_pts, style=Icon.no_border_fill("#4A5568"))
 
 # 2. E lower wide rectangular frame in pastel emerald-teal (#4DB6AC)
-polygon(e_bottom_pts, style=no_border_fill("#4DB6AC"))
+polygon(e_bottom_pts, style=Icon.no_border_fill("#4DB6AC"))
 
 # 3. DARK w=1.9 outlines on all contours
 for ring in (h_pts, p_outer, p_hole, e_top_pts, e_bottom_pts):
-    draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

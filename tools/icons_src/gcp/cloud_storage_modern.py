@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import GCP_BLUE, GCP_GREEN, GCP_RED, GCP_YELLOW, draw_rounded_corner_block, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 
 def _draw_storage_unit(
@@ -29,7 +29,7 @@ def _draw_storage_unit(
     r = 3.8
     x_div0, x_div1 = 31.5, 38.5
 
-    draw_rounded_corner_block(
+    Gcp.draw_rounded_corner_block(
         x_left,
         y_btm,
         x_left + t,
@@ -38,7 +38,7 @@ def _draw_storage_unit(
         round_bl=True,
         color=btm_left_color,
     )
-    draw_rounded_corner_block(
+    Gcp.draw_rounded_corner_block(
         x_left,
         y_btm,
         x_right - t + 0.5,
@@ -51,10 +51,10 @@ def _draw_storage_unit(
         ((x_div0 + x_div1) / 2.0, (y_btm + y_top) / 2.0),
         width=x_div1 - x_div0,
         height=(y_top - y_btm) - 2.0 * t + 1.0,
-        style=fill_style(btm_left_color),
+        style=Icon.fill_style(btm_left_color),
     )
 
-    draw_rounded_corner_block(
+    Gcp.draw_rounded_corner_block(
         x_left,
         y_top - t,
         x_right,
@@ -64,7 +64,7 @@ def _draw_storage_unit(
         round_tr=True,
         color=top_right_color,
     )
-    draw_rounded_corner_block(
+    Gcp.draw_rounded_corner_block(
         x_right - t,
         y_btm,
         x_right,
@@ -78,11 +78,11 @@ def _draw_storage_unit(
     circle(
         (68.5, (y_btm + y_top) / 2.0),
         radius=7.8,
-        style=fill_style(top_right_color),
+        style=Icon.fill_style(top_right_color),
     )
 
 
-_draw_storage_unit(55.0, 88.0, top_right_color=GCP_RED, btm_left_color=GCP_YELLOW)
-_draw_storage_unit(12.0, 45.0, top_right_color=GCP_BLUE, btm_left_color=GCP_GREEN)
+_draw_storage_unit(55.0, 88.0, top_right_color=Gcp.RED, btm_left_color=Gcp.YELLOW)
+_draw_storage_unit(12.0, 45.0, top_right_color=Gcp.BLUE, btm_left_color=Gcp.GREEN)
 
 save()

@@ -10,16 +10,12 @@
 """Original Code icon: prisma."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.5
@@ -29,8 +25,8 @@ prism_hole = [(52.65, 75.02), (52.91, 75.03), (53.16, 75.0), (53.4, 74.92), (53.
 # fmt: on
 
 # Flat slate prism with transparent inner triangle hole
-draw_compound_polygon([prism_outer, prism_hole], color="#4A5D73")
-draw_round_polyline(prism_outer, width_units=w_outer, color=DARK, closed=True)
-draw_round_polyline(prism_hole, width_units=w_inner, color=DARK, closed=True)
+polygon(prism_outer, holes=[prism_hole], style=Icon.fill_style("#4A5D73"))
+Icon.draw_round_polyline(prism_outer, width_units=w_outer, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(prism_hole, width_units=w_inner, color=Icon.DARK, closed=True)
 
 save()

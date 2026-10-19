@@ -12,16 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -36,27 +29,27 @@ y_tail_tip = 9.5
 # Top-left quadrant (Colors.Blue3)
 polygon(
     [(x_l, y_m), (x_m, y_m), (x_m, y_t), (x_l, y_t)],
-    style=no_border_fill(Colors.Blue3),
+    style=Icon.no_border_fill(Colors.Blue3),
 )
 # Top-right quadrant (Colors.Green3)
 polygon(
     [(x_m, y_m), (x_r, y_m), (x_r, y_t), (x_m, y_t)],
-    style=no_border_fill(Colors.Green3),
+    style=Icon.no_border_fill(Colors.Green3),
 )
 # Bottom-left quadrant with left tail bevel (Colors.Teal3)
 polygon(
     [(x_l, y_b), (x_tail_l, y_b), (x_m, y_tail_m), (x_m, y_m), (x_l, y_m)],
-    style=no_border_fill(Colors.Teal3),
+    style=Icon.no_border_fill(Colors.Teal3),
 )
 # Bottom-right quadrant with main speech-bubble tail (Colors.Amber3)
 polygon(
     [(x_m, y_tail_m), (x_tail_r, y_tail_tip), (x_tail_r, y_b), (x_r, y_b), (x_r, y_m), (x_m, y_m)],
-    style=no_border_fill(Colors.Amber3),
+    style=Icon.no_border_fill(Colors.Amber3),
 )
 
 # 2. Inner cross quadrant dividers
-draw_round_segment((x_l, y_m), (x_r, y_m), width_units=1.6, color=DARK)
-draw_round_segment((x_m, y_tail_m), (x_m, y_t), width_units=1.6, color=DARK)
+Icon.draw_round_segment((x_l, y_m), (x_r, y_m), width_units=1.6, color=Icon.DARK)
+Icon.draw_round_segment((x_m, y_tail_m), (x_m, y_t), width_units=1.6, color=Icon.DARK)
 
 # 3. Outer speech-bubble tile border
 outer_pts = [
@@ -68,7 +61,7 @@ outer_pts = [
     (x_tail_l, y_b),
     (x_l, y_b),
 ]
-draw_round_polyline(outer_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Bold central white 'N'
 n_pts = [
@@ -83,7 +76,7 @@ n_pts = [
     (33.0, 68.5),
     (33.0, 41.5),
 ]
-polygon(n_pts, style=no_border_fill(WHITE))
-draw_round_polyline(n_pts, width_units=1.8, color=DARK, closed=True)
+polygon(n_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(n_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 save()

@@ -12,15 +12,10 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_leaf = 1.5
@@ -72,14 +67,14 @@ leaf_left = _sc([
 # fmt: on
 
 # 1. Dark teal rounded square badge (Colors.Teal6 + DARK w=1.9 border)
-polygon(badge_outer, style=no_border_fill(Colors.Teal6))
-draw_round_polyline(badge_outer, width_units=w_badge, color=DARK, closed=True)
+polygon(badge_outer, style=Icon.no_border_fill(Colors.Teal6))
+Icon.draw_round_polyline(badge_outer, width_units=w_badge, color=Icon.DARK, closed=True)
 
 # 2. Two pastel green/mint curved leaves (Colors.Teal3, Colors.Green3 + DARK 1.5 outlines)
-polygon(leaf_left, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(leaf_left, width_units=w_leaf, color=DARK, closed=True)
+polygon(leaf_left, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(leaf_left, width_units=w_leaf, color=Icon.DARK, closed=True)
 
-polygon(leaf_right, style=no_border_fill(Colors.Green3))
-draw_round_polyline(leaf_right, width_units=w_leaf, color=DARK, closed=True)
+polygon(leaf_right, style=Icon.no_border_fill(Colors.Green3))
+Icon.draw_round_polyline(leaf_right, width_units=w_leaf, color=Icon.DARK, closed=True)
 
 save()

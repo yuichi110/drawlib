@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 cx, cy = 50.0, 50.0
 spoke_r = 29.5
@@ -43,7 +33,7 @@ spoke_pts = [
 
 # 6 radial spoke lines
 for nx, ny in spoke_pts:
-    draw_round_segment((cx, cy), (nx, ny), width_units=w, color=DARK)
+    Icon.draw_round_segment((cx, cy), (nx, ny), width_units=w, color=Icon.DARK)
 
 # Central hexagonal transit hub
 hub_r = 16.0
@@ -54,22 +44,22 @@ hex_pts = [
     )
     for ang in angles_deg
 ]
-polygon(hex_pts, style=fill_style(PASTEL_GREEN))
-draw_round_polyline(hex_pts, width_units=w, color=DARK, closed=True)
+polygon(hex_pts, style=Icon.fill_style(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(hex_pts, width_units=w, color=Icon.DARK, closed=True)
 
 circle(
     (cx, cy),
     radius=6.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
 
 # 6 outer network spoke nodes alternating PASTEL_BLUE and WHITE
 for idx, (nx, ny) in enumerate(spoke_pts):
-    fill_col = PASTEL_BLUE if idx % 2 == 0 else WHITE
+    fill_col = Icon.PASTEL_BLUE if idx % 2 == 0 else Icon.WHITE
     circle(
         (nx, ny),
         radius=8.2,
-        style=fill_style(fill_col, border_color=DARK, border_units=w),
+        style=Icon.fill_style(fill_col, border_color=Icon.DARK, border_units=w),
     )
 
 save()

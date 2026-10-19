@@ -10,15 +10,11 @@
 """Original DevOps concept icon: playwright."""
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_in = 1.7
@@ -89,7 +85,7 @@ red_eye_hole = _s(
     ]
 )
 
-draw_compound_polygon([red_outer, red_eye_hole], color=Colors.Red3)
+polygon(red_outer, holes=[red_eye_hole], style=Icon.fill_style(Colors.Red3))
 
 # Outline red mask outer contour (excluding the seam behind green mask) and eye/mouth holes
 red_visible_outer = _s(
@@ -109,9 +105,9 @@ red_frown_arc = _s(
         *_cubic((27.2, 37.5), (28.5, 42.8), (32.2, 45.2), (36.5, 46.1), 12),
     ]
 )
-draw_round_polyline(red_visible_outer, width_units=w, color=DARK)
-draw_round_polyline(red_eye_hole, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(red_frown_arc, width_units=w_in, color=DARK)
+Icon.draw_round_polyline(red_visible_outer, width_units=w, color=Icon.DARK)
+Icon.draw_round_polyline(red_eye_hole, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(red_frown_arc, width_units=w_in, color=Icon.DARK)
 
 # 2. Right tilted happy theater mask (Colors.Green3)
 green_outer = _s(
@@ -153,14 +149,11 @@ green_mouth = _s(
     ]
 )
 
-draw_compound_polygon(
-    [green_outer, green_left_eye, green_right_eye, green_mouth],
-    color=Colors.Green3,
-)
+polygon(green_outer, holes=[green_left_eye, green_right_eye, green_mouth], style=Icon.fill_style(Colors.Green3))
 
-draw_round_polyline(green_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(green_left_eye, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(green_right_eye, width_units=w_in, color=DARK, closed=True)
-draw_round_polyline(green_mouth, width_units=w_in, color=DARK, closed=True)
+Icon.draw_round_polyline(green_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(green_left_eye, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(green_right_eye, width_units=w_in, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(green_mouth, width_units=w_in, color=Icon.DARK, closed=True)
 
 save()

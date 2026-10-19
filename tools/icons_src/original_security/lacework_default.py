@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -31,11 +25,11 @@ lower_shield = [(49.96, 10.64), (51.43, 10.76), (53.14, 11.12), (55.05, 11.71), 
 white_ray = [(16.11, 39.15), (85.91, 78.3), (85.82, 63.37), (16.46, 37.72)]
 # fmt: on
 
-polygon(white_ray, style=no_border_fill(WHITE))
-draw_round_polyline(white_ray, width_units=w, color=DARK, closed=True)
+polygon(white_ray, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(white_ray, width_units=w, color=Icon.DARK, closed=True)
 
 for pts in (upper_shield, lower_shield):
-    polygon(pts, style=no_border_fill(Colors.Blue3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Blue3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

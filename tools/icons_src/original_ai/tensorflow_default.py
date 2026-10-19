@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.95
@@ -58,7 +53,7 @@ right_f_pts = _scale(
 )
 
 for half_pts in (left_t_pts, right_f_pts):
-    polygon(half_pts, style=no_border_fill(Colors.Orange3))
-    draw_round_polyline(half_pts, width_units=w, color=DARK, closed=True)
+    polygon(half_pts, style=Icon.no_border_fill(Colors.Orange3))
+    Icon.draw_round_polyline(half_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

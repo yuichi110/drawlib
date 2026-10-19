@@ -11,14 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_capsule,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_seam = 1.3
@@ -34,16 +29,16 @@ bottom_right = [(10.0, 10.0), (50.0, 50.0), (90.0, 10.0)]
 outer = [(10.0, 10.0), (10.0, 90.0), (90.0, 90.0), (50.0, 50.0), (90.0, 10.0)]
 
 # 1. Flat pastel fills
-polygon(top_left, style=no_border_fill(CORAL_PINK))
-polygon(middle, style=no_border_fill(MAGENTA))
-polygon(bottom_right, style=no_border_fill(PURPLE))
+polygon(top_left, style=Icon.no_border_fill(CORAL_PINK))
+polygon(middle, style=Icon.no_border_fill(MAGENTA))
+polygon(bottom_right, style=Icon.no_border_fill(PURPLE))
 
 # 2. Inner diagonal facet seams (exact geometric capsules, no projecting cap overshoot)
-draw_capsule((10.0, 50.0), (50.0, 90.0), width_units=w_seam, color=DARK)
-draw_capsule((10.0, 10.0), (50.0, 50.0), width_units=w_seam, color=DARK)
+Icon.draw_capsule((10.0, 50.0), (50.0, 90.0), width_units=w_seam, color=Icon.DARK)
+Icon.draw_capsule((10.0, 10.0), (50.0, 50.0), width_units=w_seam, color=Icon.DARK)
 
 # 3. Crisp outer silhouette outline (exact geometric capsules with round joins)
 for i in range(len(outer)):
-    draw_capsule(outer[i], outer[(i + 1) % len(outer)], width_units=w_outer, color=DARK)
+    Icon.draw_capsule(outer[i], outer[(i + 1) % len(outer)], width_units=w_outer, color=Icon.DARK)
 
 save()

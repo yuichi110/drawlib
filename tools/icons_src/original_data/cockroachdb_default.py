@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -72,8 +67,8 @@ ant_l_to_r = [
 ant_r_to_l = _mirror_x(ant_l_to_r)
 
 for ant_pts in (ant_r_to_l, ant_l_to_r):
-    polygon(ant_pts, style=no_border_fill(Colors.Purple3))
-    draw_round_polyline(ant_pts, width_units=1.8, color=DARK, closed=True)
+    polygon(ant_pts, style=Icon.no_border_fill(Colors.Purple3))
+    Icon.draw_round_polyline(ant_pts, width_units=1.8, color=Icon.DARK, closed=True)
 
 # 2. Transparent triangular window border between head collar and crossing antennae
 window_pts = [
@@ -82,7 +77,7 @@ window_pts = [
     *_cubic((61.5, 63.8), (57.2, 69.5), (53.5, 73.2), (50.0, 75.5), 12),
     *_cubic((50.0, 75.5), (46.5, 73.2), (42.8, 69.5), (38.5, 63.8), 12),
 ]
-draw_round_polyline(window_pts, width_units=1.7, color=DARK, closed=True)
+Icon.draw_round_polyline(window_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 3. Main oval beetle shield body (Colors.Gray6)
 p_bot = (50.0, 12.0)
@@ -95,7 +90,7 @@ body_pts = [
     *_cubic(p_sh_l, (43.5, 62.5), (56.5, 62.5), p_sh_r, 14),
     *_cubic(p_sh_r, (73.5, 44.5), (66.5, 22.0), p_bot, 26),
 ]
-polygon(body_pts, style=no_border_fill(Colors.Gray6))
+polygon(body_pts, style=Icon.no_border_fill(Colors.Gray6))
 
 # 4. Two symmetric leaf-shaped wing covers on left and right sides (Colors.Green3)
 left_wing = [
@@ -106,10 +101,10 @@ left_wing = [
 right_wing = _mirror_x(left_wing)
 
 for wing_pts in (left_wing, right_wing):
-    polygon(wing_pts, style=no_border_fill(Colors.Green3))
-    draw_round_polyline(wing_pts, width_units=1.7, color=DARK, closed=True)
+    polygon(wing_pts, style=Icon.no_border_fill(Colors.Green3))
+    Icon.draw_round_polyline(wing_pts, width_units=1.7, color=Icon.DARK, closed=True)
 
 # 5. Outer shield body outline
-draw_round_polyline(body_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(body_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

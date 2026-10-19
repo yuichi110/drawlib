@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.7
@@ -40,14 +33,14 @@ red_right_crescent = _sc([(84.72, 71.67), (85.08, 70.52), (85.35, 69.33), (85.53
 # fmt: on
 
 # 1. Base WHITE circular badge
-circle((50.0, 50.0), radius=r_badge, style=no_border_fill(WHITE))
+circle((50.0, 50.0), radius=r_badge, style=Icon.no_border_fill(Icon.WHITE))
 
 # 2. Two Colors.Red3 shapes forming the negative-space WHITE 't' ribbon + DARK 1.7 outlines
 for pts in (red_left_swoosh, red_right_crescent):
-    polygon(pts, style=no_border_fill(Colors.Red3))
-    draw_round_polyline(pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Red3))
+    Icon.draw_round_polyline(pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Crisp outer circular badge border on top
-circle((50.0, 50.0), radius=r_badge, style=stroke_style(DARK, width_units=w_outer))
+circle((50.0, 50.0), radius=r_badge, style=Icon.stroke_style(Icon.DARK, width_units=w_outer))
 
 save()

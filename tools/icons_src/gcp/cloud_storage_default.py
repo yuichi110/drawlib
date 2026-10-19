@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import GCP_TECH_LIGHT, GCP_TECH_MED_LIGHT, GCP_TECH_MID, WHITE, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 
 def _draw_legacy_storage_tier(y0: float, y1: float) -> None:
@@ -21,18 +21,18 @@ def _draw_legacy_storage_tier(y0: float, y1: float) -> None:
     h = y1 - y0
 
     # Center light-blue body
-    rectangle((50.0, ym), width=67.0, height=h, style=fill_style(GCP_TECH_LIGHT))
+    rectangle((50.0, ym), width=67.0, height=h, style=Icon.fill_style(Gcp.TECH_LIGHT))
 
     # Left medium-light cap (x in [8.0, 16.5])
-    rectangle((12.25, ym), width=8.5, height=h, style=fill_style(GCP_TECH_MED_LIGHT))
+    rectangle((12.25, ym), width=8.5, height=h, style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 
     # Right two-tone cap (x in [83.5, 92.0])
-    polygon([(83.5, y0), (83.5, y1), (92.0, y1)], style=fill_style(GCP_TECH_MID))
-    polygon([(83.5, y0), (92.0, y1), (92.0, y0)], style=fill_style(GCP_TECH_MED_LIGHT))
+    polygon([(83.5, y0), (83.5, y1), (92.0, y1)], style=Icon.fill_style(Gcp.TECH_MID))
+    polygon([(83.5, y0), (92.0, y1), (92.0, y0)], style=Icon.fill_style(Gcp.TECH_MED_LIGHT))
 
     # White horizontal slot & right circular indicator
-    rectangle((36.5, ym), width=24.0, height=4.6, style=fill_style(WHITE))
-    circle((70.0, ym), radius=6.6, style=fill_style(WHITE))
+    rectangle((36.5, ym), width=24.0, height=4.6, style=Icon.fill_style(Icon.WHITE))
+    circle((70.0, ym), radius=6.6, style=Icon.fill_style(Icon.WHITE))
 
 
 _draw_legacy_storage_tier(55.0, 84.0)

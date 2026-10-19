@@ -12,19 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_dragon = 1.65
@@ -40,19 +32,19 @@ dragon_contours: list[list[tuple[float, float]]] = [
 # fmt: on
 
 # 1. Pastel red circular badge fill
-circle((cx, cy), radius=r_badge, style=no_border_fill(Colors.Red3))
+circle((cx, cy), radius=r_badge, style=Icon.no_border_fill(Colors.Red3))
 
 # 2. WHITE dragon contours (upper coil, tail tip, main S-body) + DARK outlines
 for contour in dragon_contours:
-    draw_round_polyline(contour, width_units=2.0, color=DARK, closed=True)
+    Icon.draw_round_polyline(contour, width_units=2.0, color=Icon.DARK, closed=True)
 for contour in dragon_contours:
-    polygon(contour, style=no_border_fill(WHITE))
-    draw_round_polyline(contour, width_units=1.1, color=DARK, closed=True)
+    polygon(contour, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(contour, width_units=1.1, color=Icon.DARK, closed=True)
 
 # 3. Dragon eye dot in DARK
-circle((59.95, 83.30), radius=1.05, style=fill_style(DARK))
+circle((59.95, 83.30), radius=1.05, style=Icon.fill_style(Icon.DARK))
 
 # 4. Outer circular badge DARK outline on top
-circle((cx, cy), radius=r_badge, style=stroke_style(DARK, width_units=w_badge))
+circle((cx, cy), radius=r_badge, style=Icon.stroke_style(Icon.DARK, width_units=w_badge))
 
 save()

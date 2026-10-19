@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,16 +27,16 @@ cyan_hole: list[tuple[float, float]] = [(82.76, 56.14), (82.61, 56.01), (82.47, 
 # fmt: on
 
 # 1. Left orange node and bridge
-polygon(orange_pts, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(orange_pts, width_units=w, color=DARK, closed=True)
+polygon(orange_pts, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(orange_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Middle slate N nodes and diagonal bridge
-polygon(slate_pts, style=no_border_fill(Colors.Gray5))
-draw_round_polyline(slate_pts, width_units=w, color=DARK, closed=True)
+polygon(slate_pts, style=Icon.no_border_fill(Colors.Gray5))
+Icon.draw_round_polyline(slate_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Right cyan node and bridge with transparent circular hole
-draw_compound_polygon([cyan_outer, cyan_hole], color=Colors.Teal3)
-draw_round_polyline(cyan_outer, width_units=w, color=DARK, closed=True)
-draw_round_polyline(cyan_hole, width_units=w, color=DARK, closed=True)
+polygon(cyan_outer, holes=[cyan_hole], style=Icon.fill_style(Colors.Teal3))
+Icon.draw_round_polyline(cyan_outer, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(cyan_hole, width_units=w, color=Icon.DARK, closed=True)
 
 save()

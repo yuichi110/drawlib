@@ -14,9 +14,9 @@ from typing import Any
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import DARK, draw_round_polyline, fill_style, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 s = 38.8 / 41.0
 r = 41.0 / 3.0
@@ -56,11 +56,11 @@ blocks: list[tuple[list[tuple[float, float]], Any]] = [
 ]
 
 for pts, col in blocks:
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 5. Middle-right circle (cyan #73D6FE)
 cx_mr, cy_mr = _sc([(50.0 + r, 50.0)])[0]
-circle((cx_mr, cy_mr), radius=r * s, style=fill_style("#56C5F2", border_color=DARK, border_units=w))
+circle((cx_mr, cy_mr), radius=r * s, style=Icon.fill_style("#56C5F2", border_color=Icon.DARK, border_units=w))
 
 save()

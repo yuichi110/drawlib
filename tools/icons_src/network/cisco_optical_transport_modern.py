@@ -11,44 +11,34 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    CISCO_BLUE,
-    CISCO_LIGHT_BLUE,
-    WHITE,
-    draw_cisco_arrow,
-    draw_cisco_modern_badge,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
-draw_cisco_modern_badge()
+Icon.setup()
+Cisco.draw_modern_badge()
 
 cx, cy = 50.0, 50.0
 r_ring = 17.5
 
 # Parallel wavelength beams inside the optical ring
 for y_beam in (56.5, 50.0, 43.5):
-    draw_round_segment(
+    Icon.draw_round_segment(
         (cx - 14.0, y_beam),
         (cx + 14.0, y_beam),
         width_units=1.8,
-        color=CISCO_LIGHT_BLUE,
+        color=Cisco.LIGHT_BLUE,
     )
 
 # Subtle prism triangle inside the ring
 polygon(
     [(cx, cy + 10.5), (cx - 9.5, cy - 7.5), (cx + 9.5, cy - 7.5)],
-    style=fill_style("#00000000", border_color=CISCO_LIGHT_BLUE, border_units=1.8),
+    style=Icon.fill_style("#00000000", border_color=Cisco.LIGHT_BLUE, border_units=1.8),
 )
 
 # Outer crisp white optical ring
 circle(
     (cx, cy),
     radius=r_ring,
-    style=fill_style("#00000000", border_color=WHITE, border_units=3.0),
+    style=Icon.fill_style("#00000000", border_color=Icon.WHITE, border_units=3.0),
 )
 
 # Bidirectional optical wavelength arrows on left and right
@@ -57,25 +47,25 @@ for y_arrow, dx_start, x_tip_l, x_tip_r in (
     (50.0, 17.0, 17.0, 83.0),
     (43.5, 15.8, 19.5, 80.5),
 ):
-    draw_cisco_arrow(
+    Cisco.draw_arrow(
         (cx - dx_start, y_arrow),
         (x_tip_l, y_arrow),
         shaft_w=3.0,
         head_len=5.8,
         head_w=7.6,
-        color=WHITE,
+        color=Icon.WHITE,
     )
-    draw_cisco_arrow(
+    Cisco.draw_arrow(
         (cx + dx_start, y_arrow),
         (x_tip_r, y_arrow),
         shaft_w=3.0,
         head_len=5.8,
         head_w=7.6,
-        color=WHITE,
+        color=Icon.WHITE,
     )
 
 # Small center optical node dot
-circle((cx, cy - 1.5), radius=2.6, style=no_border_fill(WHITE))
-circle((cx, cy - 1.5), radius=1.0, style=no_border_fill(CISCO_BLUE))
+circle((cx, cy - 1.5), radius=2.6, style=Icon.no_border_fill(Icon.WHITE))
+circle((cx, cy - 1.5), radius=1.0, style=Icon.no_border_fill(Cisco.BLUE))
 
 save()

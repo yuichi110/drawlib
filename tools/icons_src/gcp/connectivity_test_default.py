@@ -11,12 +11,12 @@
 
 from drawlib.canvas import save
 from drawlib.lines import lines
-from drawlib.utils import GCP_TECH_MID, setup_icon, stroke_style
+from drawlib.utils import Gcp, Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
-lines([(85.37, 87.58), (14.63, 47.79), (14.63, 75.57)], style=stroke_style(GCP_TECH_MID, width_units=8.84))
-lines([(14.63, 12.42), (85.37, 52.21), (85.37, 24.43)], style=stroke_style(GCP_TECH_MID, width_units=8.84))
+Icon.setup()
+lines([(85.37, 87.58), (14.63, 47.79), (14.63, 75.57)], style=Icon.stroke_style(Gcp.TECH_MID, width_units=8.84))
+lines([(14.63, 12.42), (85.37, 52.21), (85.37, 24.43)], style=Icon.stroke_style(Gcp.TECH_MID, width_units=8.84))
 save()
 # fmt: on

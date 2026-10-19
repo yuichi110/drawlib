@@ -12,15 +12,11 @@
 import math
 
 from drawlib.canvas import save
+from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 cx, cy = 50.0, 50.0
@@ -294,17 +290,14 @@ eye_hole = [
 ]
 
 # 1. Fill whale body in unified Colors.Blue3 with transparent belly, cheek, and eye cutouts
-draw_compound_polygon(
-    [whale_body, belly_cutout, eye_cheek, eye_hole],
-    color=Colors.Blue3,
-)
+polygon(whale_body, holes=[belly_cutout, eye_cheek, eye_hole], style=Icon.fill_style(Colors.Blue3))
 
 # 2. Cutout borders for belly, cheek, and eye
-draw_round_polyline(belly_cutout, width_units=1.7, color=DARK, closed=True)
-draw_round_polyline(eye_cheek, width_units=1.6, color=DARK, closed=True)
-draw_round_polyline(eye_hole, width_units=1.4, color=DARK, closed=True)
+Icon.draw_round_polyline(belly_cutout, width_units=1.7, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(eye_cheek, width_units=1.6, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(eye_hole, width_units=1.4, color=Icon.DARK, closed=True)
 
 # 4. Crisp w = 1.9 DARK outer contour
-draw_round_polyline(whale_body, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(whale_body, width_units=w, color=Icon.DARK, closed=True)
 
 save()

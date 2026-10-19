@@ -13,18 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    CISCO_BLUE,
-    CISCO_BORDER,
-    CISCO_DARK_BLUE,
-    CISCO_LIGHT_BLUE,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Cisco, Icon
 
-setup_icon()
+Icon.setup()
 
 # 7 clockwise perimeter puffs (cx, cy, r) forming the classic Cisco WAN cloud
 puffs: list[tuple[float, float, float]] = [
@@ -73,17 +64,17 @@ for i in range(n_puffs):
     outer_pts.extend(_sample_puff_arc(i))
 
 # 1. Base cloud fill in CISCO_BLUE
-polygon(outer_pts, style=no_border_fill(CISCO_BLUE))
+polygon(outer_pts, style=Icon.no_border_fill(Cisco.BLUE))
 
 # 2. Top highlight band in CISCO_LIGHT_BLUE hugging puffs 1, 2, 3
 top_outer = [*_sample_puff_arc(1), *_sample_puff_arc(2), *_sample_puff_arc(3), intersections[3]]
 top_inner = [(x - 1.2, y - 5.8) for x, y in reversed(top_outer[3:-3])]
-polygon([*top_outer, *top_inner], style=no_border_fill(CISCO_LIGHT_BLUE))
+polygon([*top_outer, *top_inner], style=Icon.no_border_fill(Cisco.LIGHT_BLUE))
 
 # 3. Lower-right shadow band in CISCO_DARK_BLUE hugging puffs 4, 5
 bot_outer = [*_sample_puff_arc(4), *_sample_puff_arc(5)[:-3]]
 bot_inner = [(x - 4.6, y + 4.2) for x, y in reversed(bot_outer[2:-4])]
-polygon([*bot_outer, *bot_inner], style=no_border_fill(CISCO_DARK_BLUE))
+polygon([*bot_outer, *bot_inner], style=Icon.no_border_fill(Cisco.DARK_BLUE))
 
 # 4. Crisp WHITE inner puff highlight/crease arcs with rounded end caps
 for puff_idx, deg_start, deg_end, r_inset in [
@@ -100,9 +91,9 @@ for puff_idx, deg_start, deg_end, r_inset in [
         )
         for k in range(15)
     ]
-    draw_round_polyline(arc_pts, width_units=1.6, color=WHITE)
+    Icon.draw_round_polyline(arc_pts, width_units=1.6, color=Icon.WHITE)
 
 # 5. Outer silhouette contour in CISCO_BORDER
-draw_round_polyline(outer_pts, width_units=2.0, color=CISCO_BORDER, closed=True)
+Icon.draw_round_polyline(outer_pts, width_units=2.0, color=Cisco.BORDER, closed=True)
 
 save()

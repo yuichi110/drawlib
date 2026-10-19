@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 # Two stacked horizontal 2U switch blades (outer x=10..90, top y=55..84, bottom y=16..45)
 for cy in (69.5, 30.5):
@@ -27,7 +22,7 @@ for cy in (69.5, 30.5):
         (50.0, cy),
         width=75.2,
         height=24.2,
-        style=fill_style(Colors.Transparent, border_color=DELL_BLUE, border_units=4.8, shape_r=2.5),
+        style=Icon.fill_style(Colors.Transparent, border_color=Dell.BLUE, border_units=4.8, shape_r=2.5),
     )
 
     # Right-side port slot bar (x=62..79 -> cx=70.5, width=17.0, height=5.0)
@@ -35,7 +30,7 @@ for cy in (69.5, 30.5):
         (70.5, cy),
         width=17.0,
         height=5.0,
-        style=no_border_fill(DELL_BLUE),
+        style=Icon.no_border_fill(Dell.BLUE),
     )
 
 save()

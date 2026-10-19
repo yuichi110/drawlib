@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import GCP_BLUE, GCP_GREEN, GCP_RED, GCP_YELLOW, fill_style, setup_icon
+from drawlib.utils import Gcp, Icon
 
-setup_icon()
+Icon.setup()
 
 cx = 50.0
 dx = 38.0
@@ -34,7 +34,7 @@ y_mid = 74.0
 y_top = y_mid + dy
 y_bot = y_mid - dy
 
-circle((x_left, y_mid), radius=r, style=fill_style(GCP_YELLOW))
+circle((x_left, y_mid), radius=r, style=Icon.fill_style(Gcp.YELLOW))
 yellow_verts = [
     (x_left - nx, y_mid + ny),
     (cx - rx, y_top),
@@ -45,9 +45,9 @@ yellow_verts = [
     (cx, y_bot - ry),
     (x_left - nx, y_mid - ny),
 ]
-polygon(yellow_verts, style=fill_style(GCP_YELLOW, shape_r=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8, 0.0)))
+polygon(yellow_verts, style=Icon.fill_style(Gcp.YELLOW, shape_r=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8, 0.0)))
 
-circle((x_right, y_mid), radius=r, style=fill_style(GCP_RED))
+circle((x_right, y_mid), radius=r, style=Icon.fill_style(Gcp.RED))
 red_verts = [
     (x_right + nx, y_mid - ny),
     (cx + rx, y_bot),
@@ -58,27 +58,27 @@ red_verts = [
     (cx, y_top + ry),
     (x_right + nx, y_mid + ny),
 ]
-polygon(red_verts, style=fill_style(GCP_RED, shape_r=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8, 0.0)))
+polygon(red_verts, style=Icon.fill_style(Gcp.RED, shape_r=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8, 0.0)))
 
 for y_apex in (43.0, 27.0, 11.0):
     y_side = y_apex + dy
 
-    circle((x_left, y_side), radius=r, style=fill_style(GCP_GREEN))
+    circle((x_left, y_side), radius=r, style=Icon.fill_style(Gcp.GREEN))
     green_verts = [
         (x_left + nx, y_side + ny),
         (cx, y_apex + ry),
         (cx - rx, y_apex),
         (x_left - nx, y_side - ny),
     ]
-    polygon(green_verts, style=fill_style(GCP_GREEN))
+    polygon(green_verts, style=Icon.fill_style(Gcp.GREEN))
 
-    circle((x_right, y_side), radius=r, style=fill_style(GCP_BLUE))
+    circle((x_right, y_side), radius=r, style=Icon.fill_style(Gcp.BLUE))
     blue_verts = [
         (x_right - nx, y_side + ny),
         (cx - rx, y_apex),
         (cx, y_apex - ry),
         (x_right + nx, y_side - ny),
     ]
-    polygon(blue_verts, style=fill_style(GCP_BLUE, shape_r=(0.0, 0.0, 1.8, 0.0)))
+    polygon(blue_verts, style=Icon.fill_style(Gcp.BLUE, shape_r=(0.0, 0.0, 1.8, 0.0)))
 
 save()

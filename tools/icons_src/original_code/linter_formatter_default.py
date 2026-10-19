@@ -13,20 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    build_sparkle_4pt_polygon,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 b = 2.0
 
@@ -35,22 +24,22 @@ rectangle(
     (45.0, 50.0),
     width=62.0,
     height=66.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=b, shape_r=5.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=b, shape_r=5.0),
 )
 
 # 4 horizontal pill bars (neatly left-indented)
 bars = [
-    (35.0, 70.0, 26.0, PASTEL_BLUE),
-    (45.0, 57.0, 30.0, PASTEL_BLUE_LIGHT),
-    (42.0, 44.0, 24.0, PASTEL_BLUE_LIGHT),
-    (34.0, 31.0, 24.0, PASTEL_BLUE),
+    (35.0, 70.0, 26.0, Icon.PASTEL_BLUE),
+    (45.0, 57.0, 30.0, Icon.PASTEL_BLUE_LIGHT),
+    (42.0, 44.0, 24.0, Icon.PASTEL_BLUE_LIGHT),
+    (34.0, 31.0, 24.0, Icon.PASTEL_BLUE),
 ]
 for bx, by, bw, col in bars:
     rectangle(
         (bx, by),
         width=bw,
         height=7.0,
-        style=fill_style(col, border_color=DARK, border_units=b, shape_r=3.5),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=b, shape_r=3.5),
     )
 
 # Diagonal PASTEL_GREEN magic wand on the right with WHITE tip
@@ -76,18 +65,18 @@ tip_pts = [
     (x1 - nx, y1 - ny),
 ]
 
-polygon(shaft_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(shaft_pts, width_units=b, color=DARK, closed=True)
-polygon(tip_pts, style=no_border_fill(WHITE))
-draw_round_polyline(tip_pts, width_units=b, color=DARK, closed=True)
+polygon(shaft_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(shaft_pts, width_units=b, color=Icon.DARK, closed=True)
+polygon(tip_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(tip_pts, width_units=b, color=Icon.DARK, closed=True)
 
 # 2 small 4-point star sparkles near wand tip
 for sx, sy, sr_out, sr_in, scol in (
-    (62.0, 74.5, 5.2, 1.8, PASTEL_GREEN),
-    (83.5, 67.5, 5.2, 1.8, PASTEL_BLUE_LIGHT),
+    (62.0, 74.5, 5.2, 1.8, Icon.PASTEL_GREEN),
+    (83.5, 67.5, 5.2, 1.8, Icon.PASTEL_BLUE_LIGHT),
 ):
-    sp_pts = build_sparkle_4pt_polygon(sx, sy, outer_r=sr_out, inner_r=sr_in)
-    polygon(sp_pts, style=no_border_fill(scol))
-    draw_round_polyline(sp_pts, width_units=b, color=DARK, closed=True)
+    sp_pts = Icon.build_sparkle_4pt_polygon(sx, sy, outer_r=sr_out, inner_r=sr_in)
+    polygon(sp_pts, style=Icon.no_border_fill(scol))
+    Icon.draw_round_polyline(sp_pts, width_units=b, color=Icon.DARK, closed=True)
 
 save()

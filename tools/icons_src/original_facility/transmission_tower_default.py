@@ -11,20 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.6
@@ -47,8 +36,8 @@ def _catenary_points(
 
 
 def _draw_green_cable(pts: list[tuple[float, float]]) -> None:
-    draw_round_polyline(pts, width_units=4.6, color=DARK)
-    draw_round_polyline(pts, width_units=2.1, color=PASTEL_GREEN)
+    Icon.draw_round_polyline(pts, width_units=4.6, color=Icon.DARK)
+    Icon.draw_round_polyline(pts, width_units=2.1, color=Icon.PASTEL_GREEN)
 
 
 # 1. Catenary PASTEL_GREEN power lines hanging down from insulator suspension points
@@ -69,8 +58,8 @@ upper_arm = [
     (56.0, 72.0),
     (44.0, 72.0),
 ]
-polygon(upper_arm, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(upper_arm, width_units=w_outer, color=DARK, closed=True)
+polygon(upper_arm, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(upper_arm, width_units=w_outer, color=Icon.DARK, closed=True)
 
 lower_arm = [
     (17.0, 48.0),
@@ -78,8 +67,8 @@ lower_arm = [
     (57.5, 53.5),
     (42.5, 53.5),
 ]
-polygon(lower_arm, style=no_border_fill(PASTEL_BLUE_LIGHT))
-draw_round_polyline(lower_arm, width_units=w_outer, color=DARK, closed=True)
+polygon(lower_arm, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+Icon.draw_round_polyline(lower_arm, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 3. Hanging WHITE ceramic insulators under cross-arm tips
 for ix, iy in ((22.0, 64.2), (78.0, 64.2), (19.0, 45.2), (81.0, 45.2)):
@@ -87,7 +76,7 @@ for ix, iy in ((22.0, 64.2), (78.0, 64.2), (19.0, 45.2), (81.0, 45.2)):
         (ix, iy),
         width=3.6,
         height=5.5,
-        style=fill_style(WHITE, border_color=DARK, border_units=w_inner, shape_r=1.5),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner, shape_r=1.5),
     )
 
 # 4. Main tapered steel lattice pylon tower body (PASTEL_BLUE)
@@ -98,8 +87,8 @@ pylon_pts = [
     (50.0, 86.0),
     (44.0, 75.0),
 ]
-polygon(pylon_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(pylon_pts, width_units=w_outer, color=DARK, closed=True)
+polygon(pylon_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(pylon_pts, width_units=w_outer, color=Icon.DARK, closed=True)
 
 # 5. Lattice horizontal ties and X-bracing inside pylon
 levels = [
@@ -110,15 +99,15 @@ levels = [
     (75.0, 44.0, 56.0),
 ]
 for y_lvl, x_l, x_r in levels[1:]:
-    draw_round_segment((x_l, y_lvl), (x_r, y_lvl), width_units=w_inner, color=DARK)
+    Icon.draw_round_segment((x_l, y_lvl), (x_r, y_lvl), width_units=w_inner, color=Icon.DARK)
 
 for i in range(len(levels) - 1):
     y0, xl0, xr0 = levels[i]
     y1, xl1, xr1 = levels[i + 1]
-    draw_round_segment((xl0, y0), (xr1, y1), width_units=w_inner, color=DARK)
-    draw_round_segment((xr0, y0), (xl1, y1), width_units=w_inner, color=DARK)
+    Icon.draw_round_segment((xl0, y0), (xr1, y1), width_units=w_inner, color=Icon.DARK)
+    Icon.draw_round_segment((xr0, y0), (xl1, y1), width_units=w_inner, color=Icon.DARK)
 
 # 6. Ground foundation line
-draw_round_segment((28.0, 14.0), (72.0, 14.0), width_units=w_outer, color=DARK)
+Icon.draw_round_segment((28.0, 14.0), (72.0, 14.0), width_units=w_outer, color=Icon.DARK)
 
 save()

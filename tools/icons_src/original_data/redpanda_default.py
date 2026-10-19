@@ -12,14 +12,7 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, ellipse, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _cubic(
@@ -40,7 +33,7 @@ def _cubic(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -53,8 +46,8 @@ left_ear = [
 right_ear = [(100.0 - x, y) for x, y in left_ear]
 
 for ear in (left_ear, right_ear):
-    polygon(ear, style=no_border_fill(Colors.Orange3))
-    draw_round_polyline(ear, width_units=w, color=DARK, closed=True)
+    polygon(ear, style=Icon.no_border_fill(Colors.Orange3))
+    Icon.draw_round_polyline(ear, width_units=w, color=Icon.DARK, closed=True)
 
 left_inner_ear = [
     (23.5, 60.0),
@@ -64,8 +57,8 @@ left_inner_ear = [
 right_inner_ear = [(100.0 - x, y) for x, y in left_inner_ear]
 
 for ie in (left_inner_ear, right_inner_ear):
-    polygon(ie, style=no_border_fill(WHITE))
-    draw_round_polyline(ie, width_units=1.5, color=DARK, closed=True)
+    polygon(ie, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(ie, width_units=1.5, color=Icon.DARK, closed=True)
 
 # 2. Wide cheek-fluffed red panda head dome (Colors.Red3)
 head_pts = [
@@ -76,8 +69,8 @@ head_pts = [
     *_cubic((32.5, 16.5), (18.5, 21.0), (12.0, 33.5), (15.5, 46.0), 14),
     *_cubic((15.5, 46.0), (20.0, 62.0), (32.0, 74.0), (50.0, 74.0), 16),
 ]
-polygon(head_pts, style=no_border_fill(Colors.Red3))
-draw_round_polyline(head_pts, width_units=w, color=DARK, closed=True)
+polygon(head_pts, style=Icon.no_border_fill(Colors.Red3))
+Icon.draw_round_polyline(head_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Signature white cheek fur patches + eyebrow tear-drop ovals
 left_cheek = [
@@ -89,15 +82,15 @@ left_cheek = [
 right_cheek = [(100.0 - x, y) for x, y in left_cheek]
 
 for cheek in (left_cheek, right_cheek):
-    polygon(cheek, style=no_border_fill(WHITE))
-    draw_round_polyline(cheek, width_units=1.6, color=DARK, closed=True)
+    polygon(cheek, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(cheek, width_units=1.6, color=Icon.DARK, closed=True)
 
 for bx, bang in ((38.5, -18.0), (61.5, 18.0)):
     ellipse(
         (bx, 56.5),
         width=10.5,
         height=6.2,
-        style=fill_style(Colors.Orange2, border_color=DARK, border_units=1.5, angle=bang),
+        style=Icon.fill_style(Colors.Orange2, border_color=Icon.DARK, border_units=1.5, angle=bang),
     )
 
 # 4. Rounded muzzle oval (WHITE)
@@ -105,7 +98,7 @@ ellipse(
     (50.0, 29.0),
     width=25.0,
     height=17.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=1.7),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.7),
 )
 
 # 5. Friendly dark eyes with white catchlights
@@ -113,16 +106,16 @@ for ex, px in ((37.0, 37.8), (63.0, 62.2)):
     circle(
         (ex, 44.5),
         radius=5.0,
-        style=fill_style(DARK),
+        style=Icon.fill_style(Icon.DARK),
     )
-    circle((px - 1.2, 46.0), radius=1.5, style=fill_style(WHITE))
+    circle((px - 1.2, 46.0), radius=1.5, style=Icon.fill_style(Icon.WHITE))
 
 # 6. Cute dark oval nose + smiling mouth
-ellipse((50.0, 32.8), width=8.5, height=5.5, style=fill_style(DARK))
-draw_round_polyline(
+ellipse((50.0, 32.8), width=8.5, height=5.5, style=Icon.fill_style(Icon.DARK))
+Icon.draw_round_polyline(
     [(44.5, 26.5), (50.0, 29.2), (55.5, 26.5)],
     width_units=1.6,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 save()

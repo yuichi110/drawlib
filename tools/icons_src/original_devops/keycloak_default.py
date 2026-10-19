@@ -12,15 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    draw_round_segment,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.6
@@ -36,8 +30,8 @@ def _s(x: float, y: float) -> tuple[float, float]:
 top_nut = [_s(19.7, 68.5), _s(30.3, 86.9), _s(73.0, 86.9), _s(83.6, 68.5)]
 bot_nut = [_s(19.7, 31.5), _s(83.6, 31.5), _s(73.0, 13.1), _s(30.3, 13.1)]
 
-polygon(top_nut, style=no_border_fill(Colors.Gray5))
-polygon(bot_nut, style=no_border_fill(Colors.Gray5))
+polygon(top_nut, style=Icon.no_border_fill(Colors.Gray5))
+polygon(bot_nut, style=Icon.no_border_fill(Colors.Gray5))
 
 # 2. Middle left and right nut plates (Colors.Gray3)
 # Left plate ends at the left chevron's outer edge; right plate starts at right chevron's outer edge
@@ -57,18 +51,18 @@ mid_right = [
     _s(80.1, 50.0),
 ]
 
-polygon(mid_left, style=no_border_fill(Colors.Gray3))
-polygon(mid_right, style=no_border_fill(Colors.Gray3))
+polygon(mid_left, style=Icon.no_border_fill(Colors.Gray3))
+polygon(mid_right, style=Icon.no_border_fill(Colors.Gray3))
 
 # Subtle horizontal midline crease on left and right nut plates
-draw_round_segment(_s(9.0, 50.0), _s(23.2, 50.0), width_units=w_inner, color=DARK)
-draw_round_segment(_s(80.1, 50.0), _s(91.0, 50.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment(_s(9.0, 50.0), _s(23.2, 50.0), width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment(_s(80.1, 50.0), _s(91.0, 50.0), width_units=w_inner, color=Icon.DARK)
 
 # Outline nut plates
-draw_round_polyline(top_nut, width_units=w, color=DARK, closed=True)
-draw_round_polyline(bot_nut, width_units=w, color=DARK, closed=True)
-draw_round_polyline(mid_left, width_units=w, color=DARK, closed=True)
-draw_round_polyline(mid_right, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(top_nut, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(bot_nut, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(mid_left, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(mid_right, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Left interlocking chevron '<' (Colors.Blue3 outer ribbon + Colors.Blue2 inner facets)
 left_chev_outer = [
@@ -92,9 +86,9 @@ left_chev_bot_in = [
     _s(44.55, 25.37),
 ]
 
-polygon(left_chev_outer, style=no_border_fill(Colors.Blue3))
-polygon(left_chev_top_in, style=no_border_fill(Colors.Blue2))
-polygon(left_chev_bot_in, style=no_border_fill(Colors.Blue2))
+polygon(left_chev_outer, style=Icon.no_border_fill(Colors.Blue3))
+polygon(left_chev_top_in, style=Icon.no_border_fill(Colors.Blue2))
+polygon(left_chev_bot_in, style=Icon.no_border_fill(Colors.Blue2))
 
 left_chev_full = [
     _s(23.2, 50.0),
@@ -106,13 +100,13 @@ left_chev_full = [
     _s(44.55, 25.37),
     _s(37.45, 25.37),
 ]
-draw_round_polyline(left_chev_full, width_units=w, color=DARK, closed=True)
-draw_round_polyline(
+Icon.draw_round_polyline(left_chev_full, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(
     [_s(44.55, 74.63), _s(30.34, 50.0), _s(44.55, 25.37)],
     width_units=w_inner,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_segment(_s(30.34, 50.0), _s(37.45, 50.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment(_s(30.34, 50.0), _s(37.45, 50.0), width_units=w_inner, color=Icon.DARK)
 
 # 4. Right interlocking chevron '>' (Colors.Blue2 outer ribbon + Colors.Blue3 inner facets)
 right_chev_outer = [
@@ -136,9 +130,9 @@ right_chev_bot_in = [
     _s(58.79, 25.37),
 ]
 
-polygon(right_chev_outer, style=no_border_fill(Colors.Blue2))
-polygon(right_chev_top_in, style=no_border_fill(Colors.Blue3))
-polygon(right_chev_bot_in, style=no_border_fill(Colors.Blue3))
+polygon(right_chev_outer, style=Icon.no_border_fill(Colors.Blue2))
+polygon(right_chev_top_in, style=Icon.no_border_fill(Colors.Blue3))
+polygon(right_chev_bot_in, style=Icon.no_border_fill(Colors.Blue3))
 
 right_chev_full = [
     _s(80.13, 50.0),
@@ -150,12 +144,12 @@ right_chev_full = [
     _s(58.79, 25.37),
     _s(65.89, 25.37),
 ]
-draw_round_polyline(right_chev_full, width_units=w, color=DARK, closed=True)
-draw_round_polyline(
+Icon.draw_round_polyline(right_chev_full, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(
     [_s(58.79, 74.63), _s(73.01, 50.0), _s(58.79, 25.37)],
     width_units=w_inner,
-    color=DARK,
+    color=Icon.DARK,
 )
-draw_round_segment(_s(65.91, 50.0), _s(73.01, 50.0), width_units=w_inner, color=DARK)
+Icon.draw_round_segment(_s(65.91, 50.0), _s(73.01, 50.0), width_units=w_inner, color=Icon.DARK)
 
 save()

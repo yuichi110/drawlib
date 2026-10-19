@@ -14,22 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.lines import lines
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    build_shield_half_points,
-    draw_cap,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w_shape = 2.0
 w_line = 2.0
@@ -38,21 +25,21 @@ w_line = 2.0
 cx_s = 32.0
 y_bot, y_top = 24.0, 76.0
 half_w = 19.0
-left_pts = build_shield_half_points(cx_s, y_bot, y_top, half_w, side="left")
-right_pts = build_shield_half_points(cx_s, y_bot, y_top, half_w, side="right")
+left_pts = Icon.build_shield_half_points(cx_s, y_bot, y_top, half_w, side="left")
+right_pts = Icon.build_shield_half_points(cx_s, y_bot, y_top, half_w, side="right")
 shield_outline = left_pts + list(reversed(right_pts[1:-1]))
 
-polygon(shield_outline, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(shield_outline, width_units=w_shape, color=DARK, closed=True)
+polygon(shield_outline, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(shield_outline, width_units=w_shape, color=Icon.DARK, closed=True)
 
 # 2. Orthogonal workflow branches from gear (67, 50) to 3 right-side playbook nodes
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(75.0, 72.0), (71.0, 72.0), (71.0, 28.0), (75.0, 28.0)],
     width_units=w_line,
-    color=DARK,
+    color=Icon.DARK,
     corner_r=2.5,
 )
-draw_round_segment((67.0, 50.0), (75.0, 50.0), width_units=w_line, color=DARK)
+Icon.draw_round_segment((67.0, 50.0), (75.0, 50.0), width_units=w_line, color=Icon.DARK)
 
 # 3. 3 right-side WHITE rounded square playbook nodes
 for y_node in (72.0, 50.0, 28.0):
@@ -60,7 +47,7 @@ for y_node in (72.0, 50.0, 28.0):
         (81.0, y_node),
         width=12.0,
         height=12.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=w_shape, shape_r=3.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape, shape_r=3.0),
     )
 
 # 4. Central overlapping 8-tooth PASTEL_GREEN automation gear at (52, 50)
@@ -96,15 +83,15 @@ for i in range(teeth):
         ang = math.radians(start_valley_deg + (next_rl_deg - start_valley_deg) * (s / arc_steps))
         gear_pts.append((gx + inner_r * math.cos(ang), gy + inner_r * math.sin(ang)))
 
-polygon(gear_pts, style=no_border_fill(PASTEL_GREEN))
-lines([*gear_pts, gear_pts[0]], style=stroke_style(DARK, width_units=w_shape))
+polygon(gear_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+lines([*gear_pts, gear_pts[0]], style=Icon.stroke_style(Icon.DARK, width_units=w_shape))
 for cp in corner_pts:
-    draw_cap(cp, width_units=w_shape, color=DARK)
+    Icon.draw_cap(cp, width_units=w_shape, color=Icon.DARK)
 
 circle(
     (gx, gy),
     radius=5.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=w_shape),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_shape),
 )
 
 save()

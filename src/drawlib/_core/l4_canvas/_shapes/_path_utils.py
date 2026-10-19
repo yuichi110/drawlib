@@ -598,6 +598,51 @@ def build_plaque_path(
     return build_matplotlib_path(path_points)
 
 
+def signed_polygon_area(ring: list[Coordinate]) -> float:
+    """Compute signed area of a 2D polygon ring (> 0 for CCW, < 0 for CW).
+
+    Args:
+        ring: Ordered list of polygon vertices.
+
+    Returns:
+        float: Signed planar area of the polygon ring.
+    """
+    n = len(ring)
+    if n < 3:
+        return 0.0
+    area = 0.0
+    for i in range(n):
+        x1, y1 = ring[i]
+        x2, y2 = ring[(i + 1) % n]
+        area += x1 * y2 - x2 * y1
+    return 0.5 * area
+
+
+def orient_polygon_ring(
+    ring: list[Coordinate],
+    *,
+    ccw: bool,
+) -> tuple[list[Coordinate], bool]:
+    """Return a copy of ring oriented CCW (ccw=True) or CW (ccw=False).
+
+    Args:
+        ring: Ordered list of polygon vertices.
+        ccw: True for counter-clockwise orientation, False for clockwise.
+
+    Returns:
+        tuple[list[Coordinate], bool]: Oriented vertex list and True if reversed.
+    """
+    pts = list(ring)
+    area = signed_polygon_area(pts)
+    if area == 0.0:
+        return pts, False
+    is_ccw = area > 0.0
+    if is_ccw != ccw:
+        pts.reverse()
+        return pts, True
+    return pts, False
+
+
 __all__ = [
     "_normalize_shape_radii",
     "_rotate_and_place_path_point",
@@ -610,9 +655,11 @@ __all__ = [
     "darken_rgba",
     "inset_convex_polygon",
     "lighten_rgba",
+    "orient_polygon_ring",
     "resolve_feature_colors",
     "round_polygon_points",
     "shrink_shape_r",
+    "signed_polygon_area",
     "subpaths_to_compound_path",
     "validate_hole_ratio",
 ]

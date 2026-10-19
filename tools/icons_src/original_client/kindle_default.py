@@ -11,17 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,18 +27,18 @@ compound_letters: list[list[list[tuple[float, float]]]] = [[[(50.06, 57.51), (50
 
 # 1. Pastel amber smile arrow
 for pts in smile_parts:
-    polygon(pts, style=no_border_fill("#F1A447"))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#F1A447"))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Pastel slate kindle wordmark
 for pts in simple_letters:
-    polygon(pts, style=no_border_fill("#8899B0"))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill("#8899B0"))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 for rings in compound_letters:
-    draw_compound_polygon(rings, color="#8899B0")
+    polygon(rings[0], holes=rings[1:], style=Icon.fill_style("#8899B0"))
     for ring in rings:
-        draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+        Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

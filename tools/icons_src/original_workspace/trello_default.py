@@ -13,9 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, WHITE, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 u = 77.6 / 256.0
 x0_base = 11.2
@@ -49,10 +49,10 @@ right_bar = _rrect(144.64, 33.28, 78.08, 112.0, 12.0)
 
 for pts, col in (
     (bg_sq, "#4EAAEB"),
-    (left_bar, WHITE),
-    (right_bar, WHITE),
+    (left_bar, Icon.WHITE),
+    (right_bar, Icon.WHITE),
 ):
-    polygon(pts, style=no_border_fill(col))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(col))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

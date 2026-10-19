@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 40.0 / 41.0
@@ -37,15 +32,15 @@ green_top_right = _sc([(54.97, 72.65), (74.2, 72.65), (76.5, 69.65), (78.58, 66.
 # fmt: on
 
 # 1. Left '<' angle segments (Google red & blue)
-polygon(red_top_left, style=no_border_fill("#F15549"))
-polygon(blue_bot_left, style=no_border_fill("#518FEA"))
-draw_round_polyline(red_top_left, width_units=w, color=DARK, closed=True)
-draw_round_polyline(blue_bot_left, width_units=w, color=DARK, closed=True)
+polygon(red_top_left, style=Icon.no_border_fill("#F15549"))
+polygon(blue_bot_left, style=Icon.no_border_fill("#518FEA"))
+Icon.draw_round_polyline(red_top_left, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(blue_bot_left, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right '>' angle segments (Google yellow & green)
-polygon(yellow_bot_right, style=no_border_fill("#F1C946"))
-polygon(green_top_right, style=no_border_fill("#5ED09E"))
-draw_round_polyline(yellow_bot_right, width_units=w, color=DARK, closed=True)
-draw_round_polyline(green_top_right, width_units=w, color=DARK, closed=True)
+polygon(yellow_bot_right, style=Icon.no_border_fill("#F1C946"))
+polygon(green_top_right, style=Icon.no_border_fill("#5ED09E"))
+Icon.draw_round_polyline(yellow_bot_right, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(green_top_right, width_units=w, color=Icon.DARK, closed=True)
 
 save()

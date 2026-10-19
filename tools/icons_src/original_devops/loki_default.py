@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.935
@@ -77,11 +72,11 @@ for col, (h_left, h_right) in enumerate(upper_heights):
     orange_bars.append(_uv_rect(u_right, v_upper0, u_right + bar_w, v_upper0 + h_right))
 
 for pts in amber_blocks:
-    polygon(pts, style=no_border_fill(Colors.Amber3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Amber3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 for pts in orange_bars:
-    polygon(pts, style=no_border_fill(Colors.Orange3))
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(Colors.Orange3))
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

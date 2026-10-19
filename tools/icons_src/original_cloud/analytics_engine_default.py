@@ -15,20 +15,7 @@ from typing import Any
 from drawlib.canvas import save
 from drawlib.lines import lines
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_cap,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-    stroke_style,
-)
+from drawlib.utils import Icon
 
 
 def draw_gear(
@@ -37,9 +24,9 @@ def draw_gear(
     outer_r: float = 40.0,
     inner_r: float = 31.0,
     teeth: int = 8,
-    fill_color: Any = PASTEL_BLUE_LIGHT,
-    border_color: Any = DARK,
-    border_units: float = ORIG_STROKE,
+    fill_color: Any = Icon.PASTEL_BLUE_LIGHT,
+    border_color: Any = Icon.DARK,
+    border_units: float = Icon.ORIG_STROKE,
 ) -> None:
     """Draw a mechanical gear polygon with smooth root arcs and rounded tooth corners."""
     cx, cy = xy
@@ -72,15 +59,15 @@ def draw_gear(
             ang = math.radians(start_valley_deg + (next_root_l_deg - start_valley_deg) * (s / arc_steps))
             pts.append((cx + inner_r * math.cos(ang), cy + inner_r * math.sin(ang)))
 
-    polygon(pts, style=no_border_fill(fill_color))
-    lines([*pts, pts[0]], style=stroke_style(border_color, width_units=border_units))
+    polygon(pts, style=Icon.no_border_fill(fill_color))
+    lines([*pts, pts[0]], style=Icon.stroke_style(border_color, width_units=border_units))
     for cp in corner_pts:
-        draw_cap(cp, width_units=border_units, color=border_color)
+        Icon.draw_cap(cp, width_units=border_units, color=border_color)
 
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Outer analytics engine gear
 draw_gear(
@@ -88,8 +75,8 @@ draw_gear(
     outer_r=39.5,
     inner_r=31.0,
     teeth=8,
-    fill_color=PASTEL_BLUE_LIGHT,
-    border_color=DARK,
+    fill_color=Icon.PASTEL_BLUE_LIGHT,
+    border_color=Icon.DARK,
     border_units=w,
 )
 
@@ -97,31 +84,31 @@ draw_gear(
 circle(
     (50.0, 50.0),
     radius=24.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Three rising bar chart columns
 y_base = 34.5
 bars = [
-    (39.0, 10.5, PASTEL_BLUE),
-    (50.0, 16.5, PASTEL_BLUE),
-    (61.0, 23.5, PASTEL_GREEN),
+    (39.0, 10.5, Icon.PASTEL_BLUE),
+    (50.0, 16.5, Icon.PASTEL_BLUE),
+    (61.0, 23.5, Icon.PASTEL_GREEN),
 ]
 for bx, bh, bcol in bars:
     rectangle(
         (bx, y_base + bh / 2.0),
         width=7.2,
         height=bh,
-        style=fill_style(bcol, border_color=DARK, border_units=2.0, shape_r=1.6),
+        style=Icon.fill_style(bcol, border_color=Icon.DARK, border_units=2.0, shape_r=1.6),
     )
 
 # 4. Rising trend line above the bars
 trend_pts = [(38.5, 51.0), (49.5, 57.5), (60.5, 64.0)]
-draw_round_polyline(trend_pts, width_units=2.0, color=DARK)
+Icon.draw_round_polyline(trend_pts, width_units=2.0, color=Icon.DARK)
 circle(
     trend_pts[-1],
     radius=3.2,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 save()

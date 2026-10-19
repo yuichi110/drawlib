@@ -1345,13 +1345,14 @@ save()
 
 ### 3.7 `polygon`
 
-Draws an arbitrary closed planar polygon through an explicit list of vertices.
+Draws an arbitrary closed planar polygon through an explicit list of vertices, with optional interior cutout holes.
 
 #### Signature
 ```python
 def polygon(
     xys: list[tuple[float, float]],
     *,
+    holes: list[list[tuple[float, float]]] | None = None,
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
@@ -1362,13 +1363,15 @@ def polygon(
 #### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xys` | `list[tuple[float, float]]` | *Required* | Sequence of coordinate vertices (minimum 3 points). |
+| `xys` | `list[tuple[float, float]]` | *Required* | Sequence of outer contour vertices (minimum 3 points). |
+| `holes` | `list[list[tuple[float, float]]] \| None` | `None` | Optional list of inner hole contours (each minimum 3 points). |
 | `style` | `Style \| None` | `None` | Shape fill and line style. |
 | `text` | `str` | `""` | Text placed at the centroid / bounding-box center. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - The path automatically closes by connecting the final vertex back to the first vertex.
+- When `holes` is provided, `polygon` automatically normalizes winding order (`xys` counter-clockwise, each hole in `holes` clockwise) and builds a single compound path with true transparent interior cutouts.
 - **Important**: `polygon` ignores `style.angle` and `halign`/`valign`. Vertex coordinates directly dictate orientation and position.
 
 #### Code Examples

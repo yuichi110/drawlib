@@ -10,14 +10,10 @@
 """Original AI concept icon: crewai."""
 
 from drawlib.canvas import save
-from drawlib.utils import (
-    DARK,
-    draw_compound_polygon,
-    draw_round_polyline,
-    setup_icon,
-)
+from drawlib.shapes import polygon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 SCALE = 0.95
@@ -257,10 +253,10 @@ white_space_pts = [_s(x, y) for x, y in raw_white_space]
 full_outer_pts = outer_crescent_pts[:59] + inner_curl_pts[1:23]
 
 # 1. Fill unified solid burgundy C-swirl with transparent inner crescent cutout
-draw_compound_polygon([full_outer_pts, white_space_pts], color=BURGUNDY)
+polygon(full_outer_pts, holes=[white_space_pts], style=Icon.fill_style(BURGUNDY))
 
 # 2. Draw crisp outer and inner cutout contours (zero interior seam splits)
-draw_round_polyline(full_outer_pts, width_units=w, color=DARK, closed=True)
-draw_round_polyline(white_space_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(full_outer_pts, width_units=w, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(white_space_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

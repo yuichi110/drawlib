@@ -14,14 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -88,12 +83,12 @@ r_stem = [
     (45.0, 88.4),
 ]
 
-polygon(bot_chevron, style=no_border_fill(Colors.Gray6))
-polygon(mid_chevron, style=no_border_fill(Colors.Green3))
-polygon(top_chevron, style=no_border_fill(Colors.Gray6))
-polygon(r_stem, style=no_border_fill(Colors.Green3))
+polygon(bot_chevron, style=Icon.no_border_fill(Colors.Gray6))
+polygon(mid_chevron, style=Icon.no_border_fill(Colors.Green3))
+polygon(top_chevron, style=Icon.no_border_fill(Colors.Gray6))
+polygon(r_stem, style=Icon.no_border_fill(Colors.Green3))
 
 for pts in (bot_chevron, mid_chevron, top_chevron, r_stem):
-    draw_round_polyline(pts, width_units=w, color=DARK, closed=True)
+    Icon.draw_round_polyline(pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

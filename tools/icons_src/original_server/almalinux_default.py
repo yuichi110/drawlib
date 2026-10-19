@@ -13,16 +13,11 @@ from typing import Any
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -37,7 +32,7 @@ petal_groups: list[tuple[Any, list[list[tuple[float, float]]]]] = [
 
 for fill_col, rings in petal_groups:
     for ring in rings:
-        polygon(ring, style=no_border_fill(fill_col))
-        draw_round_polyline(ring, width_units=w, color=DARK, closed=True)
+        polygon(ring, style=Icon.no_border_fill(fill_col))
+        Icon.draw_round_polyline(ring, width_units=w, color=Icon.DARK, closed=True)
 
 save()

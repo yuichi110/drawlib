@@ -11,9 +11,9 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 w = 2.0
 
 ribbon_a = [
@@ -472,11 +472,11 @@ ribbon_b = [
     (82.64, 69.49),
 ]
 
-polygon(ribbon_a, style=no_border_fill("#4ECFF2"))
-polygon(ribbon_a_right, style=no_border_fill("#65D591"))
-draw_round_polyline(ribbon_a, width_units=w, color=DARK, closed=True)
+polygon(ribbon_a, style=Icon.no_border_fill("#4ECFF2"))
+polygon(ribbon_a_right, style=Icon.no_border_fill("#65D591"))
+Icon.draw_round_polyline(ribbon_a, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(ribbon_b, style=no_border_fill("#5797F2"))
-draw_round_polyline(ribbon_b, width_units=w, color=DARK, closed=True)
+polygon(ribbon_b, style=Icon.no_border_fill("#5797F2"))
+Icon.draw_round_polyline(ribbon_b, width_units=w, color=Icon.DARK, closed=True)
 
 save()

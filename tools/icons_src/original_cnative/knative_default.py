@@ -13,21 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 cx, cy = 50.0, 50.0
 r_hex = 40.5
 
@@ -41,7 +31,7 @@ hex_pts = [
 ]
 polygon(
     hex_pts,
-    style=fill_style(PASTEL_BLUE, border_color=DARK, border_units=w, shape_r=5.5),
+    style=Icon.fill_style(Icon.PASTEL_BLUE, border_color=Icon.DARK, border_units=w, shape_r=5.5),
 )
 
 # 2. Central WHITE geometric letter K block
@@ -58,8 +48,8 @@ k_pts = [
     (41.5, 45.5),
     (41.5, 29.0),
 ]
-polygon(k_pts, style=no_border_fill(WHITE))
-draw_round_polyline(k_pts, width_units=2.0, color=DARK, closed=True)
+polygon(k_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(k_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 # 3. Right PASTEL_GREEN arrow-wing accent nested in the K opening
 wing_pts = [
@@ -68,7 +58,7 @@ wing_pts = [
     (75.5, 50.0),
     (69.5, 40.5),
 ]
-polygon(wing_pts, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(wing_pts, width_units=2.0, color=DARK, closed=True)
+polygon(wing_pts, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(wing_pts, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()

@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DELL_BLUE,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Dell, Icon
 
-setup_icon()
+Icon.setup()
 
 BORDER = 4.8
 
@@ -28,9 +23,9 @@ rectangle(
     (50.0, 50.0),
     width=80.0 - BORDER,
     height=70.0,
-    style=fill_style(
+    style=Icon.fill_style(
         Colors.Transparent,
-        border_color=DELL_BLUE,
+        border_color=Dell.BLUE,
         border_units=BORDER,
         shape_r=2.5,
     ),
@@ -42,7 +37,7 @@ for beam_y in (65.0, 40.0):
         (50.0, beam_y),
         width=80.0 - BORDER,
         height=BORDER,
-        style=no_border_fill(DELL_BLUE),
+        style=Icon.no_border_fill(Dell.BLUE),
     )
 
 # Middle bay (40..65): wide horizontal blade bar (x=20..80, y=52.5, height=5.0)
@@ -50,7 +45,7 @@ rectangle(
     (50.0, 52.5),
     width=60.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 # Bottom bay (15..40): left module bar (x=20..36, y=27.5, height=5.0)
@@ -58,7 +53,7 @@ rectangle(
     (28.0, 27.5),
     width=16.0,
     height=5.0,
-    style=no_border_fill(DELL_BLUE),
+    style=Icon.no_border_fill(Dell.BLUE),
 )
 
 save()

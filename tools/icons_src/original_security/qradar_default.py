@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,11 +25,11 @@ right_shield: list[tuple[float, float]] = [(49.97, 11.02), (52.55, 11.12), (55.3
 # fmt: on
 
 # 1. Left shield frame in pastel purple
-polygon(left_shield, style=no_border_fill(Colors.Purple3))
-draw_round_polyline(left_shield, width_units=w, color=DARK, closed=True)
+polygon(left_shield, style=Icon.no_border_fill(Colors.Purple3))
+Icon.draw_round_polyline(left_shield, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right shield frame and diagonal slats in pastel blue
-polygon(right_shield, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(right_shield, width_units=w, color=DARK, closed=True)
+polygon(right_shield, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(right_shield, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -33,10 +28,10 @@ lower_peak = [
 ]
 # fmt: on
 
-polygon(upper_peak, style=no_border_fill("#4DC49D"))
-draw_round_polyline(upper_peak, width_units=w, color=DARK, closed=True)
+polygon(upper_peak, style=Icon.no_border_fill("#4DC49D"))
+Icon.draw_round_polyline(upper_peak, width_units=w, color=Icon.DARK, closed=True)
 
-polygon(lower_peak, style=no_border_fill("#4DC49D"))
-draw_round_polyline(lower_peak, width_units=w, color=DARK, closed=True)
+polygon(lower_peak, style=Icon.no_border_fill("#4DC49D"))
+Icon.draw_round_polyline(lower_peak, width_units=w, color=Icon.DARK, closed=True)
 
 save()

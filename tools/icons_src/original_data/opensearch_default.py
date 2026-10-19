@@ -14,12 +14,7 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 
 def _cubic(
@@ -46,7 +41,7 @@ def _svg_pt(sx: float, sy: float) -> tuple[float, float]:
     return (12.0 + sx * scale, 88.0 - sy * scale)
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -65,8 +60,8 @@ upper_pts: list[tuple[float, float]] = [_svg_pt(*upper_segs[0][0])]
 for p0, p1, p2, p3 in upper_segs:
     upper_pts.extend(_cubic(_svg_pt(*p0), _svg_pt(*p1), _svg_pt(*p2), _svg_pt(*p3), steps=16))
 
-polygon(upper_pts, style=no_border_fill(Colors.Blue4))
-draw_round_polyline(upper_pts, width_units=w, color=DARK, closed=True)
+polygon(upper_pts, style=Icon.no_border_fill(Colors.Blue4))
+Icon.draw_round_polyline(upper_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Lower-right inner sweeping comma wave (Colors.Blue3), 180-deg reflection around (104, 104)
 lower_pts: list[tuple[float, float]] = [_svg_pt(208.0 - upper_segs[0][0][0], 208.0 - upper_segs[0][0][1])]
@@ -77,8 +72,8 @@ for p0, p1, p2, p3 in upper_segs:
     rp3 = _svg_pt(208.0 - p3[0], 208.0 - p3[1])
     lower_pts.extend(_cubic(rp0, rp1, rp2, rp3, steps=16))
 
-polygon(lower_pts, style=no_border_fill(Colors.Blue3))
-draw_round_polyline(lower_pts, width_units=w, color=DARK, closed=True)
+polygon(lower_pts, style=Icon.no_border_fill(Colors.Blue3))
+Icon.draw_round_polyline(lower_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Outer bottom-right concentric ring wave (Colors.Teal3)
 arc_cx, arc_cy = _svg_pt(103.05, 103.05)
@@ -108,7 +103,7 @@ for i in range(1, 12):
     ang = math.radians(180.0 - 180.0 * (i / 12))
     arc_pts.append((cap_top_cx + half_t * math.cos(ang), cap_top_cy + half_t * math.sin(ang)))
 
-polygon(arc_pts, style=no_border_fill(Colors.Teal3))
-draw_round_polyline(arc_pts, width_units=w, color=DARK, closed=True)
+polygon(arc_pts, style=Icon.no_border_fill(Colors.Teal3))
+Icon.draw_round_polyline(arc_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

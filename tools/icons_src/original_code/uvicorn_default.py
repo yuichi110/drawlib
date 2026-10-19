@@ -11,16 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_horn = 0.65
@@ -41,11 +36,11 @@ for ring_list, col in (
     (band_cyan, "#5BDAEA"),
 ):
     for pts in ring_list:
-        polygon(pts, style=no_border_fill(col))
+        polygon(pts, style=Icon.no_border_fill(col))
 
 # 2. Crisp DARK outer outline around unicorn body and horn segments
-draw_round_polyline(body_contour, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(body_contour, width_units=w_outer, color=Icon.DARK, closed=True)
 for h_pts in horn_contours:
-    draw_round_polyline(h_pts, width_units=w_horn, color=DARK, closed=True)
+    Icon.draw_round_polyline(h_pts, width_units=w_horn, color=Icon.DARK, closed=True)
 
 save()

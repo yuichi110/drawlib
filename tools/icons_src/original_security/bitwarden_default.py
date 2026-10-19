@@ -12,17 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.7
@@ -39,13 +33,13 @@ right_half = _sc([(75.28, 46.21), (75.08, 43.99), (74.57, 41.83), (73.75, 39.72)
 # fmt: on
 
 # 1. Pastel blue shield base
-polygon(shield_outer, style=no_border_fill(Colors.Blue3))
+polygon(shield_outer, style=Icon.no_border_fill(Colors.Blue3))
 
 # 2. WHITE right half + DARK inner outline
-polygon(right_half, style=no_border_fill(WHITE))
-draw_round_polyline(right_half, width_units=w_inner, color=DARK, closed=True)
+polygon(right_half, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(right_half, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. Outer shield DARK border
-draw_round_polyline(shield_outer, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(shield_outer, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

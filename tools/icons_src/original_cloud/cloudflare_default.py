@@ -12,14 +12,9 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 s = 0.96
@@ -162,11 +157,11 @@ main_cloud = _sc(_RAW_MAIN_CLOUD)
 right_cloud = _sc(_RAW_RIGHT_CLOUD)
 
 # 1. Main cloud in Colors.Orange3 with DARK w=1.9 outline
-polygon(main_cloud, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(main_cloud, width_units=w, color=DARK, closed=True)
+polygon(main_cloud, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(main_cloud, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Right companion cloud in Colors.Orange2 with DARK w=1.9 outline
-polygon(right_cloud, style=no_border_fill(Colors.Orange2))
-draw_round_polyline(right_cloud, width_units=w, color=DARK, closed=True)
+polygon(right_cloud, style=Icon.no_border_fill(Colors.Orange2))
+Icon.draw_round_polyline(right_cloud, width_units=w, color=Icon.DARK, closed=True)
 
 save()

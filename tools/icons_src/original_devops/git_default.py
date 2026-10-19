@@ -13,17 +13,9 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_inner = 1.7
@@ -50,7 +42,7 @@ diamond_pts: list[tuple[float, float]] = [
     *_arc(50.0, 50.0 - d_center, r_corner, 225.0, 315.0),
     *_arc(50.0 + d_center, 50.0, r_corner, -45.0, 45.0),
 ]
-polygon(diamond_pts, style=no_border_fill(CORAL_RED))
+polygon(diamond_pts, style=Icon.no_border_fill(CORAL_RED))
 
 # 2. Branch bars (WHITE fill + DARK side borders)
 # Top-left diamond edge satisfies y - x = d_center * sqrt(2) - r_corner * (sqrt(2) - 2)?
@@ -82,20 +74,20 @@ vert_bar = [
     (node_bot[0] - half_bar, node_bot[1]),
 ]
 
-polygon(diag_bar, style=no_border_fill(WHITE))
-polygon(vert_bar, style=no_border_fill(WHITE))
+polygon(diag_bar, style=Icon.no_border_fill(Icon.WHITE))
+polygon(vert_bar, style=Icon.no_border_fill(Icon.WHITE))
 
 # Draw DARK side borders on both bars
-draw_round_segment(diag_bar[0], diag_bar[1], width_units=w_inner, color=DARK)
-draw_round_segment(diag_bar[3], diag_bar[2], width_units=w_inner, color=DARK)
-draw_round_segment(vert_bar[0], vert_bar[3], width_units=w_inner, color=DARK)
-draw_round_segment(vert_bar[1], vert_bar[2], width_units=w_inner, color=DARK)
+Icon.draw_round_segment(diag_bar[0], diag_bar[1], width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment(diag_bar[3], diag_bar[2], width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment(vert_bar[0], vert_bar[3], width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_segment(vert_bar[1], vert_bar[2], width_units=w_inner, color=Icon.DARK)
 
 # 3. Three WHITE circle nodes with DARK outlines on top of bar ends
 for nxy in (node_top, node_bot, node_right):
-    circle(nxy, radius=r_node, style=fill_style(WHITE, border_color=DARK, border_units=w_inner))
+    circle(nxy, radius=r_node, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner))
 
 # 4. Crisp outer diamond DARK outline
-draw_round_polyline(diamond_pts, width_units=w, color=DARK, closed=True)
+Icon.draw_round_polyline(diamond_pts, width_units=w, color=Icon.DARK, closed=True)
 
 save()

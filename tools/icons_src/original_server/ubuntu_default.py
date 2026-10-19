@@ -12,18 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_badge = 2.0
 w_inner = 1.5
@@ -45,16 +38,16 @@ friends_dots = [
 circle(
     (50.0, 50.0),
     radius=41.0,
-    style=fill_style(Colors.Orange3, border_color=DARK, border_units=w_badge),
+    style=Icon.fill_style(Colors.Orange3, border_color=Icon.DARK, border_units=w_badge),
 )
 
 # 2. WHITE Circle of Friends arcs + DARK outlines
 for arc_pts in arcs:
-    polygon(arc_pts, style=no_border_fill(WHITE))
-    draw_round_polyline(arc_pts, width_units=w_inner, color=DARK, closed=True)
+    polygon(arc_pts, style=Icon.no_border_fill(Icon.WHITE))
+    Icon.draw_round_polyline(arc_pts, width_units=w_inner, color=Icon.DARK, closed=True)
 
 # 3. WHITE Circle of Friends dots + DARK outlines
 for dot_xy in friends_dots:
-    circle(dot_xy, radius=5.47, style=fill_style(WHITE, border_color=DARK, border_units=w_inner))
+    circle(dot_xy, radius=5.47, style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=w_inner))
 
 save()

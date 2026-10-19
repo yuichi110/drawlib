@@ -14,15 +14,9 @@ import math
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_dot = 2.0
@@ -47,14 +41,14 @@ for i in range(steps + 1):
     inner_arc.append((cx + r_in * math.cos(rad), cy + r_in * math.sin(rad)))
 
 c_ring_pts = [*outer_arc, *inner_arc]
-polygon(c_ring_pts, style=no_border_fill(Colors.Pink3))
-draw_round_polyline(c_ring_pts, width_units=w, color=DARK, closed=True)
+polygon(c_ring_pts, style=Icon.no_border_fill(Colors.Pink3))
+Icon.draw_round_polyline(c_ring_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Central circle (Colors.Pink3, w=1.9 DARK border)
 circle(
     (cx, cy),
     radius=8.5,
-    style=fill_style(Colors.Pink3, border_color=DARK, border_units=w),
+    style=Icon.fill_style(Colors.Pink3, border_color=Icon.DARK, border_units=w),
 )
 
 # 3. Six outer dots in the right opening (Colors.Pink3, 1.6 DARK border)
@@ -77,7 +71,7 @@ for r_pos, deg in dot_specs:
     circle(
         (dx, dy),
         radius=3.2,
-        style=fill_style(Colors.Pink3, border_color=DARK, border_units=w_dot),
+        style=Icon.fill_style(Colors.Pink3, border_color=Icon.DARK, border_units=w_dot),
     )
 
 save()

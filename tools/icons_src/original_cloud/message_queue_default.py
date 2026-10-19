@@ -11,30 +11,22 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_GREEN,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
-draw_round_segment((12.0, 74.0), (88.0, 74.0), width_units=w, color=DARK)
-draw_round_segment((12.0, 26.0), (88.0, 26.0), width_units=w, color=DARK)
+Icon.draw_round_segment((12.0, 74.0), (88.0, 74.0), width_units=w, color=Icon.DARK)
+Icon.draw_round_segment((12.0, 26.0), (88.0, 26.0), width_units=w, color=Icon.DARK)
 
-block_colors = [PASTEL_BLUE, PASTEL_BLUE, PASTEL_GREEN]
+block_colors = [Icon.PASTEL_BLUE, Icon.PASTEL_BLUE, Icon.PASTEL_GREEN]
 for cx, col in zip((27.0, 50.0, 73.0), block_colors, strict=True):
     rectangle(
         (cx, 50.0),
         width=16.0,
         height=30.0,
-        style=fill_style(col, border_color=DARK, border_units=w, shape_r=3.5),
+        style=Icon.fill_style(col, border_color=Icon.DARK, border_units=w, shape_r=3.5),
     )
 
 save()

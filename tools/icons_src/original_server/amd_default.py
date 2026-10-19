@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -23,12 +23,12 @@ top_right_chevron: list[tuple[float, float]] = [(32.93, 67.73), (11.71, 88.95), 
 bottom_left_arrow: list[tuple[float, float]] = [(32.9, 63.48), (11.05, 41.63), (11.05, 11.05), (41.63, 11.05), (63.48, 32.9), (32.9, 32.9)]
 
 # 1. Top-right chevron wing in flat dark slate-gray (#4A5568)
-polygon(top_right_chevron, style=no_border_fill("#4A5568"))
-draw_round_polyline(top_right_chevron, width_units=w, color=DARK, closed=True)
+polygon(top_right_chevron, style=Icon.no_border_fill("#4A5568"))
+Icon.draw_round_polyline(top_right_chevron, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Bottom-left arrow triangle in flat dark slate-gray (#4A5568)
-polygon(bottom_left_arrow, style=no_border_fill("#4A5568"))
-draw_round_polyline(bottom_left_arrow, width_units=w, color=DARK, closed=True)
+polygon(bottom_left_arrow, style=Icon.no_border_fill("#4A5568"))
+Icon.draw_round_polyline(bottom_left_arrow, width_units=w, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

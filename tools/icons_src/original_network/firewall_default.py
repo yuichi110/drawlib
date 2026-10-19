@@ -12,25 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
 from drawlib.styles import Colors, Style
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    build_shield_half_points,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    no_border_fill,
-    pt,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 # 1. Background brick wall base fill (x=12..80, y=25..83)
 wall_cx, wall_cy = 46.0, 54.0
@@ -41,35 +27,35 @@ rectangle(
     (wall_cx, wall_cy),
     width=wall_w,
     height=wall_h,
-    style=no_border_fill(PASTEL_BLUE, shape_r=wall_r),
+    style=Icon.no_border_fill(Icon.PASTEL_BLUE, shape_r=wall_r),
 )
 
 # 2. Highlighted bricks in PASTEL_BLUE_LIGHT (interior non-corner bricks)
-rectangle((46.0, 75.75), width=24.0, height=14.5, style=no_border_fill(PASTEL_BLUE_LIGHT))
-rectangle((34.5, 61.25), width=23.0, height=14.5, style=no_border_fill(PASTEL_BLUE_LIGHT))
-rectangle((34.5, 32.25), width=23.0, height=14.5, style=no_border_fill(PASTEL_BLUE_LIGHT))
+rectangle((46.0, 75.75), width=24.0, height=14.5, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+rectangle((34.5, 61.25), width=23.0, height=14.5, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+rectangle((34.5, 32.25), width=23.0, height=14.5, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
 
 # 3. Horizontal mortar lines (3 dividers for 4 brick courses)
 mortar_w = 2.2
 for y_line in (39.5, 54.0, 68.5):
-    draw_round_segment((12.0, y_line), (80.0, y_line), width_units=mortar_w, color=DARK)
+    Icon.draw_round_segment((12.0, y_line), (80.0, y_line), width_units=mortar_w, color=Icon.DARK)
 
 # 4. Staggered vertical brick joints per course
 # Course 4 (top, y=68.5..83.0)
 for x_joint in (34.0, 58.0):
-    draw_round_segment((x_joint, 68.5), (x_joint, 83.0), width_units=mortar_w, color=DARK)
+    Icon.draw_round_segment((x_joint, 68.5), (x_joint, 83.0), width_units=mortar_w, color=Icon.DARK)
 
 # Course 3 (y=54.0..68.5)
 for x_joint in (23.0, 46.0, 69.0):
-    draw_round_segment((x_joint, 54.0), (x_joint, 68.5), width_units=mortar_w, color=DARK)
+    Icon.draw_round_segment((x_joint, 54.0), (x_joint, 68.5), width_units=mortar_w, color=Icon.DARK)
 
 # Course 2 (y=39.5..54.0)
 for x_joint in (34.0, 58.0):
-    draw_round_segment((x_joint, 39.5), (x_joint, 54.0), width_units=mortar_w, color=DARK)
+    Icon.draw_round_segment((x_joint, 39.5), (x_joint, 54.0), width_units=mortar_w, color=Icon.DARK)
 
 # Course 1 (bottom, y=25.0..39.5)
 for x_joint in (23.0, 46.0, 69.0):
-    draw_round_segment((x_joint, 25.0), (x_joint, 39.5), width_units=mortar_w, color=DARK)
+    Icon.draw_round_segment((x_joint, 25.0), (x_joint, 39.5), width_units=mortar_w, color=Icon.DARK)
 
 # 5. Brick wall crisp outer border
 rectangle(
@@ -78,8 +64,8 @@ rectangle(
     height=wall_h,
     style=Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=DARK,
-        shape_line_width=pt(w),
+        shape_line_color=Icon.DARK,
+        shape_line_width=Icon.pt(w),
         shape_line_style="solid",
         shape_r=wall_r,
     ),
@@ -90,23 +76,23 @@ cx = 64.0
 y_bot, y_top = 14.0, 58.0
 half_w = 19.0
 
-left_pts = build_shield_half_points(cx, y_bot, y_top, half_w, side="left")
-right_pts = build_shield_half_points(cx, y_bot, y_top, half_w, side="right")
+left_pts = Icon.build_shield_half_points(cx, y_bot, y_top, half_w, side="left")
+right_pts = Icon.build_shield_half_points(cx, y_bot, y_top, half_w, side="right")
 full_outline = left_pts + list(reversed(right_pts[1:-1]))
 
-polygon(full_outline, style=no_border_fill(PASTEL_GREEN))
-draw_round_polyline(full_outline, width_units=w, color=DARK, closed=True)
+polygon(full_outline, style=Icon.no_border_fill(Icon.PASTEL_GREEN))
+Icon.draw_round_polyline(full_outline, width_units=w, color=Icon.DARK, closed=True)
 
 # 7. Inner WHITE badge circle with DARK checkmark inside the shield
 circle(
     (cx, 38.0),
     radius=8.5,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0),
 )
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(59.8, 37.8), (63.0, 34.5), (68.8, 41.2)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 save()

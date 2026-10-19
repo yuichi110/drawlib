@@ -11,11 +11,11 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 w_port = 1.35
@@ -34,26 +34,26 @@ audio_outer: list[tuple[float, float]] = [(35.28, 33.3), (35.34, 33.78), (35.51,
 audio_inner: list[tuple[float, float]] = [(36.36, 32.67), (36.38, 32.86), (36.45, 33.0), (36.55, 33.1), (36.68, 33.14), (36.84, 33.12), (37.01, 33.05), (37.18, 32.93), (37.33, 32.76), (37.47, 32.57), (37.57, 32.35), (37.64, 32.13), (37.66, 31.93), (37.64, 31.74), (37.57, 31.6), (37.47, 31.5), (37.33, 31.46), (37.18, 31.48), (37.01, 31.55), (36.84, 31.67), (36.68, 31.84), (36.55, 32.03), (36.45, 32.25), (36.38, 32.47)]
 
 # 1. Dark slate-gray base foot underneath
-polygon(base_foot_pts, style=no_border_fill("#526072"))
-draw_round_polyline(base_foot_pts, width_units=w, color=DARK, closed=True)
+polygon(base_foot_pts, style=Icon.no_border_fill("#526072"))
+Icon.draw_round_polyline(base_foot_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Lighter ice-gray front-left and front-right continuous rounded chassis wall
-polygon(front_wall_pts, style=no_border_fill("#EEF2F7"))
-draw_round_polyline(front_wall_pts, width_units=w, color=DARK, closed=True)
+polygon(front_wall_pts, style=Icon.no_border_fill("#EEF2F7"))
+Icon.draw_round_polyline(front_wall_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Soft pastel blue-silver top lid
-polygon(top_lid_pts, style=no_border_fill("#CBD7E6"))
-draw_round_polyline(top_lid_pts, width_units=w, color=DARK, closed=True)
+polygon(top_lid_pts, style=Icon.no_border_fill("#CBD7E6"))
+Icon.draw_round_polyline(top_lid_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 4. Flat DARK Apple silhouette projected in isometric perspective on top lid
 for pts in apple_lid_polys:
-    polygon(pts, style=no_border_fill(DARK))
+    polygon(pts, style=Icon.no_border_fill(Icon.DARK))
 
 # 5. Two vertical pill-shaped USB-C ports and one circular audio jack on front-left face
 for port_pts in (usbc_1, usbc_2, audio_outer):
-    polygon(port_pts, style=no_border_fill("#526072"))
-    draw_round_polyline(port_pts, width_units=w_port, color=DARK, closed=True)
-polygon(audio_inner, style=no_border_fill(DARK))
+    polygon(port_pts, style=Icon.no_border_fill("#526072"))
+    Icon.draw_round_polyline(port_pts, width_units=w_port, color=Icon.DARK, closed=True)
+polygon(audio_inner, style=Icon.no_border_fill(Icon.DARK))
 
 save()
 # fmt: on

@@ -11,21 +11,21 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import polygon
-from drawlib.utils import DARK, draw_round_polyline, no_border_fill, setup_icon
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 p1 = [(60.57, 68.32), (60.57, 47.43), (39.17, 31.37), (39.17, 52.25)]
-polygon(p1, style=no_border_fill('#5F6B7D'))
-draw_round_polyline(p1, width_units=2.0, color=DARK, closed=True)
+polygon(p1, style=Icon.no_border_fill('#5F6B7D'))
+Icon.draw_round_polyline(p1, width_units=2.0, color=Icon.DARK, closed=True)
 p2 = [(91.47, 70.65), (91.47, 8.09), (8.27, 8.09), (8.27, 8.16), (30.41, 24.79), (74.76, 24.79), (74.77, 58.09), (91.47, 70.64)]
-polygon(p2, style=no_border_fill('#4CC8E0'))
-draw_round_polyline(p2, width_units=2.0, color=DARK, closed=True)
+polygon(p2, style=Icon.no_border_fill('#4CC8E0'))
+Icon.draw_round_polyline(p2, width_units=2.0, color=Icon.DARK, closed=True)
 p3 = [(8.27, 91.46), (8.27, 29.05), (24.97, 41.6), (24.97, 74.76), (69.14, 74.76), (91.38, 91.46)]
-polygon(p3, style=no_border_fill('#5F6B7D'))
-draw_round_polyline(p3, width_units=2.0, color=DARK, closed=True)
+polygon(p3, style=Icon.no_border_fill('#5F6B7D'))
+Icon.draw_round_polyline(p3, width_units=2.0, color=Icon.DARK, closed=True)
 
 save()
 # fmt: on

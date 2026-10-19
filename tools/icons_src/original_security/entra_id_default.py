@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w_outer = 2.0
 w_inner = 1.7
@@ -101,20 +96,20 @@ center_axis = _sc([(50.0, 12.66), (50.0, 87.34)])
 # fmt: on
 
 # 1. Flat pastel multi-facet fills (cyan / blue / indigo)
-polygon(base_left, style=no_border_fill(Colors.Blue3))
-polygon(base_right, style=no_border_fill(Colors.Blue4))
-polygon(ribbon_left, style=no_border_fill(Colors.Teal3))
-polygon(ribbon_right, style=no_border_fill(Colors.Blue2))
-polygon(diamond_left, style=no_border_fill(Colors.Blue2))
-polygon(diamond_right, style=no_border_fill(Colors.Blue3))
+polygon(base_left, style=Icon.no_border_fill(Colors.Blue3))
+polygon(base_right, style=Icon.no_border_fill(Colors.Blue4))
+polygon(ribbon_left, style=Icon.no_border_fill(Colors.Teal3))
+polygon(ribbon_right, style=Icon.no_border_fill(Colors.Blue2))
+polygon(diamond_left, style=Icon.no_border_fill(Colors.Blue2))
+polygon(diamond_right, style=Icon.no_border_fill(Colors.Blue3))
 
 # 2. Internal facet DARK outlines
-draw_round_polyline(curve_bl, width_units=w_inner, color=DARK)
-draw_round_polyline(curve_tr, width_units=w_inner, color=DARK)
-draw_round_polyline(inner_diamond, width_units=w_inner, color=DARK, closed=True)
-draw_round_polyline(center_axis, width_units=w_inner, color=DARK)
+Icon.draw_round_polyline(curve_bl, width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline(curve_tr, width_units=w_inner, color=Icon.DARK)
+Icon.draw_round_polyline(inner_diamond, width_units=w_inner, color=Icon.DARK, closed=True)
+Icon.draw_round_polyline(center_axis, width_units=w_inner, color=Icon.DARK)
 
 # 3. Outer pyramid DARK outline
-draw_round_polyline(outer_pyramid, width_units=w_outer, color=DARK, closed=True)
+Icon.draw_round_polyline(outer_pyramid, width_units=w_outer, color=Icon.DARK, closed=True)
 
 save()

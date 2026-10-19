@@ -11,45 +11,36 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, rectangle
-from drawlib.utils import (
-    DARK,
-    PASTEL_GREEN,
-    WHITE,
-    draw_original_k8s_heptagon,
-    draw_round_polyline,
-    draw_round_segment,
-    fill_style,
-    setup_icon,
-)
+from drawlib.utils import Icon, K8s
 
-setup_icon()
+Icon.setup()
 
-draw_original_k8s_heptagon()
+K8s.draw_original_heptagon()
 
 # White task card
 rectangle(
     (46.0, 49.0),
     width=36.0,
     height=38.0,
-    style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=6.0),
+    style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=6.0),
 )
 
 # Two horizontal dark task lines
-draw_round_segment((35.0, 58.0), (57.0, 58.0), width_units=2.0, color=DARK)
-draw_round_segment((35.0, 49.0), (51.0, 49.0), width_units=2.0, color=DARK)
+Icon.draw_round_segment((35.0, 58.0), (57.0, 58.0), width_units=2.0, color=Icon.DARK)
+Icon.draw_round_segment((35.0, 49.0), (51.0, 49.0), width_units=2.0, color=Icon.DARK)
 
 # Bottom-right overlapping green completion circle
 circle(
     (62.0, 36.0),
     radius=12.0,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=2.0),
 )
 
 # Crisp dark completion checkmark
-draw_round_polyline(
+Icon.draw_round_polyline(
     [(57.0, 35.5), (60.8, 31.8), (67.2, 39.8)],
     width_units=2.0,
-    color=DARK,
+    color=Icon.DARK,
 )
 
 save()

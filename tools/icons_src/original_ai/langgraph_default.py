@@ -14,16 +14,9 @@ from typing import Any
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 FOREST_TEAL = "#2D5252"
@@ -65,8 +58,8 @@ def _draw_link_bar(
         (p2[0] - nx, p2[1] - ny),
         (p1[0] - nx, p1[1] - ny),
     ]
-    polygon(pts, style=no_border_fill(fill_color))
-    draw_round_polyline(pts, width_units=1.4, color=DARK, closed=True)
+    polygon(pts, style=Icon.no_border_fill(fill_color))
+    Icon.draw_round_polyline(pts, width_units=1.4, color=Icon.DARK, closed=True)
 
 
 # 1. Outer stadium pill badge (FOREST_TEAL)
@@ -74,8 +67,8 @@ pill_pts = [
     *_arc(30.0, 50.0, 20.0, 90.0, 270.0, 28),
     *_arc(70.0, 50.0, 20.0, -90.0, 90.0, 28),
 ]
-polygon(pill_pts, style=no_border_fill(FOREST_TEAL))
-draw_round_polyline(pill_pts, width_units=w, color=DARK, closed=True)
+polygon(pill_pts, style=Icon.no_border_fill(FOREST_TEAL))
+Icon.draw_round_polyline(pill_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Smooth stylized parrot silhouette on the left (WHITE)
 bird_pts = [
@@ -123,8 +116,8 @@ bird_pts = [
     (32.5, 63.1),
     (30.7, 63.8),
 ]
-polygon(bird_pts, style=no_border_fill(WHITE))
-draw_round_polyline(bird_pts, width_units=1.4, color=DARK, closed=True)
+polygon(bird_pts, style=Icon.no_border_fill(Icon.WHITE))
+Icon.draw_round_polyline(bird_pts, width_units=1.4, color=Icon.DARK, closed=True)
 
 # 3. Four-node diamond graph on the right (WHITE links + WHITE nodes)
 n_left = (58.6, 50.8)
@@ -132,16 +125,16 @@ n_top = (65.7, 60.6)
 n_bot = (65.7, 41.0)
 n_right = (72.8, 50.8)
 
-_draw_link_bar(n_left, n_top, width_units=2.4, fill_color=WHITE)
-_draw_link_bar(n_left, n_bot, width_units=2.4, fill_color=WHITE)
-_draw_link_bar(n_left, n_right, width_units=2.4, fill_color=WHITE)
-_draw_link_bar(n_right, n_top, width_units=2.4, fill_color=WHITE)
+_draw_link_bar(n_left, n_top, width_units=2.4, fill_color=Icon.WHITE)
+_draw_link_bar(n_left, n_bot, width_units=2.4, fill_color=Icon.WHITE)
+_draw_link_bar(n_left, n_right, width_units=2.4, fill_color=Icon.WHITE)
+_draw_link_bar(n_right, n_top, width_units=2.4, fill_color=Icon.WHITE)
 
 for node_xy in (n_left, n_top, n_bot, n_right):
     circle(
         node_xy,
         radius=3.8,
-        style=fill_style(WHITE, border_color=DARK, border_units=1.6),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=1.6),
     )
 
 save()

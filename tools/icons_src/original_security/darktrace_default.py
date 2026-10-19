@@ -12,16 +12,11 @@
 from drawlib.canvas import save
 from drawlib.shapes import polygon
 from drawlib.styles import Colors
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # ruff: noqa: E501
 # fmt: off
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -30,11 +25,11 @@ stem_curve: list[tuple[float, float]] = [(76.56, 59.55), (77.11, 58.94), (77.64,
 # fmt: on
 
 # 1. Pastel orange top curve
-polygon(top_curve, style=no_border_fill(Colors.Orange3))
-draw_round_polyline(top_curve, width_units=w, color=DARK, closed=True)
+polygon(top_curve, style=Icon.no_border_fill(Colors.Orange3))
+Icon.draw_round_polyline(top_curve, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Dark slate stem and right curve
-polygon(stem_curve, style=no_border_fill(Colors.Gray6))
-draw_round_polyline(stem_curve, width_units=w, color=DARK, closed=True)
+polygon(stem_curve, style=Icon.no_border_fill(Colors.Gray6))
+Icon.draw_round_polyline(stem_curve, width_units=w, color=Icon.DARK, closed=True)
 
 save()

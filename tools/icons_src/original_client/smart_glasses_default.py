@@ -13,22 +13,11 @@ import math
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon, rectangle
-from drawlib.utils import (
-    DARK,
-    ORIG_STROKE,
-    PASTEL_BLUE,
-    PASTEL_BLUE_LIGHT,
-    PASTEL_GREEN,
-    WHITE,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
-setup_icon()
+Icon.setup()
 
-w = ORIG_STROKE
+w = Icon.ORIG_STROKE
 
 
 def rounded_rect_pts(
@@ -70,8 +59,8 @@ left_arm: list[tuple[float, float]] = [
 right_arm: list[tuple[float, float]] = [(100.0 - x, y) for x, y in left_arm]
 
 for arm_pts in (left_arm, right_arm):
-    polygon(arm_pts, style=no_border_fill(PASTEL_BLUE_LIGHT))
-    draw_round_polyline(arm_pts, width_units=w, color=DARK, closed=True)
+    polygon(arm_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE_LIGHT))
+    Icon.draw_round_polyline(arm_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 2. Unified front glasses frame (left rim + nose bridge + right rim)
 # Build single outer silhouette so there are no stroke seams across the nose bridge
@@ -120,8 +109,8 @@ for i in range(steps + 1):
     ang = math.radians(270.0 + 90.0 * (i / steps))
     frame_pts.append((rx1 - rf + rf * math.cos(ang), y0 + rf + rf * math.sin(ang)))
 
-polygon(frame_pts, style=no_border_fill(PASTEL_BLUE))
-draw_round_polyline(frame_pts, width_units=w, color=DARK, closed=True)
+polygon(frame_pts, style=Icon.no_border_fill(Icon.PASTEL_BLUE))
+Icon.draw_round_polyline(frame_pts, width_units=w, color=Icon.DARK, closed=True)
 
 # 3. Left & right WHITE lenses
 for lcx in (29.0, 71.0):
@@ -129,14 +118,14 @@ for lcx in (29.0, 71.0):
         (lcx, 40.5),
         width=23.5,
         height=18.0,
-        style=fill_style(WHITE, border_color=DARK, border_units=2.0, shape_r=4.0),
+        style=Icon.fill_style(Icon.WHITE, border_color=Icon.DARK, border_units=2.0, shape_r=4.0),
     )
 
 # 4. Smart corner camera on outer left frame lug
 circle(
     (16.8, 49.5),
     radius=2.6,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.6),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.6),
 )
 
 # 5. PASTEL_GREEN AR HUD overlay inside the right lens
@@ -144,8 +133,8 @@ rectangle(
     (71.0, 42.2),
     width=12.5,
     height=7.5,
-    style=fill_style(PASTEL_GREEN, border_color=DARK, border_units=1.7, shape_r=2.0),
+    style=Icon.fill_style(Icon.PASTEL_GREEN, border_color=Icon.DARK, border_units=1.7, shape_r=2.0),
 )
-draw_round_polyline([(66.5, 35.8), (75.5, 35.8)], width_units=1.8, color=DARK, closed=False)
+Icon.draw_round_polyline([(66.5, 35.8), (75.5, 35.8)], width_units=1.8, color=Icon.DARK, closed=False)
 
 save()

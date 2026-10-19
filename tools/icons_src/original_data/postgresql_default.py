@@ -11,13 +11,7 @@
 
 from drawlib.canvas import save
 from drawlib.shapes import circle, polygon
-from drawlib.utils import (
-    DARK,
-    draw_round_polyline,
-    fill_style,
-    no_border_fill,
-    setup_icon,
-)
+from drawlib.utils import Icon
 
 # Slightly brightened slate-blue palette based on Pattern 1 (#3B6E99 -> #467BA6)
 HEAD_BLUE = "#467BA6"
@@ -44,7 +38,7 @@ def _cubic(
     return pts
 
 
-setup_icon()
+Icon.setup()
 
 w = 2.0
 
@@ -59,7 +53,7 @@ left_ear_outer = [
     *_cubic((21.2, 31.2), (24.0, 28.0), (27.4, 28.8), (31.2, 33.8), 14),
     *_cubic((31.2, 33.8), (34.4, 38.0), (37.2, 41.6), (39.6, 44.2), 12),
 ]
-polygon(left_ear_outer, style=no_border_fill(HEAD_BLUE))
+polygon(left_ear_outer, style=Icon.no_border_fill(HEAD_BLUE))
 
 left_ear_inner = [
     (40.2, 85.4),
@@ -69,8 +63,8 @@ left_ear_inner = [
     *_cubic((22.8, 33.8), (24.8, 31.4), (27.2, 32.0), (30.4, 36.2), 12),
     *_cubic((30.4, 36.2), (33.5, 40.2), (36.2, 43.4), (38.6, 45.8), 10),
 ]
-polygon(left_ear_inner, style=no_border_fill(EAR_INNER))
-draw_round_polyline(left_ear_outer, width_units=w, color=DARK, closed=True)
+polygon(left_ear_inner, style=Icon.no_border_fill(EAR_INNER))
+Icon.draw_round_polyline(left_ear_outer, width_units=w, color=Icon.DARK, closed=True)
 
 # ---------------------------------------------------------------------------
 # 2. Right ear (behind head): outer rim in HEAD_BLUE, inner lobe in EAR_INNER
@@ -82,7 +76,7 @@ right_ear_outer = [
     *_cubic((90.2, 64.0), (87.8, 53.2), (82.4, 44.2), (77.5, 39.8), 16),
     *_cubic((77.5, 39.8), (75.2, 38.0), (73.0, 42.0), (73.0, 48.0), 10),
 ]
-polygon(right_ear_outer, style=no_border_fill(HEAD_BLUE))
+polygon(right_ear_outer, style=Icon.no_border_fill(HEAD_BLUE))
 
 right_ear_inner = [
     (60.0, 87.4),
@@ -91,8 +85,8 @@ right_ear_inner = [
     *_cubic((87.4, 64.2), (85.2, 54.2), (80.4, 46.0), (76.0, 41.8), 14),
     *_cubic((76.0, 41.8), (74.2, 40.4), (72.5, 44.0), (72.5, 49.0), 10),
 ]
-polygon(right_ear_inner, style=no_border_fill(EAR_INNER))
-draw_round_polyline(right_ear_outer, width_units=w, color=DARK, closed=True)
+polygon(right_ear_inner, style=Icon.no_border_fill(EAR_INNER))
+Icon.draw_round_polyline(right_ear_outer, width_units=w, color=Icon.DARK, closed=True)
 
 # ---------------------------------------------------------------------------
 # 3. Left tusk & Right tusk (behind trunk root / cheek fold)
@@ -107,7 +101,7 @@ left_tusk = [
     *_cubic((35.4, 29.2), (40.8, 28.0), (46.8, 30.6), (49.8, 35.0), 14),
     *_cubic((49.8, 35.0), (50.2, 38.2), (47.5, 40.8), (43.5, 41.2), 10),
 ]
-polygon(left_tusk, style=no_border_fill(TUSK_WHITE))
+polygon(left_tusk, style=Icon.no_border_fill(TUSK_WHITE))
 
 left_tusk_shade = [
     (33.4, 31.2),
@@ -116,8 +110,8 @@ left_tusk_shade = [
     *_cubic((49.8, 35.0), (46.8, 30.6), (40.8, 28.0), (35.4, 29.2), 14),
     *_cubic((35.4, 29.2), (33.5, 29.6), (33.0, 30.6), (33.4, 31.2), 6),
 ]
-polygon(left_tusk_shade, style=no_border_fill(TUSK_SHADE))
-draw_round_polyline(left_tusk, width_units=w, color=DARK, closed=True)
+polygon(left_tusk_shade, style=Icon.no_border_fill(TUSK_SHADE))
+Icon.draw_round_polyline(left_tusk, width_units=w, color=Icon.DARK, closed=True)
 
 right_tusk = [
     (75.8, 42.4),
@@ -129,7 +123,7 @@ right_tusk = [
     *_cubic((90.0, 37.0), (85.2, 32.6), (78.2, 32.0), (72.2, 34.4), 14),
     *_cubic((72.2, 34.4), (71.8, 38.2), (73.2, 41.4), (75.8, 42.4), 10),
 ]
-polygon(right_tusk, style=no_border_fill(TUSK_WHITE))
+polygon(right_tusk, style=Icon.no_border_fill(TUSK_WHITE))
 
 right_tusk_shade = [
     (91.2, 40.0),
@@ -138,8 +132,8 @@ right_tusk_shade = [
     *_cubic((72.2, 34.4), (78.2, 32.0), (85.2, 32.6), (90.0, 37.0), 14),
     *_cubic((90.0, 37.0), (91.4, 38.4), (91.6, 39.4), (91.2, 40.0), 6),
 ]
-polygon(right_tusk_shade, style=no_border_fill(TUSK_SHADE))
-draw_round_polyline(right_tusk, width_units=w, color=DARK, closed=True)
+polygon(right_tusk_shade, style=Icon.no_border_fill(TUSK_SHADE))
+Icon.draw_round_polyline(right_tusk, width_units=w, color=Icon.DARK, closed=True)
 
 # ---------------------------------------------------------------------------
 # 4. Head dome + Trunk (continuous 3/4 Slonik silhouette in HEAD_BLUE)
@@ -164,8 +158,8 @@ head_trunk = [
     *_cubic((43.5, 41.2), (35.5, 42.5), (32.0, 48.0), (32.6, 56.5), 16),
     *_cubic((32.6, 56.5), (32.8, 61.0), (32.6, 63.8), (32.8, 66.2), 10),
 ]
-polygon(head_trunk, style=no_border_fill(HEAD_BLUE))
-draw_round_polyline(head_trunk, width_units=w, color=DARK, closed=True)
+polygon(head_trunk, style=Icon.no_border_fill(HEAD_BLUE))
+Icon.draw_round_polyline(head_trunk, width_units=w, color=Icon.DARK, closed=True)
 
 # ---------------------------------------------------------------------------
 # 5. Internal brow-to-cheek lines (framing the eyes & trunk bridge)
@@ -176,7 +170,7 @@ left_brow_cheek = [
     *_cubic((47.6, 66.8), (49.5, 62.5), (49.2, 54.0), (46.4, 47.0), 16),
     *_cubic((46.4, 47.0), (45.0, 43.8), (44.1, 42.2), (43.5, 41.2), 10),
 ]
-draw_round_polyline(left_brow_cheek, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(left_brow_cheek, width_units=w, color=Icon.DARK, closed=False)
 
 right_brow_cheek = [
     (76.8, 69.2),
@@ -184,12 +178,12 @@ right_brow_cheek = [
     *_cubic((65.8, 66.5), (64.6, 62.5), (67.6, 54.5), (72.0, 47.8), 16),
     *_cubic((72.0, 47.8), (74.0, 44.8), (75.0, 43.2), (75.8, 42.4), 10),
 ]
-draw_round_polyline(right_brow_cheek, width_units=w, color=DARK, closed=False)
+Icon.draw_round_polyline(right_brow_cheek, width_units=w, color=Icon.DARK, closed=False)
 
 # ---------------------------------------------------------------------------
 # 6. Solid dark round dot eyes
 # ---------------------------------------------------------------------------
-circle((43.4, 65.5), radius=2.45, style=fill_style(DARK))
-circle((70.2, 65.4), radius=2.45, style=fill_style(DARK))
+circle((43.4, 65.5), radius=2.45, style=Icon.fill_style(Icon.DARK))
+circle((70.2, 65.4), radius=2.45, style=Icon.fill_style(Icon.DARK))
 
 save()
